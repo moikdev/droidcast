@@ -307,14 +307,17 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("inline-menu-search").performImeAction()
         compose.onNodeWithTag("inline-menu-search").assertIsFocused()
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("content copy")
-        var connection: android.view.inputmethod.InputConnection? = null
         compose.activityRule.scenario.onActivity {
-            connection = requireNotNull(it.window.decorView.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
-            assertTrue(connection!!.setComposingRegion(0, 7))
+            val connection = requireNotNull(it.window.decorView.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
+            // Keep composing-region delivery and submission in one main-thread
+            // turn, so the live IME cannot finish composition between them.
+            assertTrue(connection.setComposingRegion(0, 7))
+            assertTrue(connection.performEditorAction(android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH))
+            assertEquals("Search must preserve an actively composing menu", "actions", it.store.dialog)
+            assertFalse("Composition must not copy an action payload", it.getSystemService(ClipboardManager::class.java).hasPrimaryClip())
+            assertTrue(connection.finishComposingText())
         }
-        compose.onNodeWithTag("inline-menu-search").performImeAction()
         compose.onNodeWithTag("inline-menu-search").assertIsFocused()
-        compose.activityRule.scenario.onActivity { assertTrue(connection!!.finishComposingText()) }
         compose.onNodeWithTag("inline-menu-search").performImeAction()
         compose.onNodeWithTag("inline-menu").assertDoesNotExist()
         compose.onNodeWithTag("search").assertIsFocused().assertTextContains("IME action note")
