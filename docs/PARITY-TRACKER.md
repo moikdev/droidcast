@@ -33,10 +33,11 @@ The live backlog is [GitHub issue #1](https://github.com/moikdev/droidcast/issue
 - [#36: Compact Raycast-style settings workspace](https://github.com/moikdev/droidcast/issues/36)
 - [#37: Diagnose intermittent Quick Settings tile activation timeout](https://github.com/moikdev/droidcast/issues/37)
 - [#59: Investigate truncated synthetic input around keyboard-service hierarchy capture](https://github.com/moikdev/droidcast/issues/59)
+- [#60: Adopt Tinycast screen contracts, typed navigation and shared action policies](https://github.com/moikdev/droidcast/issues/60)
 
 ## Active slice
 
-Inline palette migration [#56](https://github.com/moikdev/droidcast/issues/56), including native extension Grid [#6](https://github.com/moikdev/droidcast/issues/6). Editors, Store/extension screens, reviews and selection/action menus now use the same window. The shared Raycast-style footer/action search and tablet/phone validation remain in progress. See [migration notes](PALETTE-NAVIGATION.md). The earlier popup Grid prototype remains unpublished. Verified in-app nightly updates [#55](https://github.com/moikdev/droidcast/issues/55) follow this UI checkpoint. No full-parity claim.
+Inline palette migration [#56](https://github.com/moikdev/droidcast/issues/56), including native extension Grid [#6](https://github.com/moikdev/droidcast/issues/6). Editors, Store/extension screens, reviews and selection/action menus now use the same window. The shared Raycast-style footer/action search and tablet/phone validation remain in progress. See [migration notes](PALETTE-NAVIGATION.md). The earlier popup Grid prototype remains unpublished. Verified in-app nightly updates [#55](https://github.com/moikdev/droidcast/issues/55) follow this UI checkpoint. A [complete Tinycast source comparison](TINYCAST-COMPARISON.md) now records the typed-screen/coordinator refactor and generates independent Grid navigation expectations from the pinned Swift model. No full-parity claim.
 
 ## Completed slices
 

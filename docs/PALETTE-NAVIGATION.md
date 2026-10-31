@@ -14,7 +14,7 @@ Issue [#56](https://github.com/moikdev/droidcast/issues/56) replaces app-owned p
 
 ## Reference and interaction
 
-Tinycast reference: `37e6043f3f550febb64bdb3cff3ac29a30caad5a`, `PaletteScreen.swift` and `RootPaletteView.swift`. Screens supply rows, search ownership, accessories, body and footer actions into one palette. Its menu/focus coordination informed this implementation.
+Tinycast reference: `37e6043f3f550febb64bdb3cff3ac29a30caad5a`, `PaletteScreen.swift` and `RootPaletteView.swift`. Screens supply rows, search ownership, accessories, body and footer actions into one palette. Its menu/focus coordination informed this implementation. The [complete source comparison](TINYCAST-COMPARISON.md) records architectural gaps and upstream-derived checks; this migration does not claim structural parity.
 
 The user's installed Raycast was inspected directly for its launcher and Emoji footers and action panels. Droidcast follows the grouped primary/action affordance, separate shortcut keycaps, contextual heading, action icons and bottom search field. Android Copy is offered where cross-app Paste is unavailable. This does not claim Raycast's complete action/API set or macOS material rendering.
 

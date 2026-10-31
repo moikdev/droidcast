@@ -195,20 +195,45 @@ class ExtensionGridDeviceTest {
     }
     @Test fun cancellingInlinePreferencesRetainsRuntimeAndGridSelection() {
         launch()
+        fun engine(): android.webkit.WebView {
+            var found: android.webkit.WebView?=null
+            compose.activityRule.scenario.onActivity { activity ->
+                fun visit(view:android.view.View) {
+                    if(view is android.webkit.WebView) { assertNull("One command engine",found);found=view }
+                    if(view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+                }
+                visit(activity.window.decorView)
+            }
+            return requireNotNull(found) { "Attached JavaScript engine" }
+        }
+        fun activationCount(): String {
+            compose.onNodeWithTag("extension-actions").performClick()
+            compose.onNodeWithTag("inline-menu-search").performTextReplacement("Report activation count")
+            key(KeyEvent.KEYCODE_ENTER)
+            compose.waitUntil(5000) { clip().startsWith("activations:") }
+            return clip()
+        }
         compose.onNodeWithTag("extension-search").performTextReplacement("Landscape")
         key(KeyEvent.KEYCODE_DPAD_RIGHT)
-        val tree = compose.activity.store.extensions.runtimeTree
-        val epoch = compose.activity.store.extensions.launchEpoch
+        key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { clip()=="grid-fixture:image-1" }
+        assertEquals("activations:1",activationCount())
+        val engineBefore=engine()
+        val epoch=compose.activity.store.extensions.launchEpoch
         compose.onNodeWithContentDescription("Extension preferences").performClick()
         compose.onNodeWithTag("run-extension-setup").assertIsDisplayed()
         compose.onAllNodes(isDialog()).assertCountEquals(0)
         compose.onNodeWithTag("extension-back").performClick()
         compose.onNodeWithTag("extension-search").assertTextEquals("Landscape").assertIsFocused()
-        assertEquals(epoch, compose.activity.store.extensions.launchEpoch)
-        assertSame("Cancel does not restart the JavaScript session",tree,compose.activity.store.extensions.runtimeTree)
+        assertEquals(epoch,compose.activity.store.extensions.launchEpoch)
+        assertSame("Cancel retains the actual JavaScript engine",engineBefore,engine())
         compose.onNodeWithTag("extension-grid-cell-1").assertIsSelected()
         key(KeyEvent.KEYCODE_ENTER)
-        compose.waitUntil(5000) { clip() == "grid-fixture:image-1" }
+        compose.waitUntil(5000) { clip()=="grid-fixture:image-1" }
+        assertEquals("JavaScript state survives preferences", "activations:2",activationCount())
+        val folder=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
+        File(folder,"preferences-runtime-state.json").writeText(JSONObject()
+            .put("same_engine",true).put("same_epoch",true).put("activations_before",1).put("activations_after",2).toString(2))
         capture("inline-preferences-return","Landscape 01")
     }
     @Test fun cancellingPreferencesRetainsManualGridScrollPosition() {
