@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
+
 package dev.tinycast.android
 
 import androidx.compose.foundation.*
@@ -13,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
@@ -29,8 +32,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupProperties
 
 private val ink = PaletteTheme.ink
 private val muted = PaletteTheme.secondary
@@ -123,6 +124,12 @@ private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
     Shell(if (old?.id.isNullOrEmpty()) "Create a $type" else "Edit $type", when (kind) { "note" -> "A place for the thought you don't want to lose."; "link" -> "Your favorite destination, one command away."; else -> "Keep useful text close. Stored only on this device." }, close,
         Modifier.onPreviewKeyEvent {
             if (it.type == KeyEventType.KeyDown && (it.isCtrlPressed xor it.isMetaPressed) && !it.isAltPressed && !it.isShiftPressed && (it.key == Key.S || it.key == Key.Enter)) { save(); true } else false
+        }, footer = {
+            Text("Ctrl + S", color = muted, fontSize = 11.sp)
+            Spacer(Modifier.weight(1f))
+            TextButton(onClick = close) { Text("Cancel", color = muted) }
+            Spacer(Modifier.width(8.dp))
+            Button(onClick = ::save, modifier = Modifier.testTag("save-editor")) { Text("Save $type") }
         }) {
         LaunchedEffect(fieldReady) { if (fieldReady) focus.requestFocus() }
         Field("Title", title, { title = it; error = null }, "Give it a name", "editor-title", modifier = Modifier.focusRequester(focus).onGloballyPositioned { fieldReady = true })
@@ -136,11 +143,7 @@ private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
                 modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 260.dp).testTag("editor-body"), textStyle = androidx.compose.ui.text.TextStyle(fontSize = 14.sp, lineHeight = 22.sp), shape = RoundedCornerShape(10.dp), keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences))
         }
         error?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.padding(top = 10.dp)) }
-        Row(Modifier.fillMaxWidth().padding(top = 22.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text("Ctrl + S to save", color = muted, fontSize = 11.sp)
-            Spacer(Modifier.weight(1f)); TextButton(onClick = close) { Text("Cancel", color = muted) }
-            Spacer(Modifier.width(8.dp)); Button(onClick = ::save, modifier = Modifier.testTag("save-editor")) { Text("Save $type") }
-        }
+
     }
 }
 
@@ -149,12 +152,12 @@ private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
 internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -> Unit, copy: (String) -> Unit, close: () -> Unit) {
     data class Action(val label: String, val key: String, val perform: () -> Unit)
     val actions = buildList {
-        add(Action(if (command.kind in listOf(Kind.CLIP, Kind.CALC)) "Copy to clipboard" else "Open command", "Enter") { close(); run(command) })
+        add(Action(primaryActionTitle(command), "Enter") { close(); run(command) })
         if (command.id !in listOf("result", "web")) {
             add(Action(if (command.id in store.pins) "Unpin command" else "Pin command", "Ctrl D") { store.togglePin(command.id); close() })
             add(Action("Configure command", "Ctrl Shift ,") { close(); run(Command("configure-command", "Configure command", "", payload = command.id)) })
             add(Action("Set alias", "") { close(); run(Command("configure-alias", "Set alias", "", payload = command.id)) })
-            if (ShortcutRules.targetAllowed(command.id)) add(Action("Set keyboard shortcut", store.shortcutConfiguration.bindings[command.id]?.label().orEmpty()) { close(); run(Command("configure-shortcut", "Set keyboard shortcut", "", payload = command.id)) })
+            if (ShortcutRules.targetAllowed(command.id)) add(Action("Set keyboard shortcut", "") { close(); run(Command("configure-shortcut", "Set keyboard shortcut", "", payload = command.id)) })
         }
         if (command.kind in listOf(Kind.NOTE, Kind.LINK, Kind.CLIP)) {
             add(Action("Edit ${command.kind.label.lowercase().removeSuffix("s")}", "") {
@@ -164,45 +167,23 @@ internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -
             add(Action("Copy content", "") { copy(command.payload); close() })
         }
         if (command.id.startsWith("files:index:")) add(Action("Manage search folder", "") { close(); run(Command("search-folders", "Search folders", "")) })
-        else if (command.kind in listOf(Kind.NOTE, Kind.LINK, Kind.CLIP, Kind.FILE)) add(Action("Delete from Droidcast", "") { store.dialog = "delete" })
+        else if (command.kind in listOf(Kind.NOTE, Kind.LINK, Kind.CLIP, Kind.FILE)) add(Action("Delete from Droidcast", "") { store.actionCommand = command; store.dialog = "delete" })
     }
-    var index by remember { mutableIntStateOf(0) }
-    val focus = remember { FocusRequester() }
-    var actionsReady by remember { mutableStateOf(false) }
-    val rowVisibility = remember(actions.map { it.label }) { List(actions.size) { BringIntoViewRequester() } }
-    LaunchedEffect(index, actionsReady) { if (actionsReady) rowVisibility[index].bringIntoView() }
-    val offset=with(LocalDensity.current){52.dp.roundToPx()}
-    val width=minOf(320.dp,LocalConfiguration.current.screenWidthDp.dp-24.dp)
-    Popup(alignment=Alignment.BottomEnd,offset=IntOffset(0,-offset),onDismissRequest=close,properties=PopupProperties(focusable=true)) {
-      Surface(shape=RoundedCornerShape(16.dp),color=PaletteTheme.surface,border=BorderStroke(1.dp,PaletteTheme.border),shadowElevation=12.dp,
-        modifier=Modifier.width(width).focusRequester(focus).onGloballyPositioned{actionsReady=true}.onPreviewKeyEvent {
-            if(it.type!=KeyEventType.KeyDown)false else when(it.key){
-                Key.DirectionDown->{index=(index+1).coerceAtMost(actions.lastIndex);true}
-                Key.DirectionUp->{index=(index-1).coerceAtLeast(0);true}
-                Key.Enter->{actions[index].perform();true}
-                Key.Escape->{close();true}
-                Key.D->if(it.isCtrlPressed){store.togglePin(command.id);close();true}else false
-                else->false
-            }
-        }.focusable()) {
-        Column(Modifier.heightIn(max=360.dp).verticalScroll(rememberScrollState()).padding(6.dp)) {
-            Text(command.title,color=muted,fontSize=11.sp,maxLines=1,modifier=Modifier.padding(10.dp,8.dp))
-            LaunchedEffect(actionsReady){if(actionsReady)focus.requestFocus()}
-            actions.forEachIndexed{i,action->
-                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(if(index==i)PaletteTheme.selection else Color.Transparent)
-                    .bringIntoViewRequester(rowVisibility[i]).semantics { selected = index == i }
-                    .clickable(onClick=action.perform).padding(10.dp,12.dp).testTag("action-${action.label}"),verticalAlignment=Alignment.CenterVertically){
-                    Text(action.label,fontSize=13.sp,color=if(action.label.startsWith("Delete"))Color(0xFFEBABAA)else PaletteTheme.ink,modifier=Modifier.weight(1f))
-                    if(action.key.isNotEmpty())KeyCap(action.key)
-                }
-            }
+    PaletteChoiceMenu(true, close, actions.mapIndexed { index, action ->
+        val chord=when(action.key) {
+            "Ctrl D" -> KeyChord(android.view.KeyEvent.KEYCODE_D,ShortcutRules.CTRL)
+            "Ctrl Shift ," -> KeyChord(android.view.KeyEvent.KEYCODE_COMMA,ShortcutRules.CTRL or ShortcutRules.SHIFT)
+            else -> null
         }
-      }
-    }
+        PaletteChoice("action-${action.label}", action.label, shortcut=if(action.key.isBlank()) emptyList() else action.key.replace("Enter","↵").split(' '),
+            icon=when { action.label.startsWith("Copy")->"clipboard"; action.label.startsWith("Delete")->"trash"; action.label.startsWith("Edit")->"note";
+                action.label.contains("shortcut")->"keyboard"; action.label.contains("Pin")||action.label.startsWith("Unpin")->"star"; action.label.startsWith("Configure")->"settings"; else->"command" },
+            separator=index==1,chord=chord) { action.perform() }
+    }, title = command.title, searchable = true)
 }
 
 @Composable
-internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier, embedded: Boolean = false, content: @Composable ColumnScope.() -> Unit) {
+internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier, embedded: Boolean = false, footer: (@Composable RowScope.() -> Unit)? = null, content: @Composable ColumnScope.() -> Unit) {
     if (embedded) {
         val focus = remember { FocusRequester() }; var ready by remember { mutableStateOf(false) }; var hasFocus by remember { mutableStateOf(false) }
         LaunchedEffect(ready) { if (ready && !hasFocus) focus.requestFocus() }
@@ -213,6 +194,7 @@ internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier:
                 Text(title, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
                 Text(subtitle, fontSize = 11.sp, color = muted, modifier = Modifier.padding(top = 6.dp, bottom = 16.dp))
                 content()
+                footer?.let { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, content = it) }
             }
         }
         return
@@ -234,13 +216,17 @@ internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier:
             Text(subtitle, fontSize = 12.sp, color = muted, lineHeight = 18.sp, modifier = Modifier.padding(bottom = 16.dp))
             content()
         }
+        footer?.let {
+            HorizontalDivider(color = line)
+            Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically, content = it)
+        }
     }
 }
 
 @Composable
 private fun Field(label: String, value: String, change: (String) -> Unit, placeholder: String, tag: String, modifier: Modifier = Modifier) {
     OutlinedTextField(value, change, label = { Text(label, fontSize = 12.sp) }, placeholder = { Text(placeholder, fontSize = 13.sp) }, singleLine = true,
-        shape = RoundedCornerShape(10.dp), textStyle = androidx.compose.ui.text.TextStyle(fontSize = 14.sp), modifier = modifier.fillMaxWidth().testTag(tag))
+        shape = RoundedCornerShape(10.dp), textStyle = androidx.compose.ui.text.TextStyle(fontSize = 14.sp), modifier = modifier.paletteFocusBookmark().fillMaxWidth().testTag(tag))
 }
 
 @Composable

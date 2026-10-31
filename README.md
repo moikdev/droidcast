@@ -34,7 +34,8 @@ The downloadable APK is a debug-signed preview, not a production-signed release.
 
 - Translucent activity with Tinycast’s 750×475 tablet proportions and 26 dp corners, adapted to smaller screens. A single search header, Favorites and category sections, compact 44 dp rows, native app icons and a contextual action capsule. No draw-over-other-apps permission.
 - Neutral dark surfaces follow Tinycast’s white-alpha color tokens. Android uses its own fonts and a neutral gradient surface; macOS Liquid Glass is not reproduced.
-- The circular bottom-left menu opens category filters, Preferences, shortcuts and dismissal. Actions appear in an anchored menu above the bottom-right capsule; Ctrl+K and long-press open the same menu. Calculator answers use source → result columns with unit badges.
+- The circular bottom-left menu opens category filters, Preferences, shortcuts and dismissal. Launcher, Emoji and extension modes share the bottom-right primary/Enter/Actions/Ctrl+K capsule. Actions open a searchable panel inside the palette; Ctrl+K and long-press use the same panel. Calculator answers use source → result columns with unit badges.
+- Editors, extension views, install/delete reviews and menus replace or attach to the existing palette surface. Settings stays fullscreen; document pickers and permission prompts remain Android UI. See [Palette navigation](docs/PALETTE-NAVIGATION.md).
 - The area outside the palette is fully transparent, with no dark scrim or screen dimming.
 - Tap outside or close to return to the previous app. App and URL commands dismiss the palette when launching their destination.
 - Summon using the app icon, a bottom-corner swipe or Home-button hold after choosing Droidcast as Android's assistant, the optional Droidcast search Quick Settings tile, or the configurable global shortcut (default Ctrl + Space) after explicitly enabling the keyboard service. Android controls touch gesture availability and mappings; inline setup links to navigation settings. Assign command shortcuts through Actions; see [Keyboard shortcuts](docs/SHORTCUTS.md). The assistant route does not require the keyboard service; [Opening Droidcast](docs/ACTIVATION.md) explains the independent options.
@@ -84,7 +85,7 @@ Store searches/downloads contact Raycast. Running third-party code can make HTTP
 | Ctrl + N | New note |
 | Ctrl + 1…8 | All, Pinned, Apps, Notes, Quicklinks, Clips, Files, Extensions |
 | Ctrl + S / Ctrl + Enter | Save editor |
-| Escape | Close dialog, clear search/back, then dismiss palette |
+| Escape | Close menu, go back/clear search, then dismiss palette |
 
 Configure global and per-command chords or double-modifier taps in **Keyboard shortcuts**. For a double tap, release the same Ctrl, Alt, Shift or Meta key between presses, then choose Either, Left or Right in the inline recorder. Android/OEM delivery varies; the shortcut guide records the tested scope. Enable global use through **Open accessibility settings → Droidcast keyboard shortcuts**. The service does not retrieve screen content or record keystrokes. In-app shortcuts do not require it. Settings → General separates the saved chord, Android approval and live service connection, with restricted-settings help and an optional inline delivery check. Receipt in Settings is distinct from testing activation in another app. Global key delivery can vary with other accessibility services and OEM shortcuts.
 

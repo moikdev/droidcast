@@ -20,6 +20,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import dev.tinycast.android.extensions.*
 import org.json.JSONObject
+import org.json.JSONArray
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
@@ -44,7 +45,7 @@ internal fun gridFixture(context: Context, mode: String = "normal"): InstalledEx
           if(${mode == "form"})return React.createElement(Form,{actions:React.createElement(ActionPanel,null,React.createElement(Action.SubmitForm,{title:'Submit fixture',onSubmit:v=>Clipboard.copy('form:'+v.note)}))},React.createElement(Form.TextField,{id:'note',title:'Fixture note'}));
           const [query,setQuery]=React.useState(''); const [selected,setSelected]=React.useState('');
           const [reverse,setReverse]=React.useState(false); const [count,setCount]=React.useState(30);
-          const [category,setCategory]=React.useState('all');
+          const [category,setCategory]=React.useState('all'); const activations=React.useRef(0);
           let data=Array.from({length:count},(_,i)=>({id:'image-'+i,title:'Landscape '+String(i).padStart(2,'0'),
             content:i===1?'https://raw.githubusercontent.com/moikdev/droidcast/d6fccdc4989d4d6e2203f8fa331872a9c11d7105/docs/screenshots/parity-modifier-taps/tablet-record-double-ctrl.png':
              i===2?${JSONObject.quote(File(context.filesDir, "grid-private-fixture.png").path)}:i===3?'missing.png':i===4?'unsupported.svg':
@@ -52,10 +53,11 @@ internal fun gridFixture(context: Context, mode: String = "normal"): InstalledEx
           if(reverse)data.reverse(); if(category==='even')data=data.filter(x=>Number(x.id.split('-')[1])%2===0);
           function cell(x){return React.createElement(Grid.Item,{key:x.id,id:x.id,title:x.title,subtitle:'Preview '+x.id,keywords:['fixture',x.id],content:x.content,
             actions:React.createElement(ActionPanel,null,
-              React.createElement(Action,{title:'Copy identity',onAction:()=>Clipboard.copy('grid-fixture:'+x.id)}),
+              React.createElement(Action,{title:'Copy identity',onAction:()=>{activations.current++;Clipboard.copy('grid-fixture:'+x.id)}}),
               React.createElement(Action.Push,{title:'Inspect item',target:React.createElement(Detail,{markdown:'Grid fixture detail '+x.id})}),
               React.createElement(Action,{title:'Reverse items',onAction:()=>setReverse(v=>!v)}),
-              React.createElement(Action,{title:'Clear search',onAction:()=>setQuery('')}))});}
+              React.createElement(Action,{title:'Clear search',onAction:()=>setQuery('')}),
+              React.createElement(Action,{title:'Report activation count',onAction:()=>Clipboard.copy('activations:'+activations.current)}))});}
           return React.createElement(Grid,{columns:3,filtering:true,searchText:query,onSearchTextChange:setQuery,onSelectionChange:setSelected,
             searchBarPlaceholder:'Search grid fixtures',isLoading:${mode == "loading"},
             pagination:{hasMore:count<36,onLoadMore:()=>setCount(n=>n+3),pageSize:3},
@@ -122,14 +124,21 @@ class ExtensionGridDeviceTest {
     }
     private fun captureChecked(name: String, marker: String) {
         compose.waitForIdle(); device.waitForIdle()
-        if (name in setOf("filtered-copy", "caret-preserved", "reordered-selection", "keyboard-selected-visible", "store-palette-contrast", "store-legacy-oklch", "form-regression"))
+        compose.onAllNodesWithTag("extension-primary").fetchSemanticsNodes().singleOrNull()?.let { primary ->
+            val frame=compose.onNodeWithTag("extension-palette").fetchSemanticsNode().boundsInWindow
+            assertTrue("Primary action retains a 48dp touch target",primary.boundsInWindow.height >= 48*context.resources.displayMetrics.density-1)
+            assertTrue("Primary action stays inside the palette",frame.contains(primary.boundsInWindow.topLeft) && frame.contains(primary.boundsInWindow.bottomRight))
+        }
+        if (name in setOf("filtered-copy", "caret-preserved", "reordered-selection", "keyboard-selected-visible", "store-palette-contrast", "store-legacy-oklch", "form-regression", "inline-filter-focus", "inline-preferences-return", "single-activation"))
             device.wait(Until.findObject(By.res("com.android.systemui", "dismiss_button")), 1500)
         val deadline = SystemClock.uptimeMillis() + 5000
         while (device.hasObject(By.res("com.android.systemui", "clipboard_ui")) && SystemClock.uptimeMillis() < deadline) {
+            InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
             try { device.findObject(By.res("com.android.systemui", "dismiss_button"))?.click() }
             catch (_: androidx.test.uiautomator.StaleObjectException) { /* Animation removed it; re-query within the same deadline. */ }
             device.wait(Until.gone(By.res("com.android.systemui", "clipboard_ui")), 500)
         }
+        InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
         assertFalse("Clipboard overlay must be dismissed", device.hasObject(By.res("com.android.systemui", "clipboard_ui")))
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
@@ -154,6 +163,77 @@ class ExtensionGridDeviceTest {
                 (tagged("extension-grid-count")?.getAttribute("text") == expectedCount && tagged("extension-search")?.getAttribute("text") == expectedQuery))
         }
         assertTrue(device.takeScreenshot(File(folder, "$name.png")))
+    }
+    @Test fun inlineFilterAndActionsReturnKeyboardFocusToGridSearch() {
+        launch()
+        compose.onNodeWithTag("extension-search").performTextReplacement("Landscape")
+        key(KeyEvent.KEYCODE_DPAD_RIGHT)
+        compose.onNodeWithTag("extension-grid-filter").performClick()
+        compose.onNodeWithTag("inline-menu").assertIsDisplayed()
+        val focusRecord = JSONObject().put("menuFocused",compose.onNodeWithTag("inline-menu").fetchSemanticsNode().config[SemanticsProperties.Focused])
+            .put("focusedTags",JSONArray(compose.onAllNodes(isFocused()).fetchSemanticsNodes().map { it.config.getOrElse(SemanticsProperties.TestTag){"untagged"} }))
+        File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}.resolve("inline-menu-focus-state.json").writeText(focusRecord.toString(2))
+        compose.onNodeWithTag("inline-menu").assertIsFocused()
+        compose.onNodeWithTag("extension-grid-filter-1").performClick()
+        compose.onNodeWithTag("extension-search").assertIsFocused().assertTextEquals("Landscape")
+        compose.onNodeWithTag("extension-actions").performClick()
+        compose.onNodeWithTag("inline-menu").assertIsDisplayed().assert(hasAnyDescendant(isFocused()) or isFocused())
+        val actionPanel=compose.onNodeWithTag("inline-menu").fetchSemanticsNode().boundsInWindow
+        val primary=compose.onNodeWithTag("extension-primary").fetchSemanticsNode().boundsInWindow
+        assertTrue("Actions panel stays above the footer controls",actionPanel.bottom <= primary.top)
+        key(KeyEvent.KEYCODE_ESCAPE)
+        compose.onNodeWithTag("extension-search").assertIsFocused()
+        key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { clip().startsWith("grid-fixture:image-") }
+        capture("inline-filter-focus", "Landscape 00")
+        compose.onAllNodes(isDialog()).assertCountEquals(0)
+        compose.onAllNodes(isPopup()).assertCountEquals(0)
+    }
+    @Test fun cancellingInlinePreferencesRetainsRuntimeAndGridSelection() {
+        launch()
+        compose.onNodeWithTag("extension-search").performTextReplacement("Landscape")
+        key(KeyEvent.KEYCODE_DPAD_RIGHT)
+        val tree = compose.activity.store.extensions.runtimeTree
+        val epoch = compose.activity.store.extensions.launchEpoch
+        compose.onNodeWithContentDescription("Extension preferences").performClick()
+        compose.onNodeWithTag("run-extension-setup").assertIsDisplayed()
+        compose.onAllNodes(isDialog()).assertCountEquals(0)
+        compose.onNodeWithTag("extension-back").performClick()
+        compose.onNodeWithTag("extension-search").assertTextEquals("Landscape").assertIsFocused()
+        assertEquals(epoch, compose.activity.store.extensions.launchEpoch)
+        assertSame("Cancel does not restart the JavaScript session",tree,compose.activity.store.extensions.runtimeTree)
+        compose.onNodeWithTag("extension-grid-cell-1").assertIsSelected()
+        key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { clip() == "grid-fixture:image-1" }
+        capture("inline-preferences-return","Landscape 01")
+    }
+    @Test fun onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible() {
+        launch()
+        val originalSetting = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
+        try {
+            device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+            if(compose.onAllNodesWithTag("extension-grid-keyboard").fetchSemanticsNodes().isNotEmpty()) compose.onNodeWithTag("extension-grid-keyboard").performClick()
+            else compose.activityRule.scenario.onActivity { activity ->
+                val view=WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
+                activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java).showSoftInput(view.findFocus(),android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+            }
+            compose.waitUntil(10000) { WindowInspector.getGlobalWindowViews().filter { it.hasWindowFocus() }.any {
+                androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true } }
+            val time=SystemClock.uptimeMillis()
+            InstrumentationRegistry.getInstrumentation().sendKeySync(KeyEvent(time,time,KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_ENTER,0))
+            repeat(5) { InstrumentationRegistry.getInstrumentation().sendKeySync(KeyEvent(time,SystemClock.uptimeMillis(),KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_ENTER,it+1)) }
+            InstrumentationRegistry.getInstrumentation().sendKeySync(KeyEvent(time,SystemClock.uptimeMillis(),KeyEvent.ACTION_UP,KeyEvent.KEYCODE_ENTER,0))
+            compose.waitUntil(5000) { clip()=="grid-fixture:image-0" }
+            compose.onNodeWithTag("extension-actions").performClick()
+            compose.onNodeWithTag("inline-menu").assertIsDisplayed().assert(hasAnyDescendant(isFocused()) or isFocused())
+            key(KeyEvent.KEYCODE_DPAD_UP); key(KeyEvent.KEYCODE_ENTER)
+            // The second JS action is a FIFO barrier; it observes all preceding activation callbacks.
+            compose.waitUntil(5000) { clip().startsWith("activations:") }
+            assertEquals("activations:1",clip())
+            capture("single-activation","Landscape 00")
+        } finally {
+            device.executeShellCommand(if(originalSetting=="null") "settings delete secure show_ime_with_hard_keyboard" else "settings put secure show_ime_with_hard_keyboard $originalSetting")
+        }
     }
     @Test fun nativeGridDisplaysColumnsImagesAndUnavailableSources() {
         launch()
@@ -303,6 +383,67 @@ class ExtensionGridDeviceTest {
         compose.waitUntil(5000) { clip() == "form:Grid regression" }
         capture("form-regression", "Grid regression")
     }
+    @Test fun storeInstallReviewAndCommandReturnStayInsideThePalette() {
+        val catalog = compose.activity.store.extensions
+        val name = "palette-colors"
+        assertFalse("Never replace an existing installation", catalog.installed.any { it.listing.name == name })
+        var installed: InstalledExtension? = null
+        fun sameWindow() {
+            compose.onAllNodes(isDialog()).assertCountEquals(0)
+            compose.onAllNodes(isPopup()).assertCountEquals(0)
+            compose.onAllNodes(isRoot()).assertCountEquals(1)
+        }
+        fun show(tag: String) {
+            compose.onNodeWithTag("store-results").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).assertIsDisplayed()
+        }
+        try {
+            compose.activityRule.scenario.onActivity { it.store.dialog = "extensions" }
+            compose.onNodeWithTag("store-search").performTextReplacement("palette colors")
+            compose.waitUntil(30000) { compose.onAllNodesWithTag("install-$name").fetchSemanticsNodes().isNotEmpty() }
+            show("install-$name")
+            val browser = compose.onNodeWithTag("extension-palette").fetchSemanticsNode().boundsInWindow
+            compose.onNodeWithTag("install-$name").performClick()
+            compose.onNodeWithTag("extension-review").assertIsDisplayed(); sameWindow()
+            val review = compose.onNodeWithTag("extension-palette").fetchSemanticsNode().boundsInWindow
+            assertEquals(browser.left, review.left, 1f); assertEquals(browser.top, review.top, 1f); assertEquals(browser.width, review.width, 1f)
+            capture("store-inline-install-review", "This installs third-party JavaScript")
+            compose.onNodeWithTag("extension-back").performClick()
+            compose.onNodeWithTag("store-search").assertTextEquals("palette colors")
+            assertFalse(catalog.installed.any { it.listing.name == name })
+            show("install-$name"); compose.onNodeWithTag("install-$name").performClick()
+            compose.onNodeWithTag("confirm-install").performClick()
+            compose.waitUntil(60000) { catalog.busy == null && (catalog.installed.any { it.listing.name == name } || catalog.error != null) }
+            assertNull(catalog.error, catalog.error)
+            installed = catalog.installed.single { it.listing.name == name }
+            File(context.filesDir,"extension-grid-evidence").resolve("store-inline-source.json").writeText(JSONObject()
+                .put("id",installed.listing.id).put("source_url",installed.listing.sourceUrl).put("commit_sha",installed.listing.sha)
+                .put("command_sha256",MessageDigest.getInstance("SHA-256").digest(File(installed.directory,"index.js").readBytes()).joinToString(""){"%02x".format(it)}).toString(2))
+            compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-command-index").fetchSemanticsNodes().isNotEmpty() }
+            show("extension-command-index"); compose.onNodeWithTag("extension-command-index").performClick()
+            compose.waitUntil(25000) { compose.onAllNodesWithTag("extension-grid").fetchSemanticsNodes().isNotEmpty() || catalog.runtimeError != null }
+            assertNull(catalog.runtimeError,catalog.runtimeError); sameWindow()
+            capture("store-inline-command", "Palette Colors")
+            compose.onNodeWithTag("extension-back").performClick()
+            compose.onNodeWithTag("store-search").assertTextEquals("palette colors"); sameWindow()
+            show("uninstall-$name"); capture("store-inline-return", "Palette Colors")
+            compose.onNodeWithTag("uninstall-$name").performClick()
+            compose.onNodeWithTag("confirm-uninstall").assertIsDisplayed(); sameWindow()
+            capture("store-inline-uninstall-review", "Its commands, preferences and local extension data")
+            compose.onNodeWithTag("extension-back").performClick()
+            assertTrue(catalog.installed.any { it.listing.name == name })
+            show("uninstall-$name"); compose.onNodeWithTag("uninstall-$name").performClick()
+            compose.onNodeWithTag("confirm-uninstall").performClick()
+            compose.waitUntil(30000) { catalog.busy == null && catalog.installed.none { it.listing.name == name } }
+            assertFalse(installed.directory.exists())
+            compose.onNodeWithTag("store-search").assertTextEquals("palette colors")
+        } finally {
+            compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog=null }
+            compose.waitForIdle()
+            installed?.let { if(catalog.installed.any { current -> current.listing.id == it.listing.id }) runBlocking { catalog.uninstall(it) } }
+        }
+    }
+
     private fun realGrid(query: String, name: String, command: String, expectedTag: String = "extension-grid", check: (InstalledExtension) -> Unit) {
         val catalog = compose.activity.store.extensions
         assertFalse("Do not overwrite a preexisting installation", catalog.installed.any { it.listing.name == name })

@@ -45,6 +45,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
     SideEffect { if (searchValue != displayedSearch) searchValue = displayedSearch }
     var gridFocused by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
+    var actionsMenu by remember { mutableStateOf(false) }
     var keyboardRequested by remember { mutableStateOf(false) }
     var queryEditing by remember { mutableStateOf(false) }
     var copiedName by remember { mutableStateOf<String?>(null) }
@@ -82,7 +83,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
         if (event.repeatCount == 0) currentEntry()?.let(::pin)
         return true
     }
-    fun back() { if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
+    fun back() { if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
     BackHandler(onBack = ::back)
     PaletteViewport { wide, top, height ->
         val columns = ((minOf(maxWidth - 24.dp, PaletteTheme.width).value - 24) / 64).toInt().coerceIn(3, 10)
@@ -141,7 +142,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
         Column(Modifier.padding(top = top).padding(horizontal = 12.dp).widthIn(max = PaletteTheme.width).fillMaxWidth().height(height).align(Alignment.TopCenter)
             .shadow(24.dp, RoundedCornerShape(PaletteTheme.radius)).clip(RoundedCornerShape(PaletteTheme.radius))
             .background(PaletteTheme.surface).border(1.dp, PaletteTheme.border, RoundedCornerShape(PaletteTheme.radius))
-            .pointerInput(Unit) { detectTapGestures {} }
+            .paletteMenuSurface().pointerInput(Unit) { detectTapGestures {} }
             // Handle owned favorite chords before IME text conversion. Some IMEs
             // also consume keypad Enter without delivering an editor action;
             // that activation path leaves active composition alone.
@@ -168,6 +169,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                 else if (e.action != KeyEvent.ACTION_DOWN) false
                 else when {
                     e.keyCode == KeyEvent.KEYCODE_ESCAPE -> { back(); true }
+                    ctrl && e.keyCode == KeyEvent.KEYCODE_K -> { actionsMenu = currentEntry()!=null; true }
                     ctrl && e.keyCode == KeyEvent.KEYCODE_L -> { queryEditing = true; searchFocus.requestFocus(); true }
                     navigate(e) -> true
                     searchFocused && (e.isShiftPressed || ctrl) && e.keyCode in setOf(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.KEYCODE_MOVE_END) -> { queryEditing = true; false }
@@ -182,7 +184,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                     searchValue = it
                     if (it.text != store.query) { store.search(it.text); copiedName = null }
                 }, singleLine = true,
-                    modifier = Modifier.weight(1f).height(32.dp).focusRequester(searchFocus).onFocusChanged { searchFocused = it.isFocused }.testTag("emoji-search"),
+                    modifier = Modifier.weight(1f).height(32.dp).paletteFocusBookmark(searchFocus).onFocusChanged { searchFocused = it.isFocused }.testTag("emoji-search"),
                     textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (!isComposing()) currentEntry()?.let(::copyEntry) }),
@@ -194,11 +196,12 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                 }
                 Box {
                     TextButton(onClick = { menu = true }, modifier = Modifier.testTag("emoji-filter")) { Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp)); Text(" ▾") }
-                    DropdownMenu(expanded = menu, onDismissRequest = { menu = false }, containerColor = PaletteTheme.surface) {
-                        (listOf("All", "Favorites", "Recent") + store.entries.map { it.category }.distinct()).forEach { category ->
-                            DropdownMenuItem(text = { Text(category, fontSize = 13.sp) }, onClick = { store.chooseFilter(category); copiedName = null; queryEditing = false; menu = false }, modifier = Modifier.testTag("emoji-filter-$category"))
-                        }
-                    }
+                    PaletteChoiceMenu(menu, { menu = false },
+                        (listOf("All", "Favorites", "Recent") + store.entries.map { it.category }.distinct()).map { category ->
+                            PaletteChoice("emoji-filter-$category", category, checked = store.filter == category) {
+                                store.chooseFilter(category); copiedName = null; queryEditing = false; menu = false
+                            }
+                        }, title = "Emoji categories", returnFocus = searchFocus)
                 }
             }
             HorizontalDivider(color = PaletteTheme.separator)
@@ -227,7 +230,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                 }
             }
             HorizontalDivider(color = PaletteTheme.separator)
-            Row(Modifier.fillMaxWidth().height(54.dp).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text(selected?.name ?: "Emoji & Symbols", fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("emoji-selected-name"))
                     Text(copiedName ?: if (queryEditing) "Editing query · ↓ browse results" else "Arrows select · Enter copy · Ctrl L edit", fontSize = 10.sp, color = PaletteTheme.secondary, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }.testTag("emoji-copy-status"))
@@ -235,7 +238,17 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                 IconButton(onClick = { currentEntry()?.let(::pin) }, enabled = selected != null, modifier = Modifier.testTag("emoji-favorite").semantics { contentDescription = if (selected?.id in store.favorites) "Remove favorite" else "Add favorite" }) {
                     Text(if (selected?.id in store.favorites) "★" else "☆", fontSize = 22.sp, color = PaletteTheme.accent)
                 }
-                TextButton(onClick = { currentEntry()?.let(::copyEntry) }, enabled = selected != null, modifier = Modifier.testTag("emoji-copy")) { Text("Copy ↵", fontSize = 12.sp) }
+                Box {
+                    PaletteActionCapsule("Copy to Clipboard",{currentEntry()?.let(::copyEntry)},{actionsMenu=true},"emoji-copy","emoji-actions",compact=!wide,enabled=selected!=null)
+                    PaletteChoiceMenu(actionsMenu,{actionsMenu=false},listOf(
+                        PaletteChoice("emoji-action-copy","Copy to Clipboard",enabled=selected!=null,shortcut=listOf("↵"),icon="clipboard") { currentEntry()?.let(::copyEntry) },
+                        PaletteChoice("emoji-action-favorite",if(selected?.id in store.favorites)"Remove Favorite"else"Add Favorite",enabled=selected!=null,
+                            shortcut=listOf("Ctrl","D"),icon="star",separator=true,chord=KeyChord(KeyEvent.KEYCODE_D,ShortcutRules.CTRL)) {currentEntry()?.let(::pin)},
+                        PaletteChoice("emoji-action-unicode","Copy Unicode",enabled=selected!=null,icon="clipboard") {
+                            currentEntry()?.let { entry -> copy(entry.glyph.codePoints().toArray().joinToString(" "){"U+"+it.toString(16).uppercase().padStart(4,'0')}); copiedName="Copied Unicode for ${entry.name}" }
+                        }
+                    ),title=selected?.name ?: "Emoji & Symbols",returnFocus=searchFocus,searchable=true)
+                }
             }
         }
     }

@@ -71,10 +71,10 @@ internal fun FileSearchToolbar(store: PaletteStore, run: (Command) -> Unit) {
     Row(Modifier.fillMaxWidth().height(36.dp).padding(horizontal = 14.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(if (model.busy) "Indexing…" else if (model.searching) "Searching…" else if (!model.enabled) "Recent documents" else "${model.count} indexed items", fontSize = 11.sp, color = PaletteTheme.secondary, modifier = Modifier.weight(1f).testTag("file-search-status"))
         Box {
-            TextButton(onClick = { filter = true }, modifier = Modifier.testTag("file-type")) { Text(model.type.label, fontSize = 11.sp) }
-            DropdownMenu(filter, onDismissRequest = { filter = false }, containerColor = PaletteTheme.surface) {
-                FileSearchType.entries.forEach { type -> DropdownMenuItem(text = { Text(type.label) }, onClick = { model.filterType(type); filter = false }, modifier = Modifier.testTag("file-type-${type.name}")) }
-            }
+            TextButton(onClick = { filter = true }, modifier = Modifier.testTag("file-type").paletteFocusBookmark()) { Text(model.type.label, fontSize = 11.sp) }
+            PaletteChoiceMenu(filter, { filter = false }, FileSearchType.entries.map { type ->
+                PaletteChoice("file-type-${type.name}", type.label, checked = model.type == type) { model.filterType(type); filter = false }
+            }, title = "File type")
         }
         TextButton(onClick = { run(Command("search-folders", "Search folders", "")) }, modifier = Modifier.testTag("file-search-folders")) { Text("Folders", fontSize = 11.sp) }
     }

@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.*
 import dev.tinycast.android.Glyph
 import dev.tinycast.android.PaletteScrollHistory
 import dev.tinycast.android.PaletteTheme
+import dev.tinycast.android.PaletteChoice
+import dev.tinycast.android.PaletteChoiceMenu
+import dev.tinycast.android.paletteFocusBookmark
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.collect
 import org.json.JSONArray
@@ -53,13 +56,13 @@ internal class ExtensionGridState {
 @Composable
 internal fun NativeExtensionGrid(
     state: ExtensionGridState, rootProvider: () -> JSONObject, images: ExtensionGridImages,
-    status: String, preferences: android.content.SharedPreferences, commandKey: String, dispatch: (String?, JSONArray) -> Unit, back: () -> Unit, configure: () -> Unit,
+    title: String, status: String, preferences: android.content.SharedPreferences, commandKey: String, dispatch: (String?, JSONArray) -> Unit, back: () -> Unit, configure: () -> Unit,
 ) {
     val root = rootProvider()
     val props = root.props()
     val focus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
-    val wide = LocalConfiguration.current.smallestScreenWidthDp >= 600
+    val wide = dev.tinycast.android.LocalPaletteWide.current
     var keyboardRequested by remember { mutableStateOf(false) }
     var searchFocused by remember { mutableStateOf(false) }
     var gridFocused by remember { mutableStateOf(false) }
@@ -162,8 +165,7 @@ internal fun NativeExtensionGrid(
             val id = event.deviceId to event.keyCode
             if (claims[id] == event.downTime) {
                 if (event.action == KeyEvent.ACTION_UP) claims.remove(id)
-                else if (event.repeatCount > 0) return true
-                if (event.action == KeyEvent.ACTION_UP) return true
+                return true
             }
             if (event.action != KeyEvent.ACTION_DOWN || menu || dropdownMenu || !(searchFocused || gridFocused) || state.search.composition != null) return false
             val plain = !event.isCtrlPressed && !event.isMetaPressed && !event.isAltPressed && !event.isShiftPressed
@@ -202,7 +204,7 @@ internal fun NativeExtensionGrid(
                 }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (state.search.composition == null) action(currentActions().firstOrNull()) }),
-                    modifier = Modifier.weight(1f).height(32.dp).focusRequester(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
+                    modifier = Modifier.weight(1f).height(32.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
                     decorationBox = { inner -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) { if (state.search.text.isEmpty()) Text(props.optString("searchBarPlaceholder", "Search extension…"), color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
                 if (wide) IconButton(onClick = { keyboardRequested = true; focus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(36.dp).semantics { contentDescription = "Show on-screen keyboard" }.testTag("extension-grid-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 16) }
                 if (options.isNotEmpty()) Box {
@@ -210,13 +212,14 @@ internal fun NativeExtensionGrid(
                         Text(options.firstOrNull { it.props().optString("value") == state.dropdownValue }?.props()?.optString("title") ?: "Filter", fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if(wide) 140.dp else 72.dp))
                         Text(" ▾", fontSize = 10.sp)
                     }
-                    DropdownMenu(dropdownMenu, { dropdownMenu = false }) {
-                        options.forEachIndexed { index, option -> DropdownMenuItem(text = { Text(option.props().optString("title")) }, onClick = {
-                            val value = option.props().optString("value"); state.dropdownValue = value; state.selectedKey = null
+                    PaletteChoiceMenu(dropdownMenu, { dropdownMenu = false }, options.mapIndexed { index, option ->
+                        val value = option.props().optString("value")
+                        PaletteChoice("extension-grid-filter-value-$value", option.props().optString("title"), checked = state.dropdownValue == value, tag = "extension-grid-filter-$index") {
+                            state.dropdownValue = value; state.selectedKey = null
                             if (dropdown?.props()?.optBoolean("storeValue") == true && dropdownKey.length <= 512 && value.length <= 4096) preferences.edit().putString(dropdownKey, value).apply()
                             dispatch(dropdown?.handle("onChange"), JSONArray().put(value)); dropdownMenu = false
-                        }, modifier = Modifier.testTag("extension-grid-filter-$index")) }
-                    }
+                        }
+                    }, title = "Filter", returnFocus = focus)
                 }
                 IconButton(onClick = configure, modifier = Modifier.size(36.dp).semantics { contentDescription = "Extension preferences" }) { Text("⚙", fontSize = 16.sp) }
             }
@@ -253,12 +256,17 @@ internal fun NativeExtensionGrid(
                 }
             }
             HorizontalDivider(color = PaletteTheme.separator)
-            Row(Modifier.fillMaxWidth().heightIn(min = 52.dp).padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text(status.ifBlank { selected?.title.orEmpty() }, color = PaletteTheme.secondary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f).testTag("extension-grid-selected"))
-                Button(onClick = { action(currentActions().firstOrNull()) }, enabled = actions.isNotEmpty(), modifier = Modifier.testTag("extension-primary")) { Text(actions.firstOrNull()?.props()?.optString("title", "Run action") ?: "Run action", fontSize = 12.sp, maxLines = 1) }
+            Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f).padding(end=8.dp)) {
+                    Text(title,color=PaletteTheme.secondary,fontSize=11.sp,maxLines=1,overflow=TextOverflow.Ellipsis)
+                    Text(status.ifBlank { selected?.title.orEmpty() }, color = PaletteTheme.tertiary, fontSize = 10.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("extension-grid-selected"))
+                }
                 Box {
-                    TextButton(onClick = { menu = true }, enabled = actions.isNotEmpty(), modifier = Modifier.testTag("extension-actions")) { Text("Actions", fontSize = 12.sp) }
-                    DropdownMenu(menu, { menu = false }) { actions.forEachIndexed { index, node -> DropdownMenuItem(text = { Text(node.props().optString("title", "Action")) }, onClick = { action(node) }, modifier = Modifier.testTag("extension-action-$index")) } }
+                    dev.tinycast.android.PaletteActionCapsule(actions.firstOrNull()?.props()?.optString("title", "Run action") ?: "Run action",
+                        { action(currentActions().firstOrNull()) }, { menu=true }, "extension-primary", "extension-actions", compact=!wide, enabled=actions.isNotEmpty())
+                    PaletteChoiceMenu(menu, { menu = false }, actions.mapIndexed { index, node ->
+                        PaletteChoice("extension-action-${node.optString("id",index.toString())}", node.props().optString("title", "Action"), tag = "extension-action-$index",shortcut=if(index==0)listOf("↵")else emptyList(),icon="command") { action(node) }
+                    }, title = selected?.title ?: "Actions", returnFocus = focus, searchable = true)
                 }
             }
         }

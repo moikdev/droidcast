@@ -1,0 +1,331 @@
+@file:OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
+package dev.tinycast.android
+
+import android.view.KeyEvent
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.*
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.onPreInterceptKeyBeforeSoftKeyboard
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.boundsInRoot
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.unit.*
+import kotlin.math.roundToInt
+
+internal data class PaletteChoice(val id: String, val label: String, val checked: Boolean = false,
+                                  val enabled: Boolean = true, val tag: String = id,
+                                  val shortcut: List<String> = emptyList(), val icon: String? = null,
+                                  val separator: Boolean = false, val chord: KeyChord? = null, val activate: () -> Unit)
+
+/** One menu owned by this activity's existing palette surface, never a new window. */
+internal class PaletteMenus {
+    class Request(val owner: Any, val choices: State<List<PaletteChoice>>, val anchor: State<Rect?>,
+                  val title: State<String?>, val dismiss: State<() -> Unit>, val returnFocus: State<FocusRequester?>, val searchable: Boolean)
+    var current by mutableStateOf<Request?>(null); private set
+    var surface by mutableStateOf<Rect?>(null)
+    var selectedId by mutableStateOf<String?>(null); private set
+    var query by mutableStateOf(TextFieldValue("")); private set
+    fun choices(): List<PaletteChoice> {
+        val words=query.text.trim().split(Regex("""\s+""")).filter { it.isNotEmpty() }
+        return current?.choices?.value.orEmpty().filter { choice -> words.all { choice.label.contains(it,true) } }
+    }
+    fun search(value: TextFieldValue) {
+        val changed=value.text!=query.text; query=value
+        if(changed) selectedId=choices().firstOrNull { it.enabled }?.id
+    }
+    val surfaceFocus = FocusRequester()
+    var activeFocus: FocusRequester? = null
+    var restoreTarget: FocusRequester? = null
+    private var restoreOwner: Any? = null
+    fun focusChanged(requester: FocusRequester, focused: Boolean) {
+        if(focused) activeFocus = requester else if(activeFocus === requester) activeFocus = null
+    }
+    fun forgetFocus(requester: FocusRequester) {
+        if(activeFocus === requester) activeFocus = null
+        if(restoreTarget === requester) restoreTarget = null
+    }
+    fun forgetOwner(owner: Any) {
+        remove(owner)
+        if(restoreOwner === owner) restoreOwner = null
+    }
+    private val presses = mutableMapOf<Pair<Int, Int>, Long>()
+    private var prefix = ""
+    private var prefixTime = 0L
+    fun open(request: Request) {
+        restoreTarget = request.returnFocus.value ?: activeFocus
+        restoreOwner = request.owner
+        current = request; prefix = ""; query=TextFieldValue("")
+        selectedId = request.choices.value.firstOrNull { it.enabled && it.checked }?.id
+            ?: request.choices.value.firstOrNull { it.enabled }?.id
+    }
+    fun remove(owner: Any) { if (current?.owner === owner) current = null }
+    fun dismiss() { val old = current; current = null; old?.dismiss?.value?.invoke() }
+    fun choose(id: String) {
+        val choice = current?.choices?.value?.firstOrNull { it.id == id && it.enabled } ?: return
+        dismiss(); choice.activate()
+    }
+    fun normalizeSelection() {
+        val choices = choices()
+        if(choices.none { it.id == selectedId && it.enabled }) selectedId = choices.firstOrNull { it.enabled }?.id
+    }
+    fun clearPresses() = presses.clear()
+    fun index(): Int = choices().indexOfFirst { it.id == selectedId }.coerceAtLeast(0)
+    fun key(event: KeyEvent): Boolean {
+        val id = event.deviceId to event.keyCode
+        if (presses[id] == event.downTime) {
+            if (event.action == KeyEvent.ACTION_UP) presses.remove(id)
+            return true
+        }
+        val request = current ?: return false
+        val shortcut=request.choices.value.firstOrNull { it.enabled && it.chord!=null && it.chord==event.asChord() }
+        if(shortcut!=null && event.action==KeyEvent.ACTION_DOWN && query.composition==null) {
+            presses[id]=event.downTime
+            if(event.repeatCount==0) choose(shortcut.id)
+            return true
+        }
+        if(request.searchable) {
+            val navigation=event.keyCode in setOf(KeyEvent.KEYCODE_DPAD_UP,KeyEvent.KEYCODE_DPAD_DOWN,KeyEvent.KEYCODE_TAB,
+                KeyEvent.KEYCODE_ENTER,KeyEvent.KEYCODE_NUMPAD_ENTER,KeyEvent.KEYCODE_DPAD_CENTER,KeyEvent.KEYCODE_ESCAPE,KeyEvent.KEYCODE_BACK)
+            val toggle=(event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && !event.isShiftPressed && event.keyCode==KeyEvent.KEYCODE_K
+            if(!navigation && !toggle) return false
+            if(query.composition!=null && event.keyCode !in setOf(KeyEvent.KEYCODE_ESCAPE,KeyEvent.KEYCODE_BACK)) return false
+            if(toggle && event.action==KeyEvent.ACTION_DOWN) { presses[id]=event.downTime; if(event.repeatCount==0) dismiss(); return true }
+        }
+        if (event.action != KeyEvent.ACTION_DOWN) return !request.searchable
+        presses[id] = event.downTime
+        if (event.repeatCount > 0) return true
+        val enabled = choices().filter { it.enabled }
+        val index = enabled.indexOfFirst { it.id == selectedId }.coerceAtLeast(0)
+        when (event.keyCode) {
+            KeyEvent.KEYCODE_ESCAPE, KeyEvent.KEYCODE_BACK -> dismiss()
+            KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> enabled.getOrNull(index)?.let { choose(it.id) }
+            KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_TAB -> if (enabled.isNotEmpty()) {
+                val delta = if (event.keyCode == KeyEvent.KEYCODE_TAB && event.isShiftPressed) -1 else 1
+                selectedId = enabled[Math.floorMod(index + delta, enabled.size)].id
+            }
+            KeyEvent.KEYCODE_DPAD_UP -> if (enabled.isNotEmpty()) selectedId = enabled[Math.floorMod(index - 1, enabled.size)].id
+            KeyEvent.KEYCODE_MOVE_HOME -> selectedId = enabled.firstOrNull()?.id
+            KeyEvent.KEYCODE_MOVE_END -> selectedId = enabled.lastOrNull()?.id
+            else -> if (!event.isCtrlPressed && !event.isMetaPressed && !event.isAltPressed && event.unicodeChar > 31) {
+                prefix = if (event.eventTime - prefixTime > 1000) "" else prefix
+                prefix += event.unicodeChar.toChar(); prefixTime = event.eventTime
+                enabled.firstOrNull { it.label.startsWith(prefix, ignoreCase = true) }?.let { selectedId = it.id }
+            }
+        }
+        return true
+    }
+}
+
+internal val LocalPaletteMenus = staticCompositionLocalOf<PaletteMenus> { error("Palette menu host is missing") }
+
+@OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
+@Composable
+internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit = {}, contextEpoch: Any? = null, feedback: Boolean = false, content: @Composable () -> Unit) {
+    val menus = remember { PaletteMenus() }
+    val snackbar = remember { SnackbarHostState() }
+    val message = if(feedback) store.message else null
+    LaunchedEffect(message) {
+        message?.let {
+            snackbar.showSnackbar(it, duration=SnackbarDuration.Short)
+            if(store.message == it) store.message = null
+        }
+    }
+    val changed by rememberUpdatedState(openChanged)
+    val ownerView = LocalView.current
+    val windowFocused = LocalWindowInfo.current.isWindowFocused
+    var restore by remember { mutableStateOf(false) }
+    DisposableEffect(store, menus) {
+        store.attachPaletteMenuHost(menus)
+        onDispose {
+            if(store.paletteMenuChanged(menus, false, ownerView.hasWindowFocus())) changed(false)
+            store.detachPaletteMenuHost(menus); menus.clearPresses()
+        }
+    }
+    SideEffect {
+        val open = menus.current != null
+        if(store.paletteMenuChanged(menus, open, ownerView.hasWindowFocus())) changed(open)
+    }
+    LaunchedEffect(contextEpoch) { menus.dismiss() }
+    LaunchedEffect(windowFocused) { if (!windowFocused) { menus.clearPresses(); menus.dismiss() } }
+    LaunchedEffect(menus.current?.owner, windowFocused) {
+        if (menus.current != null) restore = true
+        else if (restore && windowFocused) {
+            withFrameNanos { }
+            if(menus.activeFocus == null) {
+                val target = menus.restoreTarget
+                if(target != null) runCatching { target.requestFocus() }
+                if(menus.activeFocus == null) runCatching { menus.surfaceFocus.requestFocus() }
+            }
+            menus.restoreTarget = null
+            restore = false
+        }
+    }
+    CompositionLocalProvider(LocalPaletteMenus provides menus) {
+        Box(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { menus.key(it.nativeKeyEvent) }
+            .onPreviewKeyEvent { menus.key(it.nativeKeyEvent) }) {
+            content()
+            BackHandler(enabled = menus.current != null) { menus.dismiss() }
+            if(feedback) menus.surface?.let { bounds -> PaletteFeedback(bounds, snackbar) }
+            menus.current?.let { request -> PaletteMenuOverlay(menus, request) }
+        }
+    }
+}
+
+@OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
+@Composable
+internal fun Modifier.paletteMenuSurface(): Modifier {
+    val menus = LocalPaletteMenus.current
+    return onGloballyPositioned { menus.surface = it.boundsInRoot() }
+        .focusRequester(menus.surfaceFocus).focusGroup()
+}
+
+@Composable
+internal fun Modifier.paletteFocusBookmark(requester: FocusRequester = remember { FocusRequester() }): Modifier {
+    val menus = LocalPaletteMenus.current
+    DisposableEffect(requester) { onDispose { menus.forgetFocus(requester) } }
+    return focusRequester(requester).onFocusChanged { menus.focusChanged(requester, it.isFocused) }
+}
+
+@Composable
+internal fun PaletteChoiceMenu(expanded: Boolean, onDismissRequest: () -> Unit, choices: List<PaletteChoice>, title: String? = null, returnFocus: FocusRequester? = null, searchable: Boolean = false) {
+    val menus = LocalPaletteMenus.current
+    val owner = remember { Any() }
+    val occurrences = mutableMapOf<String, Int>()
+    val unique = choices.map { choice ->
+        val number = occurrences.getOrDefault(choice.id, 0); occurrences[choice.id] = number + 1
+        if(number == 0) choice else choice.copy(id = choice.id + "#duplicate-" + number)
+    }
+    val options = rememberUpdatedState(unique)
+    val dismiss = rememberUpdatedState(onDismissRequest)
+    val heading = rememberUpdatedState(title)
+    val returnTarget = rememberUpdatedState(returnFocus)
+    DisposableEffect(owner) { onDispose { menus.forgetOwner(owner) } }
+    val anchor = remember { mutableStateOf<Rect?>(null) }
+    // Measure the actual anchor Box while leaving its layout unchanged.
+    Box(Modifier.size(0.dp).onGloballyPositioned { anchor.value = it.parentLayoutCoordinates?.boundsInRoot() ?: it.boundsInRoot() })
+    DisposableEffect(expanded, menus, searchable) {
+        if (expanded) menus.open(PaletteMenus.Request(owner, options, anchor, heading, dismiss, returnTarget, searchable))
+        onDispose { menus.remove(owner) }
+    }
+}
+
+@Composable
+private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Request) {
+    val surface = menus.surface ?: return
+    val choices = menus.choices()
+    SideEffect { menus.normalizeSelection() }
+    val focus = remember(request.owner) { FocusRequester() }
+    val scroll = rememberLazyListState()
+    val wide=surface.width/LocalDensity.current.density >= 600
+    val imeVisible=WindowInsets.isImeVisible
+    val keyboard=LocalSoftwareKeyboardController.current
+    val view=LocalView.current
+    var keyboardRequested by remember(request.owner) { mutableStateOf(!wide || imeVisible) }
+    LaunchedEffect(request.owner) { focus.requestFocus() }
+    LaunchedEffect(request.owner,wide,keyboardRequested,imeVisible) {
+        if(request.searchable && wide && !keyboardRequested) {
+            withFrameNanos { }; keyboard?.hide()
+            androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
+        }
+    }
+    LaunchedEffect(request.owner, menus.selectedId, choices.map { it.id }) { scroll.requestScrollToItem(menus.index()) }
+    Box(Modifier.fillMaxSize()) {
+        Box(Modifier.matchParentSize().clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { menus.dismiss() })
+        Layout(modifier = Modifier.fillMaxSize(), content = {
+            Surface(color = PaletteTheme.surface, shape = RoundedCornerShape(12.dp), border = BorderStroke(1.dp, PaletteTheme.border),
+                shadowElevation = 12.dp, modifier = (if(request.searchable) Modifier else Modifier.focusRequester(focus).focusable())
+                    .pointerInput(Unit) { detectTapGestures {} }
+                    .semantics { testTagsAsResourceId = true }.testTag("inline-menu")) {
+                Column(Modifier.fillMaxSize().padding(6.dp)) {
+                    request.title.value?.let { Text(it, color = PaletteTheme.secondary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.fillMaxWidth().height(32.dp).padding(8.dp)) }
+                    LazyColumn(state = scroll, modifier = Modifier.fillMaxWidth().weight(1f).testTag("inline-menu-choices")) {
+                        if(choices.isEmpty()) item { Text("No matching actions",color=PaletteTheme.secondary,fontSize=12.sp,modifier=Modifier.padding(10.dp).testTag("inline-menu-empty")) }
+                        items(choices, key = { it.id }) { choice ->
+                            if(choice.separator && menus.query.text.isBlank()) HorizontalDivider(color=PaletteTheme.separator,modifier=Modifier.padding(vertical=5.dp))
+                            Row(Modifier.fillMaxWidth().height(44.dp).background(if (choice.id == menus.selectedId) PaletteTheme.selection else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(8.dp))
+                                .focusProperties { canFocus = false }.clickable(enabled = choice.enabled) { menus.choose(choice.id) }
+                                .semantics { selected = choice.id == menus.selectedId; if (!choice.enabled) disabled() }
+                                .testTag(choice.tag).padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                choice.icon?.let { Glyph(it,PaletteTheme.secondary,17); Spacer(Modifier.width(10.dp)) }
+                                Text(choice.label, fontSize = 13.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, color = if (choice.enabled) PaletteTheme.ink else PaletteTheme.tertiary, modifier = Modifier.weight(1f))
+                                if(choice.shortcut.isNotEmpty()) { Spacer(Modifier.width(8.dp)); choice.shortcut.forEach { KeyCap(it); Spacer(Modifier.width(2.dp)) } }
+                                if (choice.checked) Text("✓", fontSize = 12.sp, color = PaletteTheme.secondary)
+                            }
+                        }
+                    }
+                    if(request.searchable) {
+                        HorizontalDivider(color=PaletteTheme.separator)
+                        Row(Modifier.fillMaxWidth().height(44.dp).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically) {
+                        BasicTextField(menus.query,menus::search,singleLine=true,
+                            textStyle=TextStyle(color=PaletteTheme.ink,fontSize=13.sp,lineHeight=18.sp),cursorBrush=SolidColor(PaletteTheme.accent),
+                            keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=keyboardRequested),
+                            modifier=Modifier.weight(1f).height(32.dp).focusRequester(focus).testTag("inline-menu-search"),
+                            decorationBox={ inner -> Box(Modifier.fillMaxSize(),contentAlignment=Alignment.CenterStart) {
+                                if(menus.query.text.isEmpty()) Text("Search for actions…",color=PaletteTheme.secondary,fontSize=13.sp); inner()
+                            } })
+                        if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(36.dp).semantics{contentDescription="Show action search keyboard"}.testTag("inline-menu-keyboard")) { Glyph("keyboard",PaletteTheme.secondary,16) }
+                        }
+                    }
+                }
+            }
+        }) { measurables, constraints ->
+            val margin = 8.dp.roundToPx()
+            val left = surface.left.roundToInt() + margin
+            val right = (surface.right.roundToInt() - margin).coerceAtLeast(left + 1)
+            val top = (surface.top + PaletteTheme.header.toPx()).roundToInt()
+            val bottom = (surface.bottom - PaletteTheme.footer.toPx()).roundToInt().coerceAtLeast(top + 1)
+            val width = minOf(320.dp.roundToPx(), right - left)
+            val desired = ((request.choices.value.size * 44 + request.choices.value.count { it.separator } * 11 + 12 +
+                (if (request.title.value == null) 0 else 32) + (if(request.searchable) 45 else 0)).dp).roundToPx()
+            val height = minOf(desired.coerceAtLeast(1), bottom - top)
+            val child = measurables.single().measure(Constraints.fixed(width, height))
+            val anchor = request.anchor.value ?: surface
+            val x = (anchor.right.roundToInt() - width).coerceIn(left, right - width)
+            val below = anchor.center.y < surface.center.y
+            val y = if(request.searchable) bottom-height else (if (below) anchor.bottom.roundToInt() else anchor.top.roundToInt() - height).coerceIn(top, bottom - height)
+            layout(constraints.maxWidth, constraints.maxHeight) { child.place(x, y) }
+        }
+    }
+}
+
+@Composable
+private fun PaletteFeedback(surface: Rect, state: SnackbarHostState) {
+    Layout(modifier = Modifier.fillMaxSize(), content = { SnackbarHost(state, modifier=Modifier.testTag("palette-feedback")) }) { children, constraints ->
+        val margin = 12.dp.roundToPx()
+        val width = (surface.width.roundToInt()-2*margin).coerceAtLeast(1)
+        val top = (surface.top+PaletteTheme.header.toPx()).roundToInt()
+        val bottom = (surface.bottom-PaletteTheme.footer.toPx()).roundToInt().coerceAtLeast(top+1)
+        val child = children.single().measure(Constraints(maxWidth=width,maxHeight=bottom-top))
+        val x = (surface.center.x-child.width/2f).roundToInt()
+        val y = (bottom-child.height-margin).coerceAtLeast(top)
+        layout(constraints.maxWidth,constraints.maxHeight) { child.place(x,y) }
+    }
+}

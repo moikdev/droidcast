@@ -35,7 +35,7 @@ The live backlog is [GitHub issue #1](https://github.com/moikdev/droidcast/issue
 
 ## Active slice
 
-Inline palette migration [#56](https://github.com/moikdev/droidcast/issues/56), including native extension Grid [#6](https://github.com/moikdev/droidcast/issues/6). Source inventory and initial same-window editor/extension routes compile; Store/search/action/option menu conversion and tablet/phone validation remain in progress. See [migration notes](PALETTE-NAVIGATION.md). The earlier popup Grid prototype remains unpublished. Verified in-app nightly updates [#55](https://github.com/moikdev/droidcast/issues/55) follow this UI checkpoint. No full-parity claim.
+Inline palette migration [#56](https://github.com/moikdev/droidcast/issues/56), including native extension Grid [#6](https://github.com/moikdev/droidcast/issues/6). Editors, Store/extension screens, reviews and selection/action menus now use the same window. The shared Raycast-style footer/action search and tablet/phone validation remain in progress. See [migration notes](PALETTE-NAVIGATION.md). The earlier popup Grid prototype remains unpublished. Verified in-app nightly updates [#55](https://github.com/moikdev/droidcast/issues/55) follow this UI checkpoint. No full-parity claim.
 
 ## Completed slices
 

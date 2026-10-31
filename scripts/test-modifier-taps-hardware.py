@@ -5,7 +5,7 @@ import argparse,subprocess,hashlib,json,re,time,xml.etree.ElementTree as E,os,sh
 from android_test_cleanup import Cleanup,transition_adbd
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--output',type=Path,required=True)
-p.add_argument('--allow-adbd-root',action='store_true');p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
+p.add_argument('--menus-only',action='store_true');p.add_argument('--allow-adbd-root',action='store_true');p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
 p.add_argument('--test-apk',type=Path,default=Path('app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'))
 a=p.parse_args();assert a.allow_adbd_root and a.serial.startswith('emulator-')
 sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT') or next(x[8:] for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
@@ -56,7 +56,7 @@ prefs=raw('exec-out','run-as',APP,'cat','shared_prefs/palette.xml')
 (a.output/'private-palette-backup.xml').write_bytes(prefs);(a.output/'private-palette-backup.xml').chmod(0o600)
 record={'avd':a.avd,'serial':a.serial,'cases':[],'capabilities':[],'completed':False,'root_for_injection_only':True,'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'input_helper_source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'input_helper_binary_sha256':hashlib.sha256(input_binary.read_bytes()).hexdigest(),'input_sequences':[]}
 rooted=False;keyboard=None;clipboard_saved=False;input_pushed=False
-LINUX=[29,97,56,100,42,54,125,126,30,46,47,51,1]
+LINUX=[29,97,56,100,42,54,125,126,30,46,47,51,1,16]
 def emit(events):
  # Timing is generated on-device; ADB packet buffering must not collapse taps.
  args=[str(x) for event in events for x in (event[0],event[1],round(event[2]*1000000))]
@@ -80,11 +80,12 @@ def destination(settings_page=False):
  if settings_page:raw('shell','am','start','-W','-a','android.settings.SETTINGS','-f','0x14000000')
  else:raw('shell','input','keyevent','KEYCODE_HOME')
  wait(lambda:APP not in focus(),'Palette did not leave foreground');ready()
-def config(family=113,side='ANY',command=False):
+def config(family=113,side='ANY',command=False,menu_chord=False):
  bindings={'global:palette':{'keyCode':family,'modifiers':0,'trigger':'DOUBLE_TAP','side':side}}
  if command:
   bindings['global:palette']['side']='LEFT'
   bindings['new-note']={'keyCode':113,'modifiers':0,'trigger':'DOUBLE_TAP','side':'RIGHT'}
+ if menu_chord:bindings['new-note']={'keyCode':45,'modifiers':2,'trigger':'CHORD','side':'ANY'}
  value=json.dumps({'version':2,'bindings':bindings},separators=(',',':'))
  doc=E.fromstring(prefs);entry=next((e for e in doc if e.get('name')=='shortcuts'),None)
  if entry is None:entry=E.SubElement(doc,'string',{'name':'shortcuts'})
@@ -115,71 +116,96 @@ try:
  match=re.search(r'add device \d+: (/dev/input/event\d+)\s+name:\s+"qwerty2"',capabilities);assert match
  keyboard=match.group(1)
  record['app_uid']=text('shell','run-as',APP,'id').split(' groups=')[0];assert not record['app_uid'].startswith(('uid=0(','uid=1000(','uid=2000('))
- config();destination();double(29);wait(lambda:APP in focus(),'Left double Ctrl did not open palette')
- # Keep this ownership/toggle pair free of UiAutomation, whose hierarchy
- # client can temporarily suppress/rebind the keyboard service.
- (a.output/'global-home-left.png').write_bytes(raw('exec-out','screencap','-p'))
- record['first_launch_focus']=focus()
- passed('Double left Ctrl opens from Home')
- ready();double(29);wait(lambda:APP not in focus(),'Double Ctrl did not close palette');time.sleep(.7);assert APP not in focus();passed('Connected service and foreground do not dispatch twice')
- destination(True);double(29);wait(lambda:APP in focus(),'Double Ctrl did not open from Settings');snapshot('global-settings');passed('Double Ctrl opens from Android Settings')
- destination();double(97);wait(lambda:APP in focus(),'Either-side binding did not accept right Ctrl');snapshot('global-home-right');passed('Either-side binding accepts right Ctrl')
- config(side='RIGHT');destination();double(29);time.sleep(.4);assert APP not in focus()
- double(97);wait(lambda:APP in focus(),'Right-only binding did not open');snapshot('right-only-activated');passed('Right-only ignores left pair and accepts right pair')
- config();raw('shell','input','text','linuxcopy731492');ready();chord(30);chord(46)
- raw('shell','input','text','replacement');snapshot('ordinary-replaced',query='replacement')
- ready();chord(30);chord(47);time.sleep(.2)
- snapshot('ordinary-copy-paste',query='linuxcopy731492');passed('Linux Ctrl+A/C/V pass through while double Ctrl is configured')
- destination();ready();emit([(29,1,.4),(29,0,.08),(29,1,.04),(29,0,0)]);time.sleep(.4);assert APP not in focus()
- double(29);wait(lambda:APP in focus(),'Valid pair after hold did not open');passed('Held Ctrl does not activate and next valid pair recovers')
- destination(True);ready();emit([(29,1,.02),(46,1,.03),(46,0,.02),(29,0,.08),(29,1,.04),(29,0,0)]);time.sleep(.4);assert APP not in focus()
- double(29);wait(lambda:APP in focus(),'Valid pair after intervening key did not open');passed('Intervening Ctrl+C cancels tap and next valid pair recovers')
- config(command=True);destination();double(97);wait(lambda:APP in focus(),'Double Right Ctrl command did not open')
- data=tree();assert b'Create a note' in data and b'Give it a name' in data
- snapshot('right-ctrl-note-command');passed('Double Right Ctrl runs the normal new-note command from Home')
- config();chord(51);wait(lambda:'SettingsActivity' in focus(),'Ctrl+comma did not open Settings')
- for attempt in range(6):
+ if a.menus_only:
+  record['mode']='inline-menus'
+  config(menu_chord=True)
+  raw('shell','input','text','menuKeyboardProbe271828')
   nodes=list(E.fromstring(tree()).iter('node'))
-  change=next((n for n in nodes if n.get('text')=='Change' and n.get('package')==APP),None)
-  if change is not None:break
-  raw('shell','input','swipe','1500','900','1500','400','300')
- assert change is not None,'Global shortcut Change control not visible'
- bounds=list(map(int,re.findall(r'\d+',change.get('bounds'))));raw('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
- assert b'Record a shortcut' in tree();ready();double(29);time.sleep(.4)
- assert 'SettingsActivity' in focus(),'Global tap escaped the active recorder'
- snapshot('recording-pauses-global',palette=False)
- paused=(a.output/'recording-pauses-global.xml').read_bytes()
- assert b'Record a shortcut' in paused and b'Double Ctrl' in paused
- ready();press(1);double(29);wait(lambda:'MainActivity' in focus(),'Global tap did not resume after recorder cancellation')
- passed('Keyboard service pauses double Ctrl during recording and resumes after Escape')
- # Exercise the delivery diagnostic with the saved double-tap trigger itself.
- config();chord(51);wait(lambda:'SettingsActivity' in focus(),'Settings did not open for delivery check')
- for attempt in range(7):
-  nodes=list(E.fromstring(tree()).iter('node'))
-  check=next((n for n in nodes if n.get('text')=='Check shortcut'),None)
-  if check is not None:break
-  raw('shell','input','swipe','1500','900','1500','400','300')
- assert check is not None,'Check shortcut control not visible'
- ready()
- bounds=list(map(int,re.findall(r'\d+',check.get('bounds'))));raw('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
- # Do not attach UiAutomation while armed: it can disconnect the real service.
- double(29);time.sleep(.2);assert 'SettingsActivity' in focus()
- snapshot('double-tap-delivery-received',palette=False)
- assert b'Received Double Ctrl in Settings' in (a.output/'double-tap-delivery-received.xml').read_bytes()
- ready();double(29);wait(lambda:'MainActivity' in focus(),'Double Ctrl did not activate after completed delivery check')
- passed('Actual double Ctrl diagnostic receives the saved trigger and subsequent activation resumes')
- # Rebind between repetitions to exercise independent cold Home launches.
- for trial in range(6):
-  config();destination();double(29);wait(lambda:'MainActivity' in focus(),'Cold Home repetition failed: '+str(trial))
-  record.setdefault('cold_home_repetitions',[]).append({'trial':trial,'focus':focus(),'passed':True})
- passed('Six independent service rebinds activate from Home with device-clock timing')
- for linux,key,name in [(29,113,'Left Ctrl'),(97,113,'Right Ctrl'),(56,57,'Left Alt'),(100,57,'Right Alt'),(42,59,'Left Shift'),(54,59,'Right Shift'),(125,117,'Left Meta'),(126,117,'Right Meta')]:
-  config(family=key);destination(True);double(linux)
-  end=time.monotonic()+3
-  while APP not in focus() and time.monotonic()<end:time.sleep(.1)
-  activated=APP in focus();record['capabilities'].append({'modifier':name,'linux_code':linux,'activated':activated,'focus_after':focus()})
-  snapshot('capability-'+name.lower().replace(' ','-'),palette=activated)
-  print('CAPABILITY '+name+': '+str(activated),flush=True)
+  button=next(n for n in nodes if n.get('resource-id')=='palette-menu')
+  bounds=list(map(int,re.findall(r'\d+',button.get('bounds'))))
+  raw('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
+  assert b'inline-menu' in tree();ready()
+  double(29);time.sleep(.3)
+  assert 'MainActivity' in focus(),'Double Ctrl escaped the inline menu'
+  data=tree();assert b'inline-menu' in data
+  snapshot('inline-menu-double-ctrl',query='menuKeyboardProbe271828')
+  passed('Connected service yields Double Ctrl while the inline menu owns input')
+  ready();emit([(56,1,.02),(16,1,.03),(16,0,.02),(56,0,0)]);time.sleep(.3)
+  assert 'MainActivity' in focus(),'Alt+Q opened another route while a menu owned input'
+  data=tree();assert b'inline-menu' in data and b'editor-title' not in data
+  snapshot('inline-menu-alt-q',query='menuKeyboardProbe271828')
+  passed('Connected service yields configured Alt+Q to the inline menu')
+  ready();press(1);assert b'inline-menu' not in tree();ready()
+  emit([(56,1,.02),(16,1,.03),(16,0,.02),(56,0,0)])
+  wait(lambda:b'editor-title' in tree(),'Configured Alt+Q did not recover after closing the menu')
+  snapshot('inline-menu-closed-command')
+  passed('Closing the menu restores configured Alt+Q command dispatch')
+ else:
+  config();destination();double(29);wait(lambda:APP in focus(),'Left double Ctrl did not open palette')
+  # Keep this ownership/toggle pair free of UiAutomation, whose hierarchy
+  # client can temporarily suppress/rebind the keyboard service.
+  (a.output/'global-home-left.png').write_bytes(raw('exec-out','screencap','-p'))
+  record['first_launch_focus']=focus()
+  passed('Double left Ctrl opens from Home')
+  ready();double(29);wait(lambda:APP not in focus(),'Double Ctrl did not close palette');time.sleep(.7);assert APP not in focus();passed('Connected service and foreground do not dispatch twice')
+  destination(True);double(29);wait(lambda:APP in focus(),'Double Ctrl did not open from Settings');snapshot('global-settings');passed('Double Ctrl opens from Android Settings')
+  destination();double(97);wait(lambda:APP in focus(),'Either-side binding did not accept right Ctrl');snapshot('global-home-right');passed('Either-side binding accepts right Ctrl')
+  config(side='RIGHT');destination();double(29);time.sleep(.4);assert APP not in focus()
+  double(97);wait(lambda:APP in focus(),'Right-only binding did not open');snapshot('right-only-activated');passed('Right-only ignores left pair and accepts right pair')
+  config();raw('shell','input','text','linuxcopy731492');ready();chord(30);chord(46)
+  raw('shell','input','text','replacement');snapshot('ordinary-replaced',query='replacement')
+  ready();chord(30);chord(47);time.sleep(.2)
+  snapshot('ordinary-copy-paste',query='linuxcopy731492');passed('Linux Ctrl+A/C/V pass through while double Ctrl is configured')
+  destination();ready();emit([(29,1,.4),(29,0,.08),(29,1,.04),(29,0,0)]);time.sleep(.4);assert APP not in focus()
+  double(29);wait(lambda:APP in focus(),'Valid pair after hold did not open');passed('Held Ctrl does not activate and next valid pair recovers')
+  destination(True);ready();emit([(29,1,.02),(46,1,.03),(46,0,.02),(29,0,.08),(29,1,.04),(29,0,0)]);time.sleep(.4);assert APP not in focus()
+  double(29);wait(lambda:APP in focus(),'Valid pair after intervening key did not open');passed('Intervening Ctrl+C cancels tap and next valid pair recovers')
+  config(command=True);destination();double(97);wait(lambda:APP in focus(),'Double Right Ctrl command did not open')
+  data=tree();assert b'Create a note' in data and b'Give it a name' in data
+  snapshot('right-ctrl-note-command');passed('Double Right Ctrl runs the normal new-note command from Home')
+  config();chord(51);wait(lambda:'SettingsActivity' in focus(),'Ctrl+comma did not open Settings')
+  for attempt in range(6):
+   nodes=list(E.fromstring(tree()).iter('node'))
+   change=next((n for n in nodes if n.get('text')=='Change' and n.get('package')==APP),None)
+   if change is not None:break
+   raw('shell','input','swipe','1500','900','1500','400','300')
+  assert change is not None,'Global shortcut Change control not visible'
+  bounds=list(map(int,re.findall(r'\d+',change.get('bounds'))));raw('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
+  assert b'Record a shortcut' in tree();ready();double(29);time.sleep(.4)
+  assert 'SettingsActivity' in focus(),'Global tap escaped the active recorder'
+  snapshot('recording-pauses-global',palette=False)
+  paused=(a.output/'recording-pauses-global.xml').read_bytes()
+  assert b'Record a shortcut' in paused and b'Double Ctrl' in paused
+  ready();press(1);double(29);wait(lambda:'MainActivity' in focus(),'Global tap did not resume after recorder cancellation')
+  passed('Keyboard service pauses double Ctrl during recording and resumes after Escape')
+  # Exercise the delivery diagnostic with the saved double-tap trigger itself.
+  config();chord(51);wait(lambda:'SettingsActivity' in focus(),'Settings did not open for delivery check')
+  for attempt in range(7):
+   nodes=list(E.fromstring(tree()).iter('node'))
+   check=next((n for n in nodes if n.get('text')=='Check shortcut'),None)
+   if check is not None:break
+   raw('shell','input','swipe','1500','900','1500','400','300')
+  assert check is not None,'Check shortcut control not visible'
+  ready()
+  bounds=list(map(int,re.findall(r'\d+',check.get('bounds'))));raw('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
+  # Do not attach UiAutomation while armed: it can disconnect the real service.
+  double(29);time.sleep(.2);assert 'SettingsActivity' in focus()
+  snapshot('double-tap-delivery-received',palette=False)
+  assert b'Received Double Ctrl in Settings' in (a.output/'double-tap-delivery-received.xml').read_bytes()
+  ready();double(29);wait(lambda:'MainActivity' in focus(),'Double Ctrl did not activate after completed delivery check')
+  passed('Actual double Ctrl diagnostic receives the saved trigger and subsequent activation resumes')
+  # Rebind between repetitions to exercise independent cold Home launches.
+  for trial in range(6):
+   config();destination();double(29);wait(lambda:'MainActivity' in focus(),'Cold Home repetition failed: '+str(trial))
+   record.setdefault('cold_home_repetitions',[]).append({'trial':trial,'focus':focus(),'passed':True})
+  passed('Six independent service rebinds activate from Home with device-clock timing')
+  for linux,key,name in [(29,113,'Left Ctrl'),(97,113,'Right Ctrl'),(56,57,'Left Alt'),(100,57,'Right Alt'),(42,59,'Left Shift'),(54,59,'Right Shift'),(125,117,'Left Meta'),(126,117,'Right Meta')]:
+   config(family=key);destination(True);double(linux)
+   end=time.monotonic()+3
+   while APP not in focus() and time.monotonic()<end:time.sleep(.1)
+   activated=APP in focus();record['capabilities'].append({'modifier':name,'linux_code':linux,'activated':activated,'focus_after':focus()})
+   snapshot('capability-'+name.lower().replace(' ','-'),palette=activated)
+   print('CAPABILITY '+name+': '+str(activated),flush=True)
  record['completed']=True
 except BaseException:
  (a.output/'failure.png').write_bytes(raw('exec-out','screencap','-p'))

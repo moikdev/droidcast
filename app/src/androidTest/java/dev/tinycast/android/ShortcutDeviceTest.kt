@@ -142,6 +142,7 @@ class ShortcutDeviceTest {
     @Test fun actionsAssignCommandKeycapAndLocalKeyRunsTheSameCommand() {
         compose.onNodeWithTag("search").performTextReplacement("Create a note")
         key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("keyboard shortcut")
         compose.onNodeWithTag("action-Set keyboard shortcut").assertIsDisplayed()
         // The separate activity route is tested in SettingsRouteDeviceTest.
         compose.activityRule.scenario.onActivity { it.store.beginShortcutRecording("new-note") }

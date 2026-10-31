@@ -121,9 +121,9 @@ class EnduranceDeviceTest {
                     assertEquals(answer, context.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
                 }
                 key(KeyEvent.KEYCODE_K, true)
-                assertTrue(device.wait(Until.hasObject(By.text("Copy to clipboard")), 5000))
+                assertTrue(device.wait(Until.hasObject(By.res("inline-menu-search")), 5000))
                 key(KeyEvent.KEYCODE_ESCAPE)
-                assertTrue(device.wait(Until.gone(By.text("Copy to clipboard")), 5000))
+                assertTrue(device.wait(Until.gone(By.res("inline-menu-search")), 5000))
                 event("calculator-copy-and-actions", answer)
 
                 if (rounds % 5 == 0) {
