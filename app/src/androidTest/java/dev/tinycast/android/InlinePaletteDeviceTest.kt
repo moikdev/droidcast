@@ -73,15 +73,12 @@ class InlinePaletteDeviceTest {
     private fun capture(name: String, marker: String, secondMarker: String? = null) {
         compose.waitForIdle(); sameWindow()
         if(name=="inline-emoji-actions") {
+            val route = compose.activity.store.dialog
+            val menu = compose.onAllNodesWithTag("inline-menu").fetchSemanticsNodes().size
             device.wait(Until.hasObject(By.res("com.android.systemui","dismiss_button")),1500)
-            val deadline=android.os.SystemClock.uptimeMillis()+5000
-            while(device.hasObject(By.res("com.android.systemui","clipboard_ui")) && android.os.SystemClock.uptimeMillis()<deadline) {
-                InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
-                try { device.findObject(By.res("com.android.systemui","dismiss_button"))?.click() }
-                catch(_:androidx.test.uiautomator.StaleObjectException) { }
-                device.wait(Until.gone(By.res("com.android.systemui","clipboard_ui")),500)
-            }
-            assertFalse(device.hasObject(By.res("com.android.systemui","clipboard_ui")))
+            dismissClipboardForEvidence(device)
+            assertEquals("Emoji cleanup retains its route", route, compose.activity.store.dialog)
+            assertEquals("Emoji cleanup retains its menu", menu, compose.onAllNodesWithTag("inline-menu").fetchSemanticsNodes().size)
         }
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         compose.waitUntil(10000) {

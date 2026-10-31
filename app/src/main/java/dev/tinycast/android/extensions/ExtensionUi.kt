@@ -335,6 +335,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     val catalog=store.extensions
     val context=LocalContext.current
     val root=activeRoot(catalog.runtimeTree)
+    val failed=catalog.runtimeError!=null
     val listState = listStates.getOrPut(root?.optString("id").orEmpty()) { ExtensionListState() }
     var listSearch by listState::search
     val query = listSearch.text
@@ -345,22 +346,25 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
     val item=rows.getOrNull(selected.coerceIn(0,(rows.size-1).coerceAtLeast(0)))
     val actions=item?.actions().orEmpty().ifEmpty{root?.actions().orEmpty()}
-    fun action(a:JSONObject?){a?.let{runtime.dispatch(it.handle("onAction"))};menu=false}
-    LaunchedEffect(item?.props()?.optString("id")){if (root?.optString("type") != "Grid") root?.handle("onSelectionChange")?.let{runtime.dispatch(it,JSONArray().put(item?.props()?.optString("id")))}}
+    fun action(a:JSONObject?){if(catalog.runtimeError==null)a?.let{runtime.dispatch(it.handle("onAction"))};menu=false}
+    LaunchedEffect(item?.props()?.optString("id"),failed){if (!failed && root?.optString("type") != "Grid") root?.handle("onSelectionChange")?.let{runtime.dispatch(it,JSONArray().put(item?.props()?.optString("id")))}}
     ExtensionWindow(command.title,extension.listing.title,close,Modifier.onPreviewKeyEvent{
-        if(root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else when{
+        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else when{
             it.key==Key.K&&it.isCtrlPressed->{menu=true;true}
             it.key==Key.DirectionDown&&rows.isNotEmpty()->{selected=(selected+1).coerceAtMost(rows.lastIndex);true}
             it.key==Key.DirectionUp&&rows.isNotEmpty()->{selected=(selected-1).coerceAtLeast(0);true}
             it.key==Key.Enter&&root?.optString("type")!="Form"->{action(actions.firstOrNull());true}
             else->false
         }
-    },compact=true,onEscape={ if(catalog.navigationDepth>1)runtime.back() else close() },headerless=root?.optString("type") in listOf("Grid","List"),headerActions={
-        if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
-        TextButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"}){Text("Preferences",fontSize=11.sp)}
+    },compact=true,onEscape={ if(catalog.runtimeError!=null)close() else if(catalog.navigationDepth>1)runtime.back() else close() },headerless=!failed && root?.optString("type") in listOf("Grid","List"),headerActions={
+        if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
+        else {
+            if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
+            TextButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"}){Text("Preferences",fontSize=11.sp)}
+        }
     }){
         if(catalog.runtimeError!=null){
-            Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command needs an unsupported capability",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
+            Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
             Column(Modifier.weight(1f).fillMaxWidth().padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
                 if(!catalog.runtimeReady)CircularProgressIndicator(Modifier.size(30.dp))else Glyph("extension",ink,36)
@@ -394,7 +398,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             "Form"->Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(14.dp)){root.children().forEach{FormNode(it,runtime)}}
             else->Text("Unsupported extension view",modifier=Modifier.weight(1f).padding(20.dp))
         }
-        if (root?.optString("type") != "Grid") {
+        if (!failed && root?.optString("type") != "Grid") {
         HorizontalDivider(color=line)
         Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically){
             if(root!=null)Column(Modifier.weight(1f).padding(end=8.dp)) {

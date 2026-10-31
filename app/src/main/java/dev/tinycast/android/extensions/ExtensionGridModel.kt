@@ -44,6 +44,39 @@ internal fun gridSections(root: JSONObject, query: String): List<ExtensionGridSe
 
 internal enum class GridMove { LEFT, RIGHT, UP, DOWN, HOME, END }
 
+internal data class GridIdentity(val key: String, val id: String)
+internal data class GridSelectionChoice(val key: String?, val pendingId: String?)
+
+/** Apply each remote request once; an unavailable target remains pending. */
+internal fun gridSelection(items: List<GridIdentity>, currentKey: String?, remoteId: String?,
+                           observedRemoteId: String?, pendingId: String?): GridSelectionChoice {
+    val requested = if (remoteId != observedRemoteId) remoteId else pendingId
+    val target = requested?.let { id -> items.firstOrNull { it.id == id } }
+    val selected = target ?: items.firstOrNull { it.key == currentKey } ?: items.firstOrNull()
+    return GridSelectionChoice(selected?.key, requested.takeIf { target == null })
+}
+
+internal sealed interface GridSlot {
+    data class Boundary(val sectionIndex: Int, val heading: Boolean) : GridSlot
+    data class Cell(val itemIndex: Int) : GridSlot
+}
+
+/** Full-span boundaries and cell indices are shared by rendering and scrolling. */
+internal fun gridSlots(sectionSizes: List<Int>, headings: List<Boolean>): List<GridSlot> {
+    require(sectionSizes.size == headings.size && sectionSizes.all { it >= 0 })
+    return buildList {
+        var flat = 0
+        var previousSection = false
+        sectionSizes.forEachIndexed { index, count ->
+            if (count > 0) {
+                if (previousSection || headings[index]) add(GridSlot.Boundary(index, headings[index]))
+                repeat(count) { add(GridSlot.Cell(flat++)) }
+                previousSection = true
+            }
+        }
+    }
+}
+
 /** Visual rows restart at each section; short final rows never point into headers. */
 internal fun gridMove(index: Int, move: GridMove, sectionSizes: List<Int>, columns: Int): Int {
     require(columns > 0)

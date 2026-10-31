@@ -48,9 +48,21 @@ internal class ExtensionGridState {
     var selectedKey by mutableStateOf<String?>(null)
     var lastRemoteSearch: String? = null
     var lastRemoteSelection: String? = null
+    var pendingRemoteSelection by mutableStateOf<String?>(null)
     var dropdownValue by mutableStateOf<String?>(null)
     val scroll = LazyGridState()
     val history = PaletteScrollHistory()
+    fun resolve(items: List<ExtensionGridItem>, remote: String?) = gridSelection(
+        items.map { GridIdentity(it.key, it.id) }, selectedKey, remote, lastRemoteSelection, pendingRemoteSelection)
+    fun adopt(remote: String?, choice: GridSelectionChoice) {
+        lastRemoteSelection = remote
+        pendingRemoteSelection = choice.pendingId
+        selectedKey = choice.key
+    }
+    fun selectLocally(key: String?) {
+        pendingRemoteSelection = null
+        selectedKey = key
+    }
 }
 
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
@@ -98,27 +110,30 @@ internal fun NativeExtensionGrid(
     SideEffect {
         if (remoteQuery != null && remoteQuery != state.lastRemoteSearch && remoteQuery != state.search.text) state.search = TextFieldValue(remoteQuery, androidx.compose.ui.text.TextRange(remoteQuery.length))
         state.lastRemoteSearch = remoteQuery
-        if (remoteSelection != null && remoteSelection != state.lastRemoteSelection) {
-            gridSections(root, state.search.text).flatMap { it.items }.firstOrNull { it.id == remoteSelection }?.let { state.selectedKey = it.key }
-        }
-        state.lastRemoteSelection = remoteSelection
     }
     val sections = gridSections(root, state.search.text)
     val items = sections.flatMap { it.items }
-    val selectedIndex = items.indexOfFirst { it.key == state.selectedKey }.coerceAtLeast(0)
+    val selection = state.resolve(items, remoteSelection)
+    val selectedIndex = items.indexOfFirst { it.key == selection.key }.coerceAtLeast(0)
     val selected = items.getOrNull(selectedIndex)
-    SideEffect { if (state.selectedKey != selected?.key) state.selectedKey = selected?.key }
-    LaunchedEffect(root.optString("id"), selected?.id) {
-        dispatch(root.handle("onSelectionChange"), JSONArray().put(selected?.id ?: JSONObject.NULL))
+    SideEffect { state.adopt(remoteSelection, selection) }
+    LaunchedEffect(root.optString("id"), selected?.id, selection.pendingId) {
+        // Do not replace a not-yet-available controlled request with an automatic
+        // fallback callback. Explicit user selection cancels that pending request.
+        if (selection.pendingId == null) dispatch(root.handle("onSelectionChange"), JSONArray().put(selected?.id ?: JSONObject.NULL))
     }
     LaunchedEffect(Unit) { focus.requestFocus() }
     LaunchedEffect(wide, keyboardRequested, windowFocused, searchFocused, imeVisible) {
         if (wide && !keyboardRequested && windowFocused && searchFocused) { withFrameNanos { }; keyboard?.hide() }
     }
     fun current(): Pair<List<ExtensionGridSection>, ExtensionGridItem?> {
-        val groups = gridSections(rootProvider(), state.search.text)
+        val latest = rootProvider()
+        val groups = gridSections(latest, state.search.text)
         val all = groups.flatMap { it.items }
-        return groups to (all.firstOrNull { it.key == state.selectedKey } ?: all.firstOrNull())
+        val remote = latest.props().opt("selectedItemId") as? String
+        val choice = state.resolve(all, remote)
+        state.adopt(remote, choice)
+        return groups to all.firstOrNull { it.key == choice.key }
     }
     fun currentActions(): List<JSONObject> = current().second?.node?.actions().orEmpty().ifEmpty { rootProvider().actions() }
     fun action(node: JSONObject?) { node?.let { dispatch(it.handle("onAction"), JSONArray()) }; menu = false }
@@ -129,13 +144,8 @@ internal fun NativeExtensionGrid(
     BoxWithConstraints(Modifier.fillMaxSize().semantics { testTagsAsResourceId = true }.testTag("extension-grid-screen")) {
         val columns = gridColumns(maxWidth.value, props.optInt("columns"), props.optString("itemSize"))
         val widthDp = maxWidth.value
-        val layoutIndices = buildList {
-            var layout = 0
-            sections.forEach { section ->
-                if (section.title.isNotBlank() || section.subtitle.isNotBlank()) layout++
-                section.items.forEach { add(layout++) }
-            }
-        }
+        val slots = gridSlots(sections.map { it.items.size }, sections.map { it.title.isNotBlank() || it.subtitle.isNotBlank() })
+        val layoutIndices = slots.mapIndexedNotNull { index, slot -> index.takeIf { slot is GridSlot.Cell } }
         val selectedLayout = layoutIndices.getOrNull(selectedIndex) ?: 0
         val currentLayoutIndex by rememberUpdatedState(selectedLayout)
         SideEffect {
@@ -181,7 +191,7 @@ internal fun NativeExtensionGrid(
                 val (groups, current) = current(); val all = groups.flatMap { it.items }
                 if (all.isNotEmpty()) {
                     val index = all.indexOf(current).coerceAtLeast(0)
-                    state.selectedKey = all[gridMove(index, move, groups.map { it.items.size }, columns)].key
+                    state.selectLocally(all[gridMove(index, move, groups.map { it.items.size }, columns)].key)
                 }
                 editingQuery = false; claims[id] = event.downTime; return true
             }
@@ -201,7 +211,7 @@ internal fun NativeExtensionGrid(
                 BasicTextField(state.search, { next ->
                     val changed = next.text != state.search.text
                     state.search = next
-                    if (changed) { state.selectedKey = null; dispatch(rootProvider().handle("onSearchTextChange"), JSONArray().put(next.text)) }
+                    if (changed) { state.selectLocally(null); dispatch(rootProvider().handle("onSearchTextChange"), JSONArray().put(next.text)) }
                 }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (state.search.composition == null) action(currentActions().firstOrNull()) }),
@@ -216,7 +226,7 @@ internal fun NativeExtensionGrid(
                     PaletteChoiceMenu(dropdownMenu, { dropdownMenu = false }, options.mapIndexed { index, option ->
                         val value = option.props().optString("value")
                         PaletteChoice("extension-grid-filter-value-$value", option.props().optString("title"), checked = state.dropdownValue == value, tag = "extension-grid-filter-$index") {
-                            state.dropdownValue = value; state.selectedKey = null
+                            state.dropdownValue = value; state.selectLocally(null)
                             if (dropdown?.props()?.optBoolean("storeValue") == true && dropdownKey.length <= 512 && value.length <= 4096) preferences.edit().putString(dropdownKey, value).apply()
                             dispatch(dropdown?.handle("onChange"), JSONArray().put(value)); dropdownMenu = false
                         }
@@ -239,20 +249,25 @@ internal fun NativeExtensionGrid(
                 }
             } else LazyVerticalGrid(GridCells.Fixed(columns), state = state.scroll, modifier = Modifier.weight(1f).fillMaxWidth().onFocusChanged { gridFocused = it.hasFocus }.focusable().onSizeChanged { gridHeight = it.height }.testTag("extension-grid"),
                 contentPadding = PaddingValues(16.dp, 8.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                var index = 0
-                sections.forEach { section ->
-                    if (section.title.isNotBlank() || section.subtitle.isNotBlank()) item(key = "header-${section.key}", span = { GridItemSpan(maxLineSpan) }) {
-                        Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text(section.title, color = PaletteTheme.ink, fontSize = 12.sp, modifier = Modifier.weight(1f)); Text(section.subtitle, color = PaletteTheme.secondary, fontSize = 11.sp)
+                slots.forEach { slot ->
+                    when (slot) {
+                    is GridSlot.Boundary -> {
+                        val section = sections[slot.sectionIndex]
+                        item(key = "header-${section.key}", span = { GridItemSpan(maxLineSpan) }) {
+                            if (slot.heading) Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Text(section.title, color = PaletteTheme.ink, fontSize = 12.sp, modifier = Modifier.weight(1f)); Text(section.subtitle, color = PaletteTheme.secondary, fontSize = 11.sp)
+                            } else Spacer(Modifier.fillMaxWidth().height(0.dp))
                         }
                     }
-                    section.items.forEach { entry ->
-                        val itemIndex = index++
+                    is GridSlot.Cell -> {
+                        val itemIndex = slot.itemIndex
+                        val entry = items[itemIndex]
                         item(key = "cell-${entry.key}") {
                             GridCell(entry, itemIndex, selected?.key == entry.key, props, images,
                                 minOf(((widthDp - 32 - (columns - 1) * 10) / columns - 16) / gridAspectRatio(props.optString("aspectRatio")),
-                                    if (gridHeight > 0) (with(density) { gridHeight.toDp().value } - 70).coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectedKey = entry.key; focus.requestFocus() }
+                                    if (gridHeight > 0) (with(density) { gridHeight.toDp().value } - 70).coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectLocally(entry.key); focus.requestFocus() }
                         }
+                    }
                     }
                 }
             }

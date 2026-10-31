@@ -30,7 +30,7 @@ import java.security.MessageDigest
 import kotlinx.coroutines.runBlocking
 
 internal fun gridFixture(context: Context, mode: String = "normal"): InstalledExtension {
-    require(mode in listOf("normal", "loading", "form"))
+    require(mode in listOf("normal", "loading", "form", "controlled", "deferred", "untitled", "late-grid", "late-list"))
     val directory = File(context.cacheDir, "extension-grid-fixture").apply { mkdirs() }
     val assets = File(directory, "assets").apply { mkdirs() }
     val bitmap = Bitmap.createBitmap(320, 180, Bitmap.Config.ARGB_8888)
@@ -44,8 +44,21 @@ internal fun gridFixture(context: Context, mode: String = "normal"): InstalledEx
         const React=require('react'); const {Grid,Form,Action,ActionPanel,Detail,Clipboard}=require('@raycast/api');
         module.exports.default=function(){
           if(${mode == "form"})return React.createElement(Form,{actions:React.createElement(ActionPanel,null,React.createElement(Action.SubmitForm,{title:'Submit fixture',onSubmit:v=>Clipboard.copy('form:'+v.note)}))},React.createElement(Form.TextField,{id:'note',title:'Fixture note'}));
+          if(${mode == "untitled"}){
+            const cell=(id,symbol)=>React.createElement(Grid.Item,{key:id,id,content:symbol,
+              actions:React.createElement(ActionPanel,null,React.createElement(Action,{title:'Copy identity',onAction:()=>Clipboard.copy('untitled:'+id)}))});
+            return React.createElement(Grid,{columns:3,aspectRatio:'16/9',searchBarPlaceholder:'Untitled section fixture'},
+              React.createElement(Grid.Section,{key:'one'},cell('u0','🌱')),
+              React.createElement(Grid.Section,{key:'two'},cell('u1','🌿'),cell('u2','🍀')));
+          }
+          if(${mode.startsWith("late-")}){
+            const type=${JSONObject.quote(if(mode == "late-list") "List" else "Grid")}; const View=require('@raycast/api')[type];
+            return React.createElement(View,{columns:3,searchBarPlaceholder:'Late '+type+' fixture'},React.createElement(View.Item,{id:'loaded',title:'Loaded '+type+' view',content:'🌱',
+              actions:React.createElement(ActionPanel,null,React.createElement(Action,{title:'Fail after render',onAction:()=>globalThis.__tinycastHost.failed('fixture','Public late '+type+' failure. Close this command and try again.')}))}));
+          }
           const [query,setQuery]=React.useState(''); const [selected,setSelected]=React.useState('');
-          const [reverse,setReverse]=React.useState(false); const [count,setCount]=React.useState(30);
+          const [reverse,setReverse]=React.useState(false); const [count,setCount]=React.useState(${if(mode == "deferred") 4 else 30});
+          const [requested,setRequested]=React.useState('${if(mode == "deferred") "image-6" else "image-12"}');
           const [category,setCategory]=React.useState('all'); const activations=React.useRef(0);
           let data=Array.from({length:count},(_,i)=>({id:'image-'+i,title:'Landscape '+String(i).padStart(2,'0'),
             content:i===1?'https://raw.githubusercontent.com/moikdev/droidcast/d6fccdc4989d4d6e2203f8fa331872a9c11d7105/docs/screenshots/parity-modifier-taps/tablet-record-double-ctrl.png':
@@ -58,8 +71,10 @@ internal fun gridFixture(context: Context, mode: String = "normal"): InstalledEx
               React.createElement(Action.Push,{title:'Inspect item',target:React.createElement(Detail,{markdown:'Grid fixture detail '+x.id})}),
               React.createElement(Action,{title:'Reverse items',onAction:()=>setReverse(v=>!v)}),
               React.createElement(Action,{title:'Clear search',onAction:()=>setQuery('')}),
-              React.createElement(Action,{title:'Report activation count',onAction:()=>Clipboard.copy('activations:'+activations.current)}))});}
+              React.createElement(Action,{title:'Report activation count',onAction:()=>Clipboard.copy('activations:'+activations.current)}),
+              ${mode == "controlled"}&&React.createElement(Action,{title:'Select requested item',onAction:()=>setRequested('image-18')}))});}
           return React.createElement(Grid,{columns:3,filtering:true,searchText:query,onSearchTextChange:setQuery,onSelectionChange:setSelected,
+            selectedItemId:${if(mode in listOf("controlled","deferred")) "requested" else "undefined"},
             searchBarPlaceholder:'Search grid fixtures',isLoading:${mode == "loading"},
             pagination:{hasMore:count<36,onLoadMore:()=>setCount(n=>n+3),pageSize:3},
             searchBarAccessory:React.createElement(Grid.Dropdown,{id:'category',value:category,onChange:setCategory,tooltip:'Fixture category'},
@@ -134,20 +149,7 @@ class ExtensionGridDeviceTest {
         }
         if (name in setOf("filtered-copy", "caret-preserved", "reordered-selection", "keyboard-selected-visible", "store-palette-contrast", "store-legacy-oklch", "form-regression", "inline-filter-focus", "inline-preferences-return", "single-activation"))
             device.wait(Until.findObject(By.res("com.android.systemui", "dismiss_button")), 1500)
-        val deadline = SystemClock.uptimeMillis() + 5000
-        while (device.hasObject(By.res("com.android.systemui", "clipboard_ui")) && SystemClock.uptimeMillis() < deadline) {
-            InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
-            // Target the actual SystemUI node. A coordinate click can reach the
-            // palette backdrop if the clipboard window disappears in transit.
-            InstrumentationRegistry.getInstrumentation().uiAutomation.windows.asSequence()
-                .mapNotNull { it.root }
-                .flatMap { it.findAccessibilityNodeInfosByViewId("com.android.systemui:id/dismiss_button").asSequence() }
-                .firstOrNull { it.isVisibleToUser }
-                ?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK)
-            device.wait(Until.gone(By.res("com.android.systemui", "clipboard_ui")), 500)
-        }
-        InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
-        assertFalse("Clipboard overlay must be dismissed", device.hasObject(By.res("com.android.systemui", "clipboard_ui")))
+        dismissClipboardForEvidence(device)
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         File(folder, "capture-state-$name.json").writeText(JSONObject()
             .put("route_before", captureRoute).put("route_after", compose.activity.store.dialog)
@@ -177,6 +179,85 @@ class ExtensionGridDeviceTest {
         }
         assertTrue(device.takeScreenshot(File(folder, "$name.png")))
     }
+    @Test fun initialControlledSelectionActivatesTheRequestedItem() {
+        launch("controlled")
+        capture("controlled-initial", "Grid fixture")
+        compose.onNodeWithTag("extension-grid-cell-12").assertIsSelected()
+        key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { clip() == "grid-fixture:image-12" }
+    }
+    @Test fun changedControlledSelectionActivatesTheNewRequestedItem() {
+        launch("controlled")
+        compose.onNodeWithTag("extension-actions").performClick()
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("Select requested item")
+        key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { activeRoot(compose.activity.store.extensions.runtimeTree)?.props()?.optString("selectedItemId") == "image-18" }
+        capture("controlled-changed", "Grid fixture")
+        compose.onNodeWithTag("extension-grid-cell-18").assertIsSelected()
+        key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { clip() == "grid-fixture:image-18" }
+    }
+    @Test fun deferredControlledSelectionSurvivesUntilItsItemArrives() {
+        launch("deferred")
+        compose.onNodeWithTag("extension-grid-count").assertTextEquals("4 results")
+        capture("controlled-pending", "4 results")
+        compose.onNodeWithTag("extension-grid-more").performClick()
+        compose.waitUntil(5000) { activeRoot(compose.activity.store.extensions.runtimeTree)?.nodes("Grid.Item")?.size == 7 }
+        capture("controlled-deferred", "7 results")
+        compose.onNodeWithTag("extension-grid-cell-6").assertIsSelected()
+        key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { clip() == "grid-fixture:image-6" }
+    }
+    @Test fun untitledSectionsStartNewVisualRowsAndMatchKeyboardMovement() {
+        launch("untitled")
+        val nodes=(0..2).map { compose.onNodeWithTag("extension-grid-cell-$it").fetchSemanticsNode() }
+        val bounds=compose.runOnUiThread { nodes.map { it.boundsInRoot } }
+        File(context.filesDir,"extension-grid-evidence").apply { mkdirs() }.resolve("untitled-geometry.json")
+            .writeText(JSONObject().put("cells",JSONArray(bounds.map { listOf(it.left,it.top,it.right,it.bottom) })).toString(2))
+        capture("untitled-sections", "3 results")
+        assertTrue("An untitled section starts below the preceding partial row", bounds[1].top >= bounds[0].bottom)
+        assertEquals("The second section shares its own row", bounds[1].top, bounds[2].top, 1f)
+        key(KeyEvent.KEYCODE_DPAD_DOWN); compose.onNodeWithTag("extension-grid-cell-1").assertIsSelected()
+        key(KeyEvent.KEYCODE_DPAD_RIGHT); compose.onNodeWithTag("extension-grid-cell-2").assertIsSelected()
+        key(KeyEvent.KEYCODE_DPAD_UP); compose.onNodeWithTag("extension-grid-cell-0").assertIsSelected()
+        key(KeyEvent.KEYCODE_DPAD_DOWN); key(KeyEvent.KEYCODE_ENTER)
+        compose.waitUntil(5000) { clip() == "untitled:u1" }
+    }
+    private fun renderedCommandFailsAndReturnsToCaller(type: String, storeCaller: Boolean) {
+        compose.activityRule.scenario.onActivity { it.store.filter("All"); it.store.search("Public error caller") }
+        compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 7))
+        if (storeCaller) {
+            compose.activityRule.scenario.onActivity { it.store.dialog="extensions" }
+            compose.onNodeWithTag("store-installed").performClick()
+            compose.onNodeWithTag("store-search").performTextReplacement("Public Store caller")
+        }
+        launch("late-${type.lowercase()}")
+        compose.onNodeWithTag("extension-primary").assertIsDisplayed()
+        assertEquals(type, activeRoot(compose.activity.store.extensions.runtimeTree)?.optString("type"))
+        // Exercise an error at nested depth: returning must not require JS back().
+        compose.activityRule.scenario.onActivity { it.store.extensions.navigationDepth=2 }
+        compose.onNodeWithTag("extension-primary").performClick()
+        compose.waitUntil(5000) { compose.activity.store.extensions.runtimeError != null }
+        assertNotNull("Late failure retains the rendered tree", compose.activity.store.extensions.runtimeTree)
+        compose.onNodeWithTag("extension-error").assertTextContains("Public late $type failure")
+        capture("late-${type.lowercase()}-error", "Public late $type failure")
+        compose.onNodeWithTag("extension-back").assertIsDisplayed()
+        compose.onNodeWithTag("extension-error-close").assertIsDisplayed()
+        compose.onNodeWithTag("extension-actions").assertDoesNotExist()
+        compose.onNodeWithTag(if(storeCaller) "extension-error-close" else "extension-back").performClick()
+        assertNull("Native error exit closes the command session", compose.activity.store.extensions.running)
+        if (storeCaller) {
+            compose.onNodeWithTag("store-search").assertIsFocused().assertTextEquals("Public Store caller")
+            capture("late-list-return", "Public Store caller")
+            compose.onNodeWithTag("extension-back").performClick()
+        }
+        compose.onNodeWithTag("search").assertIsFocused().assertTextEquals("Public error caller")
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2,7)))
+        if(!storeCaller) capture("late-grid-return", "Public error caller")
+    }
+    @Test fun lateGridFailureHasNativeBackAndRestoresLauncher() = renderedCommandFailsAndReturnsToCaller("Grid",false)
+    @Test fun lateListFailureHasNativeCloseAndRestoresStore() = renderedCommandFailsAndReturnsToCaller("List",true)
+
     @Test fun inlineFilterAndActionsReturnKeyboardFocusToGridSearch() {
         launch()
         compose.onNodeWithTag("extension-search").performTextReplacement("Landscape")
