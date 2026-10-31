@@ -10,6 +10,8 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
@@ -63,6 +65,17 @@ class InlinePaletteDeviceTest {
     }
     private fun capture(name: String, marker: String) {
         compose.waitForIdle(); sameWindow()
+        if(name=="inline-emoji-actions") {
+            device.wait(Until.hasObject(By.res("com.android.systemui","dismiss_button")),1500)
+            val deadline=android.os.SystemClock.uptimeMillis()+5000
+            while(device.hasObject(By.res("com.android.systemui","clipboard_ui")) && android.os.SystemClock.uptimeMillis()<deadline) {
+                InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+                try { device.findObject(By.res("com.android.systemui","dismiss_button"))?.click() }
+                catch(_:androidx.test.uiautomator.StaleObjectException) { }
+                device.wait(Until.gone(By.res("com.android.systemui","clipboard_ui")),500)
+            }
+            assertFalse(device.hasObject(By.res("com.android.systemui","clipboard_ui")))
+        }
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         compose.waitUntil(10000) {
             InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()

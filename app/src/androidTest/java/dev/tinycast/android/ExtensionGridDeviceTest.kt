@@ -10,6 +10,7 @@ import android.os.SystemClock
 import android.view.KeyEvent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.text.TextRange
 import android.view.inspector.WindowInspector
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -331,6 +332,10 @@ class ExtensionGridDeviceTest {
         launch()
         val originalSetting = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
         try {
+            // End the editable input session before measuring the hidden-IME baseline.
+            // Otherwise a delayed phone auto-show can make "before" already shrunk.
+            compose.onNodeWithTag("extension-grid").performSemanticsAction(SemanticsActions.RequestFocus)
+            compose.onNodeWithTag("extension-grid").assertIsFocused()
             compose.activityRule.scenario.onActivity {
                 val view = WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
                 androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
@@ -342,9 +347,13 @@ class ExtensionGridDeviceTest {
             val before = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot.height
             device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
             if (compose.activity.resources.configuration.smallestScreenWidthDp >= 600) compose.onNodeWithTag("extension-grid-keyboard").performClick()
-            else compose.activityRule.scenario.onActivity { activity ->
+            else {
+              compose.onNodeWithTag("extension-search").performSemanticsAction(SemanticsActions.RequestFocus)
+              compose.onNodeWithTag("extension-search").assertIsFocused()
+              compose.activityRule.scenario.onActivity { activity ->
                 val view = WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
                 activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java).showSoftInput(view.findFocus(), android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+              }
             }
             try { compose.waitUntil(10000) {
                 val viewport = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot
