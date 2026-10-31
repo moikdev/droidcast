@@ -5,7 +5,7 @@ import argparse,subprocess,hashlib,json,re,time,xml.etree.ElementTree as E,os,sh
 from android_test_cleanup import Cleanup,transition_adbd
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--output',type=Path,required=True)
-p.add_argument('--menus-only',action='store_true');p.add_argument('--allow-adbd-root',action='store_true');p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
+p.add_argument('--typing-only',action='store_true');p.add_argument('--menus-only',action='store_true');p.add_argument('--allow-adbd-root',action='store_true');p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
 p.add_argument('--test-apk',type=Path,default=Path('app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'))
 a=p.parse_args();assert a.allow_adbd_root and a.serial.startswith('emulator-')
 sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT') or next(x[8:] for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
@@ -91,7 +91,15 @@ def config(family=113,side='ANY',command=False,menu_chord=False):
   bindings['new-note']={'keyCode':113,'modifiers':0,'trigger':'DOUBLE_TAP','side':'RIGHT'}
  if menu_chord:bindings['new-note']={'keyCode':45,'modifiers':2,'trigger':'CHORD','side':'ANY'}
  value=json.dumps({'version':2,'bindings':bindings},separators=(',',':'))
- doc=E.fromstring(prefs);entry=next((e for e in doc if e.get('name')=='shortcuts'),None)
+ doc=E.fromstring(prefs)
+ if menu_chord:
+  # A public, empty-query menu fixture avoids coupling this ownership test to #59.
+  for key in ['notes','links','clips','files','aliases','usage','pins']:
+   for child in list(doc):
+    if child.get('name')==key:doc.remove(child)
+   replacement=E.SubElement(doc,'set' if key=='pins' else 'string',{'name':key})
+   if key!='pins':replacement.text='{}' if key in ['aliases','usage'] else '[]'
+ entry=next((e for e in doc if e.get('name')=='shortcuts'),None)
  if entry is None:entry=E.SubElement(doc,'string',{'name':'shortcuts'})
  entry.text=value
  set_setting('enabled_accessibility_services','null');set_setting('accessibility_enabled','0')
@@ -120,12 +128,26 @@ try:
  match=re.search(r'add device \d+: (/dev/input/event\d+)\s+name:\s+"qwerty2"',capabilities);assert match
  keyboard=match.group(1)
  record['app_uid']=text('shell','run-as',APP,'id').split(' groups=')[0];assert not record['app_uid'].startswith(('uid=0(','uid=1000(','uid=2000('))
- if a.menus_only:
+ if a.typing_only:
+  record['mode']='typing-probe'
+  config()
+  expected='menuKeyboardProbe271828'
+  raw('shell','input','text',expected)
+  observations=[];start=time.monotonic()
+  while True:
+   data=tree();values=[n.get('text','') for n in E.fromstring(data).iter('node') if n.get('package')==APP and n.get('class')=='android.widget.EditText']
+   observations.append({'seconds':round(time.monotonic()-start,3),'values':values})
+   (a.output/('typing-%02d.xml'%len(observations))).write_bytes(data)
+   if expected in values or time.monotonic()-start>5:break
+  record['typing_probe']={'expected':expected,'observations':observations,'exact':expected in values}
+  (a.output/'typing.png').write_bytes(raw('exec-out','screencap','-p'))
+ elif a.menus_only:
   record['mode']='inline-menus'
   config(menu_chord=True)
-  raw('shell','input','text','menuKeyboardProbe271828')
   nodes=list(E.fromstring(tree()).iter('node'))
-  assert any(n.get('class')=='android.widget.EditText' and n.get('text')=='menuKeyboardProbe271828' and n.get('package')==APP for n in nodes)
+  fields=[n.get('text','') for n in nodes if n.get('class')=='android.widget.EditText' and n.get('package')==APP]
+  assert len(fields)==1
+  record['fixture_query']='';record['field_before_menu']=fields[0]
   button=next(n for n in nodes if n.get('resource-id','').endswith('palette-menu') or n.get('content-desc')=='Droidcast menu')
   bounds=list(map(int,re.findall(r'\d+',button.get('bounds'))))
   raw('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
@@ -141,8 +163,9 @@ try:
   snapshot_menu('inline-menu-alt-q')
   passed('Connected service yields configured Alt+Q to the inline menu')
   ready();press(1);data=tree();assert b'inline-menu' not in data
-  assert any(n.get('class')=='android.widget.EditText' and n.get('text')=='menuKeyboardProbe271828' and n.get('package')==APP for n in E.fromstring(data).iter('node'))
-  record['query_preserved_after_menu']=True;ready()
+  after=[n.get('text','') for n in E.fromstring(data).iter('node') if n.get('class')=='android.widget.EditText' and n.get('package')==APP]
+  assert after==fields
+  record['field_after_menu']=after[0];record['query_preserved_after_menu']=True;ready()
   emit([(56,1,.02),(16,1,.03),(16,0,.02),(56,0,0)])
   wait(lambda:b'editor-title' in tree(),'Configured Alt+Q did not recover after closing the menu')
   snapshot('inline-menu-closed-command')

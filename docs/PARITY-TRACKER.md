@@ -32,6 +32,7 @@ The live backlog is [GitHub issue #1](https://github.com/moikdev/droidcast/issue
 
 - [#36: Compact Raycast-style settings workspace](https://github.com/moikdev/droidcast/issues/36)
 - [#37: Diagnose intermittent Quick Settings tile activation timeout](https://github.com/moikdev/droidcast/issues/37)
+- [#59: Investigate truncated synthetic input around keyboard-service hierarchy capture](https://github.com/moikdev/droidcast/issues/59)
 
 ## Active slice
 
