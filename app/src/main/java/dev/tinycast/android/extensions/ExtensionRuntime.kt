@@ -75,7 +75,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         }
     }
     fun dispatch(handle: String?, args: JSONArray = JSONArray()) {
-        if (!handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
+        if (!destroyed && catalog.runtimeError == null && !handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
     }
     fun back() { evaluate("__tinycast.popNavigation(${quote(session)})") }
     fun close() { if (destroyed) return; destroyed = true; scope.cancel(); webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost"); (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy() }

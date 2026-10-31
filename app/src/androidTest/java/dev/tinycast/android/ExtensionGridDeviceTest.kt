@@ -30,7 +30,7 @@ import java.security.MessageDigest
 import kotlinx.coroutines.runBlocking
 
 internal fun gridFixture(context: Context, mode: String = "normal"): InstalledExtension {
-    require(mode in listOf("normal", "loading", "form", "controlled", "deferred", "untitled", "late-grid", "late-list"))
+    require(mode in listOf("normal", "loading", "form", "controlled", "deferred", "untitled", "late-grid", "late-list", "dispatch-probe"))
     val directory = File(context.cacheDir, "extension-grid-fixture").apply { mkdirs() }
     val assets = File(directory, "assets").apply { mkdirs() }
     val bitmap = Bitmap.createBitmap(320, 180, Bitmap.Config.ARGB_8888)
@@ -42,6 +42,11 @@ internal fun gridFixture(context: Context, mode: String = "normal"): InstalledEx
     File(assets, "unsupported.svg").writeText("<svg xmlns='http://www.w3.org/2000/svg'><circle r='8'/></svg>")
     File(directory, "grid.js").writeText("""
         const React=require('react'); const {Grid,Form,Action,ActionPanel,Detail,Clipboard}=require('@raycast/api');
+        if(${mode == "dispatch-probe"}) {
+          globalThis.__fixtureDispatches=[];globalThis.__fixtureActivations=0;
+          const dispatch=globalThis.__tinycast.dispatch;
+          globalThis.__tinycast.dispatch=function(...args){globalThis.__fixtureDispatches.push(args[1]);return dispatch.apply(this,args)};
+        }
         module.exports.default=function(){
           if(${mode == "form"})return React.createElement(Form,{actions:React.createElement(ActionPanel,null,React.createElement(Action.SubmitForm,{title:'Submit fixture',onSubmit:v=>Clipboard.copy('form:'+v.note)}))},React.createElement(Form.TextField,{id:'note',title:'Fixture note'}));
           if(${mode == "untitled"}){
@@ -67,7 +72,7 @@ internal fun gridFixture(context: Context, mode: String = "normal"): InstalledEx
           if(reverse)data.reverse(); if(category==='even')data=data.filter(x=>Number(x.id.split('-')[1])%2===0);
           function cell(x){return React.createElement(Grid.Item,{key:x.id,id:x.id,title:x.title,subtitle:'Preview '+x.id,keywords:['fixture',x.id],content:x.content,
             actions:React.createElement(ActionPanel,null,
-              React.createElement(Action,{title:'Copy identity',onAction:()=>{activations.current++;Clipboard.copy('grid-fixture:'+x.id)}}),
+              React.createElement(Action,{title:'Copy identity',onAction:()=>{activations.current++;globalThis.__fixtureActivations=activations.current;Clipboard.copy('grid-fixture:'+x.id)}}),
               React.createElement(Action.Push,{title:'Inspect item',target:React.createElement(Detail,{markdown:'Grid fixture detail '+x.id})}),
               React.createElement(Action,{title:'Reverse items',onAction:()=>setReverse(v=>!v)}),
               React.createElement(Action,{title:'Clear search',onAction:()=>setQuery('')}),
@@ -260,6 +265,57 @@ class ExtensionGridDeviceTest {
         compose.onNodeWithTag("search").assertIsFocused().assertTextEquals("Public error caller")
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2,7)))
         if(!storeCaller) capture("late-grid-return", "Public error caller")
+    }
+    @Test fun failurePublicationBlocksQueuedGridCallbacksBeforeRecomposition() {
+        launch("dispatch-probe")
+        compose.waitUntil(5000) { activeRoot(compose.activity.store.extensions.runtimeTree)?.nodes("Grid.Section")?.firstOrNull()?.props()?.optString("title")=="Selected: image-0" }
+        compose.onNodeWithTag("extension-search").assertIsFocused()
+        var engine: android.webkit.WebView? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            fun visit(view: android.view.View) {
+                if (view is android.webkit.WebView) { assertNull(engine); engine=view }
+                if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+            }
+            visit(activity.window.decorView)
+        }
+        fun probe(): JSONObject {
+            val result=java.util.concurrent.atomic.AtomicReference<String>()
+            compose.activityRule.scenario.onActivity {
+                requireNotNull(engine).evaluateJavascript("JSON.stringify({dispatches:globalThis.__fixtureDispatches,activations:globalThis.__fixtureActivations})") { result.set(it) }
+            }
+            compose.waitUntil(5000) { result.get()!=null }
+            return JSONObject(JSONArray("["+result.get()+"]").getString(0))
+        }
+        val before=probe()
+        val receipt=JSONObject()
+        compose.activityRule.scenario.onActivity { activity ->
+            val view=WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
+            val connection=requireNotNull(view.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
+            assertTrue(connection.finishComposingText())
+            activity.getSystemService(ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Public regression", "unchanged failure sentinel"))
+            // Publish failure and deliver all callbacks in one main-thread turn:
+            // no Compose frame can remove the old Grid between these operations.
+            activity.store.extensions.runtimeError="Public same-turn failure. Close this command and try again."
+            val now=SystemClock.uptimeMillis()
+            for (action in listOf(KeyEvent.ACTION_DOWN,KeyEvent.ACTION_UP))
+                assertTrue(view.dispatchKeyEvent(KeyEvent(now,now,action,KeyEvent.KEYCODE_ENTER,0)))
+            assertTrue(connection.performEditorAction(android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH))
+            assertTrue(connection.commitText("z",1))
+            receipt.put("failure_published_before_callbacks",activity.store.extensions.runtimeError!=null)
+                .put("same_main_thread_turn",true).put("callbacks",JSONArray(listOf("Enter down/up","IME Search","search text")))
+        }
+        compose.onNodeWithTag("extension-error").assertTextEquals("Public same-turn failure. Close this command and try again.")
+        val after=probe() // WebView evaluation follows all previously queued dispatch scripts.
+        val actualClip=clip()
+        val folder=File(context.filesDir,"extension-grid-evidence").apply { mkdirs() }
+        folder.resolve("failure-dispatch-state.json").writeText(receipt.put("before",before).put("after",after)
+            .put("clipboard_unchanged",actualClip=="unchanged failure sentinel").toString(2))
+        capture("failure-dispatch-blocked","Public same-turn failure")
+        assertEquals("Failure blocks callbacks before they cross the shared JS dispatch boundary",before.getJSONArray("dispatches").toString(),after.getJSONArray("dispatches").toString())
+        assertEquals("No action activates after failure publication",before.getInt("activations"),after.getInt("activations"))
+        assertEquals("Failure cannot mutate the clipboard through queued actions","unchanged failure sentinel",actualClip)
+        compose.onNodeWithTag("extension-back").assertIsDisplayed().performClick()
+        compose.onNodeWithTag("search").assertIsFocused()
     }
     @Test fun lateGridFailureHasNativeBackAndRestoresLauncher() = renderedCommandFailsAndReturnsToCaller("Grid",false)
     @Test fun lateListFailureHasNativeCloseAndRestoresStore() = renderedCommandFailsAndReturnsToCaller("List",true)
