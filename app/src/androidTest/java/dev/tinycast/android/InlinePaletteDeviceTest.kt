@@ -70,7 +70,7 @@ class InlinePaletteDeviceTest {
         // Native inset delivery cannot split these two geometry reads.
         return compose.runOnUiThread { save.boundsInWindow to frame.boundsInWindow }
     }
-    private fun capture(name: String, marker: String) {
+    private fun capture(name: String, marker: String, secondMarker: String? = null) {
         compose.waitForIdle(); sameWindow()
         if(name=="inline-emoji-actions") {
             device.wait(Until.hasObject(By.res("com.android.systemui","dismiss_button")),1500)
@@ -88,9 +88,18 @@ class InlinePaletteDeviceTest {
             InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
             val xml = File(folder, "$name.xml"); device.dumpWindowHierarchy(xml)
             val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
-            (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.any {
-                it.getAttribute("package") == context.packageName && it.getAttribute("text").contains(marker)
+            val native = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }
+                .filter { it.getAttribute("package") == context.packageName }
+            listOfNotNull(marker, secondMarker).all { expected -> native.any { it.getAttribute("text").contains(expected) } }
+        }
+        if (secondMarker != null) {
+            val rendered = java.util.concurrent.CountDownLatch(1)
+            compose.activityRule.scenario.onActivity {
+                assertTrue(it.window.decorView.isHardwareAccelerated)
+                it.window.decorView.viewTreeObserver.registerFrameCommitCallback { rendered.countDown() }
+                it.window.decorView.postInvalidateOnAnimation()
             }
+            assertTrue("The native matching screen must render before its screenshot", rendered.await(5, java.util.concurrent.TimeUnit.SECONDS))
         }
         assertTrue(device.takeScreenshot(File(folder, "$name.png")))
     }
@@ -285,9 +294,44 @@ class InlinePaletteDeviceTest {
         val frame=compose.onNodeWithTag("palette-screen").fetchSemanticsNode().boundsInWindow
         val feedback=compose.onNodeWithTag("palette-feedback").fetchSemanticsNode().boundsInWindow
         assertTrue(frame.contains(feedback.topLeft) && frame.contains(feedback.bottomRight))
+        capture("inline-feedback", "Keyboard shortcut help", "Inline feedback stays in the palette")
+    }
+    @Test fun actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition() {
+        compose.activityRule.scenario.onActivity {
+            it.store.save("notes", "IME action note", "IME payload 161803")
+            it.store.filter("All"); it.store.search("IME action note")
+        }
+        compose.onNodeWithTag("actions-button").performClick()
+        compose.onNodeWithTag("inline-menu-search").assertIsFocused().performTextReplacement("no matching IME action")
+        compose.onNodeWithTag("inline-menu-empty").assertIsDisplayed()
+        compose.onNodeWithTag("inline-menu-search").performImeAction()
+        compose.onNodeWithTag("inline-menu-search").assertIsFocused()
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("content copy")
+        var connection: android.view.inputmethod.InputConnection? = null
+        compose.activityRule.scenario.onActivity {
+            connection = requireNotNull(it.window.decorView.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
+            assertTrue(connection!!.setComposingRegion(0, 7))
+        }
+        compose.onNodeWithTag("inline-menu-search").performImeAction()
+        compose.onNodeWithTag("inline-menu-search").assertIsFocused()
+        compose.activityRule.scenario.onActivity { assertTrue(connection!!.finishComposingText()) }
+        compose.onNodeWithTag("inline-menu-search").performImeAction()
+        compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+        compose.onNodeWithTag("search").assertIsFocused().assertTextContains("IME action note")
+        compose.activityRule.scenario.onActivity {
+            assertEquals("IME payload 161803", it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
+        }
+        compose.onNodeWithTag("actions-button").performClick()
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("note")
+        key(KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.onNodeWithTag("action-Edit note").assertIsSelected()
+        capture("inline-ime-selected", "Edit note")
+        compose.onNodeWithTag("inline-menu-search").performImeAction()
+        compose.onNodeWithTag("editor-title").assert(SemanticsMatcher.expectValue(
+            SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("IME action note")))
         sameWindow()
-        val folder=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
-        assertTrue(device.takeScreenshot(File(folder,"inline-feedback.png")))
+        compose.onNodeWithTag("inline-back").performClick()
+        compose.onNodeWithTag("search").assertIsFocused().assertTextContains("IME action note")
     }
     @Test fun actionCapsuleAndSearchableActionsPreserveTheSelectedCommand() {
         var id=""

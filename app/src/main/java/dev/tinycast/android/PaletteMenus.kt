@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -92,6 +93,11 @@ internal class PaletteMenus {
         val choice = current?.choices?.value?.firstOrNull { it.id == id && it.enabled } ?: return
         dismiss(); choice.activate()
     }
+    fun activateSelected(request: Request) {
+        if (current !== request || query.composition != null) return
+        val enabled = choices().filter { it.enabled }
+        (enabled.firstOrNull { it.id == selectedId } ?: enabled.firstOrNull())?.let { choose(it.id) }
+    }
     fun normalizeSelection() {
         val choices = choices()
         if(choices.none { it.id == selectedId && it.enabled }) selectedId = choices.firstOrNull { it.enabled }?.id
@@ -126,7 +132,7 @@ internal class PaletteMenus {
         val index = enabled.indexOfFirst { it.id == selectedId }.coerceAtLeast(0)
         when (event.keyCode) {
             KeyEvent.KEYCODE_ESCAPE, KeyEvent.KEYCODE_BACK -> dismiss()
-            KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> enabled.getOrNull(index)?.let { choose(it.id) }
+            KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> activateSelected(request)
             KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_TAB -> if (enabled.isNotEmpty()) {
                 val delta = if (event.keyCode == KeyEvent.KEYCODE_TAB && event.isShiftPressed) -1 else 1
                 selectedId = enabled[Math.floorMod(index + delta, enabled.size)].id
@@ -287,6 +293,7 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                         BasicTextField(menus.query,menus::search,singleLine=true,
                             textStyle=TextStyle(color=PaletteTheme.ink,fontSize=13.sp,lineHeight=18.sp),cursorBrush=SolidColor(PaletteTheme.accent),
                             keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=keyboardRequested),
+                            keyboardActions=KeyboardActions(onSearch={ menus.activateSelected(request) }),
                             modifier=Modifier.weight(1f).height(32.dp).focusRequester(focus).testTag("inline-menu-search"),
                             decorationBox={ inner -> Box(Modifier.fillMaxSize(),contentAlignment=Alignment.CenterStart) {
                                 if(menus.query.text.isEmpty()) Text("Search for actions…",color=PaletteTheme.secondary,fontSize=13.sp); inner()
