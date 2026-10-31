@@ -125,6 +125,8 @@ class ExtensionGridDeviceTest {
     }
     private fun captureChecked(name: String, marker: String) {
         compose.waitForIdle(); device.waitForIdle()
+        val captureRoute = compose.activity.store.dialog
+        val captureEpoch = compose.activity.store.extensions.launchEpoch
         compose.onAllNodesWithTag("extension-primary").fetchSemanticsNodes().singleOrNull()?.let { primary ->
             val frame=compose.onNodeWithTag("extension-palette").fetchSemanticsNode().boundsInWindow
             assertTrue("Primary action retains a 48dp touch target",primary.boundsInWindow.height >= 48*context.resources.displayMetrics.density-1)
@@ -135,13 +137,23 @@ class ExtensionGridDeviceTest {
         val deadline = SystemClock.uptimeMillis() + 5000
         while (device.hasObject(By.res("com.android.systemui", "clipboard_ui")) && SystemClock.uptimeMillis() < deadline) {
             InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
-            try { device.findObject(By.res("com.android.systemui", "dismiss_button"))?.click() }
-            catch (_: androidx.test.uiautomator.StaleObjectException) { /* Animation removed it; re-query within the same deadline. */ }
+            // Target the actual SystemUI node. A coordinate click can reach the
+            // palette backdrop if the clipboard window disappears in transit.
+            InstrumentationRegistry.getInstrumentation().uiAutomation.windows.asSequence()
+                .mapNotNull { it.root }
+                .flatMap { it.findAccessibilityNodeInfosByViewId("com.android.systemui:id/dismiss_button").asSequence() }
+                .firstOrNull { it.isVisibleToUser }
+                ?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK)
             device.wait(Until.gone(By.res("com.android.systemui", "clipboard_ui")), 500)
         }
         InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
         assertFalse("Clipboard overlay must be dismissed", device.hasObject(By.res("com.android.systemui", "clipboard_ui")))
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+        File(folder, "capture-state-$name.json").writeText(JSONObject()
+            .put("route_before", captureRoute).put("route_after", compose.activity.store.dialog)
+            .put("epoch_before", captureEpoch).put("epoch_after", compose.activity.store.extensions.launchEpoch).toString(2))
+        assertEquals("Evidence collection must retain its extension route", captureRoute, compose.activity.store.dialog)
+        assertEquals("Evidence collection must retain its command session", captureEpoch, compose.activity.store.extensions.launchEpoch)
         InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
         if (name != "image-errors") compose.waitUntil(10000) {
             val selected = compose.onAllNodes(isSelected()).fetchSemanticsNodes().firstOrNull { it.config.getOrElse(SemanticsProperties.TestTag) { "" }.startsWith("extension-grid-cell-") }
@@ -189,6 +201,7 @@ class ExtensionGridDeviceTest {
         compose.onNodeWithTag("extension-search").assertIsFocused()
         key(KeyEvent.KEYCODE_ENTER)
         compose.waitUntil(5000) { clip().startsWith("grid-fixture:image-") }
+        compose.onNodeWithTag("extension-grid-screen").assertIsDisplayed()
         capture("inline-filter-focus", "Landscape 00")
         compose.onAllNodes(isDialog()).assertCountEquals(0)
         compose.onAllNodes(isPopup()).assertCountEquals(0)
