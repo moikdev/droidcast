@@ -181,6 +181,9 @@ class ExtensionGridDeviceTest {
         compose.onNodeWithTag("inline-menu").assertIsDisplayed().assert(hasAnyDescendant(isFocused()) or isFocused())
         val actionPanel=compose.onNodeWithTag("inline-menu").fetchSemanticsNode().boundsInWindow
         val primary=compose.onNodeWithTag("extension-primary").fetchSemanticsNode().boundsInWindow
+        File(context.filesDir,"extension-grid-evidence").resolve("action-panel-bounds.json").writeText(JSONObject()
+            .put("panel_bottom",actionPanel.bottom).put("primary_top",primary.top).put("overlap",actionPanel.bottom>primary.top).toString(2))
+        if(actionPanel.bottom>primary.top) device.takeScreenshot(File(context.filesDir,"extension-grid-evidence/action-panel-overlap.png"))
         assertTrue("Actions panel stays above the footer controls",actionPanel.bottom <= primary.top)
         key(KeyEvent.KEYCODE_ESCAPE)
         compose.onNodeWithTag("extension-search").assertIsFocused()
@@ -344,7 +347,11 @@ class ExtensionGridDeviceTest {
                 androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true } }
             key(KeyEvent.KEYCODE_DPAD_DOWN); key(KeyEvent.KEYCODE_DPAD_DOWN)
             compose.onNodeWithTag("extension-grid-cell-6").assertIsSelected()
+            compose.onNodeWithTag("extension-grid").assertIsFocused()
+            assertTrue("Hidden-keyboard baseline must still be hidden at measurement",WindowInspector.getGlobalWindowViews().filter{it.hasWindowFocus()}.none {
+                androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true })
             val before = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot.height
+            File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}.resolve("keyboard-before.json").writeText(JSONObject().put("grid_height",before).put("grid_focused",true).put("ime_visible",false).toString(2))
             device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
             if (compose.activity.resources.configuration.smallestScreenWidthDp >= 600) compose.onNodeWithTag("extension-grid-keyboard").performClick()
             else {
