@@ -28,4 +28,4 @@ The JS WebView remains attached in a clipped zero-height host, without keyboard 
 
 ## Validation status
 
-See [Grid and navigation validation](validation/extension-grid.md). Work remains under local tablet/phone validation and is not released or audit-cleared yet. Native Grid is a subset; #6/#7 remain partial. OTA updates #55 follow this checkpoint.
+See [Grid and navigation validation](validation/extension-grid.md). Local tablet/phone validation is recorded for the final build; it is not released or audit-cleared yet. Native Grid is a subset; #6/#7 remain partial. OTA updates #55 follow this checkpoint.
