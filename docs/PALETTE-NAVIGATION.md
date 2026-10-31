@@ -10,7 +10,7 @@ Issue [#56](https://github.com/moikdev/droidcast/issues/56) replaces app-owned p
 | Store install/uninstall | Inline review, explicit confirmation, Back/Cancel |
 | Launcher, Emoji and extension actions | Shared bottom-right primary/Enter/Actions/Ctrl+K pill; searchable attached action panel |
 | Launcher, Emoji, file and Settings categories; extension dropdowns | Bounded selection menu inside the current surface |
-| Android document/folder picker, role/permission prompts, package installer | Platform UI remains separate |
+| Android document/folder picker, framework text-selection handles/menus, role/permission prompts, package installer | Platform UI remains separate |
 
 ## Reference and interaction
 

@@ -199,6 +199,8 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun readBackup(uri: android.net.Uri?) {
         if (uri == null) { message = "Import cancelled"; return }
         if (backupBusy) return
+        // The new operation replaces prior feedback, which could cover preview controls.
+        message = null
         backupBusy = true; backupError = null; backupDocument = null
         viewModelScope.launch {
             try {
