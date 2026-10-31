@@ -15,7 +15,7 @@
 static volatile sig_atomic_t stopped;
 static void stop(int sig) { (void)sig; stopped = 1; }
 static long long now(void) { struct timespec t; clock_gettime(CLOCK_MONOTONIC,&t); return (long long)t.tv_sec*1000000000LL+t.tv_nsec; }
-static bool allowed(int c) { const int keys[]={29,97,56,100,42,54,125,126,30,46,47,51,1}; for(unsigned i=0;i<sizeof(keys)/sizeof(*keys);i++) if(c==keys[i]) return true; return false; }
+static bool allowed(int c) { const int keys[]={29,97,56,100,42,54,125,126,30,46,47,51,1,16}; for(unsigned i=0;i<sizeof(keys)/sizeof(*keys);i++) if(c==keys[i]) return true; return false; }
 static bool number(const char *s,long *n) { char *end; errno=0; *n=strtol(s,&end,10); return !errno && *s && !*end; }
 static bool send_key(int fd,int code,int value) { struct input_event e[2]={{.type=EV_KEY,.code=code,.value=value},{.type=EV_SYN,.code=SYN_REPORT,.value=0}}; ssize_t n; do { n=write(fd,e,sizeof(e)); } while(n<0 && errno==EINTR); return n==(ssize_t)sizeof(e); }
 int main(int argc,char **argv) {

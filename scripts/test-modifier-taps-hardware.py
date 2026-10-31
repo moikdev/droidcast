@@ -30,6 +30,10 @@ def snapshot(name,palette=True,query=None):
  if palette:assert APP in focus() and any(n.get('class')=='android.widget.EditText' and n.get('package')==APP for n in nodes)
  if query is not None:assert any(n.get('class')=='android.widget.EditText' and n.get('text')==query for n in nodes)
  (a.output/(name+'.xml')).write_bytes(data);(a.output/(name+'.png')).write_bytes(raw('exec-out','screencap','-p'))
+def snapshot_menu(name):
+ data=tree();nodes=list(E.fromstring(data).iter('node'))
+ assert 'MainActivity' in focus() and any(n.get('resource-id','').endswith('inline-menu') for n in nodes)
+ (a.output/(name+'.xml')).write_bytes(data);(a.output/(name+'.png')).write_bytes(raw('exec-out','screencap','-p'))
 def set_setting(key,value):raw('shell','settings','delete','secure',key) if value=='null' else raw('shell','settings','put','secure',key,value)
 assert text('shell','getprop','ro.kernel.qemu')=='1'
 assert text('shell','getprop','ro.boot.qemu.avd_name')==a.avd
@@ -121,21 +125,24 @@ try:
   config(menu_chord=True)
   raw('shell','input','text','menuKeyboardProbe271828')
   nodes=list(E.fromstring(tree()).iter('node'))
-  button=next(n for n in nodes if n.get('resource-id')=='palette-menu')
+  assert any(n.get('class')=='android.widget.EditText' and n.get('text')=='menuKeyboardProbe271828' and n.get('package')==APP for n in nodes)
+  button=next(n for n in nodes if n.get('resource-id','').endswith('palette-menu') or n.get('content-desc')=='Droidcast menu')
   bounds=list(map(int,re.findall(r'\d+',button.get('bounds'))))
   raw('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
   assert b'inline-menu' in tree();ready()
   double(29);time.sleep(.3)
   assert 'MainActivity' in focus(),'Double Ctrl escaped the inline menu'
   data=tree();assert b'inline-menu' in data
-  snapshot('inline-menu-double-ctrl',query='menuKeyboardProbe271828')
+  snapshot_menu('inline-menu-double-ctrl')
   passed('Connected service yields Double Ctrl while the inline menu owns input')
   ready();emit([(56,1,.02),(16,1,.03),(16,0,.02),(56,0,0)]);time.sleep(.3)
   assert 'MainActivity' in focus(),'Alt+Q opened another route while a menu owned input'
   data=tree();assert b'inline-menu' in data and b'editor-title' not in data
-  snapshot('inline-menu-alt-q',query='menuKeyboardProbe271828')
+  snapshot_menu('inline-menu-alt-q')
   passed('Connected service yields configured Alt+Q to the inline menu')
-  ready();press(1);assert b'inline-menu' not in tree();ready()
+  ready();press(1);data=tree();assert b'inline-menu' not in data
+  assert any(n.get('class')=='android.widget.EditText' and n.get('text')=='menuKeyboardProbe271828' and n.get('package')==APP for n in E.fromstring(data).iter('node'))
+  record['query_preserved_after_menu']=True;ready()
   emit([(56,1,.02),(16,1,.03),(16,0,.02),(56,0,0)])
   wait(lambda:b'editor-title' in tree(),'Configured Alt+Q did not recover after closing the menu')
   snapshot('inline-menu-closed-command')
