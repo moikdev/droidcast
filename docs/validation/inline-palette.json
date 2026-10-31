@@ -6,11 +6,25 @@
     7
   ],
   "scope": "Same-window palette screens, Raycast-style action area and native Grid subset; #6/#7 remain partial",
-  "previous_reviewed_head": "da254a56c803463588cf354aeeced2b0f50f7b9f",
-  "previous_manifest_sha256": "fea395f8cc4ea125e6b9ac723dfd58a56125214f60e9a28479417b4d87d316ac",
-  "implementation_commit": "4b8f5f4fb8ef12d9036e4ae708e85c37e30f8e3a",
-  "apk_sha256": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-  "test_apk_sha256": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+  "previous_reviewed_head": "119bbbcb6434b04bff40e39f34459f2756eabe0e",
+  "previous_manifest_sha256": "2a161aa7b4eb6f687643a67b67abdb70498faca17fc48b990db033707c45724e",
+  "implementation_commit": "c4db9086b7abc14df7ffee004e013598c161061c",
+  "apk_sha256": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+  "test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
+  "test_variants": {
+    "app_sha256": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+    "core_test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230",
+    "picker_test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
+    "unchanged_core_sources": {
+      "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "cd13c4e7d9d8ba668bdb11f111cb2c66944a6d5df5b4bddb698adc65c1f16173",
+      "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "09f062878cb7fe68bce33f5935426e7cdf58f7473554464754d7c2f3de7445d8",
+      "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "a6966aea2a62262ac583ee466da07c65f55fb44206ff73b3b436fc46302ed678"
+    },
+    "changed_instrumentation_files": [
+      "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt"
+    ],
+    "scope": "Production APK/source and all core-test sources unchanged. Only the unrelated native backup-picker fixture changed; already passing core suites are retained with their actual test APK."
+  },
   "ci": "inactive",
   "device": {
     "serial": "emulator-5590",
@@ -38,7 +52,7 @@
     "Tests/action-menu-search-test.swift": "7e6aa62456e8a54d220098f8aaf3347ad9983b348931c8d4c3bed24d8c3a66e2"
   },
   "observations": {
-    "artifacts/inline-final-v10-tablet/store-palette-colors.json": {
+    "artifacts/inline-final-v11-tablet/store-palette-colors.json": {
       "sha256": "274aa5ec12bb6861398610ea747e0df262996951515a844261995593738bfacc",
       "data": {
         "name": "palette-colors",
@@ -49,7 +63,7 @@
         "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
       }
     },
-    "artifacts/inline-final-v10-tablet/store-oklch-color-converter.json": {
+    "artifacts/inline-final-v11-tablet/store-oklch-color-converter.json": {
       "sha256": "8a98afd098f1c8b1d50b32d1aab7168c96ea2209eb4a4f61467f0c1794e3fc63",
       "data": {
         "name": "oklch-color-converter",
@@ -60,7 +74,7 @@
         "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806"
       }
     },
-    "artifacts/inline-final-v10-tablet/store-inline-source.json": {
+    "artifacts/inline-final-v11-tablet/store-inline-source.json": {
       "sha256": "81167015b143491753cec630d88b11f23a14de3407b9941d7f3127f489a65936",
       "data": {
         "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
@@ -69,7 +83,7 @@
         "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
       }
     },
-    "artifacts/inline-final-v10-tablet/action-panel-bounds.json": {
+    "artifacts/inline-final-v11-tablet/action-panel-bounds.json": {
       "sha256": "f093c4ae3146ccf4e353c89a434d163356ae4f0ed613840f5ed04fa8a082ddaa",
       "data": {
         "panel_bottom": 872,
@@ -77,7 +91,7 @@
         "overlap": false
       }
     },
-    "artifacts/inline-final-v10-tablet/grid-return-position.json": {
+    "artifacts/inline-final-v11-tablet/grid-return-position.json": {
       "sha256": "5dfce09427411b89158dcc9da851a0126a621c5a2c393671ff3427657aaf8b45",
       "data": {
         "before": "Rect.fromLTRB(422.0, 408.0, 771.0, 808.0)",
@@ -85,7 +99,7 @@
         "epoch_retained": true
       }
     },
-    "artifacts/inline-final-v10-tablet/launcher-return-position.json": {
+    "artifacts/inline-final-v11-tablet/launcher-return-position.json": {
       "sha256": "5107a517ce3e11d8a54e3705281dcbd6043581c890d5ce4fdcf722ee2ed9fe0d",
       "data": {
         "before": "Rect.fromLTRB(410.0, 327.0, 1511.0, 393.0)",
@@ -93,7 +107,7 @@
         "selected": 9
       }
     },
-    "artifacts/inline-final-v10-tablet/inline-menu-focus-state.json": {
+    "artifacts/inline-final-v11-tablet/inline-menu-focus-state.json": {
       "sha256": "3a15f32f5feca5496a9921178fca01aae09427fd41575157d4c847df87ebdcea",
       "data": {
         "menuFocused": true,
@@ -102,7 +116,7 @@
         ]
       }
     },
-    "artifacts/inline-final-v10-tablet/keyboard-layout.json": {
+    "artifacts/inline-final-v11-tablet/keyboard-layout.json": {
       "sha256": "ee89d574c89d922f1b586a90b7d8897e17c9e74d315c48ee0633260971a3d76d",
       "data": {
         "screen": "1920x1200",
@@ -111,7 +125,7 @@
         "windows": "[1920x1200,location=[0, 0],focused=true,ime=Insets{left=0, top=0, right=0, bottom=552}]"
       }
     },
-    "artifacts/inline-final-v10-tablet/preferences-runtime-state.json": {
+    "artifacts/inline-final-v11-tablet/preferences-runtime-state.json": {
       "sha256": "cce13886283cb912e72575e8638d98954c7d4f10c369f9782a1fc32c63526b01",
       "data": {
         "same_engine": true,
@@ -120,14 +134,14 @@
         "activations_after": 2
       }
     },
-    "artifacts/inline-final-v10-tablet/editor-current-measurement.json": {
+    "artifacts/inline-final-v11-tablet/editor-current-measurement.json": {
       "sha256": "8cf9e0c881213adcefa8ade231999c9deb2e2c02fca1fd4473de27d35a9a10cd",
       "data": {
         "save": "Rect.fromLTRB(1339.0, 561.0, 1505.0, 621.0)",
         "frame": "Rect.fromLTRB(398.0, 237.0, 1523.0, 630.0)"
       }
     },
-    "artifacts/inline-final-v10-tablet/editor-resize-measurement.json": {
+    "artifacts/inline-final-v11-tablet/editor-resize-measurement.json": {
       "sha256": "64a32d44ad1927e7227e55eb4c86e275413b9cd9f0e21f6d603121eccc1a8b1e",
       "data": {
         "before_save": "Rect.fromLTRB(1339.0, 881.0, 1505.0, 941.0)",
@@ -137,7 +151,7 @@
         "cross_frame_comparison_would_fail": true
       }
     },
-    "artifacts/inline-final-v10-phone/store-palette-colors.json": {
+    "artifacts/inline-final-v11-phone/store-palette-colors.json": {
       "sha256": "274aa5ec12bb6861398610ea747e0df262996951515a844261995593738bfacc",
       "data": {
         "name": "palette-colors",
@@ -148,7 +162,7 @@
         "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
       }
     },
-    "artifacts/inline-final-v10-phone/store-oklch-color-converter.json": {
+    "artifacts/inline-final-v11-phone/store-oklch-color-converter.json": {
       "sha256": "8a98afd098f1c8b1d50b32d1aab7168c96ea2209eb4a4f61467f0c1794e3fc63",
       "data": {
         "name": "oklch-color-converter",
@@ -159,7 +173,7 @@
         "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806"
       }
     },
-    "artifacts/inline-final-v10-phone/store-inline-source.json": {
+    "artifacts/inline-final-v11-phone/store-inline-source.json": {
       "sha256": "81167015b143491753cec630d88b11f23a14de3407b9941d7f3127f489a65936",
       "data": {
         "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
@@ -168,7 +182,7 @@
         "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
       }
     },
-    "artifacts/inline-final-v10-phone/action-panel-bounds.json": {
+    "artifacts/inline-final-v11-phone/action-panel-bounds.json": {
       "sha256": "49c368e751fc1c55e815640293da1a0b6728638767d3af4d050e238d52f529b0",
       "data": {
         "panel_bottom": 1206,
@@ -176,7 +190,7 @@
         "overlap": false
       }
     },
-    "artifacts/inline-final-v10-phone/grid-return-position.json": {
+    "artifacts/inline-final-v11-phone/grid-return-position.json": {
       "sha256": "e00664cf1acf75c29d4408ebd56105df2faf5ee92773db362fd5946356dbd85d",
       "data": {
         "before": "Rect.fromLTRB(74.0, 394.0, 368.0, 777.0)",
@@ -184,7 +198,7 @@
         "epoch_retained": true
       }
     },
-    "artifacts/inline-final-v10-phone/launcher-return-position.json": {
+    "artifacts/inline-final-v11-phone/launcher-return-position.json": {
       "sha256": "daea8d309540594932e5eb6fdb4f4d1d346b87914b119780b3e229c05ab53cf9",
       "data": {
         "before": "Rect.fromLTRB(53.0, 253.0, 1027.0, 369.0)",
@@ -192,7 +206,7 @@
         "selected": 9
       }
     },
-    "artifacts/inline-final-v10-phone/inline-menu-focus-state.json": {
+    "artifacts/inline-final-v11-phone/inline-menu-focus-state.json": {
       "sha256": "3a15f32f5feca5496a9921178fca01aae09427fd41575157d4c847df87ebdcea",
       "data": {
         "menuFocused": true,
@@ -201,7 +215,7 @@
         ]
       }
     },
-    "artifacts/inline-final-v10-phone/keyboard-layout.json": {
+    "artifacts/inline-final-v11-phone/keyboard-layout.json": {
       "sha256": "18e2d197a37ad3509827a8b32bdc5d56fc9a65569debd1cda7797048a43fe172",
       "data": {
         "screen": "1080x2340",
@@ -210,7 +224,7 @@
         "windows": "[1080x2340,location=[0, 0],focused=true,ime=Insets{left=0, top=0, right=0, bottom=966}]"
       }
     },
-    "artifacts/inline-final-v10-phone/preferences-runtime-state.json": {
+    "artifacts/inline-final-v11-phone/preferences-runtime-state.json": {
       "sha256": "cce13886283cb912e72575e8638d98954c7d4f10c369f9782a1fc32c63526b01",
       "data": {
         "same_engine": true,
@@ -219,14 +233,14 @@
         "activations_after": 2
       }
     },
-    "artifacts/inline-final-v10-phone/editor-current-measurement.json": {
+    "artifacts/inline-final-v11-phone/editor-current-measurement.json": {
       "sha256": "e559df8dc8138877bd88e48ab7e1ab3bc86b747d3733ac4c4c7a6225613de5e4",
       "data": {
         "save": "Rect.fromLTRB(729.0, 1222.0, 1016.0, 1327.0)",
         "frame": "Rect.fromLTRB(32.0, 95.0, 1048.0, 1342.0)"
       }
     },
-    "artifacts/inline-final-v10-phone/editor-resize-measurement.json": {
+    "artifacts/inline-final-v11-phone/editor-resize-measurement.json": {
       "sha256": "3ce8ad76cbc304cb3c64050ff064152a0711a3cd7ecf46dd0449c0c7cc8dad2b",
       "data": {
         "before_save": "Rect.fromLTRB(729.0, 1222.0, 1016.0, 1327.0)",
@@ -272,7 +286,7 @@
         "epoch_after": 1
       }
     },
-    "artifacts/inline-final-v10-tablet/capture-state-inline-filter-focus.json": {
+    "artifacts/inline-final-v11-tablet/capture-state-inline-filter-focus.json": {
       "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
       "data": {
         "route_before": "extension-run",
@@ -281,7 +295,7 @@
         "epoch_after": 1
       }
     },
-    "artifacts/inline-final-v10-phone/capture-state-inline-filter-focus.json": {
+    "artifacts/inline-final-v11-phone/capture-state-inline-filter-focus.json": {
       "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
       "data": {
         "route_before": "extension-run",
@@ -289,10 +303,133 @@
         "epoch_before": 1,
         "epoch_after": 1
       }
+    },
+    "artifacts/inline-final-v11-tablet/untitled-geometry.json": {
+      "sha256": "4ee066f97a35ea035ccf244efeb45aa5d5a52a6f13ec28e445fa6b34487f5d18",
+      "data": {
+        "cells": [
+          [
+            422,
+            378,
+            771,
+            585
+          ],
+          [
+            422,
+            615,
+            771,
+            822
+          ],
+          [
+            786,
+            615,
+            1135,
+            822
+          ]
+        ]
+      }
+    },
+    "artifacts/inline-final-v11-tablet/late-grid-state.json": {
+      "sha256": "e4549af95f11d64d672e8a3b7e633aa9beefb23aefd060a624eb96f138c79603",
+      "data": {
+        "navigation_depth": 2,
+        "root_type": "Grid",
+        "error": "Public late Grid failure. Close this command and try again."
+      }
+    },
+    "artifacts/inline-final-v11-tablet/late-list-state.json": {
+      "sha256": "d6dd8a6d493106f892d865c7f97b601a2ba432cb82789e8b84d85553096f0fc3",
+      "data": {
+        "navigation_depth": 2,
+        "root_type": "List",
+        "error": "Public late List failure. Close this command and try again."
+      }
+    },
+    "artifacts/inline-final-v11-phone/untitled-geometry.json": {
+      "sha256": "ae1feb74d0c2f32dcfdd9bc60a9f8b5729d30defb11a0e02dab478a3c5924e11",
+      "data": {
+        "cells": [
+          [
+            74,
+            342,
+            368,
+            525
+          ],
+          [
+            74,
+            577,
+            368,
+            760
+          ],
+          [
+            394,
+            577,
+            687,
+            760
+          ]
+        ]
+      }
+    },
+    "artifacts/inline-final-v11-phone/late-grid-state.json": {
+      "sha256": "e4549af95f11d64d672e8a3b7e633aa9beefb23aefd060a624eb96f138c79603",
+      "data": {
+        "navigation_depth": 2,
+        "root_type": "Grid",
+        "error": "Public late Grid failure. Close this command and try again."
+      }
+    },
+    "artifacts/inline-final-v11-phone/late-list-state.json": {
+      "sha256": "d6dd8a6d493106f892d865c7f97b601a2ba432cb82789e8b84d85553096f0fc3",
+      "data": {
+        "navigation_depth": 2,
+        "root_type": "List",
+        "error": "Public late List failure. Close this command and try again."
+      }
+    },
+    "artifacts/inline-grid-contract-negative-v2/untitled-geometry.json": {
+      "sha256": "a43d010eeefb872ef39fe5c7e4c81c9faed781a99bb30036198f0ef253a07746",
+      "data": {
+        "cells": [
+          [
+            422,
+            378,
+            771,
+            585
+          ],
+          [
+            786,
+            378,
+            1135,
+            585
+          ],
+          [
+            1150,
+            378,
+            1499,
+            585
+          ]
+        ]
+      }
+    },
+    "artifacts/inline-grid-contract-negative-v2/late-grid-state.json": {
+      "sha256": "e4549af95f11d64d672e8a3b7e633aa9beefb23aefd060a624eb96f138c79603",
+      "data": {
+        "navigation_depth": 2,
+        "root_type": "Grid",
+        "error": "Public late Grid failure. Close this command and try again."
+      }
+    },
+    "artifacts/inline-grid-contract-negative-v2/late-list-state.json": {
+      "sha256": "d6dd8a6d493106f892d865c7f97b601a2ba432cb82789e8b84d85553096f0fc3",
+      "data": {
+        "navigation_depth": 2,
+        "root_type": "List",
+        "error": "Public late List failure. Close this command and try again."
+      }
     }
   },
   "jvm": {
-    "tests": 124,
+    "tests": 132,
     "failures": 0,
     "errors": 0,
     "skipped": 0
@@ -310,11 +447,12 @@
   },
   "cleanup_unit_tests": 4,
   "sources": {
-    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "b41c6d0d09003ad53b86fd398407a3c2a4de82c34ae3d68e70b5afbd43ac39cf",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "7c74972b1eb24cb93d1f5540faf84651740c724345e586e08480c2a952832244",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "a6966aea2a62262ac583ee466da07c65f55fb44206ff73b3b436fc46302ed678",
     "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "f5f24b967f1693cf7ffd7d94037eff9acbf7032643d555afb13b4d85f4468b56",
     "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
-    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "25052495aad34a59a45abc184ff209e8c78e5ba6c2e2c7029915330c1f0498df",
-    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "5088070febf82a6eb6fa574bbbc244fc6dbc590164c7f36704b5b272c0f99130",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "cd13c4e7d9d8ba668bdb11f111cb2c66944a6d5df5b4bddb698adc65c1f16173",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "09f062878cb7fe68bce33f5935426e7cdf58f7473554464754d7c2f3de7445d8",
     "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5fc9fbfea7d3e55972fe9915c713e964fcef1bd3e6f79a5004c82b7d05898ba1",
     "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
     "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "17468aa97e1a4add76d900290c729f8d6aadeac9301412a5680a3fd3622b1471",
@@ -331,10 +469,11 @@
     "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "69eeb306ca1b4bf9204a4fc56a6f2457da95dc75e23248f92c93c372c6c66787",
     "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "0843afbc3309aeac05822b0cd1714da1b3424ff90f0ead5d5eea3c9364ddbd99",
     "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
-    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "ec618c96c93f213d5fcee7578fca320011ab7160c092eaa40e3d6da5f4c80b06",
-    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "449f8fa2c1fc88ff5aef01faa541a56c109dbf18f7c8512b6c34bb1f9a66313f",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "97eef3e5aea3ce9c4e1fc6d16f56b0c485b2f56c96d9cd645f7dba767086b983",
     "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "5e2c1ba3b28e2445867c79403630f66fed1b63f2bf6ed39479e21396d6f453d6",
-    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "2c2e58f921aead90f6cee49b5d1668f6b12d45836c6213e0f15a0e82b734d257",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "0e442aa005d1d80e6a9a3fffc31aa7a67fcf750ebe6ca1cc19cc76d424ecc768",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
     "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
     "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
     "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
@@ -354,20 +493,28 @@
     "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66"
   },
   "reports": {
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.PaletteScrollHistoryTest.xml": "9de117f0fedc8309b641958cde0a501a1d889d14098275608fa2300ff36bb980",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutReadinessTest.xml": "6636a81007a7e71dee469c2745a7f20b5c9d191a6d29126738a8debe10f6a229",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.EmojiCatalogTest.xml": "5c7f6ee8c1814c4b69a99fe2fcc859ff5f3bd5c848a17c859c686b50fafac5f4",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.SystemSettingsTest.xml": "9fe994aa5b8755bf4a190454f4a227059e8b085371a654bdc20a9711a90bd34e",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ModifierTapTest.xml": "8bd432f81f12f4bcbafa0e1308c49aec221e37e22207fc1981b74bd5fa9dc133",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutTest.xml": "b53abf09c4342c5bdf007d722ee83d31c208f1310c0374c56204d9f4b49a6c4d",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.PaletteMenuOwnershipTest.xml": "d40e0719837db2f906244c03e0d9d9f0f324c8e62a143b2107d13bffb2f640ec",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.BackupPlannerTest.xml": "c600c04add6fdcd256f60e9ed2f0c5c2e5c0854246a07b3c8fa1212e32e48ba8",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ExtensionGridNavigationTest.xml": "da04538a3d484204b0dee30f65535ef614eb3dc3dabd1dd8eab055eccfed1ece",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderGrantTransactionTest.xml": "55ad3bc2d1fde1ad1c520326c1cb4fc18846c82ece0dd3c1287043f3a518a241",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.CommandEngineTest.xml": "83e33f205ac7b20fd8d655be8514c8cf669f1a886c4d04ced639900b89651dd5",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderIndexTest.xml": "636fd9c80ccb4ced42eabb0732af88fa2fdc015046f2a5f939c153d86207b4ce",
-    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.TinycastGridParityTest.xml": "dcd7464f465cd86da3b5398f8ea241aecfb2865ac991e82770e0e8644863404f",
-    "app/build/reports/lint-results-debug.xml": "64a62353dc4dc08e45404eb53146ddd9d3cce4c4cb054ee3d73e4d0fd2258c0d",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.PaletteScrollHistoryTest.xml": "65a5b293ea776a1ab5075cd3cb55d65f6274ca3876d547c86ef1feff0322e979",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutReadinessTest.xml": "f3604e2f0cc84fce3630b0baea866b4c1ce64a3ade2972fde3ac1b0a556fa537",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.EmojiCatalogTest.xml": "a615215c69407f647ccc850bf51a6403ec199bd2bff693b9a0cdcc87c4bc98c9",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.SystemSettingsTest.xml": "9db56258e830545b75dd97d8a5273c95d65255b4a2221107fc73768d5f98e507",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ExtensionGridContractTest.xml": "dd8a520183e981491fcdaf2337138af39a865ec02d2754d8b60448f34bfe715b",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ModifierTapTest.xml": "84bde8dc4ae4415f5b27a7c7bd73b32257b608503bf95ab503d1a5d38ea52612",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutTest.xml": "82f06c1cc84ed10956e05f24e5c9dfbbafca160dff90ea6c9231c65ba5ccc2ca",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.PaletteMenuOwnershipTest.xml": "25630731d8d1abd5034d9ab6bc905a2cf0632f4781d1ffb3e19e9e5711530d65",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.BackupPlannerTest.xml": "edb6f4f48f0b48b0dcc5541e25a45e5321878dc3fcb354b3b859473b8ebc092b",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ExtensionGridNavigationTest.xml": "bdc8790413000228ae5795177059ae7fc73176f0b0214aa8e5acb31d52191260",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderGrantTransactionTest.xml": "7f9db2ebf0536a869042271baebd48ec67e0ab84ee76156c756dd181817c51bd",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.CommandEngineTest.xml": "7142203bda96ff6668957f09c9a5f8a56c7fd37377072ad9516d57a260baa8d9",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderIndexTest.xml": "6d7e38c45678f12293342819bc315a0cdfbbe7741a9694449cb7cc3f8c2befb1",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.TinycastGridParityTest.xml": "589202ab4e0604279c3ab5413e99dc9552ef03016c34242a6c6e8d9c67a02ae4",
+    "app/build/reports/lint-results-debug.xml": "48a27854bdb28cc55071c416a0b6e3dab9d7c93a92bfdcd8a1b6cb876111d819",
+    "artifacts/inline-picker-actions-build.log": "0ce10671d97593851e0faede630570efe362210ad0d4df3b4f6f689c9ee1b51f",
+    "artifacts/inline-picker-failure-observation.json": "9f42c1109584891fb7d5c6ec3962181429f4c8498b7465eec054463053431895",
+    "artifacts/inline-test-variant-provenance.json": "bb277cb0883688f078cdaa3908ef4e24b6a8868ca7103ac1716e3b6d0fb15a6f",
+    "artifacts/inline-grid-contract-control-verification.json": "b6ed47858e9916b835569764acd209de3a6f03d92789be859b5f6ac6b35c07df",
+    "artifacts/inline-grid-contract-build.log": "9f822baee0611a8088add68077ffb68aa91bebaebb9d94b4601fb3dfb58e1760",
+    "artifacts/inline-grid-contract-fixture-build.log": "d832363eade2d877f865b29b2991178870439c98c9e7a9a034a88c484911fd87",
+    "artifacts/inline-grid-contract-test-build.log": "c0e8844648bf4f78b2db03d116264bbbcac5d51a9cb6c5c4b81fecfa6b5598c0",
     "artifacts/inline-targeted-clipboard-build.log": "4c227c02ae6d98f904804c3b25fe9f4e8a97f70f154bae8fa752dc0d56acd2ec",
     "artifacts/inline-ime-controlled-build.log": "4d33efb379ff03d6231dd361e6f183b4829f2583470065958de2aec68870cc8c",
     "artifacts/inline-ime-fixed-build.log": "2ebf39efacae7f7c53abeca6e45750fe6016ffff2c80c82a2eb0feb18de1f274",
@@ -387,17 +534,17 @@
     "artifacts/inline-cleanup-final.log": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6"
   },
   "runs": {
-    "inline-final-v10-tablet": {
-      "record": "artifacts/inline-final-v10-tablet/record.json",
-      "record_sha256": "915282efa1f1ab5d9bbe57ea9ddf66ec078ae8dc31445f4c93f10be6cf340f9b",
-      "log_sha256": "f5955261f469fa1c906331f3956104f8c0acf046f63216668d3799efb2a4dd08",
-      "passes": 27,
-      "native_log_passes": 27,
+    "inline-final-v11-tablet": {
+      "record": "artifacts/inline-final-v11-tablet/record.json",
+      "record_sha256": "eacfe46d879671df25002380238d3dc14ad4e92c1af0dd8c19659fcaaa9bde2b",
+      "log_sha256": "4a7e5437da60586cde1cd0f7acbb8f0f73984b4afe96a5ed8333d5b83653f260",
+      "passes": 33,
+      "native_log_passes": 33,
       "artifact_recovery": null,
-      "expected": 27,
+      "expected": 33,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -443,17 +590,17 @@
       },
       "installed_matches": true
     },
-    "inline-workspace-v5-tablet": {
-      "record": "artifacts/inline-workspace-v5-tablet/record.json",
-      "record_sha256": "459fbf5e16bd1307ee1330192ec2593be38e4c5f3f9b6c1ed12071c0772e6600",
-      "log_sha256": "bb12f9c2a3b388a34b1438cef3d4db3d556efa7a3fbef111a448cc68690c7c2b",
+    "inline-workspace-v7-tablet": {
+      "record": "artifacts/inline-workspace-v7-tablet/record.json",
+      "record_sha256": "5e6a459aa945f01d4efe2e736a21565f3348e2609cfe6e2fc56ef8c62ff85a7d",
+      "log_sha256": "fd672b19aa2e24e8a50bcb6fb2318df45b56a127b51e11e0c6cf53fc994d5b7f",
       "passes": 27,
       "native_log_passes": 27,
       "artifact_recovery": null,
       "expected": 27,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -499,17 +646,17 @@
       },
       "installed_matches": true
     },
-    "inline-emoji-v3-final-tablet": {
-      "record": "artifacts/inline-emoji-v3-final-tablet/record.json",
-      "record_sha256": "548b1e5c70489e3a9fd4b0df3c06f24378d10e348fbcae78489dda4c4fe0fff5",
-      "log_sha256": "c82627863a02b683b4993ac4ee735035a49d53227528595933d1f848ac34aa17",
+    "inline-emoji-v4-final-tablet": {
+      "record": "artifacts/inline-emoji-v4-final-tablet/record.json",
+      "record_sha256": "f32c92a884d20c68786e0d2485e46c2264a6ee270ef9317121989d98834c676b",
+      "log_sha256": "fa9751bcf06a73a5c76dd122c7551f0a7bb488ef4f8038a5bf7efd47cd78b232",
       "passes": 13,
       "native_log_passes": 13,
       "artifact_recovery": null,
       "expected": 13,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -611,17 +758,17 @@
       },
       "installed_matches": true
     },
-    "inline-final-v10-phone": {
-      "record": "artifacts/inline-final-v10-phone/record.json",
-      "record_sha256": "fc0fa0a8b753f38eac99e2068e974f5bfc22d478abfeebbf0ca2cccc8656d402",
-      "log_sha256": "2082556581fc4be06e1f6cd62772ae1b21d058b2dd5c1fc67f94ba5df5cf671d",
-      "passes": 27,
-      "native_log_passes": 27,
+    "inline-final-v11-phone": {
+      "record": "artifacts/inline-final-v11-phone/record.json",
+      "record_sha256": "9190ac45c36ba47f1bfaac1f54633f850c719b03d6e17ae0148a15db4fbf4280",
+      "log_sha256": "8e61ea7f09e451a97a7e35ace871b56bf3fcdbe09ab5d65a9245b04439d66bf7",
+      "passes": 33,
+      "native_log_passes": 33,
       "artifact_recovery": null,
-      "expected": 27,
+      "expected": 33,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -673,17 +820,17 @@
       },
       "installed_matches": true
     },
-    "inline-workspace-v5-phone": {
-      "record": "artifacts/inline-workspace-v5-phone/record.json",
-      "record_sha256": "22d84e35cc23e8e0faf89a3530e89613486d1562c8fce5ebddbbd5124982cb1d",
-      "log_sha256": "1cb92e0a9d90b9cabc2c44ea223dc5faa4720d0441c490f2b125d0a0354713ea",
+    "inline-workspace-v7-phone": {
+      "record": "artifacts/inline-workspace-v7-phone/record.json",
+      "record_sha256": "8b960df9316140a9a4a5082d252c3fe792737e529f46b5a4b5e7a05a3f0a1fe1",
+      "log_sha256": "8873d8e5c512a8259223047dae86c34bcc7f4516d477d3b5f599a09bc131829a",
       "passes": 24,
       "native_log_passes": 24,
       "artifact_recovery": null,
       "expected": 24,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -735,17 +882,17 @@
       },
       "installed_matches": true
     },
-    "inline-emoji-v3-final-phone": {
-      "record": "artifacts/inline-emoji-v3-final-phone/record.json",
-      "record_sha256": "3aad713475f04085ad688b31dede2704620c36a19e1381a4a5c5c4f36b212b6b",
-      "log_sha256": "a02ad11ea3e8807bf8ff41c07d305d68184ad0c3ecb4faf37ecbcfcfd5f51103",
+    "inline-emoji-v4-final-phone": {
+      "record": "artifacts/inline-emoji-v4-final-phone/record.json",
+      "record_sha256": "33b01a1cfc72af5c83c72409fc0ca2e451f858ce3648bae4066af9c114ccb2d5",
+      "log_sha256": "e5260625db683892899f63ef1083c33dacd22fef6484f38e062a50ccaaad166c",
       "passes": 13,
       "native_log_passes": 13,
       "artifact_recovery": null,
       "expected": 13,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -859,17 +1006,17 @@
       },
       "installed_matches": true
     },
-    "inline-hardware-menus-v3-final": {
-      "record": "artifacts/inline-hardware-menus-v3-final/results.json",
-      "record_sha256": "e259e662815a05f94f493f4da7e4d84273d23692ff9b486c95376ea8a252aa93",
+    "inline-hardware-menus-v4-final": {
+      "record": "artifacts/inline-hardware-menus-v4-final/results.json",
+      "record_sha256": "e65d3091a0ac02c6f1f6242e625b6bd754c4428895c37fd65681064c91b78e8f",
       "log_sha256": null,
       "passes": 3,
       "native_log_passes": null,
       "artifact_recovery": null,
       "expected": null,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -1163,17 +1310,17 @@
       },
       "installed_matches": true
     },
-    "inline-ime-focused-v4-tablet": {
-      "record": "artifacts/inline-ime-focused-v4-tablet/record.json",
-      "record_sha256": "49deece93d506e3bc0eb0f7e9b42d7db7b96fc2c8a432c21c63519ef82e6fe49",
-      "log_sha256": "72759fcc3e8ad23f02b492dac237e52d558870fe08ff8ecccf9d9c8cf2117cdf",
-      "passes": 2,
-      "native_log_passes": 2,
+    "inline-grid-contract-focused-tablet": {
+      "record": "artifacts/inline-grid-contract-focused-tablet/record.json",
+      "record_sha256": "f8fc39225daf059a4bb5e22ae2d0a5697b35f0449f6266dd81768174d985583d",
+      "log_sha256": "e868a66d65a6cd66ace25d1ddd12effb9b33c7586beabb63aa81f4052d82ae51",
+      "passes": 7,
+      "native_log_passes": 7,
       "artifact_recovery": null,
-      "expected": 2,
+      "expected": 7,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -1219,17 +1366,17 @@
       },
       "installed_matches": true
     },
-    "inline-ime-focused-v4-phone": {
-      "record": "artifacts/inline-ime-focused-v4-phone/record.json",
-      "record_sha256": "1ada67781554974d4950553d33d8ebb57c1bbcab6a2118a38a70d55f1b43f18a",
-      "log_sha256": "4551427505befbec474051bb5561d6c8b9ebcb522a1601acc181a4ac07f5b9ac",
-      "passes": 2,
-      "native_log_passes": 2,
+    "inline-grid-contract-focused-phone": {
+      "record": "artifacts/inline-grid-contract-focused-phone/record.json",
+      "record_sha256": "358a4eef8336bba9a480f11c9fb1f6be71cd3d2a04494dcf1bdf48c38445f9ab",
+      "log_sha256": "ac6c17f9aa8d179790f4da2b7da0578fe59213b2035d2bbade42a23c55c2222a",
+      "passes": 7,
+      "native_log_passes": 7,
       "artifact_recovery": null,
-      "expected": 2,
+      "expected": 7,
       "completed": true,
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
-      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230",
       "typing_probe": null,
       "probe_completion_is_input_certification": null,
       "cleanup": {
@@ -1547,6 +1694,888 @@
           "passed": true
         },
         "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-picker-focused-v2-tablet": {
+      "record": "artifacts/inline-picker-focused-v2-tablet/record.json",
+      "record_sha256": "e77ce34c194e13183b93b20f135dffaf19e6c4dba4fb09f45149f5b9bc8658e0",
+      "log_sha256": "063d4e08672d562304cc15b169756325f5c919753738203152d71fb47ac26c5a",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-picker-focused-v2-phone": {
+      "record": "artifacts/inline-picker-focused-v2-phone/record.json",
+      "record_sha256": "e930e19f528b5f9fab4708c25ebc9482f1b81c2e7e71dc58acbfbda2324dbc9f",
+      "log_sha256": "eca981b3db2f2d8a0147ea741817cee2a8734b28568253f902650e8ab173a358",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v6-tablet": {
+      "record": "artifacts/inline-workspace-v6-tablet/record.json",
+      "record_sha256": "7690afb03ed5f531a50b075a09436ed6fb572a0e73a4bf34483ace054880eead",
+      "log_sha256": "0bc2749eb43968e397beb59843df9e70c59a5b9de1b9c880efa2f6c2df5561dd",
+      "passes": 26,
+      "native_log_passes": 26,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": false,
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-picker-focused-tablet": {
+      "record": "artifacts/inline-picker-focused-tablet/record.json",
+      "record_sha256": "52cdc031d82b054973890dd4f4c6dad428490428fdd30a176209b357c9b0a088",
+      "log_sha256": "98ed755e9c3d0b007948918937c3fa7fde57fa3476e36ff7c0d63fb4247262eb",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "test": "a0150951784886eab23d95041e10b8470b007c8117ebe93dccfe95eb36be9665",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-grid-contract-negative": {
+      "record": "artifacts/inline-grid-contract-negative/record.json",
+      "record_sha256": "507ec6ec5f25411e14e60a8acf531459e49e90bfb2df14dc38a53ba950488d75",
+      "log_sha256": "028812daf5b6b12b3eff0bc6f1c641fe265ab2ceb66ee134050a477b307bbc7d",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 6,
+      "completed": false,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "49b8d2fe0dbe6a238d73d5a3559c2201ecd071926005688cf750b1867ec03b69",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-grid-contract-negative-v2": {
+      "record": "artifacts/inline-grid-contract-negative-v2/record.json",
+      "record_sha256": "e33a4ff51dbd4345e23e3886a3c535b290dee18f0aaf8039f05bb2b35fbe75b8",
+      "log_sha256": "37a0a5563c2dfe1fc709691a222ea2037b65bb3ca3281d89e6833eb06aa6e427",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 6,
+      "completed": false,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v10-tablet": {
+      "record": "artifacts/inline-final-v10-tablet/record.json",
+      "record_sha256": "915282efa1f1ab5d9bbe57ea9ddf66ec078ae8dc31445f4c93f10be6cf340f9b",
+      "log_sha256": "f5955261f469fa1c906331f3956104f8c0acf046f63216668d3799efb2a4dd08",
+      "passes": 27,
+      "native_log_passes": 27,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v10-phone": {
+      "record": "artifacts/inline-final-v10-phone/record.json",
+      "record_sha256": "fc0fa0a8b753f38eac99e2068e974f5bfc22d478abfeebbf0ca2cccc8656d402",
+      "log_sha256": "2082556581fc4be06e1f6cd62772ae1b21d058b2dd5c1fc67f94ba5df5cf671d",
+      "passes": 27,
+      "native_log_passes": 27,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v5-tablet": {
+      "record": "artifacts/inline-workspace-v5-tablet/record.json",
+      "record_sha256": "459fbf5e16bd1307ee1330192ec2593be38e4c5f3f9b6c1ed12071c0772e6600",
+      "log_sha256": "bb12f9c2a3b388a34b1438cef3d4db3d556efa7a3fbef111a448cc68690c7c2b",
+      "passes": 27,
+      "native_log_passes": 27,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v5-phone": {
+      "record": "artifacts/inline-workspace-v5-phone/record.json",
+      "record_sha256": "22d84e35cc23e8e0faf89a3530e89613486d1562c8fce5ebddbbd5124982cb1d",
+      "log_sha256": "1cb92e0a9d90b9cabc2c44ea223dc5faa4720d0441c490f2b125d0a0354713ea",
+      "passes": 24,
+      "native_log_passes": 24,
+      "artifact_recovery": null,
+      "expected": 24,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-emoji-v3-final-tablet": {
+      "record": "artifacts/inline-emoji-v3-final-tablet/record.json",
+      "record_sha256": "548b1e5c70489e3a9fd4b0df3c06f24378d10e348fbcae78489dda4c4fe0fff5",
+      "log_sha256": "c82627863a02b683b4993ac4ee735035a49d53227528595933d1f848ac34aa17",
+      "passes": 13,
+      "native_log_passes": 13,
+      "artifact_recovery": null,
+      "expected": 13,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-emoji-v3-final-phone": {
+      "record": "artifacts/inline-emoji-v3-final-phone/record.json",
+      "record_sha256": "3aad713475f04085ad688b31dede2704620c36a19e1381a4a5c5c4f36b212b6b",
+      "log_sha256": "a02ad11ea3e8807bf8ff41c07d305d68184ad0c3ecb4faf37ecbcfcfd5f51103",
+      "passes": 13,
+      "native_log_passes": 13,
+      "artifact_recovery": null,
+      "expected": 13,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-hardware-menus-v3-final": {
+      "record": "artifacts/inline-hardware-menus-v3-final/results.json",
+      "record_sha256": "e259e662815a05f94f493f4da7e4d84273d23692ff9b486c95376ea8a252aa93",
+      "log_sha256": null,
+      "passes": 3,
+      "native_log_passes": null,
+      "artifact_recovery": null,
+      "expected": null,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "release-keys": {
+          "passed": true
+        },
+        "disable-service": {
+          "passed": true
+        },
+        "disable-master": {
+          "passed": true
+        },
+        "clipboard": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "preference-backup-removal": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "verify-preferences": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "remove-input-helper": {
+          "passed": true
+        },
+        "unroot": {
+          "passed": true
+        },
+        "verify-adbd": {
+          "passed": true
+        },
+        "read-size": {
+          "passed": true
+        },
+        "read-density": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v4-tablet": {
+      "record": "artifacts/inline-ime-focused-v4-tablet/record.json",
+      "record_sha256": "49deece93d506e3bc0eb0f7e9b42d7db7b96fc2c8a432c21c63519ef82e6fe49",
+      "log_sha256": "72759fcc3e8ad23f02b492dac237e52d558870fe08ff8ecccf9d9c8cf2117cdf",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v4-phone": {
+      "record": "artifacts/inline-ime-focused-v4-phone/record.json",
+      "record_sha256": "1ada67781554974d4950553d33d8ebb57c1bbcab6a2118a38a70d55f1b43f18a",
+      "log_sha256": "4551427505befbec474051bb5561d6c8b9ebcb522a1601acc181a4ac07f5b9ac",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
           "passed": true
         },
         "private-fixture": {
@@ -3785,279 +4814,451 @@
   "images": [
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-editor.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-editor.png",
-      "sha256": "bec489591af01fc4272b0378df8c68767edf692b7a49de278271f52333561905",
+      "origin": "artifacts/inline-final-v11-tablet/inline-editor.png",
+      "sha256": "839add46f2ce26982eb33b95f93895f8b3d0f222ee398102e0f1c08ccca759fe",
       "width": 1920,
       "height": 1200,
       "caption": "Editor replaces the launcher body inside its floating palette",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-editor.xml",
-      "xml_sha256": "8c9dd886f66ec24fb83b18f357efedf59ccd5487580f04e3fddc783432be8b18",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-editor.xml",
+      "xml_sha256": "543dbaacf66fb286e8277e7f775a201e59cc7850c4bfe6d84b65bccff446a639",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-editor-ime.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-editor-ime.png",
-      "sha256": "c16b2fa8ec4e43f2b787d593228e5d930790c366f2c2680b8b91fa06121aece7",
+      "origin": "artifacts/inline-final-v11-tablet/inline-editor-ime.png",
+      "sha256": "fb7ff8f127242719fe59676bc89c33afb576207361165468ca8f0a85432fe98e",
       "width": 1920,
       "height": 1200,
       "caption": "Editor Save remains reachable above the real keyboard",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-editor-ime.xml",
-      "xml_sha256": "f3af9fe0011baf140e9b07dcda34c131edf81dc270a6646599ff2f5ace9f93cd",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-editor-ime.xml",
+      "xml_sha256": "5fbff0fa327ace38076f06ee99fcf1557347ee027496160db56dafbe35db254c",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-command-actions.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-command-actions.png",
-      "sha256": "5f011c5f02c5d97a6fcb00076a4a9966714661b0fe373b79031f7bd9621738c0",
+      "origin": "artifacts/inline-final-v11-tablet/inline-command-actions.png",
+      "sha256": "a98dcc0d0e892d5cc94c126d6d9be1f9e535749ee796eb906658d7020d7c4dac",
       "width": 1920,
       "height": 1200,
       "caption": "Contextual searchable actions, icons and keycaps above the shared footer",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-command-actions.xml",
-      "xml_sha256": "8671847c038a111a8b6fe5adc654e528a10d42532c9d7bca47d87653bb0edf90",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-command-actions.xml",
+      "xml_sha256": "211657c30b94522f72bbfd37b66c08c5442547f6699c6e5bc01a6f51b80e2e36",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-actions-search.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-actions-search.png",
-      "sha256": "9ff110100042b2fe7e95fc9d03655aafb72bf22dc32f44277a406dab3da1b7d1",
+      "origin": "artifacts/inline-final-v11-tablet/inline-actions-search.png",
+      "sha256": "d5707d2e5f4ee9c1798a7d8dd1c434f7bc2a367a3940771a43b2152578217a86",
       "width": 1920,
       "height": 1200,
       "caption": "Action search filters Copy content while preserving the launcher query",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-actions-search.xml",
-      "xml_sha256": "bd7709dffb37e15691bee10efd223e00e86cfa0088bab16458243552f4c6567e",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-actions-search.xml",
+      "xml_sha256": "798cf427c8a29788a3951c8f9dc0b7679ed0ec1925ca164e42dae563f8bca284",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-emoji-actions.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-emoji-actions.png",
-      "sha256": "1d80dc569a335b17ed50f86575928e4b49e1d061d0eaf685fc4c57cee8448362",
+      "origin": "artifacts/inline-final-v11-tablet/inline-emoji-actions.png",
+      "sha256": "ba692d80df8ec8cd8764782c86b930110f49a780b17f7c8c81bae63c291647fb",
       "width": 1920,
       "height": 1200,
       "caption": "Emoji uses the shared primary/action capsule and in-surface actions",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-emoji-actions.xml",
-      "xml_sha256": "8d69c6435a1d06d1493d303ecb1b4d8ac2b38a4c274237682ed1de29098ffd38",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-emoji-actions.xml",
+      "xml_sha256": "e8cd344f688365ac35c3cfd38f7801b913ec89e93943b5e4d817b955c64cad8f",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-command-menu.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-command-menu.png",
-      "sha256": "f0245243519461c2ec0927154f0d0fbbb0c5426785d1dee880ac1f40a061c66b",
+      "origin": "artifacts/inline-final-v11-tablet/inline-command-menu.png",
+      "sha256": "204c85e0b799aa37809eb24930c9067eb3bdc7ead6d8cd9a50e95bcce795b4ea",
       "width": 1920,
       "height": 1200,
       "caption": "Categories remain within the palette and share its focus tree",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-command-menu.xml",
-      "xml_sha256": "5c1066304350e1a3e91b432a518073b0a44b33ee59f7813fd4d69a0b07a2222e",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-command-menu.xml",
+      "xml_sha256": "145518ebb651e54c8843fa8763204a3043d2a9dbb450f5f4a972ebf34789797b",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-native-grid.png",
-      "origin": "artifacts/inline-final-v10-tablet/native-grid.png",
-      "sha256": "db22e69d1164534b34e7aa9c4d3939deea45c93d324c47762199bf5c10761318",
+      "origin": "artifacts/inline-final-v11-tablet/native-grid.png",
+      "sha256": "d145a0c4cf2c97b3185402e2e9ed7bced7a30d1730669f90751d5aaca622f01a",
       "width": 1920,
       "height": 1200,
       "caption": "Authored React Grid fixture rendered as native raster, swatch and emoji cells",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/native-grid.xml",
-      "xml_sha256": "9647da0481b09f1f554a255e77f0ec91062f4e9f6312539c86202e84dc33c01c",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/native-grid.xml",
+      "xml_sha256": "d790b6177f5b2a641d2f8194701339373ba14b820ec1aebded305d48cb974661",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-keyboard-selected-visible.png",
-      "origin": "artifacts/inline-final-v10-tablet/keyboard-selected-visible.png",
-      "sha256": "8d99a56894a43e88af1a554b699a553d5a66f556882ab08f7af0ca38005069b8",
+      "origin": "artifacts/inline-final-v11-tablet/keyboard-selected-visible.png",
+      "sha256": "55fc4b66ea46957aa6bcb5e3f8b111a2cb9db571fc2d0567b55504bcd480c937",
       "width": 1920,
       "height": 1200,
       "caption": "Complete selected Grid cell and primary action above Gboard",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/keyboard-selected-visible.xml",
-      "xml_sha256": "1aa6f02479bf3f4797613170b52feddae68d09fc3ac965d77955753a41e87221",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/keyboard-selected-visible.xml",
+      "xml_sha256": "609e3de45463688667fd1b03f5a452f03b856cff0bfd96023c0e7f98434e493e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-detail-destination.png",
-      "origin": "artifacts/inline-final-v10-tablet/detail-destination.png",
-      "sha256": "f682e232306b587f863b259876009962c951c32ae3ef914d28c9bbf9d3c9540f",
+      "origin": "artifacts/inline-final-v11-tablet/detail-destination.png",
+      "sha256": "14b67c7bd3a10177292e08db8d371ebd5f8c08369e3c3e3f36037ed984adf7ab",
       "width": 1920,
       "height": 1200,
       "caption": "Pushed Detail destination inside the palette; Markdown remains raw source",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/detail-destination.xml",
-      "xml_sha256": "28c2e1090cad45c66b55b0510f5140b1f8709a25de3dda4b500142b3ea78f1dc",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/detail-destination.xml",
+      "xml_sha256": "481b42bf3c39a2afa49a612538d6560516748711dd78d9ca3e4b3bc3a269d210",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-preferences-return.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-preferences-return.png",
-      "sha256": "e96c60d19dc095a77fc63bf35fb67661cd0059ebe784369c096e3c7c36ca866a",
+      "origin": "artifacts/inline-final-v11-tablet/inline-preferences-return.png",
+      "sha256": "3dcb12f01d4763c0b9fa19c41ed873fdc02d147dd4d0aac4d6e36d1236cfaf46",
       "width": 1920,
       "height": 1200,
       "caption": "Cancel from preferences retains the running JS session and selection",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-preferences-return.xml",
-      "xml_sha256": "0a034b8133b773773fe3ac11dc75519c7ca363fccb7120d8513aeefbd76ce5c3",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-preferences-return.xml",
+      "xml_sha256": "0e934da7fe3aa5d004bd93c234047a0daf5bca8b5e0733d92d21ec038b7dea41",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-form-regression.png",
-      "origin": "artifacts/inline-final-v10-tablet/form-regression.png",
-      "sha256": "01b708b4ec7f19eeedbcc29649ff1eb45b5963b566b0c4b52050d53f57d57fcb",
+      "origin": "artifacts/inline-final-v11-tablet/form-regression.png",
+      "sha256": "6208c7a0a94521a12fef032fc527e789b3292156d49d2c6f5bf66511c6732094",
       "width": 1920,
       "height": 1200,
       "caption": "Basic extension Form editing and submission in the same window",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/form-regression.xml",
-      "xml_sha256": "94fde5cbffd41f0875e724c605c058bc34f04c132287ab7e5409fbb5c096049f",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/form-regression.xml",
+      "xml_sha256": "26000bb8fca2c06d1dbddf5b11f0504a8cdd1af87da197612493bb801d7f5285",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-install-review.png",
-      "origin": "artifacts/inline-final-v10-tablet/store-inline-install-review.png",
-      "sha256": "7498128e446cdc6b6a6e8f58c3a0704a14da8c8d291bf15979126096c8c40b91",
+      "origin": "artifacts/inline-final-v11-tablet/store-inline-install-review.png",
+      "sha256": "2ce6294a079cef0ea8782d4a8d9db490bca70d233807b2bd61852df0fd3450b2",
       "width": 1920,
       "height": 1200,
       "caption": "Real Store install review replaces the palette body",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-install-review.xml",
-      "xml_sha256": "b91015f9bad309fc40a709e3c63447786a5437dfe5e52bffa9cffdae44dc44e7",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/store-inline-install-review.xml",
+      "xml_sha256": "ba08ea2077fe8c901dd5153447927317419f6504f55537b61ebf75a02bfa6ade",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-command.png",
-      "origin": "artifacts/inline-final-v10-tablet/store-inline-command.png",
-      "sha256": "f58a56f0045ab9d1eef33a6316d84212c27e76babc8e90303049e6e770824b65",
+      "origin": "artifacts/inline-final-v11-tablet/store-inline-command.png",
+      "sha256": "76d14b965a00de9568b5cd7fa3585d96429ce9b287f10446c86d0f069b1f53f9",
       "width": 1920,
       "height": 1200,
       "caption": "Real Palette Colors bundle running as a native Grid",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-command.xml",
-      "xml_sha256": "6b58fc456553c3d285dc6e3727fda78eca43283754d9801842ad0b8116587a43",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/store-inline-command.xml",
+      "xml_sha256": "6ed9d22dc6cd98257bb5575c9ae0bd2321a07ba792d566645b191d44ec4ec1af",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-return.png",
-      "origin": "artifacts/inline-final-v10-tablet/store-inline-return.png",
-      "sha256": "586d14ee0bfbe4e0efe79df5d2d16e3a671ee05d58bb9c513a9fec167f21fd9b",
+      "origin": "artifacts/inline-final-v11-tablet/store-inline-return.png",
+      "sha256": "40447302b122cacb2373e7e4316665350c0d02e0ecad44579b1d186924551c75",
       "width": 1920,
       "height": 1200,
       "caption": "Back from a command restores the Installed tab and Store query",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-return.xml",
-      "xml_sha256": "ce84af919423855fca285d5adf89d44c693684dfd51f7068b8a477bc8cec1435",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/store-inline-return.xml",
+      "xml_sha256": "5c2cd6f20712251c2fc67ca00c7b43d0229afe3214f709c0aaf419d6ec7c120f",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-uninstall-review.png",
-      "origin": "artifacts/inline-final-v10-tablet/store-inline-uninstall-review.png",
-      "sha256": "deb8b87de228daf2d959cbc4d4d8624dea3881b040476db77f1961b7086bd6cf",
+      "origin": "artifacts/inline-final-v11-tablet/store-inline-uninstall-review.png",
+      "sha256": "30a3d36e4fa88da8d538969f5a60b9b6f11946bd50369336eb4768d6c3947440",
       "width": 1920,
       "height": 1200,
       "caption": "Explicit inline review before removing an extension",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-uninstall-review.xml",
-      "xml_sha256": "dd31968d504d0abc607f261d5fa6148290292ad1da59b403f9248ffe8f77b192",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/store-inline-uninstall-review.xml",
+      "xml_sha256": "ff92d08c15c9b44995995d5e1b9987c34b428455788e8347f8b63a76ad7d135e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-store-legacy-oklch.png",
-      "origin": "artifacts/inline-final-v10-tablet/store-legacy-oklch.png",
-      "sha256": "f43de9fbae901bcec8b72ffa9b26b0b12b0620c1a41215eb19e77098287a8b71",
+      "origin": "artifacts/inline-final-v11-tablet/store-legacy-oklch.png",
+      "sha256": "b3b9cf5850312ff43c9f8e2a223b66068f989e1ddde85b2aff1ee91fff1fe3f5",
       "width": 1920,
       "height": 1200,
       "caption": "Real OKLCH Store List command and copied result",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/store-legacy-oklch.xml",
-      "xml_sha256": "6063f57653a54d2ac18c16a2529247e7f3e54ed9be6dd3989017288b11f6519a",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/store-legacy-oklch.xml",
+      "xml_sha256": "f2cc1e600ced3345de721ccd661ff86a75a38950a38f74e36ef9f5664a7833c9",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-alias-conflict.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-alias-conflict.png",
-      "sha256": "bb5e4445071e94c3795e0b137f87c75ff25ec4ca8b15edce531be082cfeef419",
+      "origin": "artifacts/inline-final-v11-tablet/inline-alias-conflict.png",
+      "sha256": "c3b3197170346d32ee39c7fe362a68c1184a9d1812228519187219a00025b13d",
       "width": 1920,
       "height": 1200,
       "caption": "Alias collision feedback remains inside the palette",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-alias-conflict.xml",
-      "xml_sha256": "a9f194d9610be8eba4451fbc3b27a7f9a31de7c135ed218bde33cd327a60bbf0",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-alias-conflict.xml",
+      "xml_sha256": "650e8f5b1e3c698586cf87d211b3c9e690017f1fb011facd66c0e73f97c2fecf",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-delete-review.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-delete-review.png",
-      "sha256": "a5653f8b220891add34ed0ed6a62ea3371103b467cbe8de26fd3c49a6d44d4cd",
+      "origin": "artifacts/inline-final-v11-tablet/inline-delete-review.png",
+      "sha256": "cb56049670c1ef67e2cfb72df77f7adfb8f408ebabd31d059a93ffe3d8c869da",
       "width": 1920,
       "height": 1200,
       "caption": "Delete review has explicit confirmation and a cancel/back path",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-delete-review.xml",
-      "xml_sha256": "e1ab71994eed8dffd4f926a2132a4112e40982d7d2a680b1106435e233a47631",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-delete-review.xml",
+      "xml_sha256": "391a31af5beb4872007c9238859f97e92bdf02abd319c69b7727f2020e277da0",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-feedback.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-feedback.png",
-      "sha256": "8636a4018e091e3560edfee5822c55fc5c25ec1be44e82fea5727aedf3070c99",
+      "origin": "artifacts/inline-final-v11-tablet/inline-feedback.png",
+      "sha256": "b58754f268fe1359ab5b7259e28d738af9909fc8bc54d2689f07b0afc2b9e298",
       "width": 1920,
       "height": 1200,
       "caption": "Feedback stays inside the active palette screen",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-feedback.xml",
-      "xml_sha256": "9d4826e1099d3fefb6c61524630211a698754a3359c1b0e81dbb749ad983b7a2",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-feedback.xml",
+      "xml_sha256": "b42a89689bc6526612c4df5b8330d423a05627760d318b8a5a4f94fd290b4268",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-launcher-return-position.png",
-      "origin": "artifacts/inline-final-v10-tablet/launcher-return-position.png",
-      "sha256": "ff05dc9dcf573d154168d1b633c7168352589c4e786192bdc6e9875733356cf7",
+      "origin": "artifacts/inline-final-v11-tablet/launcher-return-position.png",
+      "sha256": "a650e2781e0c4962e83e680cbc335ddb773941f40ef624f1089151b4c369ebf3",
       "width": 1920,
       "height": 1200,
       "caption": "Equal-viewport Back restores the exact manually scrolled launcher row",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/launcher-return-position.xml",
-      "xml_sha256": "0f0460f8a03c7d65571ccd4aadba0c035c9919e8c9b1fd0b80f9d78656c1b0ff",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/launcher-return-position.xml",
+      "xml_sha256": "421401726a00543d7304ab1aa298d95eaf1245d4ed260300577afc425f83c65d",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-grid-return-position.png",
-      "origin": "artifacts/inline-final-v10-tablet/grid-return-position.png",
-      "sha256": "adc117ab3f8d609d5d9fe64465f0d74669afd8bc080c8496965e0b4c5d3913bb",
+      "origin": "artifacts/inline-final-v11-tablet/grid-return-position.png",
+      "sha256": "91271ba41c494aff4964158f4846dd5c1de5ff832230ac1e0b0eb4dd250e983c",
       "width": 1920,
       "height": 1200,
       "caption": "Cancelling preferences restores the exact manually scrolled Grid cell",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/grid-return-position.xml",
-      "xml_sha256": "5fd41fa865bf6a082bc27dcbf6a85696c7293d2cb6aff809e47ffb365db9a83c",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/grid-return-position.xml",
+      "xml_sha256": "7794090fb9ed2251a276168eefcf1bae7fd07731e822403e613ee01da40d00e8",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-store-tailwind-unavailable.png",
-      "origin": "artifacts/inline-final-v10-tablet/store-tailwind-unavailable.png",
-      "sha256": "765fe622b5d09b830dbcd11753164cc4cfc96fcb963098595b1a03c44ac3e848",
+      "origin": "artifacts/inline-final-v11-tablet/store-tailwind-unavailable.png",
+      "sha256": "d72f3540eedc0b38b4ce31cf42825d7a2f4a7757b722f4a7f65df898c6cc9360",
       "width": 1920,
       "height": 1200,
       "caption": "Tailwind remains rejected by the existing expanded-file size limit",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/store-tailwind-unavailable.xml",
-      "xml_sha256": "71718bbaefc7b568f88939cbc7ea88a3420520c2d8a588bd9b2b3b7fc3f6e6e6",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/store-tailwind-unavailable.xml",
+      "xml_sha256": "fb3caa3bcb3b30a00a4a28f71c3c19d2035922a472620731037458cd8ad3723c",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-ime-selected.png",
-      "origin": "artifacts/inline-final-v10-tablet/inline-ime-selected.png",
-      "sha256": "87b57679ce593304bc0c4f0b9b7043f8f91e75d45935772d1f9e2909a7f3a96d",
+      "origin": "artifacts/inline-final-v11-tablet/inline-ime-selected.png",
+      "sha256": "42fede5fe6f12d57635506100010fca73f56505cddefb712219d786959acc53e",
       "width": 1920,
       "height": 1200,
       "caption": "Highlighted Edit note before Search IME submission; native assertions verify the selected editor opens",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-tablet/inline-ime-selected.xml",
-      "xml_sha256": "0d604e6551fcb712a597dd7c19e22ec81e8b7884fac794b8f150175e5ee35c5a",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-tablet/inline-ime-selected.xml",
+      "xml_sha256": "907dd0af981e52ac5a9da0232745752c81e7c0c80df41c1f96a11b58e8625061",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-controlled-initial.png",
+      "origin": "artifacts/inline-final-v11-tablet/controlled-initial.png",
+      "sha256": "d1dbb0e84c994d8016f35156cd34dbd29d3fcd44d83d2880d7e048abd544b84a",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Initial selectedItemId highlights the requested item before activation",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/controlled-initial.xml",
+      "xml_sha256": "2030357af3f84dbadd56414ca587bac7dc68261e9b54a71673c1071b1cc05575",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-controlled-changed.png",
+      "origin": "artifacts/inline-final-v11-tablet/controlled-changed.png",
+      "sha256": "86fcfe5e13dd16b688cc0a7c43ec46b44b5c3752e023ee4cbb1d2c26927f1f74",
+      "width": 1920,
+      "height": 1200,
+      "caption": "A changed selectedItemId highlights the new requested item",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/controlled-changed.xml",
+      "xml_sha256": "72235adf2f98151d43202121f489f0c3041357347631090f19219e169855014e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-controlled-pending.png",
+      "origin": "artifacts/inline-final-v11-tablet/controlled-pending.png",
+      "sha256": "3d36b713a06e947f3201ef75c4102f91da2498952ab6485565a39f6c5af635b6",
+      "width": 1920,
+      "height": 1200,
+      "caption": "A requested ID remains pending while only four items are published",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/controlled-pending.xml",
+      "xml_sha256": "951fbf3e41f9642baeba6669e52e2be569d7ce96615d6809d58d9761520f914a",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-controlled-deferred.png",
+      "origin": "artifacts/inline-final-v11-tablet/controlled-deferred.png",
+      "sha256": "6cb78ecaa10f78e5fd50098647c5a6c7d1a61fa1d448e9ec70c92824c1d7a4a4",
+      "width": 1920,
+      "height": 1200,
+      "caption": "The deferred requested item is selected when seven items become available",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/controlled-deferred.xml",
+      "xml_sha256": "a26494418e4e68533ecb75c9106f016ee260a9e973dd67e061ae7cd7c80b5447",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-untitled-sections.png",
+      "origin": "artifacts/inline-final-v11-tablet/untitled-sections.png",
+      "sha256": "3b6821961d391dd08eca27fe4d647e5943f868ab9b2b980c7e3cc8fadc284fc4",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Untitled sections start separate visual rows matching keyboard navigation",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/untitled-sections.xml",
+      "xml_sha256": "1bc87353770e774f3f5fee0af5f062fde7606114833506ca61183fb6a3fc48f1",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-late-grid-error.png",
+      "origin": "artifacts/inline-final-v11-tablet/late-grid-error.png",
+      "sha256": "0d7a8ce3fa9627e3b53e837d6e9b572601e16e018d423c3494e77037691c7a9d",
+      "width": 1920,
+      "height": 1200,
+      "caption": "A Grid that fails after rendering retains native Back and Close",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/late-grid-error.xml",
+      "xml_sha256": "2b9fcb819c629af0aec00f922217d8438eba469a9872e51c5b2d97dffa0f9a6a",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-late-list-error.png",
+      "origin": "artifacts/inline-final-v11-tablet/late-list-error.png",
+      "sha256": "24d7bc0407ec843cfe6ade9342477d57fe169731b367830d5a00462dc97f0a81",
+      "width": 1920,
+      "height": 1200,
+      "caption": "A List that fails after rendering retains native Back and Close",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/late-list-error.xml",
+      "xml_sha256": "1c1033730721602dfea2dbd6ebb45dfc9b53d35a31b2a7c4deb5c0e086bbeb19",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-late-grid-return.png",
+      "origin": "artifacts/inline-final-v11-tablet/late-grid-return.png",
+      "sha256": "920b6843fbc717ef952ad38303478390b35fc7d0f15e9eb829417e0c0e27b548",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Native error Back restores the launcher query and caret",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/late-grid-return.xml",
+      "xml_sha256": "4c414f911a7bb600810bd209c72dbf7d261edac1263d8acb5478459b66e49f3e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-late-list-return.png",
+      "origin": "artifacts/inline-final-v11-tablet/late-list-return.png",
+      "sha256": "e34630db3fd75f1b2a657e07fff759606c2c5cbbb4013e502573f524e958ce6f",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Native error Close restores the Store caller and query",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-tablet/late-list-return.xml",
+      "xml_sha256": "21e695ac98ce9ee1af1da425e68a10cfdaa8ae21731cde5db4837c43df38ac84",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-tablet/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-before-editor.png",
@@ -4069,7 +5270,9 @@
       "build": "r8",
       "xml_origin": "artifacts/inline-baseline-r8-tablet/before-editor.xml",
       "xml_sha256": "88553ddd346274eaf7861de2f4dcddf8bc3a0b44936e253130bbc93d70dd2e79",
-      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "capture_record": "artifacts/inline-baseline-r8-tablet/record.json",
+      "test_apk_sha256": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-before-actions.png",
@@ -4081,7 +5284,9 @@
       "build": "r8",
       "xml_origin": "artifacts/inline-baseline-r8-tablet/before-actions.xml",
       "xml_sha256": "be964ae70f6cf3fd4fce103ce329508aa5154d9a833db19d41d8beff0640bd84",
-      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "capture_record": "artifacts/inline-baseline-r8-tablet/record.json",
+      "test_apk_sha256": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-before-grid.png",
@@ -4093,283 +5298,457 @@
       "build": "r8",
       "xml_origin": "artifacts/inline-baseline-r8-tablet/before-grid.xml",
       "xml_sha256": "a62a0164da3dab7548c5439017f77d402213dcbbe520ae822c345ba49674c7e0",
-      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "capture_record": "artifacts/inline-baseline-r8-tablet/record.json",
+      "test_apk_sha256": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-editor.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-editor.png",
-      "sha256": "2e81e01a67f9e82c40313a447d385fe9bf9e5fcef77db7c769a9d588a8f7106a",
+      "origin": "artifacts/inline-final-v11-phone/inline-editor.png",
+      "sha256": "6f48e878ff45e2c2f32c161bca2c38ec241f7c276ec88fba9f9ac04ba3f667a2",
       "width": 1080,
       "height": 2340,
       "caption": "Editor replaces the launcher body inside its floating palette",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-editor.xml",
-      "xml_sha256": "b114288eae43981112f07fde27a191825782733b0981d89b0c3a2eb42fe0f361",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-editor.xml",
+      "xml_sha256": "2783c9c0d6889e840725262287f80bd58d094b7193a6af80e509a4bafa72411d",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-editor-ime.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-editor-ime.png",
-      "sha256": "6fd76565f35d2a66fa302bf5d2e4ce10c93b7b0c73400b0ec3eb66f83fa19334",
+      "origin": "artifacts/inline-final-v11-phone/inline-editor-ime.png",
+      "sha256": "557937b9425079b7a0bd1f5a654f4c0cdb4f413fcaf22195a0b07e19a327f1f3",
       "width": 1080,
       "height": 2340,
       "caption": "Editor Save remains reachable above the real keyboard",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-editor-ime.xml",
-      "xml_sha256": "e43dc822f33017ef88e070f2d17aa7a0e2cd2ecf34b759b5b10e08145d6ee2ff",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-editor-ime.xml",
+      "xml_sha256": "b8136e03e200d3e7af9d99bd6ed075b4d7d20265c9204608963d0eac0c90a095",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-command-actions.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-command-actions.png",
-      "sha256": "d07fc8865f6956f0340c9def7de9eed163915c8a6b411f0f7a552f894d4c512b",
+      "origin": "artifacts/inline-final-v11-phone/inline-command-actions.png",
+      "sha256": "a40cc407ba5811fa20ff2fd079fd65e2348b96846a80780d97fabce47fcaaa90",
       "width": 1080,
       "height": 2340,
       "caption": "Contextual searchable actions, icons and keycaps above the shared footer",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-command-actions.xml",
-      "xml_sha256": "8ed4bd6ac846395034a63679bceff5b3057f5fcb59b9574031ae41beeebc82f5",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-command-actions.xml",
+      "xml_sha256": "5b063298676e219b4eb642aa2c07f2162906fe137ce717553a5beb05491cbd50",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-actions-search.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-actions-search.png",
-      "sha256": "aa9c644a2d6ff5110fc00db761f41f2625311ec4abda0eee28d75b0948ca5285",
+      "origin": "artifacts/inline-final-v11-phone/inline-actions-search.png",
+      "sha256": "98d232f16dc52153b188b1b8f927a06df0f01867081840c44c1f659a6d009731",
       "width": 1080,
       "height": 2340,
       "caption": "Action search filters Copy content while preserving the launcher query",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-actions-search.xml",
-      "xml_sha256": "a6bf0373e001b0b90a5fdc13d7d487ce51a86f85090a2c7ef2c1653e92d6301e",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-actions-search.xml",
+      "xml_sha256": "5d3cc387fb5dcbd8b6f30ccc5044defea46fa9747adc4962619ff672c27c489c",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-emoji-actions.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-emoji-actions.png",
-      "sha256": "0806a4a9677d005ab15fea7e758877c3c1ec0e04030a494636e584b687bd8132",
+      "origin": "artifacts/inline-final-v11-phone/inline-emoji-actions.png",
+      "sha256": "80249712df6a7d56c5bf70ef5f14fd73a874e8e82ad778a494b2190724ccf038",
       "width": 1080,
       "height": 2340,
       "caption": "Emoji uses the shared primary/action capsule and in-surface actions",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-emoji-actions.xml",
-      "xml_sha256": "3b7cb116ea6815d442ecbc627d23533ef4c0f9524c08c3860285d3c2132a343b",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-emoji-actions.xml",
+      "xml_sha256": "15d59bc405e6698950cf09dfaf0c4552cbd94248895e0f0c7d196bdf14bfc0f6",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-command-menu.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-command-menu.png",
-      "sha256": "7227970bcc9820f9f4a1f23ea6b5e0006737c7c30deb3db91ee3e36235c7b3db",
+      "origin": "artifacts/inline-final-v11-phone/inline-command-menu.png",
+      "sha256": "c6776d4332acb8307797bbae05a910e4f61c3a1efcfb5d7074fe251984e03f36",
       "width": 1080,
       "height": 2340,
       "caption": "Categories remain within the palette and share its focus tree",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-command-menu.xml",
-      "xml_sha256": "5a1395dbbec41c0b48372f2e78375cce94dc5bbdb628169abe8a1845e794f69d",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-command-menu.xml",
+      "xml_sha256": "29b3ba8c0eb752fb8bec3f55455e7a2ef9ad33a875c0e59209d024a969d34ed8",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-native-grid.png",
-      "origin": "artifacts/inline-final-v10-phone/native-grid.png",
-      "sha256": "31379225e35d98977712deb6faaa39904576bfc358e2b0fd06ad0736c614ce11",
+      "origin": "artifacts/inline-final-v11-phone/native-grid.png",
+      "sha256": "2f9e7e30efe5890df60e96747e8e61009d9a072b3d718acd98ce8446885643d5",
       "width": 1080,
       "height": 2340,
       "caption": "Authored React Grid fixture rendered as native raster, swatch and emoji cells",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/native-grid.xml",
-      "xml_sha256": "3cb0882d415c435a4d73d88948b684ca501185d0bd60a8e68ebba0a588392c9e",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/native-grid.xml",
+      "xml_sha256": "8d3f567e2afd92199fc85b96de0328d13008ef345c0e48bf500fcb97792ad179",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-keyboard-selected-visible.png",
-      "origin": "artifacts/inline-final-v10-phone/keyboard-selected-visible.png",
-      "sha256": "323eda4852cfdc38f6865646f5ffddee99257ba467b4ac0379eff1d8d8da0ce4",
+      "origin": "artifacts/inline-final-v11-phone/keyboard-selected-visible.png",
+      "sha256": "639ca5cce2233710c4b1992841e15b9012b0d3d96afff073b7f58ab097ef77c4",
       "width": 1080,
       "height": 2340,
       "caption": "Complete selected Grid cell and primary action above Gboard",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/keyboard-selected-visible.xml",
-      "xml_sha256": "2a59e30d68894f2f766112af44503f49a337a77104448dce8e3d2b9912d56218",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/keyboard-selected-visible.xml",
+      "xml_sha256": "c2f5e308cc19f53f52f5bf137bad96222cc8722397e915771f99585b6994e9fc",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-detail-destination.png",
-      "origin": "artifacts/inline-final-v10-phone/detail-destination.png",
-      "sha256": "40c62bc12fcf23b1b452b4519bd90722b8d33abe0cd89916a16c8ca82c7b1641",
+      "origin": "artifacts/inline-final-v11-phone/detail-destination.png",
+      "sha256": "ee689269f3e205431581317bdb074d7a704667491a6edc4874df6bbf6624d00a",
       "width": 1080,
       "height": 2340,
       "caption": "Pushed Detail destination inside the palette; Markdown remains raw source",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/detail-destination.xml",
-      "xml_sha256": "bf7ef5483c915b8afdfdd6da1a758cf5cf6fd2fa5e0a1590e6024e3403c17e61",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/detail-destination.xml",
+      "xml_sha256": "99398eeb8581e228bcffc0fb9bc089efa8a8731cab6148a64826b81239c7c843",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-preferences-return.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-preferences-return.png",
-      "sha256": "b036f5f36c65524f895e4aebea630250cc3568336d70e4a6e875ecb74dcb6842",
+      "origin": "artifacts/inline-final-v11-phone/inline-preferences-return.png",
+      "sha256": "dc726e19bc5ba709309f9152cbe04fd1145cde180e763f140143d4cba1cc60f1",
       "width": 1080,
       "height": 2340,
       "caption": "Cancel from preferences retains the running JS session and selection",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-preferences-return.xml",
-      "xml_sha256": "d2b1d30389c639cf6489b2e8ab86d8d070640a317748296a3b34a765ed6603af",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-preferences-return.xml",
+      "xml_sha256": "efd2e2e727030ce7e02da087237c880b0be1254a4177808e14800749f17db1cf",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-form-regression.png",
-      "origin": "artifacts/inline-final-v10-phone/form-regression.png",
-      "sha256": "97423b9be78c605f473492d7bd41a9316732c90607836fc53c39155c55581ddd",
+      "origin": "artifacts/inline-final-v11-phone/form-regression.png",
+      "sha256": "2bda40f68c57dcf61ff847f47b0d263ebcaa32ca58ec97c9413b1bf9c10c0f95",
       "width": 1080,
       "height": 2340,
       "caption": "Basic extension Form editing and submission in the same window",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/form-regression.xml",
-      "xml_sha256": "0fe3492af668e5659c4f2925ae20758cabcd0f66db48d69660b82c364f0cc66c",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/form-regression.xml",
+      "xml_sha256": "630ca4e30f119eede5bc06e6b01e907020ed26b0381a1cfa29ad45fe8ca3f418",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-store-inline-install-review.png",
-      "origin": "artifacts/inline-final-v10-phone/store-inline-install-review.png",
-      "sha256": "0af250856f854b0df9dd00243fa71582936b1e0aa9970340c3cdc8ba9123e722",
+      "origin": "artifacts/inline-final-v11-phone/store-inline-install-review.png",
+      "sha256": "6102ccd13911138f65c9f4570e4345537e74b6deff112d63771fd27b7162f33c",
       "width": 1080,
       "height": 2340,
       "caption": "Real Store install review replaces the palette body",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-install-review.xml",
-      "xml_sha256": "9b09e51517a0e2e46a147e8dcc533a44371783e3c979020fe5ae4f189e3875d7",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/store-inline-install-review.xml",
+      "xml_sha256": "c218fcbac741ad3acb7452d75d53b695d7f9db120a613917ac3f066ddf64af65",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-store-inline-command.png",
-      "origin": "artifacts/inline-final-v10-phone/store-inline-command.png",
-      "sha256": "6d91fdff188e9928cc498134f9caa21d71a4d3cecb096751c5b3d596c2bfd5d5",
+      "origin": "artifacts/inline-final-v11-phone/store-inline-command.png",
+      "sha256": "5b893b58058662009e78dd5d678beed9ef35897f30f3d0131f4862ee00f30555",
       "width": 1080,
       "height": 2340,
       "caption": "Real Palette Colors bundle running as a native Grid",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-command.xml",
-      "xml_sha256": "f335d1f89306887ad8c9a40d30b2f5fe931f702732678f2767119ff84f708c7b",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/store-inline-command.xml",
+      "xml_sha256": "cac5e915a47888a07d009fe52830b696a85535a1eae0d6a225742211d15d3dd4",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-store-inline-return.png",
-      "origin": "artifacts/inline-final-v10-phone/store-inline-return.png",
-      "sha256": "6f57b090b6456d894dda06f3538690c6eee837c2784905784b1323654750d4f6",
+      "origin": "artifacts/inline-final-v11-phone/store-inline-return.png",
+      "sha256": "27cfe90cbe3fa48d1c778e8cc384e5baf8529c6ebfabb64eb07a04edef3fdf6a",
       "width": 1080,
       "height": 2340,
       "caption": "Back from a command restores the Installed tab and Store query",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-return.xml",
-      "xml_sha256": "8db39628c68fd71005c392d862d40740aef3db925d913ca6bd2c3b5fc7b67985",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/store-inline-return.xml",
+      "xml_sha256": "52ca7ece4b6682d358dc71c5473aaf34d1311c4004bc7c6ea65f807115a97b21",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-store-inline-uninstall-review.png",
-      "origin": "artifacts/inline-final-v10-phone/store-inline-uninstall-review.png",
-      "sha256": "41865fb351e776b4d7d7345439b408e05c8d391dbfd0462a2d012d2379875379",
+      "origin": "artifacts/inline-final-v11-phone/store-inline-uninstall-review.png",
+      "sha256": "f0e10971250f22a2c14b736f44ea73289efb32489ad6ce373011e78c9018764c",
       "width": 1080,
       "height": 2340,
       "caption": "Explicit inline review before removing an extension",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-uninstall-review.xml",
-      "xml_sha256": "8e6d00755cd3b299938cb665efd853f99fa47d0cf9b1856e0a0fa6809fe01faf",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/store-inline-uninstall-review.xml",
+      "xml_sha256": "a2ca48274ac2ffdf2c9258a0db0249a3b1c687f91d783944688cc13db596fa2b",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-store-legacy-oklch.png",
-      "origin": "artifacts/inline-final-v10-phone/store-legacy-oklch.png",
-      "sha256": "f1b0076eacbbe02994c4a6ad0a9ed936c1e708f18fb5cc4f81d610de6c234ac8",
+      "origin": "artifacts/inline-final-v11-phone/store-legacy-oklch.png",
+      "sha256": "bb6539f4aad64525fd4efdd3c0a1426791648529a156ffb26fe6ef0ad3a2cc82",
       "width": 1080,
       "height": 2340,
       "caption": "Real OKLCH Store List command and copied result",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/store-legacy-oklch.xml",
-      "xml_sha256": "f1af246dcaf1e9bb855c38f4bc6b4810fad4a96704a9a34d1e5f661272d125b5",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/store-legacy-oklch.xml",
+      "xml_sha256": "1373f20cc5eda554c23be3e6e1069b6f08f69d4755cc54d1fb576c16813c1505",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-alias-conflict.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-alias-conflict.png",
-      "sha256": "0a50f3a7546a3950e7a6c3ba3d43b3b09e37f375b50148241cc73d17b4022347",
+      "origin": "artifacts/inline-final-v11-phone/inline-alias-conflict.png",
+      "sha256": "82a069a80a9ab062b14d64e38a002c5a929a5c3e6f33fb4ecc5bc95a01a72d0d",
       "width": 1080,
       "height": 2340,
       "caption": "Alias collision feedback remains inside the palette",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-alias-conflict.xml",
-      "xml_sha256": "45b84dd2dc734fd5281c93d96a55b82a5371f4f4de172bf458b419e05a2a1a89",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-alias-conflict.xml",
+      "xml_sha256": "67d86a6390da3f08ff5f1fc467e6f4ccbeaa0e0785872c8f638c599bee0d2e43",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-delete-review.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-delete-review.png",
-      "sha256": "2c6d133fd0c77109e06881de408ddb3c3b090213198bdc92735b20af2ef7840a",
+      "origin": "artifacts/inline-final-v11-phone/inline-delete-review.png",
+      "sha256": "bb0a07487f6565b7cf8671e7db8a336f5586598fae2391234da9d571a43cc1a7",
       "width": 1080,
       "height": 2340,
       "caption": "Delete review has explicit confirmation and a cancel/back path",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-delete-review.xml",
-      "xml_sha256": "39749ded60cce5d6d5e1622cf97006e1f7aba9da9aecc3a860663b54f7205986",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-delete-review.xml",
+      "xml_sha256": "8375bcc86a0d95f4bda205d072001b09e9f75e13ab6d7b55e9f894c39120e013",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-feedback.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-feedback.png",
-      "sha256": "fa1fb3926acd2a520273e91acb6840d00966b079745d41b67304ca9c8d85d841",
+      "origin": "artifacts/inline-final-v11-phone/inline-feedback.png",
+      "sha256": "c058873e8ba3b1f918e0463a621a1b32b6ff73127c344a6ada2d6fb386f0cf5a",
       "width": 1080,
       "height": 2340,
       "caption": "Feedback stays inside the active palette screen",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-feedback.xml",
-      "xml_sha256": "9359a906a35c81f271d49c83f0cd7c9b192d1cb853d34f542d8dcff8c1a2f59d",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-feedback.xml",
+      "xml_sha256": "03b0fdf8b9b9cfe040cb512435b757673f9bfc101b9decdc8a7f2e5b8ab75444",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-launcher-return-position.png",
-      "origin": "artifacts/inline-final-v10-phone/launcher-return-position.png",
-      "sha256": "5c766aa0c26ebfc2e330f4c615afcf77b441e4aadec8a13c62e8a3560044a519",
+      "origin": "artifacts/inline-final-v11-phone/launcher-return-position.png",
+      "sha256": "490bae9a46483bf1f3c206707158cb48a84846547ebe4a2f3d2ffb8f066f9263",
       "width": 1080,
       "height": 2340,
       "caption": "Equal-viewport Back restores the exact manually scrolled launcher row",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/launcher-return-position.xml",
-      "xml_sha256": "5c41cca73727111fb1509cd94670fa4551a8948b01f86e0464933d3f690f11f0",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/launcher-return-position.xml",
+      "xml_sha256": "192162c7bb306d7331e233b91572db7acdda71d85abcccd2aff97f02dc338bc5",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-grid-return-position.png",
-      "origin": "artifacts/inline-final-v10-phone/grid-return-position.png",
-      "sha256": "1d65d29cd708a366b97d94af5c9cc3b2f9ef5d3dd98b0e3dfccc64f96cfb3c8f",
+      "origin": "artifacts/inline-final-v11-phone/grid-return-position.png",
+      "sha256": "f060a16370f566f94af64b26d1598f9b225edde04424e03d5969ce8a4fc45a76",
       "width": 1080,
       "height": 2340,
       "caption": "Cancelling preferences restores the exact manually scrolled Grid cell",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/grid-return-position.xml",
-      "xml_sha256": "dcb968d20c5d5a184f7fe344f724492341fc54e5a750c7f1143719a0d0262a12",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/grid-return-position.xml",
+      "xml_sha256": "06f5483db77427ad573890b91a8110abbff0b5079f11349ad83aede5a1f6a020",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-store-tailwind-unavailable.png",
-      "origin": "artifacts/inline-final-v10-phone/store-tailwind-unavailable.png",
-      "sha256": "2c32ac691892b56511181a6a90b58c1d345586b1712ff277ad8eb8144cfd6d19",
+      "origin": "artifacts/inline-final-v11-phone/store-tailwind-unavailable.png",
+      "sha256": "2c039e4a9493924dea357274b56c928c1e06c1b7d22885bf31897a98c293d9a7",
       "width": 1080,
       "height": 2340,
       "caption": "Tailwind remains rejected by the existing expanded-file size limit",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/store-tailwind-unavailable.xml",
-      "xml_sha256": "7e4ab0be31d4a798456245eddc0ce7b543f4b6921a0ad04cf5e917d6eab17d83",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/store-tailwind-unavailable.xml",
+      "xml_sha256": "283cddea1a14ed23dd53a174c758375d469ac990735cebd1727858b0cb40f9f9",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-inline-ime-selected.png",
-      "origin": "artifacts/inline-final-v10-phone/inline-ime-selected.png",
-      "sha256": "5f08258eb25319ea0e9a87b0d84d7592578ed8f5f19e379d97740429e0e03d89",
+      "origin": "artifacts/inline-final-v11-phone/inline-ime-selected.png",
+      "sha256": "67e3bca37e734638fd3699679649eafbdda4ba72d4c65d01c38ba84d9e985dfa",
       "width": 1080,
       "height": 2340,
       "caption": "Highlighted Edit note before Search IME submission; native assertions verify the selected editor opens",
       "build": "final",
-      "xml_origin": "artifacts/inline-final-v10-phone/inline-ime-selected.xml",
-      "xml_sha256": "2f96d4ca597670518abed4366f42cb1633cbfd8e823ea75780e5f4e8dc4e0e2d",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-final-v11-phone/inline-ime-selected.xml",
+      "xml_sha256": "f1712b0bdf2629f423c7d418f719de91edcd65abfcecb95d968a17e6cc354dbb",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-controlled-initial.png",
+      "origin": "artifacts/inline-final-v11-phone/controlled-initial.png",
+      "sha256": "ca404473ad77fce77a147100178accdf03c004c6ae60daed63384ec60c7d1b98",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Initial selectedItemId highlights the requested item before activation",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/controlled-initial.xml",
+      "xml_sha256": "0f299b2311188d0e950a38af82ffb57b65ace3b153448bbd2c0c698df26c378a",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-controlled-changed.png",
+      "origin": "artifacts/inline-final-v11-phone/controlled-changed.png",
+      "sha256": "9d18a27175fa5324ceb35551df93b42be8c7ca6e453c63dc096ec900602baf6c",
+      "width": 1080,
+      "height": 2340,
+      "caption": "A changed selectedItemId highlights the new requested item",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/controlled-changed.xml",
+      "xml_sha256": "2d661c7d3c901ab9ef7815abc9a20c2951de222cbd22e6d8b33cf0adefeef5a0",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-controlled-pending.png",
+      "origin": "artifacts/inline-final-v11-phone/controlled-pending.png",
+      "sha256": "cf8b254553dcac6cc2b74bae1f0e894f0827e9acc5525cb3fe43c02581b25813",
+      "width": 1080,
+      "height": 2340,
+      "caption": "A requested ID remains pending while only four items are published",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/controlled-pending.xml",
+      "xml_sha256": "1ecced1c21e7da1868a478fa8980494ca622029350571b5ce61d580eb9a2fd8f",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-controlled-deferred.png",
+      "origin": "artifacts/inline-final-v11-phone/controlled-deferred.png",
+      "sha256": "a5737e6f9d05dde39a1d96bd0d2633b3315a14686c944d3972369370d832659b",
+      "width": 1080,
+      "height": 2340,
+      "caption": "The deferred requested item is selected when seven items become available",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/controlled-deferred.xml",
+      "xml_sha256": "cca027e9c0635e510791cc6d11f2c377d29e1fc47ce5154ebd26f94f55d409be",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-untitled-sections.png",
+      "origin": "artifacts/inline-final-v11-phone/untitled-sections.png",
+      "sha256": "1c42b754df2aaa1f323dec53fc62952a4f3367f50594b74a8e99323805b3c235",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Untitled sections start separate visual rows matching keyboard navigation",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/untitled-sections.xml",
+      "xml_sha256": "65cdf9879544c714819e2619180db8074b20632fcc91105b3d80a3b267cccc47",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-late-grid-error.png",
+      "origin": "artifacts/inline-final-v11-phone/late-grid-error.png",
+      "sha256": "930ba1f6ac5b8a3a1d46df15fab0eb12181d01d6bfc4e07f82f7c112aca420c8",
+      "width": 1080,
+      "height": 2340,
+      "caption": "A Grid that fails after rendering retains native Back and Close",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/late-grid-error.xml",
+      "xml_sha256": "2ee0aae224887b96ecc28ae727ded92c88847b5f3b591bd848fa12dd6159fe2f",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-late-list-error.png",
+      "origin": "artifacts/inline-final-v11-phone/late-list-error.png",
+      "sha256": "e4878c72dc8844a138bda7400c02402b636164533feaa33f943a2593a1b00d31",
+      "width": 1080,
+      "height": 2340,
+      "caption": "A List that fails after rendering retains native Back and Close",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/late-list-error.xml",
+      "xml_sha256": "0fbe6d2436a295a3a8b4580c094ea8b43bbafc273327109d638bb5fa72dac0ce",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-late-grid-return.png",
+      "origin": "artifacts/inline-final-v11-phone/late-grid-return.png",
+      "sha256": "c79d06a91a2b8ad39e6faa0b9f35c90ba69478e6f24c3cc93de6fad8b6974a43",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Native error Back restores the launcher query and caret",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/late-grid-return.xml",
+      "xml_sha256": "b5981bd8426f0554bed86479ddbec137d19d14a69ec31d14798c9087a0117722",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-late-list-return.png",
+      "origin": "artifacts/inline-final-v11-phone/late-list-return.png",
+      "sha256": "551231581f7c13d774ecefe1be535ccf5662a1ca79b195e4c487f61fb7a01947",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Native error Close restores the Store caller and query",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v11-phone/late-list-return.xml",
+      "xml_sha256": "e664cb31527a8121868aa29e8753503424a378d092c7fabc934049876bea496e",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-final-v11-phone/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-before-editor.png",
@@ -4381,7 +5760,9 @@
       "build": "r8",
       "xml_origin": "artifacts/inline-baseline-r8-phone/before-editor.xml",
       "xml_sha256": "750491f2ae8804381dfb2f88c0e469090b2f8bfdfddad180ad6d59a25f891eed",
-      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "capture_record": "artifacts/inline-baseline-r8-phone/record.json",
+      "test_apk_sha256": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-before-actions.png",
@@ -4393,7 +5774,9 @@
       "build": "r8",
       "xml_origin": "artifacts/inline-baseline-r8-phone/before-actions.xml",
       "xml_sha256": "91ba12a6f73ca8f224e7d1fc6f7871e735d603bd99107f95fd6e704ff8ce5585",
-      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "capture_record": "artifacts/inline-baseline-r8-phone/record.json",
+      "test_apk_sha256": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/phone-before-grid.png",
@@ -4405,7 +5788,93 @@
       "build": "r8",
       "xml_origin": "artifacts/inline-baseline-r8-phone/before-grid.xml",
       "xml_sha256": "b561837dddf99477f280bea515245430e67d7b4cdcd3bae4c703bb310b971373",
-      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "capture_record": "artifacts/inline-baseline-r8-phone/record.json",
+      "test_apk_sha256": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-controlled-initial.png",
+      "origin": "artifacts/inline-grid-contract-negative-v2/controlled-initial.png",
+      "sha256": "42c5fc8e72ddafe45458ca9178f7695ed2e5f816a5818d26a03e02da1c677918",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Previous app ignores initial requested selection",
+      "build": "grid-contract-control",
+      "xml_origin": "artifacts/inline-grid-contract-negative-v2/controlled-initial.xml",
+      "xml_sha256": "7a2715bf29fd8723c92ff54a6c4a550d737ce214092f4c155bd60ae8d171cc50",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "capture_record": "artifacts/inline-grid-contract-negative-v2/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-controlled-changed.png",
+      "origin": "artifacts/inline-grid-contract-negative-v2/controlled-changed.png",
+      "sha256": "0761f0575100c3c6d5820a1710728250142e440a8faca56b7c4a444b28452e8f",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Previous app ignores a changed requested selection",
+      "build": "grid-contract-control",
+      "xml_origin": "artifacts/inline-grid-contract-negative-v2/controlled-changed.xml",
+      "xml_sha256": "cc0a00cac1008e59e53c925aac469d1fea93523bc20e50c33d4aca26642c998d",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "capture_record": "artifacts/inline-grid-contract-negative-v2/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-controlled-deferred.png",
+      "origin": "artifacts/inline-grid-contract-negative-v2/controlled-deferred.png",
+      "sha256": "7530a4508c28b97df96d01c32783017496a7e694d8c9ca19173dc71888861739",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Previous app loses a selection requested before its item arrives",
+      "build": "grid-contract-control",
+      "xml_origin": "artifacts/inline-grid-contract-negative-v2/controlled-deferred.xml",
+      "xml_sha256": "8f838de4aac4f05425e56628032fa65f9e62377aa29b212d5b2e0b7e6ab44a09",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "capture_record": "artifacts/inline-grid-contract-negative-v2/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-untitled-sections.png",
+      "origin": "artifacts/inline-grid-contract-negative-v2/untitled-sections.png",
+      "sha256": "cb2f9a10d00bb03328d571b722430671e449d14e05238e5ceaac978a0c61d6fe",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Previous app places two untitled sections on the same visual row",
+      "build": "grid-contract-control",
+      "xml_origin": "artifacts/inline-grid-contract-negative-v2/untitled-sections.xml",
+      "xml_sha256": "1aeb754161c661764b6baec2cf7a2ba560b38e9c5996abe4a37404abe5bb5807",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "capture_record": "artifacts/inline-grid-contract-negative-v2/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-late-grid-error.png",
+      "origin": "artifacts/inline-grid-contract-negative-v2/late-grid-error.png",
+      "sha256": "575ceac3aa349812b5693e33070a1c6b77f73f0e8cd8e5f0e2d15a8732fe6c9f",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Previous app loses native Back after a late Grid error",
+      "build": "grid-contract-control",
+      "xml_origin": "artifacts/inline-grid-contract-negative-v2/late-grid-error.xml",
+      "xml_sha256": "3e0e98c1ed922cccf63e706d13bd7dce2792a496a316440c59a60c0a159345aa",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "capture_record": "artifacts/inline-grid-contract-negative-v2/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-late-list-error.png",
+      "origin": "artifacts/inline-grid-contract-negative-v2/late-list-error.png",
+      "sha256": "71aebc82d0aaaaa943016d94c7540406430f424f4c4f0775be6124bf9baf8bbc",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Previous app loses native Back after a late List error",
+      "build": "grid-contract-control",
+      "xml_origin": "artifacts/inline-grid-contract-negative-v2/late-list-error.xml",
+      "xml_sha256": "6c38f2a07bf98553d1aff1b18a2f1986e82a41a94355a4172da264fd08278f17",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "capture_record": "artifacts/inline-grid-contract-negative-v2/record.json",
+      "test_apk_sha256": "c4d278752426ded0ebd2fb7462d65c8cf2a4d119f856a88cf8e673711be17230"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/control-grid-capture-return.png",
@@ -4417,7 +5886,9 @@
       "build": "capture-control",
       "xml_origin": "artifacts/inline-final-v9-tablet/capture-failure-inline-filter-focus.xml",
       "xml_sha256": "38ad2b32b51e68a3a09fb8bd449a41e5ccdaac047f8ec11f0f991a2210acaeb4",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "capture_record": "artifacts/inline-final-v9-tablet/record.json",
+      "test_apk_sha256": "8a6b52524c49dfe8d83388095e710e1588b1817acc3eb5cd1cfe22b5698c1526"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/control-stale-feedback.png",
@@ -4427,19 +5898,23 @@
       "height": 1200,
       "caption": "Previous reviewed head: the claimed feedback capture still depicts the Delete review",
       "build": "feedback-control",
-      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287"
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "capture_record": "artifacts/inline-final-v8-tablet/record.json",
+      "test_apk_sha256": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/tablet-inline-backup-inspection.png",
-      "origin": "artifacts/inline-workspace-v5-tablet/backup-evidence/inspect-backup.png",
-      "sha256": "c06c810c82c4a4322c3dcc176f35fee9fc10e85ccc7192745f71aa51d549bb69",
+      "origin": "artifacts/inline-workspace-v7-tablet/backup-evidence/inspect-backup.png",
+      "sha256": "5e3b29055955d38f86cac7a9ae6cb4abaf132e714247e107bd9cdd0ef0f73c91",
       "width": 1920,
       "height": 1200,
       "caption": "Backup contents are reachable inside the palette after the real document picker",
       "build": "final",
-      "xml_origin": "artifacts/inline-workspace-v5-tablet/backup-evidence/inspect-backup.xml",
-      "xml_sha256": "e9bc494d2e16a19ffcc06518d12cf290a46b7607f1c61d691d0a4352b125d801",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "xml_origin": "artifacts/inline-workspace-v7-tablet/backup-evidence/inspect-backup.xml",
+      "xml_sha256": "32f41b297850bd8318191cae1f607ea22d2892e5f76c44914b69bcf3514f1251",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-workspace-v7-tablet/record.json",
+      "test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/control-obsolete-backup-feedback.png",
@@ -4451,43 +5926,51 @@
       "build": "backup-control",
       "xml_origin": "artifacts/inline-backup-inspect-trace/backup-evidence/inspect-after.xml",
       "xml_sha256": "1a3698cc7407fab8cf355fae6a34e12c2760043b53d36e281dd96fe6e43f76fb",
-      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51"
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "capture_record": "artifacts/inline-backup-inspect-trace/record.json",
+      "test_apk_sha256": "28c7685c2b3120b24d5fe1356f43bc62503e387d9080a6e755e02af9788f9890"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/hardware-double-ctrl.png",
-      "origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-double-ctrl.png",
-      "sha256": "8238ab1594f81be6ea8d6c77951b1d04e5b9dfd8b6cb381c245f0041e2237be9",
+      "origin": "artifacts/inline-hardware-menus-v4-final/inline-menu-double-ctrl.png",
+      "sha256": "3ede891a1ab2749e3d4cb24ffe4d4ec48e2730b17770a53cf3d55f13d1a07493",
       "width": 1920,
       "height": 1200,
       "caption": "Connected keyboard service yields Double Ctrl to the focused inline menu",
       "build": "final",
-      "xml_origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-double-ctrl.xml",
+      "xml_origin": "artifacts/inline-hardware-menus-v4-final/inline-menu-double-ctrl.xml",
       "xml_sha256": "826f17e5c63ad5ebc55a34c0b210e5626e9f2f1f7b8040f17a2bfcd5ececfa3c",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-hardware-menus-v4-final/results.json",
+      "test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/hardware-alt-q.png",
-      "origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-alt-q.png",
-      "sha256": "8238ab1594f81be6ea8d6c77951b1d04e5b9dfd8b6cb381c245f0041e2237be9",
+      "origin": "artifacts/inline-hardware-menus-v4-final/inline-menu-alt-q.png",
+      "sha256": "3ede891a1ab2749e3d4cb24ffe4d4ec48e2730b17770a53cf3d55f13d1a07493",
       "width": 1920,
       "height": 1200,
       "caption": "Configured Alt+Q leaves the active inline menu open",
       "build": "final",
-      "xml_origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-alt-q.xml",
+      "xml_origin": "artifacts/inline-hardware-menus-v4-final/inline-menu-alt-q.xml",
       "xml_sha256": "826f17e5c63ad5ebc55a34c0b210e5626e9f2f1f7b8040f17a2bfcd5ececfa3c",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-hardware-menus-v4-final/results.json",
+      "test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/hardware-closed-command.png",
-      "origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-closed-command.png",
-      "sha256": "35ee715000347545a56b4ca9d8c7a8cce5256a194b413f6b1e7d8f658ae03459",
+      "origin": "artifacts/inline-hardware-menus-v4-final/inline-menu-closed-command.png",
+      "sha256": "fbf2a84f54e249f666a3558fea9a69f90c6ecca3153cb1bca570f69913812c68",
       "width": 1920,
       "height": 1200,
       "caption": "After Escape, Alt+Q opens the note editor again",
       "build": "final",
-      "xml_origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-closed-command.xml",
+      "xml_origin": "artifacts/inline-hardware-menus-v4-final/inline-menu-closed-command.xml",
       "xml_sha256": "a924f64ead9cc79a1de6f19a88e46c233c760a3a8317a1e944d8eda7036a85b5",
-      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-hardware-menus-v4-final/results.json",
+      "test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf"
     },
     {
       "path": "docs/screenshots/parity-inline-palette/control-footer-overlap.png",
@@ -4497,10 +5980,41 @@
       "height": 1200,
       "caption": "Earlier development control: the action panel overlaps the primary action by three pixels",
       "build": "overlap-control",
-      "app": "1823ed7a6e278c54ff3bdfce9411b59a34b5c2d654123259c325714f682e6740"
+      "app": "1823ed7a6e278c54ff3bdfce9411b59a34b5c2d654123259c325714f682e6740",
+      "capture_record": "artifacts/inline-footer-overlap-control/record.json",
+      "test_apk_sha256": "da50c9a06b674a7b0ae489410af19d66e86686262f0d29a0bce7104538273f4e"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-document-import-picker.png",
+      "origin": "artifacts/inline-workspace-v7-tablet/backup-evidence/document-import-picker.png",
+      "sha256": "82884d2c0403ecf0f42e401339f51b8de628c45c5ecc63d910b97ada2c8a00ab",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Real Downloads picker shows the exported backup before import",
+      "build": "final",
+      "xml_origin": "artifacts/inline-workspace-v7-tablet/backup-evidence/document-import-picker.xml",
+      "xml_sha256": "449cb8cc206e90a2cd2f35a84360bf841523434345a34adafa1434275eb9c8c8",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-workspace-v7-tablet/record.json",
+      "test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-document-import-picker.png",
+      "origin": "artifacts/inline-workspace-v7-phone/backup-evidence/document-import-picker.png",
+      "sha256": "15d8891447000f03125a8ff291bee6608727a3cc01fc59f79bff6358b4e79d20",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Real Downloads picker shows the exported backup before import",
+      "build": "final",
+      "xml_origin": "artifacts/inline-workspace-v7-phone/backup-evidence/document-import-picker.xml",
+      "xml_sha256": "7e36acc667c728ee97d593d8ddc59c0572e8b7ae194573d4f0cc4b3afe5f1902",
+      "app": "e8121826fbf12a47cdbf8acfb6ef6b7e778f24a46281ba586be2a8bace7be569",
+      "capture_record": "artifacts/inline-workspace-v7-phone/record.json",
+      "test_apk_sha256": "c8822f75824e81072cd2c7293afa7effeb01a4b9ac467f1cce37d5b9ce9a7ccf"
     }
   ],
   "limitations": [
+    "The earlier final-app backup picker visibility miss remains unattributed; explicit Downloads, scrolling and fresh native node actions are fixture safeguards, not a production fix",
     "Unexpected Grid return during an earlier capture remains unattributed under #62; node-targeted clipboard cleanup and route/session assertions are test-harness safeguards, not a production fix",
     "Synthetic input truncation #59 and earlier caret timing remain unexplained",
     "Saved screenshots establish no latency or continuous-animation certification",
