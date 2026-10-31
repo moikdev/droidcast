@@ -17,6 +17,7 @@ import dev.tinycast.android.extensions.*
 data class SavedItem(val id: String, val title: String, val body: String, val alias: String = "")
 
 class PaletteStore(application: Application) : AndroidViewModel(application) {
+    internal val updates = dev.tinycast.android.updates.Updates.get(application)
     val extensions = ExtensionCatalog(application)
     val folderSearch = FolderSearch(application, viewModelScope)
     val emoji = EmojiStore(application, viewModelScope)
@@ -97,6 +98,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         Command("shortcuts", "Keyboard shortcuts", "Record global and per-command shortcuts", icon = "keyboard", keywords = "help hotkey keys ctrl space global configure bindings", alias = "keys"),
         Command("settings", "Android settings", "Open device settings", icon = "settings", keywords = "android system device configuration preferences", alias = "settings"),
         Command("app-settings", "Droidcast preferences", "Global shortcut, privacy & app information", icon = "settings", keywords = "accessibility global keyboard permission setup", alias = "prefs"),
+        Command("check-updates", "Check for Updates", "Find, verify and install a newer Droidcast nightly", icon = "command", keywords = "ota upgrade download version nightly"),
         Command("backup", "Backup and restore", "Export your collections or preview an import", icon = "folder", keywords = "export import restore json data transfer"),
         Command("backup-export", "Export Droidcast backup", "Choose categories and save a JSON backup", icon = "folder", keywords = "backup save collections"),
         Command("backup-import", "Import Droidcast backup", "Preview a backup before applying changes", icon = "folder", keywords = "backup restore collections")

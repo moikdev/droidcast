@@ -2,6 +2,8 @@
 
 package dev.tinycast.android
 
+import dev.tinycast.android.updates.UpdateContent
+
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -47,6 +49,7 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
     if (dialog.startsWith("backup")) { BackupDialog(store, run, close); return }
     if (dialog.startsWith("shortcut-") && dialog != "shortcut-help") { ShortcutDialogs(store, globalEnabled, enableGlobal, close); return }
     when (dialog) {
+        "updates" -> Shell("Updates", "Droidcast nightlies", close) { UpdateContent(store.updates) }
         "note", "link", "clip" -> Editor(store, dialog, close)
         "shortcut-help" -> Shell("Keyboard shortcut help", "Less reaching. More doing.", close) {
             Text("IN DROIDCAST", color = ink, fontSize = 10.sp, letterSpacing = 1.sp, modifier = Modifier.padding(bottom = 8.dp))
@@ -56,7 +59,7 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
             Text(if (globalEnabled) "Android approval is enabled. Check service connection in Settings → General." else "Enable the optional keyboard service in Preferences for the global shortcut.", color = muted, fontSize = 12.sp, lineHeight = 18.sp, modifier = Modifier.padding(top = 10.dp))
             Spacer(Modifier.height(16.dp)); Button(onClick = close, modifier = Modifier.fillMaxWidth()) { Text("Got it") }
         }
-        "preferences" -> Shell("Preferences", "Droidcast · 0.4.0-preview", close) {
+        "preferences" -> Shell("Preferences", "Droidcast · ${BuildConfig.VERSION_NAME}", close) {
             Row(verticalAlignment = Alignment.CenterVertically) { Glyph("keyboard", ink, 26); Spacer(Modifier.width(12.dp)); Column { Text("Global keyboard shortcuts", fontSize = 16.sp, fontWeight = FontWeight.Medium); Text(if (globalEnabled) "Android approval enabled" else "Optional keyboard service", color = ink, fontSize = 12.sp, modifier = Modifier.padding(top = 4.dp)) } }
             Text("Open the palette and run assigned commands from another app with your hardware keyboard. Android requires you to enable the Droidcast keyboard shortcut accessibility service.", color = muted, fontSize = 13.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 18.dp))
             Text("The service filters your configured key combinations. It does not retrieve screen content or save keystrokes. You can turn it off in Android settings at any time.", color = muted, fontSize = 12.sp, lineHeight = 19.sp, modifier = Modifier.padding(top = 12.dp))
