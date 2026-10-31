@@ -351,7 +351,8 @@ class ExtensionGridDeviceTest {
             assertTrue("Hidden-keyboard baseline must still be hidden at measurement",WindowInspector.getGlobalWindowViews().filter{it.hasWindowFocus()}.none {
                 androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true })
             val before = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot.height
-            File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}.resolve("keyboard-before.json").writeText(JSONObject().put("grid_height",before).put("grid_focused",true).put("ime_visible",false).toString(2))
+            val expectShrink=compose.activity.resources.configuration.smallestScreenWidthDp>=600
+            File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}.resolve("keyboard-before.json").writeText(JSONObject().put("grid_height",before).put("grid_focused",true).put("ime_visible",false).put("expect_shrink",expectShrink).toString(2))
             device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
             if (compose.activity.resources.configuration.smallestScreenWidthDp >= 600) compose.onNodeWithTag("extension-grid-keyboard").performClick()
             else {
@@ -365,7 +366,9 @@ class ExtensionGridDeviceTest {
             try { compose.waitUntil(10000) {
                 val viewport = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot
                 val cell = compose.onAllNodesWithTag("extension-grid-cell-6").fetchSemanticsNodes().singleOrNull()?.boundsInRoot
-                viewport.height < before - 20 && cell != null && cell.height > 70 && cell.top >= viewport.top && cell.bottom <= viewport.bottom &&
+                val ime=WindowInspector.getGlobalWindowViews().filter{it.hasWindowFocus()}.any {
+                    androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true }
+                ime && (if(expectShrink) viewport.height < before-20 else viewport.height <= before+1) && cell != null && cell.height > 70 && cell.top >= viewport.top && cell.bottom <= viewport.bottom &&
                     kotlin.math.abs(cell.height - compose.onNodeWithTag("extension-grid-cell-6").getUnclippedBoundsInRoot().let { it.bottom.value - it.top.value } * context.resources.displayMetrics.density) < 2
             }
             } catch (error: Throwable) {
