@@ -141,6 +141,34 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("")))
         sameWindow()
     }
+    @Test fun editorSaveRemainsReachableAboveTheRealDockedKeyboard() {
+        val prior=device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
+        try {
+            compose.activityRule.scenario.onActivity { it.execute(Command("new-note","Create a note","")) }
+            compose.onNodeWithTag("editor-title").performTextReplacement("Keyboard draft")
+            compose.onNodeWithTag("editor-body").performTextReplacement("Save stays above the real keyboard.")
+            device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+            compose.onNodeWithTag("editor-body").performClick()
+            compose.activityRule.scenario.onActivity {
+                androidx.core.view.WindowCompat.getInsetsController(it.window,it.window.decorView).show(androidx.core.view.WindowInsetsCompat.Type.ime())
+            }
+            compose.waitUntil(10000) { android.view.inspector.WindowInspector.getGlobalWindowViews().filter{it.hasWindowFocus()}.any {
+                androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true } }
+            compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled()
+            val save=compose.onNodeWithTag("save-editor").fetchSemanticsNode().boundsInWindow
+            val frame=compose.onNodeWithTag("palette-screen").fetchSemanticsNode().boundsInWindow
+            assertTrue(frame.contains(save.topLeft) && frame.contains(save.bottomRight))
+            val keyboard=device.wait(Until.findObject(By.pkg("com.google.android.inputmethod.latin")),5000)
+            assertNotNull("Real Gboard is present",keyboard)
+            assertTrue("Save stays above Gboard",save.bottom <= keyboard.visibleBounds.top)
+            capture("inline-editor-ime","Save stays above the real keyboard.")
+            compose.onNodeWithTag("save-editor").performClick()
+            compose.onNodeWithTag("palette-screen").assertDoesNotExist()
+            assertTrue(compose.activity.store.notes.any{it.title=="Keyboard draft" && it.body=="Save stays above the real keyboard."})
+        } finally {
+            device.executeShellCommand(if(prior=="null")"settings delete secure show_ime_with_hard_keyboard"else"settings put secure show_ime_with_hard_keyboard $prior")
+        }
+    }
     @Test fun programmaticCommandDismissesMenuBeforeEditingNewQuery() {
         compose.onNodeWithTag("palette-menu").performClick()
         compose.onNodeWithTag("inline-menu").assertIsDisplayed()
