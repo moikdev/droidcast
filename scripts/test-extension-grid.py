@@ -8,7 +8,7 @@ p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p
 p.add_argument('--output',type=Path,required=True);p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
 p.add_argument('--evidence-dir',choices=['extension-grid-evidence','emoji-evidence'],default='extension-grid-evidence')
 p.add_argument('--extra-evidence-dir',action='append',choices=['emoji-evidence','settings-evidence','shortcut-evidence','backup-evidence','folder-evidence','palette-evidence','rigid-palette-evidence'],default=[])
-p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=15)
+p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=16)
 a=p.parse_args();sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 if not sdk:sdk=next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
 adb=[str(Path(sdk)/'platform-tools/adb'),'-s',a.serial];app='dev.tinycast.android'

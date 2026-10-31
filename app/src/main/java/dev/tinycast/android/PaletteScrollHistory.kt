@@ -11,6 +11,9 @@ internal class PaletteScrollHistory {
     // Layout observations arrive after measurement, independently of selection
     // and query recomposition. Ordinary scrolling must not force a selection back.
     fun viewportMeasured(height: Int, fullyVisible: Boolean): Boolean {
+        // A detached/re-entering lazy layout reports zero before its first real
+        // measure. That is not an IME shrink and must not replace its anchor.
+        if (height <= 0) return false
         val shrank = viewportHeight > 0 && height < viewportHeight
         viewportHeight = height
         return shrank && !fullyVisible

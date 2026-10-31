@@ -50,6 +50,7 @@ internal class ExtensionGridState {
     var lastRemoteSelection: String? = null
     var dropdownValue by mutableStateOf<String?>(null)
     val scroll = LazyGridState()
+    val history = PaletteScrollHistory()
 }
 
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
@@ -122,7 +123,7 @@ internal fun NativeExtensionGrid(
     fun currentActions(): List<JSONObject> = current().second?.node?.actions().orEmpty().ifEmpty { rootProvider().actions() }
     fun action(node: JSONObject?) { node?.let { dispatch(it.handle("onAction"), JSONArray()) }; menu = false }
     val actions: List<JSONObject> = selected?.node?.actions().orEmpty().ifEmpty { root.actions() }
-    val history = remember { PaletteScrollHistory() }
+    val history = state.history
     val recovery = remember { GridVisibilityRecovery() }
 
     BoxWithConstraints(Modifier.fillMaxSize().semantics { testTagsAsResourceId = true }.testTag("extension-grid-screen")) {

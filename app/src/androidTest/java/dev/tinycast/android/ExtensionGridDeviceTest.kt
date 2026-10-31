@@ -211,6 +211,24 @@ class ExtensionGridDeviceTest {
         compose.waitUntil(5000) { clip() == "grid-fixture:image-1" }
         capture("inline-preferences-return","Landscape 01")
     }
+    @Test fun cancellingPreferencesRetainsManualGridScrollPosition() {
+        launch()
+        compose.waitUntil(5000) { activeRoot(compose.activity.store.extensions.runtimeTree)?.nodes("Grid.Section")?.firstOrNull()?.props()?.optString("title")=="Selected: image-0" }
+        compose.onNodeWithTag("extension-grid").performScrollToIndex(12)
+        compose.waitForIdle()
+        val before=compose.onNodeWithTag("extension-grid-cell-8").fetchSemanticsNode().boundsInWindow
+        val epoch=compose.activity.store.extensions.launchEpoch
+        compose.onNodeWithContentDescription("Extension preferences").performClick()
+        compose.onNodeWithTag("run-extension-setup").assertIsDisplayed()
+        compose.onNodeWithTag("extension-back").performClick()
+        compose.waitForIdle()
+        val after=compose.onAllNodesWithTag("extension-grid-cell-8").fetchSemanticsNodes().singleOrNull()?.boundsInWindow
+        val folder=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
+        File(folder,"grid-return-position.json").writeText(JSONObject().put("before",before.toString()).put("after",after?.toString()).put("epoch_retained",epoch==compose.activity.store.extensions.launchEpoch).toString(2))
+        device.dumpWindowHierarchy(File(folder,"grid-return-position.xml"));device.takeScreenshot(File(folder,"grid-return-position.png"))
+        assertEquals("Cancel retains manual grid scrolling",before,after)
+        assertEquals(epoch,compose.activity.store.extensions.launchEpoch)
+    }
     @Test fun onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible() {
         launch()
         val originalSetting = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()

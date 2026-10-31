@@ -61,6 +61,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         // These survive a route being replaced, including caret and scroll position.
         val launcherSearch = remember { mutableStateOf(TextFieldValue(store.query, TextRange(store.query.length))) }
         val launcherList = rememberLazyListState()
+        val launcherScrollHistory = remember(store) { PaletteScrollHistory() }
         val launcherKeyboard = remember { mutableStateOf(false) }
         fun closeRoute() {
             if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
@@ -132,7 +133,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         BackHandler(onBack = ::escape)
         // Reset before the next measure so stable item keys cannot preserve an old
         // anchor for a frame. Moving selection inside the viewport never scrolls.
-        val scrollHistory = remember { PaletteScrollHistory() }
+        val scrollHistory = launcherScrollHistory
         val resultIds = remember(results) { results.map { it.id } }
         SideEffect {
             val index = store.selected.coerceIn(0, results.lastIndex.coerceAtLeast(0))

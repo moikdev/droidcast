@@ -4,6 +4,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.view.KeyEvent
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -141,6 +142,31 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("")))
         sameWindow()
     }
+    @Test fun returningFromEditorRetainsTheScrolledLauncherViewport() {
+        compose.activityRule.scenario.onActivity { activity ->
+            repeat(24) { activity.store.save("notes","Scroll fixture %02d".format(it),"Public scroll fixture") }
+            activity.store.filter("Notes"); activity.store.search("Scroll fixture")
+        }
+        hideKeyboard()
+        compose.activityRule.scenario.onActivity { it.store.selected=9 }
+        compose.onNodeWithTag("results").performScrollToIndex(5)
+        compose.waitForIdle()
+        val id=compose.activity.store.results()[5].id
+        val before=compose.onNodeWithTag("result-$id").fetchSemanticsNode().boundsInWindow
+        key(KeyEvent.KEYCODE_N,KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("editor-title").assertIsDisplayed()
+        // Compare equal viewports: editor focus may have opened the IME.
+        // Keyboard-shrink selection recovery has separate measured coverage.
+        hideKeyboard()
+        compose.onNodeWithTag("inline-back").performClick(); hideKeyboard()
+        val after=compose.onAllNodesWithTag("result-$id").fetchSemanticsNodes().singleOrNull()?.boundsInWindow
+        val folder=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
+        File(folder,"launcher-return-position.json").writeText(org.json.JSONObject().put("before",before.toString()).put("after",after?.toString()).put("selected",compose.activity.store.selected).toString(2))
+        device.dumpWindowHierarchy(File(folder,"launcher-return-position.xml")); device.takeScreenshot(File(folder,"launcher-return-position.png"))
+        assertEquals("Back retains the same scrolled launcher row",before,after)
+        assertEquals(9,compose.activity.store.selected)
+        compose.onNodeWithTag("search").assertIsFocused().assertTextContains("Scroll fixture")
+    }
     @Test fun editorSaveRemainsReachableAboveTheRealDockedKeyboard() {
         val prior=device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
         try {
@@ -148,7 +174,8 @@ class InlinePaletteDeviceTest {
             compose.onNodeWithTag("editor-title").performTextReplacement("Keyboard draft")
             compose.onNodeWithTag("editor-body").performTextReplacement("Save stays above the real keyboard.")
             device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
-            compose.onNodeWithTag("editor-body").performClick()
+            compose.onNodeWithTag("editor-body").performSemanticsAction(SemanticsActions.RequestFocus)
+            compose.onNodeWithTag("editor-body").assertIsFocused()
             compose.activityRule.scenario.onActivity {
                 androidx.core.view.WindowCompat.getInsetsController(it.window,it.window.decorView).show(androidx.core.view.WindowInsetsCompat.Type.ime())
             }
