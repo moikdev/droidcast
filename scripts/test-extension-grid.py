@@ -37,15 +37,16 @@ try:
  for folder in evidence_dirs:raw('shell','run-as',app,'rm','-rf','files/'+folder)
  r['suite_timeout_seconds']=max(600,a.expected*30)
  with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes,app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
+ log=(a.output/'tests.log').read_text();r['passes']=len(re.findall('^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M));r['tests_completed']=f'OK ({a.expected} test' in log and 'FAILURES!!!' not in log and r['passes']==a.expected
  present=text('shell','run-as',app,'ls','files').splitlines()
  for folder in evidence_dirs:
   if folder not in present:continue
   destination=a.output if folder==a.evidence_dir else a.output/folder
   destination.mkdir(exist_ok=True)
   for name in text('shell','run-as',app,'ls','files/'+folder).splitlines():
-   assert re.fullmatch(r'[a-z0-9-]+\.(png|xml|json)',name)
+   assert re.fullmatch(r'[a-z0-9-]+\.(png|xml|json|tsv)',name)
    data=raw('exec-out','run-as',app,'cat','files/'+folder+'/'+name);assert len(data)==int(text('shell','run-as',app,'stat','-c','%s','files/'+folder+'/'+name));(destination/name).write_bytes(data)
- log=(a.output/'tests.log').read_text();r['passes']=len(re.findall('^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M));r['completed']=f'OK ({a.expected} test' in log and 'FAILURES!!!' not in log and r['passes']==a.expected
+ r['completed']=r['tests_completed']
  assert r['completed'],log[-3000:]
 finally:
  c=Cleanup(r);c.attempt('stop-app',lambda:raw('shell','am','force-stop',app))
@@ -69,5 +70,5 @@ finally:
  def identity():
   r['adbd']=text('shell','id').split(' groups=')[0];r['app_uid']=text('shell','run-as',app,'id').split(' groups=')[0];c.require(r['adbd'].startswith('uid=2000'),'adbd');c.require(not r['app_uid'].startswith(('uid=0','uid=1000(','uid=2000')),'app UID')
  c.attempt('verify-identity',identity)
- r['tests_completed']=r['completed'];r['completed']=r['completed'] and not c.errors;(a.output/'record.json').write_text(json.dumps(r,indent=2)+'\n');c.finish()
+ r['completed']=r['completed'] and not c.errors;(a.output/'record.json').write_text(json.dumps(r,indent=2)+'\n');c.finish()
 print(json.dumps({'completed':r['completed'],'passes':r.get('passes'),'apk':r['apk_sha256']}))
