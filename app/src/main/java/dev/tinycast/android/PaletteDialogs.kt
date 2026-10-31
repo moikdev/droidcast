@@ -22,14 +22,13 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 
@@ -218,19 +217,22 @@ internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier:
         }
         return
     }
-    Dialog(onDismissRequest = close, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        val focus = remember { FocusRequester() }
-        var ready by remember { mutableStateOf(false) }
-        var hasFocus by remember { mutableStateOf(false) }
-        LaunchedEffect(ready) { if (ready && !hasFocus) focus.requestFocus() }
-        Surface(shape = RoundedCornerShape(20.dp), color = PaletteTheme.surface, border = BorderStroke(1.dp, line), modifier = Modifier.heightIn(max = (LocalConfiguration.current.screenHeightDp - 64).dp).widthIn(max = 540.dp).fillMaxWidth(.94f).padding(vertical = 20.dp).then(modifier)
-            .focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus }.onGloballyPositioned { ready = true }
-            .onPreviewKeyEvent { if (it.type == KeyEventType.KeyDown && it.key == Key.Escape) { close(); true } else false }.focusable()) {
-            Column(Modifier.verticalScroll(rememberScrollState()).padding(28.dp)) {
-                Text(title, fontSize = 24.sp, fontWeight = FontWeight.SemiBold, letterSpacing = (-.5).sp)
-                Text(subtitle, fontSize = 12.sp, color = muted, lineHeight = 18.sp, modifier = Modifier.padding(top = 8.dp, bottom = 24.dp))
-                content()
-            }
+    val focus = remember { FocusRequester() }
+    var ready by remember { mutableStateOf(false) }
+    var hasFocus by remember { mutableStateOf(false) }
+    LaunchedEffect(ready) { if (ready && !hasFocus) focus.requestFocus() }
+    PaletteFrame(close, modifier.focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus }
+        .onGloballyPositioned { ready = true }
+        .onPreviewKeyEvent { if (it.type == KeyEventType.KeyDown && it.key == Key.Escape) { close(); true } else false }.focusable()) {
+        Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+            IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back to commands" }.testTag("inline-back")) { Text("‹", fontSize = 28.sp) }
+            Spacer(Modifier.width(2.dp))
+            Text(title, fontSize = 20.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+        }
+        HorizontalDivider(color = line)
+        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(18.dp)) {
+            Text(subtitle, fontSize = 12.sp, color = muted, lineHeight = 18.sp, modifier = Modifier.padding(bottom = 16.dp))
+            content()
         }
     }
 }

@@ -28,7 +28,6 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
@@ -176,33 +175,30 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                     else -> false
                 }
             }.semantics { testTagsAsResourceId = true }.testTag("emoji-palette")) {
-            Row(Modifier.fillMaxWidth().height(52.dp).padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = close, modifier = Modifier.semantics { contentDescription = "Back to commands" }.testTag("emoji-back")) { Text("‹", fontSize = 28.sp) }
-                Text("Emoji & Symbols", fontSize = 16.sp, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
+            Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back to commands" }.testTag("emoji-back")) { Text("‹", fontSize = 28.sp) }
+                Spacer(Modifier.width(2.dp))
+                BasicTextField(displayedSearch, {
+                    searchValue = it
+                    if (it.text != store.query) { store.search(it.text); copiedName = null }
+                }, singleLine = true,
+                    modifier = Modifier.weight(1f).height(32.dp).focusRequester(searchFocus).onFocusChanged { searchFocused = it.isFocused }.testTag("emoji-search"),
+                    textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
+                    keyboardActions = KeyboardActions(onSearch = { if (!isComposing()) currentEntry()?.let(::copyEntry) }),
+                    decorationBox = { inner -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) {
+                        if (store.query.isEmpty()) Text("Search Emoji & Symbols…", color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner()
+                    } })
+                if (wide) IconButton(onClick = { keyboardRequested = true; searchFocus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(36.dp).semantics { contentDescription = "Show on-screen keyboard" }) {
+                    Glyph("keyboard", PaletteTheme.tertiary, 16)
+                }
                 Box {
-                    TextButton(onClick = { menu = true }, modifier = Modifier.testTag("emoji-filter")) { Text(store.filter, maxLines = 1, fontSize = 12.sp); Text(" ▾") }
+                    TextButton(onClick = { menu = true }, modifier = Modifier.testTag("emoji-filter")) { Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp)); Text(" ▾") }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }, containerColor = PaletteTheme.surface) {
                         (listOf("All", "Favorites", "Recent") + store.entries.map { it.category }.distinct()).forEach { category ->
                             DropdownMenuItem(text = { Text(category, fontSize = 13.sp) }, onClick = { store.chooseFilter(category); copiedName = null; queryEditing = false; menu = false }, modifier = Modifier.testTag("emoji-filter-$category"))
                         }
                     }
-                }
-            }
-            Row(Modifier.fillMaxWidth().height(48.dp).padding(horizontal = 18.dp), verticalAlignment = Alignment.CenterVertically) {
-                Glyph("search", PaletteTheme.secondary, 18); Spacer(Modifier.width(10.dp))
-                BasicTextField(displayedSearch, {
-                    searchValue = it
-                    if (it.text != store.query) { store.search(it.text); copiedName = null }
-                }, singleLine = true,
-                    modifier = Modifier.weight(1f).height(30.dp).focusRequester(searchFocus).onFocusChanged { searchFocused = it.isFocused }.testTag("emoji-search"),
-                    textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 17.sp, lineHeight = 24.sp), cursorBrush = SolidColor(PaletteTheme.accent),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
-                    keyboardActions = KeyboardActions(onSearch = { if (!isComposing()) currentEntry()?.let(::copyEntry) }),
-                    decorationBox = { inner -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) {
-                        if (store.query.isEmpty()) Text("Search emoji and symbols…", color = PaletteTheme.secondary, fontSize = 17.sp, maxLines = 1); inner()
-                    } })
-                if (wide) IconButton(onClick = { keyboardRequested = true; searchFocus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(36.dp).semantics { contentDescription = "Show on-screen keyboard" }) {
-                    Glyph("keyboard", PaletteTheme.tertiary, 16)
                 }
             }
             HorizontalDivider(color = PaletteTheme.separator)

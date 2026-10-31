@@ -59,16 +59,16 @@ The upstream Tinycast JavaScript runtime is bundled unchanged, including its Rea
 
 Supported Android host capabilities:
 
-- `List`, `Grid` as a native list, searchable items, selection, native actions and navigation.
+- Native `List` and multi-column `Grid`: searchable image/color/emoji cells, section headings, stable selection, four-way keyboard navigation, dropdowns and actions. Grid supports package raster assets and bounded HTTPS thumbnails; unsupported images show a placeholder.
 - `Detail` as selectable text/Markdown source.
 - Basic `Form` text/password/text-area, checkbox and dropdown fields, descriptions, separators and submit actions.
 - Manifest arguments and preferences, including defaults and required fields.
 - Foreground clipboard copy/read, isolated LocalStorage and cache, timers, HTTPS fetch and ordinary web URLs.
 - Secure random bytes/UUIDs and common hashes. Read-only package assets and limited filesystem access within the extension's own data folder.
 
-**Compatibility is partial.** Installing successfully does not imply every command works. Shell/process execution, AppleScript, Mac apps, desktop helpers, OAuth, menu bars, WebSockets, browser/window-management APIs and Raycast AI services are unsupported. Unsupported host calls report an error. Clipboard paste into other apps is unavailable; use Copy. Advanced form controls and full Markdown rendering remain incomplete.
+**Compatibility is partial.** Installing successfully does not imply every command works. Shell/process execution, AppleScript, Mac apps, desktop helpers, OAuth, menu bars, WebSockets, browser/window-management APIs and Raycast AI services are unsupported. Unsupported host calls report an error. Clipboard paste into other apps is unavailable; use Copy. Advanced form controls, full Markdown rendering and the complete Grid API remain incomplete. Grid section-specific geometry, SVGs, the full icon catalog and automatic pagination are not implemented; pagination uses an explicit Load more control.
 
-Real Store packages tested include UUID Generator (generation, clipboard, native history) and OKLCH Color Converter (Store UI installation, reactive native results and copy actions). This is not an ecosystem-wide compatibility claim.
+Real Store packages tested include UUID Generator (generation, clipboard, native history), OKLCH Color Converter (Store installation, reactive native results and copying), and Palette Colors (native Grid, copying and remembered color scheme). See [Extension Grid](docs/EXTENSION-GRID.md) for its subset and validation. This is not an ecosystem-wide compatibility claim.
 
 Store searches/downloads contact Raycast. Running third-party code can make HTTPS requests and access the foreground clipboard; an install confirmation explains this. Extension storage and preferences are scoped per extension and excluded from OS backup. Uninstall removes the extension and its own data.
 

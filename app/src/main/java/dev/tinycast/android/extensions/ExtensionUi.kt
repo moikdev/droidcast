@@ -11,11 +11,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.graphics.Color
@@ -23,7 +26,6 @@ import androidx.compose.ui.input.key.*
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.window.DialogWindowProvider
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -32,8 +34,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import dev.tinycast.android.Glyph
 import dev.tinycast.android.PaletteStore
 import dev.tinycast.android.PaletteTheme
@@ -60,63 +60,35 @@ fun ExtensionDialogs(store: PaletteStore, close: () -> Unit) {
 
 @Composable
 private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier,
-                            compact: Boolean = false, onEscape: () -> Unit = close,
+                            compact: Boolean = false, onEscape: () -> Unit = close, headerless: Boolean = false,
                             headerActions: (@Composable RowScope.() -> Unit)? = null,
                             content: @Composable ColumnScope.() -> Unit) {
-    val ownerView = LocalView.current
     val escapePresses = remember { mutableMapOf<Int, Long>() }
-    val shellFocus = remember { FocusRequester() }
-    var shellHasFocus by remember { mutableStateOf(false) }
-    Dialog(onDismissRequest = onEscape, properties = DialogProperties(usePlatformDefaultWidth=false, dismissOnBackPress=true, decorFitsSystemWindows=false)) {
-        val dialogWindow = (LocalView.current.parent as DialogWindowProvider).window
-        DisposableEffect(dialogWindow) {
-            // Compose 1.7's floating dialog otherwise reports a full-height
-            // content view displaced below the status bar on API 36.
-            dialogWindow.setLayout(android.view.WindowManager.LayoutParams.MATCH_PARENT, android.view.WindowManager.LayoutParams.MATCH_PARENT)
-            dialogWindow.setGravity(android.view.Gravity.TOP or android.view.Gravity.CENTER_HORIZONTAL)
-            dialogWindow.addFlags(android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
-            onDispose { }
-        }
-        val windowFocused = LocalWindowInfo.current.isWindowFocused
-        val reportedIme = WindowInsets.ime.getBottom(LocalDensity.current)
-        // API 36's floating-dialog insets omit the navigation-bar portion of
-        // the IME (504 px versus the owner's 552 px in the regression).
-        val ownerIme = if (reportedIme > 0) androidx.core.view.ViewCompat.getRootWindowInsets(ownerView)
-            ?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())?.bottom ?: 0 else 0
-        val effectiveIme = maxOf(reportedIme, ownerIme)
-        val imeVisible = effectiveIme > 0
-        LaunchedEffect(shellHasFocus, windowFocused) {
-            if (windowFocused && !shellHasFocus) {
-                withFrameNanos { }
-                if (!shellHasFocus) shellFocus.requestFocus()
+    val focus = remember { FocusRequester() }
+    var hasFocus by remember { mutableStateOf(false) }
+    val windowFocused = LocalWindowInfo.current.isWindowFocused
+    LaunchedEffect(windowFocused, hasFocus) {
+        if (windowFocused && !hasFocus) { withFrameNanos { }; if (!hasFocus) focus.requestFocus() }
+        if (!windowFocused) escapePresses.clear()
+    }
+    dev.tinycast.android.PaletteFrame(onEscape, modifier.focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus }
+        .focusable().onPreviewKeyEvent {
+            val event = it.nativeKeyEvent
+            if (event.keyCode != android.view.KeyEvent.KEYCODE_ESCAPE) false
+            else if (event.action == android.view.KeyEvent.ACTION_DOWN) {
+                if (event.repeatCount == 0) { escapePresses[event.deviceId] = event.downTime; onEscape() }; true
+            } else if (escapePresses[event.deviceId] == event.downTime) { escapePresses.remove(event.deviceId); true } else false
+        }, tag = "extension-palette") {
+        if (!headerless) {
+            Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onEscape, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Text("‹", fontSize = 28.sp) }
+                Spacer(Modifier.width(2.dp))
+                Text(title, fontSize = 20.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                headerActions?.invoke(this)
             }
-            if (!windowFocused) escapePresses.clear()
+            HorizontalDivider(color = line)
         }
-        Box(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets(bottom = effectiveIme)).safeDrawingPadding(), contentAlignment = Alignment.Center) {
-        Box(Modifier.matchParentSize().focusProperties { canFocus = false }.clearAndSetSemantics { }.clickable(interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }, indication = null, onClick = onEscape))
-        Surface(color=PaletteTheme.surface,shape=RoundedCornerShape(18.dp),border=BorderStroke(1.dp,line),
-            modifier=Modifier.widthIn(max=if(compact)680.dp else 860.dp).fillMaxWidth(.96f).fillMaxHeight(if(imeVisible)1f else if(compact).72f else .88f).then(modifier).focusRequester(shellFocus).onFocusChanged { shellHasFocus = it.hasFocus }.focusable().onPreviewKeyEvent {
-                val event = it.nativeKeyEvent
-                if (event.keyCode != android.view.KeyEvent.KEYCODE_ESCAPE) false
-                else if (event.action == android.view.KeyEvent.ACTION_DOWN) {
-                    if (event.repeatCount == 0) { escapePresses[event.deviceId] = event.downTime; onEscape() }
-                    true
-                } else if (escapePresses[event.deviceId] == event.downTime) { escapePresses.remove(event.deviceId); true } else false
-            }) {
-            Column {
-                Row(Modifier.fillMaxWidth().padding(20.dp,12.dp),verticalAlignment=Alignment.CenterVertically){
-                    Glyph("extension",ink,21);Spacer(Modifier.width(12.dp));Column(Modifier.weight(1f)){
-                        Text(title,fontSize=18.sp,fontWeight=FontWeight.SemiBold,lineHeight=23.sp,maxLines=1,overflow=TextOverflow.Ellipsis)
-                        Text(subtitle,fontSize=11.sp,color=muted,lineHeight=16.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
-                    }
-                    headerActions?.invoke(this)
-                    TextButton(onClick=close){Text("Close",color=muted)}
-                }
-                HorizontalDivider(color=line)
-                content()
-            }
-        }
-        }
+        content()
     }
 }
 
@@ -274,11 +246,12 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             it.key==Key.Enter&&root?.optString("type")!="Form"->{action(actions.firstOrNull());true}
             else->false
         }
-    },compact=true,onEscape={ if(catalog.navigationDepth>1)runtime.back() else close() },headerActions={
+    },compact=true,onEscape={ if(catalog.navigationDepth>1)runtime.back() else close() },headerless=root?.optString("type")=="Grid",headerActions={
         if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
         TextButton(onClick={store.dialog="extension-setup"}){Text("Preferences",fontSize=11.sp)}
     }){
-        AndroidView(factory={runtime.webView},modifier=Modifier.size(1.dp))
+        // Keep the JS host attached without shifting the shared header by 1dp.
+        Box(Modifier.size(0.dp).clipToBounds()) { AndroidView(factory={runtime.webView},modifier=Modifier.requiredSize(1.dp)) }
         if(catalog.runtimeError!=null){
             Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command needs an unsupported capability",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
@@ -290,7 +263,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }else when(root.optString("type")){
             "Grid" -> Box(Modifier.weight(1f).fillMaxWidth()) {
                 val state = gridStates.getOrPut(root.optString("id")) { ExtensionGridState() }
-                NativeExtensionGrid(state, { activeRoot(catalog.runtimeTree) ?: root }, gridImages, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, runtime::dispatch)
+                NativeExtensionGrid(state, { activeRoot(catalog.runtimeTree) ?: root }, gridImages, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, runtime::dispatch, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.dialog="extension-setup"})
             }
             "List"->{
                 OutlinedTextField(query,{query=it;selected=0;runtime.dispatch(root.handle("onSearchTextChange"),JSONArray().put(it))},placeholder={Text(root.props().optString("searchBarPlaceholder","Search extension…"))},singleLine=true,modifier=Modifier.fillMaxWidth().padding(16.dp,0.dp).focusRequester(focus).onGloballyPositioned{ready=true}.testTag("extension-search"))

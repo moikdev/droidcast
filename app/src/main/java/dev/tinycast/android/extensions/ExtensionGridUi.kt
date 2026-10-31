@@ -53,7 +53,7 @@ internal class ExtensionGridState {
 @Composable
 internal fun NativeExtensionGrid(
     state: ExtensionGridState, rootProvider: () -> JSONObject, images: ExtensionGridImages,
-    status: String, preferences: android.content.SharedPreferences, commandKey: String, dispatch: (String?, JSONArray) -> Unit,
+    status: String, preferences: android.content.SharedPreferences, commandKey: String, dispatch: (String?, JSONArray) -> Unit, back: () -> Unit, configure: () -> Unit,
 ) {
     val root = rootProvider()
     val props = root.props()
@@ -192,25 +192,22 @@ internal fun NativeExtensionGrid(
             return false
         }
         Column(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { key(it.nativeKeyEvent) }.onPreviewKeyEvent { key(it.nativeKeyEvent) }) {
-            Row(Modifier.fillMaxWidth().height(52.dp).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Glyph("search", PaletteTheme.secondary, 18); Spacer(Modifier.width(10.dp))
+            Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = back, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Text("‹", fontSize = 28.sp) }
+                Spacer(Modifier.width(2.dp))
                 BasicTextField(state.search, { next ->
                     val changed = next.text != state.search.text
                     state.search = next
                     if (changed) { state.selectedKey = null; dispatch(rootProvider().handle("onSearchTextChange"), JSONArray().put(next.text)) }
-                }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 16.sp), cursorBrush = SolidColor(PaletteTheme.accent),
+                }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (state.search.composition == null) action(currentActions().firstOrNull()) }),
-                    modifier = Modifier.weight(1f).focusRequester(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
-                    decorationBox = { inner -> Box { if (state.search.text.isEmpty()) Text(props.optString("searchBarPlaceholder", "Search extension…"), color = PaletteTheme.secondary, fontSize = 16.sp, maxLines = 1); inner() } })
+                    modifier = Modifier.weight(1f).height(32.dp).focusRequester(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
+                    decorationBox = { inner -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) { if (state.search.text.isEmpty()) Text(props.optString("searchBarPlaceholder", "Search extension…"), color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
                 if (wide) IconButton(onClick = { keyboardRequested = true; focus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(36.dp).semantics { contentDescription = "Show on-screen keyboard" }.testTag("extension-grid-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 16) }
-            }
-            Box(Modifier.fillMaxWidth().height(2.dp)) { if (props.optBoolean("isLoading")) LinearProgressIndicator(Modifier.fillMaxWidth().testTag("extension-grid-loading")) }
-            Row(Modifier.fillMaxWidth().heightIn(min = 28.dp).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("${items.size} ${if (items.size == 1) "result" else "results"}", fontSize = 11.sp, color = PaletteTheme.secondary, modifier = Modifier.weight(1f).testTag("extension-grid-count"))
                 if (options.isNotEmpty()) Box {
                     TextButton(onClick = { dropdownMenu = true }, modifier = Modifier.testTag("extension-grid-filter")) {
-                        Text(options.firstOrNull { it.props().optString("value") == state.dropdownValue }?.props()?.optString("title") ?: "Filter", fontSize = 11.sp, maxLines = 1)
+                        Text(options.firstOrNull { it.props().optString("value") == state.dropdownValue }?.props()?.optString("title") ?: "Filter", fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if(wide) 140.dp else 72.dp))
                         Text(" ▾", fontSize = 10.sp)
                     }
                     DropdownMenu(dropdownMenu, { dropdownMenu = false }) {
@@ -221,6 +218,11 @@ internal fun NativeExtensionGrid(
                         }, modifier = Modifier.testTag("extension-grid-filter-$index")) }
                     }
                 }
+                IconButton(onClick = configure, modifier = Modifier.size(36.dp).semantics { contentDescription = "Extension preferences" }) { Text("⚙", fontSize = 16.sp) }
+            }
+            Box(Modifier.fillMaxWidth().height(2.dp)) { if (props.optBoolean("isLoading")) LinearProgressIndicator(Modifier.fillMaxWidth().testTag("extension-grid-loading")) }
+            Row(Modifier.fillMaxWidth().heightIn(min = 28.dp).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("${items.size} ${if (items.size == 1) "result" else "results"}", fontSize = 11.sp, color = PaletteTheme.secondary, modifier = Modifier.weight(1f).testTag("extension-grid-count"))
                 val pagination = props.optJSONObject("pagination")
                 if (pagination?.optBoolean("hasMore") == true) TextButton(onClick = { dispatch(pagination.optJSONObject("onLoadMore")?.optString("\$fn"), JSONArray()) }, enabled = !props.optBoolean("isLoading"), modifier = Modifier.testTag("extension-grid-more")) { Text("Load more", fontSize = 11.sp) }
                 if (wide) Text(if (editingQuery) "Editing query · ↓ select" else "Type to search · arrows select · Ctrl L edit", color = PaletteTheme.secondary, fontSize = 10.sp)

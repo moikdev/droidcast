@@ -33,7 +33,9 @@ class EmojiDeviceTest {
         original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         originalEmoji = context.getSharedPreferences("emoji", Context.MODE_PRIVATE).all.toMap()
         compose.activityRule.scenario.onActivity {
-            originalClip = it.getSystemService(ClipboardManager::class.java).primaryClip
+            val clipboard = it.getSystemService(ClipboardManager::class.java)
+            originalClip = clipboard.primaryClip
+            clipboard.clearPrimaryClip()
         }
         // The current ViewModel already loaded preferences; clear through the public operations.
         compose.waitUntil(10000) { !compose.activity.store.loading && !store.loading }
@@ -112,6 +114,51 @@ class EmojiDeviceTest {
         }
         assertTrue(device.takeScreenshot(File(dir, "$name.png")))
     }
+    @Test fun searchStaysOnTheLauncherRowBesideBackAndCategory() {
+        search("face")
+        evidence("single-row-search", "results · offline")
+        val emoji = compose.onNodeWithTag("emoji-search").fetchSemanticsNode().boundsInWindow
+        val filter = compose.onNodeWithTag("emoji-filter").fetchSemanticsNode().boundsInWindow
+        val back = compose.onNodeWithTag("emoji-back").fetchSemanticsNode().boundsInWindow
+        fun bounds(r: androidx.compose.ui.geometry.Rect) = org.json.JSONArray(listOf(r.left, r.top, r.right, r.bottom))
+        val geometry = org.json.JSONObject().put("emojiSearch", bounds(emoji)).put("category", bounds(filter)).put("back", bounds(back))
+        val geometryFile = File(context.filesDir, "emoji-evidence/single-row-geometry.json")
+        geometryFile.writeText(geometry.toString(2))
+        assertEquals("Category shares the search baseline", emoji.center.y, filter.center.y, 1f)
+        assertEquals("Back shares the search baseline", emoji.center.y, back.center.y, 1f)
+        assertTrue("Back retains a full Android touch target", back.width >= 48 * context.resources.displayMetrics.density - 1)
+        assertTrue("Back does not cover editable search", back.right <= emoji.left)
+        assertTrue("Category shares the search row without overlap", emoji.right <= filter.left)
+        for (query in listOf("happy", "", "face")) {
+            search(query)
+            assertEquals(emoji, compose.onNodeWithTag("emoji-search").fetchSemanticsNode().boundsInWindow)
+        }
+        val longestCategory = store.entries.map { it.category }.distinct().maxBy { it.length }
+        filter(longestCategory)
+        search("")
+        val narrowSearch = compose.onNodeWithTag("emoji-search").fetchSemanticsNode().boundsInWindow
+        val longFilter = compose.onNodeWithTag("emoji-filter").fetchSemanticsNode().boundsInWindow
+        assertEquals(emoji.top, narrowSearch.top, 1f)
+        assertTrue("Long categories retain a usable search field", narrowSearch.width >= 80 * context.resources.displayMetrics.density)
+        assertTrue(narrowSearch.right <= longFilter.left)
+        assertEquals(narrowSearch.center.y, longFilter.center.y, 1f)
+        evidence("single-row-long-category", "results · offline")
+        filter("All")
+        search("face")
+        compose.onNodeWithTag("emoji-back").performClick()
+        val launcher = compose.onNodeWithTag("search").fetchSemanticsNode().boundsInWindow
+        assertEquals("Search baseline is stable between screens", launcher.top, emoji.top, 1f)
+        assertEquals("Search starts at the same column", launcher.left, emoji.left, 1f)
+        assertEquals(launcher.height, emoji.height, 1f)
+        geometry.put("launcherSearch", bounds(launcher)).put("longCategorySearch", bounds(narrowSearch)).put("longCategory", bounds(longFilter))
+        geometryFile.writeText(geometry.toString(2))
+        compose.onNodeWithTag("result-emoji").performClick()
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        key(KeyEvent.KEYCODE_DPAD_DOWN)
+        val selected = store.results()[store.selected]
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals(selected.glyph, clipboard())
+    }
     @Test fun commandOpensOfflineGridWithinTheFloatingPalette() {
         compose.onAllNodes(isDialog()).assertCountEquals(0)
         compose.onNodeWithTag("emoji-count").assertTextEquals("1940 results · offline")
@@ -162,6 +209,17 @@ class EmojiDeviceTest {
         key(KeyEvent.KEYCODE_L, KeyEvent.META_CTRL_ON)
         key(KeyEvent.KEYCODE_DPAD_LEFT)
         key(KeyEvent.KEYCODE_E)
+        // Input injection acknowledgement and Compose idleness do not certify
+        // that the IME has committed an edit. Await the actual editable value;
+        // missing/dropped input still fails the bounded condition.
+        val beforeCommit = compose.onNodeWithTag("emoji-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+        val commitStart = android.os.SystemClock.elapsedRealtime()
+        compose.waitUntil(5000) {
+            compose.onNodeWithTag("emoji-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text == "faec"
+        }
+        File(context.filesDir, "emoji-evidence/typing-caret-commit.json").writeText(org.json.JSONObject()
+            .put("initialObservedText", beforeCommit).put("finalObservedText", "faec")
+            .put("waitMs", android.os.SystemClock.elapsedRealtime() - commitStart).toString(2))
         compose.onNodeWithTag("emoji-search").assertTextContains("faec")
         val beforeCaret = store.selected
         key(KeyEvent.KEYCODE_DPAD_LEFT)

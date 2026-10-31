@@ -55,28 +55,10 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         onBackground = PaletteTheme.ink, outline = PaletteTheme.border, secondary = PaletteTheme.secondary,
         surfaceContainer = PaletteTheme.surface)) {
       CompositionLocalProvider(LocalContentColor provides PaletteTheme.ink) {
-        if (store.dialog == "emoji") {
-            EmojiPicker(store.emoji, { store.dialog = null; store.focusEpoch++ }, { copy(it); store.message = null })
-            return@CompositionLocalProvider
-        }
-        val focus = remember { FocusRequester() }
-        var searchValue by remember { mutableStateOf(TextFieldValue(store.query, TextRange(store.query.length))) }
-        // Programmatic mode changes place typing after the prefix; user edits retain their selection/composition.
-        val displayedSearch = if (searchValue.text == store.query) searchValue else TextFieldValue(store.query, TextRange(store.query.length))
-        SideEffect { if (searchValue != displayedSearch) searchValue = displayedSearch }
-        val keyboard = LocalSoftwareKeyboardController.current
-        val view = LocalView.current
-        val windowFocused = LocalWindowInfo.current.isWindowFocused
-        var searchFocused by remember { mutableStateOf(false) }
-        var keyboardRequested by remember { mutableStateOf(false) }
-        val list = rememberLazyListState()
-        val results by remember(store) { derivedStateOf { store.results() } }
-        val resultSelected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
-        val selected = if (store.dialog in setOf("actions", "alias", "delete")) store.actionCommand ?: resultSelected else resultSelected
-        val snack = remember { SnackbarHostState() }
-        val shortcutEngine = remember { ShortcutEngine() }
-        var menu by remember { mutableStateOf(false) }
-        fun close() {
+        // These survive a route being replaced, including caret and scroll position.
+        val launcherSearch = remember { mutableStateOf(TextFieldValue(store.query, TextRange(store.query.length))) }
+        val launcherList = rememberLazyListState()
+        fun closeRoute() {
             if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
             if (store.dialog?.startsWith("backup") == true) {
                 if (store.backupBusy) return
@@ -85,6 +67,33 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             if (store.dialog == "extension-run" || store.dialog == "extension-setup") store.extensions.close()
             store.dialog = null; store.actionCommand = null; store.focusEpoch++
         }
+        if (store.dialog != null && store.dialog !in setOf("emoji", "actions")) {
+            val selected = store.actionCommand ?: store.results().getOrNull(store.selected)
+            PaletteDialogs(store, selected, globalEnabled, enableGlobal, run, copy, ::closeRoute)
+            return@CompositionLocalProvider
+        }
+        if (store.dialog == "emoji") {
+            EmojiPicker(store.emoji, { store.dialog = null; store.focusEpoch++ }, { copy(it); store.message = null })
+            return@CompositionLocalProvider
+        }
+        val focus = remember { FocusRequester() }
+        var searchValue by launcherSearch
+        // Programmatic mode changes place typing after the prefix; user edits retain their selection/composition.
+        val displayedSearch = if (searchValue.text == store.query) searchValue else TextFieldValue(store.query, TextRange(store.query.length))
+        SideEffect { if (searchValue != displayedSearch) searchValue = displayedSearch }
+        val keyboard = LocalSoftwareKeyboardController.current
+        val view = LocalView.current
+        val windowFocused = LocalWindowInfo.current.isWindowFocused
+        var searchFocused by remember { mutableStateOf(false) }
+        var keyboardRequested by remember { mutableStateOf(false) }
+        val list = launcherList
+        val results by remember(store) { derivedStateOf { store.results() } }
+        val resultSelected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
+        val selected = if (store.dialog in setOf("actions", "alias", "delete")) store.actionCommand ?: resultSelected else resultSelected
+        val snack = remember { SnackbarHostState() }
+        val shortcutEngine = remember { ShortcutEngine() }
+        var menu by remember { mutableStateOf(false) }
+        fun close() = closeRoute()
         fun escape() {
             when { store.dialog != null -> close(); menu -> menu = false; store.query.isNotEmpty() -> store.search(""); store.category != "All" -> store.filter("All"); else -> dismiss() }
         }
@@ -155,7 +164,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 .background(Brush.linearGradient(listOf(Color(0xFF292929),Color(0xFF141414),Color(0xFF242424))))
                 .border(1.dp,PaletteTheme.border,RoundedCornerShape(PaletteTheme.radius))
                 .clickable(indication=null, interactionSource=remember { MutableInteractionSource() }) {}.testTag("palette")) {
-                Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(horizontal=16.dp).testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
                     Glyph("search",PaletteTheme.secondary,22);Spacer(Modifier.width(12.dp))
                     BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).height(32.dp).focusRequester(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),
@@ -209,7 +218,6 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             }
             SnackbarHost(snack,modifier=Modifier.align(Alignment.BottomCenter).windowInsetsPadding(WindowInsets.imeAnimationTarget).padding(20.dp))
         }
-        if(store.dialog!="actions") PaletteDialogs(store,selected,globalEnabled,enableGlobal,run,copy,::close)
       }
     }
 }

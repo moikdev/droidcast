@@ -6,6 +6,7 @@ from android_test_cleanup import Cleanup
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--layout',choices=['tablet','phone'],required=True)
 p.add_argument('--output',type=Path,required=True);p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
+p.add_argument('--evidence-dir',choices=['extension-grid-evidence','emoji-evidence'],default='extension-grid-evidence')
 p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=11)
 a=p.parse_args();sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 if not sdk:sdk=next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
@@ -29,11 +30,11 @@ try:
  r['apk_sha256']=sha(a.apk.read_bytes());r['test_apk_sha256']=sha((a.output/'app-debug-androidTest.apk').read_bytes())
  installed=text('shell','pm','path',app).removeprefix('package:');assert sha(raw('exec-out','cat',installed))==r['apk_sha256'];r['installed_matches']=True
  if a.layout=='phone':raw('shell','wm','size','1080x2340');raw('shell','wm','density','420')
- raw('shell','run-as',app,'rm','-rf','files/extension-grid-evidence')
+ raw('shell','run-as',app,'rm','-rf','files/'+a.evidence_dir)
  with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes,app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=600)
- for name in text('shell','run-as',app,'ls','files/extension-grid-evidence').splitlines():
+ for name in text('shell','run-as',app,'ls','files/'+a.evidence_dir).splitlines():
   assert re.fullmatch(r'[a-z0-9-]+\.(png|xml|json)',name)
-  data=raw('exec-out','run-as',app,'cat','files/extension-grid-evidence/'+name);assert len(data)==int(text('shell','run-as',app,'stat','-c','%s','files/extension-grid-evidence/'+name));(a.output/name).write_bytes(data)
+  data=raw('exec-out','run-as',app,'cat','files/'+a.evidence_dir+'/'+name);assert len(data)==int(text('shell','run-as',app,'stat','-c','%s','files/'+a.evidence_dir+'/'+name));(a.output/name).write_bytes(data)
  log=(a.output/'tests.log').read_text();r['passes']=len(re.findall('^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M));r['completed']=f'OK ({a.expected} test' in log and 'FAILURES!!!' not in log and r['passes']==a.expected
  assert r['completed'],log[-3000:]
 finally:

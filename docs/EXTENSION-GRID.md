@@ -1,0 +1,11 @@
+# Extension Grid on Android
+
+Raycast Store commands that return `Grid` now use native image cells rather than flattened List rows. Type in search and use the arrow keys to select a cell. Enter, keypad Enter or D-pad Center runs its primary action; Ctrl+K opens Actions. Ctrl+L switches Left/Right/Home/End to editing the query; Up/Down returns to cell navigation. During IME composition, editing keys stay with the input method.
+
+The renderer supports root columns/item size, aspect ratio, fit and inset; section headings; titles/subtitles and keyword filtering; stable item IDs; search and selection callbacks; dropdown options and `storeValue`; loading/empty states; and an explicit **Load more** button. Selection and search are retained when returning from a pushed Detail view.
+
+Package raster assets and HTTPS images are decoded as bounded thumbnails. Image reads stay within the extension package after canonical path and symlink resolution. Requests use three workers, a bounded queue, five-second connection/read timeouts, a 2 MiB encoded-image limit, 256-pixel thumbnails and a 12 MiB session cache. Leaving the command cancels requests. Missing, oversized, invalid and unsupported images display a placeholder. Color swatches, emoji and a small built-in symbol subset are also supported.
+
+This is a subset of [Raycast Grid](https://developers.raycast.com/api-reference/user-interface/grid) and [Images](https://developers.raycast.com/api-reference/user-interface/icons-and-images). SVGs, the complete icon catalog/tint/fallback API, section-specific geometry, automatic pagination and arbitrary action shortcut declarations remain incomplete. Detail continues to show Markdown source. A successful Grid render does not establish support for an extension's other APIs or commands.
+
+The real **Palette Colors** Store bundle is used for color rendering, copying, dropdown callbacks and reopening with the stored scheme. **Tailwind CSS** is currently rejected by the existing archive file-size limit; Grid support does not bypass that installer limit. Store versions and checks are recorded in the [validation record](validation/extension-grid.md).
