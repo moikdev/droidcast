@@ -234,16 +234,22 @@ class ExtensionGridDeviceTest {
         launch("late-${type.lowercase()}")
         compose.onNodeWithTag("extension-primary").assertIsDisplayed()
         assertEquals(type, activeRoot(compose.activity.store.extensions.runtimeTree)?.optString("type"))
-        // Exercise an error at nested depth: returning must not require JS back().
-        compose.activityRule.scenario.onActivity { it.store.extensions.navigationDepth=2 }
         compose.onNodeWithTag("extension-primary").performClick()
         compose.waitUntil(5000) { compose.activity.store.extensions.runtimeError != null }
+        // Set the controlled depth after the failure callback, then require a
+        // native exit that never needs the failed engine's back() operation.
+        compose.activityRule.scenario.onActivity { it.store.extensions.navigationDepth=2 }
         assertNotNull("Late failure retains the rendered tree", compose.activity.store.extensions.runtimeTree)
-        compose.onNodeWithTag("extension-error").assertTextContains("Public late $type failure")
+        compose.onNodeWithTag("extension-error").assertTextEquals("Public late $type failure. Close this command and try again.")
+        File(context.filesDir,"extension-grid-evidence").apply { mkdirs() }.resolve("late-${type.lowercase()}-state.json")
+            .writeText(JSONObject().put("navigation_depth",compose.activity.store.extensions.navigationDepth)
+                .put("root_type",activeRoot(compose.activity.store.extensions.runtimeTree)?.optString("type"))
+                .put("error",compose.activity.store.extensions.runtimeError).toString(2))
         capture("late-${type.lowercase()}-error", "Public late $type failure")
         compose.onNodeWithTag("extension-back").assertIsDisplayed()
         compose.onNodeWithTag("extension-error-close").assertIsDisplayed()
         compose.onNodeWithTag("extension-actions").assertDoesNotExist()
+        assertEquals(2, compose.activity.store.extensions.navigationDepth)
         compose.onNodeWithTag(if(storeCaller) "extension-error-close" else "extension-back").performClick()
         assertNull("Native error exit closes the command session", compose.activity.store.extensions.running)
         if (storeCaller) {
