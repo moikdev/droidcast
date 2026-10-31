@@ -64,6 +64,12 @@ class InlinePaletteDeviceTest {
         compose.waitUntil(5000) { android.view.inspector.WindowInspector.getGlobalWindowViews().filter{it.hasWindowFocus()}.none {
             androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true } }
     }
+    private fun editorBounds(): Pair<androidx.compose.ui.geometry.Rect,androidx.compose.ui.geometry.Rect> {
+        val save=compose.onNodeWithTag("save-editor").fetchSemanticsNode()
+        val frame=compose.onNodeWithTag("palette-screen").fetchSemanticsNode()
+        // Native inset delivery cannot split these two geometry reads.
+        return compose.runOnUiThread { save.boundsInWindow to frame.boundsInWindow }
+    }
     private fun capture(name: String, marker: String) {
         compose.waitForIdle(); sameWindow()
         if(name=="inline-emoji-actions") {
@@ -100,10 +106,10 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("editor-title").performTextReplacement("Inline draft")
         compose.onNodeWithTag("editor-body").performTextReplacement("This draft stays inside the palette.")
         compose.onNodeWithTag("save-editor").assertIsDisplayed()
-        val save = compose.onNodeWithTag("save-editor").fetchSemanticsNode().boundsInWindow
-        val typingFrame = compose.onNodeWithTag("palette-screen").fetchSemanticsNode().boundsInWindow
-        assertTrue("Save stays inside the palette with the keyboard", save.bottom <= typingFrame.bottom)
-        capture("inline-editor-keyboard", "This draft stays inside the palette.")
+        val (save,typingFrame)=editorBounds()
+        val diagnostics=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
+        File(diagnostics,"editor-current-measurement.json").writeText(org.json.JSONObject().put("save",save.toString()).put("frame",typingFrame.toString()).toString(2))
+        assertTrue("Save stays inside the same measured palette",save.bottom<=typingFrame.bottom)
         compose.activityRule.scenario.onActivity {
             androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView).hide(androidx.core.view.WindowInsetsCompat.Type.ime())
         }
@@ -174,6 +180,8 @@ class InlinePaletteDeviceTest {
             compose.onNodeWithTag("editor-title").performTextReplacement("Keyboard draft")
             compose.onNodeWithTag("editor-body").performTextReplacement("Save stays above the real keyboard.")
             device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+            hideKeyboard()
+            val (hiddenSave,hiddenFrame)=editorBounds()
             compose.onNodeWithTag("editor-body").performSemanticsAction(SemanticsActions.RequestFocus)
             compose.onNodeWithTag("editor-body").assertIsFocused()
             compose.activityRule.scenario.onActivity {
@@ -182,8 +190,11 @@ class InlinePaletteDeviceTest {
             compose.waitUntil(10000) { android.view.inspector.WindowInspector.getGlobalWindowViews().filter{it.hasWindowFocus()}.any {
                 androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true } }
             compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled()
-            val save=compose.onNodeWithTag("save-editor").fetchSemanticsNode().boundsInWindow
-            val frame=compose.onNodeWithTag("palette-screen").fetchSemanticsNode().boundsInWindow
+            val (save,frame)=editorBounds()
+            val diagnostics=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
+            val splitReadWouldFail=hiddenSave.bottom>frame.bottom
+            File(diagnostics,"editor-resize-measurement.json").writeText(org.json.JSONObject().put("before_save",hiddenSave.toString()).put("before_frame",hiddenFrame.toString()).put("after_save",save.toString()).put("after_frame",frame.toString()).put("cross_frame_comparison_would_fail",splitReadWouldFail).toString(2))
+            if(context.resources.configuration.smallestScreenWidthDp>=600) assertTrue("Controlled mixed-frame comparison fails on tablet resize",splitReadWouldFail)
             assertTrue(frame.contains(save.topLeft) && frame.contains(save.bottomRight))
             val keyboard=device.wait(Until.findObject(By.pkg("com.google.android.inputmethod.latin")),5000)
             assertNotNull("Real Gboard is present",keyboard)
