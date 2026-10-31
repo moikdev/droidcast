@@ -30,6 +30,9 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private var destroyed = false
     private var watchdog: Job? = null
     val webView = WebView(context).apply {
+        // This is a headless JavaScript engine; visible native controls own input.
+        isFocusable = false; isFocusableInTouchMode = false
+        importantForAccessibility = android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
         settings.javaScriptEnabled = true
         settings.allowFileAccess = false; settings.allowContentAccess = false
         settings.domStorageEnabled = false; settings.javaScriptCanOpenWindowsAutomatically = false

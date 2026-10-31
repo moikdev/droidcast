@@ -1,0 +1,401 @@
+package dev.tinycast.android
+
+import android.content.ClipboardManager
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.os.SystemClock
+import android.view.KeyEvent
+import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.TextRange
+import android.view.inspector.WindowInspector
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import dev.tinycast.android.extensions.*
+import org.json.JSONObject
+import org.junit.*
+import org.junit.Assert.*
+import org.junit.runner.RunWith
+import java.io.File
+import java.security.MessageDigest
+import kotlinx.coroutines.runBlocking
+
+internal fun gridFixture(context: Context, mode: String = "normal"): InstalledExtension {
+    require(mode in listOf("normal", "loading", "form"))
+    val directory = File(context.cacheDir, "extension-grid-fixture").apply { mkdirs() }
+    val assets = File(directory, "assets").apply { mkdirs() }
+    val bitmap = Bitmap.createBitmap(320, 180, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap); canvas.drawColor(Color.rgb(30, 80, 150))
+    canvas.drawCircle(235f, 52f, 30f, Paint().apply { color = Color.rgb(255, 210, 70) })
+    canvas.drawRect(0f, 130f, 320f, 180f, Paint().apply { color = Color.rgb(30, 140, 95) })
+    File(assets, "landscape.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }; bitmap.recycle()
+    File(assets, "landscape.png").copyTo(File(context.filesDir, "grid-private-fixture.png"), overwrite = true)
+    File(assets, "unsupported.svg").writeText("<svg xmlns='http://www.w3.org/2000/svg'><circle r='8'/></svg>")
+    File(directory, "grid.js").writeText("""
+        const React=require('react'); const {Grid,Form,Action,ActionPanel,Detail,Clipboard}=require('@raycast/api');
+        module.exports.default=function(){
+          if(${mode == "form"})return React.createElement(Form,{actions:React.createElement(ActionPanel,null,React.createElement(Action.SubmitForm,{title:'Submit fixture',onSubmit:v=>Clipboard.copy('form:'+v.note)}))},React.createElement(Form.TextField,{id:'note',title:'Fixture note'}));
+          const [query,setQuery]=React.useState(''); const [selected,setSelected]=React.useState('');
+          const [reverse,setReverse]=React.useState(false); const [count,setCount]=React.useState(30);
+          const [category,setCategory]=React.useState('all');
+          let data=Array.from({length:count},(_,i)=>({id:'image-'+i,title:'Landscape '+String(i).padStart(2,'0'),
+            content:i===1?'https://raw.githubusercontent.com/moikdev/droidcast/d6fccdc4989d4d6e2203f8fa331872a9c11d7105/docs/screenshots/parity-modifier-taps/tablet-record-double-ctrl.png':
+             i===2?${JSONObject.quote(File(context.filesDir, "grid-private-fixture.png").path)}:i===3?'missing.png':i===4?'unsupported.svg':
+             i===5?{color:{light:'#33bb88',dark:'#33bb88'}}:i===6?'🌻':i===7?{source:'landscape.png',mask:'circle'}:'landscape.png'}));
+          if(reverse)data.reverse(); if(category==='even')data=data.filter(x=>Number(x.id.split('-')[1])%2===0);
+          function cell(x){return React.createElement(Grid.Item,{key:x.id,id:x.id,title:x.title,subtitle:'Preview '+x.id,keywords:['fixture',x.id],content:x.content,
+            actions:React.createElement(ActionPanel,null,
+              React.createElement(Action,{title:'Copy identity',onAction:()=>Clipboard.copy('grid-fixture:'+x.id)}),
+              React.createElement(Action.Push,{title:'Inspect item',target:React.createElement(Detail,{markdown:'Grid fixture detail '+x.id})}),
+              React.createElement(Action,{title:'Reverse items',onAction:()=>setReverse(v=>!v)}),
+              React.createElement(Action,{title:'Clear search',onAction:()=>setQuery('')}))});}
+          return React.createElement(Grid,{columns:3,filtering:true,searchText:query,onSearchTextChange:setQuery,onSelectionChange:setSelected,
+            searchBarPlaceholder:'Search grid fixtures',isLoading:${mode == "loading"},
+            pagination:{hasMore:count<36,onLoadMore:()=>setCount(n=>n+3),pageSize:3},
+            searchBarAccessory:React.createElement(Grid.Dropdown,{id:'category',value:category,onChange:setCategory,tooltip:'Fixture category'},
+              React.createElement(Grid.Dropdown.Item,{title:'All cards',value:'all'}),React.createElement(Grid.Dropdown.Item,{title:'Even cards',value:'even'}))},
+            ${if (mode == "loading") "null" else "React.createElement(Grid.Section,{title:'Selected: '+selected},data.slice(0,8).map(cell)),React.createElement(Grid.Section,{title:'More previews'},data.slice(8).map(cell))"},
+            React.createElement(Grid.EmptyView,{title:'No matching fixture cards',description:'Try Landscape or an image identifier'}));
+        };
+    """.trimIndent())
+    val listing = StoreExtension("grid-renderer-fixture", "grid-fixture", "Grid fixture", "", "Droidcast tests", "test", "https://example.com", "", "", 1)
+    return InstalledExtension(listing, directory, JSONObject("""{"commands":[{"name":"grid","title":"Image Grid Fixture","mode":"view"}]}"""))
+}
+
+@OptIn(ExperimentalTestApi::class)
+@RunWith(AndroidJUnit4::class)
+class ExtensionGridDeviceTest {
+    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
+    private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    private var original = emptyMap<String, Any?>()
+    private var originalExtension = emptyMap<String, Any?>()
+    private var clipboard: android.content.ClipData? = null
+    @Before fun setup() {
+        device.executeShellCommand("cmd statusbar collapse")
+        original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
+        originalExtension = context.getSharedPreferences("extension-grid-renderer-fixture", Context.MODE_PRIVATE).all.toMap()
+        compose.activityRule.scenario.onActivity {
+            val manager = it.getSystemService(ClipboardManager::class.java)
+            clipboard = manager.primaryClip
+            manager.clearPrimaryClip() // Never include an existing clipboard suggestion in evidence.
+        }
+        compose.waitUntil(10000) { !compose.activity.store.loading }
+    }
+    @After fun restore() {
+        compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
+        compose.waitForIdle()
+        restorePalettePreferences(context, original)
+        val prefs = context.getSharedPreferences("extension-grid-renderer-fixture", Context.MODE_PRIVATE)
+        val edit = prefs.edit().clear(); originalExtension.forEach { (key, value) -> if (value is String) edit.putString(key, value) }; assertTrue(edit.commit())
+        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); clipboard?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip() }
+        File(context.cacheDir, "extension-grid-fixture").deleteRecursively()
+        File(context.filesDir, "grid-private-fixture.png").delete()
+    }
+    private fun launch(mode: String = "normal") {
+        val fixture = gridFixture(context, mode)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(fixture, fixture.commands.single()) }
+        compose.waitUntil(25000) { compose.activity.store.extensions.runtimeTree != null || compose.activity.store.extensions.runtimeError != null }
+        assertNull(compose.activity.store.extensions.runtimeError, compose.activity.store.extensions.runtimeError)
+        compose.onNodeWithTag(if (mode == "form") "extension-field-note" else "extension-search").assertIsDisplayed()
+    }
+    private fun key(code: Int, meta: Int = 0, wait: Boolean = true) {
+        val time = SystemClock.uptimeMillis()
+        for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) InstrumentationRegistry.getInstrumentation().sendKeySync(KeyEvent(time, time, action, code, 0, meta))
+        if (wait) compose.waitForIdle()
+    }
+    private fun clip(): String { var value = ""; compose.activityRule.scenario.onActivity { value = it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString() }; return value }
+    private fun capture(name: String, marker: String) {
+        try { captureChecked(name, marker) } catch (error: Throwable) {
+            val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+            device.dumpWindowHierarchy(File(folder, "capture-failure-$name.xml")); device.takeScreenshot(File(folder, "capture-failure-$name.png"))
+            File(folder, "capture-failure-$name.json").writeText(JSONObject().put("grid_count", activeRoot(compose.activity.store.extensions.runtimeTree)?.nodes("Grid.Item")?.size).put("compose", runCatching { compose.onNodeWithTag("extension-grid-screen").printToString() }.getOrDefault("No Grid semantics")).toString(2))
+            throw error
+        }
+    }
+    private fun captureChecked(name: String, marker: String) {
+        compose.waitForIdle(); device.waitForIdle()
+        if (name in setOf("filtered-copy", "caret-preserved", "reordered-selection", "keyboard-selected-visible", "store-palette-contrast", "store-legacy-oklch", "form-regression"))
+            device.wait(Until.findObject(By.res("com.android.systemui", "dismiss_button")), 1500)
+        val deadline = SystemClock.uptimeMillis() + 5000
+        while (device.hasObject(By.res("com.android.systemui", "clipboard_ui")) && SystemClock.uptimeMillis() < deadline) {
+            try { device.findObject(By.res("com.android.systemui", "dismiss_button"))?.click() }
+            catch (_: androidx.test.uiautomator.StaleObjectException) { /* Animation removed it; re-query within the same deadline. */ }
+            device.wait(Until.gone(By.res("com.android.systemui", "clipboard_ui")), 500)
+        }
+        assertFalse("Clipboard overlay must be dismissed", device.hasObject(By.res("com.android.systemui", "clipboard_ui")))
+        val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+        InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+        if (name != "image-errors") compose.waitUntil(10000) {
+            val selected = compose.onAllNodes(isSelected()).fetchSemanticsNodes().firstOrNull { it.config.getOrElse(SemanticsProperties.TestTag) { "" }.startsWith("extension-grid-cell-") }
+            if (selected == null) true else {
+                val full = compose.onNodeWithTag(selected.config[SemanticsProperties.TestTag]).getUnclippedBoundsInRoot()
+                val viewport = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot
+                kotlin.math.abs(selected.boundsInRoot.height - (full.bottom.value - full.top.value) * context.resources.displayMetrics.density) < 2 &&
+                    selected.boundsInRoot.top >= viewport.top && selected.boundsInRoot.bottom <= viewport.bottom
+            }
+        }
+        val expectedCount = compose.onAllNodesWithTag("extension-grid-count").fetchSemanticsNodes().singleOrNull()?.config?.get(SemanticsProperties.Text)?.joinToString("") { it.text }
+        val expectedQuery = if (expectedCount != null) compose.onNodeWithTag("extension-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text else null
+        compose.waitUntil(10000) {
+            InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+            val xml = File(folder, "$name.xml"); device.dumpWindowHierarchy(xml)
+            val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
+            val appNodes = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.filter { it.getAttribute("package") == context.packageName }
+            fun tagged(tag: String) = appNodes.singleOrNull { it.getAttribute("resource-id").substringAfterLast('/') == tag }
+            appNodes.any { it.getAttribute("text").contains(marker) } && (expectedCount == null ||
+                (tagged("extension-grid-count")?.getAttribute("text") == expectedCount && tagged("extension-search")?.getAttribute("text") == expectedQuery))
+        }
+        assertTrue(device.takeScreenshot(File(folder, "$name.png")))
+    }
+    @Test fun nativeGridDisplaysColumnsImagesAndUnavailableSources() {
+        launch()
+        compose.onNodeWithTag("extension-grid").assertExists()
+        for (index in listOf(0, 1)) compose.waitUntil(20000) { compose.onAllNodesWithTag("extension-grid-image-$index", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+        val first = compose.onNodeWithTag("extension-grid-cell-0").fetchSemanticsNode().boundsInRoot
+        val second = compose.onNodeWithTag("extension-grid-cell-1").fetchSemanticsNode().boundsInRoot
+        assertEquals(first.top, second.top, 1f); assertTrue(second.left > first.right)
+        compose.onNodeWithTag("extension-grid-image-error-2", useUnmergedTree = true).assertExists()
+        capture("native-grid", "Landscape 00")
+        compose.onNodeWithTag("extension-grid").performScrollToIndex(4)
+        compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-grid-image-error-3", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("extension-grid-image-error-4", useUnmergedTree = true).assertExists()
+        capture("image-errors", "Image unavailable")
+    }
+    @Test fun typingFourWaySelectionAndSameTurnActivationUseCurrentItem() {
+        launch()
+        compose.activityRule.scenario.onActivity { activity ->
+            val view = WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
+            val time = SystemClock.uptimeMillis()
+            // Both complete pairs in one main-thread turn, before recomposition.
+            for (code in listOf(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_ENTER)) for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP))
+                view.dispatchKeyEvent(KeyEvent(time, time, action, code, 0))
+        }
+        compose.waitUntil(5000) { clip() == "grid-fixture:image-1" }
+        key(KeyEvent.KEYCODE_DPAD_DOWN); key(KeyEvent.KEYCODE_DPAD_LEFT); key(KeyEvent.KEYCODE_DPAD_UP)
+        compose.onNodeWithTag("extension-grid-cell-0").assertIsSelected()
+        compose.onNodeWithTag("extension-search").performTextReplacement("image-12")
+        compose.onNodeWithTag("extension-grid-count").assertTextEquals("1 result")
+        key(KeyEvent.KEYCODE_ENTER); compose.waitUntil(5000) { clip() == "grid-fixture:image-12" }
+        capture("filtered-copy", "image-12")
+    }
+    @Test fun actionsInspectAndBackRestoreGridSelectionAndQuery() {
+        launch(); compose.onNodeWithTag("extension-search").performTextReplacement("image-12")
+        compose.onNodeWithTag("extension-actions").performClick(); compose.onNodeWithTag("extension-action-1").performClick()
+        compose.onNodeWithText("Grid fixture detail image-12").assertIsDisplayed(); capture("detail-destination", "Grid fixture detail image-12")
+        key(KeyEvent.KEYCODE_ESCAPE)
+        try {
+            compose.waitUntil(5000) { compose.onAllNodesWithTag("extension-search").fetchSemanticsNodes().isNotEmpty() }
+        } catch (error: Throwable) {
+            val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+            val catalog = compose.activity.store.extensions
+            File(folder, "back-state.json").writeText(JSONObject().put("depth", catalog.navigationDepth).put("dialog", compose.activity.store.dialog).put("root", activeRoot(catalog.runtimeTree)?.optString("type")).toString())
+            device.dumpWindowHierarchy(File(folder, "back-failure.xml")); device.takeScreenshot(File(folder, "back-failure.png"))
+            throw error
+        }
+        assertEquals(1, compose.activity.store.extensions.navigationDepth)
+        compose.onNodeWithTag("extension-search").assertTextEquals("image-12")
+        compose.onNodeWithTag("extension-grid-cell-0").assertIsSelected(); capture("back-to-grid", "image-12")
+        assertTrue(device.click(5, 300))
+        compose.waitUntil(5000) { compose.activity.store.dialog == null && compose.activity.store.extensions.running == null }
+    }
+    @Test fun emptyAndLoadingStatesExposeSearchAndDisabledActions() {
+        launch(); compose.onNodeWithTag("extension-search").performTextReplacement("no-fixture-match")
+        compose.onNodeWithTag("extension-grid-count").assertTextEquals("0 results")
+        compose.onNodeWithTag("extension-primary").assertIsNotEnabled(); capture("empty-grid", "No matching fixture cards")
+        compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
+        launch("loading"); compose.onNodeWithTag("extension-grid-loading").assertExists(); capture("loading-grid", "No matching fixture cards")
+    }
+    @Test fun caretSelectionAndCompositionDoNotResetTheGridSelection() {
+        launch(); compose.onNodeWithTag("extension-search").performTextReplacement("Landscape")
+        key(KeyEvent.KEYCODE_DPAD_RIGHT)
+        compose.onNodeWithTag("extension-grid-cell-1").assertIsSelected()
+        key(KeyEvent.KEYCODE_L, KeyEvent.META_CTRL_ON); key(KeyEvent.KEYCODE_DPAD_LEFT)
+        compose.onNodeWithTag("extension-search").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(8)))
+        compose.onNodeWithTag("extension-grid-cell-1").assertIsSelected()
+        compose.onNodeWithTag("extension-search").performTextInputSelection(TextRange(0, 4))
+        compose.activityRule.scenario.onActivity {
+            val view = WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
+            val connection = requireNotNull(view.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
+            assertTrue(connection.setComposingRegion(0, 4))
+            val now = SystemClock.uptimeMillis()
+            for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) view.dispatchKeyEvent(KeyEvent(now, now, action, KeyEvent.KEYCODE_DPAD_RIGHT, 0))
+            assertTrue(connection.finishComposingText())
+        }
+        compose.waitForIdle(); compose.onNodeWithTag("extension-grid-cell-1").assertIsSelected()
+        key(KeyEvent.KEYCODE_ENTER); compose.waitUntil(5000) { clip() == "grid-fixture:image-1" }
+        capture("caret-preserved", "Landscape")
+    }
+    @Test fun filteringPaginationAndReorderingRetainItemIdentity() {
+        launch(); compose.onNodeWithTag("extension-grid-more").performClick()
+        compose.waitUntil(5000) { activeRoot(compose.activity.store.extensions.runtimeTree)?.nodes("Grid.Item")?.size == 33 }
+        compose.onNodeWithTag("extension-grid-count").assertTextEquals("33 results")
+        compose.onNodeWithTag("extension-grid-filter").performClick(); compose.onNodeWithTag("extension-grid-filter-1").performClick()
+        compose.waitUntil(5000) { activeRoot(compose.activity.store.extensions.runtimeTree)?.nodes("Grid.Item")?.size == 17 }
+        compose.onNodeWithTag("extension-grid-count").assertTextEquals("17 results")
+        key(KeyEvent.KEYCODE_DPAD_RIGHT)
+        compose.onNodeWithTag("extension-actions").performClick(); compose.onNodeWithTag("extension-action-2").performClick()
+        compose.waitUntil(5000) { compose.onAllNodesWithTag("extension-grid-cell-15").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("extension-grid-cell-15").assertIsSelected()
+        key(KeyEvent.KEYCODE_ENTER); compose.waitUntil(5000) { clip() == "grid-fixture:image-2" }
+        capture("reordered-selection", "Landscape 02")
+    }
+    @Test fun selectedCellStaysFullyVisibleWhenTheKeyboardShrinksTheGrid() {
+        launch()
+        val originalSetting = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
+        try {
+            compose.activityRule.scenario.onActivity {
+                val view = WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
+                androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
+            }
+            compose.waitUntil(5000) { WindowInspector.getGlobalWindowViews().filter { it.hasWindowFocus() }.none {
+                androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true } }
+            key(KeyEvent.KEYCODE_DPAD_DOWN); key(KeyEvent.KEYCODE_DPAD_DOWN)
+            compose.onNodeWithTag("extension-grid-cell-6").assertIsSelected()
+            val before = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot.height
+            device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+            if (compose.activity.resources.configuration.smallestScreenWidthDp >= 600) compose.onNodeWithTag("extension-grid-keyboard").performClick()
+            else compose.activityRule.scenario.onActivity { activity ->
+                val view = WindowInspector.getGlobalWindowViews().single { it.hasWindowFocus() }
+                activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java).showSoftInput(view.findFocus(), android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+            }
+            try { compose.waitUntil(10000) {
+                val viewport = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot
+                val cell = compose.onAllNodesWithTag("extension-grid-cell-6").fetchSemanticsNodes().singleOrNull()?.boundsInRoot
+                viewport.height < before - 20 && cell != null && cell.height > 70 && cell.top >= viewport.top && cell.bottom <= viewport.bottom &&
+                    kotlin.math.abs(cell.height - compose.onNodeWithTag("extension-grid-cell-6").getUnclippedBoundsInRoot().let { it.bottom.value - it.top.value } * context.resources.displayMetrics.density) < 2
+            }
+            } catch (error: Throwable) {
+                val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+                val viewport = compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot
+                val cell = compose.onAllNodesWithTag("extension-grid-cell-6").fetchSemanticsNodes().singleOrNull()?.boundsInRoot
+                File(folder, "keyboard-layout.json").writeText(JSONObject().put("screen", "${device.displayWidth}x${device.displayHeight}").put("grid_screen", compose.onNodeWithTag("extension-grid-screen").fetchSemanticsNode().boundsInRoot.toString()).put("footer", compose.onNodeWithTag("extension-primary").getUnclippedBoundsInRoot().toString()).put("windows", WindowInspector.getGlobalWindowViews().map { val location=IntArray(2); it.getLocationOnScreen(location); "${it.width}x${it.height},location=${location.toList()},focused=${it.hasWindowFocus()},ime=${androidx.core.view.ViewCompat.getRootWindowInsets(it)?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())}" }).toString(2))
+                File(folder, "keyboard-failure.json").writeText(JSONObject().put("before_height", before).put("viewport", viewport.toString()).put("cell", cell?.toString()).put("windows", WindowInspector.getGlobalWindowViews().map { "focused=${it.hasWindowFocus()},ime=${androidx.core.view.ViewCompat.getRootWindowInsets(it)?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())}" }).toString(2))
+                device.dumpWindowHierarchy(File(folder, "keyboard-failure.xml")); device.takeScreenshot(File(folder, "keyboard-failure.png"))
+                throw error
+            }
+            compose.onNodeWithTag("extension-grid-cell-6").assertIsSelected()
+            key(KeyEvent.KEYCODE_ENTER); compose.waitUntil(5000) { clip() == "grid-fixture:image-6" }
+            val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+            File(folder, "keyboard-layout.json").writeText(JSONObject().put("screen", "${device.displayWidth}x${device.displayHeight}").put("grid_screen", compose.onNodeWithTag("extension-grid-screen").fetchSemanticsNode().boundsInRoot.toString()).put("footer", compose.onNodeWithTag("extension-primary").getUnclippedBoundsInRoot().toString()).put("windows", WindowInspector.getGlobalWindowViews().map { val location=IntArray(2); it.getLocationOnScreen(location); "${it.width}x${it.height},location=${location.toList()},focused=${it.hasWindowFocus()},ime=${androidx.core.view.ViewCompat.getRootWindowInsets(it)?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())}" }).toString(2))
+            compose.onNodeWithTag("extension-primary").assertIsDisplayed().assertIsEnabled()
+            val footer = device.wait(Until.findObject(By.res("extension-primary")), 5000)
+            assertNotNull(footer)
+            val ime = device.findObject(By.pkg("com.google.android.inputmethod.latin"))
+            assertNotNull("Real docked keyboard", ime)
+            assertTrue("Footer must remain above the keyboard", footer.visibleBounds.bottom <= ime.visibleBounds.top)
+            capture("keyboard-selected-visible", "Landscape 06")
+        } finally {
+            device.executeShellCommand(if (originalSetting == "null") "settings delete secure show_ime_with_hard_keyboard" else "settings put secure show_ime_with_hard_keyboard $originalSetting")
+        }
+    }
+    @Test fun nativeFormCanEditAndSubmitAfterTheWindowChanges() {
+        launch("form")
+        compose.onNodeWithTag("extension-field-note").performClick().performTextInput("Grid regression")
+        compose.onNodeWithTag("extension-primary").assertIsDisplayed().performClick()
+        compose.waitUntil(5000) { clip() == "form:Grid regression" }
+        capture("form-regression", "Grid regression")
+    }
+    private fun realGrid(query: String, name: String, command: String, expectedTag: String = "extension-grid", check: (InstalledExtension) -> Unit) {
+        val catalog = compose.activity.store.extensions
+        assertFalse("Do not overwrite a preexisting installation", catalog.installed.any { it.listing.name == name })
+        var installed: InstalledExtension? = null
+        try {
+            val listing = runBlocking { catalog.search(query).first { it.name == name } }
+            runBlocking { catalog.install(listing) }
+            installed = catalog.installed.single { it.listing.id == listing.id }
+            val record = JSONObject().put("name", name).put("id", installed.listing.id).put("source_url", installed.listing.sourceUrl).put("commit_sha", installed.listing.sha)
+                .put("command", command).put("command_sha256", MessageDigest.getInstance("SHA-256").digest(File(installed.directory, "$command.js").readBytes()).joinToString("") { "%02x".format(it) })
+            File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }.resolve("store-$name.json").writeText(record.toString(2))
+            compose.activityRule.scenario.onActivity { it.store.openExtension(installed, installed.commands.first { c -> c.name == command }) }
+            compose.waitUntil(30000) { compose.onAllNodesWithTag(expectedTag).fetchSemanticsNodes().isNotEmpty() || catalog.runtimeError != null }
+            assertNull(catalog.runtimeError, catalog.runtimeError)
+            compose.onNodeWithTag(expectedTag).assertExists()
+            check(installed)
+        } finally {
+            compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
+            compose.waitForIdle()
+            installed?.let { runBlocking { catalog.uninstall(it) }; assertFalse(it.directory.exists()) }
+        }
+    }
+    @Test fun realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown() = realGrid("palette colors", "palette-colors", "index") { installed ->
+        if (context.resources.configuration.smallestScreenWidthDp >= 600) compose.waitUntil(10000) {
+            WindowInspector.getGlobalWindowViews().filter { it.hasWindowFocus() }.none {
+                androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true }
+        }
+        fun titles() = activeRoot(compose.activity.store.extensions.runtimeTree)?.nodes("Grid.Item")?.map { it.props().optString("title") }.orEmpty()
+        capture("store-palette-colors", "Palette Colors")
+        val monoTitles = titles()
+        assertTrue(monoTitles.isNotEmpty())
+        compose.onNodeWithTag("extension-primary").performClick(); compose.waitUntil(5000) { Regex("#[0-9a-fA-F]{6}").matches(clip()) }
+        compose.onNodeWithTag("extension-grid-filter").performClick(); compose.onNodeWithTag("extension-grid-filter-1").performClick()
+        compose.onNodeWithTag("extension-grid-filter").assertTextContains("Contrast")
+        compose.waitUntil(10000) { titles().isNotEmpty() && titles() != monoTitles }
+        val contrastTitles = titles()
+        capture("store-palette-contrast", "Contrast")
+        compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
+        compose.waitForIdle()
+        compose.activityRule.scenario.onActivity { it.store.openExtension(installed, installed.commands.single()) }
+        compose.waitUntil(25000) { compose.onAllNodesWithTag("extension-grid-filter").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("extension-grid-filter").assertTextContains("Contrast")
+        compose.waitUntil(10000) { titles() == contrastTitles }
+        capture("store-palette-reopened", "Contrast")
+    }
+    @Test fun realLegacyListStillSearchesAndCopiesAfterTheWindowChanges() = realGrid("oklch", "oklch-color-converter", "convert-color", "extension-list") {
+        compose.onNodeWithTag("extension-search").performTextReplacement("#ff0000")
+        compose.waitUntil(10000) { compose.activity.store.extensions.runtimeTree?.toString()?.contains("oklch(") == true }
+        val rows = activeRoot(compose.activity.store.extensions.runtimeTree)!!.nodes("List.Item")
+        val index = rows.indexOfFirst { it.props().optString("title").startsWith("oklch(") }
+        assertTrue("Select the OKLCH result, not the first Figma P3 result", index >= 0)
+        val expected = rows[index].props().getString("title")
+        compose.onNodeWithTag("extension-row-$index").performClick()
+        compose.onNodeWithTag("extension-primary").performClick()
+        compose.waitUntil(5000) { clip() == expected }
+        capture("store-legacy-oklch", expected)
+    }
+    @Test fun oversizedTailwindBundleReportsTheExistingInstallLimit() {
+        val catalog = compose.activity.store.extensions
+        val originalIds = catalog.installed.map { it.listing.id }.toSet()
+        assertFalse(catalog.installed.any { it.listing.name == "tailwindcss" })
+        val listing = runBlocking { catalog.search("tailwind").first { it.name == "tailwindcss" } }
+        compose.activityRule.scenario.onActivity { it.store.dialog = "extensions"; it.store.installExtension(listing) }
+        compose.waitUntil(30000) { catalog.busy == null && catalog.error != null }
+        assertTrue(catalog.error.orEmpty(), catalog.error.orEmpty().contains("Expanded extension exceeds the size limit"))
+        assertEquals(originalIds, catalog.installed.map { it.listing.id }.toSet())
+        assertFalse(File(context.filesDir, "extensions/${listing.id}").exists())
+        capture("store-tailwind-unavailable", "Expanded extension exceeds the size limit")
+        compose.activityRule.scenario.onActivity { catalog.error = null }
+    }
+
+}
+
+@RunWith(AndroidJUnit4::class)
+class ExtensionGridBaselineTest {
+    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @Test fun captureFlattenedBaseline() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val fixture = gridFixture(context)
+        var originalClip: android.content.ClipData? = null
+        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip = manager.primaryClip; manager.clearPrimaryClip() }
+        try {
+            compose.activityRule.scenario.onActivity { it.store.openExtension(fixture, fixture.commands.single()) }
+            compose.waitUntil(25000) { compose.activity.store.extensions.runtimeTree != null }
+            compose.onNodeWithTag("extension-list").assertExists(); compose.onNodeWithText("Landscape 00").assertIsDisplayed()
+            val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+            val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()); device.waitForIdle()
+            device.dumpWindowHierarchy(File(folder, "before-grid.xml")); assertTrue(device.takeScreenshot(File(folder, "before-grid.png")))
+        } finally {
+            compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
+            compose.waitForIdle()
+            compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip() }
+            fixture.directory.deleteRecursively(); File(context.filesDir, "grid-private-fixture.png").delete()
+        }
+    }
+}
