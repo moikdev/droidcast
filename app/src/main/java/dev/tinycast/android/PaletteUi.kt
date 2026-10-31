@@ -9,6 +9,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -29,6 +30,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
@@ -55,12 +57,36 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         onBackground = PaletteTheme.ink, outline = PaletteTheme.border, secondary = PaletteTheme.secondary,
         surfaceContainer = PaletteTheme.surface)) {
       CompositionLocalProvider(LocalContentColor provides PaletteTheme.ink) {
+       PaletteMenuHost(store, contextEpoch = store.focusEpoch, feedback = true) {
+        // These survive a route being replaced, including caret and scroll position.
+        val launcherSearch = remember { mutableStateOf(TextFieldValue(store.query, TextRange(store.query.length))) }
+        val launcherList = rememberLazyListState()
+        val launcherScrollHistory = remember(store) { PaletteScrollHistory() }
+        val launcherKeyboard = remember { mutableStateOf(false) }
+        fun closeRoute() {
+            if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
+            if (store.dialog?.startsWith("backup") == true) {
+                if (store.backupBusy) return
+                store.discardImport()
+            }
+            if (store.dialog == "extension-run" || store.dialog == "extension-setup") {
+                store.extensions.close()
+                store.dialog = store.extensionReturnTo; store.extensionReturnTo = null; store.extensionSetupFromRun = false
+                store.actionCommand = null; store.focusEpoch++; return
+            }
+            store.dialog = null; store.actionCommand = null; store.focusEpoch++
+        }
+        if (store.dialog != null && store.dialog !in setOf("emoji", "actions")) {
+            val selected = store.actionCommand ?: store.results().getOrNull(store.selected)
+            PaletteDialogs(store, selected, globalEnabled, enableGlobal, run, copy, ::closeRoute)
+            return@PaletteMenuHost
+        }
         if (store.dialog == "emoji") {
             EmojiPicker(store.emoji, { store.dialog = null; store.focusEpoch++ }, { copy(it); store.message = null })
-            return@CompositionLocalProvider
+            return@PaletteMenuHost
         }
         val focus = remember { FocusRequester() }
-        var searchValue by remember { mutableStateOf(TextFieldValue(store.query, TextRange(store.query.length))) }
+        var searchValue by launcherSearch
         // Programmatic mode changes place typing after the prefix; user edits retain their selection/composition.
         val displayedSearch = if (searchValue.text == store.query) searchValue else TextFieldValue(store.query, TextRange(store.query.length))
         SideEffect { if (searchValue != displayedSearch) searchValue = displayedSearch }
@@ -68,28 +94,19 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val view = LocalView.current
         val windowFocused = LocalWindowInfo.current.isWindowFocused
         var searchFocused by remember { mutableStateOf(false) }
-        var keyboardRequested by remember { mutableStateOf(false) }
-        val list = rememberLazyListState()
+        var keyboardRequested by launcherKeyboard
+        val list = launcherList
         val results by remember(store) { derivedStateOf { store.results() } }
         val resultSelected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
         val selected = if (store.dialog in setOf("actions", "alias", "delete")) store.actionCommand ?: resultSelected else resultSelected
-        val snack = remember { SnackbarHostState() }
         val shortcutEngine = remember { ShortcutEngine() }
         var menu by remember { mutableStateOf(false) }
-        fun close() {
-            if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
-            if (store.dialog?.startsWith("backup") == true) {
-                if (store.backupBusy) return
-                store.discardImport()
-            }
-            if (store.dialog == "extension-run" || store.dialog == "extension-setup") store.extensions.close()
-            store.dialog = null; store.actionCommand = null; store.focusEpoch++
-        }
+        fun close() = closeRoute()
         fun escape() {
             when { store.dialog != null -> close(); menu -> menu = false; store.query.isNotEmpty() -> store.search(""); store.category != "All" -> store.filter("All"); else -> dismiss() }
         }
         val handleKey: (KeyEvent) -> Boolean = { event ->
-            val configured = if (event.action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) shortcutEngine.handle(event.asShortcutInput(), store.shortcutConfiguration.byChord, store.dialog != null || store.backupBusy || ShortcutRuntime.recordingOwner != null) else ShortcutEngine.Result(false)
+            val configured = if (event.action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) shortcutEngine.handle(event.asShortcutInput(), store.shortcutConfiguration.byChord, store.dialog != null || store.paletteMenuOpen || store.backupBusy || ShortcutRuntime.recordingOwner != null) else ShortcutEngine.Result(false)
             if (configured.target != null && !ShortcutRuntime.passesSettingsNavigation(event)) shortcut(configured.target, configured.chord!!)
             val ctrl = (event.isCtrlPressed xor event.isMetaPressed) && !event.isShiftPressed && !event.isAltPressed
             val preferencesKey = event.keyCode == KeyEvent.KEYCODE_COMMA && (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && store.dialog == null
@@ -116,7 +133,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         BackHandler(onBack = ::escape)
         // Reset before the next measure so stable item keys cannot preserve an old
         // anchor for a frame. Moving selection inside the viewport never scrolls.
-        val scrollHistory = remember { PaletteScrollHistory() }
+        val scrollHistory = launcherScrollHistory
         val resultIds = remember(results) { results.map { it.id } }
         SideEffect {
             val index = store.selected.coerceIn(0, results.lastIndex.coerceAtLeast(0))
@@ -137,7 +154,6 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 if (scrollHistory.viewportMeasured(height, visible)) list.requestScrollToItem(index)
             }
         }
-        LaunchedEffect(store.message) { store.message?.let { snack.showSnackbar(it, duration=SnackbarDuration.Short); if (store.message == it) store.message=null } }
         PaletteViewport(Modifier.onPreviewKeyEvent { handleKey(it.nativeKeyEvent) }) { wide, top, paletteHeight ->
             LaunchedEffect(store.focusEpoch) { focus.requestFocus() }
             val imeVisible = WindowInsets.isImeVisible
@@ -154,10 +170,10 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 .clip(RoundedCornerShape(PaletteTheme.radius))
                 .background(Brush.linearGradient(listOf(Color(0xFF292929),Color(0xFF141414),Color(0xFF242424))))
                 .border(1.dp,PaletteTheme.border,RoundedCornerShape(PaletteTheme.radius))
-                .clickable(indication=null, interactionSource=remember { MutableInteractionSource() }) {}.testTag("palette")) {
-                Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
+                .pointerInput(Unit) { detectTapGestures {} }.testTag("palette").paletteMenuSurface()) {
+                Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(horizontal=16.dp).testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
                     Glyph("search",PaletteTheme.secondary,22);Spacer(Modifier.width(12.dp))
-                    BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).height(32.dp).focusRequester(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
+                    BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).height(32.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),
                         keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=!wide || keyboardRequested),keyboardActions=KeyboardActions(onSearch={selected?.let(run)}),
                         decorationBox={inner -> Box(Modifier.fillMaxSize(),contentAlignment=Alignment.CenterStart){if(store.query.isEmpty())Text("Search for apps and commands…",color=PaletteTheme.secondary,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
@@ -182,34 +198,26 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 }
                 Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically){
                     Box {
-                        Box(Modifier.size(38.dp).clip(CircleShape).background(PaletteTheme.control).border(1.dp,PaletteTheme.border,CircleShape)
+                        Box(Modifier.paletteFocusBookmark().size(38.dp).clip(CircleShape).background(PaletteTheme.control).border(1.dp,PaletteTheme.border,CircleShape)
                             .clickable{menu=!menu}.semantics{contentDescription="Droidcast menu"}.testTag("palette-menu"),contentAlignment=Alignment.Center){Glyph("menu",PaletteTheme.secondary,18)}
-                        DropdownMenu(expanded=menu,onDismissRequest={menu=false},containerColor=PaletteTheme.surface,shape=RoundedCornerShape(16.dp)) {
-                            categories.forEach { c -> DropdownMenuItem(text={Text(if(c=="Pinned")"Favorites" else c,fontSize=13.sp)},
-                                trailingIcon={if(store.category==c)Text("✓",color=PaletteTheme.secondary)},onClick={store.filter(c);menu=false},modifier=Modifier.testTag("filter-$c")) }
-                            HorizontalDivider(color=PaletteTheme.separator)
-                            DropdownMenuItem(text={Text("Preferences…",fontSize=13.sp)},onClick={menu=false;run(Command("app-settings","Settings",""))})
-                            DropdownMenuItem(text={Text("Keyboard Shortcuts",fontSize=13.sp)},onClick={menu=false;run(Command("shortcuts","Shortcuts",""))})
-                            DropdownMenuItem(text={Text("Dismiss Droidcast",fontSize=13.sp)},onClick=dismiss)
-                        }
+                        PaletteChoiceMenu(menu, { menu = false }, categories.map { c ->
+                            PaletteChoice("filter-$c", if(c=="Pinned") "Favorites" else c, checked = store.category == c) { store.filter(c); menu = false }
+                        } + listOf(
+                            PaletteChoice("menu-preferences", "Preferences…") { menu=false; run(Command("app-settings","Settings","")) },
+                            PaletteChoice("menu-shortcuts", "Keyboard shortcuts") { menu=false; run(Command("shortcuts","Shortcuts","")) },
+                            PaletteChoice("menu-dismiss", "Dismiss Droidcast") { dismiss() }
+                        ), title = "Droidcast", returnFocus = focus)
                     }
                     Spacer(Modifier.weight(1f))
                     if(selected!=null) Box {
-                        Row(Modifier.clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF3E3E3E),Color(0xFF2C2C2C)))).border(1.dp,PaletteTheme.border,CircleShape).padding(4.dp),verticalAlignment=Alignment.CenterVertically){
-                            Row(Modifier.clip(CircleShape).clickable{run(selected)}.height(30.dp).padding(horizontal=10.dp).testTag("primary-action"),verticalAlignment=Alignment.CenterVertically){
-                                Text(if(wide)primaryActionTitle(selected)else primaryActionTitle(selected).substringBefore(' '),fontSize=12.sp,fontWeight=FontWeight.Medium,maxLines=1);Spacer(Modifier.width(6.dp));KeyCap("↵")
-                            }
-                            Row(Modifier.clip(CircleShape).clickable{store.actionCommand=selected;store.dialog="actions"}.height(30.dp).padding(horizontal=10.dp).testTag("actions-button"),verticalAlignment=Alignment.CenterVertically){
-                                Text("Actions",fontSize=12.sp,color=PaletteTheme.secondary);Spacer(Modifier.width(6.dp));KeyCap("Ctrl");Spacer(Modifier.width(2.dp));KeyCap("K")
-                            }
-                        }
+                        PaletteActionCapsule(primaryActionTitle(selected), {run(selected)}, {store.actionCommand=selected;store.dialog="actions"},
+                            "primary-action", "actions-button", compact=!wide)
                         if(store.dialog=="actions") ActionsMenu(store,store.actionCommand ?: selected,run,copy,::close)
                     }
                 }
             }
-            SnackbarHost(snack,modifier=Modifier.align(Alignment.BottomCenter).windowInsetsPadding(WindowInsets.imeAnimationTarget).padding(20.dp))
         }
-        if(store.dialog!="actions") PaletteDialogs(store,selected,globalEnabled,enableGlobal,run,copy,::close)
+       }
       }
     }
 }
@@ -316,6 +324,8 @@ fun Glyph(name: String, tint: Color = PaletteTheme.secondary, size: Int = 20) {
             "calculator" -> { rect(5f, 2f, 14f, 20f); rect(8f, 5f, 8f, 4f, .5f); listOf(12f, 16f, 19f).forEach { y -> line(8f, y, 10f, y); line(14f, y, 16f, y) } }
             "folder" -> { val p = Path().apply { moveTo(3f*scale,7f*scale); lineTo(3f*scale,5f*scale); lineTo(10f*scale,5f*scale); lineTo(12f*scale,8f*scale); lineTo(21f*scale,8f*scale); lineTo(21f*scale,20f*scale); lineTo(3f*scale,20f*scale); close() }; drawPath(p,tint,style=Stroke(1.6f*scale)) }
             "clipboard" -> { rect(5f, 5f, 14f, 17f); rect(9f, 2f, 6f, 5f, 1f); line(9f,12f,15f,12f); line(9f,16f,14f,16f) }
+            "trash" -> { line(5f,6f,19f,6f); line(9f,3f,15f,3f); line(7f,6f,8f,21f); line(8f,21f,16f,21f); line(16f,21f,17f,6f); line(10f,10f,10f,17f); line(14f,10f,14f,17f) }
+            "star" -> { val p=Path(); for(i in 0 until 10) { val angle=-Math.PI/2+i*Math.PI/5; val radius=if(i%2==0)9f else 4f; val x=(12f+kotlin.math.cos(angle)*radius).toFloat()*scale; val y=(12f+kotlin.math.sin(angle)*radius).toFloat()*scale; if(i==0)p.moveTo(x,y)else p.lineTo(x,y) }; p.close(); drawPath(p,tint,style=Stroke(1.6f*scale)) }
             "keyboard" -> { rect(2f, 5f, 20f, 14f); for (y in listOf(9f,12f)) for (x in listOf(6f,10f,14f,18f)) line(x,y,x+.4f,y); line(7f,16f,17f,16f) }
             "app" -> { for (y in listOf(3f,14f)) for (x in listOf(3f,14f)) rect(x,y,7f,7f,1f) }
             "pin" -> { line(8f,3f,16f,3f); line(9f,3f,9f,10f); line(15f,3f,15f,10f); line(9f,10f,6f,14f); line(15f,10f,18f,14f); line(6f,14f,18f,14f); line(12f,14f,12f,22f) }

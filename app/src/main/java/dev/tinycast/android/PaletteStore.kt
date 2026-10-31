@@ -34,6 +34,17 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     var category by mutableStateOf("All")
     var selected by mutableIntStateOf(0)
     var focusEpoch by mutableIntStateOf(0)
+    var extensionReturnTo: String? = null
+    var extensionSetupFromRun = false
+    private val menuOwnership = PaletteMenuOwnership { ShortcutRuntime.invalidateModifierSequences() }
+    val paletteMenuOpen get() = menuOwnership.open
+    fun attachPaletteMenuHost(owner: Any) { menuOwnership.attach(owner); clearModifierRecording() }
+    fun paletteMenuChanged(owner: Any, open: Boolean, windowFocused: Boolean): Boolean {
+        val changed = menuOwnership.update(owner, open, windowFocused)
+        if(changed) clearModifierRecording()
+        return changed
+    }
+    fun detachPaletteMenuHost(owner: Any) { menuOwnership.detach(owner) }
     var dialog by mutableStateOf<String?>(null)
     var editing by mutableStateOf<SavedItem?>(null)
     var actionCommand by mutableStateOf<Command?>(null)
@@ -188,6 +199,8 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun readBackup(uri: android.net.Uri?) {
         if (uri == null) { message = "Import cancelled"; return }
         if (backupBusy) return
+        // The new operation replaces prior feedback, which could cover preview controls.
+        message = null
         backupBusy = true; backupError = null; backupDocument = null
         viewModelScope.launch {
             try {
@@ -263,6 +276,8 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun search(value: String) { query = value; selected = 0; syncFileSearch() }
     fun syncFileSearch() { folderSearch.search(query, category == "Files" || (folderSearch.includeInLauncher && query.isNotBlank() && category in setOf("All", "Pinned"))) }
     fun openExtension(extension: InstalledExtension, command: ExtensionCommand) {
+        extensionReturnTo = when (dialog) { "extensions" -> "extensions"; "extension-run", "extension-setup" -> extensionReturnTo; else -> null }
+        extensionSetupFromRun = false
         extensions.launch(extension, command)
         val prefs = extensions.preferences(extension, command)
         val needsSetup = command.definition.optJSONArray("arguments").objects().isNotEmpty() || extension.fields(command).any { it.optBoolean("required") && (!prefs.has(it.getString("name")) || prefs.optString(it.getString("name")).isBlank()) }

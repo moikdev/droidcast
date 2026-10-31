@@ -91,7 +91,7 @@ class SettingsActivity : ComponentActivity(), android.hardware.input.InputManage
         val key = event.deviceId to event.keyCode
         if (event.action == KeyEvent.ACTION_UP && navigationKeys.remove(key)) return true
         val modifier = (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed
-        if (event.action == KeyEvent.ACTION_DOWN && modifier && store.recordingTarget == null &&
+        if (event.action == KeyEvent.ACTION_DOWN && modifier && store.recordingTarget == null && !store.paletteMenuOpen &&
             (event.keyCode == KeyEvent.KEYCODE_COMMA || (event.keyCode == KeyEvent.KEYCODE_F && !event.isShiftPressed))) {
             navigationKeys.add(key)
             if (event.keyCode == KeyEvent.KEYCODE_F && event.repeatCount == 0) searchFocusEpoch++

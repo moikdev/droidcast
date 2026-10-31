@@ -82,6 +82,8 @@ class EmojiDeviceTest {
     }
     private fun filter(value: String) {
         compose.onNodeWithTag("emoji-filter").performClick()
+        if(compose.onAllNodesWithTag("inline-menu-choices").fetchSemanticsNodes().isNotEmpty())
+            compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-filter-$value"))
         compose.onNodeWithTag("emoji-filter-$value").performScrollTo().performClick()
     }
     private fun evidence(name: String, marker: String) {

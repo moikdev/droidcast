@@ -133,6 +133,23 @@ class BackupDeviceTest {
         compose.onNodeWithTag("result-${imported.id}").assertIsDisplayed()
         evidence("restored-search")
     }
+    @Test fun startingImportClearsFeedbackBeforeItCanCoverPreviewControls() {
+        val file=File(context.cacheDir,"backup-feedback-fixture.json").apply {
+            writeText(BackupCodec.encode(BackupData(notes=listOf(SavedItem("notes:feedback","Feedback fixture","Public backup fixture"))),setOf(BackupCategory.NOTES)))
+        }
+        try {
+            compose.activityRule.scenario.onActivity {
+                it.store.message="Backup exported"
+                it.store.readBackup(android.net.Uri.fromFile(file))
+                assertNull("Starting import clears obsolete feedback synchronously",it.store.message)
+            }
+            compose.waitUntil(10000) { !compose.activity.store.backupBusy && compose.activity.store.dialog=="backup-preview" && compose.activity.window.decorView.hasWindowFocus() }
+            compose.onNodeWithText("Backup exported").assertDoesNotExist()
+            compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
+            compose.onNodeWithTag("backup-contents").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithText("Note · Feedback fixture").assertIsDisplayed()
+        } finally { file.delete() }
+    }
     @Test fun realDocumentPickerExportImportAndIdempotentMerge() {
         compose.activityRule.scenario.onActivity {
             val note = it.store.save("notes", "Tablet backup note", "Text survives the document picker round trip.")
@@ -157,13 +174,18 @@ class BackupDeviceTest {
         assertNotNull("Exported document visible in real picker", document)
         document.click()
         compose.waitUntil(15000) { compose.activity.store.dialog == "backup-preview" && !compose.activity.store.backupBusy }
+        // Activity-result state can publish before DocumentsUI has finished closing.
+        compose.waitUntil(10000) { compose.activity.window.decorView.hasWindowFocus() }
+        assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text("Preview backup")),10000))
+        compose.onNodeWithText("Backup exported").assertDoesNotExist()
         val incoming = compose.activity.store.backupDocument!!
         assertTrue(incoming.data.notes.any { it.title == "Tablet backup note" })
         assertTrue(incoming.data.links.any { it.alias == "backupdocs" })
         assertTrue(incoming.data.clips.any { it.title == "Backup saved text" })
         compose.onNodeWithText("Preview backup").assertIsDisplayed()
-        compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
-        compose.onNodeWithTag("backup-contents").assertIsDisplayed()
+        compose.onNodeWithTag("backup-inspect").performScrollTo()
+        compose.onNodeWithTag("backup-inspect").performClick()
+        compose.onNodeWithTag("backup-contents").performScrollTo().assertIsDisplayed()
         evidence("inspect-backup")
         compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
         evidence("document-import-preview")

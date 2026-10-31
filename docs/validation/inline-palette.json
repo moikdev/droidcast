@@ -1,0 +1,4511 @@
+{
+  "base": "227d5100f8a4eec0e99cf3f3a369e02a0b89d801",
+  "issues": [
+    56,
+    6,
+    7
+  ],
+  "scope": "Same-window palette screens, Raycast-style action area and native Grid subset; #6/#7 remain partial",
+  "previous_reviewed_head": "da254a56c803463588cf354aeeced2b0f50f7b9f",
+  "previous_manifest_sha256": "fea395f8cc4ea125e6b9ac723dfd58a56125214f60e9a28479417b4d87d316ac",
+  "implementation_commit": "4b8f5f4fb8ef12d9036e4ae708e85c37e30f8e3a",
+  "apk_sha256": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+  "test_apk_sha256": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+  "ci": "inactive",
+  "device": {
+    "serial": "emulator-5590",
+    "avd": "Droidcast_PR48_Tablet_API_36_27caf3",
+    "api": 36,
+    "abi": "arm64-v8a",
+    "tablet": "1920x1200 at 240dpi",
+    "phone": "1080x2340 at 420dpi override"
+  },
+  "reference_sources": {
+    "Tinycast/Palette/PaletteScreen.swift": "58ec2cb6b08fab709bf395f8d13c1dc3edf8b904febdb054f5bba7f7dcf7c055",
+    "Tinycast/Palette/RootPaletteView.swift": "dd1e687d08fff7414ff9bb9442669e3d7d2a35b128c1595b96c5bb1b5e5cd96b",
+    "Tinycast/Palette/PaletteState.swift": "d68bcaa2c8a9d8facc60cc9d5d6a98d07387d36c172d9a0f6ab91ed4857d2d1e",
+    "Tinycast/Palette/PaletteMode.swift": "985da122d78f0d487883f0e64bba4420cd055a7c1ae23efa38097355a88b01af",
+    "Tinycast/Palette/PaletteEscapeAction.swift": "f49f040e7dcc32f21ddaf1a1bd85d2f82129d3fa3f7cc46167d69f2b59bd92fe",
+    "Tinycast/Palette/PaletteTabAction.swift": "afb7e328b2e938e3715fdcb2cbf38d3c236db7c27631c07aaead39910bad2120",
+    "Tinycast/Palette/ActionMenuSearchQuery.swift": "96168b580ab0191b4e818dd6ee7565af15f381d58d56c3744b9309b00cce2aef",
+    "Tinycast/Palette/MenuPanel.swift": "e40c53d603e07dd22ae15007b4906bdc274ae9cef1d98c8840024b3d470a7e6e",
+    "Tinycast/Features/Extensions/Model/ExtensionGridGeometry.swift": "2fb969961117e0fab494dee66d45d7c9f896e7885ca54c74728c84ab388d0b3a",
+    "Tinycast/Features/Extensions/Model/ExtensionGridLayout.swift": "834e89683093c492a40f026501850c48726fa1019ce05d74269e8cf95ae7c3de",
+    "Tinycast/Features/Extensions/UI/ExtensionCommandScreen.swift": "6e9fba6b385311b1c3bc25fc3f78c8fadfd6e2255645902878330db5258c5597",
+    "Tinycast/Features/Extensions/Service/ExtensionRuntime.swift": "6d6d64cf0776a00489467c4ac87d13a5a7fcc46d16c83a0002fd4555b235b7c7",
+    "Tinycast/Features/Extensions/Service/ExtensionHostBridge.swift": "021377e32f59337d8ca9b25d2c3571e6ae417f9bf412318b935b506dd458d045",
+    "Tinycast/Features/Launcher/Model/SearchRelevance.swift": "4bd25ea7e1bd61b9910d3c81639d4f048bbedcf8f4dce6690c7ae16ff53fbde5",
+    "Tests/action-menu-search-test.swift": "7e6aa62456e8a54d220098f8aaf3347ad9983b348931c8d4c3bed24d8c3a66e2"
+  },
+  "observations": {
+    "artifacts/inline-final-v10-tablet/store-palette-colors.json": {
+      "sha256": "274aa5ec12bb6861398610ea747e0df262996951515a844261995593738bfacc",
+      "data": {
+        "name": "palette-colors",
+        "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "source_url": "https://github.com/raycast/extensions/tree/1a7664e5b99b9228c26c2f807f1ad2dc1669899a/extensions/palette-colors/",
+        "commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+        "command": "index",
+        "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+      }
+    },
+    "artifacts/inline-final-v10-tablet/store-oklch-color-converter.json": {
+      "sha256": "8a98afd098f1c8b1d50b32d1aab7168c96ea2209eb4a4f61467f0c1794e3fc63",
+      "data": {
+        "name": "oklch-color-converter",
+        "id": "322d1e48-6778-478a-9ed2-b406bb41abbc",
+        "source_url": "https://github.com/raycast/extensions/tree/c33bf4cb4b9ad70c2b93432ee713ffb7486ed331/extensions/oklch-color-converter/",
+        "commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+        "command": "convert-color",
+        "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806"
+      }
+    },
+    "artifacts/inline-final-v10-tablet/store-inline-source.json": {
+      "sha256": "81167015b143491753cec630d88b11f23a14de3407b9941d7f3127f489a65936",
+      "data": {
+        "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "source_url": "https://github.com/raycast/extensions/tree/1a7664e5b99b9228c26c2f807f1ad2dc1669899a/extensions/palette-colors/",
+        "commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+        "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+      }
+    },
+    "artifacts/inline-final-v10-tablet/action-panel-bounds.json": {
+      "sha256": "f093c4ae3146ccf4e353c89a434d163356ae4f0ed613840f5ed04fa8a082ddaa",
+      "data": {
+        "panel_bottom": 872,
+        "primary_top": 875,
+        "overlap": false
+      }
+    },
+    "artifacts/inline-final-v10-tablet/grid-return-position.json": {
+      "sha256": "5dfce09427411b89158dcc9da851a0126a621c5a2c393671ff3427657aaf8b45",
+      "data": {
+        "before": "Rect.fromLTRB(422.0, 408.0, 771.0, 808.0)",
+        "after": "Rect.fromLTRB(422.0, 408.0, 771.0, 808.0)",
+        "epoch_retained": true
+      }
+    },
+    "artifacts/inline-final-v10-tablet/launcher-return-position.json": {
+      "sha256": "5107a517ce3e11d8a54e3705281dcbd6043581c890d5ce4fdcf722ee2ed9fe0d",
+      "data": {
+        "before": "Rect.fromLTRB(410.0, 327.0, 1511.0, 393.0)",
+        "after": "Rect.fromLTRB(410.0, 327.0, 1511.0, 393.0)",
+        "selected": 9
+      }
+    },
+    "artifacts/inline-final-v10-tablet/inline-menu-focus-state.json": {
+      "sha256": "3a15f32f5feca5496a9921178fca01aae09427fd41575157d4c847df87ebdcea",
+      "data": {
+        "menuFocused": true,
+        "focusedTags": [
+          "inline-menu"
+        ]
+      }
+    },
+    "artifacts/inline-final-v10-tablet/keyboard-layout.json": {
+      "sha256": "ee89d574c89d922f1b586a90b7d8897e17c9e74d315c48ee0633260971a3d76d",
+      "data": {
+        "screen": "1920x1200",
+        "grid_screen": "Rect.fromLTRB(398.0, 237.0, 1523.0, 630.0)",
+        "footer": "DpRect(left=775.3333.dp, top=370.0.dp, right=892.6667.dp, bottom=418.0.dp)",
+        "windows": "[1920x1200,location=[0, 0],focused=true,ime=Insets{left=0, top=0, right=0, bottom=552}]"
+      }
+    },
+    "artifacts/inline-final-v10-tablet/preferences-runtime-state.json": {
+      "sha256": "cce13886283cb912e72575e8638d98954c7d4f10c369f9782a1fc32c63526b01",
+      "data": {
+        "same_engine": true,
+        "same_epoch": true,
+        "activations_before": 1,
+        "activations_after": 2
+      }
+    },
+    "artifacts/inline-final-v10-tablet/editor-current-measurement.json": {
+      "sha256": "8cf9e0c881213adcefa8ade231999c9deb2e2c02fca1fd4473de27d35a9a10cd",
+      "data": {
+        "save": "Rect.fromLTRB(1339.0, 561.0, 1505.0, 621.0)",
+        "frame": "Rect.fromLTRB(398.0, 237.0, 1523.0, 630.0)"
+      }
+    },
+    "artifacts/inline-final-v10-tablet/editor-resize-measurement.json": {
+      "sha256": "64a32d44ad1927e7227e55eb4c86e275413b9cd9f0e21f6d603121eccc1a8b1e",
+      "data": {
+        "before_save": "Rect.fromLTRB(1339.0, 881.0, 1505.0, 941.0)",
+        "before_frame": "Rect.fromLTRB(398.0, 237.0, 1523.0, 950.0)",
+        "after_save": "Rect.fromLTRB(1339.0, 561.0, 1505.0, 621.0)",
+        "after_frame": "Rect.fromLTRB(398.0, 237.0, 1523.0, 630.0)",
+        "cross_frame_comparison_would_fail": true
+      }
+    },
+    "artifacts/inline-final-v10-phone/store-palette-colors.json": {
+      "sha256": "274aa5ec12bb6861398610ea747e0df262996951515a844261995593738bfacc",
+      "data": {
+        "name": "palette-colors",
+        "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "source_url": "https://github.com/raycast/extensions/tree/1a7664e5b99b9228c26c2f807f1ad2dc1669899a/extensions/palette-colors/",
+        "commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+        "command": "index",
+        "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+      }
+    },
+    "artifacts/inline-final-v10-phone/store-oklch-color-converter.json": {
+      "sha256": "8a98afd098f1c8b1d50b32d1aab7168c96ea2209eb4a4f61467f0c1794e3fc63",
+      "data": {
+        "name": "oklch-color-converter",
+        "id": "322d1e48-6778-478a-9ed2-b406bb41abbc",
+        "source_url": "https://github.com/raycast/extensions/tree/c33bf4cb4b9ad70c2b93432ee713ffb7486ed331/extensions/oklch-color-converter/",
+        "commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+        "command": "convert-color",
+        "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806"
+      }
+    },
+    "artifacts/inline-final-v10-phone/store-inline-source.json": {
+      "sha256": "81167015b143491753cec630d88b11f23a14de3407b9941d7f3127f489a65936",
+      "data": {
+        "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "source_url": "https://github.com/raycast/extensions/tree/1a7664e5b99b9228c26c2f807f1ad2dc1669899a/extensions/palette-colors/",
+        "commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+        "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+      }
+    },
+    "artifacts/inline-final-v10-phone/action-panel-bounds.json": {
+      "sha256": "49c368e751fc1c55e815640293da1a0b6728638767d3af4d050e238d52f529b0",
+      "data": {
+        "panel_bottom": 1206,
+        "primary_top": 1211,
+        "overlap": false
+      }
+    },
+    "artifacts/inline-final-v10-phone/grid-return-position.json": {
+      "sha256": "e00664cf1acf75c29d4408ebd56105df2faf5ee92773db362fd5946356dbd85d",
+      "data": {
+        "before": "Rect.fromLTRB(74.0, 394.0, 368.0, 777.0)",
+        "after": "Rect.fromLTRB(74.0, 394.0, 368.0, 777.0)",
+        "epoch_retained": true
+      }
+    },
+    "artifacts/inline-final-v10-phone/launcher-return-position.json": {
+      "sha256": "daea8d309540594932e5eb6fdb4f4d1d346b87914b119780b3e229c05ab53cf9",
+      "data": {
+        "before": "Rect.fromLTRB(53.0, 253.0, 1027.0, 369.0)",
+        "after": "Rect.fromLTRB(53.0, 253.0, 1027.0, 369.0)",
+        "selected": 9
+      }
+    },
+    "artifacts/inline-final-v10-phone/inline-menu-focus-state.json": {
+      "sha256": "3a15f32f5feca5496a9921178fca01aae09427fd41575157d4c847df87ebdcea",
+      "data": {
+        "menuFocused": true,
+        "focusedTags": [
+          "inline-menu"
+        ]
+      }
+    },
+    "artifacts/inline-final-v10-phone/keyboard-layout.json": {
+      "sha256": "18e2d197a37ad3509827a8b32bdc5d56fc9a65569debd1cda7797048a43fe172",
+      "data": {
+        "screen": "1080x2340",
+        "grid_screen": "Rect.fromLTRB(32.0, 95.0, 1048.0, 1342.0)",
+        "footer": "DpRect(left=165.33333.dp, top=461.33334.dp, right=278.09525.dp, bottom=509.33334.dp)",
+        "windows": "[1080x2340,location=[0, 0],focused=true,ime=Insets{left=0, top=0, right=0, bottom=966}]"
+      }
+    },
+    "artifacts/inline-final-v10-phone/preferences-runtime-state.json": {
+      "sha256": "cce13886283cb912e72575e8638d98954c7d4f10c369f9782a1fc32c63526b01",
+      "data": {
+        "same_engine": true,
+        "same_epoch": true,
+        "activations_before": 1,
+        "activations_after": 2
+      }
+    },
+    "artifacts/inline-final-v10-phone/editor-current-measurement.json": {
+      "sha256": "e559df8dc8138877bd88e48ab7e1ab3bc86b747d3733ac4c4c7a6225613de5e4",
+      "data": {
+        "save": "Rect.fromLTRB(729.0, 1222.0, 1016.0, 1327.0)",
+        "frame": "Rect.fromLTRB(32.0, 95.0, 1048.0, 1342.0)"
+      }
+    },
+    "artifacts/inline-final-v10-phone/editor-resize-measurement.json": {
+      "sha256": "3ce8ad76cbc304cb3c64050ff064152a0711a3cd7ecf46dd0449c0c7cc8dad2b",
+      "data": {
+        "before_save": "Rect.fromLTRB(729.0, 1222.0, 1016.0, 1327.0)",
+        "before_frame": "Rect.fromLTRB(32.0, 95.0, 1048.0, 1342.0)",
+        "after_save": "Rect.fromLTRB(729.0, 1222.0, 1016.0, 1327.0)",
+        "after_frame": "Rect.fromLTRB(32.0, 95.0, 1048.0, 1342.0)",
+        "cross_frame_comparison_would_fail": false
+      }
+    },
+    "artifacts/inline-clipboard-targeted-tablet-1/capture-state-inline-filter-focus.json": {
+      "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
+      "data": {
+        "route_before": "extension-run",
+        "route_after": "extension-run",
+        "epoch_before": 1,
+        "epoch_after": 1
+      }
+    },
+    "artifacts/inline-clipboard-targeted-tablet-2/capture-state-inline-filter-focus.json": {
+      "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
+      "data": {
+        "route_before": "extension-run",
+        "route_after": "extension-run",
+        "epoch_before": 1,
+        "epoch_after": 1
+      }
+    },
+    "artifacts/inline-clipboard-targeted-tablet-3/capture-state-inline-filter-focus.json": {
+      "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
+      "data": {
+        "route_before": "extension-run",
+        "route_after": "extension-run",
+        "epoch_before": 1,
+        "epoch_after": 1
+      }
+    },
+    "artifacts/inline-clipboard-targeted-phone-1/capture-state-inline-filter-focus.json": {
+      "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
+      "data": {
+        "route_before": "extension-run",
+        "route_after": "extension-run",
+        "epoch_before": 1,
+        "epoch_after": 1
+      }
+    },
+    "artifacts/inline-final-v10-tablet/capture-state-inline-filter-focus.json": {
+      "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
+      "data": {
+        "route_before": "extension-run",
+        "route_after": "extension-run",
+        "epoch_before": 1,
+        "epoch_after": 1
+      }
+    },
+    "artifacts/inline-final-v10-phone/capture-state-inline-filter-focus.json": {
+      "sha256": "b89586666dba7198651f5a23afee85004dbf68a27bda67d1805d45974b17ee1a",
+      "data": {
+        "route_before": "extension-run",
+        "route_after": "extension-run",
+        "epoch_before": 1,
+        "epoch_after": 1
+      }
+    }
+  },
+  "jvm": {
+    "tests": 124,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "Error": 0,
+    "Warning": 44
+  },
+  "upstream_checks": {
+    "commit": "37e6043f3f550febb64bdb3cff3ac29a30caad5a",
+    "action_search_assertions": 8,
+    "grid_scenarios": 608,
+    "grid_expectations": 1216,
+    "fixture_sha256": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7"
+  },
+  "cleanup_unit_tests": 4,
+  "sources": {
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "b41c6d0d09003ad53b86fd398407a3c2a4de82c34ae3d68e70b5afbd43ac39cf",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "f5f24b967f1693cf7ffd7d94037eff9acbf7032643d555afb13b4d85f4468b56",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "25052495aad34a59a45abc184ff209e8c78e5ba6c2e2c7029915330c1f0498df",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "5088070febf82a6eb6fa574bbbc244fc6dbc590164c7f36704b5b272c0f99130",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5fc9fbfea7d3e55972fe9915c713e964fcef1bd3e6f79a5004c82b7d05898ba1",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "17468aa97e1a4add76d900290c729f8d6aadeac9301412a5680a3fd3622b1471",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "1e5402d259ce207a5d40c346b4171a4bf671a8095c7e1fd658bcffd8cc1ed172",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "ecc71783068924713622fb32294a40de27977990b344e509ffb62ea0386700c9",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "62226893a3b17a92998789a3b69a36940435e3bcc11080258a51bd3a0e026752",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "3d4444b0b04a04d7ba4bf80658ed9418c9488ec81b45b13fe0fd793e5d01395b",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a91fb619cd28a269caca5e21678b908e5c98b26c423e89c4ed1df8099fed3d85",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "ab424f7bbe766f5634757f795fe86ce98f0bfd0f749c617ba8c2d9570bbb1a0e",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "66511817ae6405b2e45e0ac1b8ece427b70be610d0bd573fa112e615b7c93dd6",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "69eeb306ca1b4bf9204a4fc56a6f2457da95dc75e23248f92c93c372c6c66787",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "0843afbc3309aeac05822b0cd1714da1b3424ff90f0ead5d5eea3c9364ddbd99",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "ec618c96c93f213d5fcee7578fca320011ab7160c092eaa40e3d6da5f4c80b06",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "449f8fa2c1fc88ff5aef01faa541a56c109dbf18f7c8512b6c34bb1f9a66313f",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "5e2c1ba3b28e2445867c79403630f66fed1b63f2bf6ed39479e21396d6f453d6",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "2c2e58f921aead90f6cee49b5d1668f6b12d45836c6213e0f15a0e82b734d257",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "scripts/generate-tinycast-grid-oracle.py": "bd53975673883b624d2553cd47687c5a3a760b17181a8c0621715ed1599b3118",
+    "scripts/modifier-test-input.c": "859cd4f868c0739124384652eb05dcff09f67bd65933c6546ec828adaf4f8756",
+    "scripts/test-extension-grid.py": "9145e4f6fd37a9d06281415455f3e1061d930ddb2621a68bf64e394da305520e",
+    "scripts/test-modifier-taps-hardware.py": "b0d2da7fd2410095d65ef20e25cd9b8e90f9b480849dfd5e497f75d4d713139c"
+  },
+  "assets": {
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66"
+  },
+  "reports": {
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.PaletteScrollHistoryTest.xml": "9de117f0fedc8309b641958cde0a501a1d889d14098275608fa2300ff36bb980",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutReadinessTest.xml": "6636a81007a7e71dee469c2745a7f20b5c9d191a6d29126738a8debe10f6a229",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.EmojiCatalogTest.xml": "5c7f6ee8c1814c4b69a99fe2fcc859ff5f3bd5c848a17c859c686b50fafac5f4",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.SystemSettingsTest.xml": "9fe994aa5b8755bf4a190454f4a227059e8b085371a654bdc20a9711a90bd34e",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ModifierTapTest.xml": "8bd432f81f12f4bcbafa0e1308c49aec221e37e22207fc1981b74bd5fa9dc133",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutTest.xml": "b53abf09c4342c5bdf007d722ee83d31c208f1310c0374c56204d9f4b49a6c4d",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.PaletteMenuOwnershipTest.xml": "d40e0719837db2f906244c03e0d9d9f0f324c8e62a143b2107d13bffb2f640ec",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.BackupPlannerTest.xml": "c600c04add6fdcd256f60e9ed2f0c5c2e5c0854246a07b3c8fa1212e32e48ba8",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ExtensionGridNavigationTest.xml": "da04538a3d484204b0dee30f65535ef614eb3dc3dabd1dd8eab055eccfed1ece",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderGrantTransactionTest.xml": "55ad3bc2d1fde1ad1c520326c1cb4fc18846c82ece0dd3c1287043f3a518a241",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.CommandEngineTest.xml": "83e33f205ac7b20fd8d655be8514c8cf669f1a886c4d04ced639900b89651dd5",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderIndexTest.xml": "636fd9c80ccb4ced42eabb0732af88fa2fdc015046f2a5f939c153d86207b4ce",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.TinycastGridParityTest.xml": "dcd7464f465cd86da3b5398f8ea241aecfb2865ac991e82770e0e8644863404f",
+    "app/build/reports/lint-results-debug.xml": "64a62353dc4dc08e45404eb53146ddd9d3cce4c4cb054ee3d73e4d0fd2258c0d",
+    "artifacts/inline-targeted-clipboard-build.log": "4c227c02ae6d98f904804c3b25fe9f4e8a97f70f154bae8fa752dc0d56acd2ec",
+    "artifacts/inline-ime-controlled-build.log": "4d33efb379ff03d6231dd361e6f183b4829f2583470065958de2aec68870cc8c",
+    "artifacts/inline-ime-fixed-build.log": "2ebf39efacae7f7c53abeca6e45750fe6016ffff2c80c82a2eb0feb18de1f274",
+    "artifacts/inline-ime-fixture-build.log": "41c7e388cf895ee97cf460affb9116177854153ffb1e140b8a29fff1dbd52125",
+    "artifacts/inline-ime-regression-build.log": "2a47a2d158a7d8d8495ff35961c5af8c79e698e000a5421fa17b5637083141c3",
+    "artifacts/inline-ime-regression-build-v2.log": "02643bad7810140fa2a51c2b3a1a87b0edbf15c7dcb2fe84dcf8c59eead10fe1",
+    "artifacts/inline-final-verified-build.log": "30a9c78644a2e507011daac322f36b3a9002d995275bf2291f7f66648e9d3c66",
+    "artifacts/inline-atomic-geometry-build.log": "ef652f4b05e6414ef09310e9201d0f50f3497510aaca504f93f87cf96a8b9003",
+    "artifacts/inline-final-v6-build.log": "13688f978fa2567b1c67c16df6a26cf22637f194f5e987996dc22145c3a954ef",
+    "artifacts/inline-runtime-state-test-build-v2.log": "e2382477ab7fe9cc850567e6dfc0546da32efe68b0c70a9e3d3077df125b7459",
+    "artifacts/inline-upstream-parity-build.log": "18a8537b736265e6f784bd524cd0bdd447c4036ea72f08aef4c9ada0e8b5af1f",
+    "artifacts/tinycast-action-menu-search.log": "d18f81e9c78f9c1d8b68ef881db0538959e3820ad14aac7991b67d66f9ca48f8",
+    "artifacts/tinycast-grid-oracle.log": "670e134cee5f1d9466228cf6a75202e28dd875c2fa3273f54eef3a192f895017",
+    "artifacts/inline-return-build-v2.log": "2a42feeab9256342ff7048e699f39958710e882f0a44836651e4c02ae78a4a88",
+    "artifacts/inline-return-fixture-build.log": "fd19feea6f6a2b8cf47a2650be8dac430bfa4f7e1a804f81b72ef51c0397f206",
+    "artifacts/inline-backup-scroll-test-build.log": "fd19feea6f6a2b8cf47a2650be8dac430bfa4f7e1a804f81b72ef51c0397f206",
+    "artifacts/inline-cleanup-final.log": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6"
+  },
+  "runs": {
+    "inline-final-v10-tablet": {
+      "record": "artifacts/inline-final-v10-tablet/record.json",
+      "record_sha256": "915282efa1f1ab5d9bbe57ea9ddf66ec078ae8dc31445f4c93f10be6cf340f9b",
+      "log_sha256": "f5955261f469fa1c906331f3956104f8c0acf046f63216668d3799efb2a4dd08",
+      "passes": 27,
+      "native_log_passes": 27,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v5-tablet": {
+      "record": "artifacts/inline-workspace-v5-tablet/record.json",
+      "record_sha256": "459fbf5e16bd1307ee1330192ec2593be38e4c5f3f9b6c1ed12071c0772e6600",
+      "log_sha256": "bb12f9c2a3b388a34b1438cef3d4db3d556efa7a3fbef111a448cc68690c7c2b",
+      "passes": 27,
+      "native_log_passes": 27,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-emoji-v3-final-tablet": {
+      "record": "artifacts/inline-emoji-v3-final-tablet/record.json",
+      "record_sha256": "548b1e5c70489e3a9fd4b0df3c06f24378d10e348fbcae78489dda4c4fe0fff5",
+      "log_sha256": "c82627863a02b683b4993ac4ee735035a49d53227528595933d1f848ac34aa17",
+      "passes": 13,
+      "native_log_passes": 13,
+      "artifact_recovery": null,
+      "expected": 13,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-baseline-r8-tablet": {
+      "record": "artifacts/inline-baseline-r8-tablet/record.json",
+      "record_sha256": "e749eae123aa3edc570a741b29d1cec3324734d9be478644a7f7e1af9d7fc1bd",
+      "log_sha256": "bb3c1bb05d7fb45365f9676dc59c4554429b692bab5b27569a10b9fe72083269",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v10-phone": {
+      "record": "artifacts/inline-final-v10-phone/record.json",
+      "record_sha256": "fc0fa0a8b753f38eac99e2068e974f5bfc22d478abfeebbf0ca2cccc8656d402",
+      "log_sha256": "2082556581fc4be06e1f6cd62772ae1b21d058b2dd5c1fc67f94ba5df5cf671d",
+      "passes": 27,
+      "native_log_passes": 27,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v5-phone": {
+      "record": "artifacts/inline-workspace-v5-phone/record.json",
+      "record_sha256": "22d84e35cc23e8e0faf89a3530e89613486d1562c8fce5ebddbbd5124982cb1d",
+      "log_sha256": "1cb92e0a9d90b9cabc2c44ea223dc5faa4720d0441c490f2b125d0a0354713ea",
+      "passes": 24,
+      "native_log_passes": 24,
+      "artifact_recovery": null,
+      "expected": 24,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-emoji-v3-final-phone": {
+      "record": "artifacts/inline-emoji-v3-final-phone/record.json",
+      "record_sha256": "3aad713475f04085ad688b31dede2704620c36a19e1381a4a5c5c4f36b212b6b",
+      "log_sha256": "a02ad11ea3e8807bf8ff41c07d305d68184ad0c3ecb4faf37ecbcfcfd5f51103",
+      "passes": 13,
+      "native_log_passes": 13,
+      "artifact_recovery": null,
+      "expected": 13,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-baseline-r8-phone": {
+      "record": "artifacts/inline-baseline-r8-phone/record.json",
+      "record_sha256": "9b5d3a7b0b02cbaf68abd0c2fb93b0cfa3aa0e09e2f16beedfcefc28002001d1",
+      "log_sha256": "3e105430e10e52deea8570832244e62869520c5965d2889baa8233ca380270b0",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-hardware-menus-v3-final": {
+      "record": "artifacts/inline-hardware-menus-v3-final/results.json",
+      "record_sha256": "e259e662815a05f94f493f4da7e4d84273d23692ff9b486c95376ea8a252aa93",
+      "log_sha256": null,
+      "passes": 3,
+      "native_log_passes": null,
+      "artifact_recovery": null,
+      "expected": null,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "release-keys": {
+          "passed": true
+        },
+        "disable-service": {
+          "passed": true
+        },
+        "disable-master": {
+          "passed": true
+        },
+        "clipboard": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "preference-backup-removal": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "verify-preferences": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "remove-input-helper": {
+          "passed": true
+        },
+        "unroot": {
+          "passed": true
+        },
+        "verify-adbd": {
+          "passed": true
+        },
+        "read-size": {
+          "passed": true
+        },
+        "read-density": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-runtime-state-focused-tablet": {
+      "record": "artifacts/inline-runtime-state-focused-tablet/record.json",
+      "record_sha256": "8842a4a6a26ead83d92fc17e0b98ea727ce5e92f3ffafbd9c58b52a2104f47d6",
+      "log_sha256": "c246bf866bd13dee0ea5d07f3c4fa48c06e60b3ea4acc2a8719ce180d2ed7c62",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "91969bceaeef1f6150f74832233da7a75d8c9783c4d6ab04f160bd16ae0a7425",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-runtime-state-focused-phone": {
+      "record": "artifacts/inline-runtime-state-focused-phone/record.json",
+      "record_sha256": "203f4a7696fdbab0a84e49f49f54132a6b8b3561ceddad21bfdb49047b030f5e",
+      "log_sha256": "3c9b9b541ceba1132015966bd3ea77c99b4a9bd7ac48fcd6625c5c32feb2070d",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "91969bceaeef1f6150f74832233da7a75d8c9783c4d6ab04f160bd16ae0a7425",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-atomic-geometry-focused-tablet": {
+      "record": "artifacts/inline-atomic-geometry-focused-tablet/record.json",
+      "record_sha256": "52e3fac978a2e0f147906326de1a9e7354e219c107b0cd2533efac71926f64d9",
+      "log_sha256": "c74d545f156f1342caddfdefca5f99a09b701a2d7973ef67d68021fa37fef810",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-atomic-geometry-focused-phone": {
+      "record": "artifacts/inline-atomic-geometry-focused-phone/record.json",
+      "record_sha256": "84fd59fc5a9f4b540795e623fc1182fcb970e32b5d6a351a024ec30e8f6a9a55",
+      "log_sha256": "38647b90b72a5c4e5e680dea1a4d3b92ec1d32661ec375a0954aa1700e0e3b87",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v4-tablet": {
+      "record": "artifacts/inline-ime-focused-v4-tablet/record.json",
+      "record_sha256": "49deece93d506e3bc0eb0f7e9b42d7db7b96fc2c8a432c21c63519ef82e6fe49",
+      "log_sha256": "72759fcc3e8ad23f02b492dac237e52d558870fe08ff8ecccf9d9c8cf2117cdf",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v4-phone": {
+      "record": "artifacts/inline-ime-focused-v4-phone/record.json",
+      "record_sha256": "1ada67781554974d4950553d33d8ebb57c1bbcab6a2118a38a70d55f1b43f18a",
+      "log_sha256": "4551427505befbec474051bb5561d6c8b9ebcb522a1601acc181a4ac07f5b9ac",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-clipboard-targeted-tablet-1": {
+      "record": "artifacts/inline-clipboard-targeted-tablet-1/record.json",
+      "record_sha256": "f70b4ad506432e36debc8e63ccea3496c39302235a5615af0c61f39122951230",
+      "log_sha256": "3d390be16accd27b1c4fe8bf80ee7544c4e60ec825501664b555529cf8f80283",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-clipboard-targeted-tablet-2": {
+      "record": "artifacts/inline-clipboard-targeted-tablet-2/record.json",
+      "record_sha256": "f70b4ad506432e36debc8e63ccea3496c39302235a5615af0c61f39122951230",
+      "log_sha256": "9f02ab1da308d3d2bab790333737f43f83405ae12e91b575f094a72cdb4ee954",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-clipboard-targeted-tablet-3": {
+      "record": "artifacts/inline-clipboard-targeted-tablet-3/record.json",
+      "record_sha256": "f70b4ad506432e36debc8e63ccea3496c39302235a5615af0c61f39122951230",
+      "log_sha256": "84a85064b4ba2542a5f517645f59a222e0d269a04fb1b06509782ed981ae68d9",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-clipboard-targeted-phone-1": {
+      "record": "artifacts/inline-clipboard-targeted-phone-1/record.json",
+      "record_sha256": "3a5b8338e3d95519470e7d71fa8a5add31fc306f46696dff936280598ed0add3",
+      "log_sha256": "87dbef7f5a3fab73eb98964216b26ec2dbe3acaa0117d906ce316ee49f08440f",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-backup-feedback-focused": {
+      "record": "artifacts/inline-backup-feedback-focused/record.json",
+      "record_sha256": "826650e53cafa49c92b49752e3e532051733d6729907fbd0aff0ad25ac58db26",
+      "log_sha256": "a6818ecd741bc82c8d2b2e696aca159ab8e728785df22950c4395a96341e38fb",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3263d39848f2ad891ce2978fa4c0aa3b136f522a813ac42ec0d960dad3674488",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v9-tablet": {
+      "record": "artifacts/inline-final-v9-tablet/record.json",
+      "record_sha256": "0960b8f1366ea281a3ca6d495c13bbf7695eaf1ef5d07c5ffbcf5e38ae849ceb",
+      "log_sha256": "70ac4a735714b3edb1f16b7913e4a02329e27905a34f8ae343282cb1529e13c5",
+      "passes": 26,
+      "native_log_passes": 26,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": false,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "8a6b52524c49dfe8d83388095e710e1588b1817acc3eb5cd1cfe22b5698c1526",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v3-tablet": {
+      "record": "artifacts/inline-ime-focused-v3-tablet/record.json",
+      "record_sha256": "e2756aad006d9a76484de5f6b741f521de68ceb2c72686373c76034d131fff3b",
+      "log_sha256": "1998a43a38fe9f8655de99ca43dbd40e7371df4467e894c137b1f51c327f0c0d",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "8a6b52524c49dfe8d83388095e710e1588b1817acc3eb5cd1cfe22b5698c1526",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v3-phone": {
+      "record": "artifacts/inline-ime-focused-v3-phone/record.json",
+      "record_sha256": "866f47b0fcdd0f5e550ef22ce4031ea873440e17143cee2792a0949205ccfb17",
+      "log_sha256": "d16743ba35069b2599d4cb5c1c8464b03e454d2d57f7532ef8b75f344efd1b18",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "8a6b52524c49dfe8d83388095e710e1588b1817acc3eb5cd1cfe22b5698c1526",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-negative-v4": {
+      "record": "artifacts/inline-ime-negative-v4/record.json",
+      "record_sha256": "0f18017c27ceaa3fc37e97045205abf43f83d08c1c5de50f35d6d5e0d72232ab",
+      "log_sha256": "daa513a584cefaa652820f30c7886cde82e03a89a551a19fd5a6cf1d3e63b1ec",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "cca547fe7e3b93653cb013fc2fd0f1e224b2247b46d062da05f3e09b6c8a6c0e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-negative": {
+      "record": "artifacts/inline-ime-negative/record.json",
+      "record_sha256": "bae8c8b7cf8689762804630cc2123d29a9d36546a3043f47273318e4e39d1d93",
+      "log_sha256": "83b681e82d78a7936d03f3cd029992aa081a6e82fc2330b0a390623af89f32d4",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "b1cb95a7d1729c165aa4f352ab668d4e80838135594f981bf05120785b01d9b5",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-negative-v2": {
+      "record": "artifacts/inline-ime-negative-v2/record.json",
+      "record_sha256": "fe8616ab68d25fd945799a2b14f60c47585e04e444bcc28be994d7c6e8a1a104",
+      "log_sha256": "45bf580ce9917ca85faa55025340520fceddbff510b4b9861b9df8dd56960a23",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "b907046f333cb656f6f51f2d6eb7869feeaebc32edf12fc256b365b3ec247c71",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-negative-v3": {
+      "record": "artifacts/inline-ime-negative-v3/record.json",
+      "record_sha256": "f6d28b1bec15eb38c925428cd7a7d8aef041b085fe566872c3c539d8e8fb8757",
+      "log_sha256": "854cb7b4915d33942430e66e66dcdc1303e9e27a33ad1289afb29d699197f155",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "8a6b52524c49dfe8d83388095e710e1588b1817acc3eb5cd1cfe22b5698c1526",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v2-tablet": {
+      "record": "artifacts/inline-ime-focused-v2-tablet/record.json",
+      "record_sha256": "7007b89c2f45368fe632016278e237daf65d6567f087d75113e52e564023a508",
+      "log_sha256": "06f0f8ebd2aa62fa4f5ab2f466c8e44edf42b09054da4ea93c1f67677b7e21b5",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": true,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "b907046f333cb656f6f51f2d6eb7869feeaebc32edf12fc256b365b3ec247c71",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-v2-phone": {
+      "record": "artifacts/inline-ime-focused-v2-phone/record.json",
+      "record_sha256": "e8e11daa72fd5c3aeffd7d49feddc3a0206fd4297fc4bd6d0a30dd98955f2662",
+      "log_sha256": "8c6f62b91b8f2c3bd4368d780bf0792c720dbeb9cd8fec29f573b9fd6f572775",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": false,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "b907046f333cb656f6f51f2d6eb7869feeaebc32edf12fc256b365b3ec247c71",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-ime-focused-tablet": {
+      "record": "artifacts/inline-ime-focused-tablet/record.json",
+      "record_sha256": "e35460dab6af085e42c7067f1c969b4c997c008b1d75d96e10c408d2d3de941c",
+      "log_sha256": "9f6b5529e9300f22892bd0adc238a4b5996bcc14d71406de7b0f2da4780de930",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": false,
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6",
+      "test": "b1cb95a7d1729c165aa4f352ab668d4e80838135594f981bf05120785b01d9b5",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v8-tablet": {
+      "record": "artifacts/inline-final-v8-tablet/record.json",
+      "record_sha256": "08a34f2169c6659e7033c7cf3aa4cb3c2fd74cf9028c3bd0b5a8d2b46335b459",
+      "log_sha256": "aeb77b0796521178879bfa0b19a5d2128ff51e779f8a59d98db1bd2a59857f87",
+      "passes": 26,
+      "native_log_passes": 26,
+      "artifact_recovery": null,
+      "expected": 26,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v8-phone": {
+      "record": "artifacts/inline-final-v8-phone/record.json",
+      "record_sha256": "ca3a4a344ea068abd2efbf7a9b04d1c95de0981e82b960d4cab40cbdaf8c037e",
+      "log_sha256": "f19b5466cacc433e5d69c3cdebb1e7b4bb6929ce10b1c5b492e7df52e450c32c",
+      "passes": 26,
+      "native_log_passes": 26,
+      "artifact_recovery": null,
+      "expected": 26,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v3-tablet": {
+      "record": "artifacts/inline-workspace-v3-tablet/record.json",
+      "record_sha256": "035e59ec9321938016ddbc4a0f3bfaa3fe0f6e9f68c6a9f1c4e113d1d3601e37",
+      "log_sha256": "073f0cf67109067f3bda82d5328100d2d9f1df559c58ac9104a7eb27a8177e07",
+      "passes": 27,
+      "native_log_passes": 27,
+      "artifact_recovery": {
+        "original_record": "artifacts/inline-workspace-v2-tablet/record.json",
+        "original_record_sha256": "7cb0d3be5f1bc7a179ec5f4dbc86a32296b8d59dac3a042a9994e9fa9aff3add",
+        "original_tests_sha256": "073f0cf67109067f3bda82d5328100d2d9f1df559c58ac9104a7eb27a8177e07",
+        "collector_sha256": "8a1e4d8c9c446b35ee2fd9f1856a80439e1a6e00c4e239fb9845a29695e6f7a7",
+        "files": {
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/alias-cleared.png": "48164a782437eb90c458ef3ad113d873d9e749d68e964c68ed92a51877bf9a69",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/alias-cleared.xml": "13a461ea6e51f92cbe55baa8e8713a77d9f760876ec0c82f03603132172922cb",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/alias-conflict.png": "81692342be96aeed49455ff2f28c9f586594953e03044764226d3abdd0bbf4d8",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/alias-conflict.xml": "f42cfd1766e0ab066c279fe6f6de1db987a20a6c15a3a686a75dc5828583f62c",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/alias-saved.png": "4e6e495195e43028e167e6f3d4c82dded4c30e80ee73f6c98b4bf7c912a7ac78",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/alias-saved.xml": "86e14055e7f10ffcb1d5713fc6a3fc447112ba1db5af7755c9844c08c62c9d88",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/command-inspector.png": "41a338abbc9329fba2ae3e0630b4e0d98f29799bbe8ce5647ef9ed993c92c7e8",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/command-inspector.xml": "a7d6e7283aecf7cadc3912a1d2b380cadc8c6c76d5dc827775c8fb2f5338ccff",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/filtered-commands.png": "139d32bf602617ad16c9c9a6eb1b7f598312a567d8cc98797363dcf41d3bcf56",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/filtered-commands.xml": "a07c0f9c52fa1d308b3f8b68c17671200daea39f2c4c5cda34cf957b5b1fa835",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/general.png": "163cb67aef0dfbaa92cea9bfc0afffff9ae174c13964780aabadae7e09122219",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/general.xml": "2f6301a93c842e9820f651e750865d4173cab28588855d76f31a3b972966a72b",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-backup-confirm.png": "ed66b1497df04fa32f38349ff76fb41367cc71a75046df987e37ff2b75d2a2c0",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-backup-confirm.xml": "5264bece9da9d144bc803de0e0252621032d79817763418a7c1dc27da9c79239",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-backup.png": "5713643d8308dcc3fef792acfcbf04a636eb553f34606b42e3e440d6b9637153",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-backup.xml": "5c18ec11221da504c5c3b761d40741e532cb654d55e708616d5aca80605fa9ad",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-conflict.png": "2dfb6c386aa5307a69d65f72b0115d1bd247cf298a4996c71fcdc86b9e3e2259",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-conflict.xml": "879dc3a43fdd006798d7f4adf8e0f0a0eadd78f3b965e737a1c0607c55b38ba1",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-recording.png": "0f64a819bdc58e54883dc26266a55eba4f4a18d16753125ff8d4fee439a1727d",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/inline-recording.xml": "a8dfacfe174d061349e7328687c597ceb9711c4c192273a876b5ca4f445d22bf",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/saved-global.png": "7896a44ca01b8d39b4bb44063b5f512471bbdc8e38f2b8189d005b248ec2b308",
+          "artifacts/inline-workspace-v3-tablet/settings-evidence/saved-global.xml": "d417a64293381267e2eee5cbf1ca7400ca9c0681d680612891d086ddff7f2ac4",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/backward-focus.png": "e2b3f24fdbf2bdf3a857ccdb8163aad784ac38fe9b96a333eec4cf2d3d65531f",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/backward-focus.xml": "efe930478e816a3edba4ddc7a8083872d0fda79e56c33b816c16d8bf06581a85",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/command-keycap.png": "6d03aca460319e0e3cb9c6ff770efc00454951a7d2240163a0c92d7dfa2fdab1",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/command-keycap.xml": "722c1cf09dc94c48abf084f6c1a12fc651a79bd6c87115c0001633037702a8d6",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/configured-global.png": "1383ae198492d75af5b54524fafaeef233d98b368344d49c5a27435ce2ffcbb8",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/configured-global.xml": "ab014b49738daccedb0e784cfa4ee9c8fffe3302e063c0b2216ef4247d26dcb4",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/keypad-enter-saved.png": "d283bb2a500568108985222ab9494b3f2fbbc4bb3b5f9f8616b576704ce10bd3",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/keypad-enter-saved.xml": "ccd6deb9f1ea9710f9aa37be1b663685795953259f1b31647d5e797bbb0f23e3",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/manager.png": "a7a41e8b567de7fd7065ae6121dd2654507d9a2721da32c00f80c5f948b09883",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/manager.xml": "11acf98abafcb0ff07e0f880d134eba81ded35c31f02f2df7ecd9d2ee5294fdf",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/record-global.png": "9eb767a572aaf6c615b092b5ed148499a71df4bf1f0210285fe587cf322fb6e8",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/record-global.xml": "fc6347ecf0af9fecf00d6bd01d8557afa81f952b78179b799e5d303a1e57ad2a",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/reset-confirmation.png": "884f10e3ebc1e396300f8dc53b205c845e88e6313815a6a69d89b7e28411b621",
+          "artifacts/inline-workspace-v3-tablet/shortcut-evidence/reset-confirmation.xml": "b7e62276cd969c7434b1d1927957a21a45648dc76f9bd7fc9dd6c049c2db086c",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/document-export-picker.png": "2abd70e302cdce63a466ce78f864e049b7bb67a97fa47f4925a8fba0c867c345",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/document-export-picker.xml": "6163f5a458bb6507fccec9db22bc4c62bc4969246d51981e50404806b1e5771c",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/document-import-preview.png": "491ce67520ace10c90b4aad29ddc65d4d52a6985ca2bfed122f414a5f34bd1fa",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/document-import-preview.xml": "751b6bc2b96d81ea2167ce511c505e7b58ba7355f95fe16f05f738f1296de0e1",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/export-categories.png": "9efe186cb4dbcce3a8867ecaf0ec926ca96639fd7d62742db3a0a2d4bd79a1d0",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/export-categories.xml": "8a5454553dc035f1fab98dbe8a983d4e11f1f06a24de9aba439ae50e5bdc40e5",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/export-import-complete.png": "9328b3094da2775d64f8ac4511a539097cc5402ce1eecaab2295d22f695f7585",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/export-import-complete.xml": "b8b7d73c786542b07db7fadc6826af6a16279231907c6d3176dad2568b696246",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/inspect-backup.png": "ed414c39b336a052dbe6192dbe69f9b1d01e63d55259eeea85ee291fe5f4644d",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/inspect-backup.xml": "742b3ebfe3ab9b4703383e5f8a54a8a2d64de16a670a2366cc9cbd09b7ba952a",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/invalid-backup.png": "aa5e4f3c1e6bcdf7063c01c7930d50b67879b05e6e832a32f4a363312f9cc859",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/invalid-backup.xml": "c0c3fc588836978e170282dce5f38a60933f534c82e47fee908509d6b40720d0",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/preview-cancel.png": "9885dcb53b045ed2d95528ec366f6a9b1fbb9e66e88419dbbc6fd7ed91809e4f",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/preview-cancel.xml": "218309eba29920b7f33e8fce3f9d681a77304673d258ba3566bfbee742d52dfb",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/replace-confirmation.png": "b034d3f845329e6bec6e7629a291c1c407a5c645153255e5835aaa5cb6a92bf8",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/replace-confirmation.xml": "07339c47db568c5d71243e232235751acb6d31e7c6577ad9fb6fc762ed75907a",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/restored-search.png": "d5bcc3483d79cc1f3a73e533f6b37cd3f9b42fe39c4452b0f034cf71bfadb96d",
+          "artifacts/inline-workspace-v3-tablet/backup-evidence/restored-search.xml": "51f502719071b5f0dd04fa84de6f6e5078ae0ef9c4abc1b2e85779ca31afa30f",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/folder-configured.png": "61747de42a843d309954e7acca098f8fd4d13adaf6f55b5f0ad7c0ec1fc9970b",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/folder-configured.xml": "a8caa556cc303f6715a307fffb905b3c4ae42c5e424ede0dad99cec408d62c16",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/folder-removed.png": "5bce1ac0e6864301e2748a68732e2e5f62f00963316765f7a0b074063c4bd261",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/folder-removed.xml": "c67f5f6df32feabf578dcfdb094a0708c55f5fdaa24b22186270f06bdb6996d4",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/native-folder-picker.png": "f9fb03fc00df60804c716dec52afff654115c3b38525aee00ac190e00022f603",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/opened-document.png": "bc83b311ee90b76be29f7ffcb7b2bc801c97a41b0ffdd532df760a4fdb07e1bf",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/opened-document.xml": "81b96aa6559cba9fb4d0b16609d9b70245a6035f2bdda444cbae4a87806c627e",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/permission-expired.png": "4a93ee1a1fe77c6784145596add5e66db5b33e083d3b416d966563fe253518ea",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/permission-expired.xml": "d243710ebf66ee3bdd37013f754cfaf6e04973995e25958d63cae80f69e20343",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/picker-cancelled.png": "59a0665a484a7a30c8f4fb84f8ccbbcd8fe1f2a9108893caad41cd9cbcfeac10",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/picker-cancelled.xml": "3adfd8fa0d8adccd7e1571893e627464893bf54fa32d69e20ed0e3b730572db4",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/search-disabled.png": "7cbf92ffd0b6988bcbd9729ae17256afa85540904682bf2ac569e07647029c90",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/search-disabled.xml": "d243710ebf66ee3bdd37013f754cfaf6e04973995e25958d63cae80f69e20343",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/search-result.png": "1c61bfbcac0363f5e1b0c5fd769d6dd3dd78a39c753f145a3099b05dbe6fe39c",
+          "artifacts/inline-workspace-v3-tablet/folder-evidence/viewer-verification.json": "8b4e01c796c4ad67197839449adfa0091bb48b4f5a9ac9a673d53ef753d0c46c",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/command-selection-after-keyboard.png": "d3d8d412ab7f7246aa745a1dc2f626fd71e276617d1c6061debc2ad9f3237514",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/command-selection-before-keyboard.png": "64743a863ec62e6af7b844c8a5f9aca0140d2088323d104984e6ee2b7131e73d",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/copy-feedback.png": "6d7bc98666847c528db480a8e94504125ba33b660d1705d6021c480da16d57cc",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/emoji-keyboard-hidden.png": "01a465e458ff6efba140d37ec260683dfd60c3b7908f0112e49af9af6bc03960",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/emoji-keyboard-shown.png": "1ad67684c06292f91dc76f92c2d7924babc5a4848bd1dbbec3431fae79b98789",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/emoji-on-entry.png": "28e51ba6c67fd41901e6a084139cad254c9124b77feaba28927cb53bc6960564",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/emoji-selection-after-keyboard.png": "eecf06342b0895da507c8422096291074fbfe9e0a2883e0361de0a904f0f3d46",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/emoji-selection-before-keyboard.png": "16ac5cbea62aff0534670183dc8407c0491db734e93d3df10a6789e4370b0981",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/emoji-typing-settled.png": "fc2cccbd2be92940c22cbd2ad516a6b9a3d5624cfb9d4ad12ee98ea3932e8be4",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/no-results.png": "3a0c139f9f4bbd068a3ffd16b819c304a75936d1508a8ce1695f47671e31cba6",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/origins.tsv": "cf18e43e74c26495caecb375b292456543e3551ddb793fb768d785d591386571",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/search-keyboard-hidden.png": "174690de7cb758ae1c0805901bd0d934c3765cf38a4237cbeed9440369a36df7",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/search-keyboard-shown.png": "cbcc516986f8e7c1685d00eed653bf4dd3f15f7774ffe54e0546748973c5806a",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/search-typing-settled.png": "3aa498475b34080bb52edfc4c66659d202a2a09584cd5f36c66862555511bbad",
+          "artifacts/inline-workspace-v3-tablet/rigid-palette-evidence/visible-selection.png": "df5835777504394a8825bf5fa5a9fbabcced57d5c9d3f27ecb00de3d40c42e64"
+        },
+        "scope": "Read-only collection after all 27 native passes and successful original cleanup; no app/test rerun or modification. Original incomplete record remains unchanged. Existing origins.tsv caused the original allowlist failure."
+      },
+      "expected": 27,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v3-phone": {
+      "record": "artifacts/inline-workspace-v3-phone/record.json",
+      "record_sha256": "549a68e5f4834875e3f167c4c74c48cf81626356eb3d1fdd193877ea6b574c67",
+      "log_sha256": "39de917d14e4f5e0ae078b1e17eb79577e415413b23f6fbbeb1a2304971e3869",
+      "passes": 24,
+      "native_log_passes": 24,
+      "artifact_recovery": null,
+      "expected": 24,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-emoji-final-tablet": {
+      "record": "artifacts/inline-emoji-final-tablet/record.json",
+      "record_sha256": "8a80c0f3e5e2b5f1f4536df185b30f547345f82def21d79deffd02a31f6b1017",
+      "log_sha256": "f39f650e21f7c9ad7581221fa153bda118a546ae107d3e64a553bb8cfa69e7b6",
+      "passes": 13,
+      "native_log_passes": 13,
+      "artifact_recovery": null,
+      "expected": 13,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-emoji-final-phone": {
+      "record": "artifacts/inline-emoji-final-phone/record.json",
+      "record_sha256": "1b8c166b04f4a5ee5b65798e17de0c280cd8c6d5a683283057f5100d9eb66d0a",
+      "log_sha256": "f9cc77385a7e2bb82e7d931c5e10a613888f623f8d0361f07eb69930a3dba3eb",
+      "passes": 13,
+      "native_log_passes": 13,
+      "artifact_recovery": null,
+      "expected": 13,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-hardware-menus-final": {
+      "record": "artifacts/inline-hardware-menus-final/results.json",
+      "record_sha256": "6e4ac10a814b94371df84ded2bbd0ed9dbabeb39e0391372c751cdb015996eb4",
+      "log_sha256": null,
+      "passes": 3,
+      "native_log_passes": null,
+      "artifact_recovery": null,
+      "expected": null,
+      "completed": true,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "release-keys": {
+          "passed": true
+        },
+        "disable-service": {
+          "passed": true
+        },
+        "disable-master": {
+          "passed": true
+        },
+        "clipboard": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "preference-backup-removal": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "verify-preferences": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "remove-input-helper": {
+          "passed": true
+        },
+        "unroot": {
+          "passed": true
+        },
+        "verify-adbd": {
+          "passed": true
+        },
+        "read-size": {
+          "passed": true
+        },
+        "read-density": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-footer-overlap-control": {
+      "record": "artifacts/inline-footer-overlap-control/record.json",
+      "record_sha256": "8a0ac51ae9cbdabeeeacff1f94756bba99efeeb6eecbc5e50c748be2153722cc",
+      "log_sha256": "27ed031d28ad8a05659c473b4e0e44ae969e7389cf3d789b2bda97a4f6736b48",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "1823ed7a6e278c54ff3bdfce9411b59a34b5c2d654123259c325714f682e6740",
+      "test": "da50c9a06b674a7b0ae489410af19d66e86686262f0d29a0bce7104538273f4e",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-scroll-negative": {
+      "record": "artifacts/inline-scroll-negative/record.json",
+      "record_sha256": "a69aa41b6246e443cb8553ea17fd7e8528467baa1b1dd793d6e7f87d09baf24f",
+      "log_sha256": "eb9cfeb7dbfb8aaf6eda31d84124850bec52f3778349fff3fa3edc991d3f7596",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": false,
+      "app": "6f8b55b4f477d0b224101ec995e1461a8a36c7acf3414f4d2e3edd9f8b8002a1",
+      "test": "df8aad95f78f4b400452440d1b8e8bc0a6e093b1a8d710c9946dd895df17fd5a",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-scroll-equal-viewport-control": {
+      "record": "artifacts/inline-scroll-equal-viewport-control/record.json",
+      "record_sha256": "d211b4de026c46e285212bfe44723fb0b5a86ab72b238c189987a0aef139799d",
+      "log_sha256": "86ae8ab6e322eacc89e9bdd482e585ec71923db559e63025e4c439cfe69bcb04",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 2,
+      "completed": false,
+      "app": "6f8b55b4f477d0b224101ec995e1461a8a36c7acf3414f4d2e3edd9f8b8002a1",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-return-positive-v2-tablet": {
+      "record": "artifacts/inline-return-positive-v2-tablet/record.json",
+      "record_sha256": "0f423a2498b777a78ce06a32562573329602717a6d937a47df58e8020225ae68",
+      "log_sha256": "cea2b90fd6d0d073df33c6378249454fb8ba18a3c67d32e39540a4029da9fcd7",
+      "passes": 2,
+      "native_log_passes": 2,
+      "artifact_recovery": null,
+      "expected": 3,
+      "completed": false,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "60e2c616597e3dbb4a48c7786640a05ccc83c82ddcea1f1b7eb842ee016cb409",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-return-equal-viewport-tablet": {
+      "record": "artifacts/inline-return-equal-viewport-tablet/record.json",
+      "record_sha256": "77d6e73099f526a4616df1606b90d12bc45f7188837c393949fb6e348c835814",
+      "log_sha256": "2f87cdffcba23129281dc25beb99634f75b90cd090698321fa1a8cf30a057a7f",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "b727e15d6d5e8cf14d3395b4970bc4e0a89e0600e0c3c290a15951b3b3191ffa",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v1-tablet": {
+      "record": "artifacts/inline-workspace-v1-tablet/record.json",
+      "record_sha256": "d9bf1089d59faf998fa8e15f27798b3e8f56e199a9903615384d3c49f6043002",
+      "log_sha256": "66c6b030ef0efbb263ae1df4e74a10ad0ce93e3070c246f788bc602520b810be",
+      "passes": 0,
+      "native_log_passes": 25,
+      "artifact_recovery": null,
+      "expected": 26,
+      "completed": false,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "b727e15d6d5e8cf14d3395b4970bc4e0a89e0600e0c3c290a15951b3b3191ffa",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-workspace-v2-tablet": {
+      "record": "artifacts/inline-workspace-v2-tablet/record.json",
+      "record_sha256": "7cb0d3be5f1bc7a179ec5f4dbc86a32296b8d59dac3a042a9994e9fa9aff3add",
+      "log_sha256": "073f0cf67109067f3bda82d5328100d2d9f1df559c58ac9104a7eb27a8177e07",
+      "passes": 0,
+      "native_log_passes": 27,
+      "artifact_recovery": null,
+      "expected": 27,
+      "completed": false,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3f5256b052216a0ac2f27604d918282081c1e949e3a43d5f6cfc19e9db29f733",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-backup-scroll-focused": {
+      "record": "artifacts/inline-backup-scroll-focused/record.json",
+      "record_sha256": "ee74eb9543cc8d5faf74c795ad6d8aa7561afa7bf185aa56e5efd4146a7ca483",
+      "log_sha256": "1352c6989fb79cfec85ebcb27c31251e15044fd621fd4e08f9c6bab443a0e644",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "d50baabe4ac4904e565be512e7f5c9dcfa6dae501733a58689593ef9ce3eef63",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-backup-inspect-trace": {
+      "record": "artifacts/inline-backup-inspect-trace/record.json",
+      "record_sha256": "d897235db00723f36d675724ec85f88eb60385f080cf495b00cc579c53afeb7f",
+      "log_sha256": "9182be2013ccfcfdb6499d4a398172f13f111f5423bf6bcdb912ba1dc9b1658e",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "28c7685c2b3120b24d5fe1356f43bc62503e387d9080a6e755e02af9788f9890",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-backup-feedback-negative": {
+      "record": "artifacts/inline-backup-feedback-negative/record.json",
+      "record_sha256": "71b9d590bb9daf4f134783b5f584c8489d3196834e029a016ec7af2b3fe01818",
+      "log_sha256": "4ebf98962ca648588da114977c3398a3fde2f2862cbd8d726a21c4b0e3275316",
+      "passes": 0,
+      "native_log_passes": 0,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": false,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "3263d39848f2ad891ce2978fa4c0aa3b136f522a813ac42ec0d960dad3674488",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v5-tablet": {
+      "record": "artifacts/inline-final-v5-tablet/record.json",
+      "record_sha256": "7560ec916e682003ac9dfc71ae2ecf7677554c9fa5da2619a99540c2b2db1f8f",
+      "log_sha256": "266922079c8e78a835a02e4964ff89dc14b3b813884ab20420d54a8ee66a0c34",
+      "passes": 26,
+      "native_log_passes": 26,
+      "artifact_recovery": null,
+      "expected": 26,
+      "completed": true,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "b727e15d6d5e8cf14d3395b4970bc4e0a89e0600e0c3c290a15951b3b3191ffa",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v5-phone": {
+      "record": "artifacts/inline-final-v5-phone/record.json",
+      "record_sha256": "809d1f7fc3222d23e5faa85655d01fbc162670e9a2d7776ba7327d09950b213e",
+      "log_sha256": "9a7220aa42918a2ef11d40cedb16e3a2dc39682b67dce3fbe108af22b0b38c28",
+      "passes": 26,
+      "native_log_passes": 26,
+      "artifact_recovery": null,
+      "expected": 26,
+      "completed": true,
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51",
+      "test": "b727e15d6d5e8cf14d3395b4970bc4e0a89e0600e0c3c290a15951b3b3191ffa",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v6-tablet": {
+      "record": "artifacts/inline-final-v6-tablet/record.json",
+      "record_sha256": "a9452c73471880ff3ec58de67473dc7748247ac141a5804df51dc3b67b6704e2",
+      "log_sha256": "79fab3153f3298662ac03f72d1e9309720dd4a738c9231770ae235af620d26d1",
+      "passes": 25,
+      "native_log_passes": 25,
+      "artifact_recovery": null,
+      "expected": 26,
+      "completed": false,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "3263d39848f2ad891ce2978fa4c0aa3b136f522a813ac42ec0d960dad3674488",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-final-v7-tablet": {
+      "record": "artifacts/inline-final-v7-tablet/record.json",
+      "record_sha256": "7a9184b199b6a6af0a4b51f3d5f7d534f0c9fb3b334b3b173b8a93506fc3845e",
+      "log_sha256": "40e27c6a6e247be9ced1ca7ea4bc69ca9c8789c0b556c27724f709f9823a911a",
+      "passes": 25,
+      "native_log_passes": 25,
+      "artifact_recovery": null,
+      "expected": 26,
+      "completed": false,
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287",
+      "test": "91969bceaeef1f6150f74832233da7a75d8c9783c4d6ab04f160bd16ae0a7425",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-frozen-tablet": {
+      "record": "artifacts/inline-frozen-tablet/record.json",
+      "record_sha256": "a58c74c79d818105e4cfe92e20cbc0e7b79db4f4563780cbb79a0348aa6091d2",
+      "log_sha256": "4fdf29964b8fa0763cee393d5743ee2a9d7ba0c570b131e989f33123641fc958",
+      "passes": 35,
+      "native_log_passes": 35,
+      "artifact_recovery": null,
+      "expected": 36,
+      "completed": false,
+      "app": "6f8b55b4f477d0b224101ec995e1461a8a36c7acf3414f4d2e3edd9f8b8002a1",
+      "test": "62283f1865b9d7400baf3551e7cfca2926a33b950ecb4b9f1a3c26f50ba0a762",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-frozen-tailwind-tablet": {
+      "record": "artifacts/inline-frozen-tailwind-tablet/record.json",
+      "record_sha256": "c4aea5edf060c5240480146d352d45e258c7eb0feb64ea8436fad3c49f6fcc06",
+      "log_sha256": "8e3e94b38cebc7eda5dda4269614afe3b6c7623d809b3f72abc5ea59f9d07371",
+      "passes": 1,
+      "native_log_passes": 1,
+      "artifact_recovery": null,
+      "expected": 1,
+      "completed": true,
+      "app": "6f8b55b4f477d0b224101ec995e1461a8a36c7acf3414f4d2e3edd9f8b8002a1",
+      "test": "62283f1865b9d7400baf3551e7cfca2926a33b950ecb4b9f1a3c26f50ba0a762",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-frozen-phone": {
+      "record": "artifacts/inline-frozen-phone/record.json",
+      "record_sha256": "431552c5bade2d39caf9f3d9bec29c1c0972fd13529d7a50f3eab2ac28748d66",
+      "log_sha256": "9de70686241324578b71727c0d0d2d08e01a4af7ad1680a0638705529b31ce0a",
+      "passes": 36,
+      "native_log_passes": 36,
+      "artifact_recovery": null,
+      "expected": 36,
+      "completed": true,
+      "app": "6f8b55b4f477d0b224101ec995e1461a8a36c7acf3414f4d2e3edd9f8b8002a1",
+      "test": "62283f1865b9d7400baf3551e7cfca2926a33b950ecb4b9f1a3c26f50ba0a762",
+      "typing_probe": null,
+      "probe_completion_is_input_certification": null,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-typing-probe-r8": {
+      "record": "artifacts/inline-typing-probe-r8/results.json",
+      "record_sha256": "fcad9bd074c6d6cfd970dc5ff47fe6993ef8e5c8e2a73501df9a91c42131b428",
+      "log_sha256": null,
+      "passes": 0,
+      "native_log_passes": null,
+      "artifact_recovery": null,
+      "expected": null,
+      "completed": true,
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "test": "62283f1865b9d7400baf3551e7cfca2926a33b950ecb4b9f1a3c26f50ba0a762",
+      "typing_probe": {
+        "expected": "menuKeyboardProbe271828",
+        "observations": [
+          {
+            "seconds": 2.763,
+            "values": [
+              "menuKeyboardProbe2"
+            ]
+          },
+          {
+            "seconds": 5.079,
+            "values": [
+              "menuKeyboardProbe2"
+            ]
+          }
+        ],
+        "exact": false
+      },
+      "probe_completion_is_input_certification": false,
+      "cleanup": {
+        "release-keys": {
+          "passed": true
+        },
+        "disable-service": {
+          "passed": true
+        },
+        "disable-master": {
+          "passed": true
+        },
+        "clipboard": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "preference-backup-removal": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "verify-preferences": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "remove-input-helper": {
+          "passed": true
+        },
+        "unroot": {
+          "passed": true
+        },
+        "verify-adbd": {
+          "passed": true
+        },
+        "read-size": {
+          "passed": true
+        },
+        "read-density": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    },
+    "inline-typing-probe-current": {
+      "record": "artifacts/inline-typing-probe-current/results.json",
+      "record_sha256": "62e1c0cfa76e27f1f99a5ccb439bc4b006c3a885f9d8eead3b977fc9ce87b0f8",
+      "log_sha256": null,
+      "passes": 0,
+      "native_log_passes": null,
+      "artifact_recovery": null,
+      "expected": null,
+      "completed": true,
+      "app": "6f8b55b4f477d0b224101ec995e1461a8a36c7acf3414f4d2e3edd9f8b8002a1",
+      "test": "62283f1865b9d7400baf3551e7cfca2926a33b950ecb4b9f1a3c26f50ba0a762",
+      "typing_probe": {
+        "expected": "menuKeyboardProbe271828",
+        "observations": [
+          {
+            "seconds": 2.744,
+            "values": [
+              "menuKeyboardProbe271828"
+            ]
+          }
+        ],
+        "exact": true
+      },
+      "probe_completion_is_input_certification": false,
+      "cleanup": {
+        "release-keys": {
+          "passed": true
+        },
+        "disable-service": {
+          "passed": true
+        },
+        "disable-master": {
+          "passed": true
+        },
+        "clipboard": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "preference-backup-removal": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "verify-preferences": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "remove-input-helper": {
+          "passed": true
+        },
+        "unroot": {
+          "passed": true
+        },
+        "verify-adbd": {
+          "passed": true
+        },
+        "read-size": {
+          "passed": true
+        },
+        "read-density": {
+          "passed": true
+        }
+      },
+      "installed_matches": true
+    }
+  },
+  "images": [
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-editor.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-editor.png",
+      "sha256": "bec489591af01fc4272b0378df8c68767edf692b7a49de278271f52333561905",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Editor replaces the launcher body inside its floating palette",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-editor.xml",
+      "xml_sha256": "8c9dd886f66ec24fb83b18f357efedf59ccd5487580f04e3fddc783432be8b18",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-editor-ime.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-editor-ime.png",
+      "sha256": "c16b2fa8ec4e43f2b787d593228e5d930790c366f2c2680b8b91fa06121aece7",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Editor Save remains reachable above the real keyboard",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-editor-ime.xml",
+      "xml_sha256": "f3af9fe0011baf140e9b07dcda34c131edf81dc270a6646599ff2f5ace9f93cd",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-command-actions.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-command-actions.png",
+      "sha256": "5f011c5f02c5d97a6fcb00076a4a9966714661b0fe373b79031f7bd9621738c0",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Contextual searchable actions, icons and keycaps above the shared footer",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-command-actions.xml",
+      "xml_sha256": "8671847c038a111a8b6fe5adc654e528a10d42532c9d7bca47d87653bb0edf90",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-actions-search.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-actions-search.png",
+      "sha256": "9ff110100042b2fe7e95fc9d03655aafb72bf22dc32f44277a406dab3da1b7d1",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Action search filters Copy content while preserving the launcher query",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-actions-search.xml",
+      "xml_sha256": "bd7709dffb37e15691bee10efd223e00e86cfa0088bab16458243552f4c6567e",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-emoji-actions.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-emoji-actions.png",
+      "sha256": "1d80dc569a335b17ed50f86575928e4b49e1d061d0eaf685fc4c57cee8448362",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Emoji uses the shared primary/action capsule and in-surface actions",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-emoji-actions.xml",
+      "xml_sha256": "8d69c6435a1d06d1493d303ecb1b4d8ac2b38a4c274237682ed1de29098ffd38",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-command-menu.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-command-menu.png",
+      "sha256": "f0245243519461c2ec0927154f0d0fbbb0c5426785d1dee880ac1f40a061c66b",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Categories remain within the palette and share its focus tree",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-command-menu.xml",
+      "xml_sha256": "5c1066304350e1a3e91b432a518073b0a44b33ee59f7813fd4d69a0b07a2222e",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-native-grid.png",
+      "origin": "artifacts/inline-final-v10-tablet/native-grid.png",
+      "sha256": "db22e69d1164534b34e7aa9c4d3939deea45c93d324c47762199bf5c10761318",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Authored React Grid fixture rendered as native raster, swatch and emoji cells",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/native-grid.xml",
+      "xml_sha256": "9647da0481b09f1f554a255e77f0ec91062f4e9f6312539c86202e84dc33c01c",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-keyboard-selected-visible.png",
+      "origin": "artifacts/inline-final-v10-tablet/keyboard-selected-visible.png",
+      "sha256": "8d99a56894a43e88af1a554b699a553d5a66f556882ab08f7af0ca38005069b8",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Complete selected Grid cell and primary action above Gboard",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/keyboard-selected-visible.xml",
+      "xml_sha256": "1aa6f02479bf3f4797613170b52feddae68d09fc3ac965d77955753a41e87221",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-detail-destination.png",
+      "origin": "artifacts/inline-final-v10-tablet/detail-destination.png",
+      "sha256": "f682e232306b587f863b259876009962c951c32ae3ef914d28c9bbf9d3c9540f",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Pushed Detail destination inside the palette; Markdown remains raw source",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/detail-destination.xml",
+      "xml_sha256": "28c2e1090cad45c66b55b0510f5140b1f8709a25de3dda4b500142b3ea78f1dc",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-preferences-return.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-preferences-return.png",
+      "sha256": "e96c60d19dc095a77fc63bf35fb67661cd0059ebe784369c096e3c7c36ca866a",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Cancel from preferences retains the running JS session and selection",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-preferences-return.xml",
+      "xml_sha256": "0a034b8133b773773fe3ac11dc75519c7ca363fccb7120d8513aeefbd76ce5c3",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-form-regression.png",
+      "origin": "artifacts/inline-final-v10-tablet/form-regression.png",
+      "sha256": "01b708b4ec7f19eeedbcc29649ff1eb45b5963b566b0c4b52050d53f57d57fcb",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Basic extension Form editing and submission in the same window",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/form-regression.xml",
+      "xml_sha256": "94fde5cbffd41f0875e724c605c058bc34f04c132287ab7e5409fbb5c096049f",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-install-review.png",
+      "origin": "artifacts/inline-final-v10-tablet/store-inline-install-review.png",
+      "sha256": "7498128e446cdc6b6a6e8f58c3a0704a14da8c8d291bf15979126096c8c40b91",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Real Store install review replaces the palette body",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-install-review.xml",
+      "xml_sha256": "b91015f9bad309fc40a709e3c63447786a5437dfe5e52bffa9cffdae44dc44e7",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-command.png",
+      "origin": "artifacts/inline-final-v10-tablet/store-inline-command.png",
+      "sha256": "f58a56f0045ab9d1eef33a6316d84212c27e76babc8e90303049e6e770824b65",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Real Palette Colors bundle running as a native Grid",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-command.xml",
+      "xml_sha256": "6b58fc456553c3d285dc6e3727fda78eca43283754d9801842ad0b8116587a43",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-return.png",
+      "origin": "artifacts/inline-final-v10-tablet/store-inline-return.png",
+      "sha256": "586d14ee0bfbe4e0efe79df5d2d16e3a671ee05d58bb9c513a9fec167f21fd9b",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Back from a command restores the Installed tab and Store query",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-return.xml",
+      "xml_sha256": "ce84af919423855fca285d5adf89d44c693684dfd51f7068b8a477bc8cec1435",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-store-inline-uninstall-review.png",
+      "origin": "artifacts/inline-final-v10-tablet/store-inline-uninstall-review.png",
+      "sha256": "deb8b87de228daf2d959cbc4d4d8624dea3881b040476db77f1961b7086bd6cf",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Explicit inline review before removing an extension",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/store-inline-uninstall-review.xml",
+      "xml_sha256": "dd31968d504d0abc607f261d5fa6148290292ad1da59b403f9248ffe8f77b192",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-store-legacy-oklch.png",
+      "origin": "artifacts/inline-final-v10-tablet/store-legacy-oklch.png",
+      "sha256": "f43de9fbae901bcec8b72ffa9b26b0b12b0620c1a41215eb19e77098287a8b71",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Real OKLCH Store List command and copied result",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/store-legacy-oklch.xml",
+      "xml_sha256": "6063f57653a54d2ac18c16a2529247e7f3e54ed9be6dd3989017288b11f6519a",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-alias-conflict.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-alias-conflict.png",
+      "sha256": "bb5e4445071e94c3795e0b137f87c75ff25ec4ca8b15edce531be082cfeef419",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Alias collision feedback remains inside the palette",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-alias-conflict.xml",
+      "xml_sha256": "a9f194d9610be8eba4451fbc3b27a7f9a31de7c135ed218bde33cd327a60bbf0",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-delete-review.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-delete-review.png",
+      "sha256": "a5653f8b220891add34ed0ed6a62ea3371103b467cbe8de26fd3c49a6d44d4cd",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Delete review has explicit confirmation and a cancel/back path",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-delete-review.xml",
+      "xml_sha256": "e1ab71994eed8dffd4f926a2132a4112e40982d7d2a680b1106435e233a47631",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-feedback.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-feedback.png",
+      "sha256": "8636a4018e091e3560edfee5822c55fc5c25ec1be44e82fea5727aedf3070c99",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Feedback stays inside the active palette screen",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-feedback.xml",
+      "xml_sha256": "9d4826e1099d3fefb6c61524630211a698754a3359c1b0e81dbb749ad983b7a2",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-launcher-return-position.png",
+      "origin": "artifacts/inline-final-v10-tablet/launcher-return-position.png",
+      "sha256": "ff05dc9dcf573d154168d1b633c7168352589c4e786192bdc6e9875733356cf7",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Equal-viewport Back restores the exact manually scrolled launcher row",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/launcher-return-position.xml",
+      "xml_sha256": "0f0460f8a03c7d65571ccd4aadba0c035c9919e8c9b1fd0b80f9d78656c1b0ff",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-grid-return-position.png",
+      "origin": "artifacts/inline-final-v10-tablet/grid-return-position.png",
+      "sha256": "adc117ab3f8d609d5d9fe64465f0d74669afd8bc080c8496965e0b4c5d3913bb",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Cancelling preferences restores the exact manually scrolled Grid cell",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/grid-return-position.xml",
+      "xml_sha256": "5fd41fa865bf6a082bc27dcbf6a85696c7293d2cb6aff809e47ffb365db9a83c",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-store-tailwind-unavailable.png",
+      "origin": "artifacts/inline-final-v10-tablet/store-tailwind-unavailable.png",
+      "sha256": "765fe622b5d09b830dbcd11753164cc4cfc96fcb963098595b1a03c44ac3e848",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Tailwind remains rejected by the existing expanded-file size limit",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/store-tailwind-unavailable.xml",
+      "xml_sha256": "71718bbaefc7b568f88939cbc7ea88a3420520c2d8a588bd9b2b3b7fc3f6e6e6",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-ime-selected.png",
+      "origin": "artifacts/inline-final-v10-tablet/inline-ime-selected.png",
+      "sha256": "87b57679ce593304bc0c4f0b9b7043f8f91e75d45935772d1f9e2909a7f3a96d",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Highlighted Edit note before Search IME submission; native assertions verify the selected editor opens",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-tablet/inline-ime-selected.xml",
+      "xml_sha256": "0d604e6551fcb712a597dd7c19e22ec81e8b7884fac794b8f150175e5ee35c5a",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-before-editor.png",
+      "origin": "artifacts/inline-baseline-r8-tablet/before-editor.png",
+      "sha256": "105d639f67ecc08a2cf09e41fdd1349ec8df69c08cdcc47ad4d3b54eef86b1d9",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Released r8 editor in its former presentation",
+      "build": "r8",
+      "xml_origin": "artifacts/inline-baseline-r8-tablet/before-editor.xml",
+      "xml_sha256": "88553ddd346274eaf7861de2f4dcddf8bc3a0b44936e253130bbc93d70dd2e79",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-before-actions.png",
+      "origin": "artifacts/inline-baseline-r8-tablet/before-actions.png",
+      "sha256": "7f6362824c9d5645a681a3ba832520ebc887def84754c35c2d598f8845b332d3",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Released r8 action menu",
+      "build": "r8",
+      "xml_origin": "artifacts/inline-baseline-r8-tablet/before-actions.xml",
+      "xml_sha256": "be964ae70f6cf3fd4fce103ce329508aa5154d9a833db19d41d8beff0640bd84",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-before-grid.png",
+      "origin": "artifacts/inline-baseline-r8-tablet/before-grid.png",
+      "sha256": "61ac997f6fc23449d5b733a0175590aa664f1e63b7d39a25ec671650860ea6e1",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Released r8 flattens the same authored Grid fixture into List rows",
+      "build": "r8",
+      "xml_origin": "artifacts/inline-baseline-r8-tablet/before-grid.xml",
+      "xml_sha256": "a62a0164da3dab7548c5439017f77d402213dcbbe520ae822c345ba49674c7e0",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-editor.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-editor.png",
+      "sha256": "2e81e01a67f9e82c40313a447d385fe9bf9e5fcef77db7c769a9d588a8f7106a",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Editor replaces the launcher body inside its floating palette",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-editor.xml",
+      "xml_sha256": "b114288eae43981112f07fde27a191825782733b0981d89b0c3a2eb42fe0f361",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-editor-ime.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-editor-ime.png",
+      "sha256": "6fd76565f35d2a66fa302bf5d2e4ce10c93b7b0c73400b0ec3eb66f83fa19334",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Editor Save remains reachable above the real keyboard",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-editor-ime.xml",
+      "xml_sha256": "e43dc822f33017ef88e070f2d17aa7a0e2cd2ecf34b759b5b10e08145d6ee2ff",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-command-actions.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-command-actions.png",
+      "sha256": "d07fc8865f6956f0340c9def7de9eed163915c8a6b411f0f7a552f894d4c512b",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Contextual searchable actions, icons and keycaps above the shared footer",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-command-actions.xml",
+      "xml_sha256": "8ed4bd6ac846395034a63679bceff5b3057f5fcb59b9574031ae41beeebc82f5",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-actions-search.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-actions-search.png",
+      "sha256": "aa9c644a2d6ff5110fc00db761f41f2625311ec4abda0eee28d75b0948ca5285",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Action search filters Copy content while preserving the launcher query",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-actions-search.xml",
+      "xml_sha256": "a6bf0373e001b0b90a5fdc13d7d487ce51a86f85090a2c7ef2c1653e92d6301e",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-emoji-actions.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-emoji-actions.png",
+      "sha256": "0806a4a9677d005ab15fea7e758877c3c1ec0e04030a494636e584b687bd8132",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Emoji uses the shared primary/action capsule and in-surface actions",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-emoji-actions.xml",
+      "xml_sha256": "3b7cb116ea6815d442ecbc627d23533ef4c0f9524c08c3860285d3c2132a343b",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-command-menu.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-command-menu.png",
+      "sha256": "7227970bcc9820f9f4a1f23ea6b5e0006737c7c30deb3db91ee3e36235c7b3db",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Categories remain within the palette and share its focus tree",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-command-menu.xml",
+      "xml_sha256": "5a1395dbbec41c0b48372f2e78375cce94dc5bbdb628169abe8a1845e794f69d",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-native-grid.png",
+      "origin": "artifacts/inline-final-v10-phone/native-grid.png",
+      "sha256": "31379225e35d98977712deb6faaa39904576bfc358e2b0fd06ad0736c614ce11",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Authored React Grid fixture rendered as native raster, swatch and emoji cells",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/native-grid.xml",
+      "xml_sha256": "3cb0882d415c435a4d73d88948b684ca501185d0bd60a8e68ebba0a588392c9e",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-keyboard-selected-visible.png",
+      "origin": "artifacts/inline-final-v10-phone/keyboard-selected-visible.png",
+      "sha256": "323eda4852cfdc38f6865646f5ffddee99257ba467b4ac0379eff1d8d8da0ce4",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Complete selected Grid cell and primary action above Gboard",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/keyboard-selected-visible.xml",
+      "xml_sha256": "2a59e30d68894f2f766112af44503f49a337a77104448dce8e3d2b9912d56218",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-detail-destination.png",
+      "origin": "artifacts/inline-final-v10-phone/detail-destination.png",
+      "sha256": "40c62bc12fcf23b1b452b4519bd90722b8d33abe0cd89916a16c8ca82c7b1641",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Pushed Detail destination inside the palette; Markdown remains raw source",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/detail-destination.xml",
+      "xml_sha256": "bf7ef5483c915b8afdfdd6da1a758cf5cf6fd2fa5e0a1590e6024e3403c17e61",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-preferences-return.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-preferences-return.png",
+      "sha256": "b036f5f36c65524f895e4aebea630250cc3568336d70e4a6e875ecb74dcb6842",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Cancel from preferences retains the running JS session and selection",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-preferences-return.xml",
+      "xml_sha256": "d2b1d30389c639cf6489b2e8ab86d8d070640a317748296a3b34a765ed6603af",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-form-regression.png",
+      "origin": "artifacts/inline-final-v10-phone/form-regression.png",
+      "sha256": "97423b9be78c605f473492d7bd41a9316732c90607836fc53c39155c55581ddd",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Basic extension Form editing and submission in the same window",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/form-regression.xml",
+      "xml_sha256": "0fe3492af668e5659c4f2925ae20758cabcd0f66db48d69660b82c364f0cc66c",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-store-inline-install-review.png",
+      "origin": "artifacts/inline-final-v10-phone/store-inline-install-review.png",
+      "sha256": "0af250856f854b0df9dd00243fa71582936b1e0aa9970340c3cdc8ba9123e722",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Real Store install review replaces the palette body",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-install-review.xml",
+      "xml_sha256": "9b09e51517a0e2e46a147e8dcc533a44371783e3c979020fe5ae4f189e3875d7",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-store-inline-command.png",
+      "origin": "artifacts/inline-final-v10-phone/store-inline-command.png",
+      "sha256": "6d91fdff188e9928cc498134f9caa21d71a4d3cecb096751c5b3d596c2bfd5d5",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Real Palette Colors bundle running as a native Grid",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-command.xml",
+      "xml_sha256": "f335d1f89306887ad8c9a40d30b2f5fe931f702732678f2767119ff84f708c7b",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-store-inline-return.png",
+      "origin": "artifacts/inline-final-v10-phone/store-inline-return.png",
+      "sha256": "6f57b090b6456d894dda06f3538690c6eee837c2784905784b1323654750d4f6",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Back from a command restores the Installed tab and Store query",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-return.xml",
+      "xml_sha256": "8db39628c68fd71005c392d862d40740aef3db925d913ca6bd2c3b5fc7b67985",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-store-inline-uninstall-review.png",
+      "origin": "artifacts/inline-final-v10-phone/store-inline-uninstall-review.png",
+      "sha256": "41865fb351e776b4d7d7345439b408e05c8d391dbfd0462a2d012d2379875379",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Explicit inline review before removing an extension",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/store-inline-uninstall-review.xml",
+      "xml_sha256": "8e6d00755cd3b299938cb665efd853f99fa47d0cf9b1856e0a0fa6809fe01faf",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-store-legacy-oklch.png",
+      "origin": "artifacts/inline-final-v10-phone/store-legacy-oklch.png",
+      "sha256": "f1b0076eacbbe02994c4a6ad0a9ed936c1e708f18fb5cc4f81d610de6c234ac8",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Real OKLCH Store List command and copied result",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/store-legacy-oklch.xml",
+      "xml_sha256": "f1af246dcaf1e9bb855c38f4bc6b4810fad4a96704a9a34d1e5f661272d125b5",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-alias-conflict.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-alias-conflict.png",
+      "sha256": "0a50f3a7546a3950e7a6c3ba3d43b3b09e37f375b50148241cc73d17b4022347",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Alias collision feedback remains inside the palette",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-alias-conflict.xml",
+      "xml_sha256": "45b84dd2dc734fd5281c93d96a55b82a5371f4f4de172bf458b419e05a2a1a89",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-delete-review.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-delete-review.png",
+      "sha256": "2c6d133fd0c77109e06881de408ddb3c3b090213198bdc92735b20af2ef7840a",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Delete review has explicit confirmation and a cancel/back path",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-delete-review.xml",
+      "xml_sha256": "39749ded60cce5d6d5e1622cf97006e1f7aba9da9aecc3a860663b54f7205986",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-feedback.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-feedback.png",
+      "sha256": "fa1fb3926acd2a520273e91acb6840d00966b079745d41b67304ca9c8d85d841",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Feedback stays inside the active palette screen",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-feedback.xml",
+      "xml_sha256": "9359a906a35c81f271d49c83f0cd7c9b192d1cb853d34f542d8dcff8c1a2f59d",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-launcher-return-position.png",
+      "origin": "artifacts/inline-final-v10-phone/launcher-return-position.png",
+      "sha256": "5c766aa0c26ebfc2e330f4c615afcf77b441e4aadec8a13c62e8a3560044a519",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Equal-viewport Back restores the exact manually scrolled launcher row",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/launcher-return-position.xml",
+      "xml_sha256": "5c41cca73727111fb1509cd94670fa4551a8948b01f86e0464933d3f690f11f0",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-grid-return-position.png",
+      "origin": "artifacts/inline-final-v10-phone/grid-return-position.png",
+      "sha256": "1d65d29cd708a366b97d94af5c9cc3b2f9ef5d3dd98b0e3dfccc64f96cfb3c8f",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Cancelling preferences restores the exact manually scrolled Grid cell",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/grid-return-position.xml",
+      "xml_sha256": "dcb968d20c5d5a184f7fe344f724492341fc54e5a750c7f1143719a0d0262a12",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-store-tailwind-unavailable.png",
+      "origin": "artifacts/inline-final-v10-phone/store-tailwind-unavailable.png",
+      "sha256": "2c32ac691892b56511181a6a90b58c1d345586b1712ff277ad8eb8144cfd6d19",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Tailwind remains rejected by the existing expanded-file size limit",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/store-tailwind-unavailable.xml",
+      "xml_sha256": "7e4ab0be31d4a798456245eddc0ce7b543f4b6921a0ad04cf5e917d6eab17d83",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-inline-ime-selected.png",
+      "origin": "artifacts/inline-final-v10-phone/inline-ime-selected.png",
+      "sha256": "5f08258eb25319ea0e9a87b0d84d7592578ed8f5f19e379d97740429e0e03d89",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Highlighted Edit note before Search IME submission; native assertions verify the selected editor opens",
+      "build": "final",
+      "xml_origin": "artifacts/inline-final-v10-phone/inline-ime-selected.xml",
+      "xml_sha256": "2f96d4ca597670518abed4366f42cb1633cbfd8e823ea75780e5f4e8dc4e0e2d",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-before-editor.png",
+      "origin": "artifacts/inline-baseline-r8-phone/before-editor.png",
+      "sha256": "8fc7565fe08c20614e67d2e939e294c40ec86ab9661258e11cbb9f0194e722b0",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Released r8 editor in its former presentation",
+      "build": "r8",
+      "xml_origin": "artifacts/inline-baseline-r8-phone/before-editor.xml",
+      "xml_sha256": "750491f2ae8804381dfb2f88c0e469090b2f8bfdfddad180ad6d59a25f891eed",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-before-actions.png",
+      "origin": "artifacts/inline-baseline-r8-phone/before-actions.png",
+      "sha256": "4c0493999f3e9f489f7ff521771e11131c78e968e239e0afe16924ceca5aeb9d",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Released r8 action menu",
+      "build": "r8",
+      "xml_origin": "artifacts/inline-baseline-r8-phone/before-actions.xml",
+      "xml_sha256": "91ba12a6f73ca8f224e7d1fc6f7871e735d603bd99107f95fd6e704ff8ce5585",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/phone-before-grid.png",
+      "origin": "artifacts/inline-baseline-r8-phone/before-grid.png",
+      "sha256": "e5810aa9011d15c4e5f143f4aa59bad076ba9518021288f650343fa985f6c4fa",
+      "width": 1080,
+      "height": 2340,
+      "caption": "Released r8 flattens the same authored Grid fixture into List rows",
+      "build": "r8",
+      "xml_origin": "artifacts/inline-baseline-r8-phone/before-grid.xml",
+      "xml_sha256": "b561837dddf99477f280bea515245430e67d7b4cdcd3bae4c703bb310b971373",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-grid-capture-return.png",
+      "origin": "artifacts/inline-final-v9-tablet/capture-failure-inline-filter-focus.png",
+      "sha256": "e23c77388a282b426c99bd3621700d1452aeed030d98e0af20d73016a1865b88",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Earlier full-run capture failure: the launcher replaced Grid after copying; cause remains unestablished under #62",
+      "build": "capture-control",
+      "xml_origin": "artifacts/inline-final-v9-tablet/capture-failure-inline-filter-focus.xml",
+      "xml_sha256": "38ad2b32b51e68a3a09fb8bd449a41e5ccdaac047f8ec11f0f991a2210acaeb4",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-stale-feedback.png",
+      "origin": "artifacts/inline-final-v8-tablet/inline-feedback.png",
+      "sha256": "f515bbe23330161aa468238511b42718284db16ee5e89dca7481634d9b9be5b6",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Previous reviewed head: the claimed feedback capture still depicts the Delete review",
+      "build": "feedback-control",
+      "app": "b39e157d34e09d379ecee001ee92be8ff5e9dfd54bd532d6db2d9415af4be287"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/tablet-inline-backup-inspection.png",
+      "origin": "artifacts/inline-workspace-v5-tablet/backup-evidence/inspect-backup.png",
+      "sha256": "c06c810c82c4a4322c3dcc176f35fee9fc10e85ccc7192745f71aa51d549bb69",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Backup contents are reachable inside the palette after the real document picker",
+      "build": "final",
+      "xml_origin": "artifacts/inline-workspace-v5-tablet/backup-evidence/inspect-backup.xml",
+      "xml_sha256": "e9bc494d2e16a19ffcc06518d12cf290a46b7607f1c61d691d0a4352b125d801",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-obsolete-backup-feedback.png",
+      "origin": "artifacts/inline-backup-inspect-trace/backup-evidence/inspect-after.png",
+      "sha256": "912b636ff5a3f8c1791e74614040688da58ca126dcbb594435a1b276868df33b",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Earlier candidate: obsolete export feedback covers Inspect in the new preview",
+      "build": "backup-control",
+      "xml_origin": "artifacts/inline-backup-inspect-trace/backup-evidence/inspect-after.xml",
+      "xml_sha256": "1a3698cc7407fab8cf355fae6a34e12c2760043b53d36e281dd96fe6e43f76fb",
+      "app": "362ce20871fbc7e6649531508f1dda216fe499523adfc127d07e9414132c1b51"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/hardware-double-ctrl.png",
+      "origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-double-ctrl.png",
+      "sha256": "8238ab1594f81be6ea8d6c77951b1d04e5b9dfd8b6cb381c245f0041e2237be9",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Connected keyboard service yields Double Ctrl to the focused inline menu",
+      "build": "final",
+      "xml_origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-double-ctrl.xml",
+      "xml_sha256": "826f17e5c63ad5ebc55a34c0b210e5626e9f2f1f7b8040f17a2bfcd5ececfa3c",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/hardware-alt-q.png",
+      "origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-alt-q.png",
+      "sha256": "8238ab1594f81be6ea8d6c77951b1d04e5b9dfd8b6cb381c245f0041e2237be9",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Configured Alt+Q leaves the active inline menu open",
+      "build": "final",
+      "xml_origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-alt-q.xml",
+      "xml_sha256": "826f17e5c63ad5ebc55a34c0b210e5626e9f2f1f7b8040f17a2bfcd5ececfa3c",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/hardware-closed-command.png",
+      "origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-closed-command.png",
+      "sha256": "35ee715000347545a56b4ca9d8c7a8cce5256a194b413f6b1e7d8f658ae03459",
+      "width": 1920,
+      "height": 1200,
+      "caption": "After Escape, Alt+Q opens the note editor again",
+      "build": "final",
+      "xml_origin": "artifacts/inline-hardware-menus-v3-final/inline-menu-closed-command.xml",
+      "xml_sha256": "a924f64ead9cc79a1de6f19a88e46c233c760a3a8317a1e944d8eda7036a85b5",
+      "app": "bac8d011c9cb5f0d9106fd84b4fd384ac1bf59362e1e1a53bec5e07f87e0a8c6"
+    },
+    {
+      "path": "docs/screenshots/parity-inline-palette/control-footer-overlap.png",
+      "origin": "artifacts/inline-footer-overlap-control/action-panel-overlap.png",
+      "sha256": "6d8160c8c5701bfa189b52e3c326c1c92539be22e5ca3d56cda5f10844e53596",
+      "width": 1920,
+      "height": 1200,
+      "caption": "Earlier development control: the action panel overlaps the primary action by three pixels",
+      "build": "overlap-control",
+      "app": "1823ed7a6e278c54ff3bdfce9411b59a34b5c2d654123259c325714f682e6740"
+    }
+  ],
+  "limitations": [
+    "Unexpected Grid return during an earlier capture remains unattributed under #62; node-targeted clipboard cleanup and route/session assertions are test-harness safeguards, not a production fix",
+    "Synthetic input truncation #59 and earlier caret timing remain unexplained",
+    "Saved screenshots establish no latency or continuous-animation certification",
+    "Physical/OEM/Lenovo, TalkBack/large-font, endurance and process death unverified",
+    "Tailwind retains expanded-file-limit failure; Grid/API/Markdown/Forms compatibility is partial",
+    "Installed identity and restoration are helper assertions on owned emulator only"
+  ]
+}

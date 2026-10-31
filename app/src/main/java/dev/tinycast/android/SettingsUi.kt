@@ -79,6 +79,7 @@ internal fun AdvancedSettings(activity: SettingsActivity) {
             bodySmall = TextStyle(fontSize = 11.sp, lineHeight = 16.sp), labelLarge = TextStyle(fontSize = 12.sp, lineHeight = 16.sp))) {
         LaunchedEffect(store.message) { store.message?.let { snackbar.showSnackbar(it); if (store.message == it) store.message = null } }
         CompositionLocalProvider(LocalContentColor provides PaletteTheme.ink) {
+        PaletteMenuHost(store, openChanged = { if(it) activity.cancelShortcutProbe() }) {
         BoxWithConstraints(Modifier.fillMaxSize().focusRequester(initialFocus).onFocusChanged { hasFocus = it.hasFocus }.onGloballyPositioned { placed = true }.background(settingsBackground).safeDrawingPadding().semantics { testTagsAsResourceId = true }
             .testTag("settings-workspace").onPreviewKeyEvent { event ->
                 val key = event.nativeKeyEvent
@@ -94,7 +95,7 @@ internal fun AdvancedSettings(activity: SettingsActivity) {
             val compactHeight = maxHeight < 540.dp
             CompositionLocalProvider(LocalSettingsCompact provides compactHeight) {
             Box(Modifier.fillMaxSize().testTag("settings-viewport")) {
-            Row(Modifier.fillMaxSize().background(settingsBackground).testTag("settings-frame")) {
+            Row(Modifier.fillMaxSize().background(settingsBackground).testTag("settings-frame").paletteMenuSurface()) {
                 if (wide) Column(Modifier.width(204.dp).fillMaxHeight().background(settingsSidebar).padding(12.dp)) {
                     Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
                     Row(Modifier.padding(10.dp, 16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -139,6 +140,7 @@ internal fun AdvancedSettings(activity: SettingsActivity) {
             }
             }
             SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).padding(20.dp))
+        }
         }
         }
     }
@@ -354,14 +356,13 @@ private fun SettingsShortcuts(activity: SettingsActivity) {
             SettingsInput(query, { query = it }, "Search commands, aliases or hotkeys", "settings-command-search", Modifier.weight(1f), leading = true)
             Spacer(Modifier.width(8.dp))
             Box {
-                OutlinedButton(onClick = { focusManager.clearFocus(); keyboard?.hide(); categoryMenu = true }, contentPadding = PaddingValues(10.dp, 5.dp), modifier = Modifier.heightIn(min = 40.dp).testTag("settings-category")) {
+                OutlinedButton(onClick = { focusManager.clearFocus(); keyboard?.hide(); categoryMenu = true }, contentPadding = PaddingValues(10.dp, 5.dp), modifier = Modifier.heightIn(min = 40.dp).testTag("settings-category").paletteFocusBookmark()) {
                     Text(Kind.entries.firstOrNull { it.name == category }?.label ?: if (category == "global") "Activation" else "All commands", fontSize = 11.sp)
                 }
-                DropdownMenu(categoryMenu, onDismissRequest = { categoryMenu = false }, containerColor = settingsSidebar) {
-                    (listOf("all" to "All commands", "global" to "Activation") + Kind.entries.filter { it != Kind.CALC }.map { it.name to it.label }).forEach { (id, label) ->
-                        DropdownMenuItem(text = { Text(label, fontSize = 12.sp) }, onClick = { category = id; categoryMenu = false }, modifier = Modifier.testTag("settings-category-$id"))
-                    }
-                }
+                PaletteChoiceMenu(categoryMenu, { categoryMenu = false },
+                    (listOf("all" to "All commands", "global" to "Activation") + Kind.entries.filter { it != Kind.CALC }.map { it.name to it.label }).map { (id, label) ->
+                        PaletteChoice("settings-category-$id", label, checked = category == id) { category = id; categoryMenu = false }
+                    }, title = "Command categories")
             }
             Spacer(Modifier.width(10.dp))
             FilterChip(assigned, onClick = { assigned = !assigned }, label = { Text("Assigned", fontSize = 11.sp) }, modifier = Modifier.testTag("settings-assigned"))

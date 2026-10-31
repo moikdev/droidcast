@@ -34,7 +34,8 @@ The downloadable APK is a debug-signed preview, not a production-signed release.
 
 - Translucent activity with Tinycast’s 750×475 tablet proportions and 26 dp corners, adapted to smaller screens. A single search header, Favorites and category sections, compact 44 dp rows, native app icons and a contextual action capsule. No draw-over-other-apps permission.
 - Neutral dark surfaces follow Tinycast’s white-alpha color tokens. Android uses its own fonts and a neutral gradient surface; macOS Liquid Glass is not reproduced.
-- The circular bottom-left menu opens category filters, Preferences, shortcuts and dismissal. Actions appear in an anchored menu above the bottom-right capsule; Ctrl+K and long-press open the same menu. Calculator answers use source → result columns with unit badges.
+- The circular bottom-left menu opens category filters, Preferences, shortcuts and dismissal. Launcher, Emoji and extension modes share the bottom-right primary/Enter/Actions/Ctrl+K capsule. Actions open a searchable panel inside the palette; Ctrl+K and long-press use the same panel. Calculator answers use source → result columns with unit badges.
+- Editors, extension views, install/delete reviews and menus replace or attach to the existing palette surface. Settings stays fullscreen; document pickers and permission prompts remain Android UI. See [Palette navigation](docs/PALETTE-NAVIGATION.md).
 - The area outside the palette is fully transparent, with no dark scrim or screen dimming.
 - Tap outside or close to return to the previous app. App and URL commands dismiss the palette when launching their destination.
 - Summon using the app icon, a bottom-corner swipe or Home-button hold after choosing Droidcast as Android's assistant, the optional Droidcast search Quick Settings tile, or the configurable global shortcut (default Ctrl + Space) after explicitly enabling the keyboard service. Android controls touch gesture availability and mappings; inline setup links to navigation settings. Assign command shortcuts through Actions; see [Keyboard shortcuts](docs/SHORTCUTS.md). The assistant route does not require the keyboard service; [Opening Droidcast](docs/ACTIVATION.md) explains the independent options.
@@ -59,16 +60,16 @@ The upstream Tinycast JavaScript runtime is bundled unchanged, including its Rea
 
 Supported Android host capabilities:
 
-- `List`, `Grid` as a native list, searchable items, selection, native actions and navigation.
+- Native `List` and multi-column `Grid`: searchable image/color/emoji cells, section headings, stable selection, four-way keyboard navigation, dropdowns and actions. Grid supports package raster assets and bounded HTTPS thumbnails; unsupported images show a placeholder.
 - `Detail` as selectable text/Markdown source.
 - Basic `Form` text/password/text-area, checkbox and dropdown fields, descriptions, separators and submit actions.
 - Manifest arguments and preferences, including defaults and required fields.
 - Foreground clipboard copy/read, isolated LocalStorage and cache, timers, HTTPS fetch and ordinary web URLs.
 - Secure random bytes/UUIDs and common hashes. Read-only package assets and limited filesystem access within the extension's own data folder.
 
-**Compatibility is partial.** Installing successfully does not imply every command works. Shell/process execution, AppleScript, Mac apps, desktop helpers, OAuth, menu bars, WebSockets, browser/window-management APIs and Raycast AI services are unsupported. Unsupported host calls report an error. Clipboard paste into other apps is unavailable; use Copy. Advanced form controls and full Markdown rendering remain incomplete.
+**Compatibility is partial.** Installing successfully does not imply every command works. Shell/process execution, AppleScript, Mac apps, desktop helpers, OAuth, menu bars, WebSockets, browser/window-management APIs and Raycast AI services are unsupported. Unsupported host calls report an error. Clipboard paste into other apps is unavailable; use Copy. Advanced form controls, full Markdown rendering and the complete Grid API remain incomplete. Grid section-specific geometry, SVGs, the full icon catalog and automatic pagination are not implemented; pagination uses an explicit Load more control.
 
-Real Store packages tested include UUID Generator (generation, clipboard, native history) and OKLCH Color Converter (Store UI installation, reactive native results and copy actions). This is not an ecosystem-wide compatibility claim.
+Real Store packages tested include UUID Generator (generation, clipboard, native history), OKLCH Color Converter (Store installation, reactive native results and copying), and Palette Colors (native Grid, copying and remembered color scheme). See [Extension Grid](docs/EXTENSION-GRID.md) for its subset and validation. This is not an ecosystem-wide compatibility claim.
 
 Store searches/downloads contact Raycast. Running third-party code can make HTTPS requests and access the foreground clipboard; an install confirmation explains this. Extension storage and preferences are scoped per extension and excluded from OS backup. Uninstall removes the extension and its own data.
 
@@ -84,7 +85,7 @@ Store searches/downloads contact Raycast. Running third-party code can make HTTP
 | Ctrl + N | New note |
 | Ctrl + 1…8 | All, Pinned, Apps, Notes, Quicklinks, Clips, Files, Extensions |
 | Ctrl + S / Ctrl + Enter | Save editor |
-| Escape | Close dialog, clear search/back, then dismiss palette |
+| Escape | Close menu, go back/clear search, then dismiss palette |
 
 Configure global and per-command chords or double-modifier taps in **Keyboard shortcuts**. For a double tap, release the same Ctrl, Alt, Shift or Meta key between presses, then choose Either, Left or Right in the inline recorder. Android/OEM delivery varies; the shortcut guide records the tested scope. Enable global use through **Open accessibility settings → Droidcast keyboard shortcuts**. The service does not retrieve screen content or record keystrokes. In-app shortcuts do not require it. Settings → General separates the saved chord, Android approval and live service connection, with restricted-settings help and an optional inline delivery check. Receipt in Settings is distinct from testing activation in another app. Global key delivery can vary with other accessibility services and OEM shortcuts.
 
