@@ -1,0 +1,319 @@
+{
+  "base": "d6fccdc4989d4d6e2203f8fa331872a9c11d7105",
+  "issue": 57,
+  "scope": "Single-row Emoji header only; #56 remains open",
+  "apk_sha256": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+  "test_apk_sha256": "367cc22adb372f233312bbcd12e22d63509baedb4d4cbc68e3685929b35e7784",
+  "ci": "inactive",
+  "device": {
+    "serial": "emulator-5590",
+    "avd": "Droidcast_PR48_Tablet_API_36_27caf3",
+    "api": 36,
+    "abi": "arm64-v8a",
+    "tablet": "1920x1200 at 240dpi",
+    "phone": "1080x2340 at 420dpi override",
+    "verified_properties": {
+      "ro.build.version.sdk": "36",
+      "ro.product.cpu.abi": "arm64-v8a",
+      "ro.boot.qemu.avd_name": "Droidcast_PR48_Tablet_API_36_27caf3",
+      "ro.kernel.qemu": "1"
+    }
+  },
+  "sources": {
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "fed2a48fed0d52a17e30292246f3041db173728863158faeee5dd9df84d58efa",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "c8778be2beade233e6f60833f4848c66d31f1294d00b175533390c76a81d7215",
+    "scripts/test-search-header.py": "772cb70442bbf28086beb8087ebce94d02ba6cc10e6acf8c2cf91a0d8d5b39d0"
+  },
+  "runs": {
+    "header-negative-v3-tablet": {
+      "record": "artifacts/header-negative-v3-tablet/record.json",
+      "record_sha256": "2dad87e643e77e87990eaffee8bb73f80bd94f2a671208fbc89653e5d5b496f2",
+      "log_sha256": "9530942de0bc80248106c053243eb5a4bd75e03e96adbed3f54884400c91f812",
+      "passes": 0,
+      "expected_failure": true,
+      "app": "8ff881ce95ec90669105a3859ffeda2bdc675c265c9ea5faf2e26ed625324c0c",
+      "test": "367cc22adb372f233312bbcd12e22d63509baedb4d4cbc68e3685929b35e7784",
+      "restoration": true
+    },
+    "header-negative-v3-phone": {
+      "record": "artifacts/header-negative-v3-phone/record.json",
+      "record_sha256": "ae556f207d1d049e02d1a15485f31bd1a6d4dd494d5c23dd8f7d34f193ad10c2",
+      "log_sha256": "c61e9bcb7e024342d2858656a929694603853a88c4a4ca37a6ead19085cedcff",
+      "passes": 0,
+      "expected_failure": true,
+      "app": "8ff881ce95ec90669105a3859ffeda2bdc675c265c9ea5faf2e26ed625324c0c",
+      "test": "367cc22adb372f233312bbcd12e22d63509baedb4d4cbc68e3685929b35e7784",
+      "restoration": true
+    },
+    "header-final-v3-tablet": {
+      "record": "artifacts/header-final-v3-tablet/record.json",
+      "record_sha256": "7ecac48e142423ac853e26c237b10ddcf4283b62a74c96610c42bb2116763319",
+      "log_sha256": "565ec54b055210f329f805bdc1177df043c7d49b4a0f1207327b3f48086d8754",
+      "passes": 15,
+      "expected_failure": false,
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "test": "367cc22adb372f233312bbcd12e22d63509baedb4d4cbc68e3685929b35e7784",
+      "restoration": true,
+      "geometry": {
+        "emojiSearch": [
+          473,
+          255,
+          1358,
+          303
+        ],
+        "category": [
+          1412,
+          249,
+          1499,
+          309
+        ],
+        "back": [
+          398,
+          243,
+          470,
+          315
+        ],
+        "launcherSearch": [
+          473,
+          255,
+          1445,
+          303
+        ],
+        "longCategorySearch": [
+          473,
+          255,
+          1239,
+          303
+        ],
+        "longCategory": [
+          1293,
+          249,
+          1499,
+          309
+        ]
+      },
+      "geometry_sha256": "eb3dfcac2057cfd46c216bf6eea9cccd7845c10be52dff32f4e65cae9ca7d34f"
+    },
+    "header-final-v3-phone": {
+      "record": "artifacts/header-final-v3-phone/record.json",
+      "record_sha256": "aa82ca38e835d00e817d463fb715d034b3e7ddfb49ec00e08cf8e7148b4a9880",
+      "log_sha256": "d7e76bf9a4ca2c80075c57fd5a1c74a4b4b01a58643f6eb501857aff50d75f86",
+      "passes": 15,
+      "expected_failure": false,
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "test": "367cc22adb372f233312bbcd12e22d63509baedb4d4cbc68e3685929b35e7784",
+      "restoration": true,
+      "geometry": {
+        "emojiSearch": [
+          163,
+          127,
+          854,
+          211
+        ],
+        "category": [
+          854,
+          117,
+          1006,
+          222
+        ],
+        "back": [
+          32,
+          106,
+          158,
+          232
+        ],
+        "launcherSearch": [
+          164,
+          127,
+          1006,
+          211
+        ],
+        "longCategorySearch": [
+          163,
+          127,
+          682,
+          211
+        ],
+        "longCategory": [
+          682,
+          117,
+          1006,
+          222
+        ]
+      },
+      "geometry_sha256": "1f20587ef09a6862fd2df2f2287887f811d101ac89ce238d43bbc45b224c6b32"
+    }
+  },
+  "reports": {
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutReadinessTest.xml": "d32cf5565c4972388b5732752da4ed6ee44ba6a1767cb70d79ee0f8f5cf12c93",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.EmojiCatalogTest.xml": "cc13b830cc4bc434a070477bfbddcdcc5898031cefc95d2049f536b6da12dadb",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.SystemSettingsTest.xml": "6eb65ca3b250c53b8b27dffa49c36cd31e27a09651a894cd4970a820a7832754",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ModifierTapTest.xml": "b967caa9280cec7c738a8f69d11128698034fcdaa1e4c36dc0e2eeda05031ba6",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.ShortcutTest.xml": "dfdc1a59a4f3fbf9d793558e9a20a974a53eddba4971d1b78f8980d91d56a47e",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.BackupPlannerTest.xml": "ce79d3a575c989265e95339e6c216bc4c6950812dcab66a19a1a5a0554a10a00",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderGrantTransactionTest.xml": "5d8192c7060c69577dbed2dadc7874e4d8d9507cab198202f31e844e7525ef57",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.CommandEngineTest.xml": "c1d535ddc02ae2a6ee72a85e02a8affb498144400399104cc7a8ad295e9a5ab5",
+    "app/build/test-results/testDebugUnitTest/TEST-dev.tinycast.android.FolderIndexTest.xml": "5f2e3101a59ceadaff006c431b739e2235d3784d957ec5f74d2f01dd1ba18ded",
+    "app/build/reports/lint-results-debug.xml": "7c8f90cf0031adf7b380d1e97d962dec9650a9bf2f2dab7017e3790e415b2b93",
+    "artifacts/header-build-v3.log": "c16997305588b75139954dd0892d10e2291eff5361938610ff15463939302ccb"
+  },
+  "images": [
+    {
+      "path": "docs/screenshots/parity-search-header/before-tablet.png",
+      "origin": "artifacts/header-negative-v3-tablet/single-row-search.png",
+      "sha256": "fa64fbdef004dde66799832283b38277b972caa59ea1da4c6b17aec129fb0034",
+      "width": 1920,
+      "height": 1200,
+      "xml": "artifacts/header-negative-v3-tablet/single-row-search.xml",
+      "xml_sha256": "1fd63f9794b221047f51b79a3856d6ac29c67773f3ecae92875af01ffca5ce71",
+      "app": "8ff881ce95ec90669105a3859ffeda2bdc675c265c9ea5faf2e26ed625324c0c",
+      "caption": "Before tablet — released r7, two-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/after-tablet.png",
+      "origin": "artifacts/header-final-v3-tablet/single-row-search.png",
+      "sha256": "dfbc6d47d37d027f99fe53c239d6610cb1d76189f04e7d796e028d6e553333b6",
+      "width": 1920,
+      "height": 1200,
+      "xml": "artifacts/header-final-v3-tablet/single-row-search.xml",
+      "xml_sha256": "416fa40e4d102a248a050c8f721fc015da2c13daba9be2cb87bb21f549b958bc",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "caption": "After tablet — single-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/category-tablet.png",
+      "origin": "artifacts/header-final-v3-tablet/single-row-long-category.png",
+      "sha256": "119105245833e8a7d605fb81fd74f716aa36637f5beeef4e668decd63e2983b2",
+      "width": 1920,
+      "height": 1200,
+      "xml": "artifacts/header-final-v3-tablet/single-row-long-category.xml",
+      "xml_sha256": "2ae00738a3d01cd1b1d8827ab3c5053c4d02e00d5dfd35c91c893a8b232e3097",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "caption": "Category tablet — single-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/empty-tablet.png",
+      "origin": "artifacts/header-final-v3-tablet/no-results.png",
+      "sha256": "6b339c23209cf46d56a2ff6f076448828dd5b4e96878c77d5f023ba80323c65a",
+      "width": 1920,
+      "height": 1200,
+      "xml": "artifacts/header-final-v3-tablet/no-results.xml",
+      "xml_sha256": "ebccd502b77b73b5d47d34cb4bebf3a91262328cfe2d3f29a15354eba469086f",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "caption": "Empty tablet — single-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/keyboard-tablet.png",
+      "origin": "artifacts/header-final-v3-tablet/tablet-keyboard.png",
+      "sha256": "f6ae3e1ad50cd3ddbc4c2762f8b10e9a57caf14027aca550e53aa14e31f6881e",
+      "width": 1920,
+      "height": 1200,
+      "xml": "artifacts/header-final-v3-tablet/tablet-keyboard.xml",
+      "xml_sha256": "e6b32d340939f37e9e95f2eda077d9d0b3ff2169cc43d12542fa3dd02fd443fd",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "caption": "Keyboard tablet — single-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/before-phone.png",
+      "origin": "artifacts/header-negative-v3-phone/single-row-search.png",
+      "sha256": "0a0384e12befe24c81c58e0d4014649028bac293b520a4635d9599cd480b0708",
+      "width": 1080,
+      "height": 2340,
+      "xml": "artifacts/header-negative-v3-phone/single-row-search.xml",
+      "xml_sha256": "27bc6df4cca16748040260f6c895e08dbb95460c0cc8bba3f9890fad0f1ed451",
+      "app": "8ff881ce95ec90669105a3859ffeda2bdc675c265c9ea5faf2e26ed625324c0c",
+      "caption": "Before phone — released r7, two-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/after-phone.png",
+      "origin": "artifacts/header-final-v3-phone/single-row-search.png",
+      "sha256": "ca27629efe8bb9e4026999af5d40d0ec91fbadd4e39af800b167e8b1e8a8b043",
+      "width": 1080,
+      "height": 2340,
+      "xml": "artifacts/header-final-v3-phone/single-row-search.xml",
+      "xml_sha256": "ca7b4c866624c77be3df0c191b5a8f0aa6688be76af56daf79d47842d7b20de2",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "caption": "After phone — single-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/category-phone.png",
+      "origin": "artifacts/header-final-v3-phone/single-row-long-category.png",
+      "sha256": "eb419fef2b8239f074aef5af67f41e620f5cd325a9db479aa976ac19aa56cd6b",
+      "width": 1080,
+      "height": 2340,
+      "xml": "artifacts/header-final-v3-phone/single-row-long-category.xml",
+      "xml_sha256": "be3b0bd9119ba19c4ec7caff702791408662f7b1f37c5887ce562031b51787e3",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "caption": "Category phone — single-row header"
+    },
+    {
+      "path": "docs/screenshots/parity-search-header/empty-phone.png",
+      "origin": "artifacts/header-final-v3-phone/no-results.png",
+      "sha256": "eb0adc210aa63ba817d0abb485a6ad9a51c34dff252088dd80018db144c2eb51",
+      "width": 1080,
+      "height": 2340,
+      "xml": "artifacts/header-final-v3-phone/no-results.xml",
+      "xml_sha256": "cd1b2458f598f230f27e8bd3cae83926bd57ca33df10c01e6dfa0eee92e8e647",
+      "app": "de93f1dbbf4eed0253679df842166b2716aab1a80c9b6ba2993dfa9c6d3f7569",
+      "caption": "Empty phone — single-row header"
+    }
+  ],
+  "jvm": {
+    "tests": 113,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "Error": 0,
+    "Warning": 42
+  },
+  "unchanged_assets": {
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66"
+  },
+  "cleanup_unit_tests": {
+    "passes": 4,
+    "log": "artifacts/header-cleanup-tests.log",
+    "sha256": "5d8a174d448d59185fd227bcbab9c964e39b10a9c2e28965972cfb0c833dd854"
+  },
+  "caret_repetitions": {
+    "1": {
+      "record_sha256": "e2c9953635d8c104f86564875e0b07b4caa31b5ada7a6bf8bfb2e8789cc31daa",
+      "log_sha256": "18ade179186bf958ccce45d8edcfe8282e588c98ba3ba8cad92bf5bd77837948",
+      "observation": {
+        "initialObservedText": "faec",
+        "finalObservedText": "faec",
+        "waitMs": 1
+      }
+    },
+    "2": {
+      "record_sha256": "e2c9953635d8c104f86564875e0b07b4caa31b5ada7a6bf8bfb2e8789cc31daa",
+      "log_sha256": "7fd86bb6ab3320c9d1f64aff197c997275265a41caf8adfe0580909c93c3b219",
+      "observation": {
+        "initialObservedText": "faec",
+        "finalObservedText": "faec",
+        "waitMs": 1
+      }
+    },
+    "3": {
+      "record_sha256": "e2c9953635d8c104f86564875e0b07b4caa31b5ada7a6bf8bfb2e8789cc31daa",
+      "log_sha256": "e0b0db976601bdc0a6b9af7e7a5d31f70a14fce30d8c45272fbe3d22dbee1020",
+      "observation": {
+        "initialObservedText": "faec",
+        "finalObservedText": "faec",
+        "waitMs": 1361
+      }
+    }
+  },
+  "excluded": [
+    "Initial tag-based negatives and pre-final tablet run (header-negative-{tablet,phone}; header-final-tablet)",
+    "Pre-final header-final-v2-tablet: 14/15, immediate caret observation fac rather than faec; cause unestablished",
+    "Prototype Grid/header screenshots from the separate unpublished inline-palette-grid worktree"
+  ]
+}
