@@ -17,6 +17,9 @@ account or network connection is needed to use the bundled catalog.
   Active IME composition keeps its own candidate navigation. Ctrl+D toggles a
   favorite. Escape leaves query editing first, then clears the query, then returns
   to commands. Back and outside-tap dismissal remain available.
+- The bottom-right capsule offers Copy and Actions (Ctrl+K). The attached action
+  panel searches Copy, Favorite and Copy Unicode actions; Unicode copies each
+  codepoint as `U+XXXX`. Escape closes it and restores search focus.
 - The footer names the selected symbol and confirms copying. The star toggles a
   favorite. Favorites lead the All view; Recent holds the last 32 distinct copies.
   Both are private on-device preferences and survive app restart. They are not

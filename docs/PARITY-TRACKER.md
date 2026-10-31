@@ -32,14 +32,17 @@ The live backlog is [GitHub issue #1](https://github.com/moikdev/droidcast/issue
 
 - [#36: Compact Raycast-style settings workspace](https://github.com/moikdev/droidcast/issues/36)
 - [#37: Diagnose intermittent Quick Settings tile activation timeout](https://github.com/moikdev/droidcast/issues/37)
+- [#59: Investigate truncated synthetic input around keyboard-service hierarchy capture](https://github.com/moikdev/droidcast/issues/59)
+- [#62: Trace intermittent Grid return during clipboard-overlay screenshot capture](https://github.com/moikdev/droidcast/issues/62)
+- [#60: Adopt Tinycast screen contracts, typed navigation and shared action policies](https://github.com/moikdev/droidcast/issues/60)
 
 ## Active slice
 
-Fixed Emoji search row [#57](https://github.com/moikdev/droidcast/issues/57): Back, Search and Category share the launcher's fixed header position, matching the user's Raycast reference. This bounded checkpoint removes the separate title row, preserves keyboard interaction and adds measured tablet/phone geometry coverage. See [validation](validation/search-header.md). Independent exact-head audits are required before merge.
-
-The all-popup-to-inline palette migration remains in progress under [#56](https://github.com/moikdev/droidcast/issues/56), including Store and extension screens. The native Grid prototype (#6) remains unpublished pending that integration. Verified in-app nightly updates are queued in [#55](https://github.com/moikdev/droidcast/issues/55). This header checkpoint does not complete any of those broader slices.
+Inline palette migration [#56](https://github.com/moikdev/droidcast/issues/56), including native extension Grid [#6](https://github.com/moikdev/droidcast/issues/6). Editors, Store/extension screens, reviews and selection/action menus now use the same window. The shared Raycast-style footer/action search has final local evidence: 132 JVM, 74 tablet, 71 phone, three connected-keyboard cases and 89 screenshots. Independent audits and expected-head merge remain pending. See [migration notes](PALETTE-NAVIGATION.md). The earlier popup Grid prototype remains unpublished. Verified in-app nightly updates [#55](https://github.com/moikdev/droidcast/issues/55) follow this UI checkpoint. A [complete Tinycast source comparison](TINYCAST-COMPARISON.md) now records the typed-screen/coordinator refactor and generates independent Grid navigation expectations from the pinned Swift model. No full-parity claim.
 
 ## Completed slices
+
+Fixed Emoji header merged in [PR #58](https://github.com/moikdev/droidcast/pull/58), closing #57 after both independent sol/high audits cleared `3e446db`; merge `227d510` has the identical tree. Back/Search/Category share one row aligned with launcher Search; Back retains its full touch target. Local checks: 113 JVM, 15 tablet, 15 phone, four cleanup tests, lint 0 errors/42 warnings, nine original screenshots. The historical caret observation remains unexplained; eventual-state checks certify no latency fix. [Nightly r8](https://github.com/moikdev/droidcast/releases/tag/nightly-2026-10-31-r8) publishes the reviewed APK. Broader #56/#6 migration and #55 updater remain open.
 
 Double-modifier shortcuts merged in [PR #54](https://github.com/moikdev/droidcast/pull/54) after both independent sol/high audits and documentation-only follow-ups cleared `5419c69`; merge `d6fccdc` has the identical tree. Local evidence: 113 JVM, 41 tablet, 41 phone, 12 hardware core cases, eight capability probes and four cleanup tests, lint 0 errors/42 warnings. Ctrl/Alt/Shift probes passed; Meta did not. The controlled stale-window notification race is corrected; the historical untraced Home miss remains unattributed. Six rebind/Home repetitions do not certify activation after process kill. [Nightly r7](https://github.com/moikdev/droidcast/releases/tag/nightly-2026-10-31-r7) publishes the tested APK. Single taps, Fn/Globe, Hyper, physical/OEM and broader #26 parity remain gaps.
 

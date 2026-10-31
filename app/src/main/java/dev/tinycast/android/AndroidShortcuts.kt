@@ -86,6 +86,8 @@ object ShortcutRuntime {
     const val TOKEN = "dev.droidcast.shortcut_token"
     val requests = ShortcutInvocationQueue { android.os.SystemClock.elapsedRealtime() }
     @Volatile var recordingEpoch = 0L; private set
+    // Same-window menus are input-ownership boundaries even without a window event.
+    fun invalidateModifierSequences() { recordingEpoch++ }
     @Volatile var recordingOwner: Any? = null
         set(value) {
             if (field !== value) { recordingEpoch++; field = value }
@@ -124,6 +126,11 @@ object ShortcutRuntime {
     }
     fun resumed(activity: MainActivity) { foreground = WeakReference(activity) }
     fun paused(activity: MainActivity) { if (foreground.get() === activity) foreground.clear() }
+    fun menuOwnsInput(): Boolean = foreground.get()?.let {
+        !it.isFinishing && !it.isDestroyed && it.window.decorView.hasWindowFocus() && it.store.paletteMenuOpen
+    } == true || settings.get()?.let {
+        !it.isFinishing && !it.isDestroyed && it.window.decorView.hasWindowFocus() && it.store.paletteMenuOpen
+    } == true
     fun dispatch(context: Context, target: String, chord: KeyChord) {
         if (settings.get()?.receiveShortcutProbe(target, chord) == true) return
         val token = requests.issue(target, chord)
@@ -168,10 +175,11 @@ class PaletteShortcutService : AccessibilityService(), InputManager.InputDeviceL
         if (event.action !in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) return false
         val input = event.asShortcutInput()
         val connection = ShortcutRuntime.keyboardConnection
+        val menuOpen = ShortcutRuntime.menuOwnsInput()
         val tap = modifierShortcuts.handle(input, configuration.byChord,
-            connection.isOwner(connectionOwner) && ShortcutRuntime.recordingOwner == null, connection.epoch, ShortcutRuntime.recordingEpoch)
+            connection.isOwner(connectionOwner) && ShortcutRuntime.recordingOwner == null && !menuOpen, connection.epoch, ShortcutRuntime.recordingEpoch)
         tap?.let { (target, binding) -> ShortcutRuntime.dispatch(this, target, binding) }
-        val result = engine.handle(input, configuration.byChord, ShortcutRuntime.recordingOwner != null || ShortcutRuntime.passesSettingsNavigation(event))
+        val result = engine.handle(input, configuration.byChord, menuOpen || ShortcutRuntime.recordingOwner != null || ShortcutRuntime.passesSettingsNavigation(event))
         if (result.target != null) ShortcutRuntime.dispatch(this, result.target, result.chord!!)
         return result.consumed
     }

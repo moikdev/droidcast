@@ -30,7 +30,7 @@ Droidcast reproduces the central summon → search → run → dismiss workflow.
 | AI chat | Missing | No providers, credential setup, conversations or model calls. |
 | Text transformation actions | Missing | Selected text can be received and saved; rewrite, translate and summarize actions are not implemented. |
 | Raycast extension installation | Partial | Real Store search, package download, validation, install, update and uninstall. Uses unofficial endpoints. Store installation is not a compatibility guarantee. |
-| Extension views | Partial | Native lists, basic forms, selectable Detail text and actions/navigation. Grid is a list; Markdown, metadata, images, advanced fields and validation are incomplete. |
+| Extension views | Partial | Native lists, multi-column Grid with package/HTTPS raster images, colors, emoji, headings, search, stable selection, dropdowns, explicit Load more and actions/navigation; basic forms and selectable Detail source. Full Markdown/metadata, SVGs/full icon catalog, section-specific Grid geometry, automatic pagination and advanced Forms remain incomplete. |
 | Extension host APIs | Partial | HTTPS, clipboard, timers, local storage/cache, preferences/arguments, limited crypto and scoped files. OAuth, menu bars, shell/native helpers, browser/window management, WebSockets and Raycast AI are not available. |
 | Backup and import | Partial | Selectable versioned Droidcast JSON export/import for notes, quicklinks, saved clips, pins/aliases, usage ranking and portable keyboard bindings, with preview, content inspection and merge/replace confirmation. Capability grants and extension data are excluded. Tinycast AppleArchive and Raycast container compatibility remain open in [#24](https://github.com/moikdev/droidcast/issues/24); Android OS backup stays disabled. |
 | Settings workspace | Partial | Separate Raycast-inspired native preferences, settings search, central shortcuts/aliases, inline editing, folder scopes and backup. Appearance and advanced keyboard options remain open. |
@@ -46,7 +46,7 @@ Droidcast reproduces the central summon → search → run → dismiss workflow.
 
 The earlier Android 0.3.1 validation includes 18 unit tests, 20 device regression tests, a **308.1-second, 21-round endurance run**, three cold-restart document workflows and 20 real global-key activations. Settings, PNG/PDF/TXT viewing, calculator copying, Actions menus, eight orientation changes and native split-screen coexistence were exercised. No new crash-buffer entry or ANR was observed. See [the testing record](docs/TESTING.md) for version scope and reproducible commands.
 
-Only **UUID Generator** and **OKLCH Color Converter** have end-to-end real Store bundle coverage. A successful download, installation or view render is not evidence that all commands or all extensions work. Isolation checks cover ZIP traversal and private-file rejection; they are not an independent security audit.
+**UUID Generator**, **OKLCH Color Converter** and **Palette Colors** have bounded end-to-end real Store bundle coverage. The Grid slice records versions, checks and remaining limitations in [its validation record](docs/validation/extension-grid.md). A successful download, installation or view render is not evidence that all commands or all extensions work. Isolation checks cover ZIP traversal and private-file rejection; they are not an independent security audit.
 
 Implementation evidence:
 

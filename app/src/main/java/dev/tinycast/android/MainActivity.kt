@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
             // Modifier pairs continue to Android unchanged; never consume only UP.
             val tap = modifierShortcuts.handle(event.asShortcutInput(), store.shortcutConfiguration.byChord,
                 !connection.connected && window.decorView.hasWindowFocus() && !isFinishing &&
-                    !store.backupBusy && ShortcutRuntime.recordingOwner == null, connection.epoch, ShortcutRuntime.recordingEpoch)
+                    !store.backupBusy && !store.paletteMenuOpen && ShortcutRuntime.recordingOwner == null, connection.epoch, ShortcutRuntime.recordingEpoch)
             tap?.let { (target, binding) -> ShortcutRuntime.dispatch(this, target, binding) }
         }
         return super.dispatchKeyEvent(event)

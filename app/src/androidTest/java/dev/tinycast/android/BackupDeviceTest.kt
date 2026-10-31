@@ -8,6 +8,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.UiScrollable
+import androidx.test.uiautomator.UiSelector
 import org.json.JSONObject
 import org.junit.*
 import org.junit.Assert.*
@@ -42,6 +44,7 @@ class BackupDeviceTest {
             "preview-cancel", "document-import-preview" -> By.text("Preview backup")
             "export-categories", "export-import-complete" -> By.text("Backup and restore")
             "document-export-picker" -> By.text("SAVE")
+            "document-import-picker" -> By.res("com.google.android.documentsui", "breadcrumb_text").text("Downloads")
             "inspect-backup" -> By.text("Hide backup contents")
             "replace-confirmation" -> By.text("Apply this backup?")
             "restored-search" -> By.text("Restored tablet note")
@@ -64,6 +67,34 @@ class BackupDeviceTest {
         val file = File(context.cacheDir, "backup-test.json").apply { writeText(BackupCodec.encode(document.data, document.categories)) }
         compose.activityRule.scenario.onActivity { it.store.readBackup(android.net.Uri.fromFile(file)) }
         compose.waitUntil(10000) { compose.activity.store.dialog == "backup-preview" && !compose.activity.store.backupBusy }
+    }
+    private fun clickPickerNode(label: String, match: (android.view.accessibility.AccessibilityNodeInfo) -> Boolean) {
+        val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
+        fun find(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
+            if(node.packageName?.toString()=="com.google.android.documentsui" && node.isVisibleToUser && match(node)) return node
+            for(index in 0 until node.childCount) node.getChild(index)?.let { find(it)?.let { found -> return found } }
+            return null
+        }
+        try {
+            compose.waitUntil(7000) {
+                automation.clearCache()
+                var target=automation.windows.asSequence().mapNotNull { it.root }.mapNotNull(::find).firstOrNull()
+                while(target!=null && !target.isClickable) target=target.parent
+                target?.takeIf { it.packageName?.toString()=="com.google.android.documentsui" && it.isEnabled && it.isVisibleToUser }
+                    ?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK)==true
+            }
+        } catch(error: Throwable) {
+            val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
+            device.dumpWindowHierarchy(File(folder,"picker-action-failure.xml"));device.takeScreenshot(File(folder,"picker-action-failure.png"))
+            File(folder,"picker-action-failure.json").writeText(JSONObject().put("target",label).toString(2));throw error
+        }
+    }
+    private fun pickerDownloads() {
+        val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
+        clickPickerNode("Show roots") { it.contentDescription?.toString()=="Show roots" }
+        clickPickerNode("Downloads") { it.viewIdResourceName=="android:id/title" && it.text?.toString()=="Downloads" }
+        automation.clearCache(); device.waitForIdle()
+        assertTrue("Downloads breadcrumb",device.wait(Until.hasObject(By.res("com.google.android.documentsui","breadcrumb_text").text("Downloads")),7000))
     }
     @Test fun codecRoundTripRejectsCapabilitiesMalformedVersionAndOversize() {
         val data = BackupData(notes = listOf(SavedItem("notes:test", "日本語", "Line one\nLine two")), links = listOf(SavedItem("links:test", "Docs", "https://example.com?q={query}", "docs-test")), pins = setOf("calculator", "files:private"), aliases = mapOf("calculator" to "math", "files:private" to "private"), usage = mapOf("calculator" to 3))
@@ -133,6 +164,23 @@ class BackupDeviceTest {
         compose.onNodeWithTag("result-${imported.id}").assertIsDisplayed()
         evidence("restored-search")
     }
+    @Test fun startingImportClearsFeedbackBeforeItCanCoverPreviewControls() {
+        val file=File(context.cacheDir,"backup-feedback-fixture.json").apply {
+            writeText(BackupCodec.encode(BackupData(notes=listOf(SavedItem("notes:feedback","Feedback fixture","Public backup fixture"))),setOf(BackupCategory.NOTES)))
+        }
+        try {
+            compose.activityRule.scenario.onActivity {
+                it.store.message="Backup exported"
+                it.store.readBackup(android.net.Uri.fromFile(file))
+                assertNull("Starting import clears obsolete feedback synchronously",it.store.message)
+            }
+            compose.waitUntil(10000) { !compose.activity.store.backupBusy && compose.activity.store.dialog=="backup-preview" && compose.activity.window.decorView.hasWindowFocus() }
+            compose.onNodeWithText("Backup exported").assertDoesNotExist()
+            compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
+            compose.onNodeWithTag("backup-contents").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithText("Note · Feedback fixture").assertIsDisplayed()
+        } finally { file.delete() }
+    }
     @Test fun realDocumentPickerExportImportAndIdempotentMerge() {
         compose.activityRule.scenario.onActivity {
             val note = it.store.save("notes", "Tablet backup note", "Text survives the document picker round trip.")
@@ -145,6 +193,7 @@ class BackupDeviceTest {
         evidence("export-categories")
         compose.onNodeWithTag("backup-export").performScrollTo().performClick()
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000))
+        pickerDownloads()
         val name = "droidcast-roundtrip-${System.currentTimeMillis()}.json"
         val nameField = device.wait(Until.findObject(By.res("android:id/title").clazz("android.widget.EditText")), 7000)
         assertNotNull("Document picker filename field", nameField)
@@ -152,18 +201,38 @@ class BackupDeviceTest {
         evidence("document-export-picker")
         device.findObject(By.text("SAVE")).click()
         compose.waitUntil(15000) { !compose.activity.store.backupBusy && compose.activity.store.pendingExport == null }
+        assertNull("Export completes without a write error",compose.activity.store.backupError)
+        compose.waitUntil(10000) { compose.activity.window.decorView.hasWindowFocus() }
+        assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text("Backup and restore")),10000))
         compose.onNodeWithTag("backup-import").performScrollTo().performClick()
-        val document = device.wait(Until.findObject(By.text(name)), 10000)
+        pickerDownloads()
+        var document = device.wait(Until.findObject(By.pkg("com.google.android.documentsui").text(name)), 1500)
+        if(document==null) {
+            val files=UiScrollable(UiSelector().packageName("com.google.android.documentsui").scrollable(true)).setMaxSearchSwipes(20)
+            files.scrollIntoView(UiSelector().packageName("com.google.android.documentsui").text(name))
+            document=device.wait(Until.findObject(By.pkg("com.google.android.documentsui").text(name)),5000)
+        }
+        if(document==null) {
+            val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
+            device.dumpWindowHierarchy(File(folder,"missing-exported-document.xml"));device.takeScreenshot(File(folder,"missing-exported-document.png"))
+            File(folder,"missing-exported-document.json").writeText(JSONObject().put("expected_filename",name).toString(2))
+        }
         assertNotNull("Exported document visible in real picker", document)
-        document.click()
+        evidence("document-import-picker")
+        clickPickerNode(name) { it.text?.toString()==name }
         compose.waitUntil(15000) { compose.activity.store.dialog == "backup-preview" && !compose.activity.store.backupBusy }
+        // Activity-result state can publish before DocumentsUI has finished closing.
+        compose.waitUntil(10000) { compose.activity.window.decorView.hasWindowFocus() }
+        assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text("Preview backup")),10000))
+        compose.onNodeWithText("Backup exported").assertDoesNotExist()
         val incoming = compose.activity.store.backupDocument!!
         assertTrue(incoming.data.notes.any { it.title == "Tablet backup note" })
         assertTrue(incoming.data.links.any { it.alias == "backupdocs" })
         assertTrue(incoming.data.clips.any { it.title == "Backup saved text" })
         compose.onNodeWithText("Preview backup").assertIsDisplayed()
-        compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
-        compose.onNodeWithTag("backup-contents").assertIsDisplayed()
+        compose.onNodeWithTag("backup-inspect").performScrollTo()
+        compose.onNodeWithTag("backup-inspect").performClick()
+        compose.onNodeWithTag("backup-contents").performScrollTo().assertIsDisplayed()
         evidence("inspect-backup")
         compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
         evidence("document-import-preview")
