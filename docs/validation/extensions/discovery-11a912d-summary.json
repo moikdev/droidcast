@@ -21,9 +21,10 @@
     "repeat_export_identical": true,
     "directory_tree_reconstructed": true,
     "runtime_checks": false,
-    "unit_cases": 15,
+    "unit_cases": 18,
     "normal_and_optimized_python_passed": true,
-    "python_version": "3.14.7"
+    "python_version": "3.14.7",
+    "all_python_cases": 22
   },
   "invalid_manifests": [
     {
@@ -35,6 +36,6 @@
       "failure": "Duplicate JSON object key"
     }
   ],
-  "collector_sha256": "6e2f3322ff3255ff74b128460feb5addde8f8ca57ae4244b12ae2b7e3abaf47c",
-  "test_source_sha256": "8f5a5b9a773bebf5c9ae51bd48580961864ed897f050ae57e5bad111117ed4c4"
+  "collector_sha256": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+  "test_source_sha256": "57af21edf39e3e4084453830eed62d3c052ba8d8a4f942d3d69807e2cd4b69a6"
 }

@@ -1,10 +1,15 @@
 import hashlib
 import json
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import redirect_stderr
+from http.client import IncompleteRead
+from io import StringIO
 from pathlib import Path
 import sys
 import tempfile
+import threading
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from urllib.error import HTTPError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -107,6 +112,90 @@ class ManifestCatalogTests(unittest.TestCase):
             catalog.collect(encoded(inventory()), None, output, limit=0)
             with self.assertRaisesRegex(catalog.CatalogError, "another output"):
                 catalog.collect(encoded(inventory(("gamma",))), None, output, limit=0)
+
+    def test_preflight_failure_returns_nonzero_without_replacing_an_earlier_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output = root / "output"
+            catalog.collect(encoded(inventory()), None, output, limit=0)
+            receipt, previous = (output / "run.json").read_bytes(), (output / "catalog.json").read_bytes()
+            source = root / "rejected.json"
+            source.write_bytes(encoded(dict(inventory(), truncated=True)))
+            with redirect_stderr(StringIO()):
+                exit_code = catalog.main(["--inventory", str(source), "--output", str(output), "--limit", "0"])
+            self.assertEqual(1, exit_code)
+            self.assertEqual(receipt, (output / "run.json").read_bytes())
+            self.assertEqual(previous, (output / "catalog.json").read_bytes())
+
+    def test_interruption_cancels_queued_requests_and_resumes_persisted_progress(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            source = encoded(inventory(("alpha", "beta", "delta", "gamma")))
+            catalog.collect(source, None, output, limit=0)
+            previous = (output / "catalog.json").read_bytes()
+            beta_started, release_active = threading.Event(), threading.Event()
+            requested = []
+
+            class ControlledExecutor(ThreadPoolExecutor):
+                def shutdown(self, wait=True, *, cancel_futures=False):
+                    # Release the already-running request only after shutdown
+                    # has handled its queue. This makes cancellation observable
+                    # without a timing race with the next simulated request.
+                    super().shutdown(wait=False, cancel_futures=cancel_futures)
+                    release_active.set()
+                    super().shutdown(wait=wait, cancel_futures=cancel_futures)
+
+            def fetch(url):
+                name = url.rsplit("/", 2)[1]
+                requested.append(name)
+                if name == "beta":
+                    beta_started.set()
+                    if not release_active.wait(5):
+                        raise RuntimeError("Controlled active request was not released")
+                return MANIFEST
+
+            write = catalog.write_json
+            def interrupt_after_persisting(path, value):
+                write(path, value)
+                if path == output / "records" / catalog.cache_key("alpha"):
+                    self.assertTrue(beta_started.wait(5))
+                    raise KeyboardInterrupt("Controlled interruption after one persisted manifest")
+
+            with patch.object(catalog, "ThreadPoolExecutor", ControlledExecutor), \
+                    patch.object(catalog, "write_json", interrupt_after_persisting):
+                with self.assertRaises(KeyboardInterrupt):
+                    catalog.collect(source, None, output, limit=4, workers=1, fetcher=fetch)
+            self.assertEqual({"alpha", "beta"}, set(requested))
+            self.assertEqual(previous, (output / "catalog.json").read_bytes())
+            receipt = json.loads((output / "run.json").read_text())
+            self.assertFalse(receipt["completed"])
+            self.assertEqual("KeyboardInterrupt", receipt["failure_type"])
+            persisted = json.loads((output / "records" / catalog.cache_key("alpha")).read_text())
+            self.assertEqual("read", persisted["manifest_inspection"])
+            resumed_fetch = Mock(return_value=MANIFEST)
+            resumed = catalog.collect(source, None, output, limit=4, fetcher=resumed_fetch)
+            self.assertEqual(3, resumed_fetch.call_count)
+            self.assertTrue(resumed["summary"]["manifest_discovery_complete"])
+            self.assertEqual(4, resumed["summary"]["runtime_untested_commands"])
+
+    def test_truncated_http_reads_retry_and_remain_per_directory_errors(self):
+        fetch = Mock(side_effect=[IncompleteRead(b"partial", 100), MANIFEST])
+        sleep = Mock()
+        value, raw = catalog.retrieve(record(), fetcher=fetch, sleep=sleep)
+        self.assertEqual("read", value["manifest_inspection"])
+        self.assertEqual(MANIFEST, raw)
+        self.assertEqual(2, fetch.call_count)
+        sleep.assert_called_once_with(1)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            fetch = Mock(side_effect=IncompleteRead(b"partial", 100))
+            value = catalog.collect(encoded(inventory(("alpha",))), None, output, fetcher=fetch)
+            self.assertEqual(2, fetch.call_count)
+            self.assertEqual(1, value["summary"]["retrieval_or_manifest_errors"])
+            self.assertFalse(value["summary"]["manifest_discovery_complete"])
+            self.assertEqual("retrieval-error", value["extensions"][0]["manifest_inspection"])
+            self.assertEqual(2, value["extensions"][0]["http_attempts"])
+            self.assertTrue(json.loads((output / "run.json").read_text())["completed"])
 
     def test_legacy_receipt_cannot_promote_an_ambiguous_manifest_to_read(self):
         with tempfile.TemporaryDirectory() as directory:

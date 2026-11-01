@@ -2,6 +2,7 @@
 """Collect pinned Raycast manifest declarations. Never execute or certify commands."""
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from contextlib import contextmanager
+from http.client import HTTPException
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
@@ -204,7 +205,7 @@ def retrieve(record, anchor=None, fetcher=fetch, sleep=time.sleep):
                 continue
             result.update(http_status=error.code, failure="HTTP retrieval failed")
             break
-        except (URLError, TimeoutError, OSError):
+        except (URLError, TimeoutError, OSError, HTTPException):
             if attempt == 1:
                 sleep(1)
                 continue
@@ -317,7 +318,8 @@ def collect(inventory_data, anchors_data, output, limit=100, workers=4, retry_er
                    or retry_errors and records[name]["manifest_inspection"] != "read"][:limit]
         run.update(requested_batch=len(pending), phase="retrieval")
         write_json(output / "run.json", run)
-        with ThreadPoolExecutor(max_workers=workers) as executor:
+        executor = ThreadPoolExecutor(max_workers=workers)
+        try:
             jobs = {executor.submit(retrieve, identities[name], anchors.get(name), fetcher): name for name in pending}
             for future in as_completed(jobs):
                 item, raw = future.result()
@@ -327,6 +329,10 @@ def collect(inventory_data, anchors_data, output, limit=100, workers=4, retry_er
                 write_json(output / "records" / cache_key(name), item)
                 records[name] = item
                 write_json(output / "progress.json", summary(trees, records))
+        finally:
+            # On interruption, stop queued downloads instead of draining the
+            # entire batch. Only already-running bounded retrievals may finish.
+            executor.shutdown(wait=True, cancel_futures=True)
         catalog = {"schema_version": 1, "repository": inventory["repository"], "source_commit": inventory["commit"],
                    "extensions_tree": inventory["extensionsTree"], "source_inventory_sha256": sha256(inventory_data),
                    "directory_tree_verified": True, "inventory_truncated": False, "scope": SCOPE,
