@@ -217,6 +217,13 @@ class ReadinessDeviceTest {
     }
 
 
+    private fun injectKey(code: Int) {
+        val down = SystemClock.uptimeMillis()
+        for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
+            assertTrue(instrumentation.uiAutomation.injectInputEvent(KeyEvent(down, SystemClock.uptimeMillis(), action, code, 0, 0,
+                android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
+        }
+    }
     private fun pixels(rect: android.graphics.Rect): android.graphics.Bitmap {
         val bitmap = android.graphics.Bitmap.createBitmap(rect.width(), rect.height(), android.graphics.Bitmap.Config.ARGB_8888)
         val done = CountDownLatch(1)
@@ -294,21 +301,25 @@ class ReadinessDeviceTest {
                 inputReady("face", true)
                 val identities = mutableMapOf<Int, String>()
                 for (selection in listOf(0, 1)) {
-                    main {
-                        if (activity.store.emoji.selected != selection) {
-                            activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_RIGHT))
-                            activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_RIGHT))
-                        }
+                    var current = -1
+                    main { current = activity.store.emoji.selected }
+                    if (current != selection) injectKey(KeyEvent.KEYCODE_DPAD_RIGHT)
+                    await("Selected model and semantics match virtual keyboard navigation") {
+                        val id = activity.store.emoji.results()[selection].id
+                        activity.store.emoji.selected == selection && tagged(nodes(), "emoji-cell-$id")?.config?.getOrNull(SemanticsProperties.Selected) == true
                     }
                     instrumentation.waitForIdleSync(); device.waitForIdle()
-                    val bitmap = pixels(region); identities[selection] = hash(bitmap); bitmap.recycle()
+                    capture("pixel-selection-$selection")
+                    val bitmap = pixels(region); identities[selection] = hash(bitmap)
+                    File(output, "pixel-highlight-$selection.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+                    bitmap.recycle()
                 }
                 assertNotEquals(identities[0], identities[1])
                 repeat(40) { index ->
                     val target = if (index%2==0) 0 else 1
                     val code = if (target==0) KeyEvent.KEYCODE_DPAD_LEFT else KeyEvent.KEYCODE_DPAD_RIGHT
                     var started = 0L
-                    main { started=System.nanoTime(); activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN,code)); activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP,code)) }
+                    started=System.nanoTime(); injectKey(code)
                     var observed: String; var checks=0
                     do {
                         val bitmap=pixels(region); observed=hash(bitmap); bitmap.recycle(); checks++
@@ -323,7 +334,7 @@ class ReadinessDeviceTest {
                 capture("pixel-verified-emoji")
             }
         }
-        record("pixel-latency", JSONObject().put("pixelMethod","IME commit/native key dispatch to SHA-256 matching previously captured settled result/highlight pixels; includes PixelCopy, hashing and harness overhead; no physical input/scanout timing"))
+        record("pixel-latency", JSONObject().put("pixelMethod","IME commit/UiAutomation virtual-key injection to SHA-256 matching previously captured settled result/highlight pixels; includes PixelCopy, hashing and harness overhead; no physical input/scanout timing"))
     }
 
     @Test fun sustainedSearchAndRouteReliability() {
