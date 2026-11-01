@@ -81,7 +81,7 @@ class TouchReadabilityDeviceTest {
         } finally {
             val exitFlags=testAutomation().serviceInfo.flags
             val out=File(context.filesDir,"readiness-evidence").apply { mkdirs() }
-            File(out,"touch-clipboard-${testName.methodName}-$phase.json").writeText(JSONObject()
+            File(out,"touch-clipboard-${testName.methodName.lowercase(java.util.Locale.ROOT)}-$phase.json").writeText(JSONObject()
                 .put("phase",phase).put("settled_dismissal",settled).put("font_scale",context.resources.configuration.fontScale)
                 .put("entry_flags",entryFlags).put("exit_flags",exitFlags).put("observations",observations).put("actions",actions)
                 .put("before_any_diagnostic_uidevice_dump",true).toString(2))
