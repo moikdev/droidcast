@@ -80,11 +80,19 @@ class UpdateSelfInstallDeviceTest {
             repeat(node.childCount) { index -> node.getChild(index)?.let { find(it)?.let { found -> return found } } }
             return null
         }
-        compose.waitUntil(7000) {
-            automation.clearCache()
-            var node = automation.windows.mapNotNull { it.root }.firstNotNullOfOrNull(::find)
-            while (node != null && !node.isClickable) node = node.parent
-            node?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK) == true
+        try {
+            compose.waitUntil(7000) {
+                automation.clearCache()
+                var node = automation.windows.mapNotNull { it.root }.firstNotNullOfOrNull(::find)
+                while (node != null && !node.isClickable) node = node.parent
+                node?.takeIf { it.isEnabled && it.isVisibleToUser }?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK) == true
+            }
+        } catch (error: Throwable) {
+            File(context.filesDir, "updates-evidence").apply { mkdirs() }.let {
+                device.dumpWindowHierarchy(File(it, "failure-picker-action.xml"))
+                device.takeScreenshot(File(it, "failure-picker-action.png"))
+            }
+            throw error
         }
     }
     @Test fun preparePublicDataAndVerifiedUpdate() {
@@ -106,8 +114,17 @@ class UpdateSelfInstallDeviceTest {
         compose.activityRule.scenario.onActivity { it.selectPage("folders") }
         compose.onNodeWithTag("folder-add").performScrollTo().performClick()
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 7000))
-        if (device.hasObject(By.desc("Show roots"))) clickNative(description = "Show roots")
-        clickNative(text = "Downloads", resourceId = "android:id/title")
+        device.waitForIdle()
+        InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+        if (!device.hasObject(By.text(rootName))) {
+            // API36 tree selection can expose only the primary-storage root, without a drawer.
+            if (device.hasObject(By.res("android:id/title").text("Download"))) {
+                clickNative(text = "Download", resourceId = "android:id/title")
+            } else {
+                clickNative(description = "Show roots")
+                clickNative(text = "Downloads", resourceId = "android:id/title")
+            }
+        }
         if (!device.hasObject(By.text(rootName))) UiScrollable(UiSelector().packageName("com.google.android.documentsui").scrollable(true))
             .setMaxSearchSwipes(15).scrollIntoView(UiSelector().text(rootName))
         clickNative(text = rootName)
