@@ -71,6 +71,8 @@ Supported Android host capabilities:
 
 Real Store packages tested include UUID Generator (generation, clipboard, native history), OKLCH Color Converter (Store installation, reactive native results and copying), and Palette Colors (native Grid, copying and remembered color scheme). See [Extension Grid](docs/EXTENSION-GRID.md) for its subset and validation. This is not an ecosystem-wide compatibility claim.
 
+[Pinned command discovery](docs/EXTENSION-CATALOG.md) provides a resumable manifest catalog with explicit pending/error entries. Its command declarations remain untested until exact bundles and workflows have Android execution evidence.
+
 Store searches/downloads contact Raycast. Running third-party code can make HTTPS requests and access the foreground clipboard; an install confirmation explains this. Extension storage and preferences are scoped per extension and excluded from OS backup. Uninstall removes the extension and its own data.
 
 ## Keyboard
