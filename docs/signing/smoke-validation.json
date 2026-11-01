@@ -1,0 +1,13 @@
+{
+  "screenshot": "docs/screenshots/production-signing/preview-smoke.png",
+  "screenshotSha256": "9eccce2024354f3d449892a26e943236d3896657f407f7eb41d967482cd868a0",
+  "avd": "Tinycast_Tablet_API_36",
+  "api": "36",
+  "display": "Physical size: 1920x1200",
+  "density": "Physical density: 240",
+  "package": "package: name='dev.tinycast.android' versionCode='5' versionName='0.4.0-preview' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'",
+  "apkSha256": "fabbc9c5c6b667f086b7a09456fa1cb0e57270be7fe0c3531bf94190e8a72382",
+  "certificateSha256": "e7bee2db540fcbb0633d82870b2c4e3d14ecc0c18474b1a7c73d47eb0bf92c08",
+  "buildCommit": [],
+  "note": "Real existing 0.4.0-preview app smoke only; no embedded source stamp. The new production signing proof APK was not installed. No production migration tested."
+}

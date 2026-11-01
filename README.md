@@ -28,7 +28,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 The Gradle wrapper and distribution checksum are included. JDK 21 is the verified toolchain. The installed package remains `dev.tinycast.android` so earlier previews can be upgraded. The app label and public project name are Droidcast.
 
-The downloadable APK is a debug-signed preview, not a production-signed release. CI debug APKs can use a different signing certificate. Uninstalling removes local collections. Development builds provide versioned backup/restore through the document picker; the tagged 0.4.0-preview APK predates this feature.
+The downloadable APK is a debug-signed preview, not a production-signed release. A new production identity is prepared; [key status and migration plan](docs/PRODUCTION-KEY-PREPARATION.md) describe the remaining release gates. CI debug APKs can use a different signing certificate. Uninstalling removes local collections. Development builds provide versioned backup/restore through the document picker; the tagged 0.4.0-preview APK predates this feature.
 
 ## The palette
 
