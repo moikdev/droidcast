@@ -156,7 +156,7 @@ class TouchReadabilityDeviceTest {
             val scrollParent=generateSequence(node.parent) { it.parent }.firstOrNull {
                 it.config.contains(SemanticsProperties.VerticalScrollAxisRange)
             } ?: outerNode
-            val rootNode=compose.onAllNodes(isRoot()).fetchSemanticsNodes().single()
+            val rootNode=generateSequence(node) { it.parent }.last()
             val outerRange=outerNode.config[SemanticsProperties.VerticalScrollAxisRange]
             val sample=compose.runOnUiThread { ScrollGeometry(node.boundsInRoot,unclipped(node),outerNode.boundsInRoot,
                 scrollParent.boundsInRoot,unclipped(scrollParent),rootNode.boundsInRoot,outerRange.value(),outerRange.maxValue()) }
