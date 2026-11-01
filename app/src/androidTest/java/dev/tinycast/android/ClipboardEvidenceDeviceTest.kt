@@ -47,25 +47,33 @@ class ClipboardEvidenceDeviceTest {
             restorePalettePreferences(context,original)
         } finally { Configurator.getInstance().uiAutomationFlags=originalFlags }
     }
-    private fun exercise(mode:Int,label:String) {
+    private fun exercise(mode:Int,label:String,includeNotImportant:Boolean?=null) {
         Configurator.getInstance().uiAutomationFlags=mode
         val automation=instrumentation.getUiAutomation(mode)
         var epoch=0
         compose.activityRule.scenario.onActivity { epoch=it.store.focusEpoch;it.copyText("Droidcast controlled clipboard fixture 271828") }
         assertTrue("Clipboard fixture really opens Android's overlay",device.wait(Until.hasObject(By.res("com.android.systemui","clipboard_ui")),7000))
+        val originalServiceFlags=automation.serviceInfo.flags
+        if(includeNotImportant!=null)automation.serviceInfo=automation.serviceInfo.apply {
+            flags=if(includeNotImportant)flags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS
+                else flags and android.accessibilityservice.AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS.inv()
+        }
         val beforeServiceFlags=automation.serviceInfo.flags
         val folder=File(context.filesDir,"readiness-evidence").apply { mkdirs() }
         var failure:Throwable?=null
+        val observations=org.json.JSONArray()
         try {
-            dismissClipboardForEvidence()
+            dismissClipboardForEvidence(onObservation={ observations.put(it) })
             assertEquals(mode,Configurator.getInstance().uiAutomationFlags)
             assertNull(compose.activity.store.dialog);assertEquals(epoch,compose.activity.store.focusEpoch)
         } catch(error:Throwable) { failure=error }
         val after=instrumentation.getUiAutomation(mode)
         val afterServiceFlags=after.serviceInfo.flags
+        // Restore the entry state before UiDevice diagnostics can alter flags.
+        after.serviceInfo=after.serviceInfo.apply { flags=originalServiceFlags }
         File(folder,"clipboard-$label.json").writeText(JSONObject()
             .put("configured_mode",mode).put("service_flags_before",beforeServiceFlags)
-            .put("service_flags_after",afterServiceFlags)
+            .put("service_flags_after",afterServiceFlags).put("observations_before_uidevice",observations)
             .put("overlay_after",device.hasObject(By.res("com.android.systemui","clipboard_ui")))
             .put("route_preserved",compose.activity.store.dialog==null && compose.activity.store.focusEpoch==epoch)
             .put("failure",failure?.message ?: JSONObject.NULL).toString(2))
@@ -73,6 +81,10 @@ class ClipboardEvidenceDeviceTest {
         assertTrue(device.takeScreenshot(File(folder,"clipboard-$label.png")))
         failure?.let { throw it }
         assertEquals("Cleanup restores accessibility service flags",beforeServiceFlags,afterServiceFlags)
+    }
+    @Test fun bothVisibilityFlagStatesRestoreExactly() {
+        exercise(0,"exclude-unimportant",false)
+        exercise(0,"include-unimportant",true)
     }
     @Test fun defaultModeClipboardCleanupRetainsThePalette() { exercise(0,"default") }
     @Test fun nonSuppressingModeClipboardCleanupRetainsThePalette() {

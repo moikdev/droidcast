@@ -34,21 +34,26 @@ class ActivationDeviceTest {
     @Before fun ready() {
         original=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap()
         compose.waitUntil(15000){!compose.activity.store.loading && !compose.activity.store.folderSearch.loading}
+        compose.activityRule.scenario.onActivity { clip=it.getSystemService(ClipboardManager::class.java).primaryClip }
+        // Establish accessibility readiness before creating the known overlay;
+        // this runs without a preceding UiDevice query or hierarchy dump.
+        dismissClipboardForEvidence()
         compose.activityRule.scenario.onActivity {
-            val manager=it.getSystemService(ClipboardManager::class.java);clip=manager.primaryClip
+            val manager=it.getSystemService(ClipboardManager::class.java)
             manager.setPrimaryClip(ClipData.newPlainText("Activation fixture","activation-sentinel"))
             it.store.resetShortcuts();it.store.reset()
         }
         val actions=org.json.JSONArray()
+        val observations=org.json.JSONArray()
         val start=android.os.SystemClock.uptimeMillis()
         val focusBefore=compose.activity.window.decorView.hasWindowFocus()
         try {
-            dismissClipboardForEvidence { node,ok -> actions.put(JSONObject().put("node",node).put("ok",ok).put("after_ms",android.os.SystemClock.uptimeMillis()-start)) }
+            dismissClipboardForEvidence(onObservation={ observations.put(it) }) { node,ok -> actions.put(JSONObject().put("node",node).put("ok",ok).put("after_ms",android.os.SystemClock.uptimeMillis()-start)) }
             File(context.filesDir,"readiness-evidence").apply{mkdirs()}.resolve("activation-setup-${testName.methodName.lowercase()}.json")
-                .writeText(JSONObject().put("test",testName.methodName).put("settled",true).put("window_focus_before_cleanup",focusBefore).put("actions",actions).toString(2))
+                .writeText(JSONObject().put("test",testName.methodName).put("settled",true).put("window_focus_before_cleanup",focusBefore).put("actions",actions).put("observations",observations).toString(2))
         } catch(failure:Throwable) {
             val dir=File(context.filesDir,"readiness-evidence").apply{mkdirs()}
-            val details=JSONObject().put("setup_failure",true).put("test",testName.methodName).put("window_focus_before_cleanup",focusBefore).put("actions",actions)
+            val details=JSONObject().put("setup_failure",true).put("test",testName.methodName).put("window_focus_before_cleanup",focusBefore).put("actions",actions).put("observations_before_uidevice",observations)
                 .put("automation_mode",androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags)
                 .put("windows",org.json.JSONArray(testAutomation().windows.map { window ->
                     JSONObject().put("type",window.type).put("title",window.title?.toString()).put("active",window.isActive)

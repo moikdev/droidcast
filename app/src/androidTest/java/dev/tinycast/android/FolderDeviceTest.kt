@@ -97,7 +97,12 @@ class FolderDeviceTest {
         assertTrue(device.wait(Until.hasObject(By.textContains(marker)), 5000))
     }
     private fun clickText(text: String) {
-        val node = device.wait(Until.findObject(By.text(text)), 5000) ?: throw AssertionError("No picker control: $text")
+        val node = device.wait(Until.findObject(By.text(text)), 5000) ?: run {
+            val dir=File(context.filesDir,"folder-evidence").apply { mkdirs() }
+            device.dumpWindowHierarchy(File(dir,"picker-missing-control.xml"))
+            device.takeScreenshot(File(dir,"picker-missing-control.png"))
+            throw AssertionError("No picker control: $text")
+        }
         node.click(); device.waitForIdle()
     }
     private fun authorize() {

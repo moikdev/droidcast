@@ -42,6 +42,12 @@ def approval_mode():
  modes=re.findall(r'REQUEST_INSTALL_PACKAGES:\s*(allow|ignore|deny|default|foreground|ask)',value);assert len(modes)<=1
  return modes[0] if modes else 'default'
 if a.update_fixtures is not None:source_approval=approval_mode();r['source_approval_before']=source_approval
+# Persist recovery inputs before the first install/settings mutation. The full
+# result is still written in finally; an abrupt host restart leaves this
+# explicitly incomplete journal plus the owner-only preference backups.
+r['settings_before']=settings
+r['fixture_upload_directory']=upload_root if a.update_fixtures is not None else None
+(a.output/'record.json').write_text(json.dumps(r,indent=2)+'\n')
 try:
  for source in [a.apk,a.test_apk]:
   shutil.copyfile(source,a.output/source.name);raw('install','-r',str(source))
