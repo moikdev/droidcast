@@ -92,20 +92,46 @@ class TouchReadabilityDeviceTest {
             context.deleteSharedPreferences("extension-$it")
         }
     }
-    private fun search(text:String) { compose.onNodeWithTag("search").performTextReplacement(text);compose.waitForIdle() }
-    private fun touch(tag:String) { compose.onNodeWithTag(tag).assertIsDisplayed().assertIsEnabled().performTouchInput { click(center) };compose.waitForIdle() }
+    private fun reveal(tag:String):SemanticsNodeInteraction {
+        val target=compose.onNodeWithTag(tag)
+        val initial=target.fetchSemanticsNode()
+        val inRoute=generateSequence(initial.parent) { it.parent }.any {
+            it.config.contains(SemanticsProperties.TestTag) && it.config[SemanticsProperties.TestTag]=="palette-content-scroll"
+        }
+        if(!inRoute)return target
+        repeat(12) {
+            val node=target.fetchSemanticsNode();val visible=node.boundsInWindow
+            if(visible.height>=node.size.height-1 && visible.width>=node.size.width-1)return target
+            val route=compose.onNodeWithTag("palette-content-scroll")
+            val viewport=route.fetchSemanticsNode().boundsInWindow
+            val below=node.positionInWindow.y+node.size.height>viewport.bottom+1
+            val pixelsPerDp=context.resources.displayMetrics.density
+            // Start upward pans in the header so an inner list cannot consume
+            // the gesture before the outer route reveals its clipped footer.
+            route.performTouchInput {
+                val start=if(below)minOf(height*.25f,48*pixelsPerDp) else height*.70f
+                val end=if(below)8f else height-8f
+                swipe(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),250)
+            }
+            compose.waitForIdle()
+        }
+        return target
+    }
+    private fun search(text:String) { reveal("search").performTextReplacement(text);compose.waitForIdle() }
+    private fun touch(tag:String) { target(tag);compose.onNodeWithTag(tag).assertIsEnabled().performTouchInput { click(center) };compose.waitForIdle() }
     private fun target(tag:String):Rect {
-        val node=compose.onNodeWithTag(tag).assertIsDisplayed().fetchSemanticsNode()
+        val node=reveal(tag).assertIsDisplayed().fetchSemanticsNode()
         val bounds=node.boundsInWindow
         val minimum=48*context.resources.displayMetrics.density-1
         assertTrue("$tag has a 48dp visible width: $bounds",bounds.width>=minimum)
         assertTrue("$tag has a 48dp visible height: $bounds",bounds.height>=minimum)
+        assertTrue("$tag must become fully visible through touch scrolling",bounds.width>=node.size.width-1 && bounds.height>=node.size.height-1)
         geometry.put(tag,JSONArray(listOf(bounds.left,bounds.top,bounds.right,bounds.bottom)))
         return bounds
     }
     private fun inputFits(tag:String) {
         val results=mutableListOf<TextLayoutResult>()
-        val field=compose.onNodeWithTag(tag).assertIsDisplayed()
+        val field=reveal(tag).assertIsDisplayed()
         field.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(results)) }
         val layout=results.single()
         val bounds=field.fetchSemanticsNode().boundsInWindow
@@ -114,6 +140,7 @@ class TouchReadabilityDeviceTest {
         assertTrue("$tag must not clip the actual text line ($lineHeight > ${bounds.height})",lineHeight<=bounds.height+1)
     }
     private fun fullLabel(parent:String,label:String) {
+        reveal(parent)
         val results=mutableListOf<TextLayoutResult>()
         val node=compose.onNode(hasText(label) and hasAnyAncestor(hasTestTag(parent)),useUnmergedTree=true)
         node.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(results)) }
@@ -141,10 +168,16 @@ class TouchReadabilityDeviceTest {
             .put("left",layout.getLineLeft(index)).put("right",layout.getLineRight(index))
             .put("ellipsized",layout.isLineEllipsized(index)) }))
     private fun capsule(primary:String,actions:String) {
-        val first=target(primary);val second=target(actions)
+        target(primary);target(actions)
+        fun actualBounds(tag:String):Rect {
+            val node=compose.onNodeWithTag(tag).fetchSemanticsNode();val position=node.positionInWindow
+            return Rect(position.x,position.y,position.x+node.size.width,position.y+node.size.height)
+        }
+        val first=actualBounds(primary);val second=actualBounds(actions)
         assertFalse("Primary and Actions touch targets must not overlap",first.overlaps(second))
     }
     private fun selectedGridCellFits() {
+        reveal("extension-grid-cell-0")
         val grid=compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInWindow
         val cell=compose.onNodeWithTag("extension-grid-cell-0").assertIsDisplayed().fetchSemanticsNode()
         val top=cell.positionInWindow.y
