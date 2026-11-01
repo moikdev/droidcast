@@ -27,7 +27,7 @@ abstract class CalculatorDeviceFixture {
 
     @Before fun setup() {
         Assume.assumeTrue("Dedicated emulator only", device.executeShellCommand("getprop ro.kernel.qemu").trim() == "1" &&
-            device.executeShellCommand("getprop ro.boot.qemu.avd_name").trim() == InstrumentationRegistry.getArguments().getString("dedicatedAvd", "Tinycast_Tablet_API_36"))
+            device.executeShellCommand("getprop ro.boot.qemu.avd_name").trim().ifEmpty { device.executeShellCommand("getprop ro.kernel.qemu.avd_name").trim() } == InstrumentationRegistry.getArguments().getString("dedicatedAvd", "Tinycast_Tablet_API_36"))
         assertTrue(device.executeShellCommand("id").startsWith("uid=2000"))
         original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         compose.activityRule.scenario.onActivity { originalClip = it.getSystemService(ClipboardManager::class.java).primaryClip }
@@ -41,7 +41,7 @@ abstract class CalculatorDeviceFixture {
         restorePalettePreferences(context, original)
         compose.activityRule.scenario.onActivity {
             val clipboard = it.getSystemService(ClipboardManager::class.java)
-            originalClip?.let(clipboard::setPrimaryClip) ?: clipboard.clearPrimaryClip()
+            originalClip?.let(clipboard::setPrimaryClip) ?: clipboard.resetClipboardForTest()
         }
         File(context.filesDir, "calculator-evidence").apply { mkdirs() }.resolve("restoration.json")
             .writeText("{\"palette_preferences_restored\":true,\"clipboard_restored\":true}")
@@ -89,7 +89,7 @@ abstract class CalculatorDeviceFixture {
         repeat(4) {
             if (!valid) {
                 compose.waitForIdle(); device.waitForIdle()
-                if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
+                if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
                 device.wait(Until.hasObject(By.pkg(context.packageName).clazz("android.widget.EditText").text(store.query)), 1500)
                 device.dumpWindowHierarchy(xml)
                 val document = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml)

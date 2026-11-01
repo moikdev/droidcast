@@ -108,7 +108,7 @@ class ExtensionGridDeviceTest {
         compose.activityRule.scenario.onActivity {
             val manager = it.getSystemService(ClipboardManager::class.java)
             clipboard = manager.primaryClip
-            manager.clearPrimaryClip() // Never include an existing clipboard suggestion in evidence.
+            manager.resetClipboardForTest() // Never include an existing clipboard suggestion in evidence.
         }
         compose.waitUntil(10000) { !compose.activity.store.loading }
     }
@@ -118,7 +118,7 @@ class ExtensionGridDeviceTest {
         restorePalettePreferences(context, original)
         val prefs = context.getSharedPreferences("extension-grid-renderer-fixture", Context.MODE_PRIVATE)
         val edit = prefs.edit().clear(); originalExtension.forEach { (key, value) -> if (value is String) edit.putString(key, value) }; assertTrue(edit.commit())
-        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); clipboard?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip() }
+        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); clipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest() }
         File(context.cacheDir, "extension-grid-fixture").deleteRecursively()
         File(context.filesDir, "grid-private-fixture.png").delete()
     }
@@ -161,7 +161,7 @@ class ExtensionGridDeviceTest {
             .put("epoch_before", captureEpoch).put("epoch_after", compose.activity.store.extensions.launchEpoch).toString(2))
         assertEquals("Evidence collection must retain its extension route", captureRoute, compose.activity.store.dialog)
         assertEquals("Evidence collection must retain its command session", captureEpoch, compose.activity.store.extensions.launchEpoch)
-        testAutomation().clearCache()
+        testAutomation().clearCacheForTest()
         if (name != "image-errors") compose.waitUntil(10000) {
             val selected = compose.onAllNodes(isSelected()).fetchSemanticsNodes().firstOrNull { it.config.getOrElse(SemanticsProperties.TestTag) { "" }.startsWith("extension-grid-cell-") }
             if (selected == null) true else {
@@ -174,7 +174,7 @@ class ExtensionGridDeviceTest {
         val expectedCount = compose.onAllNodesWithTag("extension-grid-count").fetchSemanticsNodes().singleOrNull()?.config?.get(SemanticsProperties.Text)?.joinToString("") { it.text }
         val expectedQuery = if (expectedCount != null) compose.onNodeWithTag("extension-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text else null
         compose.waitUntil(10000) {
-            testAutomation().clearCache()
+            testAutomation().clearCacheForTest()
             val xml = File(folder, "$name.xml"); device.dumpWindowHierarchy(xml)
             val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
             val appNodes = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.filter { it.getAttribute("package") == context.packageName }
@@ -742,7 +742,7 @@ class ExtensionGridBaselineTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val fixture = gridFixture(context)
         var originalClip: android.content.ClipData? = null
-        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip = manager.primaryClip; manager.clearPrimaryClip() }
+        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip = manager.primaryClip; manager.resetClipboardForTest() }
         try {
             compose.activityRule.scenario.onActivity { it.store.openExtension(fixture, fixture.commands.single()) }
             compose.waitUntil(25000) { compose.activity.store.extensions.runtimeTree != null }
@@ -753,7 +753,7 @@ class ExtensionGridBaselineTest {
         } finally {
             compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
             compose.waitForIdle()
-            compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip() }
+            compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest() }
             fixture.directory.deleteRecursively(); File(context.filesDir, "grid-private-fixture.png").delete()
         }
     }

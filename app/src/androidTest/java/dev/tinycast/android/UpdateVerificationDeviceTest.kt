@@ -144,7 +144,7 @@ class UpdateVerificationDeviceTest {
         toggle.performScrollTo().assertIsDisplayed().assertContentDescriptionEquals("Confirm each update").assertIsOn().assertIsNotEnabled()
         val automation = testAutomation()
         compose.waitUntil(7000) {
-            automation.clearCache()
+            automation.clearCacheForTest()
             device.hasObject(By.res("updates-confirm-every-time").desc("Confirm each update").checkable(true).checked(true).enabled(false))
         }
         updateEvidence("confirmation-switch-busy", "Confirm each update")

@@ -41,7 +41,7 @@ class ReadinessRegressionDeviceTest {
         compose.activityRule.scenario.onActivity {
             it.store.extensions.close()
             val manager = it.getSystemService(ClipboardManager::class.java)
-            clipboard?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip()
+            clipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
         }
         restorePalettePreferences(context, original)
         fixture?.deleteRecursively(); support?.deleteRecursively()
@@ -54,7 +54,7 @@ class ReadinessRegressionDeviceTest {
     private fun capture(name: String) {
         compose.waitForIdle(); device.waitForIdle()
         val directory = File(context.filesDir,"readiness-evidence").apply { mkdirs() }
-        if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
+        if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
         device.dumpWindowHierarchy(File(directory,"$name.xml"))
         assertTrue(device.takeScreenshot(File(directory,"$name.png")))
     }

@@ -89,7 +89,7 @@ class UpdateSelfInstallDeviceTest {
         }
         try {
             compose.waitUntil(7000) {
-                automation.clearCache()
+                automation.clearCacheForTest()
                 var node = automation.windows.mapNotNull { it.root }.firstNotNullOfOrNull(::find)
                 while (node != null && !node.isClickable) node = node.parent
                 node?.takeIf { it.isEnabled && it.isVisibleToUser }?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK) == true
@@ -122,7 +122,7 @@ class UpdateSelfInstallDeviceTest {
         compose.onNodeWithTag("folder-add").performScrollTo().performClick()
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 7000))
         device.waitForIdle()
-        testAutomation().clearCache()
+        testAutomation().clearCacheForTest()
         if (!device.hasObject(By.res("com.google.android.documentsui", "breadcrumb_text").text(rootName))) {
           if (!device.hasObject(By.text(rootName))) {
             // API36 tree selection can expose only the primary-storage root, without a drawer.

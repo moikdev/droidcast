@@ -81,7 +81,7 @@ class ShortcutReadinessDeviceTest {
         var present = false
         repeat(4) {
             if (!present) {
-                if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
+                if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
                 device.wait(Until.hasObject(By.pkg(context.packageName).res(tag)), 1500)
                 device.dumpWindowHierarchy(xml)
                 present = xml.readText().contains("resource-id=\"$tag\"") &&

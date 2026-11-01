@@ -90,7 +90,7 @@ class AssistantTouchDeviceTest {
     }
     private fun capture(name: String, marker: String? = null, expectedPackage: String = context.packageName) {
         device.waitForIdle()
-        if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCache()
+        if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCacheForTest()
         if (marker != null) assertTrue("Pictured native state: $marker", device.wait(Until.hasObject(By.pkg(expectedPackage).textContains(marker)), 5000))
         device.dumpWindowHierarchy(dir.resolve("$name.xml"))
         if (marker != null) {
@@ -243,7 +243,7 @@ class AssistantTouchDeviceTest {
             }
             try {
                 compose.waitUntil(10000) {
-                    if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCache()
+                    if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCacheForTest()
                     button = findHome()
                     button != null
                 }

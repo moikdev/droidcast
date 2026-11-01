@@ -1,0 +1,194 @@
+{
+  "scope": "Focused real-file verification and historical/controlled clipboard-helper evidence; not a full-suite or production clearance",
+  "captures": [
+    {
+      "image": "docs/screenshots/readiness-regressions/tablet-recent-native-picker.png",
+      "sha256": "6afd2cb3362f9c1cad3364bcba1d3396ab5df671d3e25c48011a802c2e67488c",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_sha256": "a51f0cfc04e0297dfe8d9c4bba4bc4a8ef0fb63abfd93cd4da30a951e82a876d",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "origin_run": "recent-native-focused-v3-tablet",
+      "origin_file": "recent-native-picker",
+      "caption": "Actual Downloads picker containing the uniquely named owned TXT fixture",
+      "kind": "real API36 emulator capture",
+      "run_completed": true,
+      "native_passes_in_run": 1
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/tablet-recent-native-result.png",
+      "sha256": "0d2dfa3f014516cdbf3fef8ce3e2c37250337097320e077a30bcbe2ce4f9c200",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_sha256": "dd2b0c3cbfa448882cb3af83dba7bf29ff4f8da024b9b5e336863f1f21712b73",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "origin_run": "recent-native-focused-v3-tablet",
+      "origin_file": "recent-native-result",
+      "caption": "Recent reference uses the native provider name after actual picker selection",
+      "kind": "real API36 emulator capture",
+      "run_completed": true,
+      "native_passes_in_run": 1
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/tablet-recent-native-chooser.png",
+      "sha256": "a192dfad19b422d83658401db3652c1ef1ff187c9283bb02ed3c0151a9b42a25",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_sha256": "71b481123a8be7d937216358f1246ed20441a68afeb494a18e480b867ab20422",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "origin_run": "recent-native-focused-v3-tablet",
+      "origin_file": "recent-native-chooser",
+      "caption": "Android one-time viewer choice; not the final document destination",
+      "kind": "real API36 emulator capture",
+      "run_completed": true,
+      "native_passes_in_run": 1
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/tablet-recent-native-viewer.png",
+      "sha256": "78850bb0bd00d6e3ec22caacc1d76ae787ecf803c62621a879afd3a2f211ea9e",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_sha256": "1cbc4e8e3121e593bb0b2cf8e21ddd9094e541706b870624f8fc8a126b11ab03",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "origin_run": "recent-native-focused-v3-tablet",
+      "origin_file": "recent-native-viewer",
+      "caption": "Exact selected document title and distinct body271828 in HTML Viewer",
+      "kind": "real API36 emulator capture",
+      "run_completed": true,
+      "native_passes_in_run": 1
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/phone-minimized-failure.png",
+      "sha256": "2792c9665fbddb7ac828eaefaeee7a291a386d8ade4439727fddf675a7288c98",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_sha256": "6203ddb2313da6884c8ef6b87b9e8decfddb95f49c2f0631715b7349b04eddeb",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "d186d25828de6de3b9da15fbfd04fcdbced788c9a926e05b3ab612f92ad26451",
+      "origin_run": "final-full-v1-phone",
+      "origin_file": "clipboard-cycle-default-after",
+      "caption": "Historical failed helper case: minimized clipboard remains after its cleanup deadline",
+      "kind": "real API36 emulator capture",
+      "run_completed": false,
+      "native_passes_in_run": 158
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/phone-minimized-negative.png",
+      "sha256": "b983feaf126c0f4b872300defedd87c9637f763a6b5d7429ad0f339e3d5fee0a",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_sha256": "a8e9d069fb95b21663b7821cf26e8a34af016689ef49b0ac1954724d4662d727",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "85ac51b3b8ef253fd3ffecd152b6a9bdcf77740421d58a9d5062a849db396121",
+      "origin_run": "clipboard-minimized-controlled-negative-phone",
+      "origin_file": "clipboard-minimized-before",
+      "caption": "Controlled old-helper fixture: minimized preview with no Dismiss control; it later fails the proactive-action assertion",
+      "kind": "real API36 emulator capture",
+      "run_completed": false,
+      "native_passes_in_run": 0
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/phone-minimized-before.png",
+      "sha256": "f5a00aa28bf8454a4a2db87a175843c234b177e164e07887c0b9c35f1a85e3a8",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_sha256": "6e9ff3ea56c75d2c15a107f9bb8150369a309d8d949f22196c789336ad7b82e9",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "6d826b8067021a292e9681198f3381e953d3317aa723a18c3f6f251a61308b89",
+      "origin_run": "clipboard-minimized-controlled-positive-phone",
+      "origin_file": "clipboard-minimized-before",
+      "caption": "Controlled minimized shape before corrected node-based cleanup",
+      "kind": "real API36 emulator capture",
+      "run_completed": true,
+      "native_passes_in_run": 1
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/phone-minimized-after.png",
+      "sha256": "2b820359d48dcc01d781f9d3f1583cc21c04d194ece12bd995aa048af2769493",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_sha256": "614b4ee0a3966bbd686b113b6292da2ecccd042dfc23b137fefa83583e25fb24",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "6d826b8067021a292e9681198f3381e953d3317aa723a18c3f6f251a61308b89",
+      "origin_run": "clipboard-minimized-controlled-positive-phone",
+      "origin_file": "clipboard-minimized-after",
+      "caption": "After real expand and Dismiss node actions; query and route preserved",
+      "kind": "real API36 emulator capture",
+      "run_completed": true,
+      "native_passes_in_run": 1
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/api26-incompatible-webview.png",
+      "sha256": "e6138441ef69ce17f328906b9c0f54304cb4875a53fe4a1deef4ea6df0587c48",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "xml_sha256": "06810d56e2b07362ab9f0920ee472f3a5f2a080253f33d3337a6dce18cf3a5e7",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "b0ac66dda16b464a929acd3eb90aae17e9943c774f0f9adfd44debd03c6d1aaa",
+      "origin_run": "api26-renderer-diagnostic",
+      "origin_file": "webview-compatibility-uiautomation",
+      "origin_xml": "webview-compatibility.xml",
+      "caption": "API26 WebView58 rejects unchanged runtime; native ReferenceError and no fixture row. Diagnostic completion is not extension-execution certification.",
+      "kind": "real API26 emulator failure-state capture",
+      "run_completed": true,
+      "diagnostic_only": true,
+      "origin_subdirectory": "readiness-evidence"
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/tablet-self-update-complete.png",
+      "sha256": "737fcb922fe5e80e6ae7249ca7402a17d831f61417a137ee9f5c82691e6cfde8",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_sha256": "ea9786fb2574734a08a81a3c850fdb2ca9b16b50ef6d7bc89110ffc65469adc7",
+      "app_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "bootstrap_app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "origin_run": "final-self-update-v3-tablet-required",
+      "origin_file": "self-after-version",
+      "caption": "tablet actual Android replacement complete, private code7 fixture/checkpoint df9c5b5. Not a published nightly or current-source production certification; original code6 app and scoped data restored afterward.",
+      "kind": "real API36 emulator self-update outcome",
+      "run_completed": true
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/phone-self-update-complete.png",
+      "sha256": "f855c765e36c4349ab00f810927d92df50e9b533f8c1ae41f09ec9b75a8e4804",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_sha256": "0f60399e144f390c8024aeb091dbd3c7954f1925e56de315bd7c378c258af94d",
+      "app_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "bootstrap_app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "origin_run": "final-self-update-v3-phone-required",
+      "origin_file": "self-after-version",
+      "caption": "phone actual Android replacement complete, private code7 fixture/checkpoint df9c5b5. Not a published nightly or current-source production certification; original code6 app and scoped data restored afterward.",
+      "kind": "real API36 emulator self-update outcome",
+      "run_completed": true
+    }
+  ]
+}

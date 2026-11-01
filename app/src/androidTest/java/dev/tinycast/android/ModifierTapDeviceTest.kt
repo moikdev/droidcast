@@ -63,7 +63,7 @@ class ModifierTapDeviceTest {
         compose.waitForIdle()
         val folder = File(context.filesDir, "modifier-tap-evidence").apply { mkdirs() }
         device.waitForIdle()
-        if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
+        if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
         assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).textContains(marker)), 5000))
         device.dumpWindowHierarchy(folder.resolve("$name.xml"))
         val text = folder.resolve("$name.xml").readText()
@@ -224,7 +224,7 @@ class ModifierTapPaletteDeviceTest {
         restorePalettePreferences(context, original)
         val clipboard = context.getSystemService(android.content.ClipboardManager::class.java)
         originalClip?.let(clipboard::setPrimaryClip) ?: run {
-            if (android.os.Build.VERSION.SDK_INT >= 28) clipboard.clearPrimaryClip()
+            if (android.os.Build.VERSION.SDK_INT >= 28) clipboard.resetClipboardForTest()
             else clipboard.setPrimaryClip(android.content.ClipData.newPlainText("", ""))
         }
     }

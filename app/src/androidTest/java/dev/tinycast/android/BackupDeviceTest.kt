@@ -85,7 +85,7 @@ class BackupDeviceTest {
         }
         try {
             compose.waitUntil(7000) {
-                automation.clearCache()
+                automation.clearCacheForTest()
                 var target=automation.windows.asSequence().mapNotNull { it.root }.mapNotNull(::find).firstOrNull()
                 while(target!=null && !target.isClickable) target=target.parent
                 target?.takeIf { it.packageName?.toString()=="com.google.android.documentsui" && it.isEnabled && it.isVisibleToUser }
@@ -101,7 +101,7 @@ class BackupDeviceTest {
         val automation=testAutomation()
         clickPickerNode("Show roots") { it.contentDescription?.toString()=="Show roots" }
         clickPickerNode("Downloads") { it.viewIdResourceName=="android:id/title" && it.text?.toString()=="Downloads" }
-        automation.clearCache(); device.waitForIdle()
+        automation.clearCacheForTest(); device.waitForIdle()
         assertTrue("Downloads breadcrumb",device.wait(Until.hasObject(By.res("com.google.android.documentsui","breadcrumb_text").text("Downloads")),7000))
     }
     @Test fun codecRoundTripRejectsCapabilitiesMalformedVersionAndOversize() {

@@ -35,7 +35,7 @@ class EmojiDeviceTest {
         compose.activityRule.scenario.onActivity {
             val clipboard = it.getSystemService(ClipboardManager::class.java)
             originalClip = clipboard.primaryClip
-            clipboard.clearPrimaryClip()
+            clipboard.resetClipboardForTest()
         }
         // The current ViewModel already loaded preferences; clear through the public operations.
         compose.waitUntil(10000) { !compose.activity.store.loading && !store.loading }
@@ -62,7 +62,7 @@ class EmojiDeviceTest {
         assertTrue(editor.commit())
         compose.activityRule.scenario.onActivity {
             val clipboard = it.getSystemService(ClipboardManager::class.java)
-            originalClip?.let(clipboard::setPrimaryClip) ?: clipboard.clearPrimaryClip()
+            originalClip?.let(clipboard::setPrimaryClip) ?: clipboard.resetClipboardForTest()
         }
     }
     private fun search(value: String) { compose.onNodeWithTag("emoji-search").performTextReplacement(value); compose.waitForIdle() }
@@ -102,7 +102,7 @@ class EmojiDeviceTest {
         // Validate the exact native hierarchy that will be paired with the PNG.
         // A Compose assertion alone cannot certify a cached accessibility snapshot.
         compose.waitUntil(10000) {
-            if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
+            if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
             device.dumpWindowHierarchy(xml)
             val document = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml)
             val nodes = document.getElementsByTagName("node")
@@ -333,7 +333,7 @@ class EmojiDeviceTest {
         search("infinity")
         listOf(KeyEvent.KEYCODE_ENTER to 0, KeyEvent.KEYCODE_ENTER to KeyEvent.META_CTRL_ON,
             KeyEvent.KEYCODE_NUMPAD_ENTER to KeyEvent.META_CTRL_ON).forEach { (code, meta) ->
-            compose.activityRule.scenario.onActivity { it.getSystemService(ClipboardManager::class.java).clearPrimaryClip() }
+            compose.activityRule.scenario.onActivity { it.getSystemService(ClipboardManager::class.java).resetClipboardForTest() }
             key(code, meta)
             assertEquals("∞", clipboard())
         }

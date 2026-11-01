@@ -4,6 +4,7 @@ import android.app.UiAutomation
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -18,6 +19,7 @@ import org.junit.runner.RunWith
 import java.io.File
 
 /** Exercise the same automation mode FolderDeviceTest selects, without granting consent. */
+@androidx.test.filters.SdkSuppress(minSdkVersion=33)
 @RunWith(AndroidJUnit4::class)
 class ClipboardEvidenceDeviceTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
@@ -40,7 +42,7 @@ class ClipboardEvidenceDeviceTest {
         try {
             compose.activityRule.scenario.onActivity {
                 val manager=it.getSystemService(ClipboardManager::class.java)
-                clipboard?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip()
+                clipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
             }
             restorePalettePreferences(context,original)
         } finally { Configurator.getInstance().uiAutomationFlags=originalFlags }
@@ -81,4 +83,59 @@ class ClipboardEvidenceDeviceTest {
         exercise(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES,"cycle-nonsuppressing")
         exercise(0,"cycle-default-after")
     }
+    @Test fun minimizedClipboardExpandsAndDismissesWithoutChangingTheCaller() {
+        val priorIme=device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
+        assertTrue(priorIme in setOf("null","0","1"))
+        try {
+        device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+        Configurator.getInstance().uiAutomationFlags=0
+        compose.onNodeWithTag("search").performTextReplacement("clipboard controlled fixture")
+        if(compose.activity.resources.configuration.smallestScreenWidthDp>=600)
+            compose.onNodeWithContentDescription("Show on-screen keyboard").performClick()
+        else compose.onNodeWithTag("search").performClick()
+        compose.waitUntil(7000) {
+            androidx.core.view.ViewCompat.getRootWindowInsets(compose.activity.window.decorView)
+                ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true
+        }
+        val epoch=compose.activity.store.focusEpoch
+        // Reproduce the missing-Dismiss shape: SystemUI creates its overlay
+        // while accessibility is off, then automation reconnects after entry.
+        // No application keyboard service or consent is enabled by this fixture.
+        Configurator.getInstance().uiAutomationFlags=UiAutomation.FLAG_DONT_USE_ACCESSIBILITY
+        instrumentation.getUiAutomation(UiAutomation.FLAG_DONT_USE_ACCESSIBILITY)
+        val deadline=android.os.SystemClock.uptimeMillis()+5000
+        var accessibilityOn=true
+        while(accessibilityOn && android.os.SystemClock.uptimeMillis()<deadline) {
+            instrumentation.runOnMainSync { accessibilityOn=compose.activity.getSystemService(android.view.accessibility.AccessibilityManager::class.java).isEnabled }
+            if(accessibilityOn)android.os.SystemClock.sleep(20)
+        }
+        assertFalse("Fixture disables automation accessibility before copy",accessibilityOn)
+        instrumentation.runOnMainSync { compose.activity.copyText("Droidcast minimized clipboard fixture 161803") }
+        // Let the native overlay's entry run before reconnecting. The exact
+        // minimized/no-Dismiss hierarchy below is the required fixture gate.
+        android.os.SystemClock.sleep(350)
+        Configurator.getInstance().uiAutomationFlags=0
+        instrumentation.getUiAutomation(0)
+        assertTrue("Exercise the actual minimized SystemUI shape",device.wait(Until.hasObject(By.res("com.android.systemui","minimized_preview")),7000))
+        assertFalse("Fixture has no expanded Dismiss target",device.hasObject(By.res("com.android.systemui","dismiss_button")))
+        val directory=File(context.filesDir,"readiness-evidence").apply { mkdirs() }
+        device.dumpWindowHierarchy(File(directory,"clipboard-minimized-before.xml"))
+        assertTrue(device.takeScreenshot(File(directory,"clipboard-minimized-before.png")))
+        val actions=org.json.JSONArray()
+        dismissClipboardForEvidence(device) { id,success -> actions.put(JSONObject().put("node",id).put("success",success)) }
+        File(directory,"clipboard-minimized-actions.json").writeText(JSONObject().put("actions",actions).toString(2))
+        val performed=(0 until actions.length()).map { actions.getJSONObject(it) }
+        assertTrue("Must really expand the minimized node, not await expiry",performed.any { it.getString("node").endsWith(":id/minimized_preview") && it.getBoolean("success") })
+        assertTrue("Must really dismiss the expanded node",performed.any { it.getString("node").endsWith(":id/dismiss_button") && it.getBoolean("success") })
+        assertEquals("clipboard controlled fixture",compose.activity.store.query)
+        assertEquals(epoch,compose.activity.store.focusEpoch);assertNull(compose.activity.store.dialog)
+        compose.onNodeWithTag("search").assertIsFocused().assertTextEquals("clipboard controlled fixture")
+        testAutomation().clearCacheForTest();device.dumpWindowHierarchy(File(directory,"clipboard-minimized-after.xml"))
+        assertTrue(device.takeScreenshot(File(directory,"clipboard-minimized-after.png")))
+        } finally {
+            device.executeShellCommand(if(priorIme=="null") "settings delete secure show_ime_with_hard_keyboard"
+                else "settings put secure show_ime_with_hard_keyboard $priorIme")
+        }
+    }
+
 }

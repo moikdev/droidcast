@@ -47,7 +47,7 @@ class ModifierHardwareClipboardTest {
                 } else {
                     val data = file.readBytes()
                     if (data.first() == 0.toByte()) {
-                        if (android.os.Build.VERSION.SDK_INT >= 28) clipboard.clearPrimaryClip()
+                        if (android.os.Build.VERSION.SDK_INT >= 28) clipboard.resetClipboardForTest()
                         else clipboard.setPrimaryClip(ClipData.newPlainText("", ""))
                     } else {
                         val parcel = Parcel.obtain()
