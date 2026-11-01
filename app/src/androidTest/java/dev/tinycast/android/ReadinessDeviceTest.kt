@@ -135,6 +135,7 @@ class ReadinessDeviceTest {
     }
     private fun search(value: String, emoji: Boolean = false, warmup: Boolean = false) {
         val tag = if (emoji) "emoji-search" else "search"
+        await("Intended input field owns focus") { tagged(nodes(), tag)?.config?.getOrNull(SemanticsProperties.Focused) == true }
         measure((if (warmup) "warmup-" else "") + if (emoji) "emoji-query" else "launcher-query", { ns ->
             text(tagged(ns, tag)) == value && when {
                 emoji -> label(tagged(ns, "emoji-count")) == "${activity.store.emoji.results().size} ${if (activity.store.emoji.results().size == 1) "result" else "results"} · offline" && activity.store.emoji.query == value
