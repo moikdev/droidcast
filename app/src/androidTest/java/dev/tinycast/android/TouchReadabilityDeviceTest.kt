@@ -125,18 +125,21 @@ class TouchReadabilityDeviceTest {
             val scrollTag=if(isOuter)"palette-content-scroll" else if(scrollParent.config.contains(SemanticsProperties.TestTag))scrollParent.config[SemanticsProperties.TestTag] else "scroll-${scrollParent.id}"
             val route=if(isOuter)outerInteraction else parentInteraction
             val viewport=route.fetchSemanticsNode().boundsInRoot
-            val below=full.bottom>viewport.bottom+1
+            val required=if(parentOutside)parentFull else full
+            val below=required.bottom>viewport.bottom+1
+            val clippedDistance=(if(below)required.bottom-viewport.bottom else viewport.top-required.top).coerceAtLeast(0f)
             val pixelsPerDp=context.resources.displayMetrics.density
             // Use the nearest list for its clipped rows. When the whole route
             // clips a control, pan from its header to avoid an inner list.
             route.performTouchInput {
-                val start=if(isOuter) {
-                    if(below)minOf(viewport.height*.25f,48*pixelsPerDp) else viewport.height*.70f
-                } else if(below)viewport.height*.80f else viewport.height*.20f
-                val end=if(below)8f else viewport.height-8f
+                val start=if(isOuter && below)minOf(viewport.height*.25f,48*pixelsPerDp)
+                    else if(below)viewport.height*.80f else viewport.height*.20f
+                val travel=clippedDistance+viewConfiguration.touchSlop+2*pixelsPerDp
+                val end=if(below)(start-travel).coerceAtLeast(8f) else (start+travel).coerceAtMost(viewport.height-8f)
                 geometry.put("pan-$tag-$it",JSONObject().put("surface",scrollTag)
-                    .put("scope_height",height).put("visible_height",viewport.height).put("start_y",start).put("end_y",end))
-                swipe(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),250)
+                    .put("scope_height",height).put("visible_height",viewport.height).put("clipped_distance",clippedDistance)
+                    .put("start_y",start).put("end_y",end).put("end_velocity",0))
+                swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),endVelocity=0f,durationMillis=400)
             }
             compose.waitForIdle()
         }
