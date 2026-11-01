@@ -1,0 +1,1327 @@
+{
+  "implementation_checkpoint": "99866798dd2dbd86afa4ab4007f80fa900a46bb7",
+  "application_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+  "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+  "benchmark_apk_sha256": "3019b8e74bc1d1d108eecf76386ec8e9c9323bf264323b7857fd1f1c41bf359f",
+  "build_checks": {
+    "jvm_cases": 147,
+    "lint_errors": 0,
+    "lint_warnings": 51,
+    "python_cleanup_cases": 4,
+    "debug_test_benchmark_builds_passed": true,
+    "build_log_sha256": "6c3bea7c5e7a58e025a4fda5da6d0b5f8c312f138e31a8b2b10d0ddfd8afe98a",
+    "hosted_build": "https://github.com/moikdev/droidcast/actions/runs/41327432406/job/124910218150"
+  },
+  "pipeline_result_sha256": "be19ff066783b0f526b5d07137fdc4def8c1780ab7a078a50e9e20999faadd3b",
+  "environment": {
+    "avd": "Tinycast_Tablet_API_36",
+    "api": 36,
+    "abi": "arm64-v8a",
+    "tablet": {
+      "pixels": [
+        1920,
+        1200
+      ],
+      "density": 240
+    },
+    "phone": {
+      "pixels": [
+        1080,
+        2340
+      ],
+      "density": 420
+    },
+    "same_emulator_sequential_viewports": true,
+    "physical_device_certification": false,
+    "emulator_version": "37.1.11.0",
+    "renderer": "swiftshader",
+    "separate_network_simulator_socket_verified": true,
+    "emulator_abort_root_cause_or_general_fix_proven": false,
+    "cold_guest_boots": {
+      "tablet": {
+        "boot_id_changed": true,
+        "boot_complete": true,
+        "unprivileged_adbd": true,
+        "owned_network_endpoint_connected": true,
+        "not_a_host_emulator_restart": true
+      },
+      "phone": {
+        "boot_id_changed": true,
+        "boot_complete": true,
+        "unprivileged_adbd": true,
+        "owned_network_endpoint_connected": true,
+        "not_a_host_emulator_restart": true
+      }
+    }
+  },
+  "native_suites": [
+    {
+      "run": "isolation-final-full-v10-tablet",
+      "record_sha256": "be4e2865b894fe27d1b1423d86b1acd923cfe3bfa3f6e8486ebd0f0aa1718f9b",
+      "layout": "tablet",
+      "passed": 167,
+      "expected": 167,
+      "case_ids": [
+        "dev.tinycast.android.ActivationDeviceTest#explicitLauncherPrimaryCommitsComposedQueryAndActivates",
+        "dev.tinycast.android.ActivationDeviceTest#explicitListPrimaryCommitsComposedQueryAndActivates",
+        "dev.tinycast.android.ActivationDeviceTest#gridSelectionCallbackPrecedesSameTurnActivation",
+        "dev.tinycast.android.ActivationDeviceTest#listSelectionCallbackPrecedesSameTurnActivation",
+        "dev.tinycast.android.BackupDeviceTest#aliasConflictAndEmptySelectionCannotApply",
+        "dev.tinycast.android.BackupDeviceTest#codecRoundTripRejectsCapabilitiesMalformedVersionAndOversize",
+        "dev.tinycast.android.BackupDeviceTest#editorAcceptedInternationalAndSpacedUrlsSurviveBackupRoundTrip",
+        "dev.tinycast.android.BackupDeviceTest#escapeCancelsPreviewWithoutApplying",
+        "dev.tinycast.android.BackupDeviceTest#importedRankingCannotOverflowOnNextCommand",
+        "dev.tinycast.android.BackupDeviceTest#preservedDocumentAliasBlocksQuicklinkCollisionsForBothPolicies",
+        "dev.tinycast.android.BackupDeviceTest#previewCancelAndMalformedInputLeaveDataUntouched",
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerExportImportAndIdempotentMerge",
+        "dev.tinycast.android.BackupDeviceTest#replaceSelectedCategoryPersistsAndPreservesPermissionsAndOtherData",
+        "dev.tinycast.android.BackupDeviceTest#startingImportClearsFeedbackBeforeItCanCoverPreviewControls",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#arithmeticAndPrecedenceKeepWorking",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#bareNumbersRemainSearchableAndCanFindSavedItems",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#constantOperandsSupportXInAutomaticAndExplicitCalculatorModes",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#deletingTheOperatorImmediatelyRestoresSearchWithoutMovingThePalette",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#functionsUnitsAndCategoryFiltersKeepWorking",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#keyboardTypingXAndEnterWorksWithSearchFocused",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#multiplicationVariantsShowTimesSignAndCopyOnlyTheNumber",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#ordinaryXWordsAndIncompleteMathRemainSearches",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#theCalculatorCommandStillAcceptsSingleNumbers",
+        "dev.tinycast.android.ClipboardApiDeviceTest#publicClipboardResetAndExactUnicodeCopyWorkOnTheRuntime",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#bothVisibilityFlagStatesRestoreExactly",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#minimizedClipboardExpandsAndDismissesWithoutChangingTheCaller",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+        "dev.tinycast.android.DocumentProviderDeviceTest#newerCommandCancelsPendingFileLaunch",
+        "dev.tinycast.android.DocumentProviderDeviceTest#providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+        "dev.tinycast.android.DocumentProviderDeviceTest#slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference",
+        "dev.tinycast.android.DocumentProviderDeviceTest#timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+        "dev.tinycast.android.EmojiDeviceTest#caretAndSelectionChangesPreserveNavigatedResultAndCopyFeedback",
+        "dev.tinycast.android.EmojiDeviceTest#clipboardPreservesJoinersFlagsVariationSelectorsAndKeycaps",
+        "dev.tinycast.android.EmojiDeviceTest#commandOpensOfflineGridWithinTheFloatingPalette",
+        "dev.tinycast.android.EmojiDeviceTest#compositionStartedBeforeRedrawKeepsNavigationWithIme",
+        "dev.tinycast.android.EmojiDeviceTest#escapeClearsSearchThenReturnsToCommandsWithKeyboardFocus",
+        "dev.tinycast.android.EmojiDeviceTest#favoriteCanBeClearedAndReusedAndSurvivesActivityRecreation",
+        "dev.tinycast.android.EmojiDeviceTest#heldFavoriteChordTogglesOnceAndConsumesReleaseAfterModifierIsReleased",
+        "dev.tinycast.android.EmojiDeviceTest#keyboardNavigationAndActivationKeepSelectionVisibleWithoutAnimation",
+        "dev.tinycast.android.EmojiDeviceTest#rapidRightThenEnterUsesCurrentSelectionBeforeRedraw",
+        "dev.tinycast.android.EmojiDeviceTest#searchStaysOnTheLauncherRowBesideBackAndCategory",
+        "dev.tinycast.android.EmojiDeviceTest#searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState",
+        "dev.tinycast.android.EmojiDeviceTest#tabletKeyboardShowControlOpensImeWithoutLosingSearch",
+        "dev.tinycast.android.EmojiDeviceTest#typingAndFourWayNavigationWorkImmediatelyWithoutTab",
+        "dev.tinycast.android.ExtensionGridDeviceTest#actionsInspectAndBackRestoreGridSelectionAndQuery",
+        "dev.tinycast.android.ExtensionGridDeviceTest#cancellingInlinePreferencesRetainsRuntimeAndGridSelection",
+        "dev.tinycast.android.ExtensionGridDeviceTest#cancellingPreferencesRetainsManualGridScrollPosition",
+        "dev.tinycast.android.ExtensionGridDeviceTest#caretSelectionAndCompositionDoNotResetTheGridSelection",
+        "dev.tinycast.android.ExtensionGridDeviceTest#changedControlledSelectionActivatesTheNewRequestedItem",
+        "dev.tinycast.android.ExtensionGridDeviceTest#deferredControlledSelectionSurvivesUntilItsItemArrives",
+        "dev.tinycast.android.ExtensionGridDeviceTest#emptyAndLoadingStatesExposeSearchAndDisabledActions",
+        "dev.tinycast.android.ExtensionGridDeviceTest#failurePublicationBlocksQueuedGridCallbacksBeforeRecomposition",
+        "dev.tinycast.android.ExtensionGridDeviceTest#filteringPaginationAndReorderingRetainItemIdentity",
+        "dev.tinycast.android.ExtensionGridDeviceTest#initialControlledSelectionActivatesTheRequestedItem",
+        "dev.tinycast.android.ExtensionGridDeviceTest#inlineFilterAndActionsReturnKeyboardFocusToGridSearch",
+        "dev.tinycast.android.ExtensionGridDeviceTest#lateGridFailureHasNativeBackAndRestoresLauncher",
+        "dev.tinycast.android.ExtensionGridDeviceTest#lateListFailureHasNativeCloseAndRestoresStore",
+        "dev.tinycast.android.ExtensionGridDeviceTest#nativeFormCanEditAndSubmitAfterTheWindowChanges",
+        "dev.tinycast.android.ExtensionGridDeviceTest#nativeGridDisplaysColumnsImagesAndUnavailableSources",
+        "dev.tinycast.android.ExtensionGridDeviceTest#onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible",
+        "dev.tinycast.android.ExtensionGridDeviceTest#oversizedTailwindBundleReportsTheExistingInstallLimit",
+        "dev.tinycast.android.ExtensionGridDeviceTest#realLegacyListStillSearchesAndCopiesAfterTheWindowChanges",
+        "dev.tinycast.android.ExtensionGridDeviceTest#realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown",
+        "dev.tinycast.android.ExtensionGridDeviceTest#selectedCellStaysFullyVisibleWhenTheKeyboardShrinksTheGrid",
+        "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette",
+        "dev.tinycast.android.ExtensionGridDeviceTest#typingFourWaySelectionAndSameTurnActivationUseCurrentItem",
+        "dev.tinycast.android.ExtensionGridDeviceTest#untitledSectionsStartNewVisualRowsAndMatchKeyboardMovement",
+        "dev.tinycast.android.FolderDeviceTest#blankAllDropsPinnedIndexedFileAfterAccessExpires",
+        "dev.tinycast.android.FolderDeviceTest#blankPinnedDropsIndexedFileAfterAccessExpires",
+        "dev.tinycast.android.FolderDeviceTest#malformedMetadataCacheKeepsSelectedScopesAndCanRefresh",
+        "dev.tinycast.android.FolderDeviceTest#pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments",
+        "dev.tinycast.android.FolderDeviceTest#replacementControllerWaitsForCancelledOutgoingAtomicWriteAndGrantRelease",
+        "dev.tinycast.android.FolderDeviceTest#replacementWaitsForProvisionalReauthorizationRollbackBeforeLoadingCachedEntries",
+        "dev.tinycast.android.FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants",
+        "dev.tinycast.android.FolderDeviceTest#silentAtomicRenameFailureDoesNotCommitRemovalOrReleaseItsGrant",
+        "dev.tinycast.android.FolderDeviceTest#transientPostRenameReadFailureReconcilesTheSavedFoldersGrant",
+        "dev.tinycast.android.FolderDeviceTest#unavailableAliasOnlyFileCanBeFoundClearedAndReusedAfterScopeRemoval",
+        "dev.tinycast.android.FolderDeviceTest#unreadablePostRenameResultCannotRevokeAPossiblyCommittedGrant",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+        "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+        "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+        "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+        "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+        "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+        "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+        "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+        "dev.tinycast.android.PaletteOverlayTest#compactTranslucentPaletteDismissesOutsideToPreviousApp",
+        "dev.tinycast.android.PaletteOverlayTest#escapeDismissesEmptyPalette",
+        "dev.tinycast.android.PaletteOverlayTest#quickSettingsTileSummonsPalette",
+        "dev.tinycast.android.PaletteOverlayTest#typingAndSelectionUpdateWithoutAnimatedScrollOrMovingSearchFrame",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+        "dev.tinycast.android.RecentDocumentDeviceTest#chosenRecentDocumentGetsItsNativeNameAndOpensTheExactContent",
+        "dev.tinycast.android.SettingsDeviceTest#backgroundCancelsInlineRecordingAndKeepsPriorChord",
+        "dev.tinycast.android.SettingsDeviceTest#backupPreviewEscapeAndSystemPickerCancellationStayInWorkspace",
+        "dev.tinycast.android.SettingsDeviceTest#commandCategoryAndAssignedFiltersReflectStoredBindings",
+        "dev.tinycast.android.SettingsDeviceTest#conflictAndAliasErrorsAreInlineAndDoNotReplaceExistingValues",
+        "dev.tinycast.android.SettingsDeviceTest#escapeClosesSettingsWithContainerFocus",
+        "dev.tinycast.android.SettingsDeviceTest#inlineRecorderPreservesBackwardFocusAndActivationKeys",
+        "dev.tinycast.android.SettingsDeviceTest#resetAndRecreationPreserveCollectionAndServiceConsent",
+        "dev.tinycast.android.SettingsDeviceTest#sidebarAndSettingsSearchNavigateWithoutDialogs",
+        "dev.tinycast.android.ShortcutDeviceTest#actionsAssignCommandKeycapAndLocalKeyRunsTheSameCommand",
+        "dev.tinycast.android.ShortcutDeviceTest#authenticatedInvocationUsesNormalFunnelAndRejectsReplayAndRebinding",
+        "dev.tinycast.android.ShortcutDeviceTest#backupRestoresBindingsOnlyAfterConfirmationAndPreservesDocumentBindings",
+        "dev.tinycast.android.ShortcutDeviceTest#calculatorShortcutTogglesItsExistingPaletteMode",
+        "dev.tinycast.android.ShortcutDeviceTest#clearAndResetKeepCollectionsAndAndroidConsentUnchanged",
+        "dev.tinycast.android.ShortcutDeviceTest#conflictingAndReservedChordsNameTheirOwnerAndCannotSave",
+        "dev.tinycast.android.ShortcutDeviceTest#documentShortcutImportIsRejectedAndOldBackupKeepsCurrentBindings",
+        "dev.tinycast.android.ShortcutDeviceTest#forgedExternalIntentCannotExecuteACommand",
+        "dev.tinycast.android.ShortcutDeviceTest#leftRightModifiersAndLocksNormalizeAndCorruptStorageFailsClosed",
+        "dev.tinycast.android.ShortcutDeviceTest#recorderActivationKeysPreserveCandidateUntilReleaseAndSave",
+        "dev.tinycast.android.ShortcutDeviceTest#recorderSavesGlobalChordWithTabAndEnterAndPersistsIt",
+        "dev.tinycast.android.ShortcutDeviceTest#recordingExistingGlobalChordDoesNotActivateItAndBackgroundingCancels",
+        "dev.tinycast.android.ShortcutDeviceTest#unavailableImportedCommandHasAnEditableDormantBinding",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#appInfoAndAccessibilityLinksOpenSpecificAndroidDestinations",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#approvalAndLiveConnectionUpdateAfterDisableAndShortNameReconnect",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#componentParsingAcceptsFullAndShortNamesButNeverSimilarOwners",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#disconnectReconnectBeforeRedrawCannotCompleteAnOldProbe",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#explicitlyArmedNavigationChordsReachProbeAndRestoreNavigationAfterReceipt",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckCancelsOnNavigationAndDoesNotEnableConsent",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckExpiresWithoutClaimingGlobalSuccess",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#settingsSearchCancelsHiddenProbeAndLeavesNormalActivationAvailable",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#setupExplainsApprovalConnectionRestrictedSettingsAndAlternativesInline",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#unassignedShortcutAndPermissionFreePaletteRemainAvailable",
+        "dev.tinycast.android.SystemSettingsDeviceTest#accessibilityOpensAccessibilityPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#appInfoReplacesAnExistingAccessibilityPageWithDroidcastDetails",
+        "dev.tinycast.android.SystemSettingsDeviceTest#appScopedIntentsCarryOnlyTheRequiredPackageArgument",
+        "dev.tinycast.android.SystemSettingsDeviceTest#appsOpenApplicationManagement",
+        "dev.tinycast.android.SystemSettingsDeviceTest#bluetoothSearchOpensBluetoothPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#brightnessSearchOpensDisplayPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#dateOpensDateTimePage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#languageOpensLanguagePage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#missingDestinationReportsErrorAndKeepsPaletteQuery",
+        "dev.tinycast.android.SystemSettingsDeviceTest#notificationsOpenDroidcastNotificationPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#soundOpensSoundPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#storageOpensDeviceStoragePage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#wifiSearchOpensWifiPage",
+        "dev.tinycast.android.UpdatePaletteDeviceTest#livePublicGithubCheckStaysInlineAndBackRestoresCaller",
+        "dev.tinycast.android.UpdateSettingsDeviceTest#updatesPageFillsSettingsAndDoesNotCheckAutomatically",
+        "dev.tinycast.android.UpdateSourceDeviceTest#discoveryRejectsForeignMetadataAddressBeforeFetchingIt",
+        "dev.tinycast.android.UpdateSourceDeviceTest#discoverySkipsDraftLegacyAndStableAndSelectsHighestVersion",
+        "dev.tinycast.android.UpdateSourceDeviceTest#metadataAndFeedSizeLimitsAreEnforced",
+        "dev.tinycast.android.UpdateSourceDeviceTest#realHttpsReleaseDownloadMatchesThePublishedLegacyApk",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#cancelDownloadRemovesPartialAndCannotInstall",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#changedStagedFileLosesVerificationBeforeInstall",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#checkingTheSameReleaseKeepsVerifiedDownload",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#confirmationSwitchHasAccessibleNameStateAndBusyDisablement",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#corruptAndInterruptedDownloadsRejectBeforeRetrying",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#forgedInstallerReceiptsCannotChangeReadyState",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#offlineRetryReachesAvailableWithoutPopups",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#olderFeedCannotOfferDownloadOrInstall",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#signedNewerArchiveIsVerifiedAndRecoveredByReplacement",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#tamperedRecoveredFileIsRejectedAndDeleted",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#timeoutIsAnErrorRatherThanUserCancellation",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#wrongSignerAndPackageNeverCreateAnInstallerSession"
+      ],
+      "tests_log_sha256": "0d6d56d01d517d640cf5ea5ac1d3b8624237267317c62f58ba9f9baa31a7d98c",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "update-fixtures": {
+          "passed": true
+        },
+        "fixture-upload": {
+          "passed": true
+        },
+        "source-approval": {
+          "passed": true
+        },
+        "verify-source-approval": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "unprivileged_adbd": true,
+      "app_runs_unprivileged": true,
+      "native_viewer": {
+        "exact_title": "Orbit-notes.txt",
+        "exact_body": "Droidcast scoped search fixture body 314159",
+        "chooser": {
+          "actions": [
+            {
+              "label": "Just once",
+              "id": "android:id/button_once",
+              "exact_android_window": true,
+              "eligible": true,
+              "action_accepted": true
+            }
+          ]
+        },
+        "chooser_receipt_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72"
+      }
+    },
+    {
+      "run": "isolation-final-full-v10-phone",
+      "record_sha256": "ea58762f2796fe969246f9c578434afb0618355afb117ad9cb20140ffb409bad",
+      "layout": "phone",
+      "passed": 167,
+      "expected": 167,
+      "case_ids": [
+        "dev.tinycast.android.ActivationDeviceTest#explicitLauncherPrimaryCommitsComposedQueryAndActivates",
+        "dev.tinycast.android.ActivationDeviceTest#explicitListPrimaryCommitsComposedQueryAndActivates",
+        "dev.tinycast.android.ActivationDeviceTest#gridSelectionCallbackPrecedesSameTurnActivation",
+        "dev.tinycast.android.ActivationDeviceTest#listSelectionCallbackPrecedesSameTurnActivation",
+        "dev.tinycast.android.BackupDeviceTest#aliasConflictAndEmptySelectionCannotApply",
+        "dev.tinycast.android.BackupDeviceTest#codecRoundTripRejectsCapabilitiesMalformedVersionAndOversize",
+        "dev.tinycast.android.BackupDeviceTest#editorAcceptedInternationalAndSpacedUrlsSurviveBackupRoundTrip",
+        "dev.tinycast.android.BackupDeviceTest#escapeCancelsPreviewWithoutApplying",
+        "dev.tinycast.android.BackupDeviceTest#importedRankingCannotOverflowOnNextCommand",
+        "dev.tinycast.android.BackupDeviceTest#preservedDocumentAliasBlocksQuicklinkCollisionsForBothPolicies",
+        "dev.tinycast.android.BackupDeviceTest#previewCancelAndMalformedInputLeaveDataUntouched",
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerExportImportAndIdempotentMerge",
+        "dev.tinycast.android.BackupDeviceTest#replaceSelectedCategoryPersistsAndPreservesPermissionsAndOtherData",
+        "dev.tinycast.android.BackupDeviceTest#startingImportClearsFeedbackBeforeItCanCoverPreviewControls",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#arithmeticAndPrecedenceKeepWorking",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#bareNumbersRemainSearchableAndCanFindSavedItems",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#constantOperandsSupportXInAutomaticAndExplicitCalculatorModes",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#deletingTheOperatorImmediatelyRestoresSearchWithoutMovingThePalette",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#functionsUnitsAndCategoryFiltersKeepWorking",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#keyboardTypingXAndEnterWorksWithSearchFocused",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#multiplicationVariantsShowTimesSignAndCopyOnlyTheNumber",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#ordinaryXWordsAndIncompleteMathRemainSearches",
+        "dev.tinycast.android.CalculatorIntentDeviceTest#theCalculatorCommandStillAcceptsSingleNumbers",
+        "dev.tinycast.android.ClipboardApiDeviceTest#publicClipboardResetAndExactUnicodeCopyWorkOnTheRuntime",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#bothVisibilityFlagStatesRestoreExactly",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#minimizedClipboardExpandsAndDismissesWithoutChangingTheCaller",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+        "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+        "dev.tinycast.android.DocumentProviderDeviceTest#newerCommandCancelsPendingFileLaunch",
+        "dev.tinycast.android.DocumentProviderDeviceTest#providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+        "dev.tinycast.android.DocumentProviderDeviceTest#slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference",
+        "dev.tinycast.android.DocumentProviderDeviceTest#timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+        "dev.tinycast.android.EmojiDeviceTest#caretAndSelectionChangesPreserveNavigatedResultAndCopyFeedback",
+        "dev.tinycast.android.EmojiDeviceTest#clipboardPreservesJoinersFlagsVariationSelectorsAndKeycaps",
+        "dev.tinycast.android.EmojiDeviceTest#commandOpensOfflineGridWithinTheFloatingPalette",
+        "dev.tinycast.android.EmojiDeviceTest#compositionStartedBeforeRedrawKeepsNavigationWithIme",
+        "dev.tinycast.android.EmojiDeviceTest#escapeClearsSearchThenReturnsToCommandsWithKeyboardFocus",
+        "dev.tinycast.android.EmojiDeviceTest#favoriteCanBeClearedAndReusedAndSurvivesActivityRecreation",
+        "dev.tinycast.android.EmojiDeviceTest#heldFavoriteChordTogglesOnceAndConsumesReleaseAfterModifierIsReleased",
+        "dev.tinycast.android.EmojiDeviceTest#keyboardNavigationAndActivationKeepSelectionVisibleWithoutAnimation",
+        "dev.tinycast.android.EmojiDeviceTest#rapidRightThenEnterUsesCurrentSelectionBeforeRedraw",
+        "dev.tinycast.android.EmojiDeviceTest#searchStaysOnTheLauncherRowBesideBackAndCategory",
+        "dev.tinycast.android.EmojiDeviceTest#searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState",
+        "dev.tinycast.android.EmojiDeviceTest#tabletKeyboardShowControlOpensImeWithoutLosingSearch",
+        "dev.tinycast.android.EmojiDeviceTest#typingAndFourWayNavigationWorkImmediatelyWithoutTab",
+        "dev.tinycast.android.ExtensionGridDeviceTest#actionsInspectAndBackRestoreGridSelectionAndQuery",
+        "dev.tinycast.android.ExtensionGridDeviceTest#cancellingInlinePreferencesRetainsRuntimeAndGridSelection",
+        "dev.tinycast.android.ExtensionGridDeviceTest#cancellingPreferencesRetainsManualGridScrollPosition",
+        "dev.tinycast.android.ExtensionGridDeviceTest#caretSelectionAndCompositionDoNotResetTheGridSelection",
+        "dev.tinycast.android.ExtensionGridDeviceTest#changedControlledSelectionActivatesTheNewRequestedItem",
+        "dev.tinycast.android.ExtensionGridDeviceTest#deferredControlledSelectionSurvivesUntilItsItemArrives",
+        "dev.tinycast.android.ExtensionGridDeviceTest#emptyAndLoadingStatesExposeSearchAndDisabledActions",
+        "dev.tinycast.android.ExtensionGridDeviceTest#failurePublicationBlocksQueuedGridCallbacksBeforeRecomposition",
+        "dev.tinycast.android.ExtensionGridDeviceTest#filteringPaginationAndReorderingRetainItemIdentity",
+        "dev.tinycast.android.ExtensionGridDeviceTest#initialControlledSelectionActivatesTheRequestedItem",
+        "dev.tinycast.android.ExtensionGridDeviceTest#inlineFilterAndActionsReturnKeyboardFocusToGridSearch",
+        "dev.tinycast.android.ExtensionGridDeviceTest#lateGridFailureHasNativeBackAndRestoresLauncher",
+        "dev.tinycast.android.ExtensionGridDeviceTest#lateListFailureHasNativeCloseAndRestoresStore",
+        "dev.tinycast.android.ExtensionGridDeviceTest#nativeFormCanEditAndSubmitAfterTheWindowChanges",
+        "dev.tinycast.android.ExtensionGridDeviceTest#nativeGridDisplaysColumnsImagesAndUnavailableSources",
+        "dev.tinycast.android.ExtensionGridDeviceTest#onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible",
+        "dev.tinycast.android.ExtensionGridDeviceTest#oversizedTailwindBundleReportsTheExistingInstallLimit",
+        "dev.tinycast.android.ExtensionGridDeviceTest#realLegacyListStillSearchesAndCopiesAfterTheWindowChanges",
+        "dev.tinycast.android.ExtensionGridDeviceTest#realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown",
+        "dev.tinycast.android.ExtensionGridDeviceTest#selectedCellStaysFullyVisibleWhenTheKeyboardShrinksTheGrid",
+        "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette",
+        "dev.tinycast.android.ExtensionGridDeviceTest#typingFourWaySelectionAndSameTurnActivationUseCurrentItem",
+        "dev.tinycast.android.ExtensionGridDeviceTest#untitledSectionsStartNewVisualRowsAndMatchKeyboardMovement",
+        "dev.tinycast.android.FolderDeviceTest#blankAllDropsPinnedIndexedFileAfterAccessExpires",
+        "dev.tinycast.android.FolderDeviceTest#blankPinnedDropsIndexedFileAfterAccessExpires",
+        "dev.tinycast.android.FolderDeviceTest#malformedMetadataCacheKeepsSelectedScopesAndCanRefresh",
+        "dev.tinycast.android.FolderDeviceTest#pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments",
+        "dev.tinycast.android.FolderDeviceTest#replacementControllerWaitsForCancelledOutgoingAtomicWriteAndGrantRelease",
+        "dev.tinycast.android.FolderDeviceTest#replacementWaitsForProvisionalReauthorizationRollbackBeforeLoadingCachedEntries",
+        "dev.tinycast.android.FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants",
+        "dev.tinycast.android.FolderDeviceTest#silentAtomicRenameFailureDoesNotCommitRemovalOrReleaseItsGrant",
+        "dev.tinycast.android.FolderDeviceTest#transientPostRenameReadFailureReconcilesTheSavedFoldersGrant",
+        "dev.tinycast.android.FolderDeviceTest#unavailableAliasOnlyFileCanBeFoundClearedAndReusedAfterScopeRemoval",
+        "dev.tinycast.android.FolderDeviceTest#unreadablePostRenameResultCannotRevokeAPossiblyCommittedGrant",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+        "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+        "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+        "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+        "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+        "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+        "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+        "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+        "dev.tinycast.android.PaletteOverlayTest#compactTranslucentPaletteDismissesOutsideToPreviousApp",
+        "dev.tinycast.android.PaletteOverlayTest#escapeDismissesEmptyPalette",
+        "dev.tinycast.android.PaletteOverlayTest#quickSettingsTileSummonsPalette",
+        "dev.tinycast.android.PaletteOverlayTest#typingAndSelectionUpdateWithoutAnimatedScrollOrMovingSearchFrame",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+        "dev.tinycast.android.RecentDocumentDeviceTest#chosenRecentDocumentGetsItsNativeNameAndOpensTheExactContent",
+        "dev.tinycast.android.SettingsDeviceTest#backgroundCancelsInlineRecordingAndKeepsPriorChord",
+        "dev.tinycast.android.SettingsDeviceTest#backupPreviewEscapeAndSystemPickerCancellationStayInWorkspace",
+        "dev.tinycast.android.SettingsDeviceTest#commandCategoryAndAssignedFiltersReflectStoredBindings",
+        "dev.tinycast.android.SettingsDeviceTest#conflictAndAliasErrorsAreInlineAndDoNotReplaceExistingValues",
+        "dev.tinycast.android.SettingsDeviceTest#escapeClosesSettingsWithContainerFocus",
+        "dev.tinycast.android.SettingsDeviceTest#inlineRecorderPreservesBackwardFocusAndActivationKeys",
+        "dev.tinycast.android.SettingsDeviceTest#resetAndRecreationPreserveCollectionAndServiceConsent",
+        "dev.tinycast.android.SettingsDeviceTest#sidebarAndSettingsSearchNavigateWithoutDialogs",
+        "dev.tinycast.android.ShortcutDeviceTest#actionsAssignCommandKeycapAndLocalKeyRunsTheSameCommand",
+        "dev.tinycast.android.ShortcutDeviceTest#authenticatedInvocationUsesNormalFunnelAndRejectsReplayAndRebinding",
+        "dev.tinycast.android.ShortcutDeviceTest#backupRestoresBindingsOnlyAfterConfirmationAndPreservesDocumentBindings",
+        "dev.tinycast.android.ShortcutDeviceTest#calculatorShortcutTogglesItsExistingPaletteMode",
+        "dev.tinycast.android.ShortcutDeviceTest#clearAndResetKeepCollectionsAndAndroidConsentUnchanged",
+        "dev.tinycast.android.ShortcutDeviceTest#conflictingAndReservedChordsNameTheirOwnerAndCannotSave",
+        "dev.tinycast.android.ShortcutDeviceTest#documentShortcutImportIsRejectedAndOldBackupKeepsCurrentBindings",
+        "dev.tinycast.android.ShortcutDeviceTest#forgedExternalIntentCannotExecuteACommand",
+        "dev.tinycast.android.ShortcutDeviceTest#leftRightModifiersAndLocksNormalizeAndCorruptStorageFailsClosed",
+        "dev.tinycast.android.ShortcutDeviceTest#recorderActivationKeysPreserveCandidateUntilReleaseAndSave",
+        "dev.tinycast.android.ShortcutDeviceTest#recorderSavesGlobalChordWithTabAndEnterAndPersistsIt",
+        "dev.tinycast.android.ShortcutDeviceTest#recordingExistingGlobalChordDoesNotActivateItAndBackgroundingCancels",
+        "dev.tinycast.android.ShortcutDeviceTest#unavailableImportedCommandHasAnEditableDormantBinding",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#appInfoAndAccessibilityLinksOpenSpecificAndroidDestinations",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#approvalAndLiveConnectionUpdateAfterDisableAndShortNameReconnect",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#componentParsingAcceptsFullAndShortNamesButNeverSimilarOwners",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#disconnectReconnectBeforeRedrawCannotCompleteAnOldProbe",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#explicitlyArmedNavigationChordsReachProbeAndRestoreNavigationAfterReceipt",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckCancelsOnNavigationAndDoesNotEnableConsent",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckExpiresWithoutClaimingGlobalSuccess",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#settingsSearchCancelsHiddenProbeAndLeavesNormalActivationAvailable",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#setupExplainsApprovalConnectionRestrictedSettingsAndAlternativesInline",
+        "dev.tinycast.android.ShortcutReadinessDeviceTest#unassignedShortcutAndPermissionFreePaletteRemainAvailable",
+        "dev.tinycast.android.SystemSettingsDeviceTest#accessibilityOpensAccessibilityPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#appInfoReplacesAnExistingAccessibilityPageWithDroidcastDetails",
+        "dev.tinycast.android.SystemSettingsDeviceTest#appScopedIntentsCarryOnlyTheRequiredPackageArgument",
+        "dev.tinycast.android.SystemSettingsDeviceTest#appsOpenApplicationManagement",
+        "dev.tinycast.android.SystemSettingsDeviceTest#bluetoothSearchOpensBluetoothPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#brightnessSearchOpensDisplayPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#dateOpensDateTimePage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#languageOpensLanguagePage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#missingDestinationReportsErrorAndKeepsPaletteQuery",
+        "dev.tinycast.android.SystemSettingsDeviceTest#notificationsOpenDroidcastNotificationPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#soundOpensSoundPage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#storageOpensDeviceStoragePage",
+        "dev.tinycast.android.SystemSettingsDeviceTest#wifiSearchOpensWifiPage",
+        "dev.tinycast.android.UpdatePaletteDeviceTest#livePublicGithubCheckStaysInlineAndBackRestoresCaller",
+        "dev.tinycast.android.UpdateSettingsDeviceTest#updatesPageFillsSettingsAndDoesNotCheckAutomatically",
+        "dev.tinycast.android.UpdateSourceDeviceTest#discoveryRejectsForeignMetadataAddressBeforeFetchingIt",
+        "dev.tinycast.android.UpdateSourceDeviceTest#discoverySkipsDraftLegacyAndStableAndSelectsHighestVersion",
+        "dev.tinycast.android.UpdateSourceDeviceTest#metadataAndFeedSizeLimitsAreEnforced",
+        "dev.tinycast.android.UpdateSourceDeviceTest#realHttpsReleaseDownloadMatchesThePublishedLegacyApk",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#cancelDownloadRemovesPartialAndCannotInstall",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#changedStagedFileLosesVerificationBeforeInstall",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#checkingTheSameReleaseKeepsVerifiedDownload",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#confirmationSwitchHasAccessibleNameStateAndBusyDisablement",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#corruptAndInterruptedDownloadsRejectBeforeRetrying",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#forgedInstallerReceiptsCannotChangeReadyState",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#offlineRetryReachesAvailableWithoutPopups",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#olderFeedCannotOfferDownloadOrInstall",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#signedNewerArchiveIsVerifiedAndRecoveredByReplacement",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#tamperedRecoveredFileIsRejectedAndDeleted",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#timeoutIsAnErrorRatherThanUserCancellation",
+        "dev.tinycast.android.UpdateVerificationDeviceTest#wrongSignerAndPackageNeverCreateAnInstallerSession"
+      ],
+      "tests_log_sha256": "023a990334eddfc1c5e2f2d03e33e11be2d74f2260a58fc89415c5fc9425404c",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "update-fixtures": {
+          "passed": true
+        },
+        "fixture-upload": {
+          "passed": true
+        },
+        "source-approval": {
+          "passed": true
+        },
+        "verify-source-approval": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "unprivileged_adbd": true,
+      "app_runs_unprivileged": true,
+      "native_viewer": {
+        "exact_title": "Orbit-notes.txt",
+        "exact_body": "Droidcast scoped search fixture body 314159",
+        "chooser": {
+          "actions": [
+            {
+              "label": "Just once",
+              "id": "android:id/button_once",
+              "exact_android_window": true,
+              "eligible": true,
+              "action_accepted": true
+            }
+          ]
+        },
+        "chooser_receipt_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72"
+      }
+    }
+  ],
+  "assistant": [
+    {
+      "run": "isolation-final-assistant-v10-tablet",
+      "record_sha256": "c020fe6711c0ebb3c593dbf87c8d2ab1e88a12c93a7d373fe9e57ca3417ba476",
+      "layout": "tablet",
+      "passed": 8,
+      "expected": 8,
+      "restoration": {
+        "settings_restored": true,
+        "roles_restored": true,
+        "palette_preferences_restored": true,
+        "navigation_overlay_restored": true
+      },
+      "geometry_restored": true,
+      "unprivileged_adbd": true
+    },
+    {
+      "run": "isolation-final-assistant-v10-phone",
+      "record_sha256": "2778b0fb106f3bd6cfc71db7a1cd4984fe6cc81998bc5a42ea664926e9836ca7",
+      "layout": "phone",
+      "passed": 8,
+      "expected": 8,
+      "restoration": {
+        "settings_restored": true,
+        "roles_restored": true,
+        "palette_preferences_restored": true,
+        "navigation_overlay_restored": true
+      },
+      "geometry_restored": true,
+      "unprivileged_adbd": true
+    }
+  ],
+  "hardware": {
+    "run": "isolation-final-modifier-v10",
+    "record_sha256": "85319f454fa6ce328db80eaf1f5a6ec7f758f2f79fb22ad1d89f7c874ae40dc4",
+    "cases": [
+      {
+        "name": "Double left Ctrl opens from Home",
+        "passed": true
+      },
+      {
+        "name": "Connected service and foreground do not dispatch twice",
+        "passed": true
+      },
+      {
+        "name": "Double Ctrl opens from Android Settings",
+        "passed": true
+      },
+      {
+        "name": "Either-side binding accepts right Ctrl",
+        "passed": true
+      },
+      {
+        "name": "Right-only ignores left pair and accepts right pair",
+        "passed": true
+      },
+      {
+        "name": "Linux Ctrl+A/C/V pass through while double Ctrl is configured",
+        "passed": true
+      },
+      {
+        "name": "Held Ctrl does not activate and next valid pair recovers",
+        "passed": true
+      },
+      {
+        "name": "Intervening Ctrl+C cancels tap and next valid pair recovers",
+        "passed": true
+      },
+      {
+        "name": "Double Right Ctrl runs the normal new-note command from Home",
+        "passed": true
+      },
+      {
+        "name": "Keyboard service pauses double Ctrl during recording and resumes after Escape",
+        "passed": true
+      },
+      {
+        "name": "Actual double Ctrl diagnostic receives the saved trigger and subsequent activation resumes",
+        "passed": true
+      },
+      {
+        "name": "Six independent service rebinds activate from Home with device-clock timing",
+        "passed": true
+      }
+    ],
+    "capabilities": [
+      {
+        "modifier": "Left Ctrl",
+        "linux_code": 29,
+        "activated": true
+      },
+      {
+        "modifier": "Right Ctrl",
+        "linux_code": 97,
+        "activated": true
+      },
+      {
+        "modifier": "Left Alt",
+        "linux_code": 56,
+        "activated": true
+      },
+      {
+        "modifier": "Right Alt",
+        "linux_code": 100,
+        "activated": true
+      },
+      {
+        "modifier": "Left Shift",
+        "linux_code": 42,
+        "activated": true
+      },
+      {
+        "modifier": "Right Shift",
+        "linux_code": 54,
+        "activated": true
+      },
+      {
+        "modifier": "Left Meta",
+        "linux_code": 125,
+        "activated": false
+      },
+      {
+        "modifier": "Right Meta",
+        "linux_code": 126,
+        "activated": false
+      }
+    ],
+    "cleanup": {
+      "release-keys": {
+        "passed": true
+      },
+      "disable-service": {
+        "passed": true
+      },
+      "disable-master": {
+        "passed": true
+      },
+      "clipboard": {
+        "passed": true
+      },
+      "stop-app": {
+        "passed": true
+      },
+      "preference-backup-removal": {
+        "passed": true
+      },
+      "preferences": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "verify-preferences": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "remove-input-helper": {
+        "passed": true
+      },
+      "unroot": {
+        "passed": true
+      },
+      "verify-adbd": {
+        "passed": true
+      },
+      "read-size": {
+        "passed": true
+      },
+      "read-density": {
+        "passed": true
+      }
+    },
+    "settings_restored": true,
+    "root_only_for_guarded_input_helper": true,
+    "app_runs_unprivileged": true
+  },
+  "self_updates": [
+    {
+      "run": "isolation-final-self-update-v10-tablet-required",
+      "record_sha256": "4263aaf7a0deea731eb0785819b03d0678e2cdcc3722a1a07375c299fbf9c736",
+      "layout": "tablet",
+      "mode": "required",
+      "verification": {
+        "installed_payload_matches": true,
+        "private_data_restored": true,
+        "bootstrap_restored": true,
+        "adbd_unrooted": true,
+        "approval_mode_restored": true,
+        "geometry_restored": true
+      },
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "bootstrap_version_code": 6,
+      "payload_version_code": 7,
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "pending_user_action_receipts": 2,
+      "installer_cancellation_preserved_version": true
+    },
+    {
+      "run": "isolation-final-self-update-v10-tablet-best-effort",
+      "record_sha256": "c2910bb8638d4ea1acfb7e44d82ec8d0527ee60321f7f39a4fa767aa1cb30aeb",
+      "layout": "tablet",
+      "mode": "best-effort",
+      "verification": {
+        "installed_payload_matches": true,
+        "private_data_restored": true,
+        "bootstrap_restored": true,
+        "adbd_unrooted": true,
+        "approval_mode_restored": true,
+        "geometry_restored": true
+      },
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "bootstrap_version_code": 6,
+      "payload_version_code": 7,
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "best_effort_required_confirmation": false
+    },
+    {
+      "run": "isolation-final-self-update-v10-phone-required",
+      "record_sha256": "4d531f7dc7511684ba803a78ac12af7d40e1e62d27e6e7535fcfa799bb2ecec8",
+      "layout": "phone",
+      "mode": "required",
+      "verification": {
+        "installed_payload_matches": true,
+        "private_data_restored": true,
+        "bootstrap_restored": true,
+        "adbd_unrooted": true,
+        "approval_mode_restored": true,
+        "geometry_restored": true
+      },
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "bootstrap_version_code": 6,
+      "payload_version_code": 7,
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "pending_user_action_receipts": 2,
+      "installer_cancellation_preserved_version": true
+    },
+    {
+      "run": "isolation-final-self-update-v10-phone-best-effort",
+      "record_sha256": "89f5956528ee80fd3b34d9a7122cc2a243436c9ec77de3fd2920b093cddd6408",
+      "layout": "phone",
+      "mode": "best-effort",
+      "verification": {
+        "installed_payload_matches": true,
+        "private_data_restored": true,
+        "bootstrap_restored": true,
+        "adbd_unrooted": true,
+        "approval_mode_restored": true,
+        "geometry_restored": true
+      },
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "bootstrap_version_code": 6,
+      "payload_version_code": 7,
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "best_effort_required_confirmation": false
+    }
+  ],
+  "captures": [
+    {
+      "origin_run": "isolation-final-full-v10-tablet",
+      "origin_file": "new-note-recreated",
+      "description": "ViewModel draft after Activity recreation; tablet body is below the visible scroll viewport; phone has a minimized SystemUI clipboard preview.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-tablet-note-recreated.png",
+      "image_sha256": "07deb88164aec67603b62934010269eb32bc9cbcdf7cac89fb41c4dec06c6f20",
+      "hierarchy": "docs/validation/readiness/final-9986679-tablet-note-recreated.xml",
+      "hierarchy_sha256": "c8ec93a7a8df90d7a7b06d332f536e0a05e5420cd58938415d6d5dcbd40c1057",
+      "pixels": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "origin_run": "isolation-final-full-v10-tablet",
+      "origin_file": "composing-list-primary",
+      "description": "After the actual accessibility primary action commits composition and copies the current selection callback; not a physical touch claim.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-tablet-list-primary-after.png",
+      "image_sha256": "558aa190290de73de9b5d5340b182287b987c2ce8ebd6767a388309b1e947200",
+      "hierarchy": "docs/validation/readiness/final-9986679-tablet-list-primary-after.xml",
+      "hierarchy_sha256": "bc769a57fa552e1cebcc04e634c30395e9ca3ca7368dcbede6d6f9241e5aefb4",
+      "pixels": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "origin_run": "isolation-final-full-v10-tablet",
+      "origin_file": "provider-mime-timeout",
+      "description": "Bounded metadata timeout keeps search available with retry feedback.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-tablet-provider-error.png",
+      "image_sha256": "80c6b40a727ef636f22cebef9d807c9d912247d8a4987bd9e4d11ede610033f3",
+      "hierarchy": "docs/validation/readiness/final-9986679-tablet-provider-error.xml",
+      "hierarchy_sha256": "45c523510bbca7a47c9e63be2cf104c050cf06db634f82cc04002f64c03cff2a",
+      "pixels": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "origin_run": "isolation-final-full-v10-tablet",
+      "origin_file": "folder-evidence/opened-document",
+      "description": "Exact selected document title and body reached after native Just once approval.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-tablet-indexed-viewer.png",
+      "image_sha256": "adcfee2c0001fb8b9c794b1f0dd44642aba1fdcf39833fa9fe1806a2f5239b83",
+      "hierarchy": "docs/validation/readiness/final-9986679-tablet-indexed-viewer.xml",
+      "hierarchy_sha256": "41a0e8139e0e7b520648e48b7bc7396eb3007f77f309e9a5a42e905d0407c6c7",
+      "pixels": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "origin_run": "isolation-final-full-v10-phone",
+      "origin_file": "new-note-recreated",
+      "description": "ViewModel draft after Activity recreation; tablet body is below the visible scroll viewport; phone has a minimized SystemUI clipboard preview.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-phone-note-recreated.png",
+      "image_sha256": "724855af331ba9e3592188fc1baf78388c2e7d06350f6873b74257e94497be9e",
+      "hierarchy": "docs/validation/readiness/final-9986679-phone-note-recreated.xml",
+      "hierarchy_sha256": "8a6988538396fc01f8d8b8a7d609dd26a21421234dd4eb573c6737430241dbeb",
+      "pixels": [
+        1080,
+        2340
+      ]
+    },
+    {
+      "origin_run": "isolation-final-full-v10-phone",
+      "origin_file": "composing-list-primary",
+      "description": "After the actual accessibility primary action commits composition and copies the current selection callback; not a physical touch claim.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-phone-list-primary-after.png",
+      "image_sha256": "b45c7634487e6f4ede96ed94344168c95a539983936452d30add8a51b4e1def5",
+      "hierarchy": "docs/validation/readiness/final-9986679-phone-list-primary-after.xml",
+      "hierarchy_sha256": "d6246e738a2e5617377c689998894167d42572853ee55e54ac6b4985fef9986a",
+      "pixels": [
+        1080,
+        2340
+      ]
+    },
+    {
+      "origin_run": "isolation-final-full-v10-phone",
+      "origin_file": "provider-mime-timeout",
+      "description": "Bounded metadata timeout keeps search available with retry feedback.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-phone-provider-error.png",
+      "image_sha256": "163e7d2fc2a1c518593e216bcc28887591f1f1a49e84a6a33a1378a970d9092d",
+      "hierarchy": "docs/validation/readiness/final-9986679-phone-provider-error.xml",
+      "hierarchy_sha256": "54f45e514a1b0fbf91cff77e80bb7cd02fa062ba3fd88247fee5f62afb571933",
+      "pixels": [
+        1080,
+        2340
+      ]
+    },
+    {
+      "origin_run": "isolation-final-full-v10-phone",
+      "origin_file": "folder-evidence/opened-document",
+      "description": "Exact selected document title and body reached after native Just once approval.",
+      "kind": "unmodified real emulator screenshot",
+      "visually_reviewed": true,
+      "app_sha256": "0298c67e9a2b84b2240b6f9f150e9bba17f89ad1a2f7931281e82f3accfc9b34",
+      "test_apk_sha256": "0fe2fa929e96a30bbc2a869db7d6778ddb73ac204fc964cb5b29565627f9b64a",
+      "image": "docs/screenshots/readiness-regressions/final-9986679-phone-indexed-viewer.png",
+      "image_sha256": "af57307920f7a3721c88f74262809e01756cf0af18d8acd2826504dd0bd7c2e3",
+      "hierarchy": "docs/validation/readiness/final-9986679-phone-indexed-viewer.xml",
+      "hierarchy_sha256": "df650ce07a31f6326ec09bb4f6e0e23fd13b126790d51f6b6bc2819aa574eb53",
+      "pixels": [
+        1080,
+        2340
+      ]
+    }
+  ],
+  "retained_controls": {
+    "checkpoint": "7398e25fadcc8cbf1dee71c532f7c0c6da385616",
+    "results_sha256": "603d0dae89be898daee955c4f7252fd6de0388302a6feccb735d94120b6886cd",
+    "production_and_control_test_sources_identical": true,
+    "different_current_binary_stamp": true,
+    "current_full_suites_not_inherited": true,
+    "runs": [
+      {
+        "run": "isolation-final-cold-v9-tablet-launcher-1",
+        "record_sha256": "b47303e9abf24641339945c19628fe3ea007e261971328293a1db6794ab7cdb1",
+        "tests_log_sha256": "bf65709d14b5e8454478c222b0623d620bd42e3a1197177e92a5c55583004bc1"
+      },
+      {
+        "run": "isolation-final-cold-v9-tablet-launcher-2",
+        "record_sha256": "b47303e9abf24641339945c19628fe3ea007e261971328293a1db6794ab7cdb1",
+        "tests_log_sha256": "c29cf54e157afe8c4d1c2513eabd78218276e60bb8acf3205796d881d39b2068"
+      },
+      {
+        "run": "isolation-final-cold-v9-tablet-launcher-3",
+        "record_sha256": "b47303e9abf24641339945c19628fe3ea007e261971328293a1db6794ab7cdb1",
+        "tests_log_sha256": "13c7a180555b00d15bdc4475ad907f9687345873347ae6255c7794af0615efa9"
+      },
+      {
+        "run": "isolation-final-cold-v9-tablet-list-1",
+        "record_sha256": "004f1592fcd342b68787ef6062eeed1f2d66a435cf0b84316be1cc8cfb77153c",
+        "tests_log_sha256": "e44b58205d2d31725011056e9135ec762d06c1d27616a9898c234792ffb760af"
+      },
+      {
+        "run": "isolation-final-cold-v9-tablet-list-2",
+        "record_sha256": "004f1592fcd342b68787ef6062eeed1f2d66a435cf0b84316be1cc8cfb77153c",
+        "tests_log_sha256": "6938e9b6a6ae97172df99068d3420bdaa285e91bd0e10d434424360780d51b2c"
+      },
+      {
+        "run": "isolation-final-cold-v9-tablet-list-3",
+        "record_sha256": "004f1592fcd342b68787ef6062eeed1f2d66a435cf0b84316be1cc8cfb77153c",
+        "tests_log_sha256": "5b89f8bcb9bd391548505fc9a1a9a1d67b30f49173017dcd9b8390d1e9c7ac1c"
+      },
+      {
+        "run": "isolation-final-focused-v9-tablet",
+        "record_sha256": "7bef8e43016fc753084f6b028ec3615cb46f19d80a8c593ca86ce5c9196290db",
+        "tests_log_sha256": "ac541ca5eeb8dc1657ee8c3327d3b50d8843967f8576deac2d686c66865ce44d"
+      },
+      {
+        "run": "isolation-final-negative-v9-tablet",
+        "record_sha256": "807a64118f7661128f5df251fd73f275fbe39d526a2b42929a64a31394c7bec3",
+        "tests_log_sha256": "350172ad48eb22b4436755f7c337bde517cfa7b7358bae1b6ea0709a748bd103"
+      },
+      {
+        "run": "isolation-final-cold-v9-phone-launcher-1",
+        "record_sha256": "1e892a498e960f0664f24ef14bd8053a63b2d7b5530dfc5dcc0851fb54e2f015",
+        "tests_log_sha256": "16d31af5b125ba2530506fdf5463d6eda98bf954056f4565f807fd456b7fd3fd"
+      },
+      {
+        "run": "isolation-final-cold-v9-phone-launcher-2",
+        "record_sha256": "1e892a498e960f0664f24ef14bd8053a63b2d7b5530dfc5dcc0851fb54e2f015",
+        "tests_log_sha256": "673e7ea0bd008b7519407c3f7c87493f3f73d976eb78f8bc34f071b245a12df9"
+      },
+      {
+        "run": "isolation-final-cold-v9-phone-launcher-3",
+        "record_sha256": "1e892a498e960f0664f24ef14bd8053a63b2d7b5530dfc5dcc0851fb54e2f015",
+        "tests_log_sha256": "cd06531ea08229cadf354ffbc7392f25e99fb4f213e3704232b3d2adbf40a7cb"
+      },
+      {
+        "run": "isolation-final-cold-v9-phone-list-1",
+        "record_sha256": "42bce02c8ee377261ef86ed8a4954bbd563837d05217e647b30b211926c2e4ae",
+        "tests_log_sha256": "651464c79e1cb79e802f028138edc323df3a0b90ddaf136a2110177630d74eaa"
+      },
+      {
+        "run": "isolation-final-cold-v9-phone-list-2",
+        "record_sha256": "42bce02c8ee377261ef86ed8a4954bbd563837d05217e647b30b211926c2e4ae",
+        "tests_log_sha256": "8f41d156bd6ef7050e5f9396f43447a17681c2f44ab43af62f8ed0f64c3d91e6"
+      },
+      {
+        "run": "isolation-final-cold-v9-phone-list-3",
+        "record_sha256": "42bce02c8ee377261ef86ed8a4954bbd563837d05217e647b30b211926c2e4ae",
+        "tests_log_sha256": "3f0bd909e85891bf00889d0a737aa5549653614e0dc4ca5672232b1c406d5822"
+      },
+      {
+        "run": "isolation-final-focused-v9-phone",
+        "record_sha256": "6b9caa6062dbc396a76e2f45ab001626311145ec7deb5d9508e307313df46881",
+        "tests_log_sha256": "e72d7f2bbabdd78deec1f5c7d0b3967af633efb8257b55bfd4c72f1468af915c"
+      },
+      {
+        "run": "isolation-final-negative-v9-phone",
+        "record_sha256": "f1311afb2c73e9f4a5a73cee873850de134d09fd1285e61b2309020a669fab6c",
+        "tests_log_sha256": "f365833ff3e30bfca0b7f2afcabdf1e27131c99a825f5f985fda14e8b92551b8"
+      }
+    ]
+  },
+  "source_sha256": {
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "c054241ddb3d633018c996531bb73add6aa2cd9a6547fe1edbc1bf7cf42d2f3a",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b2abb73e68216d3ef148ca55c742762659fc7172c24653970b94232ad981d946",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "3e2dc1698462c5806b7a6bb332496aaaff0c713328d102885df5ccc57e4f8e8a",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "17468aa97e1a4add76d900290c729f8d6aadeac9301412a5680a3fd3622b1471",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "f0ebd7a3a73d85358f0576dc6ce0360478ede8e50e5bc6e5420f17f4358a94ff",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "71bb48eea4f974b6b0121d8d40dc1793af81311e08f080b181c3aec19f07ecc8",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "1d095a81a390324441cf7d949b10faf5da2b3cbb0d6ead930d3ec71117cb5e52",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "3d4444b0b04a04d7ba4bf80658ed9418c9488ec81b45b13fe0fd793e5d01395b",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a91fb619cd28a269caca5e21678b908e5c98b26c423e89c4ed1df8099fed3d85",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "92271f5714538a24b6708d27693dbb83f73e03976a9a980ed07c1e375c579ee9",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "fba64fbe5d9e644f89d5116dc3a21263e75f0928e883db1225f4d92384868226",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "799a52fd16509953ce09f5c731ee8c4bc485b0fe42fb0e05b52c881eb81fbcd9",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "2eea2634754415a4114ec8ea4e1976be95ad8fcaf52032688eed2e606df5d30e",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "12bc5382c60ba7d3a5aecbf2345d0e0e86d0fba563ef91fa0d3407c7ad2db010",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "344fbeef5d14d3935f835b847bcf296f9c666c62363023cc5e595e368176c955",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "87496940adb73dad648a08094732c2d31cb016168945dee8e74099f71c94dfb5",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487"
+  },
+  "runner_sha256": {
+    "scripts/test-extension-grid.py": "d64bfab760cc8e97e4ff8d5021c70d0f61763c2a40fa08d3e157e2ee221cb6a8",
+    "scripts/test-assistant-touch.py": "fd5a4acfdd19ddc60eb467fea3c7d2e8ab7ac717bea35c76d007577c23235a54",
+    "scripts/test-modifier-taps-hardware.py": "b0d2da7fd2410095d65ef20e25cd9b8e90f9b480849dfd5e497f75d4d713139c",
+    "scripts/test-self-updates.py": "4ff148ea90c3a148a1eacf74116db288e5e9c282f69e0c331caa6f22b1a40889"
+  },
+  "boundaries": {
+    "evidence_followup_changes_only_docs_and_screenshots": true,
+    "do_not_rebuild_or_relabel_checkpoint_apks_as_evidence_head": true,
+    "final_independent_audits": "pending at evidence commit",
+    "production_clearance": false,
+    "full_parity": false,
+    "performance_measurements": "Retained historical checkpoint measurements only; no new speedup claim.",
+    "api26": "Earlier checkpoint 26/33; issues #68 and #69 remain open.",
+    "production_key_recovery_and_migration": "Issue #21 remains open.",
+    "touch_large_font_polish": "Issue #71 remains open; current phone captures retain truncated footer labels."
+  }
+}

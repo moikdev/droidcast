@@ -134,5 +134,17 @@
     "remaining_native_failure": "FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants: one-time native viewer chooser remains over Previous-note.txt",
     "integrations_started": false,
     "failure_record_preserved": true
+  },
+  "subsequent_checkpoint_9986679": {
+    "implementation_commit": "99866798dd2dbd86afa4ab4007f80fa900a46bb7",
+    "manifest": "docs/validation/readiness/final-checkpoint-9986679.json",
+    "native_passes_per_viewport": 167,
+    "assistant_passes_per_viewport": 8,
+    "hardware_core_passes": 12,
+    "actual_self_updates": 4,
+    "recorded_cleanup_checks_pass": true,
+    "prior_failed_runs_remain_failed": true,
+    "final_independent_audits": "required separately on PR #66",
+    "production_or_full_parity_clearance": false
   }
 }
