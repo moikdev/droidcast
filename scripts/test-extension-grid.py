@@ -33,6 +33,13 @@ a.output.mkdir(exist_ok=False,parents=True);shutil.copyfile(__file__,a.output/'r
 (a.output/'private-emoji-backup.xml').write_bytes(emoji_prefs);(a.output/'private-emoji-backup.xml').chmod(0o600)
 r={'avd':a.avd,'serial':a.serial,'layout':a.layout,'classes':a.classes,'expected':a.expected,'completed':False,'runner_sha256':sha(Path(__file__).read_bytes()),'original_size':text('shell','wm','size'),'original_density':text('shell','wm','density')}
 fixture_owned=False
+source_approval=None
+def approval_mode():
+ value=text('shell','cmd','appops','get',app,'REQUEST_INSTALL_PACKAGES')
+ assert 'Uid mode' not in value
+ modes=re.findall(r'REQUEST_INSTALL_PACKAGES:\s*(allow|ignore|deny|default|foreground|ask)',value);assert len(modes)<=1
+ return modes[0] if modes else 'default'
+if a.update_fixtures is not None:source_approval=approval_mode();r['source_approval_before']=source_approval
 try:
  for source in [a.apk,a.test_apk]:
   shutil.copyfile(source,a.output/source.name);raw('install','-r',str(source))
@@ -47,6 +54,7 @@ try:
    subprocess.run(adb+['exec-out','run-as',app,'tee','files/updates-fixtures/'+name],input=source.read_bytes(),stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,check=True,timeout=60)
    expected=sha(source.read_bytes());assert text('shell','run-as',app,'sha256sum','files/updates-fixtures/'+name).split()[0]==expected
    r['update_fixtures'][name]=expected
+  raw('shell','cmd','appops','set',app,'REQUEST_INSTALL_PACKAGES','allow');assert approval_mode()=='allow'
  if a.layout=='phone':raw('shell','wm','size','1080x2340');raw('shell','wm','density','420')
  evidence_dirs=list(dict.fromkeys([a.evidence_dir]+a.extra_evidence_dir))
  for folder in evidence_dirs:raw('shell','run-as',app,'rm','-rf','files/'+folder)
@@ -66,6 +74,9 @@ try:
 finally:
  c=Cleanup(r);c.attempt('stop-app',lambda:raw('shell','am','force-stop',app))
  if fixture_owned:c.attempt('update-fixtures',lambda:raw('shell','run-as',app,'rm','-rf','files/updates-fixtures'))
+ if source_approval is not None:
+  c.attempt('source-approval',lambda:raw('shell','cmd','appops','set',app,'REQUEST_INSTALL_PACKAGES',source_approval))
+  c.attempt('verify-source-approval',lambda:c.require(approval_mode()==source_approval,'source approval restored'))
  c.attempt('preferences-backup',lambda:raw('shell','run-as',app,'rm','-f','shared_prefs/palette.xml.bak'))
  c.attempt('preferences',lambda:raw('shell','run-as',app,'tee','shared_prefs/palette.xml',data=prefs))
  c.attempt('emoji-backup',lambda:raw('shell','run-as',app,'rm','-f','shared_prefs/emoji.xml.bak'))
