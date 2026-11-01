@@ -9,6 +9,7 @@ p.add_argument('--expected',type=int,default=26)
 p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
 p.add_argument('--test-apk',type=Path,default=Path('app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'))
 a=p.parse_args()
+assert a.apk.is_file() and a.test_apk.is_file() and a.apk.resolve()!=a.test_apk.resolve(), "Two distinct APK files are required"
 sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 if not sdk:sdk=next(line.removeprefix('sdk.dir=') for line in Path('local.properties').read_text().splitlines() if line.startswith('sdk.dir='))
 adb=[str(Path(sdk)/'platform-tools/adb'),'-s',a.serial];pkg='dev.tinycast.android'
@@ -42,8 +43,8 @@ prefs=call('exec-out','run-as',pkg,'cat','shared_prefs/palette.xml')
 record={'classes':classes,'layout':layout,'serial':a.serial,'avd':a.avd,'expected':a.expected,'completed':False,
  'runner_sha256':sha(Path(__file__).read_bytes()),'original_size':text('shell','wm','size'),'original_density':text('shell','wm','density')}
 try:
- for name in [a.apk,a.test_apk]:
-  p=Path(name);shutil.copy2(p,root/p.name);call('install','-r',str(name))
+ for source,filename in [(a.apk,'app-debug.apk'),(a.test_apk,'app-debug-androidTest.apk')]:
+  snapshot=root/filename;shutil.copy2(source,snapshot);call('install','-r',str(snapshot))
  record['apk_sha256']=sha((root/'app-debug.apk').read_bytes());record['test_apk_sha256']=sha((root/'app-debug-androidTest.apk').read_bytes())
  installed=text('shell','pm','path',pkg).removeprefix('package:');assert sha(call('exec-out','cat',installed))==record['apk_sha256']
  record['installed_matches']=True

@@ -153,9 +153,15 @@ class ReadinessRegressionDeviceTest {
     @Test fun cancellingADraftDoesNotRestoreItInANewEditor() {
         compose.activityRule.scenario.onActivity { it.execute(Command("new-note","New note","")) }
         compose.onNodeWithTag("editor-title").performTextReplacement("Discard this audit draft")
-        compose.onNodeWithTag("inline-back").performClick()
-        compose.activityRule.scenario.onActivity { it.execute(Command("new-note","New note","")) }
+        val back=compose.onNodeWithTag("inline-back").fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsActions.OnClick].action!!
+        val abandoned=compose.activity.store.editorDraft("note")
+        compose.activityRule.scenario.onActivity {
+            assertTrue(back())
+            it.execute(Command("new-note","New note",""))
+            assertNotSame("Same-turn reopening owns a fresh draft",abandoned,it.store.editorDraft("note"))
+        }
         editable("editor-title", "")
+        editable("editor-body", "")
         assertFalse(compose.activity.store.notes.any { it.title=="Discard this audit draft" })
     }
     @Test fun rapidExtensionListDownThenEnterRunsTheCurrentAction() {

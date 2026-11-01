@@ -117,6 +117,12 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         fun activateCurrent() {
             if (searchValue.text == store.query && searchValue.composition == null) currentSelection()?.let(run)
         }
+        fun activateExplicitly() {
+            // A pointer/accessibility click is an explicit choice, unlike Enter
+            // while the IME owns composition. Retain its text and commit it.
+            searchValue = searchValue.copy(composition = null)
+            currentSelection()?.let(run)
+        }
         val handleKey: (KeyEvent) -> Boolean = { event ->
             val currentResults = results
             val currentSelected = currentSelection()
@@ -224,7 +230,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                     }
                     Spacer(Modifier.weight(1f))
                     if(selected!=null) Box {
-                        PaletteActionCapsule(primaryActionTitle(selected), {activateCurrent()}, {currentSelection()?.let { store.actionCommand=it;store.dialog="actions" }},
+                        PaletteActionCapsule(primaryActionTitle(selected), {activateExplicitly()}, {currentSelection()?.let { store.actionCommand=it;store.dialog="actions" }},
                             "primary-action", "actions-button", compact=!wide)
                         if(store.dialog=="actions") ActionsMenu(store,store.actionCommand ?: selected,run,copy,::close)
                     }
