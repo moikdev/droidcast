@@ -7,7 +7,6 @@ import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
-import java.net.HttpURLConnection
 import java.net.URI
 import java.net.URLEncoder
 import java.util.UUID
@@ -34,43 +33,6 @@ data class InstalledExtension(val listing: StoreExtension, val directory: File, 
     fun fields(command: ExtensionCommand) = (manifest.optJSONArray("preferences").objects() + command.definition.optJSONArray("preferences").objects()).distinctBy { it.optString("name") }
 }
 fun JSONArray?.objects(): List<JSONObject> = if (this == null) emptyList() else (0 until length()).mapNotNull { optJSONObject(it) }
-
-object ExtensionHttp {
-    fun request(url: String, method: String = "GET", headers: Map<String, String> = emptyMap(), body: ByteArray? = null, limit: Int = 32 * 1024 * 1024): Pair<HttpURLConnection, ByteArray> {
-        var target = URI(url)
-        repeat(6) {
-            require(target.scheme == "https" && !target.host.isNullOrBlank()) { "Only HTTPS requests are supported" }
-            val connection = target.toURL().openConnection() as HttpURLConnection
-            connection.connectTimeout = 15000; connection.readTimeout = 25000; connection.instanceFollowRedirects = false
-            connection.useCaches = false; connection.requestMethod = method
-            connection.setRequestProperty("User-Agent", "Droidcast Android/0.4.0-preview")
-            connection.setRequestProperty("Cache-Control", "no-cache")
-            headers.forEach { (k, v) -> connection.setRequestProperty(k, v) }
-            try {
-                if (body != null && method !in listOf("GET", "HEAD")) { connection.doOutput = true; connection.outputStream.use { out -> out.write(body) } }
-                if (connection.responseCode in listOf(301,302,303,307,308)) {
-                    val next = target.resolve(connection.getHeaderField("Location") ?: error("Invalid redirect"))
-                    require(next.host == target.host || (headers.isEmpty() && body == null)) { "Cross-host redirects with credentials are unsupported" }
-                    target = next
-                    connection.disconnect()
-                } else {
-                    val stream = if (connection.responseCode >= 400) connection.errorStream else connection.inputStream
-                    val bytes = stream?.use { input ->
-                        val out = java.io.ByteArrayOutputStream(); val buffer = ByteArray(8192)
-                        while (true) { val n = input.read(buffer); if (n < 0) break; require(out.size() + n <= limit) { "Response exceeds the download limit" }; out.write(buffer, 0, n) }
-                        out.toByteArray()
-                    } ?: byteArrayOf()
-                    return connection to bytes
-                }
-            } catch (e: Throwable) { connection.disconnect(); throw e }
-        }
-        error("Too many redirects")
-    }
-    fun download(url: String, limit: Int = 32 * 1024 * 1024): ByteArray {
-        val (connection, bytes) = request(url, limit = limit)
-        try { check(connection.responseCode in 200..299) { "Store request failed (HTTP ${connection.responseCode}). Try again." }; return bytes } finally { connection.disconnect() }
-    }
-}
 
 object ExtensionArchive {
     fun extract(bytes: ByteArray, destination: File): File {

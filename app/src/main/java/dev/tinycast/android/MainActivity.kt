@@ -8,7 +8,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.provider.Settings
 import android.view.KeyEvent
 import android.view.KeyboardShortcutGroup
@@ -23,27 +22,63 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     val store: PaletteStore by viewModels()
     var shortcutEnabled by mutableStateOf(false)
     private var sharedText by mutableStateOf<String?>(null)
     private val modifierShortcuts = ModifierShortcutObserver()
+    private var documentNameJob: Job? = null
+    private var documentOpenJob: Job? = null
+    private val documentReader by lazy { DocumentProviderQueries(applicationContext.contentResolver) }
+    private fun cancelDocumentOpen() { documentOpenJob?.cancel(); documentOpenJob = null }
     private val createBackup = registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { store.writeExport(it) }
     private val importBackup = registerForActivityResult(ActivityResultContracts.OpenDocument()) { store.readBackup(it) }
     private val openDocument = registerForActivityResult(ActivityResultContracts.OpenDocument()) { rememberDocument(it) }
     private val browseIndexedFolder = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) rememberDocument(result.data?.data)
     }
-    private fun rememberDocument(uri: Uri?) {
-        if (uri != null) {
-            runCatching { contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
-            val title = runCatching {
-                contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)?.use { cursor -> if (cursor.moveToFirst()) cursor.getString(0) else null }
-            }.getOrNull() ?: uri.lastPathSegment ?: "Document"
-            val existing = store.files.firstOrNull { it.body == uri.toString() }
-            store.save("files", title, uri.toString(), id = existing?.id)
-            store.message = "Document added to recent files"
+    internal fun rememberDocument(uri: Uri?, reader: RecentDocumentReader = documentReader) {
+        if (uri == null) return
+        documentNameJob?.cancel()
+        runCatching { contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
+        val existing = store.files.firstOrNull { it.body == uri.toString() }
+        // Track the granted URI immediately. A cancelled metadata lookup must not
+        // leave an untracked permission or discard the user's selected document.
+        val id = store.save("files", existing?.title ?: "Document", uri.toString(), id = existing?.id)
+        store.message = "Document added to recent files"
+        documentNameJob = lifecycleScope.launch {
+            try {
+                val title = reader.displayName(uri)
+                // Do not resurrect a reference removed while its provider was busy.
+                store.files.firstOrNull { it.id == id && it.body == uri.toString() }?.let { saved ->
+                    if (title != null) store.save("files", title, saved.body, saved.alias, saved.id)
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { store.message = "Document saved. Its name could not be read; choose it again to retry." }
+        }
+    }
+    internal fun openRecentDocument(command: Command, reader: RecentDocumentReader = documentReader) {
+        cancelDocumentOpen()
+        val uri = Uri.parse(command.payload)
+        val query = store.query; val category = store.category; val route = store.dialog; val epoch = store.focusEpoch
+        documentOpenJob = lifecycleScope.launch {
+            try {
+                val type = command.mimeType ?: reader.mimeType(uri) ?: "*/*"
+                // A delayed provider response cannot open a file after the user has
+                // navigated elsewhere or a newer operation has taken ownership.
+                if (store.query == query && store.category == category && store.dialog == route && store.focusEpoch == epoch &&
+                    !isFinishing && window.decorView.hasWindowFocus()) {
+                    open(Intent(Intent.ACTION_VIEW).setDataAndType(uri, type)
+                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: DocumentProviderTimeout) { store.message = "Storage provider timed out. Select the document again to retry." }
+            catch (_: Exception) { store.message = "Document access expired. Choose it again with Open a document." }
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +114,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         if (store.dialog == "updates") store.updates.refresh()
         shortcutEnabled = KeyboardServiceConsent.read(this) == KeyboardConsent.APPROVED
     }
-    override fun onPause() { modifierShortcuts.clear(); store.clearModifierRecording(); ShortcutRuntime.paused(this); super.onPause() }
+    override fun onPause() { cancelDocumentOpen(); modifierShortcuts.clear(); store.clearModifierRecording(); ShortcutRuntime.paused(this); super.onPause() }
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (!hasFocus) { modifierShortcuts.clear(); store.clearModifierRecording() }
@@ -104,6 +139,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     override fun onStop() { if (!isChangingConfigurations) store.cancelShortcutRecording(); super.onStop() }
     fun acceptShortcut(token: String?, toggleExisting: Boolean = false) {
         val request = ShortcutRuntime.requests.consume(token)
+        cancelDocumentOpen()
         if (request == null || !ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) { store.message = "Shortcut changed or expired. Try again."; return }
         if (store.backupBusy || ShortcutRuntime.recordingOwner != null) { store.message = "Finish the current operation before running a shortcut."; return }
         if (request.target == ShortcutRules.PALETTE) { if (toggleExisting) finish() else store.reset() }
@@ -112,6 +148,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     }
     public override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        cancelDocumentOpen()
         modifierShortcuts.clear(); store.clearModifierRecording()
         if (store.backupBusy) { store.message = "Backup in progress. Please try again when it finishes."; return }
         store.pendingShortcut = null
@@ -163,6 +200,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     }
     fun execute(command: Command) {
         if (store.backupBusy) return
+        cancelDocumentOpen()
         if (command.id !in setOf("backup", "backup-export", "backup-import", "backup-write", "backup-read")) store.used(command.id)
         if (command.kind == Kind.COMMAND) {
             SystemSettings.find(command.id)?.let { openSystemSettings(it); return }
@@ -182,10 +220,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
                         .putExtra(android.provider.DocumentsContract.EXTRA_INITIAL_URI, uri))
                     return
                 }
-                runCatching { command.mimeType ?: contentResolver.getType(uri) ?: "*/*" }
-                    .onSuccess { type -> open(Intent(Intent.ACTION_VIEW).setDataAndType(uri, type)
-                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_CLEAR_TOP)) }
-                    .onFailure { store.message = "Document access expired. Choose it again with Open a document." }
+                openRecentDocument(command)
             }
             Kind.EXTENSION -> {
                 val parts = command.payload.split('/', limit = 2)

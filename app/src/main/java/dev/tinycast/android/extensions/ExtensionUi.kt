@@ -347,14 +347,37 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     val item=rows.getOrNull(selected.coerceIn(0,(rows.size-1).coerceAtLeast(0)))
     val actions=item?.actions().orEmpty().ifEmpty{root?.actions().orEmpty()}
     fun action(a:JSONObject?){if(catalog.runtimeError==null)a?.let{runtime.dispatch(it.handle("onAction"))};menu=false}
+    fun liveRows(): List<JSONObject> {
+        val liveRoot = activeRoot(catalog.runtimeTree) ?: return emptyList()
+        if (liveRoot.optString("type") != "List" || liveRoot.optString("id") != root?.optString("id")) return emptyList()
+        val liveQuery = listState.search.text
+        return liveRoot.nodes("List.Item").filter {
+            !liveRoot.props().optBoolean("filtering", true) || liveQuery.isBlank() ||
+                ("${it.props().optString("title")} ${it.props().optString("subtitle")} ${it.props().optJSONArray("keywords")}").contains(liveQuery, true)
+        }
+    }
+    fun liveActions(): List<JSONObject> {
+        val liveRoot = activeRoot(catalog.runtimeTree) ?: return emptyList()
+        if (liveRoot.optString("id") != root?.optString("id") || liveRoot.optString("type") != root?.optString("type")) return emptyList()
+        if (liveRoot.optString("type") != "List") return liveRoot.actions()
+        val liveRows = liveRows()
+        return liveRows.getOrNull(listState.selected.coerceIn(0, liveRows.lastIndex.coerceAtLeast(0)))?.actions().orEmpty()
+            .ifEmpty { liveRoot.actions() }
+    }
+    fun activateCurrent() {
+        if (root?.optString("type") != "List" || listState.search.composition == null) action(liveActions().firstOrNull())
+    }
     LaunchedEffect(item?.props()?.optString("id"),failed){if (!failed && root?.optString("type") != "Grid") root?.handle("onSelectionChange")?.let{runtime.dispatch(it,JSONArray().put(item?.props()?.optString("id")))}}
     ExtensionWindow(command.title,extension.listing.title,close,Modifier.onPreviewKeyEvent{
-        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else when{
+        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else {
+        val eventRows=if(it.key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
+        when{
             it.key==Key.K&&it.isCtrlPressed->{menu=true;true}
-            it.key==Key.DirectionDown&&rows.isNotEmpty()->{selected=(selected+1).coerceAtMost(rows.lastIndex);true}
-            it.key==Key.DirectionUp&&rows.isNotEmpty()->{selected=(selected-1).coerceAtLeast(0);true}
-            it.key==Key.Enter&&root?.optString("type")!="Form"->{action(actions.firstOrNull());true}
+            it.key==Key.DirectionDown&&eventRows.isNotEmpty()->{selected=(selected+1).coerceAtMost(eventRows.lastIndex);true}
+            it.key==Key.DirectionUp&&eventRows.isNotEmpty()->{selected=(selected-1).coerceAtLeast(0);true}
+            it.key in listOf(Key.Enter, Key.NumPadEnter)&&root?.optString("type")!="Form"->{activateCurrent();true}
             else->false
+        }
         }
     },compact=true,onEscape={ if(catalog.runtimeError!=null)close() else if(catalog.navigationDepth>1)runtime.back() else close() },headerless=!failed && root?.optString("type") in listOf("Grid","List"),headerActions={
         if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
@@ -407,7 +430,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             }else Spacer(Modifier.weight(1f))
             if(actions.isNotEmpty()){
                 Box {
-                    dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{action(actions.first())},{menu=true},
+                    dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{activateCurrent()},{menu=true},
                         "extension-primary","extension-actions",compact=!dev.tinycast.android.LocalPaletteWide.current)
                     PaletteChoiceMenu(menu,{menu=false},actions.mapIndexed{i,a->PaletteChoice("extension-action-${a.optString("id",i.toString())}",a.props().optString("title","Action"),tag="extension-action-$i",shortcut=if(i==0)listOf("↵")else emptyList(),icon="command"){action(a)}},title=item?.props()?.optString("title") ?: command.title,searchable=true)
 

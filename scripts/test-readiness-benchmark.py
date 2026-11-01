@@ -11,7 +11,11 @@ p.add_argument('--method',choices=['queryAndNavigationFrameCommitLatency','pixel
 p.add_argument('--soak-seconds',type=int,default=300)
 p.add_argument('--startup',action='store_true',help='Also measure fresh disposable-package startup before instrumentation')
 a=p.parse_args();assert a.serial.startswith('emulator-') and 60<=a.soak_seconds<=1800
-sdk=Path(os.environ['ANDROID_HOME']);adb=[str(sdk/'platform-tools/adb'),'-s',a.serial]
+sdk_value=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
+if not sdk_value:
+ sdk_value=next((line.removeprefix('sdk.dir=') for line in Path('local.properties').read_text().splitlines() if line.startswith('sdk.dir=')),None)
+if not sdk_value:raise SystemExit('Set ANDROID_HOME or sdk.dir in local.properties')
+sdk=Path(sdk_value);adb=[str(sdk/'platform-tools/adb'),'-s',a.serial]
 app='dev.tinycast.android.benchmark';test=app+'.test'
 def raw(*args,data=None):return subprocess.check_output(adb+list(args),input=data,stderr=subprocess.STDOUT,timeout=60)
 def shell(*args):return raw('shell',*args).decode().strip()

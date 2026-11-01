@@ -105,13 +105,26 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         fun escape() {
             when { store.dialog != null -> close(); menu -> menu = false; store.query.isNotEmpty() -> store.search(""); store.category != "All" -> store.filter("All"); else -> dismiss() }
         }
+        // Key events can arrive back-to-back before Compose draws another frame.
+        // Resolve the logical selection at receipt time, not from the rendered row.
+        fun currentSelection(): Command? {
+            // Reading the derived State here observes invalidations immediately,
+            // while selection-only events reuse its cached command search.
+            val current = results
+            return current.getOrNull(store.selected.coerceIn(0, current.lastIndex.coerceAtLeast(0)))
+        }
+        fun activateCurrent() {
+            if (searchValue.text == store.query && searchValue.composition == null) currentSelection()?.let(run)
+        }
         val handleKey: (KeyEvent) -> Boolean = { event ->
+            val currentResults = results
+            val currentSelected = currentSelection()
             val configured = if (event.action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) shortcutEngine.handle(event.asShortcutInput(), store.shortcutConfiguration.byChord, store.dialog != null || store.paletteMenuOpen || store.backupBusy || ShortcutRuntime.recordingOwner != null) else ShortcutEngine.Result(false)
             if (configured.target != null && !ShortcutRuntime.passesSettingsNavigation(event)) shortcut(configured.target, configured.chord!!)
             val ctrl = (event.isCtrlPressed xor event.isMetaPressed) && !event.isShiftPressed && !event.isAltPressed
             val preferencesKey = event.keyCode == KeyEvent.KEYCODE_COMMA && (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && store.dialog == null
             if (event.action == KeyEvent.ACTION_DOWN && preferencesKey) {
-                val target = selected?.takeIf { ShortcutRules.targetAllowed(it.id) }
+                val target = currentSelected?.takeIf { ShortcutRules.targetAllowed(it.id) }
                 run(if (event.isShiftPressed && target != null) Command("configure-command", "Configure command", "", payload = target.id) else Command("app-settings", "Settings", "")); true
             }
             else if (configured.consumed) true
@@ -120,13 +133,13 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             else if (store.dialog != null) false
             else when {
                 ctrl && event.keyCode == KeyEvent.KEYCODE_L -> { keyboardRequested = true; focus.requestFocus(); keyboard?.show(); true }
-                ctrl && event.keyCode == KeyEvent.KEYCODE_K -> { if(selected != null) { store.actionCommand = selected; store.dialog = "actions" }; true }
+                ctrl && event.keyCode == KeyEvent.KEYCODE_K -> { if(currentSelected != null) { store.actionCommand = currentSelected; store.dialog = "actions" }; true }
                 ctrl && event.keyCode == KeyEvent.KEYCODE_N -> { store.editing = null; store.dialog = "note"; true }
-                ctrl && event.keyCode == KeyEvent.KEYCODE_D -> { selected?.takeUnless { it.id in listOf("result", "web") }?.let { store.togglePin(it.id) }; true }
+                ctrl && event.keyCode == KeyEvent.KEYCODE_D -> { currentSelected?.takeUnless { it.id in listOf("result", "web") }?.let { store.togglePin(it.id) }; true }
                 ctrl && event.keyCode in KeyEvent.KEYCODE_1..KeyEvent.KEYCODE_8 -> { store.filter(categories[event.keyCode-KeyEvent.KEYCODE_1]); true }
-                event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN -> { store.selected=(store.selected+1).coerceAtMost((results.size-1).coerceAtLeast(0)); true }
+                event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN -> { store.selected=(store.selected+1).coerceAtMost((currentResults.size-1).coerceAtLeast(0)); true }
                 event.keyCode == KeyEvent.KEYCODE_DPAD_UP -> { store.selected=(store.selected-1).coerceAtLeast(0); true }
-                event.keyCode in listOf(KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER) -> { selected?.let(run); true }
+                event.keyCode in listOf(KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER) -> { activateCurrent(); true }
                 else -> false
             }
         }
@@ -175,7 +188,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                     Glyph("search",PaletteTheme.secondary,22);Spacer(Modifier.width(12.dp))
                     BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).height(32.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),
-                        keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=!wide || keyboardRequested),keyboardActions=KeyboardActions(onSearch={selected?.let(run)}),
+                        keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=!wide || keyboardRequested),keyboardActions=KeyboardActions(onSearch={activateCurrent()}),
                         decorationBox={inner -> Box(Modifier.fillMaxSize(),contentAlignment=Alignment.CenterStart){if(store.query.isEmpty())Text("Search for apps and commands…",color=PaletteTheme.secondary,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
                     if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(36.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",PaletteTheme.tertiary,16)}
                 }
@@ -210,7 +223,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                     }
                     Spacer(Modifier.weight(1f))
                     if(selected!=null) Box {
-                        PaletteActionCapsule(primaryActionTitle(selected), {run(selected)}, {store.actionCommand=selected;store.dialog="actions"},
+                        PaletteActionCapsule(primaryActionTitle(selected), {activateCurrent()}, {currentSelection()?.let { store.actionCommand=it;store.dialog="actions" }},
                             "primary-action", "actions-button", compact=!wide)
                         if(store.dialog=="actions") ActionsMenu(store,store.actionCommand ?: selected,run,copy,::close)
                     }

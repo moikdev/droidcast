@@ -267,9 +267,28 @@ class ShortcutDeviceTest {
         val token = ShortcutRuntime.requests.issue(target, chord)
         compose.activityRule.scenario.onActivity { it.acceptShortcut(token) }
         compose.waitUntil(5000) { compose.activity.store.message?.contains("command is unavailable") == true }
+        try {
         compose.onNodeWithText("This shortcut's command is unavailable. Clear or reassign it in Keyboard shortcuts.").assertIsDisplayed()
+        } catch (failure: Throwable) {
+            val folder = File(context.filesDir,"shortcut-evidence").apply { mkdirs() }
+            File(folder,"unavailable-feedback-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
+            device.dumpWindowHierarchy(File(folder,"unavailable-feedback-failure.xml"))
+            device.takeScreenshot(File(folder,"unavailable-feedback-failure.png"))
+            throw failure
+        }
         compose.activityRule.scenario.onActivity { it.store.dialog = "shortcut-settings" }
+        // Scroll the outer form first; scrolling a row inside the nested LazyColumn
+        // cannot reveal that LazyColumn when it is below the form's viewport.
+        compose.onNodeWithTag("shortcut-bindings").performScrollTo()
+        try {
         compose.onNodeWithTag("shortcut-remove-$target").performScrollTo().assertIsDisplayed().performClick()
+        } catch (failure: Throwable) {
+            val folder=File(context.filesDir,"shortcut-evidence").apply { mkdirs() }
+            File(folder,"unavailable-clear-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
+            device.dumpWindowHierarchy(File(folder,"unavailable-clear-failure.xml"))
+            device.takeScreenshot(File(folder,"unavailable-clear-failure.png"))
+            throw failure
+        }
         assertTrue(compose.activity.store.shortcutConfiguration.bindings.isEmpty())
     }
     @Test fun documentShortcutImportIsRejectedAndOldBackupKeepsCurrentBindings() {

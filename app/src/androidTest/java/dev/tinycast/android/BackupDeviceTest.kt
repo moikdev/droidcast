@@ -61,7 +61,15 @@ class BackupDeviceTest {
     private fun openBackup() {
         // Shared backup component regression; SettingsDeviceTest covers its production settings host.
         compose.activityRule.scenario.onActivity { it.store.beginBackup() }
+        try {
         compose.onNodeWithText("Portable collections · Droidcast JSON format v1").assertIsDisplayed()
+        } catch (failure: Throwable) {
+            val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
+            File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
+            device.dumpWindowHierarchy(File(folder,"picker-cancel-failure.xml"))
+            device.takeScreenshot(File(folder,"picker-cancel-failure.png"))
+            throw failure
+        }
     }
     private fun load(document: BackupDocument) {
         val file = File(context.cacheDir, "backup-test.json").apply { writeText(BackupCodec.encode(document.data, document.categories)) }
@@ -223,7 +231,12 @@ class BackupDeviceTest {
         compose.waitUntil(15000) { compose.activity.store.dialog == "backup-preview" && !compose.activity.store.backupBusy }
         // Activity-result state can publish before DocumentsUI has finished closing.
         compose.waitUntil(10000) { compose.activity.window.decorView.hasWindowFocus() }
-        assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text("Preview backup")),10000))
+        if (!device.wait(Until.hasObject(By.pkg(context.packageName).text("Preview backup")),10000)) {
+            val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
+            File(folder,"import-preview-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
+            device.dumpWindowHierarchy(File(folder,"import-preview-failure.xml"));device.takeScreenshot(File(folder,"import-preview-failure.png"))
+            fail("Native preview heading not visible after document selection")
+        }
         compose.onNodeWithText("Backup exported").assertDoesNotExist()
         val incoming = compose.activity.store.backupDocument!!
         assertTrue(incoming.data.notes.any { it.title == "Tablet backup note" })
@@ -264,12 +277,26 @@ class BackupDeviceTest {
         compose.onNodeWithTag("backup-import").performScrollTo().performClick()
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000))
         device.pressBack()
+        try {
         compose.onNodeWithText("Portable collections · Droidcast JSON format v1").assertIsDisplayed()
+        } catch (failure: Throwable) {
+            val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
+            File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
+            device.dumpWindowHierarchy(File(folder,"picker-cancel-failure.xml"))
+            device.takeScreenshot(File(folder,"picker-cancel-failure.png"))
+            throw failure
+        }
         assertEquals(before, compose.activity.store.backupSnapshot())
         compose.onNodeWithTag("backup-export").performScrollTo().performClick()
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000))
         device.pressBack()
-        compose.waitUntil(10000) { compose.activity.store.pendingExport == null && !compose.activity.store.backupBusy }
+        try {
+            compose.waitUntil(10000) { compose.activity.store.pendingExport == null && !compose.activity.store.backupBusy }
+        } catch (failure: Throwable) {
+            val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
+            device.dumpWindowHierarchy(File(folder,"export-cancel-failure.xml"));device.takeScreenshot(File(folder,"export-cancel-failure.png"))
+            throw failure
+        }
         assertEquals(before, compose.activity.store.backupSnapshot())
         assertNull(compose.activity.store.backupDocument)
     }
