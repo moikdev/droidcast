@@ -158,7 +158,7 @@ class TouchReadabilityDeviceTest {
             route.performTouchInput {
                 val start=if(footer!=null) {
                     (if(below)footer.bottom-minOf(8*pixelsPerDp,footer.height*.25f) else footer.top+minOf(8*pixelsPerDp,footer.height*.25f))-viewport.top
-                } else if(isOuter && below)minOf(viewport.height*.25f,48*pixelsPerDp)
+                } else if(isOuter && below)viewport.height*.85f
                 else if(below)viewport.height*.80f else viewport.height*.20f
                 val travel=clippedDistance+viewConfiguration.touchSlop+2*pixelsPerDp
                 val end=if(below)(start-travel).coerceAtLeast(8f) else (start+travel).coerceAtMost(viewport.height-8f)
@@ -250,8 +250,11 @@ class TouchReadabilityDeviceTest {
         File(out,"touch-$name.json").writeText(JSONObject().put("installed_build_commit",installed.metaData.getString("dev.droidcast.BUILD_COMMIT"))
             .put("font_scale",context.resources.configuration.fontScale)
             .put("width_dp",context.resources.configuration.screenWidthDp).put("height_dp",context.resources.configuration.screenHeightDp)
-            .put("geometry",geometry).put("input","Compose pointer injection and text semantics; no hardware-key navigation").toString(2))
+            .put("ime_visible",imeVisible()).put("multi_window",compose.activity.isInMultiWindowMode)
+            .put("geometry",geometry).put("input","Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation").toString(2))
     }
+    private fun imeVisible()=androidx.core.view.ViewCompat.getRootWindowInsets(compose.activity.window.decorView)
+        ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true
     private fun copied():String=compose.activity.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString()
     private fun checked(name:String,block:()->Unit) {
         try { block() } catch(failure:Throwable) { runCatching { capture("$name-failed") };throw failure }
@@ -273,7 +276,11 @@ class TouchReadabilityDeviceTest {
         assertEquals("Only edit the owned audit note",noteId,compose.activity.store.editing?.id)
         inputFits("editor-title");target("inline-back");target("cancel-editor");target("save-editor")
         assertFalse("Editor actions must not overlap",fullBounds("cancel-editor").overlaps(fullBounds("save-editor")))
+        touch("editor-title");compose.onNodeWithTag("editor-title").assertIsFocused()
         compose.onNodeWithTag("editor-title").performTextReplacement("Touch audit saved note")
+        if(context.resources.configuration.orientation==android.content.res.Configuration.ORIENTATION_LANDSCAPE &&
+            context.resources.configuration.smallestScreenWidthDp<600)compose.waitUntil(10000){imeVisible()}
+        inputFits("editor-title")
         capture("editor")
         touch("save-editor")
         compose.waitUntil(5000){compose.activity.store.notes.any { it.id==noteId && it.title=="Touch audit saved note" }}
