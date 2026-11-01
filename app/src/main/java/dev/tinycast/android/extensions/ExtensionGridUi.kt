@@ -86,7 +86,9 @@ internal fun NativeExtensionGrid(
     var dropdownMenu by remember { mutableStateOf(false) }
     var gridHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
-    val captionHeight = with(density) { 22.dp + 16.sp.toDp() * 2 + 12.sp.toDp() }
+    // Two scaled title lines and a subtitle, plus cell/grid padding and
+    // rounding space, must fit before assigning any height to the preview.
+    val cellOverhead = with(density) { 40.dp + 16.sp.toDp() * 2 + 12.sp.toDp() }
     val claims = remember { mutableMapOf<Pair<Int, Int>, Long>() }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val imeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
@@ -282,7 +284,7 @@ internal fun NativeExtensionGrid(
                         item(key = "cell-${entry.key}") {
                             GridCell(entry, itemIndex, selected?.key == entry.key, props, images,
                                 minOf(((widthDp - 32 - (columns - 1) * 10) / columns - 16) / gridAspectRatio(props.optString("aspectRatio")),
-                                    if (gridHeight > 0) (with(density) { gridHeight.toDp() } - captionHeight).value.coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectLocally(entry.key); focus.requestFocus() }
+                                    if (gridHeight > 0) (with(density) { gridHeight.toDp() } - cellOverhead).value.coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectLocally(entry.key); focus.requestFocus() }
                         }
                     }
                     }

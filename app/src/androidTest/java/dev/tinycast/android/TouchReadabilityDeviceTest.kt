@@ -144,6 +144,16 @@ class TouchReadabilityDeviceTest {
         val first=target(primary);val second=target(actions)
         assertFalse("Primary and Actions touch targets must not overlap",first.overlaps(second))
     }
+    private fun selectedGridCellFits() {
+        val grid=compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInWindow
+        val cell=compose.onNodeWithTag("extension-grid-cell-0").assertIsDisplayed().fetchSemanticsNode()
+        val top=cell.positionInWindow.y
+        val bottom=top+cell.size.height
+        geometry.put("selected-grid-cell",JSONObject().put("top",top).put("bottom",bottom)
+            .put("visible_grid_top",grid.top).put("visible_grid_bottom",grid.bottom))
+        assertTrue("Selected Grid caption must fit the visible viewport: $top..$bottom within ${grid.top}..${grid.bottom}",
+            top>=grid.top-1 && bottom<=grid.bottom+1)
+    }
     private fun capture(name:String) {
         compose.waitForIdle();dismissClipboardForEvidence();device.waitForIdle()
         val out=File(context.filesDir,"readiness-evidence").apply{mkdirs()}
@@ -244,7 +254,9 @@ class TouchReadabilityDeviceTest {
         extension(type)
         compose.onNodeWithTag("extension-search").performTextReplacement("Audit Alpha")
         inputFits("extension-search");target("extension-back")
-        capsule("extension-primary","extension-actions");capture("extension-${type.lowercase()}")
+        capsule("extension-primary","extension-actions")
+        if(type=="Grid")selectedGridCellFits()
+        capture("extension-${type.lowercase()}")
         touch("extension-actions");fullLabel("extension-action-0",actionTitle);target("extension-action-0")
         capture("extension-${type.lowercase()}-actions")
         touch("extension-action-0");compose.waitUntil(5000){copied()=="touch-layout-audit-271828"}
