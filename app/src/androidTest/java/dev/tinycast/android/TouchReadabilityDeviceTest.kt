@@ -116,10 +116,18 @@ class TouchReadabilityDeviceTest {
     }
     private fun fullBounds(tag:String)=fullBounds(compose.onNodeWithTag(tag))
     private fun fullBounds(node:SemanticsNodeInteraction):Rect {
-        val bounds=node.getUnclippedBoundsInRoot()
-        val density=context.resources.displayMetrics.density
-        return Rect(bounds.left.value*density,bounds.top.value*density,bounds.right.value*density,bounds.bottom.value*density)
+        val semantics=node.fetchSemanticsNode()
+        return compose.runOnUiThread { unclipped(semantics) }
     }
+    // Same geometry as Compose 1.7.6 getUnclippedBoundsInRoot, in pixels.
+    // Read alongside clipped/viewport bounds on the UI thread, without another
+    // test-framework synchronization allowing a different layout frame.
+    private fun unclipped(node:androidx.compose.ui.semantics.SemanticsNode):Rect {
+        val origin=node.positionInRoot;val size=node.size
+        return Rect(origin.x,origin.y,origin.x+size.width,origin.y+size.height)
+    }
+    private data class ScrollGeometry(val visible:Rect,val full:Rect,val outer:Rect,val parent:Rect,val parentFull:Rect,
+                                      val outerScroll:Float,val outerMax:Float)
     private fun settledViewport() {
         var last:Pair<Rect,Boolean>?=null
         var since=0L
@@ -142,32 +150,36 @@ class TouchReadabilityDeviceTest {
         geometry.put("requested_target",tag).put("requested_target_in_route",inRoute)
         if(!inRoute)return target
         repeat(12) {
-            val node=target.fetchSemanticsNode();val visible=node.boundsInRoot
-            val full=fullBounds(tag)
+            val node=target.fetchSemanticsNode()
             val outerInteraction=compose.onNodeWithTag("palette-content-scroll")
-            val outerNode=outerInteraction.fetchSemanticsNode();val outer=outerNode.boundsInRoot
+            val outerNode=outerInteraction.fetchSemanticsNode()
+            val scrollParent=generateSequence(node.parent) { it.parent }.firstOrNull {
+                it.config.contains(SemanticsProperties.VerticalScrollAxisRange)
+            } ?: outerNode
+            val outerRange=outerNode.config[SemanticsProperties.VerticalScrollAxisRange]
+            val sample=compose.runOnUiThread { ScrollGeometry(node.boundsInRoot,unclipped(node),outerNode.boundsInRoot,
+                scrollParent.boundsInRoot,unclipped(scrollParent),outerRange.value(),outerRange.maxValue()) }
+            val visible=sample.visible;val full=sample.full;val outer=sample.outer
             geometry.put("reveal-$tag",JSONObject().put("visible_top",visible.top).put("visible_bottom",visible.bottom)
-                .put("full_top",full.top).put("full_bottom",full.bottom).put("viewport_top",outer.top).put("viewport_bottom",outer.bottom))
+                .put("full_top",full.top).put("full_bottom",full.bottom).put("viewport_top",outer.top).put("viewport_bottom",outer.bottom)
+                .put("parent_top",sample.parent.top).put("parent_bottom",sample.parent.bottom)
+                .put("parent_full_top",sample.parentFull.top).put("parent_full_bottom",sample.parentFull.bottom))
             // Semantics may follow a padding modifier. Compare that same
             // coordinator's clipped/unclipped bounds, not its outer node size.
             if(visible.height>=full.height-1 && visible.width>=full.width-1 &&
                 full.top>=outer.top-1 && full.bottom<=outer.bottom+1)return target
-            val scrollParent=generateSequence(node.parent) { it.parent }.firstOrNull {
-                it.config.contains(SemanticsProperties.VerticalScrollAxisRange)
-            } ?: outerNode
             val parentInteraction=compose.onNode(SemanticsMatcher("scroll surface ${scrollParent.id}") { it.id==scrollParent.id })
-            val parentFull=fullBounds(parentInteraction)
+            val parentFull=sample.parentFull
             // An offscreen row can belong to a fully visible inner list. In
             // that case pan that list, rather than an already settled route.
             val parentOutside=parentFull.top<outer.top-1 || parentFull.bottom>outer.bottom+1
-            val outerRange=outerNode.config[SemanticsProperties.VerticalScrollAxisRange]
             val targetBelow=full.bottom>outer.bottom+1
             val targetAbove=full.top<outer.top-1
-            val outerCanMove=if(targetBelow)outerRange.value()<outerRange.maxValue()-1 else outerRange.value()>1
+            val outerCanMove=if(targetBelow)sample.outerScroll<sample.outerMax-1 else sample.outerScroll>1
             val isOuter=scrollParent.id==outerNode.id || parentOutside && (targetBelow || targetAbove) && outerCanMove
             val scrollTag=if(isOuter)"palette-content-scroll" else if(scrollParent.config.contains(SemanticsProperties.TestTag))scrollParent.config[SemanticsProperties.TestTag] else "scroll-${scrollParent.id}"
             val route=if(isOuter)outerInteraction else parentInteraction
-            val viewport=route.fetchSemanticsNode().boundsInRoot
+            val viewport=if(isOuter)outer else sample.parent
             // A form can be taller than the visible route. Its bottom is not
             // the direction to an input above the viewport; follow the target.
             val required=full
@@ -195,7 +207,9 @@ class TouchReadabilityDeviceTest {
                 geometry.put("pan-$tag-$it",JSONObject().put("surface",scrollTag)
                     .put("scope_height",height).put("visible_height",viewport.height).put("clipped_distance",clippedDistance)
                     .put("target_top",full.top).put("target_bottom",full.bottom)
-                    .put("outer_scroll",outerRange.value()).put("outer_scroll_max",outerRange.maxValue())
+                    .put("outer_scroll",sample.outerScroll).put("outer_scroll_max",sample.outerMax)
+                    .put("parent_full_top",sample.parentFull.top).put("parent_full_bottom",sample.parentFull.bottom)
+                    .put("parent_top",sample.parent.top).put("parent_bottom",sample.parent.bottom)
                     .put("start_y",start).put("end_y",end).put("footer_pan",useFooter).put("end_velocity",0))
                 swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),endVelocity=0f,durationMillis=400)
             }
@@ -207,8 +221,7 @@ class TouchReadabilityDeviceTest {
     private fun touch(tag:String) { target(tag);compose.onNodeWithTag(tag).assertIsEnabled().performTouchInput { click(center) };compose.waitForIdle() }
     private fun target(tag:String):Rect {
         val node=reveal(tag).assertIsDisplayed().fetchSemanticsNode()
-        val bounds=node.boundsInWindow
-        val full=fullBounds(tag)
+        val (bounds,full)=compose.runOnUiThread { node.boundsInWindow to unclipped(node) }
         val minimum=48*context.resources.displayMetrics.density-1
         assertTrue("$tag has a 48dp visible width: $bounds",bounds.width>=minimum)
         assertTrue("$tag has a 48dp visible height: $bounds",bounds.height>=minimum)
