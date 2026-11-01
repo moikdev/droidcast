@@ -120,7 +120,20 @@ class TouchReadabilityDeviceTest {
         val density=context.resources.displayMetrics.density
         return Rect(bounds.left.value*density,bounds.top.value*density,bounds.right.value*density,bounds.bottom.value*density)
     }
+    private fun settledViewport() {
+        var last:Pair<Rect,Boolean>?=null
+        var since=0L
+        compose.waitUntil(5000) {
+            val route=compose.onNodeWithTag("palette-content-scroll").fetchSemanticsNode()
+            val snapshot=compose.runOnUiThread { route.boundsInWindow to imeVisible() }
+            val now=android.os.SystemClock.elapsedRealtime()
+            if(snapshot!=last) { last=snapshot;since=now;false } else now-since>=300
+        }
+    }
     private fun reveal(tag:String):SemanticsNodeInteraction {
+        // Platform IME animations are not part of Compose's idle detection.
+        // Do not certify bounds from the outgoing, larger window frame.
+        settledViewport()
         val target=compose.onNodeWithTag(tag)
         val initial=target.fetchSemanticsNode()
         val inRoute=generateSequence(initial.parent) { it.parent }.any {
@@ -293,6 +306,8 @@ class TouchReadabilityDeviceTest {
         compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("action-Open Note"))
         touch("action-Open Note")
         assertEquals("Only edit the owned audit note",noteId,compose.activity.store.editing?.id)
+        touch("editor-title")
+        compose.waitUntil(10000){imeVisible()}
         inputFits("editor-title");target("inline-back");target("cancel-editor");target("save-editor")
         assertFalse("Editor actions must not overlap",fullBounds("cancel-editor").overlaps(fullBounds("save-editor")))
         touch("editor-title");compose.onNodeWithTag("editor-title").assertIsFocused()
