@@ -15,6 +15,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -80,7 +82,7 @@ internal fun ColumnScope.UpdateContent(updates: AppUpdates, inlineActions: Boole
             Text("Turn off to let Android skip a second confirmation when supported.", color = PaletteTheme.secondary, fontSize = 11.sp, lineHeight = 16.sp)
         }
         Switch(checked = updates.confirmEveryUpdate, onCheckedChange = updates::chooseConfirmation, enabled = !updates.busy,
-            modifier = Modifier.testTag("updates-confirm-every-time"))
+            modifier = Modifier.testTag("updates-confirm-every-time").semantics { contentDescription = "Confirm each update" })
     }
     if (candidate != null) {
         HorizontalDivider(color = PaletteTheme.separator, modifier = Modifier.padding(vertical = 16.dp))

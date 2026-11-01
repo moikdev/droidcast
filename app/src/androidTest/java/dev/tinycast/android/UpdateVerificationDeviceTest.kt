@@ -9,6 +9,8 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import dev.tinycast.android.updates.*
 import kotlinx.coroutines.*
 import org.junit.*
@@ -126,6 +128,30 @@ class UpdateVerificationDeviceTest {
         awaitControl("updates-download")
         compose.onNodeWithTag("updates-download").performClick()
         compose.waitUntil(20_000) { !updates.busy }
+    }
+    @Test fun confirmationSwitchHasAccessibleNameStateAndBusyDisablement() {
+        val toggle = compose.onNodeWithTag("updates-confirm-every-time")
+        toggle.performScrollTo().assertIsDisplayed()
+        updateEvidence("confirmation-switch-idle", "Confirm each update")
+        toggle.assertContentDescriptionEquals("Confirm each update").assertIsOn().assertIsEnabled()
+        toggle.performClick().assertIsOff()
+        assertFalse(updates.confirmEveryUpdate)
+        toggle.performClick().assertIsOn()
+        checkAvailable()
+        source.pause = true
+        compose.onNodeWithTag("updates-download").performClick()
+        compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.DOWNLOADING && updates.state.bytes >= 1024 * 1024 }
+        toggle.performScrollTo().assertIsDisplayed().assertContentDescriptionEquals("Confirm each update").assertIsOn().assertIsNotEnabled()
+        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        compose.waitUntil(7000) {
+            automation.clearCache()
+            device.hasObject(By.res("updates-confirm-every-time").desc("Confirm each update").checkable(true).checked(true).enabled(false))
+        }
+        updateEvidence("confirmation-switch-busy", "Confirm each update")
+        compose.runOnUiThread { updates.cancel() }
+        compose.waitUntil(10_000) { !updates.busy }
+        awaitControl("updates-download")
+        toggle.performScrollTo().assertContentDescriptionEquals("Confirm each update").assertIsOn().assertIsEnabled()
     }
     @Test fun offlineRetryReachesAvailableWithoutPopups() {
         source.offline = true
