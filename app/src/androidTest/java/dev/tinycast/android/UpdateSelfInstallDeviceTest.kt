@@ -219,7 +219,10 @@ class UpdateSelfInstallDeviceTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync {
             main.execute(Command("extension:$extensionId/retention", "Retention fixture", "", Kind.EXTENSION, payload = "$extensionId/retention"))
         }
-        compose.waitUntil(25_000) { main.store.extensions.runtimeTree != null || main.store.extensions.runtimeError != null }
+        compose.waitUntil(25_000) {
+            main.store.extensions.runtimeError != null ||
+                main.store.extensions.runtimeTree?.toString()?.contains("Extension data survives update · Saved preference survives") == true
+        }
         assertNull(main.store.extensions.runtimeError, main.store.extensions.runtimeError)
         compose.onNodeWithText("Extension data retained").assertIsDisplayed()
         compose.onNodeWithText("Extension data survives update · Saved preference survives").assertIsDisplayed()

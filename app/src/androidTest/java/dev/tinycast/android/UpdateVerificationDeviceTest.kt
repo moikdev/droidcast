@@ -84,7 +84,7 @@ class UpdateVerificationDeviceTest {
             it.selectPage("updates")
             it.setContent { AdvancedSettings(it, updates) }
         }
-        compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.IDLE }
+        compose.waitUntil(10_000) { !updates.busy && updates.state.phase == UpdatePhase.IDLE }
     }
     @After fun restore() {
         if (::updates.isInitialized) {
