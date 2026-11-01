@@ -62,7 +62,7 @@ class BackupDeviceTest {
         // Shared backup component regression; SettingsDeviceTest covers its production settings host.
         compose.activityRule.scenario.onActivity { it.store.beginBackup() }
         try {
-        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").assertIsDisplayed()
+        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").performScrollTo().assertIsDisplayed()
         } catch (failure: Throwable) {
             val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
             File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
@@ -278,7 +278,7 @@ class BackupDeviceTest {
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000))
         device.pressBack()
         try {
-        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").assertIsDisplayed()
+        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").performScrollTo().assertIsDisplayed()
         } catch (failure: Throwable) {
             val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
             File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())

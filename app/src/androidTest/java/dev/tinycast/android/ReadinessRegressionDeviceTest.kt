@@ -136,6 +136,20 @@ class ReadinessRegressionDeviceTest {
         assertEquals("Audit edited link draft",saved.title); assertEquals("https://example.com/draft?q={query}",saved.body)
         assertEquals("auditdraft",saved.alias)
     }
+    @Test fun largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization() {
+        val text = "Large draft line 314159.\n".repeat(25_000)
+        compose.activityRule.scenario.onActivity {
+            it.execute(Command("new-note","New note",""))
+            it.store.editorDraft("note").apply { title="Audit large draft"; body=text }
+        }
+        compose.waitForIdle()
+        compose.activityRule.scenario.recreate()
+        editable("editor-title", "Audit large draft")
+        val shown=compose.onNodeWithTag("editor-body").fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+        assertEquals(text.length,shown.length); assertEquals(text.hashCode(),shown.hashCode())
+        assertFalse(compose.activity.store.notes.any { it.title=="Audit large draft" })
+        capture("large-draft-recreated")
+    }
     @Test fun cancellingADraftDoesNotRestoreItInANewEditor() {
         compose.activityRule.scenario.onActivity { it.execute(Command("new-note","New note","")) }
         compose.onNodeWithTag("editor-title").performTextReplacement("Discard this audit draft")

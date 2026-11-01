@@ -16,6 +16,13 @@ import dev.tinycast.android.extensions.*
 
 data class SavedItem(val id: String, val title: String, val body: String, val alias: String = "")
 
+internal data class EditorIdentity(val kind: String, val item: String?, val epoch: Int)
+internal class PaletteEditorDraft(val identity: EditorIdentity, item: SavedItem?) {
+    var title by mutableStateOf(item?.title.orEmpty())
+    var body by mutableStateOf(item?.body.orEmpty())
+    var alias by mutableStateOf(item?.alias.orEmpty())
+}
+
 class PaletteStore(application: Application) : AndroidViewModel(application) {
     internal val updates = dev.tinycast.android.updates.Updates.get(application)
     val extensions = ExtensionCatalog(application)
@@ -48,6 +55,16 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun detachPaletteMenuHost(owner: Any) { menuOwnership.detach(owner) }
     var dialog by mutableStateOf<String?>(null)
     var editing by mutableStateOf<SavedItem?>(null)
+    // Draft text belongs to this palette session. Keep large bodies out of the
+    // Activity saved-state Bundle; recreation retains this ViewModel.
+    private var retainedEditorDraft: PaletteEditorDraft? = null
+    internal fun editorDraft(kind: String): PaletteEditorDraft {
+        val identity = EditorIdentity(kind, editing?.id, focusEpoch)
+        return retainedEditorDraft?.takeIf { it.identity == identity }
+            ?: PaletteEditorDraft(identity, editing).also { retainedEditorDraft = it }
+    }
+    internal fun discardEditorDraft() { retainedEditorDraft = null }
+
     var actionCommand by mutableStateOf<Command?>(null)
     var message by mutableStateOf<String?>(null)
     var backupCategories by mutableStateOf(BackupCategory.entries.toSet())

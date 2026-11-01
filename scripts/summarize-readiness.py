@@ -29,16 +29,20 @@ def main():
             item.update(sdk=data['sdk'],width=data['width'],height=data['height'],debuggable=data['debuggable'],build_commit=data.get('buildCommit'))
             for sample in data['samples']:
                 warmup=sample['case'].startswith('warmup-')
-                raw.append(dict(run=label,case=sample['case'],warmup=warmup,ms=sample['ms'],readbacks=sample.get('readbacks'),draw_checks=sample.get('drawChecks')))
+                raw.append(dict(run=label,measurement='decor-diagnostic' if name in ('latency','soak') else 'pixel-readback',case=sample['case'],warmup=warmup,ms=sample['ms'],readbacks=sample.get('readbacks'),draw_checks=sample.get('drawChecks')))
                 if not warmup:groups[sample['case']].append(sample['ms'])
             item['metrics'].update({case:distribution(values) for case,values in groups.items()})
-            if name=='latency':
+            if name in ('latency','soak'):
                 item['decor_overlay_caution']='Diagnostic only: overlay redraw scheduling may lag child updates; not a physical or exact visible-update latency measurement.'
+            if name=='latency':
                 item['frames_reported']=len(data.get('frames',[]))
                 item['frame_reports_dropped']=sum(x['droppedReports'] for x in data.get('frames',[]))
                 durations=[x['totalNs']/1e6 for x in data.get('frames',[]) if x['totalNs']>=0 and x['firstDraw']==0]
                 if durations:item['window_frame_duration']=distribution(durations)
-            if name=='soak':item['soak']=dict(rounds=data['rounds'],elapsed_seconds=data['elapsedSeconds'],memory=data['memory'])
+            if name=='soak':
+                item['soak']=dict(rounds=data['rounds'],elapsed_seconds=data['elapsedSeconds'],verified_responses=len(data['samples']),memory=data['memory'])
+                item['metrics']={}  # Functional response counts, not validated interaction latency.
+            if name=='pixel-latency':item['pixel_method']=data.get('pixelMethod')
         if 'observations' in record:
             groups=collections.defaultdict(list)
             for observation in record['observations']:
@@ -52,7 +56,7 @@ def main():
     a.output.mkdir(parents=True,exist_ok=True)
     (a.output/'metrics.json').write_text(json.dumps(dict(percentile_method='nearest rank; warmups excluded; no outlier removal',runs=runs),indent=2)+'\n')
     with (a.output/'interaction-samples.csv').open('w') as file:
-        w=csv.DictWriter(file,fieldnames=['run','case','warmup','ms','readbacks','draw_checks']);w.writeheader();w.writerows(raw)
+        w=csv.DictWriter(file,fieldnames=['run','measurement','case','warmup','ms','readbacks','draw_checks']);w.writeheader();w.writerows(raw)
     print(json.dumps({'runs':len(runs),'raw_interaction_samples':len(raw)}))
 
 if __name__=='__main__':main()

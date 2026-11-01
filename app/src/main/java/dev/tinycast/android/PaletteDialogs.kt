@@ -12,7 +12,6 @@ import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -113,9 +112,10 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
 @Composable
 private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
     val old = store.editing
-    var title by rememberSaveable(kind, old?.id, store.focusEpoch) { mutableStateOf(old?.title.orEmpty()) }
-    var body by rememberSaveable(kind, old?.id, store.focusEpoch) { mutableStateOf(old?.body.orEmpty()) }
-    var alias by rememberSaveable(kind, old?.id, store.focusEpoch) { mutableStateOf(old?.alias.orEmpty()) }
+    val draft = remember(store, kind, old?.id, store.focusEpoch) { store.editorDraft(kind) }
+    var title by draft::title
+    var body by draft::body
+    var alias by draft::alias
     var error by remember { mutableStateOf<String?>(null) }
     val focus = remember { FocusRequester() }
     var fieldReady by remember { mutableStateOf(false) }

@@ -64,6 +64,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val launcherScrollHistory = remember(store) { PaletteScrollHistory() }
         val launcherKeyboard = remember { mutableStateOf(false) }
         fun closeRoute() {
+            if (store.dialog in setOf("note", "link", "clip")) store.discardEditorDraft()
             if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
             if (store.dialog?.startsWith("backup") == true) {
                 if (store.backupBusy) return
