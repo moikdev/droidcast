@@ -221,7 +221,7 @@ class ReadinessDeviceTest {
         val down = SystemClock.uptimeMillis()
         for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
             assertTrue(instrumentation.uiAutomation.injectInputEvent(KeyEvent(down, SystemClock.uptimeMillis(), action, code, 0, 0,
-                android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
+                android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), false))
         }
     }
     private fun pixels(rect: android.graphics.Rect): android.graphics.Bitmap {
@@ -334,7 +334,7 @@ class ReadinessDeviceTest {
                 capture("pixel-verified-emoji")
             }
         }
-        record("pixel-latency", JSONObject().put("pixelMethod","IME commit/UiAutomation virtual-key injection to SHA-256 matching previously captured settled result/highlight pixels; includes PixelCopy, hashing and harness overhead; no physical input/scanout timing"))
+        record("pixel-latency", JSONObject().put("pixelMethod","IME commit/asynchronous UiAutomation virtual-key enqueue to SHA-256 matching previously captured settled result/highlight pixels; includes PixelCopy, hashing and harness overhead; no physical input/scanout timing"))
     }
 
     @Test fun sustainedSearchAndRouteReliability() {

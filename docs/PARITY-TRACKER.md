@@ -1,5 +1,6 @@
 # Parity implementation loop
 
+Readiness work is active under [#65](https://github.com/moikdev/droidcast/issues/65) / draft [PR #66](https://github.com/moikdev/droidcast/pull/66). Real Raycast/Tinycast/Droidcast captures are in [the report](PRODUCTION-READINESS.md). A ten-minute nondebuggable soak passed 230 rounds; fresh broader emulator checks and timing validation remain in progress. The GitHub app connection activated CI, and hosted run 41273696880 passed debug build/JVM/lint on 556b2e5; final-head/benchmark CI and independent audits remain required. Calculator Actions parity discovered during comparison is tracked in [#67](https://github.com/moikdev/droidcast/issues/67). No production/full-parity clearance is claimed.
 The live backlog is [GitHub issue #1](https://github.com/moikdev/droidcast/issues/1). Every implementation PR includes real Android screenshots and independent `gpt-6.1-sol` / `high` correctness/security and UX/test audits before merge. See [AGENTS.md](../AGENTS.md).
 
 ## Enhancements
