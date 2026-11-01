@@ -92,6 +92,11 @@ class TouchReadabilityDeviceTest {
             context.deleteSharedPreferences("extension-$it")
         }
     }
+    private fun fullBounds(tag:String):Rect {
+        val bounds=compose.onNodeWithTag(tag).getUnclippedBoundsInRoot()
+        val density=context.resources.displayMetrics.density
+        return Rect(bounds.left.value*density,bounds.top.value*density,bounds.right.value*density,bounds.bottom.value*density)
+    }
     private fun reveal(tag:String):SemanticsNodeInteraction {
         val target=compose.onNodeWithTag(tag)
         val initial=target.fetchSemanticsNode()
@@ -100,16 +105,27 @@ class TouchReadabilityDeviceTest {
         }
         if(!inRoute)return target
         repeat(12) {
-            val node=target.fetchSemanticsNode();val visible=node.boundsInWindow
-            if(visible.height>=node.size.height-1 && visible.width>=node.size.width-1)return target
-            val route=compose.onNodeWithTag("palette-content-scroll")
-            val viewport=route.fetchSemanticsNode().boundsInWindow
-            val below=node.positionInWindow.y+node.size.height>viewport.bottom+1
+            val node=target.fetchSemanticsNode();val visible=node.boundsInRoot
+            val full=fullBounds(tag)
+            // Semantics may follow a padding modifier. Compare that same
+            // coordinator's clipped/unclipped bounds, not its outer node size.
+            if(visible.height>=full.height-1 && visible.width>=full.width-1)return target
+            val outer=compose.onNodeWithTag("palette-content-scroll").fetchSemanticsNode().boundsInRoot
+            val scrollParent=generateSequence(node.parent) { it.parent }.firstOrNull {
+                it.config.contains(SemanticsProperties.VerticalScrollAxisRange) && it.config.contains(SemanticsProperties.TestTag)
+            }
+            val outsideRoute=full.top<outer.top-1 || full.bottom>outer.bottom+1
+            val scrollTag=if(outsideRoute)"palette-content-scroll" else scrollParent?.config?.get(SemanticsProperties.TestTag) ?: "palette-content-scroll"
+            val route=compose.onNodeWithTag(scrollTag)
+            val viewport=route.fetchSemanticsNode().boundsInRoot
+            val below=full.bottom>viewport.bottom+1
             val pixelsPerDp=context.resources.displayMetrics.density
-            // Start upward pans in the header so an inner list cannot consume
-            // the gesture before the outer route reveals its clipped footer.
+            // Use the nearest list for its clipped rows. When the whole route
+            // clips a control, pan from its header to avoid an inner list.
             route.performTouchInput {
-                val start=if(below)minOf(height*.25f,48*pixelsPerDp) else height*.70f
+                val start=if(scrollTag=="palette-content-scroll") {
+                    if(below)minOf(height*.25f,48*pixelsPerDp) else height*.70f
+                } else if(below)height*.80f else height*.20f
                 val end=if(below)8f else height-8f
                 swipe(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),250)
             }
@@ -122,10 +138,13 @@ class TouchReadabilityDeviceTest {
     private fun target(tag:String):Rect {
         val node=reveal(tag).assertIsDisplayed().fetchSemanticsNode()
         val bounds=node.boundsInWindow
+        val full=fullBounds(tag)
         val minimum=48*context.resources.displayMetrics.density-1
         assertTrue("$tag has a 48dp visible width: $bounds",bounds.width>=minimum)
         assertTrue("$tag has a 48dp visible height: $bounds",bounds.height>=minimum)
-        assertTrue("$tag must become fully visible through touch scrolling",bounds.width>=node.size.width-1 && bounds.height>=node.size.height-1)
+        geometry.put("full-$tag",JSONArray(listOf(full.left,full.top,full.right,full.bottom)))
+        assertTrue("$tag must become fully visible through touch scrolling: ${node.boundsInRoot} vs $full",
+            bounds.width>=full.width-1 && bounds.height>=full.height-1)
         geometry.put(tag,JSONArray(listOf(bounds.left,bounds.top,bounds.right,bounds.bottom)))
         return bounds
     }
@@ -169,19 +188,16 @@ class TouchReadabilityDeviceTest {
             .put("ellipsized",layout.isLineEllipsized(index)) }))
     private fun capsule(primary:String,actions:String) {
         target(primary);target(actions)
-        fun actualBounds(tag:String):Rect {
-            val node=compose.onNodeWithTag(tag).fetchSemanticsNode();val position=node.positionInWindow
-            return Rect(position.x,position.y,position.x+node.size.width,position.y+node.size.height)
-        }
-        val first=actualBounds(primary);val second=actualBounds(actions)
+        val first=fullBounds(primary);val second=fullBounds(actions)
         assertFalse("Primary and Actions touch targets must not overlap",first.overlaps(second))
     }
     private fun selectedGridCellFits() {
         reveal("extension-grid-cell-0")
-        val grid=compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInWindow
-        val cell=compose.onNodeWithTag("extension-grid-cell-0").assertIsDisplayed().fetchSemanticsNode()
-        val top=cell.positionInWindow.y
-        val bottom=top+cell.size.height
+        val grid=compose.onNodeWithTag("extension-grid").fetchSemanticsNode().boundsInRoot
+        compose.onNodeWithTag("extension-grid-cell-0").assertIsDisplayed()
+        val full=fullBounds("extension-grid-cell-0")
+        val top=full.top
+        val bottom=full.bottom
         geometry.put("selected-grid-cell",JSONObject().put("top",top).put("bottom",bottom)
             .put("visible_grid_top",grid.top).put("visible_grid_bottom",grid.bottom))
         assertTrue("Selected Grid caption must fit the visible viewport: $top..$bottom within ${grid.top}..${grid.bottom}",
