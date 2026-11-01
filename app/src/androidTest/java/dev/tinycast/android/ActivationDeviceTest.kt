@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.view.KeyEvent
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -78,17 +79,71 @@ class ActivationDeviceTest {
             activity.dispatchKeyEvent(KeyEvent(time,time,action,code,0,0,android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,0,0,android.view.InputDevice.SOURCE_KEYBOARD))
     }
     private fun composing(tag:String,text:String) {
-        compose.onNodeWithTag(tag).assertIsFocused()
-        compose.onNodeWithTag(tag).performTextReplacement(text)
+        compose.onNodeWithTag(tag).assertIsFocused().performTextReplacement(text)
         compose.waitForIdle()
-        compose.activityRule.scenario.onActivity {
-            val connection=it.window.decorView.findFocus()!!.onCreateInputConnection(android.view.inputmethod.EditorInfo())!!
-            assertTrue(connection.beginBatchEdit());assertTrue(connection.setComposingRegion(0,text.length));connection.endBatchEdit()
+        val observations=org.json.JSONArray()
+        var rendered:androidx.compose.ui.text.AnnotatedString?=null
+        val started=android.os.SystemClock.uptimeMillis()
+        try {
+            // SetText semantics can precede the Android input session. Await
+            // exact session text, then require actual rendered composition.
+            // Only fixture establishment is retried; activation is never retried.
+            compose.waitUntil(5000) {
+                val before=compose.onNodeWithTag(tag).fetchSemanticsNode().config[SemanticsProperties.EditableText]
+                val observation=JSONObject().put("after_ms",android.os.SystemClock.uptimeMillis()-started)
+                    .put("semantics_text_matches",before.text==text)
+                var delivered=false
+                compose.activityRule.scenario.onActivity { activity ->
+                    val focus=activity.window.decorView.findFocus()
+                    val connection=focus?.onCreateInputConnection(android.view.inputmethod.EditorInfo())
+                    val extracted=connection?.getExtractedText(android.view.inputmethod.ExtractedTextRequest(),0)
+                    val ready=focus?.hasWindowFocus()==true && extracted?.text?.toString()==text &&
+                        before.text==text && (tag!="search" || activity.store.query==text)
+                    observation.put("window_focused",focus?.hasWindowFocus()==true)
+                        .put("connection_ready",connection!=null).put("extracted_text_matches",extracted?.text?.toString()==text)
+                        .put("extracted_length",extracted?.text?.length ?: -1)
+                        .put("selection_start",extracted?.selectionStart ?: -1).put("selection_end",extracted?.selectionEnd ?: -1)
+                    if(ready)delivered=connection!!.setComposingRegion(0,text.length)
+                }
+                compose.waitForIdle()
+                val shown=compose.onNodeWithTag(tag).fetchSemanticsNode().config[SemanticsProperties.EditableText]
+                rendered=shown
+                val underlined=shown.spanStyles.any { it.item.textDecoration?.contains(TextDecoration.Underline)==true }
+                observation.put("composition_delivered",delivered).put("rendered_text_matches",shown.text==text)
+                    .put("rendered_underlined",underlined)
+                observations.put(observation)
+                delivered && shown.text==text && underlined
+            }
+            val shown=requireNotNull(rendered)
+            assertEquals(text,shown.text)
+            assertTrue("Exercise actual live IME composition",shown.spanStyles.any { it.item.textDecoration?.contains(TextDecoration.Underline)==true })
+        } catch(failure:Throwable) {
+            runCatching { capture("composition-$tag-failed") };throw failure
+        } finally {
+            File(context.filesDir,"readiness-evidence").apply{mkdirs()}
+                .resolve("composition-readiness-${testName.methodName.lowercase()}.json")
+                .writeText(JSONObject().put("test",testName.methodName).put("field",tag).put("observations",observations).toString(2))
         }
-        compose.waitForIdle()
-        val shown=compose.onNodeWithTag(tag).fetchSemanticsNode().config[SemanticsProperties.EditableText]
-        assertEquals(text,shown.text)
-        assertTrue("Exercise actual live IME composition",shown.spanStyles.any { it.item.textDecoration?.contains(TextDecoration.Underline)==true })
+    }
+    private fun composeNow(activity:MainActivity,text:String) {
+        val focus=requireNotNull(activity.window.decorView.findFocus())
+        assertTrue("Composing field owns window focus",focus.hasWindowFocus())
+        val connection=requireNotNull(focus.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
+        assertEquals("Android input session has the exact fixture query",text,
+            connection.getExtractedText(android.view.inputmethod.ExtractedTextRequest(),0)?.text?.toString())
+        assertTrue(connection.setComposingRegion(0,text.length))
+    }
+    private fun clickWhileComposing(searchTag:String,text:String,primaryTag:String) {
+        compose.onNodeWithTag(searchTag).assertIsFocused()
+        val activity=compose.activity
+        compose.onNodeWithTag(primaryTag).assertIsDisplayed().assertIsEnabled()
+            .performSemanticsAction(SemanticsActions.OnClick) { click ->
+                // This invocation runs on the UI thread. Re-establish live
+                // composition and invoke the actual accessibility action in
+                // one turn, before the live IME can finish it asynchronously.
+                composeNow(activity,text)
+                assertTrue("Invoke the enabled primary accessibility action",click())
+            }
     }
     private fun copied():String=compose.activity.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString()
     private fun capture(name:String) {
@@ -137,8 +192,8 @@ class ActivationDeviceTest {
         }
         composing("search","Audit composed")
         val chosen=compose.activity.store.results().first();assertEquals("Audit composed note",chosen.title)
-        compose.activityRule.scenario.onActivity{key(it,KeyEvent.KEYCODE_ENTER);assertNull("Enter must leave live composition to IME",it.store.dialog)}
-        compose.onNodeWithTag("primary-action").performClick()
+        compose.activityRule.scenario.onActivity{composeNow(it,"Audit composed");key(it,KeyEvent.KEYCODE_ENTER);assertNull("Enter must leave live composition to IME",it.store.dialog)}
+        clickWhileComposing("search","Audit composed","primary-action")
         checkCapture("composing-launcher-primary") {
             compose.waitUntil(3000){compose.activity.store.dialog=="note"}
             assertEquals(chosen.id,compose.activity.store.editing?.id)
@@ -147,9 +202,12 @@ class ActivationDeviceTest {
     }
     @Test fun explicitListPrimaryCommitsComposedQueryAndActivates() {
         extension("List");composing("extension-search","Audit Alpha")
-        compose.activityRule.scenario.onActivity{key(it,KeyEvent.KEYCODE_ENTER)}
-        assertEquals("Keyboard must leave composition to IME","activation-sentinel",copied())
-        compose.onNodeWithTag("extension-primary").performClick()
+        compose.activityRule.scenario.onActivity{
+            composeNow(it,"Audit Alpha");key(it,KeyEvent.KEYCODE_ENTER)
+            assertEquals("Keyboard must leave composition to IME","activation-sentinel",
+                it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
+        }
+        clickWhileComposing("extension-search","Audit Alpha","extension-primary")
         checkCapture("composing-list-primary") {
             compose.waitUntil(3000){copied().startsWith("Alpha|")}
             assertEquals("Alpha|selected:Alpha|action:Alpha",copied())

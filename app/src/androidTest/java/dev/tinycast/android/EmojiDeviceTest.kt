@@ -89,10 +89,7 @@ class EmojiDeviceTest {
     private fun evidence(name: String, marker: String) {
         compose.waitForIdle()
         assertTrue("Screenshot marker: $marker", device.wait(Until.hasObject(By.textContains(marker)), 5000))
-        val overlayDismiss = if (name in setOf("family-copied", "recent", "keyboard-copy", "caret-preserved"))
-            device.wait(Until.findObject(By.res("com.android.systemui", "dismiss_button")), 1500)
-        else device.findObject(By.res("com.android.systemui", "dismiss_button"))
-        overlayDismiss?.click()
+        dismissClipboardForEvidence()
         assertTrue("System clipboard overlay must settle before capture", device.wait(Until.gone(By.res("com.android.systemui", "clipboard_ui")), 5000))
         val dir = File(context.filesDir, "emoji-evidence").apply { mkdirs() }
         val expectedCount = "${store.results().size} ${if (store.results().size == 1) "result" else "results"} · offline"

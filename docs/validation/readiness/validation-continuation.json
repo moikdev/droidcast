@@ -1,0 +1,103 @@
+{
+  "implementation_checkpoint": "a1ecf0f5d5addf442d492925e317cc7fb8a5397d",
+  "application_sha256": "5c5c01497527fa394249dca292a51c78584b28be8c2bf48192503d05671516d2",
+  "test_apk_sha256": "9cadfa029faa572ce334d1fd1b7c2f720df4e4a947b71893025574b211840f0b",
+  "build_checks": {
+    "jvm_cases": 147,
+    "lint_errors": 0,
+    "lint_warnings": 51,
+    "python_cleanup_tests": 4
+  },
+  "tablet": {
+    "run": "isolation-final-full-v5-tablet",
+    "passed": 167,
+    "expected": 167,
+    "completed": true,
+    "cleanup_verified": true,
+    "record_sha256": "1f38068786f722d6073e08cc5b0b8c0a5604573b1a88daed023bb486e572ec68"
+  },
+  "phone": {
+    "run": "isolation-final-full-v8-phone",
+    "passed": 164,
+    "expected": 167,
+    "completed": false,
+    "cleanup_verified": true,
+    "record_sha256": "c18d7f67e99e3b7ea6f9edfd9e6d51e675b2cfb0b5407e7e0f6cf33997071c73",
+    "failures": [
+      {
+        "case": "ActivationDeviceTest#explicitLauncherPrimaryCommitsComposedQueryAndActivates",
+        "stage": "fixture composition before activation",
+        "error": "Exercise actual live IME composition"
+      },
+      {
+        "case": "EmojiDeviceTest#searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState",
+        "stage": "screenshot clipboard-overlay cleanup",
+        "error": "UiObject2 StaleObjectException"
+      },
+      {
+        "case": "ExtensionGridDeviceTest#realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown",
+        "stage": "live Store HTTP read",
+        "error": "SocketException: Software caused connection abort"
+      }
+    ],
+    "cleanup_checks": {
+      "stop-app": true,
+      "update-fixtures": true,
+      "fixture-upload": true,
+      "source-approval": true,
+      "verify-source-approval": true,
+      "preferences-backup": true,
+      "preferences": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "private-fixture": true,
+      "fixture-cache": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    }
+  },
+  "interrupted_phone_attempts": [
+    {
+      "run": "isolation-final-full-v5-phone",
+      "completed_cases_before_host_abort": 101,
+      "completed": false
+    },
+    {
+      "run": "isolation-final-full-v6-phone",
+      "completed_cases_before_host_abort": 3,
+      "completed": false
+    }
+  ],
+  "separate_recovery_verified": true,
+  "v7_preflight": {
+    "instrumentation_started": false,
+    "reason": "refused overwrite of matching owned fixtures found after reboot",
+    "cleanup_verified": true
+  },
+  "v8_environment": {
+    "avd": "Tinycast_Tablet_API_36",
+    "api": 36,
+    "emulator_version": "37.1.11.0",
+    "serial": "emulator-5580",
+    "renderer": "swiftshader",
+    "dedicated_loopback_network_simulator": true,
+    "radios_disabled": false,
+    "full_suite_host_abort": false,
+    "root_cause_isolated": false,
+    "performance_comparison_claim": false
+  },
+  "diagnostic_review": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "reviewed_head": "a1ecf0f5d5addf442d492925e317cc7fb8a5397d",
+    "read_only": true,
+    "final_audit": false
+  },
+  "followup": "Corrected test helpers require new immutable binaries, matched old-app controls, full native/integration checks, evidence reconciliation and two independent final-head audits. No merge or production clearance."
+}
