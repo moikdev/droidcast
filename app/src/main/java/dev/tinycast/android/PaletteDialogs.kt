@@ -113,9 +113,9 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
 @Composable
 private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
     val old = store.editing
-    var title by rememberSaveable(kind, old?.id) { mutableStateOf(old?.title.orEmpty()) }
-    var body by rememberSaveable(kind, old?.id) { mutableStateOf(old?.body.orEmpty()) }
-    var alias by rememberSaveable(kind, old?.id) { mutableStateOf(old?.alias.orEmpty()) }
+    var title by rememberSaveable(kind, old?.id, store.focusEpoch) { mutableStateOf(old?.title.orEmpty()) }
+    var body by rememberSaveable(kind, old?.id, store.focusEpoch) { mutableStateOf(old?.body.orEmpty()) }
+    var alias by rememberSaveable(kind, old?.id, store.focusEpoch) { mutableStateOf(old?.alias.orEmpty()) }
     var error by remember { mutableStateOf<String?>(null) }
     val focus = remember { FocusRequester() }
     var fieldReady by remember { mutableStateOf(false) }

@@ -8,6 +8,8 @@ p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True)
 p.add_argument('--layout',choices=['tablet','phone'],required=True);p.add_argument('--output',type=Path,required=True)
 p.add_argument('--method',choices=['queryAndNavigationFrameCommitLatency','pixelVerifiedInteractionLatency','sustainedSearchAndRouteReliability'],required=True)
+p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/benchmark/app-benchmark.apk'))
+p.add_argument('--test-apk',type=Path,default=Path('app/build/outputs/apk/androidTest/benchmark/app-benchmark-androidTest.apk'))
 p.add_argument('--soak-seconds',type=int,default=300)
 p.add_argument('--startup',action='store_true',help='Also measure fresh disposable-package startup before instrumentation')
 a=p.parse_args();assert a.serial.startswith('emulator-') and 60<=a.soak_seconds<=1800
@@ -27,7 +29,7 @@ keys=['enabled_accessibility_services','accessibility_enabled','show_ime_with_ha
 settings={key:shell('settings','get','secure',key) for key in keys}
 assert settings['enabled_accessibility_services']=='null' and settings['accessibility_enabled']=='0'
 assert not shell('pm','list','packages',app), 'Disposable package already exists; refuse to overwrite it'
-binaries=[Path('app/build/outputs/apk/benchmark/app-benchmark.apk'),Path('app/build/outputs/apk/androidTest/benchmark/app-benchmark-androidTest.apk')]
+binaries=[a.apk,a.test_apk]
 aapt=sdk/'build-tools/36.0.0/aapt2'
 for binary,expected in zip(binaries,[app,test]):
  badging=subprocess.check_output([str(aapt),'dump','badging',str(binary)],text=True)

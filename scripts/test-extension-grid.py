@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Native Grid evidence on one explicitly owned, unprivileged emulator."""
 from pathlib import Path
-import argparse, subprocess, os, json, hashlib, re, shutil
+import argparse, subprocess, os, json, hashlib, re, shutil, uuid
 from android_test_cleanup import Cleanup
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--layout',choices=['tablet','phone'],required=True)
@@ -33,6 +33,8 @@ a.output.mkdir(exist_ok=False,parents=True);shutil.copyfile(__file__,a.output/'r
 (a.output/'private-emoji-backup.xml').write_bytes(emoji_prefs);(a.output/'private-emoji-backup.xml').chmod(0o600)
 r={'avd':a.avd,'serial':a.serial,'layout':a.layout,'classes':a.classes,'expected':a.expected,'completed':False,'runner_sha256':sha(Path(__file__).read_bytes()),'original_size':text('shell','wm','size'),'original_density':text('shell','wm','density')}
 fixture_owned=False
+upload_owned=False
+upload_root='/data/local/tmp/droidcast-readiness-'+uuid.uuid4().hex
 source_approval=None
 def approval_mode():
  value=text('shell','cmd','appops','get',app,'REQUEST_INSTALL_PACKAGES')
@@ -48,10 +50,12 @@ try:
  if a.update_fixtures is not None:
   assert subprocess.run(adb+['shell','run-as',app,'test','-e','files/updates-fixtures'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0, 'Refuse to overwrite an existing fixture directory'
   fixture_owned=True;raw('shell','run-as',app,'mkdir','files/updates-fixtures')
+  upload_owned=True;raw('shell','mkdir',upload_root)
   r['update_fixtures']={}
   for name in ['newer.apk','wrong-signer.apk','wrong-package.apk']:
    source=a.update_fixtures/name;assert source.is_file() and 1<=source.stat().st_size<=64*1024*1024
-   subprocess.run(adb+['exec-out','run-as',app,'tee','files/updates-fixtures/'+name],input=source.read_bytes(),stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,check=True,timeout=60)
+   remote=upload_root+'/'+name;raw('push',str(source),remote);raw('shell','chmod','0644',remote)
+   raw('shell','run-as',app,'cp',remote,'files/updates-fixtures/'+name)
    expected=sha(source.read_bytes());assert text('shell','run-as',app,'sha256sum','files/updates-fixtures/'+name).split()[0]==expected
    r['update_fixtures'][name]=expected
   raw('shell','cmd','appops','set',app,'REQUEST_INSTALL_PACKAGES','allow');assert approval_mode()=='allow'
@@ -74,6 +78,7 @@ try:
 finally:
  c=Cleanup(r);c.attempt('stop-app',lambda:raw('shell','am','force-stop',app))
  if fixture_owned:c.attempt('update-fixtures',lambda:raw('shell','run-as',app,'rm','-rf','files/updates-fixtures'))
+ if upload_owned:c.attempt('fixture-upload',lambda:raw('shell','rm','-rf',upload_root))
  if source_approval is not None:
   c.attempt('source-approval',lambda:raw('shell','cmd','appops','set',app,'REQUEST_INSTALL_PACKAGES',source_approval))
   c.attempt('verify-source-approval',lambda:c.require(approval_mode()==source_approval,'source approval restored'))
