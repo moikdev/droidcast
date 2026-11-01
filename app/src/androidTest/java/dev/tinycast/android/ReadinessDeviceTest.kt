@@ -35,6 +35,7 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicLong
 
 /** Opt-in, instrumented debug-build measurements; never input-to-photon claims. */
+@androidx.test.filters.SdkSuppress(minSdkVersion = 29)
 @RunWith(AndroidJUnit4::class)
 class ReadinessDeviceTest {
     private lateinit var scenario: ActivityScenario<MainActivity>
@@ -152,7 +153,7 @@ class ReadinessDeviceTest {
             .put("debuggable", activity.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0)
             .put("width", device.displayWidth).put("height", device.displayHeight)
             .put("density", activity.resources.displayMetrics.density)
-            .put("method", "main-thread IME commit/key dispatch to hardware frame commit after expected semantics draw; includes traversal; excludes physical input and scanout")
+            .put("method", extra.optString("pixelMethod", "main-thread IME commit/key dispatch to hardware frame commit after expected semantics draw; includes traversal; excludes physical input and scanout"))
         File(output, "$name.json").writeText(extra.toString(2))
     }
     private fun capture(name: String) {
@@ -206,9 +207,123 @@ class ReadinessDeviceTest {
             }
             capture("droidcast-emoji")
         } finally {
-            main { activity.window.removeOnFrameMetricsAvailableListener(listener) }
-            record("latency", JSONObject().put("frames", frames))
+            var frozenFrames = JSONArray()
+            main {
+                activity.window.removeOnFrameMetricsAvailableListener(listener)
+                frozenFrames = JSONArray(frames.toString())
+            }
+            record("latency", JSONObject().put("frames", frozenFrames))
         }
+    }
+
+
+    private fun pixels(rect: android.graphics.Rect): android.graphics.Bitmap {
+        val bitmap = android.graphics.Bitmap.createBitmap(rect.width(), rect.height(), android.graphics.Bitmap.Config.ARGB_8888)
+        val done = CountDownLatch(1)
+        var result = -1
+        android.view.PixelCopy.request(activity.window, rect, bitmap, { status -> result = status; done.countDown() }, Handler(Looper.getMainLooper()))
+        assertTrue("PixelCopy callback", done.await(5, TimeUnit.SECONDS))
+        assertEquals("PixelCopy succeeded", android.view.PixelCopy.SUCCESS, result)
+        return bitmap
+    }
+    private fun hash(bitmap: android.graphics.Bitmap): String {
+        val buffer = java.nio.ByteBuffer.allocate(bitmap.byteCount)
+        bitmap.copyPixelsToBuffer(buffer)
+        return java.security.MessageDigest.getInstance("SHA-256").digest(buffer.array()).joinToString("") { "%02x".format(it) }
+    }
+    private fun resultRegion(emoji: Boolean): android.graphics.Rect {
+        var rect = android.graphics.Rect()
+        main {
+            val bounds = requireNotNull(tagged(nodes(), if (emoji) "emoji-palette" else "palette")).boundsInWindow
+            val density = activity.resources.displayMetrics.density
+            rect = android.graphics.Rect((bounds.left + 4*density).toInt(), (bounds.top + 56*density).toInt(),
+                (bounds.right - 4*density).toInt(), (bounds.bottom - 52*density).toInt())
+            assertTrue("Visible content region", rect.width() > 0 && rect.height() > 0)
+        }
+        return rect
+    }
+    private fun inputReady(value: String, emoji: Boolean) {
+        val tag = if (emoji) "emoji-search" else "search"
+        await("Intended input owns focus") { tagged(nodes(), tag)?.config?.getOrNull(SemanticsProperties.Focused) == true }
+        main { replace(value, emoji) }
+        await("Input text committed") { text(tagged(nodes(), tag)) == value }
+        instrumentation.waitForIdleSync(); device.waitForIdle()
+    }
+    /** Independent visible-pixel upper bound. No decor-overlay draw callback is used.
+     * Query/result goldens omit the blinking search caret. Every measured change
+     * must match the captured settled pixels, not merely a changed model value. */
+    @Test fun pixelVerifiedInteractionLatency() {
+        for (emoji in listOf(false, true)) {
+            if (emoji) {
+                main { activity.execute(Command("emoji", "Emoji", "")) }
+                await("Emoji input focus") { tagged(nodes(), "emoji-search")?.config?.getOrNull(SemanticsProperties.Focused) == true }
+            }
+            val queries = if (emoji) listOf("face", "cat", "heart", "flag", "zz-no-emoji")
+                else listOf("settings", "calculator", "sqrt(144)", "wifi", "zz-no-readiness")
+            val goldens = mutableMapOf<String, String>()
+            // Two identical consecutive readbacks reject unsettled reference frames.
+            for ((index, query) in queries.withIndex()) {
+                inputReady(query, emoji)
+                val region = resultRegion(emoji)
+                val first = pixels(region)
+                val second = pixels(region)
+                assertEquals("Stable golden pixels for $query", hash(first), hash(second))
+                goldens[query] = hash(second)
+                File(output, "pixel-reference-${if (emoji) "emoji" else "launcher"}-$index.png").outputStream().use {
+                    assertTrue(second.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it))
+                }
+                first.recycle(); second.recycle()
+            }
+            assertEquals("Each fixture must change visible result pixels", queries.size, goldens.values.toSet().size)
+            val region = resultRegion(emoji)
+            repeat(10) {
+                for (query in queries) {
+                    var started = 0L
+                    main { started = System.nanoTime(); replace(query, emoji) }
+                    var checks = 0
+                    var observed: String
+                    do {
+                        val bitmap = pixels(region); observed = hash(bitmap); bitmap.recycle(); checks++
+                        assertTrue("Visible query response within 5 seconds", System.nanoTime() - started < 5_000_000_000L)
+                    } while (observed != goldens.getValue(query))
+                    samples.put(JSONObject().put("case", if (emoji) "pixel-emoji-query" else "pixel-launcher-query")
+                        .put("ms", (System.nanoTime()-started)/1_000_000.0).put("readbacks", checks))
+                }
+            }
+            if (emoji) {
+                inputReady("face", true)
+                val identities = mutableMapOf<Int, String>()
+                for (selection in listOf(0, 1)) {
+                    main {
+                        if (activity.store.emoji.selected != selection) {
+                            activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_RIGHT))
+                            activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_RIGHT))
+                        }
+                    }
+                    instrumentation.waitForIdleSync(); device.waitForIdle()
+                    val bitmap = pixels(region); identities[selection] = hash(bitmap); bitmap.recycle()
+                }
+                assertNotEquals(identities[0], identities[1])
+                repeat(40) { index ->
+                    val target = if (index%2==0) 0 else 1
+                    val code = if (target==0) KeyEvent.KEYCODE_DPAD_LEFT else KeyEvent.KEYCODE_DPAD_RIGHT
+                    var started = 0L
+                    main { started=System.nanoTime(); activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN,code)); activity.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP,code)) }
+                    var observed: String; var checks=0
+                    do {
+                        val bitmap=pixels(region); observed=hash(bitmap); bitmap.recycle(); checks++
+                        assertTrue("Visible highlight response within 5 seconds",System.nanoTime()-started<5_000_000_000L)
+                    } while(observed!=identities.getValue(target))
+                    samples.put(JSONObject().put("case","pixel-emoji-navigation").put("ms",(System.nanoTime()-started)/1_000_000.0).put("readbacks",checks))
+                }
+                repeat(20) {
+                    val started=System.nanoTime();val bitmap=pixels(region);hash(bitmap);bitmap.recycle()
+                    samples.put(JSONObject().put("case","pixel-readback-control").put("ms",(System.nanoTime()-started)/1_000_000.0))
+                }
+                capture("pixel-verified-emoji")
+            }
+        }
+        record("pixel-latency", JSONObject().put("pixelMethod","IME commit/native key dispatch to SHA-256 matching previously captured settled result/highlight pixels; includes PixelCopy, hashing and harness overhead; no physical input/scanout timing"))
     }
 
     @Test fun sustainedSearchAndRouteReliability() {

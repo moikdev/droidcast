@@ -7,8 +7,9 @@ from android_test_cleanup import Cleanup
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True)
 p.add_argument('--layout',choices=['tablet','phone'],required=True);p.add_argument('--output',type=Path,required=True)
-p.add_argument('--method',choices=['queryAndNavigationFrameCommitLatency','sustainedSearchAndRouteReliability'],required=True)
+p.add_argument('--method',choices=['queryAndNavigationFrameCommitLatency','pixelVerifiedInteractionLatency','sustainedSearchAndRouteReliability'],required=True)
 p.add_argument('--soak-seconds',type=int,default=300)
+p.add_argument('--startup',action='store_true',help='Also measure fresh disposable-package startup before instrumentation')
 a=p.parse_args();assert a.serial.startswith('emulator-') and 60<=a.soak_seconds<=1800
 sdk=Path(os.environ['ANDROID_HOME']);adb=[str(sdk/'platform-tools/adb'),'-s',a.serial]
 app='dev.tinycast.android.benchmark';test=app+'.test'
@@ -40,6 +41,8 @@ try:
   created.append(package);raw('install',str(binary));shutil.copyfile(binary,a.output/binary.name)
  installed=shell('pm','path',app).removeprefix('package:')
  assert hashlib.sha256(raw('exec-out','cat',installed)).hexdigest()==r['app_sha256'];r['installed_matches']=True
+ if a.startup:
+  subprocess.run(['python3','scripts/test-startup-performance.py','--serial',a.serial,'--avd',a.avd,'--layout',a.layout,'--package',app,'--apk-sha256',r['app_sha256'],'--output',str(a.output/'startup')],check=True,timeout=900)
  if a.layout=='phone':shell('wm','size','1080x2340');shell('wm','density','420')
  shell('input','keyevent','KEYCODE_HOME')
  with (a.output/'tests.log').open('wb') as log:

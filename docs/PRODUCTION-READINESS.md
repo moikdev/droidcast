@@ -20,15 +20,17 @@ The common calculator expression, persistent search header, attached action pane
 
 ## Measurement contract
 
-The new instrumentation uses the real activity and real IME InputConnection or native key dispatch, without Compose's test clock. A transparent diagnostic Drawable in the decor overlay observes semantics **after** descendants have drawn, then registers a hardware frame-commit callback. It includes observer overhead and frame submission, and excludes physical input transport and display scanout. It is not input-to-photon latency. Raw samples and OS FrameMetrics are retained. Setup, screenshots, idle synchronization and warmups are excluded from per-interaction intervals; the window-wide frame sample includes those surrounding operations.
+The initial diagnostic instrumentation uses the real activity and real IME InputConnection or native key dispatch, without Compose's test clock. A transparent diagnostic Drawable in the decor overlay observes semantics **after** descendants have drawn, then registers a hardware frame-commit callback. It includes observer overhead and frame submission, and excludes physical input transport and display scanout. It is not input-to-photon latency. Raw samples and OS FrameMetrics are retained. Setup, screenshots, idle synchronization and warmups are excluded from per-interaction intervals; the window-wide frame sample includes those surrounding operations.
 
 An earlier OnDrawListener experiment checked semantics before Compose's deferred drawing/layout and sometimes waited for a caret blink. Its half-second plateau is a measurement defect, not evidence of an app delay. Those results are excluded. Earlier batch-edit and fallback-result assertion failures are also fixture failures and excluded.
 
 Startup uses Android `am start -W`: process-cold after force-stop (without evicting filesystem/OS caches), and retained-process Home→foreground. Android may report `UNKNOWN (0)` with no TotalTime for an already-existing task; only WaitTime is reported for that path. Host command time is separately labeled and includes ADB. Three warmups precede 30 measured trials per mode. Raw OS output is retained; unsupported timing fields remain absent.
 
+The decor-overlay timing is retained as diagnostic evidence only: partial child redraws may not redraw the overlay promptly. Phone arrow samples show a suspicious caret-like cadence. A separate PixelCopy/golden-frame check is being added to verify actual result/highlight pixels; neither timing path will be presented as input-to-photon latency.
+
 A disposable `.benchmark` package builds with `debuggable=false`, release dependency variants and the same source. It uses the local debug certificate, has no R8/minification configuration, and is **not** a production-signed release candidate. It cannot enter the updater channel. The published nightly remains installed separately. The runner refuses an existing benchmark package and independently removes test packages/restores settings and geometry afterward.
 
-Final distributions, soak results, broader functional checks and audit conclusions will be added after the sequential fail-fast run completes. Emulator graphics delays, instrumentation overhead and shared host load preclude a physical-device latency verdict or claims that Droidcast is faster than macOS apps.
+A nondebuggable API36 tablet soak completed **230 rounds in 602.565 seconds**, with **1,151** verified query responses and native Emoji/back navigation. PSS samples ranged from **54,514 to 76,548 KiB**, ending below the start. These observations cover this workload and include instrumentation; they are not leak-free certification. Final timing distributions, broader functional checks and audit conclusions remain pending. Emulator graphics delays, instrumentation overhead and shared host load preclude a physical-device latency verdict or claims that Droidcast is faster than macOS apps.
 
 ## Production gates
 
@@ -37,11 +39,11 @@ Final distributions, soak results, broader functional checks and audit conclusio
 | Production source and artifact identity | Released r10 frozen/hash-verified; current measurements distinguish it from the separate benchmark APK. |
 | Functional regression | r10's historical 138 JVM, 32 native cases per layout and four real self-updates are recorded in [updater validation](validation/updates.md). Fresh broader checks pending; historical checks are not reruns. |
 | Security and independent audits | Prior slice audits are recorded on their PRs. Two new sol/high independent audits are required for this checkpoint. |
-| Clean-runner CI | CLI OAuth still lacks workflow scope. Existing template is inactive; activation through the GitHub app connection is being investigated. No CI success claimed. |
+| Clean-runner CI | The GitHub app connection activated the workflow on PR #66 despite the CLI OAuth scope limit. The initial hosted run failed at missing `sdkmanager`; a pinned SDK setup action is added. Corrected run [41273696880](https://github.com/moikdev/droidcast/actions/runs/41273696880) passed on `556b2e5`: debug app/test compilation, JVM tests and lint. Benchmark compilation is being added next; final-head results remain required. This is not emulator or production-signing coverage. |
 | Signing/release engineering | Nightly/debug certificate continuity is tested. Maintainer-controlled production signing and recovery remain #21. |
 | API/OEM matrix | API36 emulator only. API26 runtime, Lenovo/OEM, physical input and hardware latency remain unverified. |
 | Accessibility/localization | Scoped labels/focus tested previously. Comprehensive TalkBack, large-font, theme and translation work remains #20. |
-| Reliability/performance | Fresh startup, frame/interaction measurements and sustained search/navigation run pending. No latency or leak-free certification yet. |
+| Reliability/performance | Ten-minute/230-round nondebuggable search/navigation soak passed. Startup and timing work is still being refined; no physical latency or leak-free certification. |
 | Lifecycle/providers | Process death, cloud/large folder trees and extended installer interruption remain incomplete. |
 | Parity | [Feature matrix](../PARITY.md) remains partial: dictionary, snippets, calendar, AI, advanced calculator/quicklinks, richer extension APIs and Android multitasking replacements are open. |
 | Unexplained failures | #35/#37/#41/#59/#62 remain open; passing reruns do not establish their causes or fixes. |

@@ -20,6 +20,7 @@ if not sdk:
     sdk = next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
 adb = [str(Path(sdk)/'platform-tools/adb'), '-s', a.serial]
 app = a.package
+component = app + "/dev.tinycast.android.MainActivity"
 def raw(*args):
     return subprocess.check_output(adb + list(args), stderr=subprocess.STDOUT, timeout=60)
 def shell(*args):
@@ -55,10 +56,10 @@ try:
             else:
                 shell('input', 'keyevent', 'KEYCODE_HOME')
             started = time.monotonic_ns()
-            text = shell('am', 'start', '-W', '-n', app+'/.MainActivity')
+            text = shell('am', 'start', '-W', '-n', component)
             host_ms = (time.monotonic_ns()-started)/1e6
             (a.output/f'{mode}-{i:02d}.txt').write_text(text+'\n')
-            assert 'Status: ok' in text and app+'/.MainActivity' in text, text
+            assert 'Status: ok' in text and ('Activity: '+component in text or 'Activity: '+app+'/.MainActivity' in text), text
             values = {k: v.strip() for k,v in re.findall(r'^([A-Za-z]+):\s*(.*)$', text, re.M)}
             state = values.get('LaunchState')
             assert (state == 'COLD') if mode == 'cold' else (state in ('HOT', 'WARM') or (state == 'UNKNOWN (0)' and 'current task has been brought to the front' in text)), text
