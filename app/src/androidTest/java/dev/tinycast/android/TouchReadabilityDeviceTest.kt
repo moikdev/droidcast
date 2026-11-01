@@ -126,15 +126,19 @@ class TouchReadabilityDeviceTest {
         val inRoute=generateSequence(initial.parent) { it.parent }.any {
             it.config.contains(SemanticsProperties.TestTag) && it.config[SemanticsProperties.TestTag]=="palette-content-scroll"
         }
+        geometry.put("requested_target",tag).put("requested_target_in_route",inRoute)
         if(!inRoute)return target
         repeat(12) {
             val node=target.fetchSemanticsNode();val visible=node.boundsInRoot
             val full=fullBounds(tag)
-            // Semantics may follow a padding modifier. Compare that same
-            // coordinator's clipped/unclipped bounds, not its outer node size.
-            if(visible.height>=full.height-1 && visible.width>=full.width-1)return target
             val outerInteraction=compose.onNodeWithTag("palette-content-scroll")
             val outerNode=outerInteraction.fetchSemanticsNode();val outer=outerNode.boundsInRoot
+            geometry.put("reveal-$tag",JSONObject().put("visible_top",visible.top).put("visible_bottom",visible.bottom)
+                .put("full_top",full.top).put("full_bottom",full.bottom).put("viewport_top",outer.top).put("viewport_bottom",outer.bottom))
+            // Semantics may follow a padding modifier. Compare that same
+            // coordinator's clipped/unclipped bounds, not its outer node size.
+            if(visible.height>=full.height-1 && visible.width>=full.width-1 &&
+                full.top>=outer.top-1 && full.bottom<=outer.bottom+1)return target
             val scrollParent=generateSequence(node.parent) { it.parent }.firstOrNull {
                 it.config.contains(SemanticsProperties.VerticalScrollAxisRange)
             } ?: outerNode
