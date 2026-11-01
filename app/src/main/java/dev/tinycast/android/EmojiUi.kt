@@ -195,7 +195,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                     Glyph("keyboard", PaletteTheme.tertiary, 16)
                 }
                 Box {
-                    TextButton(onClick = { menu = true }, modifier = Modifier.testTag("emoji-filter")) { Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp)); Text(" ▾") }
+                    TextButton(onClick = { menu = true }, modifier = Modifier.heightIn(min=48.dp).testTag("emoji-filter")) { Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp)); Text(" ▾") }
                     PaletteChoiceMenu(menu, { menu = false },
                         (listOf("All", "Favorites", "Recent") + store.entries.map { it.category }.distinct()).map { category ->
                             PaletteChoice("emoji-filter-$category", category, checked = store.filter == category) {
