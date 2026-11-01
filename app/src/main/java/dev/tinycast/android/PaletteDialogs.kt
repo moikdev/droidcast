@@ -2,7 +2,7 @@
 
 package dev.tinycast.android
 
-import dev.tinycast.android.updates.UpdateContent
+import dev.tinycast.android.updates.UpdatesPalette
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -49,7 +49,7 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
     if (dialog.startsWith("backup")) { BackupDialog(store, run, close); return }
     if (dialog.startsWith("shortcut-") && dialog != "shortcut-help") { ShortcutDialogs(store, globalEnabled, enableGlobal, close); return }
     when (dialog) {
-        "updates" -> Shell("Updates", "Droidcast nightlies", close) { UpdateContent(store.updates) }
+        "updates" -> UpdatesPalette(store.updates, close)
         "note", "link", "clip" -> Editor(store, dialog, close)
         "shortcut-help" -> Shell("Keyboard shortcut help", "Less reaching. More doing.", close) {
             Text("IN DROIDCAST", color = ink, fontSize = 10.sp, letterSpacing = 1.sp, modifier = Modifier.padding(bottom = 8.dp))

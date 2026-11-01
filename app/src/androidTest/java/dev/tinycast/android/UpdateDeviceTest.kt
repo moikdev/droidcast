@@ -92,6 +92,22 @@ class UpdatePaletteDeviceTest {
         val state = compose.activity.store.updates.state
         assertTrue("Public GitHub result: ${state.message}", state.phase in setOf(UpdatePhase.CURRENT, UpdatePhase.AVAILABLE))
         compose.onNodeWithTag("updates-installed").assertIsDisplayed()
+        val frame = compose.onNodeWithTag("palette-screen").fetchSemanticsNode().boundsInRoot
+        val action = compose.onNodeWithTag("updates-check").fetchSemanticsNode().boundsInRoot
+        assertTrue("Primary update action remains inside the fixed palette footer", action.bottom <= frame.bottom && action.top >= frame.top)
+        compose.onNodeWithTag("updates-no-actions").assertDoesNotExist()
+        compose.onNodeWithTag("palette-screen").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus)
+        compose.onNodeWithTag("palette-screen").assertIsFocused()
+        compose.activityRule.scenario.onActivity {
+            val view = WindowInspector.getGlobalWindowViews().single { window -> window.hasWindowFocus() }
+            val now = android.os.SystemClock.uptimeMillis()
+            assertTrue(view.dispatchKeyEvent(android.view.KeyEvent(now, now, android.view.KeyEvent.ACTION_DOWN, android.view.KeyEvent.KEYCODE_ENTER, 0)))
+            assertEquals(UpdatePhase.CHECKING, it.store.updates.state.phase)
+            assertTrue(view.dispatchKeyEvent(android.view.KeyEvent(now, now, android.view.KeyEvent.ACTION_DOWN, android.view.KeyEvent.KEYCODE_ENTER, 1)))
+            assertTrue(view.dispatchKeyEvent(android.view.KeyEvent(now, now, android.view.KeyEvent.ACTION_UP, android.view.KeyEvent.KEYCODE_ENTER, 0)))
+        }
+        compose.waitUntil(90_000) { !compose.activity.store.updates.busy }
+        assertTrue(compose.activity.store.updates.state.phase in setOf(UpdatePhase.CURRENT, UpdatePhase.AVAILABLE))
         compose.onAllNodes(isDialog()).assertCountEquals(0)
         updateEvidence("palette-live-check", if (state.phase == UpdatePhase.CURRENT) "You're up to date" else "A new nightly is available")
         compose.onNodeWithTag("inline-back").performClick()

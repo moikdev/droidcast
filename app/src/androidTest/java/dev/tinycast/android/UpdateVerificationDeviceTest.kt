@@ -211,6 +211,17 @@ class UpdateVerificationDeviceTest {
         assertTrue(updates.state.message.contains("timed out"))
         assertFalse(updates.state.verified)
     }
+    @Test fun checkingTheSameReleaseKeepsVerifiedDownload() {
+        checkAvailable(); downloadAndWait()
+        assertTrue(updates.state.verified)
+        val downloaded = source.downloads
+        compose.runOnUiThread { updates.check() }
+        compose.waitUntil(15_000) { !updates.busy }
+        assertEquals(UpdatePhase.READY, updates.state.phase)
+        assertTrue(updates.state.verified)
+        assertEquals(downloaded, source.downloads)
+        assertEquals(source.candidate.manifest.sha256, updateHash(File(directory, "verified.apk")))
+    }
     @Test fun forgedInstallerReceiptsCannotChangeReadyState() {
         checkAvailable(); downloadAndWait()
         val intent = Intent("dev.droidcast.UPDATE_STATUS").setData(android.net.Uri.parse("droidcast-update://result/forged"))

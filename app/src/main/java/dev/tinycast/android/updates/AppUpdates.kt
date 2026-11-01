@@ -94,7 +94,13 @@ internal class AppUpdates(
         operation = scope.launch {
             try {
                 mutex.withLock {
-                    state = state.copy(phase = phase)
+                    state = state.copy(phase = phase, message = when (phase) {
+                        UpdatePhase.CHECKING -> "Looking for a newer official nightly."
+                        UpdatePhase.DOWNLOADING -> "Downloading the APK. You can cancel at any time."
+                        UpdatePhase.VERIFYING -> "Checking the saved APK before offering installation."
+                        UpdatePhase.INSTALLING -> "Preparing the verified APK for Android."
+                        else -> state.message
+                    })
                     try { work() }
                     catch (_: TimeoutCancellationException) {
                         state = state.copy(phase = if (state.verified) UpdatePhase.READY else UpdatePhase.ERROR, message = "The update request timed out. Please try again.")
@@ -120,12 +126,20 @@ internal class AppUpdates(
         }
         val candidate = withTimeout(60_000) { source.newest() }
         installed = installedIdentity()
-        state = if (candidate == null || candidate.manifest.versionCode <= installed.versionCode)
-            UpdateState(UpdatePhase.CURRENT, message = "No newer updater-ready nightly is published.")
-        else UpdateState(UpdatePhase.AVAILABLE, candidate, message = "A newer nightly is available.")
+        if (candidate == null || candidate.manifest.versionCode <= installed.versionCode) {
+            withContext(Dispatchers.IO) { clearStage() }
+            state = UpdateState(UpdatePhase.CURRENT, message = "No newer updater-ready nightly is published.")
+        } else if (state.verified && state.candidate?.manifest == candidate.manifest) {
+            verifyForInstall(candidate)
+            state = UpdateState(UpdatePhase.READY, candidate, candidate.manifest.bytes, true, "The downloaded update is still current and verified.")
+        } else {
+            withContext(Dispatchers.IO) { clearStage() }
+            state = UpdateState(UpdatePhase.AVAILABLE, candidate, message = "A newer nightly is available.")
+        }
     }
     fun download() {
         val candidate = state.candidate ?: return
+        if (state.verified) return
         operate(UpdatePhase.DOWNLOADING) {
             require(candidate.manifest.versionCode > installedIdentity().versionCode) { "This build is already installed or older" }
             val request = epoch
@@ -139,7 +153,7 @@ internal class AppUpdates(
                     scope.launch { if (request == epoch && state.phase == UpdatePhase.DOWNLOADING) state = state.copy(bytes = bytes) }
                 }
             }
-            state = state.copy(phase = UpdatePhase.VERIFYING, bytes = candidate.manifest.bytes)
+            state = state.copy(phase = UpdatePhase.VERIFYING, bytes = candidate.manifest.bytes, message = "Checking the checksum, package, version and signing certificate.")
             verify(candidate, partial)
             withContext(Dispatchers.IO) {
                 currentCoroutineContext().ensureActive()
@@ -198,9 +212,20 @@ internal class AppUpdates(
             throw error
         }
     }
-    fun approvalIntent(): Intent {
+    fun approvalIntent(): Intent? {
+        if (busy || !state.verified) return null
         state = state.copy(phase = UpdatePhase.APPROVAL, message = "Allow updates from Droidcast in Android, then return here.")
         return Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${context.packageName}"))
+    }
+    private suspend fun verifyForInstall(candidate: UpdateCandidate) {
+        try { verify(candidate, apk) }
+        catch (error: Exception) {
+            if (error !is CancellationException) {
+                withContext(NonCancellable + Dispatchers.IO) { clearStage() }
+                state = state.copy(verified = false)
+            }
+            throw error
+        }
     }
     fun install() {
         val candidate = state.candidate ?: return
@@ -208,14 +233,7 @@ internal class AppUpdates(
         approvalGranted = context.packageManager.canRequestPackageInstalls()
         if (!approvalGranted) { state = state.copy(phase = UpdatePhase.APPROVAL, message = "Allow app updates from Droidcast in Android first."); return }
         operate(UpdatePhase.INSTALLING) {
-            try { verify(candidate, apk) }
-            catch (error: Exception) {
-                if (error !is CancellationException) {
-                    withContext(NonCancellable + Dispatchers.IO) { clearStage() }
-                    state = state.copy(verified = false)
-                }
-                throw error
-            }
+            verifyForInstall(candidate)
             var sessionId = -1
             var committed = false
             try {
@@ -288,6 +306,7 @@ internal class AppUpdates(
         }
     }
     fun confirm(context: Context) {
+        if (state.phase != UpdatePhase.CONFIRM) return
         val intent = confirmation ?: run { state = state.copy(message = "Installer confirmation expired. Cancel and try installing again."); return }
         try { context.startActivity(Intent(intent)) }
         catch (_: Exception) { state = state.copy(message = "Android's installer could not be opened. Cancel and try again.") }

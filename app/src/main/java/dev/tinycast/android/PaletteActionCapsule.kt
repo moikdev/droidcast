@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 internal fun PaletteActionCapsule(title: String, primary: () -> Unit, actions: () -> Unit,
                                   primaryTag: String, actionsTag: String, compact: Boolean,
-                                  enabled: Boolean = true, actionsEnabled: Boolean = enabled) {
+                                  enabled: Boolean = true, actionsEnabled: Boolean = enabled, showActions: Boolean = true) {
     Row(Modifier.widthIn(max = if(compact) 226.dp else 420.dp).height(48.dp)
         .clip(CircleShape).background(PaletteTheme.control).border(1.dp,PaletteTheme.border,CircleShape)
         .testTag("palette-action-capsule"), verticalAlignment=Alignment.CenterVertically) {
@@ -31,11 +31,13 @@ internal fun PaletteActionCapsule(title: String, primary: () -> Unit, actions: (
                 fontWeight=FontWeight.Medium,maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f,fill=false))
             Spacer(Modifier.width(6.dp)); KeyCap("↵")
         }
+        if (showActions) {
         Box(Modifier.width(1.dp).height(18.dp).background(PaletteTheme.separator))
         Row(Modifier.fillMaxHeight().clip(CircleShape).clickable(enabled=actionsEnabled,role=Role.Button,onClick=actions)
             .testTag(actionsTag).padding(horizontal=10.dp),verticalAlignment=Alignment.CenterVertically) {
             Text("Actions",color=if(actionsEnabled)PaletteTheme.secondary else PaletteTheme.tertiary,fontSize=12.sp)
             Spacer(Modifier.width(6.dp)); KeyCap("Ctrl"); Spacer(Modifier.width(2.dp)); KeyCap("K")
+        }
         }
     }
 }
