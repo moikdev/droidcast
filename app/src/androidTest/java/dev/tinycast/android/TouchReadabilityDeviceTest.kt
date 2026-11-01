@@ -156,15 +156,22 @@ class TouchReadabilityDeviceTest {
             // Pan visible footer chrome to move the outer route, rather than
             // scrolling an editor field or list occupying its former header.
             route.performTouchInput {
-                val start=if(footer!=null) {
-                    (if(below)footer.bottom-minOf(8*pixelsPerDp,footer.height*.25f) else footer.top+minOf(8*pixelsPerDp,footer.height*.25f))-viewport.top
-                } else if(isOuter && below)viewport.height*.85f
-                else if(below)viewport.height*.80f else viewport.height*.20f
                 val travel=clippedDistance+viewConfiguration.touchSlop+2*pixelsPerDp
+                val footerStart=footer?.let {
+                    (if(below)footer.bottom-minOf(8*pixelsPerDp,footer.height*.25f) else footer.top+minOf(8*pixelsPerDp,footer.height*.25f))-viewport.top
+                }
+                // A sliver of footer at the edge cannot provide a useful
+                // drag in that direction. Start farther inside the viewport
+                // and let nested scrolling reach its boundary first.
+                val footerTravel=footerStart?.let { if(below)it-8f else viewport.height-8f-it } ?: 0f
+                val useFooter=footerStart!=null && footerTravel>=minOf(travel,viewport.height*.5f)
+                val start=if(useFooter)footerStart!!
+                else if(isOuter)viewport.height*(if(below).85f else .15f)
+                else if(below)viewport.height*.80f else viewport.height*.20f
                 val end=if(below)(start-travel).coerceAtLeast(8f) else (start+travel).coerceAtMost(viewport.height-8f)
                 geometry.put("pan-$tag-$it",JSONObject().put("surface",scrollTag)
                     .put("scope_height",height).put("visible_height",viewport.height).put("clipped_distance",clippedDistance)
-                    .put("start_y",start).put("end_y",end).put("footer_pan",footer!=null).put("end_velocity",0))
+                    .put("start_y",start).put("end_y",end).put("footer_pan",useFooter).put("end_velocity",0))
                 swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),endVelocity=0f,durationMillis=400)
             }
             compose.waitForIdle()
