@@ -1,0 +1,213 @@
+{
+  "diagnostic_only": true,
+  "api": 26,
+  "title_actual": "Audit diagnostic draft",
+  "title_plain_text_equal": true,
+  "title_annotated_equal": true,
+  "title_span_styles": "[]",
+  "title_paragraph_styles": "[]",
+  "title_annotations": "[]",
+  "title_dump": "Audit diagnostic draft",
+  "observations": [
+    {
+      "stage": "before-injected-right",
+      "query": "face",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "window_code": 22,
+      "action": 0,
+      "meta": 0,
+      "handled": true
+    },
+    {
+      "window_code": 22,
+      "action": 1,
+      "meta": 0,
+      "handled": false
+    },
+    {
+      "stage": "after-injected-right-idle",
+      "query": "face",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "stage": "after-injected-right-250ms",
+      "query": "face",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "direct_code": 22,
+      "action": 0,
+      "handled": true
+    },
+    {
+      "direct_code": 22,
+      "action": 1,
+      "handled": false
+    },
+    {
+      "stage": "after-direct-right",
+      "query": "face",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "window_code": 111,
+      "action": 1,
+      "meta": 0,
+      "handled": false
+    },
+    {
+      "stage": "after-injected-escape-idle",
+      "query": "face",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "stage": "after-injected-escape-250ms",
+      "query": "face",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "direct_code": 111,
+      "action": 0,
+      "handled": true
+    },
+    {
+      "direct_code": 111,
+      "action": 1,
+      "handled": false
+    },
+    {
+      "stage": "after-direct-escape",
+      "query": "",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "",
+      "selection": "TextRange(0, 0)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "",
+        "selection_start": 0,
+        "selection_end": 0
+      }
+    },
+    {
+      "stage": "after-explicit-finish-composing",
+      "query": "face",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "stage": "after-finished-composition-injected-right",
+      "query": "face",
+      "selected": 1,
+      "emoji_route": true,
+      "editable": "face",
+      "selection": "TextRange(4, 4)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "face",
+        "selection_start": 4,
+        "selection_end": 4
+      }
+    },
+    {
+      "window_code": 111,
+      "action": 0,
+      "meta": 0,
+      "handled": true
+    },
+    {
+      "window_code": 111,
+      "action": 1,
+      "meta": 0,
+      "handled": false
+    },
+    {
+      "stage": "after-finished-composition-injected-escape",
+      "query": "",
+      "selected": 0,
+      "emoji_route": true,
+      "editable": "",
+      "selection": "TextRange(0, 0)",
+      "focused": true,
+      "window_focus": true,
+      "extracted": {
+        "text": "",
+        "selection_start": 0,
+        "selection_end": 0
+      }
+    }
+  ]
+}

@@ -35,7 +35,7 @@ class InlinePaletteDeviceTest {
         prepared = true
         compose.activityRule.scenario.onActivity {
             val manager = it.getSystemService(ClipboardManager::class.java)
-            originalClip = manager.primaryClip; manager.clearPrimaryClip()
+            originalClip = manager.primaryClip; manager.resetClipboardForTest()
             it.store.reset(); it.store.filter("Apps")
         }
         compose.waitUntil(10000) { !compose.activity.store.loading }
@@ -45,7 +45,7 @@ class InlinePaletteDeviceTest {
         restorePalettePreferences(context, original)
         compose.activityRule.scenario.onActivity {
             val manager = it.getSystemService(ClipboardManager::class.java)
-            originalClip?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip()
+            originalClip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
         }
     }
     private fun key(code: Int, meta: Int = 0) {
@@ -76,13 +76,13 @@ class InlinePaletteDeviceTest {
             val route = compose.activity.store.dialog
             val menu = compose.onAllNodesWithTag("inline-menu").fetchSemanticsNodes().size
             device.wait(Until.hasObject(By.res("com.android.systemui","dismiss_button")),1500)
-            dismissClipboardForEvidence(device)
+            dismissClipboardForEvidence()
             assertEquals("Emoji cleanup retains its route", route, compose.activity.store.dialog)
             assertEquals("Emoji cleanup retains its menu", menu, compose.onAllNodesWithTag("inline-menu").fetchSemanticsNodes().size)
         }
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         compose.waitUntil(10000) {
-            InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+            testAutomation().clearCacheForTest()
             val xml = File(folder, "$name.xml"); device.dumpWindowHierarchy(xml)
             val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
             val native = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }
@@ -432,11 +432,11 @@ class InlinePaletteBaselineTest {
         assertEquals(InstrumentationRegistry.getArguments().getString("dedicatedAvd"),device.executeShellCommand("getprop ro.boot.qemu.avd_name").trim())
         val original=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap()
         var clip: android.content.ClipData?=null
-        compose.activityRule.scenario.onActivity { clip=it.getSystemService(ClipboardManager::class.java).primaryClip; it.getSystemService(ClipboardManager::class.java).clearPrimaryClip() }
+        compose.activityRule.scenario.onActivity { clip=it.getSystemService(ClipboardManager::class.java).primaryClip; it.getSystemService(ClipboardManager::class.java).resetClipboardForTest() }
         fun capture(name:String,marker:String) {
             compose.waitForIdle(); device.waitForIdle()
             val dir=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
-            instrumentation.uiAutomation.clearCache(); device.dumpWindowHierarchy(File(dir,"$name.xml"))
+            testAutomation().clearCacheForTest(); device.dumpWindowHierarchy(File(dir,"$name.xml"))
             assertTrue(File(dir,"$name.xml").readText().contains(marker))
             assertTrue(device.takeScreenshot(File(dir,"$name.png")))
         }
@@ -456,7 +456,7 @@ class InlinePaletteBaselineTest {
             compose.onNodeWithTag("actions-button").performClick()
             capture("before-actions","Copy content")
         } finally {
-            compose.activityRule.scenario.onActivity { it.store.dialog=null; it.store.extensions.close(); clip?.let(it.getSystemService(ClipboardManager::class.java)::setPrimaryClip) ?: it.getSystemService(ClipboardManager::class.java).clearPrimaryClip() }
+            compose.activityRule.scenario.onActivity { it.store.dialog=null; it.store.extensions.close(); clip?.let(it.getSystemService(ClipboardManager::class.java)::setPrimaryClip) ?: it.getSystemService(ClipboardManager::class.java).resetClipboardForTest() }
             restorePalettePreferences(context,original)
         }
     }

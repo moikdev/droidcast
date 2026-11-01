@@ -80,7 +80,7 @@ class UpdateSelfInstallDeviceTest {
         File(context.filesDir, "updates-evidence").apply { mkdirs() }.resolve("$name.json").writeText(json.toString(2))
     }
     private fun clickNative(text: String? = null, description: String? = null, resourceId: String? = null) {
-        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        val automation = testAutomation()
         fun find(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
             if (node.isVisibleToUser && node.packageName?.toString() in setOf("com.google.android.documentsui", "com.android.permissioncontroller", "com.google.android.permissioncontroller") &&
                 (text == null || node.text?.toString() == text) && (description == null || node.contentDescription?.toString() == description) && (resourceId == null || node.viewIdResourceName == resourceId)) return node
@@ -89,7 +89,7 @@ class UpdateSelfInstallDeviceTest {
         }
         try {
             compose.waitUntil(7000) {
-                automation.clearCache()
+                automation.clearCacheForTest()
                 var node = automation.windows.mapNotNull { it.root }.firstNotNullOfOrNull(::find)
                 while (node != null && !node.isClickable) node = node.parent
                 node?.takeIf { it.isEnabled && it.isVisibleToUser }?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK) == true
@@ -115,14 +115,14 @@ class UpdateSelfInstallDeviceTest {
         writeState(saved)
         device.executeShellCommand("mkdir -p /sdcard/Download/$rootName")
         saved.put("rootCreated", true); writeState(saved)
-        val pipes = InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommandRw("tee /sdcard/Download/$rootName/Retention-note.txt")
+        val pipes = testAutomation().executeShellCommandRw("tee /sdcard/Download/$rootName/Retention-note.txt")
         android.os.ParcelFileDescriptor.AutoCloseOutputStream(pipes[1]).use { it.write(fileBody.toByteArray()) }
         assertEquals(fileBody, android.os.ParcelFileDescriptor.AutoCloseInputStream(pipes[0]).bufferedReader().use { it.readText() })
         compose.activityRule.scenario.onActivity { it.selectPage("folders") }
         compose.onNodeWithTag("folder-add").performScrollTo().performClick()
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 7000))
         device.waitForIdle()
-        InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+        testAutomation().clearCacheForTest()
         if (!device.hasObject(By.res("com.google.android.documentsui", "breadcrumb_text").text(rootName))) {
           if (!device.hasObject(By.text(rootName))) {
             // API36 tree selection can expose only the primary-storage root, without a drawer.

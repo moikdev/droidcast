@@ -52,6 +52,7 @@ internal class ExtensionGridState {
     var dropdownValue by mutableStateOf<String?>(null)
     val scroll = LazyGridState()
     val history = PaletteScrollHistory()
+    val selectionDelivery = ExtensionSelectionDelivery()
     fun resolve(items: List<ExtensionGridItem>, remote: String?) = gridSelection(
         items.map { GridIdentity(it.key, it.id) }, selectedKey, remote, lastRemoteSelection, pendingRemoteSelection)
     fun adopt(remote: String?, choice: GridSelectionChoice) {
@@ -117,11 +118,6 @@ internal fun NativeExtensionGrid(
     val selectedIndex = items.indexOfFirst { it.key == selection.key }.coerceAtLeast(0)
     val selected = items.getOrNull(selectedIndex)
     SideEffect { state.adopt(remoteSelection, selection) }
-    LaunchedEffect(root.optString("id"), selected?.id, selection.pendingId) {
-        // Do not replace a not-yet-available controlled request with an automatic
-        // fallback callback. Explicit user selection cancels that pending request.
-        if (selection.pendingId == null) dispatch(root.handle("onSelectionChange"), JSONArray().put(selected?.id ?: JSONObject.NULL))
-    }
     LaunchedEffect(Unit) { focus.requestFocus() }
     LaunchedEffect(wide, keyboardRequested, windowFocused, searchFocused, imeVisible) {
         if (wide && !keyboardRequested && windowFocused && searchFocused) { withFrameNanos { }; keyboard?.hide() }
@@ -135,8 +131,26 @@ internal fun NativeExtensionGrid(
         state.adopt(remote, choice)
         return groups to all.firstOrNull { it.key == choice.key }
     }
+    fun notifyCurrentSelection() {
+        val latest = rootProvider()
+        val callback = latest.handle("onSelectionChange") ?: return
+        val (_, chosen) = current()
+        // Retain unresolved controlled IDs until their items arrive.
+        if (state.pendingRemoteSelection != null) return
+        state.selectionDelivery.deliver(latest.optString("id"), chosen?.id) {
+            dispatch(callback, JSONArray().put(chosen?.id ?: JSONObject.NULL))
+        }
+    }
+    LaunchedEffect(root.optString("id"), selected?.id, selection.pendingId, root.handle("onSelectionChange")) { notifyCurrentSelection() }
     fun currentActions(): List<JSONObject> = current().second?.node?.actions().orEmpty().ifEmpty { rootProvider().actions() }
-    fun action(node: JSONObject?) { node?.let { dispatch(it.handle("onAction"), JSONArray()) }; menu = false }
+    fun action(node: JSONObject?) {
+        node?.let {
+            state.search = state.search.copy(composition = null)
+            notifyCurrentSelection()
+            dispatch(it.handle("onAction"), JSONArray())
+        }
+        menu = false
+    }
     val actions: List<JSONObject> = selected?.node?.actions().orEmpty().ifEmpty { root.actions() }
     val history = state.history
     val recovery = remember { GridVisibilityRecovery() }
@@ -192,6 +206,7 @@ internal fun NativeExtensionGrid(
                 if (all.isNotEmpty()) {
                     val index = all.indexOf(current).coerceAtLeast(0)
                     state.selectLocally(all[gridMove(index, move, groups.map { it.items.size }, columns)].key)
+                    notifyCurrentSelection()
                 }
                 editingQuery = false; claims[id] = event.downTime; return true
             }

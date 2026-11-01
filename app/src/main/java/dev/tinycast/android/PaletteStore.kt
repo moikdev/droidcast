@@ -16,6 +16,13 @@ import dev.tinycast.android.extensions.*
 
 data class SavedItem(val id: String, val title: String, val body: String, val alias: String = "")
 
+internal data class EditorIdentity(val kind: String, val item: String?, val epoch: Int)
+internal class PaletteEditorDraft(val identity: EditorIdentity, item: SavedItem?) {
+    var title by mutableStateOf(item?.title.orEmpty())
+    var body by mutableStateOf(item?.body.orEmpty())
+    var alias by mutableStateOf(item?.alias.orEmpty())
+}
+
 class PaletteStore(application: Application) : AndroidViewModel(application) {
     internal val updates = dev.tinycast.android.updates.Updates.get(application)
     val extensions = ExtensionCatalog(application)
@@ -48,6 +55,16 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun detachPaletteMenuHost(owner: Any) { menuOwnership.detach(owner) }
     var dialog by mutableStateOf<String?>(null)
     var editing by mutableStateOf<SavedItem?>(null)
+    // Draft text belongs to this palette session. Keep large bodies out of the
+    // Activity saved-state Bundle; recreation retains this ViewModel.
+    private var retainedEditorDraft: PaletteEditorDraft? = null
+    internal fun editorDraft(kind: String): PaletteEditorDraft {
+        val identity = EditorIdentity(kind, editing?.id, focusEpoch)
+        return retainedEditorDraft?.takeIf { it.identity == identity }
+            ?: PaletteEditorDraft(identity, editing).also { retainedEditorDraft = it }
+    }
+    internal fun discardEditorDraft() { retainedEditorDraft = null }
+
     var actionCommand by mutableStateOf<Command?>(null)
     var message by mutableStateOf<String?>(null)
     var backupCategories by mutableStateOf(BackupCategory.entries.toSet())
@@ -164,7 +181,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         val chord = recordingCandidate ?: return
         runCatching { setShortcut(target, chord) }.onSuccess { cancelShortcutRecording() }.onFailure { recordingError = it.message }
     }
-    override fun onCleared() { if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
+    override fun onCleared() { retainedEditorDraft = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
 
     fun backupSnapshot() = BackupData(notes, links, clips, pins.filterNot { it.startsWith("files:") }.toSet(), aliases.filterKeys { !it.startsWith("files:") }, usage.filterKeys { !it.startsWith("files:") }, ShortcutConfiguration(shortcutConfiguration.bindings.filterKeys { !it.startsWith("files:") }))
     fun restorePlan(): RestorePlan = BackupPlanner.plan(backupSnapshot(), requireNotNull(backupDocument), restoreCategories, restorePolicy,
@@ -296,7 +313,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         catch (e: Throwable) { extensions.error = e.message ?: "Uninstallation failed" }
     } }
     fun filter(value: String) { category = value; folderSearch.filterType(FileSearchType.ALL); search(""); focusEpoch++ }
-    fun reset() { if (backupBusy) return; cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
+    fun reset() { if (backupBusy) return; discardEditorDraft(); cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
     fun used(id: String) { usage = usage + (id to ((usage[id] ?: 0).coerceAtMost(Int.MAX_VALUE - 1) + 1)); prefs.edit().putString("usage", JSONObject(usage).toString()).apply() }
     fun togglePin(id: String) { pins = if (id in pins) pins - id else pins + id; prefs.edit().putStringSet("pins", pins).apply() }
     fun setAlias(id: String, value: String) {

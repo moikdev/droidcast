@@ -24,7 +24,7 @@ internal fun updateEvidence(name: String, marker: String) {
     val until = android.os.SystemClock.uptimeMillis() + 10_000
     var visible = false
     while (!visible && android.os.SystemClock.uptimeMillis() < until) {
-        instrumentation.uiAutomation.clearCache()
+        testAutomation().clearCacheForTest()
         visible = device.hasObject(By.pkg(instrumentation.targetContext.packageName).textContains(marker))
         if (!visible) device.waitForIdle(250)
     }
@@ -42,7 +42,7 @@ internal fun updateEvidence(name: String, marker: String) {
         }
         assertTrue("Updater frame committed", rendered.await(5, java.util.concurrent.TimeUnit.SECONDS))
     }
-    instrumentation.uiAutomation.clearCache()
+    testAutomation().clearCacheForTest()
     device.dumpWindowHierarchy(File(directory, "$name.xml"))
     assertTrue(device.takeScreenshot(File(directory, "$name.png")))
 }
@@ -99,7 +99,7 @@ class UpdatePaletteDeviceTest {
         compose.onNodeWithTag("palette-screen").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus)
         compose.onNodeWithTag("palette-screen").assertIsFocused()
         compose.activityRule.scenario.onActivity {
-            val view = WindowInspector.getGlobalWindowViews().single { window -> window.hasWindowFocus() }
+            val view = it.window.decorView
             val now = android.os.SystemClock.uptimeMillis()
             assertTrue(view.dispatchKeyEvent(android.view.KeyEvent(now, now, android.view.KeyEvent.ACTION_DOWN, android.view.KeyEvent.KEYCODE_ENTER, 0)))
             assertEquals(UpdatePhase.CHECKING, it.store.updates.state.phase)

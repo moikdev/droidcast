@@ -1,0 +1,134 @@
+{
+  "experimental_harness": true,
+  "application_commit": "7398e25fadcc8cbf1dee71c532f7c0c6da385616",
+  "application_sha256": "68174891b04fe681e770f672276e968f49c03b9ac96a6501efd1cbe383413809",
+  "test_apk_sha256": "9cbe191d7b09e9d8054c7d8395b5df0be33e551013ec444ad2f1e03486fab347",
+  "revised_test_source_sha256": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+  "product_sources_unchanged": true,
+  "purpose": "Require the exact selected document and complete native one-time viewer approval; never treat the warm viewer package as the new destination",
+  "runs": [
+    {
+      "run": "folder-chooser-experimental-v1-tablet-1",
+      "exit": 0,
+      "record_sha256": "bce5f7f403a2665d96cee71dd58896ad1977ffc4f5f3417d6d31a8514736e7c5",
+      "completed": true,
+      "cleanup_verified": true,
+      "actual_once_node_action_verified": true,
+      "native_exact_title": true,
+      "native_exact_body": true,
+      "chooser_actions_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72",
+      "tests_log_sha256": "643761184ca54e88b9bb8c7e2a3a18f70dcc10cd4eca714721450925fe856401"
+    },
+    {
+      "run": "folder-chooser-experimental-v1-tablet-2",
+      "exit": 0,
+      "record_sha256": "bce5f7f403a2665d96cee71dd58896ad1977ffc4f5f3417d6d31a8514736e7c5",
+      "completed": true,
+      "cleanup_verified": true,
+      "actual_once_node_action_verified": true,
+      "native_exact_title": true,
+      "native_exact_body": true,
+      "chooser_actions_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72",
+      "tests_log_sha256": "3f6bdc0baadc3ead8f4a0c572eb4acf769c288de80a3a8cf20273dfbb211a216"
+    },
+    {
+      "run": "folder-chooser-experimental-v1-tablet-3",
+      "exit": 0,
+      "record_sha256": "bce5f7f403a2665d96cee71dd58896ad1977ffc4f5f3417d6d31a8514736e7c5",
+      "completed": true,
+      "cleanup_verified": true,
+      "actual_once_node_action_verified": true,
+      "native_exact_title": true,
+      "native_exact_body": true,
+      "chooser_actions_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72",
+      "tests_log_sha256": "e9b7fe791b654bd61839f2b0e415acc8377baedc43a06b72601ea8f506165685"
+    },
+    {
+      "run": "folder-chooser-experimental-v1-phone-1",
+      "exit": 0,
+      "record_sha256": "a1458533068e21217d481b3939c5a1b92e2922e38ebbd1fedeadbc76e768e0d2",
+      "completed": true,
+      "cleanup_verified": true,
+      "actual_once_node_action_verified": true,
+      "native_exact_title": true,
+      "native_exact_body": true,
+      "chooser_actions_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72",
+      "tests_log_sha256": "6edc964fbdcb93eb9cdd87aebfe9daeda4cd930c9cd4488982736a4d687d1572"
+    },
+    {
+      "run": "folder-chooser-experimental-v1-phone-2",
+      "exit": 0,
+      "record_sha256": "a1458533068e21217d481b3939c5a1b92e2922e38ebbd1fedeadbc76e768e0d2",
+      "completed": true,
+      "cleanup_verified": true,
+      "actual_once_node_action_verified": true,
+      "native_exact_title": true,
+      "native_exact_body": true,
+      "chooser_actions_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72",
+      "tests_log_sha256": "ff8a685fcdf4b25237573a2440fc3add26dfb23a7cf64f9de6900d635f2108a5"
+    },
+    {
+      "run": "folder-chooser-experimental-v1-phone-3",
+      "exit": 0,
+      "record_sha256": "a1458533068e21217d481b3939c5a1b92e2922e38ebbd1fedeadbc76e768e0d2",
+      "completed": true,
+      "cleanup_verified": true,
+      "actual_once_node_action_verified": true,
+      "native_exact_title": true,
+      "native_exact_body": true,
+      "chooser_actions_sha256": "5549e41b1ce0014a625482ecc6cf151926e6c31f93db1a9256d546ebee200e72",
+      "tests_log_sha256": "851b726c346334ae6bf046e7d107e30e0f44e882855629223e8b4fd5a2f93844"
+    }
+  ],
+  "captures": [
+    {
+      "image": "docs/screenshots/readiness-regressions/tablet-viewer-chooser-before.png",
+      "xml": "docs/validation/readiness/tablet-viewer-chooser-before.xml",
+      "caption": "Retained failed broad run: Android one-time approval over the old Previous-note.txt viewer",
+      "application_sha256": "68174891b04fe681e770f672276e968f49c03b9ac96a6501efd1cbe383413809",
+      "test_apk_sha256": "c60e00061297279110a49f17360f7f5d823972d665d05db4312de486952441e5",
+      "image_sha256": "30aedb174d7d6f5c29d8ca2b140fa1bef3bc3a101884007df1346e04e35afb1d",
+      "xml_sha256": "6581cf7ca0c33c1d3c7d6331ee503ab1f05ec623fc309a5555c5401f04c2baad",
+      "pixels": [
+        1920,
+        1200
+      ],
+      "avd": "Tinycast_Tablet_API_36",
+      "api": 36,
+      "visual_review": true
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/tablet-indexed-viewer-after.png",
+      "xml": "docs/validation/readiness/tablet-indexed-viewer-after.xml",
+      "caption": "Experimental helper: exact Orbit-notes.txt and fixture body314159",
+      "application_sha256": "68174891b04fe681e770f672276e968f49c03b9ac96a6501efd1cbe383413809",
+      "test_apk_sha256": "9cbe191d7b09e9d8054c7d8395b5df0be33e551013ec444ad2f1e03486fab347",
+      "image_sha256": "d82107072c70ea2f57a44de4f5e10c9b60426abf4f86f6430be2e2d15aa7449c",
+      "xml_sha256": "dd508e937ea7a85b932ef0cff199f5c5b9e36f30b01aa07274c2695280e708e0",
+      "pixels": [
+        1920,
+        1200
+      ],
+      "avd": "Tinycast_Tablet_API_36",
+      "api": 36,
+      "visual_review": true
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/phone-indexed-viewer-after.png",
+      "xml": "docs/validation/readiness/phone-indexed-viewer-after.xml",
+      "caption": "Experimental helper: exact Orbit-notes.txt and fixture body314159",
+      "application_sha256": "68174891b04fe681e770f672276e968f49c03b9ac96a6501efd1cbe383413809",
+      "test_apk_sha256": "9cbe191d7b09e9d8054c7d8395b5df0be33e551013ec444ad2f1e03486fab347",
+      "image_sha256": "f9dbd5d90125c3fd0bad538d9f43718f70b620856e2fea102d45e5263f184a76",
+      "xml_sha256": "f485055b75cc1f03690df6c7212b06cd6c622e40668ea4dc0b30758bc8c9a0b2",
+      "pixels": [
+        1080,
+        2340
+      ],
+      "avd": "Tinycast_Tablet_API_36",
+      "api": 36,
+      "visual_review": true
+    }
+  ],
+  "final_head_clearance": false
+}

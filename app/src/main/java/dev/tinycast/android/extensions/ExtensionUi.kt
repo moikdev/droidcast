@@ -27,6 +27,7 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.graphics.Color
@@ -78,6 +79,7 @@ private class StoreBrowserState {
 private class ExtensionListState {
     var search by mutableStateOf(TextFieldValue(""))
     var selected by mutableIntStateOf(0)
+    val selectionDelivery = ExtensionSelectionDelivery()
     val scroll = androidx.compose.foundation.lazy.LazyListState()
 }
 
@@ -346,15 +348,59 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
     val item=rows.getOrNull(selected.coerceIn(0,(rows.size-1).coerceAtLeast(0)))
     val actions=item?.actions().orEmpty().ifEmpty{root?.actions().orEmpty()}
-    fun action(a:JSONObject?){if(catalog.runtimeError==null)a?.let{runtime.dispatch(it.handle("onAction"))};menu=false}
-    LaunchedEffect(item?.props()?.optString("id"),failed){if (!failed && root?.optString("type") != "Grid") root?.handle("onSelectionChange")?.let{runtime.dispatch(it,JSONArray().put(item?.props()?.optString("id")))}}
+    fun liveRows(): List<JSONObject> {
+        val liveRoot = activeRoot(catalog.runtimeTree) ?: return emptyList()
+        if (liveRoot.optString("type") != "List" || liveRoot.optString("id") != root?.optString("id")) return emptyList()
+        val liveQuery = listState.search.text
+        return liveRoot.nodes("List.Item").filter {
+            !liveRoot.props().optBoolean("filtering", true) || liveQuery.isBlank() ||
+                ("${it.props().optString("title")} ${it.props().optString("subtitle")} ${it.props().optJSONArray("keywords")}").contains(liveQuery, true)
+        }
+    }
+    fun liveActions(): List<JSONObject> {
+        val liveRoot = activeRoot(catalog.runtimeTree) ?: return emptyList()
+        if (liveRoot.optString("id") != root?.optString("id") || liveRoot.optString("type") != root?.optString("type")) return emptyList()
+        if (liveRoot.optString("type") != "List") return liveRoot.actions()
+        val liveRows = liveRows()
+        return liveRows.getOrNull(listState.selected.coerceIn(0, liveRows.lastIndex.coerceAtLeast(0)))?.actions().orEmpty()
+            .ifEmpty { liveRoot.actions() }
+    }
+    fun notifyCurrentSelection() {
+        val currentRoot = activeRoot(catalog.runtimeTree) ?: return
+        if (catalog.runtimeError != null || currentRoot.optString("type") != "List" || currentRoot.optString("id") != root?.optString("id")) return
+        val callback = currentRoot.handle("onSelectionChange") ?: return
+        val currentRows = liveRows()
+        val id = currentRows.getOrNull(listState.selected.coerceIn(0, currentRows.lastIndex.coerceAtLeast(0)))?.props()?.opt("id") as? String
+        listState.selectionDelivery.deliver(currentRoot.optString("id"), id) {
+            runtime.dispatch(callback, JSONArray().put(id ?: JSONObject.NULL))
+        }
+    }
+    fun action(a: JSONObject?) {
+        if (catalog.runtimeError == null && a != null) {
+            listState.search = listState.search.copy(composition = null)
+            // Queue selection before activation, including back-to-back keys
+            // before Compose's selection effect can run. JS refs see this first.
+            notifyCurrentSelection()
+            runtime.dispatch(a.handle("onAction"))
+        }
+        menu = false
+    }
+    fun activateCurrent() {
+        if (root?.optString("type") != "List" || listState.search.composition == null) action(liveActions().firstOrNull())
+    }
+    LaunchedEffect(root?.optString("id"), item?.props()?.optString("id"), root?.handle("onSelectionChange"), failed) {
+        if (!failed) notifyCurrentSelection()
+    }
     ExtensionWindow(command.title,extension.listing.title,close,Modifier.onPreviewKeyEvent{
-        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else when{
+        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else {
+        val eventRows=if(it.key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
+        when{
             it.key==Key.K&&it.isCtrlPressed->{menu=true;true}
-            it.key==Key.DirectionDown&&rows.isNotEmpty()->{selected=(selected+1).coerceAtMost(rows.lastIndex);true}
-            it.key==Key.DirectionUp&&rows.isNotEmpty()->{selected=(selected-1).coerceAtLeast(0);true}
-            it.key==Key.Enter&&root?.optString("type")!="Form"->{action(actions.firstOrNull());true}
+            it.key==Key.DirectionDown&&eventRows.isNotEmpty()->{selected=(selected+1).coerceAtMost(eventRows.lastIndex);notifyCurrentSelection();true}
+            it.key==Key.DirectionUp&&eventRows.isNotEmpty()->{selected=(selected-1).coerceAtLeast(0);notifyCurrentSelection();true}
+            it.key in listOf(Key.Enter, Key.NumPadEnter)&&root?.optString("type")!="Form"->{activateCurrent();true}
             else->false
+        }
         }
     },compact=true,onEscape={ if(catalog.runtimeError!=null)close() else if(catalog.navigationDepth>1)runtime.back() else close() },headerless=!failed && root?.optString("type") in listOf("Grid","List"),headerActions={
         if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
@@ -385,7 +431,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 }
                 if(root.props().optBoolean("isLoading"))LinearProgressIndicator(Modifier.fillMaxWidth().padding(top=5.dp))
                 LazyColumn(state=listState.scroll,modifier=Modifier.weight(1f).fillMaxWidth().testTag("extension-list"),contentPadding=PaddingValues(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
-                    items(rows,key={it.optString("id")}){row->val i=rows.indexOf(row);Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(9.dp)).background(if(i==selected)ink.copy(alpha=.12f)else card).clickable{selected=i}.padding(14.dp).testTag("extension-row-$i")){
+                    items(rows,key={it.optString("id")}){row->val i=rows.indexOf(row);val rowSelected=i==selected;Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(9.dp)).background(if(rowSelected)ink.copy(alpha=.12f)else card).semantics{this.selected=rowSelected}.clickable{selected=i;notifyCurrentSelection()}.padding(14.dp).testTag("extension-row-$i")){
                         Text(row.props().optString("title"),fontSize=14.sp,lineHeight=21.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
                         val subtitle=row.props().optString("subtitle");if(subtitle.isNotBlank())Text(subtitle,color=muted,fontSize=11.sp,lineHeight=17.sp)
                         row.props().optJSONArray("accessories").objects().forEach{Text(it.optString("text"),color=muted,fontSize=10.sp)}
@@ -407,7 +453,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             }else Spacer(Modifier.weight(1f))
             if(actions.isNotEmpty()){
                 Box {
-                    dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{action(actions.first())},{menu=true},
+                    dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{action(liveActions().firstOrNull())},{menu=true},
                         "extension-primary","extension-actions",compact=!dev.tinycast.android.LocalPaletteWide.current)
                     PaletteChoiceMenu(menu,{menu=false},actions.mapIndexed{i,a->PaletteChoice("extension-action-${a.optString("id",i.toString())}",a.props().optString("title","Action"),tag="extension-action-$i",shortcut=if(i==0)listOf("↵")else emptyList(),icon="command"){action(a)}},title=item?.props()?.optString("title") ?: command.title,searchable=true)
 

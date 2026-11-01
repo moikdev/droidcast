@@ -25,7 +25,7 @@ class AssistantTouchDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<SettingsActivity>()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
     private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-    private val automation get() = InstrumentationRegistry.getInstrumentation().uiAutomation
+    private val automation get() = testAutomation()
     private val dir get() = File(context.filesDir, "assistant-touch-evidence").apply { mkdirs() }
     private var captured = false
     private var originalRoles = emptyList<String>()
@@ -90,7 +90,7 @@ class AssistantTouchDeviceTest {
     }
     private fun capture(name: String, marker: String? = null, expectedPackage: String = context.packageName) {
         device.waitForIdle()
-        if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCache()
+        if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCacheForTest()
         if (marker != null) assertTrue("Pictured native state: $marker", device.wait(Until.hasObject(By.pkg(expectedPackage).textContains(marker)), 5000))
         device.dumpWindowHierarchy(dir.resolve("$name.xml"))
         if (marker != null) {
@@ -243,7 +243,7 @@ class AssistantTouchDeviceTest {
             }
             try {
                 compose.waitUntil(10000) {
-                    if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCache()
+                    if (android.os.Build.VERSION.SDK_INT >= 34) automation.clearCacheForTest()
                     button = findHome()
                     button != null
                 }

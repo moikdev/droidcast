@@ -9,7 +9,7 @@ This README follows the development branch. The downloadable tagged preview may 
 
 [Nightly checkpoints](https://github.com/moikdev/droidcast/releases) · [Baseline preview APK](https://github.com/moikdev/droidcast/releases/tag/v0.4.0-preview) · [Parity audit](PARITY.md) · [Recommended improvements](ROADMAP.md) · [Testing record](docs/TESTING.md)
 
-Nightly checkpoints are published manually while CI is inactive. Each release identifies its source commit, APK checksum, tested scope and known findings. Review its notes before enabling experimental features.
+Nightly checkpoints are published manually. Hosted CI builds, tests and lints development changes; its debug artifacts are separate from the verified nightly update channel. Each release identifies its source commit, APK checksum, tested scope and known findings. The [readiness report](docs/PRODUCTION-READINESS.md) records current validation and remaining production gates.
 
 This preview covers the core palette workflow and a subset of Raycast extension APIs. **Window-snapping commands, automatic clipboard history and snippets remain unimplemented. Development builds add Android-native backup/restore, centralized settings and partial selected-folder metadata search; Tinycast/Raycast export-container import remains open.** See the parity matrix for the full scope. Droidcast is not affiliated with Tinycast's maintainers or Raycast.
 

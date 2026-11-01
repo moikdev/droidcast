@@ -142,9 +142,9 @@ class UpdateVerificationDeviceTest {
         compose.onNodeWithTag("updates-download").performClick()
         compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.DOWNLOADING && updates.state.bytes >= 1024 * 1024 }
         toggle.performScrollTo().assertIsDisplayed().assertContentDescriptionEquals("Confirm each update").assertIsOn().assertIsNotEnabled()
-        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        val automation = testAutomation()
         compose.waitUntil(7000) {
-            automation.clearCache()
+            automation.clearCacheForTest()
             device.hasObject(By.res("updates-confirm-every-time").desc("Confirm each update").checkable(true).checked(true).enabled(false))
         }
         updateEvidence("confirmation-switch-busy", "Confirm each update")

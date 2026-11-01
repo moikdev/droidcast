@@ -6,19 +6,19 @@ These are proposals from the [parity audit](PARITY.md), not features included in
 
 | Priority | Improvement | Why and acceptance criteria |
 | --- | --- | --- |
-| P0 | Extension compatibility and native rendering | Publish tested extension/version results; label verified, unverified and unsupported commands accurately. Extend the native Grid subset (section-specific geometry, SVG/full icons and automatic pagination); implement rendered Markdown/metadata, form validation and missing field controls. Add representative fixture tests and more real Store examples. Unsupported APIs must remain actionable errors. |
-| P0 | User-controlled backup and restore | Export versioned notes, quicklinks, clips, aliases and pins through the document picker. Restore transactionally with a preview and duplicate handling. Never enable accessibility or restore capability grants automatically; selected documents need reauthorization. |
-| P1 | Configurable hotkeys | Development PR #33 adds ordinary global/per-command chord recording, conflict handling and reset. Advanced modifier-tap/Fn/Hyper cases remain #26. Preserve opt-in service setup and the current no-screen-content posture. Validate real hardware keyboards and service reconnects on physical tablets. |
-| P1 | Android system and automation commands | The direct settings slice adds 11 tested destinations. Next build a typed intent/deeplink command editor with argument validation. Show a destination/capability failure instead of falling back silently to an unrelated action. |
-| P1 | Selected-folder file search | Add `ACTION_OPEN_DOCUMENT_TREE` folders, cancellable metadata search, persistent grants, regrant UX and a bounded index if measurement justifies it. Exercise local and cloud document providers, moved files and expired permissions. |
-| P1 | Android multitasking commands | Prototype a clearly labeled system split-screen action and adjacent launch where supported. Check capability before offering it; preserve existing split layout when the palette closes. Validate on stock Android and a desktop-style tablet environment. Do not promise arbitrary quarter/window positioning without a supported implementation. |
+| P0 | Finish current readiness validation (#65 / PR #66) | Complete exact-build phone/integration checks, retain real failures, reconcile evidence and obtain both independent final-head audits before an expected-head merge. Production clearance is separate. |
+| P0 | Readable controls and touch workflows (#71, parent #20) | Prioritize search, result rows, shared Actions footer and menus. Verify phone/tablet, IME, rotation/split sizes and font scales 1.0/1.3/1.5/2.0 with real before/after captures. Require readable labels, nonoverlapping 48dp touch targets, reachable Actions/Back/filter controls and preserved keyboard behavior. Remaining forms/screens stay explicitly open. |
+| P1 | Reproducible command compatibility catalog (#72, parent #7) | Pin the source inventory and command identities. Keep untested, tested-workflow, partial, failed, platform-unsupported and configuration-required distinct. Inspect manifests in bounded resumable batches, then execute authorized workflows on identified Android/WebView builds. A discovered repository or static API match is not execution evidence. |
+| P1 | Native extension rendering (#6 / #7) | Extend the native Grid subset, rendered Markdown/metadata, form validation and missing controls using representative fixtures and real Store examples. Unsupported APIs need actionable errors; never promote the whole extension from a single passing command. |
+| P1 | Production recovery and distribution (#21) | Dedicated key preparation is complete in PR #70. Verify off-device recovery, production automation/channel and explicit installed-nightly backup/clean-install/import rehearsals before migration. Keep private signing material outside all checkouts. |
+| P2 | Keyboard, storage and automation follow-ups | Build on the already merged backup, ordinary/modifier shortcuts and selected-folder slices. Test physical/OEM keyboards, broader providers and interruptions; add typed intents/deeplinks and supported Android multitasking replacements with capability/error handling. |
 
 ## Next improvements
 
 1. **Rendered notes and explicit snippet templates.** Preview Markdown, support variables and reusable snippets, and copy the expanded result. Keep automatic typing/keyword interception out of the default workflow.
 2. **A better explicit clipboard collection.** Add image sharing, pins, editing and search. Keep capture visible and user initiated; do not imply unrestricted background monitoring.
 3. **More capable calculations.** Add tested date/time and color expressions, then opt-in exchange-rate providers with caching, timestamps and a clear offline/error state.
-4. **A local emoji/symbol picker and dictionary command.** Use licensed datasets, keyboard navigation and copy actions. No network should be needed for the emoji catalog.
+4. **Dictionary and further emoji parity.** The offline emoji/symbol picker already exists. Improve its remaining parity gaps and introduce licensed dictionary lookup with useful offline/error states.
 5. **Calendar/meeting actions.** Introduce permission-scoped upcoming events and join links with a useful permission-denied state; avoid requesting calendar access on launch.
 6. **Appearance and accessibility.** System/light theme, large-font layouts, TalkBack labels/focus order, localization and reliable touch targets while retaining Tinycast's palette proportions on tablets.
 7. **Release engineering.** Replace preview debug signing with a maintainer-controlled release key, verify reproducible distribution, and add a physical-device matrix. Keep emulator evidence versioned and avoid shipping local machine files.
@@ -27,7 +27,7 @@ AI chat and text rewriting can be a later, optional track. Before that, shipping
 
 ## Validation gates
 
-- Local unit tests, Android lint and debug build; the supplied CI template repeats these on a clean runner after activation.
+- Local unit tests, Android lint and debug/test builds; record actual exact-head hosted workflow results separately from device checks and audits.
 - Repeatable command dispatch and document-grant tests on tablet and phone sizes.
 - Global keyboard checks outside UiAutomation, plus physical-keyboard checks before claiming OEM support.
 - The opt-in endurance test and cold-restart document checks.

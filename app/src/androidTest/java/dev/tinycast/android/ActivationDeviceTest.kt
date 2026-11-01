@@ -1,0 +1,231 @@
+package dev.tinycast.android
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.view.KeyEvent
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import dev.tinycast.android.extensions.*
+import org.json.JSONObject
+import org.junit.*
+import org.junit.Assert.*
+import org.junit.runner.RunWith
+import java.io.File
+import java.util.UUID
+
+@RunWith(AndroidJUnit4::class)
+class ActivationDeviceTest {
+    @get:Rule val compose=createAndroidComposeRule<MainActivity>()
+    @get:Rule val testName=org.junit.rules.TestName()
+    private val context get()=InstrumentationRegistry.getInstrumentation().targetContext
+    private val device get()=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    private var original=emptyMap<String,Any?>()
+    private var clip:ClipData?=null
+    private var fixture:File?=null
+    private var support:File?=null
+    @Before fun ready() {
+        original=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap()
+        compose.waitUntil(15000){!compose.activity.store.loading && !compose.activity.store.folderSearch.loading}
+        compose.activityRule.scenario.onActivity { clip=it.getSystemService(ClipboardManager::class.java).primaryClip }
+        // Establish accessibility readiness before creating the known overlay;
+        // this runs without a preceding UiDevice query or hierarchy dump.
+        dismissClipboardForEvidence()
+        compose.activityRule.scenario.onActivity {
+            val manager=it.getSystemService(ClipboardManager::class.java)
+            manager.setPrimaryClip(ClipData.newPlainText("Activation fixture","activation-sentinel"))
+            it.store.resetShortcuts();it.store.reset()
+        }
+        val actions=org.json.JSONArray()
+        val observations=org.json.JSONArray()
+        val start=android.os.SystemClock.uptimeMillis()
+        val focusBefore=compose.activity.window.decorView.hasWindowFocus()
+        try {
+            dismissClipboardForEvidence(onObservation={ observations.put(it) }) { node,ok -> actions.put(JSONObject().put("node",node).put("ok",ok).put("after_ms",android.os.SystemClock.uptimeMillis()-start)) }
+            File(context.filesDir,"readiness-evidence").apply{mkdirs()}.resolve("activation-setup-${testName.methodName.lowercase()}.json")
+                .writeText(JSONObject().put("test",testName.methodName).put("settled",true).put("window_focus_before_cleanup",focusBefore).put("actions",actions).put("observations",observations).toString(2))
+        } catch(failure:Throwable) {
+            val dir=File(context.filesDir,"readiness-evidence").apply{mkdirs()}
+            val details=JSONObject().put("setup_failure",true).put("test",testName.methodName).put("window_focus_before_cleanup",focusBefore).put("actions",actions).put("observations_before_uidevice",observations)
+                .put("automation_mode",androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags)
+                .put("windows",org.json.JSONArray(testAutomation().windows.map { window ->
+                    JSONObject().put("type",window.type).put("title",window.title?.toString()).put("active",window.isActive)
+                }))
+            runCatching { testAutomation().clearCacheForTest();device.dumpWindowHierarchy(File(dir,"activation-setup-failure.xml")) }
+            details.put("screenshot",runCatching{device.takeScreenshot(File(dir,"activation-setup-failure.png"))}.getOrDefault(false))
+            File(dir,"activation-setup-failure.json").writeText(details.toString(2))
+            throw failure
+        }
+    }
+    @After fun restore() {
+        compose.activityRule.scenario.onActivity {
+            it.store.extensions.close()
+            val manager=it.getSystemService(ClipboardManager::class.java)
+            clip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+        }
+        restorePalettePreferences(context,original);fixture?.deleteRecursively();support?.deleteRecursively()
+    }
+    private fun key(activity:MainActivity,code:Int) {
+        val time=android.os.SystemClock.uptimeMillis()
+        for(action in listOf(KeyEvent.ACTION_DOWN,KeyEvent.ACTION_UP))
+            activity.dispatchKeyEvent(KeyEvent(time,time,action,code,0,0,android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,0,0,android.view.InputDevice.SOURCE_KEYBOARD))
+    }
+    private fun composing(tag:String,text:String) {
+        compose.onNodeWithTag(tag).assertIsFocused().performTextReplacement(text)
+        compose.waitForIdle()
+        val observations=org.json.JSONArray()
+        var rendered:androidx.compose.ui.text.AnnotatedString?=null
+        val started=android.os.SystemClock.uptimeMillis()
+        try {
+            // SetText semantics can precede the Android input session. Await
+            // exact session text, then require actual rendered composition.
+            // Only fixture establishment is retried; activation is never retried.
+            compose.waitUntil(5000) {
+                val before=compose.onNodeWithTag(tag).fetchSemanticsNode().config[SemanticsProperties.EditableText]
+                val observation=JSONObject().put("after_ms",android.os.SystemClock.uptimeMillis()-started)
+                    .put("semantics_text_matches",before.text==text)
+                var delivered=false
+                compose.activityRule.scenario.onActivity { activity ->
+                    val focus=activity.window.decorView.findFocus()
+                    val connection=focus?.onCreateInputConnection(android.view.inputmethod.EditorInfo())
+                    val extracted=connection?.getExtractedText(android.view.inputmethod.ExtractedTextRequest(),0)
+                    val ready=focus?.hasWindowFocus()==true && extracted?.text?.toString()==text &&
+                        before.text==text && (tag!="search" || activity.store.query==text)
+                    observation.put("window_focused",focus?.hasWindowFocus()==true)
+                        .put("connection_ready",connection!=null).put("extracted_text_matches",extracted?.text?.toString()==text)
+                        .put("extracted_length",extracted?.text?.length ?: -1)
+                        .put("selection_start",extracted?.selectionStart ?: -1).put("selection_end",extracted?.selectionEnd ?: -1)
+                    if(ready)delivered=connection!!.setComposingRegion(0,text.length)
+                }
+                compose.waitForIdle()
+                val shown=compose.onNodeWithTag(tag).fetchSemanticsNode().config[SemanticsProperties.EditableText]
+                rendered=shown
+                val underlined=shown.spanStyles.any { it.item.textDecoration?.contains(TextDecoration.Underline)==true }
+                observation.put("composition_delivered",delivered).put("rendered_text_matches",shown.text==text)
+                    .put("rendered_underlined",underlined)
+                observations.put(observation)
+                delivered && shown.text==text && underlined
+            }
+            val shown=requireNotNull(rendered)
+            assertEquals(text,shown.text)
+            assertTrue("Exercise actual live IME composition",shown.spanStyles.any { it.item.textDecoration?.contains(TextDecoration.Underline)==true })
+        } catch(failure:Throwable) {
+            runCatching { capture("composition-$tag-failed") };throw failure
+        } finally {
+            File(context.filesDir,"readiness-evidence").apply{mkdirs()}
+                .resolve("composition-readiness-${testName.methodName.lowercase()}.json")
+                .writeText(JSONObject().put("test",testName.methodName).put("field",tag).put("observations",observations).toString(2))
+        }
+    }
+    private fun composeNow(activity:MainActivity,text:String) {
+        val focus=requireNotNull(activity.window.decorView.findFocus())
+        assertTrue("Composing field owns window focus",focus.hasWindowFocus())
+        val connection=requireNotNull(focus.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
+        assertEquals("Android input session has the exact fixture query",text,
+            connection.getExtractedText(android.view.inputmethod.ExtractedTextRequest(),0)?.text?.toString())
+        assertTrue(connection.setComposingRegion(0,text.length))
+    }
+    private fun clickWhileComposing(searchTag:String,text:String,primaryTag:String) {
+        compose.onNodeWithTag(searchTag).assertIsFocused()
+        val activity=compose.activity
+        compose.onNodeWithTag(primaryTag).assertIsDisplayed().assertIsEnabled()
+            .performSemanticsAction(SemanticsActions.OnClick) { click ->
+                // This invocation runs on the UI thread. Re-establish live
+                // composition and invoke the actual accessibility action in
+                // one turn, before the live IME can finish it asynchronously.
+                composeNow(activity,text)
+                assertTrue("Invoke the enabled primary accessibility action",click())
+            }
+    }
+    private fun copied():String=compose.activity.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString()
+    private fun capture(name:String) {
+        compose.waitForIdle();dismissClipboardForEvidence();device.waitForIdle()
+        assertTrue("Native app hierarchy is rendered",device.wait(Until.hasObject(By.pkg(context.packageName)),5000))
+        if(!name.endsWith("-failed")) {
+            val marker=when(name) {
+                "composing-launcher-primary" -> By.pkg(context.packageName).clazz("android.widget.EditText").text("Audit composed note")
+                "composing-list-primary" -> By.pkg(context.packageName).text("Audit Alpha · Callback Alpha")
+                else -> By.pkg(context.packageName).text("Audit Bravo · Callback Bravo")
+            }
+            assertTrue("Capture the actual destination/feedback frame",device.wait(Until.hasObject(marker),5000))
+        }
+        val dir=File(context.filesDir,"readiness-evidence").apply{mkdirs()};testAutomation().clearCacheForTest()
+        device.dumpWindowHierarchy(File(dir,"$name.xml"));assertTrue(device.takeScreenshot(File(dir,"$name.png")))
+        File(dir,"$name.json").writeText(JSONObject().put("state",name).put("clipboard",copied()).toString(2))
+    }
+    private fun checkCapture(name:String,block:()->Unit) {
+        try{block();capture(name)}catch(failure:Throwable){runCatching{capture("$name-failed")};throw failure}
+    }
+    private fun extension(type:String) {
+        val id="activation-"+UUID.randomUUID();fixture=File(context.cacheDir,id).apply{mkdirs()}
+        support=File(context.filesDir,"extension-data/$id");assertFalse(support!!.exists())
+        File(fixture,"fixture.js").writeText("""
+            const React=require('react');const {List,Grid,Action,ActionPanel,Clipboard}=require('@raycast/api');
+            module.exports.default=function(){
+              const latest=React.useRef(null),events=React.useRef([]);const [seen,setSeen]=React.useState('pending');
+              const View=${type};
+              return React.createElement(View,{columns:3,searchBarPlaceholder:'Audit $type callback',
+                onSelectionChange:id=>{latest.current=id;events.current.push('selected:'+id);setSeen(id)},
+                actions:React.createElement(ActionPanel,null,React.createElement(Action,{title:'Copy selection callback',
+                  onAction:()=>Clipboard.copy(latest.current+'|'+events.current.join(',')+'|action:'+latest.current)}))},
+                ['Alpha','Bravo'].map(id=>React.createElement(View.Item,{key:id,id,title:'Audit '+id+' · Callback '+seen,content:'🌱'})));
+            };
+        """.trimIndent())
+        val listing=StoreExtension(id,id,"Audit $type activation","","Fixture","fixture","https://example.com","","",1)
+        val installed=InstalledExtension(listing,fixture!!,JSONObject("""{"commands":[{"name":"fixture","title":"Audit $type activation","mode":"view"}]}"""))
+        compose.activityRule.scenario.onActivity{it.store.openExtension(installed,installed.commands.single())}
+        compose.waitUntil(15000){compose.onAllNodes(hasText("Callback Alpha",substring=true)).fetchSemanticsNodes().isNotEmpty()}
+        compose.onNodeWithTag("extension-search").assertIsFocused()
+    }
+    @Test fun explicitLauncherPrimaryCommitsComposedQueryAndActivates() {
+        compose.activityRule.scenario.onActivity{
+            it.store.save("notes","Audit composed note","Composed activation body 161803")
+            it.store.filter("Notes")
+        }
+        composing("search","Audit composed")
+        val chosen=compose.activity.store.results().first();assertEquals("Audit composed note",chosen.title)
+        compose.activityRule.scenario.onActivity{composeNow(it,"Audit composed");key(it,KeyEvent.KEYCODE_ENTER);assertNull("Enter must leave live composition to IME",it.store.dialog)}
+        clickWhileComposing("search","Audit composed","primary-action")
+        checkCapture("composing-launcher-primary") {
+            compose.waitUntil(3000){compose.activity.store.dialog=="note"}
+            assertEquals(chosen.id,compose.activity.store.editing?.id)
+            assertEquals(chosen.title,compose.onNodeWithTag("editor-title").fetchSemanticsNode().config[SemanticsProperties.EditableText].text)
+        }
+    }
+    @Test fun explicitListPrimaryCommitsComposedQueryAndActivates() {
+        extension("List");composing("extension-search","Audit Alpha")
+        compose.activityRule.scenario.onActivity{
+            composeNow(it,"Audit Alpha");key(it,KeyEvent.KEYCODE_ENTER)
+            assertEquals("Keyboard must leave composition to IME","activation-sentinel",
+                it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
+        }
+        clickWhileComposing("extension-search","Audit Alpha","extension-primary")
+        checkCapture("composing-list-primary") {
+            compose.waitUntil(3000){copied().startsWith("Alpha|")}
+            assertEquals("Alpha|selected:Alpha|action:Alpha",copied())
+        }
+    }
+    private fun callbackBeforeAction(type:String,code:Int) {
+        extension(type)
+        compose.activityRule.scenario.onActivity{key(it,code);key(it,KeyEvent.KEYCODE_ENTER)}
+        checkCapture("same-turn-${type.lowercase()}-callback") {
+            compose.waitUntil(3000){copied()!="activation-sentinel"}
+            assertEquals("New selection callback must run before activation, exactly once per item",
+                "Bravo|selected:Alpha,selected:Bravo|action:Bravo",copied())
+            if(type=="List") {
+                compose.onNodeWithTag("extension-row-1").assertIsSelected()
+                compose.onNodeWithTag("extension-row-0").assertIsNotSelected()
+            } else compose.onNodeWithTag("extension-grid-cell-1").assertIsSelected()
+        }
+    }
+    @Test fun listSelectionCallbackPrecedesSameTurnActivation()=callbackBeforeAction("List",KeyEvent.KEYCODE_DPAD_DOWN)
+    @Test fun gridSelectionCallbackPrecedesSameTurnActivation()=callbackBeforeAction("Grid",KeyEvent.KEYCODE_DPAD_RIGHT)
+}

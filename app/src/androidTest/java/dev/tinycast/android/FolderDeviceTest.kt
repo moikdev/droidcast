@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.KeyEvent
+import android.view.accessibility.AccessibilityNodeInfo
+import android.view.accessibility.AccessibilityWindowInfo
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -37,17 +39,59 @@ class FolderDeviceTest {
     private var grants = emptySet<Uri>()
     private var files = emptyMap<String, ByteArray>()
     private var fixtureCreated = false
+    private var originalAutomationFlags = 0
+    private var paletteCaptured = false
+    private var grantsCaptured = false
+    private var indexCaptured = false
     private lateinit var controller: FolderSearch
     private val scopes = mutableListOf<CoroutineScope>()
     private val directory get() = File(context.filesDir, "folder-search")
     private val rootName = "DroidcastFolderFixture"
+    private val chooserActions=org.json.JSONArray()
+    private fun clickViewerChooser(label:String,id:String?=null) {
+        val deadline=android.os.SystemClock.uptimeMillis()+7000
+        var clicked=false
+        try {
+            while(!clicked && android.os.SystemClock.uptimeMillis()<deadline) {
+                val automation=testAutomation();automation.clearCacheForTest()
+                val roots=automation.windows.asSequence().filter {
+                    it.type==AccessibilityWindowInfo.TYPE_APPLICATION && (it.isActive || it.isFocused)
+                }.mapNotNull { it.root }.filter { it.packageName?.toString()=="android" }.toList()
+                for(root in roots) {
+                    val matches=if(id!=null)root.findAccessibilityNodeInfosByViewId(id)
+                        else root.findAccessibilityNodeInfosByText(label)
+                    for(match in matches) {
+                        if(match.packageName?.toString()!="android" || !match.isVisibleToUser ||
+                            (if(id!=null)match.viewIdResourceName!=id else match.text?.toString()!=label))continue
+                        var target:AccessibilityNodeInfo?=match
+                        // Only the exact HTML Viewer choice may use its clickable
+                        // item container. Just once must be the exact button ID.
+                        while(id==null && target!=null && !target.isClickable && target.packageName?.toString()=="android")target=target.parent
+                        val eligible=target?.takeIf { it.packageName?.toString()=="android" && it.windowId==root.windowId &&
+                            it.isVisibleToUser && it.isEnabled && it.isClickable && (id==null || it.viewIdResourceName==id) }
+                        val accepted=eligible?.performAction(AccessibilityNodeInfo.ACTION_CLICK)==true
+                        chooserActions.put(org.json.JSONObject().put("label",label).put("id",id ?: org.json.JSONObject.NULL)
+                            .put("exact_android_window",true).put("eligible",eligible!=null).put("action_accepted",accepted))
+                        if(accepted){clicked=true;break}
+                    }
+                    if(clicked)break
+                }
+                if(!clicked)device.waitForIdle(200)
+            }
+            assertTrue("Exact Android viewer chooser control: $label",clicked)
+        } finally {
+            File(context.filesDir,"folder-evidence").apply{mkdirs()}.resolve("indexed-viewer-chooser-actions.json")
+                .writeText(org.json.JSONObject().put("actions",chooserActions).toString(2))
+        }
+    }
     @Before fun setup() {
+        originalAutomationFlags = androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags
         androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags = android.app.UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES
-        original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
-        grants = context.contentResolver.persistedUriPermissions.map { it.uri }.toSet()
+        original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap(); paletteCaptured = true
+        grants = context.contentResolver.persistedUriPermissions.map { it.uri }.toSet(); grantsCaptured = true
         compose.waitUntil(10000) { !compose.activity.store.folderSearch.loading }
         controller = compose.activity.store.folderSearch
-        files = directory.walkTopDown().filter { it.isFile }.associate { it.relativeTo(directory).path to it.readBytes() }
+        files = directory.walkTopDown().filter { it.isFile }.associate { it.relativeTo(directory).path to it.readBytes() }; indexCaptured = true
         compose.activityRule.scenario.onActivity { it.selectPage("folders") }
         assertFalse("Fixture path must be unused", device.executeShellCommand("ls /sdcard/Download").lineSequence().any { it == rootName })
         fixtureCreated = true
@@ -57,18 +101,22 @@ class FolderDeviceTest {
         writeFixture("Bundle.zip", "archive fixture")
     }
     @After fun restore() {
+      try {
         cancelPicker()
         scopes.forEach { it.cancel() }
-        compose.runOnUiThread { controller.cancelRefresh() }
-        context.contentResolver.persistedUriPermissions.filter { it.uri !in grants }.forEach {
+        if (this::controller.isInitialized) compose.runOnUiThread { controller.cancelRefresh() }
+        if (grantsCaptured) context.contentResolver.persistedUriPermissions.filter { it.uri !in grants }.forEach {
             context.contentResolver.releasePersistableUriPermission(it.uri, (if (it.isReadPermission) Intent.FLAG_GRANT_READ_URI_PERMISSION else 0) or (if (it.isWritePermission) Intent.FLAG_GRANT_WRITE_URI_PERMISSION else 0))
         }
-        directory.deleteRecursively(); files.forEach { (path, bytes) -> File(directory, path).apply { parentFile?.mkdirs(); writeBytes(bytes) } }
-        restorePalettePreferences(context, original)
+        if (indexCaptured) {
+            directory.deleteRecursively(); files.forEach { (path, bytes) -> File(directory, path).apply { parentFile?.mkdirs(); writeBytes(bytes) } }
+        }
+        if (paletteCaptured) restorePalettePreferences(context, original)
         if (fixtureCreated) device.executeShellCommand("rm -rf /sdcard/Download/$rootName")
+      } finally { androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags = originalAutomationFlags }
     }
     private fun writeFixture(path: String, body: String) {
-        val pipes = InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommandRw("tee /sdcard/Download/$rootName/$path")
+        val pipes = testAutomation().executeShellCommandRw("tee /sdcard/Download/$rootName/$path")
         android.os.ParcelFileDescriptor.AutoCloseOutputStream(pipes[1]).use { it.write(body.toByteArray()) }
         val echoed = android.os.ParcelFileDescriptor.AutoCloseInputStream(pipes[0]).bufferedReader().use { it.readText() }
         assertEquals(body, echoed)
@@ -88,7 +136,12 @@ class FolderDeviceTest {
         assertTrue(device.wait(Until.hasObject(By.textContains(marker)), 5000))
     }
     private fun clickText(text: String) {
-        val node = device.wait(Until.findObject(By.text(text)), 5000) ?: throw AssertionError("No picker control: $text")
+        val node = device.wait(Until.findObject(By.text(text)), 5000) ?: run {
+            val dir=File(context.filesDir,"folder-evidence").apply { mkdirs() }
+            device.dumpWindowHierarchy(File(dir,"picker-missing-control.xml"))
+            device.takeScreenshot(File(dir,"picker-missing-control.png"))
+            throw AssertionError("No picker control: $text")
+        }
         node.click(); device.waitForIdle()
     }
     private fun authorize() {
@@ -485,11 +538,21 @@ class FolderDeviceTest {
         assertTrue(device.takeScreenshot(File(dir, "search-result.png")))
         device.findObject(By.descStartsWith("Orbit-notes.txt.")).click()
         device.waitForIdle()
-        if (!device.hasObject(By.pkg("com.android.htmlviewer"))) {
-            device.wait(Until.findObject(By.text("HTML Viewer")), 3000)?.click()
-            device.wait(Until.findObject(By.text("Just once")), 3000)?.click()
+        val destination=By.pkg("com.android.htmlviewer").textContains(document.title)
+        val once=By.pkg("android").res("android:id/button_once")
+        // An older HTML Viewer task can be visible behind the resolver. Its
+        // package alone cannot certify this new document or skip approval.
+        if (!device.hasObject(destination) || device.hasObject(once)) {
+            if(device.wait(Until.hasObject(once),3000)) {
+                device.dumpWindowHierarchy(File(dir,"indexed-viewer-chooser.xml"))
+                assertTrue(device.takeScreenshot(File(dir,"indexed-viewer-chooser.png")))
+                val selected=By.pkg("android").text("Open with HTML Viewer")
+                if(!device.hasObject(selected))clickViewerChooser("HTML Viewer")
+                assertTrue("Only approve the selected HTML Viewer",device.wait(Until.hasObject(selected),3000))
+                clickViewerChooser("Just once","android:id/button_once")
+            }
         }
-        val viewerOpened = device.wait(Until.hasObject(By.pkg("com.android.htmlviewer")), 7000)
+        val viewerOpened = device.wait(Until.hasObject(destination), 7000)
         if (!viewerOpened) {
             device.dumpWindowHierarchy(File(dir, "failed-viewer.xml"))
             device.takeScreenshot(File(dir, "failed-viewer.png"))

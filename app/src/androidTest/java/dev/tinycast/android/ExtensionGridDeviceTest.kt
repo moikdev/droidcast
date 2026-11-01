@@ -108,7 +108,7 @@ class ExtensionGridDeviceTest {
         compose.activityRule.scenario.onActivity {
             val manager = it.getSystemService(ClipboardManager::class.java)
             clipboard = manager.primaryClip
-            manager.clearPrimaryClip() // Never include an existing clipboard suggestion in evidence.
+            manager.resetClipboardForTest() // Never include an existing clipboard suggestion in evidence.
         }
         compose.waitUntil(10000) { !compose.activity.store.loading }
     }
@@ -118,7 +118,7 @@ class ExtensionGridDeviceTest {
         restorePalettePreferences(context, original)
         val prefs = context.getSharedPreferences("extension-grid-renderer-fixture", Context.MODE_PRIVATE)
         val edit = prefs.edit().clear(); originalExtension.forEach { (key, value) -> if (value is String) edit.putString(key, value) }; assertTrue(edit.commit())
-        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); clipboard?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip() }
+        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); clipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest() }
         File(context.cacheDir, "extension-grid-fixture").deleteRecursively()
         File(context.filesDir, "grid-private-fixture.png").delete()
     }
@@ -154,14 +154,14 @@ class ExtensionGridDeviceTest {
         }
         if (name in setOf("filtered-copy", "caret-preserved", "reordered-selection", "keyboard-selected-visible", "store-palette-contrast", "store-legacy-oklch", "form-regression", "inline-filter-focus", "inline-preferences-return", "single-activation"))
             device.wait(Until.findObject(By.res("com.android.systemui", "dismiss_button")), 1500)
-        dismissClipboardForEvidence(device)
+        dismissClipboardForEvidence()
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         File(folder, "capture-state-$name.json").writeText(JSONObject()
             .put("route_before", captureRoute).put("route_after", compose.activity.store.dialog)
             .put("epoch_before", captureEpoch).put("epoch_after", compose.activity.store.extensions.launchEpoch).toString(2))
         assertEquals("Evidence collection must retain its extension route", captureRoute, compose.activity.store.dialog)
         assertEquals("Evidence collection must retain its command session", captureEpoch, compose.activity.store.extensions.launchEpoch)
-        InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+        testAutomation().clearCacheForTest()
         if (name != "image-errors") compose.waitUntil(10000) {
             val selected = compose.onAllNodes(isSelected()).fetchSemanticsNodes().firstOrNull { it.config.getOrElse(SemanticsProperties.TestTag) { "" }.startsWith("extension-grid-cell-") }
             if (selected == null) true else {
@@ -174,7 +174,7 @@ class ExtensionGridDeviceTest {
         val expectedCount = compose.onAllNodesWithTag("extension-grid-count").fetchSemanticsNodes().singleOrNull()?.config?.get(SemanticsProperties.Text)?.joinToString("") { it.text }
         val expectedQuery = if (expectedCount != null) compose.onNodeWithTag("extension-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text else null
         compose.waitUntil(10000) {
-            InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+            testAutomation().clearCacheForTest()
             val xml = File(folder, "$name.xml"); device.dumpWindowHierarchy(xml)
             val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
             val appNodes = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.filter { it.getAttribute("package") == context.packageName }
@@ -664,24 +664,66 @@ class ExtensionGridDeviceTest {
 
     private fun realGrid(query: String, name: String, command: String, expectedTag: String = "extension-grid", check: (InstalledExtension) -> Unit) {
         val catalog = compose.activity.store.extensions
-        assertFalse("Do not overwrite a preexisting installation", catalog.installed.any { it.listing.name == name })
+        val previousIds = catalog.installed.map { it.listing.id }.toSet()
+        val existing = catalog.installed.filter { it.listing.name == name }
+        assertTrue("Fixture source must be unambiguous", existing.size <= 1)
+        val original = existing.singleOrNull()
+        // Reading hashes stays inside the test; never emit preferences or
+        // extension-data content. The owned copy gets a separate storage ID.
+        fun snapshot(root: File): Map<String,String> = if (!root.exists()) emptyMap() else root.walkTopDown().associate { file ->
+            file.relativeTo(root).path to if (file.isDirectory) "directory" else MessageDigest.getInstance("SHA-256")
+                .digest(file.readBytes()).joinToString("") { "%02x".format(it) }
+        }
+        val preserved = original?.let { listOf(it.directory,
+            File(context.filesDir,"extension-data/${it.listing.id}"),
+            File(context.applicationInfo.dataDir,"shared_prefs/extension-${it.listing.id}.xml")) }.orEmpty()
+        val before = preserved.map(::snapshot)
         var installed: InstalledExtension? = null
+        var ownedCopy: File? = null
+        var isolatedId: String? = null
+        var record: JSONObject? = null
+        val evidence = File(context.filesDir,"extension-grid-evidence").apply { mkdirs() }.resolve("store-$name.json")
         try {
-            val listing = runBlocking { catalog.search(query).first { it.name == name } }
-            runBlocking { catalog.install(listing) }
-            installed = catalog.installed.single { it.listing.id == listing.id }
-            val record = JSONObject().put("name", name).put("id", installed.listing.id).put("source_url", installed.listing.sourceUrl).put("commit_sha", installed.listing.sha)
-                .put("command", command).put("command_sha256", MessageDigest.getInstance("SHA-256").digest(File(installed.directory, "$command.js").readBytes()).joinToString("") { "%02x".format(it) })
-            File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }.resolve("store-$name.json").writeText(record.toString(2))
-            compose.activityRule.scenario.onActivity { it.store.openExtension(installed, installed.commands.first { c -> c.name == command }) }
+            if (original != null) {
+                val id="test-real-"+java.util.UUID.randomUUID()
+                val copy=File(context.cacheDir,id)
+                assertFalse(copy.exists())
+                assertFalse(File(context.filesDir,"extension-data/$id").exists())
+                assertFalse(File(context.applicationInfo.dataDir,"shared_prefs/extension-$id.xml").exists())
+                ownedCopy=copy;isolatedId=id
+                assertTrue("Copy real installed code without replacing it",original.directory.copyRecursively(copy))
+                installed=InstalledExtension(original.listing.copy(id=id),copy,JSONObject(File(copy,"package.json").readText()))
+            } else {
+                val listing = runBlocking { catalog.search(query).first { it.name == name } }
+                runBlocking { catalog.install(listing) }
+                installed = catalog.installed.single { it.listing.id == listing.id }
+            }
+            val fixture=requireNotNull(installed)
+            record = JSONObject().put("name", name).put("id", fixture.listing.id).put("source_url", fixture.listing.sourceUrl).put("commit_sha", fixture.listing.sha)
+                .put("fixture_source",if(original==null)"fresh-store-install" else "isolated-copy-of-preexisting-store-code")
+                .put("source_id",original?.listing?.id ?: fixture.listing.id)
+                .put("command", command).put("command_sha256", MessageDigest.getInstance("SHA-256").digest(File(fixture.directory, "$command.js").readBytes()).joinToString("") { "%02x".format(it) })
+            evidence.writeText(record.toString(2))
+            compose.activityRule.scenario.onActivity { it.store.openExtension(fixture, fixture.commands.first { c -> c.name == command }) }
             compose.waitUntil(30000) { compose.onAllNodesWithTag(expectedTag).fetchSemanticsNodes().isNotEmpty() || catalog.runtimeError != null }
             assertNull(catalog.runtimeError, catalog.runtimeError)
             compose.onNodeWithTag(expectedTag).assertExists()
-            check(installed)
+            check(fixture)
         } finally {
             compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
             compose.waitForIdle()
-            installed?.let { runBlocking { catalog.uninstall(it) }; assertFalse(it.directory.exists()) }
+            if (original == null) {
+                installed?.let { runBlocking { catalog.uninstall(it) }; assertFalse(it.directory.exists()) }
+            } else {
+                ownedCopy?.let { it.deleteRecursively();assertFalse(it.exists()) }
+                isolatedId?.let {
+                    val support=File(context.filesDir,"extension-data/$it");support.deleteRecursively();assertFalse(support.exists())
+                    context.deleteSharedPreferences("extension-$it")
+                }
+                val unchanged=before==preserved.map(::snapshot) && previousIds==catalog.installed.map { it.listing.id }.toSet()
+                record?.let { it.put("preexisting_installation_preferences_and_data_preserved",unchanged);evidence.writeText(it.toString(2)) }
+                assertTrue("Existing installation, preferences and extension data must survive the isolated runtime check",unchanged)
+            }
         }
     }
     @Test fun realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown() = realGrid("palette colors", "palette-colors", "index") { installed ->
@@ -742,7 +784,7 @@ class ExtensionGridBaselineTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val fixture = gridFixture(context)
         var originalClip: android.content.ClipData? = null
-        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip = manager.primaryClip; manager.clearPrimaryClip() }
+        compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip = manager.primaryClip; manager.resetClipboardForTest() }
         try {
             compose.activityRule.scenario.onActivity { it.store.openExtension(fixture, fixture.commands.single()) }
             compose.waitUntil(25000) { compose.activity.store.extensions.runtimeTree != null }
@@ -753,7 +795,7 @@ class ExtensionGridBaselineTest {
         } finally {
             compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
             compose.waitForIdle()
-            compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip?.let(manager::setPrimaryClip) ?: manager.clearPrimaryClip() }
+            compose.activityRule.scenario.onActivity { val manager = it.getSystemService(ClipboardManager::class.java); originalClip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest() }
             fixture.directory.deleteRecursively(); File(context.filesDir, "grid-private-fixture.png").delete()
         }
     }

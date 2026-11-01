@@ -1,0 +1,65 @@
+{
+  "status": "WIP; not final candidate certification",
+  "captures": [
+    {
+      "image": "docs/screenshots/readiness-regressions/before-note-recreation.png",
+      "sha256": "8edf74995b9a7529d1857d41f4bb115a1e3f862577d28bd2754483c354be85c9",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "app_sha256": "e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00",
+      "test_sha256": "25449c83a7c9463c79530d85c0e961fc09e42945345a48d276e0dfa3173f72e2",
+      "origin_run": "regression-negative-tablet-v1",
+      "caption": "Lost new-note draft after recreation on released r10"
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/before-quicklink-recreation.png",
+      "sha256": "90c6288ce3bcd2de202b525bb52d70c50b4d51b1a52c8bdae4cdfa5e24737c0a",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "app_sha256": "e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00",
+      "test_sha256": "25449c83a7c9463c79530d85c0e961fc09e42945345a48d276e0dfa3173f72e2",
+      "origin_run": "regression-negative-tablet-v1",
+      "caption": "Lost quicklink draft after recreation on released r10"
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/before-rapid-list.png",
+      "sha256": "6bf3ca60ea4250db194afab6c681f2ca99d3e2cd38eb5c934c3cc464a91654d7",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "app_sha256": "e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00",
+      "test_sha256": "25449c83a7c9463c79530d85c0e961fc09e42945345a48d276e0dfa3173f72e2",
+      "origin_run": "regression-negative-tablet-v1",
+      "caption": "Prior List selection copied on released r10"
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/before-dormant-clear.png",
+      "sha256": "33ebcaebe9a38f141647d2cb5c54078c36fa97d2da3df5641a565493b40b59ea",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "app_sha256": "e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00",
+      "test_sha256": "ef93103cd4908231244b70ba8b1158ea1d2bf1f840febefe910fea5e9632ebb2",
+      "origin_run": "visibility-negative-tablet-v2",
+      "caption": "Clear clipped below the outer form viewport; the test only scrolled the inner list"
+    },
+    {
+      "image": "docs/screenshots/readiness-regressions/preliminary-note-recreation.png",
+      "sha256": "ffab1e477999b8a15bf27935c01d1aff3eb2fa7aa3aa67dcb074d859c7a16eed",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "app_sha256": "5f27984edebef127cd0c3a078f5ec2a39b93a81335af72cf6bf8f04c23581288",
+      "test_sha256": "dc1b2613e22da3378ddff0c7eb82d353ee797b9f962b00e7549bbb70fc578fb4",
+      "origin_run": "correction-tablet-v2",
+      "caption": "Preliminary candidate retains the new-note title after recreation; not the final ViewModel candidate"
+    }
+  ]
+}

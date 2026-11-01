@@ -112,9 +112,10 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
 @Composable
 private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
     val old = store.editing
-    var title by remember { mutableStateOf(old?.title.orEmpty()) }
-    var body by remember { mutableStateOf(old?.body.orEmpty()) }
-    var alias by remember { mutableStateOf(old?.alias.orEmpty()) }
+    val draft = remember(store, kind, old?.id, store.focusEpoch) { store.editorDraft(kind) }
+    var title by draft::title
+    var body by draft::body
+    var alias by draft::alias
     var error by remember { mutableStateOf<String?>(null) }
     val focus = remember { FocusRequester() }
     var fieldReady by remember { mutableStateOf(false) }

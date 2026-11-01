@@ -1,0 +1,3769 @@
+{
+  "schema": 2,
+  "scope": "emulator-only readiness checkpoint; no production clearance",
+  "implementation_commit": "944aca80afbddd042d937058d649b01aa92fcc6c",
+  "production_source_hashes": {
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "17468aa97e1a4add76d900290c729f8d6aadeac9301412a5680a3fd3622b1471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "f0ebd7a3a73d85358f0576dc6ce0360478ede8e50e5bc6e5420f17f4358a94ff",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "71bb48eea4f974b6b0121d8d40dc1793af81311e08f080b181c3aec19f07ecc8",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "1d095a81a390324441cf7d949b10faf5da2b3cbb0d6ead930d3ec71117cb5e52",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "92271f5714538a24b6708d27693dbb83f73e03976a9a980ed07c1e375c579ee9",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "adcbdb54dcbf737d03175df49e7b8dbebc729c0ed2bfe2b2859a9d8193946102",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a91fb619cd28a269caca5e21678b908e5c98b26c423e89c4ed1df8099fed3d85",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "3d4444b0b04a04d7ba4bf80658ed9418c9488ec81b45b13fe0fd793e5d01395b",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "799a52fd16509953ce09f5c731ee8c4bc485b0fe42fb0e05b52c881eb81fbcd9",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "2eea2634754415a4114ec8ea4e1976be95ad8fcaf52032688eed2e606df5d30e",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "344fbeef5d14d3935f835b847bcf296f9c666c62363023cc5e595e368176c955",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "97eef3e5aea3ce9c4e1fc6d16f56b0c485b2f56c96d9cd645f7dba767086b983",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "1812d4b313fcb62e5faf2667dcf9ab2d2c573e876173de47c7e07e48498fb48e",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca"
+  },
+  "current_native_source_hashes": {
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "1e0338e2863ad8265ebbf903d175738d2559ff1794c997d376b8a828af17be85",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "5460f36a3ebd143501fbf56cfaac679fd26628ded35d9a01eb4c0a99cdd0c3bc",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "b2927603fb3b176e6e0a0b3e8483e8249b4a5abcad6fa566e2fe40899cd5522b",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "9addd19f0e16382eccc5c553f01c9d4fc657289b2197456eb5d785c8b81c6a8a",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "55ce8de2228082e9ea7cd98f9434b83d00fc352bc77f8936449b18ced7de7a6c",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "cf776775018fb266e55732442483b71fb26fbf60ba1673041472df4a4a49226a",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895"
+  },
+  "test_apk_variants": {
+    "final-harness-v1": {
+      "identity_sha256": "518a65e152bfb17de2448aa01c908277c141a337a614a50338ca64f2efb62e72",
+      "apk_sha256": "d186d25828de6de3b9da15fbfd04fcdbced788c9a926e05b3ab612f92ad26451",
+      "identity": {
+        "production_implementation": "944aca80afbddd042d937058d649b01aa92fcc6c",
+        "test_sha256": "d186d25828de6de3b9da15fbfd04fcdbced788c9a926e05b3ab612f92ad26451",
+        "sources": {
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "ac3abd515ab88b6124d84c620ca9558b61561ffce96180bfc3ba66ba082a73db",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "64653a55f7a9e7d041e483d29e94c2d442bdbaf1814ac104b8ddf5eb652d781b",
+          "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "92116b03436ee1d9b2dae2dca9bb50a2f03ee846e616eec86d24e0cd1019f783",
+          "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "fc936342096dd347491bdd3f7131ec5ad20e336d11b7534623822cdc392f4db2",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+          "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "659a090440d5aadc8dbb6882444b1328c1c9436d085e481ed201c48ff7882dd4",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "7e5297883aae164164268ba2853eca23dfaecfb5aa29e978269d94da0f5e213f",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "8fa63910457b93d75a2f344571fdc2311beda7e55280c831b442e321a20c6c45",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+          "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "f777b4977f7009b9213a79161ea2aa025fd8e3fff6aab326ebd1b9332102eb25",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "3b48c22f36bfa450f71f2b36a0a80fedae151ffced5ef625fa8c97e2c1bc44bd",
+          "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "809aab039b8b551b101c629aaf38861fe15168ffd8eb91bb98ffd938cc1946b7",
+          "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "6c58fa0283153600de2ecf106d25787eb2374f1550ddac3a30bf2a1ceef3153c",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "f3d4c5b455ec8a4c53a91c152e588f3158523312c89dae35ad8971e8e53f17e5",
+          "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "48600a72a0b7beaa71309d26b223cdcb2813c709797574de47a2b6ef6a20b125",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "fc57ffc74d99161ac8dade3549291e756f88e79a13774041bb7dfdea3f27c6a0",
+          "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+          "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "e2169a16397e8661883f74214f1caf3819f2269fdd300d785e7f8357571dd81b",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "229d75a1ed1c22b26dac6bd2b7c8560a4f2000862479ceb542c8a85727ab3b18",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b"
+        }
+      },
+      "scope": "Original 159-case broad and 16-case focused suites; before native document and fourth clipboard case."
+    },
+    "final-harness-v3": {
+      "identity_sha256": "e2baece18255ec3d1f646ae459e40269ca284f442684ab22c6e452aeb6a5a553",
+      "apk_sha256": "6d826b8067021a292e9681198f3381e953d3317aa723a18c3f6f251a61308b89",
+      "identity": {
+        "implementation_commit": "944aca80afbddd042d937058d649b01aa92fcc6c",
+        "test_sha256": "6d826b8067021a292e9681198f3381e953d3317aa723a18c3f6f251a61308b89",
+        "sources": {
+          "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "64653a55f7a9e7d041e483d29e94c2d442bdbaf1814ac104b8ddf5eb652d781b",
+          "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "fc936342096dd347491bdd3f7131ec5ad20e336d11b7534623822cdc392f4db2",
+          "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "48600a72a0b7beaa71309d26b223cdcb2813c709797574de47a2b6ef6a20b125",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "eaea732791752ea4955826af460288adb0a7efc2109c9318fbe4f53f70045854",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "c7f3f2d29d76ec4efe1593182fc51a87996541f1972a262c408999cc1ef19d3d",
+          "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+          "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "e2169a16397e8661883f74214f1caf3819f2269fdd300d785e7f8357571dd81b",
+          "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "ac3abd515ab88b6124d84c620ca9558b61561ffce96180bfc3ba66ba082a73db",
+          "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+          "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "6c58fa0283153600de2ecf106d25787eb2374f1550ddac3a30bf2a1ceef3153c",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "f777b4977f7009b9213a79161ea2aa025fd8e3fff6aab326ebd1b9332102eb25",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "92116b03436ee1d9b2dae2dca9bb50a2f03ee846e616eec86d24e0cd1019f783",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "8fa63910457b93d75a2f344571fdc2311beda7e55280c831b442e321a20c6c45",
+          "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "f233e3dcd85fdf0d79e5d7c58524150179754cf0d5bd578609e29884abe89f30",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "809aab039b8b551b101c629aaf38861fe15168ffd8eb91bb98ffd938cc1946b7",
+          "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+          "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "659a090440d5aadc8dbb6882444b1328c1c9436d085e481ed201c48ff7882dd4",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "3b48c22f36bfa450f71f2b36a0a80fedae151ffced5ef625fa8c97e2c1bc44bd",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "f3d4c5b455ec8a4c53a91c152e588f3158523312c89dae35ad8971e8e53f17e5",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "229d75a1ed1c22b26dac6bd2b7c8560a4f2000862479ceb542c8a85727ab3b18"
+        }
+      },
+      "scope": "Controlled minimized/no-Dismiss helper fixture; excludes initial fixture with Dismiss present."
+    },
+    "final-harness-v5": {
+      "identity_sha256": "abd200b1b99615975b738932659bffdfe6e266df3d36f5e126a566382d9d7a69",
+      "apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "identity": {
+        "implementation_commit": "944aca80afbddd042d937058d649b01aa92fcc6c",
+        "test_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+        "sources": {
+          "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+          "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+          "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "1e0338e2863ad8265ebbf903d175738d2559ff1794c997d376b8a828af17be85",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "5460f36a3ebd143501fbf56cfaac679fd26628ded35d9a01eb4c0a99cdd0c3bc",
+          "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+          "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "b2927603fb3b176e6e0a0b3e8483e8249b4a5abcad6fa566e2fe40899cd5522b",
+          "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "9addd19f0e16382eccc5c553f01c9d4fc657289b2197456eb5d785c8b81c6a8a",
+          "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+          "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "55ce8de2228082e9ea7cd98f9434b83d00fc352bc77f8936449b18ced7de7a6c",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "cf776775018fb266e55732442483b71fb26fbf60ba1673041472df4a4a49226a",
+          "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+          "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+          "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592"
+        }
+      },
+      "scope": "51-case affected suites, assistant, hardware, self-update and 33-case legacy runtime cohort; SDK helpers and actual one-time viewer chooser."
+    },
+    "diagnostic-harness-v6": {
+      "identity_sha256": "4576f75e13850906b0c59112f810f49c8e455603394999c4cccee5db86805f6c",
+      "apk_sha256": "b0ac66dda16b464a929acd3eb90aae17e9943c774f0f9adfd44debd03c6d1aaa",
+      "identity": {
+        "test_sha256": "b0ac66dda16b464a929acd3eb90aae17e9943c774f0f9adfd44debd03c6d1aaa",
+        "unchanged_v5_sources": {
+          "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+          "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+          "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "1e0338e2863ad8265ebbf903d175738d2559ff1794c997d376b8a828af17be85",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "5460f36a3ebd143501fbf56cfaac679fd26628ded35d9a01eb4c0a99cdd0c3bc",
+          "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+          "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "b2927603fb3b176e6e0a0b3e8483e8249b4a5abcad6fa566e2fe40899cd5522b",
+          "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "9addd19f0e16382eccc5c553f01c9d4fc657289b2197456eb5d785c8b81c6a8a",
+          "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+          "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "55ce8de2228082e9ea7cd98f9434b83d00fc352bc77f8936449b18ced7de7a6c",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "cf776775018fb266e55732442483b71fb26fbf60ba1673041472df4a4a49226a",
+          "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+          "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+          "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592"
+        },
+        "only_added_source": {
+          "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895"
+        }
+      },
+      "scope": "Diagnostic addition only; all v5 test sources unchanged. Diagnostic completion is not functional certification."
+    },
+    "diagnostic-harness-v7": {
+      "identity_sha256": "0af1738c7b31b83b5abb5938068120c71a6ce8037f1d2a7d4ab00a8b152db7b7",
+      "apk_sha256": "058940435fa77b97d471a8b553b289e581b5477f48bf9cc2da24c808b1e30014",
+      "identity": {
+        "test_sha256": "058940435fa77b97d471a8b553b289e581b5477f48bf9cc2da24c808b1e30014",
+        "unchanged_v5_sources": {
+          "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+          "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+          "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "1e0338e2863ad8265ebbf903d175738d2559ff1794c997d376b8a828af17be85",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "5460f36a3ebd143501fbf56cfaac679fd26628ded35d9a01eb4c0a99cdd0c3bc",
+          "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+          "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "b2927603fb3b176e6e0a0b3e8483e8249b4a5abcad6fa566e2fe40899cd5522b",
+          "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "9addd19f0e16382eccc5c553f01c9d4fc657289b2197456eb5d785c8b81c6a8a",
+          "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+          "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "55ce8de2228082e9ea7cd98f9434b83d00fc352bc77f8936449b18ced7de7a6c",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "cf776775018fb266e55732442483b71fb26fbf60ba1673041472df4a4a49226a",
+          "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+          "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+          "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592"
+        },
+        "diagnostic_sources": {
+          "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "b03b8722197138cdc78fe3e0cba3f0f08757756d6d37b87671e99e84fcc15a22",
+          "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895"
+        }
+      },
+      "scope": "Diagnostic addition only; all v5 test sources unchanged. Diagnostic completion is not functional certification."
+    },
+    "diagnostic-harness-v8": {
+      "identity_sha256": "bdf0eeeae6883aca9f04969646afaf41abcf9992c587df772ad599fe3e11982c",
+      "apk_sha256": "27ec0862a12634bbc13cc990562fb0eafa48416d670ed9805a545a5c85bbf8ff",
+      "identity": {
+        "test_sha256": "27ec0862a12634bbc13cc990562fb0eafa48416d670ed9805a545a5c85bbf8ff",
+        "unchanged_v5_sources": {
+          "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+          "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+          "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "1e0338e2863ad8265ebbf903d175738d2559ff1794c997d376b8a828af17be85",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "5460f36a3ebd143501fbf56cfaac679fd26628ded35d9a01eb4c0a99cdd0c3bc",
+          "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+          "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "b2927603fb3b176e6e0a0b3e8483e8249b4a5abcad6fa566e2fe40899cd5522b",
+          "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "9addd19f0e16382eccc5c553f01c9d4fc657289b2197456eb5d785c8b81c6a8a",
+          "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+          "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "55ce8de2228082e9ea7cd98f9434b83d00fc352bc77f8936449b18ced7de7a6c",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "cf776775018fb266e55732442483b71fb26fbf60ba1673041472df4a4a49226a",
+          "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+          "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+          "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592"
+        },
+        "diagnostic_sources": {
+          "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "efc36e15dcb91eeda41f14f4c2cf4aa008226af83e14ede53dae4b506952c462",
+          "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895"
+        }
+      },
+      "scope": "Diagnostic addition only; all v5 test sources unchanged. Diagnostic completion is not functional certification."
+    },
+    "diagnostic-harness-v9": {
+      "identity_sha256": "ae97ba87d1b946a3d735a30c529b2c4af8587a960d2d361a5e09915cf5cf76c5",
+      "apk_sha256": "4e1741b9f7409097ef045c969531e9f0db8f2f55c1d58720bb85ae5e78e41cf1",
+      "identity": {
+        "test_sha256": "4e1741b9f7409097ef045c969531e9f0db8f2f55c1d58720bb85ae5e78e41cf1",
+        "unchanged_v5_sources": {
+          "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+          "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+          "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+          "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "1e0338e2863ad8265ebbf903d175738d2559ff1794c997d376b8a828af17be85",
+          "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "5460f36a3ebd143501fbf56cfaac679fd26628ded35d9a01eb4c0a99cdd0c3bc",
+          "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "e0b5f681c7057ef3d4bb17b7085c5818447c6a29f9f44f551c55ae83d2cbcfc7",
+          "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "b2927603fb3b176e6e0a0b3e8483e8249b4a5abcad6fa566e2fe40899cd5522b",
+          "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+          "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "9addd19f0e16382eccc5c553f01c9d4fc657289b2197456eb5d785c8b81c6a8a",
+          "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "531f18d30fc785db43a6e797f435618ba1aa598139c8d7d6514ffcca5b54b6dd",
+          "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "55ce8de2228082e9ea7cd98f9434b83d00fc352bc77f8936449b18ced7de7a6c",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+          "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+          "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+          "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "cf776775018fb266e55732442483b71fb26fbf60ba1673041472df4a4a49226a",
+          "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+          "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+          "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+          "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+          "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+          "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592"
+        },
+        "diagnostic_sources": {
+          "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+          "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895"
+        }
+      },
+      "scope": "Diagnostic addition only; all v5 test sources unchanged. Diagnostic completion is not functional certification."
+    }
+  },
+  "unit": {
+    "passed": 145,
+    "cases": [
+      "dev.tinycast.android.BackupPlannerTest#conflictingEffectiveAliasesRejectTheWholePlan",
+      "dev.tinycast.android.BackupPlannerTest#clipMergeCannotSilentlyTrimExistingData",
+      "dev.tinycast.android.BackupPlannerTest#preferencesMergeKeepsExistingOverridesAndRank",
+      "dev.tinycast.android.BackupPlannerTest#noOrUnavailableCategoryCannotBeApplied",
+      "dev.tinycast.android.BackupPlannerTest#deduplicatedContentRemapsItsKeyboardBinding",
+      "dev.tinycast.android.BackupPlannerTest#remappedAliasesCannotSilentlyDiscardConflictingValues",
+      "dev.tinycast.android.BackupPlannerTest#remappedRankingUsesMaximumRatherThanInputOrder",
+      "dev.tinycast.android.BackupPlannerTest#contentDuplicatesRemapPinsAliasesAndLearning",
+      "dev.tinycast.android.BackupPlannerTest#oldBackupOrUnselectedShortcutCategoryKeepsCurrentBindings",
+      "dev.tinycast.android.BackupPlannerTest#remappingCannotDiscardDistinctKeyboardBindings",
+      "dev.tinycast.android.BackupPlannerTest#preservedDocumentBindingsBlockCollisionsForMergeAndReplace",
+      "dev.tinycast.android.BackupPlannerTest#replacementTouchesOnlySelectedCategories",
+      "dev.tinycast.android.BackupPlannerTest#identityWinsWhenAnEarlierItemAlsoMatchesIncomingContent",
+      "dev.tinycast.android.BackupPlannerTest#mergeIsIdempotentAndKeepsConflictingIdentity",
+      "dev.tinycast.android.BackupPlannerTest#preservedDocumentModifierSidesBlockOverlapsButAllowDistinctSides",
+      "dev.tinycast.android.CommandEngineTest#constantsCanImmediatelyPrecedeAsciiMultiplication",
+      "dev.tinycast.android.CommandEngineTest#knownConstantOperandsDoNotNeedADecimalDigitAndWordsStillFail",
+      "dev.tinycast.android.CommandEngineTest#xInWordsAndIncompleteExpressionsRemainSearches",
+      "dev.tinycast.android.CommandEngineTest#rightAssociativePower",
+      "dev.tinycast.android.CommandEngineTest#pinsLeadEmptyQuery",
+      "dev.tinycast.android.CommandEngineTest#exactAndPrefixRankAboveSubsequence",
+      "dev.tinycast.android.CommandEngineTest#arithmeticPrecedence",
+      "dev.tinycast.android.CommandEngineTest#exactAliasWins",
+      "dev.tinycast.android.CommandEngineTest#functions",
+      "dev.tinycast.android.CommandEngineTest#xMultiplicationRetainsPrecedenceAndFunctionNames",
+      "dev.tinycast.android.CommandEngineTest#refusesOversizedExpression",
+      "dev.tinycast.android.CommandEngineTest#arithmeticOperatorsTriggerRootCalculation",
+      "dev.tinycast.android.CommandEngineTest#invalidMathDoesNotCrashOrProduceNan",
+      "dev.tinycast.android.CommandEngineTest#localeIndependentOutput",
+      "dev.tinycast.android.CommandEngineTest#stableOrderingAndUsage",
+      "dev.tinycast.android.CommandEngineTest#explicitCalculatorModeAcceptsNumbers",
+      "dev.tinycast.android.CommandEngineTest#unaryMinusPrecedence",
+      "dev.tinycast.android.CommandEngineTest#convertsTimeAndData",
+      "dev.tinycast.android.CommandEngineTest#functionsConstantsAndConversionsKeepTheirIntentionalSearchBehavior",
+      "dev.tinycast.android.CommandEngineTest#percentages",
+      "dev.tinycast.android.CommandEngineTest#multiplicationDisplayUsesTheRealSymbolAndKeepsResultsNumeric",
+      "dev.tinycast.android.CommandEngineTest#convertsTemperature",
+      "dev.tinycast.android.CommandEngineTest#calculatorPrefixAndUnicodeOperators",
+      "dev.tinycast.android.CommandEngineTest#ordinaryNumbersRemainRootSearches",
+      "dev.tinycast.android.CommandEngineTest#rejectsIncompatibleUnits",
+      "dev.tinycast.android.CommandEngineTest#convertsLength",
+      "dev.tinycast.android.CommandEngineTest#fuzzySubsequenceMatches",
+      "dev.tinycast.android.EmojiCatalogTest#filtersFavoritesAndRecentsHaveDeterministicOrder",
+      "dev.tinycast.android.EmojiCatalogTest#namesAliasesKeywordsAndMultipleWordsAreSearchable",
+      "dev.tinycast.android.EmojiCatalogTest#malformedCatalogsAreRejected",
+      "dev.tinycast.android.EmojiCatalogTest#bundledCatalogPreservesSequencesAndStableIdentities",
+      "dev.tinycast.android.EmojiCatalogTest#exactMatchesOutrankHistoryAndRecentIsBoundedWithoutDuplicates",
+      "dev.tinycast.android.ExtensionGridContractTest#initialRemoteRequestWinsOverTheAutomaticFallback",
+      "dev.tinycast.android.ExtensionGridContractTest#emptySectionsDoNotAddSlotsAndTitledSectionsKeepOneHeading",
+      "dev.tinycast.android.ExtensionGridContractTest#aNewOrRemovedRequestReplacesThePendingOne",
+      "dev.tinycast.android.ExtensionGridContractTest#missingRequestRemainsPendingUntilItsItemArrives",
+      "dev.tinycast.android.ExtensionGridContractTest#aRemovedLocalItemFallsBackWithoutResurrectingAnAppliedRequest",
+      "dev.tinycast.android.ExtensionGridContractTest#changedRemoteRequestWinsOverAnExistingSelection",
+      "dev.tinycast.android.ExtensionGridContractTest#anAppliedRequestDoesNotUndoLocalNavigation",
+      "dev.tinycast.android.ExtensionGridContractTest#untitledSectionsHaveAFullSpanBoundaryAfterTheFirstSection",
+      "dev.tinycast.android.ExtensionGridNavigationTest#sectionHeadersAndRaggedRowsDoNotStealSelection",
+      "dev.tinycast.android.ExtensionGridNavigationTest#homeEndEmptyAndStaleIndicesAreSafe",
+      "dev.tinycast.android.ExtensionGridNavigationTest#assetsResolveInsidePackageAndEscapesAreRejected",
+      "dev.tinycast.android.ExtensionGridNavigationTest#aspectRatiosUseOnlySupportedFiniteValues",
+      "dev.tinycast.android.ExtensionGridNavigationTest#adaptiveColumnsRespectUsableTouchWidth",
+      "dev.tinycast.android.ExtensionGridNavigationTest#fourWayNavigationUsesVisualRowsAndClampsEdges",
+      "dev.tinycast.android.ExtensionHttpTest#plaintextIsRejectedBeforeCreatingATransport",
+      "dev.tinycast.android.ExtensionHttpTest#boundedBodyAlwaysClosesTheConnection",
+      "dev.tinycast.android.ExtensionHttpTest#cancellationDisconnectsAReadThatIgnoresThreadInterruption",
+      "dev.tinycast.android.ExtensionHttpTest#credentialRedirectCannotChangePorts",
+      "dev.tinycast.android.ExtensionHttpTest#absoluteDeadlineStopsAStreamThatKeepsDeliveringBytes",
+      "dev.tinycast.android.ExtensionHttpTest#repeatedCommandScopeCancellationReleasesEveryTransport",
+      "dev.tinycast.android.ExtensionHttpTest#completedResponseContainsNoLiveConnection",
+      "dev.tinycast.android.FolderGrantTransactionTest#cancellationDuringThePostCommitReadKeepsTheSavedFoldersGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#failedConfigurationWriteRollsBackTheNewGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#cancellationCannotReleaseAPreexistingReadGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#failedRemovalWriteRetainsTheGrantForTheExistingConfiguration",
+      "dev.tinycast.android.FolderGrantTransactionTest#cancellationWhenCommitReturnsKeepsTheSavedFoldersGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#cancellationWhenRemovalReturnsCannotSkipItsGrantRelease",
+      "dev.tinycast.android.FolderGrantTransactionTest#cancellationWhenAcquisitionReturnsRollsBackTheNewGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#successfulCommitTransfersOwnershipToTheConfiguration",
+      "dev.tinycast.android.FolderGrantTransactionTest#cancellationBeforeTakingDoesNotAcquireOrReleaseAGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#cancelledRemovalBeforeTheWriteRetainsTheExistingGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#replacementReaderCannotSeeTheGrantBeforeValidationRollback",
+      "dev.tinycast.android.FolderGrantTransactionTest#failedValidationRollsBackOnlyTheNewGrant",
+      "dev.tinycast.android.FolderGrantTransactionTest#unknownPostRenameResultRetainsTheGrantBeforeReplacementReads",
+      "dev.tinycast.android.FolderIndexTest#resultsAreBoundedAndQueriesCanBeCancelled",
+      "dev.tinycast.android.FolderIndexTest#identityUsesProviderAndPersistentDocumentId",
+      "dev.tinycast.android.FolderIndexTest#typesRespectDirectoriesAndNativeMime",
+      "dev.tinycast.android.FolderIndexTest#hiddenNamesRankAfterVisibleNamesAtEqualScore",
+      "dev.tinycast.android.FolderIndexTest#filenameMatchesOutrankPathOnlyMatches",
+      "dev.tinycast.android.FolderIndexTest#overlappingScopesDoNotDuplicateAnIdentity",
+      "dev.tinycast.android.FolderIndexTest#emptySearchUsesModifiedDateWithStableOrdering",
+      "dev.tinycast.android.ModifierTapTest#imeWindowChangeDoesNotCancelButAppAndUnknownWindowsDo",
+      "dev.tinycast.android.ModifierTapTest#malformedModifierIdentitiesFailClosed",
+      "dev.tinycast.android.ModifierTapTest#repeatsCancelFirstAndSecondTap",
+      "dev.tinycast.android.ModifierTapTest#bindingAndConnectionEpochChangesDiscardEarlierTap",
+      "dev.tinycast.android.ModifierTapTest#twoCompletePairsDispatchExactlyOnceOnSecondRelease",
+      "dev.tinycast.android.ModifierTapTest#sideConflictsAreRejectedAcrossTargetsWithoutRejectingDistinctSides",
+      "dev.tinycast.android.ModifierTapTest#ordinaryTypingAndChordsCancelBothBeforeAndDuringSecondPress",
+      "dev.tinycast.android.ModifierTapTest#delayedWindowNotificationBeforeFirstKeyAlsoPreservesAnInProgressFirstPress",
+      "dev.tinycast.android.ModifierTapTest#simultaneousModifiersAndAdditionalMetaStateCancel",
+      "dev.tinycast.android.ModifierTapTest#ordinaryCtrlChordDownAndUpStillPassThroughTheChordEngine",
+      "dev.tinycast.android.ModifierTapTest#exactlyOneOfServiceAndForegroundObserversCanDispatchTheSameEvents",
+      "dev.tinycast.android.ModifierTapTest#missingMismatchedAndDuplicateReleasesCannotActivate",
+      "dev.tinycast.android.ModifierTapTest#inclusiveTimingBoundariesAreDeterministic",
+      "dev.tinycast.android.ModifierTapTest#allFourModifierFamiliesAndBothSidesHaveStableIdentities",
+      "dev.tinycast.android.ModifierTapTest#enteringAndLeavingRecorderWithoutKeyEventsStillDiscardsEarlierTap",
+      "dev.tinycast.android.ModifierTapTest#differentDeviceOrDifferentPhysicalModifierCannotCompleteAPair",
+      "dev.tinycast.android.ModifierTapTest#delayedOldWindowNotificationCannotCancelNewerKeysFromCapturedTrace",
+      "dev.tinycast.android.ModifierTapTest#cancellationStaleDeliveryAndNonmonotonicTimesClearPendingGesture",
+      "dev.tinycast.android.ModifierTapTest#windowChangesDuringEitherTapStillCancelIncludingUnknownAndEqualTime",
+      "dev.tinycast.android.ModifierTapTest#eitherSideAndSpecificSideDispatchUseTheActualPersistedIdentity",
+      "dev.tinycast.android.ModifierTapTest#explicitResetDiscardsPartialGestureAcrossFocusConfigurationOrConnectionChanges",
+      "dev.tinycast.android.ModifierTapTest#pauseAndOwnershipTransferNeverCompleteAPartialTap",
+      "dev.tinycast.android.ModifierTapTest#holdsAndTooSlowSecondPressNeverDispatch",
+      "dev.tinycast.android.PaletteMenuOwnershipTest#focusedMenuTransitionInvalidatesAnInProgressPairOnlyOnce",
+      "dev.tinycast.android.PaletteMenuOwnershipTest#inactiveCleanupDoesNotCancelKeysInTheNewWindow",
+      "dev.tinycast.android.PaletteMenuOwnershipTest#outgoingOwnerCannotCloseOrDetachReplacementMenu",
+      "dev.tinycast.android.PaletteScrollHistoryTest#detachedLayoutDoesNotScrollOrForgetTheLastMeasuredViewport",
+      "dev.tinycast.android.ShortcutReadinessTest#reconnectEpochRejectsAProbeEvenWithoutAnIntermediateFrame",
+      "dev.tinycast.android.ShortcutReadinessTest#armedRoutingRejectsStaleConnectionsAndExpiredOrDifferentChords",
+      "dev.tinycast.android.ShortcutReadinessTest#absentChordUnknownApprovalAndDisconnectStayExplicit",
+      "dev.tinycast.android.ShortcutReadinessTest#deadlinesRejectLateEventsAndOldTimeoutsDoNotExpireNewChecks",
+      "dev.tinycast.android.ShortcutReadinessTest#onlyTheFilteredCurrentPaletteChordCanCompleteACheckOnce",
+      "dev.tinycast.android.ShortcutReadinessTest#aSavedChordAndApprovalAloneDoNotClaimReadiness",
+      "dev.tinycast.android.ShortcutReadinessTest#cancelRemovesTheExpectedChordAndRejectsLateResults",
+      "dev.tinycast.android.ShortcutReadinessTest#lateDisconnectCannotClearANewerServiceConnection",
+      "dev.tinycast.android.ShortcutReadinessTest#changedAndClearedBindingsInvalidateTheCheck",
+      "dev.tinycast.android.ShortcutTest#duplicateBindingsAndEphemeralTargetsAreRejected",
+      "dev.tinycast.android.ShortcutTest#devicesAreTrackedSeparatelyAndDisconnectedDevicesAreCleared",
+      "dev.tinycast.android.ShortcutTest#matchingDownAndUpAreConsumedEvenAfterModifiersAreReleased",
+      "dev.tinycast.android.ShortcutTest#invocationTokensAreOneUseAndExpireBeforeAndAfterConsumption",
+      "dev.tinycast.android.ShortcutTest#outstandingInvocationTokensAreBounded",
+      "dev.tinycast.android.ShortcutTest#plainTypingAndSystemOrEditorConflictsAreRejected",
+      "dev.tinycast.android.ShortcutTest#recordingPauseAndRebindingPreserveAlreadyConsumedReleases",
+      "dev.tinycast.android.ShortcutTest#defaultAndDisabledConfigurationsAreValid",
+      "dev.tinycast.android.ShortcutTest#unrelatedTypingAndUnboundChordsPassBothEnds",
+      "dev.tinycast.android.ShortcutTest#freshPressRecoversFromLostReleaseWithoutSwallowingTyping",
+      "dev.tinycast.android.ShortcutTest#repeatsNeverDispatchAnotherCommandOrCaptureAnUnmatchedHold",
+      "dev.tinycast.android.SystemSettingsTest#searchFindsSpecificDestinations",
+      "dev.tinycast.android.SystemSettingsTest#catalogHasNoDuplicateOrReservedIdsOrNewAliases",
+      "dev.tinycast.android.SystemSettingsTest#onlyAppSpecificTargetsRequirePackageArguments",
+      "dev.tinycast.android.TinycastGridParityTest#verticalNavigationMatchesTinycastAcrossSectionsAndRaggedRows",
+      "dev.tinycast.android.UpdatePolicyTest#onlyExplicitApprovedHttpsRedirectHostsAreAccepted",
+      "dev.tinycast.android.UpdatePolicyTest#candidateRequiresOneBoundedMatchingAsset",
+      "dev.tinycast.android.UpdatePolicyTest#checksumMustMatchExactlyOneFilename",
+      "dev.tinycast.android.UpdatePolicyTest#releaseCannotRedirectDiscoveryToAnotherRepoOrPrivateHost",
+      "dev.tinycast.android.UpdatePolicyTest#exactSignerAndStrictlyNewerArchiveAreRequired",
+      "dev.tinycast.android.UpdatePolicyTest#manifestRejectsWrongPackageSchemaOrInvalidIdentity"
+    ],
+    "reports": [
+      {
+        "name": "TEST-dev.tinycast.android.BackupPlannerTest.xml",
+        "sha256": "d90456374c571b216e11dcb9269a945659830244b703bfb7bd186d8dcdf2ec1b"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.CommandEngineTest.xml",
+        "sha256": "f38603a3d2ce4392e749b4dd6b81fb699daf7b5d7144461d06f347a79651b2dd"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.EmojiCatalogTest.xml",
+        "sha256": "9bd22f414322fa72a50d1d6af3e281067616115e6668e0327136e88254d8f01b"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.ExtensionGridContractTest.xml",
+        "sha256": "658cb3754352e98830ad969915b0c3050759d14837ed1ce2cf311eaa787ab61c"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.ExtensionGridNavigationTest.xml",
+        "sha256": "7c1355d4f101cfd97a800b4e82fc6f55ebfb0eca27882ce4942db9d2f99d585e"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.ExtensionHttpTest.xml",
+        "sha256": "96b03f936725b7b73ec92feb17c63bcb2ebe52d213229eb77e353fdb7efba9da"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.FolderGrantTransactionTest.xml",
+        "sha256": "fafebe16661c66424b521c9823a194db320741359ca39d7a134bf81290a8c2da"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.FolderIndexTest.xml",
+        "sha256": "2f3abe3a268349512928bc0d700d2569b1148fe684716a276b28414c7078fc6d"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.ModifierTapTest.xml",
+        "sha256": "5f3548bce3c29fa9532987f85c3dbd9f5a394b5ca4c122e2e2adbb0cc8277162"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.PaletteMenuOwnershipTest.xml",
+        "sha256": "a0fb79c2e6b40304dc6d8e308bf7291fc47bdfd3892396bcfa313bc50dac8e77"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.PaletteScrollHistoryTest.xml",
+        "sha256": "e64eb4f6fc0d7e09cb573d72c6597b5bb584006fe8450328c3c7ccab32802da7"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.ShortcutReadinessTest.xml",
+        "sha256": "5754b237ea4e0b79880f65f0cdd89d7434af44f14f0862b52c82a5eac8631ee6"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.ShortcutTest.xml",
+        "sha256": "60b4bda42a95a7351565a8a651be0edb655d19d81515375d593039c9171620b0"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.SystemSettingsTest.xml",
+        "sha256": "e52f9bc992fc7230af1e39bd74be72a1f9389f58faa99fe93c69598803ee5c5d"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.TinycastGridParityTest.xml",
+        "sha256": "f6d0755e62e8b68cdd101d880b308cca511195738c4a051df14782f7ff68f56e"
+      },
+      {
+        "name": "TEST-dev.tinycast.android.UpdatePolicyTest.xml",
+        "sha256": "b494b5c9883383c571e66d087ff382424a5008762d8028851afe194a8282b026"
+      }
+    ]
+  },
+  "broad_native": {
+    "tablet": {
+      "run": "final-full-v1-tablet",
+      "record_sha256": "e8d152e9780be4769325104fbcfcc91bbedbb77e99459b7c69b94086d49948b7",
+      "native_log_sha256": "48e108e26b7cdb91019beb27b0e5d8317e8d79264e63b47a6beef0176d29ed2c",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "d186d25828de6de3b9da15fbfd04fcdbced788c9a926e05b3ab612f92ad26451",
+      "completed": true,
+      "expected": 159,
+      "passes": 159,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "update-fixtures": {
+          "passed": true
+        },
+        "fixture-upload": {
+          "passed": true
+        },
+        "source-approval": {
+          "passed": true
+        },
+        "verify-source-approval": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "size": "Physical size: 1920x1200",
+      "density": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "runner_sha256": "1e7297a43a65fd215a80fa8ce431587b707587744e628be1cc2b4d79fb54c118",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#rapidRightThenEnterUsesCurrentSelectionBeforeRedraw",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#compositionStartedBeforeRedrawKeepsNavigationWithIme",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#clipboardPreservesJoinersFlagsVariationSelectorsAndKeycaps",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#keyboardNavigationAndActivationKeepSelectionVisibleWithoutAnimation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#searchStaysOnTheLauncherRowBesideBackAndCategory",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#heldFavoriteChordTogglesOnceAndConsumesReleaseAfterModifierIsReleased",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#typingAndFourWayNavigationWorkImmediatelyWithoutTab",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#caretAndSelectionChangesPreserveNavigatedResultAndCopyFeedback",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#tabletKeyboardShowControlOpensImeWithoutLosingSearch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#favoriteCanBeClearedAndReusedAndSurvivesActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#escapeClearsSearchThenReturnsToCommandsWithKeyboardFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#commandOpensOfflineGridWithinTheFloatingPalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#bareNumbersRemainSearchableAndCanFindSavedItems",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#keyboardTypingXAndEnterWorksWithSearchFocused",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#multiplicationVariantsShowTimesSignAndCopyOnlyTheNumber",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#deletingTheOperatorImmediatelyRestoresSearchWithoutMovingThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#functionsUnitsAndCategoryFiltersKeepWorking",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#constantOperandsSupportXInAutomaticAndExplicitCalculatorModes",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#ordinaryXWordsAndIncompleteMathRemainSearches",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#arithmeticAndPrecedenceKeepWorking",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#theCalculatorCommandStillAcceptsSingleNumbers",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#sidebarAndSettingsSearchNavigateWithoutDialogs",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#backgroundCancelsInlineRecordingAndKeepsPriorChord",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#resetAndRecreationPreserveCollectionAndServiceConsent",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#commandCategoryAndAssignedFiltersReflectStoredBindings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#escapeClosesSettingsWithContainerFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#conflictAndAliasErrorsAreInlineAndDoNotReplaceExistingValues",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#inlineRecorderPreservesBackwardFocusAndActivationKeys",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#backupPreviewEscapeAndSystemPickerCancellationStayInWorkspace",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#compactTranslucentPaletteDismissesOutsideToPreviousApp",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#escapeDismissesEmptyPalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#quickSettingsTileSummonsPalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#typingAndSelectionUpdateWithoutAnimatedScrollOrMovingSearchFrame",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#conflictingAndReservedChordsNameTheirOwnerAndCannotSave",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#authenticatedInvocationUsesNormalFunnelAndRejectsReplayAndRebinding",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#recorderActivationKeysPreserveCandidateUntilReleaseAndSave",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#documentShortcutImportIsRejectedAndOldBackupKeepsCurrentBindings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#backupRestoresBindingsOnlyAfterConfirmationAndPreservesDocumentBindings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#unavailableImportedCommandHasAnEditableDormantBinding",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#actionsAssignCommandKeycapAndLocalKeyRunsTheSameCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#leftRightModifiersAndLocksNormalizeAndCorruptStorageFailsClosed",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#recorderSavesGlobalChordWithTabAndEnterAndPersistsIt",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#calculatorShortcutTogglesItsExistingPaletteMode",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#forgedExternalIntentCannotExecuteACommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#clearAndResetKeepCollectionsAndAndroidConsentUnchanged",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#recordingExistingGlobalChordDoesNotActivateItAndBackgroundingCancels",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#setupExplainsApprovalConnectionRestrictedSettingsAndAlternativesInline",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#disconnectReconnectBeforeRedrawCannotCompleteAnOldProbe",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#explicitlyArmedNavigationChordsReachProbeAndRestoreNavigationAfterReceipt",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#componentParsingAcceptsFullAndShortNamesButNeverSimilarOwners",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckCancelsOnNavigationAndDoesNotEnableConsent",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#settingsSearchCancelsHiddenProbeAndLeavesNormalActivationAvailable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckExpiresWithoutClaimingGlobalSuccess",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#approvalAndLiveConnectionUpdateAfterDisableAndShortNameReconnect",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#unassignedShortcutAndPermissionFreePaletteRemainAvailable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#appInfoAndAccessibilityLinksOpenSpecificAndroidDestinations",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#previewCancelAndMalformedInputLeaveDataUntouched",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#replaceSelectedCategoryPersistsAndPreservesPermissionsAndOtherData",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#realDocumentPickerExportImportAndIdempotentMerge",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#escapeCancelsPreviewWithoutApplying",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#startingImportClearsFeedbackBeforeItCanCoverPreviewControls",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#importedRankingCannotOverflowOnNextCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#aliasConflictAndEmptySelectionCannotApply",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#preservedDocumentAliasBlocksQuicklinkCollisionsForBothPolicies",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#editorAcceptedInternationalAndSpacedUrlsSurviveBackupRoundTrip",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#codecRoundTripRejectsCapabilitiesMalformedVersionAndOversize",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementControllerWaitsForCancelledOutgoingAtomicWriteAndGrantRelease",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankPinnedDropsIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unreadablePostRenameResultCannotRevokeAPossiblyCommittedGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#transientPostRenameReadFailureReconcilesTheSavedFoldersGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementWaitsForProvisionalReauthorizationRollbackBeforeLoadingCachedEntries",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankAllDropsPinnedIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#malformedMetadataCacheKeepsSelectedScopesAndCanRefresh",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unavailableAliasOnlyFileCanBeFoundClearedAndReusedAfterScopeRemoval",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#silentAtomicRenameFailureDoesNotCommitRemovalOrReleaseItsGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#actionsInspectAndBackRestoreGridSelectionAndQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realLegacyListStillSearchesAndCopiesAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#filteringPaginationAndReorderingRetainItemIdentity",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#untitledSectionsStartNewVisualRowsAndMatchKeyboardMovement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#selectedCellStaysFullyVisibleWhenTheKeyboardShrinksTheGrid",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeGridDisplaysColumnsImagesAndUnavailableSources",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#typingFourWaySelectionAndSameTurnActivationUseCurrentItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateListFailureHasNativeCloseAndRestoresStore",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#caretSelectionAndCompositionDoNotResetTheGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#inlineFilterAndActionsReturnKeyboardFocusToGridSearch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingPreferencesRetainsManualGridScrollPosition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#emptyAndLoadingStatesExposeSearchAndDisabledActions",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#initialControlledSelectionActivatesTheRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#failurePublicationBlocksQueuedGridCallbacksBeforeRecomposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeFormCanEditAndSubmitAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateGridFailureHasNativeBackAndRestoresLauncher",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingInlinePreferencesRetainsRuntimeAndGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#deferredControlledSelectionSurvivesUntilItsItemArrives",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#oversizedTailwindBundleReportsTheExistingInstallLimit",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#changedControlledSelectionActivatesTheNewRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#accessibilityOpensAccessibilityPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#bluetoothSearchOpensBluetoothPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#dateOpensDateTimePage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#languageOpensLanguagePage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#missingDestinationReportsErrorAndKeepsPaletteQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#brightnessSearchOpensDisplayPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#notificationsOpenDroidcastNotificationPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#appScopedIntentsCarryOnlyTheRequiredPackageArgument",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#storageOpensDeviceStoragePage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#soundOpensSoundPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#appsOpenApplicationManagement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#wifiSearchOpensWifiPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#appInfoReplacesAnExistingAccessibilityPageWithDroidcastDetails",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSettingsDeviceTest#updatesPageFillsSettingsAndDoesNotCheckAutomatically",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdatePaletteDeviceTest#livePublicGithubCheckStaysInlineAndBackRestoresCaller",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#discoverySkipsDraftLegacyAndStableAndSelectsHighestVersion",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#realHttpsReleaseDownloadMatchesThePublishedLegacyApk",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#discoveryRejectsForeignMetadataAddressBeforeFetchingIt",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#metadataAndFeedSizeLimitsAreEnforced",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#timeoutIsAnErrorRatherThanUserCancellation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#confirmationSwitchHasAccessibleNameStateAndBusyDisablement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#changedStagedFileLosesVerificationBeforeInstall",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#signedNewerArchiveIsVerifiedAndRecoveredByReplacement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#cancelDownloadRemovesPartialAndCannotInstall",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#tamperedRecoveredFileIsRejectedAndDeleted",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#corruptAndInterruptedDownloadsRejectBeforeRetrying",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#olderFeedCannotOfferDownloadOrInstall",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#offlineRetryReachesAvailableWithoutPopups",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#forgedInstallerReceiptsCannotChangeReadyState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#checkingTheSameReleaseKeepsVerifiedDownload",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#wrongSignerAndPackageNeverCreateAnInstallerSession",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#newerCommandCancelsPendingFileLaunch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        }
+      ]
+    },
+    "phone": {
+      "run": "final-full-v1-phone",
+      "record_sha256": "0d38eaf031f112526761969948b18d8e55e15ba9461bdb7d82190f36506fa772",
+      "native_log_sha256": "79be81d775678116337b740718499f1f10b470f575c8d80708a238754bde083b",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "d186d25828de6de3b9da15fbfd04fcdbced788c9a926e05b3ab612f92ad26451",
+      "completed": false,
+      "expected": 159,
+      "passes": 158,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "update-fixtures": {
+          "passed": true
+        },
+        "fixture-upload": {
+          "passed": true
+        },
+        "source-approval": {
+          "passed": true
+        },
+        "verify-source-approval": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "size": "Physical size: 1920x1200",
+      "density": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "runner_sha256": "1e7297a43a65fd215a80fa8ce431587b707587744e628be1cc2b4d79fb54c118",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#rapidRightThenEnterUsesCurrentSelectionBeforeRedraw",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#compositionStartedBeforeRedrawKeepsNavigationWithIme",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#clipboardPreservesJoinersFlagsVariationSelectorsAndKeycaps",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#keyboardNavigationAndActivationKeepSelectionVisibleWithoutAnimation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#searchStaysOnTheLauncherRowBesideBackAndCategory",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#heldFavoriteChordTogglesOnceAndConsumesReleaseAfterModifierIsReleased",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#typingAndFourWayNavigationWorkImmediatelyWithoutTab",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#caretAndSelectionChangesPreserveNavigatedResultAndCopyFeedback",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#tabletKeyboardShowControlOpensImeWithoutLosingSearch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#favoriteCanBeClearedAndReusedAndSurvivesActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#escapeClearsSearchThenReturnsToCommandsWithKeyboardFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.EmojiDeviceTest#commandOpensOfflineGridWithinTheFloatingPalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#bareNumbersRemainSearchableAndCanFindSavedItems",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#keyboardTypingXAndEnterWorksWithSearchFocused",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#multiplicationVariantsShowTimesSignAndCopyOnlyTheNumber",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#deletingTheOperatorImmediatelyRestoresSearchWithoutMovingThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#functionsUnitsAndCategoryFiltersKeepWorking",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#constantOperandsSupportXInAutomaticAndExplicitCalculatorModes",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#ordinaryXWordsAndIncompleteMathRemainSearches",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#arithmeticAndPrecedenceKeepWorking",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.CalculatorIntentDeviceTest#theCalculatorCommandStillAcceptsSingleNumbers",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#sidebarAndSettingsSearchNavigateWithoutDialogs",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#backgroundCancelsInlineRecordingAndKeepsPriorChord",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#resetAndRecreationPreserveCollectionAndServiceConsent",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#commandCategoryAndAssignedFiltersReflectStoredBindings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#escapeClosesSettingsWithContainerFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#conflictAndAliasErrorsAreInlineAndDoNotReplaceExistingValues",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#inlineRecorderPreservesBackwardFocusAndActivationKeys",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SettingsDeviceTest#backupPreviewEscapeAndSystemPickerCancellationStayInWorkspace",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#compactTranslucentPaletteDismissesOutsideToPreviousApp",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#escapeDismissesEmptyPalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#quickSettingsTileSummonsPalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.PaletteOverlayTest#typingAndSelectionUpdateWithoutAnimatedScrollOrMovingSearchFrame",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#conflictingAndReservedChordsNameTheirOwnerAndCannotSave",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#authenticatedInvocationUsesNormalFunnelAndRejectsReplayAndRebinding",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#recorderActivationKeysPreserveCandidateUntilReleaseAndSave",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#documentShortcutImportIsRejectedAndOldBackupKeepsCurrentBindings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#backupRestoresBindingsOnlyAfterConfirmationAndPreservesDocumentBindings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#unavailableImportedCommandHasAnEditableDormantBinding",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#actionsAssignCommandKeycapAndLocalKeyRunsTheSameCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#leftRightModifiersAndLocksNormalizeAndCorruptStorageFailsClosed",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#recorderSavesGlobalChordWithTabAndEnterAndPersistsIt",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#calculatorShortcutTogglesItsExistingPaletteMode",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#forgedExternalIntentCannotExecuteACommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#clearAndResetKeepCollectionsAndAndroidConsentUnchanged",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutDeviceTest#recordingExistingGlobalChordDoesNotActivateItAndBackgroundingCancels",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#setupExplainsApprovalConnectionRestrictedSettingsAndAlternativesInline",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#disconnectReconnectBeforeRedrawCannotCompleteAnOldProbe",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#explicitlyArmedNavigationChordsReachProbeAndRestoreNavigationAfterReceipt",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#componentParsingAcceptsFullAndShortNamesButNeverSimilarOwners",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckCancelsOnNavigationAndDoesNotEnableConsent",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#settingsSearchCancelsHiddenProbeAndLeavesNormalActivationAvailable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#inlineCheckExpiresWithoutClaimingGlobalSuccess",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#approvalAndLiveConnectionUpdateAfterDisableAndShortNameReconnect",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#unassignedShortcutAndPermissionFreePaletteRemainAvailable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ShortcutReadinessDeviceTest#appInfoAndAccessibilityLinksOpenSpecificAndroidDestinations",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#previewCancelAndMalformedInputLeaveDataUntouched",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#replaceSelectedCategoryPersistsAndPreservesPermissionsAndOtherData",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#realDocumentPickerExportImportAndIdempotentMerge",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#escapeCancelsPreviewWithoutApplying",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#startingImportClearsFeedbackBeforeItCanCoverPreviewControls",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#importedRankingCannotOverflowOnNextCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#aliasConflictAndEmptySelectionCannotApply",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#preservedDocumentAliasBlocksQuicklinkCollisionsForBothPolicies",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#editorAcceptedInternationalAndSpacedUrlsSurviveBackupRoundTrip",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#codecRoundTripRejectsCapabilitiesMalformedVersionAndOversize",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementControllerWaitsForCancelledOutgoingAtomicWriteAndGrantRelease",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankPinnedDropsIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unreadablePostRenameResultCannotRevokeAPossiblyCommittedGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#transientPostRenameReadFailureReconcilesTheSavedFoldersGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementWaitsForProvisionalReauthorizationRollbackBeforeLoadingCachedEntries",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankAllDropsPinnedIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#malformedMetadataCacheKeepsSelectedScopesAndCanRefresh",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unavailableAliasOnlyFileCanBeFoundClearedAndReusedAfterScopeRemoval",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#silentAtomicRenameFailureDoesNotCommitRemovalOrReleaseItsGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#actionsInspectAndBackRestoreGridSelectionAndQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realLegacyListStillSearchesAndCopiesAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#filteringPaginationAndReorderingRetainItemIdentity",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#untitledSectionsStartNewVisualRowsAndMatchKeyboardMovement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#selectedCellStaysFullyVisibleWhenTheKeyboardShrinksTheGrid",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeGridDisplaysColumnsImagesAndUnavailableSources",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#typingFourWaySelectionAndSameTurnActivationUseCurrentItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateListFailureHasNativeCloseAndRestoresStore",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#caretSelectionAndCompositionDoNotResetTheGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#inlineFilterAndActionsReturnKeyboardFocusToGridSearch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingPreferencesRetainsManualGridScrollPosition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#emptyAndLoadingStatesExposeSearchAndDisabledActions",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#initialControlledSelectionActivatesTheRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#failurePublicationBlocksQueuedGridCallbacksBeforeRecomposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeFormCanEditAndSubmitAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateGridFailureHasNativeBackAndRestoresLauncher",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingInlinePreferencesRetainsRuntimeAndGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#deferredControlledSelectionSurvivesUntilItsItemArrives",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#oversizedTailwindBundleReportsTheExistingInstallLimit",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#changedControlledSelectionActivatesTheNewRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#accessibilityOpensAccessibilityPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#bluetoothSearchOpensBluetoothPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#dateOpensDateTimePage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#languageOpensLanguagePage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#missingDestinationReportsErrorAndKeepsPaletteQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#brightnessSearchOpensDisplayPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#notificationsOpenDroidcastNotificationPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#appScopedIntentsCarryOnlyTheRequiredPackageArgument",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#storageOpensDeviceStoragePage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#soundOpensSoundPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#appsOpenApplicationManagement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#wifiSearchOpensWifiPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.SystemSettingsDeviceTest#appInfoReplacesAnExistingAccessibilityPageWithDroidcastDetails",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSettingsDeviceTest#updatesPageFillsSettingsAndDoesNotCheckAutomatically",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdatePaletteDeviceTest#livePublicGithubCheckStaysInlineAndBackRestoresCaller",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#discoverySkipsDraftLegacyAndStableAndSelectsHighestVersion",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#realHttpsReleaseDownloadMatchesThePublishedLegacyApk",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#discoveryRejectsForeignMetadataAddressBeforeFetchingIt",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateSourceDeviceTest#metadataAndFeedSizeLimitsAreEnforced",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#timeoutIsAnErrorRatherThanUserCancellation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#confirmationSwitchHasAccessibleNameStateAndBusyDisablement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#changedStagedFileLosesVerificationBeforeInstall",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#signedNewerArchiveIsVerifiedAndRecoveredByReplacement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#cancelDownloadRemovesPartialAndCannotInstall",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#tamperedRecoveredFileIsRejectedAndDeleted",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#corruptAndInterruptedDownloadsRejectBeforeRetrying",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#olderFeedCannotOfferDownloadOrInstall",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#offlineRetryReachesAvailableWithoutPopups",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#forgedInstallerReceiptsCannotChangeReadyState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#checkingTheSameReleaseKeepsVerifiedDownload",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.UpdateVerificationDeviceTest#wrongSignerAndPackageNeverCreateAnInstallerSession",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#newerCommandCancelsPendingFileLaunch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+          "status": -2
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        }
+      ]
+    }
+  },
+  "focused_native": {
+    "tablet": {
+      "run": "final-focused-v1-tablet",
+      "record_sha256": "d8ee05f812b2d793fc81efb8273c378a3628ff9d6a2fa65cc30c1f21da1b9254",
+      "native_log_sha256": "6c8f0daad075717755d30b932072a8435f588bdf0e883690b6390d22b64d9fa1",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "d186d25828de6de3b9da15fbfd04fcdbced788c9a926e05b3ab612f92ad26451",
+      "completed": true,
+      "expected": 16,
+      "passes": 16,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "size": "Physical size: 1920x1200",
+      "density": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "runner_sha256": "1e7297a43a65fd215a80fa8ce431587b707587744e628be1cc2b4d79fb54c118",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#newerCommandCancelsPendingFileLaunch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+          "status": 0
+        }
+      ]
+    },
+    "phone": {
+      "run": "final-focused-v1-phone",
+      "record_sha256": "a346218b3860d00538c2a1fcef921f985b316d56611fe846bb9d4d6b0770f6e4",
+      "native_log_sha256": "d48baf2e453724547149505940647455d653a7fd412869b428c794fded9e5d1f",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "d186d25828de6de3b9da15fbfd04fcdbced788c9a926e05b3ab612f92ad26451",
+      "completed": true,
+      "expected": 16,
+      "passes": 16,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "size": "Physical size: 1920x1200",
+      "density": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "runner_sha256": "1e7297a43a65fd215a80fa8ce431587b707587744e628be1cc2b4d79fb54c118",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#newerCommandCancelsPendingFileLaunch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.DocumentProviderDeviceTest#slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+          "status": 0
+        }
+      ]
+    }
+  },
+  "affected_native": {
+    "tablet": {
+      "run": "final-affected-v3-tablet",
+      "record_sha256": "1dee543f2e8dd04b5a1328a83c93a31c4d8937b968c2116f22206b3ada1f9d4f",
+      "native_log_sha256": "fa3ee8ab5f623974d19b90abe1a96f4c645400ae4d2c8d878e4a8fa79bf974cd",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "completed": true,
+      "expected": 51,
+      "passes": 51,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "size": "Physical size: 1920x1200",
+      "density": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "runner_sha256": "1e7297a43a65fd215a80fa8ce431587b707587744e628be1cc2b4d79fb54c118",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementControllerWaitsForCancelledOutgoingAtomicWriteAndGrantRelease",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankPinnedDropsIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unreadablePostRenameResultCannotRevokeAPossiblyCommittedGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#transientPostRenameReadFailureReconcilesTheSavedFoldersGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementWaitsForProvisionalReauthorizationRollbackBeforeLoadingCachedEntries",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankAllDropsPinnedIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#malformedMetadataCacheKeepsSelectedScopesAndCanRefresh",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unavailableAliasOnlyFileCanBeFoundClearedAndReusedAfterScopeRemoval",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#silentAtomicRenameFailureDoesNotCommitRemovalOrReleaseItsGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#actionsInspectAndBackRestoreGridSelectionAndQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realLegacyListStillSearchesAndCopiesAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#filteringPaginationAndReorderingRetainItemIdentity",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#untitledSectionsStartNewVisualRowsAndMatchKeyboardMovement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#selectedCellStaysFullyVisibleWhenTheKeyboardShrinksTheGrid",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeGridDisplaysColumnsImagesAndUnavailableSources",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#typingFourWaySelectionAndSameTurnActivationUseCurrentItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateListFailureHasNativeCloseAndRestoresStore",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#caretSelectionAndCompositionDoNotResetTheGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#inlineFilterAndActionsReturnKeyboardFocusToGridSearch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingPreferencesRetainsManualGridScrollPosition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#emptyAndLoadingStatesExposeSearchAndDisabledActions",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#initialControlledSelectionActivatesTheRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#failurePublicationBlocksQueuedGridCallbacksBeforeRecomposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeFormCanEditAndSubmitAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateGridFailureHasNativeBackAndRestoresLauncher",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingInlinePreferencesRetainsRuntimeAndGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#deferredControlledSelectionSurvivesUntilItsItemArrives",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#oversizedTailwindBundleReportsTheExistingInstallLimit",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#changedControlledSelectionActivatesTheNewRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#minimizedClipboardExpandsAndDismissesWithoutChangingTheCaller",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.RecentDocumentDeviceTest#chosenRecentDocumentGetsItsNativeNameAndOpensTheExactContent",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardApiDeviceTest#publicClipboardResetAndExactUnicodeCopyWorkOnTheRuntime",
+          "status": 0
+        }
+      ]
+    },
+    "phone": {
+      "run": "final-affected-v3-phone",
+      "record_sha256": "249826a9812a4134c404a53826bea7f74077d8d7115bc2f3a9cd1cc6da554b81",
+      "native_log_sha256": "fab45d83dda2efa704ff811f9eed62bdca016fc1d25d9afd74e30e7f5837304b",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "completed": true,
+      "expected": 51,
+      "passes": 51,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "size": "Physical size: 1920x1200",
+      "density": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "runner_sha256": "1e7297a43a65fd215a80fa8ce431587b707587744e628be1cc2b4d79fb54c118",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementControllerWaitsForCancelledOutgoingAtomicWriteAndGrantRelease",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankPinnedDropsIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unreadablePostRenameResultCannotRevokeAPossiblyCommittedGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#transientPostRenameReadFailureReconcilesTheSavedFoldersGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#replacementWaitsForProvisionalReauthorizationRollbackBeforeLoadingCachedEntries",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#blankAllDropsPinnedIndexedFileAfterAccessExpires",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#malformedMetadataCacheKeepsSelectedScopesAndCanRefresh",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#unavailableAliasOnlyFileCanBeFoundClearedAndReusedAfterScopeRemoval",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#silentAtomicRenameFailureDoesNotCommitRemovalOrReleaseItsGrant",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.FolderDeviceTest#pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#onePhysicalEnterActivatesOnlyOnceWithTheKeyboardVisible",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#actionsInspectAndBackRestoreGridSelectionAndQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realLegacyListStillSearchesAndCopiesAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#filteringPaginationAndReorderingRetainItemIdentity",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#untitledSectionsStartNewVisualRowsAndMatchKeyboardMovement",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#selectedCellStaysFullyVisibleWhenTheKeyboardShrinksTheGrid",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeGridDisplaysColumnsImagesAndUnavailableSources",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#typingFourWaySelectionAndSameTurnActivationUseCurrentItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateListFailureHasNativeCloseAndRestoresStore",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#caretSelectionAndCompositionDoNotResetTheGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#inlineFilterAndActionsReturnKeyboardFocusToGridSearch",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingPreferencesRetainsManualGridScrollPosition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#emptyAndLoadingStatesExposeSearchAndDisabledActions",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#initialControlledSelectionActivatesTheRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#failurePublicationBlocksQueuedGridCallbacksBeforeRecomposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#nativeFormCanEditAndSubmitAfterTheWindowChanges",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#lateGridFailureHasNativeBackAndRestoresLauncher",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#cancellingInlinePreferencesRetainsRuntimeAndGridSelection",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#deferredControlledSelectionSurvivesUntilItsItemArrives",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#oversizedTailwindBundleReportsTheExistingInstallLimit",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ExtensionGridDeviceTest#changedControlledSelectionActivatesTheNewRequestedItem",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#minimizedClipboardExpandsAndDismissesWithoutChangingTheCaller",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#modeChangesDoNotStrandTheClipboardOverlay",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#defaultModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardEvidenceDeviceTest#nonSuppressingModeClipboardCleanupRetainsThePalette",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.RecentDocumentDeviceTest#chosenRecentDocumentGetsItsNativeNameAndOpensTheExactContent",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.ClipboardApiDeviceTest#publicClipboardResetAndExactUnicodeCopyWorkOnTheRuntime",
+          "status": 0
+        }
+      ]
+    }
+  },
+  "assistant_native": {
+    "tablet": {
+      "run": "final-assistant-v3-tablet",
+      "record_sha256": "7292ca9bf280f74a8caf698342465ea56639c3d9fcc72981864b5ae70e7c6824",
+      "native_log_sha256": "90625bd68b5c16e84b7a9ca0edde0e25d36845b5c0cc9b0b6a3460a9765f77b0",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "completed": true,
+      "expected": 8,
+      "pass_statuses": 8,
+      "fail_statuses": 0,
+      "installed_matches": true,
+      "settings_restored": true,
+      "roles_restored": true,
+      "palette_preferences_restored": true,
+      "navigation_overlay_restored": true,
+      "size_restored": "Physical size: 1920x1200",
+      "density_restored": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "api": "36",
+      "abi": "arm64-v8a",
+      "runner_sha256": "d4b2df99a9282b17621ef3f4e7c3612a2d23712e88945038ad18fba428a0ebe0",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#unsupportedNavigationPageFallsBackToRootSettingsWithoutChangingRoles",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#actualOnScreenHomeHoldOpensFromHomeAndSettingsWithKeyboardServiceOff",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#touchInstructionsRemainInlineAndDoNotEnableKeyboardAccess",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#navigationLinkOpensTheActualAndroidNavigationPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#rejectedSettingsLaunchShowsReadableManualRecovery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#cornerSwipesOpenFromHomeAndSettingsWithKeyboardServiceOff",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantDeviceTest#systemAssistantOpensThePaletteWithoutKeyboardServiceFromHomeAndSettings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantDeviceTest#assistantSelectionCancellationDoesNotChangeRoleOrEnableKeyboardService",
+          "status": 0
+        }
+      ]
+    },
+    "phone": {
+      "run": "final-assistant-v3-phone",
+      "record_sha256": "f9d96356e56df6b81b72852e45e497eaf6fd86a5f935371d4b5eb85ae2182a83",
+      "native_log_sha256": "28121381db67fe0e5fb2137e3f163361a3221305ab75495791611846b9d249a7",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "completed": true,
+      "expected": 8,
+      "pass_statuses": 8,
+      "fail_statuses": 0,
+      "installed_matches": true,
+      "settings_restored": true,
+      "roles_restored": true,
+      "palette_preferences_restored": true,
+      "navigation_overlay_restored": true,
+      "size_restored": "Physical size: 1920x1200",
+      "density_restored": "Physical density: 240",
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "api": "36",
+      "abi": "arm64-v8a",
+      "runner_sha256": "d4b2df99a9282b17621ef3f4e7c3612a2d23712e88945038ad18fba428a0ebe0",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#unsupportedNavigationPageFallsBackToRootSettingsWithoutChangingRoles",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#actualOnScreenHomeHoldOpensFromHomeAndSettingsWithKeyboardServiceOff",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#touchInstructionsRemainInlineAndDoNotEnableKeyboardAccess",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#navigationLinkOpensTheActualAndroidNavigationPage",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#rejectedSettingsLaunchShowsReadableManualRecovery",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantTouchDeviceTest#cornerSwipesOpenFromHomeAndSettingsWithKeyboardServiceOff",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantDeviceTest#systemAssistantOpensThePaletteWithoutKeyboardServiceFromHomeAndSettings",
+          "status": 0
+        },
+        {
+          "id": "dev.tinycast.android.AssistantDeviceTest#assistantSelectionCancellationDoesNotChangeRoleOrEnableKeyboardService",
+          "status": 0
+        }
+      ]
+    }
+  },
+  "legacy_native": {
+    "run": "api26-core-v3",
+    "record_sha256": "5a9f71b3fe767e9e66d90dd74667d5092cc0a7ee0087718bb1df92a27be96d6c",
+    "native_log_sha256": "1fdd7c80e81562f9ab8b5525dcddd13d0a70d1d6267ee0ee4476f8c2fe1ce7bd",
+    "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+    "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+    "completed": false,
+    "expected": 33,
+    "passes": 26,
+    "failures": 7,
+    "installed_matches": true,
+    "cleanup": {
+      "stop-app": {
+        "passed": true
+      },
+      "preferences-palette": {
+        "passed": true
+      },
+      "preferences-emoji": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "size": {
+        "passed": true
+      },
+      "density": {
+        "passed": true
+      },
+      "verify-restoration": {
+        "passed": true
+      }
+    },
+    "app_uid": "uid=10076(u0_a76) gid=10076(u0_a76)",
+    "adbd": "uid=2000(shell) gid=2000(shell)",
+    "api": 26,
+    "abi": "arm64-v8a",
+    "test_size": "Physical size: 1080x1920",
+    "test_density": "Physical density: 420",
+    "original_preference_files": {
+      "palette": false,
+      "emoji": false
+    },
+    "runner_sha256": "023db29e5d2461cce1674c41712758a9b923cb43dfb8151ba0f8e00a7543ea47",
+    "cases": [
+      {
+        "id": "dev.tinycast.android.ClipboardApiDeviceTest#publicClipboardResetAndExactUnicodeCopyWorkOnTheRuntime",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+        "status": -2
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+        "status": -2
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+        "status": -2
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#bareNumbersRemainSearchableAndCanFindSavedItems",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#keyboardTypingXAndEnterWorksWithSearchFocused",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#multiplicationVariantsShowTimesSignAndCopyOnlyTheNumber",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#deletingTheOperatorImmediatelyRestoresSearchWithoutMovingThePalette",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#functionsUnitsAndCategoryFiltersKeepWorking",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#constantOperandsSupportXInAutomaticAndExplicitCalculatorModes",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#ordinaryXWordsAndIncompleteMathRemainSearches",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#arithmeticAndPrecedenceKeepWorking",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.CalculatorIntentDeviceTest#theCalculatorCommandStillAcceptsSingleNumbers",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#rapidRightThenEnterUsesCurrentSelectionBeforeRedraw",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#compositionStartedBeforeRedrawKeepsNavigationWithIme",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#clipboardPreservesJoinersFlagsVariationSelectorsAndKeycaps",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#keyboardNavigationAndActivationKeepSelectionVisibleWithoutAnimation",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#searchStaysOnTheLauncherRowBesideBackAndCategory",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#heldFavoriteChordTogglesOnceAndConsumesReleaseAfterModifierIsReleased",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#typingAndFourWayNavigationWorkImmediatelyWithoutTab",
+        "status": -2
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#caretAndSelectionChangesPreserveNavigatedResultAndCopyFeedback",
+        "status": -2
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#tabletKeyboardShowControlOpensImeWithoutLosingSearch",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#favoriteCanBeClearedAndReusedAndSurvivesActivityRecreation",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#escapeClearsSearchThenReturnsToCommandsWithKeyboardFocus",
+        "status": -2
+      },
+      {
+        "id": "dev.tinycast.android.EmojiDeviceTest#commandOpensOfflineGridWithinTheFloatingPalette",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.UpdateSettingsDeviceTest#updatesPageFillsSettingsAndDoesNotCheckAutomatically",
+        "status": 0
+      },
+      {
+        "id": "dev.tinycast.android.UpdatePaletteDeviceTest#livePublicGithubCheckStaysInlineAndBackRestoresCaller",
+        "status": -2
+      }
+    ]
+  },
+  "legacy_renderer_diagnostic": {
+    "run": "api26-renderer-diagnostic",
+    "record_sha256": "260efb6d689cafe7bda6f8973b7a6fe648035d4e6ae9b43fa6d11f8240e2bb68",
+    "native_log_sha256": "1fa10004863f341499ed19f66234be3b0b000d8b90f863f290f3bb9abb656733",
+    "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+    "test_apk_sha256": "b0ac66dda16b464a929acd3eb90aae17e9943c774f0f9adfd44debd03c6d1aaa",
+    "completed": true,
+    "expected": 1,
+    "passes": 1,
+    "failures": 0,
+    "installed_matches": true,
+    "cleanup": {
+      "stop-app": {
+        "passed": true
+      },
+      "preferences-palette": {
+        "passed": true
+      },
+      "preferences-emoji": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "size": {
+        "passed": true
+      },
+      "density": {
+        "passed": true
+      },
+      "verify-restoration": {
+        "passed": true
+      }
+    },
+    "app_uid": "uid=10076(u0_a76) gid=10076(u0_a76)",
+    "adbd": "uid=2000(shell) gid=2000(shell)",
+    "api": 26,
+    "abi": "arm64-v8a",
+    "test_size": "Physical size: 1080x1920",
+    "test_density": "Physical density: 420",
+    "original_preference_files": {
+      "palette": false,
+      "emoji": false
+    },
+    "runner_sha256": "023db29e5d2461cce1674c41712758a9b923cb43dfb8151ba0f8e00a7543ea47",
+    "cases": [
+      {
+        "id": "dev.tinycast.android.WebViewCompatibilityDeviceTest#recordActualProviderRuntimeOutcomeAndCapturePaths",
+        "status": 0
+      }
+    ]
+  },
+  "benchmark_identity": {
+    "implementation_commit": "944aca80afbddd042d937058d649b01aa92fcc6c",
+    "hashes": {
+      "app-benchmark-androidTest.apk": "5aaf09ff4024465bd807faa8ba01317f77eba4aa1f19450782d895b0cd3051cd",
+      "app-benchmark.apk": "db1e1baccfe7b77d1fb272d73803517feacb487ce4bea1a3d575bbf806f61959"
+    }
+  },
+  "metrics_files": {
+    "docs/validation/readiness/candidate-host-context.json": "af8c0cfce5ce8cc720b1b5101bff8a532b0c2e4720a752b4a980eb21237769b6",
+    "docs/validation/readiness/candidate-interaction-samples.csv": "63d42acf32e12b61519e88f6e2f1c27f96606f6764d71bc0adee51cf85d95bca",
+    "docs/validation/readiness/candidate-metrics.json": "17fb5f5379adb26d5eceabc74f6f9d7aee5eeb695cea3daa4ade108b65306df8",
+    "docs/validation/readiness/candidate-startup-samples.csv": "40e8a0a6a4a31b29fb43c1616065be4c1a5afa5effa1621330250d23f9e199fd"
+  },
+  "statistics_verification_sha256": "fa75833f1c617be15b3a7f868c017de2ccd6e46fa8bb1c5a1641bbae5cf52db5",
+  "evidence_notes": [
+    "API36 uses one owned arm64 emulator and two sequential viewport configurations; API26 uses a second owned arm64 emulator.",
+    "Original broad phone remains failed at 158/159. Affected cohorts pass 51/layout with changed test helpers, not a full 159-case rerun.",
+    "API26 remains failed at 26/33; diagnostic completion is not extension/runtime certification.",
+    "Installed/restored identity comes from recorded guarded runner checks, not reviewer live verification.",
+    "Historical failures remain failed and are described in PRODUCTION-READINESS.md.",
+    "No final exact-head independent audit is claimed."
+  ],
+  "hardware": {
+    "completed": true,
+    "cases": [
+      {
+        "name": "Double left Ctrl opens from Home",
+        "passed": true
+      },
+      {
+        "name": "Connected service and foreground do not dispatch twice",
+        "passed": true
+      },
+      {
+        "name": "Double Ctrl opens from Android Settings",
+        "passed": true
+      },
+      {
+        "name": "Either-side binding accepts right Ctrl",
+        "passed": true
+      },
+      {
+        "name": "Right-only ignores left pair and accepts right pair",
+        "passed": true
+      },
+      {
+        "name": "Linux Ctrl+A/C/V pass through while double Ctrl is configured",
+        "passed": true
+      },
+      {
+        "name": "Held Ctrl does not activate and next valid pair recovers",
+        "passed": true
+      },
+      {
+        "name": "Intervening Ctrl+C cancels tap and next valid pair recovers",
+        "passed": true
+      },
+      {
+        "name": "Double Right Ctrl runs the normal new-note command from Home",
+        "passed": true
+      },
+      {
+        "name": "Keyboard service pauses double Ctrl during recording and resumes after Escape",
+        "passed": true
+      },
+      {
+        "name": "Actual double Ctrl diagnostic receives the saved trigger and subsequent activation resumes",
+        "passed": true
+      },
+      {
+        "name": "Six independent service rebinds activate from Home with device-clock timing",
+        "passed": true
+      }
+    ],
+    "capabilities": [
+      {
+        "modifier": "Left Ctrl",
+        "linux_code": 29,
+        "activated": true,
+        "focus_after": "  mCurrentFocus=Window{613c6e8 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}"
+      },
+      {
+        "modifier": "Right Ctrl",
+        "linux_code": 97,
+        "activated": true,
+        "focus_after": "  mCurrentFocus=Window{f25ae72 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}"
+      },
+      {
+        "modifier": "Left Alt",
+        "linux_code": 56,
+        "activated": true,
+        "focus_after": "  mCurrentFocus=Window{a6c5538 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}"
+      },
+      {
+        "modifier": "Right Alt",
+        "linux_code": 100,
+        "activated": true,
+        "focus_after": "  mCurrentFocus=Window{5304671 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}"
+      },
+      {
+        "modifier": "Left Shift",
+        "linux_code": 42,
+        "activated": true,
+        "focus_after": "  mCurrentFocus=Window{b90302f u0 dev.tinycast.android/dev.tinycast.android.MainActivity}"
+      },
+      {
+        "modifier": "Right Shift",
+        "linux_code": 54,
+        "activated": true,
+        "focus_after": "  mCurrentFocus=Window{c00d250 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}"
+      },
+      {
+        "modifier": "Left Meta",
+        "linux_code": 125,
+        "activated": false,
+        "focus_after": "  mCurrentFocus=Window{1872e3b u0 com.android.settings/com.android.settings.homepage.SettingsHomepageActivity}"
+      },
+      {
+        "modifier": "Right Meta",
+        "linux_code": 126,
+        "activated": false,
+        "focus_after": "  mCurrentFocus=Window{e635499 u0 com.android.settings/com.android.settings.homepage.SettingsHomepageActivity}"
+      }
+    ],
+    "apk_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+    "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+    "installed_matches": true,
+    "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+    "cleanup": {
+      "release-keys": {
+        "passed": true
+      },
+      "disable-service": {
+        "passed": true
+      },
+      "disable-master": {
+        "passed": true
+      },
+      "clipboard": {
+        "passed": true
+      },
+      "stop-app": {
+        "passed": true
+      },
+      "preference-backup-removal": {
+        "passed": true
+      },
+      "preferences": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "verify-preferences": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "remove-input-helper": {
+        "passed": true
+      },
+      "unroot": {
+        "passed": true
+      },
+      "verify-adbd": {
+        "passed": true
+      },
+      "read-size": {
+        "passed": true
+      },
+      "read-density": {
+        "passed": true
+      }
+    },
+    "clipboard_restored": true,
+    "preferences_restored": true,
+    "settings_restored": true,
+    "adbd_restored": true,
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240",
+    "cold_home_repetitions": [
+      {
+        "trial": 0,
+        "focus": "  mCurrentFocus=Window{6be5ad9 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}",
+        "passed": true
+      },
+      {
+        "trial": 1,
+        "focus": "  mCurrentFocus=Window{1feb7a3 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}",
+        "passed": true
+      },
+      {
+        "trial": 2,
+        "focus": "  mCurrentFocus=Window{6240fd5 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}",
+        "passed": true
+      },
+      {
+        "trial": 3,
+        "focus": "  mCurrentFocus=Window{8e86094 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}",
+        "passed": true
+      },
+      {
+        "trial": 4,
+        "focus": "  mCurrentFocus=Window{76f749f u0 dev.tinycast.android/dev.tinycast.android.MainActivity}",
+        "passed": true
+      },
+      {
+        "trial": 5,
+        "focus": "  mCurrentFocus=Window{c83f3e8 u0 dev.tinycast.android/dev.tinycast.android.MainActivity}",
+        "passed": true
+      }
+    ],
+    "runner_sha256": "b0d2da7fd2410095d65ef20e25cd9b8e90f9b480849dfd5e497f75d4d713139c",
+    "record_sha256": "038510ddbcb4fef75ef44fc98b3ca4a5c7f3874703ceda6a866e1e8429bfff87"
+  },
+  "self_update_flows": {
+    "tablet-required": {
+      "record_sha256": "72e60c325a6ddb5899d3d0f6e5416dcdfc9dd8d2c2a1a52194e4c267c5b0093c",
+      "completed": true,
+      "layout": "tablet",
+      "mode": "required",
+      "bootstrap_apk_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "installed_payload_matches": true,
+      "installer_cancellation_preserved_version": true,
+      "updated_code": 7,
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "private_data_restored": true,
+      "bootstrap_restored": true,
+      "adbd_unrooted": true,
+      "approval_mode_restored": true,
+      "geometry_restored": true
+    },
+    "tablet-best-effort": {
+      "record_sha256": "0b3fa7fc5b3b7a67bcb4abc4c9dfa3f3ccc9a9fe2a919c811c91d2861437f40f",
+      "completed": true,
+      "layout": "tablet",
+      "mode": "best-effort",
+      "bootstrap_apk_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "installed_payload_matches": true,
+      "updated_code": 7,
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "private_data_restored": true,
+      "bootstrap_restored": true,
+      "adbd_unrooted": true,
+      "approval_mode_restored": true,
+      "geometry_restored": true
+    },
+    "phone-required": {
+      "record_sha256": "2507596863ede986cf87c91686f5536416ad25f9b7fc1950cf24faf119154102",
+      "completed": true,
+      "layout": "phone",
+      "mode": "required",
+      "bootstrap_apk_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "installed_payload_matches": true,
+      "installer_cancellation_preserved_version": true,
+      "updated_code": 7,
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "private_data_restored": true,
+      "bootstrap_restored": true,
+      "adbd_unrooted": true,
+      "approval_mode_restored": true,
+      "geometry_restored": true
+    },
+    "phone-best-effort": {
+      "record_sha256": "ccac24c91ee84851028b420171761a2396c1af221b26ca5cf34d39ea5a415e23",
+      "completed": true,
+      "layout": "phone",
+      "mode": "best-effort",
+      "bootstrap_apk_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "payload_apk_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+      "test_apk_sha256": "4aa0b747539e33aed8b86d09da63c2bf4ca261a405630006391edf2c7680ace2",
+      "installed_payload_matches": true,
+      "updated_code": 7,
+      "cleanup": {
+        "fixture-grant-and-session": {
+          "passed": true
+        },
+        "stop-app": {
+          "passed": true
+        },
+        "collect-public-evidence": {
+          "passed": true
+        },
+        "bootstrap-apk": {
+          "passed": true
+        },
+        "stop-restored-app": {
+          "passed": true
+        },
+        "private-data": {
+          "passed": true
+        },
+        "source-approval-mode": {
+          "passed": true
+        },
+        "ime-setting": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "public-upload": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "private_data_restored": true,
+      "bootstrap_restored": true,
+      "adbd_unrooted": true,
+      "approval_mode_restored": true,
+      "geometry_restored": true
+    }
+  },
+  "input_diagnostics": {
+    "26": {
+      "run": "api26-input-diagnostic-v3",
+      "record_sha256": "fa4d3e1cf22fee3ea4139430c890e6b862f4185d2eaffb025693ec0118e29dbe",
+      "native_log_sha256": "68311d99810b78b6a8228c349e485456fd70fe3ff461ed7a9e60270b9057b0ce",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4e1741b9f7409097ef045c969531e9f0db8f2f55c1d58720bb85ae5e78e41cf1",
+      "completed": true,
+      "expected": 1,
+      "passes": 1,
+      "failures": 0,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-palette": {
+          "passed": true
+        },
+        "preferences-emoji": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10076(u0_a76) gid=10076(u0_a76)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "api": 26,
+      "abi": "arm64-v8a",
+      "test_size": "Physical size: 1080x1920",
+      "test_density": "Physical density: 420",
+      "original_preference_files": {
+        "palette": false,
+        "emoji": false
+      },
+      "runner_sha256": "1ba4bf24535130bfd59a5f1d9d4830ca075e7158fc2cbe316696fcadb6108065",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.LegacyInputDiagnosticDeviceTest#recordExactAnnotatedTextAndInjectedVersusActivityKeyDelivery",
+          "status": 0
+        }
+      ]
+    },
+    "36": {
+      "run": "api36-input-diagnostic-v3",
+      "record_sha256": "6bb40a6cf7d5f1eed711749b1939fb8564339eecc903e9b956dcb84fd339aab7",
+      "native_log_sha256": "6d6feefbca2c812a82fb6e84bf47db6d76b48dee6f87e281eb5f5093ca8ebb8e",
+      "app_sha256": "409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e",
+      "test_apk_sha256": "4e1741b9f7409097ef045c969531e9f0db8f2f55c1d58720bb85ae5e78e41cf1",
+      "completed": true,
+      "expected": 1,
+      "passes": 1,
+      "failures": 0,
+      "installed_matches": true,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-palette": {
+          "passed": true
+        },
+        "preferences-emoji": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "api": 36,
+      "abi": "arm64-v8a",
+      "test_size": "Physical size: 1920x1200\nOverride size: 1080x2340",
+      "test_density": "Physical density: 240\nOverride density: 420",
+      "original_preference_files": {
+        "palette": true,
+        "emoji": true
+      },
+      "runner_sha256": "1ba4bf24535130bfd59a5f1d9d4830ca075e7158fc2cbe316696fcadb6108065",
+      "cases": [
+        {
+          "id": "dev.tinycast.android.LegacyInputDiagnosticDeviceTest#recordExactAnnotatedTextAndInjectedVersusActivityKeyDelivery",
+          "status": 0
+        }
+      ]
+    }
+  },
+  "excluded_diagnostic_attempt": "API36 v2 diagnostic assumed direct Escape could not close Emoji after injected Escape. It failed for that assumption; v3 records route absence and reopens explicitly. No production fix or full-suite pass inferred.",
+  "legacy_diagnostic_files": {
+    "docs/validation/readiness/api26-input-diagnostic.json": "715fcdd31a40b834704e0dd817c47305932250b5d66467e0209f8009c06c8f63",
+    "docs/validation/readiness/api26-renderer-diagnostic.json": "5cb939bed1b4ab12cd30170f32e9c4dfec3782961bfafdb867d3f9717d9aec99",
+    "docs/validation/readiness/api36-input-diagnostic.json": "72d16f61967e0a9eae981f82e94f701bb06c4110abcfbf156f8c6f9cc16370c5"
+  }
+}

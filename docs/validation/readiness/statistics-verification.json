@@ -1,0 +1,128 @@
+{
+  "method": "Independent recalculation from published raw CSV: nearest-rank percentiles; no outlier deletion or overhead subtraction.",
+  "interaction_rows": 320,
+  "startup_rows": 132,
+  "startup_warmups": 12,
+  "startup_measured": 120,
+  "inputs": {
+    "candidate-metrics.json": "17fb5f5379adb26d5eceabc74f6f9d7aee5eeb695cea3daa4ade108b65306df8",
+    "candidate-interaction-samples.csv": "63d42acf32e12b61519e88f6e2f1c27f96606f6764d71bc0adee51cf85d95bca",
+    "candidate-startup-samples.csv": "40e8a0a6a4a31b29fb43c1616065be4c1a5afa5effa1621330250d23f9e199fd"
+  },
+  "verified_distributions": [
+    {
+      "run": "candidate-tablet-pixel",
+      "metric": "pixel-launcher-query",
+      "n": 50,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-pixel",
+      "metric": "pixel-emoji-query",
+      "n": 50,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-pixel",
+      "metric": "pixel-emoji-navigation",
+      "n": 40,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-pixel",
+      "metric": "pixel-readback-control",
+      "n": 20,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-pixel",
+      "metric": "pixel-launcher-query",
+      "n": 50,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-pixel",
+      "metric": "pixel-emoji-query",
+      "n": 50,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-pixel",
+      "metric": "pixel-emoji-navigation",
+      "n": 40,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-pixel",
+      "metric": "pixel-readback-control",
+      "n": 20,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-startup",
+      "metric": "cold_total_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-startup",
+      "metric": "cold_wait_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-startup",
+      "metric": "cold_host_command_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-startup",
+      "metric": "foreground_wait_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-tablet-startup",
+      "metric": "foreground_host_command_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-startup",
+      "metric": "cold_total_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-startup",
+      "metric": "cold_wait_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-startup",
+      "metric": "cold_host_command_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-startup",
+      "metric": "foreground_wait_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-startup",
+      "metric": "foreground_host_command_ms",
+      "n": 30,
+      "all_statistics_match": true
+    },
+    {
+      "run": "candidate-phone-startup",
+      "metric": "foreground_total_ms",
+      "n": 4,
+      "all_statistics_match": true
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 The reference is a complete, read-only local clone of [Tinycast at `37e6043f3f550febb64bdb3cff3ac29a30caad5a`](https://github.com/abue-ammar/tinycast/tree/37e6043f3f550febb64bdb3cff3ac29a30caad5a). Its current HEAD matches Droidcast's previously pinned runtime and palette references. The full checkout adds the architecture, feature coordinators, navigation policies and upstream tests that the small vendored visual reference does not contain.
 
-This comparison reviews the files below; it is not a claim that every upstream feature has been reviewed or ported. The installed Raycast supplies a visual/interaction reference. Installing the macOS Tinycast app is optional; it was not built or launched for this comparison.
+This comparison reviews the files below; it is not a claim that every upstream feature has been reviewed or ported. The installed Raycast supplies a visual/interaction reference. The original structural comparison did not build or launch Tinycast. The later [readiness review](PRODUCTION-READINESS.md) builds and runs this pinned revision and captures controlled live calculator/Emoji/Actions workflows; it separately qualifies the two newer upstream commits.
 
 | Responsibility | Tinycast source | Droidcast now | Remaining work |
 | --- | --- | --- | --- |

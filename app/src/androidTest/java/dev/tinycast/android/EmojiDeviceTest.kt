@@ -35,7 +35,7 @@ class EmojiDeviceTest {
         compose.activityRule.scenario.onActivity {
             val clipboard = it.getSystemService(ClipboardManager::class.java)
             originalClip = clipboard.primaryClip
-            clipboard.clearPrimaryClip()
+            clipboard.resetClipboardForTest()
         }
         // The current ViewModel already loaded preferences; clear through the public operations.
         compose.waitUntil(10000) { !compose.activity.store.loading && !store.loading }
@@ -62,14 +62,14 @@ class EmojiDeviceTest {
         assertTrue(editor.commit())
         compose.activityRule.scenario.onActivity {
             val clipboard = it.getSystemService(ClipboardManager::class.java)
-            originalClip?.let(clipboard::setPrimaryClip) ?: clipboard.clearPrimaryClip()
+            originalClip?.let(clipboard::setPrimaryClip) ?: clipboard.resetClipboardForTest()
         }
     }
     private fun search(value: String) { compose.onNodeWithTag("emoji-search").performTextReplacement(value); compose.waitForIdle() }
     private fun key(code: Int, meta: Int = 0) {
         val down = android.os.SystemClock.uptimeMillis()
         listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP).forEach { action ->
-            assertTrue(InstrumentationRegistry.getInstrumentation().uiAutomation.injectInputEvent(
+            assertTrue(testAutomation().injectInputEvent(
                 KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, code, 0, meta,
                     android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
         }
@@ -89,10 +89,7 @@ class EmojiDeviceTest {
     private fun evidence(name: String, marker: String) {
         compose.waitForIdle()
         assertTrue("Screenshot marker: $marker", device.wait(Until.hasObject(By.textContains(marker)), 5000))
-        val overlayDismiss = if (name in setOf("family-copied", "recent", "keyboard-copy", "caret-preserved"))
-            device.wait(Until.findObject(By.res("com.android.systemui", "dismiss_button")), 1500)
-        else device.findObject(By.res("com.android.systemui", "dismiss_button"))
-        overlayDismiss?.click()
+        dismissClipboardForEvidence()
         assertTrue("System clipboard overlay must settle before capture", device.wait(Until.gone(By.res("com.android.systemui", "clipboard_ui")), 5000))
         val dir = File(context.filesDir, "emoji-evidence").apply { mkdirs() }
         val expectedCount = "${store.results().size} ${if (store.results().size == 1) "result" else "results"} · offline"
@@ -102,7 +99,7 @@ class EmojiDeviceTest {
         // Validate the exact native hierarchy that will be paired with the PNG.
         // A Compose assertion alone cannot certify a cached accessibility snapshot.
         compose.waitUntil(10000) {
-            if (android.os.Build.VERSION.SDK_INT >= 34) InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+            if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
             device.dumpWindowHierarchy(xml)
             val document = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml)
             val nodes = document.getElementsByTagName("node")
@@ -333,7 +330,7 @@ class EmojiDeviceTest {
         search("infinity")
         listOf(KeyEvent.KEYCODE_ENTER to 0, KeyEvent.KEYCODE_ENTER to KeyEvent.META_CTRL_ON,
             KeyEvent.KEYCODE_NUMPAD_ENTER to KeyEvent.META_CTRL_ON).forEach { (code, meta) ->
-            compose.activityRule.scenario.onActivity { it.getSystemService(ClipboardManager::class.java).clearPrimaryClip() }
+            compose.activityRule.scenario.onActivity { it.getSystemService(ClipboardManager::class.java).resetClipboardForTest() }
             key(code, meta)
             assertEquals("∞", clipboard())
         }
@@ -432,7 +429,7 @@ class EmojiDeviceTest {
             val expected = entries.map { it.id }.toSet() - first.id
             var downTime = android.os.SystemClock.uptimeMillis()
             fun emit(action: Int, repeat: Int = 0, meta: Int = modifier) {
-                assertTrue(InstrumentationRegistry.getInstrumentation().uiAutomation.injectInputEvent(
+                assertTrue(testAutomation().injectInputEvent(
                     KeyEvent(downTime, android.os.SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_D, repeat, meta,
                         android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
                 compose.waitForIdle()
