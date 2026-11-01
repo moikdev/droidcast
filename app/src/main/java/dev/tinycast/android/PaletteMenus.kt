@@ -392,8 +392,11 @@ private fun PaletteFeedback(surface: Rect, menus: PaletteMenus, state: SnackbarH
         // scrolled-off header/footer has non-null but clipped/empty bounds;
         // using that gap as a measurement constraint can crush feedback to 1px.
         val child = children.single().measure(Constraints(maxWidth=width,maxHeight=bottom-top))
-        val headerBottom=(menus.header?.bottom?.roundToInt() ?: top).coerceIn(top,bottom)
-        val footerTop=(menus.footer?.top?.roundToInt() ?: bottom).coerceIn(top,bottom)
+        // Footerless forms still place their controls near the lower edge.
+        // Retain the legacy chrome reservation when no measured owner exists;
+        // a non-null empty offscreen bound still selects the full-palette fallback.
+        val headerBottom=(menus.header?.bottom ?: surface.top+PaletteTheme.header.toPx()).roundToInt().coerceIn(top,bottom)
+        val footerTop=(menus.footer?.top ?: surface.bottom-PaletteTheme.footer.toPx()).roundToInt().coerceIn(top,bottom)
         val preferredBottom=footerTop-margin
         val x = (surface.center.x-child.width/2f).roundToInt()
         val y=if(preferredBottom-headerBottom>=child.height)preferredBottom-child.height else bottom-child.height
