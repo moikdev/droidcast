@@ -102,6 +102,7 @@ class FeedbackReadabilityDeviceTest {
             .put("text_visible", coordinates(snapshot[3])).put("text_full", coordinates(snapshot[4]))
             .put("layouts", JSONArray(layouts.map { layout -> JSONObject()
                 .put("width", layout.size.width).put("height", layout.size.height)
+                .put("paragraph_width", layout.multiParagraph.width).put("paragraph_height", layout.multiParagraph.height)
                 .put("overflow_width", layout.didOverflowWidth).put("overflow_height", layout.didOverflowHeight)
                 .put("lines", JSONArray((0 until layout.lineCount).map { index -> JSONObject()
                     .put("left", layout.getLineLeft(index)).put("right", layout.getLineRight(index))
@@ -122,7 +123,10 @@ class FeedbackReadabilityDeviceTest {
         assertEquals(1, layouts.size)
         val layout = layouts.single()
         assertFalse("Feedback text must not overflow vertically", layout.didOverflowHeight)
-        assertFalse("Feedback text must not overflow horizontally", layout.didOverflowWidth)
+        // In Compose 1.7.6 didOverflowWidth compares the paragraph container
+        // width with the tight text node, including unused paragraph space.
+        // Check visible node width and actual line ink below instead.
+        assertTrue("Feedback text's measured width must be visible", snapshot[3].width >= snapshot[4].width - 1)
         for (line in 0 until layout.lineCount) {
             assertFalse("Feedback text must not ellipsize", layout.isLineEllipsized(line))
             assertTrue("Feedback line must fit its measured width", layout.getLineLeft(line) >= -1 && layout.getLineRight(line) <= layout.size.width + 1)
