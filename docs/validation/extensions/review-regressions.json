@@ -1,0 +1,25 @@
+{
+  "reviewed_old_head": "aa09e36a5e4a042fe560507ed8855b11645672b3",
+  "old_collector_sha256": "6e2f3322ff3255ff74b128460feb5addde8f8ca57ae4244b12ae2b7e3abaf47c",
+  "same_control_and_positive_test_source_sha256": "57af21edf39e3e4084453830eed62d3c052ba8d8a4f942d3d69807e2cd4b69a6",
+  "old_control_exit": 1,
+  "old_control_failures": 1,
+  "old_control_errors": 1,
+  "regressions": [
+    {
+      "case": "test_interruption_cancels_queued_requests_and_resumes_persisted_progress",
+      "old_observation": "Queued delta and gamma requests executed after controlled interruption",
+      "updated_observation": "Only alpha and already-running beta requested; persisted alpha and old catalog retained; incomplete receipt recorded; subsequent resume succeeds"
+    },
+    {
+      "case": "test_truncated_http_reads_retry_and_remain_per_directory_errors",
+      "old_observation": "IncompleteRead escaped retrieve without retry/error record",
+      "updated_observation": "Retry succeeds after one truncated read; repeated truncated reads produce a per-directory retrieval-error with two attempts"
+    }
+  ],
+  "updated_collector_sha256": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+  "normal_collector_cases": 18,
+  "optimized_collector_cases": 18,
+  "all_python_cases": 22,
+  "app_sources_changed": false
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source_commit": "11a912d89b576ca066e9ee42e75b8dd2e8aa0f5c",
+  "extensions_tree": "70d8d3725e5ac57ed799c3a23701ace4549ac771",
+  "source_inventory_sha256": "e116fe1101d5db692d4419311a2a1d8900708d058ee8773558765e3b9881d5ae",
+  "catalog_sha256": "af8c68f7c5cd5caf4e042a48cb87ea4c77d8c4ae4ed5c6202e6a63d39d459a40",
+  "summary": {
+    "directory_count": 3491,
+    "manifests_read": 3489,
+    "retrieval_or_manifest_errors": 2,
+    "not_yet_inspected": 0,
+    "declared_commands": 11153,
+    "independently_anchored_manifests": 20,
+    "all_directories_attempted": true,
+    "manifest_discovery_complete": false,
+    "runtime_tested_commands": 0,
+    "runtime_untested_commands": 11153
+  },
+  "validation": {
+    "offline_requests": 0,
+    "repeat_export_identical": true,
+    "directory_tree_reconstructed": true,
+    "runtime_checks": false,
+    "unit_cases": 18,
+    "normal_and_optimized_python_passed": true,
+    "python_version": "3.14.7",
+    "all_python_cases": 22
+  },
+  "invalid_manifests": [
+    {
+      "name": "monitor-mate",
+      "failure": "Duplicate JSON object key"
+    },
+    {
+      "name": "vat-calculator",
+      "failure": "Duplicate JSON object key"
+    }
+  ],
+  "collector_sha256": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+  "test_source_sha256": "57af21edf39e3e4084453830eed62d3c052ba8d8a4f942d3d69807e2cd4b69a6"
+}
