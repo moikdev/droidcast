@@ -1,0 +1,2144 @@
+{
+  "schema_version": 1,
+  "application_source_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+  "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+  "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+  "base_main_with_discovery_tooling": "66d5d944d633841746cb1073c235adc88de4ca0d",
+  "android_build_and_test_source_sha256": {
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "8c1be27aad2e952108cdc28c8d6c28c5039513baeaa23ec6d6069d967b8c9414",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "f0ebd7a3a73d85358f0576dc6ce0360478ede8e50e5bc6e5420f17f4358a94ff",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "f7228cdd6b6988fb049f0aaf1048d69cc8489e802b4cc42a2b4d6f9e7ceea3e0",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "7fbd49fe46584b935de6a597f704fe8a3862beac4ace3a30990aef2ce731336d",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "92271f5714538a24b6708d27693dbb83f73e03976a9a980ed07c1e375c579ee9",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/PaletteColumn.kt": "cd6cdc348752bcc20bd631e2216abdd4ee0c91d9606aaab62ce0c01a145dd6aa",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "86c6720bc02173423390496d60ac07bcf762dd59528fca4e0e7fe5f3f098c6cb",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "305941edb1e9b2904c0e5e0671d0e5e7a1a759073049dd7d28d10a72f8f185a9",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "bfbc139e01a4276770644d5f4c1242016839fd98f5e2f21fa8afb31c886bc763",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "7008b8535ec3e754450ce446f34b6d8e50e9b2f5a9de64f436583144f8dd83dc",
+    "app/src/main/java/dev/tinycast/android/PaletteFooter.kt": "5b62c907b46e5075975fc22d01771f5ab7c7f53e433692de55d92865231e967f",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "2eea2634754415a4114ec8ea4e1976be95ad8fcaf52032688eed2e606df5d30e",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "344fbeef5d14d3935f835b847bcf296f9c666c62363023cc5e595e368176c955",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "1fd60a529ffd322fae6cde77a7a743353d7fc8d7c57b4e2ea393ca13f5806725",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "7eb7de79a8bcf090f79429e35865abfd304e521c011f55de116d5cf66f697ced",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "c054241ddb3d633018c996531bb73add6aa2cd9a6547fe1edbc1bf7cf42d2f3a",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "3e2dc1698462c5806b7a6bb332496aaaff0c713328d102885df5ccc57e4f8e8a",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/TouchReadabilityDeviceTest.kt": "6801d25bb0d9bc45899b04aeedba474e2ac8e5cc8cb168b6268e0305fb49345e",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b2abb73e68216d3ef148ca55c742762659fc7172c24653970b94232ad981d946",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487"
+  },
+  "runner_sha256": {
+    "scripts/test-extension-grid.py": "4e0706bc8b47b0d0c51f1dbfec40852f93b095791e9d2760117fbc42cdee97d9",
+    "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6"
+  },
+  "sources_match_frozen_pair_after_script_doc_only_main_merge": true,
+  "upstream_runtime_assets_unchanged": true,
+  "matrix_logical_cases": [
+    "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+    "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+    "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+    "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+    "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+    "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+  ],
+  "matrix_executions": 120,
+  "matrix": [
+    {
+      "stage": "phone-landscape-font-1-3",
+      "layout": "phone",
+      "font_scale": 1.3,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "10d59dd9c71484e69bbfeb1494384e6b018075189c71a203da8ef0d79a4679c2",
+      "test_log_sha256": "a36fa06624825affa9989bb73dfe40e536bd83fee29c077dc883572926535861",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "2340x1080",
+      "effective_density": 420
+    },
+    {
+      "stage": "phone-landscape-font-2-0",
+      "layout": "phone",
+      "font_scale": 2.0,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "f77d413d4e08a8ae10dac650a5c9949523e7fc8a3dce75bf6c56a977e09e26f2",
+      "test_log_sha256": "dbeee17039c0c10d2804e338e0615465ce767c69db4155ce2c6dd2ddf27d6bf7",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "2340x1080",
+      "effective_density": 420
+    },
+    {
+      "stage": "phone-landscape-font-1-0",
+      "layout": "phone",
+      "font_scale": 1.0,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "a458b878ebdc1afbd58bb10b95c729bee6bb5148c5c53be34407397cddc59c45",
+      "test_log_sha256": "7640ee9a403de10bb16090159afeb0ca949ff21af91613f04aecb8f1d786e381",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "2340x1080",
+      "effective_density": 420
+    },
+    {
+      "stage": "phone-landscape-font-1-5",
+      "layout": "phone",
+      "font_scale": 1.5,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "00967f171ee6e55858809877150522864f82d0e219a070fac5734d8a2ecdcc7e",
+      "test_log_sha256": "65bd5d307b8001825c702a4d1ac2238a6a8a9435f991383585543ffff58e3a63",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "2340x1080",
+      "effective_density": 420
+    },
+    {
+      "stage": "tablet-font-1-3",
+      "layout": "tablet",
+      "font_scale": 1.3,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "fdf4e00f151035959aaaf5d6023b22d68b679fd5159eb80b7fd5579e722cb2b9",
+      "test_log_sha256": "74ffd0aa853461e7149e0b925be8b66b7dd5951cf28eb9b96ad2929b1972ca37",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1920x1200",
+      "effective_density": 240
+    },
+    {
+      "stage": "tablet-font-2-0",
+      "layout": "tablet",
+      "font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "fbe6fe4e93ff1cfc7f656020eda4fa4b52eac6e4bc957081c8d8c854c85b17f3",
+      "test_log_sha256": "7544912b8b48f7d9f4e728bacfe9be329a9c76e58da95c392fa2e0eb01d76726",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1920x1200",
+      "effective_density": 240
+    },
+    {
+      "stage": "tablet-font-1-0",
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "903f24ec8b50adbe67a7d63c597f96bad7a68b5bf8c7bb2047536289101f9801",
+      "test_log_sha256": "5826879b4f6d87f1352ca58d8972316304a48b4b10c9523c4f4dcf4956b74c70",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1920x1200",
+      "effective_density": 240
+    },
+    {
+      "stage": "tablet-font-1-5",
+      "layout": "tablet",
+      "font_scale": 1.5,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "7cb9d98a01d1efdce6bb1c89cde28ec2a656005c94f3036ab3fcadae2a4dbbed",
+      "test_log_sha256": "87625aba0e9babcc087cefa672c72ab65e74708fb4d40a9c896fb52ebb5ce2f1",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1920x1200",
+      "effective_density": 240
+    },
+    {
+      "stage": "narrow-font-1-3",
+      "layout": "phone",
+      "font_scale": 1.3,
+      "size_override_px": "840x1600",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "4985b82fb4db0aac0577dda77fa0d618cdf7c434e92921993f5eb83bebabf1af",
+      "test_log_sha256": "13cdbdefa929813e513abc510fa6bdf2e86e3aa4ee53ba70bdd6558970cf9dc2",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "840x1600",
+      "effective_density": 420
+    },
+    {
+      "stage": "narrow-font-2-0",
+      "layout": "phone",
+      "font_scale": 2.0,
+      "size_override_px": "840x1600",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "489b6c5a0c2ff312315d509287eb0a041ba339bd4a37b52829abf2ed6e6aba3c",
+      "test_log_sha256": "687b7d32567ad1f07efb5ff6ea5b15d81b4a4d14c009d7205dc1f5e3950a0b83",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "840x1600",
+      "effective_density": 420
+    },
+    {
+      "stage": "narrow-font-1-0",
+      "layout": "phone",
+      "font_scale": 1.0,
+      "size_override_px": "840x1600",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "671d662b59e5c783208c7cde7f902435807ce40509d71c73968b145d1fd08ac1",
+      "test_log_sha256": "594df5d90f7b54d26c09b460b071aa6e754e2d25e2b8e78af9aa4d0f708d9217",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "840x1600",
+      "effective_density": 420
+    },
+    {
+      "stage": "narrow-font-1-5",
+      "layout": "phone",
+      "font_scale": 1.5,
+      "size_override_px": "840x1600",
+      "density_override": 420,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "1ac19e7584b6a367faef63af3ee881095a5ec12e65b0ba2b04170b10f1fb45ee",
+      "test_log_sha256": "6b228be0f0e41d155c390e66c0bf0146fc7072cab1c7024a933677e83f74f96c",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "840x1600",
+      "effective_density": 420
+    },
+    {
+      "stage": "phone-font-1-3",
+      "layout": "phone",
+      "font_scale": 1.3,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "1c6772e543ba87551a0f0d3af823385a9a3b1f87915f2bd2918532073f883ccc",
+      "test_log_sha256": "80e702d2bd4a484307b137c14a0090713c4d2d8257d487140085d3efb8a8bf39",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1080x2340",
+      "effective_density": 420
+    },
+    {
+      "stage": "phone-font-2-0",
+      "layout": "phone",
+      "font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "f246f8431615573bcc119474f134caf542dd594ab8eeef14dc858b694465ae22",
+      "test_log_sha256": "e77ede2cbd696b001234d29c4dff9a2a94158828a596c728244bfcf7c71fcc39",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1080x2340",
+      "effective_density": 420
+    },
+    {
+      "stage": "phone-font-1-0",
+      "layout": "phone",
+      "font_scale": 1.0,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "d9ba08c8eacf5aadce5ca71add501857a5671b1e5b4764bd3d5d1e04f8e9a491",
+      "test_log_sha256": "7c9a1e5f68a2fb759121663ec1ec8638efff6f2082f2c9a81fa60e66aa76aa79",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1080x2340",
+      "effective_density": 420
+    },
+    {
+      "stage": "phone-font-1-5",
+      "layout": "phone",
+      "font_scale": 1.5,
+      "size_override_px": null,
+      "density_override": null,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "bd7192e795f43964ab50b1e279250c4ab9edd0f67c9e44e6d2ecb34ebb0fa507",
+      "test_log_sha256": "15d792d88b537d7cc5340996b6d5b655568f9108a73facb7d5374ffe75b2f3d0",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1080x2340",
+      "effective_density": 420
+    },
+    {
+      "stage": "tablet-portrait-font-1-3",
+      "layout": "tablet",
+      "font_scale": 1.3,
+      "size_override_px": "1200x1920",
+      "density_override": 240,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "8a5649771e979c9d6915d7cc754299e6c4eab6ea4be1fcc9cb659f11dee1251c",
+      "test_log_sha256": "e369615914ce7f0ff345fda1e38374d400f7b9b1ca931cf2cf5b4231bf775cce",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1200x1920",
+      "effective_density": 240
+    },
+    {
+      "stage": "tablet-portrait-font-2-0",
+      "layout": "tablet",
+      "font_scale": 2.0,
+      "size_override_px": "1200x1920",
+      "density_override": 240,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "ce178adcd3286b9bfd6a9abdc7af68f0a5b087c4a7b544b58858e053cb6d3eb0",
+      "test_log_sha256": "8c4292fa81b7c74adfd56d28c9156c4ace512381ca278ed8a513236f7877ac56",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1200x1920",
+      "effective_density": 240
+    },
+    {
+      "stage": "tablet-portrait-font-1-0",
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "size_override_px": "1200x1920",
+      "density_override": 240,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "3ad5ba6df2d1c501b6bc3b4a5cf9e3ac59b09f6deb9cfb68d6c996b812887e0f",
+      "test_log_sha256": "e50baf5cdad3a9b5b2400c00d37f55aeda01fd892f2c044f38ec8ba5a0b56341",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1200x1920",
+      "effective_density": 240
+    },
+    {
+      "stage": "tablet-portrait-font-1-5",
+      "layout": "tablet",
+      "font_scale": 1.5,
+      "size_override_px": "1200x1920",
+      "density_override": 240,
+      "passed_case_ids": [
+        "dev.tinycast.android.TouchReadabilityDeviceTest#calculatorAnswerFitsAndCopiesWithoutHardwareKeys",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#categoryAndEmptyResultsKeepTouchNavigationAvailable",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#emojiCopyCategoriesAndEmptyStateRemainUsableByTouch",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#launcherAndEditorRemainReadableThroughTouchActions",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeGridPreservesReadableActionsAndTouchReturn",
+        "dev.tinycast.android.TouchReadabilityDeviceTest#nativeListPreservesReadableActionsAndTouchReturn"
+      ],
+      "passes": 6,
+      "record_sha256": "b5607528a22e06d78065ee51e1e6e03d3c98b5d781789bf15447377e9ac2dbcd",
+      "test_log_sha256": "367953683748d0dd2c236a5b7713e19e84095b33c542913b1de84819f7038cd4",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)",
+      "adbd": "uid=2000(shell) gid=2000(shell)",
+      "effective_size_px": "1200x1920",
+      "effective_density": 240
+    }
+  ],
+  "local_checks": {
+    "runtime_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+    "jvm": {
+      "tests": 147,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "lint": {
+      "debug": {
+        "Warning": 51
+      },
+      "benchmark": {
+        "Warning": 51
+      }
+    },
+    "python_cases": 22,
+    "debug_apks_match_frozen_pair": true,
+    "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+    "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+    "logs": {
+      "final-local-debug-v1.log": "62609140bd42afae3e0ce16ebc6b55f949903bdadda9f5123f0bdb661ad60d9f",
+      "final-local-benchmark-v1.log": "0da945b0c437611c030f2e37931a3b19a3d0862b634010d2df91735152b58578",
+      "final-python-checks-v1.log": "4c453b0e57ffd76eeeb9015f99530b7771d22f84ad2959c4504cd9d60734c63b"
+    }
+  },
+  "controls": [
+    {
+      "name": "kind",
+      "app_source_commit": "d949f43b213b08bac4ae6d70cb6a0b3801a5615b",
+      "app_sha256": "489e0702e871b059c3d4f8cc2b9e54d998268e58699dd81c1e3e3d646f6a437e",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "expected_product_failure": "Visible label is ellipsized: Note",
+      "passes": 0,
+      "completed": false,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "record_sha256": "706de0d5b3769f4af7183db16bbec14076dc497c61cbaa7106744ba06233276d",
+      "test_log_sha256": "faf61c9f4bdc412279bdf4c017fd2d13b08bc3168aa12b6c77eca695890ab91b",
+      "matched_candidate_focus": {
+        "name": "label-reflow-v24-focused-kind",
+        "passed": true,
+        "record_sha256": "e6466dbddf404dc6f031cb0600e18176280d165bd5bdfd7539e67ff5a2a43b9d"
+      }
+    },
+    {
+      "name": "primary",
+      "app_source_commit": "d949f43b213b08bac4ae6d70cb6a0b3801a5615b",
+      "app_sha256": "489e0702e871b059c3d4f8cc2b9e54d998268e58699dd81c1e3e3d646f6a437e",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "expected_product_failure": "Visible label is ellipsized: Copy the selected audit value",
+      "passes": 0,
+      "completed": false,
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "record_sha256": "e29e54c90fd608acf294e8ccfd9d547f1647a28cd015e9a9baf6116ec2f16ea3",
+      "test_log_sha256": "458dd028c7697c8115f4957afc1ffe2cd97f5b7aa1ddb3c105b2227d4bdc71c5",
+      "matched_candidate_focus": {
+        "name": "label-reflow-v24-focused-primary",
+        "passed": true,
+        "record_sha256": "efc014e26cc65753a562a909d4d2b8c625200e471b6dd11a3c13be60462d23b7"
+      }
+    }
+  ],
+  "scope": "Six touch/layout flows across display/font overrides. No full issue71, actual split-screen, physical/OEM, TalkBack, performance or production clearance.",
+  "clipboard_preparation": {
+    "phase_receipt_count": 240,
+    "all_settled": true,
+    "all_entry_flags_restored": true,
+    "action_attempts": 161,
+    "accepted_actions": 160,
+    "claim": "Known fixture clipboard preparation and flag restoration, not a claim that every fixture required or attempted a node click."
+  },
+  "frames": [
+    {
+      "id": "baseline-phone-font2",
+      "kind": "before-original-runtime",
+      "image": "docs/screenshots/touch-readability/baseline-phone-font2.png",
+      "image_sha256": "ef856137731adca400478e0a43f2e173f77f7b2d8277735f17457ffd8f83bce6",
+      "image_dimensions_px": [
+        1080,
+        2340
+      ],
+      "capture_metadata": "docs/validation/touch-readability/baseline-phone-font2.json",
+      "capture_metadata_sha256": "e83652a92178b88b860e11a74ec68f13b9684a2e84790ab73fc44c4b83e88a5e",
+      "hierarchy": "docs/validation/touch-readability/baseline-phone-font2.xml",
+      "hierarchy_sha256": "db64c7970147099cde24a0539890227448658e131b6d486a18a0acf292037ffe",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 2,
+      "installed_build_commit": "7398e25fadcc8cbf1dee71c532f7c0c6da385616",
+      "app_sha256": "68174891b04fe681e770f672276e968f49c03b9ac96a6501efd1cbe383413809",
+      "test_apk_sha256": "b233652bea2c8bf933ea2aa9f6508cf605ba95ef5616d00b24cdd1a05effcdb3",
+      "input": "Compose pointer injection and text semantics; no hardware-key navigation",
+      "origin_run_label": "probe-v1-baseline/phone-font-2-0",
+      "record_sha256": "1fabb95bfd399f00534de14e95acbdf8c064bd07eace6cc69a1e278729159f48",
+      "effective_density": 420
+    },
+    {
+      "id": "phone-font2-launcher",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/phone-font2-launcher.png",
+      "image_sha256": "bb0a8caf250f7b07f590e78b2f1444eb4b9495c9f9f550740b6714503ae62972",
+      "image_dimensions_px": [
+        1080,
+        2340
+      ],
+      "capture_metadata": "docs/validation/touch-readability/phone-font2-launcher.json",
+      "capture_metadata_sha256": "6bf87c33cc0be92ff732d3ec6ce5dd02a7350fb7bcd5ec444224639e4df6d478",
+      "hierarchy": "docs/validation/touch-readability/phone-font2-launcher.xml",
+      "hierarchy_sha256": "c920eb0918d2179bdaf6f77ca3adba7b59409b7e4480f31d1c905c69987c3239",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 2,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/phone-font-2-0",
+      "record_sha256": "f246f8431615573bcc119474f134caf542dd594ab8eeef14dc858b694465ae22",
+      "effective_density": 420
+    },
+    {
+      "id": "narrow-kind-before",
+      "kind": "matched-old-app-control",
+      "image": "docs/screenshots/touch-readability/narrow-kind-before.png",
+      "image_sha256": "d0736942f6980c3a84638fcc8eff24360f3d1cb3ca63b20f942a4161ccd9ae71",
+      "image_dimensions_px": [
+        840,
+        1600
+      ],
+      "capture_metadata": "docs/validation/touch-readability/narrow-kind-before.json",
+      "capture_metadata_sha256": "83dd8f954c5962754766768568bf34234516dabcd2bff85def8c03a56c98bd24",
+      "hierarchy": "docs/validation/touch-readability/narrow-kind-before.xml",
+      "hierarchy_sha256": "3b240be1e717b45b81d09298473478ced4deb8433e6d74b73ce1c47f1047147b",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": "840x1600",
+      "density_override": 420,
+      "actual_font_scale": 2,
+      "installed_build_commit": "d949f43b213b08bac4ae6d70cb6a0b3801a5615b",
+      "app_sha256": "489e0702e871b059c3d4f8cc2b9e54d998268e58699dd81c1e3e3d646f6a437e",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-control-kind",
+      "record_sha256": "706de0d5b3769f4af7183db16bbec14076dc497c61cbaa7106744ba06233276d",
+      "effective_density": 420
+    },
+    {
+      "id": "narrow-kind-after",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/narrow-kind-after.png",
+      "image_sha256": "c19db4416185560e7652b9d5854eef58a2e76c89fc2f5b0351de24827be10626",
+      "image_dimensions_px": [
+        840,
+        1600
+      ],
+      "capture_metadata": "docs/validation/touch-readability/narrow-kind-after.json",
+      "capture_metadata_sha256": "b2db15279e51b0c8678eb8989819b4a5b0916babb0d7faa0838bae8d51ee0abc",
+      "hierarchy": "docs/validation/touch-readability/narrow-kind-after.xml",
+      "hierarchy_sha256": "b7bbc0f13d8f3ee7b3a339340f18e4637956d30d9de0113d045098ff521a06b6",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": "840x1600",
+      "density_override": 420,
+      "actual_font_scale": 2,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-focused-kind",
+      "record_sha256": "e6466dbddf404dc6f031cb0600e18176280d165bd5bdfd7539e67ff5a2a43b9d",
+      "effective_density": 420
+    },
+    {
+      "id": "wide-primary-before",
+      "kind": "matched-old-app-control",
+      "image": "docs/screenshots/touch-readability/wide-primary-before.png",
+      "image_sha256": "495faa4b650c26358184ac4914d052f3fc0d2c8f138a3a5eee44229557cfb778",
+      "image_dimensions_px": [
+        2340,
+        1080
+      ],
+      "capture_metadata": "docs/validation/touch-readability/wide-primary-before.json",
+      "capture_metadata_sha256": "70680660f2ee505de7a13e1c9b62d6fcd3108a3c42a7755abd37d857caae21f8",
+      "hierarchy": "docs/validation/touch-readability/wide-primary-before.xml",
+      "hierarchy_sha256": "d9bda1440a449afe75dc94742d01f903a0f18632fa2d37a091f511134f17e547",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 1.3,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "actual_font_scale": 1.3,
+      "installed_build_commit": "d949f43b213b08bac4ae6d70cb6a0b3801a5615b",
+      "app_sha256": "489e0702e871b059c3d4f8cc2b9e54d998268e58699dd81c1e3e3d646f6a437e",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-control-primary",
+      "record_sha256": "e29e54c90fd608acf294e8ccfd9d547f1647a28cd015e9a9baf6116ec2f16ea3",
+      "effective_density": 420
+    },
+    {
+      "id": "wide-primary-after",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/wide-primary-after.png",
+      "image_sha256": "ba7e456bcd467da3de3461d2cc62b2d5ff57ac5124f31330c441180f195eba3b",
+      "image_dimensions_px": [
+        2340,
+        1080
+      ],
+      "capture_metadata": "docs/validation/touch-readability/wide-primary-after.json",
+      "capture_metadata_sha256": "739f15a869ef6f66b4d8e0f669710414e88bceebdd974ca5b576710e1d4de879",
+      "hierarchy": "docs/validation/touch-readability/wide-primary-after.xml",
+      "hierarchy_sha256": "6aeb9886a482e442672505a1329ca144dccf1ee6aa5db9f4503213b6d2e259d4",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 1.3,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "actual_font_scale": 1.3,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-focused-primary",
+      "record_sha256": "efc014e26cc65753a562a909d4d2b8c625200e471b6dd11a3c13be60462d23b7",
+      "effective_density": 420
+    },
+    {
+      "id": "wide-menu-before",
+      "kind": "earlier-menu-failure-different-test-apk",
+      "image": "docs/screenshots/touch-readability/wide-menu-before.png",
+      "image_sha256": "c89d12fadc19c82acab6f24f904ada4bdb80b51f39dd78d5c262074a7028ec90",
+      "image_dimensions_px": [
+        2340,
+        1080
+      ],
+      "capture_metadata": "docs/validation/touch-readability/wide-menu-before.json",
+      "capture_metadata_sha256": "6761e48f3b3c11cfbd71a089ba6087996ac145b90503fda6e15e9568ac98eac9",
+      "hierarchy": "docs/validation/touch-readability/wide-menu-before.xml",
+      "hierarchy_sha256": "ec23ef2e4e99e7007727c7260362c6c9d5b82209e0500746fae5bfa995fe8f9c",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 1.3,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "actual_font_scale": 1.3,
+      "installed_build_commit": "d949f43b213b08bac4ae6d70cb6a0b3801a5615b",
+      "app_sha256": "489e0702e871b059c3d4f8cc2b9e54d998268e58699dd81c1e3e3d646f6a437e",
+      "test_apk_sha256": "3ee5ffd00739e7a5f8af35f6ff14c0107fe23e13f85a9134a5c42a0d9341de29",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "chrome-pan-v23-matrix/phone-landscape-font-1-3",
+      "record_sha256": "6daa9d56ad356f12f727c0be949e3521d7fc6ef624fe30a54aab02fcf8ef07aa",
+      "effective_density": 420
+    },
+    {
+      "id": "wide-menu-after",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/wide-menu-after.png",
+      "image_sha256": "56cb9e32aa3f5f14ef89af86e8daa8c32303a5cfa8fc622cc8216a909e4cf566",
+      "image_dimensions_px": [
+        2340,
+        1080
+      ],
+      "capture_metadata": "docs/validation/touch-readability/wide-menu-after.json",
+      "capture_metadata_sha256": "4a2198489e1a4b7fdbfb7a08b93ac1b6ab16da3b2819fc71a076788ba9fc847a",
+      "hierarchy": "docs/validation/touch-readability/wide-menu-after.xml",
+      "hierarchy_sha256": "bb0d1b967e62a0e8e567a35d2c403dc591381e0001345134c77bb6c1bc628dfd",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 1.3,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "actual_font_scale": 1.3,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-focused-primary",
+      "record_sha256": "efc014e26cc65753a562a909d4d2b8c625200e471b6dd11a3c13be60462d23b7",
+      "effective_density": 420
+    },
+    {
+      "id": "phone-font2-emoji",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/phone-font2-emoji.png",
+      "image_sha256": "6eebab3bbe486270b21810802231ee262e34764604dce719ad8fa0e172f4606d",
+      "image_dimensions_px": [
+        1080,
+        2340
+      ],
+      "capture_metadata": "docs/validation/touch-readability/phone-font2-emoji.json",
+      "capture_metadata_sha256": "f6a4c37d5cea05be7ff2c3eb5f67adec2048630ed19d6526880f75efe5221590",
+      "hierarchy": "docs/validation/touch-readability/phone-font2-emoji.xml",
+      "hierarchy_sha256": "796305857445654b8cf81baa65c99cbd2e05ad37264dee84fed69de6f05786ab",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 2,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/phone-font-2-0",
+      "record_sha256": "f246f8431615573bcc119474f134caf542dd594ab8eeef14dc858b694465ae22",
+      "effective_density": 420
+    },
+    {
+      "id": "phone-font2-emoji-empty",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/phone-font2-emoji-empty.png",
+      "image_sha256": "458321f2bb11cc6d7b3375d6ad85e3741c5b6b8bdfc329771c8d02f13ac03aa1",
+      "image_dimensions_px": [
+        1080,
+        2340
+      ],
+      "capture_metadata": "docs/validation/touch-readability/phone-font2-emoji-empty.json",
+      "capture_metadata_sha256": "d03e5711038898b8642b3d9e14121bea9ba596270404aff90d2a07afc1b4d944",
+      "hierarchy": "docs/validation/touch-readability/phone-font2-emoji-empty.xml",
+      "hierarchy_sha256": "814f442b806bdf94ab7cbd3216a9d8abbdaf0549debe4196f18872de736a0437",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 2,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/phone-font-2-0",
+      "record_sha256": "f246f8431615573bcc119474f134caf542dd594ab8eeef14dc858b694465ae22",
+      "effective_density": 420
+    },
+    {
+      "id": "phone-font2-calculator",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/phone-font2-calculator.png",
+      "image_sha256": "18c01a4ac3a91a1248af11bf2cf096ef3762568a1039563cd947c46431c053bb",
+      "image_dimensions_px": [
+        1080,
+        2340
+      ],
+      "capture_metadata": "docs/validation/touch-readability/phone-font2-calculator.json",
+      "capture_metadata_sha256": "acdf85d253eed5589418803b66b7445e17f128699e6fc2818c120b1eb20fd0ff",
+      "hierarchy": "docs/validation/touch-readability/phone-font2-calculator.xml",
+      "hierarchy_sha256": "7ca6b5de475972c586d7997215dbace8efe20b44be31b93ec71ff0da884ede3d",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 2,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/phone-font-2-0",
+      "record_sha256": "f246f8431615573bcc119474f134caf542dd594ab8eeef14dc858b694465ae22",
+      "effective_density": 420
+    },
+    {
+      "id": "tablet-font2-grid",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/tablet-font2-grid.png",
+      "image_sha256": "d5e4b58207451edc274f9f89620511c1c9d3f0e8d59c11bad9ee32cb9caeed34",
+      "image_dimensions_px": [
+        1920,
+        1200
+      ],
+      "capture_metadata": "docs/validation/touch-readability/tablet-font2-grid.json",
+      "capture_metadata_sha256": "1fdb30f22f73aa11e32415d99ab877572731866fa01130e12c494406f2c30985",
+      "hierarchy": "docs/validation/touch-readability/tablet-font2-grid.xml",
+      "hierarchy_sha256": "c43cf6a743365bef35f58657d5cc21d79edba879cc2320befc42fd6ddc3e099c",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "requested_font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 2,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/tablet-font-2-0",
+      "record_sha256": "fbe6fe4e93ff1cfc7f656020eda4fa4b52eac6e4bc957081c8d8c854c85b17f3",
+      "effective_density": 240
+    },
+    {
+      "id": "landscape-font1-editor",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/landscape-font1-editor.png",
+      "image_sha256": "c5ec405e8821d7108a1db7f7f0153a5908b878d446a6bccbbee995f223bf1028",
+      "image_dimensions_px": [
+        2340,
+        1080
+      ],
+      "capture_metadata": "docs/validation/touch-readability/landscape-font1-editor.json",
+      "capture_metadata_sha256": "0c8e87ddf8a4435edbedad496ac1d987aef7f15f692361c571788d8a245211a0",
+      "hierarchy": "docs/validation/touch-readability/landscape-font1-editor.xml",
+      "hierarchy_sha256": "dcc911fa810268e29a55dfc88e691bae735aa556ca831b4303f4b8b6c181b0e3",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 1.0,
+      "size_override_px": "2340x1080",
+      "density_override": 420,
+      "actual_font_scale": 1,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/phone-landscape-font-1-0",
+      "record_sha256": "a458b878ebdc1afbd58bb10b95c729bee6bb5148c5c53be34407397cddc59c45",
+      "effective_density": 420
+    },
+    {
+      "id": "tablet-font1-launcher",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/tablet-font1-launcher.png",
+      "image_sha256": "89590d8412102bbfbf117bcb44e2e4384b74b64c0c38376218b629bf48ef79d9",
+      "image_dimensions_px": [
+        1920,
+        1200
+      ],
+      "capture_metadata": "docs/validation/touch-readability/tablet-font1-launcher.json",
+      "capture_metadata_sha256": "813cdcb9f9b11064ad74de62b31f39789927b245556cf46a3af861ab18d376ad",
+      "hierarchy": "docs/validation/touch-readability/tablet-font1-launcher.xml",
+      "hierarchy_sha256": "3c186f8fd5eae9b4cdb69ac2196446a42abf8a12c267d74c2370396246ea2e5f",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "requested_font_scale": 1.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 1,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/tablet-font-1-0",
+      "record_sha256": "903f24ec8b50adbe67a7d63c597f96bad7a68b5bf8c7bb2047536289101f9801",
+      "effective_density": 240
+    },
+    {
+      "id": "phone-font2-empty",
+      "kind": "after",
+      "image": "docs/screenshots/touch-readability/phone-font2-empty.png",
+      "image_sha256": "d6d5abf3102bb930a70c311dc2cde9acc414bb6326c42b1825dbf936a3f41321",
+      "image_dimensions_px": [
+        1080,
+        2340
+      ],
+      "capture_metadata": "docs/validation/touch-readability/phone-font2-empty.json",
+      "capture_metadata_sha256": "b02fe4a6b0dc7b23f163242cb6acf725cbf7894fbb08feeac9495f6cb63bcf7d",
+      "hierarchy": "docs/validation/touch-readability/phone-font2-empty.xml",
+      "hierarchy_sha256": "ad56a84a5d7249d92fcc0b5bcd011f7a8af1e1acc8fec97eef3f00c86be28bb0",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "requested_font_scale": 2.0,
+      "size_override_px": null,
+      "density_override": null,
+      "actual_font_scale": 2,
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8",
+      "input": "Compose pointer clicks/swipes and text/lazy-list semantics; no hardware-key navigation",
+      "origin_run_label": "label-reflow-v24-matrix/phone-font-2-0",
+      "record_sha256": "f246f8431615573bcc119474f134caf542dd594ab8eeef14dc858b694465ae22",
+      "effective_density": 420
+    }
+  ],
+  "broader_regression_gate": {
+    "expected_per_layout": 173,
+    "layouts": [
+      "tablet",
+      "phone"
+    ],
+    "outcome_location": "Implementation PR linked from issue71: exact-head native validation comments and local/android status",
+    "completion_recorded_in_this_manifest": false
+  }
+}
