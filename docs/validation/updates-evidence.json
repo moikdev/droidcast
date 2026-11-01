@@ -1,0 +1,888 @@
+{
+  "production_source": "df9c5b57ea57a7875b8940529721c22527c0d962",
+  "bootstrap_version_code": 6,
+  "fixture_version_code": 7,
+  "app_sha256": "ceadcc73222d0590dbaf9493e8a0d703d0ae6938269ef8dffc8b84a2c7e4ccc2",
+  "test_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9",
+  "self_test_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951",
+  "fixture_sha256": "6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4",
+  "emulator": {
+    "avd": "Droidcast_PR48_Tablet_API_36_27caf3",
+    "serial": "emulator-5590",
+    "sdk": 36,
+    "arch": "arm64",
+    "tablet": "1920x1200/240dpi",
+    "phone": "1080x2340/420dpi"
+  },
+  "screenshots": [
+    {
+      "file": "docs/screenshots/updates/tablet-settings-idle.png",
+      "origin": "artifacts/updates-verify-v8-tablet/settings-idle.png",
+      "sha256": "3e28bc31efed9e9ae6e0880a65045639b33f667b04cf5d1bd13b600e5bbf0615",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/settings-idle.xml",
+      "xml_sha256": "7a40b0231ba7946a95038838f1000ef6a8ec16f5f07b9f562e5f706f22979a39",
+      "xml_nodes": 74,
+      "caption": "Tablet: Manual Updates page in fullscreen Settings",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-available.png",
+      "origin": "artifacts/updates-verify-v8-tablet/available.png",
+      "sha256": "cfeb08e072939faedf0dcc1a4ff1d9ade2b27f5fbd3917d7e18f597aac63d949",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/available.xml",
+      "xml_sha256": "ac391969fc3c060ae1122eef353216241255d67edbffb76945bb53fd99c69145",
+      "xml_nodes": 81,
+      "caption": "Tablet: Newer signed-APK fixture available; controlled download transport",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-download-progress.png",
+      "origin": "artifacts/updates-verify-v8-tablet/download-progress.png",
+      "sha256": "a1419e0993b4b91f490ed2310bc53f550a20f3f4988e0624840b0f036f7269f7",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/download-progress.xml",
+      "xml_sha256": "7302420c47e437cec84c27b4d62fd6618522f652f077223d74131e22bce6d77e",
+      "xml_nodes": 80,
+      "caption": "Tablet: Actual signed APK transfer held at 1 MiB by controlled transport",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-download-cancelled.png",
+      "origin": "artifacts/updates-verify-v8-tablet/download-cancelled.png",
+      "sha256": "a57688fbe152338e1b83b654a66d617a8d2ff3454c06efb91e4eaa382e1fc61c",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/download-cancelled.xml",
+      "xml_sha256": "71a47ac7fde7436b96996ec289597fcd578dd57b08b069c14da2d5d35e06ee23",
+      "xml_nodes": 81,
+      "caption": "Tablet: Partial download cancellation and cleanup",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-checksum-error.png",
+      "origin": "artifacts/updates-verify-v8-tablet/checksum-error.png",
+      "sha256": "d8b6dac2e8fef1f732fdac0e0b1e02d96e0a71475222a766cd581ad69c909255",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/checksum-error.xml",
+      "xml_sha256": "c94548d6c9952efa41d92c0f63773bf45ce15aefcbcf107ffbeb7cdda14a698a",
+      "xml_nodes": 81,
+      "caption": "Tablet: Corrupt fixture rejected by checksum verification",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-wrong-signer-error.png",
+      "origin": "artifacts/updates-verify-v8-tablet/wrong-signer-error.png",
+      "sha256": "9d906a037c25b2ad7c910d9e58451ac513c9276646a90901c053da33b555529d",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/wrong-signer-error.xml",
+      "xml_sha256": "abbf653511df19f62841c16238e69f465711b20f20f767276da316368440944e",
+      "xml_nodes": 81,
+      "caption": "Tablet: Valid APK signed with a different test certificate rejected",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-wrong-package-error.png",
+      "origin": "artifacts/updates-verify-v8-tablet/wrong-package-error.png",
+      "sha256": "2ecde1cc764cd9ed37e10cc55ad9e841bcf7c298dadd2546806f31985255efbe",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/wrong-package-error.xml",
+      "xml_sha256": "7056ebbbf9ded1eb625944edb589198bc3623b1b2be94f39ff0dd2492b78611d",
+      "xml_nodes": 81,
+      "caption": "Tablet: Valid APK with a different package rejected",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-offline-error.png",
+      "origin": "artifacts/updates-verify-v8-tablet/offline-error.png",
+      "sha256": "ee08e4fa8bd27dbd88248fcebb3c6e8491774adba015e89c5b2e35d555881b8c",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/offline-error.xml",
+      "xml_sha256": "3371aec3f0fe539ec6db0990c745db00567422a4bbc7ed3a02dfd9ae3f213a5d",
+      "xml_nodes": 74,
+      "caption": "Tablet: Controlled offline failure with retry",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-palette-live-check.png",
+      "origin": "artifacts/updates-verify-v8-tablet/palette-live-check.png",
+      "sha256": "cbe025474a25ec66060a111753e5836153ac452ffdba4b63539e231356586d94",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-tablet/palette-live-check.xml",
+      "xml_sha256": "790685867cac9ca6831943a0b464d5607bfd42a18350cd468b8b340e2a9ddae5",
+      "xml_nodes": 58,
+      "caption": "Tablet: Live public GitHub check inside the floating palette and fixed action footer",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-before-r9.png",
+      "origin": "artifacts/updates-before-r9-v3-tablet/settings-evidence/general.png",
+      "sha256": "2ea5bf2a738ea28e2bbc72edd0c9f9da5de4c4dd92871ef79b39263b241662e2",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-before-r9-v3-tablet/settings-evidence/general.xml",
+      "xml_sha256": "f794d43eb02cdfe28ab6f64360472ec02cb470d6aa40ceca74afe25300aee1d2",
+      "xml_nodes": 90,
+      "caption": "Released r9 General page before adding the Updates section (actual legacy APK)",
+      "version_code": 5,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-grant-picker.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/grant-picker.png",
+      "sha256": "fa3bb5eb0a833adac19049fa202bf1eabfc187cf942e827d254a8b497d7f23e9",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/grant-picker.xml",
+      "xml_sha256": "d5c155da41941fa9c2bf5fd875910797b1d86db9015f9471d403fc80b7e1b07b",
+      "xml_nodes": 84,
+      "caption": "Tablet, required: Real Android folder authorization for the retention fixture. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-self-before-ready.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/self-before-ready.png",
+      "sha256": "a5ef059d5a5874ed7a5b00f9f640838197b3706f54d1ffd05b85254789d4a4b5",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/self-before-ready.xml",
+      "xml_sha256": "beefd6c341c100c66d44ea01e3037d437b2543904ef16f12419a78b169b09b3f",
+      "xml_nodes": 83,
+      "caption": "Tablet, required: Verified staged fixture in Settings before installation. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-app-approval-needed.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/app-approval-needed.png",
+      "sha256": "45fe61abe9fafc8bdc17e2593ee2b4c771ec2baf3888bef525ccbb1289d4511b",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/app-approval-needed.xml",
+      "xml_sha256": "5f80646e3d62c112fa8596d7431ea7e49d77c190070c604682bb1f5b498c8a92",
+      "xml_nodes": 33,
+      "caption": "Tablet, required: Per-source approval required; palette footer offers the Android destination. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-android-source-approval.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/android-source-approval.png",
+      "sha256": "a8fae9ce7b6e247800d34a9bd80529148209ace658fab0597544bbdf96562113",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/android-source-approval.xml",
+      "xml_sha256": "b42062cd2b3e4a807a61ae9fb70587ff635779609d52e54836d30f596d305ac5",
+      "xml_nodes": 20,
+      "caption": "Tablet, required: Actual Android per-source install approval for Droidcast. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-app-ready-install.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/app-ready-install.png",
+      "sha256": "ba402f03a1b1b19b1ad0a15d55d0250f8cb32f485733b7675056a4b3633c97fd",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/app-ready-install.xml",
+      "xml_sha256": "caec53a02d8e3f4e34c656fcaa0a1e3053496c3371f3c2d2a0372432ceda220e",
+      "xml_nodes": 33,
+      "caption": "Tablet, required: Recovered verified APK with source approval enabled. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-app-pending-confirmation.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/app-pending-confirmation.png",
+      "sha256": "1cc16492be6f8f8fc5e06d95034a18095900c0bd50b2917a87234b767505d617",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/app-pending-confirmation.xml",
+      "xml_sha256": "5037a1c17f3832f3a688049075fa8bb34b171045ebc95789bb222dc30c96d4d0",
+      "xml_nodes": 33,
+      "caption": "Tablet, required: Actual installer pending-user-action receipt, visible Continue control. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-android-installer-review.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/android-installer-review.png",
+      "sha256": "77f05ff7e1a2f0743ff745fb868fac411889eea6f18451e2c3442bbb761808c6",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/android-installer-review.xml",
+      "xml_sha256": "fee4f0660d3f8b71fbc1d5513fd5f634ef5ae63a3b42f4752f5b5c842c083718",
+      "xml_nodes": 16,
+      "caption": "Tablet, required: Actual Android update confirmation. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-app-installer-cancelled.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/app-installer-cancelled.png",
+      "sha256": "47d57bb7689074402df16d2e652e4a1ac46bab9204dc8f927e45d297583a0e14",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/app-installer-cancelled.xml",
+      "xml_sha256": "83059947e44a7eb177ff4371eedeb46d92829e711ba17574e1dbc0747a944dc0",
+      "xml_nodes": 33,
+      "caption": "Tablet, required: Android Cancel retained build 6 and the verified download. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-app-retry-confirmation.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/app-retry-confirmation.png",
+      "sha256": "06b72907aa095cba33a1abfd0fadaff71a428ae214bc8f2cf447f17b865623c8",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/app-retry-confirmation.xml",
+      "xml_sha256": "5037a1c17f3832f3a688049075fa8bb34b171045ebc95789bb222dc30c96d4d0",
+      "xml_nodes": 33,
+      "caption": "Tablet, required: Retry returns to Android confirmation. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-self-after-version.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/self-after-version.png",
+      "sha256": "fd79349adb5ef638a618cc7f0a829921c128fd4eac8d14e6f11c103dcce03e7e",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/self-after-version.xml",
+      "xml_sha256": "438fd7ca49c1f06d7117eb36d652bf05d650e2182351ea052209a443ca899cc0",
+      "xml_nodes": 74,
+      "caption": "Tablet, required: Actual installed build 7 after replacement. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-self-after-extension.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/self-after-extension.png",
+      "sha256": "1d7129845faf1007d5a53e0bb9d10203d8b5acc382f06d838cb7fa21e6302a89",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/self-after-extension.xml",
+      "xml_sha256": "218a0754fb36354cd02e53ab086e62f4eb0d3acc8a258d1862938a59d7f2fee3",
+      "xml_nodes": 49,
+      "caption": "Tablet, required: Retained extension executes and reads its saved LocalStorage and preference. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-required-self-after-note.png",
+      "origin": "artifacts/updates-self-v6-tablet-required/self-after-note.png",
+      "sha256": "03331b39a9d3b386c41e32999d1706d107842cb428ac51f8b25d0229a0bb7d58",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-required/self-after-note.xml",
+      "xml_sha256": "561bb3140116f880021a77959fb629fcc38bbeee1cd3e8cc5e9dca10e1460008",
+      "xml_nodes": 225,
+      "caption": "Tablet, required: Retained note title and exact fixture body after replacement. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/tablet-best-effort-self-after-version.png",
+      "origin": "artifacts/updates-self-v6-tablet-best-effort/self-after-version.png",
+      "sha256": "f47602252ed14d57578884195c190f524dfc50a331bf785186b852033e07dc98",
+      "dimensions": [
+        1920,
+        1200
+      ],
+      "xml_origin": "artifacts/updates-self-v6-tablet-best-effort/self-after-version.xml",
+      "xml_sha256": "338742a0355b12cd9adaebaa5a490a34fb5ec6b4195f2174381398d0c2da693c",
+      "xml_nodes": 74,
+      "caption": "Tablet, best-effort: Actual installed build 7 after replacement. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-settings-idle.png",
+      "origin": "artifacts/updates-verify-v8-phone/settings-idle.png",
+      "sha256": "d75be13e5beefa0a0888dd579fe40cab5ed5da4d87c9c70510adc5b8a3e83527",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/settings-idle.xml",
+      "xml_sha256": "6f6b87bb435ffa10b942b1aee3c6616646e76a41f9b59aae949783b6454c226e",
+      "xml_nodes": 77,
+      "caption": "Phone: Manual Updates page in fullscreen Settings",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-available.png",
+      "origin": "artifacts/updates-verify-v8-phone/available.png",
+      "sha256": "bc924a8ad4b8e92322cc0922bc039e5757ef6f88ab7d4beb28d9e67b7dcaa13a",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/available.xml",
+      "xml_sha256": "352c35a6349e505fc1cd8f8c27214458ac3fe7774d3260fdcaa4964fbe48de5e",
+      "xml_nodes": 84,
+      "caption": "Phone: Newer signed-APK fixture available; controlled download transport",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-download-progress.png",
+      "origin": "artifacts/updates-verify-v8-phone/download-progress.png",
+      "sha256": "d1fac84929299017df5f2fd19686b8b1fa3b2421fb6950f274d8734ef7b1f4b3",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/download-progress.xml",
+      "xml_sha256": "2dcdc50e3fac3cc40f3871f058c3518242333d19bf165095eb748f2838f77449",
+      "xml_nodes": 83,
+      "caption": "Phone: Actual signed APK transfer held at 1 MiB by controlled transport",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-download-cancelled.png",
+      "origin": "artifacts/updates-verify-v8-phone/download-cancelled.png",
+      "sha256": "c24cc950917aa48a885019fbd55db83e79ec5079bfe35ee24faf9c2e121dee19",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/download-cancelled.xml",
+      "xml_sha256": "79b13c14d336fd3a345b21ab7bd6393454a8cc267f7f00d092643fad538d92eb",
+      "xml_nodes": 84,
+      "caption": "Phone: Partial download cancellation and cleanup",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-checksum-error.png",
+      "origin": "artifacts/updates-verify-v8-phone/checksum-error.png",
+      "sha256": "35846c2e5029cb24da86062490303f57209ab08b4d1182b35b42bd8080e62120",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/checksum-error.xml",
+      "xml_sha256": "bacc1af88491817650af21a0d3e93b7a38587dc1d38594ccf2c96d8215d8f434",
+      "xml_nodes": 84,
+      "caption": "Phone: Corrupt fixture rejected by checksum verification",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-wrong-signer-error.png",
+      "origin": "artifacts/updates-verify-v8-phone/wrong-signer-error.png",
+      "sha256": "19b8b1b94a70542913a792f1e3cc9b15d79fe32f53d8f8fee5f7efa08e462676",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/wrong-signer-error.xml",
+      "xml_sha256": "f3b007d293c48782e55d29cb6b6c3464f11b87ef3f65197540b2301946cd49bd",
+      "xml_nodes": 84,
+      "caption": "Phone: Valid APK signed with a different test certificate rejected",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-wrong-package-error.png",
+      "origin": "artifacts/updates-verify-v8-phone/wrong-package-error.png",
+      "sha256": "ef27bd3f9e3aff01b6dfb1f03268f2d27c2a2300c17024e3bf622b946175439d",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/wrong-package-error.xml",
+      "xml_sha256": "f1397ca63f3973cdf63d84381d36bca2b5324d47d54450ef332c6195eadcbcf2",
+      "xml_nodes": 84,
+      "caption": "Phone: Valid APK with a different package rejected",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-offline-error.png",
+      "origin": "artifacts/updates-verify-v8-phone/offline-error.png",
+      "sha256": "2a85a688f48057c0eb94af1ba8e693265c87951aee4e1d58861b86a2b29c0b33",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/offline-error.xml",
+      "xml_sha256": "24a7d3bb096f6e72a9769ceaa00b868f426257c7e2844e7528dfddfae1c71f63",
+      "xml_nodes": 77,
+      "caption": "Phone: Controlled offline failure with retry",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-palette-live-check.png",
+      "origin": "artifacts/updates-verify-v8-phone/palette-live-check.png",
+      "sha256": "c2223d8faec4b0618ea04fd27f1465b8a6c586e9fb6595836178ffda34ca58e0",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-verify-v8-phone/palette-live-check.xml",
+      "xml_sha256": "56b721a5dfc0319a3d441c7441489425d49be0526ba6dbe21636509265c01fa6",
+      "xml_nodes": 58,
+      "caption": "Phone: Live public GitHub check inside the floating palette and fixed action footer",
+      "version_code": 6,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-before-r9.png",
+      "origin": "artifacts/updates-before-r9-v3-phone/settings-evidence/general.png",
+      "sha256": "0e099c9472110003ba4c5901b681f7084b3664c15be79f6ca92e3bda5d515919",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-before-r9-v3-phone/settings-evidence/general.xml",
+      "xml_sha256": "a69cd989fee0a5039af96b6fc2826914951946556c49d5e670b611be1576193a",
+      "xml_nodes": 85,
+      "caption": "Released r9 General page before adding the Updates section (actual legacy APK)",
+      "version_code": 5,
+      "test_apk_sha256": "3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-grant-picker.png",
+      "origin": "artifacts/updates-self-v6-phone-required/grant-picker.png",
+      "sha256": "f48ac8433507abb8052b3c935a1714bbd0a09e84ae945e1b2ed4970d70ec856c",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/grant-picker.xml",
+      "xml_sha256": "289db197e356d34f24240fd9bbd66d33242e138699d3ec17c2dee4eaff4afddd",
+      "xml_nodes": 86,
+      "caption": "Phone, required: Real Android folder authorization for the retention fixture. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-self-before-ready.png",
+      "origin": "artifacts/updates-self-v6-phone-required/self-before-ready.png",
+      "sha256": "cb5c2b4b8f52feb429c7a746af0c29f4a8219ba0da2a99c065e057df8aae3ca1",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/self-before-ready.xml",
+      "xml_sha256": "fb1823c744737d455629ac3645f93a8244052a72a08626dfd5e241dd5c041932",
+      "xml_nodes": 85,
+      "caption": "Phone, required: Verified staged fixture in Settings before installation. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-app-approval-needed.png",
+      "origin": "artifacts/updates-self-v6-phone-required/app-approval-needed.png",
+      "sha256": "348ac59b51c390f80cc3db56ea1822bc4ec175bcd77d57be7813668b6bf32b2a",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/app-approval-needed.xml",
+      "xml_sha256": "f5bc3b3ac79f95e6c40bb3f1337ac2170c169d083a1196c95a0a82b9f17fc957",
+      "xml_nodes": 31,
+      "caption": "Phone, required: Per-source approval required; palette footer offers the Android destination. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-android-source-approval.png",
+      "origin": "artifacts/updates-self-v6-phone-required/android-source-approval.png",
+      "sha256": "17612409a1f16bfb6d1ef98818bc3773e2ac7902dc815708818ff492e994f21a",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/android-source-approval.xml",
+      "xml_sha256": "19af17c4553f875cff94520f330c40fbb8e4d6537435e3826ed4b18bc778fa3c",
+      "xml_nodes": 20,
+      "caption": "Phone, required: Actual Android per-source install approval for Droidcast. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-app-ready-install.png",
+      "origin": "artifacts/updates-self-v6-phone-required/app-ready-install.png",
+      "sha256": "3820f30a5383b664ff67492056596752cc971ee6c81fb18f1f908e61f6a34c0e",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/app-ready-install.xml",
+      "xml_sha256": "7fe3775d46ae64922c7715d766057f3d5864cfca32084c1ef91d98c884a1b232",
+      "xml_nodes": 32,
+      "caption": "Phone, required: Recovered verified APK with source approval enabled. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-app-pending-confirmation.png",
+      "origin": "artifacts/updates-self-v6-phone-required/app-pending-confirmation.png",
+      "sha256": "ae097fcb8fcbbc440dd1e43aaacc3209d23f78b5491ff41b3d6ce42b3a1e3f9c",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/app-pending-confirmation.xml",
+      "xml_sha256": "ac7064778e81157f6fc400f01c27bc8094bf4d59545ef2b9808a45e3fa45f543",
+      "xml_nodes": 31,
+      "caption": "Phone, required: Actual installer pending-user-action receipt, visible Continue control. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-android-installer-review.png",
+      "origin": "artifacts/updates-self-v6-phone-required/android-installer-review.png",
+      "sha256": "388780a49641133d1798cf0bc962ab8412f66ca8227084e93eb103335a15fdd2",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/android-installer-review.xml",
+      "xml_sha256": "edd7796ede56829976ecb57d121d9f7ec8ecdb5ac0ef6485c16a916a70e90030",
+      "xml_nodes": 16,
+      "caption": "Phone, required: Actual Android update confirmation. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-app-installer-cancelled.png",
+      "origin": "artifacts/updates-self-v6-phone-required/app-installer-cancelled.png",
+      "sha256": "36a9fe8561d02d31de1e643a293d02faf6e3db5fce2fff3bfdbfb8c2d10f7f44",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/app-installer-cancelled.xml",
+      "xml_sha256": "62f1cd6a4b95df88d6e1631e78bdeb088020e6ccc0d358341beee957172f8bc0",
+      "xml_nodes": 32,
+      "caption": "Phone, required: Android Cancel retained build 6 and the verified download. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-app-retry-confirmation.png",
+      "origin": "artifacts/updates-self-v6-phone-required/app-retry-confirmation.png",
+      "sha256": "ae097fcb8fcbbc440dd1e43aaacc3209d23f78b5491ff41b3d6ce42b3a1e3f9c",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/app-retry-confirmation.xml",
+      "xml_sha256": "ac7064778e81157f6fc400f01c27bc8094bf4d59545ef2b9808a45e3fa45f543",
+      "xml_nodes": 31,
+      "caption": "Phone, required: Retry returns to Android confirmation. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 6,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-self-after-version.png",
+      "origin": "artifacts/updates-self-v6-phone-required/self-after-version.png",
+      "sha256": "d1c995b56acdc80a3802fdf93387419bd16a8aeea6aed39e1800ade4fc8747d6",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/self-after-version.xml",
+      "xml_sha256": "add4685772a436fc8367c570a8392564977e675b46f63ceea0d8c986808d78ff",
+      "xml_nodes": 77,
+      "caption": "Phone, required: Actual installed build 7 after replacement. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-self-after-extension.png",
+      "origin": "artifacts/updates-self-v6-phone-required/self-after-extension.png",
+      "sha256": "65a4512c332b0cf4650785524a1fad9c9c85c066afb06d009f4b76bce941417f",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/self-after-extension.xml",
+      "xml_sha256": "1c3483d7a3bb689c2585994856f8dff5c5aaf5f3f6a3a27791c7ae8ae3180365",
+      "xml_nodes": 219,
+      "caption": "Phone, required: Retained extension executes and reads its saved LocalStorage and preference. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-required-self-after-note.png",
+      "origin": "artifacts/updates-self-v6-phone-required/self-after-note.png",
+      "sha256": "66c2ba543a7b2f786d90294ad96700ed936d05a04b6202e3e689408f03ba8aeb",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-required/self-after-note.xml",
+      "xml_sha256": "5241fbe157fb46a63f08035562c79c330847a6aaafbd0724954e7b32d7b5116c",
+      "xml_nodes": 225,
+      "caption": "Phone, required: Retained note title and exact fixture body after replacement. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    },
+    {
+      "file": "docs/screenshots/updates/phone-best-effort-self-after-version.png",
+      "origin": "artifacts/updates-self-v6-phone-best-effort/self-after-version.png",
+      "sha256": "1a44baee0a301a9bbd90d93e451bc908619e9a821189bd592cd345a04f164278",
+      "dimensions": [
+        1080,
+        2340
+      ],
+      "xml_origin": "artifacts/updates-self-v6-phone-best-effort/self-after-version.xml",
+      "xml_sha256": "d33af8cdb3827f82126e1b8c132f58a6255a8d6f765a61f223a0e066b9c47e5f",
+      "xml_nodes": 77,
+      "caption": "Phone, best-effort: Actual installed build 7 after replacement. Delivery uses a signed test-only update, not a published nightly.",
+      "version_code": 7,
+      "test_apk_sha256": "026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951"
+    }
+  ],
+  "suites": [
+    {
+      "layout": "tablet",
+      "kind": "updater",
+      "passes": 17,
+      "record": "artifacts/updates-verify-v8-tablet/record.json",
+      "record_sha256": "daf22d35b3bda245eca274638edc854389fc939045b67811b94aa3eb41903c04",
+      "log_sha256": "d0c1f486bab40f5a42f02588e252b84e12bcce640a42cfd8af7bc55874ddfafb"
+    },
+    {
+      "layout": "tablet",
+      "kind": "regression",
+      "passes": 14,
+      "record": "artifacts/updates-core-v3-tablet/record.json",
+      "record_sha256": "9dde02565112c1b43acf2de32481876ead54a29c5f19f2b232f3f8033fa4460a",
+      "log_sha256": "94d88f8f8f35b0c565d91bd3d9c9e99d15e54db0e1032c46cc83b4ce6b3e2d7c"
+    },
+    {
+      "layout": "tablet",
+      "kind": "legacy-baseline",
+      "passes": 1,
+      "record": "artifacts/updates-before-r9-v3-tablet/record.json",
+      "record_sha256": "c1bbe7bff07317830334258099280d0c7caaa86473809b0f67c50ea077365e26",
+      "log_sha256": "6c336658e402742494dc0093a722979ff3da294d9a7acb832660498f125f292f"
+    },
+    {
+      "layout": "phone",
+      "kind": "updater",
+      "passes": 17,
+      "record": "artifacts/updates-verify-v8-phone/record.json",
+      "record_sha256": "0a0227b2cb932529811bee87bc98ef54add9f4d6bf405f1eab579b31d19878c7",
+      "log_sha256": "69710d93afc08c3428e460ecc3efc3c364d4df5826dbbccf41fdb52e1df1e53a"
+    },
+    {
+      "layout": "phone",
+      "kind": "regression",
+      "passes": 14,
+      "record": "artifacts/updates-core-v3-phone/record.json",
+      "record_sha256": "d2711ded29cf3165d85ff248a4811513943ae0bbce616f3f35d9876ff372e692",
+      "log_sha256": "8c226b315e2c62316c8f41e82d17babd85f6476e837aed58a2027a1c7fffa47d"
+    },
+    {
+      "layout": "phone",
+      "kind": "legacy-baseline",
+      "passes": 1,
+      "record": "artifacts/updates-before-r9-v3-phone/record.json",
+      "record_sha256": "4ccdd4b17c001aa31fba5dbc8f6899943e8dc5301027bf9998eef453d166c843",
+      "log_sha256": "f23f7c24d35f4a902d367287400cf035ac62af9786054a2ccd66e9e48fbbd63b"
+    }
+  ],
+  "self_updates": [
+    {
+      "layout": "tablet",
+      "mode": "required",
+      "version": 7,
+      "same_uid_and_payload": true,
+      "pending_receipts": 2,
+      "second_confirmation_required": true,
+      "cancel_preserved_version": true,
+      "restored": true,
+      "record": "artifacts/updates-self-v6-tablet-required/record.json",
+      "record_sha256": "b3d69b9add8cbc03532639c4483db977fc0355f38d401465b1f9422c92b2a3ea"
+    },
+    {
+      "layout": "tablet",
+      "mode": "best-effort",
+      "version": 7,
+      "same_uid_and_payload": true,
+      "pending_receipts": 0,
+      "second_confirmation_required": false,
+      "cancel_preserved_version": null,
+      "restored": true,
+      "record": "artifacts/updates-self-v6-tablet-best-effort/record.json",
+      "record_sha256": "8f5833ffdeb3775e68a646156c9459a00617bb9632f8944c14a0316e619b30e3"
+    },
+    {
+      "layout": "phone",
+      "mode": "required",
+      "version": 7,
+      "same_uid_and_payload": true,
+      "pending_receipts": 2,
+      "second_confirmation_required": true,
+      "cancel_preserved_version": true,
+      "restored": true,
+      "record": "artifacts/updates-self-v6-phone-required/record.json",
+      "record_sha256": "472567e7b19887fccf076a3ee51758fde4db7b7beb7de6df51876b2037314230"
+    },
+    {
+      "layout": "phone",
+      "mode": "best-effort",
+      "version": 7,
+      "same_uid_and_payload": true,
+      "pending_receipts": 0,
+      "second_confirmation_required": false,
+      "cancel_preserved_version": null,
+      "restored": true,
+      "record": "artifacts/updates-self-v6-phone-best-effort/record.json",
+      "record_sha256": "7e626fcb6306c6c6a32ea2e6577ce32bb4722054149de308d7703082a222db43"
+    }
+  ],
+  "instrumentation_variants": {
+    "current": "Updater and regression cohorts use the final rendered-control fixture.",
+    "self_install": "Real self-update flows use the prior APK. Only UpdateVerificationDeviceTest changed afterward; the complete production source, UpdateSelfInstallDeviceTest, UpdateDeviceTest capture helper and real-install runner remain unchanged."
+  },
+  "source_sha256": {
+    "app/build.gradle.kts": "233e0777ea7c3164ae31138271196782aab2ba85fbcd653c292b4d7e657833fe",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "50535304885efa9f20eea103abc0f82148b0825ca9c1c7db9768b8197e49b565",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "0a3a7ac26ef2d82e1a4689802ca619a88998d723b82ce15cb88f01aeb1360151",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "fc0f50356c7369e602578cfd0aa003141b296ba3fd00b96f5c147eb0860a4ef0",
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "17468aa97e1a4add76d900290c729f8d6aadeac9301412a5680a3fd3622b1471",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "cda5a54ffce08c242407227a2bad5d6896002b622a3484c975832b812e946d84",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "71bb48eea4f974b6b0121d8d40dc1793af81311e08f080b181c3aec19f07ecc8",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "a019095736b5dfb505577d5dbe40508aa723881b63c62234f19601b26fa188c3",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "3d4444b0b04a04d7ba4bf80658ed9418c9488ec81b45b13fe0fd793e5d01395b",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a91fb619cd28a269caca5e21678b908e5c98b26c423e89c4ed1df8099fed3d85",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "1f8cfea9413aaf42cb33ad08f6408f0d087732ffa85d3905300b0c308a278a50",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "66511817ae6405b2e45e0ac1b8ece427b70be610d0bd573fa112e615b7c93dd6",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "799a52fd16509953ce09f5c731ee8c4bc485b0fe42fb0e05b52c881eb81fbcd9",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "057747c7bce16e1117260de3834097a3ed813c75b08b79e3f856893ca5e26023",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "97eef3e5aea3ce9c4e1fc6d16f56b0c485b2f56c96d9cd645f7dba767086b983",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "fa6f506ecbfe60e9b9307caf6c9a024b0452b0f7a6074a35175b1927f8e0059b",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "0e442aa005d1d80e6a9a3fffc31aa7a67fcf750ebe6ca1cc19cc76d424ecc768",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "6076a5f15a3a06e6fc4d79846cf40a41556f3198326910f96bdcf728b2011977",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "scripts/package-nightly-update.py": "2a650baee0c7c76eadd360171e19686aad7b960fe34ebc780638c6b231032420",
+    "scripts/test-extension-grid.py": "0b6d728798a6f9152670dd5f107c4f259b3cad61d7764e04f54f8b06829aa8cb",
+    "scripts/test-self-updates.py": "4ff148ea90c3a148a1eacf74116db288e5e9c282f69e0c331caa6f22b1a40889"
+  },
+  "reports": {
+    "artifacts/updates-final-v3-build.log": "0b79427ba82eb43621fadf9f912d9dac9e1a09c6bdd20c9fd68c4014461e1e78",
+    "app/build/reports/lint-results-debug.xml": "9cfb845585a257bcaa62bac61fd54ab7362eda8d20a4955b14aac40a2d49d5c7",
+    "artifacts/updates-cleanup-tests.log": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6",
+    "artifacts/updates-final-regressions-v3-results.json": "0e9438636e3769d15759305dc728ae5be968dd5643a9ae35eead21ac9b1fb50b",
+    "artifacts/updates-unarmed-guard/record.json": "acde496f8f00514422244a0f8215dd974756c652f31e13046e56083e5f8e08d3",
+    "artifacts/updates-unarmed-guard/test.log": "c244b71db14f6c479b9840e290f14406bdd0cb14cbe78ee49e29a739e5d88e7d",
+    "artifacts/updates-release-preflight.log": "f60f348dc01607668c8e2cf7df3855ed80f62040594927565bc78880db7315ae"
+  },
+  "preserved_assets": {
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66"
+  },
+  "guard_control": {
+    "unarmed_skip": true,
+    "fixture_not_created": true
+  }
+}

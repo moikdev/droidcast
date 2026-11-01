@@ -38,7 +38,7 @@ The live backlog is [GitHub issue #1](https://github.com/moikdev/droidcast/issue
 
 ## Active slice
 
-Verified nightly updates [#55](https://github.com/moikdev/droidcast/issues/55): public prerelease discovery, bounded HTTPS download, checksum/package/version/signer verification, inline palette and Settings UI, and Android installer approval/recovery. Implementation and device validation are in progress; not released or audit-cleared. See [update design](UPDATES.md).
+Verified nightly updates [#55](https://github.com/moikdev/droidcast/issues/55): public prerelease discovery, bounded HTTPS download, checksum/package/version/signer verification, inline palette and Settings UI, and Android installer approval/recovery. Implemented and locally validated with 138 JVM cases, 17 updater + 14 existing regression cases per layout, four real version 6→7 self-updates, and 46 real screenshot/XML pairs. Two independent audits and expected-head merge remain release gates recorded on the associated PR/issue. See [update design](UPDATES.md) and [scoped validation](validation/updates.md).
 
 Inline palette migration merged in [PR #61](https://github.com/moikdev/droidcast/pull/61), closing #56 after both independent sol/high audits cleared `af12a71`; merge `b2aa1d1` has the identical tree. [Nightly r9](https://github.com/moikdev/droidcast/releases/tag/nightly-2026-11-01-r9) publishes the exact tested APK with verified public bytes and unchanged nightly signer. Final evidence:132 JVM,74 tablet,71 phone,3 hardware,4 cleanup;89 PNGs/87 paired XMLs;lint0errors/44warnings. Native Grid and #6/#7 remain partial. #59/#62 and the historical picker miss remain unexplained. The complete source comparison and structural follow-up #60 remain applicable.
 

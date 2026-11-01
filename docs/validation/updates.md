@@ -1,33 +1,56 @@
-# Updater validation in progress
+# Verified nightly updater validation
 
-Issue #55. No PR/release clearance yet. [Design and trust contract](../UPDATES.md).
+Issue [#55](https://github.com/moikdev/droidcast/issues/55). [Trust/design contract](../UPDATES.md), [binary/source/image manifest](updates-evidence.json). Independent review conclusions and merge/release state are recorded on the associated PR and issue; local checks are not GitHub CI.
 
-- WIP build compiles; 138 JVM cases pass, including six updater policy tests. Final frozen-binary certification remains pending.
-- Initial real Settings/palette runs passed 2/2 per layout after correcting an exact-label assertion. Live public GitHub discovery works; pre-updater releases supply no update manifest.
-- The first signed-fixture pipeline built both versions and a distinct test signer, then failed during an ADB stdin transfer before native cases ran. All recorded cleanup steps passed; no app failure is claimed. Subsequent transfer uses bounded ADB push/copy with hashes.
-- The first 16-case tablet verification run passed 12/16. Four cases failed at native screenshot marker waits after preceding state/security assertions. The failing helper retained no failure hierarchy/image; the cause is not established. Those results are excluded from final certification. Explicit visible Compose markers, fresh native cache queries and failure PNG/XML capture strengthen the helper.
-- Production UI now remains busy until operation cleanup completes. This closes a source-established interval where a completed-looking phase could offer controls while its previous job was still active; no measured latency fix is claimed.
-- Verification fixtures use a real signed newer APK, valid APK signed by a distinct test certificate, and a wrong-package APK. The controlled transport is explicitly distinct from the live GitHub/HTTPS cases. Test-only APKs and the private fixture key are never published as eligible nightlies.
-- The native fixture runner temporarily sets per-source install approval on the owned emulator, then restores the prior mode. It records unprivileged app/adbd state and cleanup. Real Android approval and successful self-update/data-preservation validation remain pending.
-- API36 arm64 tablet/phone viewports are configurations of one owned emulator. Physical Lenovo/OEM, API26 runtime, comprehensive accessibility, process-death and performance certification remain unclaimed.
+## Final local results
 
-The tightened 16-case verification cohort passes on tablet and phone at source checkpoint 715e866, with one bootstrap/test pair and signed fixture payloads from that checkpoint. Cleanup records restore source-approval mode and unrooted state. It covers live public GitHub/HTTPS reads and explicitly controlled transport for archive/error cases; real self-update remains pending. The subsequent fixed-footer, status-message and verified-cache refinements add a same-turn Enter/visibility assertion and another cache-recheck case, so those earlier 16-case results are historical, not final-binary certification. Real-install helpers retain opaque private app-data snapshots solely for restoration; no snapshot contents or private fixture key may be published or reviewed.
+| Check | Tablet | Phone |
+| --- | --- | --- |
+| Updater native cohort | 17/17 | 17/17 |
+| Existing Settings/palette regressions | 14/14 | 14/14 |
+| Released-r9 baseline navigation/capture | 1/1 | 1/1 |
+| Real update with confirmation, Cancel and Retry | passed | passed |
+| Real update with best-effort confirmation skipping | passed, no second confirmation | passed, no second confirmation |
 
-## Real-install validation checkpoints
+Build succeeds; JVM XML reports 138 tests with no failures/errors/skips. Lint reports 0 errors and 50 warnings. Four independent-cleanup helper unit tests pass. An unarmed real-install method is skipped by its explicit guard, with no fixture directory created; this is a safety-control result, not another feature pass. Final execution is sequential and stops at unsuccessful suites.
 
-The tightened 17-case cohort passes on both layouts at the unchanged production checkpoint df9c5b5. It adds verified-cache rechecking and fixed-footer activation. Its instrumentation APK predates subsequent real-install-fixture navigation changes; the final unified-pair 17/17 reruns now pass on both layouts.
+One owned API36 arm64 emulator is configured as tablet 1920×1200/240dpi and phone 1080×2340/420dpi. The app runs under ordinary UID 10213; adbd remains UID2000. Passing records verify installed app bytes and restore preferences/settings/geometry. The real-install harness additionally verifies opaque files/shared_prefs inventory restoration, original app version/bytes/UID, source-approval mode and fixture-grant cleanup. Cache contents are not covered by that private-data restoration claim. Private snapshots and the test-only signing key must never be read for review or published.
 
-The real-install harness uses an actual same-signer versionCode 6 → 7 APK replacement through the product PackageInstaller path. Delivery is explicitly staged by the harness; product recovery rechecks package/version/hash/signer before presenting installation. The payload is named 0.5.0-update-fixture and must never be published as an eligible nightly. Live network coverage separately exercises public GitHub discovery and a real HTTPS legacy-r9 download.
+## Frozen binaries and provenance
 
-- Tablet confirmation-required: passed Android source approval, actual installer Cancel, retained verified retry, installation, same UID and payload-byte identity, then semantic collection/pin/alias/shortcut checks, emoji/extension preference-byte equality, palette-preference equality excluding legitimate command-usage changes, persistent grant plus document read, and running the retained extension/note. Cleanup verified the original bootstrap, opaque private data, approval mode and device configuration.
-- Tablet best-effort: the same update/retention checks passed without a second platform confirmation on this emulator. This is not an OEM or universal silent-update claim.
-- Phone confirmation-required: the same cancellation/retry/update/retention and restoration checks passed. The phone best-effort case also passed without a second platform confirmation.
+The product APK is byte-identical throughout final verification, regressions and real-install flows. Its embedded source checkpoint is df9c5b57ea57a7875b8940529721c22527c0d962; all later implementation changes are native test/runner/documentation changes. The manifest records current source hashes and unchanged packaged assets.
 
-Excluded real-install setup attempts are preserved. The first expected a Downloads drawer that was absent; the next capture established a primary-storage tree view with a visible Download folder and no drawer. Another expected an exposed launcher test resource ID, while a native diagnostic established a focused EditText without that ID. A subsequent picker capture established an already-selected fixture breadcrumb; navigation now handles that retained destination. These are fixture/navigation corrections, not production updater fixes. Every excluded attempt's independent restoration checks passed.
+- Bootstrap, versionCode 6: ceadcc73222d0590dbaf9493e8a0d703d0ae6938269ef8dffc8b84a2c7e4ccc2
+- Signed test-only payload, versionCode 7: 6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4
+- Final updater/regression instrumentation: 3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9
+- Real-install instrumentation: 026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951
 
-The original 16/17 verification attempt failed because setup waited for IDLE without awaiting the coordinator's still-active cleanup. The corrected fixture waits for both IDLE and nonbusy. The production busy contract was already present. No unmeasured timing or latency fix is claimed.
+Only UpdateVerificationDeviceTest changed between the two final instrumentation variants. Application sources, UpdateSelfInstallDeviceTest, the shared UpdateDeviceTest capture helper and scripts/test-self-updates.py remain unchanged. Both archived APK identities are retained; the real-install variant is also archived with the preceding tablet verification cohort. This is not a claim that every suite used one instrumentation binary.
 
+The versionCode 7 payload is named 0.5.0-update-fixture and must never be published as an eligible nightly. The release packager successfully preflights the already-tested versionCode 6 APK against public prior version codes, its embedded commit, package and the unchanged nightly signer; it writes the APK, format-1 manifest and checksums without rebuilding or signing.
 
-The first broader regression cohort passed 13/14 tablet cases, with the existing Quick Settings tile package-visibility assertion timing out. A focused run passed on identical production bytes; the original failing assertion captured no frame/hierarchy. This is the existing unresolved [#37](https://github.com/moikdev/droidcast/issues/37), not an established new source defect or a demonstrated fix. Subsequent diagnostic helpers retain failure bitmap/hierarchy/activity evidence. No tile-source change is part of this slice.
+## What the tests establish
 
-Real-install tests now require an explicit external-harness argument, the expected emulator AVD, the emulator property and API36 before fixture mutation. Ordinary unarmed runs skip them; physical-device execution is rejected. Guarded real flows are rerun with the revised instrumentation build. The product APK remains byte-identical.
+Public GitHub discovery and a real HTTPS legacy-r9 download exercise production networking. Controlled transport separately supplies actual signed APKs, corruption, truncation, timeout/offline behavior and progress held at 1 MiB. These captures show real app controls and real bytes, while explicitly identifying controlled transport.
+
+Archive cases reject corrupt/interrupted files, different package/certificate, stale versions and changed recovered/staged files. They check cleanup, controller replacement, same-release cache retention, retry and forged-result rejection. The palette test checks fixed-footer geometry, same-turn Enter/repeat/release handling, absence of a redundant Actions menu, and caller query/caret restoration. Existing regression cohorts exercise Settings navigation, inline aliases/recording/backup, palette geometry/dismissal/tile invocation and action/Emoji routes.
+
+Four real self-updates use production recovery and PackageInstaller after the harness stages signed bytes. No instrumentation is running during the actual approval/installation UI. Confirmation-required runs verify the real Android source-approval switch, pending-user-action receipt, installer Cancel preserving version 6 plus the verified download, Retry, actual version 7/payload bytes and unchanged UID. Best-effort runs install without a second confirmation on this emulator; Android/OEM fallback remains supported and no universal silent-update claim is made.
+
+After replacement, native assertions verify notes, quicklinks, saved clips, pins, aliases, global/per-command shortcut configuration, emoji favorites/recents, identical emoji/extension preference bytes, and palette preferences excluding the entire command-usage field (invoking Updates legitimately changes usage). Existing grant hashes remain present; the new persistent grant reads the exact document body. Retained extension code/support files are checked and the actual JS extension reads saved LocalStorage/preferences; the retained note opens with its exact body. Unsaved editor buffers and post-update physical keyboard-service delivery are not certified.
+
+Real-install tests require an explicit external-harness flag, matching AVD/emulator properties and API36 before fixture mutation. The host validates the dedicated emulator, ordinary app/adbd identities, starting version/hash, unused fixture locations and source-approval restoration. It handles its original private bytes opaquely.
+
+## Screenshots
+
+All 46 durable PNGs live in docs/screenshots/updates. Each has an origin, SHA-256, dimensions, paired XML hash, app version and instrumentation identity in the manifest. Two before captures use the actual released-r9 APK (code 5); updater screens use code 6; after-replacement captures use the test-only code 7. Settings, palette, progress/error, real permission/installer, cancellation/retry and retained-data states are included. PR image URLs must pin the reviewed head. Stills establish neither latency nor continuous animation.
+
+## Excluded attempts and unresolved limits
+
+- Initial source transfer timed out during ADB stdin upload before native cases; restoration passed. Subsequent APK transfer uses push/copy plus hashes.
+- The first 16-case tablet cohort passed 12/16, failing four native capture marker waits after preceding model/security assertions. It retained no failure frame/hierarchy, so the cause remains unknown. Explicit visible markers, native cache refresh and failure captures strengthen evidence without establishing a production timing fix.
+- An earlier 16/17 cohort waited for model IDLE while cleanup was still active. A later 16/17 phone cohort observed initial model IDLE before the first content recovery effect and could not find Check before any test action. Fixtures now wait for composition and rendered/enabled controls plus nonbusy state, within the same 10-second bound. Product bytes are unchanged. Final 17/17 cohorts pass.
+- Real-install setup attempts expected a Downloads drawer, an exposed launcher test resource ID or a not-yet-selected fixture row. Native captures/diagnostics established the actual storage-root/retained-breadcrumb and EditText/command-description paths. These are fixture corrections; all excluded-attempt restoration checks passed.
+- The first broader tablet run passed 13/14: the existing tile package-visibility assertion timed out without a failure frame. A focused pass and the later 14/14 cohorts do not establish its cause or a production fix. The tile implementation is unchanged; evidence is appended to existing [#37](https://github.com/moikdev/droidcast/issues/37).
+
+CI remains inactive. Physical Lenovo/OEM behavior, API26 runtime, process-kill recovery under load, full TalkBack/large-font traversal, latency/endurance and broad Tinycast/Raycast parity remain uncertified. Earlier #35/#59/#62 limitations are not resolved by this updater work. One manual bootstrap installation is necessary for existing r9 users to gain the updater; later eligible nightlies can be downloaded and installed from the app.
