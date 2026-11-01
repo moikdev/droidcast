@@ -1,5 +1,8 @@
 package dev.tinycast.android
 
+import dev.tinycast.android.updates.UpdateContent
+import dev.tinycast.android.updates.AppUpdates
+
 import android.view.KeyEvent
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
@@ -50,12 +53,13 @@ private val settingsPages = listOf(
     SettingsPage("shortcuts", "Shortcuts", "keyboard", "commands apps hotkeys aliases bindings reset"),
     SettingsPage("folders", "Folders", "folder", "search files directory index scope permission refresh"),
     SettingsPage("backup", "Backup", "clipboard", "import export restore notes links clips preferences"),
+    SettingsPage("updates", "Updates", "command", "ota nightly version download install upgrade"),
     SettingsPage("about", "About", "command", "version source license tinycast raycast")
 )
 
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
-internal fun AdvancedSettings(activity: SettingsActivity) {
+internal fun AdvancedSettings(activity: SettingsActivity, updates: AppUpdates = activity.store.updates) {
     val store = activity.store
     var query by rememberSaveable { mutableStateOf("") }
     val searchFocus = remember { FocusRequester() }
@@ -132,6 +136,7 @@ internal fun AdvancedSettings(activity: SettingsActivity) {
                         "backup" -> SettingsScrollPane("Backup", "Export your data or inspect an import before applying it.") {
                             BackupDialog(store, activity::command, activity::back, embedded = true)
                         }
+                        "updates" -> SettingsScrollPane("Updates", "Keep Droidcast up to date, without leaving the app to download an APK.") { UpdateContent(updates) }
                         "about" -> SettingsAbout(activity)
                         else -> SettingsGeneral(activity)
                     }
@@ -514,7 +519,7 @@ private fun SettingsSearchResults(activity: SettingsActivity, query: String, sel
 private fun SettingsAbout(activity: SettingsActivity) {
     SettingsScrollPane("About", "Droidcast · native Android command palette") {
         SettingsCard {
-            Text("0.4.0-preview · Development", fontWeight = FontWeight.Medium, fontSize = 16.sp)
+            Text("${BuildConfig.VERSION_NAME} · build ${BuildConfig.VERSION_CODE}", fontWeight = FontWeight.Medium, fontSize = 16.sp)
             Text("An unofficial Android adaptation of Tinycast. Preferences take inspiration from Raycast; the launcher keeps its compact transparent palette.", fontSize = 12.sp, color = PaletteTheme.secondary, modifier = Modifier.padding(top = 12.dp))
             Text("AGPL-3.0-or-later. Tinycast © 2026 Abue Ammar. Android modifications © Droidcast contributors. React and the GitHub gemoji dataset are distributed under their MIT licenses. Full notices are bundled with the source and app. No warranty.", fontSize = 12.sp, color = PaletteTheme.secondary, modifier = Modifier.padding(top = 12.dp))
             TextButton(onClick = { activity.command(Command("web", "Source", "", payload = "https://github.com/moikdev/droidcast")) }) { Text("Source and notices") }

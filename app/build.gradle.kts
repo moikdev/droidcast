@@ -9,11 +9,15 @@ android {
         applicationId = "dev.tinycast.android"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "0.4.0-preview"
+        versionCode = providers.gradleProperty("droidcastVersionCode").orElse("6").get().toInt().also { require(it in 6..2_100_000_000) }
+        versionName = providers.gradleProperty("droidcastVersionName").orElse("0.5.0-nightly").get().also { require(Regex("[A-Za-z0-9.+-]{1,60}").matches(it)) }
+        val commit = providers.gradleProperty("droidcastBuildCommit").orElse("local").get()
+        require(commit == "local" || Regex("[a-f0-9]{40}").matches(commit))
+        buildConfigField("String", "BUILD_COMMIT", "\"$commit\"")
+        manifestPlaceholders["buildCommit"] = commit
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures { compose = true }
+    buildFeatures { compose = true; buildConfig = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

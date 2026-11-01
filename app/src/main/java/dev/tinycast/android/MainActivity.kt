@@ -76,6 +76,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         super.onResume()
         ShortcutRuntime.resumed(this)
         store.folderSearch.revalidate()
+        if (store.dialog == "updates") store.updates.refresh()
         shortcutEnabled = KeyboardServiceConsent.read(this) == KeyboardConsent.APPROVED
     }
     override fun onPause() { modifierShortcuts.clear(); store.clearModifierRecording(); ShortcutRuntime.paused(this); super.onPause() }
@@ -193,6 +194,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
                 if (extension != null && entry != null) openExtension(extension, entry) else store.message = "This extension is no longer installed"
             }
             Kind.COMMAND -> when (command.id) {
+                "check-updates" -> { store.updates.check(); store.dialog = "updates" }
                 "backup", "backup-export" -> openSettings("backup")
                 "backup-import" -> openSettings("backup", operation = "import")
                 "backup-write" -> store.prepareExport { createBackup.launch("Droidcast-${java.time.LocalDate.now()}.json") }

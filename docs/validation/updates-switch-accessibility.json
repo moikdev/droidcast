@@ -1,0 +1,68 @@
+[
+  {
+    "layout": "tablet",
+    "old": {
+      "text": "",
+      "content-desc": "",
+      "checkable": "true",
+      "checked": "true",
+      "enabled": "true",
+      "NAF": "true",
+      "xml_origin": "artifacts/updates-switch-negative-final-tablet/confirmation-switch-idle.xml",
+      "xml_sha256": "6af9feed103083219ffb50ef5ab44868b33baf01054d0e1b3dea747236cb7b4a"
+    },
+    "idle": {
+      "text": "",
+      "content-desc": "Confirm each update",
+      "checkable": "true",
+      "checked": "true",
+      "enabled": "true",
+      "NAF": null,
+      "xml_origin": "artifacts/updates-switch-final-tablet/confirmation-switch-idle.xml",
+      "xml_sha256": "51f398823fed0023b46df3ad0760ad2101738d61c9c54aca16246f817ad51584"
+    },
+    "busy": {
+      "text": "",
+      "content-desc": "Confirm each update",
+      "checkable": "true",
+      "checked": "true",
+      "enabled": "false",
+      "NAF": null,
+      "xml_origin": "artifacts/updates-switch-final-tablet/confirmation-switch-busy.xml",
+      "xml_sha256": "31301f662dc8298892b6bf541461e6fb4a8b50035aa5b993898562c56aa5223b"
+    }
+  },
+  {
+    "layout": "phone",
+    "old": {
+      "text": "",
+      "content-desc": "",
+      "checkable": "true",
+      "checked": "true",
+      "enabled": "true",
+      "NAF": "true",
+      "xml_origin": "artifacts/updates-switch-negative-final-phone/confirmation-switch-idle.xml",
+      "xml_sha256": "5d4ab002538f3290ecee67d26bb21dd9ea43046bcfa042f61c533e46570b9990"
+    },
+    "idle": {
+      "text": "",
+      "content-desc": "Confirm each update",
+      "checkable": "true",
+      "checked": "true",
+      "enabled": "true",
+      "NAF": null,
+      "xml_origin": "artifacts/updates-switch-final-phone/confirmation-switch-idle.xml",
+      "xml_sha256": "11e6885e6d9a7e06719c77b7eed6fb0aa86aa75b4724bd42707c61e262f3bd1b"
+    },
+    "busy": {
+      "text": "",
+      "content-desc": "Confirm each update",
+      "checkable": "true",
+      "checked": "true",
+      "enabled": "false",
+      "NAF": null,
+      "xml_origin": "artifacts/updates-switch-final-phone/confirmation-switch-busy.xml",
+      "xml_sha256": "59f638cda0f21011c536e791cc2bc36edde6bd7240c6de4f1f59a9baf3df7831"
+    }
+  }
+]

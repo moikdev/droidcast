@@ -67,6 +67,7 @@ class SettingsActivity : ComponentActivity(), android.hardware.input.InputManage
         ShortcutRuntime.settingsResumed(this)
         assistantSelected = AssistantActivation.isSelected(this)
         store.folderSearch.revalidate()
+        if (page == "updates") store.updates.refresh()
         refreshServiceConsent()
         if (pendingOperation == "import") { pendingOperation = null; store.beginBackup(); importBackup.launch(arrayOf("application/json", "text/plain", "application/octet-stream")) }
     }
@@ -121,7 +122,7 @@ class SettingsActivity : ComponentActivity(), android.hardware.input.InputManage
         cancelShortcutProbe(); store.cancelShortcutRecording(toManager = false); receive(intent)
     }
     private fun receive(intent: Intent) {
-        page = intent.getStringExtra("page")?.takeIf { it in setOf("general", "shortcuts", "folders", "backup", "about") } ?: "general"
+        page = intent.getStringExtra("page")?.takeIf { it in setOf("general", "shortcuts", "folders", "backup", "updates", "about") } ?: "general"
         requestedCommand = intent.getStringExtra("command")?.takeIf(ShortcutRules::targetAllowed)
         requestedEditor = intent.getStringExtra("editor")?.takeIf { it in setOf("alias", "hotkey") }.orEmpty()
         pendingOperation = intent.getStringExtra("operation")?.takeIf { it == "import" }
