@@ -143,11 +143,17 @@ class TouchReadabilityDeviceTest {
             // An offscreen row can belong to a fully visible inner list. In
             // that case pan that list, rather than an already settled route.
             val parentOutside=parentFull.top<outer.top-1 || parentFull.bottom>outer.bottom+1
-            val isOuter=parentOutside || scrollParent.id==outerNode.id
+            val outerRange=outerNode.config[SemanticsProperties.VerticalScrollAxisRange]
+            val targetBelow=full.bottom>outer.bottom+1
+            val targetAbove=full.top<outer.top-1
+            val outerCanMove=if(targetBelow)outerRange.value()<outerRange.maxValue()-1 else outerRange.value()>1
+            val isOuter=scrollParent.id==outerNode.id || parentOutside && (targetBelow || targetAbove) && outerCanMove
             val scrollTag=if(isOuter)"palette-content-scroll" else if(scrollParent.config.contains(SemanticsProperties.TestTag))scrollParent.config[SemanticsProperties.TestTag] else "scroll-${scrollParent.id}"
             val route=if(isOuter)outerInteraction else parentInteraction
             val viewport=route.fetchSemanticsNode().boundsInRoot
-            val required=if(parentOutside)parentFull else full
+            // A form can be taller than the visible route. Its bottom is not
+            // the direction to an input above the viewport; follow the target.
+            val required=full
             val below=required.bottom>viewport.bottom+1
             val clippedDistance=(if(below)required.bottom-viewport.bottom else viewport.top-required.top).coerceAtLeast(0f)
             val pixelsPerDp=context.resources.displayMetrics.density
@@ -171,6 +177,8 @@ class TouchReadabilityDeviceTest {
                 val end=if(below)(start-travel).coerceAtLeast(8f) else (start+travel).coerceAtMost(viewport.height-8f)
                 geometry.put("pan-$tag-$it",JSONObject().put("surface",scrollTag)
                     .put("scope_height",height).put("visible_height",viewport.height).put("clipped_distance",clippedDistance)
+                    .put("target_top",full.top).put("target_bottom",full.bottom)
+                    .put("outer_scroll",outerRange.value()).put("outer_scroll_max",outerRange.maxValue())
                     .put("start_y",start).put("end_y",end).put("footer_pan",useFooter).put("end_velocity",0))
                 swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),endVelocity=0f,durationMillis=400)
             }
