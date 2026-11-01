@@ -84,7 +84,11 @@ class UpdateVerificationDeviceTest {
             it.selectPage("updates")
             it.setContent { AdvancedSettings(it, updates) }
         }
+        // The content's initial LaunchedEffect starts recovery; initial model IDLE
+        // alone can be observed before that first composition has run.
+        compose.waitForIdle()
         compose.waitUntil(10_000) { !updates.busy && updates.state.phase == UpdatePhase.IDLE }
+        awaitControl("updates-check")
     }
     @After fun restore() {
         if (::updates.isInitialized) {
@@ -98,12 +102,29 @@ class UpdateVerificationDeviceTest {
         compose.onNodeWithTag(tag).performScrollTo().assertIsDisplayed().assertTextContains(marker, substring = true)
         updateEvidence(name, marker)
     }
+    private fun awaitControl(tag: String) {
+        try {
+            compose.waitUntil(10_000) {
+                compose.onAllNodesWithTag(tag).fetchSemanticsNodes().size == 1 && !updates.busy
+            }
+            compose.onNodeWithTag(tag).performScrollTo().assertIsDisplayed().assertIsEnabled()
+        } catch (error: Throwable) {
+            File(context.filesDir, "updates-evidence").apply { mkdirs() }.let {
+                device.dumpWindowHierarchy(File(it, "failure-control-ready.xml"))
+                device.takeScreenshot(File(it, "failure-control-ready.png"))
+            }
+            throw error
+        }
+    }
     private fun checkAvailable() {
-        compose.onNodeWithTag("updates-check").performScrollTo().performClick()
-        compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.AVAILABLE }
+        awaitControl("updates-check")
+        compose.onNodeWithTag("updates-check").performClick()
+        compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.AVAILABLE && !updates.busy }
+        awaitControl("updates-download")
     }
     private fun downloadAndWait() {
-        compose.onNodeWithTag("updates-download").performScrollTo().performClick()
+        awaitControl("updates-download")
+        compose.onNodeWithTag("updates-download").performClick()
         compose.waitUntil(20_000) { !updates.busy }
     }
     @Test fun offlineRetryReachesAvailableWithoutPopups() {
