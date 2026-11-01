@@ -126,7 +126,7 @@ class TouchReadabilityDeviceTest {
         val origin=node.positionInRoot;val size=node.size
         return Rect(origin.x,origin.y,origin.x+size.width,origin.y+size.height)
     }
-    private data class ScrollGeometry(val visible:Rect,val full:Rect,val outer:Rect,val parent:Rect,val parentFull:Rect,
+    private data class ScrollGeometry(val visible:Rect,val full:Rect,val outer:Rect,val parent:Rect,val parentFull:Rect,val root:Rect,
                                       val outerScroll:Float,val outerMax:Float)
     private fun settledViewport() {
         var last:Pair<Rect,Boolean>?=null
@@ -156,9 +156,10 @@ class TouchReadabilityDeviceTest {
             val scrollParent=generateSequence(node.parent) { it.parent }.firstOrNull {
                 it.config.contains(SemanticsProperties.VerticalScrollAxisRange)
             } ?: outerNode
+            val rootNode=compose.onAllNodes(isRoot()).fetchSemanticsNodes().single()
             val outerRange=outerNode.config[SemanticsProperties.VerticalScrollAxisRange]
             val sample=compose.runOnUiThread { ScrollGeometry(node.boundsInRoot,unclipped(node),outerNode.boundsInRoot,
-                scrollParent.boundsInRoot,unclipped(scrollParent),outerRange.value(),outerRange.maxValue()) }
+                scrollParent.boundsInRoot,unclipped(scrollParent),rootNode.boundsInRoot,outerRange.value(),outerRange.maxValue()) }
             val visible=sample.visible;val full=sample.full;val outer=sample.outer
             geometry.put("reveal-$tag",JSONObject().put("visible_top",visible.top).put("visible_bottom",visible.bottom)
                 .put("full_top",full.top).put("full_bottom",full.bottom).put("viewport_top",outer.top).put("viewport_bottom",outer.bottom)
@@ -195,21 +196,25 @@ class TouchReadabilityDeviceTest {
                 val footerStart=footer?.let {
                     (if(below)footer.bottom-minOf(8*pixelsPerDp,footer.height*.25f) else footer.top+minOf(8*pixelsPerDp,footer.height*.25f))-viewport.top
                 }
-                // A sliver of footer at the edge cannot provide a useful
-                // drag in that direction. Start farther inside the viewport
-                // and let nested scrolling reach its boundary first.
-                val footerTravel=footerStart?.let { if(below)it-8f else viewport.height-8f-it } ?: 0f
-                val useFooter=footerStart!=null && footerTravel>=minOf(travel,viewport.height*.5f)
+                val useFooter=footerStart!=null
                 val start=if(useFooter)footerStart!!
                 else if(isOuter)viewport.height*(if(below).85f else .15f)
                 else if(below)viewport.height*.80f else viewport.height*.20f
-                val end=if(below)(start-travel).coerceAtLeast(8f) else (start+travel).coerceAtMost(viewport.height-8f)
+                // A captured drag can leave the small palette. Constraining
+                // its end to this viewport can leave only a few pixels beyond
+                // touch slop and bounce between inner/outer scrolls forever.
+                // Keep the gesture inside the app root, with its DOWN inside
+                // the chosen scroll surface; do not tap outside the palette.
+                val minY=sample.root.top-viewport.top+8f
+                val maxY=sample.root.bottom-viewport.top-8f
+                val end=(if(below)start-travel else start+travel).coerceIn(minY,maxY)
                 geometry.put("pan-$tag-$it",JSONObject().put("surface",scrollTag)
                     .put("scope_height",height).put("visible_height",viewport.height).put("clipped_distance",clippedDistance)
                     .put("target_top",full.top).put("target_bottom",full.bottom)
                     .put("outer_scroll",sample.outerScroll).put("outer_scroll_max",sample.outerMax)
                     .put("parent_full_top",sample.parentFull.top).put("parent_full_bottom",sample.parentFull.bottom)
                     .put("parent_top",sample.parent.top).put("parent_bottom",sample.parent.bottom)
+                    .put("gesture_min_y",minY).put("gesture_max_y",maxY)
                     .put("start_y",start).put("end_y",end).put("footer_pan",useFooter).put("end_velocity",0))
                 swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),endVelocity=0f,durationMillis=400)
             }
