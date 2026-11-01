@@ -20,7 +20,7 @@ Repeat to continue; `--limit 10000` attempts all remaining directories, while `-
 
 The supplied inventory is pinned to `raycast/extensions` commit `11a912d89b576ca066e9ee42e75b8dd2e8aa0f5c`, direct `extensions` tree `70d8d3725e5ac57ed799c3a23701ace4549ac771`. The collector reconstructs that Git tree from all directory names and tree IDs. A truncated response, an omitted/duplicate directory or a changed tree fails validation. The recorded commit/tree association was obtained from GitHub; reconstructing the direct tree validates its contents, not the parent commit association independently.
 
-Each request uses an immutable HTTPS raw-file URL, a 20-second socket timeout and a 512 KiB response bound. Redirects are refused. At most four workers run, with one retry for transient HTTP or transport failures. Permanent errors remain visible and are retried only with `--retry-errors`. No source code, package script or dependency is executed or installed.
+Each request uses an immutable HTTPS raw-file URL, a 20-second socket timeout and a 512 KiB response bound. Redirects are refused. At most four workers run, with one retry for transient HTTP or transport failures. Permanent errors remain visible and are retried only with `--retry-errors`. Extension code, package scripts and dependencies are never executed or installed.
 
 Successful records bind the observed bytes to SHA-256 and a computed Git blob ID. Twenty manifests also have separately retrieved expected blob/SHA-256 anchors. Computing a blob ID for another manifest is not independent verification against its directory tree. The cache is checked and declarations are rebuilt from the raw bytes on every resume; editing cached command/status fields cannot turn a command into “working.” Defaults and preference values are excluded from the exported declarations; non-semver dependency URLs are redacted. Raw public manifests remain in the local cache for inspection.
 
@@ -42,3 +42,9 @@ Validation:
 python3 -m unittest discover -s scripts/tests -p test_extension_manifest_catalog.py
 python3 -O -m unittest discover -s scripts/tests -p test_extension_manifest_catalog.py
 ```
+
+The targeted collector checks pass in normal and optimized Python (15 cases each); all 19 Python cases, including existing Android cleanup checks, also pass. A real unauthenticated HTTPS smoke accepted three independently anchored manifests and ten untested declarations. Its deliberate partial batch returns exit 1 with 3,488 directories still pending; see the [receipt](validation/extensions/https-discovery-smoke.json).
+
+The tooling changes no Android production/build source. The [retained runtime smoke record](validation/extensions/retained-runtime-smoke.json) verifies all 61 production/build source hashes against the previously tested `9986679` APK. The unmodified real frame below comes from that earlier controlled provider retry run on API36, tablet 1920×1200/240dpi; it is not a new Android test or extension execution result. Original capture, test APK and cleanup provenance remain in the [provider checkpoint](validation/readiness/provider-retry-followup.json).
+
+![Retained real app smoke of the unchanged runtime](screenshots/readiness-regressions/provider-retry-tablet-smoke.png)
