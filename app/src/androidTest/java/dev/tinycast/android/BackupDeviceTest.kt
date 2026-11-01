@@ -321,6 +321,8 @@ class BackupDeviceTest {
             device.takeScreenshot(File(folder,"export-after-cancel-failure.png"))
         }
         assertTrue("Export picker must open after cancelling import",exportOpened)
+        device.dumpWindowHierarchy(File(folder,"export-after-cancel-destination.xml"))
+        assertTrue(device.takeScreenshot(File(folder,"export-after-cancel-destination.png")))
         device.pressBack()
         try {
             compose.waitUntil(10000) { compose.activity.store.pendingExport == null && !compose.activity.store.backupBusy }
