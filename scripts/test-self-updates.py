@@ -173,7 +173,7 @@ try:
  raw('push',str(a.payload),remote);raw('shell','chmod','0644',remote)
  raw('shell','run-as',APP,'cp',remote,'files/updates-self-input/newer.apk')
  native('preparePublicDataAndVerifiedUpdate','prepare')
- raw('shell','am','force-stop',APP);open_updates()
+ raw('shell','am','force-stop',APP);raw('shell','input','keyevent','KEYCODE_HOME');open_updates()
  screenshot('app-approval-needed',app_update)
  permission=wait_for(lambda root:node_tag(root,'updates-permission'),'App source approval action');tap(permission)
  switch=wait_for(lambda root:next((n for n in root.iter('node') if n.get('package')=='com.android.settings' and n.get('checkable')=='true'),None),'Android source approval switch')

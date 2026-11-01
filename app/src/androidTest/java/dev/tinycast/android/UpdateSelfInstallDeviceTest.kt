@@ -50,6 +50,16 @@ class UpdateSelfInstallDeviceTest {
     }
     private fun digest(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
     private fun hash(file: File) = digest(file.readBytes())
+    // Invoking Check for Updates legitimately increments command usage between prepare/install.
+    // Compare every other preference without publishing private values or their key names.
+    private fun palettePreferencesHash(): String {
+        val values = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.filterKeys { it != "usage" }
+        val json = JSONObject()
+        values.toSortedMap().forEach { (key, value) ->
+            json.put(key, if (value is Set<*>) JSONArray(value.map { it.toString() }.sorted()) else value)
+        }
+        return digest(json.toString().toByteArray())
+    }
     private fun grantHashes() = context.contentResolver.persistedUriPermissions.map {
         digest((it.uri.toString()+"|"+it.isReadPermission+"|"+it.isWritePermission).toByteArray())
     }.toSet()
@@ -149,8 +159,9 @@ class UpdateSelfInstallDeviceTest {
             .putString("preferences", JSONObject().put("sample", "Saved preference survives").toString()).commit())
         assertTrue(ExtensionCatalog(context).installed.any { it.listing.id == extensionId })
         for (name in listOf("palette", "emoji")) assertTrue(context.getSharedPreferences(name, Context.MODE_PRIVATE).edit().commit())
-        for (name in listOf("palette", "emoji", "extension-$extensionId"))
+        for (name in listOf("emoji", "extension-$extensionId"))
             saved.put("hash-$name", hash(File(context.applicationInfo.dataDir, "shared_prefs/$name.xml")))
+        saved.put("palettePreferencesHash", palettePreferencesHash())
         saved.put("extensionCodeHash", hash(File(extDirectory, "retention.js")))
         writeState(saved)
         val input = File(context.filesDir, "updates-self-input/newer.apk")
@@ -186,7 +197,8 @@ class UpdateSelfInstallDeviceTest {
         assertEquals(KeyChord(KeyEvent.KEYCODE_Q, ShortcutRules.ALT), store.shortcutConfiguration.bindings[ShortcutRules.PALETTE])
         assertEquals(KeyChord(KeyEvent.KEYCODE_J, ShortcutRules.CTRL or ShortcutRules.ALT), store.shortcutConfiguration.bindings[saved.getString("note")])
         assertTrue(saved.getString("emoji") in store.emoji.favorites); assertTrue(saved.getString("emoji") in store.emoji.recent)
-        for (name in listOf("palette", "emoji", "extension-$extensionId"))
+        assertEquals("Palette preferences survive, apart from updater command usage", saved.getString("palettePreferencesHash"), palettePreferencesHash())
+        for (name in listOf("emoji", "extension-$extensionId"))
             assertTrue("Preference bytes survived: $name", saved.getString("hash-$name") == hash(File(context.applicationInfo.dataDir, "shared_prefs/$name.xml")))
         val beforeGrants = saved.getJSONArray("grantHashes").let { array -> (0 until array.length()).map { array.getString(it) }.toSet() }
         assertTrue("Existing document grants survived", grantHashes().containsAll(beforeGrants))
@@ -199,7 +211,7 @@ class UpdateSelfInstallDeviceTest {
         assertEquals("Extension support file survives update.", File(context.filesDir, "extension-data/$extensionId/retention.txt").readText())
         assertEquals(saved.getBoolean("confirmationRequired"), store.updates.confirmEveryUpdate)
         publicRecord("retention-after", JSONObject().put("versionCode", 7).put("appUid", android.os.Process.myUid())
-            .put("notesLinksClips", true).put("pinsAliasesShortcuts", true).put("emojiFavoritesRecents", true).put("preferenceBytesUnchanged", true)
+            .put("notesLinksClips", true).put("pinsAliasesShortcuts", true).put("emojiFavoritesRecents", true).put("emojiAndExtensionPreferenceBytesUnchanged", true).put("palettePreferencesExceptCommandUsageUnchanged", true)
             .put("existingGrants", true).put("documentGrantAndContent", true).put("extensionCodeSupportPreferencesStorage", true)
             .put("confirmationPreference", true).put("scope", "Public fixtures plus opaque preference-byte equality; no private preference or grant contents are published."))
         compose.activityRule.scenario.onActivity { it.selectPage("updates") }
