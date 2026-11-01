@@ -2,6 +2,9 @@
 
 **Verdict: API36 functional repairs verified; not production-cleared.** The commit-stamped `9986679` app/test pair passes **167/167 native cases on each viewport**, with exact case-ID matching, accepted native viewer approval and exact document title/body. Both assistant suites pass **8/8**; the guarded hardware helper passes **12 core cases**, with six Ctrl/Alt/Shift capability probes working and both Meta probes unsupported. All four actual self-update flows pass. Recorded data/settings/geometry and unprivileged-state restoration checks pass. Build/lint (0 errors/51 warnings), 147 JVM cases, four Python cleanup checks and the exact-9986679 hosted build pass. The [final checkpoint manifest](validation/readiness/final-checkpoint-9986679.json) binds binaries, sources, runners, results and eight real screenshots. Independent final-head audits and the expected-head merge check remain separate requirements on [PR #66](https://github.com/moikdev/droidcast/pull/66). Historical failures and measurements retain their original identities. API26, production recovery/migration, physical/OEM coverage, touch/large-font polish and full parity remain open.
 
+**Provider retry follow-up:** the strengthened test source `9ba105e` passes **4/4 provider cases per viewport** against the same frozen `9986679` app, with verified cleanup. Test APK SHA-256 `71396641640d0352ebf1de721255d8b9f26341604c0730dfdc53d57c21e0fb99`. The retry now releases the timed-out provider without changing query/route, confirms zero stale launches, reselects the retained document and verifies exactly one ACTION_VIEW with its exact URI, text/plain MIME and read grant. [Source/binary identities, receipts and smoke frames](validation/readiness/provider-retry-followup.json) keep these eight cohort rechecks distinct from the prior 167-case suites and integrations under the original test APK. Only DocumentProviderDeviceTest changes; product/build sources and all four runners remain unchanged. Fresh final-head reviews are required after this coverage change.
+
+
 ## Build and validation boundaries
 
 | Build | Identity and evidence |
@@ -230,7 +233,7 @@ The same immutable pair passes **8 assistant cases per viewport**, including rec
 
 The preceding `7398e25` controls are retained with explicit source equivalence: six process-cold composition checks, 12 focused cases and matched old-app controls per viewport. Their test sources and production sources are unchanged; only FolderDeviceTest differs in 9986679. They retain their original binary stamp and are not relabeled as new-pair runs. The current broad/integration results were executed anew. Older failed runs remain failed.
 
-[The final manifest](validation/readiness/final-checkpoint-9986679.json) records all APK/source/runner hashes, raw-record/log hashes, exact broad case IDs, restoration receipts and capture identities. This follow-up changes only documentation/evidence; the tested APK stamp remains 9986679. Final code-head reviews must identify that distinction and verify source/runner equivalence. Fresh hosted workflow results on any evidence head are reported separately on the PR. Historical performance measurements do not certify this binary's speed.
+[The final manifest](validation/readiness/final-checkpoint-9986679.json) records all APK/source/runner hashes, raw-record/log hashes, exact broad case IDs, restoration receipts and capture identities. Evidence commit `78b0f34` changed only documentation/evidence; the tested APK stamp remains 9986679. The subsequent provider retry test change is recorded separately below. Final code-head reviews must identify that distinction and verify source/runner equivalence. Fresh hosted workflow results on any evidence head are reported separately on the PR. Historical performance measurements do not certify this binary's speed.
 
 These unmodified, visually reviewed API36 captures show current implementation, destination and error states. The phone still truncates some footer labels; issue #71 owns that touch/large-font work. The tablet note body lies below its visible scroll viewport; assertions separately verify its retained content. The phone note frame includes a minimized SystemUI clipboard preview. No comprehensive accessibility or typography clearance is inferred.
 
@@ -245,3 +248,16 @@ These unmodified, visually reviewed API36 captures show current implementation, 
 ![Current tablet exact indexed document destination](screenshots/readiness-regressions/final-9986679-tablet-indexed-viewer.png)
 
 ![Current phone exact indexed document destination](screenshots/readiness-regressions/final-9986679-phone-indexed-viewer.png)
+
+
+## Successful provider retry coverage
+
+The two independent sol/high audits at `78b0f34` found no blocking product/evidence issues. The UX/test audit identified one P3 gap: the MIME-timeout test checked responsive Search but never attempted the retry. The stronger test saves an owned document, induces the timeout, releases the abandoned provider before changing query/route, and confirms no stale launch. It then finds that retained item through normal search results, invokes the existing reader seam again and checks exactly one intercepted ACTION_VIEW with the exact URI, text/plain MIME and read grant. The monitor blocks real external navigation; the successful retry intent is the claim. Real HTML Viewer navigation remains separately proven by the original broad suites.
+
+The changed source compiles and all four DocumentProviderDeviceTest cases pass on each viewport, with every recorded restoration check passing. The original 9986679 runtime APK is reused byte-for-byte; the new test APK is independently hashed. [Follow-up manifest](validation/readiness/provider-retry-followup.json) records all 114 current source hashes, four unchanged runner hashes, exact case IDs, receipt files and unmodified real app smoke images. Earlier full suites, integrations and performance data retain their original test/build identities. No new broad run or performance measurement is claimed for this strengthened harness. Two fresh final-head audits and the expected-head merge guard remain required; review conclusions are recorded on PR #66.
+
+Hosted workflows are associated with a PR head and build GitHub's generated merge commit. Their results are reported separately from the frozen local APK identities. Any new evidence head needs its own associated hosted result.
+
+![Tablet real app smoke before the controlled retry](screenshots/readiness-regressions/provider-retry-tablet-smoke.png)
+
+![Phone real app smoke before the controlled retry](screenshots/readiness-regressions/provider-retry-phone-smoke.png)
