@@ -27,6 +27,7 @@ import java.util.UUID
 @RunWith(AndroidJUnit4::class)
 class TouchReadabilityDeviceTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
+    @get:Rule val testName=org.junit.rules.TestName()
     private val context get()=InstrumentationRegistry.getInstrumentation().targetContext
     private val device get()=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     private var palette=emptyMap<String,Any?>()
@@ -53,6 +54,9 @@ class TouchReadabilityDeviceTest {
             compose.waitUntil(10000){kotlin.math.abs(context.resources.configuration.fontScale-requested)<0.01f}
         }
         compose.waitUntil(15000){!compose.activity.store.loading && !compose.activity.store.emoji.loading && !compose.activity.store.folderSearch.loading}
+        // Connect and settle accessibility before producing the known preview,
+        // matching the cold-start ordering used by ActivationDeviceTest.
+        dismissClipboardOverlay("before-sentinel")
         compose.activityRule.scenario.onActivity {
             val manager=it.getSystemService(ClipboardManager::class.java)
             clip=manager.primaryClip
@@ -64,7 +68,25 @@ class TouchReadabilityDeviceTest {
             it.store.setShortcut(noteId,KeyChord(KeyEvent.KEYCODE_PAGE_DOWN,ShortcutRules.CTRL or ShortcutRules.ALT or ShortcutRules.SHIFT))
             it.store.search(noteQuery)
         }
-        compose.waitForIdle();dismissClipboardForEvidence()
+        compose.waitForIdle();dismissClipboardOverlay("after-sentinel")
+    }
+    private fun dismissClipboardOverlay(phase:String) {
+        val observations=JSONArray();val actions=JSONArray();var settled=false
+        val entryFlags=testAutomation().serviceInfo.flags
+        try {
+            dismissClipboardForEvidence(onObservation={observations.put(it)}) { id,accepted ->
+                actions.put(JSONObject().put("id",id).put("accepted",accepted))
+            }
+            settled=true
+        } finally {
+            val exitFlags=testAutomation().serviceInfo.flags
+            val out=File(context.filesDir,"readiness-evidence").apply { mkdirs() }
+            File(out,"touch-clipboard-${testName.methodName}-$phase.json").writeText(JSONObject()
+                .put("phase",phase).put("settled_dismissal",settled).put("font_scale",context.resources.configuration.fontScale)
+                .put("entry_flags",entryFlags).put("exit_flags",exitFlags).put("observations",observations).put("actions",actions)
+                .put("before_any_diagnostic_uidevice_dump",true).toString(2))
+            assertEquals("Clipboard evidence must restore entry flags",entryFlags,exitFlags)
+        }
     }
     @After fun restore() {
         if(!preferencesCaptured)return
