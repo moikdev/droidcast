@@ -92,8 +92,9 @@ class TouchReadabilityDeviceTest {
             context.deleteSharedPreferences("extension-$it")
         }
     }
-    private fun fullBounds(tag:String):Rect {
-        val bounds=compose.onNodeWithTag(tag).getUnclippedBoundsInRoot()
+    private fun fullBounds(tag:String)=fullBounds(compose.onNodeWithTag(tag))
+    private fun fullBounds(node:SemanticsNodeInteraction):Rect {
+        val bounds=node.getUnclippedBoundsInRoot()
         val density=context.resources.displayMetrics.density
         return Rect(bounds.left.value*density,bounds.top.value*density,bounds.right.value*density,bounds.bottom.value*density)
     }
@@ -110,23 +111,31 @@ class TouchReadabilityDeviceTest {
             // Semantics may follow a padding modifier. Compare that same
             // coordinator's clipped/unclipped bounds, not its outer node size.
             if(visible.height>=full.height-1 && visible.width>=full.width-1)return target
-            val outer=compose.onNodeWithTag("palette-content-scroll").fetchSemanticsNode().boundsInRoot
+            val outerInteraction=compose.onNodeWithTag("palette-content-scroll")
+            val outerNode=outerInteraction.fetchSemanticsNode();val outer=outerNode.boundsInRoot
             val scrollParent=generateSequence(node.parent) { it.parent }.firstOrNull {
-                it.config.contains(SemanticsProperties.VerticalScrollAxisRange) && it.config.contains(SemanticsProperties.TestTag)
-            }
-            val outsideRoute=full.top<outer.top-1 || full.bottom>outer.bottom+1
-            val scrollTag=if(outsideRoute)"palette-content-scroll" else scrollParent?.config?.get(SemanticsProperties.TestTag) ?: "palette-content-scroll"
-            val route=compose.onNodeWithTag(scrollTag)
+                it.config.contains(SemanticsProperties.VerticalScrollAxisRange)
+            } ?: outerNode
+            val parentInteraction=compose.onNode(SemanticsMatcher("scroll surface ${scrollParent.id}") { it.id==scrollParent.id })
+            val parentFull=fullBounds(parentInteraction)
+            // An offscreen row can belong to a fully visible inner list. In
+            // that case pan that list, rather than an already settled route.
+            val parentOutside=parentFull.top<outer.top-1 || parentFull.bottom>outer.bottom+1
+            val isOuter=parentOutside || scrollParent.id==outerNode.id
+            val scrollTag=if(isOuter)"palette-content-scroll" else if(scrollParent.config.contains(SemanticsProperties.TestTag))scrollParent.config[SemanticsProperties.TestTag] else "scroll-${scrollParent.id}"
+            val route=if(isOuter)outerInteraction else parentInteraction
             val viewport=route.fetchSemanticsNode().boundsInRoot
             val below=full.bottom>viewport.bottom+1
             val pixelsPerDp=context.resources.displayMetrics.density
             // Use the nearest list for its clipped rows. When the whole route
             // clips a control, pan from its header to avoid an inner list.
             route.performTouchInput {
-                val start=if(scrollTag=="palette-content-scroll") {
-                    if(below)minOf(height*.25f,48*pixelsPerDp) else height*.70f
-                } else if(below)height*.80f else height*.20f
-                val end=if(below)8f else height-8f
+                val start=if(isOuter) {
+                    if(below)minOf(viewport.height*.25f,48*pixelsPerDp) else viewport.height*.70f
+                } else if(below)viewport.height*.80f else viewport.height*.20f
+                val end=if(below)8f else viewport.height-8f
+                geometry.put("pan-$tag-$it",JSONObject().put("surface",scrollTag)
+                    .put("scope_height",height).put("visible_height",viewport.height).put("start_y",start).put("end_y",end))
                 swipe(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),250)
             }
             compose.waitForIdle()

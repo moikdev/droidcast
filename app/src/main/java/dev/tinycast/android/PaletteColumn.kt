@@ -33,7 +33,7 @@ internal fun PaletteColumn(modifier:Modifier,content:@Composable ColumnScope.()-
         // A finite inner height lets nested lazy lists and scrolling forms keep
         // their own viewports. Extra chrome stays reachable by scrolling this
         // route instead of being squeezed below its minimum touch dimensions.
-        Column(Modifier.fillMaxSize().verticalScroll(scroll).testTag("palette-content-scroll")) {
+        Column(Modifier.fillMaxSize().testTag("palette-content-scroll").verticalScroll(scroll)) {
             Column(Modifier.fillMaxWidth().height(contentHeight),content=content)
         }
         if(contentHeight>viewport) Canvas(Modifier.align(Alignment.CenterEnd).fillMaxHeight().width(3.dp).padding(vertical=8.dp)) {
