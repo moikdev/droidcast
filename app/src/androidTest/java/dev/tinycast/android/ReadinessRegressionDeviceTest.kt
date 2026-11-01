@@ -146,7 +146,7 @@ class ReadinessRegressionDeviceTest {
         compose.activityRule.scenario.recreate()
         editable("editor-title", "Audit large draft")
         val shown=compose.onNodeWithTag("editor-body").fetchSemanticsNode().config[SemanticsProperties.EditableText].text
-        assertEquals(text.length,shown.length); assertEquals(text.hashCode(),shown.hashCode())
+        assertEquals(text.length,shown.length); assertTrue("Exact large draft text", text==shown)
         assertFalse(compose.activity.store.notes.any { it.title=="Audit large draft" })
         capture("large-draft-recreated")
     }

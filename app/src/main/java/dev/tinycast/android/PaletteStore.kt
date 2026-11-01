@@ -181,7 +181,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         val chord = recordingCandidate ?: return
         runCatching { setShortcut(target, chord) }.onSuccess { cancelShortcutRecording() }.onFailure { recordingError = it.message }
     }
-    override fun onCleared() { if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
+    override fun onCleared() { retainedEditorDraft = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
 
     fun backupSnapshot() = BackupData(notes, links, clips, pins.filterNot { it.startsWith("files:") }.toSet(), aliases.filterKeys { !it.startsWith("files:") }, usage.filterKeys { !it.startsWith("files:") }, ShortcutConfiguration(shortcutConfiguration.bindings.filterKeys { !it.startsWith("files:") }))
     fun restorePlan(): RestorePlan = BackupPlanner.plan(backupSnapshot(), requireNotNull(backupDocument), restoreCategories, restorePolicy,
@@ -313,7 +313,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         catch (e: Throwable) { extensions.error = e.message ?: "Uninstallation failed" }
     } }
     fun filter(value: String) { category = value; folderSearch.filterType(FileSearchType.ALL); search(""); focusEpoch++ }
-    fun reset() { if (backupBusy) return; cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
+    fun reset() { if (backupBusy) return; discardEditorDraft(); cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
     fun used(id: String) { usage = usage + (id to ((usage[id] ?: 0).coerceAtMost(Int.MAX_VALUE - 1) + 1)); prefs.edit().putString("usage", JSONObject(usage).toString()).apply() }
     fun togglePin(id: String) { pins = if (id in pins) pins - id else pins + id; prefs.edit().putStringSet("pins", pins).apply() }
     fun setAlias(id: String, value: String) {
