@@ -110,9 +110,10 @@ class FeedbackReadabilityDeviceTest {
                     .put("ellipsized", layout.isLineEllipsized(index)) })) }))
         File(out, "feedback-$name.json").writeText(record.toString(2))
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        assertTrue(device.takeScreenshot(File(out, "feedback-$name.png")))
         testAutomation().clearCacheForTest()
         device.dumpWindowHierarchy(File(out, "feedback-$name.xml"))
+        assertEquals("Feedback must remain active in its capture", message, compose.runOnUiThread { compose.activity.store.message })
+        assertTrue(device.takeScreenshot(File(out, "feedback-$name.png")))
 
         val visible = snapshot[1]
         val full = snapshot[2]
@@ -156,12 +157,14 @@ class FeedbackReadabilityDeviceTest {
                         swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x, start),
                             androidx.compose.ui.geometry.Offset(center.x, end), endVelocity = 0f, durationMillis = 200)
                     }
+                    compose.waitForIdle()
                 }
                 assertTrue("Each feedback line must be reachable and fully visible by touch: line $line", fits)
             }
-            assertTrue(device.takeScreenshot(File(out, "feedback-$name-after-pan.png")))
             testAutomation().clearCacheForTest()
             device.dumpWindowHierarchy(File(out, "feedback-$name-after-pan.xml"))
+            assertEquals("Feedback must remain active after its pan", message, compose.runOnUiThread { compose.activity.store.message })
+            assertTrue(device.takeScreenshot(File(out, "feedback-$name-after-pan.png")))
         } finally {
             record.put("line_reachability", probes)
             File(out, "feedback-$name.json").writeText(record.toString(2))
