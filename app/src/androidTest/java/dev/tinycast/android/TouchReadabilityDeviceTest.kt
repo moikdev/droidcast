@@ -36,28 +36,44 @@ class TouchReadabilityDeviceTest {
     private var fixtureId:String?=null
     private val geometry=JSONObject()
     private val actionTitle="Copy the selected audit value"
-    private val noteTitle="Touch audit note with a long, recognizable title"
+    private val nonce=UUID.randomUUID().toString().replace("-","").take(8)
+    private val noteQuery="touchaudit$nonce"
+    private val alias="touchauditalias$nonce"
+    private val noteTitle="Touch audit note with a long, recognizable title $noteQuery"
     private var noteId=""
+    private var preferencesCaptured=false
+    private var clipboardCaptured=false
 
     @Before fun prepare() {
         assertEquals("Tinycast_Tablet_API_36",InstrumentationRegistry.getArguments().getString("dedicatedAvd"))
         palette=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap()
         emoji=context.getSharedPreferences("emoji",Context.MODE_PRIVATE).all.toMap()
+        preferencesCaptured=true
+        InstrumentationRegistry.getArguments().getString("expectedFontScale")?.toFloat()?.let { requested ->
+            compose.waitUntil(10000){kotlin.math.abs(context.resources.configuration.fontScale-requested)<0.01f}
+        }
         compose.waitUntil(15000){!compose.activity.store.loading && !compose.activity.store.emoji.loading && !compose.activity.store.folderSearch.loading}
         compose.activityRule.scenario.onActivity {
-            clip=it.getSystemService(ClipboardManager::class.java).primaryClip
+            val manager=it.getSystemService(ClipboardManager::class.java)
+            clip=manager.primaryClip
+            clipboardCaptured=true
+            manager.setPrimaryClip(ClipData.newPlainText("Touch fixture","touch-audit-sentinel"))
             it.store.resetShortcuts();it.store.reset()
             noteId=it.store.save("notes",noteTitle,"Touch audit body 271828")
-            it.store.setAlias(noteId,"touchauditlongalias")
+            it.store.setAlias(noteId,alias)
             it.store.setShortcut(noteId,KeyChord(KeyEvent.KEYCODE_PAGE_DOWN,ShortcutRules.CTRL or ShortcutRules.ALT or ShortcutRules.SHIFT))
+            it.store.search(noteQuery)
         }
-        compose.waitForIdle()
+        compose.waitForIdle();dismissClipboardForEvidence()
     }
     @After fun restore() {
+        if(!preferencesCaptured)return
         compose.activityRule.scenario.onActivity {
             it.store.extensions.close()
-            val manager=it.getSystemService(ClipboardManager::class.java)
-            clip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+            if(clipboardCaptured) {
+                val manager=it.getSystemService(ClipboardManager::class.java)
+                clip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+            }
         }
         restorePalettePreferences(context,palette)
         val edit=context.getSharedPreferences("emoji",Context.MODE_PRIVATE).edit().clear()
@@ -94,14 +110,36 @@ class TouchReadabilityDeviceTest {
         val layout=results.single()
         val bounds=field.fetchSemanticsNode().boundsInWindow
         val lineHeight=layout.getLineBottom(0)-layout.getLineTop(0)
+        geometry.put("text-$tag",layoutMetrics(layout))
         assertTrue("$tag must not clip the actual text line ($lineHeight > ${bounds.height})",lineHeight<=bounds.height+1)
     }
     private fun fullLabel(parent:String,label:String) {
         val results=mutableListOf<TextLayoutResult>()
-        compose.onNode(hasText(label) and hasAnyAncestor(hasTestTag(parent)),useUnmergedTree=true)
-            .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(results)) }
-        assertFalse("The visible label must fit: $label",results.single().hasVisualOverflow)
+        val node=compose.onNode(hasText(label) and hasAnyAncestor(hasTestTag(parent)),useUnmergedTree=true)
+        node.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(results)) }
+        geometry.put("label-$label",layoutMetrics(results.single()))
+        visibleTextFits(results.single(),node.fetchSemanticsNode().boundsInWindow,label)
     }
+    private fun visibleTextFits(layout:TextLayoutResult,bounds:Rect,label:String) {
+        // Compose 1.7.6 can retain unused paragraph width after wrapping the
+        // Text node to its content. Inspect drawn lines and visible bounds,
+        // rather than treating that unused layout space as clipped glyphs.
+        for(index in 0 until layout.lineCount) {
+            assertFalse("Visible label is ellipsized: $label",layout.isLineEllipsized(index))
+            assertTrue("Visible label is horizontally clipped: $label",
+                layout.getLineLeft(index)>=-1 && layout.getLineRight(index)<=bounds.width+1)
+            assertTrue("Visible label is vertically clipped: $label",
+                layout.getLineTop(index)>=-1 && layout.getLineBottom(index)<=bounds.height+1)
+        }
+    }
+    private fun layoutMetrics(layout:TextLayoutResult)=JSONObject()
+        .put("size",JSONArray(listOf(layout.size.width,layout.size.height)))
+        .put("paragraph_width",layout.multiParagraph.width).put("paragraph_height",layout.multiParagraph.height)
+        .put("overflow_width",layout.didOverflowWidth).put("overflow_height",layout.didOverflowHeight)
+        .put("lines",JSONArray((0 until layout.lineCount).map { index -> JSONObject()
+            .put("top",layout.getLineTop(index)).put("bottom",layout.getLineBottom(index))
+            .put("left",layout.getLineLeft(index)).put("right",layout.getLineRight(index))
+            .put("ellipsized",layout.isLineEllipsized(index)) }))
     private fun capsule(primary:String,actions:String) {
         val first=target(primary);val second=target(actions)
         assertFalse("Primary and Actions touch targets must not overlap",first.overlaps(second))
@@ -118,13 +156,16 @@ class TouchReadabilityDeviceTest {
             .put("geometry",geometry).put("input","Compose pointer injection and text semantics; no hardware-key navigation").toString(2))
     }
     private fun copied():String=compose.activity.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString()
+    private fun checked(name:String,block:()->Unit) {
+        try { block() } catch(failure:Throwable) { runCatching { capture("$name-failed") };throw failure }
+    }
 
-    @Test fun launcherAndEditorRemainReadableThroughTouchActions() {
-        search("Touch audit")
+    @Test fun launcherAndEditorRemainReadableThroughTouchActions()=checked("launcher") {
+        search(noteQuery)
         target("palette-menu");target("result-$noteId");inputFits("search")
         capsule("primary-action","actions-button");fullLabel("primary-action","Open Note")
         assertTrue(compose.onNodeWithTag("result-$noteId").fetchSemanticsNode().config[SemanticsProperties.ContentDescription]
-            .joinToString().contains("touchauditlongalias"))
+            .joinToString().contains(alias))
         capture("launcher")
         touch("actions-button")
         compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("action-Set keyboard shortcut"))
@@ -132,6 +173,7 @@ class TouchReadabilityDeviceTest {
         capture("launcher-actions")
         compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("action-Open Note"))
         touch("action-Open Note")
+        assertEquals("Only edit the owned audit note",noteId,compose.activity.store.editing?.id)
         inputFits("editor-title");target("inline-back");target("save-editor")
         compose.onNodeWithTag("editor-title").performTextReplacement("Touch audit saved note")
         capture("editor")
@@ -139,7 +181,7 @@ class TouchReadabilityDeviceTest {
         compose.waitUntil(5000){compose.activity.store.notes.any { it.id==noteId && it.title=="Touch audit saved note" }}
         compose.onNodeWithTag("search").assertIsDisplayed()
     }
-    @Test fun categoryAndEmptyResultsKeepTouchNavigationAvailable() {
+    @Test fun categoryAndEmptyResultsKeepTouchNavigationAvailable()=checked("categories") {
         touch("palette-menu")
         compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("filter-Notes"))
         target("filter-Notes");touch("filter-Notes")
@@ -151,18 +193,19 @@ class TouchReadabilityDeviceTest {
         compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("filter-All"))
         touch("filter-All");assertEquals("All",compose.activity.store.category)
     }
-    @Test fun calculatorAnswerFitsAndCopiesWithoutHardwareKeys() {
+    @Test fun calculatorAnswerFitsAndCopiesWithoutHardwareKeys()=checked("calculator") {
         search("10 km to mi");inputFits("search")
         val calculation=compose.activity.store.results().first { it.kind==Kind.CALC }
         val answer=calculation.title
         val results=mutableListOf<TextLayoutResult>()
-        compose.onNodeWithText(answer,useUnmergedTree=true).performScrollTo()
-            .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(results)) }
-        assertFalse("The conversion answer must remain readable",results.single().hasVisualOverflow)
+        val answerNode=compose.onNodeWithText(answer,useUnmergedTree=true).performScrollTo()
+        answerNode.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(results)) }
+        geometry.put("calculator-answer-text",layoutMetrics(results.single()))
+        visibleTextFits(results.single(),answerNode.fetchSemanticsNode().boundsInWindow,"conversion answer")
         capsule("primary-action","actions-button");capture("calculator")
         touch("primary-action");compose.waitUntil(5000){copied()==calculation.payload}
     }
-    @Test fun emojiCopyCategoriesAndEmptyStateRemainUsableByTouch() {
+    @Test fun emojiCopyCategoriesAndEmptyStateRemainUsableByTouch()=checked("emoji") {
         search("emoji");touch("result-emoji")
         compose.onNodeWithTag("emoji-search").performTextReplacement("family")
         inputFits("emoji-search");target("emoji-back");target("emoji-filter");target("emoji-favorite")
@@ -207,6 +250,6 @@ class TouchReadabilityDeviceTest {
         touch("extension-action-0");compose.waitUntil(5000){copied()=="touch-layout-audit-271828"}
         touch("extension-back");compose.onNodeWithTag("search").assertIsDisplayed()
     }
-    @Test fun nativeListPreservesReadableActionsAndTouchReturn()=extensionFlow("List")
-    @Test fun nativeGridPreservesReadableActionsAndTouchReturn()=extensionFlow("Grid")
+    @Test fun nativeListPreservesReadableActionsAndTouchReturn()=checked("list") { extensionFlow("List") }
+    @Test fun nativeGridPreservesReadableActionsAndTouchReturn()=checked("grid") { extensionFlow("Grid") }
 }

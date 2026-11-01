@@ -12,6 +12,9 @@ p.add_argument('--extra-evidence-dir',action='append',choices=['extension-grid-e
 p.add_argument('--update-fixtures',type=Path,help='Signed newer/wrong-signer/wrong-package verification fixtures; never published')
 p.add_argument('--readiness',action='store_true');p.add_argument('--soak-seconds',type=int,default=300)
 p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=16)
+p.add_argument('--font-scale',type=float,help='Owned-emulator typography probe; restored exactly afterward')
+p.add_argument('--size',help='Optional WIDTHxHEIGHT pixel viewport, paired with --density')
+p.add_argument('--density',type=int,help='Density for the optional viewport')
 a=p.parse_args();sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 if not sdk:sdk=next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
 adb=[str(Path(sdk)/'platform-tools/adb'),'-s',a.serial];app='dev.tinycast.android'
@@ -21,17 +24,24 @@ def sha(data):return hashlib.sha256(data).hexdigest()
 assert ('UpdateVerificationDeviceTest' not in a.classes) or a.update_fixtures is not None, 'Updater verification requires --update-fixtures'
 assert not a.readiness or (60 <= a.soak_seconds <= 1800 and a.classes.startswith('dev.tinycast.android.ReadinessDeviceTest'))
 assert a.serial.startswith('emulator-') and a.expected>0 and re.fullmatch('[A-Za-z0-9_.,#]+',a.classes)
+assert a.font_scale is None or 1.0 <= a.font_scale <= 2.0
+assert (a.size is None)==(a.density is None)
+if a.size is not None:
+ assert re.fullmatch(r'[1-9][0-9]{2,3}x[1-9][0-9]{2,3}',a.size)
+ assert all(300<=int(value)<=4096 for value in a.size.split('x')) and 120<=a.density<=640
 assert text('shell','getprop','ro.kernel.qemu')=='1' and text('shell','getprop','ro.boot.qemu.avd_name')==a.avd
 assert text('shell','id').startswith('uid=2000') and 'ActiveInstrumentation{' not in text('shell','dumpsys','activity','processes')
 assert 'Override' not in text('shell','wm','size')+text('shell','wm','density')
 keys=['enabled_accessibility_services','accessibility_enabled','show_ime_with_hard_keyboard']
 settings={k:text('shell','settings','get','secure',k) for k in keys};assert settings['enabled_accessibility_services']=='null' and settings['accessibility_enabled']=='0'
+font_before=text('shell','settings','get','system','font_scale') if a.font_scale is not None else None
 raw('shell','am','force-stop',app);prefs=raw('exec-out','run-as',app,'cat','shared_prefs/palette.xml')
 emoji_prefs=raw('exec-out','run-as',app,'cat','shared_prefs/emoji.xml')
-a.output.mkdir(exist_ok=False,parents=True);shutil.copyfile(__file__,a.output/'runner.py')
+a.output.mkdir(exist_ok=False,parents=True,mode=0o700);shutil.copyfile(__file__,a.output/'runner.py')
 (a.output/'private-palette-backup.xml').write_bytes(prefs);(a.output/'private-palette-backup.xml').chmod(0o600)
 (a.output/'private-emoji-backup.xml').write_bytes(emoji_prefs);(a.output/'private-emoji-backup.xml').chmod(0o600)
 r={'avd':a.avd,'serial':a.serial,'layout':a.layout,'classes':a.classes,'expected':a.expected,'completed':False,'runner_sha256':sha(Path(__file__).read_bytes()),'original_size':text('shell','wm','size'),'original_density':text('shell','wm','density')}
+r.update(original_font_scale=font_before,requested_font_scale=a.font_scale,requested_size=a.size,requested_density=a.density)
 fixture_owned=False
 upload_owned=False
 upload_root='/data/local/tmp/droidcast-readiness-'+uuid.uuid4().hex
@@ -65,11 +75,17 @@ try:
    expected=sha(source.read_bytes());assert text('shell','run-as',app,'sha256sum','files/updates-fixtures/'+name).split()[0]==expected
    r['update_fixtures'][name]=expected
   raw('shell','cmd','appops','set',app,'REQUEST_INSTALL_PACKAGES','allow');assert approval_mode()=='allow'
- if a.layout=='phone':raw('shell','wm','size','1080x2340');raw('shell','wm','density','420')
+ if a.size is not None:raw('shell','wm','size',a.size);raw('shell','wm','density',str(a.density))
+ elif a.layout=='phone':raw('shell','wm','size','1080x2340');raw('shell','wm','density','420')
+ if a.font_scale is not None:
+  raw('shell','settings','put','system','font_scale',str(a.font_scale))
+  # Keep the floating palette's background controlled during visual probes.
+  raw('shell','am','start','-a','android.intent.action.MAIN','-c','android.intent.category.HOME')
+  r['capture_background']='launcher-intent'
  evidence_dirs=list(dict.fromkeys([a.evidence_dir]+a.extra_evidence_dir))
  for folder in evidence_dirs:raw('shell','run-as',app,'rm','-rf','files/'+folder)
  r['suite_timeout_seconds']=max(600,a.expected*30,a.soak_seconds+300 if a.readiness else 0)
- with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes]+(['-e','runReadiness','true','-e','soakSeconds',str(a.soak_seconds)] if a.readiness else [])+[app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
+ with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes]+(['-e','expectedFontScale',str(a.font_scale)] if a.font_scale is not None else [])+(['-e','runReadiness','true','-e','soakSeconds',str(a.soak_seconds)] if a.readiness else [])+[app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
  log=(a.output/'tests.log').read_text();r['passes']=len(re.findall('^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M));r['tests_completed']=f'OK ({a.expected} test' in log and 'FAILURES!!!' not in log and r['passes']==a.expected
  present=text('shell','run-as',app,'ls','files').splitlines()
  for folder in evidence_dirs:
@@ -93,7 +109,9 @@ finally:
  c.attempt('emoji-backup',lambda:raw('shell','run-as',app,'rm','-f','shared_prefs/emoji.xml.bak'))
  c.attempt('emoji-preferences',lambda:raw('shell','run-as',app,'tee','shared_prefs/emoji.xml',data=emoji_prefs))
  for k,v in settings.items():c.attempt('secure-'+k,lambda k=k,v=v:raw('shell','settings','delete','secure',k) if v=='null' else raw('shell','settings','put','secure',k,v))
- if a.layout=='phone':
+ if font_before is not None:
+  c.attempt('font-scale',lambda:raw('shell','settings','delete','system','font_scale') if font_before=='null' else raw('shell','settings','put','system','font_scale',font_before))
+ if a.layout=='phone' or a.size is not None:
   c.attempt('size',lambda:raw('shell','wm','size','reset'));c.attempt('density',lambda:raw('shell','wm','density','reset'))
  c.attempt('private-fixture',lambda:raw('shell','run-as',app,'rm','-f','files/grid-private-fixture.png'))
  c.attempt('fixture-cache',lambda:raw('shell','run-as',app,'rm','-rf','cache/extension-grid-fixture'))
@@ -101,6 +119,8 @@ finally:
   r['preferences_restored']=prefs==raw('exec-out','run-as',app,'cat','shared_prefs/palette.xml');c.require(r['preferences_restored'],'preferences')
   r['emoji_preferences_restored']=emoji_prefs==raw('exec-out','run-as',app,'cat','shared_prefs/emoji.xml');c.require(r['emoji_preferences_restored'],'emoji preferences')
   r['settings_restored']=settings=={k:text('shell','settings','get','secure',k) for k in keys};c.require(r['settings_restored'],'settings')
+  if font_before is not None:
+   r['font_scale_restored']=font_before==text('shell','settings','get','system','font_scale');c.require(r['font_scale_restored'],'font scale')
  c.attempt('verify-data',verify)
  def geometry():
   r['size']=text('shell','wm','size');r['density']=text('shell','wm','density');c.require(r['size']==r['original_size'] and r['density']==r['original_density'],'geometry')
