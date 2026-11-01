@@ -87,3 +87,5 @@ Assistant activation and immediate search: [#40](https://github.com/moikdev/droi
 Validation limitation [#41](https://github.com/moikdev/droidcast/issues/41): HTML Viewer rendered the correct TXT body but omitted it from accessibility XML in one hardware run; an unchanged rerun passed. Cause and fix remain unestablished.
 
 Tablet Settings fullscreen polish: [#42](https://github.com/moikdev/droidcast/issues/42), merged in PR #43; the palette remains floating.
+
+Production-key preparation for [#21](https://github.com/moikdev/droidcast/issues/21): a dedicated production identity was generated outside the repository at the user's request. Its [public certificate, local signing proof and installed-nightly migration plan](PRODUCTION-KEY-PREPARATION.md) are recorded. Independent recovery backup, migration rehearsals, production automation/channel and readiness clearance remain open; no production APK was published or installed.
