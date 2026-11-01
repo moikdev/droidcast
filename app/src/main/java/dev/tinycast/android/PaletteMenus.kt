@@ -22,6 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.*
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.onPreInterceptKeyBeforeSoftKeyboard
 import androidx.compose.ui.layout.Layout
@@ -365,14 +368,35 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
 
 @Composable
 private fun PaletteFeedback(surface: Rect, menus: PaletteMenus, state: SnackbarHostState) {
-    Layout(modifier = Modifier.fillMaxSize(), content = { SnackbarHost(state, modifier=Modifier.testTag("palette-feedback")) }) { children, constraints ->
+    val scroll=key(state.currentSnackbarData) { rememberScrollState() }
+    Layout(modifier = Modifier.fillMaxSize(), content = {
+        Box(Modifier.testTag("palette-feedback")) {
+            SnackbarHost(state,modifier=Modifier.testTag("palette-feedback-scroll").verticalScroll(scroll))
+            if(scroll.maxValue>0) Canvas(Modifier.matchParentSize().padding(end=2.dp,top=4.dp,bottom=4.dp)) {
+                val thumb=(size.height*size.height/(size.height+scroll.maxValue)).coerceIn(minOf(12.dp.toPx(),size.height),size.height)
+                val width=3.dp.toPx()
+                drawRoundRect(PaletteTheme.secondary,Offset(size.width-width,(size.height-thumb)*scroll.value/scroll.maxValue),
+                    Size(width,thumb),CornerRadius(width/2))
+            }
+        }
+    }) { children, constraints ->
         val margin = 12.dp.roundToPx()
-        val width = (surface.width.roundToInt()-2*margin).coerceAtLeast(1)
-        val top=(menus.header?.bottom ?: (surface.top+PaletteTheme.header.toPx())).roundToInt()
-        val bottom=(menus.footer?.top ?: (surface.bottom-PaletteTheme.footer.toPx())).roundToInt().coerceAtLeast(top+1)
+        val surfaceWidth=surface.width.roundToInt().coerceAtLeast(1)
+        val surfaceHeight=surface.height.roundToInt().coerceAtLeast(1)
+        val horizontalInset=minOf(margin,(surfaceWidth-1)/2)
+        val verticalInset=minOf(margin,(surfaceHeight-1)/2)
+        val width=surfaceWidth-2*horizontalInset
+        val top=surface.top.roundToInt()+verticalInset
+        val bottom=top+surfaceHeight-2*verticalInset
+        // Measure against the palette before choosing the chrome gap. A
+        // scrolled-off header/footer has non-null but clipped/empty bounds;
+        // using that gap as a measurement constraint can crush feedback to 1px.
         val child = children.single().measure(Constraints(maxWidth=width,maxHeight=bottom-top))
+        val headerBottom=(menus.header?.bottom?.roundToInt() ?: top).coerceIn(top,bottom)
+        val footerTop=(menus.footer?.top?.roundToInt() ?: bottom).coerceIn(top,bottom)
+        val preferredBottom=footerTop-margin
         val x = (surface.center.x-child.width/2f).roundToInt()
-        val y = (bottom-child.height-margin).coerceAtLeast(top)
+        val y=if(preferredBottom-headerBottom>=child.height)preferredBottom-child.height else bottom-child.height
         layout(constraints.maxWidth,constraints.maxHeight) { child.place(x,y) }
     }
 }
