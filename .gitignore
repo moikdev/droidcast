@@ -13,3 +13,10 @@ __pycache__/
 *.jks
 *.keystore
 node_modules/
+
+# Private signing containers and raw private keys (public certificates are tracked).
+*.p12
+*.pfx
+*.pk8
+*.key
+*-password.txt
