@@ -69,7 +69,7 @@ raw('shell','am','force-stop',APP)
 capture_private(backup,['files','shared_prefs']);original_inventory=inventory(backup);backup_sha=sha(backup.read_bytes())
 r['private_snapshot_created']=True;save()
 def native(method,label):
- args=adb+['shell','am','instrument','-w','-r','-e','confirmationMode',a.mode,'-e','class',
+ args=adb+['shell','am','instrument','-w','-r','-e','selfUpdateHarness','true','-e','dedicatedAvd',a.avd,'-e','confirmationMode',a.mode,'-e','class',
   'dev.tinycast.android.UpdateSelfInstallDeviceTest#'+method,APP+'.test/androidx.test.runner.AndroidJUnitRunner']
  with open(a.output/(label+'.log'),'wb') as log:subprocess.run(args,stdout=log,stderr=subprocess.STDOUT,timeout=180,check=True)
  log=(a.output/(label+'.log')).read_text()

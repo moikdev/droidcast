@@ -15,13 +15,13 @@ The tightened 16-case verification cohort passes on tablet and phone at source c
 
 ## Real-install validation checkpoints
 
-The tightened 17-case cohort passes on both layouts at the unchanged production checkpoint df9c5b5. It adds verified-cache rechecking and fixed-footer activation. Its instrumentation APK predates subsequent real-install-fixture navigation changes; a final unified-pair rerun is pending.
+The tightened 17-case cohort passes on both layouts at the unchanged production checkpoint df9c5b5. It adds verified-cache rechecking and fixed-footer activation. Its instrumentation APK predates subsequent real-install-fixture navigation changes; the final unified-pair 17/17 reruns now pass on both layouts.
 
 The real-install harness uses an actual same-signer versionCode 6 → 7 APK replacement through the product PackageInstaller path. Delivery is explicitly staged by the harness; product recovery rechecks package/version/hash/signer before presenting installation. The payload is named 0.5.0-update-fixture and must never be published as an eligible nightly. Live network coverage separately exercises public GitHub discovery and a real HTTPS legacy-r9 download.
 
 - Tablet confirmation-required: passed Android source approval, actual installer Cancel, retained verified retry, installation, same UID and payload-byte identity, then semantic collection/pin/alias/shortcut checks, emoji/extension preference-byte equality, palette-preference equality excluding legitimate command-usage changes, persistent grant plus document read, and running the retained extension/note. Cleanup verified the original bootstrap, opaque private data, approval mode and device configuration.
 - Tablet best-effort: the same update/retention checks passed without a second platform confirmation on this emulator. This is not an OEM or universal silent-update claim.
-- Phone confirmation-required: the same cancellation/retry/update/retention and restoration checks passed. The phone best-effort case remains in progress.
+- Phone confirmation-required: the same cancellation/retry/update/retention and restoration checks passed. The phone best-effort case also passed without a second platform confirmation.
 
 Excluded real-install setup attempts are preserved. The first expected a Downloads drawer that was absent; the next capture established a primary-storage tree view with a visible Download folder and no drawer. Another expected an exposed launcher test resource ID, while a native diagnostic established a focused EditText without that ID. A subsequent picker capture established an already-selected fixture breadcrumb; navigation now handles that retained destination. These are fixture/navigation corrections, not production updater fixes. Every excluded attempt's independent restoration checks passed.
 

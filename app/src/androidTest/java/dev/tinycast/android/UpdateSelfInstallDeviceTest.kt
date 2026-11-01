@@ -45,6 +45,13 @@ class UpdateSelfInstallDeviceTest {
     private val noteBody = "Droidcast real self-update retention fixture 628318"
     private val fileBody = "Droidcast retained document grant 271828"
     @Before fun ready() {
+        val args = InstrumentationRegistry.getArguments()
+        Assume.assumeTrue("Real installation requires the guarded external harness", args.getString("selfUpdateHarness") == "true")
+        val expectedAvd = requireNotNull(args.getString("dedicatedAvd"))
+        assertTrue(expectedAvd.startsWith("Droidcast_") || expectedAvd == "Tinycast_Tablet_API_36")
+        assertEquals("1", device.executeShellCommand("getprop ro.kernel.qemu").trim())
+        assertEquals(expectedAvd, device.executeShellCommand("getprop ro.boot.qemu.avd_name").trim())
+        assertEquals(36, android.os.Build.VERSION.SDK_INT)
         device.executeShellCommand("cmd statusbar collapse")
         compose.waitUntil(15_000) { !compose.activity.store.loading && !compose.activity.store.folderSearch.loading && !compose.activity.store.emoji.loading }
     }
