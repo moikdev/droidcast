@@ -92,6 +92,7 @@ def wait_for(predicate,label,timeout=45):
    if found is not None and found is not False:return found
   except (subprocess.CalledProcessError,subprocess.TimeoutExpired,ET.ParseError):pass
   time.sleep(.25)
+ r['failed_wait']=label;save()
  raise AssertionError(label)
 def node_tag(root,value):
  return next((n for n in root.iter('node') if tag(n)==value and n.get('package')==APP and n.get('enabled')=='true'),None)
@@ -111,11 +112,13 @@ def system_button(root,labels):
  return next((n for n in root.iter('node') if n.get('package') in SYSTEM and n.get('text','').casefold() in labels and n.get('enabled')=='true'),None)
 def installer_dialog(root):
  return system_button(root,{'update','install'}) is not None and any('Droidcast' in n.get('text','') for n in root.iter('node'))
+def launcher_search(root):
+ return next((n for n in root.iter('node') if n.get('package')==APP and n.get('class')=='android.widget.EditText' and n.get('enabled')=='true'),None)
 def open_updates():
  raw('shell','am','start','-n',APP+'/.MainActivity')
- search=wait_for(lambda root:node_tag(root,'search'),'Launcher search')
+ search=wait_for(launcher_search,'Launcher search')
  tap(search);raw('shell','input','text','Check')
- command=wait_for(lambda root:node_tag(root,'result-check-updates'),'Check for Updates command')
+ command=wait_for(lambda root:next((n for n in root.iter('node') if n.get('package')==APP and n.get('content-desc')=='Check for Updates. Find, verify and install a newer Droidcast nightly'),None),'Check for Updates command')
  tap(command)
  wait_for(lambda root:next((n for key in ['updates-permission','updates-install'] if (n:=node_tag(root,key)) is not None),None),'Verified update recovered')
 def confirm_install(capture_label):
@@ -212,7 +215,8 @@ try:
 except Exception as exc:
  error=exc;r['error_type']=type(exc).__name__;r['failure_phase']='see saved command/native logs'
  try:
-  if last and app_update(last[0]):screenshot('failure-update-screen',app_update)
+  if last and (app_update(last[0]) or launcher_search(last[0]) is not None):
+   screenshot('failure-update-screen',lambda root:app_update(root) or launcher_search(root) is not None)
  except Exception:pass
 finally:
  cleanup=Cleanup(r)

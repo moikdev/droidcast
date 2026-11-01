@@ -116,7 +116,8 @@ class UpdateSelfInstallDeviceTest {
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 7000))
         device.waitForIdle()
         InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
-        if (!device.hasObject(By.text(rootName))) {
+        if (!device.hasObject(By.res("com.google.android.documentsui", "breadcrumb_text").text(rootName))) {
+          if (!device.hasObject(By.text(rootName))) {
             // API36 tree selection can expose only the primary-storage root, without a drawer.
             if (device.hasObject(By.res("android:id/title").text("Download"))) {
                 clickNative(text = "Download", resourceId = "android:id/title")
@@ -127,7 +128,8 @@ class UpdateSelfInstallDeviceTest {
         }
         if (!device.hasObject(By.text(rootName))) UiScrollable(UiSelector().packageName("com.google.android.documentsui").scrollable(true))
             .setMaxSearchSwipes(15).scrollIntoView(UiSelector().text(rootName))
-        clickNative(text = rootName)
+          clickNative(text = rootName)
+        }
         assertTrue(device.wait(Until.hasObject(By.text("USE THIS FOLDER")), 7000))
         updateSystemEvidence("grant-picker", rootName)
         clickNative(text = "USE THIS FOLDER")
