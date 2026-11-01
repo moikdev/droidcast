@@ -76,7 +76,7 @@ class InlinePaletteDeviceTest {
             val route = compose.activity.store.dialog
             val menu = compose.onAllNodesWithTag("inline-menu").fetchSemanticsNodes().size
             device.wait(Until.hasObject(By.res("com.android.systemui","dismiss_button")),1500)
-            dismissClipboardForEvidence(device)
+            dismissClipboardForEvidence()
             assertEquals("Emoji cleanup retains its route", route, compose.activity.store.dialog)
             assertEquals("Emoji cleanup retains its menu", menu, compose.onAllNodesWithTag("inline-menu").fetchSemanticsNodes().size)
         }

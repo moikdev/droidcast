@@ -154,7 +154,7 @@ class ExtensionGridDeviceTest {
         }
         if (name in setOf("filtered-copy", "caret-preserved", "reordered-selection", "keyboard-selected-visible", "store-palette-contrast", "store-legacy-oklch", "form-regression", "inline-filter-focus", "inline-preferences-return", "single-activation"))
             device.wait(Until.findObject(By.res("com.android.systemui", "dismiss_button")), 1500)
-        dismissClipboardForEvidence(device)
+        dismissClipboardForEvidence()
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         File(folder, "capture-state-$name.json").writeText(JSONObject()
             .put("route_before", captureRoute).put("route_after", compose.activity.store.dialog)

@@ -24,6 +24,7 @@ import java.util.UUID
 @RunWith(AndroidJUnit4::class)
 class ActivationDeviceTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
+    @get:Rule val testName=org.junit.rules.TestName()
     private val context get()=InstrumentationRegistry.getInstrumentation().targetContext
     private val device get()=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     private var original=emptyMap<String,Any?>()
@@ -38,7 +39,25 @@ class ActivationDeviceTest {
             manager.setPrimaryClip(ClipData.newPlainText("Activation fixture","activation-sentinel"))
             it.store.resetShortcuts();it.store.reset()
         }
-        dismissClipboardForEvidence(device)
+        val actions=org.json.JSONArray()
+        val start=android.os.SystemClock.uptimeMillis()
+        val focusBefore=compose.activity.window.decorView.hasWindowFocus()
+        try {
+            dismissClipboardForEvidence { node,ok -> actions.put(JSONObject().put("node",node).put("ok",ok).put("after_ms",android.os.SystemClock.uptimeMillis()-start)) }
+            File(context.filesDir,"readiness-evidence").apply{mkdirs()}.resolve("activation-setup-${testName.methodName.lowercase()}.json")
+                .writeText(JSONObject().put("test",testName.methodName).put("settled",true).put("window_focus_before_cleanup",focusBefore).put("actions",actions).toString(2))
+        } catch(failure:Throwable) {
+            val dir=File(context.filesDir,"readiness-evidence").apply{mkdirs()}
+            val details=JSONObject().put("setup_failure",true).put("test",testName.methodName).put("window_focus_before_cleanup",focusBefore).put("actions",actions)
+                .put("automation_mode",androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags)
+                .put("windows",org.json.JSONArray(testAutomation().windows.map { window ->
+                    JSONObject().put("type",window.type).put("title",window.title?.toString()).put("active",window.isActive)
+                }))
+            runCatching { testAutomation().clearCacheForTest();device.dumpWindowHierarchy(File(dir,"activation-setup-failure.xml")) }
+            details.put("screenshot",runCatching{device.takeScreenshot(File(dir,"activation-setup-failure.png"))}.getOrDefault(false))
+            File(dir,"activation-setup-failure.json").writeText(details.toString(2))
+            throw failure
+        }
     }
     @After fun restore() {
         compose.activityRule.scenario.onActivity {
@@ -66,15 +85,19 @@ class ActivationDeviceTest {
     }
     private fun copied():String=compose.activity.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString()
     private fun capture(name:String) {
-        compose.waitForIdle();dismissClipboardForEvidence(device);device.waitForIdle()
+        compose.waitForIdle();dismissClipboardForEvidence();device.waitForIdle()
         assertTrue("Native app hierarchy is rendered",device.wait(Until.hasObject(By.pkg(context.packageName)),5000))
         if(!name.endsWith("-failed")) {
-            val marker=if(name=="composing-launcher-primary") By.pkg(context.packageName).clazz("android.widget.EditText").text("Audit composed note")
-                else By.pkg(context.packageName).text("Copied to clipboard")
+            val marker=when(name) {
+                "composing-launcher-primary" -> By.pkg(context.packageName).clazz("android.widget.EditText").text("Audit composed note")
+                "composing-list-primary" -> By.pkg(context.packageName).text("Audit Alpha · Callback Alpha")
+                else -> By.pkg(context.packageName).text("Audit Bravo · Callback Bravo")
+            }
             assertTrue("Capture the actual destination/feedback frame",device.wait(Until.hasObject(marker),5000))
         }
         val dir=File(context.filesDir,"readiness-evidence").apply{mkdirs()};testAutomation().clearCacheForTest()
         device.dumpWindowHierarchy(File(dir,"$name.xml"));assertTrue(device.takeScreenshot(File(dir,"$name.png")))
+        File(dir,"$name.json").writeText(JSONObject().put("state",name).put("clipboard",copied()).toString(2))
     }
     private fun checkCapture(name:String,block:()->Unit) {
         try{block();capture(name)}catch(failure:Throwable){runCatching{capture("$name-failed")};throw failure}
