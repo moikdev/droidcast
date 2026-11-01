@@ -28,7 +28,9 @@ internal fun PaletteColumn(modifier:Modifier,content:@Composable ColumnScope.()-
     Box(modifier.onSizeChanged { viewportHeight=it.height }) {
         val viewport=with(density) { viewportHeight.toDp() }
         val chrome=with(density) { (menus.headerHeight+menus.footerHeight).toDp() }
-        val minimumBody=96.dp*density.fontScale.coerceAtLeast(1f)
+        // Leave room for a complete outlined field plus the route's 18–20dp
+        // padding on each side. A 96dp body clips a 64dp field even at 1x.
+        val minimumBody=112.dp*density.fontScale.coerceAtLeast(1f)
         val contentHeight=maxOf(viewport,chrome+minimumBody)
         // A finite inner height lets nested lazy lists and scrolling forms keep
         // their own viewports. Extra chrome stays reachable by scrolling this
