@@ -4,12 +4,13 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -20,8 +21,12 @@ internal fun PaletteColumn(modifier:Modifier,content:@Composable ColumnScope.()-
     val menus=LocalPaletteMenus.current
     val density=LocalDensity.current
     val scroll=rememberScrollState()
-    BoxWithConstraints(modifier) {
-        val viewport=maxHeight
+    var viewportHeight by remember { mutableIntStateOf(0) }
+    // Keep the route in the caller's composition. Subcomposing this content
+    // during measurement lets its caller's focus effect run before a search
+    // field is attached to the FocusRequester.
+    Box(modifier.onSizeChanged { viewportHeight=it.height }) {
+        val viewport=with(density) { viewportHeight.toDp() }
         val chrome=with(density) { (menus.headerHeight+menus.footerHeight).toDp() }
         val minimumBody=maxOf(96.dp,72.dp*density.fontScale.coerceAtLeast(1f))
         val contentHeight=maxOf(viewport,chrome+minimumBody)
