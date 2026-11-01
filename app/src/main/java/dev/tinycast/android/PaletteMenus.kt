@@ -340,7 +340,13 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
             val right = (surface.right.roundToInt() - margin).coerceAtLeast(left + 1)
             val headerBottom=(menus.header?.bottom ?: (surface.top+PaletteTheme.header.toPx())).coerceIn(surface.top,surface.bottom)
             val footerTop=(menus.footer?.top ?: (surface.bottom-PaletteTheme.footer.toPx())).coerceIn(surface.top,surface.bottom)
-            val contentFits=footerTop-headerBottom >= 96.dp.toPx()
+            val titleHeight=if(request.title.value!=null)16.sp.toPx()*2+16.dp.toPx() else 0f
+            val searchHeight=if(request.searchable)maxOf(48.dp.toPx(),18.sp.toPx())+1.dp.toPx() else 0f
+            val choiceHeight=maxOf(48.dp.toPx(),18.sp.toPx()*(if(showHints)1 else 3)+16.dp.toPx())
+            val minimumMenuHeight=12.dp.toPx()+titleHeight+searchHeight+choiceHeight
+            // The anchored gap must accommodate the scaled menu chrome and
+            // one complete wrapped action. Otherwise use the palette bounds.
+            val contentFits=footerTop-headerBottom >= minimumMenuHeight
             val top=(if(contentFits) headerBottom else surface.top+margin).roundToInt()
             val bottom=(if(contentFits) footerTop else surface.bottom-margin).roundToInt().coerceAtLeast(top+1)
             val width = minOf(320.dp.roundToPx(), right - left)
