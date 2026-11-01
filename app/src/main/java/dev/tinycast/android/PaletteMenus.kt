@@ -20,6 +20,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.focus.*
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.CornerRadius
@@ -367,19 +368,36 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
 }
 
 @Composable
+private fun FeedbackViewport(state: SnackbarHostState, scroll: ScrollState) {
+    var overflow by remember(state.currentSnackbarData) { mutableStateOf(false) }
+    val usingScroll=overflow
+    Box(Modifier.testTag("palette-feedback")) {
+        // A scroll modifier can intercept taps in Snackbar's transparent outer
+        // padding even when gestures are disabled. Attach it only when the
+        // natural message height requires scrolling; keep one SnackbarHost so
+        // measuring/reflow never restarts its display lifetime.
+        Layout(modifier=Modifier.testTag("palette-feedback-scroll").clipToBounds(),content={
+            SnackbarHost(state,modifier=if(usingScroll)Modifier.verticalScroll(scroll) else Modifier)
+        }) { children, constraints ->
+            val child=children.single().measure(if(usingScroll)constraints else constraints.copy(maxHeight=Constraints.Infinity))
+            val height=child.height.coerceIn(constraints.minHeight,constraints.maxHeight)
+            val needsScroll=if(usingScroll)scroll.maxValue>0 else child.height>height
+            if(overflow!=needsScroll)overflow=needsScroll
+            layout(child.width,height) { child.place(0,0) }
+        }
+        if(usingScroll && scroll.maxValue>0) Canvas(Modifier.matchParentSize().padding(end=2.dp,top=4.dp,bottom=4.dp)) {
+            val thumb=(size.height*size.height/(size.height+scroll.maxValue)).coerceIn(minOf(12.dp.toPx(),size.height),size.height)
+            val width=3.dp.toPx()
+            drawRoundRect(PaletteTheme.secondary,Offset(size.width-width,(size.height-thumb)*scroll.value/scroll.maxValue),
+                Size(width,thumb),CornerRadius(width/2))
+        }
+    }
+}
+
+@Composable
 private fun PaletteFeedback(surface: Rect, menus: PaletteMenus, state: SnackbarHostState) {
     val scroll=key(state.currentSnackbarData) { rememberScrollState() }
-    Layout(modifier = Modifier.fillMaxSize(), content = {
-        Box(Modifier.testTag("palette-feedback")) {
-            SnackbarHost(state,modifier=Modifier.testTag("palette-feedback-scroll").verticalScroll(scroll,enabled=scroll.maxValue>0))
-            if(scroll.maxValue>0) Canvas(Modifier.matchParentSize().padding(end=2.dp,top=4.dp,bottom=4.dp)) {
-                val thumb=(size.height*size.height/(size.height+scroll.maxValue)).coerceIn(minOf(12.dp.toPx(),size.height),size.height)
-                val width=3.dp.toPx()
-                drawRoundRect(PaletteTheme.secondary,Offset(size.width-width,(size.height-thumb)*scroll.value/scroll.maxValue),
-                    Size(width,thumb),CornerRadius(width/2))
-            }
-        }
-    }) { children, constraints ->
+    Layout(modifier = Modifier.fillMaxSize(), content = { FeedbackViewport(state,scroll) }) { children, constraints ->
         val margin = 12.dp.roundToPx()
         val surfaceWidth=surface.width.roundToInt().coerceAtLeast(1)
         val surfaceHeight=surface.height.roundToInt().coerceAtLeast(1)

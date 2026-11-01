@@ -312,10 +312,10 @@ class BackupDeviceTest {
         File(folder,"export-after-cancel-routing.json").writeText(routing.toString(2))
         exportAfterCancel.performClick()
         val exportOpened=device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000)
+        routing.put("export_picker_opened",exportOpened).put("pending_export_after_click",compose.activity.store.pendingExport!=null)
+            .put("backup_busy_after_click",compose.activity.store.backupBusy)
+        File(folder,"export-after-cancel-routing.json").writeText(routing.toString(2))
         if(!exportOpened) {
-            routing.put("export_picker_opened",false).put("pending_export_after_click",compose.activity.store.pendingExport!=null)
-                .put("backup_busy_after_click",compose.activity.store.backupBusy)
-            File(folder,"export-after-cancel-routing.json").writeText(routing.toString(2))
             File(folder,"export-after-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
             device.dumpWindowHierarchy(File(folder,"export-after-cancel-failure.xml"))
             device.takeScreenshot(File(folder,"export-after-cancel-failure.png"))
