@@ -1,0 +1,407 @@
+{
+  "runtime_source_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+  "harness_source_commit": "0c6cf742f88028857cedca8c7c20b8913569c0f6",
+  "app_sha256": "179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312",
+  "test_apk_sha256": "6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40",
+  "source_hashes": {
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "8c1be27aad2e952108cdc28c8d6c28c5039513baeaa23ec6d6069d967b8c9414",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "f0ebd7a3a73d85358f0576dc6ce0360478ede8e50e5bc6e5420f17f4358a94ff",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "f7228cdd6b6988fb049f0aaf1048d69cc8489e802b4cc42a2b4d6f9e7ceea3e0",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "7fbd49fe46584b935de6a597f704fe8a3862beac4ace3a30990aef2ce731336d",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "92271f5714538a24b6708d27693dbb83f73e03976a9a980ed07c1e375c579ee9",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/PaletteColumn.kt": "cd6cdc348752bcc20bd631e2216abdd4ee0c91d9606aaab62ce0c01a145dd6aa",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "86c6720bc02173423390496d60ac07bcf762dd59528fca4e0e7fe5f3f098c6cb",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "3a48fafcb08b678b37b7feb7128971a4ec9d074395f2cb31a4884c9ffc6e44a3",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "bfbc139e01a4276770644d5f4c1242016839fd98f5e2f21fa8afb31c886bc763",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "7008b8535ec3e754450ce446f34b6d8e50e9b2f5a9de64f436583144f8dd83dc",
+    "app/src/main/java/dev/tinycast/android/PaletteFooter.kt": "5b62c907b46e5075975fc22d01771f5ab7c7f53e433692de55d92865231e967f",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "2eea2634754415a4114ec8ea4e1976be95ad8fcaf52032688eed2e606df5d30e",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "344fbeef5d14d3935f835b847bcf296f9c666c62363023cc5e595e368176c955",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "1fd60a529ffd322fae6cde77a7a743353d7fc8d7c57b4e2ea393ca13f5806725",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "7eb7de79a8bcf090f79429e35865abfd304e521c011f55de116d5cf66f697ced",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "c054241ddb3d633018c996531bb73add6aa2cd9a6547fe1edbc1bf7cf42d2f3a",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "3e2dc1698462c5806b7a6bb332496aaaff0c713328d102885df5ccc57e4f8e8a",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/TouchReadabilityDeviceTest.kt": "6801d25bb0d9bc45899b04aeedba474e2ac8e5cc8cb168b6268e0305fb49345e",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b2abb73e68216d3ef148ca55c742762659fc7172c24653970b94232ad981d946",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487",
+    "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt": "86096d428b6554bcb6b8c9d7bc39b981baf1fd53f9367a33c97ce03c89020a82"
+  },
+  "runner_hashes": {
+    "scripts/test-extension-grid.py": "4e0706bc8b47b0d0c51f1dbfec40852f93b095791e9d2760117fbc42cdee97d9",
+    "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6"
+  },
+  "retained_runtime_proof": {
+    "runtime_source_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+    "changed_files_since_runtime_commit": [
+      "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt"
+    ],
+    "test_only_change": true,
+    "harness_build_log_sha256": "d0f29fe8506d869db05a0599b35d8d813bbb0f2bd1faf8618b97495aaac56cb8"
+  },
+  "local_checks": {
+    "implementation_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+    "jvm_cases": 147,
+    "python_cases": 22,
+    "lint": {
+      "debug": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 51
+      },
+      "benchmark": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 51
+      }
+    },
+    "logs": {
+      "feedback-final-local-debug-v1.log": "7b513b159730ef8da2af827f27a153f72aa66b04f400770bb7b7a1eeaa1599be",
+      "feedback-final-local-benchmark-v1.log": "c33baa7566d1bd3cd8ab1f4aa2a4b68b4ea6aaef10ebcf28593914139b7391b7",
+      "feedback-final-python-v2.log": "fe17a31e73e618e4f92763dffbe8f59b093910edffee2f6cc3c189e28c5762da"
+    }
+  },
+  "avd": "Tinycast_Tablet_API_36",
+  "api": 36,
+  "architecture": "arm64",
+  "display_pixels": [
+    2340,
+    1080
+  ],
+  "density_dpi": 420,
+  "font_scale": 2.0,
+  "scope": "Two real app feedback-rendering fixtures with IME visible and footer wholly offscreen. Injected text does not certify an actual clipboard copy or error-producing operation.",
+  "long_message_policy": "Natural scaled text layout, bounded scrolling viewport, and actual pointer swipes that expose each line; no claim of simultaneous full-message visibility.",
+  "pinned_compose_version": "1.7.6",
+  "horizontal_assertion": "Visible node width and each non-ellipsized line extent must fit. didOverflowWidth is retained diagnostically: its paragraph container can exceed the tight text node without drawn ink overflowing.",
+  "focused_driver_result_sha256": "ffb23bd072713eaaff1c95fb5113eb6318ae723edf7018bcc0c308ff7125039d",
+  "runs": [
+    {
+      "kind": "control",
+      "exit": 1,
+      "passes": 0,
+      "cleanup_verified": true,
+      "record_sha256": "b882e0ef2d9a70a860d7e3652eb58d14a1d2549cbe642ddbfe48c2e63aee8cf9",
+      "tests_log_sha256": "5b9988ecae16f2618bc53544fab0141d1073d3344b852bbceadd2cfadc892f1e",
+      "cleanup_checks": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40",
+      "expected_failures": 2,
+      "expected_control_failure": "Feedback must contain a text line; measured feedback height 1px"
+    },
+    {
+      "kind": "candidate",
+      "exit": 0,
+      "passes": 2,
+      "cleanup_verified": true,
+      "record_sha256": "5658dd0e049bbb8b2cfb43baec3f2ce3eddde7d02c654052cc9825ab21876fee",
+      "tests_log_sha256": "8665869e98d090f80c891ec3e18f88137c069b2ad69801c01c6095c08d1e599e",
+      "cleanup_checks": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      },
+      "app_sha256": "179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312",
+      "test_apk_sha256": "6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40",
+      "expected_failures": 0,
+      "expected_control_failure": null
+    }
+  ],
+  "frames": [
+    {
+      "name": "feedback-confirmation-before",
+      "kind": "control",
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-confirmation-before.png",
+          "sha256": "e8b3cc6239a8563d292a9c75ff028f13868c9e7ff518b68c03fac05d44294387"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-confirmation-before.xml",
+          "sha256": "bc1e1b8627022e578e914f6d9f4618db7070326aa567054c09134b984a7fa61a"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-confirmation-before.json",
+          "sha256": "a067041e094d50c0c2850a1d6d5fa5758d6c895a73a0c0f27511c207c61f647a"
+        }
+      }
+    },
+    {
+      "name": "feedback-confirmation-after",
+      "kind": "candidate",
+      "installed_build_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-confirmation-after.png",
+          "sha256": "8f5704f2505253460dad0cca3890557bfe5814009f59e21b99dff32646bb2c5a"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-confirmation-after.xml",
+          "sha256": "a9c97779c1bda0531355b3e4468c8cd580a5fc7b4f1804720a42c04d133aa0c6"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-confirmation-after.json",
+          "sha256": "6068116ad2b0cef2c4ca0d2db9c02e5410560754a69238fbf4edb4c1eca83909"
+        }
+      }
+    },
+    {
+      "name": "feedback-error-before",
+      "kind": "control",
+      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-error-before.png",
+          "sha256": "4733b26f2c34165bf9d24cf2e78ed7c3ee9c26da9cb9b0a82c60416dc569bb46"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-error-before.xml",
+          "sha256": "13c4580258fa8a67a9d7022329f8b12c1ed3d4d53548aa5a85e5a76a4a9d6027"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-error-before.json",
+          "sha256": "2fc20b0680f7eaecbb98da5e47f81784baa5527b14ac166536ba24c76f01a6fe"
+        }
+      }
+    },
+    {
+      "name": "feedback-error-top",
+      "kind": "candidate",
+      "installed_build_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-error-top.png",
+          "sha256": "56bc99402157f79f405dc040487558e3e46fd124b4c1c8b473d70e65e055af4b"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-error-top.xml",
+          "sha256": "94a0ed324dbf0d59ef684ebd7f8447378c30aa4e30aeae1ada6f3ec5f8233c39"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-error-top.json",
+          "sha256": "b28593ad1950380f7aa2edbe17cd6873ae9d5b3b2fa8cd51d9a31fa87cbbc304"
+        }
+      }
+    },
+    {
+      "name": "feedback-error-bottom",
+      "kind": "candidate",
+      "installed_build_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+      "capture_stage": "after actual line-reachability swipe; paired JSON retains initial geometry and all reachability probes",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-error-bottom.png",
+          "sha256": "6e5493d1db893749fe8c62e8d3a8a65e9f71d10517ea22f6982f7734647a9f27"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-error-bottom.xml",
+          "sha256": "5ab57b97b2e89d287a0e31d5a281b84761a48eea7b80b9cac92695f98a24253c"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-error-bottom.json",
+          "sha256": "b28593ad1950380f7aa2edbe17cd6873ae9d5b3b2fa8cd51d9a31fa87cbbc304"
+        }
+      }
+    }
+  ],
+  "other_merge_gates": {
+    "outcome_location": "https://github.com/moikdev/droidcast/pull/74",
+    "current_runtime_completion_recorded_in_this_manifest": false,
+    "required": "Current-runtime critical font regressions and the 173-case tablet/phone cohort, actual hosted workflow and two fresh exact-head independent sol/high audits."
+  }
+}

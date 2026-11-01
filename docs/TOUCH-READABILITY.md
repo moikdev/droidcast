@@ -6,16 +6,18 @@ Changed custom controls use a 48 dp minimum where feasible. Search fields grow t
 
 The calculator places expression and answer vertically when needed. Native Grid reserves scaled caption space and bounds decorative symbol previews. When a route's header, footer and content cannot fit, it can scroll while keeping its inner list or form bounded. Keyboard bindings, composition guards, live selection policy and the upstream runtime assets remain unchanged. Actual keyboard/composition regressions are a separate validation gate below.
 
+Feedback measures against the visible palette, then uses the gap between header and footer when the message fits. When scrolled chrome leaves that gap too small, feedback stays inside the palette. Longer messages retain their scaled text and can scroll, with a visible scroll indicator.
+
 ## Recorded checks
 
-The frozen application source is **448387eaa8dd8fddbbee18db4980fac148646306**:
+The original adaptive-controls checkpoint retains application source **448387eaa8dd8fddbbee18db4980fac148646306**. These completed results keep that identity after the feedback follow-up below:
 
 - App APK SHA-256: `18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52`.
 - Test APK SHA-256: `b72db3b298569021101ff88e82e51db52e00bac0b0bf197a754a94c6a2879af8`.
 - **120/120 matrix executions**: six logical flows on five viewports at font scales **1.0, 1.3, 1.5 and 2.0**. Every run verified data/settings/geometry restoration.
 - **147 JVM cases**, debug/test and benchmark/test builds, debug and benchmark lint **0 errors/51 warnings each**, and **22 Python cases** passed. Rebuilt debug APKs match the frozen pair byte for byte.
 
-The later merge of discovery tooling #73 adds scripts/docs only; all frozen Android/build/runner source hashes still match. The [checkpoint](validation/touch-readability/matrix-checkpoint.json) binds those sources, binary identities, exact case IDs, original record/log hashes, cleanup receipts and unmodified captures.
+The merge of discovery tooling #73 added scripts/docs only. The [checkpoint](validation/touch-readability/matrix-checkpoint.json) binds the original sources, binary identities, exact case IDs, original record/log hashes, cleanup receipts and unmodified captures. At review head9e9244d, that same app/test pair also completed 173/173 native cases per tablet/phone layout with all 18 tablet/20 phone cleanup checks passing; [the PR receipt](https://github.com/moikdev/droidcast/pull/74#issuecomment-6564392495) retains exact case IDs and hashes. These results are not relabeled as the later feedback runtime.
 
 All captures use the dedicated **Tinycast_Tablet_API_36/API36 arm64 emulator**, with an ordinary app UID and unprivileged adbd. Profiles run sequentially on that emulator:
 
@@ -34,6 +36,8 @@ The editor explicitly opens the IME. Geometry checks wait for a stable viewport,
 Clipboard preparation has [240 phase receipts](validation/touch-readability/clipboard-phase-receipts.json), all settled with entry flags restored. Of 161 exact SystemUI node-action attempts, 160 were accepted; the rejected attempt is not credited as an accepted action. This is fixture preparation and flag-restoration evidence, not a claim that every phase required a click. Visible IME clipboard suggestions contain known synthetic fixture values.
 
 ## Before and after
+
+This section retains the original adaptive-controls captures, whose updated frames use 448387e and the b72db3b test APK. The later feedback repair has its own captures and identities below.
 
 The original 7398e25 phone/200% baseline uses the earlier test APK `b233652b…effcdb3` and failed all six initial checks. Its capture visibly loses the note title and primary action. It remains historical baseline evidence, separate from the matched controls below.
 
@@ -59,8 +63,30 @@ The earlier menu failure below uses the same d949f43 app but the previous `3ee5f
 
 Additional real frames include [calculator](screenshots/touch-readability/phone-font2-calculator.png), [Emoji](screenshots/touch-readability/phone-font2-emoji.png), [disabled Emoji empty state](screenshots/touch-readability/phone-font2-emoji-empty.png), [launcher empty state](screenshots/touch-readability/phone-font2-empty.png), [tablet Grid](screenshots/touch-readability/tablet-font2-grid.png), [landscape editor with IME](screenshots/touch-readability/landscape-font1-editor.png), and [tablet at default font size](screenshots/touch-readability/tablet-font1-launcher.png). Each has its own build, viewport, JSON and paired native hierarchy identity in the checkpoint.
 
+## Feedback with scrolled chrome
+
+The first correctness audit found that a fully offscreen footer has a non-null empty bound. Using it to constrain feedback reduced confirmations and errors to one pixel. The repair measures the message within the whole palette before choosing its position. A bounded scroll surface exposes long messages when the IME leaves very little height.
+
+The frozen feedback runtime is **a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b**, app SHA-256 `179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312`. The final test harness is **0c6cf742f88028857cedca8c7c20b8913569c0f6**, test APK `6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40`. Only FeedbackReadabilityDeviceTest changes between those commits; production/build sources and both runners match the runtime checkpoint.
+
+Two matched old-app cases use the original 448387e runtime and that same final test APK. Both reach the intended one-pixel feedback assertion; both pass on the repaired runtime. All 16 cleanup checks per run pass. These are real app rendering fixtures with injected confirmation/error text, separate from actual clipboard or error-producing workflows. They use the visible keyboard button, verify a settled IME viewport, and require the entire footer to be offscreen. The 2340×1080/420 dpi landscape profile at 200% font leaves approximately 83 dp of visible palette height.
+
+| Confirmation before | Confirmation after |
+| --- | --- |
+| ![Before: feedback has one pixel](screenshots/touch-readability/feedback-confirmation-before.png) | ![After: confirmation text is visible](screenshots/touch-readability/feedback-confirmation-after.png) |
+
+The longer error is readable sequentially. The test keeps its natural text layout, checks each line's bounds and absence of ellipsis, then uses a pointer swipe to expose the second line. The first line can move out of view while the second is shown.
+
+| Error before | Error after, top | Error after, following swipe |
+| --- | --- | --- |
+| ![Before: error is one pixel](screenshots/touch-readability/feedback-error-before.png) | ![After: first error line](screenshots/touch-readability/feedback-error-top.png) | ![After swipe: remaining error line](screenshots/touch-readability/feedback-error-bottom.png) |
+
+The [feedback checkpoint](validation/touch-readability/feedback-checkpoint.json) binds 118 source hashes, both runners, binaries, original records/logs, paired raw JSON/XML and all five unchanged PNGs. The harness waits for native hierarchy idle before screenshots and requires the message to remain active. Its width assertion checks visible node width and actual line extents: Compose 1.7.6's diagnostic didOverflowWidth compares the paragraph container with the tighter text node, including unused space. The recorded confirmation has a 1554 px paragraph container, a 576 px text node and a 574.29 px drawn line; it fits visibly.
+
+The feedback runtime passed 147 JVM and 22 Python cases, debug/test and benchmark/test builds, and debug/benchmark lint with 0 errors/51 warnings each. Those builds retain a48d13c; the final debug test harness was compiled anew after its assertion/capture-only changes. Current-runtime critical font and broad regression results, the actual hosted workflow and two fresh exact-head audits remain independent merge gates recorded on [PR #74](https://github.com/moikdev/droidcast/pull/74).
+
 ## Remaining validation and scope
 
-The broader **173-case cohort per tablet/phone layout**, including the retained keyboard/composition/live-selection cases, is an independent merge gate. Its final outcomes and the two required exact-head audits are recorded on the implementation PR; this matrix checkpoint does not label an in-progress broad run complete.
+The current feedback runtime requires the critical font regressions and broader **173-case cohort per tablet/phone layout**, including retained keyboard/composition/live-selection cases. Final outcomes and the two required exact-head audits are recorded on PR #74. The original matrix and the focused feedback checkpoint retain their separate identities and scopes.
 
 Further native extension Form and preference/error layouts, actual split-window operation, and explicit IME toggling across more routes remain in #71. Display overrides do not certify split-screen gestures. Physical/OEM behavior, full TalkBack, RTL, themes, performance and complete renderer parity remain in their parent issues. This change neither changes production signing nor clears the production migration gate.
