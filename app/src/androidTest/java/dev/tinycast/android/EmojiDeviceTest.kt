@@ -69,7 +69,7 @@ class EmojiDeviceTest {
     private fun key(code: Int, meta: Int = 0) {
         val down = android.os.SystemClock.uptimeMillis()
         listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP).forEach { action ->
-            assertTrue(InstrumentationRegistry.getInstrumentation().uiAutomation.injectInputEvent(
+            assertTrue(testAutomation().injectInputEvent(
                 KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, code, 0, meta,
                     android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
         }
@@ -102,7 +102,7 @@ class EmojiDeviceTest {
         // Validate the exact native hierarchy that will be paired with the PNG.
         // A Compose assertion alone cannot certify a cached accessibility snapshot.
         compose.waitUntil(10000) {
-            if (android.os.Build.VERSION.SDK_INT >= 34) InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+            if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
             device.dumpWindowHierarchy(xml)
             val document = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml)
             val nodes = document.getElementsByTagName("node")
@@ -432,7 +432,7 @@ class EmojiDeviceTest {
             val expected = entries.map { it.id }.toSet() - first.id
             var downTime = android.os.SystemClock.uptimeMillis()
             fun emit(action: Int, repeat: Int = 0, meta: Int = modifier) {
-                assertTrue(InstrumentationRegistry.getInstrumentation().uiAutomation.injectInputEvent(
+                assertTrue(testAutomation().injectInputEvent(
                     KeyEvent(downTime, android.os.SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_D, repeat, meta,
                         android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
                 compose.waitForIdle()

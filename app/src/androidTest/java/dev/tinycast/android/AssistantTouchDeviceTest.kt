@@ -25,7 +25,7 @@ class AssistantTouchDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<SettingsActivity>()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
     private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-    private val automation get() = InstrumentationRegistry.getInstrumentation().uiAutomation
+    private val automation get() = testAutomation()
     private val dir get() = File(context.filesDir, "assistant-touch-evidence").apply { mkdirs() }
     private var captured = false
     private var originalRoles = emptyList<String>()

@@ -54,7 +54,7 @@ class ReadinessRegressionDeviceTest {
     private fun capture(name: String) {
         compose.waitForIdle(); device.waitForIdle()
         val directory = File(context.filesDir,"readiness-evidence").apply { mkdirs() }
-        if (android.os.Build.VERSION.SDK_INT >= 34) InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+        if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
         device.dumpWindowHierarchy(File(directory,"$name.xml"))
         assertTrue(device.takeScreenshot(File(directory,"$name.png")))
     }

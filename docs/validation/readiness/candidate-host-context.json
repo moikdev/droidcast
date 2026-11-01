@@ -1,0 +1,37 @@
+{
+  "logical_cpus_observed_after_run": 10,
+  "runs": {
+    "tablet": {
+      "app_sha256": "db1e1baccfe7b77d1fb272d73803517feacb487ce4bea1a3d575bbf806f61959",
+      "test_sha256": "5aaf09ff4024465bd807faa8ba01317f77eba4aa1f19450782d895b0cd3051cd",
+      "host_load_start": [
+        13.8759765625,
+        16.4375,
+        16.767578125
+      ],
+      "host_load_end": [
+        15.7978515625,
+        16.6455078125,
+        16.828125
+      ],
+      "debuggable": false,
+      "completed": true
+    },
+    "phone": {
+      "app_sha256": "db1e1baccfe7b77d1fb272d73803517feacb487ce4bea1a3d575bbf806f61959",
+      "test_sha256": "5aaf09ff4024465bd807faa8ba01317f77eba4aa1f19450782d895b0cd3051cd",
+      "host_load_start": [
+        15.7978515625,
+        16.6455078125,
+        16.828125
+      ],
+      "host_load_end": [
+        34.78369140625,
+        23.4501953125,
+        19.45703125
+      ],
+      "debuggable": false,
+      "completed": true
+    }
+  }
+}

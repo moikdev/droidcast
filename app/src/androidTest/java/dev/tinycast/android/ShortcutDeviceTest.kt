@@ -123,7 +123,7 @@ class ShortcutDeviceTest {
             fun inject(action: Int) {
                 val event = KeyEvent(downTime, android.os.SystemClock.uptimeMillis(), action, activation, 0, activationModifiers,
                     android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD)
-                assertTrue("Inject activation $activation/$action", InstrumentationRegistry.getInstrumentation().uiAutomation.injectInputEvent(event, true))
+                assertTrue("Inject activation $activation/$action", testAutomation().injectInputEvent(event, true))
             }
             try {
                 inject(KeyEvent.ACTION_DOWN)

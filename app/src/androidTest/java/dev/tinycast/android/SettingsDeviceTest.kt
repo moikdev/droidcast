@@ -113,7 +113,7 @@ class SettingsDeviceTest {
             key(KeyEvent.KEYCODE_TAB)
             compose.onNodeWithTag("shortcut-save").assertIsFocused()
             val downTime = android.os.SystemClock.uptimeMillis()
-            fun inject(action: Int) = assertTrue(InstrumentationRegistry.getInstrumentation().uiAutomation.injectInputEvent(
+            fun inject(action: Int) = assertTrue(testAutomation().injectInputEvent(
                 KeyEvent(downTime, android.os.SystemClock.uptimeMillis(), action, activation, 0, meta,
                     android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
             try {

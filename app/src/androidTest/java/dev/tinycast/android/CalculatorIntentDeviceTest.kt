@@ -70,7 +70,7 @@ abstract class CalculatorDeviceFixture {
     protected fun key(code: Int, meta: Int = 0) {
         val down = android.os.SystemClock.uptimeMillis()
         for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
-            assertTrue(InstrumentationRegistry.getInstrumentation().uiAutomation.injectInputEvent(
+            assertTrue(testAutomation().injectInputEvent(
                 KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, code, 0, meta,
                     android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
         }
@@ -89,7 +89,7 @@ abstract class CalculatorDeviceFixture {
         repeat(4) {
             if (!valid) {
                 compose.waitForIdle(); device.waitForIdle()
-                if (android.os.Build.VERSION.SDK_INT >= 34) InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+                if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
                 device.wait(Until.hasObject(By.pkg(context.packageName).clazz("android.widget.EditText").text(store.query)), 1500)
                 device.dumpWindowHierarchy(xml)
                 val document = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml)

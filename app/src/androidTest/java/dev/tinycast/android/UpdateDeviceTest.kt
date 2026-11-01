@@ -24,7 +24,7 @@ internal fun updateEvidence(name: String, marker: String) {
     val until = android.os.SystemClock.uptimeMillis() + 10_000
     var visible = false
     while (!visible && android.os.SystemClock.uptimeMillis() < until) {
-        instrumentation.uiAutomation.clearCache()
+        testAutomation().clearCache()
         visible = device.hasObject(By.pkg(instrumentation.targetContext.packageName).textContains(marker))
         if (!visible) device.waitForIdle(250)
     }
@@ -42,7 +42,7 @@ internal fun updateEvidence(name: String, marker: String) {
         }
         assertTrue("Updater frame committed", rendered.await(5, java.util.concurrent.TimeUnit.SECONDS))
     }
-    instrumentation.uiAutomation.clearCache()
+    testAutomation().clearCache()
     device.dumpWindowHierarchy(File(directory, "$name.xml"))
     assertTrue(device.takeScreenshot(File(directory, "$name.png")))
 }

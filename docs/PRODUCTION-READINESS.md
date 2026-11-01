@@ -1,14 +1,25 @@
-# Production-readiness and parity review
+# Droidcast readiness and parity review
 
-Work in progress under [#65](https://github.com/moikdev/droidcast/issues/65). This report does **not** clear a production release or claim full parity. The user chose emulator-only coverage for this pass.
+**Verdict: not production-cleared.** [Issue #65](https://github.com/moikdev/droidcast/issues/65) and [PR #66](https://github.com/moikdev/droidcast/pull/66) remain open. The user selected an emulator-only pass. The final tablet suite passes 159/159 cases; the phone suite is still running. Signing/recovery and two fresh exact-head audits are incomplete. The final candidate also passed 16 focused cases per viewport and pixel-verified response/startup measurements.
 
-## References and real screenshots
+## Build and validation boundaries
 
-Droidcast: released r10, versionCode 6, source `34b70a579ec6db366e2363deb6bd227591c7c750`, app SHA-256 `e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00`. Its production source tree matches merged main `ddeb0fd`. Android captures: API36 arm64 emulator, tablet 1920×1200/240dpi. The original measurements and comparison captures use that unchanged release. The readiness correction work now changes production code; its candidate results are recorded separately and do not retroactively certify r10.
+| Build | Identity and evidence |
+| --- | --- |
+| Released nightly r10 | VersionCode 6; source `34b70a579ec6db366e2363deb6bd227591c7c750`, whose tree matches main `ddeb0fd`. APK SHA-256 `e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00`. Used for the baseline comparison/startup and original broad functional checks. |
+| Preliminary correction | APK `5f27984edebef127cd0c3a078f5ec2a39b93a81335af72cf6bf8f04c23581288`: ten focused tablet passes, six navigation/draft plus four provider cases. Its after screenshot below is explicitly preliminary. |
+| Earlier complete correction `e89d078` | Debug/benchmark build and lint pass; 145 JVM tests. Tablet native run **148/155**: six clipboard-overlay evidence failures and one live Store installation timeout. Phone native run **149/155**, with six clipboard-overlay evidence failures. Both original runs remain failed. These runs do not certify the later draft implementation. |
+| Current implementation `944aca8` | Drafts now belong to the ViewModel; rapid discard/reopen and large unsaved content have dedicated coverage. Debug and benchmark builds/lint pass; 145 JVM tests pass, lint 0 errors/51 warnings. Focused native checks **16/16 per viewport** and asynchronous PixelCopy/startup runs pass. The final tablet suite passes 159/159 with verified cleanup; the matching phone suite is in progress. |
 
-Raycast: installed macOS app 2.10.1.0. Tinycast: actual locally built Dev 0.1.0 (1), source [`37e6043`](https://github.com/abue-ammar/tinycast/tree/37e6043f3f550febb64bdb3cff3ac29a30caad5a), Xcode27/macOS27.0.1, no Accessibility/login-item/hotkey grants or personal-data import. Upstream HEAD advanced to [`e3f813c`](https://github.com/abue-ammar/tinycast/compare/37e6043...e3f813c): native glass/shadow changes and terminal prompt handling. The images below are explicitly the older pinned revision, not screenshots of that newer revision.
+One owned API36 arm64 emulator is configured sequentially as tablet 1920×1200/240dpi and phone 1080×2340/420dpi. These are two viewports, not two physical devices. The app runs under its ordinary UID; adbd stays unrooted except in an explicitly guarded hardware-key helper. All seven upstream runtime/notice assets remain unchanged.
 
-Desktop captures show app windows. Android captures show the whole display with the transparent floating palette over Settings. Different bounds, display scales and glyph fonts prevent a pixel-size or visual-performance comparison. All are real captures, not mockups. The desktop capture API returned JPEG data despite the original `.png` filenames. The six desktop images are now genuine PNG encodings of those exact decoded RGB pixels, with no scaling/cropping/edits. The original JPEG bytes and decoded-pixel hashes are retained in [capture provenance](screenshots/readiness/desktop-capture-provenance.json).
+Hosted [Android run 41276405029](https://github.com/moikdev/droidcast/actions/runs/41276405029) passed on earlier head `3d1b595` after the initial missing-SDK setup failure was fixed. New heads require their own workflow result. Hosted debug artifacts are not production/update releases. Local/emulator evidence and independent reviews remain separate gates.
+
+## Real three-app comparison
+
+Raycast: installed macOS 2.10.1.0. Tinycast: actual locally built Dev 0.1.0 (1), pinned source [`37e6043`](https://github.com/abue-ammar/tinycast/tree/37e6043f3f550febb64bdb3cff3ac29a30caad5a), built without Accessibility/login-item/hotkey grants or personal-data import. Later upstream [`e3f813c`](https://github.com/abue-ammar/tinycast/compare/37e6043...e3f813c) changes native glass/shadows and terminal prompt handling; those newer changes are not pictured. Android captures show released r10.
+
+Desktop captures cover app windows; Android captures cover the full display and floating palette. Different bounds, scales and glyph fonts prevent a pixel-size or performance comparison. All captures are real. The desktop API supplied JPEG data despite the original PNG filenames. The six desktop files are now genuine PNG encodings of the original decoded RGB pixels, with no scaling/cropping/edits. [Original JPEGs, dimensions and hashes](screenshots/readiness/desktop-capture-provenance.json) remain retained.
 
 | Workflow | Raycast | Tinycast | Droidcast tablet |
 | --- | --- | --- | --- |
@@ -16,68 +27,96 @@ Desktop captures show app windows. Android captures show the whole display with 
 | Attached Actions | ![Raycast Actions](screenshots/readiness/raycast-actions.png) | ![Tinycast Actions](screenshots/readiness/tinycast-actions.png) | ![Droidcast Actions](screenshots/readiness/droidcast-actions.png) |
 | Emoji search `face` | ![Raycast Emoji](screenshots/readiness/raycast-emoji.png) | ![Tinycast Emoji](screenshots/readiness/tinycast-emoji.png) | ![Droidcast Emoji](screenshots/readiness/droidcast-emoji.png) |
 
-The common calculator expression, persistent search header, attached action panel and contextual footer have working Android equivalents. The action sets differ: Tinycast offers putting the answer into Search and copying the whole calculation; Droidcast currently only offers Copy Answer. Raycast additionally offers history, pinning and cross-app paste. Android Copy does not establish paste-back parity. Emoji glyphs, catalogs, ordering, ranking and remembered usage differ; matching the query does not imply equal result counts or catalog coverage.
+The common calculator expression, search header, attached Actions and contextual footer have Android equivalents. Action sets still differ: Tinycast can put the answer into Search and copy the calculation; Droidcast currently only copies the answer ([#67](https://github.com/moikdev/droidcast/issues/67)). Raycast also has history, pinning and cross-app paste. Android Copy does not establish paste-back parity. Emoji catalogs, glyphs, ranking, ordering and remembered usage differ; a shared query does not imply identical catalogs or counts.
 
-## Measurement contract
+## Audit findings and corrections
 
-The initial diagnostic instrumentation uses the real activity and real IME InputConnection or native key dispatch, without Compose's test clock. A transparent diagnostic Drawable in the decor overlay observes semantics **after** descendants have drawn, then registers a hardware frame-commit callback. It includes observer overhead and frame submission, and excludes physical input transport and display scanout. It is not input-to-photon latency. Raw samples and OS FrameMetrics are retained. Setup, screenshots, idle synchronization and warmups are excluded from per-interaction intervals; the window-wide frame sample includes those surrounding operations.
+Both initial independent audits used **gpt-6.1-sol/high** at `3d1b595`. They found existing production defects as well as introduced tooling issues. Their reviews do not clear subsequent implementation changes.
 
-An earlier OnDrawListener experiment checked semantics before Compose's deferred drawing/layout and sometimes waited for a caret blink. Its half-second plateau is a measurement defect, not evidence of an app delay. Those results are excluded. Earlier batch-edit and fallback-result assertion failures are also fixture failures and excluded.
-
-Startup uses Android `am start -W`: process-cold after force-stop (without evicting filesystem/OS caches), and retained-process Home→foreground. Android may report `UNKNOWN (0)` with no TotalTime for an already-existing task; only WaitTime is reported for that path. Host command time is separately labeled and includes ADB. Three warmups precede 30 measured trials per mode. Raw OS output is retained; unsupported timing fields remain absent.
-
-The decor-overlay timing is retained as diagnostic evidence only: partial child redraws may not redraw the overlay promptly. Phone arrow samples show a suspicious caret-like cadence. A separate PixelCopy/golden-frame check is being added to verify actual result/highlight pixels; neither timing path will be presented as input-to-photon latency.
-
-A disposable `.benchmark` package builds with `debuggable=false`, release dependency variants and the same source. It uses the local debug certificate, has no R8/minification configuration, and is **not** a production-signed release candidate. It cannot enter the updater channel. The published nightly remains installed separately. The runner refuses an existing benchmark package and independently removes test packages/restores settings and geometry afterward.
-
-A nondebuggable API36 tablet soak completed **230 rounds in 602.565 seconds**, with **1,151** verified query responses and native Emoji/back navigation. PSS samples ranged from **54,514 to 76,548 KiB**, ending below the start. These observations cover this workload and include instrumentation; they are not leak-free certification. Final timing distributions, broader functional checks and audit conclusions remain pending. Emulator graphics delays, instrumentation overhead and shared host load preclude a physical-device latency verdict or claims that Droidcast is faster than macOS apps.
-
-## Production gates
-
-| Gate | Current verdict / next evidence |
+| Finding | Correction / validation state |
 | --- | --- |
-| Production source and artifact identity | Released r10 frozen/hash-verified; current measurements distinguish it from the separate benchmark APK. |
-| Functional regression | r10's historical 138 JVM, 32 native cases per layout and four real self-updates are recorded in [updater validation](validation/updates.md). Fresh broader checks pending; historical checks are not reruns. |
-| Security and independent audits | Prior slice audits are recorded on their PRs. Two new sol/high independent audits are required for this checkpoint. |
-| Clean-runner CI | The GitHub app connection activated the workflow on PR #66. After fixing the missing SDK setup, exact-head run [41276405029](https://github.com/moikdev/droidcast/actions/runs/41276405029) passed on `3d1b595`: debug and benchmark compilation, JVM tests and lint. New correction commits still require their own final-head results. Hosted compilation is separate from emulator and signing coverage. |
-| Signing/release engineering | Nightly/debug certificate continuity is tested. Maintainer-controlled production signing and recovery remain #21. |
-| API/OEM matrix | API36 emulator only. API26 runtime, Lenovo/OEM, physical input and hardware latency remain unverified. |
-| Accessibility/localization | Scoped labels/focus tested previously. Comprehensive TalkBack, large-font, theme and translation work remains #20. |
-| Reliability/performance | Ten-minute/230-round nondebuggable search/navigation soak passed. Startup and timing work is still being refined; no physical latency or leak-free certification. |
-| Lifecycle/providers | Process death, cloud/large folder trees and extended installer interruption remain incomplete. |
-| Parity | [Feature matrix](../PARITY.md) remains partial: dictionary, snippets, calendar, AI, advanced calculator/quicklinks, richer extension APIs and Android multitasking replacements are open. |
-| Unexplained failures | #35/#37/#41/#59/#62 remain open; passing reruns do not establish their causes or fixes. |
+| Same-turn navigation used composition-captured selection | Launcher Enter/IME/Actions/Pin and extension List activation resolve current logical selection/actions at event time. Old-r10 negative cases reproduce previous-item activation. The final focused correction passes these cases on both viewports; the broader scope remains under validation. |
+| Recreation lost unsaved editor fields | ViewModel-owned drafts preserve title/body/alias without serializing large text into the Activity Bundle. Identity includes editor kind/item/session; closing/resetting releases abandoned text. New-note, edited-quicklink, explicit save, rapid discard/reopen and large-content cases are defined. Final ViewModel cases pass on both viewports, including exact large-body preservation and explicit save. The final tablet suite also passes; the phone suite remains in progress. Process-death recovery is not certified. |
+| Recent-document metadata could block the UI thread | Bounded process-wide workers, query cancellation and caller deadlines keep display-name/MIME work off the UI thread. The URI reference is tracked before asynchronous naming; stale/cancelled opens are suppressed. All four controlled provider cases pass in the final focused run on both viewports. A separate actual Downloads picker → recent reference → exact native-viewer content test has compiled and awaits execution. An uncooperative `getType` call still occupies a bounded worker because that API has no cancellation signal. |
+| Extension HTTP could survive command closure indefinitely | Cancellable bounded requests, transport disconnection, total deadline and immutable response snapshots. Seven JVM cases cover slow streams, blocked-read cancellation, repeated session cancellation, body bounds, redirect credentials, response ownership and HTTPS validation. The final tablet Grid/Store suite passes as part of 159 cases; the matching phone suite is running. The earlier Store timeout remains unexplained. |
+| Benchmark assumed ANDROID_HOME | Environment variables and local.properties are supported; three discovery configurations were verified. |
+| Desktop PNG filenames contained JPEG bytes | Original bytes retained; normalized PNGs have equal decoded RGB hashes. |
 
-No production-ready verdict is justified while these gates remain open. The next implementation work should close measured failures and concrete parity gaps through the existing issue/PR/audit loop.
+### Preliminary draft comparison
 
-## Primary measurement references
+| Released r10 after recreation | Preliminary correction after recreation |
+| --- | --- |
+| ![Lost new-note title](screenshots/readiness-regressions/before-note-recreation.png) | ![Preliminary retained new-note title](screenshots/readiness-regressions/preliminary-note-recreation.png) |
 
-- [Android frame commit](https://developer.android.com/reference/android/view/ViewTreeObserver#registerFrameCommitCallback(java.lang.Runnable)): submission does not establish physical display visibility.
-- [Android startup states and timings](https://developer.android.com/topic/performance/issues/launch-time).
-- [Android FrameMetrics](https://developer.android.com/reference/android/view/FrameMetrics).
+Real API36 tablet captures. The keyboard hides the body in these stills; native assertions inspect it separately. The after image belongs to the preliminary build above, not the final ViewModel candidate. [Per-image provenance](validation/readiness/provisional-captures.json) preserves that distinction.
 
-## Audit corrections in progress
+### Final-candidate phone states
 
-The first two independent audits at `3d1b595` found existing production defects: same-turn launcher/List activation used the previously rendered selection; unsaved note/quicklink drafts were lost on Activity recreation; recent-document metadata queried providers on the UI thread; extension HTTP reads lacked cancellation and an overall deadline. The correction also fixes SDK discovery in the benchmark runner and the desktop screenshot format mismatch.
+| Fields retained after recreation | Provider timeout with usable search |
+| --- | --- |
+| ![Final phone quicklink draft](screenshots/readiness-regressions/phone-quicklink-recreated.png) | ![Final phone provider timeout](screenshots/readiness-regressions/phone-provider-mime-timeout.png) |
 
-The first six controlled native cases reproduce old selection/draft behavior on released r10. Their initial editor assertions also included field labels. A later exact-`EditableText` old-build run reproduces all six original cases plus rapid discard/reopen retaining an abandoned draft. A preliminary corrected candidate passed ten focused tablet cases. The final ViewModel draft and large-content cases still require their own runs. A preliminary patched attempt used a stale instrumentation APK after a failed build and is excluded. The initial HTTP test class had a non-void JUnit method; the corrected seven-case suite passes. None of these harness corrections is evidence of a production timing fix.
+These real captures use final debug APK `409088cb9879507454598038ea4f7dd3bc54a40a0facee48c376f95152f9908e`. Both viewports pass 16 focused cases, including a 625,000-character draft retained across recreation and exact content verification. [Capture provenance](validation/readiness/final-focused-captures.json) records APK/XML/image identities. Focused results do not replace the pending broad suites or audits.
 
-The first broader unchanged-r10 battery has completed. Interaction, extension Grid and system Settings groups pass on both layouts. The unavailable-shortcut feedback passed, but clearing its dormant binding failed on both layouts: the nested list was below the outer form viewport. Failure PNG/semantics retain the clipped Clear control. The test now scrolls the outer form before reaching the row; production UI was not changed for this. The tablet backup import-preview heading and phone picker-cancel return assertions failed at different steps; focused unchanged reruns have passed and do not establish their cause or a production fix. The updater verification group was launched without its required signed test payload, causing 12 setup failures per layout; that attempt is excluded from updater functionality claims and must be repeated with the guarded fixture setup. Original logs and cleanup results remain retained.
+## Functional failures and investigation
 
-## Retained baseline data and correction snapshots
+- The initial unchanged-r10 battery has **260 native passes, 24 updater setup failures and four assertion failures** across 288 selected cases. The tablet interaction wrapper incorrectly expected 47 instead of the source/raw log's 45; its failed host record remains retained separately from independent verification of all 45 exact pass IDs.
+- Supplying the signed updater fixtures produced **21/21 tablet** and **20/21 phone** in a corrected cohort. The phone's return subtitle was above the preserved scroll viewport, confirmed by its failure XML/PNG. The test now scrolls to it. The initial APK-stream transfers timed out before native execution; their verified cleanup records remain retained. Uploads now use bounded adb push, and scoped installer approval is independently restored.
+- The dormant-binding message appeared, but Clear was below the outer form viewport. The test had scrolled only the nested list. Its retained failure frame/semantics show the clipped control; scrolling the outer form fixes reachability in the unchanged app. Production UI was not changed for this test issue.
+- Earlier native import-preview and export-cancel failures remain unattributed. Passing focused reruns do not establish their cause or a production fix.
+- In the earlier-candidate broad tablet run, **six Grid cases fail clipboard-overlay cleanup** and **one live Store installation times out**. Saved PNG/XML confirm the SystemUI overlay and an enabled, clickable dismiss node. The old helper passes three standalone mode cases, so the mode flag alone is not a sufficient explanation. A folder→Grid cohort reproduces one cleanup failure in 13 actual cases; a matched run passes all 13 with only the helper changed and the old folder mode leak deliberately retained. The first driver requested two nonexistent method names, which the runner ignored; its expected 15 count is not rewritten. The valid 13 native cases and actual cleanup failure remain identifiable. The corrected helper aligns automation mode, traverses interactive-window nodes, clicks the actual enabled SystemUI dismiss node and restores service flags. A shared test accessor prevents implicit mode reconnects, and Folder cleanup now restores its mode. This supports the bounded helper correction, not a production fix or a retrospective cause claim for every earlier failure. The final tablet suite passes 159/159 with all cleanup checks; the phone suite is running.
 
-![Released-nightly startup and separate soak measurements](screenshots/readiness/startup-and-soak.png)
+The older capture-marker failures, caret observation and issues [#35](https://github.com/moikdev/droidcast/issues/35), [#37](https://github.com/moikdev/droidcast/issues/37), [#41](https://github.com/moikdev/droidcast/issues/41), [#59](https://github.com/moikdev/droidcast/issues/59) and [#62](https://github.com/moikdev/droidcast/issues/62) are not cleared by unrelated passing checks.
 
-The two startup panels report different Android OS metrics and remain separate. Raw [startup trials](validation/readiness/startup-samples.csv) preserve warmups, OS launch states and absent `TotalTime` fields. [Baseline metrics](validation/readiness/baseline-metrics.json) record identities and memory samples. The soak's decor-observer timing remains diagnostic and is excluded from interaction-latency statistics. Candidate PixelCopy timing with asynchronous key enqueue is still pending execution.
+## Speed and reliability measurements
 
-| Controlled state | Before / released r10 | Preliminary correction |
+![Released-nightly startup and separate soak observations](screenshots/readiness/startup-and-soak.png)
+
+| Measure · median / 95th percentile | Tablet | Phone |
 | --- | --- | --- |
-| Unsaved new-note title after Activity recreation | ![Lost draft title](screenshots/readiness-regressions/before-note-recreation.png) | ![Preliminary retained title](screenshots/readiness-regressions/preliminary-note-recreation.png) |
+| Released r10 process-cold OS TotalTime | 2,239 / 2,549 ms | 1,618 / 1,977 ms |
+| Released r10 Home→existing-task OS WaitTime | 665 / 1,193 ms | 301 / 767 ms |
+| Candidate nondebuggable process-cold OS TotalTime | 614 / 823 ms | 556 / 1,138 ms |
+| Candidate nondebuggable Home→existing-task OS WaitTime | 177 / 454 ms | 414 / 1,349 ms |
+| Candidate launcher query → matching pixels | 101.5 / 164.4 ms | 202.0 / 401.3 ms |
+| Candidate Emoji query → matching pixels | 89.1 / 143.3 ms | 175.6 / 335.8 ms |
+| Candidate Emoji arrow → matching pixels | 115.1 / 212.2 ms | 169.7 / 272.1 ms |
+| Candidate readback/hash control · no input | 6.3 / 8.9 ms | 18.6 / 55.7 ms |
 
-These are real API36 tablet captures. The keyboard hides the body in these stills; the native assertions inspect it separately. The after image is the preliminary `5f27984…` APK, not final-candidate certification. [Per-image identities](validation/readiness/provisional-captures.json) preserve that distinction. The later correction retains drafts in the ViewModel, handles rapid discard/reopen, and adds a large-draft recreation regression without serializing text into the Activity Bundle. Explicit save, discard, large content and final tablet/phone evidence remain under validation.
+Startup uses `am start -W`, with three warmups followed by 30 measured trials per mode/layout. Process-cold means force-stop without evicting filesystem/OS caches. Retained-process launches may return UNKNOWN with no TotalTime: tablet has TotalTime for only four trials; phone has none. The different OS metrics stay separate. [Raw startup trials](validation/readiness/startup-samples.csv) retain warmups, states and absent fields; [baseline metrics](validation/readiness/baseline-metrics.json) retain identities and statistics. No outliers are removed; percentiles use nearest rank. Host command time includes ADB.
 
-The first two broad unchanged-r10 runs contain 260 native passes, 24 updater setup failures and four assertion failures. The 45-case tablet interaction host wrapper incorrectly expected 47; its failed original host record remains separate from independent verification of the 45 exact native pass IDs. Corrected fixture validation subsequently passed all 21 selected tablet cases. Phone verification passed 20/21: its backup return subtitle was outside the preserved scroll viewport, confirmed by the failure XML/PNG. The test now scrolls to that subtitle. A later export-cancel timeout and the earlier native import-preview miss remain retained and unattributed. The two initial APK transfers timed out before any updater tests; their verified cleanup records are retained. The corrected transfer uses bounded `adb push`, and the runner restores its scoped source-approval mode independently.
+![Candidate pixel-verified responses](screenshots/readiness/candidate-response.png)
 
-Sources for the coroutine/provider boundary: [Kotlin cancellation contract](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-cancellable-continuation/) and [Android ContentResolver](https://developer.android.com/reference/android/content/ContentResolver). Query cancellation is optional at the provider; `getType` exposes no cancellation signal, so stuck calls occupy a bounded worker rather than blocking the main thread or spawning unbounded threads.
+Candidate measurements use benchmark APK SHA-256 `db1e1baccfe7b77d1fb272d73803517feacb487ce4bea1a3d575bbf806f61959`, implementation `944aca8`, fresh disposable app data. They are not a controlled A/B comparison with the debug-signed r10 profile, and the different startup figures cannot be attributed solely to code changes. The candidate's tablet foreground trials all lack TotalTime; phone has it for four trials. The table therefore keeps OS WaitTime distinct.
 
-Candidate `e89d078` has passed 145 JVM cases and debug/benchmark build/lint, and its 155-case native suites per layout are in progress. The later `944aca8` source changes only draft ownership/lifecycle and the backup return-scroll fixture; its debug build, 145 JVM cases and lint pass (0 errors/51 warnings). Its final native and benchmark evidence is pending. Those variants are not interchangeable, and neither has release or merge clearance.
+[Candidate statistics](validation/readiness/candidate-metrics.json), [all 320 interaction samples](validation/readiness/candidate-interaction-samples.csv), [startup trials](validation/readiness/candidate-startup-samples.csv) and [host context](validation/readiness/candidate-host-context.json) are retained. Each viewport has 50 launcher queries, 50 Emoji queries, 40 navigation events and 20 no-input readback controls. No overhead is subtracted. The host has 10 logical CPUs; one-minute load rose from 15.8 to 34.8 during the phone run. Layout is not an isolated causal variable, and this does not establish physical-device latency.
+
+The separate nondebuggable tablet soak completed **230 rounds in 602.565 seconds**, with **1,151 verified query responses** and native Emoji/back navigation. PSS ranged **54,514–76,548 KiB**, ending below the start. These are observations from one workload with instrumentation, not leak-free or endurance certification.
+
+Interaction timing uses two distinct methods:
+
+- The decor observer watches semantics after descendant drawing and registers frame-commit callbacks. Partial redraw scheduling can delay that observer; an earlier phone cadence resembled caret blinking. All decor/soak timing is diagnostic and excluded from interaction-latency statistics.
+- PixelCopy compares result/highlight pixels to captured settled reference pixels, excluding the blinking header caret. Earlier completed synchronous-injection records include virtual-key completion overhead. The final asynchronous-key enqueue method passes on both viewports, requiring the expected distinct result/highlight pixel hashes. It includes injection/enqueue, rendering, PixelCopy, hashing and harness overhead; it excludes physical transport and display scanout.
+
+The disposable benchmark package is nondebuggable, uses release dependency variants and the same implementation source, but is debug-signed with no R8/minification. It is ineligible for the production updater and independently removed after testing. Shared host load and emulator graphics prevent a physical input-to-photon verdict or a claim that Droidcast is faster than either macOS app.
+
+## Remaining production and parity gates
+
+| Requirement | Current evidence / work left |
+| --- | --- |
+| Final functional candidate | 145 JVM cases and debug/benchmark build/lint pass; 16 focused native cases per viewport pass. Final tablet: 159/159 with verified cleanup. Matching 159-case phone suite is running; historical failures remain failures. |
+| Independent audits | Two fresh complete exact-head sol/high correctness/security and UX/test-coverage audits required, followed by expected-head merge safeguards. |
+| Performance | Released baseline and candidate startup, 320 candidate PixelCopy samples and the baseline ten-minute soak are complete. Raw data/identities are retained; independent review and final report reconciliation remain required. |
+| Signing and recovery | Existing nightly/debug continuity was tested. Maintainer-controlled production signing and upgrade/recovery remain [#21](https://github.com/moikdev/droidcast/issues/21). The [signing and migration contract](PRODUCTION-SIGNING.md) records the current certificate, exact-match updater limitation and required transition tests; no keys are published. |
+| API/runtime matrix | API36 emulator evidence only. API26 runtime remains unverified. Physical/OEM/Lenovo delivery is outside this selected emulator-only pass. |
+| Lifecycle and providers | Process death, large/cloud providers, extended installer interruptions and broader recovery are incomplete. Bounded recent-document tests do not certify every provider. |
+| Accessibility/localization | Scoped focus/labels and keyboard flows exist. Comprehensive TalkBack, large fonts, RTL and translations remain [#20](https://github.com/moikdev/droidcast/issues/20). |
+| Tinycast/Raycast parity | [Feature matrix](../PARITY.md) remains partial: dictionary, snippets, calendar, AI, advanced calculator/quicklinks, broader extension APIs and Android multitasking replacements remain open. |
+
+Production readiness is not established while these gates and unexplained failures remain open. The report will be reconciled to the reviewed final head and exact APKs before release decisions.
+
+## Primary references
+
+- [Android frame commit](https://developer.android.com/reference/android/view/ViewTreeObserver#registerFrameCommitCallback(java.lang.Runnable)), [startup measurements](https://developer.android.com/topic/performance/issues/launch-time), and [FrameMetrics](https://developer.android.com/reference/android/view/FrameMetrics).
+- [Kotlin cancellation contract](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-cancellable-continuation/) and [Android ContentResolver](https://developer.android.com/reference/android/content/ContentResolver).
+- [Android automation flags](https://developer.android.com/reference/android/app/Instrumentation#getUiAutomation(int)): requesting different flags reconnects automation. This supports the controlled investigation, not a retrospective cause claim for every historical hierarchy/capture failure.

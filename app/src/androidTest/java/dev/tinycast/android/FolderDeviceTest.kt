@@ -37,17 +37,22 @@ class FolderDeviceTest {
     private var grants = emptySet<Uri>()
     private var files = emptyMap<String, ByteArray>()
     private var fixtureCreated = false
+    private var originalAutomationFlags = 0
+    private var paletteCaptured = false
+    private var grantsCaptured = false
+    private var indexCaptured = false
     private lateinit var controller: FolderSearch
     private val scopes = mutableListOf<CoroutineScope>()
     private val directory get() = File(context.filesDir, "folder-search")
     private val rootName = "DroidcastFolderFixture"
     @Before fun setup() {
+        originalAutomationFlags = androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags
         androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags = android.app.UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES
-        original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
-        grants = context.contentResolver.persistedUriPermissions.map { it.uri }.toSet()
+        original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap(); paletteCaptured = true
+        grants = context.contentResolver.persistedUriPermissions.map { it.uri }.toSet(); grantsCaptured = true
         compose.waitUntil(10000) { !compose.activity.store.folderSearch.loading }
         controller = compose.activity.store.folderSearch
-        files = directory.walkTopDown().filter { it.isFile }.associate { it.relativeTo(directory).path to it.readBytes() }
+        files = directory.walkTopDown().filter { it.isFile }.associate { it.relativeTo(directory).path to it.readBytes() }; indexCaptured = true
         compose.activityRule.scenario.onActivity { it.selectPage("folders") }
         assertFalse("Fixture path must be unused", device.executeShellCommand("ls /sdcard/Download").lineSequence().any { it == rootName })
         fixtureCreated = true
@@ -57,18 +62,22 @@ class FolderDeviceTest {
         writeFixture("Bundle.zip", "archive fixture")
     }
     @After fun restore() {
+      try {
         cancelPicker()
         scopes.forEach { it.cancel() }
-        compose.runOnUiThread { controller.cancelRefresh() }
-        context.contentResolver.persistedUriPermissions.filter { it.uri !in grants }.forEach {
+        if (this::controller.isInitialized) compose.runOnUiThread { controller.cancelRefresh() }
+        if (grantsCaptured) context.contentResolver.persistedUriPermissions.filter { it.uri !in grants }.forEach {
             context.contentResolver.releasePersistableUriPermission(it.uri, (if (it.isReadPermission) Intent.FLAG_GRANT_READ_URI_PERMISSION else 0) or (if (it.isWritePermission) Intent.FLAG_GRANT_WRITE_URI_PERMISSION else 0))
         }
-        directory.deleteRecursively(); files.forEach { (path, bytes) -> File(directory, path).apply { parentFile?.mkdirs(); writeBytes(bytes) } }
-        restorePalettePreferences(context, original)
+        if (indexCaptured) {
+            directory.deleteRecursively(); files.forEach { (path, bytes) -> File(directory, path).apply { parentFile?.mkdirs(); writeBytes(bytes) } }
+        }
+        if (paletteCaptured) restorePalettePreferences(context, original)
         if (fixtureCreated) device.executeShellCommand("rm -rf /sdcard/Download/$rootName")
+      } finally { androidx.test.uiautomator.Configurator.getInstance().uiAutomationFlags = originalAutomationFlags }
     }
     private fun writeFixture(path: String, body: String) {
-        val pipes = InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommandRw("tee /sdcard/Download/$rootName/$path")
+        val pipes = testAutomation().executeShellCommandRw("tee /sdcard/Download/$rootName/$path")
         android.os.ParcelFileDescriptor.AutoCloseOutputStream(pipes[1]).use { it.write(body.toByteArray()) }
         val echoed = android.os.ParcelFileDescriptor.AutoCloseInputStream(pipes[0]).bufferedReader().use { it.readText() }
         assertEquals(body, echoed)

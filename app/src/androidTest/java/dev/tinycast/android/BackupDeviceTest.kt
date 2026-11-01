@@ -77,7 +77,7 @@ class BackupDeviceTest {
         compose.waitUntil(10000) { compose.activity.store.dialog == "backup-preview" && !compose.activity.store.backupBusy }
     }
     private fun clickPickerNode(label: String, match: (android.view.accessibility.AccessibilityNodeInfo) -> Boolean) {
-        val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
+        val automation=testAutomation()
         fun find(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
             if(node.packageName?.toString()=="com.google.android.documentsui" && node.isVisibleToUser && match(node)) return node
             for(index in 0 until node.childCount) node.getChild(index)?.let { find(it)?.let { found -> return found } }
@@ -98,7 +98,7 @@ class BackupDeviceTest {
         }
     }
     private fun pickerDownloads() {
-        val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
+        val automation=testAutomation()
         clickPickerNode("Show roots") { it.contentDescription?.toString()=="Show roots" }
         clickPickerNode("Downloads") { it.viewIdResourceName=="android:id/title" && it.text?.toString()=="Downloads" }
         automation.clearCache(); device.waitForIdle()

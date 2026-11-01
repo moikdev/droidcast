@@ -82,7 +82,7 @@ class InlinePaletteDeviceTest {
         }
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         compose.waitUntil(10000) {
-            InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+            testAutomation().clearCache()
             val xml = File(folder, "$name.xml"); device.dumpWindowHierarchy(xml)
             val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
             val native = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }
@@ -436,7 +436,7 @@ class InlinePaletteBaselineTest {
         fun capture(name:String,marker:String) {
             compose.waitForIdle(); device.waitForIdle()
             val dir=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
-            instrumentation.uiAutomation.clearCache(); device.dumpWindowHierarchy(File(dir,"$name.xml"))
+            testAutomation().clearCache(); device.dumpWindowHierarchy(File(dir,"$name.xml"))
             assertTrue(File(dir,"$name.xml").readText().contains(marker))
             assertTrue(device.takeScreenshot(File(dir,"$name.png")))
         }

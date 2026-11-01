@@ -31,7 +31,7 @@ internal fun modifierKey(code: Int, down: Boolean, start: Long, repeat: Int = 0)
         KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD)
 }
 internal fun doubleModifier(code: Int = KeyEvent.KEYCODE_CTRL_LEFT, holdMs: Long = 30, tapCount: Int = 2) {
-    val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+    val automation = testAutomation()
     repeat(tapCount) {
         val start = SystemClock.uptimeMillis()
         assertTrue(automation.injectInputEvent(modifierKey(code, true, start), true))
@@ -63,7 +63,7 @@ class ModifierTapDeviceTest {
         compose.waitForIdle()
         val folder = File(context.filesDir, "modifier-tap-evidence").apply { mkdirs() }
         device.waitForIdle()
-        if (android.os.Build.VERSION.SDK_INT >= 34) InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+        if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCache()
         assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).textContains(marker)), 5000))
         device.dumpWindowHierarchy(folder.resolve("$name.xml"))
         val text = folder.resolve("$name.xml").readText()
@@ -242,7 +242,7 @@ class ModifierTapPaletteDeviceTest {
         compose.activityRule.scenario.onActivity { it.store.setShortcut("new-note", ShortcutRules.doubleTap(ShortcutRules.CTRL)) }
         compose.onNodeWithTag("search").performTextReplacement("ordinary control fixture")
         compose.onNodeWithTag("search").performClick().assertIsFocused()
-        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        val automation = testAutomation()
         val start = SystemClock.uptimeMillis()
         assertTrue(automation.injectInputEvent(modifierKey(KeyEvent.KEYCODE_CTRL_LEFT, true, start), true))
         try {

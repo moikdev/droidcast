@@ -8,7 +8,7 @@ p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p
 p.add_argument('--output',type=Path,required=True);p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
 p.add_argument('--test-apk',type=Path,default=Path('app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'))
 p.add_argument('--evidence-dir',choices=['extension-grid-evidence','emoji-evidence','updates-evidence','readiness-evidence','system-settings-evidence'],default='extension-grid-evidence')
-p.add_argument('--extra-evidence-dir',action='append',choices=['emoji-evidence','settings-evidence','shortcut-evidence','backup-evidence','folder-evidence','palette-evidence','rigid-palette-evidence','updates-evidence','readiness-evidence','system-settings-evidence'],default=[])
+p.add_argument('--extra-evidence-dir',action='append',choices=['extension-grid-evidence','emoji-evidence','settings-evidence','shortcut-evidence','backup-evidence','folder-evidence','palette-evidence','rigid-palette-evidence','updates-evidence','readiness-evidence','system-settings-evidence'],default=[])
 p.add_argument('--update-fixtures',type=Path,help='Signed newer/wrong-signer/wrong-package verification fixtures; never published')
 p.add_argument('--readiness',action='store_true');p.add_argument('--soak-seconds',type=int,default=300)
 p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=16)

@@ -161,7 +161,7 @@ class ExtensionGridDeviceTest {
             .put("epoch_before", captureEpoch).put("epoch_after", compose.activity.store.extensions.launchEpoch).toString(2))
         assertEquals("Evidence collection must retain its extension route", captureRoute, compose.activity.store.dialog)
         assertEquals("Evidence collection must retain its command session", captureEpoch, compose.activity.store.extensions.launchEpoch)
-        InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+        testAutomation().clearCache()
         if (name != "image-errors") compose.waitUntil(10000) {
             val selected = compose.onAllNodes(isSelected()).fetchSemanticsNodes().firstOrNull { it.config.getOrElse(SemanticsProperties.TestTag) { "" }.startsWith("extension-grid-cell-") }
             if (selected == null) true else {
@@ -174,7 +174,7 @@ class ExtensionGridDeviceTest {
         val expectedCount = compose.onAllNodesWithTag("extension-grid-count").fetchSemanticsNodes().singleOrNull()?.config?.get(SemanticsProperties.Text)?.joinToString("") { it.text }
         val expectedQuery = if (expectedCount != null) compose.onNodeWithTag("extension-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text else null
         compose.waitUntil(10000) {
-            InstrumentationRegistry.getInstrumentation().uiAutomation.clearCache()
+            testAutomation().clearCache()
             val xml = File(folder, "$name.xml"); device.dumpWindowHierarchy(xml)
             val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
             val appNodes = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.filter { it.getAttribute("package") == context.packageName }

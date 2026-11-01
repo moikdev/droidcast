@@ -6,6 +6,8 @@ p.add_argument('--serial',required=True);p.add_argument('--avd',required=True)
 p.add_argument('--layout',choices=('tablet','phone'),required=True);p.add_argument('--output',type=Path,required=True)
 p.add_argument('--classes',default='dev.tinycast.android.AssistantTouchDeviceTest,dev.tinycast.android.AssistantDeviceTest,dev.tinycast.android.SettingsDeviceTest,dev.tinycast.android.ShortcutReadinessDeviceTest')
 p.add_argument('--expected',type=int,default=26)
+p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
+p.add_argument('--test-apk',type=Path,default=Path('app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'))
 a=p.parse_args()
 sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 if not sdk:sdk=next(line.removeprefix('sdk.dir=') for line in Path('local.properties').read_text().splitlines() if line.startswith('sdk.dir='))
@@ -40,8 +42,8 @@ prefs=call('exec-out','run-as',pkg,'cat','shared_prefs/palette.xml')
 record={'classes':classes,'layout':layout,'serial':a.serial,'avd':a.avd,'expected':a.expected,'completed':False,
  'runner_sha256':sha(Path(__file__).read_bytes()),'original_size':text('shell','wm','size'),'original_density':text('shell','wm','density')}
 try:
- for name in ['app/build/outputs/apk/debug/app-debug.apk','app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk']:
-  p=Path(name);shutil.copy2(p,root/p.name);call('install','-r',name)
+ for name in [a.apk,a.test_apk]:
+  p=Path(name);shutil.copy2(p,root/p.name);call('install','-r',str(name))
  record['apk_sha256']=sha((root/'app-debug.apk').read_bytes());record['test_apk_sha256']=sha((root/'app-debug-androidTest.apk').read_bytes())
  installed=text('shell','pm','path',pkg).removeprefix('package:');assert sha(call('exec-out','cat',installed))==record['apk_sha256']
  record['installed_matches']=True
