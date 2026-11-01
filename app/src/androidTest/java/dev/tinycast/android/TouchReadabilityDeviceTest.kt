@@ -174,16 +174,20 @@ class TouchReadabilityDeviceTest {
             // An offscreen row can belong to a fully visible inner list. In
             // that case pan that list, rather than an already settled route.
             val parentOutside=parentFull.top<outer.top-1 || parentFull.bottom>outer.bottom+1
-            val targetBelow=full.bottom>outer.bottom+1
-            val targetAbove=full.top<outer.top-1
+            val needsParentSpace=scrollParent.id!=outerNode.id && parentOutside &&
+                sample.parent.height<minOf(full.height,parentFull.height)-1
+            val outerTarget=if(needsParentSpace)parentFull else full
+            val targetBelow=outerTarget.bottom>outer.bottom+1
+            val targetAbove=outerTarget.top<outer.top-1
             val outerCanMove=if(targetBelow)sample.outerScroll<sample.outerMax-1 else sample.outerScroll>1
             val isOuter=scrollParent.id==outerNode.id || parentOutside && (targetBelow || targetAbove) && outerCanMove
             val scrollTag=if(isOuter)"palette-content-scroll" else if(scrollParent.config.contains(SemanticsProperties.TestTag))scrollParent.config[SemanticsProperties.TestTag] else "scroll-${scrollParent.id}"
             val route=if(isOuter)outerInteraction else parentInteraction
             val viewport=if(isOuter)outer else sample.parent
-            // A form can be taller than the visible route. Its bottom is not
-            // the direction to an input above the viewport; follow the target.
-            val required=full
+            // First expose enough of the inner viewport to contain the whole
+            // target; otherwise inner/outer swipes can endlessly trade clipping
+            // at opposite edges. Then follow the target within that viewport.
+            val required=if(isOuter && needsParentSpace)parentFull else full
             val below=required.bottom>viewport.bottom+1
             val clippedDistance=(if(below)required.bottom-viewport.bottom else viewport.top-required.top).coerceAtLeast(0f)
             val pixelsPerDp=context.resources.displayMetrics.density
@@ -196,8 +200,21 @@ class TouchReadabilityDeviceTest {
                 val footerStart=footer?.let {
                     (if(below)footer.bottom-minOf(8*pixelsPerDp,footer.height*.25f) else footer.top+minOf(8*pixelsPerDp,footer.height*.25f))-viewport.top
                 }
-                val useFooter=footerStart!=null
-                val start=if(useFooter)footerStart!!
+                // Use visible chrome outside an inner scroll surface when
+                // moving the outer route. A swipe over that inner surface
+                // changes its own offset instead of exposing its viewport.
+                val aboveInner=(sample.parentFull.top-viewport.top).coerceIn(0f,viewport.height)
+                val belowInner=(viewport.bottom-sample.parentFull.bottom).coerceIn(0f,viewport.height)
+                val gap=8*pixelsPerDp
+                val chromeStart=if(!isOuter || scrollParent.id==outerNode.id)null else when {
+                    below && aboveInner>16f -> aboveInner-minOf(gap,aboveInner*.25f)
+                    !below && belowInner>16f -> viewport.height-belowInner+minOf(gap,belowInner*.25f)
+                    aboveInner>16f -> aboveInner*.5f
+                    belowInner>16f -> viewport.height-belowInner*.5f
+                    else -> null
+                }
+                val useFooter=chromeStart==null && footerStart!=null
+                val start=chromeStart ?: if(useFooter)footerStart!!
                 else if(isOuter)viewport.height*(if(below).85f else .15f)
                 else if(below)viewport.height*.80f else viewport.height*.20f
                 // A captured drag can leave the small palette. Constraining
@@ -214,6 +231,7 @@ class TouchReadabilityDeviceTest {
                     .put("outer_scroll",sample.outerScroll).put("outer_scroll_max",sample.outerMax)
                     .put("parent_full_top",sample.parentFull.top).put("parent_full_bottom",sample.parentFull.bottom)
                     .put("parent_top",sample.parent.top).put("parent_bottom",sample.parent.bottom)
+                    .put("needs_parent_space",needsParentSpace).put("chrome_pan",chromeStart!=null)
                     .put("gesture_min_y",minY).put("gesture_max_y",maxY)
                     .put("start_y",start).put("end_y",end).put("footer_pan",useFooter).put("end_velocity",0))
                 swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),endVelocity=0f,durationMillis=400)
