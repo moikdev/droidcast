@@ -187,7 +187,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 }
             }
             Box(Modifier.fillMaxSize().clickable(indication=null, interactionSource=remember { MutableInteractionSource() }) { if(store.dialog==null) dismiss() }.testTag("palette-backdrop"))
-            Column(Modifier.padding(top=top).padding(horizontal=12.dp).widthIn(max=PaletteTheme.width).fillMaxWidth().height(paletteHeight).align(Alignment.TopCenter)
+            PaletteColumn(Modifier.padding(top=top).padding(horizontal=12.dp).widthIn(max=PaletteTheme.width).fillMaxWidth().height(paletteHeight).align(Alignment.TopCenter)
                 .shadow(24.dp,RoundedCornerShape(PaletteTheme.radius))
                 .clip(RoundedCornerShape(PaletteTheme.radius))
                 .background(Brush.linearGradient(listOf(Color(0xFF292929),Color(0xFF141414),Color(0xFF242424))))
@@ -203,7 +203,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 }
                 if (store.category == "Files") FileSearchToolbar(store, run)
                 LaunchedEffect(store.folderSearch.includeInLauncher) { store.syncFileSearch() }
-                if(results.isEmpty()) Column(Modifier.weight(1f).fillMaxWidth().padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
+                if(results.isEmpty()) Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
                     Glyph("search",PaletteTheme.tertiary,28);Spacer(Modifier.height(12.dp))
                     Text("No matching commands",fontSize=14.sp);Text("Try another name or category.",fontSize=12.sp,color=PaletteTheme.secondary)
                     if(store.category=="Files") TextButton(onClick={run(Command("search-folders","Search folders",""))}){Text("Choose search folders")}

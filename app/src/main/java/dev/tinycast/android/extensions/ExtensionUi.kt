@@ -413,7 +413,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if(catalog.runtimeError!=null){
             Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
-            Column(Modifier.weight(1f).fillMaxWidth().padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
                 if(!catalog.runtimeReady)CircularProgressIndicator(Modifier.size(30.dp))else Glyph("extension",ink,36)
                 Text(catalog.runtimeStatus,fontSize=16.sp,color=ink,modifier=Modifier.padding(top=20.dp).testTag("extension-status"))
                 if(catalog.runtimeReady)Text("Escape to return to the palette",color=muted,fontSize=12.sp,modifier=Modifier.padding(top=10.dp))

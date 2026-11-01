@@ -28,7 +28,7 @@ internal fun PaletteFrame(back: () -> Unit, modifier: Modifier = Modifier, tag: 
     PaletteViewport { wide, top, height ->
       CompositionLocalProvider(LocalPaletteWide provides wide) {
         Box(Modifier.fillMaxSize().clickable(indication = null, interactionSource = remember { MutableInteractionSource() }, onClick = back).testTag("inline-backdrop"))
-        Column(Modifier.padding(top = top).padding(horizontal = 12.dp).widthIn(max = PaletteTheme.width)
+        PaletteColumn(Modifier.padding(top = top).padding(horizontal = 12.dp).widthIn(max = PaletteTheme.width)
             .fillMaxWidth().height(height).align(Alignment.TopCenter)
             .shadow(24.dp, RoundedCornerShape(PaletteTheme.radius)).clip(RoundedCornerShape(PaletteTheme.radius))
             .background(PaletteTheme.surface).border(1.dp, PaletteTheme.border, RoundedCornerShape(PaletteTheme.radius))

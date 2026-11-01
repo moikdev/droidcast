@@ -24,7 +24,8 @@ internal fun PaletteViewport(
         val keyboard = with(density) {
             (WindowInsets.imeAnimationTarget.getBottom(this) - bars.getBottom(this)).coerceAtLeast(0).toDp()
         }
-        val height = minOf(PaletteTheme.height, (maxHeight - top - keyboard - 12.dp).coerceAtLeast(0.dp))
+        val preferredHeight=PaletteTheme.height*density.fontScale.coerceIn(1f,1.5f)
+        val height = minOf(preferredHeight, (maxHeight - top - keyboard - 12.dp).coerceAtLeast(0.dp))
         content(wide, top, height)
     }
 }

@@ -54,15 +54,17 @@ internal class PaletteMenus {
     var surface by mutableStateOf<Rect?>(null)
     var header by mutableStateOf<Rect?>(null); private set
     var footer by mutableStateOf<Rect?>(null); private set
+    var headerHeight by mutableIntStateOf(0); private set
+    var footerHeight by mutableIntStateOf(0); private set
     private var headerOwner: Any? = null
     private var footerOwner: Any? = null
-    fun chrome(owner: Any, isHeader: Boolean, bounds: Rect?) {
-        if (isHeader) { headerOwner=owner;header=bounds }
-        else { footerOwner=owner;footer=bounds }
+    fun chrome(owner: Any, isHeader: Boolean, bounds: Rect?, height: Int) {
+        if (isHeader) { headerOwner=owner;header=bounds;headerHeight=height }
+        else { footerOwner=owner;footer=bounds;footerHeight=height }
     }
     fun forgetChrome(owner: Any, isHeader: Boolean) {
-        if (isHeader && headerOwner === owner) { header=null;headerOwner=null }
-        if (!isHeader && footerOwner === owner) { footer=null;footerOwner=null }
+        if (isHeader && headerOwner === owner) { header=null;headerHeight=0;headerOwner=null }
+        if (!isHeader && footerOwner === owner) { footer=null;footerHeight=0;footerOwner=null }
     }
     var selectedId by mutableStateOf<String?>(null); private set
     var query by mutableStateOf(TextFieldValue("")); private set
@@ -236,7 +238,7 @@ private fun Modifier.paletteChromeSurface(isHeader: Boolean): Modifier {
     val menus=LocalPaletteMenus.current
     val owner=remember { Any() }
     DisposableEffect(menus,owner,isHeader) { onDispose { menus.forgetChrome(owner,isHeader) } }
-    return onGloballyPositioned { menus.chrome(owner,isHeader,it.boundsInRoot()) }
+    return onGloballyPositioned { menus.chrome(owner,isHeader,it.boundsInRoot(),it.size.height) }
 }
 
 @Composable

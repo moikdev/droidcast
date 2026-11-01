@@ -86,6 +86,7 @@ internal fun NativeExtensionGrid(
     var dropdownMenu by remember { mutableStateOf(false) }
     var gridHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
+    val captionHeight = with(density) { 22.dp + 16.sp.toDp() * 2 + 12.sp.toDp() }
     val claims = remember { mutableMapOf<Pair<Int, Int>, Long>() }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val imeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
@@ -259,7 +260,7 @@ internal fun NativeExtensionGrid(
             }
             if (items.isEmpty()) Box(Modifier.weight(1f).fillMaxWidth().testTag("extension-grid-empty"), contentAlignment = Alignment.Center) {
                 val empty = root.nodes("Grid.EmptyView").firstOrNull()?.props()
-                Column(Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(Modifier.verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(empty?.optString("title")?.takeIf { it.isNotBlank() } ?: if (props.optBoolean("isLoading")) "Loading…" else "No results", color = PaletteTheme.ink, fontSize = 16.sp)
                     empty?.optString("description")?.takeIf { it.isNotBlank() }?.let { Text(it, color = PaletteTheme.secondary, fontSize = 12.sp) }
                 }
@@ -281,7 +282,7 @@ internal fun NativeExtensionGrid(
                         item(key = "cell-${entry.key}") {
                             GridCell(entry, itemIndex, selected?.key == entry.key, props, images,
                                 minOf(((widthDp - 32 - (columns - 1) * 10) / columns - 16) / gridAspectRatio(props.optString("aspectRatio")),
-                                    if (gridHeight > 0) (with(density) { gridHeight.toDp().value } - 70).coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectLocally(entry.key); focus.requestFocus() }
+                                    if (gridHeight > 0) (with(density) { gridHeight.toDp() } - captionHeight).value.coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectLocally(entry.key); focus.requestFocus() }
                         }
                     }
                     }
@@ -316,10 +317,12 @@ private fun GridCell(entry: ExtensionGridItem, index: Int, selected: Boolean, pr
         .padding(8.dp).testTag("extension-grid-cell-$index")) {
         val visual = gridVisual(entry.node.props().opt("content"))
         val inset = (when (props.optString("inset")) { "zero" -> 0; "sm" -> 4; "lg" -> 20; else -> 10 }).coerceAtMost((visualHeight.value / 10).toInt())
-        Box(Modifier.fillMaxWidth().height(visualHeight).padding(inset.dp), contentAlignment = Alignment.Center) {
+        BoxWithConstraints(Modifier.fillMaxWidth().height(visualHeight).padding(inset.dp), contentAlignment = Alignment.Center) {
             if (visualHeight >= 16.dp) when (visual) {
                 is GridVisual.Symbol -> {
-                    val font = minOf(38f, visualHeight.value - inset * 2).coerceAtLeast(12f).sp
+                    // The symbol is a thumbnail: fit its ink to the preview,
+                    // while the caption retains the user's scaled text size.
+                    val font = with(LocalDensity.current) { minOf(38.sp.toPx(),minOf(maxWidth,maxHeight).toPx()*.8f).toSp() }
                     Text(visual.value, fontSize = font, lineHeight = font, color = PaletteTheme.ink)
                 }
                 is GridVisual.Swatch -> Box(Modifier.fillMaxSize().clip(RoundedCornerShape(6.dp)).background(gridColor(visual.value)).semantics { contentDescription = "Color ${visual.value}" })

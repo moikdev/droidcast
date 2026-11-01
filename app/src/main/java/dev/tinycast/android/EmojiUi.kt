@@ -139,7 +139,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
             return event.action == KeyEvent.ACTION_DOWN || event.action == KeyEvent.ACTION_UP
         }
         Box(Modifier.fillMaxSize().clickable(indication = null, interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }) { close() }.testTag("emoji-backdrop"))
-        Column(Modifier.padding(top = top).padding(horizontal = 12.dp).widthIn(max = PaletteTheme.width).fillMaxWidth().height(height).align(Alignment.TopCenter)
+        PaletteColumn(Modifier.padding(top = top).padding(horizontal = 12.dp).widthIn(max = PaletteTheme.width).fillMaxWidth().height(height).align(Alignment.TopCenter)
             .shadow(24.dp, RoundedCornerShape(PaletteTheme.radius)).clip(RoundedCornerShape(PaletteTheme.radius))
             .background(PaletteTheme.surface).border(1.dp, PaletteTheme.border, RoundedCornerShape(PaletteTheme.radius))
             .paletteMenuSurface().pointerInput(Unit) { detectTapGestures {} }
@@ -210,7 +210,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                 if (wide) Text(if (queryEditing) "Editing query · ↓ browse results" else "Type to search · arrows select · Ctrl L edit", color = PaletteTheme.secondary, fontSize = 11.sp)
             }
             if (results.isEmpty()) Box(Modifier.fillMaxWidth().weight(1f).testTag("emoji-empty"), contentAlignment = Alignment.Center) {
-                Text(when { store.loading -> "Loading catalog…"; store.error != null -> store.error!!; store.query.isNotBlank() -> "No matching emoji or symbols"; store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"; store.filter == "Recent" -> "Symbols you copy will appear here"; else -> "No symbols in this category" }, color = PaletteTheme.secondary, fontSize = 13.sp, modifier = Modifier.padding(20.dp))
+                Text(when { store.loading -> "Loading catalog…"; store.error != null -> store.error!!; store.query.isNotBlank() -> "No matching emoji or symbols"; store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"; store.filter == "Recent" -> "Symbols you copy will appear here"; else -> "No symbols in this category" }, color = PaletteTheme.secondary, fontSize = 13.sp, modifier = Modifier.verticalScroll(rememberScrollState()).padding(20.dp))
             } else LazyVerticalGrid(GridCells.Fixed(columns), state = grid,
                 modifier = Modifier.weight(1f).fillMaxWidth().padding(horizontal = 12.dp).onFocusChanged { gridFocused = it.hasFocus }.focusable().testTag("emoji-grid"),
                 contentPadding = PaddingValues(bottom = 8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
