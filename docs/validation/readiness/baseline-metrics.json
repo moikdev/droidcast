@@ -1,0 +1,314 @@
+{
+  "percentile_method": "nearest rank; warmups excluded; no outlier removal",
+  "runs": [
+    {
+      "label": "released-tablet-startup",
+      "layout": "tablet",
+      "apk_sha256": "e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00",
+      "test_apk_sha256": null,
+      "record_sha256": "eaf6dabcbdc64bd65ecebba06993b226949fa2bac672155e19129b02cccc1779",
+      "metrics": {
+        "cold_total_ms": {
+          "n": 30,
+          "min_ms": 1831,
+          "max_ms": 2611,
+          "mean_ms": 2214.8333333333335,
+          "p50_ms": 2239,
+          "p90_ms": 2506,
+          "p95_ms": 2549,
+          "p99_ms": 2611
+        },
+        "cold_wait_ms": {
+          "n": 30,
+          "min_ms": 1888,
+          "max_ms": 2854,
+          "mean_ms": 2322.8333333333335,
+          "p50_ms": 2323,
+          "p90_ms": 2686,
+          "p95_ms": 2764,
+          "p99_ms": 2854
+        },
+        "cold_host_command_ms": {
+          "n": 30,
+          "min_ms": 1992.947833,
+          "max_ms": 2976.061375,
+          "mean_ms": 2482.3103791666667,
+          "p50_ms": 2509.930125,
+          "p90_ms": 2866.882667,
+          "p95_ms": 2947.05425,
+          "p99_ms": 2976.061375
+        },
+        "foreground_total_ms": {
+          "n": 4,
+          "min_ms": 559,
+          "max_ms": 741,
+          "mean_ms": 650.25,
+          "p50_ms": 627,
+          "p90_ms": 741,
+          "p95_ms": 741,
+          "p99_ms": 741
+        },
+        "foreground_wait_ms": {
+          "n": 30,
+          "min_ms": 90,
+          "max_ms": 1268,
+          "mean_ms": 631.9333333333333,
+          "p50_ms": 665,
+          "p90_ms": 1043,
+          "p95_ms": 1193,
+          "p99_ms": 1268
+        },
+        "foreground_host_command_ms": {
+          "n": 30,
+          "min_ms": 187.001042,
+          "max_ms": 1346.900541,
+          "mean_ms": 781.6987931333333,
+          "p50_ms": 785.226833,
+          "p90_ms": 1159.392167,
+          "p95_ms": 1288.39425,
+          "p99_ms": 1346.900541
+        }
+      },
+      "launch_states": {
+        "COLD": 30,
+        "HOT": 4,
+        "UNKNOWN (0)": 26
+      }
+    },
+    {
+      "label": "released-phone-startup",
+      "layout": "phone",
+      "apk_sha256": "e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00",
+      "test_apk_sha256": null,
+      "record_sha256": "5af3a32471fa7e058fa9d28eb4b735d8cff84e8050c734ba6aaca7cb92b740e5",
+      "metrics": {
+        "cold_total_ms": {
+          "n": 30,
+          "min_ms": 1528,
+          "max_ms": 2223,
+          "mean_ms": 1686.2,
+          "p50_ms": 1618,
+          "p90_ms": 1868,
+          "p95_ms": 1977,
+          "p99_ms": 2223
+        },
+        "cold_wait_ms": {
+          "n": 30,
+          "min_ms": 1552,
+          "max_ms": 2227,
+          "mean_ms": 1707.1333333333334,
+          "p50_ms": 1637,
+          "p90_ms": 1888,
+          "p95_ms": 2046,
+          "p99_ms": 2227
+        },
+        "cold_host_command_ms": {
+          "n": 30,
+          "min_ms": 1615.670917,
+          "max_ms": 2371.105208,
+          "mean_ms": 1796.7569055,
+          "p50_ms": 1738.965042,
+          "p90_ms": 2004.94475,
+          "p95_ms": 2153.957208,
+          "p99_ms": 2371.105208
+        },
+        "foreground_wait_ms": {
+          "n": 30,
+          "min_ms": 57,
+          "max_ms": 918,
+          "mean_ms": 375.8333333333333,
+          "p50_ms": 301,
+          "p90_ms": 699,
+          "p95_ms": 767,
+          "p99_ms": 918
+        },
+        "foreground_host_command_ms": {
+          "n": 30,
+          "min_ms": 153.480292,
+          "max_ms": 1033.18375,
+          "mean_ms": 490.77704580000005,
+          "p50_ms": 433.2015,
+          "p90_ms": 759.11675,
+          "p95_ms": 852.9405,
+          "p99_ms": 1033.18375
+        }
+      },
+      "launch_states": {
+        "COLD": 30,
+        "UNKNOWN (0)": 30
+      }
+    },
+    {
+      "label": "nondebuggable-tablet-soak",
+      "layout": "tablet",
+      "apk_sha256": "a31d7b78f1041d8cbb235ba967c20f0898866b6f1581d5b93cb19428ab743cc4",
+      "test_apk_sha256": "c5d6e79698ff64dc65d7608eb63d5081e223f82a70a061f2b80f2697f036b8a0",
+      "record_sha256": "6225333b26b855d4e4117bec50da227750468b0ac30a3285168dc6b42eaf2972",
+      "metrics": {},
+      "soak_source_sha256": "8102c45812a08321d34505910bacf6bc2284fb3aeb33040f050a996e4044fdca",
+      "sdk": 36,
+      "width": 1920,
+      "height": 1200,
+      "debuggable": false,
+      "build_commit": "556b2e58f6c8a1b4d9aa5850893aecb8b9d2b7fb",
+      "decor_overlay_caution": "Diagnostic only: overlay redraw scheduling may lag child updates; not a physical or exact visible-update latency measurement.",
+      "soak": {
+        "rounds": 230,
+        "elapsed_seconds": 602.565,
+        "verified_responses": 1151,
+        "memory": [
+          {
+            "round": 0,
+            "seconds": 0.038,
+            "totalPssKb": 76548,
+            "javaHeapUsedBytes": 10781360
+          },
+          {
+            "round": 10,
+            "seconds": 22.46,
+            "totalPssKb": 68175,
+            "javaHeapUsedBytes": 15242240
+          },
+          {
+            "round": 20,
+            "seconds": 45.608,
+            "totalPssKb": 67245,
+            "javaHeapUsedBytes": 14861072
+          },
+          {
+            "round": 30,
+            "seconds": 70.299,
+            "totalPssKb": 68742,
+            "javaHeapUsedBytes": 15266848
+          },
+          {
+            "round": 40,
+            "seconds": 93.812,
+            "totalPssKb": 64295,
+            "javaHeapUsedBytes": 12092384
+          },
+          {
+            "round": 50,
+            "seconds": 117.447,
+            "totalPssKb": 65019,
+            "javaHeapUsedBytes": 12248128
+          },
+          {
+            "round": 60,
+            "seconds": 139.132,
+            "totalPssKb": 71065,
+            "javaHeapUsedBytes": 16155840
+          },
+          {
+            "round": 70,
+            "seconds": 159.664,
+            "totalPssKb": 70372,
+            "javaHeapUsedBytes": 15340832
+          },
+          {
+            "round": 80,
+            "seconds": 186.604,
+            "totalPssKb": 69904,
+            "javaHeapUsedBytes": 15336608
+          },
+          {
+            "round": 90,
+            "seconds": 220.835,
+            "totalPssKb": 66086,
+            "javaHeapUsedBytes": 12309568
+          },
+          {
+            "round": 100,
+            "seconds": 257.216,
+            "totalPssKb": 69674,
+            "javaHeapUsedBytes": 15234304
+          },
+          {
+            "round": 110,
+            "seconds": 281.619,
+            "totalPssKb": 72571,
+            "javaHeapUsedBytes": 15849072
+          },
+          {
+            "round": 120,
+            "seconds": 311.506,
+            "totalPssKb": 71939,
+            "javaHeapUsedBytes": 15464336
+          },
+          {
+            "round": 130,
+            "seconds": 339.683,
+            "totalPssKb": 71833,
+            "javaHeapUsedBytes": 15472288
+          },
+          {
+            "round": 140,
+            "seconds": 365.625,
+            "totalPssKb": 69677,
+            "javaHeapUsedBytes": 13006224
+          },
+          {
+            "round": 150,
+            "seconds": 392.713,
+            "totalPssKb": 72109,
+            "javaHeapUsedBytes": 15484544
+          },
+          {
+            "round": 160,
+            "seconds": 419.357,
+            "totalPssKb": 69855,
+            "javaHeapUsedBytes": 14108352
+          },
+          {
+            "round": 170,
+            "seconds": 443.079,
+            "totalPssKb": 71857,
+            "javaHeapUsedBytes": 13846048
+          },
+          {
+            "round": 180,
+            "seconds": 468.465,
+            "totalPssKb": 71289,
+            "javaHeapUsedBytes": 13841792
+          },
+          {
+            "round": 190,
+            "seconds": 494.694,
+            "totalPssKb": 72234,
+            "javaHeapUsedBytes": 15406528
+          },
+          {
+            "round": 200,
+            "seconds": 519.217,
+            "totalPssKb": 72834,
+            "javaHeapUsedBytes": 15722176
+          },
+          {
+            "round": 210,
+            "seconds": 547.653,
+            "totalPssKb": 72206,
+            "javaHeapUsedBytes": 15451552
+          },
+          {
+            "round": 220,
+            "seconds": 571.567,
+            "totalPssKb": 67590,
+            "javaHeapUsedBytes": 12195344
+          },
+          {
+            "round": 230,
+            "seconds": 600.98,
+            "totalPssKb": 70626,
+            "javaHeapUsedBytes": 14493024
+          },
+          {
+            "round": 230,
+            "seconds": 602.565,
+            "totalPssKb": 54514,
+            "javaHeapUsedBytes": 7178032
+          }
+        ]
+      }
+    }
+  ]
+}

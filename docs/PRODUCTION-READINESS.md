@@ -4,11 +4,11 @@ Work in progress under [#65](https://github.com/moikdev/droidcast/issues/65). Th
 
 ## References and real screenshots
 
-Droidcast: released r10, versionCode 6, source `34b70a579ec6db366e2363deb6bd227591c7c750`, app SHA-256 `e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00`. Its production source tree matches merged main `ddeb0fd`. Android captures: API36 arm64 emulator, tablet 1920×1200/240dpi. The current test/benchmark additions do not change the production palette.
+Droidcast: released r10, versionCode 6, source `34b70a579ec6db366e2363deb6bd227591c7c750`, app SHA-256 `e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00`. Its production source tree matches merged main `ddeb0fd`. Android captures: API36 arm64 emulator, tablet 1920×1200/240dpi. The original measurements and comparison captures use that unchanged release. The readiness correction work now changes production code; its candidate results are recorded separately and do not retroactively certify r10.
 
 Raycast: installed macOS app 2.10.1.0. Tinycast: actual locally built Dev 0.1.0 (1), source [`37e6043`](https://github.com/abue-ammar/tinycast/tree/37e6043f3f550febb64bdb3cff3ac29a30caad5a), Xcode27/macOS27.0.1, no Accessibility/login-item/hotkey grants or personal-data import. Upstream HEAD advanced to [`e3f813c`](https://github.com/abue-ammar/tinycast/compare/37e6043...e3f813c): native glass/shadow changes and terminal prompt handling. The images below are explicitly the older pinned revision, not screenshots of that newer revision.
 
-Desktop captures show app windows. Android captures show the whole display with the transparent floating palette over Settings. Different bounds, display scales and glyph fonts prevent a pixel-size or visual-performance comparison. All are real captures, not mockups.
+Desktop captures show app windows. Android captures show the whole display with the transparent floating palette over Settings. Different bounds, display scales and glyph fonts prevent a pixel-size or visual-performance comparison. All are real captures, not mockups. The desktop capture API returned JPEG data despite the original `.png` filenames. The six desktop images are now genuine PNG encodings of those exact decoded RGB pixels, with no scaling/cropping/edits. The original JPEG bytes and decoded-pixel hashes are retained in [capture provenance](screenshots/readiness/desktop-capture-provenance.json).
 
 | Workflow | Raycast | Tinycast | Droidcast tablet |
 | --- | --- | --- | --- |
@@ -39,7 +39,7 @@ A nondebuggable API36 tablet soak completed **230 rounds in 602.565 seconds**, w
 | Production source and artifact identity | Released r10 frozen/hash-verified; current measurements distinguish it from the separate benchmark APK. |
 | Functional regression | r10's historical 138 JVM, 32 native cases per layout and four real self-updates are recorded in [updater validation](validation/updates.md). Fresh broader checks pending; historical checks are not reruns. |
 | Security and independent audits | Prior slice audits are recorded on their PRs. Two new sol/high independent audits are required for this checkpoint. |
-| Clean-runner CI | The GitHub app connection activated the workflow on PR #66 despite the CLI OAuth scope limit. The initial hosted run failed at missing `sdkmanager`; a pinned SDK setup action is added. Corrected run [41273696880](https://github.com/moikdev/droidcast/actions/runs/41273696880) passed on `556b2e5`: debug app/test compilation, JVM tests and lint. Benchmark compilation is being added next; final-head results remain required. This is not emulator or production-signing coverage. |
+| Clean-runner CI | The GitHub app connection activated the workflow on PR #66. After fixing the missing SDK setup, exact-head run [41276405029](https://github.com/moikdev/droidcast/actions/runs/41276405029) passed on `3d1b595`: debug and benchmark compilation, JVM tests and lint. New correction commits still require their own final-head results. Hosted compilation is separate from emulator and signing coverage. |
 | Signing/release engineering | Nightly/debug certificate continuity is tested. Maintainer-controlled production signing and recovery remain #21. |
 | API/OEM matrix | API36 emulator only. API26 runtime, Lenovo/OEM, physical input and hardware latency remain unverified. |
 | Accessibility/localization | Scoped labels/focus tested previously. Comprehensive TalkBack, large-font, theme and translation work remains #20. |
@@ -55,3 +55,29 @@ No production-ready verdict is justified while these gates remain open. The next
 - [Android frame commit](https://developer.android.com/reference/android/view/ViewTreeObserver#registerFrameCommitCallback(java.lang.Runnable)): submission does not establish physical display visibility.
 - [Android startup states and timings](https://developer.android.com/topic/performance/issues/launch-time).
 - [Android FrameMetrics](https://developer.android.com/reference/android/view/FrameMetrics).
+
+## Audit corrections in progress
+
+The first two independent audits at `3d1b595` found existing production defects: same-turn launcher/List activation used the previously rendered selection; unsaved note/quicklink drafts were lost on Activity recreation; recent-document metadata queried providers on the UI thread; extension HTTP reads lacked cancellation and an overall deadline. The correction also fixes SDK discovery in the benchmark runner and the desktop screenshot format mismatch.
+
+The first six controlled native cases reproduce old selection/draft behavior on released r10. Their initial editor assertions also included field labels. A later exact-`EditableText` old-build run reproduces all six original cases plus rapid discard/reopen retaining an abandoned draft. A preliminary corrected candidate passed ten focused tablet cases. The final ViewModel draft and large-content cases still require their own runs. A preliminary patched attempt used a stale instrumentation APK after a failed build and is excluded. The initial HTTP test class had a non-void JUnit method; the corrected seven-case suite passes. None of these harness corrections is evidence of a production timing fix.
+
+The first broader unchanged-r10 battery has completed. Interaction, extension Grid and system Settings groups pass on both layouts. The unavailable-shortcut feedback passed, but clearing its dormant binding failed on both layouts: the nested list was below the outer form viewport. Failure PNG/semantics retain the clipped Clear control. The test now scrolls the outer form before reaching the row; production UI was not changed for this. The tablet backup import-preview heading and phone picker-cancel return assertions failed at different steps; focused unchanged reruns have passed and do not establish their cause or a production fix. The updater verification group was launched without its required signed test payload, causing 12 setup failures per layout; that attempt is excluded from updater functionality claims and must be repeated with the guarded fixture setup. Original logs and cleanup results remain retained.
+
+## Retained baseline data and correction snapshots
+
+![Released-nightly startup and separate soak measurements](screenshots/readiness/startup-and-soak.png)
+
+The two startup panels report different Android OS metrics and remain separate. Raw [startup trials](validation/readiness/startup-samples.csv) preserve warmups, OS launch states and absent `TotalTime` fields. [Baseline metrics](validation/readiness/baseline-metrics.json) record identities and memory samples. The soak's decor-observer timing remains diagnostic and is excluded from interaction-latency statistics. Candidate PixelCopy timing with asynchronous key enqueue is still pending execution.
+
+| Controlled state | Before / released r10 | Preliminary correction |
+| --- | --- | --- |
+| Unsaved new-note title after Activity recreation | ![Lost draft title](screenshots/readiness-regressions/before-note-recreation.png) | ![Preliminary retained title](screenshots/readiness-regressions/preliminary-note-recreation.png) |
+
+These are real API36 tablet captures. The keyboard hides the body in these stills; the native assertions inspect it separately. The after image is the preliminary `5f27984…` APK, not final-candidate certification. [Per-image identities](validation/readiness/provisional-captures.json) preserve that distinction. The later correction retains drafts in the ViewModel, handles rapid discard/reopen, and adds a large-draft recreation regression without serializing text into the Activity Bundle. Explicit save, discard, large content and final tablet/phone evidence remain under validation.
+
+The first two broad unchanged-r10 runs contain 260 native passes, 24 updater setup failures and four assertion failures. The 45-case tablet interaction host wrapper incorrectly expected 47; its failed original host record remains separate from independent verification of the 45 exact native pass IDs. Corrected fixture validation subsequently passed all 21 selected tablet cases. Phone verification passed 20/21: its backup return subtitle was outside the preserved scroll viewport, confirmed by the failure XML/PNG. The test now scrolls to that subtitle. A later export-cancel timeout and the earlier native import-preview miss remain retained and unattributed. The two initial APK transfers timed out before any updater tests; their verified cleanup records are retained. The corrected transfer uses bounded `adb push`, and the runner restores its scoped source-approval mode independently.
+
+Sources for the coroutine/provider boundary: [Kotlin cancellation contract](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-cancellable-continuation/) and [Android ContentResolver](https://developer.android.com/reference/android/content/ContentResolver). Query cancellation is optional at the provider; `getType` exposes no cancellation signal, so stuck calls occupy a bounded worker rather than blocking the main thread or spawning unbounded threads.
+
+Candidate `e89d078` has passed 145 JVM cases and debug/benchmark build/lint, and its 155-case native suites per layout are in progress. The later `944aca8` source changes only draft ownership/lifecycle and the backup return-scroll fixture; its debug build, 145 JVM cases and lint pass (0 errors/51 warnings). Its final native and benchmark evidence is pending. Those variants are not interchangeable, and neither has release or merge clearance.
