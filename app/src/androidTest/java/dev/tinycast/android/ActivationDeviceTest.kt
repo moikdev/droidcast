@@ -74,9 +74,11 @@ class ActivationDeviceTest {
     }
     private fun composing(tag:String,text:String) {
         compose.onNodeWithTag(tag).assertIsFocused()
+        compose.onNodeWithTag(tag).performTextReplacement(text)
+        compose.waitForIdle()
         compose.activityRule.scenario.onActivity {
             val connection=it.window.decorView.findFocus()!!.onCreateInputConnection(android.view.inputmethod.EditorInfo())!!
-            assertTrue(connection.beginBatchEdit());assertTrue(connection.setComposingText(text,1));connection.endBatchEdit()
+            assertTrue(connection.beginBatchEdit());assertTrue(connection.setComposingRegion(0,text.length));connection.endBatchEdit()
         }
         compose.waitForIdle()
         val shown=compose.onNodeWithTag(tag).fetchSemanticsNode().config[SemanticsProperties.EditableText]

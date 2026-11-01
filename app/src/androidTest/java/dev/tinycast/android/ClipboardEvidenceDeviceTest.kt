@@ -122,8 +122,11 @@ class ClipboardEvidenceDeviceTest {
         device.dumpWindowHierarchy(File(directory,"clipboard-minimized-before.xml"))
         assertTrue(device.takeScreenshot(File(directory,"clipboard-minimized-before.png")))
         val actions=org.json.JSONArray()
-        dismissClipboardForEvidence { id,success -> actions.put(JSONObject().put("node",id).put("success",success)) }
-        File(directory,"clipboard-minimized-actions.json").writeText(JSONObject().put("actions",actions).toString(2))
+        try {
+            dismissClipboardForEvidence { id,success -> actions.put(JSONObject().put("node",id).put("success",success)) }
+        } finally {
+            File(directory,"clipboard-minimized-actions.json").writeText(JSONObject().put("actions",actions).toString(2))
+        }
         val performed=(0 until actions.length()).map { actions.getJSONObject(it) }
         assertTrue("Must really expand the minimized node, not await expiry",performed.any { it.getString("node").endsWith(":id/minimized_preview") && it.getBoolean("success") })
         assertTrue("Must really dismiss the expanded node",performed.any { it.getString("node").endsWith(":id/dismiss_button") && it.getBoolean("success") })

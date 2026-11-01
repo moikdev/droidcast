@@ -20,22 +20,21 @@ internal fun dismissClipboardForEvidence(onNodeAction: (String, Boolean) -> Unit
         automation.serviceInfo=automation.serviceInfo.apply {
             flags=previousFlags or AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS or AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS
         }
-        fun dismissNode(node:AccessibilityNodeInfo,id:String):AccessibilityNodeInfo? {
-            if(node.packageName?.toString()=="com.android.systemui" && node.viewIdResourceName==id &&
-                node.isVisibleToUser && node.isEnabled && node.isClickable) return node
-            for(index in 0 until node.childCount) node.getChild(index)?.let { child -> dismissNode(child,id)?.let { return it } }
-            return null
-        }
-        fun overlayPresent(node:AccessibilityNodeInfo):Boolean {
-            if(node.packageName?.toString()=="com.android.systemui" && node.viewIdResourceName=="com.android.systemui:id/clipboard_ui") return true
-            for(index in 0 until node.childCount) node.getChild(index)?.let { if(overlayPresent(it))return true }
-            return false
-        }
-        fun roots()=automation.windows.asSequence()
-            .filter { it.type != AccessibilityWindowInfo.TYPE_APPLICATION &&
-                it.type != AccessibilityWindowInfo.TYPE_INPUT_METHOD }
-            .mapNotNull { it.root }.toList()
+        fun nodes(roots:List<AccessibilityNodeInfo>,id:String)=roots.flatMap { it.findAccessibilityNodeInfosByViewId(id) }
+            .filter { it.packageName?.toString()=="com.android.systemui" }
+        fun overlayPresent(roots:List<AccessibilityNodeInfo>)=nodes(roots,"com.android.systemui:id/clipboard_ui").any { it.isVisibleToUser }
         val started=SystemClock.uptimeMillis()
+        val snapshots=mutableListOf<String>()
+        fun roots():List<AccessibilityNodeInfo> {
+            val windows=automation.windows
+            val roots=windows.asSequence()
+                .filter { it.type != AccessibilityWindowInfo.TYPE_APPLICATION &&
+                    it.type != AccessibilityWindowInfo.TYPE_INPUT_METHOD }
+                .mapNotNull { it.root }.toList()
+            snapshots.add("${SystemClock.uptimeMillis()-started}ms windows=${windows.map { "${it.type}:${it.title}" }} roots=${roots.size}")
+            if(snapshots.size>16)snapshots.removeAt(0)
+            return roots
+        }
         val deadline=started+5000
         var absentSince:Long?=null
         var settled=false
@@ -45,12 +44,14 @@ internal fun dismissClipboardForEvidence(onNodeAction: (String, Boolean) -> Unit
             automation.clearCacheForTest()
             val windows=roots()
             val now=SystemClock.uptimeMillis()
-            if(windows.isNotEmpty() && windows.none(::overlayPresent)) {
+            val overlay=overlayPresent(windows)
+            if(windows.isNotEmpty() && !overlay) {
                 if(absentSince==null)absentSince=now
                 if(now-started>=750 && now-absentSince!!>=250){settled=true;break}
             } else absentSince=null
-            val target=listOf("com.android.systemui:id/dismiss_button","com.android.systemui:id/minimized_preview")
-                .firstNotNullOfOrNull { id -> windows.asSequence().mapNotNull { dismissNode(it,id) }.firstOrNull() }
+            val target=if(overlay)listOf("com.android.systemui:id/dismiss_button","com.android.systemui:id/minimized_preview")
+                .firstNotNullOfOrNull { id -> nodes(windows,id).firstOrNull { it.isVisibleToUser && it.isEnabled && it.isClickable } }
+                else null
             target?.let { node ->
                 val id=node.viewIdResourceName.orEmpty()
                 if(id!=lastAction || now-lastActionAt>=500) {
@@ -63,8 +64,8 @@ internal fun dismissClipboardForEvidence(onNodeAction: (String, Boolean) -> Unit
         }
         automation.clearCacheForTest()
         val finalWindows=roots()
-        assertTrue("Interactive windows must establish settled clipboard dismissal",settled && finalWindows.isNotEmpty())
-        assertFalse("Clipboard overlay must be dismissed",finalWindows.any(::overlayPresent))
+        assertTrue("Interactive windows must establish settled clipboard dismissal: $snapshots",settled && finalWindows.isNotEmpty())
+        assertFalse("Clipboard overlay must be dismissed",overlayPresent(finalWindows))
     } finally {
         automation.serviceInfo=automation.serviceInfo.apply { flags=previousFlags }
     }
