@@ -1,8 +1,8 @@
 {
-  "runtime_source_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
-  "harness_source_commit": "0c6cf742f88028857cedca8c7c20b8913569c0f6",
-  "app_sha256": "179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312",
-  "test_apk_sha256": "6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40",
+  "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+  "harness_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+  "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+  "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
   "source_hashes": {
     "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
     "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
@@ -34,7 +34,7 @@
     "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "86c6720bc02173423390496d60ac07bcf762dd59528fca4e0e7fe5f3f098c6cb",
     "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
     "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
-    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "3a48fafcb08b678b37b7feb7128971a4ec9d074395f2cb31a4884c9ffc6e44a3",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "5f0d892989a5e1601b80506256de18b322e078590315b2798b1169b05151ef33",
     "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
     "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
     "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
@@ -86,7 +86,7 @@
     "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
     "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
     "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
-    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "1393b0bc5ec25bd44038f84b3005a1dbfe55be85a6e7ce5fa84a7eadff916f5b",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "56c56d6a652524f7fc7952b1478552314b1e465ace5c7216385d7f2ea3cf4b6c",
     "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
     "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
     "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
@@ -127,18 +127,9 @@
     "scripts/test-extension-grid.py": "4e0706bc8b47b0d0c51f1dbfec40852f93b095791e9d2760117fbc42cdee97d9",
     "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6"
   },
-  "retained_runtime_proof": {
-    "runtime_source_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
-    "changed_files_since_runtime_commit": [
-      "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt"
-    ],
-    "test_only_change": true,
-    "harness_build_log_sha256": "d0f29fe8506d869db05a0599b35d8d813bbb0f2bd1faf8618b97495aaac56cb8"
-  },
   "local_checks": {
-    "implementation_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+    "implementation_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
     "jvm_cases": 147,
-    "python_cases": 22,
     "lint": {
       "debug": {
         "Error": 0,
@@ -152,33 +143,45 @@
       }
     },
     "logs": {
-      "feedback-final-local-debug-v1.log": "7b513b159730ef8da2af827f27a153f72aa66b04f400770bb7b7a1eeaa1599be",
-      "feedback-final-local-benchmark-v1.log": "c33baa7566d1bd3cd8ab1f4aa2a4b68b4ea6aaef10ebcf28593914139b7391b7",
+      "conditional-feedback-final-debug-v1.log": "4bba8703f99d16fea6da8f1c066484d7bc719f4d6e0c0e635244966a1e07ac4d",
+      "conditional-feedback-final-benchmark-v1.log": "bfebf3fa40feb001adbec533ce1ffcd626c89505385df05c1e08c7d5b0ad53e0",
       "feedback-final-python-v2.log": "fe17a31e73e618e4f92763dffbe8f59b093910edffee2f6cc3c189e28c5762da"
-    }
+    },
+    "python_cases": 22,
+    "retained_python_source_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+    "python_sources_unchanged": true
   },
-  "avd": "Tinycast_Tablet_API_36",
-  "api": 36,
-  "architecture": "arm64",
-  "display_pixels": [
-    2340,
-    1080
-  ],
-  "density_dpi": 420,
-  "font_scale": 2.0,
-  "scope": "Two real app feedback-rendering fixtures with IME visible and footer wholly offscreen. Injected text does not certify an actual clipboard copy or error-producing operation.",
-  "long_message_policy": "Natural scaled text layout, bounded scrolling viewport, and actual pointer swipes that expose each line; no claim of simultaneous full-message visibility.",
-  "pinned_compose_version": "1.7.6",
-  "horizontal_assertion": "Visible node width and each non-ellipsized line extent must fit. didOverflowWidth is retained diagnostically: its paragraph container can exceed the tight text node without drawn ink overflowing.",
-  "focused_driver_result_sha256": "ffb23bd072713eaaff1c95fb5113eb6318ae723edf7018bcc0c308ff7125039d",
+  "device_environment": {
+    "avd": "Tinycast_Tablet_API_36",
+    "serial": "emulator-5580",
+    "api": 36,
+    "abi": "arm64-v8a",
+    "adbd": "uid=2000(shell)",
+    "webview": [
+      "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+    ]
+  },
+  "scope": "Six expected negative-control executions and eight passing candidate executions across five distinct cases. Feedback fixtures inject text; real shortcut, picker and Store actions retain their original one-shot pointer interactions.",
+  "long_message_policy": "Natural scaled text and sequential full-line reachability by pointer swipe; full message need not be simultaneously visible.",
+  "horizontal_assertion": "Check actual visible node width and non-ellipsized line extents. Compose 1.7.6 didOverflowWidth also counts unused paragraph-container width.",
+  "focused_driver_result_sha256": "d919104c42d09fb66489f9d6d091f63f2f2cdc3ea345b943179113b85c34c654",
   "runs": [
     {
-      "kind": "control",
+      "stage": "routing-control",
       "exit": 1,
       "passes": 0,
-      "cleanup_verified": true,
-      "record_sha256": "b882e0ef2d9a70a860d7e3652eb58d14a1d2549cbe642ddbfe48c2e63aee8cf9",
-      "tests_log_sha256": "5b9988ecae16f2618bc53544fab0141d1073d3344b852bbceadd2cfadc892f1e",
+      "cases": [
+        "dev.tinycast.android.ShortcutDeviceTest#unavailableImportedCommandHasAnEditableDormantBinding",
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+        "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette"
+      ],
+      "expected_negative_control": "routing",
+      "app_sha256": "179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "cleanup_checks_passed": 14,
+      "record_sha256": "74de84db77e598c10bdf3fd717e3bbbe02e23bbc6fd3bf71890c80128a5aba00",
+      "tests_log_sha256": "f3dfb029991a56d1a706a70e09bab6cf43c665354c6e40556a72e45d3f238268",
+      "runtime_source_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
       "cleanup_checks": {
         "stop-app": {
           "passed": true
@@ -207,12 +210,6 @@
         "font-scale": {
           "passed": true
         },
-        "size": {
-          "passed": true
-        },
-        "density": {
-          "passed": true
-        },
         "private-fixture": {
           "passed": true
         },
@@ -228,19 +225,82 @@
         "verify-identity": {
           "passed": true
         }
-      },
-      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
-      "test_apk_sha256": "6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40",
-      "expected_failures": 2,
-      "expected_control_failure": "Feedback must contain a text line; measured feedback height 1px"
+      }
     },
     {
-      "kind": "candidate",
-      "exit": 0,
-      "passes": 2,
-      "cleanup_verified": true,
-      "record_sha256": "5658dd0e049bbb8b2cfb43baec3f2ce3eddde7d02c654052cc9825ab21876fee",
-      "tests_log_sha256": "8665869e98d090f80c891ec3e18f88137c069b2ad69801c01c6095c08d1e599e",
+      "stage": "padding-control",
+      "exit": 1,
+      "passes": 0,
+      "cases": [
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched"
+      ],
+      "expected_negative_control": "padding",
+      "app_sha256": "6fedd41f386e856c50e5a9975d1ebd501a82cd05e76d0dc0aaaed4a5c25b146a",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "cleanup_checks_passed": 14,
+      "record_sha256": "e891e2106ea421c1adadd63567adf45a63f8d4c63c5cd496af38f745987f6fe3",
+      "tests_log_sha256": "02c492bedf5fe5858aee38718e3246150685536f67fdc58061bdfcaeb898d0eb",
+      "runtime_source_commit": "f33790d4d8185ba8224f111a45c1928fccf5a27f",
+      "cleanup_checks": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "stage": "collapse-control",
+      "exit": 1,
+      "passes": 0,
+      "cases": [
+        "dev.tinycast.android.FeedbackReadabilityDeviceTest#confirmationFitsWithTheFooterOffscreen",
+        "dev.tinycast.android.FeedbackReadabilityDeviceTest#errorFitsWithTheFooterOffscreen"
+      ],
+      "expected_negative_control": "collapse",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "cleanup_checks_passed": 16,
+      "record_sha256": "fbed90ffc8267aa8195ed49bc84a7a6fdace6e1753ff6208aecd95430b6b09cc",
+      "tests_log_sha256": "13ca4e1c0f9fe7d6aa05f6d9d0342cfcdb6770ee22ad3e7d3e3506aded2cd876",
+      "runtime_source_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
       "cleanup_checks": {
         "stop-app": {
           "passed": true
@@ -290,27 +350,225 @@
         "verify-identity": {
           "passed": true
         }
-      },
-      "app_sha256": "179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312",
-      "test_apk_sha256": "6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40",
-      "expected_failures": 0,
-      "expected_control_failure": null
+      }
+    },
+    {
+      "stage": "routing-tablet",
+      "exit": 0,
+      "passes": 3,
+      "cases": [
+        "dev.tinycast.android.ShortcutDeviceTest#unavailableImportedCommandHasAnEditableDormantBinding",
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+        "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette"
+      ],
+      "expected_negative_control": null,
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "cleanup_checks_passed": 14,
+      "record_sha256": "4dfab710c4a7b8379d43f9c9525ebebe5a1dff4754f63101511e57f236b66cb4",
+      "tests_log_sha256": "eed83aee93f148b20233d8b6218e6b65a3a2c4941a8647524df5bdab50285045",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "cleanup_checks": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "stage": "routing-phone",
+      "exit": 0,
+      "passes": 3,
+      "cases": [
+        "dev.tinycast.android.ShortcutDeviceTest#unavailableImportedCommandHasAnEditableDormantBinding",
+        "dev.tinycast.android.BackupDeviceTest#realDocumentPickerCancellationLeavesDataUntouched",
+        "dev.tinycast.android.ExtensionGridDeviceTest#storeInstallReviewAndCommandReturnStayInsideThePalette"
+      ],
+      "expected_negative_control": null,
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "cleanup_checks_passed": 16,
+      "record_sha256": "9218b61b89c9a631ec12de146a88911d5b64e78991190cf89156387b7a393e36",
+      "tests_log_sha256": "8d5f0a174ca0621c5e16cba59a90db6596d5bdb84808cc3a2b371874f5518385",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "cleanup_checks": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "stage": "short-landscape",
+      "exit": 0,
+      "passes": 2,
+      "cases": [
+        "dev.tinycast.android.FeedbackReadabilityDeviceTest#confirmationFitsWithTheFooterOffscreen",
+        "dev.tinycast.android.FeedbackReadabilityDeviceTest#errorFitsWithTheFooterOffscreen"
+      ],
+      "expected_negative_control": null,
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "cleanup_checks_passed": 16,
+      "record_sha256": "c9b9e73e98418420b6f3f1f0b70abad32345255e0f42477782cc3214829363d6",
+      "tests_log_sha256": "22be57c3bbba9c8aa4c7061cfd5434a5ce5d2bc8881f7740cf815db7379c1adc",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "cleanup_checks": {
+        "stop-app": {
+          "passed": true
+        },
+        "preferences-backup": {
+          "passed": true
+        },
+        "preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "private-fixture": {
+          "passed": true
+        },
+        "fixture-cache": {
+          "passed": true
+        },
+        "verify-data": {
+          "passed": true
+        },
+        "verify-geometry": {
+          "passed": true
+        },
+        "verify-identity": {
+          "passed": true
+        }
+      }
     }
   ],
   "frames": [
     {
       "name": "feedback-confirmation-before",
-      "kind": "control",
-      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
-      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "stage": "collapse-control",
+      "runtime_source_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        2340,
+        1080
+      ],
+      "density_dpi": 420,
+      "font_scale": 2.0,
+      "capture_stage": "Initial one-pixel control",
       "files": {
         "png": {
           "path": "docs/screenshots/touch-readability/feedback-confirmation-before.png",
-          "sha256": "e8b3cc6239a8563d292a9c75ff028f13868c9e7ff518b68c03fac05d44294387"
+          "sha256": "5e1defe11a120aa80f7cd5047ebee65842ec35efe77b017f1dfdca462bc72cc0"
         },
         "xml": {
           "path": "docs/validation/touch-readability/feedback-confirmation-before.xml",
-          "sha256": "bc1e1b8627022e578e914f6d9f4618db7070326aa567054c09134b984a7fa61a"
+          "sha256": "9164b323d9bc0fbdb6f5a98df800ba28d9177d0a8cc2395275d04e4e01c70423"
         },
         "json": {
           "path": "docs/validation/touch-readability/feedback-confirmation-before.json",
@@ -320,37 +578,53 @@
     },
     {
       "name": "feedback-confirmation-after",
-      "kind": "candidate",
-      "installed_build_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
-      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "stage": "short-landscape",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        2340,
+        1080
+      ],
+      "density_dpi": 420,
+      "font_scale": 2.0,
+      "capture_stage": "Initial repaired confirmation",
       "files": {
         "png": {
           "path": "docs/screenshots/touch-readability/feedback-confirmation-after.png",
-          "sha256": "8f5704f2505253460dad0cca3890557bfe5814009f59e21b99dff32646bb2c5a"
+          "sha256": "929666548dfeff630dc7b8d51279b25c5d0214754c67c17951ec89873b59ebe9"
         },
         "xml": {
           "path": "docs/validation/touch-readability/feedback-confirmation-after.xml",
-          "sha256": "a9c97779c1bda0531355b3e4468c8cd580a5fc7b4f1804720a42c04d133aa0c6"
+          "sha256": "8de9861eae058a2f01f14d559b5cb1c1d01448ea910e944763ebffb65c8a9705"
         },
         "json": {
           "path": "docs/validation/touch-readability/feedback-confirmation-after.json",
-          "sha256": "6068116ad2b0cef2c4ca0d2db9c02e5410560754a69238fbf4edb4c1eca83909"
+          "sha256": "79a171aabff0ca0c53a8de13d1f887a9466b90b71a6666036de2040b8052759c"
         }
       }
     },
     {
       "name": "feedback-error-before",
-      "kind": "control",
-      "installed_build_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
-      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "stage": "collapse-control",
+      "runtime_source_commit": "448387eaa8dd8fddbbee18db4980fac148646306",
+      "app_sha256": "18f5f6a12a5c1d394293e16dc2c1de7adac94434d423565eac449bd4dcd90d52",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        2340,
+        1080
+      ],
+      "density_dpi": 420,
+      "font_scale": 2.0,
+      "capture_stage": "Initial one-pixel control",
       "files": {
         "png": {
           "path": "docs/screenshots/touch-readability/feedback-error-before.png",
-          "sha256": "4733b26f2c34165bf9d24cf2e78ed7c3ee9c26da9cb9b0a82c60416dc569bb46"
+          "sha256": "4664c1c7e7b027205b5f2d07efd1ed4a98fd04416184af877c049c84d23cddee"
         },
         "xml": {
           "path": "docs/validation/touch-readability/feedback-error-before.xml",
-          "sha256": "13c4580258fa8a67a9d7022329f8b12c1ed3d4d53548aa5a85e5a76a4a9d6027"
+          "sha256": "9f3f34e5126d96c58a0d4020c8cae3b4ecab71a32900b95483ebb02537dce5b1"
         },
         "json": {
           "path": "docs/validation/touch-readability/feedback-error-before.json",
@@ -360,41 +634,225 @@
     },
     {
       "name": "feedback-error-top",
-      "kind": "candidate",
-      "installed_build_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
-      "capture_stage": "initial visible feedback; native hierarchy idle/dump precedes screenshot",
+      "stage": "short-landscape",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        2340,
+        1080
+      ],
+      "density_dpi": 420,
+      "font_scale": 2.0,
+      "capture_stage": "Initial first line; natural message extends beyond viewport",
       "files": {
         "png": {
           "path": "docs/screenshots/touch-readability/feedback-error-top.png",
-          "sha256": "56bc99402157f79f405dc040487558e3e46fd124b4c1c8b473d70e65e055af4b"
+          "sha256": "1b985a13df103e5aa847f13b228f08aeda6ce9c8cbf3c67aca0852d88155b3ff"
         },
         "xml": {
           "path": "docs/validation/touch-readability/feedback-error-top.xml",
-          "sha256": "94a0ed324dbf0d59ef684ebd7f8447378c30aa4e30aeae1ada6f3ec5f8233c39"
+          "sha256": "29febaf866b2636292c59ee366178d68426b2dfcccab264fd5323ae2a69eaa16"
         },
         "json": {
           "path": "docs/validation/touch-readability/feedback-error-top.json",
-          "sha256": "b28593ad1950380f7aa2edbe17cd6873ae9d5b3b2fa8cd51d9a31fa87cbbc304"
+          "sha256": "a910b47a827e3bddd5bb4cd9d674a0ebbca7da43deb17805878ba1fb0f61f90a"
         }
       }
     },
     {
       "name": "feedback-error-bottom",
-      "kind": "candidate",
-      "installed_build_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
-      "capture_stage": "after actual line-reachability swipe; paired JSON retains initial geometry and all reachability probes",
+      "stage": "short-landscape",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        2340,
+        1080
+      ],
+      "density_dpi": 420,
+      "font_scale": 2.0,
+      "capture_stage": "After actual swipe; JSON retains initial bounds and all line-reachability probes",
       "files": {
         "png": {
           "path": "docs/screenshots/touch-readability/feedback-error-bottom.png",
-          "sha256": "6e5493d1db893749fe8c62e8d3a8a65e9f71d10517ea22f6982f7734647a9f27"
+          "sha256": "89d6751e70ffe59552d3bbbf3377d88e6fea824025a095beabc2fdeaa0eb2006"
         },
         "xml": {
           "path": "docs/validation/touch-readability/feedback-error-bottom.xml",
-          "sha256": "5ab57b97b2e89d287a0e31d5a281b84761a48eea7b80b9cac92695f98a24253c"
+          "sha256": "9b2c4f6496498a78b2498e9d2e1a5c91d8fb9ed0befedee71e8d6e64c229fe8f"
         },
         "json": {
           "path": "docs/validation/touch-readability/feedback-error-bottom.json",
-          "sha256": "b28593ad1950380f7aa2edbe17cd6873ae9d5b3b2fa8cd51d9a31fa87cbbc304"
+          "sha256": "a910b47a827e3bddd5bb4cd9d674a0ebbca7da43deb17805878ba1fb0f61f90a"
+        }
+      }
+    },
+    {
+      "name": "feedback-footerless-before",
+      "stage": "routing-control",
+      "runtime_source_commit": "a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b",
+      "app_sha256": "179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        1920,
+        1200
+      ],
+      "density_dpi": 240,
+      "font_scale": 1.0,
+      "capture_stage": "Before confirmation; bad fallback overlaps footerless controls",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-footerless-before.png",
+          "sha256": "fee769b491122feacdd0f76379d098ef18dd86b5d3ed20f21fe804c9fae9e26d"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-footerless-before.xml",
+          "sha256": "135b2d6921ec58e9bc0228fda4cfedb30b9ea6d149e47729d40007ce1333cdb7"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-footerless-before.json",
+          "sha256": "1fc5ca6b9abc988473dfeae53a1ffc07f5be7ba1a2710e57ac186d3d832a94fd"
+        }
+      }
+    },
+    {
+      "name": "feedback-footerless-after-tablet",
+      "stage": "routing-tablet",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        1920,
+        1200
+      ],
+      "density_dpi": 240,
+      "font_scale": 1.0,
+      "capture_stage": "Before confirmation; repaired fallback leaves controls reachable",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-footerless-after-tablet.png",
+          "sha256": "2b11e9714bc6b23e1c530bc2ca236372b6271f46656cfd96d0437af7f7539b34"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-footerless-after-tablet.xml",
+          "sha256": "e736229870e62c0ccd677b33b149ecebc9060320ebc6b67daa3532c8f0088c74"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-footerless-after-tablet.json",
+          "sha256": "1fc5ca6b9abc988473dfeae53a1ffc07f5be7ba1a2710e57ac186d3d832a94fd"
+        }
+      }
+    },
+    {
+      "name": "feedback-footerless-after-phone",
+      "stage": "routing-phone",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        1080,
+        2340
+      ],
+      "density_dpi": 420,
+      "font_scale": 1.0,
+      "capture_stage": "Before confirmation; repaired phone review",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-footerless-after-phone.png",
+          "sha256": "2a5e3011e032748ea7160d04092e568c2d41f3bc300db25fe8d0ebb62c21ad42"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-footerless-after-phone.xml",
+          "sha256": "5892b44fa13ada91a38f6eefddf8fb2787eed4d2893f698580a8df442c82ba2f"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-footerless-after-phone.json",
+          "sha256": "1fc5ca6b9abc988473dfeae53a1ffc07f5be7ba1a2710e57ac186d3d832a94fd"
+        }
+      }
+    },
+    {
+      "name": "feedback-backup-padding-before",
+      "stage": "padding-control",
+      "runtime_source_commit": "f33790d4d8185ba8224f111a45c1928fccf5a27f",
+      "app_sha256": "6fedd41f386e856c50e5a9975d1ebd501a82cd05e76d0dc0aaaed4a5c25b146a",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        1920,
+        1200
+      ],
+      "density_dpi": 240,
+      "font_scale": 1.0,
+      "capture_stage": "Geometry immediately before original tap; failure PNG/XML after picker wait; no tap retry",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-backup-padding-before.png",
+          "sha256": "83e9f6023b81c25cc279ff4f476cba96b3df3354c602c404a5a598e948f768fd"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-backup-padding-before.xml",
+          "sha256": "7d74bc08cb5bd81e0ba48ef9753ac33fdace8472330500a67d62b9abf502626c"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-backup-padding-before.json",
+          "sha256": "5770d79e7597ead893aa0e29293876ab5bec8e7125fac5bff930fe53399b68a6"
+        }
+      }
+    },
+    {
+      "name": "feedback-backup-destination-tablet",
+      "stage": "routing-tablet",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        1920,
+        1200
+      ],
+      "density_dpi": 240,
+      "font_scale": 1.0,
+      "capture_stage": "Actual native create-document picker after original export tap; JSON retains pre-tap bounds and post-tap picker/pending flags",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-backup-destination-tablet.png",
+          "sha256": "ab606fb6e294bbd2d1fd27e91e6e4596cdab433cad8f3470f35b477af673c6d8"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-backup-destination-tablet.xml",
+          "sha256": "a915066bc9f0017cb4959d06ac625442f4fc713532dbe0e465ceadca5e5df643"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-backup-destination-tablet.json",
+          "sha256": "0fbf0c6e4bb6b40e0e10e4b555572dd16b96e51ea69d6113f9bb621bfbed7834"
+        }
+      }
+    },
+    {
+      "name": "feedback-backup-destination-phone",
+      "stage": "routing-phone",
+      "runtime_source_commit": "9558e0107cfff424c5e59b97776a05cffa583f81",
+      "app_sha256": "242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87",
+      "test_apk_sha256": "3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570",
+      "display_pixels": [
+        1080,
+        2340
+      ],
+      "density_dpi": 420,
+      "font_scale": 1.0,
+      "capture_stage": "Actual native create-document picker after original export tap; cancel is subsequently asserted data-neutral",
+      "files": {
+        "png": {
+          "path": "docs/screenshots/touch-readability/feedback-backup-destination-phone.png",
+          "sha256": "22d29c66372f157cfe1975170db042c04f7331bceeb9b54fc25f6074165a607a"
+        },
+        "xml": {
+          "path": "docs/validation/touch-readability/feedback-backup-destination-phone.xml",
+          "sha256": "a0c3a0f5532f4444fcd6b88c7d1851b7ff01c11c859e3f04d517a0b83c7d08a4"
+        },
+        "json": {
+          "path": "docs/validation/touch-readability/feedback-backup-destination-phone.json",
+          "sha256": "9bd83f86b1188742e90243d32694a4fc50c814c5065addb2224da2f5300b5990"
         }
       }
     }
@@ -402,6 +860,156 @@
   "other_merge_gates": {
     "outcome_location": "https://github.com/moikdev/droidcast/pull/74",
     "current_runtime_completion_recorded_in_this_manifest": false,
-    "required": "Current-runtime critical font regressions and the 173-case tablet/phone cohort, actual hosted workflow and two fresh exact-head independent sol/high audits."
+    "required": "Current-runtime critical font and 173-case tablet/phone cohorts, actual hosted workflow and two fresh independent exact-head sol/high audits."
+  },
+  "backup_routing_observations": {
+    "padding-control": {
+      "phase": "before-export-after-import-cancellation",
+      "export_visible": [
+        425,
+        806,
+        1496,
+        866
+      ],
+      "export_full": [
+        425,
+        806,
+        1496,
+        866
+      ],
+      "feedback": [
+        {
+          "visible": [
+            475,
+            746,
+            1447,
+            854
+          ],
+          "full": [
+            475,
+            746,
+            1447,
+            854
+          ]
+        }
+      ],
+      "frames": [
+        [
+          398,
+          237,
+          1523,
+          950
+        ]
+      ],
+      "message": "Import cancelled",
+      "backup_busy": false,
+      "pending_export": false,
+      "ime_visible": false,
+      "font_scale": 1,
+      "export_picker_opened": false,
+      "pending_export_after_click": false,
+      "backup_busy_after_click": false
+    },
+    "routing-tablet": {
+      "phase": "before-export-after-import-cancellation",
+      "export_visible": [
+        425,
+        806,
+        1496,
+        866
+      ],
+      "export_full": [
+        425,
+        806,
+        1496,
+        866
+      ],
+      "feedback": [
+        {
+          "visible": [
+            475,
+            746,
+            1447,
+            854
+          ],
+          "full": [
+            475,
+            746,
+            1447,
+            854
+          ]
+        }
+      ],
+      "frames": [
+        [
+          398,
+          237,
+          1523,
+          950
+        ]
+      ],
+      "message": "Import cancelled",
+      "backup_busy": false,
+      "pending_export": false,
+      "ime_visible": false,
+      "font_scale": 1,
+      "export_picker_opened": true,
+      "pending_export_after_click": true,
+      "backup_busy_after_click": false
+    },
+    "routing-phone": {
+      "phase": "before-export-after-import-cancellation",
+      "export_visible": [
+        79,
+        1179,
+        1001,
+        1284
+      ],
+      "export_full": [
+        79,
+        1179,
+        1001,
+        1284
+      ],
+      "feedback": [
+        {
+          "visible": [
+            64,
+            984,
+            1016,
+            1174
+          ],
+          "full": [
+            64,
+            984,
+            1016,
+            1174
+          ]
+        }
+      ],
+      "frames": [
+        [
+          32,
+          95,
+          1048,
+          1342
+        ]
+      ],
+      "message": "Import cancelled",
+      "backup_busy": false,
+      "pending_export": false,
+      "ime_visible": false,
+      "font_scale": 1,
+      "export_picker_opened": true,
+      "pending_export_after_click": true,
+      "backup_busy_after_click": false
+    }
+  },
+  "padding_control_and_repair_geometry_equal_within_px": 1,
+  "store_command_context": {
+    "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+    "commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+    "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f",
+    "scope": "Same observed Store index.js across controls/repairs; no association with the open-source catalog commit is certified."
   }
 }

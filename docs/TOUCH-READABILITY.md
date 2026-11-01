@@ -65,11 +65,18 @@ Additional real frames include [calculator](screenshots/touch-readability/phone-
 
 ## Feedback with scrolled chrome
 
-The first correctness audit found that a fully offscreen footer has a non-null empty bound. Using it to constrain feedback reduced confirmations and errors to one pixel. The repair measures the message within the whole palette before choosing its position. A bounded scroll surface exposes long messages when the IME leaves very little height.
+The frozen feedback runtime and harness are **9558e0107cfff424c5e59b97776a05cffa583f81**. App SHA-256: `242d6ce12fd959889e20694d51694bca455282e1f43db988f5c7242c3c118b87`; test APK: `3430efe068631944f25f031d5e677e2d482a4c2cd22a5921d89c99f4b7d15570`. The dedicated emulator reports API36/arm64 and WebView `com.google.android.webview` 133.0.6943.137.
 
-The frozen feedback runtime is **a48d13cc5d9b1b75785b56249ad7bdabe0f30c8b**, app SHA-256 `179fca2a5e24f0debd9acf020de128248c71d848424ad8c49ef2c83c4a57c312`. The final test harness is **0c6cf742f88028857cedca8c7c20b8913569c0f6**, test APK `6b3d21c0ae2c2f5c6c2e9eb89011f6f59e01802af45069411313b8059e360b40`. Only FeedbackReadabilityDeviceTest changes between those commits; production/build sources and both runners match the runtime checkpoint.
+Feedback first measures natural message height, within finite palette bounds. It prefers the measured header/footer gap when the message fits there. An offscreen, non-null empty footer cannot crush feedback to one pixel. Routes without a measured owner retain the earlier header/footer reservation. A scroll container is attached only when the message actually overflows; a fitting message retains the original hit area around its transparent outer padding. One SnackbarHost instance preserves message lifetime while measurement/reflow changes.
 
-Two matched old-app cases use the original 448387e runtime and that same final test APK. Both reach the intended one-pixel feedback assertion; both pass on the repaired runtime. All 16 cleanup checks per run pass. These are real app rendering fixtures with injected confirmation/error text, separate from actual clipboard or error-producing workflows. They use the visible keyboard button, verify a settled IME viewport, and require the entire footer to be offscreen. The 2340×1080/420 dpi landscape profile at 200% font leaves approximately 83 dp of visible palette height.
+The current checkpoint contains **six expected negative-control executions and eight passing candidate executions across five distinct cases**. All use the same final test APK. All **90 cleanup checks** pass:
+
+- The 448387e app fails both intended one-pixel feedback assertions in the approximately 83 dp landscape/200% palette with IME visible.
+- The first feedback repair a48d13c fails shortcut removal, export after import cancellation, and Store uninstall. Its separate earlier full tablet gate was 170/173 with all 18 cleanup checks passing; phone was not started.
+- The intermediate f33790d app restores the unmeasured-chrome reservation, but its unnecessary scroll container still intercepts the export tap inside transparent padding. This additional matched control fails the intended native-picker assertion.
+- The current app passes the three actual caller actions on both tablet and phone, plus both short-landscape feedback fixtures. The padding control and repaired tablet run preserve button and feedback bounds within one pixel; the original one-shot tap now opens the native export picker. No activation retry or feedback-expiration delay is introduced.
+
+The injected confirmation/error strings exercise real app rendering rather than certify an actual copy or error-producing operation. Their 2340×1080/420 dpi landscape profile uses 200% font with the entire footer offscreen. The ordinary shortcut, picker and Store cases retain their real pointer interactions and original destination/state assertions.
 
 | Confirmation before | Confirmation after |
 | --- | --- |
@@ -81,9 +88,21 @@ The longer error is readable sequentially. The test keeps its natural text layou
 | --- | --- | --- |
 | ![Before: error is one pixel](screenshots/touch-readability/feedback-error-before.png) | ![After: first error line](screenshots/touch-readability/feedback-error-top.png) | ![After swipe: remaining error line](screenshots/touch-readability/feedback-error-bottom.png) |
 
-The [feedback checkpoint](validation/touch-readability/feedback-checkpoint.json) binds 118 source hashes, both runners, binaries, original records/logs, paired raw JSON/XML and all five unchanged PNGs. The harness waits for native hierarchy idle before screenshots and requires the message to remain active. Its width assertion checks visible node width and actual line extents: Compose 1.7.6's diagnostic didOverflowWidth compares the paragraph container with the tighter text node, including unused space. The recorded confirmation has a 1554 px paragraph container, a 576 px text node and a 574.29 px drawn line; it fits visibly.
+The Store review below retains the same observed Palette Colors index.js SHA-256 `417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f` across control and repair. Its reported Store commit is 1a7664e5b99b9228c26c2f807f1ad2dc1669899a; this UI workflow is not a certification for the separately pinned open-source inventory.
 
-The feedback runtime passed 147 JVM and 22 Python cases, debug/test and benchmark/test builds, and debug/benchmark lint with 0 errors/51 warnings each. Those builds retain a48d13c; the final debug test harness was compiled anew after its assertion/capture-only changes. Current-runtime critical font and broad regression results, the actual hosted workflow and two fresh exact-head audits remain independent merge gates recorded on [PR #74](https://github.com/moikdev/droidcast/pull/74).
+| Before: feedback overlaps review controls | Repaired tablet review | Repaired phone review |
+| --- | --- | --- |
+| ![Before: review controls obstructed](screenshots/touch-readability/feedback-footerless-before.png) | ![After: tablet review controls reachable](screenshots/touch-readability/feedback-footerless-after-tablet.png) | ![After: phone review controls reachable](screenshots/touch-readability/feedback-footerless-after-phone.png) |
+
+The backup control's geometry is recorded immediately before its original tap; its failure PNG/XML follow the native-picker timeout. The repaired destination frames show Android's real create-document picker after the same action. The test then cancels that picker and checks unchanged backup data. This proves picker launch and cancellation, without claiming a file was saved by this case. Visible Downloads entries are owned Droidcast test fixtures.
+
+| Padding control: export tap intercepted | Repaired tablet destination | Repaired phone destination |
+| --- | --- | --- |
+| ![Before: export does not start](screenshots/touch-readability/feedback-backup-padding-before.png) | ![After: tablet native export picker](screenshots/touch-readability/feedback-backup-destination-tablet.png) | ![After: phone native export picker](screenshots/touch-readability/feedback-backup-destination-phone.png) |
+
+The [feedback checkpoint](validation/touch-readability/feedback-checkpoint.json) binds 118 source hashes, both runners, binaries, all original records/logs, geometry/line probes, and 11 unchanged PNG/JSON/XML sets. Capture-stage labels distinguish initial geometry, post-swipe frames and the later native destination. Native hierarchy idle precedes screenshots; injected feedback must remain active in its captures. Its width assertion checks visible node width and actual line extents: Compose 1.7.6's diagnostic didOverflowWidth compares the paragraph container with the tighter text node, including unused space.
+
+The frozen 9558e01 sources pass 147 JVM cases, debug/test and benchmark/test builds, and debug/benchmark lint with 0 errors/51 warnings each. The retained 22 Python checks keep their a48d13c log identity; every Python source is unchanged. Current-runtime critical-font and broad regression results, the actual hosted workflow and two fresh exact-head audits remain separate merge gates recorded on [PR #74](https://github.com/moikdev/droidcast/pull/74).
 
 ## Remaining validation and scope
 
