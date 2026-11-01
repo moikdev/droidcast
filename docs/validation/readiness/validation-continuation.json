@@ -99,5 +99,40 @@
     "read_only": true,
     "final_audit": false
   },
-  "followup": "Corrected test helpers require new immutable binaries, matched old-app controls, full native/integration checks, evidence reconciliation and two independent final-head audits. No merge or production clearance."
+  "followup": "Corrected test helpers require new immutable binaries, matched old-app controls, full native/integration checks, evidence reconciliation and two independent final-head audits. No merge or production clearance.",
+  "subsequent_checkpoint_7398e25": {
+    "implementation_commit": "7398e25fadcc8cbf1dee71c532f7c0c6da385616",
+    "app_sha256": "68174891b04fe681e770f672276e968f49c03b9ac96a6501efd1cbe383413809",
+    "test_apk_sha256": "c60e00061297279110a49f17360f7f5d823972d665d05db4312de486952441e5",
+    "native": {
+      "phone": {
+        "passes": 167,
+        "expected": 167,
+        "all_case_ids_match_source": true,
+        "completed": true,
+        "cleanup_verified": true,
+        "cleanup_check_count": 19,
+        "record_sha256": "8868c34229685a71f111c06b25a6a721c8aa7e9b27beedd4c7e8415a51345d69",
+        "tests_log_sha256": "f0a340e0e1b3cbcc54cff5d05ef3cc7e1e207ee6b8d0b2e40fcd01dfd5a18445"
+      },
+      "tablet": {
+        "passes": 166,
+        "expected": 167,
+        "all_case_ids_match_source": true,
+        "completed": false,
+        "cleanup_verified": true,
+        "cleanup_check_count": 17,
+        "record_sha256": "b0a6917e08c31743f3c22badfb62d64bfefcfd0642bb80962b799d3cb70f62fa",
+        "tests_log_sha256": "73780dd09f130d7bc53b1dc9611bdd9bbe492850a123ccc5432a25ccf2423411"
+      }
+    },
+    "process_cold_checks_per_layout": 6,
+    "focused_cases_per_layout": 12,
+    "matched_controls_verified_both_layouts": true,
+    "hosted_build": "https://github.com/moikdev/droidcast/actions/runs/41320821285/job/124890433383",
+    "hosted_build_state": "success",
+    "remaining_native_failure": "FolderDeviceTest#scopedSearchIndexesMetadataFiltersAndReopensWithoutExportingGrants: one-time native viewer chooser remains over Previous-note.txt",
+    "integrations_started": false,
+    "failure_record_preserved": true
+  }
 }
