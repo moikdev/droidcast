@@ -224,7 +224,7 @@ internal fun NativeExtensionGrid(
             return false
         }
         Column(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { key(it.nativeKeyEvent) }.onPreviewKeyEvent { key(it.nativeKeyEvent) }) {
-            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(end=8.dp,top=4.dp,bottom=4.dp).paletteHeaderSurface(), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp), verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = back, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 BasicTextField(state.search, { next ->

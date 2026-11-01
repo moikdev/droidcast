@@ -210,7 +210,7 @@ internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier:
     PaletteFrame(close, modifier.focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus }
         .onGloballyPositioned { ready = true }
         .onPreviewKeyEvent { if (it.type == KeyEventType.KeyDown && it.key == Key.Escape) { close(); true } else false }.focusable()) {
-        Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(end=8.dp,top=4.dp,bottom=4.dp).paletteHeaderSurface(), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back to commands" }.testTag("inline-back")) { Glyph("back",PaletteTheme.ink,24) }
             Spacer(Modifier.width(2.dp))
             Text(title, fontSize = 20.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
@@ -222,7 +222,7 @@ internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier:
         }
         footer?.let {
             HorizontalDivider(color = line)
-            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.footer).padding(horizontal=12.dp,vertical=4.dp).paletteFooterSurface(), verticalAlignment = Alignment.CenterVertically, content = it)
+            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.footer).paletteFooterSurface().testTag("palette-footer").padding(horizontal=12.dp,vertical=4.dp), verticalAlignment = Alignment.CenterVertically, content = it)
         }
     }
 }

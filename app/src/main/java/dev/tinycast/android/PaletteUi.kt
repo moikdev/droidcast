@@ -193,7 +193,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 .background(Brush.linearGradient(listOf(Color(0xFF292929),Color(0xFF141414),Color(0xFF242424))))
                 .border(1.dp,PaletteTheme.border,RoundedCornerShape(PaletteTheme.radius))
                 .pointerInput(Unit) { detectTapGestures {} }.testTag("palette").paletteMenuSurface()) {
-                Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(horizontal=16.dp,vertical=4.dp).paletteHeaderSurface().testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(horizontal=16.dp,vertical=4.dp).testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
                     Glyph("search",PaletteTheme.secondary,22);Spacer(Modifier.width(12.dp))
                     BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),

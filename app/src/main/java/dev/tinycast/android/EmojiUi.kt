@@ -177,7 +177,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                     else -> false
                 }
             }.semantics { testTagsAsResourceId = true }.testTag("emoji-palette")) {
-            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(end=8.dp,top=4.dp,bottom=4.dp).paletteHeaderSurface(), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp), verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back to commands" }.testTag("emoji-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 BasicTextField(displayedSearch, {

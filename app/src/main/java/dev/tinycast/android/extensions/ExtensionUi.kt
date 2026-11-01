@@ -143,7 +143,7 @@ private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, 
             } else if (escapePresses[event.deviceId] == event.downTime) { escapePresses.remove(event.deviceId); true } else false
         }, tag = "extension-palette") {
         if (!headerless) {
-            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(end=8.dp,top=4.dp,bottom=4.dp).paletteHeaderSurface(), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp), verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = onEscape, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 Text(title, fontSize = 20.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
@@ -175,7 +175,7 @@ private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue
             androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
         }
     }
-    Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(end=8.dp,top=4.dp,bottom=4.dp).paletteHeaderSurface(),verticalAlignment=Alignment.CenterVertically) {
+    Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp),verticalAlignment=Alignment.CenterVertically) {
         IconButton(onClick=back,modifier=Modifier.size(48.dp).semantics{contentDescription="Back"}.testTag("extension-back")){Glyph("back",PaletteTheme.ink,24)}
         Spacer(Modifier.width(2.dp))
         BasicTextField(value,change,singleLine=true,textStyle=TextStyle(color=ink,fontSize=20.sp,lineHeight=26.sp),cursorBrush=SolidColor(PaletteTheme.accent),

@@ -129,16 +129,20 @@ class TouchReadabilityDeviceTest {
             val below=required.bottom>viewport.bottom+1
             val clippedDistance=(if(below)required.bottom-viewport.bottom else viewport.top-required.top).coerceAtLeast(0f)
             val pixelsPerDp=context.resources.displayMetrics.density
-            // Use the nearest list for its clipped rows. When the whole route
-            // clips a control, pan from its header to avoid an inner list.
+            val footer=if(isOuter)compose.onAllNodesWithTag("palette-footer").fetchSemanticsNodes().singleOrNull()
+                ?.boundsInRoot?.takeIf { it.height>16 && it.width>16 } else null
+            // Pan visible footer chrome to move the outer route, rather than
+            // scrolling an editor field or list occupying its former header.
             route.performTouchInput {
-                val start=if(isOuter && below)minOf(viewport.height*.25f,48*pixelsPerDp)
-                    else if(below)viewport.height*.80f else viewport.height*.20f
+                val start=if(footer!=null) {
+                    (if(below)footer.bottom-minOf(8*pixelsPerDp,footer.height*.25f) else footer.top+minOf(8*pixelsPerDp,footer.height*.25f))-viewport.top
+                } else if(isOuter && below)minOf(viewport.height*.25f,48*pixelsPerDp)
+                else if(below)viewport.height*.80f else viewport.height*.20f
                 val travel=clippedDistance+viewConfiguration.touchSlop+2*pixelsPerDp
                 val end=if(below)(start-travel).coerceAtLeast(8f) else (start+travel).coerceAtMost(viewport.height-8f)
                 geometry.put("pan-$tag-$it",JSONObject().put("surface",scrollTag)
                     .put("scope_height",height).put("visible_height",viewport.height).put("clipped_distance",clippedDistance)
-                    .put("start_y",start).put("end_y",end).put("end_velocity",0))
+                    .put("start_y",start).put("end_y",end).put("footer_pan",footer!=null).put("end_velocity",0))
                 swipeWithVelocity(androidx.compose.ui.geometry.Offset(center.x,start),androidx.compose.ui.geometry.Offset(center.x,end),endVelocity=0f,durationMillis=400)
             }
             compose.waitForIdle()
