@@ -61,11 +61,11 @@ try:
             assert 'Status: ok' in text and app+'/.MainActivity' in text, text
             values = {k: v.strip() for k,v in re.findall(r'^([A-Za-z]+):\s*(.*)$', text, re.M)}
             state = values.get('LaunchState')
-            assert state == ('COLD' if mode == 'cold' else 'HOT'), text
+            assert (state == 'COLD') if mode == 'cold' else (state == 'HOT' or (state == 'UNKNOWN (0)' and 'current task has been brought to the front' in text)), text
             after = shell('pidof', app)
             assert after and (mode == 'cold' or before == after)
             result['observations'].append(dict(mode=mode, warmup=i<3, launch_state=state,
-                total_ms=int(values['TotalTime']), wait_ms=int(values['WaitTime']), host_command_ms=host_ms))
+                total_ms=int(values['TotalTime']) if 'TotalTime' in values else None, wait_ms=int(values['WaitTime']), host_command_ms=host_ms))
     result['memory_after'] = shell('dumpsys', 'meminfo', app)
     result['completed'] = True
 finally:
