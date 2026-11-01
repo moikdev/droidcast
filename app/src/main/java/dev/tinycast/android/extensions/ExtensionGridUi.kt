@@ -33,6 +33,7 @@ import dev.tinycast.android.PaletteScrollHistory
 import dev.tinycast.android.PaletteTheme
 import dev.tinycast.android.PaletteChoice
 import dev.tinycast.android.PaletteChoiceMenu
+import dev.tinycast.android.paletteHeaderSurface
 import dev.tinycast.android.paletteFocusBookmark
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.collect
@@ -220,8 +221,8 @@ internal fun NativeExtensionGrid(
             return false
         }
         Column(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { key(it.nativeKeyEvent) }.onPreviewKeyEvent { key(it.nativeKeyEvent) }) {
-            Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = back, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Text("‹", fontSize = 28.sp) }
+            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(end=8.dp,top=4.dp,bottom=4.dp).paletteHeaderSurface(), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = back, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 BasicTextField(state.search, { next ->
                     val changed = next.text != state.search.text
@@ -230,9 +231,9 @@ internal fun NativeExtensionGrid(
                 }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (state.search.composition == null) action(currentActions().firstOrNull()) }),
-                    modifier = Modifier.weight(1f).height(32.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
-                    decorationBox = { inner -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) { if (state.search.text.isEmpty()) Text(props.optString("searchBarPlaceholder", "Search extension…"), color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
-                if (wide) IconButton(onClick = { keyboardRequested = true; focus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(36.dp).semantics { contentDescription = "Show on-screen keyboard" }.testTag("extension-grid-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 16) }
+                    modifier = Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
+                    decorationBox = { inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp), contentAlignment = Alignment.CenterStart) { if (state.search.text.isEmpty()) Text(props.optString("searchBarPlaceholder", "Search extension…"), color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
+                if (wide) IconButton(onClick = { keyboardRequested = true; focus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(48.dp).semantics { contentDescription = "Show on-screen keyboard" }.testTag("extension-grid-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 16) }
                 if (options.isNotEmpty()) Box {
                     TextButton(onClick = { dropdownMenu = true }, modifier = Modifier.testTag("extension-grid-filter")) {
                         Text(options.firstOrNull { it.props().optString("value") == state.dropdownValue }?.props()?.optString("title") ?: "Filter", fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if(wide) 140.dp else 72.dp))
@@ -247,7 +248,7 @@ internal fun NativeExtensionGrid(
                         }
                     }, title = "Filter", returnFocus = focus)
                 }
-                IconButton(onClick = configure, modifier = Modifier.size(36.dp).semantics { contentDescription = "Extension preferences" }) { Text("⚙", fontSize = 16.sp) }
+                IconButton(onClick = configure, modifier = Modifier.size(48.dp).semantics { contentDescription = "Extension preferences" }) { Glyph("settings",PaletteTheme.secondary,20) }
             }
             Box(Modifier.fillMaxWidth().height(2.dp)) { if (props.optBoolean("isLoading")) LinearProgressIndicator(Modifier.fillMaxWidth().testTag("extension-grid-loading")) }
             Row(Modifier.fillMaxWidth().heightIn(min = 28.dp).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -287,11 +288,13 @@ internal fun NativeExtensionGrid(
                 }
             }
             HorizontalDivider(color = PaletteTheme.separator)
-            Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f).padding(end=8.dp)) {
-                    Text(title,color=PaletteTheme.secondary,fontSize=11.sp,maxLines=1,overflow=TextOverflow.Ellipsis)
-                    Text(status.ifBlank { selected?.title.orEmpty() }, color = PaletteTheme.tertiary, fontSize = 10.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("extension-grid-selected"))
+            dev.tinycast.android.PaletteFooter(metadata={ modifier ->
+                Column(modifier) {
+                    Text(title,color=PaletteTheme.secondary,fontSize=12.sp,lineHeight=16.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
+                    Text(status.ifBlank { selected?.title.orEmpty() },color=PaletteTheme.tertiary,fontSize=11.sp,lineHeight=15.sp,
+                        maxLines=2,overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("extension-grid-selected"))
                 }
+            }) {
                 Box {
                     dev.tinycast.android.PaletteActionCapsule(actions.firstOrNull()?.props()?.optString("title", "Run action") ?: "Run action",
                         { action(currentActions().firstOrNull()) }, { menu=true }, "extension-primary", "extension-actions", compact=!wide, enabled=actions.isNotEmpty())
@@ -336,7 +339,7 @@ private fun GridCell(entry: ExtensionGridItem, index: Int, selected: Boolean, pr
                 GridVisual.Unsupported -> Text("No preview", color = PaletteTheme.secondary, fontSize = 10.sp)
             }
         }
-        if (entry.title.isNotBlank()) Text(entry.title, color = PaletteTheme.ink, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
+        if (entry.title.isNotBlank()) Text(entry.title, color = PaletteTheme.ink, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
         if (entry.subtitle.isNotBlank()) Text(entry.subtitle, color = PaletteTheme.secondary, fontSize = 10.sp, lineHeight = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }

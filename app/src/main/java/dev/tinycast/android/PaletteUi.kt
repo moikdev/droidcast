@@ -34,6 +34,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -191,13 +193,13 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 .background(Brush.linearGradient(listOf(Color(0xFF292929),Color(0xFF141414),Color(0xFF242424))))
                 .border(1.dp,PaletteTheme.border,RoundedCornerShape(PaletteTheme.radius))
                 .pointerInput(Unit) { detectTapGestures {} }.testTag("palette").paletteMenuSurface()) {
-                Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(horizontal=16.dp).testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).padding(horizontal=16.dp,vertical=4.dp).paletteHeaderSurface().testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
                     Glyph("search",PaletteTheme.secondary,22);Spacer(Modifier.width(12.dp))
-                    BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).height(32.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
+                    BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),
                         keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=!wide || keyboardRequested),keyboardActions=KeyboardActions(onSearch={activateCurrent()}),
-                        decorationBox={inner -> Box(Modifier.fillMaxSize(),contentAlignment=Alignment.CenterStart){if(store.query.isEmpty())Text("Search for apps and commands…",color=PaletteTheme.secondary,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
-                    if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(36.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",PaletteTheme.tertiary,16)}
+                        decorationBox={inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(store.query.isEmpty())Text("Search for apps and commands…",color=PaletteTheme.secondary,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
+                    if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",PaletteTheme.tertiary,16)}
                 }
                 if (store.category == "Files") FileSearchToolbar(store, run)
                 LaunchedEffect(store.folderSearch.includeInLauncher) { store.syncFileSearch() }
@@ -212,14 +214,14 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                         val previous=results.getOrNull(i-1)?.let { sectionTitle(it,store) }
                         if(i==0 || section!=previous) Text(section,color=PaletteTheme.secondary,fontSize=12.sp,fontWeight=FontWeight.Medium,
                             modifier=Modifier.fillMaxWidth().padding(start=8.dp,end=8.dp,top=if(i==0)4.dp else 12.dp,bottom=4.dp))
-                        if(c.kind==Kind.CALC) CalculatorCard(c,i==store.selected,{store.selected=i;run(c)},{store.selected=i;store.actionCommand=c;store.dialog="actions"})
-                        else CommandRow(c,i==store.selected,store.shortcutConfiguration.bindings[c.id]?.label(),{store.selected=i;run(c)},{store.selected=i;store.actionCommand=c;store.dialog="actions"})
+                        if(c.kind==Kind.CALC) CalculatorCard(c,i==store.selected,{store.selected=i;run(c)},{store.selected=i;store.actionCommand=c;store.dialog="actions"},compact=!wide)
+                        else CommandRow(c,i==store.selected,store.shortcutConfiguration.bindings[c.id]?.label(),{store.selected=i;run(c)},{store.selected=i;store.actionCommand=c;store.dialog="actions"},compact=!wide)
                     }
                 }
-                Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically){
+                PaletteFooter(leading={
                     Box {
-                        Box(Modifier.paletteFocusBookmark().size(38.dp).clip(CircleShape).background(PaletteTheme.control).border(1.dp,PaletteTheme.border,CircleShape)
-                            .clickable{menu=!menu}.semantics{contentDescription="Droidcast menu"}.testTag("palette-menu"),contentAlignment=Alignment.Center){Glyph("menu",PaletteTheme.secondary,18)}
+                        Box(Modifier.paletteFocusBookmark().size(48.dp).clip(CircleShape).background(PaletteTheme.control).border(1.dp,PaletteTheme.border,CircleShape)
+                            .clickable(role=Role.Button){menu=!menu}.semantics{contentDescription="Droidcast menu"}.testTag("palette-menu"),contentAlignment=Alignment.Center){Glyph("menu",PaletteTheme.secondary,18)}
                         PaletteChoiceMenu(menu, { menu = false }, categories.map { c ->
                             PaletteChoice("filter-$c", if(c=="Pinned") "Favorites" else c, checked = store.category == c) { store.filter(c); menu = false }
                         } + listOf(
@@ -228,7 +230,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                             PaletteChoice("menu-dismiss", "Dismiss Droidcast") { dismiss() }
                         ), title = "Droidcast", returnFocus = focus)
                     }
-                    Spacer(Modifier.weight(1f))
+                },showActions=selected!=null) {
                     if(selected!=null) Box {
                         PaletteActionCapsule(primaryActionTitle(selected), {activateExplicitly()}, {currentSelection()?.let { store.actionCommand=it;store.dialog="actions" }},
                             "primary-action", "actions-button", compact=!wide)
@@ -262,36 +264,59 @@ internal fun primaryActionTitle(command:Command):String = when(command.kind) {
 }
 
 @Composable
-private fun CommandRow(command:Command,active:Boolean,shortcut:String?,run:()->Unit,actions:()->Unit){
+private fun CommandRow(command:Command,active:Boolean,shortcut:String?,run:()->Unit,actions:()->Unit,compact:Boolean){
     val interaction=remember { MutableInteractionSource() }
     val hovered by interaction.collectIsHoveredAsState()
-    Row(Modifier.fillMaxWidth().height(PaletteTheme.row).clip(RoundedCornerShape(PaletteTheme.rowRadius))
+    val reflow=compact || LocalDensity.current.fontScale>1.3f
+    val kind=when(command.kind){Kind.APP->"Application";Kind.COMMAND->"Command";Kind.EXTENSION->command.subtitle;else->command.kind.label.removeSuffix("s")}
+    Row(Modifier.fillMaxWidth().heightIn(min=48.dp).clip(RoundedCornerShape(PaletteTheme.rowRadius))
         .background(if(active)PaletteTheme.selection else if(hovered)PaletteTheme.hover else Color.Transparent)
-        .hoverable(interaction).combinedClickable(onClick=run,onLongClick=actions).padding(horizontal=8.dp)
-        .semantics{selected=active;contentDescription="${command.title}. ${command.subtitle}" + shortcut?.let { ". Shortcut $it" }.orEmpty()}.testTag("result-${command.id}"),verticalAlignment=Alignment.CenterVertically){
+        .hoverable(interaction).combinedClickable(onClick=run,onLongClick=actions,onLongClickLabel="Open actions",role=Role.Button).padding(horizontal=8.dp,vertical=6.dp)
+        .semantics{selected=active;contentDescription="${command.title}. ${command.subtitle}" +
+            command.alias.takeIf { it.isNotBlank() }?.let { ". Alias $it" }.orEmpty()+
+            shortcut?.let { ". Shortcut $it" }.orEmpty()}.testTag("result-${command.id}"),verticalAlignment=Alignment.CenterVertically){
         CommandIcon(command);Spacer(Modifier.width(10.dp))
+        if(reflow) Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(2.dp)) {
+            Text(command.title,color=PaletteTheme.ink,fontSize=14.sp,lineHeight=20.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
+            Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                Text(kind,color=PaletteTheme.secondary,fontSize=11.sp,lineHeight=16.sp,maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f))
+                if(command.alias.isNotBlank())Text(command.alias,color=PaletteTheme.secondary,fontSize=10.sp,
+                    maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.widthIn(max=96.dp).clip(RoundedCornerShape(6.dp)).background(PaletteTheme.control).padding(horizontal=5.dp,vertical=2.dp))
+                if(shortcut!=null)Box(Modifier.widthIn(max=120.dp)){KeyCap(shortcut)}
+            }
+        } else {
         Row(Modifier.weight(1f),verticalAlignment=Alignment.CenterVertically){
             Text(command.title,color=PaletteTheme.ink,fontSize=14.sp,lineHeight=20.sp,maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f,fill=false))
-            if(command.alias.isNotBlank())Text(command.alias,color=PaletteTheme.secondary,fontSize=10.sp,
-                modifier=Modifier.padding(start=8.dp).clip(RoundedCornerShape(6.dp)).background(PaletteTheme.control).padding(horizontal=5.dp,vertical=2.dp))
+            if(command.alias.isNotBlank())Text(command.alias,color=PaletteTheme.secondary,fontSize=10.sp,maxLines=1,overflow=TextOverflow.Ellipsis,
+                modifier=Modifier.padding(start=8.dp).widthIn(max=96.dp).clip(RoundedCornerShape(6.dp)).background(PaletteTheme.control).padding(horizontal=5.dp,vertical=2.dp))
         }
         Spacer(Modifier.width(8.dp))
         if (shortcut != null) { Box(Modifier.widthIn(max=120.dp)) { KeyCap(shortcut) }; Spacer(Modifier.width(8.dp)) }
-        Text(when(command.kind){Kind.APP->"Application";Kind.COMMAND->"Command";Kind.EXTENSION->command.subtitle;else->command.kind.label.removeSuffix("s")},
+        Text(kind,
             color=PaletteTheme.secondary,fontSize=12.sp,maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.widthIn(max=130.dp))
+        }
     }
 }
 
 @Composable
-private fun CalculatorCard(command:Command,active:Boolean,run:()->Unit,actions:()->Unit){
+private fun CalculatorCard(command:Command,active:Boolean,run:()->Unit,actions:()->Unit,compact:Boolean){
     val conversion=Regex("^(.+?)\\s+(?:to|in)\\s+([a-zA-Z°]+)$").matchEntire(command.subtitle)
-    Row(Modifier.fillMaxWidth().heightIn(min=118.dp).clip(RoundedCornerShape(PaletteTheme.rowRadius))
+    val reflow=compact || LocalDensity.current.fontScale>1.3f
+    val expression=conversion?.groupValues?.get(1) ?: command.subtitle
+    val inputUnit=conversion?.groupValues?.get(1)?.substringAfterLast(' ')?.let(::unitBadge) ?: "Expression"
+    val outputUnit=conversion?.groupValues?.get(2)?.let(::unitBadge) ?: "Result"
+    val card=Modifier.fillMaxWidth().heightIn(min=118.dp).clip(RoundedCornerShape(PaletteTheme.rowRadius))
         .background(if(active)PaletteTheme.selection else PaletteTheme.hover).border(1.dp,PaletteTheme.separator,RoundedCornerShape(PaletteTheme.rowRadius))
-        .combinedClickable(onClick=run,onLongClick=actions).padding(horizontal=12.dp,vertical=28.dp)
-        .semantics{selected=active}.testTag("result-${command.id}"),verticalAlignment=Alignment.CenterVertically){
-        CalculatorColumn(conversion?.groupValues?.get(1) ?: command.subtitle,conversion?.groupValues?.get(1)?.substringAfterLast(' ')?.let(::unitBadge) ?: "Expression",false,Modifier.weight(1f))
+        .combinedClickable(onClick=run,onLongClick=actions,onLongClickLabel="Open actions",role=Role.Button)
+        .semantics{selected=active;contentDescription="${command.subtitle}. Result ${command.title}"}.testTag("result-${command.id}")
+    if(reflow) Column(card.padding(18.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+        CalculatorColumn(expression,inputUnit,false,Modifier.fillMaxWidth(),alignedStart=true)
+        HorizontalDivider(color=PaletteTheme.separator)
+        CalculatorColumn(command.title,outputUnit,true,Modifier.fillMaxWidth(),alignedStart=true)
+    } else Row(card.padding(horizontal=12.dp,vertical=28.dp),verticalAlignment=Alignment.CenterVertically){
+        CalculatorColumn(expression,inputUnit,false,Modifier.weight(1f))
         Glyph("arrow",PaletteTheme.tertiary,20)
-        CalculatorColumn(command.title,conversion?.groupValues?.get(2)?.let(::unitBadge) ?: "Result",true,Modifier.weight(1f))
+        CalculatorColumn(command.title,outputUnit,true,Modifier.weight(1f))
     }
 }
 
@@ -302,10 +327,10 @@ private fun unitBadge(unit:String):String = when(unit.lowercase()) {
 }
 
 @Composable
-private fun CalculatorColumn(value:String,badge:String,strong:Boolean,modifier:Modifier){
+private fun CalculatorColumn(value:String,badge:String,strong:Boolean,modifier:Modifier,alignedStart:Boolean=false){
     BoxWithConstraints(modifier){
       val valueSize=if(maxWidth<220.dp)18.sp else 24.sp
-      Column(Modifier.fillMaxWidth(),horizontalAlignment=Alignment.CenterHorizontally){
+      Column(Modifier.fillMaxWidth(),horizontalAlignment=if(alignedStart)Alignment.Start else Alignment.CenterHorizontally){
         Text(value,fontSize=valueSize,fontWeight=if(strong)FontWeight.SemiBold else FontWeight.Normal,maxLines=2,overflow=TextOverflow.Ellipsis,lineHeight=30.sp)
         Text(badge,fontSize=10.sp,color=PaletteTheme.secondary,modifier=Modifier.padding(top=8.dp).clip(RoundedCornerShape(6.dp)).background(PaletteTheme.control).padding(horizontal=6.dp,vertical=2.dp))
       }
@@ -331,12 +356,14 @@ internal fun KeyCap(text:String){Text(text,color=PaletteTheme.secondary,fontSize
 
 @Composable
 fun Glyph(name: String, tint: Color = PaletteTheme.secondary, size: Int = 20) {
+    val rtl=LocalLayoutDirection.current==LayoutDirection.Rtl
     Canvas(Modifier.size(size.dp)) {
         val scale = this.size.width / 24f
         fun line(x: Float, y: Float, x2: Float, y2: Float) { drawLine(tint, androidx.compose.ui.geometry.Offset(x * scale, y * scale), androidx.compose.ui.geometry.Offset(x2 * scale, y2 * scale), 1.65f * scale, StrokeCap.Round) }
         fun rect(x: Float, y: Float, w: Float, h: Float, r: Float = 2f) { drawRoundRect(tint, androidx.compose.ui.geometry.Offset(x * scale, y * scale), androidx.compose.ui.geometry.Size(w * scale, h * scale), androidx.compose.ui.geometry.CornerRadius(r * scale), style = Stroke(1.6f * scale)) }
         when (name) {
             "menu" -> { line(5f,9f,19f,9f); line(5f,15f,14f,15f) }
+            "back" -> { val a=if(rtl)9f else 15f;val b=24f-a;line(a,5f,b,12f);line(b,12f,a,19f) }
             "arrow" -> { line(4f,12f,20f,12f); line(14f,6f,20f,12f); line(14f,18f,20f,12f) }
             "search" -> { drawCircle(tint, 6.5f * scale, androidx.compose.ui.geometry.Offset(10.5f * scale, 10.5f * scale), style = Stroke(1.7f * scale)); line(15.5f, 15.5f, 21f, 21f) }
             "terminal", "command" -> { line(5f, 5f, 12f, 11f); line(12f, 11f, 5f, 17f); line(13f, 19f, 21f, 19f) }
@@ -345,7 +372,7 @@ fun Glyph(name: String, tint: Color = PaletteTheme.secondary, size: Int = 20) {
             "folder" -> { val p = Path().apply { moveTo(3f*scale,7f*scale); lineTo(3f*scale,5f*scale); lineTo(10f*scale,5f*scale); lineTo(12f*scale,8f*scale); lineTo(21f*scale,8f*scale); lineTo(21f*scale,20f*scale); lineTo(3f*scale,20f*scale); close() }; drawPath(p,tint,style=Stroke(1.6f*scale)) }
             "clipboard" -> { rect(5f, 5f, 14f, 17f); rect(9f, 2f, 6f, 5f, 1f); line(9f,12f,15f,12f); line(9f,16f,14f,16f) }
             "trash" -> { line(5f,6f,19f,6f); line(9f,3f,15f,3f); line(7f,6f,8f,21f); line(8f,21f,16f,21f); line(16f,21f,17f,6f); line(10f,10f,10f,17f); line(14f,10f,14f,17f) }
-            "star" -> { val p=Path(); for(i in 0 until 10) { val angle=-Math.PI/2+i*Math.PI/5; val radius=if(i%2==0)9f else 4f; val x=(12f+kotlin.math.cos(angle)*radius).toFloat()*scale; val y=(12f+kotlin.math.sin(angle)*radius).toFloat()*scale; if(i==0)p.moveTo(x,y)else p.lineTo(x,y) }; p.close(); drawPath(p,tint,style=Stroke(1.6f*scale)) }
+            "star", "star-filled" -> { val p=Path(); for(i in 0 until 10) { val angle=-Math.PI/2+i*Math.PI/5; val radius=if(i%2==0)9f else 4f; val x=(12f+kotlin.math.cos(angle)*radius).toFloat()*scale; val y=(12f+kotlin.math.sin(angle)*radius).toFloat()*scale; if(i==0)p.moveTo(x,y)else p.lineTo(x,y) }; p.close(); drawPath(p,tint,style=if(name=="star-filled")androidx.compose.ui.graphics.drawscope.Fill else Stroke(1.6f*scale)) }
             "keyboard" -> { rect(2f, 5f, 20f, 14f); for (y in listOf(9f,12f)) for (x in listOf(6f,10f,14f,18f)) line(x,y,x+.4f,y); line(7f,16f,17f,16f) }
             "app" -> { for (y in listOf(3f,14f)) for (x in listOf(3f,14f)) rect(x,y,7f,7f,1f) }
             "pin" -> { line(8f,3f,16f,3f); line(9f,3f,9f,10f); line(15f,3f,15f,10f); line(9f,10f,6f,14f); line(15f,10f,18f,14f); line(6f,14f,18f,14f); line(12f,14f,12f,22f) }
