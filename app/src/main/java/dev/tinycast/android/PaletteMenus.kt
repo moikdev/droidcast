@@ -371,7 +371,7 @@ private fun PaletteFeedback(surface: Rect, menus: PaletteMenus, state: SnackbarH
     val scroll=key(state.currentSnackbarData) { rememberScrollState() }
     Layout(modifier = Modifier.fillMaxSize(), content = {
         Box(Modifier.testTag("palette-feedback")) {
-            SnackbarHost(state,modifier=Modifier.testTag("palette-feedback-scroll").verticalScroll(scroll))
+            SnackbarHost(state,modifier=Modifier.testTag("palette-feedback-scroll").verticalScroll(scroll,enabled=scroll.maxValue>0))
             if(scroll.maxValue>0) Canvas(Modifier.matchParentSize().padding(end=2.dp,top=4.dp,bottom=4.dp)) {
                 val thumb=(size.height*size.height/(size.height+scroll.maxValue)).coerceIn(minOf(12.dp.toPx(),size.height),size.height)
                 val width=3.dp.toPx()
