@@ -664,24 +664,66 @@ class ExtensionGridDeviceTest {
 
     private fun realGrid(query: String, name: String, command: String, expectedTag: String = "extension-grid", check: (InstalledExtension) -> Unit) {
         val catalog = compose.activity.store.extensions
-        assertFalse("Do not overwrite a preexisting installation", catalog.installed.any { it.listing.name == name })
+        val previousIds = catalog.installed.map { it.listing.id }.toSet()
+        val existing = catalog.installed.filter { it.listing.name == name }
+        assertTrue("Fixture source must be unambiguous", existing.size <= 1)
+        val original = existing.singleOrNull()
+        // Reading hashes stays inside the test; never emit preferences or
+        // extension-data content. The owned copy gets a separate storage ID.
+        fun snapshot(root: File): Map<String,String> = if (!root.exists()) emptyMap() else root.walkTopDown().associate { file ->
+            file.relativeTo(root).path to if (file.isDirectory) "directory" else MessageDigest.getInstance("SHA-256")
+                .digest(file.readBytes()).joinToString("") { "%02x".format(it) }
+        }
+        val preserved = original?.let { listOf(it.directory,
+            File(context.filesDir,"extension-data/${it.listing.id}"),
+            File(context.applicationInfo.dataDir,"shared_prefs/extension-${it.listing.id}.xml")) }.orEmpty()
+        val before = preserved.map(::snapshot)
         var installed: InstalledExtension? = null
+        var ownedCopy: File? = null
+        var isolatedId: String? = null
+        var record: JSONObject? = null
+        val evidence = File(context.filesDir,"extension-grid-evidence").apply { mkdirs() }.resolve("store-$name.json")
         try {
-            val listing = runBlocking { catalog.search(query).first { it.name == name } }
-            runBlocking { catalog.install(listing) }
-            installed = catalog.installed.single { it.listing.id == listing.id }
-            val record = JSONObject().put("name", name).put("id", installed.listing.id).put("source_url", installed.listing.sourceUrl).put("commit_sha", installed.listing.sha)
-                .put("command", command).put("command_sha256", MessageDigest.getInstance("SHA-256").digest(File(installed.directory, "$command.js").readBytes()).joinToString("") { "%02x".format(it) })
-            File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }.resolve("store-$name.json").writeText(record.toString(2))
-            compose.activityRule.scenario.onActivity { it.store.openExtension(installed, installed.commands.first { c -> c.name == command }) }
+            if (original != null) {
+                val id="test-real-"+java.util.UUID.randomUUID()
+                val copy=File(context.cacheDir,id)
+                assertFalse(copy.exists())
+                assertFalse(File(context.filesDir,"extension-data/$id").exists())
+                assertFalse(File(context.applicationInfo.dataDir,"shared_prefs/extension-$id.xml").exists())
+                ownedCopy=copy;isolatedId=id
+                assertTrue("Copy real installed code without replacing it",original.directory.copyRecursively(copy))
+                installed=InstalledExtension(original.listing.copy(id=id),copy,JSONObject(File(copy,"package.json").readText()))
+            } else {
+                val listing = runBlocking { catalog.search(query).first { it.name == name } }
+                runBlocking { catalog.install(listing) }
+                installed = catalog.installed.single { it.listing.id == listing.id }
+            }
+            val fixture=requireNotNull(installed)
+            record = JSONObject().put("name", name).put("id", fixture.listing.id).put("source_url", fixture.listing.sourceUrl).put("commit_sha", fixture.listing.sha)
+                .put("fixture_source",if(original==null)"fresh-store-install" else "isolated-copy-of-preexisting-store-code")
+                .put("source_id",original?.listing?.id ?: fixture.listing.id)
+                .put("command", command).put("command_sha256", MessageDigest.getInstance("SHA-256").digest(File(fixture.directory, "$command.js").readBytes()).joinToString("") { "%02x".format(it) })
+            evidence.writeText(record.toString(2))
+            compose.activityRule.scenario.onActivity { it.store.openExtension(fixture, fixture.commands.first { c -> c.name == command }) }
             compose.waitUntil(30000) { compose.onAllNodesWithTag(expectedTag).fetchSemanticsNodes().isNotEmpty() || catalog.runtimeError != null }
             assertNull(catalog.runtimeError, catalog.runtimeError)
             compose.onNodeWithTag(expectedTag).assertExists()
-            check(installed)
+            check(fixture)
         } finally {
             compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
             compose.waitForIdle()
-            installed?.let { runBlocking { catalog.uninstall(it) }; assertFalse(it.directory.exists()) }
+            if (original == null) {
+                installed?.let { runBlocking { catalog.uninstall(it) }; assertFalse(it.directory.exists()) }
+            } else {
+                ownedCopy?.let { it.deleteRecursively();assertFalse(it.exists()) }
+                isolatedId?.let {
+                    val support=File(context.filesDir,"extension-data/$it");support.deleteRecursively();assertFalse(support.exists())
+                    context.deleteSharedPreferences("extension-$it")
+                }
+                val unchanged=before==preserved.map(::snapshot) && previousIds==catalog.installed.map { it.listing.id }.toSet()
+                record?.let { it.put("preexisting_installation_preferences_and_data_preserved",unchanged);evidence.writeText(it.toString(2)) }
+                assertTrue("Existing installation, preferences and extension data must survive the isolated runtime check",unchanged)
+            }
         }
     }
     @Test fun realPaletteColorsGridCopiesChangesSchemeAndRemembersDropdown() = realGrid("palette colors", "palette-colors", "index") { installed ->

@@ -1,0 +1,73 @@
+{
+  "experimental_harness": true,
+  "application_commit": "0581b1e9682f66f4f6351f90aa8965cc9b80870a",
+  "application_sha256": "bee568ee124f8c31b10557691891af6e44ce8d31c86e0693d23434390e58197d",
+  "test_apk_sha256": "3945b12c7978d5f92d1ab7441d1a3771080861c1a6874f749f2233deba155321",
+  "purpose": "Real preexisting-code isolation and fresh Store runtime smoke; not a new stamped-final-binary certification",
+  "runs": [
+    {
+      "layout": "tablet",
+      "avd": "Tinycast_Tablet_API_36",
+      "passes": 2,
+      "expected": 2,
+      "cleanup_verified": true,
+      "display": "1920x1200/240dpi",
+      "existing_source": {
+        "name": "oklch-color-converter",
+        "id": "test-real-6880db78-5114-4746-b8eb-8f3be147d92a",
+        "source_url": "https://github.com/raycast/extensions/tree/c33bf4cb4b9ad70c2b93432ee713ffb7486ed331/extensions/oklch-color-converter/",
+        "commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+        "fixture_source": "isolated-copy-of-preexisting-store-code",
+        "source_id": "322d1e48-6778-478a-9ed2-b406bb41abbc",
+        "command": "convert-color",
+        "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806",
+        "preexisting_installation_preferences_and_data_preserved": true
+      },
+      "fresh_store_source": {
+        "name": "palette-colors",
+        "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "source_url": "https://github.com/raycast/extensions/tree/1a7664e5b99b9228c26c2f807f1ad2dc1669899a/extensions/palette-colors/",
+        "commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+        "fixture_source": "fresh-store-install",
+        "source_id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "command": "index",
+        "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+      },
+      "screenshot": "docs/screenshots/readiness-regressions/tablet-legacy-list-isolated.png",
+      "screenshot_sha256": "32658afb8a105244003433f5175f4a6119949a93f4aa53c830cee1765158f44a",
+      "capture_background": "Owned emulator Home, selected before starting instrumentation"
+    },
+    {
+      "layout": "phone",
+      "avd": "Tinycast_Tablet_API_36",
+      "passes": 2,
+      "expected": 2,
+      "cleanup_verified": true,
+      "display": "1080x2340/420dpi",
+      "existing_source": {
+        "name": "oklch-color-converter",
+        "id": "test-real-f250542b-d7d7-4c7c-8855-9dbe032bb9fa",
+        "source_url": "https://github.com/raycast/extensions/tree/c33bf4cb4b9ad70c2b93432ee713ffb7486ed331/extensions/oklch-color-converter/",
+        "commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+        "fixture_source": "isolated-copy-of-preexisting-store-code",
+        "source_id": "322d1e48-6778-478a-9ed2-b406bb41abbc",
+        "command": "convert-color",
+        "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806",
+        "preexisting_installation_preferences_and_data_preserved": true
+      },
+      "fresh_store_source": {
+        "name": "palette-colors",
+        "id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "source_url": "https://github.com/raycast/extensions/tree/1a7664e5b99b9228c26c2f807f1ad2dc1669899a/extensions/palette-colors/",
+        "commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+        "fixture_source": "fresh-store-install",
+        "source_id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+        "command": "index",
+        "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+      },
+      "screenshot": "docs/screenshots/readiness-regressions/phone-legacy-list-isolated.png",
+      "screenshot_sha256": "a3a97ef9df002392d3a30d5c4d97bed03b066074d0fb12bda02a070d963ae9cd",
+      "capture_background": "Owned emulator Home, selected before starting instrumentation"
+    }
+  ]
+}
