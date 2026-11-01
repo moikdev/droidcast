@@ -24,6 +24,7 @@ import org.junit.Assert.*
 import org.junit.runner.RunWith
 import java.io.File
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -100,16 +101,55 @@ class DocumentProviderDeviceTest {
     }
     @Test fun timedOutMimeLookupDoesNotLaunchAndAllowsRetry() {
         val (provider,queries)=reader(350)
-        val monitor=InstrumentationRegistry.getInstrumentation().addMonitor(IntentFilter(Intent.ACTION_VIEW),Instrumentation.ActivityResult(Activity.RESULT_CANCELED,null),true)
+        val instrumentation=InstrumentationRegistry.getInstrumentation()
+        val launches=CopyOnWriteArrayList<Intent>()
+        val monitor=object:Instrumentation.ActivityMonitor() {
+            override fun onStartActivity(intent:Intent):Instrumentation.ActivityResult? {
+                if(intent.action!=Intent.ACTION_VIEW)return null
+                launches.add(Intent(intent))
+                return Instrumentation.ActivityResult(Activity.RESULT_CANCELED,null)
+            }
+        }
+        instrumentation.addMonitor(monitor)
+        var savedId=""
         try {
-            compose.activityRule.scenario.onActivity { it.openRecentDocument(Command("audit-file","Audit document","",Kind.FILE,"file",payload=uri.toString()),queries) }
+            compose.activityRule.scenario.onActivity {
+                savedId=it.store.save("files","Audit retry fixture",uri.toString())
+                it.openRecentDocument(requireNotNull(it.store.command(savedId)),queries)
+            }
             await(provider.entered)
             compose.waitUntil(5000) { compose.activity.store.message?.contains("Storage provider timed out")==true }
-            assertTrue(provider.offMain.get()); assertEquals(0,monitor.hits)
+            assertTrue(provider.offMain.get());assertEquals(0,monitor.hits);assertTrue(launches.isEmpty())
+            assertTrue(compose.activity.store.files.any { it.id==savedId && it.body==uri.toString() })
+            // Let the abandoned provider finish before changing query/route:
+            // another navigation guard must not mask a stale first launch.
+            provider.release.countDown();await(provider.finished);compose.waitForIdle()
+            assertEquals("",compose.activity.store.query)
+            assertEquals("The timed-out request must never launch after release",0,monitor.hits)
+            assertTrue(launches.isEmpty())
             compose.onNodeWithTag("search").performTextInput("retry")
             compose.onNodeWithTag("search").assertTextEquals("retry")
             capture("provider-mime-timeout")
-        } finally { InstrumentationRegistry.getInstrumentation().removeMonitor(monitor) }
+            compose.activityRule.scenario.onActivity {
+                val retained=it.store.results().single { command -> command.id==savedId }
+                assertEquals(uri.toString(),retained.payload)
+                it.openRecentDocument(retained,queries)
+            }
+            compose.waitUntil(5000) { launches.isNotEmpty() }
+            instrumentation.waitForIdleSync()
+            assertEquals("Only the successful retry may launch",1,launches.size)
+            assertEquals(1,monitor.hits)
+            val launched=launches.single()
+            assertEquals(Intent.ACTION_VIEW,launched.action)
+            assertEquals(uri,launched.data);assertEquals("text/plain",launched.type)
+            assertTrue(launched.flags and Intent.FLAG_GRANT_READ_URI_PERMISSION!=0)
+            val evidence=File(context.filesDir,"readiness-evidence").apply { mkdirs() }
+            File(evidence,"provider-mime-retry.json").writeText(org.json.JSONObject()
+                .put("timed_out_request_launches_after_release",0).put("retry_launches",launches.size)
+                .put("retained_document_reselected",true).put("action",launched.action)
+                .put("uri",launched.dataString).put("mime",launched.type)
+                .put("read_grant",true).put("destination","Instrumentation monitor; real external viewer not launched by this controlled provider test").toString(2))
+        } finally { instrumentation.removeMonitor(monitor) }
     }
     @Test fun newerCommandCancelsPendingFileLaunch() {
         val (provider,queries)=reader()
