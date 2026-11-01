@@ -17,6 +17,20 @@ android {
         manifestPlaceholders["buildCommit"] = commit
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    // Separate disposable package for performance runs; never an updater/release artifact.
+    buildTypes {
+        create("benchmark") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".benchmark"
+            versionNameSuffix = "-benchmark"
+            signingConfig = signingConfigs.getByName("debug")
+            isDebuggable = false
+            matchingFallbacks += "release"
+        }
+    }
+    testBuildType = providers.gradleProperty("droidcastTestBuildType").orElse("debug").get().also {
+        require(it in setOf("debug", "benchmark"))
+    }
     buildFeatures { compose = true; buildConfig = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

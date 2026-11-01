@@ -6,8 +6,9 @@ from android_test_cleanup import Cleanup
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--layout',choices=['tablet','phone'],required=True)
 p.add_argument('--output',type=Path,required=True);p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
-p.add_argument('--evidence-dir',choices=['extension-grid-evidence','emoji-evidence','updates-evidence'],default='extension-grid-evidence')
+p.add_argument('--evidence-dir',choices=['extension-grid-evidence','emoji-evidence','updates-evidence','readiness-evidence'],default='extension-grid-evidence')
 p.add_argument('--extra-evidence-dir',action='append',choices=['emoji-evidence','settings-evidence','shortcut-evidence','backup-evidence','folder-evidence','palette-evidence','rigid-palette-evidence','updates-evidence'],default=[])
+p.add_argument('--readiness',action='store_true');p.add_argument('--soak-seconds',type=int,default=300)
 p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=16)
 a=p.parse_args();sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 if not sdk:sdk=next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
@@ -15,6 +16,7 @@ adb=[str(Path(sdk)/'platform-tools/adb'),'-s',a.serial];app='dev.tinycast.androi
 def raw(*args,data=None):return subprocess.check_output(adb+list(args),input=data,stderr=subprocess.STDOUT,timeout=60)
 def text(*args):return raw(*args).decode().strip()
 def sha(data):return hashlib.sha256(data).hexdigest()
+assert not a.readiness or (60 <= a.soak_seconds <= 1800 and a.classes.startswith('dev.tinycast.android.ReadinessDeviceTest'))
 assert a.serial.startswith('emulator-') and a.expected>0 and re.fullmatch('[A-Za-z0-9_.,#]+',a.classes)
 assert text('shell','getprop','ro.kernel.qemu')=='1' and text('shell','getprop','ro.boot.qemu.avd_name')==a.avd
 assert text('shell','id').startswith('uid=2000') and 'ActiveInstrumentation{' not in text('shell','dumpsys','activity','processes')
@@ -35,8 +37,8 @@ try:
  if a.layout=='phone':raw('shell','wm','size','1080x2340');raw('shell','wm','density','420')
  evidence_dirs=list(dict.fromkeys([a.evidence_dir]+a.extra_evidence_dir))
  for folder in evidence_dirs:raw('shell','run-as',app,'rm','-rf','files/'+folder)
- r['suite_timeout_seconds']=max(600,a.expected*30)
- with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes,app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
+ r['suite_timeout_seconds']=max(600,a.expected*30,a.soak_seconds+300 if a.readiness else 0)
+ with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes]+(['-e','runReadiness','true','-e','soakSeconds',str(a.soak_seconds)] if a.readiness else [])+[app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
  log=(a.output/'tests.log').read_text();r['passes']=len(re.findall('^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M));r['tests_completed']=f'OK ({a.expected} test' in log and 'FAILURES!!!' not in log and r['passes']==a.expected
  present=text('shell','run-as',app,'ls','files').splitlines()
  for folder in evidence_dirs:
