@@ -332,6 +332,7 @@ class TouchReadabilityDeviceTest {
         search(noteQuery)
         target("palette-menu");target("result-$noteId");inputFits("search")
         capsule("primary-action","actions-button");fullLabel("primary-action","Open Note")
+        fullLabel("result-$noteId","Note")
         assertTrue(compose.onNodeWithTag("result-$noteId").fetchSemanticsNode().config[SemanticsProperties.ContentDescription]
             .joinToString().contains(alias))
         capture("launcher")
@@ -420,6 +421,7 @@ class TouchReadabilityDeviceTest {
         compose.onNodeWithTag("extension-search").performTextReplacement("Audit Alpha")
         inputFits("extension-search");target("extension-back")
         capsule("extension-primary","extension-actions")
+        fullLabel("extension-primary",actionTitle)
         if(type=="Grid")selectedGridCellFits()
         capture("extension-${type.lowercase()}")
         touch("extension-actions");fullLabel("extension-action-0",actionTitle);target("extension-action-0")

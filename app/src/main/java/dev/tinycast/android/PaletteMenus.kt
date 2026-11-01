@@ -312,7 +312,7 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                                     if(choice.shortcut.isEmpty())"" else ". Shortcut ${choice.shortcut.joinToString(" ")}"; if (!choice.enabled) disabled() }
                                 .testTag(choice.tag).padding(horizontal = 10.dp,vertical=8.dp), verticalAlignment = Alignment.CenterVertically) {
                                 choice.icon?.let { Glyph(it,PaletteTheme.secondary,17); Spacer(Modifier.width(10.dp)) }
-                                Text(choice.label, fontSize = 13.sp, lineHeight=18.sp, maxLines = if(showHints)1 else 3, overflow = TextOverflow.Ellipsis, color = if (choice.enabled) PaletteTheme.ink else PaletteTheme.tertiary, modifier = Modifier.weight(1f))
+                                Text(choice.label, fontSize = 13.sp, lineHeight=18.sp, maxLines = 3, overflow = TextOverflow.Ellipsis, color = if (choice.enabled) PaletteTheme.ink else PaletteTheme.tertiary, modifier = Modifier.weight(1f))
                                 if(showHints && choice.shortcut.isNotEmpty()) { Spacer(Modifier.width(8.dp)); choice.shortcut.forEach { KeyCap(it); Spacer(Modifier.width(2.dp)) } }
                                 if (choice.checked) Text("✓", fontSize = 12.sp, color = PaletteTheme.secondary)
                             }
@@ -342,7 +342,7 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
             val footerTop=(menus.footer?.top ?: (surface.bottom-PaletteTheme.footer.toPx())).coerceIn(surface.top,surface.bottom)
             val titleHeight=if(request.title.value!=null)16.sp.toPx()*2+16.dp.toPx() else 0f
             val searchHeight=if(request.searchable)maxOf(48.dp.toPx(),18.sp.toPx())+1.dp.toPx() else 0f
-            val choiceHeight=maxOf(48.dp.toPx(),18.sp.toPx()*(if(showHints)1 else 3)+16.dp.toPx())
+            val choiceHeight=maxOf(48.dp.toPx(),18.sp.toPx()*3+16.dp.toPx())
             val minimumMenuHeight=12.dp.toPx()+titleHeight+searchHeight+choiceHeight
             // The anchored gap must accommodate the scaled menu chrome and
             // one complete wrapped action. Otherwise use the palette bounds.

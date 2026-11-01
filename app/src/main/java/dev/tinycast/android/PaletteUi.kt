@@ -268,6 +268,8 @@ private fun CommandRow(command:Command,active:Boolean,shortcut:String?,run:()->U
     val interaction=remember { MutableInteractionSource() }
     val hovered by interaction.collectIsHoveredAsState()
     val reflow=compact || LocalDensity.current.fontScale>1.3f
+    val shortcutHint=LocalDensity.current.fontScale<=1.3f &&
+        (!compact || androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp>=360)
     val kind=when(command.kind){Kind.APP->"Application";Kind.COMMAND->"Command";Kind.EXTENSION->command.subtitle;else->command.kind.label.removeSuffix("s")}
     Row(Modifier.fillMaxWidth().heightIn(min=48.dp).clip(RoundedCornerShape(PaletteTheme.rowRadius))
         .background(if(active)PaletteTheme.selection else if(hovered)PaletteTheme.hover else Color.Transparent)
@@ -282,7 +284,7 @@ private fun CommandRow(command:Command,active:Boolean,shortcut:String?,run:()->U
                 Text(kind,color=PaletteTheme.secondary,fontSize=11.sp,lineHeight=16.sp,maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f))
                 if(command.alias.isNotBlank())Text(command.alias,color=PaletteTheme.secondary,fontSize=10.sp,
                     maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.widthIn(max=96.dp).clip(RoundedCornerShape(6.dp)).background(PaletteTheme.control).padding(horizontal=5.dp,vertical=2.dp))
-                if(shortcut!=null)Box(Modifier.widthIn(max=120.dp)){KeyCap(shortcut)}
+                if(shortcut!=null && shortcutHint)Box(Modifier.widthIn(max=120.dp)){KeyCap(shortcut)}
             }
         } else {
         Row(Modifier.weight(1f),verticalAlignment=Alignment.CenterVertically){

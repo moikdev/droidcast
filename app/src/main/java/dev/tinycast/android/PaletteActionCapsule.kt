@@ -38,7 +38,7 @@ internal fun PaletteActionCapsule(title: String, primary: () -> Unit, actions: (
             }
         } else {
             Row(surface.height(IntrinsicSize.Min).heightIn(min=48.dp),verticalAlignment=Alignment.CenterVertically) {
-                PrimaryControl(title,primary,primaryTag,enabled,if(reflow)2 else 1,!reflow,
+                PrimaryControl(title,primary,primaryTag,enabled,2,!reflow,
                     Modifier.weight(1f,fill=reflow).widthIn(min=48.dp).fillMaxHeight())
                 if(showActions) {
                     Box(Modifier.width(1.dp).fillMaxHeight().padding(vertical=12.dp).background(PaletteTheme.separator))
