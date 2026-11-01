@@ -6,7 +6,7 @@ Issue [#55](https://github.com/moikdev/droidcast/issues/55). [Trust/design contr
 
 | Check | Tablet | Phone |
 | --- | --- | --- |
-| Updater native cohort | 17/17 | 17/17 |
+| Updater native cohort | 18/18 | 18/18 |
 | Existing Settings/palette regressions | 14/14 | 14/14 |
 | Released-r9 baseline navigation/capture | 1/1 | 1/1 |
 | Real update with confirmation, Cancel and Retry | passed | passed |
@@ -18,14 +18,14 @@ One owned API36 arm64 emulator is configured as tablet 1920×1200/240dpi and pho
 
 ## Frozen binaries and provenance
 
-The product APK is byte-identical throughout final verification, regressions and real-install flows. Its embedded source checkpoint is df9c5b57ea57a7875b8940529721c22527c0d962; all later implementation changes are native test/runner/documentation changes. The manifest records current source hashes and unchanged packaged assets.
+The product APK is byte-identical throughout final verification, regressions and real-install flows. Its embedded source checkpoint is 34b70a579ec6db366e2363deb6bd227591c7c750; all later implementation changes are native test/runner/documentation changes. The manifest records current source hashes and unchanged packaged assets.
 
-- Bootstrap, versionCode 6: ceadcc73222d0590dbaf9493e8a0d703d0ae6938269ef8dffc8b84a2c7e4ccc2
-- Signed test-only payload, versionCode 7: 6d26d67aba3221fe82b61cf6fe02eaaeab354e7ebbc2083b736000de38ca2af4
-- Final updater/regression instrumentation: 3b90247619bce2c2cbe7e7601dd5a71a6db1b8ef179b5b26dbd6ae98b2d7a8a9
-- Real-install instrumentation: 026cd3452fe36a7692bd6486d98b3072cee7f0c494011de8a3f00ef45cc2d951
+- Bootstrap, versionCode 6: e68b7e7c4a3771c18128221f7d31b71e144db0d64947ae0ee08f91bddccf3f00
+- Signed test-only payload, versionCode 7: fc6c1026e21bcd0fb7211562d74151c6d01454e6915801250e495940ac3a826f
+- Final updater/regression instrumentation: 6c7d9fef223a952ba94e0cf57cc555ea39df25aaaecfc7ef36092c1f1645af65
+- Real-install instrumentation: 6c7d9fef223a952ba94e0cf57cc555ea39df25aaaecfc7ef36092c1f1645af65
 
-Only UpdateVerificationDeviceTest changed between the two final instrumentation variants. Application sources, UpdateSelfInstallDeviceTest, the shared UpdateDeviceTest capture helper and scripts/test-self-updates.py remain unchanged. Both archived APK identities are retained; the real-install variant is also archived with the preceding tablet verification cohort. This is not a claim that every suite used one instrumentation binary.
+All final correction positives, real self-installs and final old-app negative controls use the identical instrumentation APK. Earlier two-variant and pre-correction execution records remain historical; they are not the corrected binary certification. The old-app controls deliberately install the prior reviewed app with the final tests, then restore the corrected app.
 
 The versionCode 7 payload is named 0.5.0-update-fixture and must never be published as an eligible nightly. The release packager successfully preflights the already-tested versionCode 6 APK against public prior version codes, its embedded commit, package and the unchanged nightly signer; it writes the APK, format-1 manifest and checksums without rebuilding or signing.
 
@@ -43,13 +43,19 @@ Real-install tests require an explicit external-harness flag, matching AVD/emula
 
 ## Screenshots
 
-All 46 durable PNGs live in docs/screenshots/updates. Each has an origin, SHA-256, dimensions, paired XML hash, app version and instrumentation identity in the manifest. Two before captures use the actual released-r9 APK (code 5); updater screens use code 6; after-replacement captures use the test-only code 7. Settings, palette, progress/error, real permission/installer, cancellation/retry and retained-data states are included. PR image URLs must pin the reviewed head. Stills establish neither latency nor continuous animation.
+All 52 durable PNGs live in docs/screenshots/updates. Each has an origin, SHA-256, dimensions, paired XML hash, app version and instrumentation identity in the manifest. Two before captures use the actual released-r9 APK (code 5), and two old reviewed-app controls show the unnamed switch (old code 6). Corrected updater screens use code 6; after-replacement captures use the test-only code 7. Per-image app hashes distinguish both code-6 binaries. Settings, palette, progress/error, real permission/installer, cancellation/retry and retained-data states are included. PR image URLs must pin the reviewed head. Stills establish neither latency nor continuous animation.
+
+## Audit correction: named confirmation control
+
+The initial independent UX audit identified the unnamed Confirm each update switch at reviewed head 2c2277eea0eb5bf88e272d502af55d6a0e937565. The shared component now supplies its accessible name without changing the visible layout. The final regression fails specifically at the name assertion on the old app on both layouts, and passes in focused and full corrected runs. [Native observations](updates-switch-accessibility.json) show empty name/NAF=true before correction; corrected idle and busy controls have the name, checked=true, and enabled=true/false respectively. The test also verifies off/on interaction and re-enabling after cancellation. This is native semantics coverage, not a TalkBack speech/traversal certification.
+
+Both real-update confirmation modes and all regression cohorts were rerun on the corrected product/payload pair. Two fresh exact-head independent audits remain required; the earlier head is not cleared.
 
 ## Excluded attempts and unresolved limits
 
 - Initial source transfer timed out during ADB stdin upload before native cases; restoration passed. Subsequent APK transfer uses push/copy plus hashes.
 - The first 16-case tablet cohort passed 12/16, failing four native capture marker waits after preceding model/security assertions. It retained no failure frame/hierarchy, so the cause remains unknown. Explicit visible markers, native cache refresh and failure captures strengthen evidence without establishing a production timing fix.
-- An earlier 16/17 cohort waited for model IDLE while cleanup was still active. A later 16/17 phone cohort observed initial model IDLE before the first content recovery effect and could not find Check before any test action. Fixtures now wait for composition and rendered/enabled controls plus nonbusy state, within the same 10-second bound. Product bytes are unchanged. Final 17/17 cohorts pass.
+- An earlier 16/17 cohort waited for model IDLE while cleanup was still active. A later 16/17 phone cohort observed initial model IDLE before the first content recovery effect and could not find Check before any test action. Fixtures now wait for composition and rendered/enabled controls plus nonbusy state, within the same 10-second bound. Product bytes are unchanged. That pre-accessibility cohort passed 17/17. Final corrected cohorts pass 18/18, including the new native name/state regression.
 - Real-install setup attempts expected a Downloads drawer, an exposed launcher test resource ID or a not-yet-selected fixture row. Native captures/diagnostics established the actual storage-root/retained-breadcrumb and EditText/command-description paths. These are fixture corrections; all excluded-attempt restoration checks passed.
 - The first broader tablet run passed 13/14: the existing tile package-visibility assertion timed out without a failure frame. A focused pass and the later 14/14 cohorts do not establish its cause or a production fix. The tile implementation is unchanged; evidence is appended to existing [#37](https://github.com/moikdev/droidcast/issues/37).
 
