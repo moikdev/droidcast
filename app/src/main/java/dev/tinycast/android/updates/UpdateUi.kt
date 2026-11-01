@@ -67,7 +67,7 @@ internal fun ColumnScope.UpdateContent(updates: AppUpdates) {
     Spacer(Modifier.height(18.dp))
     when {
         state.phase == UpdatePhase.CONFIRM -> Button(onClick = { updates.confirm(context) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("updates-confirm")) { Text("Continue with Android") }
-        !state.busy && state.verified -> {
+        !updates.busy && state.verified -> {
             if (!updates.approvalGranted) Button(onClick = {
                 try { context.startActivity(updates.approvalIntent()) }
                 catch (_: Exception) { updates.report("Android's install approval page is unavailable on this device.") }
@@ -75,9 +75,9 @@ internal fun ColumnScope.UpdateContent(updates: AppUpdates) {
             else Button(onClick = updates::install, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("updates-install")) { Text("Install update") }
             Text("Android may ask you to confirm installation. Updates do not need the keyboard service.", color = PaletteTheme.secondary, fontSize = 11.sp, modifier = Modifier.padding(top = 8.dp))
         }
-        !state.busy && candidate != null -> Button(onClick = updates::download, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("updates-download")) { Text("Download and verify") }
+        !updates.busy && candidate != null -> Button(onClick = updates::download, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("updates-download")) { Text("Download and verify") }
     }
-    if (state.busy) {
+    if (updates.busy) {
         TextButton(onClick = updates::cancel, enabled = state.phase != UpdatePhase.CANCELLING,
             modifier = Modifier.heightIn(min = 48.dp).testTag("updates-cancel")) { Text(if (state.phase == UpdatePhase.CONFIRM) "Cancel installation" else "Cancel") }
     } else TextButton(onClick = updates::check, modifier = Modifier.heightIn(min = 48.dp).testTag("updates-check")) { Text(if (state.phase == UpdatePhase.IDLE) "Check now" else "Check again") }
@@ -86,7 +86,7 @@ internal fun ColumnScope.UpdateContent(updates: AppUpdates) {
             Text("Confirm each update", fontSize = 12.sp)
             Text("Turn off to let Android skip a second confirmation when supported.", color = PaletteTheme.secondary, fontSize = 11.sp, lineHeight = 16.sp)
         }
-        Switch(checked = updates.confirmEveryUpdate, onCheckedChange = updates::chooseConfirmation, enabled = !state.busy,
+        Switch(checked = updates.confirmEveryUpdate, onCheckedChange = updates::chooseConfirmation, enabled = !updates.busy,
             modifier = Modifier.testTag("updates-confirm-every-time"))
     }
     if (candidate != null) {

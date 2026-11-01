@@ -12,7 +12,7 @@ Each eligible release supplies `droidcast-update.json`, its named APK and `SHA25
 
 Before staging, the checksum file and manifest must agree. Downloaded bytes must match the exact size/hash, and Android archive metadata must match Droidcast's package, declared version, a strictly newer versionCode, compatible minimum SDK and exact current signing-certificate set. Legitimate certificate rotation is conservatively unsupported; it would require a separately reviewed migration. Android's installer performs its own package verification as well.
 
-The process-wide coordinator serializes recovery, downloads, installation and result handling across activity/controller replacement. Partial files never become installable. Verified files are private and reverified after recovery and immediately before installation. Session writes are hashed again before commit. Uncommitted sessions are abandoned on failure/cancellation; saved sessions are reconciled after interruption. These contracts still require runtime validation and independent audits.
+The process-wide coordinator serializes recovery, downloads, installation and result handling across activity/controller replacement. Partial files never become installable. Controls remain busy until cancellation/cleanup completes, so a completed-looking state cannot accept a click while its previous job is still draining. Verified files are private and reverified after recovery and immediately before installation. Session writes are hashed again before commit. Uncommitted sessions are abandoned on failure/cancellation; saved sessions are reconciled after interruption. These contracts still require runtime validation and independent audits.
 
 ## Android installation
 

@@ -89,10 +89,14 @@ class UpdateVerificationDeviceTest {
     @After fun restore() {
         if (::updates.isInitialized) {
             compose.runOnUiThread { updates.cancel() }
-            compose.waitUntil(10_000) { !updates.state.busy }
+            compose.waitUntil(10_000) { !updates.busy }
         }
         if (::directory.isInitialized) { directory.deleteRecursively(); context.deleteSharedPreferences(directory.name) }
         restorePalettePreferences(context, original)
+    }
+    private fun evidence(name: String, marker: String, tag: String = "updates-message") {
+        compose.onNodeWithTag(tag).performScrollTo().assertIsDisplayed().assertTextContains(marker, substring = true)
+        updateEvidence(name, marker)
     }
     private fun checkAvailable() {
         compose.onNodeWithTag("updates-check").performScrollTo().performClick()
@@ -100,35 +104,35 @@ class UpdateVerificationDeviceTest {
     }
     private fun downloadAndWait() {
         compose.onNodeWithTag("updates-download").performScrollTo().performClick()
-        compose.waitUntil(20_000) { !updates.state.busy }
+        compose.waitUntil(20_000) { !updates.busy }
     }
     @Test fun offlineRetryReachesAvailableWithoutPopups() {
         source.offline = true
         compose.onNodeWithTag("updates-check").performScrollTo().performClick()
         compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.ERROR }
-        updateEvidence("offline-error", "Offline fixture")
+        evidence("offline-error", "Offline fixture")
         source.offline = false; checkAvailable()
         compose.onNodeWithTag("updates-download").assertIsEnabled()
         compose.onAllNodes(isDialog()).assertCountEquals(0)
-        updateEvidence("available", "A new nightly is available")
+        evidence("available", "A new nightly is available", "updates-status")
     }
     @Test fun cancelDownloadRemovesPartialAndCannotInstall() {
         source.pause = true; checkAvailable()
         compose.onNodeWithTag("updates-download").performScrollTo().performClick()
         compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.DOWNLOADING && updates.state.bytes >= 1024 * 1024 }
-        updateEvidence("download-progress", "Downloading update")
+        evidence("download-progress", "Downloading update", "updates-status")
         compose.onNodeWithTag("updates-cancel").performScrollTo().performClick()
         compose.waitUntil(10_000) { updates.state.phase == UpdatePhase.AVAILABLE }
         assertFalse(File(directory, "download.part").exists()); assertFalse(File(directory, "verified.apk").exists())
         assertFalse(updates.state.verified)
         compose.onNodeWithTag("updates-install").assertDoesNotExist()
-        updateEvidence("download-cancelled", "Cancelled.")
+        evidence("download-cancelled", "Cancelled.")
     }
     @Test fun signedNewerArchiveIsVerifiedAndRecoveredByReplacement() {
         checkAvailable(); downloadAndWait()
         assertEquals(UpdatePhase.READY, updates.state.phase); assertTrue(updates.state.verified)
         assertEquals(source.candidate.manifest.sha256, updateHash(File(directory, "verified.apk")))
-        updateEvidence("verified-ready", "signing certificate verified")
+        evidence("verified-ready", "signing certificate verified", "updates-verified")
         val replacement = AppUpdates(context, source, directory)
         val discoveries = source.discoveries
         compose.runOnUiThread { replacement.check() }
@@ -143,7 +147,7 @@ class UpdateVerificationDeviceTest {
         assertEquals(UpdatePhase.ERROR, updates.state.phase); assertFalse(updates.state.verified)
         assertTrue(updates.state.message.contains("checksum", true))
         assertFalse(File(directory, "verified.apk").exists())
-        updateEvidence("checksum-error", "checksum verification failed")
+        evidence("checksum-error", "checksum verification failed")
         source.corrupt = false; source.truncate = true
         downloadAndWait()
         assertEquals(UpdatePhase.ERROR, updates.state.phase); assertFalse(File(directory, "download.part").exists())
@@ -166,7 +170,7 @@ class UpdateVerificationDeviceTest {
             assertTrue(updates.state.message, updates.state.message.contains(marker, true))
             assertEquals(sessions, context.packageManager.packageInstaller.mySessions.map { it.sessionId }.toSet())
             assertFalse(File(directory, "verified.apk").exists())
-            updateEvidence(if (name == "wrong-signer.apk") "wrong-signer-error" else "wrong-package-error", marker)
+            evidence(if (name == "wrong-signer.apk") "wrong-signer-error" else "wrong-package-error", marker)
         }
     }
     @Test fun olderFeedCannotOfferDownloadOrInstall() {
@@ -198,7 +202,7 @@ class UpdateVerificationDeviceTest {
         assertFalse(updates.state.verified); assertFalse(File(directory, "verified.apk").exists())
         assertEquals(sessions, context.packageManager.packageInstaller.mySessions.map { it.sessionId }.toSet())
         compose.onNodeWithTag("updates-verified").assertDoesNotExist()
-        updateEvidence("staged-tamper-error", "checksum verification failed")
+        evidence("staged-tamper-error", "checksum verification failed")
     }
     @Test fun timeoutIsAnErrorRatherThanUserCancellation() {
         source.timeout = true

@@ -21,7 +21,18 @@ internal fun updateEvidence(name: String, marker: String) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val device = UiDevice.getInstance(instrumentation)
     val directory = File(instrumentation.targetContext.filesDir, "updates-evidence").apply { mkdirs() }
-    assertTrue("Expected native updater state: $marker", device.wait(Until.hasObject(By.pkg(instrumentation.targetContext.packageName).textContains(marker)), 10_000))
+    val until = android.os.SystemClock.uptimeMillis() + 10_000
+    var visible = false
+    while (!visible && android.os.SystemClock.uptimeMillis() < until) {
+        instrumentation.uiAutomation.clearCache()
+        visible = device.hasObject(By.pkg(instrumentation.targetContext.packageName).textContains(marker))
+        if (!visible) device.waitForIdle(250)
+    }
+    if (!visible) {
+        device.dumpWindowHierarchy(File(directory, "failure-$name.xml"))
+        device.takeScreenshot(File(directory, "failure-$name.png"))
+    }
+    assertTrue("Expected native updater state: $marker", visible)
     if (android.os.Build.VERSION.SDK_INT >= 29) {
         val rendered = java.util.concurrent.CountDownLatch(1)
         instrumentation.runOnMainSync {
@@ -50,7 +61,7 @@ class UpdateSettingsDeviceTest {
     @After fun restore() { restorePalettePreferences(context, original) }
     @Test fun updatesPageFillsSettingsAndDoesNotCheckAutomatically() {
         compose.activityRule.scenario.onActivity { it.selectPage("updates") }
-        compose.waitUntil(10_000) { !compose.activity.store.updates.state.busy }
+        compose.waitUntil(10_000) { !compose.activity.store.updates.busy }
         compose.onNodeWithTag("updates-check").assertIsDisplayed().assertIsEnabled()
         compose.onNodeWithTag("updates-installed").assertTextEquals("Droidcast ${BuildConfig.VERSION_NAME}")
         assertEquals(UpdatePhase.IDLE, compose.activity.store.updates.state.phase)
@@ -77,7 +88,7 @@ class UpdatePaletteDeviceTest {
         compose.activityRule.scenario.onActivity { it.store.search("Public updater caller") }
         compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 8))
         compose.activityRule.scenario.onActivity { it.execute(requireNotNull(it.store.command("check-updates"))) }
-        compose.waitUntil(90_000) { !compose.activity.store.updates.state.busy }
+        compose.waitUntil(90_000) { !compose.activity.store.updates.busy }
         val state = compose.activity.store.updates.state
         assertTrue("Public GitHub result: ${state.message}", state.phase in setOf(UpdatePhase.CURRENT, UpdatePhase.AVAILABLE))
         compose.onNodeWithTag("updates-installed").assertIsDisplayed()

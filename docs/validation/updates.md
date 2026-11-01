@@ -1,0 +1,12 @@
+# Updater validation in progress
+
+Issue #55. No PR/release clearance yet. [Design and trust contract](../UPDATES.md).
+
+- WIP build compiles; 138 JVM cases pass, including six updater policy tests. Final frozen-binary certification remains pending.
+- Initial real Settings/palette runs passed 2/2 per layout after correcting an exact-label assertion. Live public GitHub discovery works; pre-updater releases supply no update manifest.
+- The first signed-fixture pipeline built both versions and a distinct test signer, then failed during an ADB stdin transfer before native cases ran. All recorded cleanup steps passed; no app failure is claimed. Subsequent transfer uses bounded ADB push/copy with hashes.
+- The first 16-case tablet verification run passed 12/16. Four cases failed at native screenshot marker waits after preceding state/security assertions. The failing helper retained no failure hierarchy/image; the cause is not established. Those results are excluded from final certification. Explicit visible Compose markers, fresh native cache queries and failure PNG/XML capture strengthen the helper.
+- Production UI now remains busy until operation cleanup completes. This closes a source-established interval where a completed-looking phase could offer controls while its previous job was still active; no measured latency fix is claimed.
+- Verification fixtures use a real signed newer APK, valid APK signed by a distinct test certificate, and a wrong-package APK. The controlled transport is explicitly distinct from the live GitHub/HTTPS cases. Test-only APKs and the private fixture key are never published as eligible nightlies.
+- The native fixture runner temporarily sets per-source install approval on the owned emulator, then restores the prior mode. It records unprivileged app/adbd state and cleanup. Real Android approval and successful self-update/data-preservation validation remain pending.
+- API36 arm64 tablet/phone viewports are configurations of one owned emulator. Physical Lenovo/OEM, API26 runtime, comprehensive accessibility, process-death and performance certification remain unclaimed.

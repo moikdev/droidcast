@@ -46,6 +46,8 @@ internal class AppUpdates(
     private var operation: Job? = null
     private var epoch = 0L
     private var recovered = false
+    private var working by mutableStateOf(false)
+    val busy get() = working || state.busy
     private val prefs = context.getSharedPreferences(directory.name, Context.MODE_PRIVATE)
     private val apk get() = File(directory, "verified.apk")
     private val partial get() = File(directory, "download.part")
@@ -87,25 +89,27 @@ internal class AppUpdates(
         UpdatePolicy.verifyArchive(candidate.manifest, identity(archive), installedIdentity(), Build.VERSION.SDK_INT)
     }
     private fun operate(phase: UpdatePhase, work: suspend () -> Unit) {
-        if (operation?.isActive == true || state.busy) return
-        epoch++
+        if (operation?.isActive == true || busy) return
+        epoch++; working = true
         operation = scope.launch {
-            mutex.withLock {
-                state = state.copy(phase = phase)
-                try { work() }
-                catch (_: TimeoutCancellationException) {
-                    state = state.copy(phase = if (state.verified) UpdatePhase.READY else UpdatePhase.ERROR, message = "The update request timed out. Please try again.")
+            try {
+                mutex.withLock {
+                    state = state.copy(phase = phase)
+                    try { work() }
+                    catch (_: TimeoutCancellationException) {
+                        state = state.copy(phase = if (state.verified) UpdatePhase.READY else UpdatePhase.ERROR, message = "The update request timed out. Please try again.")
+                    }
+                    catch (_: CancellationException) {
+                        if (state.phase != UpdatePhase.CANCELLING && !hasSession())
+                            state = state.copy(phase = if (state.verified) UpdatePhase.READY else UpdatePhase.AVAILABLE, message = "Operation cancelled.")
+                    }
+                    catch (error: Exception) {
+                        state = state.copy(phase = if (state.verified) UpdatePhase.READY else UpdatePhase.ERROR,
+                            message = error.message?.take(300) ?: "Update failed. Please try again.")
+                    }
+                    finally { withContext(NonCancellable + Dispatchers.IO) { partial.delete() } }
                 }
-                catch (_: CancellationException) {
-                    if (state.phase != UpdatePhase.CANCELLING && !hasSession())
-                        state = state.copy(phase = if (state.verified) UpdatePhase.READY else UpdatePhase.AVAILABLE, message = "Operation cancelled.")
-                }
-                catch (error: Exception) {
-                    state = state.copy(phase = if (state.verified) UpdatePhase.READY else UpdatePhase.ERROR,
-                        message = error.message?.take(300) ?: "Update failed. Please try again.")
-                }
-                finally { withContext(NonCancellable + Dispatchers.IO) { partial.delete() } }
-            }
+            } finally { working = false }
         }
     }
     fun check() = operate(UpdatePhase.CHECKING) {
