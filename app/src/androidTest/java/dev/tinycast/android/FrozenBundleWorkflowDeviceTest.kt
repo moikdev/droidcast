@@ -403,7 +403,8 @@ class FrozenBundleWorkflowDeviceTest {
             for (index in 0 until commands.length()) {
                 val command = commands.getString(index)
                 val directory = entry.getString("directory")
-                val name = "workflow-$directory-${command.lowercase(java.util.Locale.ROOT)}"
+                val suffix = hash("$directory/$command".toByteArray(Charsets.UTF_8)).take(8)
+                val name = "workflow-$directory-${command.lowercase(java.util.Locale.ROOT)}-$suffix"
                 val extension = prepareExtension(entry, command)
                 val row = JSONObject().put("directory", directory).put("command", command)
                     .put("archive_sha256", entry.getString("archive_sha256"))
