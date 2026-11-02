@@ -172,6 +172,16 @@ class ReviewedTextDeviceTest {
     }
     @After fun restoreClipboard() {
         if (!capturedClipboard) return
+        if (!record.optBoolean("passed")) {
+            try {
+                val catalog = compose.activity.store.extensions
+                record.put("failure_route", compose.activity.store.dialog)
+                    .put("failure_runtime_tree", catalog.runtimeTree ?: JSONObject.NULL)
+                    .put("failure_runtime_error", catalog.runtimeError ?: JSONObject.NULL)
+                    .put("failure_runtime_status", catalog.runtimeStatus)
+                capture("failure")
+            } catch (failure: Throwable) { record.put("failure_capture_error_type", failure.javaClass.simpleName) }
+        }
         // Reopen the target only after observations, so clipboard restoration is
         // performed while its UID is foreground. This is not workflow evidence.
         context.startActivity(Intent().setComponent(ComponentName(context.packageName, MainActivity::class.java.name)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -263,7 +273,7 @@ class ReviewedTextDeviceTest {
         choose(formatterId, "formatSelectionAndShow"); capture("chosen")
         touch("text-input-run")
         val catalog = compose.activity.store.extensions
-        compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains(output) == true }
+        compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.isNotEmpty() == true }
         assertNull(catalog.runtimeError, catalog.runtimeError)
         val markdown = activeRoot(catalog.runtimeTree)!!.props().getString("markdown")
         assertEquals("```json\n$output\n```", markdown)
