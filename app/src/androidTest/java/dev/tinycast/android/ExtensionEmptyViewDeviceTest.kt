@@ -268,6 +268,7 @@ class ExtensionEmptyViewDeviceTest {
     private fun revealViewport(viewport: String) {
         val body = compose.onNodeWithTag(viewport)
         val route = compose.onNode(hasTestTag("palette-content-scroll") and hasAnyAncestor(hasTestTag("extension-palette")), useUnmergedTree = true)
+        val gestures = record.optJSONArray("viewport_reveal_gestures") ?: JSONArray().also { record.put("viewport_reveal_gestures", it) }
         repeat(30) {
             val bounds = fullBounds(body)
             val visible = body.fetchSemanticsNode().boundsInRoot
@@ -281,8 +282,10 @@ class ExtensionEmptyViewDeviceTest {
             val y = startY.coerceIn(2f, outer.height - 2f)
             val endY = if (upward) (y - outer.height * .4f).coerceAtLeast(1f)
                 else (y + outer.height * .4f).coerceAtMost(outer.height - 1f)
+            gestures.put(JSONObject().put("viewport", viewport).put("body_top", bounds.top).put("body_bottom", bounds.bottom)
+                .put("route_top", outer.top).put("route_bottom", outer.bottom).put("start_y", y).put("end_y", endY))
             route.performTouchInput {
-                down(Offset(width - 8f, y)); moveTo(Offset(width - 8f, endY), delayMillis = 300)
+                down(Offset(center.x, y)); moveTo(Offset(center.x, endY), delayMillis = 300)
                 advanceEventTime(200); up()
             }
             compose.waitForIdle()
