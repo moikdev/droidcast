@@ -62,7 +62,6 @@ class ExtensionFormDeviceTest {
     private val checkboxLabel = "Tap this complete option label to enable owned output"
     private val caller = "form-controls-owned-caller"
     private var sensitiveValue: String? = null
-    private var requestedIme: Boolean? = null
     private val longTitle = "Owned account name with a complete descriptive label that must wrap naturally on a narrow Android screen"
     private val longError = "Owned validation error: enter the complete account name before continuing. Every line must stay readable when the keyboard opens and the font is enlarged."
     private val longInfo = "Owned field help: this explanation is available by touch without hovering. Scroll to read every line, then continue with the choices below."
@@ -424,17 +423,9 @@ class ExtensionFormDeviceTest {
 
     private fun touch(tag: String) {
         compose.waitForIdle()
-        val editorFocused = compose.onAllNodes(SemanticsMatcher("Focused editor") {
-            it.config.contains(SemanticsProperties.EditableText) && it.config.contains(SemanticsProperties.Focused) && it.config[SemanticsProperties.Focused]
-        }, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
-        when {
-            editorFocused && requestedIme != false -> ime(true)
-            !editorFocused && imeVisible() -> ime(false)
-            // A newly focused menu search may show/hide its keyboard after
-            // this observation. Wait for the resulting geometry, without
-            // treating the pre-animation visibility as a required outcome.
-            else -> awaitImeGeometry()
-        }
+        // Observe the screen's actual IME policy. A newly focused menu search
+        // may change visibility; its previous screen's state is not a request.
+        awaitImeGeometry()
         val node = compose.onNodeWithTag(tag)
         val viewport = listOf("extension-form", "extension-configuration").firstOrNull {
             compose.onAllNodes(hasTestTag(tag) and hasAnyAncestor(hasTestTag(it))).fetchSemanticsNodes().isNotEmpty()
@@ -835,12 +826,33 @@ class ExtensionFormDeviceTest {
         compose.waitForIdle()
     }
     private fun ime(show: Boolean) {
-        requestedIme = show
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+        if (show && !imeVisible()) {
+            val frames = CountDownLatch(1)
+            compose.activityRule.scenario.onActivity { it.window.decorView.postOnAnimation { it.window.decorView.postOnAnimation { frames.countDown() } } }
+            assertTrue(frames.await(5, TimeUnit.SECONDS)); compose.waitForIdle()
+            compose.waitUntil(10000) {
+                var ready = false
+                compose.activityRule.scenario.onActivity {
+                    val editor = it.window.decorView.findFocus()
+                    val manager = it.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+                    ready = editor != null && editor.hasWindowFocus() && editor.onCheckIsTextEditor() &&
+                        manager.isActive(editor) && manager.isAcceptingText
+                }
+                ready
+            }
+            compose.activityRule.scenario.onActivity {
+                val editor = requireNotNull(it.window.decorView.findFocus())
+                val requested = it.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+                    .showSoftInput(editor, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+                record.put("native_active_editor_show_request_accepted", requested)
+                assertTrue("The focused native editor must accept its keyboard request", requested)
+            }
+        }
         compose.activityRule.scenario.onActivity {
             val controller = androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView)
-            if (show) controller.show(WindowInsetsCompat.Type.ime()) else controller.hide(WindowInsetsCompat.Type.ime())
+            if (!show) controller.hide(WindowInsetsCompat.Type.ime())
         }
         compose.waitUntil(10000) { imeVisible() == show }; compose.waitForIdle()
         if (!show) {
