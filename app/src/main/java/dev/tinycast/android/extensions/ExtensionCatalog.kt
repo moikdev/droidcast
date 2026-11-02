@@ -1,6 +1,10 @@
 package dev.tinycast.android.extensions
 
 import android.content.Context
+import dev.tinycast.android.CommandTextInput
+import dev.tinycast.android.ReviewedTextInput
+import dev.tinycast.android.TextInputPreview
+import dev.tinycast.android.TextInputTarget
 import androidx.compose.runtime.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -76,13 +80,25 @@ class ExtensionCatalog(private val context: Context) {
     var error by mutableStateOf<String?>(null)
     var running by mutableStateOf<Pair<InstalledExtension, ExtensionCommand>?>(null)
     var runtimeTree by mutableStateOf<JSONObject?>(null)
-    var runtimeError by mutableStateOf<String?>(null)
+    private var runtimeErrorState by mutableStateOf<String?>(null)
+    var runtimeError: String?
+        get() = runtimeErrorState
+        set(value) {
+            if (value != null) revokeReviewedText()
+            runtimeErrorState = value
+        }
     var runtimeStatus by mutableStateOf("")
     var runtimeReady by mutableStateOf(false)
     var navigationDepth by mutableIntStateOf(1)
     var launchEpoch by mutableIntStateOf(0)
     var arguments by mutableStateOf<Map<String, String>>(emptyMap())
     var preferencesEpoch by mutableIntStateOf(0)
+    internal val reviewedText = ReviewedTextInput()
+    @Volatile private var invocationOwner: Any = Any()
+    private var commandText: CommandTextInput? = null
+    private class PreparedText(val preview: TextInputPreview, val target: TextInputTarget, val epoch: Int)
+    private var preparedText: PreparedText? = null
+    internal class RuntimeText(val owner: Any, val target: TextInputTarget, val input: CommandTextInput?)
 
     suspend fun search(query: String, page: Int = 1): List<StoreExtension> = withContext(Dispatchers.IO) {
         val q = URLEncoder.encode(query, "UTF-8")
@@ -145,7 +161,63 @@ class ExtensionCatalog(private val context: Context) {
         prefs.edit().putString("preferences", merged.toString()).apply(); preferencesEpoch++
     }
     fun launch(extension: InstalledExtension, command: ExtensionCommand, args: Map<String, String> = emptyMap()) {
+        reviewedText.invalidate(); preparedText = null
+        begin(extension,command,args,Any(),null)
+    }
+    private fun begin(extension: InstalledExtension, command: ExtensionCommand, args: Map<String,String>, owner: Any, input: CommandTextInput?) {
+        commandText?.let(reviewedText::release)
+        invocationOwner = owner; commandText = input
         running = extension to command; arguments = args; runtimeTree = null; runtimeError = null; runtimeStatus = "Starting extension…"; runtimeReady = false; navigationDepth = 1; launchEpoch++
     }
-    fun close() { running = null; runtimeTree = null; runtimeError = null; runtimeReady = false }
+    internal fun launchReviewed(extension: InstalledExtension, command: ExtensionCommand, preview: TextInputPreview, needsSetup: Boolean) {
+        val target = TextInputTarget(extension.listing.id,command.name)
+        reviewedText.checkApproval(preview,target)
+        val owner = Any()
+        if (needsSetup) {
+            begin(extension,command,emptyMap(),owner,null)
+            preparedText = PreparedText(preview,target,launchEpoch)
+        } else {
+            val input = reviewedText.approve(preview,target,owner)
+            preparedText = null
+            begin(extension,command,emptyMap(),owner,input)
+        }
+    }
+    internal fun launchConfigured(extension: InstalledExtension, command: ExtensionCommand, preferences: JSONObject,
+                                  args: Map<String,String>, expectedEpoch: Int): Boolean {
+        if (launchEpoch != expectedEpoch || running?.first !== extension || running?.second !== command) return false
+        val pending = preparedText
+        if (pending != null) {
+            if (pending.epoch != expectedEpoch) return false
+            try {
+                val owner = Any()
+                val input = reviewedText.approve(pending.preview,pending.target,owner)
+                savePreferences(extension,preferences)
+                preparedText = null
+                begin(extension,command,args,owner,input)
+            } catch (failure: Throwable) {
+                // Keep setup visible, with no text authority. Its consumed
+                // preview cannot be reused if saving configuration failed.
+                reviewedText.invalidate()
+                throw failure
+            }
+        } else {
+            savePreferences(extension,preferences)
+            launch(extension,command,args)
+        }
+        return true
+    }
+    internal fun captureText(extension: InstalledExtension, command: ExtensionCommand): RuntimeText {
+        val input = if (running?.first === extension && running?.second === command) commandText else null
+        return RuntimeText(invocationOwner,TextInputTarget(extension.listing.id,command.name),input)
+    }
+    internal fun ownsRuntime(owner: Any, extension: InstalledExtension, command: ExtensionCommand): Boolean =
+        invocationOwner === owner && running?.first === extension && running?.second === command
+    internal fun releaseText(owner: Any) {
+        if (invocationOwner === owner) { commandText?.let(reviewedText::release); commandText = null }
+    }
+    private fun revokeReviewedText() {
+        invocationOwner = Any()
+        reviewedText.invalidate(); commandText = null; preparedText = null
+    }
+    fun close() { revokeReviewedText(); running = null; runtimeTree = null; runtimeError = null; runtimeReady = false }
 }

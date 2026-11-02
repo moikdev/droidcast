@@ -287,6 +287,7 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
 
 @Composable
 private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command:ExtensionCommand,close:()->Unit){
+    val setupEpoch=remember(extension,command){store.extensions.launchEpoch}
     val fields=extension.fields(command)
     val args=command.definition.optJSONArray("arguments").objects()
     var preferences by remember{mutableStateOf(store.extensions.preferences(extension,command))}
@@ -309,7 +310,11 @@ private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command
             val missingArg=args.firstOrNull{it.optBoolean("required")&&arguments[it.getString("name")].isNullOrBlank()}
             val missingPref=fields.firstOrNull{it.optBoolean("required")&&it.optString("type")!="checkbox"&&preferences.optString(it.getString("name")).isBlank()}
             if(missingArg!=null||missingPref!=null)error="Complete the required arguments and preferences."
-            else{store.extensions.savePreferences(extension,preferences);store.extensionSetupFromRun=false;store.extensions.launch(extension,command,arguments);store.dialog="extension-run"}
+            else try {
+                if(store.extensions.launchConfigured(extension,command,preferences,arguments,setupEpoch)) {
+                    store.extensionSetupFromRun=false;store.dialog="extension-run"
+                }
+            } catch(failure:Exception) { error=failure.message ?: "Could not start this command" }
         },modifier=Modifier.fillMaxWidth().padding(20.dp).testTag("run-extension-setup")){Text("Run command")}
     }
 }

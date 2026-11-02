@@ -72,10 +72,15 @@ internal class ReviewedTextInput {
         expected.choose(target)
     }
 
-    fun approve(expected: TextInputPreview, expectedTarget: TextInputTarget, owner: Any): CommandTextInput {
+    internal fun checkApproval(expected: TextInputPreview, expectedTarget: TextInputTarget): TextInputTarget {
         requireCurrent(expected)
         val target = expected.target ?: throw TextInputRejected(TextInputProblem.NO_COMMAND)
         if (target != expectedTarget) throw TextInputRejected(TextInputProblem.CHANGED_COMMAND)
+        return target
+    }
+
+    fun approve(expected: TextInputPreview, expectedTarget: TextInputTarget, owner: Any): CommandTextInput {
+        val target = checkApproval(expected, expectedTarget)
         val text = expected.take()
         preview = null
         active?.revoke()

@@ -102,6 +102,8 @@ Fresh Weather observation on the repaired runtime, with the same frozen archive/
 | --- | --- |
 | ![Prior Weather error becomes No results](screenshots/extension-compatibility/empty-states-repair/weather-before-phone.png) | ![Repaired runtime displays the actual Weather error](screenshots/extension-compatibility/empty-states-repair/weather-after-phone.png) |
 
+After merge, a [supplemental full-tablet check](validation/extension-compatibility/empty-states-tablet200-checkpoint.json) exercises the same repaired APK pair at 1280×800 dp and 200% text, complementing the phone and short-landscape profiles. Both List/Grid cases pass with IME shown/hidden and every natural line reached; all 16 restoration checks pass. Four further raw PNG/XML/frame sets and 30 retained capture-file hashes have their own checkpoint. These executions are separate from the 195 pre-merge checks and are not results for the subsequent selected-text feature.
+
 ## Reproduction
 
 Build with `./gradlew --no-daemon -PdroidcastBuildCommit=<40-character-source-SHA> :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug`. For the benchmark variant use `-PdroidcastTestBuildType=benchmark` and `:app:assembleBenchmark :app:assembleBenchmarkAndroidTest :app:lintBenchmark`. Run `python3 -m unittest discover -s scripts/tests`, then the same command with `python3 -O`.

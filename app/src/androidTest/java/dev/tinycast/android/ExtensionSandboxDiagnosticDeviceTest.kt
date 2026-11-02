@@ -231,13 +231,15 @@ class ExtensionSandboxDiagnosticDeviceTest {
             entry.getString("store_handle"), entry.getString("store_handle"), "", "",
             entry.getString("store_reported_commit_sha"), 1)
         val extension = InstalledExtension(listing, root, manifest)
+        val command = extension.commands.single()
         val calls = ConcurrentLinkedQueue<JSONObject>()
         lateinit var catalog: ExtensionCatalog
         lateinit var bridge: ExtensionRuntime.Bridge
         compose.activityRule.scenario.onActivity {
             catalog = ExtensionCatalog(context)
             catalog.savePreferences(extension, JSONObject().put("typeOfPerson", "none"))
-            runtime = ExtensionRuntime(context, catalog, extension, extension.commands.single()).also { engine ->
+            catalog.launch(extension,command)
+            runtime = ExtensionRuntime(context, catalog, extension, command).also { engine ->
                 bridge = engine.Bridge()
                 engine.webView.removeJavascriptInterface("AndroidHost")
                 engine.webView.addJavascriptInterface(RecordingBridge(bridge, calls), "AndroidHost")
