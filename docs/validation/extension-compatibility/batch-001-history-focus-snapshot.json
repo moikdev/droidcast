@@ -1,0 +1,286 @@
+{
+  "batch_id": "representative-001-history-focus",
+  "extensions": [
+    {
+      "archive_bytes": 115055,
+      "archive_cache_path": "archives/e34e4512815e96b67e47c9666f0307e501d9dfa1619bba4be8290c6205a55897.zip",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "commands": [
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 2720,
+          "file_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d",
+          "mode": "no-view",
+          "name": "generate",
+          "preferences": [],
+          "title": "Generate UUIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "name",
+              "required": true,
+              "type": "text"
+            },
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 1,
+          "declared_platforms": null,
+          "file_bytes": 3935,
+          "file_sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04",
+          "mode": "no-view",
+          "name": "generateV5",
+          "preferences": [
+            {
+              "has_default": true,
+              "name": "uuidNamespace",
+              "required": false,
+              "type": "textfield"
+            }
+          ],
+          "title": "Generate V5 UUIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 2,
+          "declared_platforms": null,
+          "file_bytes": 10730,
+          "file_sha256": "4b9a760aea9de7f1cf720224050844b09ae842e88aaca9aec5969c69115b499a",
+          "mode": "no-view",
+          "name": "generateV7",
+          "preferences": [
+            {
+              "has_default": true,
+              "name": "base32Encoding",
+              "required": false,
+              "type": "checkbox"
+            }
+          ],
+          "title": "Generate V7 UUIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfULIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 3,
+          "declared_platforms": null,
+          "file_bytes": 5471,
+          "file_sha256": "b77ea4ed9a3cf13da20193cae737a3b0a62dea50ab5fbeaaa05de5c6e0769e8d",
+          "mode": "no-view",
+          "name": "generateUlid",
+          "preferences": [],
+          "title": "Generate ULIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "prefix",
+              "required": true,
+              "type": "text"
+            },
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 4,
+          "declared_platforms": null,
+          "file_bytes": 9628,
+          "file_sha256": "71dbb01590489e51b50e1fb7ba5161075d6417fde1345759832471901b032be2",
+          "mode": "no-view",
+          "name": "generateTypeID",
+          "preferences": [],
+          "title": "Generate TypeIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "typeID",
+              "required": true,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 5,
+          "declared_platforms": null,
+          "file_bytes": 7216,
+          "file_sha256": "bb3ef0b5708548df44d13ecb95d2e21d538d15bd492c5d5de731d6933ce828cf",
+          "mode": "no-view",
+          "name": "parseTypeID",
+          "preferences": [],
+          "title": "Parse TypeIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "uuid",
+              "required": true,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 6,
+          "declared_platforms": null,
+          "file_bytes": 1217,
+          "file_sha256": "29e73d55a4d9616e9493a8c64bbaa2019d76d00c81752eccb765532bb77b821f",
+          "mode": "no-view",
+          "name": "formatUuid",
+          "preferences": [],
+          "title": "Format UUID",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "suffix",
+              "required": true,
+              "type": "text"
+            },
+            {
+              "has_default": false,
+              "name": "uuid",
+              "required": true,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 7,
+          "declared_platforms": null,
+          "file_bytes": 9586,
+          "file_sha256": "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac",
+          "mode": "no-view",
+          "name": "packTypeID",
+          "preferences": [],
+          "title": "Pack TypeID",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 8,
+          "declared_platforms": null,
+          "file_bytes": 3178,
+          "file_sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d",
+          "mode": "view",
+          "name": "viewHistory",
+          "preferences": [],
+          "title": "View History",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.90.0",
+          "typeid-js": "^1.2.0",
+          "ulidx": "^2.4.1",
+          "uuid": "^11.0.5"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^1.0.11",
+          "@types/node": "20.8.10",
+          "@types/react": "18.3.3",
+          "@types/uuid": "^10.0.0",
+          "eslint": "^8.57.0",
+          "prettier": "^3.3.3",
+          "typescript": "^5.4.5"
+        }
+      },
+      "directory": "uuid-generator",
+      "expanded_bytes": 324219,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "upperCaseLetters",
+          "required": false,
+          "type": "checkbox"
+        },
+        {
+          "has_default": true,
+          "name": "defaultAction",
+          "required": false,
+          "type": "dropdown"
+        }
+      ],
+      "file_inventory_sha256": "fc0387eb5d0bd5debaa7138d14e5fb68b1162e2a18d0528f4dbe4b6b094033fc",
+      "files": 20,
+      "handle": "jmaeso",
+      "manifest_path": "uuid-generator/package.json",
+      "manifest_sha256": "251e5540e44ee39c424321b6c1d98eeaaecc3118f5f932c7236e7013f70847c7",
+      "metadata_sha256": "3388e2d2ee88e6c4cb5fb74e6ab1aa40a4af8ba0e3aa558901d2f5004465265a",
+      "name": "uuid-generator",
+      "package_name": "uuid-generator",
+      "planned_commands": [
+        "viewHistory"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "b35a3136e94e19fa6d1e60b4c866df9331a4c1b754d37d221e20905a8f55530f",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "jmaeso",
+      "store_id": "6d6a05b4-6003-4d28-afae-a9b721d11594",
+      "store_name": "uuid-generator",
+      "store_reported_commit_sha": "6939fc298cd701b66a652b5bcc6d1c763252391e",
+      "title": "UUID Generator",
+      "verification": "untested"
+    }
+  ],
+  "focus_derivation": "Read-only command subset of the original hash-verified archive; no metadata request or archive substitution",
+  "focused_parent_snapshot_sha256": "91a78fddd17816fddb656d7b860286b21ded0b298968f03319d3d3d38377b0c3",
+  "plan_sha256": "4379be25c11a517620891cdaee074cbf8036929c2433758cde3d22a776dc6ada",
+  "planning_source": {
+    "catalog_sha256": "af8c68f7c5cd5caf4e042a48cb87ea4c77d8c4ae4ed5c6202e6a63d39d459a40",
+    "commit": "11a912d89b576ca066e9ee42e75b8dd2e8aa0f5c",
+    "repository": "raycast/extensions"
+  },
+  "schema_version": 1,
+  "scope": "Frozen public Store bundles for a named execution batch; snapshotting is not Android compatibility evidence.",
+  "summary": {
+    "declared_commands": 9,
+    "errors": 0,
+    "frozen": 1,
+    "plan_mismatches": 0,
+    "ready_for_execution": true,
+    "runtime_tested_commands": 0,
+    "targets": 1
+  }
+}

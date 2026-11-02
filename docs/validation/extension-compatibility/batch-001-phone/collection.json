@@ -1,0 +1,567 @@
+{
+  "completed": true,
+  "fixture_sha256": "6f848dea5e17f542de0a199f2d2ab0c998c00eb974162e4f1042ff533e509a03",
+  "source_snapshot_sha256": "91a78fddd17816fddb656d7b860286b21ded0b298968f03319d3d3d38377b0c3",
+  "api": 36,
+  "abi": "arm64-v8a",
+  "webview_package": "com.google.android.webview",
+  "webview_version": "133.0.6943.137",
+  "font_scale": 1,
+  "density_dpi": 420,
+  "input_method": "Compose pointer actions and text semantics; no physical touchscreen\/keyboard certification",
+  "workflows": [
+    {
+      "directory": "uuid-generator",
+      "command": "generate",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "command_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "not-applicable",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "upperCaseLetters": false,
+        "defaultAction": "copy"
+      },
+      "native_argument_steps": [
+        {
+          "command": "generate",
+          "values": {
+            "numberOfUUIDsToGenerate": "2"
+          }
+        }
+      ],
+      "workflow": "Enter a count of two through native setup and verify two distinct UUIDv4 clipboard values",
+      "runtime_status": "✅ Copied 2 new UUIDs.",
+      "capture": "workflow-uuid-generator-generate-d983fd9f.png",
+      "capture_receipt": "workflow-uuid-generator-generate-d983fd9f-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-uuid-generator-generate-d983fd9f-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "uuid-generator",
+      "command": "generateV5",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "command_sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "not-applicable",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "upperCaseLetters": false,
+        "defaultAction": "copy",
+        "uuidNamespace": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+      },
+      "native_argument_steps": [
+        {
+          "command": "generateV5",
+          "values": {
+            "name": "droidcast.example",
+            "numberOfUUIDsToGenerate": "1"
+          }
+        }
+      ],
+      "workflow": "Generate DNS-namespace UUIDv5 for the owned name and verify the deterministic clipboard value",
+      "runtime_status": "✅ Copied new UUID: 27f7df43-8cb5-5412-9ea0-8d9cf2c6f447",
+      "capture": "workflow-uuid-generator-generatev5-505f21ed.png",
+      "capture_receipt": "workflow-uuid-generator-generatev5-505f21ed-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-uuid-generator-generatev5-505f21ed-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "uuid-generator",
+      "command": "viewHistory",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "command_sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "verified across a new command session in the same app process",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "upperCaseLetters": false,
+        "defaultAction": "copy"
+      },
+      "supporting_commands": [
+        {
+          "command": "generate",
+          "file_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d"
+        }
+      ],
+      "native_argument_steps": [
+        {
+          "command": "generate",
+          "values": {
+            "numberOfUUIDsToGenerate": "2"
+          }
+        }
+      ],
+      "persistence_verified": true,
+      "workflow": "Generate owned values, reopen the command session as history, and copy a persisted UUID through the native List action",
+      "runtime_status": "Copied to Clipboard",
+      "capture": "workflow-uuid-generator-viewhistory-5f21fd5d.png",
+      "capture_receipt": "workflow-uuid-generator-viewhistory-5f21fd5d-frame.json",
+      "native_root": "List",
+      "return_capture": "workflow-uuid-generator-viewhistory-5f21fd5d-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "oklch-color-converter",
+      "command": "convert-color",
+      "archive_sha256": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+      "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {},
+      "workflow": "Type red, choose its OKLCH conversion, verify the numeric conversion and copy the exact displayed value",
+      "runtime_status": "Copied to Clipboard",
+      "capture": "workflow-oklch-color-converter-convert-color-ab7a57f6.png",
+      "capture_receipt": "workflow-oklch-color-converter-convert-color-ab7a57f6-frame.json",
+      "native_root": "List",
+      "return_capture": "workflow-oklch-color-converter-convert-color-ab7a57f6-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "palette-colors",
+      "command": "index",
+      "archive_sha256": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+      "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "verified across a new command session in the same app process",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {},
+      "persistence_verified": true,
+      "workflow": "Copy a displayed color, change to Contrast by touch, copy again, and reopen with the same scheme and items",
+      "runtime_status": "",
+      "capture": "workflow-palette-colors-index-0b6e3582.png",
+      "capture_receipt": "workflow-palette-colors-index-0b6e3582-frame.json",
+      "native_root": "Grid",
+      "return_capture": "workflow-palette-colors-index-0b6e3582-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "base64",
+      "command": "index",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "command_sha256": "b4fbf304d94efaba62c845c1be21efb1cfb2e37fb714813432db4d3db53d773e",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {},
+      "clipboard_bootstrap_copy_verified": true,
+      "workflow": "Copy the encoded owned clipboard value, type new input through native search, and copy the exact new Base64 output",
+      "runtime_status": "Copied to Clipboard",
+      "capture": "workflow-base64-index-5e20952e.png",
+      "capture_receipt": "workflow-base64-index-5e20952e-frame.json",
+      "native_root": "List",
+      "return_capture": "workflow-base64-index-5e20952e-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "base64",
+      "command": "encode",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "command_sha256": "28cd6fb4b0f1d60347a3e793819053915ff5b1167d04cbe07cb24996bebfcefd",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "not-applicable",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {},
+      "workflow": "Encode owned Unicode clipboard text and verify the exact Base64 output",
+      "runtime_status": "Copied to clipboard",
+      "capture": "workflow-base64-encode-3c351e5c.png",
+      "capture_receipt": "workflow-base64-encode-3c351e5c-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-base64-encode-3c351e5c-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "base64",
+      "command": "decode",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "command_sha256": "e37ce8d5428ec1d8772f34b78d087d83784342efffc0e7790c233c0d2fc7b76b",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "not-applicable",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {},
+      "workflow": "Decode owned Base64 clipboard input and verify exact Unicode output",
+      "runtime_status": "Copied to clipboard",
+      "capture": "workflow-base64-decode-cc943abf.png",
+      "capture_receipt": "workflow-base64-decode-cc943abf-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-base64-decode-cc943abf-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "json-format",
+      "command": "index",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "command_sha256": "bcca05348f11ffc115adc346944dcd78d209958684cb9df44d571e70a99575a0",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified",
+        "native_destination": "Native Detail with the owned formatted JSON"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "autopaste": false,
+        "indent": "2"
+      },
+      "capture_ime_method": "Native inset controller hides IME for the evidence frame; this is not a touch IME-transition certification",
+      "supporting_captures": [
+        "workflow-json-format-index-f21eab79-form-input.png"
+      ],
+      "destination_verified": "Native Detail with the owned formatted JSON",
+      "workflow": "Enter owned JSON in the native Form, choose View Result, verify the Detail destination, and copy its formatted content",
+      "runtime_status": "Copied to Clipboard",
+      "capture": "workflow-json-format-index-f21eab79.png",
+      "capture_receipt": "workflow-json-format-index-f21eab79-frame.json",
+      "native_root": "Detail",
+      "return_capture": "workflow-json-format-index-f21eab79-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "json-format",
+      "command": "formatClipboard",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "command_sha256": "2fcf507c9a1cf422d9410193e99ba7e4e496f4fc8c45ee78072e19ea58538d6e",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "not-applicable",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "autopaste": false,
+        "indent": "2"
+      },
+      "workflow": "Format owned clipboard JSON with two-space indentation and copy without changing values",
+      "runtime_status": "Copied to clipboard",
+      "capture": "workflow-json-format-formatclipboard-0f6a1154.png",
+      "capture_receipt": "workflow-json-format-formatclipboard-0f6a1154-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-json-format-formatclipboard-0f6a1154-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "json-format",
+      "command": "formatSelectionAndShow",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "command_sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-partial",
+      "action_output_verified": false,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "not-checked",
+        "destination": "not-checked",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "autopaste": false,
+        "indent": "2"
+      },
+      "workflow": "Observe the selected-text Detail for up to five seconds and verify that owned clipboard input is not silently substituted or changed",
+      "settled_within_observation": false,
+      "selection_observation_ms": 5000,
+      "observed_markdown": "",
+      "remaining_workflow": "No external selection was supplied and no formatted selected-text output was verified. Desktop selectedText is unavailable in this host; this row does not certify an Android replacement or an observed bridge error.",
+      "runtime_status": "",
+      "capture": "workflow-json-format-formatselectionandshow-1c70e6ba.png",
+      "capture_receipt": "workflow-json-format-formatselectionandshow-1c70e6ba-frame.json",
+      "native_root": "Detail",
+      "return_capture": "workflow-json-format-formatselectionandshow-1c70e6ba-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "lorem-ipsum",
+      "command": "words",
+      "archive_sha256": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+      "command_sha256": "e3fdd7d6e44804faacaaeb2b4f00a33010bd402803336178161a6952a34ee600",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "not-applicable",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "action": "clipboard"
+      },
+      "native_argument_steps": [
+        {
+          "command": "words",
+          "values": {
+            "numberOfWords": "7"
+          }
+        }
+      ],
+      "workflow": "Enter seven words through native argument setup and verify the clipboard word count",
+      "runtime_status": "Copied to clipboard! 📋",
+      "capture": "workflow-lorem-ipsum-words-f876a47d.png",
+      "capture_receipt": "workflow-lorem-ipsum-words-f876a47d-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-lorem-ipsum-words-f876a47d-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "google-translate",
+      "command": "translate-form",
+      "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+      "command_sha256": "f961d5328c882cdb0e3a3861584b17408a509ebd3453ea96f389922236ab0665",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-partial",
+      "action_output_verified": false,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "not-checked",
+        "destination": "not-checked",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified",
+        "native_input": "Owned hello input reached the extension's Form state"
+      },
+      "workflow": "Enter owned English hello in the Form, await Japanese service output and copy the exact visible response; translation quality is not certified",
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "langFrom": "en",
+        "lang1": "ja",
+        "lang2": "en",
+        "autoInput": false,
+        "defaultAction": "copy"
+      },
+      "interaction_verified": "Owned hello input reached the extension's Form state",
+      "capture_ime_method": "Native inset controller hides IME for the evidence frame; this is not a touch IME-transition certification",
+      "supporting_captures": [
+        "workflow-google-translate-translate-form-e3b8ffda-form-input.png"
+      ],
+      "attempted": true,
+      "needs_triage": true,
+      "observation_error_type": "ComposeTimeoutException",
+      "observation_message": "Condition still not satisfied after 60000 ms",
+      "runtime_status": "",
+      "capture": "workflow-google-translate-translate-form-e3b8ffda.png",
+      "capture_receipt": "workflow-google-translate-translate-form-e3b8ffda-frame.json",
+      "native_root": "Form",
+      "return_capture": "workflow-google-translate-translate-form-e3b8ffda-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "google-translate",
+      "command": "instant-translate-copy",
+      "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+      "command_sha256": "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-partial",
+      "action_output_verified": false,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "not-applicable",
+        "interaction_and_action": "not-checked",
+        "destination": "not-checked",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "langFrom": "en",
+        "lang1": "ja",
+        "lang2": "en",
+        "autoInput": false,
+        "defaultAction": "copy"
+      },
+      "workflow": "Observe the no-selection HUD and verify that Instant Translate Copy leaves owned clipboard text unchanged",
+      "remaining_workflow": "Translation and selected-text access are not certified. The bundle catches selectedText errors and shows the no-selection HUD; no Android selection replacement is provided.",
+      "runtime_status": "No text selected. Please select text to translate.",
+      "capture": "workflow-google-translate-instant-translate-copy-d11e8082.png",
+      "capture_receipt": "workflow-google-translate-instant-translate-copy-d11e8082-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-google-translate-instant-translate-copy-d11e8082-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "http-status-codes",
+      "command": "index",
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "command_sha256": "96426ed0c09fd073a2411370e444dbbf45e2b02ad4970bf44f757b0f8b662cb9",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "observed-failed",
+      "action_output_verified": false,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "not-checked",
+        "rendering": "not-checked",
+        "interaction_and_action": "not-checked",
+        "destination": "not-checked",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "workflow": "Load the native status-code List, filter to 404 and choose Copy Code through Actions; browser\/image actions are not exercised",
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "typeOfPerson": "none"
+      },
+      "runtime_error": "Error: Extensions can only access their own package and data folder\n    at G (<anonymous>:13:2077)\n    at Object.realpathSync (<anonymous>:21:3661)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-e3ddb7e224614d04ac27b4ca52ed1c58\/http-status-codes\/index.js:3:819)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-e3ddb7e224614d04ac27b4ca52ed1c58\/http-status-codes\/index.js:3:222)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-e3ddb7e224614d04ac27b4ca52ed1c58\/http-status-codes\/index.js:12:4801)\n    at Yd (<anonymous>:23:9703)\n    at Object.start (<anonymous>:23:51035)\n    at <anonymous>:1:1198",
+      "runtime_status": "Starting extension…",
+      "capture": "workflow-http-status-codes-index-604c4097.png",
+      "capture_receipt": "workflow-http-status-codes-index-604c4097-frame.json",
+      "native_root": null,
+      "return_capture": "workflow-http-status-codes-index-604c4097-return.png",
+      "isolated_data_removed": true
+    },
+    {
+      "directory": "weather",
+      "command": "index",
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "command_sha256": "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "observed-failed",
+      "action_output_verified": false,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "not-checked",
+        "destination": "not-checked",
+        "persistence": "not-checked",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "workflow": "Request Tokyo weather and wait for the service result",
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "unitsystem": "metric",
+        "defaultquery": "Tokyo"
+      },
+      "service_error": "Could not fetch data from wttr.in · Failed to fetch",
+      "runtime_error": "Weather service workflow: Could not fetch data from wttr.in · Failed to fetch",
+      "runtime_status": "",
+      "capture": "workflow-weather-index-26711ed3.png",
+      "capture_receipt": "workflow-weather-index-26711ed3-frame.json",
+      "native_root": "List",
+      "return_capture": "workflow-weather-index-26711ed3-return.png",
+      "isolated_data_removed": true
+    }
+  ],
+  "scope": "Collector completion is not a blanket compatibility pass; each status names its actual exercised workflow."
+}

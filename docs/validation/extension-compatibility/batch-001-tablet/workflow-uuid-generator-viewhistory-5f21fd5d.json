@@ -1,0 +1,48 @@
+{
+  "directory": "uuid-generator",
+  "command": "viewHistory",
+  "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+  "command_sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "untested",
+  "action_output_verified": false,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "not-applicable",
+    "interaction_and_action": "not-checked",
+    "destination": "not-checked",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "upperCaseLetters": false,
+    "defaultAction": "copy"
+  },
+  "supporting_commands": [
+    {
+      "command": "generate",
+      "file_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d"
+    }
+  ],
+  "native_argument_steps": [
+    {
+      "command": "generate",
+      "values": {
+        "numberOfUUIDsToGenerate": "2"
+      }
+    }
+  ],
+  "attempted": true,
+  "needs_triage": true,
+  "observation_error_type": "AssertionError",
+  "observation_message": "Interactive windows must establish settled clipboard dismissal: [985ms query_ms=920 mode=0 flags=65618 windows=[(896, 3), (890, 1)] systemui_roots=[896] queries=3 complete=true nodes=[], 2081ms query_ms=1035 mode=0 flags=65618 windows=[(903, 3), (896, 3), (890, 1)] systemui_roots=[903, 896] queries=6 complete=true nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false], 3519ms query_ms=1386 mode=0 flags=65618 windows=[(903, 3), (896, 3), (890, 1)] systemui_roots=[903, 896] queries=6 complete=true nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false], 5060ms query_ms=1486 mode=0 flags=65618 windows=[(903, 3), (896, 3), (890, 1)] systemui_roots=[903, 896] queries=6 complete=true nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false]]",
+  "runtime_status": "✅ Copied 2 new UUIDs.",
+  "capture": "workflow-uuid-generator-viewhistory-5f21fd5d.png",
+  "capture_receipt": "workflow-uuid-generator-viewhistory-5f21fd5d-frame.json",
+  "native_root": null,
+  "return_capture": "workflow-uuid-generator-viewhistory-5f21fd5d-return.png",
+  "isolated_data_removed": true
+}

@@ -1,0 +1,28 @@
+{
+  "directory": "base64",
+  "command": "decode",
+  "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+  "command_sha256": "e37ce8d5428ec1d8772f34b78d087d83784342efffc0e7790c233c0d2fc7b76b",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-working-for-listed-workflow",
+  "action_output_verified": true,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "not-applicable",
+    "interaction_and_action": "verified for listed workflow",
+    "destination": "owned clipboard output verified",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {},
+  "workflow": "Decode owned Base64 clipboard input and verify exact Unicode output",
+  "runtime_status": "Copied to clipboard",
+  "capture": "workflow-base64-decode-cc943abf.png",
+  "capture_receipt": "workflow-base64-decode-cc943abf-frame.json",
+  "native_root": null,
+  "return_capture": "workflow-base64-decode-cc943abf-return.png",
+  "isolated_data_removed": true
+}

@@ -1,0 +1,1154 @@
+{
+  "batch_id": "representative-001",
+  "extensions": [
+    {
+      "archive_bytes": 115055,
+      "archive_cache_path": "archives/e34e4512815e96b67e47c9666f0307e501d9dfa1619bba4be8290c6205a55897.zip",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "commands": [
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 2720,
+          "file_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d",
+          "mode": "no-view",
+          "name": "generate",
+          "preferences": [],
+          "title": "Generate UUIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "name",
+              "required": true,
+              "type": "text"
+            },
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 1,
+          "declared_platforms": null,
+          "file_bytes": 3935,
+          "file_sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04",
+          "mode": "no-view",
+          "name": "generateV5",
+          "preferences": [
+            {
+              "has_default": true,
+              "name": "uuidNamespace",
+              "required": false,
+              "type": "textfield"
+            }
+          ],
+          "title": "Generate V5 UUIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 2,
+          "declared_platforms": null,
+          "file_bytes": 10730,
+          "file_sha256": "4b9a760aea9de7f1cf720224050844b09ae842e88aaca9aec5969c69115b499a",
+          "mode": "no-view",
+          "name": "generateV7",
+          "preferences": [
+            {
+              "has_default": true,
+              "name": "base32Encoding",
+              "required": false,
+              "type": "checkbox"
+            }
+          ],
+          "title": "Generate V7 UUIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfULIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 3,
+          "declared_platforms": null,
+          "file_bytes": 5471,
+          "file_sha256": "b77ea4ed9a3cf13da20193cae737a3b0a62dea50ab5fbeaaa05de5c6e0769e8d",
+          "mode": "no-view",
+          "name": "generateUlid",
+          "preferences": [],
+          "title": "Generate ULIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "prefix",
+              "required": true,
+              "type": "text"
+            },
+            {
+              "has_default": false,
+              "name": "numberOfUUIDsToGenerate",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 4,
+          "declared_platforms": null,
+          "file_bytes": 9628,
+          "file_sha256": "71dbb01590489e51b50e1fb7ba5161075d6417fde1345759832471901b032be2",
+          "mode": "no-view",
+          "name": "generateTypeID",
+          "preferences": [],
+          "title": "Generate TypeIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "typeID",
+              "required": true,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 5,
+          "declared_platforms": null,
+          "file_bytes": 7216,
+          "file_sha256": "bb3ef0b5708548df44d13ecb95d2e21d538d15bd492c5d5de731d6933ce828cf",
+          "mode": "no-view",
+          "name": "parseTypeID",
+          "preferences": [],
+          "title": "Parse TypeIDs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "uuid",
+              "required": true,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 6,
+          "declared_platforms": null,
+          "file_bytes": 1217,
+          "file_sha256": "29e73d55a4d9616e9493a8c64bbaa2019d76d00c81752eccb765532bb77b821f",
+          "mode": "no-view",
+          "name": "formatUuid",
+          "preferences": [],
+          "title": "Format UUID",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "suffix",
+              "required": true,
+              "type": "text"
+            },
+            {
+              "has_default": false,
+              "name": "uuid",
+              "required": true,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 7,
+          "declared_platforms": null,
+          "file_bytes": 9586,
+          "file_sha256": "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac",
+          "mode": "no-view",
+          "name": "packTypeID",
+          "preferences": [],
+          "title": "Pack TypeID",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 8,
+          "declared_platforms": null,
+          "file_bytes": 3178,
+          "file_sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d",
+          "mode": "view",
+          "name": "viewHistory",
+          "preferences": [],
+          "title": "View History",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.90.0",
+          "typeid-js": "^1.2.0",
+          "ulidx": "^2.4.1",
+          "uuid": "^11.0.5"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^1.0.11",
+          "@types/node": "20.8.10",
+          "@types/react": "18.3.3",
+          "@types/uuid": "^10.0.0",
+          "eslint": "^8.57.0",
+          "prettier": "^3.3.3",
+          "typescript": "^5.4.5"
+        }
+      },
+      "directory": "uuid-generator",
+      "expanded_bytes": 324219,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "upperCaseLetters",
+          "required": false,
+          "type": "checkbox"
+        },
+        {
+          "has_default": true,
+          "name": "defaultAction",
+          "required": false,
+          "type": "dropdown"
+        }
+      ],
+      "file_inventory_sha256": "fc0387eb5d0bd5debaa7138d14e5fb68b1162e2a18d0528f4dbe4b6b094033fc",
+      "files": 20,
+      "handle": "jmaeso",
+      "manifest_path": "uuid-generator/package.json",
+      "manifest_sha256": "251e5540e44ee39c424321b6c1d98eeaaecc3118f5f932c7236e7013f70847c7",
+      "metadata_sha256": "3388e2d2ee88e6c4cb5fb74e6ab1aa40a4af8ba0e3aa558901d2f5004465265a",
+      "name": "uuid-generator",
+      "package_name": "uuid-generator",
+      "planned_commands": [
+        "generate",
+        "generateV5",
+        "viewHistory"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "b35a3136e94e19fa6d1e60b4c866df9331a4c1b754d37d221e20905a8f55530f",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "jmaeso",
+      "store_id": "6d6a05b4-6003-4d28-afae-a9b721d11594",
+      "store_name": "uuid-generator",
+      "store_reported_commit_sha": "6939fc298cd701b66a652b5bcc6d1c763252391e",
+      "title": "UUID Generator",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 278000,
+      "archive_cache_path": "archives/9e7149f97a59bcf0fda79137e3a3a7dc26316e8914a5514490f6b34f94f3f139.zip",
+      "archive_sha256": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+      "commands": [
+        {
+          "arguments": [],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 48561,
+          "file_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806",
+          "mode": "view",
+          "name": "convert-color",
+          "preferences": [],
+          "title": "Convert Color",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": null,
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.87.4",
+          "culori": "^3.2.0"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^1.0.11",
+          "@raycast/utils": "^1.9.0",
+          "@types/node": "^20.8.10",
+          "@types/react": "^18.2.27",
+          "@typescript-eslint/eslint-plugin": "^5.62.0",
+          "@typescript-eslint/parser": "^5.62.0",
+          "eslint": "^8.51.0",
+          "eslint-config-prettier": "^8.10.0",
+          "prettier": "^2.8.8",
+          "react": "^18.2.0",
+          "typescript": "^4.9.5"
+        }
+      },
+      "directory": "oklch-color-converter",
+      "expanded_bytes": 517759,
+      "extension_preferences": [],
+      "file_inventory_sha256": "25776cd3e029b557900515c0fd2d97ab11ddef48a41569c0459fa069d81b86b8",
+      "files": 5,
+      "handle": "strongeron",
+      "manifest_path": "oklch-color-converter/package.json",
+      "manifest_sha256": "63a115ed123efa9b87161fd6398cad418edf4bce72f89c184cb33b6d7f0f44bf",
+      "metadata_sha256": "81699eab5f292ddf8a9c9a91ff8a8454fa711b7f1415fa74055f8093bef9e432",
+      "name": "oklch-color-converter",
+      "package_name": "oklch-color-converter",
+      "planned_commands": [
+        "convert-color"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "beb8f8ed59c20aab8974ca7ccc184ca8fdd6996546e9a8d79b4b25a7471172bd",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "strongeron",
+      "store_id": "322d1e48-6778-478a-9ed2-b406bb41abbc",
+      "store_name": "oklch-color-converter",
+      "store_reported_commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+      "title": "OKLCH Color Converter",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 358014,
+      "archive_cache_path": "archives/decb56ae29622480bf0bb2458494efba2d70048b7afbdafc4e4e56d8db367134.zip",
+      "archive_sha256": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+      "commands": [
+        {
+          "arguments": [],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 104300,
+          "file_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f",
+          "mode": "view",
+          "name": "index",
+          "preferences": [],
+          "title": "Palette Colors",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": null,
+      "dependencies": {
+        "dependencies": {
+          "@adobe/leonardo-contrast-colors": "1.0.0-alpha.13",
+          "@raycast/api": "^1.40.3",
+          "color-scheme": "^1.0.1"
+        },
+        "devDependencies": {
+          "@types/node": "16.10.3",
+          "@types/react": "18.0.9",
+          "@typescript-eslint/eslint-plugin": "^5.0.0",
+          "@typescript-eslint/parser": "^5.0.0",
+          "eslint": "^7.32.0",
+          "eslint-config-prettier": "^8.3.0",
+          "prettier": "^2.5.1",
+          "typescript": "^4.4.3"
+        }
+      },
+      "directory": "palette-colors",
+      "expanded_bytes": 718510,
+      "extension_preferences": [],
+      "file_inventory_sha256": "2682851ca2c3c2952e1ef4debb7c02280ac4217cb17fd2cac24f306a405e1981",
+      "files": 5,
+      "handle": "douglas-pires",
+      "manifest_path": "palette-colors/package.json",
+      "manifest_sha256": "59eb0df1d2d81b06232112b66a10bcdac45ad3dd0d2c1f0ed677523466c1bd01",
+      "metadata_sha256": "38fb55315f4d46fe91bca2222df88113423dba6c81a81bea677d951a3e801856",
+      "name": "palette-colors",
+      "package_name": "palette-colors",
+      "planned_commands": [
+        "index"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "d693802a718709c1ab742780df8d10abc7eeca361215a532b5b373cc694beb56",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "douglas-pires",
+      "store_id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+      "store_name": "palette-colors",
+      "store_reported_commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+      "title": "Palette Colors",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 186662,
+      "archive_cache_path": "archives/371a286d5872a3730d644327581546ec3e658bbf1a3c7f7f0de2bc19905d4402.zip",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "commands": [
+        {
+          "arguments": [],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 9504,
+          "file_sha256": "b4fbf304d94efaba62c845c1be21efb1cfb2e37fb714813432db4d3db53d773e",
+          "mode": "view",
+          "name": "index",
+          "preferences": [],
+          "title": "Base64",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 1,
+          "declared_platforms": null,
+          "file_bytes": 2463,
+          "file_sha256": "28cd6fb4b0f1d60347a3e793819053915ff5b1167d04cbe07cb24996bebfcefd",
+          "mode": "no-view",
+          "name": "encode",
+          "preferences": [],
+          "title": "Base64 Encode",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 2,
+          "declared_platforms": null,
+          "file_bytes": 2823,
+          "file_sha256": "e37ce8d5428ec1d8772f34b78d087d83784342efffc0e7790c233c0d2fc7b76b",
+          "mode": "no-view",
+          "name": "decode",
+          "preferences": [],
+          "title": "Base64 Decode",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.104.6",
+          "@raycast/utils": "^2.2.2",
+          "js-base64": "^3.7.8"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^2.1.1",
+          "@types/node": "^25.3.0",
+          "@types/react": "^19.2.14",
+          "@typescript-eslint/eslint-plugin": "^8.56.0",
+          "@typescript-eslint/parser": "^8.56.0",
+          "eslint": "^10.0.0",
+          "eslint-config-prettier": "^10.1.8",
+          "typescript": "^5.9.3"
+        }
+      },
+      "directory": "base64",
+      "expanded_bytes": 424623,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "defaultAction",
+          "required": false,
+          "type": "dropdown"
+        }
+      ],
+      "file_inventory_sha256": "8d74f6348afa30ea3c7b2894f1dfc43757975f042e209267188803d939f19f45",
+      "files": 12,
+      "handle": "DanielSinclair",
+      "manifest_path": "base64/package.json",
+      "manifest_sha256": "2bd0bf26758d9ba89d37c6468c7e528a4325f3685898c89149419313a4b60311",
+      "metadata_sha256": "f8b1a1669ca77dc3398e7553350e354610c64b01cec9d74a696968f85618c856",
+      "name": "base64",
+      "package_name": "base64",
+      "planned_commands": [
+        "index",
+        "encode",
+        "decode"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "ba5c54cadeb4431721fd29c78df604dbf9850660960dc687e7a0b65114630bdb",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "DanielSinclair",
+      "store_id": "d32fdb99-aab3-4059-b7b3-72454e9327cc",
+      "store_name": "base64",
+      "store_reported_commit_sha": "3c654737b0d566d3103fcdf72221a9f34664bdf2",
+      "title": "Base64",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 681520,
+      "archive_cache_path": "archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "commands": [
+        {
+          "arguments": [],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 2469,
+          "file_sha256": "2fcf507c9a1cf422d9410193e99ba7e4e496f4fc8c45ee78072e19ea58538d6e",
+          "mode": "no-view",
+          "name": "formatClipboard",
+          "preferences": [],
+          "title": "Format Clipboard JSON",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 1,
+          "declared_platforms": null,
+          "file_bytes": 2465,
+          "file_sha256": "b445fd841a7a81d29fa1db2b6f6107ed332edc3174cd3ce788267270f771ccdb",
+          "mode": "no-view",
+          "name": "formatSelection",
+          "preferences": [],
+          "title": "Format Selected JSON",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 2,
+          "declared_platforms": null,
+          "file_bytes": 3296,
+          "file_sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92",
+          "mode": "view",
+          "name": "formatSelectionAndShow",
+          "preferences": [],
+          "title": "Format Selected JSON and Show",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 3,
+          "declared_platforms": null,
+          "file_bytes": 3734,
+          "file_sha256": "bcca05348f11ffc115adc346944dcd78d209958684cb9df44d571e70a99575a0",
+          "mode": "view",
+          "name": "index",
+          "preferences": [],
+          "title": "Format JSON",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 4,
+          "declared_platforms": null,
+          "file_bytes": 2937,
+          "file_sha256": "690c15e7c0f1f52ea1b2315e8d1a75a5bdd15b8f25abe5a741337da5f8ba9a98",
+          "mode": "view",
+          "name": "formatJsonLines",
+          "preferences": [],
+          "title": "Format Array of JSON to JSONLines",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 5,
+          "declared_platforms": null,
+          "file_bytes": 1105,
+          "file_sha256": "1367d9a2247ea560b69c9b84496d3424b41647f037d303e0ea4e3c99e71bfa1d",
+          "mode": "view",
+          "name": "formatToJsonValue",
+          "preferences": [],
+          "title": "Format Text into Valid JSON Value",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.81.2",
+          "@raycast/utils": "^1.16.5",
+          "js-beautify": "^1.15.1"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^1.0.11",
+          "@types/js-beautify": "^1.14.3",
+          "@types/node": "^22.5.0",
+          "@types/react": "^18.3.4",
+          "eslint": "^8.57.0",
+          "prettier": "^3.3.3",
+          "typescript": "^5.5.4"
+        }
+      },
+      "directory": "json-format",
+      "expanded_bytes": 2389259,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "autopaste",
+          "required": false,
+          "type": "checkbox"
+        },
+        {
+          "has_default": true,
+          "name": "indent",
+          "required": false,
+          "type": "dropdown"
+        },
+        {
+          "has_default": true,
+          "name": "maxInitialLines",
+          "required": false,
+          "type": "textfield"
+        }
+      ],
+      "file_inventory_sha256": "9f0e3ee2d9c75e5b4e7e2a46e680808dcc7b31940765bbdf5ae5b227caf3bfc1",
+      "files": 56,
+      "handle": "destiner",
+      "manifest_path": "json-format/package.json",
+      "manifest_sha256": "20c40f4070eb2bd7310a75441a684233423d651318158f3fd38bdbec01a9ac33",
+      "metadata_sha256": "c10981efcf601d4835c92b036e118877ec10288c3ebc005857e0140403fd8aa2",
+      "name": "json-format",
+      "package_name": "json-format",
+      "planned_commands": [
+        "index",
+        "formatClipboard",
+        "formatSelectionAndShow"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "4a3b497b0a88dd8a8f6250fc94900524ccb02a66eb45893b887c100f18d7e698",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "destiner",
+      "store_id": "2278bb97-e6f6-44ef-bdcd-937fc20bd0c2",
+      "store_name": "json-format",
+      "store_reported_commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+      "title": "Format JSON",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 212598,
+      "archive_cache_path": "archives/2803877a52b0cb51da9647dd0c31661a1d8e7714c4b748ec39440da57a5b5d24.zip",
+      "archive_sha256": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+      "commands": [
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfParagraphs",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 11049,
+          "file_sha256": "8a03c4d22efefd777fd4de6df805811f01be880ecf745aed1557087981656aac",
+          "mode": "no-view",
+          "name": "paragraphs",
+          "preferences": [],
+          "title": "Generate Paragraphs",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfSentences",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 1,
+          "declared_platforms": null,
+          "file_bytes": 10894,
+          "file_sha256": "759ff8c89086caf88af24609e0a7096179053cfb455a0e7fe630a4ccedcfd2aa",
+          "mode": "no-view",
+          "name": "sentences",
+          "preferences": [],
+          "title": "Generate Sentences",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "numberOfWords",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 2,
+          "declared_platforms": null,
+          "file_bytes": 10882,
+          "file_sha256": "e3fdd7d6e44804faacaaeb2b4f00a33010bd402803336178161a6952a34ee600",
+          "mode": "no-view",
+          "name": "words",
+          "preferences": [],
+          "title": "Generate Words",
+          "verification": "untested"
+        },
+        {
+          "arguments": [
+            {
+              "has_default": false,
+              "name": "topic",
+              "required": false,
+              "type": "text"
+            }
+          ],
+          "declaration_index": 3,
+          "declared_platforms": null,
+          "file_bytes": 11382,
+          "file_sha256": "b1877fee4876cdc15685eba1fea423ab669821be85ad62a55fd1985a954a90b5",
+          "mode": "no-view",
+          "name": "ai-generate",
+          "preferences": [],
+          "title": "Generate with AI",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.103.10",
+          "lorem-ipsum": "^2.0.8"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^2.1.1",
+          "@types/node": "^22.13.10",
+          "@types/react": "^19.0.10",
+          "eslint": "^9.39.2",
+          "prettier": "^3.7.4",
+          "typescript": "^5.9.3"
+        }
+      },
+      "directory": "lorem-ipsum",
+      "expanded_bytes": 312900,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "action",
+          "required": false,
+          "type": "dropdown"
+        }
+      ],
+      "file_inventory_sha256": "9b9f3e4e1303942cd69517bba6b0831e0f59e5cf1b9771c960f3a77286db8233",
+      "files": 10,
+      "handle": "AntonNiklasson",
+      "manifest_path": "lorem-ipsum/package.json",
+      "manifest_sha256": "c91806a93b699a55cc4efe9b33fd552fe85aaccf3c0f91beaa7a19a0c9d34f4d",
+      "metadata_sha256": "cb90e05d199f831c32626c625613b5adb5c54b508726a5ee61beade8cf3467c6",
+      "name": "lorem-ipsum",
+      "package_name": "lorem-ipsum",
+      "planned_commands": [
+        "words"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "f415e6fcdce756b92e43f8faf7c8b109e62d33d1b841dbca2b658a481ca8237b",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "AntonNiklasson",
+      "store_id": "d3e7311b-4072-498b-aeb6-4da257176d80",
+      "store_name": "lorem-ipsum",
+      "store_reported_commit_sha": "3c654737b0d566d3103fcdf72221a9f34664bdf2",
+      "title": "Lorem Ipsum",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 1041987,
+      "archive_cache_path": "archives/909c8a3916ca91612bb610da257f5718af2ef25f303ea95371e907eaa1cf7d69.zip",
+      "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+      "commands": [
+        {
+          "arguments": [],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 33885,
+          "file_sha256": "54c37e972a14f280ddbe953285a9cda50c3ccf0563e4ea5d54bcaef2a7d84d64",
+          "mode": "view",
+          "name": "translate",
+          "preferences": [],
+          "title": "Translate",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 1,
+          "declared_platforms": null,
+          "file_bytes": 21954,
+          "file_sha256": "f961d5328c882cdb0e3a3861584b17408a509ebd3453ea96f389922236ab0665",
+          "mode": "view",
+          "name": "translate-form",
+          "preferences": [],
+          "title": "Translate Form",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 2,
+          "declared_platforms": null,
+          "file_bytes": 776,
+          "file_sha256": "597e079da9f40604482472c94e3810d6654415aaf04477371441c9c7fbfdf521",
+          "mode": "no-view",
+          "name": "quick-translate",
+          "preferences": [],
+          "title": "Quick Translate",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 3,
+          "declared_platforms": null,
+          "file_bytes": 19509,
+          "file_sha256": "456de7764bc2012c92883700260f5044ce169205b00bb9daf110e81a2c54cfec",
+          "mode": "view",
+          "name": "quick-translate-view",
+          "preferences": [],
+          "title": "Quick Translate Results",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 4,
+          "declared_platforms": null,
+          "file_bytes": 9159,
+          "file_sha256": "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610",
+          "mode": "no-view",
+          "name": "instant-translate-copy",
+          "preferences": [],
+          "title": "Instant Translate Copy",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 5,
+          "declared_platforms": null,
+          "file_bytes": 9147,
+          "file_sha256": "0ff7fcfdd0c6d1adb8b229b038ffe9fc9b26b47fb4b30543a6b4cf48892688dd",
+          "mode": "no-view",
+          "name": "instant-translate-paste",
+          "preferences": [],
+          "title": "Instant Translate Paste",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 6,
+          "declared_platforms": null,
+          "file_bytes": 9283,
+          "file_sha256": "6c8da836ed165e4469aed98710b82bbdca28834cc0f30fbc34cac30e94c7e4ce",
+          "mode": "no-view",
+          "name": "instant-translate-view",
+          "preferences": [],
+          "title": "Instant Translate View",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.104.16",
+          "@raycast/utils": "^2.2.4",
+          "google-tts-api": "^2.0.2",
+          "https-proxy-agent": "^7.0.6",
+          "undici": "^5.12.0"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^2.0.4",
+          "@types/node": "22.13.10",
+          "@types/react": "19.0.10",
+          "eslint": "^9.22.0",
+          "prettier": "^3.5.3",
+          "typescript": "^5.8.2"
+        }
+      },
+      "directory": "google-translate",
+      "expanded_bytes": 3826019,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "langFrom",
+          "required": true,
+          "type": "dropdown"
+        },
+        {
+          "has_default": true,
+          "name": "lang1",
+          "required": true,
+          "type": "dropdown"
+        },
+        {
+          "has_default": true,
+          "name": "lang2",
+          "required": true,
+          "type": "dropdown"
+        },
+        {
+          "has_default": true,
+          "name": "autoInput",
+          "required": false,
+          "type": "checkbox"
+        },
+        {
+          "has_default": true,
+          "name": "defaultAction",
+          "required": false,
+          "type": "dropdown"
+        },
+        {
+          "has_default": true,
+          "name": "prioritizeCrossLanguage",
+          "required": false,
+          "type": "checkbox"
+        },
+        {
+          "has_default": false,
+          "name": "proxy",
+          "required": false,
+          "type": "textfield"
+        }
+      ],
+      "file_inventory_sha256": "349bf42032e9e5c7eaf375115e94af5855b90da382a9d841697ef909bcce1b3d",
+      "files": 147,
+      "handle": "gebeto",
+      "manifest_path": "translate/package.json",
+      "manifest_sha256": "b59d270794a2ce73cdd44a260341d3250a746c6c0be0f634435d6a8d88842d4b",
+      "metadata_sha256": "e678a339ba3fae75d6def7d1eedc0781967c230384ba79dacb8eb8299ca287dd",
+      "name": "google-translate",
+      "package_name": "translate",
+      "planned_commands": [
+        "translate-form",
+        "instant-translate-copy"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "b9a77dded993df0f7d4ca969a59a7bc1913bcf7eb4e71d6ca5ab3a54e4611f3e",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "gebeto",
+      "store_id": "0e43920f-bbf6-4582-bc3f-5f63092c915f",
+      "store_name": "translate",
+      "store_reported_commit_sha": "1ea92d353d04ad6069f4d9ecea05b75fbb17df31",
+      "title": "Google Translate",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 719502,
+      "archive_cache_path": "archives/287cba1b6f792d8a8e842ed743cb38efb9aa5d410c15bd2a34d4a023de931c5c.zip",
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "commands": [
+        {
+          "arguments": [],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 152018,
+          "file_sha256": "96426ed0c09fd073a2411370e444dbbf45e2b02ad4970bf44f757b0f8b662cb9",
+          "mode": "view",
+          "name": "index",
+          "preferences": [],
+          "title": "Search HTTP Status Codes",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.104.9",
+          "@raycast/utils": "^2.2.2",
+          "tempy": "^2.0.0"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^2.0.4",
+          "@types/node": "^20.12.12",
+          "eslint": "^9.22.0",
+          "prettier": "^3.8.1",
+          "typescript": "^5.9.3"
+        }
+      },
+      "directory": "http-status-codes",
+      "expanded_bytes": 1263162,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "typeOfPerson",
+          "required": false,
+          "type": "dropdown"
+        }
+      ],
+      "file_inventory_sha256": "9179193d0ab648569ee7b5d5cf978d920e7f82815d82d009ba46f18da40ed20f",
+      "files": 5,
+      "handle": "Alex_",
+      "manifest_path": "http-status-codes/package.json",
+      "manifest_sha256": "0d9355a925f7d0ef9023dc0ca4445bb887aaef3a2757ffb53dc7b2b005c1f9a4",
+      "metadata_sha256": "231a42550aef1a7a2697fdba24303f5e2ef2f71203e25d1ee9ebf287b0208dc0",
+      "name": "http-status-codes",
+      "package_name": "http-status-codes",
+      "planned_commands": [
+        "index"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "1d1ef0c959d5b01224f0bdb4f9dd34cb45b17c4447fbb1a84a9f8787d00b1d5d",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "Alex_",
+      "store_id": "b081c457-37b4-48cb-8172-0ff2853c8ece",
+      "store_name": "http-status-codes",
+      "store_reported_commit_sha": "3c654737b0d566d3103fcdf72221a9f34664bdf2",
+      "title": "HTTP Status Codes",
+      "verification": "untested"
+    },
+    {
+      "archive_bytes": 705639,
+      "archive_cache_path": "archives/e5e72beb4e3c6926d3dc9e3e2ef7833ba50cd919c2460a782b244fd071e920de.zip",
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "commands": [
+        {
+          "arguments": [],
+          "declaration_index": 0,
+          "declared_platforms": null,
+          "file_bytes": 138169,
+          "file_sha256": "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af",
+          "mode": "view",
+          "name": "index",
+          "preferences": [],
+          "title": "Show Weather",
+          "verification": "untested"
+        },
+        {
+          "arguments": [],
+          "declaration_index": 1,
+          "declared_platforms": null,
+          "file_bytes": 138641,
+          "file_sha256": "750f3914568354a8b7358a267e830ddaac896fa1935567269919a9a4d1a9933f",
+          "mode": "menu-bar",
+          "name": "menubar",
+          "preferences": [
+            {
+              "has_default": true,
+              "name": "showmenuicon",
+              "required": false,
+              "type": "checkbox"
+            },
+            {
+              "has_default": true,
+              "name": "showmenutext",
+              "required": false,
+              "type": "checkbox"
+            },
+            {
+              "has_default": true,
+              "name": "menutemperature",
+              "required": false,
+              "type": "dropdown"
+            }
+          ],
+          "title": "Weather Menu Bar",
+          "verification": "untested"
+        }
+      ],
+      "commands_declared": true,
+      "declared_platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "dependencies": {
+        "dependencies": {
+          "@raycast/api": "^1.104.8",
+          "@raycast/utils": "^2.2.3",
+          "javascript-time-ago": "^2.6.4",
+          "moment": "^2.30.1"
+        },
+        "devDependencies": {
+          "@raycast/eslint-config": "^2.1.1",
+          "@types/moment": "^2.13.0",
+          "@types/node": "22.13.10",
+          "@types/react": "19.0.10",
+          "eslint": "^9.22.0",
+          "prettier": "^3.5.3",
+          "typescript": "^5.8.2"
+        }
+      },
+      "directory": "weather",
+      "expanded_bytes": 2054508,
+      "extension_preferences": [
+        {
+          "has_default": true,
+          "name": "unitsystem",
+          "required": false,
+          "type": "dropdown"
+        },
+        {
+          "has_default": true,
+          "name": "defaultquery",
+          "required": false,
+          "type": "textfield"
+        },
+        {
+          "has_default": true,
+          "name": "clockformat",
+          "required": false,
+          "type": "dropdown"
+        }
+      ],
+      "file_inventory_sha256": "9e0c653eccb330489dd16d161763e0f75a905605679d6ff40044427348b7e190",
+      "files": 40,
+      "handle": "tonka3000",
+      "manifest_path": "weather/package.json",
+      "manifest_sha256": "65b270e5f7d75963a808c8170dafbd08b52f3e3089e491f7ba6f62cb8fc52f4c",
+      "metadata_sha256": "d7430f242b45444d1fe4ddf510ce5bdcb3d1b02b1ae4e4d453a706a24c5b361c",
+      "name": "weather",
+      "package_name": "weather",
+      "planned_commands": [
+        "index"
+      ],
+      "planned_commands_missing": [],
+      "planning_manifest_sha256": "1de7e8e2f303ffd62d12d72a34525936b6c4b21741cabe76d9e551b00d52b79b",
+      "source_association": "Planning directory only; Store bundle is not certified as the planning-source commit.",
+      "state": "frozen",
+      "store_handle": "tonka3000",
+      "store_id": "c460fc92-202d-49bf-b9c4-e486b58a0189",
+      "store_name": "weather",
+      "store_reported_commit_sha": "81d3f549dbd06da9eace538da6475415e7cd8235",
+      "title": "Weather",
+      "verification": "untested"
+    }
+  ],
+  "plan_sha256": "62fab1f27a8c13147563c067b2ec472d97392a73135b9ca66721fc4b9a25517f",
+  "planning_source": {
+    "catalog_sha256": "af8c68f7c5cd5caf4e042a48cb87ea4c77d8c4ae4ed5c6202e6a63d39d459a40",
+    "commit": "11a912d89b576ca066e9ee42e75b8dd2e8aa0f5c",
+    "repository": "raycast/extensions"
+  },
+  "schema_version": 1,
+  "scope": "Frozen public Store bundles for a named execution batch; snapshotting is not Android compatibility evidence.",
+  "summary": {
+    "frozen": 9,
+    "inspection-error": 0,
+    "pending": 0,
+    "plan_mismatches": 0,
+    "ready_for_execution": true,
+    "retrieval-error": 0,
+    "runtime_tested_commands": 0,
+    "targets": 9
+  }
+}

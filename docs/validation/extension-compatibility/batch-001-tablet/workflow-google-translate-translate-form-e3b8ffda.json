@@ -1,0 +1,44 @@
+{
+  "directory": "google-translate",
+  "command": "translate-form",
+  "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+  "command_sha256": "f961d5328c882cdb0e3a3861584b17408a509ebd3453ea96f389922236ab0665",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-partial",
+  "action_output_verified": false,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "native command screen captured; inspect the listed workflow checks",
+    "interaction_and_action": "not-checked",
+    "destination": "not-checked",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified",
+    "native_input": "Owned hello input reached the extension's Form state"
+  },
+  "workflow": "Enter owned English hello in the Form, await Japanese service output and copy the exact visible response; translation quality is not certified",
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "langFrom": "en",
+    "lang1": "ja",
+    "lang2": "en",
+    "autoInput": false,
+    "defaultAction": "copy"
+  },
+  "interaction_verified": "Owned hello input reached the extension's Form state",
+  "capture_ime_method": "Native inset controller hides IME for the evidence frame; this is not a touch IME-transition certification",
+  "supporting_captures": [
+    "workflow-google-translate-translate-form-e3b8ffda-form-input.png"
+  ],
+  "attempted": true,
+  "needs_triage": true,
+  "observation_error_type": "ComposeTimeoutException",
+  "observation_message": "Condition still not satisfied after 60000 ms",
+  "runtime_status": "",
+  "capture": "workflow-google-translate-translate-form-e3b8ffda.png",
+  "capture_receipt": "workflow-google-translate-translate-form-e3b8ffda-frame.json",
+  "native_root": "Form",
+  "return_capture": "workflow-google-translate-translate-form-e3b8ffda-return.png",
+  "isolated_data_removed": true
+}

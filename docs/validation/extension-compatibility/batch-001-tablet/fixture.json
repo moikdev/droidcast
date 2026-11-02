@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "batch_id": "representative-001",
+  "source_snapshot_sha256": "91a78fddd17816fddb656d7b860286b21ded0b298968f03319d3d3d38377b0c3",
+  "scope": "Isolated execution of hash-verified prebuilt bundles; Store UI installation is not tested here.",
+  "extensions": [
+    {
+      "directory": "uuid-generator",
+      "store_name": "uuid-generator",
+      "store_id": "6d6a05b4-6003-4d28-afae-a9b721d11594",
+      "store_handle": "jmaeso",
+      "store_reported_commit_sha": "6939fc298cd701b66a652b5bcc6d1c763252391e",
+      "archive_name": "e34e4512815e96b67e47c9666f0307e501d9dfa1619bba4be8290c6205a55897.zip",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "manifest_sha256": "251e5540e44ee39c424321b6c1d98eeaaecc3118f5f932c7236e7013f70847c7",
+      "manifest_path": "uuid-generator/package.json",
+      "planned_commands": [
+        "generate",
+        "generateV5",
+        "viewHistory"
+      ],
+      "commands": [
+        {
+          "name": "generate",
+          "mode": "no-view",
+          "file_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d"
+        },
+        {
+          "name": "generateV5",
+          "mode": "no-view",
+          "file_sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04"
+        },
+        {
+          "name": "generateV7",
+          "mode": "no-view",
+          "file_sha256": "4b9a760aea9de7f1cf720224050844b09ae842e88aaca9aec5969c69115b499a"
+        },
+        {
+          "name": "generateUlid",
+          "mode": "no-view",
+          "file_sha256": "b77ea4ed9a3cf13da20193cae737a3b0a62dea50ab5fbeaaa05de5c6e0769e8d"
+        },
+        {
+          "name": "generateTypeID",
+          "mode": "no-view",
+          "file_sha256": "71dbb01590489e51b50e1fb7ba5161075d6417fde1345759832471901b032be2"
+        },
+        {
+          "name": "parseTypeID",
+          "mode": "no-view",
+          "file_sha256": "bb3ef0b5708548df44d13ecb95d2e21d538d15bd492c5d5de731d6933ce828cf"
+        },
+        {
+          "name": "formatUuid",
+          "mode": "no-view",
+          "file_sha256": "29e73d55a4d9616e9493a8c64bbaa2019d76d00c81752eccb765532bb77b821f"
+        },
+        {
+          "name": "packTypeID",
+          "mode": "no-view",
+          "file_sha256": "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac"
+        },
+        {
+          "name": "viewHistory",
+          "mode": "view",
+          "file_sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d"
+        }
+      ]
+    },
+    {
+      "directory": "oklch-color-converter",
+      "store_name": "oklch-color-converter",
+      "store_id": "322d1e48-6778-478a-9ed2-b406bb41abbc",
+      "store_handle": "strongeron",
+      "store_reported_commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+      "archive_name": "9e7149f97a59bcf0fda79137e3a3a7dc26316e8914a5514490f6b34f94f3f139.zip",
+      "archive_sha256": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+      "manifest_sha256": "63a115ed123efa9b87161fd6398cad418edf4bce72f89c184cb33b6d7f0f44bf",
+      "manifest_path": "oklch-color-converter/package.json",
+      "planned_commands": [
+        "convert-color"
+      ],
+      "commands": [
+        {
+          "name": "convert-color",
+          "mode": "view",
+          "file_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806"
+        }
+      ]
+    },
+    {
+      "directory": "palette-colors",
+      "store_name": "palette-colors",
+      "store_id": "97a8a636-a146-4aba-89a4-c7688685ee9c",
+      "store_handle": "douglas-pires",
+      "store_reported_commit_sha": "1a7664e5b99b9228c26c2f807f1ad2dc1669899a",
+      "archive_name": "decb56ae29622480bf0bb2458494efba2d70048b7afbdafc4e4e56d8db367134.zip",
+      "archive_sha256": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+      "manifest_sha256": "59eb0df1d2d81b06232112b66a10bcdac45ad3dd0d2c1f0ed677523466c1bd01",
+      "manifest_path": "palette-colors/package.json",
+      "planned_commands": [
+        "index"
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "mode": "view",
+          "file_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+        }
+      ]
+    },
+    {
+      "directory": "base64",
+      "store_name": "base64",
+      "store_id": "d32fdb99-aab3-4059-b7b3-72454e9327cc",
+      "store_handle": "DanielSinclair",
+      "store_reported_commit_sha": "3c654737b0d566d3103fcdf72221a9f34664bdf2",
+      "archive_name": "371a286d5872a3730d644327581546ec3e658bbf1a3c7f7f0de2bc19905d4402.zip",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "manifest_sha256": "2bd0bf26758d9ba89d37c6468c7e528a4325f3685898c89149419313a4b60311",
+      "manifest_path": "base64/package.json",
+      "planned_commands": [
+        "index",
+        "encode",
+        "decode"
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "mode": "view",
+          "file_sha256": "b4fbf304d94efaba62c845c1be21efb1cfb2e37fb714813432db4d3db53d773e"
+        },
+        {
+          "name": "encode",
+          "mode": "no-view",
+          "file_sha256": "28cd6fb4b0f1d60347a3e793819053915ff5b1167d04cbe07cb24996bebfcefd"
+        },
+        {
+          "name": "decode",
+          "mode": "no-view",
+          "file_sha256": "e37ce8d5428ec1d8772f34b78d087d83784342efffc0e7790c233c0d2fc7b76b"
+        }
+      ]
+    },
+    {
+      "directory": "json-format",
+      "store_name": "json-format",
+      "store_id": "2278bb97-e6f6-44ef-bdcd-937fc20bd0c2",
+      "store_handle": "destiner",
+      "store_reported_commit_sha": "c33bf4cb4b9ad70c2b93432ee713ffb7486ed331",
+      "archive_name": "223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "manifest_sha256": "20c40f4070eb2bd7310a75441a684233423d651318158f3fd38bdbec01a9ac33",
+      "manifest_path": "json-format/package.json",
+      "planned_commands": [
+        "index",
+        "formatClipboard",
+        "formatSelectionAndShow"
+      ],
+      "commands": [
+        {
+          "name": "formatClipboard",
+          "mode": "no-view",
+          "file_sha256": "2fcf507c9a1cf422d9410193e99ba7e4e496f4fc8c45ee78072e19ea58538d6e"
+        },
+        {
+          "name": "formatSelection",
+          "mode": "no-view",
+          "file_sha256": "b445fd841a7a81d29fa1db2b6f6107ed332edc3174cd3ce788267270f771ccdb"
+        },
+        {
+          "name": "formatSelectionAndShow",
+          "mode": "view",
+          "file_sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92"
+        },
+        {
+          "name": "index",
+          "mode": "view",
+          "file_sha256": "bcca05348f11ffc115adc346944dcd78d209958684cb9df44d571e70a99575a0"
+        },
+        {
+          "name": "formatJsonLines",
+          "mode": "view",
+          "file_sha256": "690c15e7c0f1f52ea1b2315e8d1a75a5bdd15b8f25abe5a741337da5f8ba9a98"
+        },
+        {
+          "name": "formatToJsonValue",
+          "mode": "view",
+          "file_sha256": "1367d9a2247ea560b69c9b84496d3424b41647f037d303e0ea4e3c99e71bfa1d"
+        }
+      ]
+    },
+    {
+      "directory": "lorem-ipsum",
+      "store_name": "lorem-ipsum",
+      "store_id": "d3e7311b-4072-498b-aeb6-4da257176d80",
+      "store_handle": "AntonNiklasson",
+      "store_reported_commit_sha": "3c654737b0d566d3103fcdf72221a9f34664bdf2",
+      "archive_name": "2803877a52b0cb51da9647dd0c31661a1d8e7714c4b748ec39440da57a5b5d24.zip",
+      "archive_sha256": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+      "manifest_sha256": "c91806a93b699a55cc4efe9b33fd552fe85aaccf3c0f91beaa7a19a0c9d34f4d",
+      "manifest_path": "lorem-ipsum/package.json",
+      "planned_commands": [
+        "words"
+      ],
+      "commands": [
+        {
+          "name": "paragraphs",
+          "mode": "no-view",
+          "file_sha256": "8a03c4d22efefd777fd4de6df805811f01be880ecf745aed1557087981656aac"
+        },
+        {
+          "name": "sentences",
+          "mode": "no-view",
+          "file_sha256": "759ff8c89086caf88af24609e0a7096179053cfb455a0e7fe630a4ccedcfd2aa"
+        },
+        {
+          "name": "words",
+          "mode": "no-view",
+          "file_sha256": "e3fdd7d6e44804faacaaeb2b4f00a33010bd402803336178161a6952a34ee600"
+        },
+        {
+          "name": "ai-generate",
+          "mode": "no-view",
+          "file_sha256": "b1877fee4876cdc15685eba1fea423ab669821be85ad62a55fd1985a954a90b5"
+        }
+      ]
+    },
+    {
+      "directory": "google-translate",
+      "store_name": "translate",
+      "store_id": "0e43920f-bbf6-4582-bc3f-5f63092c915f",
+      "store_handle": "gebeto",
+      "store_reported_commit_sha": "1ea92d353d04ad6069f4d9ecea05b75fbb17df31",
+      "archive_name": "909c8a3916ca91612bb610da257f5718af2ef25f303ea95371e907eaa1cf7d69.zip",
+      "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+      "manifest_sha256": "b59d270794a2ce73cdd44a260341d3250a746c6c0be0f634435d6a8d88842d4b",
+      "manifest_path": "translate/package.json",
+      "planned_commands": [
+        "translate-form",
+        "instant-translate-copy"
+      ],
+      "commands": [
+        {
+          "name": "translate",
+          "mode": "view",
+          "file_sha256": "54c37e972a14f280ddbe953285a9cda50c3ccf0563e4ea5d54bcaef2a7d84d64"
+        },
+        {
+          "name": "translate-form",
+          "mode": "view",
+          "file_sha256": "f961d5328c882cdb0e3a3861584b17408a509ebd3453ea96f389922236ab0665"
+        },
+        {
+          "name": "quick-translate",
+          "mode": "no-view",
+          "file_sha256": "597e079da9f40604482472c94e3810d6654415aaf04477371441c9c7fbfdf521"
+        },
+        {
+          "name": "quick-translate-view",
+          "mode": "view",
+          "file_sha256": "456de7764bc2012c92883700260f5044ce169205b00bb9daf110e81a2c54cfec"
+        },
+        {
+          "name": "instant-translate-copy",
+          "mode": "no-view",
+          "file_sha256": "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610"
+        },
+        {
+          "name": "instant-translate-paste",
+          "mode": "no-view",
+          "file_sha256": "0ff7fcfdd0c6d1adb8b229b038ffe9fc9b26b47fb4b30543a6b4cf48892688dd"
+        },
+        {
+          "name": "instant-translate-view",
+          "mode": "no-view",
+          "file_sha256": "6c8da836ed165e4469aed98710b82bbdca28834cc0f30fbc34cac30e94c7e4ce"
+        }
+      ]
+    },
+    {
+      "directory": "http-status-codes",
+      "store_name": "http-status-codes",
+      "store_id": "b081c457-37b4-48cb-8172-0ff2853c8ece",
+      "store_handle": "Alex_",
+      "store_reported_commit_sha": "3c654737b0d566d3103fcdf72221a9f34664bdf2",
+      "archive_name": "287cba1b6f792d8a8e842ed743cb38efb9aa5d410c15bd2a34d4a023de931c5c.zip",
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "manifest_sha256": "0d9355a925f7d0ef9023dc0ca4445bb887aaef3a2757ffb53dc7b2b005c1f9a4",
+      "manifest_path": "http-status-codes/package.json",
+      "planned_commands": [
+        "index"
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "mode": "view",
+          "file_sha256": "96426ed0c09fd073a2411370e444dbbf45e2b02ad4970bf44f757b0f8b662cb9"
+        }
+      ]
+    },
+    {
+      "directory": "weather",
+      "store_name": "weather",
+      "store_id": "c460fc92-202d-49bf-b9c4-e486b58a0189",
+      "store_handle": "tonka3000",
+      "store_reported_commit_sha": "81d3f549dbd06da9eace538da6475415e7cd8235",
+      "archive_name": "e5e72beb4e3c6926d3dc9e3e2ef7833ba50cd919c2460a782b244fd071e920de.zip",
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "manifest_sha256": "65b270e5f7d75963a808c8170dafbd08b52f3e3089e491f7ba6f62cb8fc52f4c",
+      "manifest_path": "weather/package.json",
+      "planned_commands": [
+        "index"
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "mode": "view",
+          "file_sha256": "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af"
+        },
+        {
+          "name": "menubar",
+          "mode": "menu-bar",
+          "file_sha256": "750f3914568354a8b7358a267e830ddaac896fa1935567269919a9a4d1a9933f"
+        }
+      ]
+    }
+  ]
+}

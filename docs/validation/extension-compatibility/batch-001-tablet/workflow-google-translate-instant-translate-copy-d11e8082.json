@@ -1,0 +1,35 @@
+{
+  "directory": "google-translate",
+  "command": "instant-translate-copy",
+  "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+  "command_sha256": "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-partial",
+  "action_output_verified": false,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "not-applicable",
+    "interaction_and_action": "not-checked",
+    "destination": "not-checked",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "langFrom": "en",
+    "lang1": "ja",
+    "lang2": "en",
+    "autoInput": false,
+    "defaultAction": "copy"
+  },
+  "workflow": "Observe the no-selection HUD and verify that Instant Translate Copy leaves owned clipboard text unchanged",
+  "remaining_workflow": "Translation and selected-text access are not certified. The bundle catches selectedText errors and shows the no-selection HUD; no Android selection replacement is provided.",
+  "runtime_status": "No text selected. Please select text to translate.",
+  "capture": "workflow-google-translate-instant-translate-copy-d11e8082.png",
+  "capture_receipt": "workflow-google-translate-instant-translate-copy-d11e8082-frame.json",
+  "native_root": null,
+  "return_capture": "workflow-google-translate-instant-translate-copy-d11e8082-return.png",
+  "isolated_data_removed": true
+}

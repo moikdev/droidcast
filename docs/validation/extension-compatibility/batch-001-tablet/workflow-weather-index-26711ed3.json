@@ -1,0 +1,33 @@
+{
+  "directory": "weather",
+  "command": "index",
+  "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+  "command_sha256": "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "observed-failed",
+  "action_output_verified": false,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "native command screen captured; inspect the listed workflow checks",
+    "interaction_and_action": "not-checked",
+    "destination": "not-checked",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "workflow": "Request Tokyo weather and wait for the service result",
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "unitsystem": "metric",
+    "defaultquery": "Tokyo"
+  },
+  "service_error": "Could not fetch data from wttr.in · Failed to fetch",
+  "runtime_error": "Weather service workflow: Could not fetch data from wttr.in · Failed to fetch",
+  "runtime_status": "",
+  "capture": "workflow-weather-index-26711ed3.png",
+  "capture_receipt": "workflow-weather-index-26711ed3-frame.json",
+  "native_root": "List",
+  "return_capture": "workflow-weather-index-26711ed3-return.png",
+  "isolated_data_removed": true
+}

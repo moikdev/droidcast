@@ -13,6 +13,6 @@ The only bypass actor is user `moikdev` (ID 89525199), restricted to pull-reques
 
 [CODEOWNERS](../.github/CODEOWNERS) assigns every file, including the ownership policy, to `@moikdev`. Code-owner review routing uses the version on the pull request's base branch, so this file becomes effective for future changes once PR #38 merges. The live restricted-update rule already limits main merges to the owner.
 
-The protections were verified using GitHub's active rules-for-main endpoint and the returned bypass configuration. No destructive push or deletion was attempted. `local/android` is reported local validation; GitHub Actions CI is inactive.
+The protections were verified using GitHub's active rules-for-main endpoint and the returned bypass configuration. No destructive push or deletion was attempted. `local/android` reports local validation. PR #66 activated the Android GitHub Actions workflow through the existing app connection; report actual exact-head workflow outcomes separately from local/emulator checks. Both independent audits and verified local checks remain project requirements.
 
 Tools and credentials authorized under `moikdev` act with that account's permissions. GitHub cannot distinguish a manual owner merge from an authorized tool using the same identity. Review rulesets before granting another administrator or application permission to change them.

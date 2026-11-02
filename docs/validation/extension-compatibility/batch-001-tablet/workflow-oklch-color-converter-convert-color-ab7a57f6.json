@@ -1,0 +1,28 @@
+{
+  "directory": "oklch-color-converter",
+  "command": "convert-color",
+  "archive_sha256": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+  "command_sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-working-for-listed-workflow",
+  "action_output_verified": true,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "native command screen captured; inspect the listed workflow checks",
+    "interaction_and_action": "verified for listed workflow",
+    "destination": "owned clipboard output verified",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {},
+  "workflow": "Type red, choose its OKLCH conversion, verify the numeric conversion and copy the exact displayed value",
+  "runtime_status": "Copied to Clipboard",
+  "capture": "workflow-oklch-color-converter-convert-color-ab7a57f6.png",
+  "capture_receipt": "workflow-oklch-color-converter-convert-color-ab7a57f6-frame.json",
+  "native_root": "List",
+  "return_capture": "workflow-oklch-color-converter-convert-color-ab7a57f6-return.png",
+  "isolated_data_removed": true
+}
