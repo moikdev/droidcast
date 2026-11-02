@@ -85,12 +85,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
     val owner = formFieldOwner(root, node)
     val errorText = (p.opt("error") as? String).orEmpty()
     val info = (p.opt("info") as? String).orEmpty()
-    var nativeEditVersion by remember(owner) { mutableIntStateOf(0) }
-    // Reading this state schedules a native redraw even when a controlled
-    // extension rejects the edit and therefore publishes no new React tree.
-    @Suppress("UNUSED_VARIABLE") val renderedEditVersion = nativeEditVersion
     owner?.let { values.observe(it, root, if (type == "Form.Checkbox") p.optBoolean("value") else (p.opt("value") as? String).orEmpty()) }
-    owner?.let { values.rendered(it, if (type == "Form.Checkbox") p.optBoolean("value") else (p.opt("value") as? String).orEmpty()) }
     DisposableEffect(owner, values) { onDispose { owner?.let(values::remove) } }
     var nativeFocused by remember(owner) { mutableStateOf(false) }
     val focusModifier = Modifier.onFocusChanged {
@@ -104,7 +99,6 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
         val current = liveFormField(fieldOwner, liveRoot()) ?: return false
         val handle = current.handle("onTinycastChange") ?: return false
         values.edit(fieldOwner, value)
-        nativeEditVersion++
         dispatch(handle, JSONArray().put(value))
         return true
     }
@@ -114,12 +108,9 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
             // A new publication is authoritative even when a controlled field
             // rejects an edit and repeats its previous prop value.
             var text by remember(owner, root) { mutableStateOf(supplied) }
-            val controlled = p.optBoolean("__androidFormControlled")
-            val displayed = if (controlled) supplied else text
-            owner?.let { values.rendered(it, displayed) }
             Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ExtensionFieldLabel(title, "extension-field-title-$id")
-                OutlinedTextField(displayed, { next -> if (change(next) && !controlled) text = next },
+                OutlinedTextField(text, { next -> if (change(next)) text = next },
                     placeholder = { Text(p.optString("placeholder")) }, singleLine = type != "Form.TextArea",
                     minLines = 1, maxLines = if (type == "Form.TextArea") 8 else 1,
                     isError = errorText.isNotBlank(),
@@ -165,7 +156,6 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                                 menuOwner = null
                                 if (current != null) {
                                     values.edit(owner, current.second.value)
-                                    nativeEditVersion++
                                     dispatch(current.first.handle("onTinycastChange"), JSONArray().put(current.second.value))
                                 }
                             }

@@ -358,7 +358,7 @@ class ExtensionFormDeviceTest {
         touch("extension-field-rejected")
         compose.onNodeWithTag("extension-field-rejected").performTextReplacement("Owned edit that the extension rejects")
         compose.waitUntil(5000) { probe().getInt("changes") == 2 }
-        compose.waitForIdle()
+        compose.waitUntil(5000) { compose.onNodeWithTag("extension-field-rejected").fetchSemanticsNode().config[SemanticsProperties.EditableText].text == "Owned fixed value" }
         assertEquals("Owned fixed value", field("Form.TextField", "rejected").props().optString("value"))
         compose.onNodeWithTag("extension-field-rejected").assertTextEquals("Owned fixed value")
         touch("extension-field-notes")

@@ -15,16 +15,17 @@ function fixture() {
   const api = {Clipboard: {copy() {}}, marker: {}};
   Object.defineProperty(api, 'Form', {enumerable: true, get: () => Form});
   const http = {STATUS_CODES: {}};
+  const react = {publications: 0, useReducer() { return [0, () => { react.publications++; }]; }};
   const other = {};
   const context = vm.createContext({window: {setTimeout, clearTimeout, setInterval, clearInterval}, AndroidHost: {}});
   vm.runInContext(fs.readFileSync(path.join(__dirname, '../../main/assets/android-runtime.js'), 'utf8'), context);
   function load() {
     const module = {exports: {}};
     context.__tinycastCompile('module.exports = [require("@raycast/api"), require("http"), require("node:http"), require("other")];', 'owned-adapter.js')
-      (module.exports, name => name === '@raycast/api' ? api : name === 'other' ? other : http, module, 'owned-adapter.js', '.');
+      (module.exports, name => name === '@raycast/api' ? api : name === 'react' ? react : name === 'other' ? other : http, module, 'owned-adapter.js', '.');
     return module.exports;
   }
-  return {context, api, Form, http, other, load, native: (...args) => context.__androidDispatchFormFocus(...args)};
+  return {context, api, Form, http, react, other, load, native: (...args) => context.__androidDispatchFormFocus(...args)};
 }
 test('API aliases, original members and field statics retain identity', () => {
   const f = fixture(), first = f.load(), second = f.load();
@@ -42,13 +43,22 @@ test('field props, callbacks and absent focus handlers are preserved', () => {
     const props = Object.freeze({id: 'owned', value: '', defaultValue: 'initial', onChange: change, children: child, ref: reference});
     const field = api.Form[kind](props);
     assert.equal(field.id, props.id); assert.equal(field.value, props.value); assert.equal(field.defaultValue, props.defaultValue);
-    assert.equal(field.onChange, change); assert.equal(field.children, child); assert.equal(field.ref, reference);
+    assert.equal(field.children, child); assert.equal(field.ref, reference);
+    const before = f.react.publications; field.onChange('owned edit'); assert.equal(f.react.publications, before + 1);
     assert.equal(field.onFocus, undefined); assert.equal(field.onBlur, undefined);
-    assert.equal(field.__androidFormControlled, true);
   }
-  assert.equal(api.Form.TextField({id: 'uncontrolled'}).__androidFormControlled, false);
-  assert.equal(api.Form.TextField({id: 'undefined', value: undefined}).__androidFormControlled, false);
-  assert.equal(api.Form.TextField({id: 'null', value: null}).__androidFormControlled, true);
+  assert.equal(api.Form.TextField({id: 'uncontrolled', onChange: change}).onChange, change);
+  assert.equal(api.Form.TextField({id: 'undefined', value: undefined, onChange: change}).onChange, change);
+});
+test('controlled acceptance, rejection and exceptions publish without changing callback results', () => {
+  const f = fixture(), api = f.load()[0], marker = {}; let received;
+  const field = api.Form.TextField({id: 'controlled', value: 'fixed', marker,
+    onChange: function (value) { assert.equal(this.marker, marker); received = value; return marker; }});
+  assert.equal(field.onChange('native'), marker); assert.equal(received, 'native'); assert.equal(f.react.publications, 1);
+  const readOnly = api.Form.TextField({id: 'read-only', value: 'fixed'});
+  readOnly.onChange('rejected'); assert.equal(f.react.publications, 2);
+  const failure = api.Form.TextField({id: 'throwing', value: 'fixed', onChange() { throw new Error('Owned change failure'); }});
+  assert.throws(() => failure.onChange('owned'), /Owned change failure/); assert.equal(f.react.publications, 3);
 });
 test('matching focus and blur receive the native Unicode or boolean value', () => {
   const f = fixture(), api = f.load()[0], marker = {}, original = {target: {value: 'previous', marker}, detail: marker};

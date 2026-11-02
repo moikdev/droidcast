@@ -67,7 +67,6 @@ internal class FormEditorValues {
         if (entries[owner]?.render !== render) entries[owner] = Entry(render, value)
     }
     fun edit(owner: FormFieldOwner, value: Any) { entries[owner]?.value = value }
-    fun rendered(owner: FormFieldOwner, value: Any) { entries[owner]?.value = value }
     fun value(owner: FormFieldOwner): Any? = entries[owner]?.value
     fun remove(owner: FormFieldOwner) { entries.remove(owner) }
     fun clear() { entries.clear() }

@@ -33,24 +33,32 @@
   // have received another edit before that asynchronous render is published.
   // Supply only the matching field callback's event-time target.value; retain
   // the original API functions, props, static members and other event data.
-  function nativeField(field) {
+  function nativeField(field, react) {
     if (!nativeFields.has(field)) nativeFields.set(field, new Proxy(field, {
       apply(target, receiver, args) {
         const props = args[0];
+        const [, publish] = react.useReducer(version => version + 1, 0);
         if (!props || typeof props !== "object") return Reflect.apply(target, receiver, args);
+        // A controlled onChange can intentionally retain its previous value.
+        // Publish that decision even without an application state update, so
+        // the native optimistic editor can restore the authoritative value.
+        const change = props.value === undefined ? props.onChange : function (value) {
+          try { return typeof props.onChange === "function" ? Reflect.apply(props.onChange, this, [value]) : undefined; }
+          finally { publish(); }
+        };
         const callback = (kind, original) => typeof original !== "function" ? original : function (event) {
           const current = focusEvent;
           if (!current || current.id !== props.id || current.kind !== kind) return Reflect.apply(original, this, [event]);
           return Reflect.apply(original, this, [{...event, target: {...event?.target, value: current.value}}]);
         };
         return Reflect.apply(target, receiver, [{...props,
-          __androidFormControlled: props.value !== undefined,
+          onChange: change,
           onFocus: callback("focus", props.onFocus), onBlur: callback("blur", props.onBlur)}, ...args.slice(1)]);
       }
     }));
     return nativeFields.get(field);
   }
-  function nativeApi(api) {
+  function nativeApi(api, react) {
     if (!nativeApis.has(api)) nativeApis.set(api, new Proxy(api, {
       get(target, name, receiver) {
         const value = Reflect.get(target, name, receiver);
@@ -58,7 +66,7 @@
         if (!nativeForms.has(value)) nativeForms.set(value, new Proxy(value, {
           get(form, member, formReceiver) {
             const item = Reflect.get(form, member, formReceiver);
-            return inputFields.has(member) && typeof item === "function" ? nativeField(item) : item;
+            return inputFields.has(member) && typeof item === "function" ? nativeField(item, react) : item;
           }
         }));
         return nativeForms.get(value);
@@ -79,7 +87,7 @@
       const androidRequire = new Proxy(require, {
         apply(target, receiver, args) {
           const value = Reflect.apply(target, receiver, args);
-          if (args[0] === "@raycast/api") return nativeApi(value);
+          if (args[0] === "@raycast/api") return nativeApi(value, Reflect.apply(target, receiver, ["react"]));
           if ((args[0] === "http" || args[0] === "node:http") && !hydratedHttp.has(value)) {
             if (Object.keys(value.STATUS_CODES).length === 0) Object.assign(value.STATUS_CODES, httpStatusCodes);
             hydratedHttp.add(value);
