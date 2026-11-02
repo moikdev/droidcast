@@ -164,6 +164,10 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         require(isData || (!write && isPackage)) { "Extensions can only access their own package and data folder" }; return file
     }
     private fun syncCall(api: String, method: String, a: JSONArray): Any? = when(api) {
+        "os" -> when (method) {
+            "cpus" -> { require(a.length() == 0) { "os.cpus does not accept paths or options" }; NodeCpuInfo.read().json() }
+            else -> error("os.$method is not supported on Android")
+        }
         "crypto" -> when (method) {
             "uuid" -> UUID.randomUUID().toString()
             "random" -> { val n = a.getInt(0); require(n in 0..65536); val bytes = ByteArray(n); SecureRandom().nextBytes(bytes); Base64.encodeToString(bytes, Base64.NO_WRAP) }
