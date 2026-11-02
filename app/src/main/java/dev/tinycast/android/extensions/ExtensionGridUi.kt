@@ -70,10 +70,10 @@ internal class ExtensionGridState {
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 internal fun NativeExtensionGrid(
-    state: ExtensionGridState, rootProvider: () -> JSONObject, images: ExtensionGridImages,
+    state: ExtensionGridState, rootProvider: () -> JSONObject?, images: ExtensionGridImages,
     title: String, status: String, preferences: android.content.SharedPreferences, commandKey: String, dispatch: (String?, JSONArray) -> Unit, back: () -> Unit, configure: () -> Unit,
 ) {
-    val root = rootProvider()
+    val root = rootProvider() ?: return
     val props = root.props()
     val focus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
@@ -126,8 +126,8 @@ internal fun NativeExtensionGrid(
     LaunchedEffect(wide, keyboardRequested, windowFocused, searchFocused, imeVisible) {
         if (wide && !keyboardRequested && windowFocused && searchFocused) { withFrameNanos { }; keyboard?.hide() }
     }
-    fun current(): Pair<List<ExtensionGridSection>, ExtensionGridItem?> {
-        val latest = rootProvider()
+    fun current(latest: JSONObject? = rootProvider()): Pair<List<ExtensionGridSection>, ExtensionGridItem?> {
+        if (latest == null) return emptyList<ExtensionGridSection>() to null
         val groups = gridSections(latest, state.search.text)
         val all = groups.flatMap { it.items }
         val remote = latest.props().opt("selectedItemId") as? String
@@ -136,9 +136,9 @@ internal fun NativeExtensionGrid(
         return groups to all.firstOrNull { it.key == choice.key }
     }
     fun notifyCurrentSelection() {
-        val latest = rootProvider()
+        val latest = rootProvider() ?: return
         val callback = latest.handle("onSelectionChange") ?: return
-        val (_, chosen) = current()
+        val (_, chosen) = current(latest)
         // Retain unresolved controlled IDs until their items arrive.
         if (state.pendingRemoteSelection != null) return
         state.selectionDelivery.deliver(latest.optString("id"), chosen?.id) {
@@ -147,8 +147,9 @@ internal fun NativeExtensionGrid(
     }
     LaunchedEffect(root.optString("id"), selected?.id, selection.pendingId, root.handle("onSelectionChange")) { notifyCurrentSelection() }
     fun currentActionScope(): ExtensionActionScope {
-        val (groups, chosen) = current()
-        return extensionActionScope(rootProvider(),chosen?.node,groups.sumOf { it.items.size },state.search.text)
+        val latest = rootProvider()
+        val (groups, chosen) = current(latest)
+        return extensionActionScope(latest,chosen?.node,groups.sumOf { it.items.size },state.search.text)
     }
     fun currentActions(): List<JSONObject> = currentActionScope().nodes
     fun action(node: JSONObject?, expected: ExtensionActionScope? = null) {

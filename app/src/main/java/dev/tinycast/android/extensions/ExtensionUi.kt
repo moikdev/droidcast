@@ -336,6 +336,12 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         return
     }
     val catalog=store.extensions
+    val launchEpoch=remember(runtime){catalog.launchEpoch}
+    fun liveRoot():JSONObject? {
+        val running=catalog.running
+        if(catalog.launchEpoch!=launchEpoch || running?.first!==extension || running?.second!==command || catalog.runtimeError!=null) return null
+        return activeRoot(catalog.runtimeTree)
+    }
     val context=LocalContext.current
     val root=activeRoot(catalog.runtimeTree)
     val failed=catalog.runtimeError!=null
@@ -351,7 +357,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     val actionScope=extensionActionScope(root,item,rows.size,query)
     val actions=actionScope.nodes
     fun liveRows(): List<JSONObject> {
-        val liveRoot = activeRoot(catalog.runtimeTree) ?: return emptyList()
+        val liveRoot = liveRoot() ?: return emptyList()
         if (liveRoot.optString("type") != "List" || liveRoot.optString("id") != root?.optString("id")) return emptyList()
         val liveQuery = listState.search.text
         return liveRoot.nodes("List.Item").filter {
@@ -360,7 +366,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }
     }
     fun liveActionScope(): ExtensionActionScope {
-        val liveRoot = activeRoot(catalog.runtimeTree) ?: return ExtensionActionScope("", "", emptyList())
+        val liveRoot = liveRoot() ?: return ExtensionActionScope("", "", emptyList())
         if (liveRoot.optString("id") != root?.optString("id") || liveRoot.optString("type") != root?.optString("type")) return ExtensionActionScope("", "", emptyList())
         if (liveRoot.optString("type") != "List") return extensionActionScope(liveRoot,null,0,"")
         val liveRows = liveRows()
@@ -368,7 +374,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
     fun liveActions() = liveActionScope().nodes
     fun notifyCurrentSelection() {
-        val currentRoot = activeRoot(catalog.runtimeTree) ?: return
+        val currentRoot = liveRoot() ?: return
         if (catalog.runtimeError != null || currentRoot.optString("type") != "List" || currentRoot.optString("id") != root?.optString("id")) return
         val callback = currentRoot.handle("onSelectionChange") ?: return
         val currentRows = liveRows()
@@ -424,7 +430,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }else when(root.optString("type")){
             "Grid" -> Box(Modifier.weight(1f).fillMaxWidth()) {
                 val state = gridStates.getOrPut(root.optString("id")) { ExtensionGridState() }
-                NativeExtensionGrid(state, { activeRoot(catalog.runtimeTree) ?: root }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, runtime::dispatch, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
+                NativeExtensionGrid(state, { liveRoot()?.takeIf { it.optString("type")=="Grid" } }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, { handle,args -> if(liveRoot()?.optString("type")=="Grid")runtime.dispatch(handle,args) }, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
             }
             "List"->{
                 ExtensionSearchHeader(listSearch,{next->

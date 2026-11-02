@@ -43,7 +43,7 @@ if subprocess.run(adb+['shell','run-as',app,'test','-e',empty_root],capture_outp
  raise ValueError('An empty-view recovery lease already exists; inspect its owner before resuming')
 if a.empty_view_fixtures:
  if (a.avd!='Tinycast_Tablet_API_36' or not a.serial.startswith('emulator-') or a.evidence_dir!='readiness-evidence' or a.update_fixtures is not None or a.readiness
-     or not 1<=a.expected<=16 or any(name.split('#')[0]!='dev.tinycast.android.ExtensionEmptyViewDeviceTest' for name in a.classes.split(','))):
+     or not 1<=a.expected<=24 or any(name.split('#')[0]!='dev.tinycast.android.ExtensionEmptyViewDeviceTest' for name in a.classes.split(','))):
   raise ValueError('Empty-view fixtures require their dedicated class, AVD and evidence directory')
  if (a.size is None)!=(a.density is None):raise ValueError('Empty-view size and density must be paired')
  if a.size is not None and (not re.fullmatch(r'[1-9][0-9]{2,3}x[1-9][0-9]{2,3}',a.size) or not all(300<=int(v)<=4096 for v in a.size.split('x')) or not 120<=a.density<=640):
@@ -138,7 +138,6 @@ finally:
     for path in paths:c.require(subprocess.run(adb+['shell','run-as',app,'test','-e',path],capture_output=True).returncode!=0,'Owned empty-view fixture removed')
    r['empty_view_owners_cleaned']=len(ids)
   c.attempt('empty-view-owned-data',cleanup_empty_view)
-  if c.results['empty-view-owned-data']['passed']:c.attempt('empty-view-lease',lambda:raw('shell','run-as',app,'rm','-rf',empty_root))
  if fixture_owned:c.attempt('update-fixtures',lambda:raw('shell','run-as',app,'rm','-rf','files/updates-fixtures'))
  if upload_owned:c.attempt('fixture-upload',lambda:raw('shell','rm','-rf',upload_root))
  if source_approval is not None:
@@ -168,5 +167,13 @@ finally:
  def identity():
   r['adbd']=text('shell','id').split(' groups=')[0];r['app_uid']=text('shell','run-as',app,'id').split(' groups=')[0];c.require(r['adbd'].startswith('uid=2000'),'adbd');c.require(not r['app_uid'].startswith(('uid=0','uid=1000(','uid=2000')),'app UID')
  c.attempt('verify-identity',identity)
+ if empty_view_owned:
+  def release_empty_view():
+   c.require(not c.errors,'Retain the recovery lease until all restoration and verification succeeds')
+   # Re-read ownership after restoring shared state. Release is the final
+   # device operation, so a new owner cannot race our remaining restoration.
+   empty_view_fixture_ids(json.loads(raw('exec-out','run-as',app,'cat',empty_lease)),empty_owner)
+   raw('shell','run-as',app,'rm','-rf',empty_root)
+  c.attempt('empty-view-lease',release_empty_view)
  r['completed']=r['completed'] and not c.errors;(a.output/'record.json').write_text(json.dumps(r,indent=2)+'\n');c.finish()
 print(json.dumps({'completed':r['completed'],'passes':r.get('passes'),'apk':r['apk_sha256']}))
