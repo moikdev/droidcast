@@ -5,5 +5,9 @@
             android:exported="true" android:launchMode="singleTask"
             android:taskAffinity="dev.tinycast.android.test.textcaller"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity android:name="dev.tinycast.android.ClipboardRecoveryActivity"
+            android:exported="true" android:launchMode="singleTask"
+            android:taskAffinity="dev.tinycast.android.test.clipboardrecovery"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 </manifest>

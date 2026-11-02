@@ -15,6 +15,7 @@ import subprocess
 import uuid
 
 from android_test_cleanup import Cleanup, reviewed_text_fixture_ids
+from android_clipboard_recovery import ClipboardRecovery
 
 
 def require(condition, message):
@@ -38,12 +39,17 @@ def main():
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
+    parser.add_argument('--inject-clipboard-restore-failure', action='store_true',
+                        help='Negative control only: retain the lease after an intentional process-death probe')
     args = parser.parse_args()
     require(args.serial.startswith('emulator-') and args.avd == 'Tinycast_Tablet_API_36', 'Use only the dedicated emulator')
     require(1 <= args.expected <= 24 and 1 <= args.font_scale <= 2, 'Invalid cohort size or font scale')
     require(re.fullmatch(r'[A-Za-z0-9_.,#]+', args.classes) is not None and all(
-        item.split('#')[0] in ['dev.tinycast.android.ReviewedTextDeviceTest', 'dev.tinycast.android.ReviewedTextLifecycleDeviceTest']
+        item.split('#')[0] in ['dev.tinycast.android.ReviewedTextDeviceTest', 'dev.tinycast.android.ReviewedTextLifecycleDeviceTest',
+                              'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest']
         for item in args.classes.split(',')), 'Only the owned reviewed-text tests are allowed')
+    require(not args.inject_clipboard_restore_failure or args.classes == 'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
+            'Restoration failure is limited to the deliberate process-death control')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     archive = args.json_archive.read_bytes()
     require(sha(archive) == 'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58', 'Frozen JSON archive changed')
@@ -83,10 +89,13 @@ def main():
     shutil.copyfile(__file__, args.output / 'runner.py')
     helper = Path(__file__).with_name('android_test_cleanup.py')
     shutil.copyfile(helper, args.output / 'cleanup-helper.py')
+    clipboard_helper = Path(__file__).with_name('android_clipboard_recovery.py')
+    shutil.copyfile(clipboard_helper, args.output / 'clipboard-helper.py')
     record = {'completed': False, 'pid': os.getpid(), 'serial': args.serial, 'avd': args.avd, 'layout': args.layout,
               'font_scale': args.font_scale, 'classes': args.classes, 'expected': args.expected, 'owner_nonce': owner,
               'runner_sha256': sha(Path(__file__).read_bytes()), 'archive_sha256': sha(archive),
               'cleanup_helper_sha256': sha(helper.read_bytes()),
+              'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root}
 
@@ -97,6 +106,7 @@ def main():
     raw('shell', 'run-as', app, 'mkdir', root)  # Atomic claim, never mkdir -p.
     backups = {}
     evidence_owned = False
+    clipboard_recovery = ClipboardRecovery(raw, args.output, owner, app + '.test', record)
     try:
         lease = {'schema_version': 1, 'fixture_kind': 'reviewed-text-device-test-v1', 'owner_nonce': owner, 'owned_extension_ids': []}
         raw('shell', 'run-as', app, 'tee', lease_path, data=(json.dumps(lease) + '\n').encode())
@@ -114,6 +124,7 @@ def main():
             path = text('shell', 'pm', 'path', package).removeprefix('package:')
             require(sha(raw('exec-out', 'cat', path)) == expected, 'Installed APK identity mismatch')
         record['installed_apks_match'] = True
+        clipboard_recovery.snapshot()  # Durable before any test clipboard writes.
         raw('shell', 'run-as', app, 'tee', root + '/json-format.zip', data=archive)
         if args.layout == 'phone':
             raw('shell', 'wm', 'size', '1080x2340'); raw('shell', 'wm', 'density', '420')
@@ -122,8 +133,11 @@ def main():
         require(absent('files/reviewed-text-evidence'), 'Retain or archive an earlier text evidence directory first')
         evidence_owned = True
         save()
+        clipboard_recovery.allow_mutations()
+        save()
         command = adb + ['shell', 'am', 'instrument', '-w', '-r', '-e', 'dedicatedAvd', args.avd,
                          '-e', 'reviewedTextFixture', 'true', '-e', 'expectedTextInputLeaseOwner', owner,
+                         '-e', 'expectedClipboardRecoveryOwner', owner,
                          '-e', 'class', args.classes, app + '.test/androidx.test.runner.AndroidJUnitRunner']
         with (args.output / 'tests.log').open('wb') as log:
             process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=max(600, args.expected * 90))
@@ -142,6 +156,10 @@ def main():
         cleanup = Cleanup(record)
         cleanup.attempt('stop-app', lambda: raw('shell', 'am', 'force-stop', app))
         cleanup.attempt('stop-owned-caller', lambda: raw('shell', 'am', 'force-stop', app + '.test'))
+        if args.inject_clipboard_restore_failure:
+            cleanup.attempt('inject-owned-restore-failure', clipboard_recovery.inject_restore_failure)
+        cleanup.attempt('clipboard-restored-and-verified-independently', clipboard_recovery.restore)
+        cleanup.attempt('stop-clipboard-recovery-activity', lambda: raw('shell', 'am', 'force-stop', app + '.test'))
 
         def owned_data():
             lease_bytes = raw('exec-out', 'run-as', app, 'cat', lease_path)
@@ -188,6 +206,7 @@ def main():
         def release():
             cleanup.require(not cleanup.errors, 'Retain recovery ownership after restoration failure')
             reviewed_text_fixture_ids(json.loads(raw('exec-out', 'run-as', app, 'cat', lease_path)), owner)
+            clipboard_recovery.release()
             raw('shell', 'run-as', app, 'rm', '-rf', root)  # Final device operation.
         cleanup.attempt('release-lease', release)
         record['completed'] = record['completed'] and not cleanup.errors
