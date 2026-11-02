@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run explicit selected/shared-text workflows on the dedicated owned emulator.
+"""Run owned reviewed-input and native Form workflows on the dedicated emulator.
 
 The recovery lease remains held through all shared-state restoration and checks.
 Archives, backups and raw diagnostics stay in the private local output directory.
@@ -31,7 +31,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--serial', required=True)
     parser.add_argument('--avd', required=True)
-    parser.add_argument('--layout', choices=['tablet', 'phone'], required=True)
+    parser.add_argument('--layout', choices=['tablet', 'phone', 'landscape'], required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--apk', type=Path, required=True)
     parser.add_argument('--test-apk', type=Path, required=True)
@@ -46,8 +46,9 @@ def main():
     require(1 <= args.expected <= 24 and 1 <= args.font_scale <= 2, 'Invalid cohort size or font scale')
     require(re.fullmatch(r'[A-Za-z0-9_.,#]+', args.classes) is not None and all(
         item.split('#')[0] in ['dev.tinycast.android.ReviewedTextDeviceTest', 'dev.tinycast.android.ReviewedTextLifecycleDeviceTest',
-                              'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest']
-        for item in args.classes.split(',')), 'Only the owned reviewed-text tests are allowed')
+                              'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
+                              'dev.tinycast.android.ExtensionFormDeviceTest']
+        for item in args.classes.split(',')), 'Only the owned input/Form tests are allowed')
     require(not args.inject_clipboard_restore_failure or args.classes == 'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
             'Restoration failure is limited to the deliberate process-death control')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
@@ -126,8 +127,9 @@ def main():
         record['installed_apks_match'] = True
         clipboard_recovery.snapshot()  # Durable before any test clipboard writes.
         raw('shell', 'run-as', app, 'tee', root + '/json-format.zip', data=archive)
-        if args.layout == 'phone':
-            raw('shell', 'wm', 'size', '1080x2340'); raw('shell', 'wm', 'density', '420')
+        if args.layout in ['phone', 'landscape']:
+            raw('shell', 'wm', 'size', '1080x2340' if args.layout == 'phone' else '2340x1080')
+            raw('shell', 'wm', 'density', '420')
         raw('shell', 'settings', 'put', 'system', 'font_scale', str(args.font_scale))
         raw('shell', 'am', 'start', '-a', 'android.intent.action.MAIN', '-c', 'android.intent.category.HOME')
         require(absent('files/reviewed-text-evidence'), 'Retain or archive an earlier text evidence directory first')
@@ -191,7 +193,7 @@ def main():
         cleanup.attempt('font-scale', lambda: raw('shell', 'settings', 'delete', 'system', 'font_scale') if font == 'null' else raw('shell', 'settings', 'put', 'system', 'font_scale', font))
         for key, value in secure.items():
             cleanup.attempt('secure-' + key, lambda key=key, value=value: raw('shell', 'settings', 'delete', 'secure', key) if value == 'null' else raw('shell', 'settings', 'put', 'secure', key, value))
-        if args.layout == 'phone':
+        if args.layout in ['phone', 'landscape']:
             cleanup.attempt('size', lambda: raw('shell', 'wm', 'size', 'reset'))
             cleanup.attempt('density', lambda: raw('shell', 'wm', 'density', 'reset'))
 
