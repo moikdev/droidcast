@@ -105,6 +105,8 @@ class ExtensionFormDeviceTest {
         dismissClipboardForEvidence()
         record.put("font_scale", context.resources.configuration.fontScale)
             .put("width_dp", context.resources.configuration.screenWidthDp).put("height_dp", context.resources.configuration.screenHeightDp)
+            .put("window_soft_input_mode", compose.activity.window.attributes.softInputMode)
+            .put("window_soft_input_state", compose.activity.window.attributes.softInputMode and android.view.WindowManager.LayoutParams.SOFT_INPUT_MASK_STATE)
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
     }
     private fun fixtureDirectory(): File {
@@ -1060,6 +1062,7 @@ class ExtensionFormDeviceTest {
         val output = "{\n  \"message\": \"こんにちは 🌱 café é\",\n  \"items\": [1, 2]\n}"
         touch("extension-field-input"); compose.onNodeWithTag("extension-field-input").performTextReplacement(input)
         compose.waitUntil(5000) { field("Form.TextArea", "input").props().optString("value") == input }
+        capture("json-form-input-ime")
         ime(false); capture("json-form-input")
         val actions = requireNotNull(activeRoot(catalog.runtimeTree)).actions()
         val actionIndex = actions.indexOfFirst { it.props().optString("title") == "View Result" }; assertTrue(actionIndex >= 0)
