@@ -40,6 +40,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -371,6 +372,7 @@ private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command
                             OutlinedTextField(if(value==null||value==JSONObject.NULL)"" else value.toString(),{change(it)},
                                 placeholder = { Text(f.optString("placeholder")) }, singleLine=true, isError = fieldError.isNotBlank(),
                                 visualTransformation=if(type=="password")PasswordVisualTransformation()else VisualTransformation.None,
+                                keyboardOptions=if(type=="password")KeyboardOptions(keyboardType=KeyboardType.Password,autoCorrectEnabled=false)else KeyboardOptions.Default,
                                 modifier=Modifier.fillMaxWidth().heightIn(min = 56.dp).paletteFocusBookmark().testTag("preference-$name")
                                     .semantics { contentDescription = label; if (fieldError.isNotBlank()) error(fieldError) })
                         }

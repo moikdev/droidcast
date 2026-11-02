@@ -2,6 +2,7 @@ package dev.tinycast.android.extensions
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -117,6 +119,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                     minLines = 1, maxLines = if (type == "Form.TextArea") 8 else 1,
                     isError = errorText.isNotBlank(),
                     visualTransformation = if (type == "Form.PasswordField") PasswordVisualTransformation() else VisualTransformation.None,
+                    keyboardOptions = if (type == "Form.PasswordField") KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false) else KeyboardOptions.Default,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).paletteFocusBookmark().then(focusModifier)
                         .testTag("extension-field-$id").semantics {
                             contentDescription = title
