@@ -8,7 +8,38 @@ import json
 import tempfile
 from types import SimpleNamespace
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from android_test_cleanup import Cleanup, CleanupError, transition_adbd, empty_view_fixture_ids
+from android_test_cleanup import Cleanup, CleanupError, transition_adbd, empty_view_fixture_ids, reviewed_text_fixture_ids
+
+
+class ReviewedTextLeaseTests(unittest.TestCase):
+    owner = 'a' * 32
+
+    def lease(self, ids=None):
+        return {'schema_version': 1, 'fixture_kind': 'reviewed-text-device-test-v1', 'owner_nonce': self.owner,
+                'owned_extension_ids': ['reviewed-text-' + 'b' * 32] if ids is None else ids}
+
+    def test_an_unrelated_or_path_like_identity_cannot_authorize_cleanup(self):
+        self.assertEqual(self.lease()['owned_extension_ids'], reviewed_text_fixture_ids(self.lease(), self.owner))
+        self.assertEqual([], reviewed_text_fixture_ids(self.lease([]), self.owner))
+        for identity in ['../palette', 'reviewed-text-' + 'b' * 32 + '/x', 'empty-view-' + 'b' * 32,
+                         'reviewed-text-' + 'B' * 32, 'reviewed-text-' + 'b' * 31, None]:
+            with self.assertRaises(CleanupError):
+                reviewed_text_fixture_ids(self.lease([identity]), self.owner)
+
+    def test_foreign_and_malformed_leases_are_rejected(self):
+        for value in [None, [], {}, dict(self.lease(), owner_nonce='c' * 32), dict(self.lease(), fixture_kind='other'),
+                      dict(self.lease(), schema_version=True), dict(self.lease(), extra='unexpected'),
+                      dict(self.lease(), owned_extension_ids='reviewed-text-' + 'b' * 32)]:
+            with self.assertRaises(CleanupError):
+                reviewed_text_fixture_ids(value, self.owner)
+        with self.assertRaises(CleanupError):
+            reviewed_text_fixture_ids(self.lease(), '../owner')
+
+    def test_duplicate_and_excessive_lists_are_rejected_as_a_whole(self):
+        identity = 'reviewed-text-' + 'b' * 32
+        for identities in [[identity, identity], ['reviewed-text-' + format(i, '032x') for i in range(101)]]:
+            with self.assertRaises(CleanupError):
+                reviewed_text_fixture_ids(self.lease(identities), self.owner)
 
 
 class EmptyViewLeaseTests(unittest.TestCase):
