@@ -664,15 +664,32 @@ class ExtensionFormDeviceTest {
     private fun revealViewport(viewport: String, lineHeight: Float) {
         val body = compose.onNodeWithTag(viewport)
         val route = compose.onNode(hasTestTag("palette-content-scroll") and hasAnyAncestor(hasTestTag("extension-palette")), useUnmergedTree = true)
+        val gestures = record.optJSONArray("viewport_reveal_gestures") ?: JSONArray().also { record.put("viewport_reveal_gestures", it) }
         repeat(40) {
-            val bounds = fullBounds(body); val visible = body.fetchSemanticsNode().boundsInRoot
-            if (visible.height >= lineHeight + 2) return
+            val semantic = body.fetchSemanticsNode()
+            val bounds = compose.runOnUiThread {
+                val origin = semantic.positionInRoot
+                Rect(origin.x, origin.y, origin.x + semantic.size.width, origin.y + semantic.size.height)
+            }
+            val visible = semantic.boundsInRoot
             val outer = route.fetchSemanticsNode().boundsInRoot
+            val target = minOf(bounds.height, outer.height, lineHeight * 3 + 2)
+            if (visible.height + 1 >= target) return
             val upward = bounds.top > outer.top
+            // Start in the visible chrome outside the nested Form scroller.
+            // Its content/padding coordinates can lie inside that scroller,
+            // causing the inner view to consume a parent-reveal gesture.
             val startY = if (upward) (minOf(bounds.top, outer.bottom) - outer.top) * .75f
                 else (maxOf(bounds.bottom, outer.top) - outer.top + outer.height) * .5f
             val y = startY.coerceIn(2f, outer.height - 2f)
-            val endY = if (upward) (y - outer.height * .4f).coerceAtLeast(1f) else (y + outer.height * .4f).coerceAtMost(outer.height - 1f)
+            // A captured drag may continue into the surrounding activity.
+            // Keeping it artificially inside a nearly-hidden header can make
+            // the gesture shorter than Android's touch slop.
+            val endY = if (upward) (y - outer.height * .5f).coerceAtLeast(1f - outer.top)
+                else (y + outer.height * .5f).coerceAtMost(context.resources.displayMetrics.heightPixels - outer.top - 1f)
+            gestures.put(JSONObject().put("viewport", viewport).put("body", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+                .put("visible_height", visible.height).put("target_height", target).put("outer", JSONArray(listOf(outer.left, outer.top, outer.right, outer.bottom)))
+                .put("start_y", y).put("end_y", endY).put("touch_slop_px", android.view.ViewConfiguration.get(context).scaledTouchSlop))
             route.performTouchInput { down(Offset(center.x, y)); moveTo(Offset(center.x, endY), delayMillis = 300); advanceEventTime(200); up() }
             compose.waitForIdle()
         }
