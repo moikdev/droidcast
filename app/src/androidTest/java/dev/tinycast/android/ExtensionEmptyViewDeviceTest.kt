@@ -265,15 +265,44 @@ class ExtensionEmptyViewDeviceTest {
         compose.waitForIdle()
     }
 
+    private fun revealViewport(viewport: String) {
+        val body = compose.onNodeWithTag(viewport)
+        val route = compose.onNode(hasTestTag("palette-content-scroll") and hasAnyAncestor(hasTestTag("extension-palette")), useUnmergedTree = true)
+        repeat(30) {
+            val bounds = fullBounds(body)
+            val visible = body.fetchSemanticsNode().boundsInRoot
+            val outer = route.fetchSemanticsNode().boundsInRoot
+            if (visible.height >= minOf(bounds.height, outer.height) - 1) return
+            // Start outside the body so its nested scroller cannot consume the
+            // gesture needed to reveal it beneath oversized palette chrome.
+            val upward = bounds.top > outer.top
+            val startY = if (upward) (minOf(bounds.top, outer.bottom) - outer.top) * .75f
+                else (maxOf(bounds.bottom, outer.top) - outer.top + outer.height) * .5f
+            val y = startY.coerceIn(2f, outer.height - 2f)
+            val endY = if (upward) (y - outer.height * .4f).coerceAtLeast(1f)
+                else (y + outer.height * .4f).coerceAtMost(outer.height - 1f)
+            route.performTouchInput {
+                down(Offset(width - 8f, y)); moveTo(Offset(width - 8f, endY), delayMillis = 300)
+                advanceEventTime(200); up()
+            }
+            compose.waitForIdle()
+        }
+        fail("Pointer scrolling could not reveal the empty-state viewport")
+    }
+
     private fun inspectLines(viewport: String, shown: Boolean) {
         val title = compose.onNodeWithText(longTitle, useUnmergedTree = true)
         val description = compose.onNodeWithText(longDescription, useUnmergedTree = true)
         title.assertExists(); description.assertExists()
+        revealViewport(viewport)
         var attempts = 0
         while (attempts++ < 100) {
-            val before = fullBounds(title).top; drag(viewport, 1)
-            if (kotlin.math.abs(fullBounds(title).top - before) < 1) break
+            val before = fullBounds(title).top - fullBounds(compose.onNodeWithTag(viewport)).top
+            drag(viewport, 1)
+            val after = fullBounds(title).top - fullBounds(compose.onNodeWithTag(viewport)).top
+            if (kotlin.math.abs(after - before) < 1) break
         }
+        revealViewport(viewport)
         val layouts = listOf(title, description).map { node ->
             val values = mutableListOf<TextLayoutResult>(); node.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(values) }
             values.single().also { text ->
@@ -290,6 +319,7 @@ class ExtensionEmptyViewDeviceTest {
             val step = JSONObject().put("viewport", JSONArray(listOf(viewportBounds.left, viewportBounds.top, viewportBounds.right, viewportBounds.bottom)))
             listOf(title, description).forEachIndexed { index, interaction ->
                 val bounds = fullBounds(interaction); val layout = layouts[index]
+                step.put(if (index == 0) "title_bounds" else "description_bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
                 for (line in 0 until layout.lineCount) {
                     val left = bounds.left + layout.getLineLeft(line); val right = bounds.left + layout.getLineRight(line)
                     val top = bounds.top + layout.getLineTop(line); val bottom = bounds.top + layout.getLineBottom(line)
