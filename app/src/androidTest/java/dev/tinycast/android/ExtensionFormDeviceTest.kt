@@ -39,6 +39,7 @@ import java.util.concurrent.atomic.AtomicReference
  * Uses the shared guarded input runner/lease and independent clipboard recovery.
  */
 @RunWith(AndroidJUnit4::class)
+@OptIn(ExperimentalTestApi::class)
 class ExtensionFormDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @get:Rule val testName = org.junit.rules.TestName()
