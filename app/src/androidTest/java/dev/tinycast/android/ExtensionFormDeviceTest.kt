@@ -132,7 +132,7 @@ class ExtensionFormDeviceTest {
             globalThis.__formProbe={changes:0,focus:{},blur:{},blurLengths:{},dispatches:0};
             const dispatch=globalThis.__tinycast.dispatch;
             globalThis.__tinycast.dispatch=function(...args){globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
-            function events(id){return {onFocus:e=>{const p=globalThis.__formProbe.focus;p[id]=(p[id]||0)+1},
+            function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe.focus;p[id]=(p[id]||0)+1},
               onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0}}}
             module.exports.default=function(props){
               if(mode==='configuration'){
@@ -145,13 +145,13 @@ class ExtensionFormDeviceTest {
                 globalThis.__bumpOwnedForm=()=>setRender(n=>n+1);
                 const change=setter=>value=>{globalThis.__formProbe.changes++;setter(value)};
                 return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,React.createElement(api.Action.SubmitForm,{title:'Inspect owned values',onSubmit:()=>{}}))},
-                  React.createElement(api.Form.TextField,{key:'name',id:'name',title:mode==='long'?${JSONObject.quote(longTitle)}:'Owned account name',value:name,onChange:change(setName),...events('name'),
+                  React.createElement(api.Form.TextField,{key:'name',id:'name',title:mode==='long'?${JSONObject.quote(longTitle)}:'Owned account name',value:name,onChange:change(setName),...fieldEvents('name'),
                     error:mode==='long'?${JSONObject.quote(longError)}:undefined,info:mode==='long'?${JSONObject.quote(longInfo)}:undefined}),
-                  mode==='all-fields'?React.createElement(api.Form.PasswordField,{key:'password',id:'password',title:'Owned masked password',value:password,onChange:change(setPassword),...events('password')}):null,
-                  mode==='all-fields'?React.createElement(api.Form.TextArea,{key:'area',id:'area',title:'Owned multiline text',value:area,onChange:change(setArea),...events('area')}):null,
-                  mode==='all-fields'?React.createElement(api.Form.TextField,{key:'uncontrolled',id:'uncontrolled',title:'Owned uncontrolled text',defaultValue:'Owned initial',...events('uncontrolled')}):null,
-                  React.createElement(api.Form.Checkbox,{key:'enabled',id:'enabled',title:'Owned output option',label:mode==='long'?${JSONObject.quote(longCheckbox)}:${JSONObject.quote(checkboxLabel)},value:checked,onChange:change(setChecked),...events('enabled')}),
-                  React.createElement(api.Form.Dropdown,{key:'choice',id:'choice',title:'Owned layout choice',value:choice,onChange:change(setChoice),...events('choice')},
+                  mode==='all-fields'?React.createElement(api.Form.PasswordField,{key:'password',id:'password',title:'Owned masked password',value:password,onChange:change(setPassword),...fieldEvents('password')}):null,
+                  mode==='all-fields'?React.createElement(api.Form.TextArea,{key:'area',id:'area',title:'Owned multiline text',value:area,onChange:change(setArea),...fieldEvents('area')}):null,
+                  mode==='all-fields'?React.createElement(api.Form.TextField,{key:'uncontrolled',id:'uncontrolled',title:'Owned uncontrolled text',defaultValue:'Owned initial',...fieldEvents('uncontrolled')}):null,
+                  React.createElement(api.Form.Checkbox,{key:'enabled',id:'enabled',title:'Owned output option',label:mode==='long'?${JSONObject.quote(longCheckbox)}:${JSONObject.quote(checkboxLabel)},value:checked,onChange:change(setChecked),...fieldEvents('enabled')}),
+                  React.createElement(api.Form.Dropdown,{key:'choice',id:'choice',title:'Owned layout choice',value:choice,onChange:change(setChoice),...fieldEvents('choice')},
                     React.createElement(api.Form.Dropdown.Item,{key:'one',value:'internal-layout-one',title:mode==='long'?${JSONObject.quote(longOption)}:'Readable first layout'}),
                     React.createElement(api.Form.Dropdown.Item,{key:'two',value:'internal-layout-two',title:${JSONObject.quote(choiceTitle)}})),
                   React.createElement(api.Form.Description,{key:'render',text:'Owned render '+render}));
@@ -455,8 +455,8 @@ class ExtensionFormDeviceTest {
         touch("extension-back")
         assertNull(compose.activity.store.dialog); assertTrue(prefs.all.isEmpty())
         compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
-        compose.onNodeWithTag("argument-input").assertTextEquals("")
-        compose.onNodeWithTag("preference-account").assertTextEquals("")
+        compose.onNodeWithTag("argument-input").assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+        compose.onNodeWithTag("preference-account").assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
         val argument = "Owned café é 日本 🌱"; val account = "Owned account 日本"
         compose.onNodeWithTag("argument-input").performScrollTo().performTextReplacement(argument)
         compose.onNodeWithTag("preference-account").performScrollTo().performTextReplacement(account)
@@ -496,7 +496,7 @@ class ExtensionFormDeviceTest {
                 assertEquals("extension-setup", it.store.dialog); assertSame(running, catalog.running)
             } finally { catalog.launchEpoch = epoch }
         }
-        account.assertTextEquals(""); assertTrue(prefs.all.isEmpty())
+        account.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))); assertTrue(prefs.all.isEmpty())
         capture("stale-configuration-rejected")
         record.put("controlled_native_transition", "Changed launch epoch before queued native edit, Run and Back; restored before a Compose frame")
             .put("queued_edits_run_back_rejected", true).put("passed", true)
