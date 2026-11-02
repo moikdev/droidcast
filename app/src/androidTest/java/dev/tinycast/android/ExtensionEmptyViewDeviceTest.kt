@@ -265,7 +265,7 @@ class ExtensionEmptyViewDeviceTest {
         compose.waitForIdle()
     }
 
-    private fun revealViewport(viewport: String) {
+    private fun revealViewport(viewport: String, lineHeight: Float) {
         val body = compose.onNodeWithTag(viewport)
         val route = compose.onNode(hasTestTag("palette-content-scroll") and hasAnyAncestor(hasTestTag("extension-palette")), useUnmergedTree = true)
         val gestures = record.optJSONArray("viewport_reveal_gestures") ?: JSONArray().also { record.put("viewport_reveal_gestures", it) }
@@ -273,7 +273,7 @@ class ExtensionEmptyViewDeviceTest {
             val bounds = fullBounds(body)
             val visible = body.fetchSemanticsNode().boundsInRoot
             val outer = route.fetchSemanticsNode().boundsInRoot
-            if (visible.height >= minOf(bounds.height, outer.height) - 1) return
+            if (visible.height >= lineHeight + 2) return
             // Start outside the body so its nested scroller cannot consume the
             // gesture needed to reveal it beneath oversized palette chrome.
             val upward = bounds.top > outer.top
@@ -297,15 +297,6 @@ class ExtensionEmptyViewDeviceTest {
         val title = compose.onNodeWithText(longTitle, useUnmergedTree = true)
         val description = compose.onNodeWithText(longDescription, useUnmergedTree = true)
         title.assertExists(); description.assertExists()
-        revealViewport(viewport)
-        var attempts = 0
-        while (attempts++ < 100) {
-            val before = fullBounds(title).top - fullBounds(compose.onNodeWithTag(viewport)).top
-            drag(viewport, 1)
-            val after = fullBounds(title).top - fullBounds(compose.onNodeWithTag(viewport)).top
-            if (kotlin.math.abs(after - before) < 1) break
-        }
-        revealViewport(viewport)
         val layouts = listOf(title, description).map { node ->
             val values = mutableListOf<TextLayoutResult>(); node.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(values) }
             values.single().also { text ->
@@ -313,6 +304,16 @@ class ExtensionEmptyViewDeviceTest {
                 assertTrue((0 until text.lineCount).none(text::isLineEllipsized))
             }
         }
+        val lineHeight = layouts.maxOf { text -> (0 until text.lineCount).maxOf { text.getLineBottom(it) - text.getLineTop(it) } }
+        revealViewport(viewport, lineHeight)
+        var attempts = 0
+        while (attempts++ < 100) {
+            val before = fullBounds(title).top - fullBounds(compose.onNodeWithTag(viewport)).top
+            drag(viewport, 1)
+            val after = fullBounds(title).top - fullBounds(compose.onNodeWithTag(viewport)).top
+            if (kotlin.math.abs(after - before) < 1) break
+        }
+        revealViewport(viewport, lineHeight)
         val witnessed = layouts.map { BooleanArray(it.lineCount) }
         val receipts = JSONArray(); capture(if (shown) "ime-top" else "closed-top")
         attempts = 0
