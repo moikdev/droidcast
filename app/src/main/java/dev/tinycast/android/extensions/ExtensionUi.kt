@@ -481,7 +481,17 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
 }
 
-@Composable private fun SelectionContainerCompat(text:String,modifier:Modifier,scroll:ScrollState){androidx.compose.foundation.text.selection.SelectionContainer(modifier.verticalScroll(scroll)){Text(text,fontSize=14.sp,lineHeight=23.sp)}}
+@Composable
+private fun SelectionContainerCompat(text:String,modifier:Modifier,scroll:ScrollState){
+    // In pinned Compose 1.7.6, Android's selection context-menu wrapper sits
+    // above the supplied modifier. Keep Column's weight on our outer layout
+    // so long selectable text cannot consume the footer's allocation.
+    Box(modifier.testTag("extension-detail")) {
+        androidx.compose.foundation.text.selection.SelectionContainer(Modifier.fillMaxSize().verticalScroll(scroll)) {
+            Text(text,fontSize=14.sp,lineHeight=23.sp)
+        }
+    }
+}
 
 @Composable
 private fun FormNode(node:JSONObject,runtime:ExtensionRuntime){
