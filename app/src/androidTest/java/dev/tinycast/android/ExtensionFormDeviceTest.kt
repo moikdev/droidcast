@@ -445,7 +445,11 @@ class ExtensionFormDeviceTest {
                 val origin = compose.runOnUiThread { current.positionInRoot }
                 drag(body, if (origin.y < visible.top) 1 else -1)
             }
-        } else if (!node.isDisplayed()) node.performScrollTo()
+        } else if (compose.onAllNodes(hasTestTag(tag) and hasAnyAncestor(hasScrollAction())).fetchSemanticsNodes().isNotEmpty()) {
+            // The palette header scrolls too. A two-pixel visible Back button
+            // is not a useful pointer target even though isDisplayed is true.
+            node.performScrollTo()
+        }
         compose.waitForIdle()
         val target = node.fetchSemanticsNode()
         val visible = target.boundsInRoot
