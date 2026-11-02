@@ -21,8 +21,8 @@ internal class TextInputRejected(val problem: TextInputProblem) : IllegalArgumen
 
 /** Pending text is separate from the capability handed to an approved invocation. */
 internal class TextInputPreview internal constructor(text: String, val origin: TextInputOrigin, val readOnly: Boolean) {
-    private var content: String? by mutableStateOf(text)
-    var target: TextInputTarget? by mutableStateOf(null); private set
+    private var content: String? by mutableStateOf<String?>(text)
+    var target: TextInputTarget? by mutableStateOf<TextInputTarget?>(null); private set
     val text: String? get() = content
     internal fun choose(value: TextInputTarget?) { target = value }
     internal fun take(): String {
@@ -50,7 +50,7 @@ internal class CommandTextInput internal constructor(
 /** UI-thread lifecycle; no saved state, preferences, clipboard reads or external execution. */
 internal class ReviewedTextInput {
     companion object { const val MAX_CODE_UNITS = 65_536 }
-    var preview: TextInputPreview? by mutableStateOf(null); private set
+    var preview: TextInputPreview? by mutableStateOf<TextInputPreview?>(null); private set
     private var active: CommandTextInput? = null
 
     fun receive(value: Any?, origin: TextInputOrigin, readOnly: Boolean = true): TextInputPreview {
