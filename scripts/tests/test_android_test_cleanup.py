@@ -41,6 +41,12 @@ class ReviewedTextLeaseTests(unittest.TestCase):
             with self.assertRaises(CleanupError):
                 reviewed_text_fixture_ids(self.lease(identities), self.owner)
 
+    def test_process_recreation_ownership_requires_its_explicit_mode(self):
+        value = dict(self.lease(), fixture_kind='reviewed-text-process-recreation-v1')
+        self.assertEqual(value['owned_extension_ids'], reviewed_text_fixture_ids(value, self.owner, process_recreation=True))
+        with self.assertRaises(CleanupError): reviewed_text_fixture_ids(value, self.owner)
+        with self.assertRaises(CleanupError): reviewed_text_fixture_ids(self.lease(), self.owner, process_recreation=True)
+
 
 class EmptyViewLeaseTests(unittest.TestCase):
     owner = 'a' * 32
