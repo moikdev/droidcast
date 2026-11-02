@@ -41,6 +41,8 @@ class FrozenBundleWorkflowDeviceTest {
     private var preservedHashes = emptyList<Map<String, String>>()
     private val ownedIds = mutableListOf<String>()
     private val rows = JSONArray()
+    private var currentObservation: JSONObject? = null
+    private val callerQuery = "compatibility-audit-" + UUID.randomUUID().toString().replace("-", "")
     private val inputJson = "{\"droidcast\":271828,\"items\":[1,2]}"
     private val unicodeText = "Droidcast ✓"
 
@@ -153,9 +155,17 @@ class FrozenBundleWorkflowDeviceTest {
             if (field.optString("type") != "dropdown" || options.any { it.optString("value") == seed.toString() }) values.put(key, seed)
         }
         compose.activityRule.scenario.onActivity {
-            it.store.extensions.close(); it.store.dialog = null; it.store.search("Droidcast compatibility fixture")
+            it.store.extensions.close(); it.store.dialog = null; it.store.search(callerQuery)
             catalog.savePreferences(extension, values)
             it.store.openExtension(extension, command)
+        }
+        currentObservation?.put("configuration_method", "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised")
+            ?.put("seeded_preferences", values)
+        currentObservation?.let { observation ->
+            if (name != observation.getString("command")) {
+                val supporting = observation.optJSONArray("supporting_commands") ?: JSONArray().also { observation.put("supporting_commands", it) }
+                supporting.put(JSONObject().put("command", name).put("file_sha256", hash(File(extension.directory, "$name.js").readBytes())))
+            }
         }
         if (compose.activity.store.dialog == "extension-setup") {
             val prefs = catalog.preferences(extension, command)
@@ -167,9 +177,15 @@ class FrozenBundleWorkflowDeviceTest {
                 if (value != null) compose.onNodeWithTag("argument-$key").performTextReplacement(value)
                 else if (field.optBoolean("required")) throw ConfigurationNeeded(listOf(key))
             }
+            currentObservation?.let { observation ->
+                val steps = observation.optJSONArray("native_argument_steps") ?: JSONArray().also { observation.put("native_argument_steps", it) }
+                steps.put(JSONObject().put("command", name).put("values", JSONObject(arguments)))
+            }
             compose.onNodeWithTag("run-extension-setup").performClick()
         }
         await { catalog.runtimeReady }
+        currentObservation?.getJSONObject("phases")?.put("startup", "Host runtime reported ready")
+            ?.put("rendering", if (command.mode == "no-view") "not-applicable" else "awaiting native capture")
     }
 
     private fun capture(name: String) {
@@ -367,6 +383,20 @@ class FrozenBundleWorkflowDeviceTest {
         assertFalse(File(context.filesDir, "extension-data/$id").exists())
     }
 
+    private fun returnByTouch() {
+        var attempts = 0
+        while (catalog.running != null && attempts++ < 4) {
+            val depth = catalog.navigationDepth
+            val tag = if (catalog.runtimeError != null) "extension-error-close" else "extension-back"
+            compose.onNodeWithTag(tag).performClick()
+            compose.waitUntil(10000) { catalog.running == null || catalog.navigationDepth < depth }
+            compose.waitForIdle()
+        }
+        assertNull("Visible Back/Close must end the command session", catalog.running)
+        assertNull("Touch return must restore the launcher caller", compose.activity.store.dialog)
+        assertEquals("Touch return must preserve the caller query", callerQuery, compose.activity.store.query)
+    }
+
     @Test fun frozenWorkflowsProduceIndependentObservations() {
         for (entry in fixture.getJSONArray("extensions").objects()) {
             val commands = entry.getJSONArray("planned_commands")
@@ -380,6 +410,12 @@ class FrozenBundleWorkflowDeviceTest {
                     .put("command_sha256", entry.getJSONArray("commands").objects().single { it.getString("name") == command }.getString("file_sha256"))
                     .put("installation", "Native archive extraction into isolated cache; Store UI installation not exercised")
                     .put("status", "untested").put("action_output_verified", false)
+                    .put("phases", JSONObject().put("archive_extraction", "verified")
+                        .put("startup", "not-checked").put("rendering", "not-checked")
+                        .put("interaction_and_action", "not-checked").put("destination", "not-checked")
+                        .put("persistence", "not-checked").put("touch_return", "not-checked")
+                        .put("isolated_data_cleanup", "pending"))
+                currentObservation = row
                 try {
                     setClipboard("Droidcast workflow sentinel")
                     row.put("status", if (workflow(entry, extension, command, row)) "tested-working-for-listed-workflow" else "tested-partial")
@@ -397,18 +433,38 @@ class FrozenBundleWorkflowDeviceTest {
                         .put("observation_error_type", error.javaClass.simpleName).put("observation_message", safeMessage(error.message.orEmpty()))
                 }
                 row.put("runtime_status", safeMessage(catalog.runtimeStatus))
+                val phases = row.getJSONObject("phases")
+                if (row.optBoolean("action_output_verified")) {
+                    phases.put("interaction_and_action", if (row.getString("status") == "tested-working-for-listed-workflow") "verified for listed workflow" else "partial; see per-step checks")
+                        .put("destination", "owned clipboard output verified")
+                }
+                if (row.has("destination_verified")) phases.put("native_destination", row.getString("destination_verified"))
+                if (row.optBoolean("persistence_verified")) phases.put("persistence", "verified across a new command session in the same app process")
                 try {
                     capture(name)
                     row.put("capture", "$name.png").put("native_root", activeRoot(catalog.runtimeTree)?.optString("type") ?: JSONObject.NULL)
+                    if (activeRoot(catalog.runtimeTree) != null) phases.put("rendering", "native command screen captured; inspect the listed workflow checks")
+                    try {
+                        returnByTouch()
+                        phases.put("touch_return", "verified caller query and closed command session")
+                        capture("$name-return")
+                        row.put("return_capture", "$name-return.png")
+                    } catch (error: Throwable) {
+                        phases.put("touch_return", "failed observation; requires triage")
+                        row.put("needs_triage", true).put("return_error", safeMessage(error.message.orEmpty()))
+                        if (row.getString("status") == "tested-working-for-listed-workflow") row.put("status", "tested-partial")
+                    }
                 } finally {
                     compose.activityRule.scenario.onActivity { catalog.close(); it.store.dialog = null }
                     compose.waitForIdle()
                     cleanOwner(extension.listing.id)
                 }
                 row.put("isolated_data_removed", true)
+                phases.put("isolated_data_cleanup", "verified")
                 rows.put(row)
                 File(evidence, "$name.json").writeText(row.toString(2))
                 writeCollection(false)
+                currentObservation = null
             }
         }
         assertEquals(installedIds, catalog.installed.map { it.listing.id }.toSet())
@@ -423,6 +479,8 @@ class FrozenBundleWorkflowDeviceTest {
             .put("webview_package", WebView.getCurrentWebViewPackage()?.packageName)
             .put("webview_version", WebView.getCurrentWebViewPackage()?.versionName)
             .put("font_scale", context.resources.configuration.fontScale)
+            .put("density_dpi", context.resources.displayMetrics.densityDpi)
+            .put("input_method", "Compose pointer actions and text semantics; no physical touchscreen/keyboard certification")
             .put("workflows", rows).put("scope", "Collector completion is not a blanket compatibility pass; each status names its actual exercised workflow.").toString(2))
     }
 
