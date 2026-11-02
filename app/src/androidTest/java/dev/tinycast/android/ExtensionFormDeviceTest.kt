@@ -525,6 +525,10 @@ class ExtensionFormDeviceTest {
         evaluateOwned("globalThis.__bumpOwnedForm();true")
         compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
         assertEquals(1, probe().getJSONObject("focus").getInt("name"))
+        // The controlled InputConnection remains the editor input route. Hide
+        // Gboard first so its separate live connection cannot finish the
+        // synthetic composing region between the two asynchronous phases.
+        ime(false)
         var input: android.view.inputmethod.InputConnection? = null
         compose.activityRule.scenario.onActivity {
             input = requireNotNull(it.window.decorView.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
@@ -685,8 +689,9 @@ class ExtensionFormDeviceTest {
         touchLastLine("extension-form", compose.onNodeWithText(longCheckbox, useUnmergedTree = true))
         compose.waitUntil(5000) { field("Form.Checkbox", "enabled").props().optBoolean("value") }
         assertEquals(before + 1, probe().getInt("changes"))
-        val checkbox = fullBounds(compose.onNodeWithTag("extension-checkbox-enabled"))
-        assertTrue("Checkbox row must provide a 48dp touch target", checkbox.height + 1 >= 48 * context.resources.displayMetrics.density)
+        val checkbox = compose.onNodeWithTag("extension-checkbox-enabled").fetchSemanticsNode()
+        record.put("checkbox_semantics_height_px", checkbox.size.height).put("density", context.resources.displayMetrics.density)
+        assertTrue("Checkbox row must provide a 48dp touch target", checkbox.size.height + 1 >= 48 * context.resources.displayMetrics.density)
         openChoice(); compose.onNodeWithTag("inline-menu-choices").performScrollToIndex(0)
         inspectTextLines("inline-menu-choices", listOf(compose.onNodeWithText(longOption, useUnmergedTree = true)), "long-option")
         touchLastLine("inline-menu-choices", compose.onNodeWithText(longOption, useUnmergedTree = true))
