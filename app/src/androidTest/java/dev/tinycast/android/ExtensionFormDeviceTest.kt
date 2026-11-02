@@ -211,11 +211,12 @@ class ExtensionFormDeviceTest {
             };
         """.trimIndent()
         File(directory, "form.js").writeText(script)
-        val manifest = if (mode == "configuration") JSONObject("""{"commands":[{"name":"form","title":"Owned Form configuration","mode":"view","arguments":[{"name":"input","type":"text","placeholder":"Enter owned argument","required":true}],"preferences":[{"name":"account","title":"Owned account name","type":"textfield","required":true,"description":"Enter an owned value. This configuration is only saved when Run is selected."},{"name":"enabled","title":"Owned output option","type":"checkbox","label":"$checkboxLabel","default":false},{"name":"layout","title":"Owned layout choice","type":"dropdown","default":"internal-layout-two","data":[{"value":"internal-layout-one","title":"Readable first layout"},{"value":"internal-layout-two","title":"$choiceTitle"}]}]}]}""")
+        val manifest = if (mode == "configuration") JSONObject("""{"commands":[{"name":"form","title":"Owned Form configuration","mode":"view","arguments":[{"name":"input","type":"text","placeholder":"Enter owned argument","required":true}],"preferences":[{"name":"account","title":"Owned account name","type":"textfield","required":true,"description":"Enter an owned value. This configuration is only saved when Run is selected."},{"name":"secret","title":"Owned optional password","type":"password","required":false},{"name":"enabled","title":"Owned output option","type":"checkbox","label":"$checkboxLabel","default":false},{"name":"layout","title":"Owned layout choice","type":"dropdown","default":"internal-layout-two","data":[{"value":"internal-layout-one","title":"Readable first layout"},{"value":"internal-layout-two","title":"$choiceTitle"}]}]}]}""")
             else JSONObject("""{"commands":[{"name":"form","title":"Owned Form controls","mode":"view"}]}""")
         val extension = InstalledExtension(StoreExtension(id, "form-fixture", "Owned Form probe", "", "Droidcast tests", "test", "", "", "", 1), directory, manifest)
         ownedExtension = extension
-        record.put("fixture_mode", mode).put("fixture_command_sha256", hash(script.toByteArray(Charsets.UTF_8))).put("owned_extension_id", id)
+        record.put("fixture_mode", mode).put("fixture_command_sha256", hash(script.toByteArray(Charsets.UTF_8)))
+            .put("fixture_manifest_sha256", hash(manifest.toString().toByteArray(Charsets.UTF_8))).put("owned_extension_id", id)
         compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single()) }
         if (mode == "configuration") {
             compose.waitUntil(10000) { compose.activity.store.dialog == "extension-setup" }
@@ -624,6 +625,9 @@ class ExtensionFormDeviceTest {
 
     @Test fun nativeConfigurationEditsValidateCancelAndRun() {
         launch("configuration")
+        touch("preference-secret")
+        assertPasswordEditorMetadata("preference-secret")
+        capture("configuration-password-editor")
         val prefs = context.getSharedPreferences("extension-${ownedExtension.listing.id}", Context.MODE_PRIVATE)
         assertTrue(prefs.all.isEmpty())
         touch("run-extension-setup")
