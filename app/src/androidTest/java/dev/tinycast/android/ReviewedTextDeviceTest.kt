@@ -16,6 +16,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiScrollable
+import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import dev.tinycast.android.extensions.*
 import org.json.JSONArray
@@ -140,6 +142,8 @@ class ReviewedTextDeviceTest {
     }
     @Before fun ready() {
         compose.waitUntil(15000) { !compose.activity.store.loading }
+        assertNotEquals(context.applicationInfo.uid, context.packageManager.getApplicationInfo(instrumentation.context.packageName, 0).uid)
+        record.put("external_caller_uses_separate_package_and_uid", true)
         dismissClipboardForEvidence()
         compose.activityRule.scenario.onActivity {
             val manager = it.getSystemService(ClipboardManager::class.java)
@@ -184,11 +188,16 @@ class ReviewedTextDeviceTest {
             .putExtra("selectionEnd", if (source == prefix + input + suffix) prefix.length + input.length else source.length)
             .putExtra("mime", mime).putExtra("readOnly", readOnly).putExtra("payloadKind", kind)
         instrumentation.context.startActivity(value)
-        assertTrue(device.wait(Until.hasObject(By.text("Owned Android caller")), 10000))
+        awaitCaller()
         assertEquals(source, device.findObject(By.res("android:id/edit")).text)
+    }
+    private fun awaitCaller() {
+        assertTrue(device.wait(Until.hasObject(By.pkg(instrumentation.context.packageName).depth(0)), 10000))
+        UiScrollable(UiSelector().scrollable(true)).scrollToBeginning(10)
     }
     private fun send(share: Boolean = false) {
         val label = if (share) "Share owned text" else "Process selected text"
+        assertTrue(UiScrollable(UiSelector().scrollable(true)).scrollTextIntoView(label))
         device.findObject(By.text(label)).click()
         assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).depth(0)), 10000))
         compose.waitForIdle()
@@ -232,6 +241,10 @@ class ReviewedTextDeviceTest {
     }
     private fun choose(id: String, name: String) {
         touch("text-input-choose")
+        val extension = compose.activity.store.extensions.installed.single { it.listing.id == id }
+        val title = extension.commands.single { it.name == name }.title
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement(title)
+        compose.waitForIdle()
         val tag = "text-command-$id/$name"
         val choice = compose.onNodeWithTag(tag)
         // The searchable native menu must be navigated by touch, including large text.
@@ -259,7 +272,7 @@ class ReviewedTextDeviceTest {
         compose.waitUntil(10000) { clipboardText() == output }
         dismissClipboardForEvidence(); capture("copied")
         compose.onNodeWithTag("extension-back").performTouchInput { click(center) }
-        assertTrue(device.wait(Until.hasObject(By.text("Owned Android caller")), 10000))
+        awaitCaller()
         assertEquals(prefix + input + suffix, device.findObject(By.res("android:id/edit")).text)
         assertEquals("Selection ${prefix.length} to ${prefix.length + input.length}", device.findObject(By.res("android:id/text2")).text)
         record.put("exact_input_sha256", hash(input.toByteArray())).put("exact_output_sha256", hash(output.toByteArray()))
@@ -273,19 +286,19 @@ class ReviewedTextDeviceTest {
 
     @Test fun malformedAndOversizedInputCannotRunOrChangeClipboard() {
         for ((kind, mime, expected) in listOf(Triple("missing", "text/plain", "No text was provided"), Triple("integer", "text/plain", "needs plain text"),
-            Triple("oversize", "text/plain", "too long"), Triple(null, "text/html", "needs plain text"))) {
+            Triple("oversize", "text/plain", "too long"), Triple("badflag", "text/plain", "needs plain text"), Triple(null, "text/html", "needs plain text"))) {
             caller(kind = kind, mime = mime); send()
             compose.onNodeWithTag("text-input-error").assertTextContains(expected, substring = true)
             compose.onNodeWithTag("text-input-run").assertDoesNotExist()
             assertNull(compose.activity.store.extensions.running); assertEquals(sentinel, clipboardText())
             capture("invalid-${kind ?: "mime"}")
         }
-        record.put("invalid_payloads_rejected", 4).put("passed", true)
+        record.put("invalid_payloads_rejected", 5).put("passed", true)
     }
     @Test fun cancelBeforeRunReturnsWithoutExecutingOrSaving() {
         caller(); send(); assertReview(); choose(formatterId, "formatSelectionAndShow")
         touch("text-input-cancel")
-        assertTrue(device.wait(Until.hasObject(By.text("Owned Android caller")), 10000))
+        awaitCaller()
         assertEquals(prefix + input + suffix, device.findObject(By.res("android:id/edit")).text)
         capture("cancelled-return", true)
         record.put("cancelled_before_run", true).put("passed", true)
