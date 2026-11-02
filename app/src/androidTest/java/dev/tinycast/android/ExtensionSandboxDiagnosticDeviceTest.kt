@@ -102,7 +102,7 @@ class ExtensionSandboxDiagnosticDeviceTest {
             check("symlink-outside-realpath", "realpath", link.path, false)
             check("symlink-outside-read", "readFile", File(link, "marker.txt").path, false)
             check("symlink-outside-write", "writeFile", File(link, "marker.txt").path, false, listOf(encoded))
-        } finally { Os.unlink(link.path) }
+        } finally { java.nio.file.Files.delete(link.toPath()) }
         checks.put(JSONObject().put("name", "outside-owned-marker-preserved").put("passed", outsideMarker.readText() == "Owned outside-scope control"))
         checks.put(JSONObject().put("name", "package-write-absent").put("passed", !packageWrite.exists()))
         checks.put(JSONObject().put("name", "frozen-temp-dir-call-owned-and-allowed").put("passed", frozenCalls.any {
