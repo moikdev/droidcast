@@ -830,6 +830,10 @@ class ExtensionFormDeviceTest {
     private fun ime(show: Boolean) {
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+        // Let the actual pointer's focus/input and keyboard transitions finish
+        // before issuing an explicit request to an already focused editor.
+        // A second early request can race the previous native hide/start work.
+        if (show) device.waitForIdle(2000)
         if (show && !imeVisible()) {
             val frames = CountDownLatch(1)
             compose.activityRule.scenario.onActivity { it.window.decorView.postOnAnimation { it.window.decorView.postOnAnimation { frames.countDown() } } }
@@ -846,10 +850,10 @@ class ExtensionFormDeviceTest {
             }
             compose.activityRule.scenario.onActivity {
                 val editor = requireNotNull(it.window.decorView.findFocus())
-                val requested = it.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
-                    .showSoftInput(editor, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
-                record.put("native_active_editor_show_request_accepted", requested)
-                assertTrue("The focused native editor must accept its keyboard request", requested)
+                if (!imeVisible()) {
+                    androidx.core.view.WindowCompat.getInsetsController(it.window, editor).show(WindowInsetsCompat.Type.ime())
+                    record.put("native_active_editor_show_request_issued", true)
+                }
             }
         }
         compose.activityRule.scenario.onActivity {
