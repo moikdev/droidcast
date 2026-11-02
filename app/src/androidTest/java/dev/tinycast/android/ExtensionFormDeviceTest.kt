@@ -475,7 +475,11 @@ class ExtensionFormDeviceTest {
                 it.config.contains(SemanticsProperties.Focused) && it.config[SemanticsProperties.Focused]
             } == true }
             node.assertIsFocused()
-            ime(true)
+            // A pointer focus follows Android's keyboard policy. Explicit
+            // show/hide scenarios call ime() themselves; do not add a second
+            // keyboard request to unrelated pointer-only workflows.
+            UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).waitForIdle(2000)
+            awaitImeGeometry()
         }
     }
     private fun openChoice() {
@@ -736,6 +740,7 @@ class ExtensionFormDeviceTest {
         compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == composed }
         compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3)))
         touch("extension-field-password")
+        assertPasswordEditorMetadata("extension-field-password")
         val password = "owned-" + UUID.randomUUID().toString(); sensitiveValue = password
         compose.onNodeWithTag("extension-field-password").performTextReplacement(password)
         compose.waitUntil(5000) { field("Form.PasswordField", "password").props().optString("value") == password }
@@ -770,6 +775,22 @@ class ExtensionFormDeviceTest {
         record.put("focus_probe", observed).put("composition_survived_javascript_round_trip", true)
             .put("composition_method", "Controlled Android InputConnection with Gboard hidden across asynchronous JS/native phases; not phonetic typing gestures in a live OEM IME")
             .put("controlled_selection_preserved", true).put("password_masking_and_value_delivery", true).put("passed", true)
+    }
+
+    private fun assertPasswordEditorMetadata(tag: String) {
+        ime(false)
+        val info = android.view.inputmethod.EditorInfo()
+        compose.activityRule.scenario.onActivity {
+            val editor = requireNotNull(it.window.decorView.findFocus())
+            assertTrue(editor.onCheckIsTextEditor())
+            assertNotNull(editor.onCreateInputConnection(info))
+        }
+        val probes = record.optJSONArray("password_editor_metadata") ?: JSONArray().also { record.put("password_editor_metadata", it) }
+        probes.put(JSONObject().put("tag", tag).put("input_type", info.inputType).put("ime_options", info.imeOptions)
+            .put("scope", "Actual focused editor InputConnection metadata before any password is entered"))
+        assertEquals("Password editors must request TYPE_TEXT_VARIATION_PASSWORD", android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD,
+            info.inputType and android.text.InputType.TYPE_MASK_VARIATION)
+        assertEquals("Password editors must disable autocorrection", 0, info.inputType and android.text.InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
     }
 
     @Test fun returningFromCheckboxRefocusesTheSameTextField() {
