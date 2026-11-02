@@ -763,6 +763,24 @@ class ExtensionFormDeviceTest {
             .put("controlled_selection_preserved", true).put("password_masking_and_value_delivery", true).put("passed", true)
     }
 
+    @Test fun returningFromCheckboxRefocusesTheSameTextField() {
+        launch("all-fields")
+        touch("extension-field-name")
+        val value = "Owned focus return 日本 🌱"
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(value)
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value }
+        touch("extension-checkbox-enabled")
+        compose.waitUntil(5000) { probe().getJSONObject("blur").optInt("name") == 1 &&
+            probe().getJSONObject("focus").optInt("enabled") == 1 }
+        capture("checkbox-after-text")
+        touch("extension-field-name")
+        compose.waitUntil(5000) { probe().getJSONObject("focus").optInt("name") == 2 &&
+            probe().getJSONObject("blur").optInt("enabled") == 1 }
+        compose.onNodeWithTag("extension-field-name").assertTextEquals(value)
+        capture("text-after-checkbox")
+        record.put("focus_probe", probe()).put("direct_text_checkbox_text_pointer_round_trip", true).put("passed", true)
+    }
+
     private fun imeVisible() = ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
     private fun ime(show: Boolean) {
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
