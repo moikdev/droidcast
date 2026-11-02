@@ -14,6 +14,8 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiScrollable
@@ -34,6 +36,7 @@ import java.io.File
 import java.security.MessageDigest
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicReference
 import java.util.UUID
 
 /** The workflow tests deliberately use only pre-feature production APIs.
@@ -76,6 +79,13 @@ class ReviewedTextDeviceTest {
     }).around(compose)
 
     private fun hash(data: ByteArray) = MessageDigest.getInstance("SHA-256").digest(data).joinToString("") { "%02x".format(it) }
+    private fun foregroundActivity(): MainActivity {
+        val result = AtomicReference<MainActivity>()
+        instrumentation.runOnMainSync {
+            result.set(ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).filterIsInstance<MainActivity>().single())
+        }
+        return result.get()
+    }
     private fun fingerprint(file: File) = if (!file.exists()) emptyMap() else file.walkTopDown().associate {
         it.relativeTo(file).path to if (it.isDirectory) "directory" else hash(it.readBytes())
     }
@@ -174,8 +184,9 @@ class ReviewedTextDeviceTest {
         if (!capturedClipboard) return
         if (!record.optBoolean("passed")) {
             try {
-                val catalog = compose.activity.store.extensions
-                record.put("failure_route", compose.activity.store.dialog)
+                val activity = foregroundActivity()
+                val catalog = activity.store.extensions
+                record.put("failure_route", activity.store.dialog)
                     .put("failure_runtime_tree", catalog.runtimeTree ?: JSONObject.NULL)
                     .put("failure_runtime_error", catalog.runtimeError ?: JSONObject.NULL)
                     .put("failure_runtime_status", catalog.runtimeStatus)
@@ -189,6 +200,13 @@ class ReviewedTextDeviceTest {
         instrumentation.runOnMainSync {
             val manager = context.getSystemService(ClipboardManager::class.java)
             originalClipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+            // An external caller can create a second task/activity. Finish all
+            // owned MainActivity instances before the outer file-restoration rule.
+            val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+            listOf(Stage.CREATED, Stage.STARTED, Stage.RESUMED, Stage.PAUSED, Stage.STOPPED)
+                .flatMap { monitor.getActivitiesInStage(it) }.filterIsInstance<MainActivity>().distinct().forEach {
+                it.store.extensions.close(); it.store.dialog = null; it.finish()
+            }
         }
     }
     private fun caller(source: String = prefix + input + suffix, kind: String? = null, mime: String = "text/plain", readOnly: Boolean = true) {
@@ -234,7 +252,7 @@ class ReviewedTextDeviceTest {
         compose.onNodeWithTag("text-input-content").assertTextEquals(input)
         compose.onNodeWithTag("text-input-run").assertIsNotEnabled()
         assertEquals(sentinel, clipboardText())
-        assertNull(compose.activity.store.extensions.running)
+        assertNull(foregroundActivity().store.extensions.running)
         var webViews = 0
         fun visit(v: View) { if (v is WebView) webViews++; if (v is ViewGroup) for (i in 0 until v.childCount) visit(v.getChildAt(i)) }
         instrumentation.runOnMainSync { WindowInspector.getGlobalWindowViews().forEach(::visit) }
@@ -253,7 +271,7 @@ class ReviewedTextDeviceTest {
     }
     private fun choose(id: String, name: String) {
         touch("text-input-choose")
-        val extension = compose.activity.store.extensions.installed.single { it.listing.id == id }
+        val extension = foregroundActivity().store.extensions.installed.single { it.listing.id == id }
         val title = extension.commands.single { it.name == name }.title
         compose.onNodeWithTag("inline-menu-search").performTextReplacement(title)
         compose.waitForIdle()
@@ -265,14 +283,14 @@ class ReviewedTextDeviceTest {
             compose.onNodeWithTag("inline-menu-choices").performTouchInput { swipeUp() }
         }
         choice.assertIsDisplayed().performTouchInput { click(center) }
-        assertNull(compose.activity.store.extensions.running)
+        assertNull(foregroundActivity().store.extensions.running)
         assertEquals(sentinel, clipboardText())
     }
     private fun jsonWorkflow(share: Boolean, readOnly: Boolean) {
         caller(readOnly = readOnly); capture("caller", true); send(share); assertReview()
         choose(formatterId, "formatSelectionAndShow"); capture("chosen")
         touch("text-input-run")
-        val catalog = compose.activity.store.extensions
+        val catalog = foregroundActivity().store.extensions
         compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.isNotEmpty() == true }
         assertNull(catalog.runtimeError, catalog.runtimeError)
         val markdown = activeRoot(catalog.runtimeTree)!!.props().getString("markdown")
@@ -289,8 +307,9 @@ class ReviewedTextDeviceTest {
         assertEquals("Selection ${prefix.length} to ${prefix.length + input.length}", device.findObject(By.res("android:id/text2")).text)
         record.put("exact_input_sha256", hash(input.toByteArray())).put("exact_output_sha256", hash(output.toByteArray()))
             .put("clipboard_unchanged_until_copy", true).put("exact_unicode_output_copied", true)
-            .put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true).put("passed", true)
+            .put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true)
         capture("return", true)
+        record.put("passed", true)
     }
     @Test fun selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns() = jsonWorkflow(false, true)
     @Test fun sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns() = jsonWorkflow(true, true)
@@ -302,7 +321,7 @@ class ReviewedTextDeviceTest {
             caller(kind = kind, mime = mime); send()
             compose.onNodeWithTag("text-input-error").assertTextContains(expected, substring = true)
             compose.onNodeWithTag("text-input-run").assertDoesNotExist()
-            assertNull(compose.activity.store.extensions.running); assertEquals(sentinel, clipboardText())
+            assertNull(foregroundActivity().store.extensions.running); assertEquals(sentinel, clipboardText())
             capture("invalid-${kind ?: "mime"}")
         }
         record.put("invalid_payloads_rejected", 5).put("passed", true)
