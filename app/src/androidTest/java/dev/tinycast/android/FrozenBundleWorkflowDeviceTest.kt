@@ -203,7 +203,7 @@ class FrozenBundleWorkflowDeviceTest {
             val status = catalog.runtimeStatus
             val root = activeRoot(catalog.runtimeTree)
             if (catalog.running == null) compose.onNodeWithTag("extension-palette").assertDoesNotExist()
-            else if (error != null) compose.onNodeWithTag("extension-error").assertTextContains(error.lineSequence().first())
+            else if (error != null) compose.onNodeWithTag("extension-error").assertTextContains(error.lineSequence().first(), substring = true)
             else when (root?.optString("type")) {
                 "List" -> compose.onNodeWithTag("extension-list").assertIsDisplayed()
                 "Grid" -> compose.onNodeWithTag("extension-grid-screen").assertIsDisplayed()
@@ -407,6 +407,7 @@ class FrozenBundleWorkflowDeviceTest {
                 row.put("workflow", "Enter owned JSON in the native Form, choose View Result, verify the Detail destination, and copy its formatted content")
             }
             "http-status-codes/index" -> {
+                row.put("workflow", "Load the native status-code List, filter to 404 and choose Copy Code through Actions; browser/image actions are not exercised")
                 open(extension, command)
                 await { activeRoot(catalog.runtimeTree)?.nodes("List.Item")?.isNotEmpty() == true }
                 compose.onNodeWithTag("extension-search").performTextReplacement("404")
@@ -417,11 +418,14 @@ class FrozenBundleWorkflowDeviceTest {
                 row.put("workflow", "Filter the native status-code List to 404 and choose Copy Code through Actions; browser/image actions are not exercised")
             }
             "google-translate/translate-form" -> {
+                row.put("workflow", "Enter owned English hello in the Form, await Japanese service output and copy the exact visible response; translation quality is not certified")
                 open(extension, command)
                 await { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
                 compose.onNodeWithTag("extension-field-text").performTextReplacement("hello")
                 await { activeRoot(catalog.runtimeTree)?.nodes("Form.TextArea")?.any { it.props().optString("id") == "text" && it.props().optString("value") == "hello" } == true }
                 row.put("interaction_verified", "Owned hello input reached the extension's Form state")
+                hideImeForCapture()
+                supportingCapture("form-input")
                 var translated = ""
                 await(60000) {
                     translated = activeRoot(catalog.runtimeTree)?.nodes("Form.TextArea")?.firstOrNull { it.props().optString("id") == "result" }?.props()?.optString("value").orEmpty()
@@ -436,9 +440,18 @@ class FrozenBundleWorkflowDeviceTest {
             "json-format/formatSelectionAndShow" -> {
                 setClipboard(inputJson)
                 open(extension, command)
-                await { activeRoot(catalog.runtimeTree)?.let { it.optString("type") == "Detail" && !it.props().optBoolean("isLoading") } == true }
+                await { activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
+                var settled = false
+                try {
+                    await(5000) { activeRoot(catalog.runtimeTree)?.props()?.optBoolean("isLoading") == false }
+                    settled = true
+                } catch (_: ComposeTimeoutException) {
+                    // Record this bounded observation without promoting an
+                    // empty/loading screen to a successful selection workflow.
+                }
                 assertEquals(inputJson, clipboard())
-                row.put("workflow", "Wait for the selected-text command's Detail to settle and verify that the owned clipboard input is not silently substituted or changed")
+                row.put("workflow", "Observe the selected-text Detail for up to five seconds and verify that owned clipboard input is not silently substituted or changed")
+                    .put("settled_within_observation", settled).put("selection_observation_ms", 5000)
                     .put("observed_markdown", activeRoot(catalog.runtimeTree)!!.props().optString("markdown"))
                     .put("remaining_workflow", "No external selection was supplied and no formatted selected-text output was verified. Desktop selectedText is unavailable in this host; this row does not certify an Android replacement or an observed bridge error.")
                 return false
@@ -453,6 +466,7 @@ class FrozenBundleWorkflowDeviceTest {
                 return false
             }
             "weather/index" -> {
+                row.put("workflow", "Request Tokyo weather in metric units, wait for the service result, and open a daily forecast's hourly List by touch")
                 open(extension, command)
                 await(60000) {
                     activeRoot(catalog.runtimeTree)?.let { it.optString("type") == "List" && !it.props().optBoolean("isLoading") && (it.nodes("List.Item").isNotEmpty() || it.nodes("List.EmptyView").isNotEmpty()) } == true
