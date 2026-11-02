@@ -1,0 +1,21 @@
+{
+  "source_commit": "9b390faf29feffe3f8eca038a154465ad22da92c",
+  "native_build_commit": "757cffdb388f86c77a8174a60ed87ad612cb4178",
+  "jvm_cases": 175,
+  "python_cases_per_mode": 63,
+  "workflow_and_typography_executions": 62,
+  "lint": {
+    "debug": {
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 51
+    },
+    "benchmark": {
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 51
+    }
+  },
+  "negative_control": "Two failed cleanup checks are intentional; original record remains failed. A separate receipt proves final restoration and release.",
+  "retained_legacy_and_process_evidence": "Original f7c6cbc APKs, 29 legacy cases/layout and two process-restoration phases; not relabeled as rebuilt-APK executions."
+}

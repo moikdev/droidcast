@@ -8,6 +8,27 @@ class CleanupError(RuntimeError):
     pass
 
 
+def reviewed_text_fixture_ids(value, owner_nonce, *, process_recreation=False):
+    """Validate the whole selected-text lease before removing any owned path."""
+    if type(process_recreation) is not bool:
+        raise CleanupError('Invalid reviewed-text fixture mode')
+    if not isinstance(owner_nonce, str) or not re.fullmatch(r'[0-9a-f]{32}', owner_nonce):
+        raise CleanupError('Invalid reviewed-text lease owner')
+    if not isinstance(value, dict) or set(value) != {'schema_version', 'fixture_kind', 'owner_nonce', 'owned_extension_ids'}:
+        raise CleanupError('Invalid reviewed-text lease schema')
+    expected_kind = 'reviewed-text-process-recreation-v1' if process_recreation else 'reviewed-text-device-test-v1'
+    if type(value['schema_version']) is not int or value['schema_version'] != 1 or value['fixture_kind'] != expected_kind or value['owner_nonce'] != owner_nonce:
+        raise CleanupError('Reviewed-text lease belongs to another run')
+    identities = value['owned_extension_ids']
+    if not isinstance(identities, list) or len(identities) > 100:
+        raise CleanupError('Invalid reviewed-text fixture count')
+    if any(not isinstance(item, str) or not re.fullmatch(r'reviewed-text-[0-9a-f]{32}', item) for item in identities):
+        raise CleanupError('Unsafe reviewed-text fixture identity')
+    if len(set(identities)) != len(identities):
+        raise CleanupError('Duplicate reviewed-text fixture identity')
+    return list(identities)
+
+
 def empty_view_fixture_ids(value, owner_nonce):
     """Validate the complete lease before a runner removes any fixture path."""
     if not isinstance(owner_nonce, str) or not re.fullmatch(r'[0-9a-f]{32}', owner_nonce):

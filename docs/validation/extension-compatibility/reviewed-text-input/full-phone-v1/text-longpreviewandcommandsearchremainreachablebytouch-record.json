@@ -1,0 +1,168 @@
+{
+  "scope": "Owned external Android caller and frozen JSON formatter; probe commands are separately identified",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "command_sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92",
+  "probe_command_sha256": "8bc7c98a835bf72824ae0f061d6cc0272052c58a8c4a665c8a4157192246ff93",
+  "owned_extension_ids": [
+    "reviewed-text-d42a18aba93444489f7b231c11a3dfb7",
+    "reviewed-text-5202a13b9610450f801395a031d8b079"
+  ],
+  "external_caller_uses_separate_package_and_uid": true,
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "installed_build_commit": "7f5629d6591c09e6cf837138c06e2c4ee6b05cdb",
+  "preview_no_execution_and_clipboard_unchanged": true,
+  "long_preview_line_count": 33,
+  "long_preview_all_lines_witnessed": true,
+  "long_preview_pointer_receipts": [
+    {
+      "text_top": 647,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 7
+    },
+    {
+      "text_top": 550,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 9
+    },
+    {
+      "text_top": 452,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 10
+    },
+    {
+      "text_top": 355,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 12
+    },
+    {
+      "text_top": 258,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 14
+    },
+    {
+      "text_top": 161,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 16
+    },
+    {
+      "text_top": 63,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 17
+    },
+    {
+      "text_top": -34,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 19
+    },
+    {
+      "text_top": -131,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 21
+    },
+    {
+      "text_top": -228,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 22
+    },
+    {
+      "text_top": -326,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 24
+    },
+    {
+      "text_top": -423,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 26
+    },
+    {
+      "text_top": -520,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 27
+    },
+    {
+      "text_top": -617,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 29
+    },
+    {
+      "text_top": -715,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 31
+    },
+    {
+      "text_top": -812,
+      "viewport_top": 615,
+      "viewport_bottom": 1088,
+      "witnessed_lines": 32
+    },
+    {
+      "text_top": -909,
+      "viewport_top": 564,
+      "viewport_bottom": 1037,
+      "witnessed_lines": 33
+    }
+  ],
+  "chooser_search_used_real_ime": true,
+  "failure_route": "extension-run",
+  "failure_runtime_tree": {
+    "children": [
+      {
+        "id": 5,
+        "type": "__screen",
+        "props": {
+          "active": true
+        },
+        "children": [
+          {
+            "id": 4,
+            "type": "Detail",
+            "props": {
+              "markdown": "Approved input: \"Owned line 1 · café é 🌱 · exact whitespace  \\nOwned line 2 · café é 🌱 · exact whitespace  \\nOwned line 3 · café é 🌱 · exact whitespace  \\nOwned line 4 · café é 🌱 · exact whitespace  \\nOwned line 5 · café é 🌱 · exact whitespace  \\nOwned line 6 · café é 🌱 · exact whitespace  \\nOwned line 7 · café é 🌱 · exact whitespace  \\nOwned line 8 · café é 🌱 · exact whitespace  \\nOwned line 9 · café é 🌱 · exact whitespace  \\nOwned line 10 · café é 🌱 · exact whitespace  \\nOwned line 11 · café é 🌱 · exact whitespace  \\nOwned line 12 · café é 🌱 · exact whitespace  \\nOwned line 13 · café é 🌱 · exact whitespace  \\nOwned line 14 · café é 🌱 · exact whitespace  \\nOwned line 15 · café é 🌱 · exact whitespace  \\nOwned line 16 · café é 🌱 · exact whitespace  \\nOwned final line ✓\"",
+              "actions": {
+                "id": 2,
+                "type": "ActionPanel",
+                "props": {},
+                "children": [
+                  {
+                    "id": 1,
+                    "type": "Action",
+                    "props": {
+                      "title": "Copy inspected text",
+                      "icon": "copy-clipboard-16",
+                      "onAction": {
+                        "$fn": "1:onAction"
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "failure_runtime_error": null,
+  "failure_runtime_status": "",
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

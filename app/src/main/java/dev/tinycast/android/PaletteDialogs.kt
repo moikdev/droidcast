@@ -44,6 +44,7 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
                    run: (Command) -> Unit, copy: (String) -> Unit, close: () -> Unit) {
     val dialog = store.dialog ?: return
     val selected = if (dialog in setOf("actions", "alias", "delete")) store.actionCommand ?: provided else provided
+    if (dialog == "text-input") { ReviewedTextScreen(store, close); return }
     if (dialog == "search-folders") { FolderSearchDialog(store, run, close); return }
     if (dialog.startsWith("extension")) { dev.tinycast.android.extensions.ExtensionDialogs(store, close); return }
     if (dialog.startsWith("backup")) { BackupDialog(store, run, close); return }
@@ -216,7 +217,7 @@ internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier:
             Text(title, fontSize = 20.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
         }
         HorizontalDivider(color = line)
-        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(18.dp)) {
+        Column(Modifier.weight(1f).fillMaxWidth().testTag("shell-content-scroll").verticalScroll(rememberScrollState()).padding(18.dp)) {
             Text(subtitle, fontSize = 12.sp, color = muted, lineHeight = 18.sp, modifier = Modifier.padding(bottom = 16.dp))
             content()
         }

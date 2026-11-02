@@ -88,7 +88,7 @@ The [repair checkpoint](validation/extension-compatibility/empty-states-repair-c
 | Fresh sixteen-command batch | 12 working / three partial / one observed Weather failure per layout |
 | Final pipeline cleanup | 195 successful checks; device verification confirms the repaired APK pair, restored geometry, no active instrumentation and absent owned leases |
 
-Twelve additional raw PNG/XML/frame sets and 808 retained original capture-file hashes are recorded separately from the earlier 28 sets / 1,081 hashes. The three-case hermetic failure log replaces only the checkout's absolute prefix with `<checkout>`; its original hash and original log are retained for audit. Native screenshots, hierarchies and frame receipts are unmodified. Two fresh exact-head audits and the actual new-head hosted/local gates remain required before merge.
+Twelve additional raw PNG/XML/frame sets and 808 retained original capture-file hashes are recorded separately from the earlier 28 sets / 1,081 hashes. The three-case hermetic failure log replaces only the checkout's absolute prefix with `<checkout>`; its original hash and original log are retained for audit. Native screenshots, hierarchies and frame receipts are unmodified. Both fresh independent sol/high audits cleared head `a830101`; root verified successful exact-head hosted [Android run 41416183422](https://github.com/moikdev/droidcast/actions/runs/41416183422) and local/android. [PR #80](https://github.com/moikdev/droidcast/pull/80) merged as `ecc8e3b`, with the identical reviewed tree.
 
 Controlled close-window observation using common instrumentation. Native fields are restored within the same main-thread turn to read the existing JavaScript probe: the prior callback reaches a result; the repaired callback leaves the restored empty state unchanged.
 
@@ -101,6 +101,8 @@ Fresh Weather observation on the repaired runtime, with the same frozen archive/
 | Prior runtime | Repaired runtime |
 | --- | --- |
 | ![Prior Weather error becomes No results](screenshots/extension-compatibility/empty-states-repair/weather-before-phone.png) | ![Repaired runtime displays the actual Weather error](screenshots/extension-compatibility/empty-states-repair/weather-after-phone.png) |
+
+After merge, a [supplemental full-tablet check](validation/extension-compatibility/empty-states-tablet200-checkpoint.json) exercises the same repaired APK pair at 1280×800 dp and 200% text, complementing the phone and short-landscape profiles. Both List/Grid cases pass with IME shown/hidden and every natural line reached; all 16 restoration checks pass. Four further raw PNG/XML/frame sets and 30 retained capture-file hashes have their own checkpoint. These executions are separate from the 195 pre-merge checks and are not results for the subsequent selected-text feature.
 
 ## Reproduction
 

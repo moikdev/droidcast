@@ -44,6 +44,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     var focusEpoch by mutableIntStateOf(0)
     var extensionReturnTo: String? = null
     var extensionSetupFromRun = false
+    internal var textReview by mutableStateOf<TextReviewFlow?>(null)
     private val menuOwnership = PaletteMenuOwnership { ShortcutRuntime.invalidateModifierSequences() }
     val paletteMenuOpen get() = menuOwnership.open
     fun attachPaletteMenuHost(owner: Any) { menuOwnership.attach(owner); clearModifierRecording() }
@@ -181,7 +182,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         val chord = recordingCandidate ?: return
         runCatching { setShortcut(target, chord) }.onSuccess { cancelShortcutRecording() }.onFailure { recordingError = it.message }
     }
-    override fun onCleared() { retainedEditorDraft = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
+    override fun onCleared() { clearTextReview(); extensions.close(); retainedEditorDraft = null; editing = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
 
     fun backupSnapshot() = BackupData(notes, links, clips, pins.filterNot { it.startsWith("files:") }.toSet(), aliases.filterKeys { !it.startsWith("files:") }, usage.filterKeys { !it.startsWith("files:") }, ShortcutConfiguration(shortcutConfiguration.bindings.filterKeys { !it.startsWith("files:") }))
     fun restorePlan(): RestorePlan = BackupPlanner.plan(backupSnapshot(), requireNotNull(backupDocument), restoreCategories, restorePolicy,
@@ -295,6 +296,8 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun search(value: String) { query = value; selected = 0; syncFileSearch() }
     fun syncFileSearch() { folderSearch.search(query, category == "Files" || (folderSearch.includeInLauncher && query.isNotBlank() && category in setOf("All", "Pinned"))) }
     fun openExtension(extension: InstalledExtension, command: ExtensionCommand) {
+        TextReviewOwnership.revoke()
+        clearTextReview()
         extensionReturnTo = when (dialog) { "extensions" -> "extensions"; "extension-run", "extension-setup" -> extensionReturnTo; else -> null }
         extensionSetupFromRun = false
         extensions.launch(extension, command)
@@ -313,7 +316,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         catch (e: Throwable) { extensions.error = e.message ?: "Uninstallation failed" }
     } }
     fun filter(value: String) { category = value; folderSearch.filterType(FileSearchType.ALL); search(""); focusEpoch++ }
-    fun reset() { if (backupBusy) return; discardEditorDraft(); cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
+    fun reset() { clearTextReview(); extensions.close(); if (backupBusy) return; discardEditorDraft(); cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
     fun used(id: String) { usage = usage + (id to ((usage[id] ?: 0).coerceAtMost(Int.MAX_VALUE - 1) + 1)); prefs.edit().putString("usage", JSONObject(usage).toString()).apply() }
     fun togglePin(id: String) { pins = if (id in pins) pins - id else pins + id; prefs.edit().putStringSet("pins", pins).apply() }
     fun setAlias(id: String, value: String) {

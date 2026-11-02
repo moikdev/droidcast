@@ -17,17 +17,21 @@ import java.io.ByteArrayInputStream
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.util.UUID
+import dev.tinycast.android.TextInputProblem
+import dev.tinycast.android.TextInputRejected
 
 @SuppressLint("SetJavaScriptEnabled")
 class ExtensionRuntime(private val context: Context, private val catalog: ExtensionCatalog,
     private val extension: InstalledExtension, private val command: ExtensionCommand) {
+    private val textContext = catalog.captureText(extension,command)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate + CoroutineExceptionHandler { _, error ->
-        if (!destroyed) { catalog.runtimeError = error.message ?: "Could not start this extension"; catalog.runtimeReady = true }
+        fail(error.message ?: "Could not start this extension")
     })
     private val session = UUID.randomUUID().toString()
     private val storage = context.getSharedPreferences("extension-${extension.listing.id}", Context.MODE_PRIVATE)
     private val support = File(context.filesDir, "extension-data/${extension.listing.id}").apply { mkdirs() }
-    private var destroyed = false
+    @Volatile private var destroyed = false
+    private var started = false
     private var watchdog: Job? = null
     val webView = WebView(context).apply {
         // This is a headless JavaScript engine; visible native controls own input.
@@ -39,24 +43,39 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         settings.mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
         settings.cacheMode = WebSettings.LOAD_NO_CACHE
         addJavascriptInterface(Bridge(), "AndroidHost")
-        webChromeClient = WebChromeClient()
+        webChromeClient = object : WebChromeClient() {
+            // Extension output can contain reviewed input. Consume engine
+            // console messages instead of forwarding them to Android logs.
+            override fun onConsoleMessage(message: ConsoleMessage?): Boolean = true
+        }
         webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?) = true
             override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?) = WebResourceResponse("text/plain", "UTF-8", ByteArrayInputStream(byteArrayOf()))
-            override fun onPageFinished(view: WebView?, url: String?) { boot() }
+            override fun onPageFinished(view: WebView?, url: String?) { if(started && active())boot() }
             override fun onRenderProcessGone(view: WebView?, detail: RenderProcessGoneDetail?): Boolean {
-                if (!destroyed) catalog.runtimeError = "The JavaScript engine stopped. Close this command and try again."
+                fail("The JavaScript engine stopped. Close this command and try again.")
                 (view?.parent as? android.view.ViewGroup)?.removeView(view)
                 view?.destroy(); return true
             }
         }
     }
+    private val runtimeRegistration = catalog.attachRuntime(textContext.owner, extension, command) { scope.cancel(); webView.stopLoading() }
+    init { if (runtimeRegistration == null) scope.cancel() }
+    private fun active() = !destroyed && scope.isActive && catalog.ownsRuntime(textContext.owner,extension,command) && catalog.runtimeError == null
+    private fun fail(message: String) {
+        if (!active()) return
+        ready()
+        catalog.runtimeError = message
+        scope.cancel()
+    }
     fun start() {
-        watchdog = scope.launch { delay(20000); if (!catalog.runtimeReady) catalog.runtimeError = "This command did not respond. It may require unsupported desktop APIs." }
+        if(started || !active())return
+        started = true
+        watchdog = scope.launch { delay(20000); if (active() && !catalog.runtimeReady) fail("This command did not respond. It may require unsupported desktop APIs.") }
         webView.loadDataWithBaseURL("https://tinycast.invalid/", "<html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'\"></head><body></body></html>", "text/html", "UTF-8", null)
     }
     private fun evaluate(script: String, then: (() -> Unit)? = null) {
-        if (!destroyed) webView.evaluateJavascript(script) { if (!destroyed) then?.invoke() }
+        if (active()) webView.evaluateJavascript(script) { if (active()) then?.invoke() }
     }
     private fun boot() {
         scope.launch {
@@ -75,33 +94,40 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         }
     }
     fun dispatch(handle: String?, args: JSONArray = JSONArray()) {
-        if (!destroyed && catalog.runtimeError == null && !handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
+        if (active() && !handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
     }
     fun back() { evaluate("__tinycast.popNavigation(${quote(session)})") }
-    fun close() { if (destroyed) return; destroyed = true; scope.cancel(); webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost"); (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy() }
+    fun close() { if (destroyed) return; destroyed = true; catalog.detachRuntime(runtimeRegistration); textContext.input?.let(catalog.reviewedText::release); scope.cancel(); webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost"); (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy() }
     private fun ready() { catalog.runtimeReady = true; watchdog?.cancel() }
     private fun quote(s: String) = JSONObject.quote(s)
-    private fun post(block: () -> Unit) { if (!destroyed) scope.launch { if (!destroyed) block() } }
+    private fun post(block: () -> Unit) { if (active()) scope.launch { if (active()) block() } }
     inner class Bridge {
         @JavascriptInterface fun render(tree: String) = post { ready(); catalog.runtimeTree = JSONObject(tree); catalog.runtimeStatus = "" }
-        @JavascriptInterface fun failed(message: String) = post { ready(); catalog.runtimeError = message.take(3000) }
-        @JavascriptInterface fun finished() = post { ready(); catalog.runtimeStatus = if (catalog.runtimeStatus.isBlank() || catalog.runtimeStatus == "Starting extension…") "Command completed" else catalog.runtimeStatus }
+        @JavascriptInterface fun failed(message: String) = post { fail(message.take(3000)) }
+        @JavascriptInterface fun finished() = post { ready(); if(command.mode=="no-view")catalog.releaseText(textContext.owner); catalog.runtimeStatus = if (catalog.runtimeStatus.isBlank() || catalog.runtimeStatus == "Starting extension…") "Command completed" else catalog.runtimeStatus }
         @JavascriptInterface fun depth(value: String) = post { catalog.navigationDepth = value.toIntOrNull() ?: 1 }
         @JavascriptInterface fun log(message: String) = post { if (catalog.runtimeTree == null) catalog.runtimeStatus = message.take(300) }
         @JavascriptInterface fun invoke(id: String, api: String, method: String, raw: String) {
             scope.launch {
+                if(!active())return@launch
                 try {
                     val result = asyncCall(api, method, JSONArray(raw))
+                    if(!active())return@launch
                     val encoded = JSONArray().put(result ?: JSONObject.NULL).toString().drop(1).dropLast(1)
                     evaluate("__tinycast.settle(${quote(id)},true,${quote(encoded)})")
                 } catch (e: CancellationException) { throw e } catch (e: Throwable) {
+                    catalog.releaseText(textContext.owner)
                     evaluate("__tinycast.settle(${quote(id)},false,${quote(e.message ?: "Unsupported Android API")})")
                 }
             }
         }
         @JavascriptInterface fun invokeSync(api: String, method: String, raw: String): String = try {
+            check(active()) { "This command session has ended" }
             JSONObject().put("ok", true).put("value", syncCall(api, method, JSONArray(raw)) ?: JSONObject.NULL).toString()
-        } catch (e: Throwable) { JSONObject().put("ok", false).put("error", e.message).put("code", if (e is java.io.FileNotFoundException) "ENOENT" else "ENOTSUP").toString() }
+        } catch (e: Throwable) {
+            post { catalog.releaseText(textContext.owner) }
+            JSONObject().put("ok", false).put("error", e.message).put("code", if (e is java.io.FileNotFoundException) "ENOENT" else "ENOTSUP").toString()
+        }
     }
     private suspend fun asyncCall(api: String, method: String, a: JSONArray): Any? = when (api) {
         "clipboard" -> {
@@ -140,8 +166,10 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         }; 1 }
         "window" -> { when (method) { "close", "popToRoot" -> catalog.runtimeStatus = catalog.runtimeStatus.ifBlank { "Command completed" }; "clearSearchBar" -> Unit; else -> error("Change extension preferences from the command's Settings button") }; null }
         "system" -> when (method) {
+            "selectedText" -> textContext.input?.read(textContext.owner,textContext.target)
+                ?: throw TextInputRejected(TextInputProblem.UNAVAILABLE)
             "open" -> { val uri = Uri.parse(a.getString(0)); require(uri.scheme in listOf("https", "http", "mailto", "geo")) { "This desktop URL cannot be opened on Android" }; context.startActivity(Intent(Intent.ACTION_VIEW, uri).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); null }
-            "selectedText", "frontmostApplication", "applications", "selectedFinderItems" -> error("$method requires a desktop API unavailable on Android")
+            "frontmostApplication", "applications", "selectedFinderItems" -> error("$method requires a desktop API unavailable on Android")
             else -> error("$method is not supported on Android")
         }
         "fetch" -> withContext(Dispatchers.IO) {

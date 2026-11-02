@@ -1,0 +1,80 @@
+{
+  "completed": false,
+  "pid": 31119,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "tablet",
+  "font_scale": 1,
+  "classes": "dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+  "expected": 1,
+  "owner_nonce": "6b75af9af0a94911835d02821bcefaf7",
+  "runner_sha256": "39121b6fe7aff03c659fe452fcffa55c83537070fbc4cc210274a1fcf111dd4c",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "cleanup_helper_sha256": "c22e9d8dbe59a022391b3d64bc574891a682aa681109b59afc76c203e638bfe1",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "settings_before": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "show_ime_with_hard_keyboard": "0"
+  },
+  "recovery_lease": "files/reviewed-text-fixture-lease",
+  "apk_sha256": "af6ab4eb761f7bc08760592d89e253d5599b29645d1834328b1f3ee7f36d3536",
+  "test_apk_sha256": "3b21c0b85b3f2102eaf7657d0180011e8d7e19e03c356df6bb24047134d6b3dc",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 0,
+  "tests_completed": false,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  },
+  "owned_extension_count": 2
+}

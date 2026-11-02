@@ -66,6 +66,7 @@ def main():
     root = 'files/compatibility-batch-fixtures'
     upload = '/data/local/tmp/droidcast-bundles-' + uuid.uuid4().hex
     require(absent(root, True) and absent(upload), 'Refuse to overwrite existing workflow fixtures')
+    require(absent('files/reviewed-text-fixture-lease', True), 'A reviewed-text fixture owner still holds this emulator')
     require(args.apk.name != args.test_apk.name, 'App and test APKs need distinct archive filenames')
     args.output.mkdir(parents=True, exist_ok=False, mode=0o700)
     shutil.copyfile(__file__, args.output / 'runner.py')

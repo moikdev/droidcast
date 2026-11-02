@@ -37,6 +37,8 @@ keys=['enabled_accessibility_services','accessibility_enabled','show_ime_with_ha
 settings={k:text('shell','settings','get','secure',k) for k in keys};assert settings['enabled_accessibility_services']=='null' and settings['accessibility_enabled']=='0'
 font_before=text('shell','settings','get','system','font_scale') if a.font_scale is not None else None
 empty_root='files/empty-view-fixture-lease'
+if subprocess.run(adb+['shell','run-as',app,'test','-e','files/reviewed-text-fixture-lease'],capture_output=True).returncode==0:
+ raise ValueError('A reviewed-text fixture owner still holds this emulator')
 empty_lease=empty_root+'/owners.json'
 empty_owner=uuid.uuid4().hex if a.empty_view_fixtures else None
 if subprocess.run(adb+['shell','run-as',app,'test','-e',empty_root],capture_output=True).returncode==0:
