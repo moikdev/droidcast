@@ -71,7 +71,10 @@ class ClipboardRecovery:
         while time.monotonic() < deadline:
             try:
                 receipt = self.read_json('receipt.json')
-            except subprocess.CalledProcessError:
+            except (subprocess.CalledProcessError, json.JSONDecodeError, UnicodeDecodeError):
+                # exec-out can return success while cat reports a not-yet-created
+                # file. An incomplete receipt is never success; wait only within
+                # this operation's bounded deadline for the exact request/owner.
                 receipt = {}
             if receipt.get('request_id') == request:
                 value = validate_receipt(receipt, self.owner, request,

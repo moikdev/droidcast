@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import Mock, patch
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from android_clipboard_recovery import ClipboardRecovery, ROOT, public_receipt, validate_receipt
@@ -39,6 +41,16 @@ class ClipboardRecoveryProtocolTest(unittest.TestCase):
         public = public_receipt(dict(self.receipt(), clipboard_contents='Owned sensitive canary'))
         self.assertEqual({'schema_version', 'owner_nonce', 'request_id', 'phase'}, set(public))
         self.assertNotIn('Owned sensitive canary', json.dumps(public))
+
+    def test_a_not_yet_readable_receipt_waits_for_the_matching_completed_operation(self):
+        helper, _ = self.helper(self.receipt())
+        helper.read_json = Mock(side_effect=[json.JSONDecodeError('not ready', '', 0), self.receipt()])
+        with patch('android_clipboard_recovery.uuid.uuid4', return_value=SimpleNamespace(hex=self.request)), \
+                patch('android_clipboard_recovery.time.sleep'):
+            request, result = helper.operation('restore')
+        self.assertEqual(self.request, request)
+        self.assertEqual('restored', result['phase'])
+        self.assertEqual(2, helper.read_json.call_count)
 
     def helper(self, receipt):
         calls = []
