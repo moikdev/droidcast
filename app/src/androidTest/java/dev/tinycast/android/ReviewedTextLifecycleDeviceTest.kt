@@ -69,7 +69,7 @@ class ReviewedTextLifecycleDeviceTest {
         val temporary = File(root, "owners.json.tmp"); assertFalse(temporary.exists())
         temporary.writeText(lease.toString()); assertTrue(temporary.renameTo(leaseFile)); ownedId = id
         val directory = File(context.cacheDir, id).apply { assertTrue(mkdir()) }
-        val manifest = JSONObject("""{"commands":[{"name":"inspect","title":"Owned input inspector","mode":"view"},{"name":"configure","title":"Owned input configuration","mode":"view","preferences":[{"name":"label","title":"Owned label","type":"textfield","required":true}]},{"name":"background","title":"Owned background input","mode":"no-view"}]}""")
+        val manifest = JSONObject("""{"commands":[{"name":"inspect","title":"Owned input inspector","mode":"view"},{"name":"configure","title":"Owned input configuration","mode":"view","preferences":[{"name":"label","title":"Owned label","type":"textfield","required":true}]},{"name":"background","title":"Owned background input","mode":"no-view"},{"name":"error","title":"Owned host error","mode":"view"}]}""")
         val script = """
             const React=require('react'),api=require('@raycast/api');
             module.exports.default=function(){const [message,setMessage]=React.useState('Waiting for approved input');
@@ -78,7 +78,14 @@ class ReviewedTextLifecycleDeviceTest {
         """.trimIndent()
         listOf("inspect", "configure").forEach { File(directory, "$it.js").writeText(script) }
         File(directory, "background.js").writeText("const api=require('@raycast/api');module.exports.default=async()=>{const text=await api.getSelectedText();await api.showHUD('Approved input: '+JSON.stringify(text));};")
-        extension = InstalledExtension(StoreExtension(id, "owned-reviewed-input", "Owned reviewed input", "", "Droidcast tests", "test", "", "", "", 3), directory, manifest)
+        File(directory, "error.js").writeText("""
+            const React=require('react'),api=require('@raycast/api');
+            module.exports.default=function(){const [message,setMessage]=React.useState('Waiting for owned error');
+              React.useEffect(()=>{(async()=>{await api.getSelectedText();try{await api.open('file:///owned-denied-outside')}catch(error){}
+                try{await api.getSelectedText();setMessage('Unexpected retained input')}catch(error){setMessage('Released input: '+error.message)}})()},[]);
+              return React.createElement(api.Detail,{markdown:message});};
+        """.trimIndent())
+        extension = InstalledExtension(StoreExtension(id, "owned-reviewed-input", "Owned reviewed input", "", "Droidcast tests", "test", "", "", "", 4), directory, manifest)
         record.put("owned_extension_id", id).put("view_probe_sha256", hash(script.toByteArray())).put("font_scale", context.resources.configuration.fontScale)
     }
     private fun receive(text: String = input): TextInputPreview {
@@ -260,5 +267,61 @@ class ReviewedTextLifecycleDeviceTest {
         assertNull(catalog.runtimeError, catalog.runtimeError)
         rejected(grant)
         capture("completed"); record.put("no_view_completion_released_input", true).put("passed", true)
+    }
+    @Test fun anotherActivityStoreRevokesThePreviousOwnerButOldCleanupCannotRevokeItsSuccessor() {
+        val first = approve(receive()); awaitInput()
+        val holder = androidx.lifecycle.ViewModelStore()
+        lateinit var successor: PaletteStore
+        lateinit var second: ExtensionCatalog.RuntimeText
+        try {
+            ui {
+                successor = PaletteStore(it.application)
+                holder.put("owned-other-activity-store", successor)
+                successor.receiveTextReview(TextInputOrigin.SHARE) { TextIntentPayload("Other activity input ✓", false) }
+                val preview = successor.extensions.reviewedText.preview!!
+                assertTrue(preview.readOnly)
+                val command = extension.commands.first()
+                successor.extensions.reviewedText.choose(preview, TextInputTarget(extension.listing.id, command.name))
+                successor.extensions.launchReviewed(extension, command, preview, false)
+                second = successor.extensions.captureText(extension, command)
+                // A delayed onDestroy/close from the original Activity is local.
+                it.store.clearTextReview(); catalog.close()
+            }
+            rejected(first); assertNull(catalog.running)
+            assertEquals("Other activity input ✓", second.input!!.read(second.owner, second.target))
+        } finally { ui { holder.clear() } }
+        rejected(second)
+        record.put("different_activity_store_revoked_previous_grant", true).put("old_activity_cleanup_preserved_new_grant", true).put("passed", true)
+    }
+    @Test fun runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime() {
+        var oldStops = 0; var newStops = 0
+        val first = approve(receive(), show = false)
+        lateinit var oldRegistration: Any
+        ui {
+            oldRegistration = catalog.attachRuntime(first.owner, extension, catalog.running!!.second) { oldStops++ }!!
+        }
+        val second = approve(receive("Next invocation"), show = false)
+        assertEquals(1, oldStops)
+        ui {
+            assertNotNull(catalog.attachRuntime(second.owner, extension, catalog.running!!.second) { newStops++ })
+            catalog.detachRuntime(oldRegistration)
+            catalog.close()
+        }
+        assertEquals(1, oldStops); assertEquals(1, newStops)
+        record.put("old_cancellation_registration_did_not_detach_new_runtime", true).put("passed", true)
+    }
+    @Test fun rejectedAsyncAndSyncHostCallsReleaseApprovedInput() {
+        val first = approve(receive(), "error")
+        compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.startsWith("Released input:") == true }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        assertTrue(activeRoot(catalog.runtimeTree)!!.props().getString("markdown").contains(TextInputProblem.UNAVAILABLE.message))
+        rejected(first); capture("async-host-error")
+        val second = approve(receive("Next owned input"), show = false)
+        ui {
+            directRuntime = ExtensionRuntime(it, catalog, extension, catalog.running!!.second)
+            assertFalse(JSONObject(directRuntime!!.Bridge().invokeSync("fs", "exists", JSONArray().put("/owned-denied-outside").toString())).getBoolean("ok"))
+        }
+        compose.waitForIdle(); rejected(second)
+        record.put("async_and_sync_host_api_rejections_released_input", true).put("passed", true)
     }
 }

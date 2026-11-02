@@ -10,8 +10,13 @@ import android.view.ViewGroup
 import android.view.inspector.WindowInspector
 import android.webkit.WebView
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
@@ -44,7 +49,7 @@ import java.util.UUID
  */
 @RunWith(AndroidJUnit4::class)
 class ReviewedTextDeviceTest {
-    private val compose = createAndroidComposeRule<MainActivity>()
+    private val compose = createEmptyComposeRule()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
     private val device get() = UiDevice.getInstance(instrumentation)
@@ -80,10 +85,11 @@ class ReviewedTextDeviceTest {
 
     private fun hash(data: ByteArray) = MessageDigest.getInstance("SHA-256").digest(data).joinToString("") { "%02x".format(it) }
     private fun foregroundActivity(): MainActivity {
+        fun current() = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED)
+            .filterIsInstance<MainActivity>().single { it.window.decorView.hasWindowFocus() && !it.isFinishing }
+        if (android.os.Looper.myLooper() == android.os.Looper.getMainLooper()) return current()
         val result = AtomicReference<MainActivity>()
-        instrumentation.runOnMainSync {
-            result.set(ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).filterIsInstance<MainActivity>().single())
-        }
+        instrumentation.runOnMainSync { result.set(current()) }
         return result.get()
     }
     private fun fingerprint(file: File) = if (!file.exists()) emptyMap() else file.walkTopDown().associate {
@@ -151,15 +157,18 @@ class ReviewedTextDeviceTest {
             .put("probe_command_sha256", hash(script.toByteArray())).put("owned_extension_ids", JSONArray(ids))
     }
     @Before fun ready() {
-        compose.waitUntil(15000) { !compose.activity.store.loading }
+        context.startActivity(Intent(Intent.ACTION_MAIN).setComponent(ComponentName(context.packageName, MainActivity::class.java.name)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).depth(0)), 10000))
+        compose.waitUntil(15000) { !foregroundActivity().store.loading }
         assertNotEquals(context.applicationInfo.uid, context.packageManager.getApplicationInfo(instrumentation.context.packageName, 0).uid)
         record.put("external_caller_uses_separate_package_and_uid", true)
         dismissClipboardForEvidence()
-        compose.activityRule.scenario.onActivity {
-            val manager = it.getSystemService(ClipboardManager::class.java)
+        instrumentation.runOnMainSync {
+            val activity = foregroundActivity()
+            val manager = activity.getSystemService(ClipboardManager::class.java)
             originalClipboard = manager.primaryClip; capturedClipboard = true
             manager.setPrimaryClip(ClipData.newPlainText("Owned text fixture", sentinel))
-            it.store.reset(); it.store.search(callerQuery)
+            activity.store.reset(); activity.store.search(callerQuery)
         }
         dismissClipboardForEvidence()
         record.put("font_scale", context.resources.configuration.fontScale).put("width_dp", context.resources.configuration.screenWidthDp)
@@ -208,6 +217,20 @@ class ReviewedTextDeviceTest {
                 it.store.extensions.close(); it.store.dialog = null; it.finish()
             }
         }
+        // EmptyComposeRule deliberately has no ActivityScenario: Android can
+        // create several no-affinity tasks for the different exported actions.
+        val deadline = android.os.SystemClock.uptimeMillis() + 10000
+        var remaining = true
+        while (remaining && android.os.SystemClock.uptimeMillis() < deadline) {
+            instrumentation.waitForIdleSync()
+            instrumentation.runOnMainSync {
+                val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+                remaining = listOf(Stage.CREATED, Stage.STARTED, Stage.RESUMED, Stage.PAUSED, Stage.STOPPED)
+                    .flatMap { monitor.getActivitiesInStage(it) }.any { it is MainActivity }
+            }
+            if (remaining) android.os.SystemClock.sleep(50)
+        }
+        assertFalse("All owned target activities must close before restoring files", remaining)
     }
     private fun caller(source: String = prefix + input + suffix, kind: String? = null, mime: String = "text/plain", readOnly: Boolean = true) {
         val value = Intent().setComponent(ComponentName(instrumentation.context.packageName, ReviewedTextCallerActivity::class.java.name))
@@ -239,6 +262,7 @@ class ReviewedTextDeviceTest {
         assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
         File(evidence, "$name-frame.json").writeText(JSONObject().put("phase", phase).put("external_caller", external)
             .put("font_scale", context.resources.configuration.fontScale).put("scope", record.getString("scope"))
+            .put("ime_visible", if (external) JSONObject.NULL else imeVisible())
             .put("synchronization", "Idle native/Compose state; hierarchy captured before PNG").toString(2))
     }
     private fun clipboardText(): String? {
@@ -246,10 +270,10 @@ class ReviewedTextDeviceTest {
         instrumentation.runOnMainSync { text = context.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text?.toString() }
         return text
     }
-    private fun assertReview() {
+    private fun assertReview(expected: String = input) {
         capture("entry") // Also retained on a matched old-app failure.
         compose.onNodeWithText("Review text").assertIsDisplayed()
-        compose.onNodeWithTag("text-input-content").assertTextEquals(input)
+        compose.onNodeWithTag("text-input-content").assertTextEquals(expected)
         compose.onNodeWithTag("text-input-run").assertIsNotEnabled()
         assertEquals(sentinel, clipboardText())
         assertNull(foregroundActivity().store.extensions.running)
@@ -263,8 +287,10 @@ class ReviewedTextDeviceTest {
         val node = compose.onNodeWithTag(tag)
         var steps = 0
         while (!node.isDisplayed() && steps++ < 30) {
-            compose.onNodeWithTag("shell-content-scroll").performTouchInput {
-                swipe(Offset(4f, height * .82f), Offset(4f, height * .18f), 300)
+            val scroll = if (foregroundActivity().store.dialog == "text-input") "shell-content-scroll" else "palette-content-scroll"
+            compose.onNodeWithTag(scroll).performTouchInput {
+                if (tag == "extension-back") swipe(Offset(4f, height * .18f), Offset(4f, height * .82f), 300)
+                else swipe(Offset(4f, height * .82f), Offset(4f, height * .18f), 300)
             }
         }
         node.assertIsDisplayed().performTouchInput { click(center) }
@@ -298,10 +324,10 @@ class ReviewedTextDeviceTest {
         assertEquals(sentinel, clipboardText())
         compose.onNodeWithTag("extension-primary").assertTextContains("Copy Full JSON", substring = true)
         capture("formatted")
-        compose.onNodeWithTag("extension-primary").performTouchInput { click(center) }
+        touch("extension-primary")
         compose.waitUntil(10000) { clipboardText() == output }
         dismissClipboardForEvidence(); capture("copied")
-        compose.onNodeWithTag("extension-back").performTouchInput { click(center) }
+        touch("extension-back")
         awaitCaller()
         assertEquals(prefix + input + suffix, device.findObject(By.res("android:id/edit")).text)
         assertEquals("Selection ${prefix.length} to ${prefix.length + input.length}", device.findObject(By.res("android:id/text2")).text)
@@ -317,14 +343,18 @@ class ReviewedTextDeviceTest {
 
     @Test fun malformedAndOversizedInputCannotRunOrChangeClipboard() {
         for ((kind, mime, expected) in listOf(Triple("missing", "text/plain", "No text was provided"), Triple("integer", "text/plain", "needs plain text"),
-            Triple("oversize", "text/plain", "too long"), Triple("badflag", "text/plain", "needs plain text"), Triple(null, "text/html", "needs plain text"))) {
-            caller(kind = kind, mime = mime); send()
+            Triple("oversize", "text/plain", "too long"), Triple("badflag", "text/plain", "needs plain text"), Triple("empty", "text/plain", "No text was provided"), Triple(null, "text/html", "needs plain text"))) {
+            if (kind == "empty") caller(source = "", mime = mime) else caller(kind = kind, mime = mime)
+            send()
             compose.onNodeWithTag("text-input-error").assertTextContains(expected, substring = true)
+            val layouts = mutableListOf<TextLayoutResult>()
+            compose.onNodeWithTag("text-input-error").performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
+            assertTrue((0 until layouts.single().lineCount).none(layouts.single()::isLineEllipsized))
             compose.onNodeWithTag("text-input-run").assertDoesNotExist()
             assertNull(foregroundActivity().store.extensions.running); assertEquals(sentinel, clipboardText())
             capture("invalid-${kind ?: "mime"}")
         }
-        record.put("invalid_payloads_rejected", 5).put("passed", true)
+        record.put("invalid_payloads_rejected", 6).put("passed", true)
     }
     @Test fun cancelBeforeRunReturnsWithoutExecutingOrSaving() {
         caller(); send(); assertReview(); choose(formatterId, "formatSelectionAndShow")
@@ -335,15 +365,121 @@ class ReviewedTextDeviceTest {
         record.put("cancelled_before_run", true).put("passed", true)
     }
     @Test fun ordinaryCommandDoesNotReceiveClipboardAsSelectedText() {
-        compose.activityRule.scenario.onActivity {
-            val extension = it.store.extensions.installed.single { e -> e.listing.id == probeId }
-            it.store.openExtension(extension, extension.commands.single { c -> c.name == "inspect" })
+        instrumentation.runOnMainSync {
+            val activity = foregroundActivity()
+            val extension = activity.store.extensions.installed.single { e -> e.listing.id == probeId }
+            activity.store.openExtension(extension, extension.commands.single { c -> c.name == "inspect" })
         }
-        val catalog = compose.activity.store.extensions
+        val catalog = foregroundActivity().store.extensions
         compose.waitUntil(30000) { activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains("Input unavailable:") == true || catalog.runtimeError != null }
         assertNull(catalog.runtimeError, catalog.runtimeError)
         assertTrue(activeRoot(catalog.runtimeTree)!!.props().getString("markdown").contains("No reviewed text is available"))
         assertFalse(catalog.runtimeTree.toString().contains(sentinel)); assertEquals(sentinel, clipboardText())
         capture("ordinary-unavailable"); record.put("ordinary_session_specific_unavailable_error", true).put("passed", true)
+    }
+    @Test fun explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt() {
+        caller(); send(); assertReview()
+        val before = foregroundActivity().store.clips
+        touch("text-input-save-clip")
+        compose.onNodeWithTag("editor-body").assertTextEquals(input)
+        assertEquals(before, foregroundActivity().store.clips)
+        assertNull(foregroundActivity().store.extensions.running)
+        assertEquals(sentinel, clipboardText())
+        capture("explicit-clip-draft")
+        compose.onNodeWithTag("cancel-editor").performTouchInput { click(center) }
+        assertEquals(before, foregroundActivity().store.clips)
+        record.put("explicit_clip_draft_preserved_exact_input_without_saving", true).put("passed", true)
+    }
+    @Test fun aNewExternalShareEndsThePriorSelectionCommand() {
+        caller(); send(); assertReview(); choose(formatterId, "formatSelectionAndShow"); touch("text-input-run")
+        val oldActivity = foregroundActivity(); val previous = oldActivity.store.extensions
+        compose.waitUntil(30000) { previous.runtimeError != null || activeRoot(previous.runtimeTree)?.props()?.optString("markdown")?.isNotEmpty() == true }
+        assertNull(previous.runtimeError, previous.runtimeError)
+        caller(); send(share = true); assertReview()
+        record.put("external_actions_created_different_activity_instances", oldActivity !== foregroundActivity())
+        assertNull("A new external handoff must end the older Activity's command", previous.running)
+        assertNull(previous.runtimeTree)
+        capture("replacement-preview")
+        touch("text-input-cancel"); awaitCaller()
+        record.put("new_handoff_closed_previous_activity_command", true).put("passed", true)
+    }
+
+    private fun imeVisible() = ViewCompat.getRootWindowInsets(foregroundActivity().window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
+    private fun fullBounds(interaction: SemanticsNodeInteraction): Rect {
+        val node = interaction.fetchSemanticsNode()
+        return compose.runOnUiThread {
+            val coordinates = node.layoutInfo.coordinates
+            val origin = coordinates.localToRoot(Offset.Zero)
+            Rect(origin.x, origin.y, origin.x + coordinates.size.width, origin.y + coordinates.size.height)
+        }
+    }
+    private fun witnessPreviewLines() {
+        val text = compose.onNodeWithTag("text-input-content")
+        val preview = compose.onNodeWithTag("text-input-preview")
+        val values = mutableListOf<TextLayoutResult>()
+        text.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(values) }
+        val layout = values.single()
+        assertTrue(fullBounds(text).height + 1 >= layout.size.height)
+        assertTrue((0 until layout.lineCount).none(layout::isLineEllipsized))
+        for (line in 0 until layout.lineCount) {
+            assertTrue(layout.getLineLeft(line) >= -1 && layout.getLineRight(line) <= layout.size.width + 1)
+        }
+        val height = (0 until layout.lineCount).maxOf { layout.getLineBottom(it) - layout.getLineTop(it) }
+        var reveal = 0
+        while (preview.fetchSemanticsNode().boundsInRoot.height < height + 2 && reveal++ < 30) {
+            compose.onNodeWithTag("shell-content-scroll").performTouchInput {
+                swipe(Offset(4f, this.height * .8f), Offset(4f, this.height * .4f), 300)
+            }
+        }
+        assertTrue("Preview needs room for a complete line", preview.fetchSemanticsNode().boundsInRoot.height >= height)
+        val seen = BooleanArray(layout.lineCount)
+        val receipts = JSONArray()
+        capture("long-preview-top")
+        var steps = 0
+        while (seen.any { !it } && steps++ < 160) {
+            val visible = preview.fetchSemanticsNode().boundsInRoot
+            val origin = fullBounds(text)
+            for (line in 0 until layout.lineCount) {
+                if (origin.top + layout.getLineTop(line) >= visible.top - 1 && origin.top + layout.getLineBottom(line) <= visible.bottom + 1 &&
+                    origin.left + layout.getLineLeft(line) >= visible.left - 1 && origin.left + layout.getLineRight(line) <= visible.right + 1) seen[line] = true
+            }
+            receipts.put(JSONObject().put("text_top", origin.top).put("viewport_top", visible.top).put("viewport_bottom", visible.bottom)
+                .put("witnessed_lines", seen.count { it }))
+            if (seen.any { !it }) preview.performTouchInput {
+                down(center); moveTo(Offset(center.x, center.y - this.height * .25f), 300); advanceEventTime(150); up()
+            }
+            compose.waitForIdle()
+        }
+        assertTrue("Every natural non-ellipsized preview line must be fully visible through touch scrolling", seen.all { it })
+        record.put("long_preview_line_count", layout.lineCount).put("long_preview_all_lines_witnessed", true).put("long_preview_pointer_receipts", receipts)
+        capture("long-preview-bottom")
+    }
+    @Test fun longPreviewAndCommandSearchRemainReachableByTouch() {
+        val text = (1..16).joinToString("\n") { "Owned line $it · café é 🌱 · exact whitespace  " } + "\nOwned final line ✓"
+        caller(source = text); send(); assertReview(text)
+        if (imeVisible()) { assertTrue(device.pressBack()); compose.waitUntil(10000) { !imeVisible() } }
+        witnessPreviewLines()
+        touch("text-input-choose")
+        if (compose.onAllNodesWithTag("inline-menu-keyboard").fetchSemanticsNodes().isNotEmpty())
+            compose.onNodeWithTag("inline-menu-keyboard").performTouchInput { click(center) }
+        else compose.onNodeWithTag("inline-menu-search").performTouchInput { click(center) }
+        compose.waitUntil(10000) { imeVisible() }
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("Inspect reviewed text")
+        compose.waitForIdle(); capture("command-search-ime")
+        val tag = "text-command-$probeId/inspect"
+        compose.onNodeWithTag(tag).assertIsDisplayed().performTouchInput { click(center) }
+        record.put("chooser_search_used_real_ime", true)
+        touch("text-input-run")
+        val catalog = foregroundActivity().store.extensions
+        compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains(JSONObject.quote(text)) == true }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        assertEquals("Approved input: ${JSONObject.quote(text)}", activeRoot(catalog.runtimeTree)!!.props().getString("markdown"))
+        assertEquals(sentinel, clipboardText())
+        touch("extension-primary"); compose.waitUntil(10000) { clipboardText() == text }
+        dismissClipboardForEvidence(); capture("long-probe-copy")
+        touch("extension-back"); awaitCaller()
+        assertEquals(text, device.findObject(By.res("android:id/edit")).text)
+        capture("long-source-return", true)
+        record.put("owned_probe_received_and_copied_exact_long_input", true).put("passed", true)
     }
 }

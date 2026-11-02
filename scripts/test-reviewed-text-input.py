@@ -36,7 +36,7 @@ def main():
     parser.add_argument('--test-apk', type=Path, required=True)
     parser.add_argument('--json-archive', type=Path, required=True)
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
-    parser.add_argument('--expected', type=int, default=6)
+    parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
     args = parser.parse_args()
     require(args.serial.startswith('emulator-') and args.avd == 'Tinycast_Tablet_API_36', 'Use only the dedicated emulator')

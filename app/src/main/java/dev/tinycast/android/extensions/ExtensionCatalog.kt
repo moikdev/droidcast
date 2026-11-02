@@ -95,6 +95,7 @@ class ExtensionCatalog(private val context: Context) {
     var preferencesEpoch by mutableIntStateOf(0)
     internal val reviewedText = ReviewedTextInput()
     @Volatile private var invocationOwner: Any = Any()
+    private var runtimeStop: Pair<Any, () -> Unit>? = null
     private var commandText: CommandTextInput? = null
     private class PreparedText(val preview: TextInputPreview, val target: TextInputTarget, val epoch: Int)
     private var preparedText: PreparedText? = null
@@ -161,11 +162,12 @@ class ExtensionCatalog(private val context: Context) {
         prefs.edit().putString("preferences", merged.toString()).apply(); preferencesEpoch++
     }
     fun launch(extension: InstalledExtension, command: ExtensionCommand, args: Map<String, String> = emptyMap()) {
+        stopRuntime(Any())
         reviewedText.invalidate(); preparedText = null
         begin(extension,command,args,Any(),null)
     }
     private fun begin(extension: InstalledExtension, command: ExtensionCommand, args: Map<String,String>, owner: Any, input: CommandTextInput?) {
-        invocationOwner = owner
+        stopRuntime(owner)
         commandText?.let(reviewedText::release)
         commandText = input
         running = extension to command; arguments = args; runtimeTree = null; runtimeError = null; runtimeStatus = "Starting extension…"; runtimeReady = false; navigationDepth = 1; launchEpoch++
@@ -213,11 +215,25 @@ class ExtensionCatalog(private val context: Context) {
     }
     internal fun ownsRuntime(owner: Any, extension: InstalledExtension, command: ExtensionCommand): Boolean =
         invocationOwner === owner && running?.first === extension && running?.second === command
+    internal fun attachRuntime(owner: Any, extension: InstalledExtension, command: ExtensionCommand, stop: () -> Unit): Any? {
+        if (!ownsRuntime(owner, extension, command)) return null
+        runtimeStop?.second?.invoke()
+        val registration = Any()
+        runtimeStop = registration to stop
+        return registration
+    }
+    internal fun detachRuntime(registration: Any?) { if (registration != null && runtimeStop?.first === registration) runtimeStop = null }
+    private fun stopRuntime(nextOwner: Any) {
+        invocationOwner = nextOwner
+        val stop = runtimeStop?.second
+        runtimeStop = null
+        stop?.invoke()
+    }
     internal fun releaseText(owner: Any) {
         if (invocationOwner === owner) { commandText?.let(reviewedText::release); commandText = null }
     }
     private fun revokeReviewedText() {
-        invocationOwner = Any()
+        stopRuntime(Any())
         reviewedText.invalidate(); commandText = null; preparedText = null
     }
     fun close() { revokeReviewedText(); running = null; runtimeTree = null; runtimeError = null; runtimeReady = false }

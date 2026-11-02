@@ -296,6 +296,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun search(value: String) { query = value; selected = 0; syncFileSearch() }
     fun syncFileSearch() { folderSearch.search(query, category == "Files" || (folderSearch.includeInLauncher && query.isNotBlank() && category in setOf("All", "Pinned"))) }
     fun openExtension(extension: InstalledExtension, command: ExtensionCommand) {
+        TextReviewOwnership.revoke()
         clearTextReview()
         extensionReturnTo = when (dialog) { "extensions" -> "extensions"; "extension-run", "extension-setup" -> extensionReturnTo; else -> null }
         extensionSetupFromRun = false

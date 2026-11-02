@@ -6,6 +6,29 @@ import androidx.compose.runtime.setValue
 import dev.tinycast.android.extensions.ExtensionCommand
 import dev.tinycast.android.extensions.InstalledExtension
 import dev.tinycast.android.extensions.objects
+import java.lang.ref.WeakReference
+
+/** Android may create another no-affinity task even for our singleTask entry.
+ * Only one Activity/ViewModel in this process may own an external text handoff.
+ * A retiring Activity releases only itself, never a newer Activity's review.
+ */
+internal object TextReviewOwnership {
+    private var owner: WeakReference<PaletteStore>? = null
+    fun claim(store: PaletteStore) {
+        val previous = owner?.get()
+        owner = null
+        if (previous !== store) previous?.clearTextReview()
+        owner = WeakReference(store)
+    }
+    fun revoke() {
+        val previous = owner?.get()
+        owner = null
+        previous?.clearTextReview()
+    }
+    fun release(store: PaletteStore) {
+        if (owner?.get() === store) owner = null
+    }
+}
 
 /** Metadata for one external handoff. Text belongs only to ReviewedTextInput. */
 internal class TextReviewFlow(val origin: TextInputOrigin) {
@@ -25,6 +48,7 @@ internal class TextIntentPayload(val value: Any?, val readOnly: Boolean) {
 
 internal fun PaletteStore.receiveTextReview(origin: TextInputOrigin, decode: () -> TextIntentPayload) {
     // Replacement happens before decoding, including malformed replacement intents.
+    TextReviewOwnership.claim(this)
     extensions.close()
     extensionReturnTo = null; extensionSetupFromRun = false
     discardEditorDraft(); editing = null; actionCommand = null; message = null
@@ -44,6 +68,7 @@ internal fun PaletteStore.receiveTextReview(origin: TextInputOrigin, decode: () 
 }
 
 internal fun PaletteStore.clearTextReview() {
+    TextReviewOwnership.release(this)
     if (textReview != null) {
         extensions.close()
         textReview = null

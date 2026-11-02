@@ -55,7 +55,9 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
             }
         }
     }
-    private fun active() = !destroyed && catalog.ownsRuntime(textContext.owner,extension,command) && catalog.runtimeError == null
+    private val runtimeRegistration = catalog.attachRuntime(textContext.owner, extension, command) { scope.cancel(); webView.stopLoading() }
+    init { if (runtimeRegistration == null) scope.cancel() }
+    private fun active() = !destroyed && scope.isActive && catalog.ownsRuntime(textContext.owner,extension,command) && catalog.runtimeError == null
     private fun fail(message: String) {
         if (!active()) return
         ready()
@@ -91,7 +93,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         if (active() && !handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
     }
     fun back() { evaluate("__tinycast.popNavigation(${quote(session)})") }
-    fun close() { if (destroyed) return; destroyed = true; textContext.input?.let(catalog.reviewedText::release); scope.cancel(); webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost"); (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy() }
+    fun close() { if (destroyed) return; destroyed = true; catalog.detachRuntime(runtimeRegistration); textContext.input?.let(catalog.reviewedText::release); scope.cancel(); webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost"); (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy() }
     private fun ready() { catalog.runtimeReady = true; watchdog?.cancel() }
     private fun quote(s: String) = JSONObject.quote(s)
     private fun post(block: () -> Unit) { if (active()) scope.launch { if (active()) block() } }
@@ -110,6 +112,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
                     val encoded = JSONArray().put(result ?: JSONObject.NULL).toString().drop(1).dropLast(1)
                     evaluate("__tinycast.settle(${quote(id)},true,${quote(encoded)})")
                 } catch (e: CancellationException) { throw e } catch (e: Throwable) {
+                    catalog.releaseText(textContext.owner)
                     evaluate("__tinycast.settle(${quote(id)},false,${quote(e.message ?: "Unsupported Android API")})")
                 }
             }
@@ -117,7 +120,10 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         @JavascriptInterface fun invokeSync(api: String, method: String, raw: String): String = try {
             check(active()) { "This command session has ended" }
             JSONObject().put("ok", true).put("value", syncCall(api, method, JSONArray(raw)) ?: JSONObject.NULL).toString()
-        } catch (e: Throwable) { JSONObject().put("ok", false).put("error", e.message).put("code", if (e is java.io.FileNotFoundException) "ENOENT" else "ENOTSUP").toString() }
+        } catch (e: Throwable) {
+            post { catalog.releaseText(textContext.owner) }
+            JSONObject().put("ok", false).put("error", e.message).put("code", if (e is java.io.FileNotFoundException) "ENOENT" else "ENOTSUP").toString()
+        }
     }
     private suspend fun asyncCall(api: String, method: String, a: JSONArray): Any? = when (api) {
         "clipboard" -> {

@@ -143,6 +143,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         cancelDocumentOpen()
         if (request == null || !ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) { store.message = "Shortcut changed or expired. Try again."; return }
         if (store.backupBusy || ShortcutRuntime.recordingOwner != null) { store.message = "Finish the current operation before running a shortcut."; return }
+        TextReviewOwnership.revoke()
         if (request.target == ShortcutRules.PALETTE) { if (toggleExisting) finish() else store.reset() }
         else if (toggleExisting && request.target == "calculator" && store.dialog == null && store.category == "All" && store.query.trimStart().startsWith("=")) finish()
         else { store.reset(); store.pendingShortcut = request }
@@ -152,6 +153,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         cancelDocumentOpen()
         modifierShortcuts.clear(); store.clearModifierRecording()
         if (store.backupBusy) {
+            TextReviewOwnership.revoke()
             store.clearTextReview()
             if (isTextIntent(intent)) scrubTextIntent(intent)
             store.message = "Backup in progress. Please try again when it finishes."; return
@@ -167,6 +169,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         setIntent(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_MAIN))
     }
     private fun receive(intent: Intent) {
+        if (!isTextIntent(intent)) TextReviewOwnership.revoke()
         if (intent.action == "dev.droidcast.SHOW_FILES") { store.filter("Files"); return }
         if (intent.action == ShortcutRuntime.ACTION) { acceptShortcut(intent.getStringExtra(ShortcutRuntime.TOKEN)); return }
         if (isTextIntent(intent)) {
@@ -222,6 +225,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     }
     fun execute(command: Command) {
         if (store.backupBusy || store.textReview != null) return
+        TextReviewOwnership.revoke()
         cancelDocumentOpen()
         if (command.id !in setOf("backup", "backup-export", "backup-import", "backup-write", "backup-read")) store.used(command.id)
         if (command.kind == Kind.COMMAND) {
