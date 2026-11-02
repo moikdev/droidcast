@@ -18,6 +18,8 @@ import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
 import org.junit.runner.RunWith
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.LinkOption
 import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
@@ -36,6 +38,7 @@ class ExtensionFormDeviceTest {
     private val evidence get() = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
     private var prepared = false
     private var ownedId: String? = null
+    private lateinit var expectedOwner: String
     private var palette = emptyMap<String, Any?>()
     private var originalIds = emptySet<String>()
     private var preserved = emptyList<File>()
@@ -51,6 +54,14 @@ class ExtensionFormDeviceTest {
     private fun fingerprint(root: File): Map<String, String> = if (!root.exists()) emptyMap() else root.walkTopDown().associate {
         it.relativeTo(root).path to if (it.isDirectory) "directory" else hash(it.readBytes())
     }
+    private fun ownedLease(): JSONObject {
+        val lease = JSONObject(leaseFile.readText())
+        assertEquals(setOf("schema_version", "fixture_kind", "owner_nonce", "owned_extension_ids"), lease.keys().asSequence().toSet())
+        assertEquals(1, lease.getInt("schema_version"))
+        assertEquals("reviewed-text-device-test-v1", lease.getString("fixture_kind"))
+        assertEquals(expectedOwner, lease.getString("owner_nonce"))
+        return lease
+    }
     @Before fun prepare() {
         val args = InstrumentationRegistry.getArguments()
         assumeTrue("Use the guarded input/Form runner", args.getString("reviewedTextFixture") == "true")
@@ -58,9 +69,8 @@ class ExtensionFormDeviceTest {
         val owner = args.getString("expectedTextInputLeaseOwner")
         assertTrue(owner?.matches(Regex("[0-9a-f]{32}")) == true)
         assertEquals(owner, args.getString("expectedClipboardRecoveryOwner"))
-        val lease = JSONObject(leaseFile.readText())
-        assertEquals("reviewed-text-device-test-v1", lease.getString("fixture_kind"))
-        assertEquals(owner, lease.getString("owner_nonce"))
+        expectedOwner = requireNotNull(owner)
+        ownedLease()
         compose.waitUntil(15000) { !compose.activity.store.loading }
         palette = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         originalIds = catalog.installed.map { it.listing.id }.toSet()
@@ -81,13 +91,19 @@ class ExtensionFormDeviceTest {
     }
     private fun launch(mode: String) {
         val id = "reviewed-text-" + UUID.randomUUID().toString().replace("-", "")
-        val lease = JSONObject(leaseFile.readText())
+        val directory = File(context.cacheDir, id)
+        listOf(directory, File(context.filesDir, "extensions/$id"), File(context.filesDir, "extension-data/$id"),
+            File(context.applicationInfo.dataDir, "shared_prefs/extension-$id.xml"),
+            File(context.applicationInfo.dataDir, "shared_prefs/extension-$id.xml.bak")).forEach {
+            assertFalse("Candidate fixture path must be unused", Files.exists(it.toPath(), LinkOption.NOFOLLOW_LINKS))
+        }
+        val lease = ownedLease()
         val ids = lease.getJSONArray("owned_extension_ids")
         assertTrue(ids.length() < 100); assertTrue((0 until ids.length()).none { ids.getString(it) == id }); ids.put(id)
         val temporary = File(leaseFile.path + ".tmp"); assertFalse(temporary.exists())
         temporary.writeText(lease.toString()); assertTrue(temporary.renameTo(leaseFile))
         ownedId = id
-        val directory = File(context.cacheDir, id).apply { assertFalse(exists()); assertTrue(mkdir()) }
+        assertTrue(directory.mkdir())
         val script = """
             const React=require('react'), api=require('@raycast/api');
             const mode=${JSONObject.quote(mode)};
