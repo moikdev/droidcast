@@ -1,0 +1,64 @@
+{
+  "scope": "Publication-format repair only; native/build/test binaries and sources retain their earlier verified identities.",
+  "before": [
+    {
+      "variant": "debug",
+      "public_path": "docs/validation/extension-compatibility/forms/checks/lint-results-debug.xml",
+      "invalid_public_sha256": "a3bb7adaedf9156906a09cb120487d65ca29ada08b599a536dfdc1efbb05a450",
+      "expected_negative": "ParseError",
+      "error_position": [
+        17,
+        18
+      ],
+      "original_counts": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 51
+      }
+    },
+    {
+      "variant": "benchmark",
+      "public_path": "docs/validation/extension-compatibility/forms/checks/lint-results-benchmark.xml",
+      "invalid_public_sha256": "a3bb7adaedf9156906a09cb120487d65ca29ada08b599a536dfdc1efbb05a450",
+      "expected_negative": "ParseError",
+      "error_position": [
+        17,
+        18
+      ],
+      "original_counts": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 51
+      }
+    }
+  ],
+  "after": [
+    {
+      "variant": "debug",
+      "public_path": "docs/validation/extension-compatibility/forms/checks/lint-results-debug.xml",
+      "parseable": true,
+      "public_sha256": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+      "counts": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 51
+      }
+    },
+    {
+      "variant": "benchmark",
+      "public_path": "docs/validation/extension-compatibility/forms/checks/lint-results-benchmark.xml",
+      "parseable": true,
+      "public_sha256": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+      "counts": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 51
+      }
+    }
+  ],
+  "all_public_xml_parsed": true,
+  "public_xml_count": 87,
+  "raw_triplets_unchanged": 64,
+  "raw_xml_byte_exact_and_crlf_preserved": true,
+  "encoding": "Only redacted XML placeholders are escaped with XML entities. Raw native XML is copied byte-exact."
+}

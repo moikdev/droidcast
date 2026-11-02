@@ -13051,15 +13051,15 @@
       "original": "artifacts/form-controls/candidate-952fb16-password-input-verification-v1/lint-results-debug.xml",
       "public": "docs/validation/extension-compatibility/forms/checks/lint-results-debug.xml",
       "original_sha256": "9aca35ce07fabaf75de8f4edf64686a12aa9b20223322695eb25e816ec94ba4e",
-      "public_sha256": "a3bb7adaedf9156906a09cb120487d65ca29ada08b599a536dfdc1efbb05a450",
-      "transformation": "literal replacements listed in checkpoint"
+      "public_sha256": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+      "transformation": "literal replacements listed in checkpoint; XML-escaped placeholders"
     },
     {
       "original": "artifacts/form-controls/candidate-952fb16-password-input-verification-v1/lint-results-benchmark.xml",
       "public": "docs/validation/extension-compatibility/forms/checks/lint-results-benchmark.xml",
       "original_sha256": "9aca35ce07fabaf75de8f4edf64686a12aa9b20223322695eb25e816ec94ba4e",
-      "public_sha256": "a3bb7adaedf9156906a09cb120487d65ca29ada08b599a536dfdc1efbb05a450",
-      "transformation": "literal replacements listed in checkpoint"
+      "public_sha256": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+      "transformation": "literal replacements listed in checkpoint; XML-escaped placeholders"
     },
     {
       "original": "artifacts/form-controls/python-final-v1-normal.log",
@@ -14418,28 +14418,40 @@
       "original_sha256": "12379489dd1052b2e86f5c88f7128644e5ab7b67dfea1d9afff424c24b0f8449",
       "public_sha256": "12379489dd1052b2e86f5c88f7128644e5ab7b67dfea1d9afff424c24b0f8449",
       "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-controls/publication-xml-v1.json",
+      "public": "docs/validation/extension-compatibility/forms/checks/publication-xml-v1.json",
+      "original_sha256": "efb9a13a3fef73b1799a3204fd051702310dcdeca9f0c18005e52287acd235f7",
+      "public_sha256": "efb9a13a3fef73b1799a3204fd051702310dcdeca9f0c18005e52287acd235f7",
+      "transformation": "none; exact bytes"
     }
   ],
   "literal_path_replacements": [
     {
       "original_prefix_sha256": "3a74dc3f6e4a5053b8e8a15f12f429e1d279512d6ac8f967828e8ca964b34921",
-      "replacement": "<checkout>"
+      "replacement": "<checkout>",
+      "xml_replacement": "&lt;checkout&gt;"
     },
     {
       "original_prefix_sha256": "af5a723405caf7a0f556ffe5efc12a5c45ea3cda08fd7daf1046a8fad209c774",
-      "replacement": "<frozen-catalog-checkout>"
+      "replacement": "<frozen-catalog-checkout>",
+      "xml_replacement": "&lt;frozen-catalog-checkout&gt;"
     },
     {
       "original_prefix_sha256": "19eedb4f395eb0e14ae015e4e62bc036ebccca8b5d677c1b10ee35d6ed938d57",
-      "replacement": "<android-sdk>"
+      "replacement": "<android-sdk>",
+      "xml_replacement": "&lt;android-sdk&gt;"
     },
     {
       "original_prefix_sha256": "e187855977f75330f9d6548d4a3017e67467b9207e063b62963f90b7cf920c52",
-      "replacement": "<java-home>"
+      "replacement": "<java-home>",
+      "xml_replacement": "&lt;java-home&gt;"
     },
     {
       "original_prefix_sha256": "fb321be387eaf6604b3b856182534d0d937d90da7ee36b6933033f30e810dd55",
-      "replacement": "<gradle-cache>"
+      "replacement": "<gradle-cache>",
+      "xml_replacement": "&lt;gradle-cache&gt;"
     }
   ],
   "binary_identities": {
@@ -14469,6 +14481,7 @@
       "password-regression-final-v1 (remaining80 executions)"
     ]
   },
+  "xml_placeholder_encoding": "Only redacted XML placeholders are escaped with XML entities. Raw native XML is copied byte-exact.",
   "public_files": {
     "docs/validation/extension-compatibility/forms/captures.json": "78bd641729072b84fd8219c0bee02472d67c22d627435f93554b3cc362b8b0f9",
     "docs/validation/extension-compatibility/forms/checks/active-editor-benchmark-harness-v1-state.json": "2f4e62eeb95de74fb5c113bc303f6896156fe1bfd60f7caaa8853c3124d83db7",
@@ -14509,8 +14522,8 @@
     "docs/validation/extension-compatibility/forms/checks/jvm/TEST-dev.tinycast.android.UpdatePolicyTest.xml": "2621e50ff625a6d163584833a2315c59c69866769930d52af340575c73e77829",
     "docs/validation/extension-compatibility/forms/checks/jvm/TEST-dev.tinycast.android.extensions.NodeCpuInfoTest.xml": "3db26fc30756781f1a90e2ffe99084d154ea5a77e3e095221ce54be1ec05a247",
     "docs/validation/extension-compatibility/forms/checks/jvm/case-ids.json": "315d918141651296944f7db5b4336eceea8684480b57ac5ea26ec5446a304cc6",
-    "docs/validation/extension-compatibility/forms/checks/lint-results-benchmark.xml": "a3bb7adaedf9156906a09cb120487d65ca29ada08b599a536dfdc1efbb05a450",
-    "docs/validation/extension-compatibility/forms/checks/lint-results-debug.xml": "a3bb7adaedf9156906a09cb120487d65ca29ada08b599a536dfdc1efbb05a450",
+    "docs/validation/extension-compatibility/forms/checks/lint-results-benchmark.xml": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+    "docs/validation/extension-compatibility/forms/checks/lint-results-debug.xml": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
     "docs/validation/extension-compatibility/forms/checks/native-focus-layout-benchmark-test-v1-state.json": "4227bce41bb8127c623f872f33a3ec3b4cae7b389fe2f8edaf2145abd34099e7",
     "docs/validation/extension-compatibility/forms/checks/native-focus-layout-benchmark-test-v1.log": "c2ea4c4101a8b7fb350dbf70c84d4c96bc6af56daeeb057ab375e7d47eb2798a",
     "docs/validation/extension-compatibility/forms/checks/native-focus-layout-build-v1-state.json": "4bb4f9e6ca8b30df4e560ada12c358e6f2c6bcbffa322024ce72c479801f6773",
@@ -14531,6 +14544,7 @@
     "docs/validation/extension-compatibility/forms/checks/password-metadata-harness-v1.log": "d202f4c25f12c50a71c4da0e21d85175f5567c1a2500c960b72d5bbc9c22e24b",
     "docs/validation/extension-compatibility/forms/checks/password-preference-harness-v1-state.json": "9501a20054b7e522c28b15566a668b9aa66eb57f237b83183f9fe6091e92f70e",
     "docs/validation/extension-compatibility/forms/checks/password-preference-harness-v1.log": "8140d0a61ccd7b29738e121f0ec9d6b544fab096ed1c10ae0d3cb43838fab312",
+    "docs/validation/extension-compatibility/forms/checks/publication-xml-v1.json": "efb9a13a3fef73b1799a3204fd051702310dcdeca9f0c18005e52287acd235f7",
     "docs/validation/extension-compatibility/forms/checks/python-final-v1-normal.log": "6639d2d8285ba05c0fc930c34b91bd639f83c3b3626271a7d8696fcca7c74eef",
     "docs/validation/extension-compatibility/forms/checks/python-final-v1-optimized.log": "ad40be22d3fdb6ba41130b8dfa008995c28693f00b1a8ee9072af64ea95a6c6a",
     "docs/validation/extension-compatibility/forms/checks/python-final-v1-state.json": "11247459b1d5680598a4ad28178caf8521aaa384fe6f2ba3f7fa7765ca5390fb",
