@@ -2,7 +2,7 @@
 """Native Grid evidence on one explicitly owned, unprivileged emulator."""
 from pathlib import Path
 import argparse, subprocess, os, json, hashlib, re, shutil, uuid
-from android_test_cleanup import Cleanup
+from android_test_cleanup import Cleanup, empty_view_fixture_ids
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--layout',choices=['tablet','phone'],required=True)
 p.add_argument('--output',type=Path,required=True);p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
@@ -13,6 +13,7 @@ p.add_argument('--update-fixtures',type=Path,help='Signed newer/wrong-signer/wro
 p.add_argument('--readiness',action='store_true');p.add_argument('--soak-seconds',type=int,default=300)
 p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=16)
 p.add_argument('--font-scale',type=float,help='Owned-emulator typography probe; restored exactly afterward')
+p.add_argument('--empty-view-fixtures',action='store_true',help='Explicit isolated empty-view fixtures and their recovery lease')
 p.add_argument('--size',help='Optional WIDTHxHEIGHT pixel viewport, paired with --density')
 p.add_argument('--density',type=int,help='Density for the optional viewport')
 a=p.parse_args();sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
@@ -35,6 +36,29 @@ assert 'Override' not in text('shell','wm','size')+text('shell','wm','density')
 keys=['enabled_accessibility_services','accessibility_enabled','show_ime_with_hard_keyboard']
 settings={k:text('shell','settings','get','secure',k) for k in keys};assert settings['enabled_accessibility_services']=='null' and settings['accessibility_enabled']=='0'
 font_before=text('shell','settings','get','system','font_scale') if a.font_scale is not None else None
+empty_root='files/empty-view-fixture-lease'
+empty_lease=empty_root+'/owners.json'
+empty_owner=uuid.uuid4().hex if a.empty_view_fixtures else None
+if subprocess.run(adb+['shell','run-as',app,'test','-e',empty_root],capture_output=True).returncode==0:
+ raise ValueError('An empty-view recovery lease already exists; inspect its owner before resuming')
+if a.empty_view_fixtures:
+ if (a.avd!='Tinycast_Tablet_API_36' or not a.serial.startswith('emulator-') or a.evidence_dir!='readiness-evidence' or a.update_fixtures is not None or a.readiness
+     or not 1<=a.expected<=16 or any(name.split('#')[0]!='dev.tinycast.android.ExtensionEmptyViewDeviceTest' for name in a.classes.split(','))):
+  raise ValueError('Empty-view fixtures require their dedicated class, AVD and evidence directory')
+ if (a.size is None)!=(a.density is None):raise ValueError('Empty-view size and density must be paired')
+ if a.size is not None and (not re.fullmatch(r'[1-9][0-9]{2,3}x[1-9][0-9]{2,3}',a.size) or not all(300<=int(v)<=4096 for v in a.size.split('x')) or not 120<=a.density<=640):
+  raise ValueError('Empty-view viewport is outside the supported bounds')
+ if (text('shell','getprop','ro.kernel.qemu')!='1' or text('shell','getprop','ro.boot.qemu.avd_name')!=a.avd
+     or not text('shell','id').startswith('uid=2000(') or 'ActiveInstrumentation{' in text('shell','dumpsys','activity','processes')
+     or 'Override' in text('shell','wm','size')+text('shell','wm','density')
+     or settings['enabled_accessibility_services']!='null' or settings['accessibility_enabled']!='0'
+     or (a.font_scale is not None and not 1<=a.font_scale<=2)):
+  raise ValueError('Empty-view emulator ownership or settings guard failed')
+ # An atomic directory claim precedes stop/install/settings changes. A second
+ # fixture owner cannot erase this lease while preparing its evidence folder.
+ raw('shell','run-as',app,'mkdir',empty_root)
+ raw('shell','run-as',app,'tee',empty_lease,data=(json.dumps({'schema_version':1,'fixture_kind':'empty-view-device-test-v1','owner_nonce':empty_owner,'owned_extension_ids':[]})+'\n').encode())
+ raw('shell','run-as',app,'tee',empty_root+'/host.json',data=(json.dumps({'pid':os.getpid(),'owner_nonce':empty_owner,'serial':a.serial,'avd':a.avd})+'\n').encode())
 raw('shell','am','force-stop',app);prefs=raw('exec-out','run-as',app,'cat','shared_prefs/palette.xml')
 emoji_prefs=raw('exec-out','run-as',app,'cat','shared_prefs/emoji.xml')
 a.output.mkdir(exist_ok=False,parents=True,mode=0o700);shutil.copyfile(__file__,a.output/'runner.py')
@@ -42,6 +66,8 @@ a.output.mkdir(exist_ok=False,parents=True,mode=0o700);shutil.copyfile(__file__,
 (a.output/'private-emoji-backup.xml').write_bytes(emoji_prefs);(a.output/'private-emoji-backup.xml').chmod(0o600)
 r={'avd':a.avd,'serial':a.serial,'layout':a.layout,'classes':a.classes,'expected':a.expected,'completed':False,'runner_sha256':sha(Path(__file__).read_bytes()),'original_size':text('shell','wm','size'),'original_density':text('shell','wm','density')}
 r.update(original_font_scale=font_before,requested_font_scale=a.font_scale,requested_size=a.size,requested_density=a.density)
+if a.empty_view_fixtures:r.update(empty_view_fixture_mode=True,empty_view_lease_owner=empty_owner,pid=os.getpid())
+empty_view_owned=a.empty_view_fixtures
 fixture_owned=False
 upload_owned=False
 upload_root='/data/local/tmp/droidcast-readiness-'+uuid.uuid4().hex
@@ -84,8 +110,10 @@ try:
   r['capture_background']='launcher-intent'
  evidence_dirs=list(dict.fromkeys([a.evidence_dir]+a.extra_evidence_dir))
  for folder in evidence_dirs:raw('shell','run-as',app,'rm','-rf','files/'+folder)
+ if a.empty_view_fixtures:
+  raw('shell','run-as',app,'mkdir','-p','files/readiness-evidence')
  r['suite_timeout_seconds']=max(600,a.expected*30,a.soak_seconds+300 if a.readiness else 0)
- with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes]+(['-e','expectedFontScale',str(a.font_scale)] if a.font_scale is not None else [])+(['-e','runReadiness','true','-e','soakSeconds',str(a.soak_seconds)] if a.readiness else [])+[app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
+ with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes]+(['-e','expectedFontScale',str(a.font_scale)] if a.font_scale is not None else [])+(['-e','emptyViewFixture','true','-e','expectedEmptyViewLeaseOwner',empty_owner] if a.empty_view_fixtures else [])+(['-e','runReadiness','true','-e','soakSeconds',str(a.soak_seconds)] if a.readiness else [])+[app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
  log=(a.output/'tests.log').read_text();r['passes']=len(re.findall('^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M));r['tests_completed']=f'OK ({a.expected} test' in log and 'FAILURES!!!' not in log and r['passes']==a.expected
  present=text('shell','run-as',app,'ls','files').splitlines()
  for folder in evidence_dirs:
@@ -99,6 +127,18 @@ try:
  assert r['completed'],log[-3000:]
 finally:
  c=Cleanup(r);c.attempt('stop-app',lambda:raw('shell','am','force-stop',app))
+ if empty_view_owned:
+  def cleanup_empty_view():
+   lease_bytes=raw('exec-out','run-as',app,'cat',empty_lease)
+   ids=empty_view_fixture_ids(json.loads(lease_bytes),empty_owner)
+   (a.output/'empty-view-owner-lease.json').write_bytes(lease_bytes)
+   for identity in ids:
+    paths=['cache/'+identity,'files/extension-data/'+identity,'shared_prefs/extension-'+identity+'.xml','shared_prefs/extension-'+identity+'.xml.bak']
+    raw('shell','run-as',app,'rm','-rf',*paths)
+    for path in paths:c.require(subprocess.run(adb+['shell','run-as',app,'test','-e',path],capture_output=True).returncode!=0,'Owned empty-view fixture removed')
+   r['empty_view_owners_cleaned']=len(ids)
+  c.attempt('empty-view-owned-data',cleanup_empty_view)
+  if c.results['empty-view-owned-data']['passed']:c.attempt('empty-view-lease',lambda:raw('shell','run-as',app,'rm','-rf',empty_root))
  if fixture_owned:c.attempt('update-fixtures',lambda:raw('shell','run-as',app,'rm','-rf','files/updates-fixtures'))
  if upload_owned:c.attempt('fixture-upload',lambda:raw('shell','rm','-rf',upload_root))
  if source_approval is not None:

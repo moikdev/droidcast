@@ -86,7 +86,7 @@ private fun EmptyViewIcon(icon: Any, images: ExtensionGridImages, tag: String) {
     } }
     val unavailable = visual is GridVisual.Unsupported || visual is GridVisual.Swatch || loaded?.isFailure == true
     Box(Modifier.size(64.dp).testTag("$tag-icon").clearAndSetSemantics {
-        contentDescription = if (unavailable) "Icon unavailable" else "Extension icon"
+        contentDescription = if (unavailable) "Icon unavailable" else if (visual is GridVisual.Image && loaded == null) "Loading icon" else "Extension icon"
     }, contentAlignment = Alignment.Center) {
         when (visual) {
             is GridVisual.Symbol -> {

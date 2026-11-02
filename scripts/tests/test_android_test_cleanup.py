@@ -4,7 +4,35 @@ import unittest
 from unittest.mock import patch
 import subprocess
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from android_test_cleanup import Cleanup, CleanupError, transition_adbd
+from android_test_cleanup import Cleanup, CleanupError, transition_adbd, empty_view_fixture_ids
+
+
+class EmptyViewLeaseTests(unittest.TestCase):
+    owner = 'a' * 32
+
+    def lease(self, ids=None):
+        return {'schema_version': 1, 'fixture_kind': 'empty-view-device-test-v1', 'owner_nonce': self.owner,
+                'owned_extension_ids': ['empty-view-' + 'b' * 32] if ids is None else ids}
+
+    def test_only_the_exact_owned_namespace_is_accepted(self):
+        value = self.lease()
+        self.assertEqual(value['owned_extension_ids'], empty_view_fixture_ids(value, self.owner))
+        self.assertEqual([], empty_view_fixture_ids(self.lease([]), self.owner))
+        for bad in ['../palette', 'cache/empty-view-' + 'b' * 32, 'empty-view-' + 'B' * 32,
+                    'empty-view-' + 'b' * 31, 'empty-view-' + 'b' * 32 + '/x', 'empty-view-%2f', None]:
+            with self.assertRaises(CleanupError): empty_view_fixture_ids(self.lease([bad]), self.owner)
+
+    def test_malformed_foreign_and_extra_field_leases_cannot_authorize_cleanup(self):
+        for bad in [None, [], {}, dict(self.lease(), owner_nonce='c' * 32), dict(self.lease(), fixture_kind='other'),
+                    dict(self.lease(), schema_version=2), dict(self.lease(), schema_version=True), dict(self.lease(), extra='ignored'),
+                    dict(self.lease(), owned_extension_ids='empty-view-' + 'b' * 32)]:
+            with self.assertRaises(CleanupError): empty_view_fixture_ids(bad, self.owner)
+        with self.assertRaises(CleanupError): empty_view_fixture_ids(self.lease(), '../owner')
+
+    def test_duplicate_and_excessive_leases_are_rejected_before_deletion(self):
+        identity = 'empty-view-' + 'b' * 32
+        for ids in [[identity, identity], ['empty-view-' + format(i, '032x') for i in range(101)]]:
+            with self.assertRaises(CleanupError): empty_view_fixture_ids(self.lease(ids), self.owner)
 
 
 class CleanupFailureTest(unittest.TestCase):
