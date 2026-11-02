@@ -1,0 +1,206 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=queuedTextCannotRunAfterFieldReplacement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunAfterFieldReplacement(ExtensionFormDeviceTest.kt:507)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedTextCannotRunAfterFieldReplacement(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunAfterFieldReplacement(ExtensionFormDeviceTest.kt:507)
+
+INSTRUMENTATION_STATUS: test=queuedTextCannotRunAfterFieldReplacement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedChoiceCannotRunWithoutRoot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoice(ExtensionFormDeviceTest.kt:536)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoiceCannotRunWithoutRoot(ExtensionFormDeviceTest.kt:542)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedChoiceCannotRunWithoutRoot(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoice(ExtensionFormDeviceTest.kt:536)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoiceCannotRunWithoutRoot(ExtensionFormDeviceTest.kt:542)
+
+INSTRUMENTATION_STATUS: test=queuedChoiceCannotRunWithoutRoot
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedChoiceCannotRunAfterOptionMeaningChanges
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoice(ExtensionFormDeviceTest.kt:536)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoiceCannotRunAfterOptionMeaningChanges(ExtensionFormDeviceTest.kt:543)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedChoiceCannotRunAfterOptionMeaningChanges(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoice(ExtensionFormDeviceTest.kt:536)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoiceCannotRunAfterOptionMeaningChanges(ExtensionFormDeviceTest.kt:543)
+
+INSTRUMENTATION_STATUS: test=queuedChoiceCannotRunAfterOptionMeaningChanges
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=dismissedDropdownCallbackCannotSelectAfterReopen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dismissedDropdownCallbackCannotSelectAfterReopen(ExtensionFormDeviceTest.kt:472)
+
+INSTRUMENTATION_STATUS: stream=
+Error in dismissedDropdownCallbackCannotSelectAfterReopen(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dismissedDropdownCallbackCannotSelectAfterReopen(ExtensionFormDeviceTest.kt:472)
+
+INSTRUMENTATION_STATUS: test=dismissedDropdownCallbackCannotSelectAfterReopen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedTextCannotRunWithoutRoot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunWithoutRoot(ExtensionFormDeviceTest.kt:505)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedTextCannotRunWithoutRoot(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunWithoutRoot(ExtensionFormDeviceTest.kt:505)
+
+INSTRUMENTATION_STATUS: test=queuedTextCannotRunWithoutRoot
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedTextCannotRunInReplacementSession
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunInReplacementSession(ExtensionFormDeviceTest.kt:506)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedTextCannotRunInReplacementSession(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunInReplacementSession(ExtensionFormDeviceTest.kt:506)
+
+INSTRUMENTATION_STATUS: test=queuedTextCannotRunInReplacementSession
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.018
+There were 6 failures:
+1) queuedTextCannotRunAfterFieldReplacement(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunAfterFieldReplacement(ExtensionFormDeviceTest.kt:507)
+2) queuedChoiceCannotRunWithoutRoot(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoice(ExtensionFormDeviceTest.kt:536)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoiceCannotRunWithoutRoot(ExtensionFormDeviceTest.kt:542)
+3) queuedChoiceCannotRunAfterOptionMeaningChanges(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoice(ExtensionFormDeviceTest.kt:536)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedChoiceCannotRunAfterOptionMeaningChanges(ExtensionFormDeviceTest.kt:543)
+4) dismissedDropdownCallbackCannotSelectAfterReopen(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dismissedDropdownCallbackCannotSelectAfterReopen(ExtensionFormDeviceTest.kt:472)
+5) queuedTextCannotRunWithoutRoot(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunWithoutRoot(ExtensionFormDeviceTest.kt:505)
+6) queuedTextCannotRunInReplacementSession(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...hs":{},"dispatches":[0]}> but was:<...hs":{},"dispatches":[1]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedField(ExtensionFormDeviceTest.kt:499)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedTextCannotRunInReplacementSession(ExtensionFormDeviceTest.kt:506)
+
+FAILURES!!!
+Tests run: 6,  Failures: 6
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,79 @@
+from pathlib import Path
+import subprocess, json, uuid, hashlib, tarfile, io, re, os, sys
+
+base=Path('artifacts/form-controls')
+state=base/'private-regression-evidence-preservation-v1.json'
+public=base/'regression-evidence-preservation-v1.json'
+assert not state.exists() and not public.exists()
+adb=['<android-sdk>/platform-tools/adb','-s','emulator-5580']
+app='dev.tinycast.android'; names=['extension-grid-evidence','readiness-evidence']
+owner=uuid.uuid4().hex; root='files/form-controls-evidence-archive-'+owner
+record={'completed':False,'owner_nonce':owner,'device_archive':root,'pid':os.getpid(),'moved':[],'restored':[],'checks':{}}
+def save():
+ state.write_text(json.dumps(record,indent=2)+'\n');state.chmod(0o600)
+def raw(*args,data=None):
+ return subprocess.check_output(adb+list(args),input=data,stderr=subprocess.STDOUT,timeout=60)
+def text(*args):return raw(*args).decode().strip()
+def exists(path):
+ r=subprocess.run(adb+['shell','run-as',app,'test','-e',path],capture_output=True,timeout=60)
+ assert r.returncode in [0,1];return r.returncode==0
+def idle():
+ assert text('shell','getprop','ro.boot.qemu.avd_name')=='Tinycast_Tablet_API_36'
+ assert text('shell','id').startswith('uid=2000(')
+ assert 'ActiveInstrumentation{' not in text('shell','dumpsys','activity','processes')
+ assert 'Override' not in text('shell','wm','size')+text('shell','wm','density')
+ assert text('shell','settings','get','system','font_scale')=='1.0'
+ for lease in ['reviewed-text-fixture-lease','empty-view-fixture-lease','compatibility-batch-fixtures']:
+  assert not exists('files/'+lease), 'Retain archive until the active recovery owner is resolved'
+def snapshot(parent):
+ data=raw('exec-out','run-as',app,'tar','-cf','-',*[parent+'/'+name for name in names])
+ hashes={};total=0
+ with tarfile.open(fileobj=io.BytesIO(data)) as archive:
+  for entry in archive.getmembers():
+   assert entry.name.startswith(parent+'/')
+   rel=entry.name.removeprefix(parent+'/').rstrip('/')
+   if entry.isdir():assert rel in names;continue
+   assert entry.isfile() and re.fullmatch(r'(extension-grid-evidence|readiness-evidence)/[a-z0-9-]+\.(png|xml|json)',rel)
+   assert rel not in hashes and entry.size<=20*1024*1024
+   total+=entry.size;assert total<=100*1024*1024
+   hashes[rel]=hashlib.sha256(archive.extractfile(entry).read()).hexdigest()
+ assert all(any(path.startswith(name+'/') for path in hashes) for name in names)
+ return data,hashes
+save();idle();assert not exists(root)
+assert all(exists('files/'+name) for name in names)
+original,hashes=snapshot('files')
+private=base/'private-preexisting-regression-evidence-v1.tar';assert not private.exists();private.write_bytes(original);private.chmod(0o600)
+with tarfile.open(private) as archive:assert sum(e.isfile() for e in archive.getmembers())==len(hashes)
+record['original_file_hashes']=hashes;record['checks']['private_snapshot_retained']=True;save()
+raw('shell','run-as',app,'mkdir',root)
+owner_doc={'schema_version':1,'owner_nonce':owner,'directories':names}
+raw('shell','run-as',app,'tee',root+'/owner.json',data=(json.dumps(owner_doc)+'\n').encode())
+def validate_owner():assert json.loads(raw('exec-out','run-as',app,'cat',root+'/owner.json'))==owner_doc
+try:
+ for name in names:
+  validate_owner();assert not exists(root+'/'+name)
+  raw('shell','run-as',app,'mv','files/'+name,root+'/'+name);record['moved'].append(name);save()
+ assert snapshot(root)[1]==hashes
+ record['checks']['archived_device_bytes_match_original']=True;save()
+ command=['python3','artifacts/form-controls/run-cohorts-v2.py','artifacts/form-controls/password-regression-final-v1-plan.json']
+ with (base/'preserved-regressions-v1-host.log').open('w') as log:record['pipeline_exit_code']=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT).returncode
+ save()
+finally:
+ try:
+  idle();validate_owner()
+  if len(record['moved'])==len(names):assert snapshot(root)[1]==hashes
+  for name in record['moved']:
+   assert not exists('files/'+name), 'Do not overwrite new or retained failure evidence'
+   raw('shell','run-as',app,'mv',root+'/'+name,'files/'+name);record['restored'].append(name);save()
+  assert snapshot('files')[1]==hashes
+  record['checks']['all_preexisting_evidence_restored_byte_exact']=True
+  validate_owner();assert text('shell','run-as',app,'ls',root)=='owner.json'
+  record['checks']['idle_unprivileged_no_recovery_lease_or_geometry_override']=True;save()
+  raw('shell','run-as',app,'rm','-r',root)
+  record['checks']['archive_owner_released_after_verified_restoration']=True;save()
+ except BaseException as error:
+  record['restoration_failure_type']=type(error).__name__;save();raise
+record['completed']=record.get('pipeline_exit_code')==0 and all(record['checks'].values());save()
+public.write_text(json.dumps({'completed':record['completed'],'original_directories':names,'original_file_count':len(hashes),'restored_directory_count':len(record['restored']),'checks':record['checks'],'pipeline':'password-regression-final-v1','pipeline_exit_code':record.get('pipeline_exit_code'),'privacy':'Original evidence and its file fingerprints are retained only in private backup/owner records.'},indent=2)+'\n')
+print(json.dumps(json.loads(public.read_text()),indent=2),flush=True)
+assert record['completed']

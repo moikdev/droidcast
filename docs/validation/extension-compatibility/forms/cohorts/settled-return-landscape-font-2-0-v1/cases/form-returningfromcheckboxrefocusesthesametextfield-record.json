@@ -1,0 +1,217 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "all-fields",
+  "fixture_command_sha256": "ce17b94ab6942656119b40d907751876c4dbc7eb1b8bfe78451bacdab0fd7a74",
+  "owned_extension_id": "reviewed-text-442149a3f44a42c29e2c24d766b961a0",
+  "settled_ime_geometry": [
+    {
+      "shown": false,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "shown": true,
+      "native_frames": 5,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "shown": true,
+      "native_frames": 8,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "shown": false,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "shown": true,
+      "native_frames": 8,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        629
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        531.5
+      ]
+    },
+    {
+      "tag": "extension-checkbox-enabled",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        164,
+        2102,
+        313
+      ],
+      "control_size": [
+        1863,
+        218
+      ],
+      "point": [
+        1170.5,
+        238.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        121,
+        2102,
+        316
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        218.5
+      ]
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    }
+  ],
+  "focus_after_checkbox": {
+    "changes": 2,
+    "focus": {
+      "name": 1,
+      "enabled": 1
+    },
+    "blur": {
+      "name": 1
+    },
+    "blurLengths": {
+      "name": 24
+    },
+    "dispatches": 5
+  },
+  "focus_after_text_return": {
+    "changes": 2,
+    "focus": {
+      "name": 2,
+      "enabled": 1
+    },
+    "blur": {
+      "name": 1,
+      "enabled": 1
+    },
+    "blurLengths": {
+      "name": 24,
+      "enabled": 0
+    },
+    "dispatches": 7
+  },
+  "focus_probe": {
+    "changes": 2,
+    "focus": {
+      "name": 2,
+      "enabled": 1
+    },
+    "blur": {
+      "name": 1,
+      "enabled": 1
+    },
+    "blurLengths": {
+      "name": 24,
+      "enabled": 0
+    },
+    "dispatches": 7
+  },
+  "direct_text_checkbox_text_pointer_round_trip": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

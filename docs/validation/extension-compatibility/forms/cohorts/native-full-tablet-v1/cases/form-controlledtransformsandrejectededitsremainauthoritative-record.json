@@ -1,0 +1,88 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "controlled",
+  "fixture_command_sha256": "cff8a4872c966115de5b4853975b42f03037d0d3d0b52e55e5814693c128d245",
+  "owned_extension_id": "reviewed-text-4d35be37302e487c98e631422006172a",
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-filtered",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        428,
+        392,
+        1493,
+        476
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        434
+      ]
+    },
+    {
+      "tag": "extension-field-rejected",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        428,
+        466,
+        1493,
+        550
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        508
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        428,
+        466,
+        1493,
+        550
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        508
+      ]
+    }
+  ],
+  "transformed_and_rejected_native_values_verified": true,
+  "focus_probe": {
+    "changes": 2,
+    "focus": {
+      "filtered": 1,
+      "rejected": 1,
+      "notes": 1
+    },
+    "blur": {
+      "filtered": 1,
+      "rejected": 1
+    },
+    "blurLengths": {
+      "filtered": 16,
+      "rejected": 17
+    },
+    "dispatches": 7
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

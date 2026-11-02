@@ -1,0 +1,1525 @@
+{
+  "completed": true,
+  "production_source_commit": "952fb168b482762791afb541bf2bd6b302842b9e",
+  "total_executions": 199,
+  "host_cleanup_checks": 330,
+  "all_cleanup_passed": true,
+  "evidence_preservation_checks": 5,
+  "case_executions": [
+    {
+      "cohort": "password-common-after-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-common-after-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunAfterClose",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunAfterFieldReplacement",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "replacedConfigurationRejectsQueuedEditsRunAndBack",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "focusAndBlurDeliverCurrentFieldValue",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "checkboxLabelTogglesExactlyOnce",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "returningFromCheckboxRefocusesTheSameTextField",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunWithoutRoot",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunAfterOptionMeaningChanges",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "dismissedDropdownCallbackCannotSelectAfterReopen",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "fieldValidationErrorIsVisible",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunWithoutRoot",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "dropdownShowsSelectedItemTitle",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunInReplacementSession",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "fieldHelpIsVisibleWithoutHover",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "controlledTransformsAndRejectedEditsRemainAuthoritative",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-phone-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "choosingDropdownItemSubmitsItsExactValue",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunAfterClose",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunAfterFieldReplacement",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "replacedConfigurationRejectsQueuedEditsRunAndBack",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "focusAndBlurDeliverCurrentFieldValue",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "checkboxLabelTogglesExactlyOnce",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "returningFromCheckboxRefocusesTheSameTextField",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunWithoutRoot",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunAfterOptionMeaningChanges",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "dismissedDropdownCallbackCannotSelectAfterReopen",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "fieldValidationErrorIsVisible",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunWithoutRoot",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "dropdownShowsSelectedItemTitle",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunInReplacementSession",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "fieldHelpIsVisibleWithoutHover",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "controlledTransformsAndRejectedEditsRemainAuthoritative",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-tablet-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "choosingDropdownItemSubmitsItsExactValue",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunAfterClose",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunAfterFieldReplacement",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "replacedConfigurationRejectsQueuedEditsRunAndBack",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "focusAndBlurDeliverCurrentFieldValue",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "checkboxLabelTogglesExactlyOnce",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "returningFromCheckboxRefocusesTheSameTextField",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunWithoutRoot",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedChoiceCannotRunAfterOptionMeaningChanges",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "dismissedDropdownCallbackCannotSelectAfterReopen",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "fieldValidationErrorIsVisible",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunWithoutRoot",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "dropdownShowsSelectedItemTitle",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "queuedTextCannotRunInReplacementSession",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "fieldHelpIsVisibleWithoutHover",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "controlledTransformsAndRejectedEditsRemainAuthoritative",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-full-landscape-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "choosingDropdownItemSubmitsItsExactValue",
+      "layout": "landscape",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-matrix-tablet-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "tablet",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-tablet-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "tablet",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-tablet-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "tablet",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-tablet-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "tablet",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-tablet-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "tablet",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-phone-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "phone",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-phone-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "phone",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-phone-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "phone",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-phone-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "phone",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-phone-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "phone",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-landscape-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "landscape",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-landscape-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "landscape",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-landscape-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "landscape",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-landscape-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "landscape",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-landscape-font-2-0-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "landscape",
+      "font_scale": 2.0
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "tablet",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "tablet",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "tablet",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "tablet",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "tablet",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "phone",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "phone",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "phone",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "phone",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "phone",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "landscape",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "landscape",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "landscape",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "landscape",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-5-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "landscape",
+      "font_scale": 1.5
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "tablet",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "tablet",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "tablet",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "tablet",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-tablet-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "tablet",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "phone",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "phone",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "phone",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "phone",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-phone-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "phone",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "nativeConfigurationEditsValidateCancelAndRun",
+      "layout": "landscape",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "layout": "landscape",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "layout": "landscape",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "blurValidationShowsErrorAndEditingClearsIt",
+      "layout": "landscape",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-matrix-landscape-font-1-3-v1",
+      "class": "dev.tinycast.android.ExtensionFormDeviceTest",
+      "test": "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "layout": "landscape",
+      "font_scale": 1.3
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "staleMenuOwnerCannotClearTheCurrentWindowState",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "programmaticCommandDismissesMenuBeforeEditingNewQuery",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "returningFromEditorRetainsTheScrolledLauncherViewport",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "unsavedQuicklinkFieldsSurviveActivityRecreation",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidLauncherDownThenActionsUsesTheCurrentSelection",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidExtensionListDownThenEnterRunsTheCurrentAction",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "unsavedNewNoteSurvivesActivityRecreation",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidLauncherDownThenEnterUsesTheCurrentSelection",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidLauncherDownThenPinUsesTheCurrentSelection",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-tablet-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "cancellingADraftDoesNotRestoreItInANewEditor",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "staleMenuOwnerCannotClearTheCurrentWindowState",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "programmaticCommandDismissesMenuBeforeEditingNewQuery",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.InlinePaletteDeviceTest",
+      "test": "returningFromEditorRetainsTheScrolledLauncherViewport",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "unsavedQuicklinkFieldsSurviveActivityRecreation",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidLauncherDownThenActionsUsesTheCurrentSelection",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidExtensionListDownThenEnterRunsTheCurrentAction",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "unsavedNewNoteSurvivesActivityRecreation",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidLauncherDownThenEnterUsesTheCurrentSelection",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "rapidLauncherDownThenPinUsesTheCurrentSelection",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-shared-regression-phone-v2",
+      "class": "dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "test": "cancellingADraftDoesNotRestoreItInANewEditor",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "longPreviewAndCommandSearchRemainReachableByTouch",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "cancelBeforeRunReturnsWithoutExecutingOrSaving",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "writableSelectionStillUsesCopyWithoutReplacingSource",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "malformedAndOversizedInputCannotRunOrChangeClipboard",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "aNewExternalShareEndsThePriorSelectionCommand",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "historyLaunchExpiresInsteadOfReplayingItsPayload",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "requiredConfigurationNeedsAnotherExplicitRun",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "pendingRecreationExpiresWithoutRunning",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "newAndMalformedIntentsRevokeThePreviousGrant",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "staleRuntimeCannotPublishOrWriteAfterReplacement",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "approvedRecreationRevokesInputWithoutRerunning",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "rejectedAsyncAndSyncHostCallsReleaseApprovedInput",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "resetCloseErrorAndOrdinaryLaunchRevokeInput",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "noViewCompletionReleasesItsApprovedInput",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "anotherActivityStoreRevokesThePreviousOwnerButOldCleanupCannotRevokeItsSuccessor",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-tablet-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "queuedPreviewActionsCannotChangeANewerReview",
+      "layout": "tablet",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "longPreviewAndCommandSearchRemainReachableByTouch",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "cancelBeforeRunReturnsWithoutExecutingOrSaving",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "writableSelectionStillUsesCopyWithoutReplacingSource",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "malformedAndOversizedInputCannotRunOrChangeClipboard",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextDeviceTest",
+      "test": "aNewExternalShareEndsThePriorSelectionCommand",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "historyLaunchExpiresInsteadOfReplayingItsPayload",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "requiredConfigurationNeedsAnotherExplicitRun",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "pendingRecreationExpiresWithoutRunning",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "newAndMalformedIntentsRevokeThePreviousGrant",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "staleRuntimeCannotPublishOrWriteAfterReplacement",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "approvedRecreationRevokesInputWithoutRerunning",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "rejectedAsyncAndSyncHostCallsReleaseApprovedInput",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "resetCloseErrorAndOrdinaryLaunchRevokeInput",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "noViewCompletionReleasesItsApprovedInput",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "anotherActivityStoreRevokesThePreviousOwnerButOldCleanupCannotRevokeItsSuccessor",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime",
+      "layout": "phone",
+      "font_scale": 1
+    },
+    {
+      "cohort": "password-reviewed-input-phone-v2",
+      "class": "dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "test": "queuedPreviewActionsCannotChangeANewerReview",
+      "layout": "phone",
+      "font_scale": 1
+    }
+  ],
+  "groups": [
+    {
+      "name": "password-common-after-phone-v1",
+      "passes": 2,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "30dddb99c13471783b816f96f09d6485117252946fcc3e8c616f337de62a6375"
+    },
+    {
+      "name": "password-full-phone-v1",
+      "passes": 24,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "beb3d37599e95dd3225758b1bb17fded5e08c2269288bb1932167e7a45d1a2ef"
+    },
+    {
+      "name": "password-full-tablet-v1",
+      "passes": 24,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true,
+      "record_sha256": "b717bf6b3f5f2352196aa581729fffc5cc0ba94cdc716c4ca6eb195525e04c21"
+    },
+    {
+      "name": "password-full-landscape-v1",
+      "passes": 24,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "586e05df33ee3baf7a38dce0277d0b67ba22604e6aab3c1dcabcb8df76e6d9bb"
+    },
+    {
+      "name": "password-matrix-tablet-font-2-0-v1",
+      "passes": 5,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true,
+      "record_sha256": "192f0200393d90dbee562d9b38e457f9e5ea726b8626cf596f97200125beceee"
+    },
+    {
+      "name": "password-matrix-phone-font-2-0-v1",
+      "passes": 5,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "8246e0207f360035002d8accc8faa3745d105b558fb5a18bca2eac834f663f8c"
+    },
+    {
+      "name": "password-matrix-landscape-font-2-0-v1",
+      "passes": 5,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "4fd88907e26e658adb0e63d79e17b10f84718466d0166a97b41bde8803d68d62"
+    },
+    {
+      "name": "password-matrix-tablet-font-1-5-v1",
+      "passes": 5,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true,
+      "record_sha256": "02d2d8abd8527fc8df9fa5d055907715b335dd91dc6f374f2373d271d02a2b9d"
+    },
+    {
+      "name": "password-matrix-phone-font-1-5-v1",
+      "passes": 5,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "8863c27a0b27a433c421292f76ae8291c6bdb3e3005b1470e4e606cfb3efef2f"
+    },
+    {
+      "name": "password-matrix-landscape-font-1-5-v1",
+      "passes": 5,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "f6774c2733dd78a130343be12c98f8cd05062b5d1c12dad7fcd42a71ef6c124d"
+    },
+    {
+      "name": "password-matrix-tablet-font-1-3-v1",
+      "passes": 5,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true,
+      "record_sha256": "5ca4f86241f229556e17fbf5c92294a7f544550256fb956d3494ecfa21a41115"
+    },
+    {
+      "name": "password-matrix-phone-font-1-3-v1",
+      "passes": 5,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "e69417550f6b985427d5a823f92a04c732771daf80cd5fa1e04315845accefec"
+    },
+    {
+      "name": "password-matrix-landscape-font-1-3-v1",
+      "passes": 5,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "1c8ae9063e5c377a39a69038dc1fa572f7c567db432007098f6ce5227d7fc6bd"
+    },
+    {
+      "name": "password-shared-regression-tablet-v2",
+      "passes": 19,
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true,
+      "record_sha256": "67f54c4b68697c71fcfae3b223f3de74ecd294cd6c2286a822ef5cbb33dd104d"
+    },
+    {
+      "name": "password-shared-regression-phone-v2",
+      "passes": 19,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true,
+      "record_sha256": "a07b072e366d297dbd5862d16726f50d43ec00134cb1a2470bfbb8839ea48ec1"
+    },
+    {
+      "name": "password-reviewed-input-tablet-v2",
+      "passes": 21,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true,
+      "record_sha256": "ea3ceace2abfa2a674a6ab77057938cf4c91e882217f365e3ae0799adfe731c3"
+    },
+    {
+      "name": "password-reviewed-input-phone-v2",
+      "passes": 21,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "record_sha256": "c856361cbcff6a4202f8df25aeeb4e18121531224904fc22e0cd150cefe9cb2a"
+    }
+  ],
+  "pipeline_boundary": "13 completed Form groups (119 executions), followed by a pre-mutation evidence-directory refusal; separate remaining-only80-case regression pipeline completed with original evidence restored."
+}

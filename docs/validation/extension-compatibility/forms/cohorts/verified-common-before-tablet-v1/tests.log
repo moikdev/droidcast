@@ -1,0 +1,152 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=focusAndBlurDeliverCurrentFieldValue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.focusAndBlurDeliverCurrentFieldValue(ExtensionFormDeviceTest.kt:317)
+
+INSTRUMENTATION_STATUS: stream=
+Error in focusAndBlurDeliverCurrentFieldValue(dev.tinycast.android.ExtensionFormDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.focusAndBlurDeliverCurrentFieldValue(ExtensionFormDeviceTest.kt:317)
+
+INSTRUMENTATION_STATUS: test=focusAndBlurDeliverCurrentFieldValue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=checkboxLabelTogglesExactlyOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.checkboxLabelTogglesExactlyOnce(ExtensionFormDeviceTest.kt:407)
+
+INSTRUMENTATION_STATUS: stream=
+Error in checkboxLabelTogglesExactlyOnce(dev.tinycast.android.ExtensionFormDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.checkboxLabelTogglesExactlyOnce(ExtensionFormDeviceTest.kt:407)
+
+INSTRUMENTATION_STATUS: test=checkboxLabelTogglesExactlyOnce
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fieldValidationErrorIsVisible
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.fieldValidationErrorIsVisible(ExtensionFormDeviceTest.kt:271)
+
+INSTRUMENTATION_STATUS: stream=
+Error in fieldValidationErrorIsVisible(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.fieldValidationErrorIsVisible(ExtensionFormDeviceTest.kt:271)
+
+INSTRUMENTATION_STATUS: test=fieldValidationErrorIsVisible
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=dropdownShowsSelectedItemTitle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dropdownShowsSelectedItemTitle(ExtensionFormDeviceTest.kt:398)
+
+INSTRUMENTATION_STATUS: stream=
+Error in dropdownShowsSelectedItemTitle(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dropdownShowsSelectedItemTitle(ExtensionFormDeviceTest.kt:398)
+
+INSTRUMENTATION_STATUS: test=dropdownShowsSelectedItemTitle
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fieldHelpIsVisibleWithoutHover
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.fieldHelpIsVisibleWithoutHover(ExtensionFormDeviceTest.kt:279)
+
+INSTRUMENTATION_STATUS: stream=
+Error in fieldHelpIsVisibleWithoutHover(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.fieldHelpIsVisibleWithoutHover(ExtensionFormDeviceTest.kt:279)
+
+INSTRUMENTATION_STATUS: test=fieldHelpIsVisibleWithoutHover
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.142
+There were 5 failures:
+1) focusAndBlurDeliverCurrentFieldValue(dev.tinycast.android.ExtensionFormDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.focusAndBlurDeliverCurrentFieldValue(ExtensionFormDeviceTest.kt:317)
+2) checkboxLabelTogglesExactlyOnce(dev.tinycast.android.ExtensionFormDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.checkboxLabelTogglesExactlyOnce(ExtensionFormDeviceTest.kt:407)
+3) fieldValidationErrorIsVisible(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.fieldValidationErrorIsVisible(ExtensionFormDeviceTest.kt:271)
+4) dropdownShowsSelectedItemTitle(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dropdownShowsSelectedItemTitle(ExtensionFormDeviceTest.kt:398)
+5) fieldHelpIsVisibleWithoutHover(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.fieldHelpIsVisibleWithoutHover(ExtensionFormDeviceTest.kt:279)
+
+FAILURES!!!
+Tests run: 5,  Failures: 5
+
+
+INSTRUMENTATION_CODE: -1

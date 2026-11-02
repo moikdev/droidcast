@@ -1321,5 +1321,410 @@
         "sha256": "0a06df4b435f0a608d49209e52bb4febb3f7a81cd930a807ce8257a30da2599c"
       }
     }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-fieldvalidationerrorisvisible-feedback",
+    "name": "current-error-phone",
+    "caption": "Current 952fb16 native field error, phone at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-error-phone.png",
+        "sha256": "af07c6a40f89d3d84bd296d0b63202d02de3fdf245b280975ecf732fdba4d81d"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-error-phone.xml",
+        "sha256": "cc5ec271f1b6705f5e1e95825423d41ec150768bf624206ca028c8cd97b4c4a9"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-error-phone-frame.json",
+        "sha256": "c491bfc488e28207fe3ffb5e086c375a2fd5acd15992a626dbe92244fd00ab28"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-tablet-v1",
+    "stem": "form-fieldhelpisvisiblewithouthover-help",
+    "name": "current-help-tablet",
+    "caption": "Current 952fb16 native field help, tablet at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-help-tablet.png",
+        "sha256": "82adda51acbd1fd0ff404f1d8f2fd2d14429b479267827b32e22b5faaf1b6452"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-help-tablet.xml",
+        "sha256": "700310630757a3b303b308db8beb346cedcf34d5793560c0f2721466dc1b69e7"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-help-tablet-frame.json",
+        "sha256": "c0704aadce0fa4507d8bfabc13d8eab8089df6f8fb679e97da25b9889ad31d4d"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-dropdownshowsselecteditemtitle-closed-choice",
+    "name": "current-choice-phone",
+    "caption": "Current 952fb16 selected readable item title, phone at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-choice-phone.png",
+        "sha256": "0ace850063d14677fe64b718482e71681e32eeddd2601e71dbd3edfc4a1354de"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-choice-phone.xml",
+        "sha256": "595011cd70e98e0286e73a011785ec72dedc3c8c3e660a4ff4c4547ea9e3425f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-choice-phone-frame.json",
+        "sha256": "37c61ecc9927319f6ade90102f961f54dfdd6bc5299364df8eaa77d86c2c0269"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-checkboxlabeltogglesexactlyonce-label-tap",
+    "name": "current-checkbox-phone",
+    "caption": "Current 952fb16 full label pointer tap toggles once, phone at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-checkbox-phone.png",
+        "sha256": "8ca37db2c1e2875a9ca6bf6751e02e594c0ffa0eb37bba962cb3486f2550b44d"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-checkbox-phone.xml",
+        "sha256": "a00b68314021bd68715112fd2baa2a9af3286f863cbefea4f8db3026c1cb2659"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-checkbox-phone-frame.json",
+        "sha256": "abbce7d209ce2211fbab73b2cadf806b0a8e12b5ea544589e339799bae6d7dd7"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences",
+    "name": "current-phone-json-native-preferences",
+    "caption": "Current 952fb16 frozen json-format/index workflow, actual native preferences / exact output / return; json-native-preferences",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-phone-json-native-preferences.png",
+        "sha256": "fbfcbd71604f88212a1fc9cf67aef2e09f49defd3790aa2f28a46753847aa2b6"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-native-preferences.xml",
+        "sha256": "694d946d8c606f300c237587ab266c025a1324c9af7ab0349a0940187e32e086"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-native-preferences-frame.json",
+        "sha256": "c8740156eeb0e10d729b3efbcc79d2637eb438d34d2f17016662588766d695f2"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail",
+    "name": "current-phone-json-detail",
+    "caption": "Current 952fb16 frozen json-format/index workflow, actual native preferences / exact output / return; json-detail",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-phone-json-detail.png",
+        "sha256": "6b6605cd73d29f795a101796da369d6dc5834990e048ce892b2fcd6da8625da7"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-detail.xml",
+        "sha256": "bdac771addc640c10cb7f7c8877476f0e06df383b213e80577d064e986478347"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-detail-frame.json",
+        "sha256": "2d0f109e34ecfddbfcae3cf93854bdf66eacfacb941ccaedbf4db4a70f90ba95"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return",
+    "name": "current-phone-json-launcher-return",
+    "caption": "Current 952fb16 frozen json-format/index workflow, actual native preferences / exact output / return; json-launcher-return",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-phone-json-launcher-return.png",
+        "sha256": "00fed8893c5218e835c8393f3c9db1d3a0809fcb426411858104afb7f4e37a07"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-launcher-return.xml",
+        "sha256": "1abcffd6e67108883a885cf8aaf10a33586748eabf925499b2a2c3a965f77907"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-launcher-return-frame.json",
+        "sha256": "40a2d165d062132c8cfd83756132733ccb4049929bf510b87fcdeea89cb590c0"
+      }
+    }
+  },
+  {
+    "cohort": "password-matrix-phone-font-2-0-v1",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom",
+    "name": "current-font200-phone-long-bottom",
+    "caption": "Current 952fb16, actual IME open at200% font; long field/error/help/label lines sequentially reached by pointer; phone; 952fb16 instrumentation",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-matrix-phone-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-font200-phone-long-bottom.png",
+        "sha256": "3831e9d066422677634f15c93dd2a824336f9e9ccf9f07d82e04c52c30bb28b2"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-matrix-phone-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-phone-long-bottom.xml",
+        "sha256": "3296009ef84ac0583075df4fcdc05fa4b2de721e1f5df184021303b343878cb2"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-matrix-phone-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-phone-long-bottom-frame.json",
+        "sha256": "ab3696588d922426fa13bebc280952ec4cc6e73312b6a7ec1574f001f3050bf9"
+      }
+    }
+  },
+  {
+    "cohort": "password-matrix-landscape-font-2-0-v1",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom",
+    "name": "current-font200-landscape-long-bottom",
+    "caption": "Current 952fb16, actual IME open at200% font; long field/error/help/label lines sequentially reached by pointer; landscape; 952fb16 instrumentation",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-matrix-landscape-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-font200-landscape-long-bottom.png",
+        "sha256": "eaf223a62457cc1ab4e8beb804e3096f2bd4b60f9c508c841e7dc159e2a82c11"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-matrix-landscape-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-landscape-long-bottom.xml",
+        "sha256": "2ae2db02bc6d2d2393e6dc8926c7923c0c2f346d01c095896897e6334b4471f0"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-matrix-landscape-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-landscape-long-bottom-frame.json",
+        "sha256": "ab3696588d922426fa13bebc280952ec4cc6e73312b6a7ec1574f001f3050bf9"
+      }
+    }
+  },
+  {
+    "cohort": "active-matrix-tablet-font-1-3-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure",
+    "name": "ime-request-earlier-failure-tablet-font130",
+    "caption": "Retained keyboard-request failure: same d6fba18 app with 767f208 harness, 130% tablet; no root-cause or regression clearance claimed",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "6044b05f748a230efd4938744ef953c690c14ddcf19ed2d3a9add74dc3744d3f",
+    "font_scale": 1.3,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/active-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/ime-request-earlier-failure-tablet-font130.png",
+        "sha256": "451e1ca7f386e419801f05e6e774428337b63d078723093c45cf4d272f8bc4ef"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/active-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/ime-request-earlier-failure-tablet-font130.xml",
+        "sha256": "8fdd53d31d7ea5da3fc0a9d3ff206487b454748233581d54c2ad8acae2150fc4"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/active-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/ime-request-earlier-failure-tablet-font130-frame.json",
+        "sha256": "3824d5bac67635ff45c7fff63fa5c23c7706880ebe9241c71d8b9ffbd84cebf0"
+      }
+    }
+  },
+  {
+    "cohort": "password-matrix-tablet-font-1-3-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime",
+    "name": "current-json-input-ime-tablet-font130",
+    "caption": "952fb16 app and instrumentation; actual frozen JSON input after a pointer tap at130% tablet; the paired frame records the observed IME state",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.3,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-json-input-ime-tablet-font130.png",
+        "sha256": "3946a1f21c38b5527c4232834b24cb7b9a5dbe3f723a46a5d6c4f96eaa2a24b2"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-json-input-ime-tablet-font130.xml",
+        "sha256": "e35681eefb235a00aeecf7e8c215fa586dc797bdd7a1adbdb0dfc5538a26e21c"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-json-input-ime-tablet-font130-frame.json",
+        "sha256": "d7db54c5de762e752b9a2bcdffb5d8f0a86e31a3d61072e5c74f00e6aac34ef3"
+      }
+    }
+  },
+  {
+    "cohort": "password-both-before-phone-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-failure",
+    "name": "password-input-before-phone",
+    "caption": "Preceding d6fba18 app, phone100%, common 922530f instrumentation: actual focused Form password editor reports ordinary text variation before password entry",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-input-before-phone.png",
+        "sha256": "4b4583dfbefd7b9c426a091fa2674dab89a9ba0ae0f76111139d6aae60a46519"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-before-phone.xml",
+        "sha256": "2589bbe4e81fcd7d6061791b32cb5c205ee674492cc75624eda56d2b7c444e5b"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-before-phone-frame.json",
+        "sha256": "4e344615b2aa23387c921329887abf17d8f50c33be042fafaa4a9abedcd5c822"
+      }
+    }
+  },
+  {
+    "cohort": "password-both-before-phone-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-failure",
+    "name": "password-preference-before-phone",
+    "caption": "Preceding d6fba18 app, phone100%, common 922530f instrumentation: actual native optional password preference reports ordinary text variation; empty field",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-preference-before-phone.png",
+        "sha256": "21ccba567d0b6e74de88fe29d76fb1fb47970932e422e0ae1ec8201c336f25eb"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-before-phone.xml",
+        "sha256": "e63d266c339c0904b5c539acb6624f200703ebbe60dd75821f73b4b35d9b10c8"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-before-phone-frame.json",
+        "sha256": "4e344615b2aa23387c921329887abf17d8f50c33be042fafaa4a9abedcd5c822"
+      }
+    }
+  },
+  {
+    "cohort": "password-common-after-phone-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password",
+    "name": "password-input-after-phone",
+    "caption": "952fb16 app, phone100%, identical common 922530f instrumentation: input type129 (password variation128) and no autocorrection verified before entry; masked owned value shown afterwards",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-input-after-phone.png",
+        "sha256": "4780a7da06bd29917d0691a21d1f6c5a889c32c81b684ec4a650c273fe7c1be4"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-after-phone.xml",
+        "sha256": "486811c814af76a161507850a4d8b6a71f9a92c0e2fef057c8d72295a14a14a4"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-after-phone-frame.json",
+        "sha256": "8fca9d80c9f525dd75019a5f0654771b07bbe930899c54552de13576e40ece14"
+      }
+    }
+  },
+  {
+    "cohort": "password-common-after-phone-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor",
+    "name": "password-preference-after-phone",
+    "caption": "952fb16 app, phone100%, identical common 922530f instrumentation: input type129 (password variation128) and no autocorrection verified for the empty native optional password preference",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-preference-after-phone.png",
+        "sha256": "af95dac941cd60774c15c6c2c8e26a965dbf1ebd1c5f4bbb61cc0ef8f48188bb"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-after-phone.xml",
+        "sha256": "c869c5cd266e0e8441674ffa1cbcb562e845c30b5103f82dc6d3d43d6387aad0"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-after-phone-frame.json",
+        "sha256": "12379489dd1052b2e86f5c88f7128644e5ab7b67dfea1d9afff424c24b0f8449"
+      }
+    }
   }
 ]

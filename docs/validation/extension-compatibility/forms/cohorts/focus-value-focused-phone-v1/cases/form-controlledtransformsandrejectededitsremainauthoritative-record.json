@@ -1,0 +1,31 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "installed_build_commit": "cef390f9844de1d1e2def94331b1ed0b887cb2af",
+  "fixture_mode": "controlled",
+  "fixture_command_sha256": "cff8a4872c966115de5b4853975b42f03037d0d3d0b52e55e5814693c128d245",
+  "owned_extension_id": "reviewed-text-f00b1d2e08494850a3fe16817c6f08b9",
+  "transformed_and_rejected_native_values_verified": true,
+  "focus_probe": {
+    "changes": 2,
+    "focus": {
+      "filtered": 1,
+      "rejected": 1,
+      "notes": 1
+    },
+    "blur": {
+      "filtered": 1,
+      "rejected": 1
+    },
+    "blurLengths": {
+      "filtered": 16,
+      "rejected": 17
+    },
+    "dispatches": 7
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

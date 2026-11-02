@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=rapidTextThenBlurDeliversCurrentValueBeforeRedraw
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...cus=1 blur=1 length=[27]; checkbox changes=0> but was:<...cus=1 blur=1 length=[0]; checkbox changes=0>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.rapidTextThenBlurDeliversCurrentValueBeforeRedraw(ExtensionFormDeviceTest.kt:347)
+
+INSTRUMENTATION_STATUS: stream=
+Error in rapidTextThenBlurDeliversCurrentValueBeforeRedraw(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...cus=1 blur=1 length=[27]; checkbox changes=0> but was:<...cus=1 blur=1 length=[0]; checkbox changes=0>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.rapidTextThenBlurDeliversCurrentValueBeforeRedraw(ExtensionFormDeviceTest.kt:347)
+
+INSTRUMENTATION_STATUS: test=rapidTextThenBlurDeliversCurrentValueBeforeRedraw
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.108
+There was 1 failure:
+1) rapidTextThenBlurDeliversCurrentValueBeforeRedraw(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...cus=1 blur=1 length=[27]; checkbox changes=0> but was:<...cus=1 blur=1 length=[0]; checkbox changes=0>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.rapidTextThenBlurDeliversCurrentValueBeforeRedraw(ExtensionFormDeviceTest.kt:347)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

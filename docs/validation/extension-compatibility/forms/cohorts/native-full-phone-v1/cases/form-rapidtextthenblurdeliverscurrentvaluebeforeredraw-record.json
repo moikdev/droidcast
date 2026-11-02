@@ -1,0 +1,134 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "focus",
+  "fixture_command_sha256": "aec6473b7673c7ba8fc5d422ad4087280016bbbaaf0c8ebb2f9438bed29d5a84",
+  "owned_extension_id": "reviewed-text-c40c9b4c5614417fb5287dff27f0f8ae",
+  "rapid_rounds": [
+    {
+      "round": 1,
+      "numeric_callback_status": "Name focus=1 blur=1 length=27; checkbox changes=0",
+      "expected_value_utf16_units": 27
+    },
+    {
+      "round": 2,
+      "numeric_callback_status": "Name focus=2 blur=2 length=27; checkbox changes=0",
+      "expected_value_utf16_units": 27
+    },
+    {
+      "round": 3,
+      "numeric_callback_status": "Name focus=3 blur=3 length=27; checkbox changes=0",
+      "expected_value_utf16_units": 27
+    },
+    {
+      "round": 4,
+      "numeric_callback_status": "Name focus=4 blur=4 length=27; checkbox changes=0",
+      "expected_value_utf16_units": 27
+    },
+    {
+      "round": 5,
+      "numeric_callback_status": "Name focus=5 blur=5 length=27; checkbox changes=0",
+      "expected_value_utf16_units": 27
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        368,
+        995,
+        515
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        441.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        368,
+        995,
+        515
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        441.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        368,
+        995,
+        515
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        441.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        368,
+        995,
+        515
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        441.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        368,
+        995,
+        515
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        441.5
+      ]
+    }
+  ],
+  "interaction": "Five controlled SetText -> RequestFocus sequences in one main-thread turn, queued behind a 40ms owned JS task; no wait for change acknowledgement or native redraw",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

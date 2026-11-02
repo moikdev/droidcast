@@ -40,9 +40,9 @@ The current pointer helper reveals targets through both scroll owners, uses the 
 | Five basic baseline behaviors | Five intended old-app failures per portrait layout; current full suites cover the repaired behaviors |
 | Stale text/choice callbacks | Six intended prior-app failures; current suites cover root removal, replacement field/session, changed option and reopened menu |
 | Current 952fb16 runtime, complete Form cases | 24/24 on each phone, tablet and short-landscape profile at 100% |
-| Current 952fb16 runtime, enlarged-font matrix | In progress; no completed matrix claim yet |
+| Current 952fb16 runtime, enlarged-font matrix | 45/45 at 130%, 150% and 200% across all three profiles |
 | Password input metadata | Two intended preceding-app failures, then 2/2 repaired-app passes with identical instrumentation |
-| Shared menu/IME and reviewed-input regressions | Pending |
+| Shared menu/IME and reviewed-input regressions | 19/19 shared cases and 21/21 reviewed-input/lifecycle cases on both tablet and phone: 80/80 |
 | JVM | 198 passing cases |
 | Android adapter stub contracts | Seven passing Node cases, separate from actual React/device checks |
 | Python | 63 normal / 63 optimized cases; unchanged runner sources |
@@ -51,11 +51,13 @@ The current pointer helper reveals targets through both scroll owners, uses the 
 
 The five profile workflows check long labels/errors/help with actual IME open/closed transitions and full-line pointer witnesses; native required-field editing, Cancel and Run; the five supported fields with Unicode, selection, controlled composition and masked input; a frozen JSON command; and extension-driven blur validation. The composition check uses a controlled Android InputConnection across an asynchronous JavaScript round trip with Gboard hidden. It does not simulate phonetic typing gestures in a live OEM keyboard. Password assertions and public captures exclude the ephemeral plaintext password.
 
-The guarded runner holds one nonce-bound lease through fixture deletion, independent clipboard restoration, preferences, font, geometry and final verification. It preserves pre-existing extensions/data and host state. Clipboard snapshots remain private in a separate test-APK UID and the private host backup. Public evidence contains restoration outcomes, never clipboard contents or their fingerprints.
+The [current native summary](validation/extension-compatibility/forms/checks/current-native-summary-v1.json) enumerates all **199 passing executions**: 72 normal Form, 45 enlarged-font, two common-instrumentation password checks and 80 affected regressions. All **330 current host restoration checks** pass. All twelve normal/enlarged JSON frames observe the actual keyboard after ordinary pointer focus without an extra show request. The [checkpoint](validation/extension-compatibility/forms/checkpoint.json) hashes 175 current source files (173 build-frozen sources plus the unchanged wrapper and hardware helper), 923 public evidence files and 4,928 retained capture files. Its 74 historical/current groups retain 1,424 successful cleanup checks; their test outcomes remain individually recorded.
+
+The guarded runner holds one nonce-bound lease through fixture deletion, independent clipboard restoration, preferences, font, geometry and final verification. It preserves pre-existing extensions/data and host state. Clipboard snapshots remain private in a separate test-APK UID and the private host backup. Public evidence contains restoration outcomes, never clipboard contents or their fingerprints. The initial regression preflight refused existing evidence directories before mutation. A separate remaining-only pipeline preserved 136 original files privately, ran all 80 regressions, restored both directories byte for byte and released its archive owner afterward. All five preservation checks pass; public receipts exclude the original evidence and its fingerprints.
 
 ## Raw Android captures
 
-The [capture manifest](validation/extension-compatibility/forms/captures.json) binds 49 unmodified PNGs to their paired XML/frame receipts and exact app/test hashes. The first 41 keep their `cef390f` runtime identity: normal before/after pairs use identical original instrumentation, while the 200% sets use the separate `37856b9` pointer harness. Eight additional raw sets bind the matched `cef390f` failure / `d6fba18` native-focus and configuration-layout repair to the same final instrumentation.
+The [capture manifest](validation/extension-compatibility/forms/captures.json) binds 64 unmodified PNGs to paired XML/frame receipts and exact app/test hashes. The first 41 retain their original baseline/`cef390f` identity; eight more retain the matched `cef390f` / `d6fba18` focus/layout controls. The final fifteen sets contain twelve current `952fb16` app captures, two preceding-app password metadata failures and one retained keyboard-helper failure. Historical captures are not relabeled as current-runtime executions.
 
 | Prior native focus, tablet | Repaired same-text return, tablet | Configuration draft after selection, IME hidden |
 | --- | --- | --- |
@@ -75,6 +77,12 @@ The old configuration failure capture has the IME open. The repaired draft captu
 | --- | --- | --- |
 | ![Long Form title with the requested enlarged font and Gboard open](screenshots/extension-compatibility/forms/font200-phone-long-1-top.png) | ![Long option lines reached by pointer in short landscape](screenshots/extension-compatibility/forms/font200-landscape-long-option-bottom.png) | ![Frozen JSON command's exact Unicode output and explicit Copy action](screenshots/extension-compatibility/forms/phone-json-detail.png) |
 
+| Current error/help, phone | Current 200% landscape, IME open | Password preference input-mode smoke |
+| --- | --- | --- |
+| ![Current app displays the supplied error and help](screenshots/extension-compatibility/forms/current-error-phone.png) | ![Sequential pointer scrolling reaches the final checkbox label lines at200%](screenshots/extension-compatibility/forms/current-font200-landscape-long-bottom.png) | ![Empty password preference after focused-editor password metadata verification](screenshots/extension-compatibility/forms/password-preference-after-phone.png) |
+
+The short-landscape viewport shows only a few large text lines at once. The line receipts require every line to become fully visible sequentially; the screenshots do not claim simultaneous visibility of all content. Password metadata is verified before entry, separately from visual masking.
+
 ## Real frozen JSON workflow
 
 The workflow runs the frozen `json-format/index` bundle in an owned namespace. Archive SHA-256: `fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58`; command SHA-256: `bcca05348f11ffc115adc346944dcd78d209958684cb9df44d571e70a99575a0`.
@@ -89,9 +97,9 @@ The first implementation's isolated rapid-blur pass did not clear its later comb
 | --- | --- |
 | `cef390f` / original `db59…` | 23/23 normal cases per layout; five 200% workflows pass on tablet/phone, 2/5 on short landscape |
 | `cef390f` / `37856b9` pointer helper | Five 200% workflows pass per layout; 130% tablet/phone pass, landscape 4/5 exposes the configuration allocation defect |
-| `d6fba18` / original `9e72…` | 24/24 normal cases per layout; 200% landscape 4/5, with a parent drag intercepted by a focused editor |
-| `d6fba18` / `65088a0` gutter helper | Focused blur check and 200% landscape 5/5 pass; tablet 4/5 uses a pointer rectangle measured before IME resizing |
-| `d6fba18` / `57557b7` geometry helper | Focused check and 200% tablet/landscape 5/5 pass; phone 4/5 fails menu geometry setup |
+| `d6fba18` / original `9e72…` | 24/24 normal cases per layout; 200% landscape 4/5, with the next blur-validation target still offscreen |
+| `d6fba18` / `65088a0` gutter helper | Focused blur check and 200% landscape 5/5 pass; tablet 4/5 fails navigation after IME resizing |
+| `d6fba18` / `57557b7` geometry helper | Focused check and 200% tablet/landscape 5/5 pass; phone 4/5 fails JSON keyboard setup |
 | `d6fba18` / `dde79a7`, then `767f208` | First focused JSON check fails an added keyboard request; active-editor focused recheck passes, but the next 130% tablet group remains 4/5 |
 | `d6fba18` / `c31a5b0` native-idle helper | 130% groups pass 5/5 on all layouts; 150% tablet remains 4/5 when an extra post-tap keyboard request fails |
 | Activity keyboard-policy experiment / identical `767f208` instrumentation | Isolated JSON and five-workflow comparisons pass on both preceding and experimental apps; no causal or regression credit, change reverted |

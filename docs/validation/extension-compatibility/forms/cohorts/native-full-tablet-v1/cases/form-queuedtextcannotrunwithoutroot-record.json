@@ -1,0 +1,29 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "focus",
+  "fixture_command_sha256": "aec6473b7673c7ba8fc5d422ad4087280016bbbaaf0c8ebb2f9438bed29d5a84",
+  "owned_extension_id": "reviewed-text-950800f787474a6eabbe16ea0144be84",
+  "controlled_native_transition": "root-missing",
+  "scope_detail": "Retained SetText before a Compose frame; native state restored in the same turn to inspect the original JS dispatch probe",
+  "probe_before": {
+    "changes": 0,
+    "focus": {},
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 0
+  },
+  "probe_after": {
+    "changes": 0,
+    "focus": {},
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 0
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}
