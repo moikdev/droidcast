@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.util.Base64
+import android.view.inspector.WindowInspector
 import android.webkit.WebView
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -22,6 +23,8 @@ import org.junit.runner.RunWith
 import java.io.File
 import java.security.MessageDigest
 import java.util.UUID
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 /** A collector pass certifies collection/cleanup, not that every extension works. */
 @RunWith(AndroidJUnit4::class)
@@ -42,6 +45,7 @@ class FrozenBundleWorkflowDeviceTest {
     private val ownedIds = mutableListOf<String>()
     private val rows = JSONArray()
     private var currentObservation: JSONObject? = null
+    private var currentCaptureName = ""
     private val callerQuery = "compatibility-audit-" + UUID.randomUUID().toString().replace("-", "")
     private val inputJson = "{\"droidcast\":271828,\"items\":[1,2]}"
     private val unicodeText = "Droidcast ✓"
@@ -190,11 +194,75 @@ class FrozenBundleWorkflowDeviceTest {
 
     private fun capture(name: String) {
         dismissClipboardForEvidence()
-        val epoch = catalog.launchEpoch
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        device.dumpWindowHierarchy(File(evidence, "$name.xml"))
-        assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
-        assertEquals("Capture must retain the command session", epoch, catalog.launchEpoch)
+        repeat(3) {
+            compose.waitForIdle()
+            val epoch = catalog.launchEpoch
+            val tree = catalog.runtimeTree?.toString()
+            val error = catalog.runtimeError
+            val status = catalog.runtimeStatus
+            val root = activeRoot(catalog.runtimeTree)
+            if (catalog.running == null) compose.onNodeWithTag("extension-palette").assertDoesNotExist()
+            else if (error != null) compose.onNodeWithTag("extension-error").assertTextContains(error.lineSequence().first())
+            else when (root?.optString("type")) {
+                "List" -> compose.onNodeWithTag("extension-list").assertIsDisplayed()
+                "Grid" -> compose.onNodeWithTag("extension-grid-screen").assertIsDisplayed()
+                "Form" -> {
+                    val field = root.nodes("Form.TextArea").firstOrNull() ?: root.nodes("Form.TextField").firstOrNull()
+                    if (field != null) compose.onNodeWithTag("extension-field-${field.props().getString("id")}").assertExists()
+                    compose.onNodeWithTag("extension-status").assertDoesNotExist()
+                }
+                "Detail" -> compose.onNodeWithTag("extension-status").assertDoesNotExist()
+                null -> compose.onNodeWithTag("extension-status").assertTextEquals(status)
+            }
+            // A runtime callback is not a native draw receipt. Let two actual
+            // display frames follow the committed semantics before capturing.
+            val drawn = CountDownLatch(1)
+            compose.activityRule.scenario.onActivity { activity ->
+                activity.window.decorView.postOnAnimation {
+                    activity.window.decorView.postOnAnimation { drawn.countDown() }
+                }
+            }
+            assertTrue("Native frames must advance before capture", drawn.await(5, TimeUnit.SECONDS))
+            compose.waitForIdle()
+            if (epoch != catalog.launchEpoch || tree != catalog.runtimeTree?.toString() || error != catalog.runtimeError || status != catalog.runtimeStatus) return@repeat
+            device.dumpWindowHierarchy(File(evidence, "$name.xml"))
+            assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
+            compose.waitForIdle()
+            if (epoch == catalog.launchEpoch && tree == catalog.runtimeTree?.toString() && error == catalog.runtimeError && status == catalog.runtimeStatus) {
+                File(evidence, "$name-frame.json").writeText(JSONObject().put("launch_epoch", epoch)
+                    .put("native_root", root?.optString("type") ?: JSONObject.NULL)
+                    .put("runtime_tree_sha256", tree?.let { hash(it.toByteArray(Charsets.UTF_8)) } ?: JSONObject.NULL)
+                    .put("runtime_status", safeMessage(status)).put("runtime_error", error?.let(::safeMessage) ?: JSONObject.NULL)
+                    .put("synchronization", "Committed native semantics, two display frames, hierarchy before PNG, stable runtime state throughout capture").toString(2))
+                if (tree != null && tree.length <= 2 * 1024 * 1024) File(evidence, "$name-tree.json").writeText(tree)
+                return
+            }
+        }
+        fail("Command state did not remain stable during native capture")
+    }
+
+    private fun supportingCapture(suffix: String) {
+        val name = "$currentCaptureName-$suffix"
+        capture(name)
+        currentObservation?.let { row ->
+            val captures = row.optJSONArray("supporting_captures") ?: JSONArray().also { row.put("supporting_captures", it) }
+            captures.put("$name.png")
+        }
+    }
+
+    private fun hideImeForCapture() {
+        compose.activityRule.scenario.onActivity {
+            WindowInspector.getGlobalWindowViews().forEach { view ->
+                androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
+            }
+        }
+        compose.waitUntil(10000) {
+            WindowInspector.getGlobalWindowViews().none { view ->
+                androidx.core.view.ViewCompat.getRootWindowInsets(view)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true
+            }
+        }
+        currentObservation?.put("capture_ime_method", "Native inset controller hides IME for the evidence frame; this is not a touch IME-transition certification")
     }
 
     private fun checkedCopy(extension: InstalledExtension, command: String, expected: String, args: Map<String, String> = emptyMap()) {
@@ -322,6 +390,8 @@ class FrozenBundleWorkflowDeviceTest {
                 await { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
                 compose.onNodeWithTag("extension-field-input").performTextReplacement(inputJson)
                 await { activeRoot(catalog.runtimeTree)?.nodes("Form.TextArea")?.any { it.props().optString("id") == "input" && it.props().optString("value") == inputJson } == true }
+                hideImeForCapture()
+                supportingCapture("form-input")
                 val actions = activeRoot(catalog.runtimeTree)!!.actions()
                 val index = actions.indexOfFirst { it.props().optString("title") == "View Result" }
                 assertTrue(index >= 0)
@@ -350,26 +420,63 @@ class FrozenBundleWorkflowDeviceTest {
                 open(extension, command)
                 await { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
                 compose.onNodeWithTag("extension-field-text").performTextReplacement("hello")
+                await { activeRoot(catalog.runtimeTree)?.nodes("Form.TextArea")?.any { it.props().optString("id") == "text" && it.props().optString("value") == "hello" } == true }
+                row.put("interaction_verified", "Owned hello input reached the extension's Form state")
                 var translated = ""
                 await(60000) {
                     translated = activeRoot(catalog.runtimeTree)?.nodes("Form.TextArea")?.firstOrNull { it.props().optString("id") == "result" }?.props()?.optString("value").orEmpty()
                     translated.contains(Regex("[\\u3040-\\u30ff\\u3400-\\u9fff]"))
                 }
+                hideImeForCapture()
+                compose.onNodeWithTag("extension-field-result").performScrollTo().assertIsDisplayed().assertTextContains(translated)
                 compose.onNodeWithTag("extension-primary").performClick()
                 await { clipboard() == translated }
                 row.put("translation_text", translated).put("workflow", "Translate owned English hello to Japanese in the Form and copy the exact visible service response; translation quality is reviewed separately")
             }
-            else -> {
-                // Initial probes remain explicitly partial. These handlers are
-                // expanded after observing actual controls/error destinations.
-                if (directory == "base64") setClipboard(unicodeText)
-                if (directory == "google-translate") setClipboard("hello")
+            "json-format/formatSelectionAndShow" -> {
+                setClipboard(inputJson)
                 open(extension, command)
-                await { activeRoot(catalog.runtimeTree) != null || extension.commands.single { it.name == command }.mode == "no-view" }
-                row.put("workflow", "Start this frozen command and capture its native controls/status")
-                    .put("remaining_workflow", "Interaction, action output, destination and persistence are not certified by this startup probe")
+                await { activeRoot(catalog.runtimeTree)?.let { it.optString("type") == "Detail" && !it.props().optBoolean("isLoading") } == true }
+                assertEquals(inputJson, clipboard())
+                row.put("workflow", "Wait for the selected-text command's Detail to settle and verify that the owned clipboard input is not silently substituted or changed")
+                    .put("observed_markdown", activeRoot(catalog.runtimeTree)!!.props().optString("markdown"))
+                    .put("remaining_workflow", "No external selection was supplied and no formatted selected-text output was verified. Desktop selectedText is unavailable in this host; this row does not certify an Android replacement or an observed bridge error.")
                 return false
             }
+            "google-translate/instant-translate-copy" -> {
+                setClipboard("hello")
+                open(extension, command)
+                await { catalog.runtimeStatus == "No text selected. Please select text to translate." }
+                assertEquals("hello", clipboard())
+                row.put("workflow", "Observe the no-selection HUD and verify that Instant Translate Copy leaves owned clipboard text unchanged")
+                    .put("remaining_workflow", "Translation and selected-text access are not certified. The bundle catches selectedText errors and shows the no-selection HUD; no Android selection replacement is provided.")
+                return false
+            }
+            "weather/index" -> {
+                open(extension, command)
+                await(60000) {
+                    activeRoot(catalog.runtimeTree)?.let { it.optString("type") == "List" && !it.props().optBoolean("isLoading") && (it.nodes("List.Item").isNotEmpty() || it.nodes("List.EmptyView").isNotEmpty()) } == true
+                }
+                val root = activeRoot(catalog.runtimeTree)!!
+                val empty = root.nodes("List.EmptyView").firstOrNull()
+                if (empty != null) {
+                    row.put("workflow", "Request Tokyo weather and wait for the service result")
+                        .put("service_error", safeMessage(empty.props().optString("title") + " · " + empty.props().optString("description")))
+                    throw RuntimeFailure("Weather service workflow: " + row.getString("service_error"))
+                }
+                val items = root.nodes("List.Item")
+                val index = items.indexOfFirst { item -> item.actions().any { it.props().optString("title") == "Show Details" } }
+                assertTrue("A daily forecast must offer its hourly destination", index >= 0)
+                supportingCapture("forecast-list")
+                compose.onNodeWithTag("extension-list").performScrollToNode(hasTestTag("extension-row-$index"))
+                compose.onNodeWithTag("extension-row-$index").performClick()
+                compose.onNodeWithTag("extension-primary").assertTextContains("Show Details").performClick()
+                await { catalog.navigationDepth > 1 && activeRoot(catalog.runtimeTree)?.nodes("List.Item")?.any { it.props().optString("subtitle").contains(Regex("-?[0-9]+.*°")) } == true }
+                row.put("destination_verified", "Native hourly forecast List with temperature-bearing rows")
+                    .put("action_destination", "Native hourly forecast List; no clipboard output expected")
+                    .put("workflow", "Load Tokyo weather in metric units, select a daily forecast by touch, and verify its hourly List destination; service data accuracy is not certified")
+            }
+            else -> error("No workflow is defined for $directory/$command")
         }
         row.put("action_output_verified", true)
         return true
@@ -405,6 +512,7 @@ class FrozenBundleWorkflowDeviceTest {
                 val directory = entry.getString("directory")
                 val suffix = hash("$directory/$command".toByteArray(Charsets.UTF_8)).take(8)
                 val name = "workflow-$directory-${command.lowercase(java.util.Locale.ROOT)}-$suffix"
+                currentCaptureName = name
                 val extension = prepareExtension(entry, command)
                 val row = JSONObject().put("directory", directory).put("command", command)
                     .put("archive_sha256", entry.getString("archive_sha256"))
@@ -429,21 +537,22 @@ class FrozenBundleWorkflowDeviceTest {
                 } catch (error: Throwable) {
                     // A harness timeout/assertion is not automatically a claim
                     // that an extension is incompatible. Retain for triage.
-                    row.put("status", if (row.optBoolean("action_output_verified")) "tested-partial" else "untested")
+                    row.put("status", if (row.optBoolean("action_output_verified") || row.has("interaction_verified")) "tested-partial" else "untested")
                         .put("attempted", true).put("needs_triage", true)
                         .put("observation_error_type", error.javaClass.simpleName).put("observation_message", safeMessage(error.message.orEmpty()))
                 }
-                row.put("runtime_status", safeMessage(catalog.runtimeStatus))
                 val phases = row.getJSONObject("phases")
                 if (row.optBoolean("action_output_verified")) {
                     phases.put("interaction_and_action", if (row.getString("status") == "tested-working-for-listed-workflow") "verified for listed workflow" else "partial; see per-step checks")
-                        .put("destination", "owned clipboard output verified")
+                        .put("destination", row.optString("action_destination", "owned clipboard output verified"))
                 }
+                if (row.has("interaction_verified")) phases.put("native_input", row.getString("interaction_verified"))
                 if (row.has("destination_verified")) phases.put("native_destination", row.getString("destination_verified"))
                 if (row.optBoolean("persistence_verified")) phases.put("persistence", "verified across a new command session in the same app process")
                 try {
                     capture(name)
-                    row.put("capture", "$name.png").put("native_root", activeRoot(catalog.runtimeTree)?.optString("type") ?: JSONObject.NULL)
+                    row.put("runtime_status", safeMessage(catalog.runtimeStatus)).put("capture", "$name.png")
+                        .put("capture_receipt", "$name-frame.json").put("native_root", activeRoot(catalog.runtimeTree)?.optString("type") ?: JSONObject.NULL)
                     if (activeRoot(catalog.runtimeTree) != null) phases.put("rendering", "native command screen captured; inspect the listed workflow checks")
                     try {
                         returnByTouch()

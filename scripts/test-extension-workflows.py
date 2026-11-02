@@ -122,6 +122,8 @@ def main():
         if args.layout == 'phone':
             raw('shell', 'wm', 'size', '1080x2340')
             raw('shell', 'wm', 'density', '420')
+        raw('shell', 'input', 'keyevent', 'KEYCODE_HOME')
+        record['capture_background'] = 'Dedicated emulator launcher shown before the app overlay; no other app destination is used as the backdrop'
         raw('shell', 'run-as', app, 'rm', '-rf', 'files/compatibility-evidence')
         save()
         command = adb + ['shell', 'am', 'instrument', '-w', '-r', '-e', 'dedicatedAvd', args.avd,
