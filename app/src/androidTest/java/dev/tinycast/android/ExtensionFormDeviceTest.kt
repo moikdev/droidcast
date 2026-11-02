@@ -430,7 +430,10 @@ class ExtensionFormDeviceTest {
         when {
             editorFocused && requestedIme != false -> ime(true)
             !editorFocused && imeVisible() -> ime(false)
-            else -> awaitImeGeometry(imeVisible())
+            // A newly focused menu search may show/hide its keyboard after
+            // this observation. Wait for the resulting geometry, without
+            // treating the pre-animation visibility as a required outcome.
+            else -> awaitImeGeometry()
         }
         val node = compose.onNodeWithTag(tag)
         val viewport = listOf("extension-form", "extension-configuration").firstOrNull {
@@ -799,7 +802,7 @@ class ExtensionFormDeviceTest {
     }
 
     private fun imeVisible() = ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
-    private fun awaitImeGeometry(shown: Boolean) {
+    private fun awaitImeGeometry(shown: Boolean? = null) {
         val done = CountDownLatch(1)
         val deadline = android.os.SystemClock.uptimeMillis() + 10000
         var previous: List<Int>? = null
@@ -817,7 +820,7 @@ class ExtensionFormDeviceTest {
                         insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: -1, view.width, view.height)
                     val now = android.os.SystemClock.uptimeMillis(); frames++
                     if (geometry != previous) { previous = geometry; stableSince = now }
-                    settled = geometry[0] == (if (shown) 1 else 0) && geometry[1] >= 0 && now - stableSince >= 100
+                    settled = (shown == null || geometry[0] == (if (shown) 1 else 0)) && geometry[1] >= 0 && now - stableSince >= 100
                     if (settled || now >= deadline) done.countDown() else view.postOnAnimation(this)
                 }
             }
@@ -826,7 +829,7 @@ class ExtensionFormDeviceTest {
         val completed = done.await(10, TimeUnit.SECONDS)
         compose.activityRule.scenario.onActivity { view.removeCallbacks(observer) }
         val samples = record.optJSONArray("settled_ime_geometry") ?: JSONArray().also { record.put("settled_ime_geometry", it) }
-        samples.put(JSONObject().put("shown", shown).put("native_frames", frames).put("geometry", JSONArray(previous.orEmpty()))
+        samples.put(JSONObject().put("requested_visibility", shown ?: JSONObject.NULL).put("native_frames", frames).put("geometry", JSONArray(previous.orEmpty()))
             .put("stable_for_at_least_ms", 100).put("settled", completed && settled))
         assertTrue("Native IME visibility/insets and window geometry must settle before choosing pointer coordinates", completed && settled)
         compose.waitForIdle()
