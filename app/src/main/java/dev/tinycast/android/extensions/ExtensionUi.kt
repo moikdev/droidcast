@@ -28,6 +28,8 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.graphics.Color
@@ -288,34 +290,105 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
 @Composable
 private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command:ExtensionCommand,close:()->Unit){
     val setupEpoch=remember(extension,command){store.extensions.launchEpoch}
+    var attached by remember { mutableStateOf(true) }
+    DisposableEffect(Unit) { onDispose { attached = false } }
+    fun currentSetup(): Boolean {
+        val running = store.extensions.running
+        return attached && store.dialog == "extension-setup" && store.extensions.launchEpoch == setupEpoch &&
+            running?.first === extension && running?.second === command
+    }
     val fields=extension.fields(command)
     val args=command.definition.optJSONArray("arguments").objects()
     var preferences by remember{mutableStateOf(store.extensions.preferences(extension,command))}
     var arguments by remember{mutableStateOf(store.extensions.arguments)}
-    var error by remember{mutableStateOf<String?>(null)}
+    var message by remember{mutableStateOf<String?>(null)}
+    var missing by remember { mutableStateOf(emptySet<String>()) }
     ExtensionWindow(command.title,"${extension.listing.title} · arguments & preferences",close){
-        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(14.dp)){
-            args.forEach{f->val name=f.getString("name");OutlinedTextField(arguments[name].orEmpty(),{arguments=arguments+(name to it)},label={Text(name)},placeholder={Text(f.optString("placeholder"))},singleLine=true,modifier=Modifier.fillMaxWidth().paletteFocusBookmark().testTag("argument-$name"))}
-            fields.forEach{f->val name=f.getString("name");val label=f.optString("title",name);val value=preferences.opt(name)
-                fun change(v:Any){preferences=JSONObject(preferences.toString()).put(name,v)}
-                when(f.optString("type")){
-                    "checkbox"->Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){Checkbox(value==true,{change(it)});Text(f.optString("label",label),fontSize=13.sp)}
-                    "dropdown"->{var expanded by remember{mutableStateOf(false)};Column{Text(label,color=muted,fontSize=12.sp);Box{OutlinedButton(onClick={expanded=true},modifier=Modifier.paletteFocusBookmark()){Text(value?.toString().orEmpty().ifBlank{"Choose…"})};PaletteChoiceMenu(expanded,{expanded=false},f.optJSONArray("data").objects().mapIndexed{index,option->PaletteChoice("preference-option-$name-$index-${option.getString("value")}",option.optString("title"),checked=value?.toString()==option.getString("value")){change(option.getString("value"));expanded=false}},title=label)}}}
-                    else->OutlinedTextField(if(value==null||value==JSONObject.NULL)"" else value.toString(),{change(it)},label={Text(label)},supportingText={Text(f.optString("description"),fontSize=10.sp)},singleLine=true,visualTransformation=if(f.optString("type")=="password")PasswordVisualTransformation()else VisualTransformation.None,modifier=Modifier.fillMaxWidth().paletteFocusBookmark().testTag("preference-$name"))
-                }
+        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp).testTag("extension-configuration"),verticalArrangement=Arrangement.spacedBy(16.dp)){
+            args.forEach { f -> val name = f.getString("name")
+                key("argument", name) { Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    val fieldError = if ("argument:$name" in missing) "This field is required." else ""
+                    ExtensionFieldLabel(name, "argument-title-$name")
+                    OutlinedTextField(arguments[name].orEmpty(), { next ->
+                        if (currentSetup() && command.definition.optJSONArray("arguments").objects().any { it.optString("name") == name }) {
+                            arguments = arguments + (name to next); missing = missing - "argument:$name"; message = null
+                        }
+                    }, placeholder = { Text(f.optString("placeholder")) }, singleLine = true, isError = fieldError.isNotBlank(),
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).paletteFocusBookmark().testTag("argument-$name")
+                            .semantics { contentDescription = name; if (fieldError.isNotBlank()) error(fieldError) })
+                    ExtensionFieldFeedback(fieldError, "", "argument-$name")
+                } }
             }
-            error?.let{Text(it,color=MaterialTheme.colorScheme.error)}
+            fields.forEach{f->val name=f.getString("name");val label=f.optString("title",name);val value=preferences.opt(name)
+                val type = f.optString("type")
+                fun currentField() = if (currentSetup()) extension.fields(command).firstOrNull { it.optString("name") == name && it.optString("type") == type } else null
+                fun change(v:Any){if (currentField() != null) { preferences=JSONObject(preferences.toString()).put(name,v); missing=missing-"preference:$name"; message=null }}
+                key("preference", name, type) { Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    val fieldError = if ("preference:$name" in missing) "This field is required." else ""
+                    when(type){
+                        "checkbox"->{
+                            val checkboxLabel = f.optString("label", label)
+                            if (label != checkboxLabel) ExtensionFieldLabel(label, "preference-title-$name")
+                            ExtensionCheckboxRow(checkboxLabel, value == true, { change(it) },
+                                Modifier.paletteFocusBookmark().testTag("preference-checkbox-$name"))
+                        }
+                        "dropdown"->{
+                            var menuOwner by remember { mutableStateOf<Any?>(null) }
+                            val menu = menuOwner
+                            DisposableEffect(Unit) { onDispose { menuOwner = null } }
+                            val options = f.optJSONArray("data").objects().mapIndexedNotNull { index, option ->
+                                val optionValue = option.opt("value") as? String ?: return@mapIndexedNotNull null
+                                FormChoice("preference-$name-$index", optionValue, (option.opt("title") as? String).orEmpty().ifBlank { "Untitled option" })
+                            }
+                            val selected = if (value == null || value == JSONObject.NULL) "" else value.toString()
+                            val selectedTitle = formChoiceTitle(selected, options)
+                            ExtensionFieldLabel(label, "preference-title-$name")
+                            Box(Modifier.fillMaxWidth()) {
+                                OutlinedButton(onClick = { if (currentField() != null) menuOwner = Any() }, enabled = options.isNotEmpty(),
+                                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).paletteFocusBookmark().testTag("preference-choice-$name")
+                                        .semantics { contentDescription = label; stateDescription = selectedTitle }) {
+                                    Text(selectedTitle, fontSize = 14.sp, lineHeight = 20.sp)
+                                }
+                                PaletteChoiceMenu(menu != null, { if (menuOwner === menu) menuOwner = null }, options.map { option ->
+                                    PaletteChoice("preference-option-$name-${option.nativeId}-${option.value}", option.title,
+                                        checked = selected == option.value, labelLines = Int.MAX_VALUE, activateBeforeDismiss = true) choose@{
+                                        if (menu == null || menuOwner !== menu) return@choose
+                                        val current = currentField()?.optJSONArray("data").objects().any {
+                                            it.opt("value") == option.value && (it.opt("title") as? String).orEmpty().ifBlank { "Untitled option" } == option.title
+                                        }
+                                        menuOwner = null
+                                        if (current) change(option.value)
+                                    }
+                                }, title = label)
+                            }
+                            if (options.isEmpty()) Text("No choices available", color = muted, fontSize = 13.sp, lineHeight = 20.sp)
+                        }
+                        else->{
+                            ExtensionFieldLabel(label, "preference-title-$name")
+                            OutlinedTextField(if(value==null||value==JSONObject.NULL)"" else value.toString(),{change(it)},
+                                placeholder = { Text(f.optString("placeholder")) }, singleLine=true, isError = fieldError.isNotBlank(),
+                                visualTransformation=if(type=="password")PasswordVisualTransformation()else VisualTransformation.None,
+                                modifier=Modifier.fillMaxWidth().heightIn(min = 56.dp).paletteFocusBookmark().testTag("preference-$name")
+                                    .semantics { contentDescription = label; if (fieldError.isNotBlank()) error(fieldError) })
+                        }
+                    }
+                    ExtensionFieldFeedback(fieldError, (f.opt("description") as? String).orEmpty(), "preference-$name")
+                } }
+            }
+            message?.let{Text(it,color=MaterialTheme.colorScheme.error,fontSize=13.sp,lineHeight=20.sp,modifier=Modifier.testTag("extension-configuration-error"))}
         }
         Button(onClick={
-            val missingArg=args.firstOrNull{it.optBoolean("required")&&arguments[it.getString("name")].isNullOrBlank()}
-            val missingPref=fields.firstOrNull{it.optBoolean("required")&&it.optString("type")!="checkbox"&&preferences.optString(it.getString("name")).isBlank()}
-            if(missingArg!=null||missingPref!=null)error="Complete the required arguments and preferences."
+            if (!currentSetup()) return@Button
+            val missingArgs=command.definition.optJSONArray("arguments").objects().filter{it.optBoolean("required")&&arguments[it.getString("name")].isNullOrBlank()}
+            val missingPrefs=extension.fields(command).filter{it.optBoolean("required")&&it.optString("type")!="checkbox"&&preferences.optString(it.getString("name")).isBlank()}
+            missing = missingArgs.map { "argument:${it.getString("name")}" }.toSet() + missingPrefs.map { "preference:${it.getString("name")}" }
+            if(missing.isNotEmpty())message="Complete the required arguments and preferences."
             else try {
                 if(store.extensions.launchConfigured(extension,command,preferences,arguments,setupEpoch)) {
                     store.extensionSetupFromRun=false;store.dialog="extension-run"
                 }
-            } catch(failure:Exception) { error=failure.message ?: "Could not start this command" }
-        },modifier=Modifier.fillMaxWidth().padding(20.dp).testTag("run-extension-setup")){Text("Run command")}
+            } catch(failure:Exception) { message="Could not start this command. Check its configuration and try again." }
+        },modifier=Modifier.fillMaxWidth().padding(20.dp).heightIn(min=48.dp).testTag("run-extension-setup")){Text("Run command",fontSize=14.sp,lineHeight=20.sp)}
     }
 }
 

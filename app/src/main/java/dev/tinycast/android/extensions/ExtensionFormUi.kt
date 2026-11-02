@@ -141,7 +141,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                     PaletteChoiceMenu(menu != null, { if (menuOwner === menu) menuOwner = null },
                         choices.map { choice ->
                             PaletteChoice("form-option-${node.optString("id")}-${choice.nativeId}-${choice.value}", choice.title,
-                                checked = value == choice.value) choose@{
+                                checked = value == choice.value, labelLines = Int.MAX_VALUE, activateBeforeDismiss = true) choose@{
                                 if (menu == null || menuOwner !== menu || owner == null) return@choose
                                 val current = liveFormChoice(owner, choice, liveRoot())
                                 menuOwner = null

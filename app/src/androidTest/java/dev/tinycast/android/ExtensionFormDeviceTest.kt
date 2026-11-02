@@ -4,6 +4,9 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
+import android.webkit.WebView
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.core.view.ViewCompat
@@ -13,6 +16,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import dev.tinycast.android.extensions.*
 import org.json.JSONObject
+import org.json.JSONArray
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
@@ -24,6 +28,7 @@ import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicReference
 
 /** Real runtime/native controls. The same harness can run against the old app.
  * Uses the shared guarded input runner/lease and independent clipboard recovery.
@@ -38,6 +43,7 @@ class ExtensionFormDeviceTest {
     private val evidence get() = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
     private var prepared = false
     private var ownedId: String? = null
+    private lateinit var ownedExtension: InstalledExtension
     private lateinit var expectedOwner: String
     private var palette = emptyMap<String, Any?>()
     private var originalIds = emptySet<String>()
@@ -107,15 +113,22 @@ class ExtensionFormDeviceTest {
         val script = """
             const React=require('react'), api=require('@raycast/api');
             const mode=${JSONObject.quote(mode)};
-            module.exports.default=function(){
+            globalThis.__formProbe={changes:0,focus:0,blur:0,dispatches:0};
+            const dispatch=globalThis.__tinycast.dispatch;
+            globalThis.__tinycast.dispatch=function(...args){globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
+            module.exports.default=function(props){
+              if(mode==='configuration'){
+                const prefs=api.getPreferenceValues();
+                return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
+              }
               const [name,setName]=React.useState(''),[notes,setNotes]=React.useState('');
               const [choice,setChoice]=React.useState('internal-layout-two'),[checked,setChecked]=React.useState(false),[changes,setChanges]=React.useState(0);
               const [events,setEvents]=React.useState({focus:0,blur:0,length:0});
               const status='Name focus='+events.focus+' blur='+events.blur+' length='+events.length+'; checkbox changes='+changes;
               const fields=mode==='choices'?[
                 React.createElement(api.Form.Dropdown,{key:'choice',id:'choice',title:'Owned layout choice',value:choice,onChange:setChoice},
-                  React.createElement(api.Form.Dropdown.Item,{value:'internal-layout-one',title:'Readable first layout'}),
-                  React.createElement(api.Form.Dropdown.Item,{value:'internal-layout-two',title:${JSONObject.quote(choiceTitle)}})),
+                  React.createElement(api.Form.Dropdown.Item,{key:'one',value:'internal-layout-one',title:'Readable first layout'}),
+                  React.createElement(api.Form.Dropdown.Item,{key:'two',value:'internal-layout-two',title:${JSONObject.quote(choiceTitle)}})),
                 React.createElement(api.Form.Checkbox,{key:'check',id:'enabled',title:'Owned output option',label:${JSONObject.quote(checkboxLabel)},value:checked,
                   onChange:value=>{setChecked(value);setChanges(n=>n+1)}})
               ]:[
@@ -131,10 +144,16 @@ class ExtensionFormDeviceTest {
             };
         """.trimIndent()
         File(directory, "form.js").writeText(script)
-        val extension = InstalledExtension(StoreExtension(id, "form-fixture", "Owned Form probe", "", "Droidcast tests", "test", "", "", "", 1),
-            directory, JSONObject("""{"commands":[{"name":"form","title":"Owned Form controls","mode":"view"}]}"""))
+        val manifest = if (mode == "configuration") JSONObject("""{"commands":[{"name":"form","title":"Owned Form configuration","mode":"view","arguments":[{"name":"input","type":"text","placeholder":"Enter owned argument","required":true}],"preferences":[{"name":"account","title":"Owned account name","type":"textfield","required":true,"description":"Enter an owned value. This configuration is only saved when Run is selected."},{"name":"enabled","title":"Owned output option","type":"checkbox","label":"$checkboxLabel","default":false},{"name":"layout","title":"Owned layout choice","type":"dropdown","default":"internal-layout-two","data":[{"value":"internal-layout-one","title":"Readable first layout"},{"value":"internal-layout-two","title":"$choiceTitle"}]}]}]}""")
+            else JSONObject("""{"commands":[{"name":"form","title":"Owned Form controls","mode":"view"}]}""")
+        val extension = InstalledExtension(StoreExtension(id, "form-fixture", "Owned Form probe", "", "Droidcast tests", "test", "", "", "", 1), directory, manifest)
+        ownedExtension = extension
         record.put("fixture_mode", mode).put("fixture_command_sha256", hash(script.toByteArray(Charsets.UTF_8))).put("owned_extension_id", id)
         compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single()) }
+        if (mode == "configuration") {
+            compose.waitUntil(10000) { compose.activity.store.dialog == "extension-setup" }
+            compose.waitForIdle(); return
+        }
         compose.waitUntil(25000) { catalog.runtimeError != null || (catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form") }
         assertNull(catalog.runtimeError, catalog.runtimeError)
         compose.waitForIdle()
@@ -146,11 +165,11 @@ class ExtensionFormDeviceTest {
         val frames = CountDownLatch(1)
         compose.activityRule.scenario.onActivity { it.window.decorView.postOnAnimation { it.window.decorView.postOnAnimation { frames.countDown() } } }
         assertTrue(frames.await(5, TimeUnit.SECONDS)); compose.waitForIdle()
-        assertEquals(epoch, catalog.launchEpoch); assertEquals(tree, catalog.runtimeTree?.toString())
+        assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame", tree == catalog.runtimeTree?.toString())
         val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-$phase"
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.dumpWindowHierarchy(File(evidence, "$name.xml")); assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
-        assertEquals(epoch, catalog.launchEpoch); assertEquals(tree, catalog.runtimeTree?.toString())
+        assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame", tree == catalog.runtimeTree?.toString())
         File(evidence, "$name-frame.json").writeText(JSONObject().put("scope", record.getString("scope")).put("phase", phase)
             .put("font_scale", context.resources.configuration.fontScale).put("launch_epoch", epoch)
             .put("ime_visible", ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true)
@@ -232,5 +251,126 @@ class ExtensionFormDeviceTest {
         assertTrue("Tapping the actual label must toggle its checkbox", field("Form.Checkbox", "enabled").props().optBoolean("value"))
         compose.onNodeWithText("Name focus=0 blur=0 length=0; checkbox changes=1", useUnmergedTree = true).assertIsDisplayed()
         record.put("label_pointer_tap_toggled_once", true).put("passed", true)
+    }
+
+    private fun touch(tag: String) {
+        val node = compose.onNodeWithTag(tag)
+        if (!node.isDisplayed()) node.performScrollTo()
+        node.performTouchInput { click(center) }
+    }
+    private fun openChoice() {
+        // Both intermediate raw-value and repaired readable-label apps expose
+        // this field tag. The selected item must subsequently change in JS.
+        touch("extension-choice-choice")
+        compose.onNodeWithTag("inline-menu").assertIsDisplayed()
+    }
+    private fun firstChoice() = compose.onNode(hasText("Readable first layout") and hasAnyAncestor(hasTestTag("inline-menu")), useUnmergedTree = true)
+    private fun probe(): JSONObject {
+        var engine: WebView? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            fun visit(view: android.view.View) {
+                if (view is WebView) { assertNull(engine); engine = view }
+                if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+            }
+            visit(activity.window.decorView)
+        }
+        val result = AtomicReference<String>()
+        compose.activityRule.scenario.onActivity { requireNotNull(engine).evaluateJavascript("JSON.stringify(globalThis.__formProbe)") { result.set(it) } }
+        compose.waitUntil(5000) { result.get() != null }
+        return JSONObject(JSONArray("[${result.get()}]").getString(0))
+    }
+    @Test fun choosingDropdownItemSubmitsItsExactValue() {
+        launch("choices"); openChoice(); capture("choice-menu")
+        firstChoice().performTouchInput { click(center) }
+        compose.waitUntil(5000) { field("Form.Dropdown", "choice").props().optString("value") == "internal-layout-one" }
+        compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+        compose.onNodeWithText("Readable first layout", useUnmergedTree = true).assertIsDisplayed()
+        capture("selected-choice"); record.put("selected_exact_value", "internal-layout-one").put("passed", true)
+    }
+    @Test fun dismissedDropdownCallbackCannotSelectAfterReopen() {
+        launch("choices"); openChoice()
+        val row = compose.onNode(hasClickAction() and hasText("Readable first layout") and hasAnyAncestor(hasTestTag("inline-menu")))
+        val oldClick = requireNotNull(row.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val before = probe()
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ESCAPE)
+        compose.onNodeWithTag("inline-menu").assertDoesNotExist(); openChoice()
+        compose.activityRule.scenario.onActivity { assertTrue(oldClick()) }
+        compose.waitForIdle()
+        assertEquals(before.toString(), probe().toString())
+        assertEquals("internal-layout-two", field("Form.Dropdown", "choice").props().optString("value"))
+        compose.onNodeWithTag("inline-menu").assertIsDisplayed()
+        capture("old-opening-rejected"); firstChoice().performTouchInput { click(center) }
+        compose.waitUntil(5000) { field("Form.Dropdown", "choice").props().optString("value") == "internal-layout-one" }
+        record.put("retained_opening_callback_rejected", true).put("fresh_opening_callback_works", true).put("passed", true)
+    }
+    private fun queuedField(transition: String) {
+        launch("focus")
+        val setText = requireNotNull(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val before = probe()
+        compose.activityRule.scenario.onActivity {
+            val tree = catalog.runtimeTree; val epoch = catalog.launchEpoch
+            try {
+                when (transition) {
+                    "root-missing" -> catalog.runtimeTree = null
+                    "new-session" -> catalog.launchEpoch++
+                    "replaced-field" -> {
+                        val replacement = JSONObject(tree.toString())
+                        requireNotNull(activeRoot(replacement)).nodes("Form.TextField").single().put("id", "replacement-native-field")
+                        catalog.runtimeTree = replacement
+                    }
+                    else -> error("Unknown transition")
+                }
+                assertTrue(setText(AnnotatedString("Owned queued value")))
+            } finally { catalog.runtimeTree = tree; catalog.launchEpoch = epoch }
+        }
+        val after = probe(); assertEquals(before.toString(), after.toString())
+        assertEquals("", field("Form.TextField", "name").props().optString("value"))
+        record.put("controlled_native_transition", transition).put("scope_detail", "Retained SetText before a Compose frame; native state restored in the same turn to inspect the original JS dispatch probe")
+            .put("probe_before", before).put("probe_after", after)
+        capture("queued-field-rejected"); record.put("passed", true)
+    }
+    @Test fun queuedTextCannotRunWithoutRoot() = queuedField("root-missing")
+    @Test fun queuedTextCannotRunInReplacementSession() = queuedField("new-session")
+    @Test fun queuedTextCannotRunAfterFieldReplacement() = queuedField("replaced-field")
+
+    @Test fun nativeConfigurationEditsValidateCancelAndRun() {
+        launch("configuration")
+        val prefs = context.getSharedPreferences("extension-${ownedExtension.listing.id}", Context.MODE_PRIVATE)
+        assertTrue(prefs.all.isEmpty())
+        compose.onNodeWithTag("run-extension-setup").performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-configuration-error").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("extension-field-error-argument-input").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("extension-field-error-preference-account").performScrollTo().assertIsDisplayed()
+        capture("configuration-required")
+        compose.onNodeWithTag("argument-input").performScrollTo().performTextReplacement("Owned canceled argument")
+        compose.onNodeWithTag("preference-account").performScrollTo().performTextReplacement("Owned canceled account")
+        assertTrue("Editing a draft must not save preferences", prefs.all.isEmpty())
+        touch("inline-back")
+        assertNull(compose.activity.store.dialog); assertTrue(prefs.all.isEmpty())
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        compose.onNodeWithTag("argument-input").assertTextEquals("")
+        compose.onNodeWithTag("preference-account").assertTextEquals("")
+        val argument = "Owned café é 日本 🌱"; val account = "Owned account 日本"
+        compose.onNodeWithTag("argument-input").performScrollTo().performTextReplacement(argument)
+        compose.onNodeWithTag("preference-account").performScrollTo().performTextReplacement(account)
+        compose.onNodeWithText(checkboxLabel, useUnmergedTree = true).performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("preference-checkbox-enabled").assertIsOn()
+        touch("preference-choice-layout")
+        firstChoice().performTouchInput { click(center) }
+        assertTrue("Choices are still a draft until Run", prefs.all.isEmpty())
+        capture("configuration-edited")
+        compose.onNodeWithTag("run-extension-setup").performTouchInput { click(center) }
+        compose.waitUntil(15000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        val result = JSONObject(requireNotNull(activeRoot(catalog.runtimeTree)).props().getString("markdown"))
+        assertEquals(argument, result.getString("argument")); assertEquals(account, result.getString("account"))
+        assertTrue(result.getBoolean("enabled")); assertEquals("internal-layout-one", result.getString("layout"))
+        val saved = JSONObject(prefs.getString("preferences", "{}")!!)
+        assertEquals(account, saved.getString("account")); assertTrue(saved.getBoolean("enabled")); assertEquals("internal-layout-one", saved.getString("layout"))
+        capture("configuration-destination")
+        touch("inline-back"); assertNull(compose.activity.store.dialog)
+        compose.onNodeWithTag("search").assertTextEquals(caller)
+        record.put("configuration_method", "Native required errors, actual argument/preference edits, label tap and menu choice; Cancel discards, explicit Run persists and starts the exact owned values")
+            .put("passed", true)
     }
 }
