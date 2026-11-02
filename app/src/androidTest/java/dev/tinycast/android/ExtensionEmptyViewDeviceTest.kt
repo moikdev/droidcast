@@ -158,6 +158,22 @@ class ExtensionEmptyViewDeviceTest {
         compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.props()?.optString("searchText") == value }
         compose.waitForIdle()
     }
+    private fun visibleResult(type: String, title: String) {
+        val tag = if (type == "Grid") "extension-grid-cell-0" else "extension-row-0"
+        val cell = compose.onNodeWithTag(tag)
+        // Grid also repeats the selected title in its footer. Target the actual
+        // caption and wait for its measured ink, not the footer's copy.
+        val caption = compose.onNode(hasText(title) and hasAnyAncestor(hasTestTag(tag)), useUnmergedTree = true)
+        compose.waitUntil(10000) {
+            if (!cell.isDisplayed() || !caption.isDisplayed()) false else {
+                val viewport = cell.fetchSemanticsNode().boundsInRoot
+                val full = fullBounds(caption)
+                full.left >= viewport.left - 1 && full.top >= viewport.top - 1 &&
+                    full.right <= viewport.right + 1 && full.bottom <= viewport.bottom + 1
+            }
+        }
+        cell.assertIsSelected(); caption.assertTextEquals(title).assertIsDisplayed()
+    }
     private fun returnToCaller() {
         touch("extension-back")
         compose.waitUntil(10000) { catalog.running == null && compose.activity.store.dialog == null }
@@ -179,7 +195,7 @@ class ExtensionEmptyViewDeviceTest {
         compose.onNodeWithTag("extension-action-0").assertTextContains("Retry request", substring = true)
         capture("actions"); touch("extension-action-0")
         compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.nodes("$type.Item")?.singleOrNull()?.props()?.optString("title") == "Owned retry result 1" }
-        compose.onNodeWithText("Owned retry result 1").assertIsDisplayed()
+        visibleResult(type, "Owned retry result 1")
         compose.onNodeWithText(shortTitle).assertDoesNotExist()
         compose.onNodeWithTag("extension-search").assertTextEquals("owned")
         record.put("retry_count", 1).put("native_retry_destination_verified", true)
@@ -198,7 +214,7 @@ class ExtensionEmptyViewDeviceTest {
         query("absent-match")
         compose.onNodeWithText("No owned matches").assertIsDisplayed(); compose.onNodeWithTag("extension-primary").assertTextContains("Retry owned result", substring = true)
         capture("filtered-empty")
-        query("owned"); compose.onNodeWithText("Owned retry result 1").assertIsDisplayed()
+        query("owned"); visibleResult(type, "Owned retry result 1")
         compose.onNodeWithTag("extension-primary").assertTextContains("Copy owned result", substring = true)
         record.put("initial_loading_override_hidden", true).put("loading_query_override_visible", true).put("filtered_empty_override_and_action_verified", true)
         returnToCaller(); record.put("passed", true)
@@ -328,7 +344,7 @@ class ExtensionEmptyViewDeviceTest {
         val after = probe()
         assertEquals(before.toString(), after.toString())
         assertEquals(0, after.getInt("attempts"))
-        compose.onNodeWithText("Owned replacement result").assertIsDisplayed()
+        visibleResult(type, "Owned replacement result")
         record.put("queued_callback_scope", "Controlled native replacement and retained menu callback in one main-thread turn; no new Compose frame before activation")
             .put("before", before).put("after", after)
         capture("queued-blocked"); returnToCaller(); record.put("passed", true)
