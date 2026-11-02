@@ -7,5 +7,6 @@ gradlew text eol=lf
 # Native accessibility captures are byte-hashed in their evidence manifests.
 docs/validation/readiness/*.xml -text -whitespace
 docs/validation/touch-readability/*.xml -text -whitespace
+docs/validation/extension-compatibility/*.xml -text -whitespace
 third_party/** linguist-vendored
 app/src/main/assets/RaycastRuntime.generated.js linguist-generated
