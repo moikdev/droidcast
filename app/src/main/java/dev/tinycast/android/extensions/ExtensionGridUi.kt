@@ -33,6 +33,7 @@ import dev.tinycast.android.PaletteScrollHistory
 import dev.tinycast.android.PaletteTheme
 import dev.tinycast.android.PaletteChoice
 import dev.tinycast.android.PaletteChoiceMenu
+import dev.tinycast.android.paletteHeaderSurface
 import dev.tinycast.android.paletteFocusBookmark
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.collect
@@ -85,6 +86,9 @@ internal fun NativeExtensionGrid(
     var dropdownMenu by remember { mutableStateOf(false) }
     var gridHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
+    // Two scaled title lines and a subtitle, plus cell/grid padding and
+    // rounding space, must fit before assigning any height to the preview.
+    val cellOverhead = with(density) { 40.dp + 16.sp.toDp() * 2 + 12.sp.toDp() }
     val claims = remember { mutableMapOf<Pair<Int, Int>, Long>() }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val imeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
@@ -220,8 +224,8 @@ internal fun NativeExtensionGrid(
             return false
         }
         Column(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { key(it.nativeKeyEvent) }.onPreviewKeyEvent { key(it.nativeKeyEvent) }) {
-            Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = back, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Text("‹", fontSize = 28.sp) }
+            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = back, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 BasicTextField(state.search, { next ->
                     val changed = next.text != state.search.text
@@ -230,9 +234,9 @@ internal fun NativeExtensionGrid(
                 }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (state.search.composition == null) action(currentActions().firstOrNull()) }),
-                    modifier = Modifier.weight(1f).height(32.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
-                    decorationBox = { inner -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) { if (state.search.text.isEmpty()) Text(props.optString("searchBarPlaceholder", "Search extension…"), color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
-                if (wide) IconButton(onClick = { keyboardRequested = true; focus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(36.dp).semantics { contentDescription = "Show on-screen keyboard" }.testTag("extension-grid-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 16) }
+                    modifier = Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("extension-search"),
+                    decorationBox = { inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp), contentAlignment = Alignment.CenterStart) { if (state.search.text.isEmpty()) Text(props.optString("searchBarPlaceholder", "Search extension…"), color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
+                if (wide) IconButton(onClick = { keyboardRequested = true; focus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(48.dp).semantics { contentDescription = "Show on-screen keyboard" }.testTag("extension-grid-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 16) }
                 if (options.isNotEmpty()) Box {
                     TextButton(onClick = { dropdownMenu = true }, modifier = Modifier.testTag("extension-grid-filter")) {
                         Text(options.firstOrNull { it.props().optString("value") == state.dropdownValue }?.props()?.optString("title") ?: "Filter", fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if(wide) 140.dp else 72.dp))
@@ -247,7 +251,7 @@ internal fun NativeExtensionGrid(
                         }
                     }, title = "Filter", returnFocus = focus)
                 }
-                IconButton(onClick = configure, modifier = Modifier.size(36.dp).semantics { contentDescription = "Extension preferences" }) { Text("⚙", fontSize = 16.sp) }
+                IconButton(onClick = configure, modifier = Modifier.size(48.dp).semantics { contentDescription = "Extension preferences" }) { Glyph("settings",PaletteTheme.secondary,20) }
             }
             Box(Modifier.fillMaxWidth().height(2.dp)) { if (props.optBoolean("isLoading")) LinearProgressIndicator(Modifier.fillMaxWidth().testTag("extension-grid-loading")) }
             Row(Modifier.fillMaxWidth().heightIn(min = 28.dp).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -258,7 +262,7 @@ internal fun NativeExtensionGrid(
             }
             if (items.isEmpty()) Box(Modifier.weight(1f).fillMaxWidth().testTag("extension-grid-empty"), contentAlignment = Alignment.Center) {
                 val empty = root.nodes("Grid.EmptyView").firstOrNull()?.props()
-                Column(Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(Modifier.verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(empty?.optString("title")?.takeIf { it.isNotBlank() } ?: if (props.optBoolean("isLoading")) "Loading…" else "No results", color = PaletteTheme.ink, fontSize = 16.sp)
                     empty?.optString("description")?.takeIf { it.isNotBlank() }?.let { Text(it, color = PaletteTheme.secondary, fontSize = 12.sp) }
                 }
@@ -280,18 +284,20 @@ internal fun NativeExtensionGrid(
                         item(key = "cell-${entry.key}") {
                             GridCell(entry, itemIndex, selected?.key == entry.key, props, images,
                                 minOf(((widthDp - 32 - (columns - 1) * 10) / columns - 16) / gridAspectRatio(props.optString("aspectRatio")),
-                                    if (gridHeight > 0) (with(density) { gridHeight.toDp().value } - 70).coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectLocally(entry.key); focus.requestFocus() }
+                                    if (gridHeight > 0) (with(density) { gridHeight.toDp() } - cellOverhead).value.coerceAtLeast(0f) else Float.MAX_VALUE).dp) { state.selectLocally(entry.key); focus.requestFocus() }
                         }
                     }
                     }
                 }
             }
             HorizontalDivider(color = PaletteTheme.separator)
-            Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f).padding(end=8.dp)) {
-                    Text(title,color=PaletteTheme.secondary,fontSize=11.sp,maxLines=1,overflow=TextOverflow.Ellipsis)
-                    Text(status.ifBlank { selected?.title.orEmpty() }, color = PaletteTheme.tertiary, fontSize = 10.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("extension-grid-selected"))
+            dev.tinycast.android.PaletteFooter(metadata={ modifier ->
+                Column(modifier) {
+                    Text(title,color=PaletteTheme.secondary,fontSize=12.sp,lineHeight=16.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
+                    Text(status.ifBlank { selected?.title.orEmpty() },color=PaletteTheme.tertiary,fontSize=11.sp,lineHeight=15.sp,
+                        maxLines=2,overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("extension-grid-selected"))
                 }
+            }) {
                 Box {
                     dev.tinycast.android.PaletteActionCapsule(actions.firstOrNull()?.props()?.optString("title", "Run action") ?: "Run action",
                         { action(currentActions().firstOrNull()) }, { menu=true }, "extension-primary", "extension-actions", compact=!wide, enabled=actions.isNotEmpty())
@@ -313,10 +319,12 @@ private fun GridCell(entry: ExtensionGridItem, index: Int, selected: Boolean, pr
         .padding(8.dp).testTag("extension-grid-cell-$index")) {
         val visual = gridVisual(entry.node.props().opt("content"))
         val inset = (when (props.optString("inset")) { "zero" -> 0; "sm" -> 4; "lg" -> 20; else -> 10 }).coerceAtMost((visualHeight.value / 10).toInt())
-        Box(Modifier.fillMaxWidth().height(visualHeight).padding(inset.dp), contentAlignment = Alignment.Center) {
+        BoxWithConstraints(Modifier.fillMaxWidth().height(visualHeight).padding(inset.dp), contentAlignment = Alignment.Center) {
             if (visualHeight >= 16.dp) when (visual) {
                 is GridVisual.Symbol -> {
-                    val font = minOf(38f, visualHeight.value - inset * 2).coerceAtLeast(12f).sp
+                    // The symbol is a thumbnail: fit its ink to the preview,
+                    // while the caption retains the user's scaled text size.
+                    val font = with(LocalDensity.current) { minOf(38.sp.toPx(),minOf(maxWidth,maxHeight).toPx()*.8f).toSp() }
                     Text(visual.value, fontSize = font, lineHeight = font, color = PaletteTheme.ink)
                 }
                 is GridVisual.Swatch -> Box(Modifier.fillMaxSize().clip(RoundedCornerShape(6.dp)).background(gridColor(visual.value)).semantics { contentDescription = "Color ${visual.value}" })
@@ -336,7 +344,7 @@ private fun GridCell(entry: ExtensionGridItem, index: Int, selected: Boolean, pr
                 GridVisual.Unsupported -> Text("No preview", color = PaletteTheme.secondary, fontSize = 10.sp)
             }
         }
-        if (entry.title.isNotBlank()) Text(entry.title, color = PaletteTheme.ink, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
+        if (entry.title.isNotBlank()) Text(entry.title, color = PaletteTheme.ink, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
         if (entry.subtitle.isNotBlank()) Text(entry.subtitle, color = PaletteTheme.secondary, fontSize = 10.sp, lineHeight = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }

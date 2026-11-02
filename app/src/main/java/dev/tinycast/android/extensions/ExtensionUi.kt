@@ -48,6 +48,7 @@ import dev.tinycast.android.PaletteStore
 import dev.tinycast.android.PaletteTheme
 import dev.tinycast.android.PaletteChoice
 import dev.tinycast.android.PaletteChoiceMenu
+import dev.tinycast.android.paletteHeaderSurface
 import dev.tinycast.android.paletteFocusBookmark
 import dev.tinycast.android.LocalPaletteMenus
 import kotlinx.coroutines.CancellationException
@@ -142,8 +143,8 @@ private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, 
             } else if (escapePresses[event.deviceId] == event.downTime) { escapePresses.remove(event.deviceId); true } else false
         }, tag = "extension-palette") {
         if (!headerless) {
-            Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onEscape, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Text("‹", fontSize = 28.sp) }
+            Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onEscape, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back" }.testTag("extension-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 Text(title, fontSize = 20.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                 headerActions?.invoke(this)
@@ -174,14 +175,14 @@ private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue
             androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
         }
     }
-    Row(Modifier.fillMaxWidth().height(PaletteTheme.header).padding(end=16.dp),verticalAlignment=Alignment.CenterVertically) {
-        IconButton(onClick=back,modifier=Modifier.size(48.dp).semantics{contentDescription="Back"}.testTag("extension-back")){Text("‹",fontSize=28.sp)}
+    Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp),verticalAlignment=Alignment.CenterVertically) {
+        IconButton(onClick=back,modifier=Modifier.size(48.dp).semantics{contentDescription="Back"}.testTag("extension-back")){Glyph("back",PaletteTheme.ink,24)}
         Spacer(Modifier.width(2.dp))
         BasicTextField(value,change,singleLine=true,textStyle=TextStyle(color=ink,fontSize=20.sp,lineHeight=26.sp),cursorBrush=SolidColor(PaletteTheme.accent),
             keyboardOptions=KeyboardOptions(showKeyboardOnFocus=!wide || requested),
-            modifier=Modifier.weight(1f).height(32.dp).paletteFocusBookmark(focus).onFocusChanged{focused=it.isFocused}.testTag(tag),
-            decorationBox={inner->Box(Modifier.fillMaxSize(),contentAlignment=Alignment.CenterStart){if(value.text.isEmpty())Text(placeholder,color=muted,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
-        if(wide)IconButton(onClick={requested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(36.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",muted,16)}
+            modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged{focused=it.isFocused}.testTag(tag),
+            decorationBox={inner->Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(value.text.isEmpty())Text(placeholder,color=muted,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
+        if(wide)IconButton(onClick={requested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",muted,16)}
         trailing()
     }
     HorizontalDivider(color=line)
@@ -412,7 +413,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if(catalog.runtimeError!=null){
             Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
-            Column(Modifier.weight(1f).fillMaxWidth().padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
                 if(!catalog.runtimeReady)CircularProgressIndicator(Modifier.size(30.dp))else Glyph("extension",ink,36)
                 Text(catalog.runtimeStatus,fontSize=16.sp,color=ink,modifier=Modifier.padding(top=20.dp).testTag("extension-status"))
                 if(catalog.runtimeReady)Text("Escape to return to the palette",color=muted,fontSize=12.sp,modifier=Modifier.padding(top=10.dp))
@@ -446,11 +447,12 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }
         if (!failed && root?.optString("type") != "Grid") {
         HorizontalDivider(color=line)
-        Row(Modifier.fillMaxWidth().height(PaletteTheme.footer).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically){
-            if(root!=null)Column(Modifier.weight(1f).padding(end=8.dp)) {
-                Text(extension.listing.title,color=muted,fontSize=11.sp,maxLines=1,overflow=TextOverflow.Ellipsis)
-                Text(catalog.runtimeStatus,color=muted,fontSize=10.sp,maxLines=1,overflow=TextOverflow.Ellipsis)
-            }else Spacer(Modifier.weight(1f))
+        dev.tinycast.android.PaletteFooter(metadata={ modifier ->
+            Column(modifier) {
+                Text(extension.listing.title,color=muted,fontSize=12.sp,lineHeight=16.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
+                Text(catalog.runtimeStatus,color=muted,fontSize=11.sp,lineHeight=15.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
+            }
+        },showActions=actions.isNotEmpty()) {
             if(actions.isNotEmpty()){
                 Box {
                     dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{action(liveActions().firstOrNull())},{menu=true},

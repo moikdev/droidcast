@@ -20,8 +20,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.focus.*
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.onPreInterceptKeyBeforeSoftKeyboard
 import androidx.compose.ui.layout.Layout
@@ -52,6 +56,20 @@ internal class PaletteMenus {
                   val title: State<String?>, val dismiss: State<() -> Unit>, val returnFocus: State<FocusRequester?>, val searchable: Boolean)
     var current by mutableStateOf<Request?>(null); private set
     var surface by mutableStateOf<Rect?>(null)
+    var header by mutableStateOf<Rect?>(null); private set
+    var footer by mutableStateOf<Rect?>(null); private set
+    var headerHeight by mutableIntStateOf(0); private set
+    var footerHeight by mutableIntStateOf(0); private set
+    private var headerOwner: Any? = null
+    private var footerOwner: Any? = null
+    fun chrome(owner: Any, isHeader: Boolean, bounds: Rect?, height: Int) {
+        if (isHeader) { headerOwner=owner;header=bounds;headerHeight=height }
+        else { footerOwner=owner;footer=bounds;footerHeight=height }
+    }
+    fun forgetChrome(owner: Any, isHeader: Boolean) {
+        if (isHeader && headerOwner === owner) { header=null;headerHeight=0;headerOwner=null }
+        if (!isHeader && footerOwner === owner) { footer=null;footerHeight=0;footerOwner=null }
+    }
     var selectedId by mutableStateOf<String?>(null); private set
     var query by mutableStateOf(TextFieldValue("")); private set
     fun choices(): List<PaletteChoice> {
@@ -199,7 +217,7 @@ internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit
             .onPreviewKeyEvent { menus.key(it.nativeKeyEvent) }) {
             content()
             BackHandler(enabled = menus.current != null) { menus.dismiss() }
-            if(feedback) menus.surface?.let { bounds -> PaletteFeedback(bounds, snackbar) }
+            if(feedback) menus.surface?.let { bounds -> PaletteFeedback(bounds, menus, snackbar) }
             menus.current?.let { request -> PaletteMenuOverlay(menus, request) }
         }
     }
@@ -211,6 +229,20 @@ internal fun Modifier.paletteMenuSurface(): Modifier {
     val menus = LocalPaletteMenus.current
     return onGloballyPositioned { menus.surface = it.boundsInRoot() }
         .focusRequester(menus.surfaceFocus).focusGroup()
+}
+
+@Composable
+internal fun Modifier.paletteHeaderSurface(): Modifier = paletteChromeSurface(true)
+
+@Composable
+internal fun Modifier.paletteFooterSurface(): Modifier = paletteChromeSurface(false)
+
+@Composable
+private fun Modifier.paletteChromeSurface(isHeader: Boolean): Modifier {
+    val menus=LocalPaletteMenus.current
+    val owner=remember { Any() }
+    DisposableEffect(menus,owner,isHeader) { onDispose { menus.forgetChrome(owner,isHeader) } }
+    return onGloballyPositioned { menus.chrome(owner,isHeader,it.boundsInRoot(),it.size.height) }
 }
 
 @Composable
@@ -251,6 +283,7 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
     val focus = remember(request.owner) { FocusRequester() }
     val scroll = rememberLazyListState()
     val wide=surface.width/LocalDensity.current.density >= 600
+    val showHints=wide && LocalDensity.current.fontScale <= 1.3f
     val imeVisible=WindowInsets.isImeVisible
     val keyboard=LocalSoftwareKeyboardController.current
     val view=LocalView.current
@@ -270,35 +303,37 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                 shadowElevation = 12.dp, modifier = (if(request.searchable) Modifier else Modifier.focusRequester(focus).focusable())
                     .pointerInput(Unit) { detectTapGestures {} }
                     .semantics { testTagsAsResourceId = true }.testTag("inline-menu")) {
-                Column(Modifier.fillMaxSize().padding(6.dp)) {
-                    request.title.value?.let { Text(it, color = PaletteTheme.secondary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.fillMaxWidth().height(32.dp).padding(8.dp)) }
-                    LazyColumn(state = scroll, modifier = Modifier.fillMaxWidth().weight(1f).testTag("inline-menu-choices")) {
+                Column(Modifier.fillMaxWidth().padding(6.dp)) {
+                    request.title.value?.let { Text(it, color = PaletteTheme.secondary, fontSize = 11.sp, lineHeight=16.sp,
+                        maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.fillMaxWidth().heightIn(min=32.dp).padding(8.dp)) }
+                    LazyColumn(state = scroll, modifier = Modifier.fillMaxWidth().weight(1f,fill=false).testTag("inline-menu-choices")) {
                         if(choices.isEmpty()) item { Text("No matching actions",color=PaletteTheme.secondary,fontSize=12.sp,modifier=Modifier.padding(10.dp).testTag("inline-menu-empty")) }
                         items(choices, key = { it.id }) { choice ->
                             if(choice.separator && menus.query.text.isBlank()) HorizontalDivider(color=PaletteTheme.separator,modifier=Modifier.padding(vertical=5.dp))
-                            Row(Modifier.fillMaxWidth().height(44.dp).background(if (choice.id == menus.selectedId) PaletteTheme.selection else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(8.dp))
-                                .focusProperties { canFocus = false }.clickable(enabled = choice.enabled) { menus.choose(choice.id) }
-                                .semantics { selected = choice.id == menus.selectedId; if (!choice.enabled) disabled() }
-                                .testTag(choice.tag).padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Row(Modifier.fillMaxWidth().heightIn(min=48.dp).background(if (choice.id == menus.selectedId) PaletteTheme.selection else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(8.dp))
+                                .focusProperties { canFocus = false }.clickable(enabled = choice.enabled,role=Role.Button) { menus.choose(choice.id) }
+                                .semantics { selected = choice.id == menus.selectedId; contentDescription=choice.label+
+                                    if(choice.shortcut.isEmpty())"" else ". Shortcut ${choice.shortcut.joinToString(" ")}"; if (!choice.enabled) disabled() }
+                                .testTag(choice.tag).padding(horizontal = 10.dp,vertical=8.dp), verticalAlignment = Alignment.CenterVertically) {
                                 choice.icon?.let { Glyph(it,PaletteTheme.secondary,17); Spacer(Modifier.width(10.dp)) }
-                                Text(choice.label, fontSize = 13.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, color = if (choice.enabled) PaletteTheme.ink else PaletteTheme.tertiary, modifier = Modifier.weight(1f))
-                                if(choice.shortcut.isNotEmpty()) { Spacer(Modifier.width(8.dp)); choice.shortcut.forEach { KeyCap(it); Spacer(Modifier.width(2.dp)) } }
+                                Text(choice.label, fontSize = 13.sp, lineHeight=18.sp, maxLines = 3, overflow = TextOverflow.Ellipsis, color = if (choice.enabled) PaletteTheme.ink else PaletteTheme.tertiary, modifier = Modifier.weight(1f))
+                                if(showHints && choice.shortcut.isNotEmpty()) { Spacer(Modifier.width(8.dp)); choice.shortcut.forEach { KeyCap(it); Spacer(Modifier.width(2.dp)) } }
                                 if (choice.checked) Text("✓", fontSize = 12.sp, color = PaletteTheme.secondary)
                             }
                         }
                     }
                     if(request.searchable) {
                         HorizontalDivider(color=PaletteTheme.separator)
-                        Row(Modifier.fillMaxWidth().height(44.dp).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically) {
+                        Row(Modifier.fillMaxWidth().heightIn(min=48.dp).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically) {
                         BasicTextField(menus.query,menus::search,singleLine=true,
                             textStyle=TextStyle(color=PaletteTheme.ink,fontSize=13.sp,lineHeight=18.sp),cursorBrush=SolidColor(PaletteTheme.accent),
                             keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=keyboardRequested),
                             keyboardActions=KeyboardActions(onSearch={ menus.activateSelected(request) }),
-                            modifier=Modifier.weight(1f).height(32.dp).focusRequester(focus).testTag("inline-menu-search"),
-                            decorationBox={ inner -> Box(Modifier.fillMaxSize(),contentAlignment=Alignment.CenterStart) {
-                                if(menus.query.text.isEmpty()) Text("Search for actions…",color=PaletteTheme.secondary,fontSize=13.sp); inner()
+                            modifier=Modifier.weight(1f).heightIn(min=48.dp).focusRequester(focus).testTag("inline-menu-search"),
+                            decorationBox={ inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart) {
+                                if(menus.query.text.isEmpty()) Text("Search for actions…",color=PaletteTheme.secondary,fontSize=13.sp,maxLines=1,overflow=TextOverflow.Ellipsis); inner()
                             } })
-                        if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(36.dp).semantics{contentDescription="Show action search keyboard"}.testTag("inline-menu-keyboard")) { Glyph("keyboard",PaletteTheme.secondary,16) }
+                        if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show action search keyboard"}.testTag("inline-menu-keyboard")) { Glyph("keyboard",PaletteTheme.secondary,16) }
                         }
                     }
                 }
@@ -307,13 +342,22 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
             val margin = 8.dp.roundToPx()
             val left = surface.left.roundToInt() + margin
             val right = (surface.right.roundToInt() - margin).coerceAtLeast(left + 1)
-            val top = (surface.top + PaletteTheme.header.toPx()).roundToInt()
-            val bottom = (surface.bottom - PaletteTheme.footer.toPx()).roundToInt().coerceAtLeast(top + 1)
+            val headerBottom=(menus.header?.bottom ?: (surface.top+PaletteTheme.header.toPx())).coerceIn(surface.top,surface.bottom)
+            val footerTop=(menus.footer?.top ?: (surface.bottom-PaletteTheme.footer.toPx())).coerceIn(surface.top,surface.bottom)
+            val titleHeight=if(request.title.value!=null)16.sp.toPx()*2+16.dp.toPx() else 0f
+            val searchHeight=if(request.searchable)maxOf(48.dp.toPx(),18.sp.toPx())+1.dp.toPx() else 0f
+            val choiceHeight=maxOf(48.dp.toPx(),18.sp.toPx()*3+16.dp.toPx())
+            val minimumMenuHeight=12.dp.toPx()+titleHeight+searchHeight+choiceHeight
+            // The anchored gap must accommodate the scaled menu chrome and
+            // one complete wrapped action. Otherwise use the palette bounds.
+            val contentFits=footerTop-headerBottom >= minimumMenuHeight
+            val top=(if(contentFits) headerBottom else surface.top+margin).roundToInt()
+            val bottom=(if(contentFits) footerTop else surface.bottom-margin).roundToInt().coerceAtLeast(top+1)
             val width = minOf(320.dp.roundToPx(), right - left)
-            val desired = ((request.choices.value.size * 44 + request.choices.value.count { it.separator } * 11 + 12 +
-                (if (request.title.value == null) 0 else 32) + (if(request.searchable) 45 else 0)).dp).roundToPx()
-            val height = minOf(desired.coerceAtLeast(1), bottom - top)
-            val child = measurables.single().measure(Constraints.fixed(width, height))
+            // Measure real wrapped content. Fixed row estimates clip large-font
+            // titles; the bounded lazy body scrolls when the menu is taller.
+            val child = measurables.single().measure(Constraints(minWidth=width,maxWidth=width,maxHeight=bottom-top))
+            val height=child.height
             val anchor = request.anchor.value ?: surface
             val x = (anchor.right.roundToInt() - width).coerceIn(left, right - width)
             val below = anchor.center.y < surface.center.y
@@ -324,15 +368,56 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
 }
 
 @Composable
-private fun PaletteFeedback(surface: Rect, state: SnackbarHostState) {
-    Layout(modifier = Modifier.fillMaxSize(), content = { SnackbarHost(state, modifier=Modifier.testTag("palette-feedback")) }) { children, constraints ->
+private fun FeedbackViewport(state: SnackbarHostState, scroll: ScrollState) {
+    var overflow by remember(state.currentSnackbarData) { mutableStateOf(false) }
+    val usingScroll=overflow
+    Box(Modifier.testTag("palette-feedback")) {
+        // A scroll modifier can intercept taps in Snackbar's transparent outer
+        // padding even when gestures are disabled. Attach it only when the
+        // natural message height requires scrolling; keep one SnackbarHost so
+        // measuring/reflow never restarts its display lifetime.
+        Layout(modifier=Modifier.testTag("palette-feedback-scroll").clipToBounds(),content={
+            SnackbarHost(state,modifier=if(usingScroll)Modifier.verticalScroll(scroll) else Modifier)
+        }) { children, constraints ->
+            val child=children.single().measure(if(usingScroll)constraints else constraints.copy(maxHeight=Constraints.Infinity))
+            val height=child.height.coerceIn(constraints.minHeight,constraints.maxHeight)
+            val needsScroll=if(usingScroll)scroll.maxValue>0 else child.height>height
+            if(overflow!=needsScroll)overflow=needsScroll
+            layout(child.width,height) { child.place(0,0) }
+        }
+        if(usingScroll && scroll.maxValue>0) Canvas(Modifier.matchParentSize().padding(end=2.dp,top=4.dp,bottom=4.dp)) {
+            val thumb=(size.height*size.height/(size.height+scroll.maxValue)).coerceIn(minOf(12.dp.toPx(),size.height),size.height)
+            val width=3.dp.toPx()
+            drawRoundRect(PaletteTheme.secondary,Offset(size.width-width,(size.height-thumb)*scroll.value/scroll.maxValue),
+                Size(width,thumb),CornerRadius(width/2))
+        }
+    }
+}
+
+@Composable
+private fun PaletteFeedback(surface: Rect, menus: PaletteMenus, state: SnackbarHostState) {
+    val scroll=key(state.currentSnackbarData) { rememberScrollState() }
+    Layout(modifier = Modifier.fillMaxSize(), content = { FeedbackViewport(state,scroll) }) { children, constraints ->
         val margin = 12.dp.roundToPx()
-        val width = (surface.width.roundToInt()-2*margin).coerceAtLeast(1)
-        val top = (surface.top+PaletteTheme.header.toPx()).roundToInt()
-        val bottom = (surface.bottom-PaletteTheme.footer.toPx()).roundToInt().coerceAtLeast(top+1)
+        val surfaceWidth=surface.width.roundToInt().coerceAtLeast(1)
+        val surfaceHeight=surface.height.roundToInt().coerceAtLeast(1)
+        val horizontalInset=minOf(margin,(surfaceWidth-1)/2)
+        val verticalInset=minOf(margin,(surfaceHeight-1)/2)
+        val width=surfaceWidth-2*horizontalInset
+        val top=surface.top.roundToInt()+verticalInset
+        val bottom=top+surfaceHeight-2*verticalInset
+        // Measure against the palette before choosing the chrome gap. A
+        // scrolled-off header/footer has non-null but clipped/empty bounds;
+        // using that gap as a measurement constraint can crush feedback to 1px.
         val child = children.single().measure(Constraints(maxWidth=width,maxHeight=bottom-top))
+        // Footerless forms still place their controls near the lower edge.
+        // Retain the legacy chrome reservation when no measured owner exists;
+        // a non-null empty offscreen bound still selects the full-palette fallback.
+        val headerBottom=(menus.header?.bottom ?: surface.top+PaletteTheme.header.toPx()).roundToInt().coerceIn(top,bottom)
+        val footerTop=(menus.footer?.top ?: surface.bottom-PaletteTheme.footer.toPx()).roundToInt().coerceIn(top,bottom)
+        val preferredBottom=footerTop-margin
         val x = (surface.center.x-child.width/2f).roundToInt()
-        val y = (bottom-child.height-margin).coerceAtLeast(top)
+        val y=if(preferredBottom-headerBottom>=child.height)preferredBottom-child.height else bottom-child.height
         layout(constraints.maxWidth,constraints.maxHeight) { child.place(x,y) }
     }
 }

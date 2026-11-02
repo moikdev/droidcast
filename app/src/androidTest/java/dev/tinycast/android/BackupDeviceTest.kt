@@ -287,8 +287,42 @@ class BackupDeviceTest {
             throw failure
         }
         assertEquals(before, compose.activity.store.backupSnapshot())
-        compose.onNodeWithTag("backup-export").performScrollTo().performClick()
-        assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000))
+        val exportAfterCancel=compose.onNodeWithTag("backup-export").performScrollTo()
+        val exportNode=exportAfterCancel.fetchSemanticsNode()
+        val feedbackNodes=compose.onAllNodesWithTag("palette-feedback").fetchSemanticsNodes()
+        val frames=compose.onAllNodesWithTag("palette-screen").fetchSemanticsNodes()
+        val routing=compose.runOnUiThread {
+            fun bounds(rect:androidx.compose.ui.geometry.Rect)=org.json.JSONArray(listOf(rect.left,rect.top,rect.right,rect.bottom))
+            fun full(node:androidx.compose.ui.semantics.SemanticsNode):androidx.compose.ui.geometry.Rect {
+                val origin=node.positionInRoot
+                return androidx.compose.ui.geometry.Rect(origin.x,origin.y,origin.x+node.size.width,origin.y+node.size.height)
+            }
+            JSONObject().put("phase","before-export-after-import-cancellation")
+                .put("export_visible",bounds(exportNode.boundsInRoot)).put("export_full",bounds(full(exportNode)))
+                .put("feedback",org.json.JSONArray(feedbackNodes.map { JSONObject()
+                    .put("visible",bounds(it.boundsInRoot)).put("full",bounds(full(it))) }))
+                .put("frames",org.json.JSONArray(frames.map { bounds(it.boundsInRoot) }))
+                .put("message",compose.activity.store.message).put("backup_busy",compose.activity.store.backupBusy)
+                .put("pending_export",compose.activity.store.pendingExport!=null)
+                .put("ime_visible",androidx.core.view.ViewCompat.getRootWindowInsets(compose.activity.window.decorView)
+                    ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true)
+                .put("font_scale",context.resources.configuration.fontScale)
+        }
+        val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
+        File(folder,"export-after-cancel-routing.json").writeText(routing.toString(2))
+        exportAfterCancel.performClick()
+        val exportOpened=device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000)
+        routing.put("export_picker_opened",exportOpened).put("pending_export_after_click",compose.activity.store.pendingExport!=null)
+            .put("backup_busy_after_click",compose.activity.store.backupBusy)
+        File(folder,"export-after-cancel-routing.json").writeText(routing.toString(2))
+        if(!exportOpened) {
+            File(folder,"export-after-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
+            device.dumpWindowHierarchy(File(folder,"export-after-cancel-failure.xml"))
+            device.takeScreenshot(File(folder,"export-after-cancel-failure.png"))
+        }
+        assertTrue("Export picker must open after cancelling import",exportOpened)
+        device.dumpWindowHierarchy(File(folder,"export-after-cancel-destination.xml"))
+        assertTrue(device.takeScreenshot(File(folder,"export-after-cancel-destination.png")))
         device.pressBack()
         try {
             compose.waitUntil(10000) { compose.activity.store.pendingExport == null && !compose.activity.store.backupBusy }
