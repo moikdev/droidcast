@@ -139,6 +139,15 @@ class ExtensionFormDeviceTest {
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
               }
+              if(mode==='validation'){
+                const [name,setName]=React.useState(''),[error,setError]=React.useState(''),[notes,setNotes]=React.useState('');
+                const nameEvents=fieldEvents('name');
+                return React.createElement(api.Form,null,
+                  React.createElement(api.Form.TextField,{key:'name',id:'name',title:'Owned account name',value:name,error:error,
+                    onChange:value=>{setName(value);setError('');globalThis.__formProbe.changes++},onFocus:nameEvents.onFocus,
+                    onBlur:event=>{nameEvents.onBlur(event);setError(event.target.value?'':${JSONObject.quote(fieldError)})}}),
+                  React.createElement(api.Form.TextArea,{key:'notes',id:'notes',title:'Owned notes',value:notes,onChange:setNotes}));
+              }
               if(mode==='all-fields'||mode==='long'){
                 const [name,setName]=React.useState(''),[password,setPassword]=React.useState(''),[area,setArea]=React.useState('');
                 const [choice,setChoice]=React.useState('internal-layout-two'),[checked,setChecked]=React.useState(false),[render,setRender]=React.useState(0);
@@ -260,6 +269,28 @@ class ExtensionFormDeviceTest {
         record.put("runtime_supplied_help", true); capture("help")
         compose.onNodeWithText(fieldInfo, useUnmergedTree = true).assertIsDisplayed()
         record.put("passed", true)
+    }
+    @Test fun blurValidationShowsErrorAndEditingClearsIt() {
+        launch("validation")
+        compose.onNodeWithText(fieldError, useUnmergedTree = true).assertDoesNotExist()
+        touch("extension-field-name"); touch("extension-field-notes")
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("error") == fieldError }
+        compose.onNodeWithTag("extension-field-error-name").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.Error, fieldError))
+        capture("blur-validation")
+        touch("extension-field-name")
+        val name = "Owned café é 日本 🌱"
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(name)
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == name && field("Form.TextField", "name").props().optString("error").isBlank() }
+        compose.onNodeWithText(fieldError, useUnmergedTree = true).assertDoesNotExist()
+        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher("Error semantics cleared") { !it.config.contains(SemanticsProperties.Error) })
+        touch("extension-field-notes")
+        compose.waitUntil(5000) { probe().getJSONObject("blur").optInt("name") == 2 }
+        val observed = probe(); assertEquals(2, observed.getJSONObject("focus").getInt("name"))
+        assertEquals(name.length, observed.getJSONObject("blurLengths").getInt("name"))
+        capture("validation-cleared")
+        record.put("validation_method", "Real extension onBlur updates its error prop from the current value; real onChange clears it. Submit rejection is not exercised.")
+            .put("focus_probe", observed).put("passed", true)
     }
     @Test fun focusAndBlurDeliverCurrentFieldValue() {
         launch("focus")
@@ -581,6 +612,7 @@ class ExtensionFormDeviceTest {
         compose.waitUntil(5000) { field("Form.Dropdown", "choice").props().optString("value") == "internal-layout-one" }
         capture("all-fields")
         record.put("focus_probe", observed).put("composition_survived_javascript_round_trip", true)
+            .put("composition_method", "Controlled Android InputConnection with Gboard hidden across asynchronous JS/native phases; not phonetic typing gestures in a live OEM IME")
             .put("controlled_selection_preserved", true).put("password_masking_and_value_delivery", true).put("passed", true)
     }
 
