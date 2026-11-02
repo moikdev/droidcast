@@ -1,0 +1,402 @@
+{
+  "completed": false,
+  "fixture_sha256": "815a48efc1dce7dd7f37e825529050c6d4c8b4197bc3a6ce99e25444d2c37fa2",
+  "source_snapshot_sha256": "22669d4581900dd2ef2fe337e8a712661f0757fb64ec6839abee1cdc88489dcb",
+  "workflows": [
+    {
+      "directory": "http-status-codes",
+      "command": "index",
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "command_sha256": "96426ed0c09fd073a2411370e444dbbf45e2b02ad4970bf44f757b0f8b662cb9",
+      "status": "observed-failed",
+      "scope": "Headless diagnostic of the real bundle and unchanged forwarding bridge; no UI\/action workflow certified",
+      "runtime_error": "Error: os.cpus requires an unsupported desktop capability. Android cannot run shell commands or native Mac helpers.\n    at G (<anonymous>:13:2077)\n    at Object.cpus (<anonymous>:21:281)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:4:62472)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:3:222)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:4:64325)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:3:222)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:4:73348)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:3:222)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:12:942)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js:3:222)",
+      "runtime_ready": true,
+      "native_root": null,
+      "support_path": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+      "support_canonical": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+      "package_path": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+      "package_canonical": "\/data\/data\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+      "realpath_calls": [
+        {
+          "api": "fs",
+          "method": "realpath",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "response": {
+            "ok": true,
+            "value": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b"
+          },
+          "java_canonical_input": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b"
+        }
+      ],
+      "filesystem_checks": [
+        {
+          "name": "data-raw-realpath",
+          "method": "realpath",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-raw-exists",
+          "method": "exists",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-raw-stat",
+          "method": "stat",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-raw-readdir",
+          "method": "readdir",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-canonical-realpath",
+          "method": "realpath",
+          "input": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-canonical-exists",
+          "method": "exists",
+          "input": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-canonical-stat",
+          "method": "stat",
+          "input": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-canonical-readdir",
+          "method": "readdir",
+          "input": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-raw-realpath",
+          "method": "realpath",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-raw-exists",
+          "method": "exists",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-raw-stat",
+          "method": "stat",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-raw-readdir",
+          "method": "readdir",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-canonical-realpath",
+          "method": "realpath",
+          "input": "\/data\/data\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-canonical-exists",
+          "method": "exists",
+          "input": "\/data\/data\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-canonical-stat",
+          "method": "stat",
+          "input": "\/data\/data\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-canonical-readdir",
+          "method": "readdir",
+          "input": "\/data\/data\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-root-mkdir",
+          "method": "mkdir",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-canonical-root-mkdir",
+          "method": "mkdir",
+          "input": "\/data\/data\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-child-mkdir",
+          "method": "mkdir",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b\/owned",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-child-write",
+          "method": "writeFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b\/owned\/marker.txt",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "data-child-read",
+          "method": "readFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b\/owned\/marker.txt",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "package-child-read",
+          "method": "readFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/index.js",
+          "expected_allowed": true,
+          "observed_ok": true,
+          "passed": true,
+          "error": null,
+          "code": null
+        },
+        {
+          "name": "absolute-outside-read",
+          "method": "readFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/boundary-outside\/marker.txt",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "package-parent-traversal",
+          "method": "readFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/..\/boundary-outside\/marker.txt",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "data-parent-traversal",
+          "method": "exists",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b\/..\/outside-sibling\/marker.txt",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "data-prefix-sibling",
+          "method": "exists",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b-sibling\/marker.txt",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "global-tmp",
+          "method": "realpath",
+          "input": "\/tmp",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "package-write",
+          "method": "writeFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes\/forbidden-write.txt",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "package-root-write",
+          "method": "mkdir",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-2738395682c34955816871cd45c23e0b\/http-status-codes",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "symlink-outside-realpath",
+          "method": "realpath",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b\/outside-link",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "symlink-outside-read",
+          "method": "readFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b\/outside-link\/marker.txt",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "symlink-outside-write",
+          "method": "writeFile",
+          "input": "\/data\/user\/0\/dev.tinycast.android\/files\/extension-data\/compat-batch-2738395682c34955816871cd45c23e0b\/outside-link\/marker.txt",
+          "expected_allowed": false,
+          "observed_ok": false,
+          "passed": true,
+          "error": "Extensions can only access their own package and data folder",
+          "code": "ENOTSUP"
+        },
+        {
+          "name": "outside-owned-marker-preserved",
+          "passed": true
+        },
+        {
+          "name": "package-write-absent",
+          "passed": true
+        },
+        {
+          "name": "frozen-temp-dir-call-owned-and-allowed",
+          "passed": true
+        }
+      ],
+      "cpu_contract": {
+        "passed": false,
+        "app_uid": 10213,
+        "proc_stat_readable": false,
+        "preview_cpu_rows": null,
+        "runtime_available_processors": 4,
+        "arguments_and_unsupported_calls_rejected": true,
+        "response": {
+          "ok": false,
+          "error": "os.cpus requires an unsupported desktop capability. Android cannot run shell commands or native Mac helpers.",
+          "code": "ENOTSUP"
+        },
+        "scope": "CPU array may be empty when per-core metadata is inaccessible; it is not a physical CPU count"
+      },
+      "module_contract": {
+        "flags": {
+          "strictThis": true,
+          "aliases": true,
+          "identity": true,
+          "request": true,
+          "other": true,
+          "resolve": true,
+          "cache": true,
+          "receiver": true,
+          "filename": true,
+          "dirname": true,
+          "phrase": false,
+          "count": false,
+          "originalError": true,
+          "mutationPreserved": true,
+          "deletionPreserved": true,
+          "existingPreserved": true
+        }
+      }
+    }
+  ]
+}

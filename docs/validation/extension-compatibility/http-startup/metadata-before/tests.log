@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest:
+INSTRUMENTATION_STATUS: test=frozenHttpBundleRecordsRealpathRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Owned filesystem and Node metadata contracts must pass; filesystem failures=[]; cpu=false; modules={"flags":{"strictThis":true,"aliases":true,"identity":true,"request":true,"other":true,"resolve":true,"cache":true,"receiver":true,"filename":true,"dirname":true,"phrase":false,"count":false,"originalError":true,"mutationPreserved":true,"deletionPreserved":true,"existingPreserved":true}}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest.frozenHttpBundleRecordsRealpathRequest(ExtensionSandboxDiagnosticDeviceTest.kt:274)
+
+INSTRUMENTATION_STATUS: stream=
+Error in frozenHttpBundleRecordsRealpathRequest(dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest):
+java.lang.AssertionError: Owned filesystem and Node metadata contracts must pass; filesystem failures=[]; cpu=false; modules={"flags":{"strictThis":true,"aliases":true,"identity":true,"request":true,"other":true,"resolve":true,"cache":true,"receiver":true,"filename":true,"dirname":true,"phrase":false,"count":false,"originalError":true,"mutationPreserved":true,"deletionPreserved":true,"existingPreserved":true}}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest.frozenHttpBundleRecordsRealpathRequest(ExtensionSandboxDiagnosticDeviceTest.kt:274)
+
+INSTRUMENTATION_STATUS: test=frozenHttpBundleRecordsRealpathRequest
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.7
+There was 1 failure:
+1) frozenHttpBundleRecordsRealpathRequest(dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest)
+java.lang.AssertionError: Owned filesystem and Node metadata contracts must pass; filesystem failures=[]; cpu=false; modules={"flags":{"strictThis":true,"aliases":true,"identity":true,"request":true,"other":true,"resolve":true,"cache":true,"receiver":true,"filename":true,"dirname":true,"phrase":false,"count":false,"originalError":true,"mutationPreserved":true,"deletionPreserved":true,"existingPreserved":true}}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest.frozenHttpBundleRecordsRealpathRequest(ExtensionSandboxDiagnosticDeviceTest.kt:274)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

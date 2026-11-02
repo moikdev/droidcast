@@ -2,6 +2,10 @@
 
 This is the execution portion of [#72](https://github.com/moikdev/droidcast/issues/72), under [#7](https://github.com/moikdev/droidcast/issues/7). [Command discovery](EXTENSION-CATALOG.md) records declarations from a pinned open-source repository. A workflow batch executes specific prebuilt Store bundles on Android. These are different versioned populations; a Store result does not change the pinned source inventory's untested declarations.
 
+## HTTP startup follow-up
+
+The separate [HTTP startup repair](EXTENSION-HTTP-STARTUP.md) records the original owned-root error, the intermediate CPU error, matched negative controls and the repaired `965d470` app/test pair. The same frozen HTTP command now completes native 404 search, Copy Code and touch return on both layouts. Fresh sixteen-command collectors on this runtime complete **12 listed workflows per layout**, with three still partial and Weather still failing at the service request. All eleven previously working workflows are preserved. The [new checkpoint](validation/extension-compatibility/http-startup-checkpoint.json) keeps these new binaries and observations separate from the original batch below. Neither checkpoint certifies full Store/source parity.
+
 ## Batch 001 checkpoint
 
 The frozen `eef1b8d` app/test pair ran sixteen named commands on each layout, followed by one focused tablet history workflow. **Eleven commands have a completed listed workflow on both layouts; three remain partial and two have observed workflow failures.** The broad tablet run itself records ten working, three partial, two failed and one untested row. Its history row was interrupted by the SystemUI clipboard-dismissal helper before opening History. The same-APK focused run supplements that row; it does not rewrite the broad result. Phone records eleven working, three partial and two failed rows.

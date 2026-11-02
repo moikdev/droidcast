@@ -1,0 +1,14 @@
+{
+  "head": "965d470cf47c2db543bf65a907582ce3321ad71d",
+  "command": [
+    "./gradlew",
+    "--no-daemon",
+    "-PdroidcastBuildCommit=965d470cf47c2db543bf65a907582ce3321ad71d",
+    ":app:assembleDebug",
+    ":app:assembleDebugAndroidTest",
+    ":app:testDebugUnitTest",
+    ":app:lintDebug"
+  ],
+  "exit_code": 0,
+  "log_sha256": "f872a10d2bd3e2ff66f8d0b5ded2590501ca202e85c96cdaf4a0b64de9eecad1"
+}

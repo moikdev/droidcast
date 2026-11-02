@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest:
+INSTRUMENTATION_STATUS: test=frozenHttpBundleRecordsRealpathRequest
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Owned roots must work and filesystem boundaries must remain enforced: [data-raw-realpath, data-raw-exists, data-raw-stat, data-raw-readdir, data-canonical-realpath, data-canonical-exists, data-canonical-stat, data-canonical-readdir, package-raw-realpath, package-raw-exists, package-raw-stat, package-raw-readdir, package-canonical-realpath, package-canonical-exists, package-canonical-stat, package-canonical-readdir, data-root-mkdir, data-canonical-root-mkdir, frozen-temp-dir-call-owned-and-allowed]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest.frozenHttpBundleRecordsRealpathRequest(ExtensionSandboxDiagnosticDeviceTest.kt:186)
+
+INSTRUMENTATION_STATUS: stream=
+Error in frozenHttpBundleRecordsRealpathRequest(dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest):
+java.lang.AssertionError: Owned roots must work and filesystem boundaries must remain enforced: [data-raw-realpath, data-raw-exists, data-raw-stat, data-raw-readdir, data-canonical-realpath, data-canonical-exists, data-canonical-stat, data-canonical-readdir, package-raw-realpath, package-raw-exists, package-raw-stat, package-raw-readdir, package-canonical-realpath, package-canonical-exists, package-canonical-stat, package-canonical-readdir, data-root-mkdir, data-canonical-root-mkdir, frozen-temp-dir-call-owned-and-allowed]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest.frozenHttpBundleRecordsRealpathRequest(ExtensionSandboxDiagnosticDeviceTest.kt:186)
+
+INSTRUMENTATION_STATUS: test=frozenHttpBundleRecordsRealpathRequest
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.549
+There was 1 failure:
+1) frozenHttpBundleRecordsRealpathRequest(dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest)
+java.lang.AssertionError: Owned roots must work and filesystem boundaries must remain enforced: [data-raw-realpath, data-raw-exists, data-raw-stat, data-raw-readdir, data-canonical-realpath, data-canonical-exists, data-canonical-stat, data-canonical-readdir, package-raw-realpath, package-raw-exists, package-raw-stat, package-raw-readdir, package-canonical-realpath, package-canonical-exists, package-canonical-stat, package-canonical-readdir, data-root-mkdir, data-canonical-root-mkdir, frozen-temp-dir-call-owned-and-allowed]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionSandboxDiagnosticDeviceTest.frozenHttpBundleRecordsRealpathRequest(ExtensionSandboxDiagnosticDeviceTest.kt:186)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
