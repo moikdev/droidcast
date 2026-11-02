@@ -27,6 +27,7 @@
   const httpStatusCodes = {"100":"Continue","101":"Switching Protocols","102":"Processing","103":"Early Hints","200":"OK","201":"Created","202":"Accepted","203":"Non-Authoritative Information","204":"No Content","205":"Reset Content","206":"Partial Content","207":"Multi-Status","208":"Already Reported","226":"IM Used","300":"Multiple Choices","301":"Moved Permanently","302":"Found","303":"See Other","304":"Not Modified","305":"Use Proxy","307":"Temporary Redirect","308":"Permanent Redirect","400":"Bad Request","401":"Unauthorized","402":"Payment Required","403":"Forbidden","404":"Not Found","405":"Method Not Allowed","406":"Not Acceptable","407":"Proxy Authentication Required","408":"Request Timeout","409":"Conflict","410":"Gone","411":"Length Required","412":"Precondition Failed","413":"Payload Too Large","414":"URI Too Long","415":"Unsupported Media Type","416":"Range Not Satisfiable","417":"Expectation Failed","418":"I'm a Teapot","421":"Misdirected Request","422":"Unprocessable Entity","423":"Locked","424":"Failed Dependency","425":"Too Early","426":"Upgrade Required","428":"Precondition Required","429":"Too Many Requests","431":"Request Header Fields Too Large","451":"Unavailable For Legal Reasons","500":"Internal Server Error","501":"Not Implemented","502":"Bad Gateway","503":"Service Unavailable","504":"Gateway Timeout","505":"HTTP Version Not Supported","506":"Variant Also Negotiates","507":"Insufficient Storage","508":"Loop Detected","509":"Bandwidth Limit Exceeded","510":"Not Extended","511":"Network Authentication Required"};
   const hydratedHttp = new WeakSet();
   const nativeApis = new WeakMap(), nativeForms = new WeakMap(), nativeFields = new WeakMap();
+  const nativeActions = new WeakMap(), nativeSubmits = new WeakMap();
   const inputFields = new Set(["TextField", "PasswordField", "TextArea", "Checkbox", "Dropdown"]);
   let focusEvent = null;
   // The generated wrapper captures a React value. Android's native editor may
@@ -58,10 +59,121 @@
     }));
     return nativeFields.get(field);
   }
+  // SubmitForm loses its type in the generated generic Action projection.
+  // Keep an Android-owned identity and validate after a fresh committed tree.
+  // The returned Promise preserves the generated dispatcher's error handling.
+  let submitSequence = 0, submitRevision = 0, submitView = null, submitDrainQueued = false;
+  const pendingSubmits = new Set();
+  function treeNodes(root) {
+    const result = [], stack = root ? [root] : [];
+    while (stack.length) {
+      if (result.length >= 16384) return null;
+      const node = stack.pop();
+      if (!node || typeof node !== "object") continue;
+      result.push(node);
+      const children = Array.isArray(node.children) ? node.children : [];
+      for (let index = children.length - 1; index >= 0; index--) stack.push(children[index]);
+    }
+    return result;
+  }
+  function readSubmitView(session, encodedTree) {
+    const revision = ++submitRevision;
+    if (!encodedTree.includes('"__tinycastFormSubmit"')) return null;
+    try {
+      const tree = JSON.parse(encodedTree), all = treeNodes(tree);
+      if (!all) return null;
+      const screens = all.filter(node => node.type === "__screen" && node.props?.active);
+      const visible = treeNodes(screens.at(-1) || tree);
+      const root = visible?.find(node => ["List", "Grid", "Detail", "Form"].includes(node.type));
+      if (!root || root.id == null) return null;
+      const actions = treeNodes(root.props?.actions), fields = treeNodes(root);
+      if (!actions || !fields) return null;
+      const owners = new Map();
+      for (const action of actions) {
+        const p = action.props || {}, token = p.__tinycastSubmitOwner;
+        if (action.type !== "Action" || p.__tinycastFormSubmit !== true || typeof token !== "string") continue;
+        const binding = {nativeId: String(action.id), signature: p.__tinycastSubmitSignature};
+        owners.set(token, owners.has(token) ? null : binding);
+      }
+      const errors = root.type === "Form" && fields.some(node =>
+        inputFields.has(String(node.type).replace(/^Form\./, "")) &&
+        typeof node.props?.error === "string" && node.props.error.trim().length > 0);
+      return {session, revision, rootId: String(root.id), type: root.type, owners, errors};
+    } catch { return null; }
+  }
+  function cancelSubmit(owner) {
+    const ticket = owner.pending;
+    owner.pending = null; pendingSubmits.delete(owner);
+    ticket?.resolve(undefined);
+  }
+  function queueSubmitDrain() {
+    if (submitDrainQueued || !pendingSubmits.size) return;
+    submitDrainQueued = true;
+    Promise.resolve().then(() => {
+      submitDrainQueued = false;
+      for (const owner of [...pendingSubmits]) {
+        const ticket = owner.pending, view = submitView, binding = view?.owners.get(owner.token);
+        if (!ticket) { pendingSubmits.delete(owner); continue; }
+        if (view && view.revision <= ticket.revision) continue;
+        owner.pending = null; pendingSubmits.delete(owner);
+        if (!owner.active || !binding || !view || view.session !== ticket.session || view.rootId !== ticket.rootId ||
+            view.type !== ticket.type || binding.nativeId !== ticket.nativeId || binding.signature !== ticket.signature ||
+            owner.signature !== ticket.signature || view.errors || typeof owner.action !== "function") {
+          ticket.resolve(undefined); continue;
+        }
+        try { ticket.resolve(Reflect.apply(owner.action, undefined, [])); }
+        catch (error) { ticket.reject(error); }
+      }
+    });
+  }
+  function requestSubmit(owner) {
+    if (owner.pending) return owner.pending.promise;
+    const view = submitView, binding = view?.owners.get(owner.token);
+    if (!owner.active || !view || !binding || binding.signature !== owner.signature) return Promise.resolve(undefined);
+    const ticket = {...binding, session: view.session, rootId: view.rootId, type: view.type, revision: view.revision};
+    ticket.promise = new Promise((resolve, reject) => { ticket.resolve = resolve; ticket.reject = reject; });
+    owner.pending = ticket; pendingSubmits.add(owner);
+    try { owner.publish(); queueSubmitDrain(); }
+    catch (error) { owner.pending = null; pendingSubmits.delete(owner); ticket.reject(error); }
+    return ticket.promise;
+  }
+  function nativeSubmit(submit, react) {
+    if (!nativeSubmits.has(submit)) nativeSubmits.set(submit, new Proxy(submit, {
+      apply(target, receiver, args) {
+        const [, publish] = react.useReducer(version => version + 1, 0), reference = react.useRef(null);
+        if (!reference.current) reference.current = {token: "android-submit-" + (++submitSequence), active: false, pending: null, publish};
+        const owner = reference.current, element = Reflect.apply(target, receiver, args);
+        const valid = react.isValidElement(element) && typeof element.props?.onAction === "function";
+        const p = valid ? element.props : {};
+        const signature = JSON.stringify([p.title ?? null, p.icon ?? null, p.shortcut ?? null, p.style ?? null, p.autoFocus ?? null]);
+        react.useLayoutEffect(() => {
+          owner.active = true;
+          return () => { owner.active = false; cancelSubmit(owner); };
+        }, [owner]);
+        react.useLayoutEffect(() => { owner.action = valid ? p.onAction : null; owner.signature = signature; }, [owner, p.onAction, signature]);
+        if (!valid) return element;
+        return react.cloneElement(element, {__tinycastFormSubmit: true, __tinycastSubmitOwner: owner.token,
+          __tinycastSubmitSignature: signature, onAction: () => requestSubmit(owner)});
+      }
+    }));
+    return nativeSubmits.get(submit);
+  }
+  function nativeAction(action, react) {
+    if (!nativeActions.has(action)) nativeActions.set(action, new Proxy(action, {
+      get(target, name, receiver) {
+        const value = Reflect.get(target, name, receiver);
+        return name === "SubmitForm" && typeof value === "function" ? nativeSubmit(value, react) : value;
+      }
+    }));
+    return nativeActions.get(action);
+  }
   function nativeApi(api, react) {
     if (!nativeApis.has(api)) nativeApis.set(api, new Proxy(api, {
       get(target, name, receiver) {
         const value = Reflect.get(target, name, receiver);
+        if (name === "default" && value === target) return nativeApis.get(target);
+        if (name === "Action" && typeof value === "function") return nativeAction(value, react);
+        if (name === "SubmitFormAction" && typeof value === "function") return nativeSubmit(value, react);
         if (name !== "Form" || typeof value !== "function") return value;
         if (!nativeForms.has(value)) nativeForms.set(value, new Proxy(value, {
           get(form, member, formReceiver) {
@@ -101,8 +213,16 @@
   globalThis.__tinycastHost = {
     invoke: (id, api, method, args) => AndroidHost.invoke(id, api, method, args),
     invokeSync: (api, method, args) => AndroidHost.invokeSync(api, method, args),
-    render: (id, tree) => AndroidHost.render(tree),
-    failed: (id, error) => AndroidHost.failed(error),
+    render: (id, tree) => {
+      submitView = readSubmitView(id, tree);
+      AndroidHost.render(tree);
+      queueSubmitDrain();
+    },
+    failed: (id, error) => {
+      submitView = null;
+      for (const owner of [...pendingSubmits]) cancelSubmit(owner);
+      AndroidHost.failed(error);
+    },
     finished: () => AndroidHost.finished(),
     navigationDepthChanged: (id, depth) => AndroidHost.depth(depth),
     fieldCommand: () => {},

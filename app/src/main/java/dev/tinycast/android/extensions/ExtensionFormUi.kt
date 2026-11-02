@@ -12,6 +12,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.error
@@ -58,7 +59,7 @@ internal fun ExtensionCheckboxRow(label: String, checked: Boolean, change: (Bool
 @Composable
 internal fun NativeExtensionForm(root: JSONObject, liveRoot: () -> JSONObject?, dispatch: (String?, JSONArray) -> Unit,
                                   dispatchFocus: (String?, String, Boolean, Any) -> Unit,
-                                  modifier: Modifier = Modifier) {
+                                  submission: FormSubmitPreparation, modifier: Modifier = Modifier) {
     val rootId = root.optString("id")
     val scroll = remember(rootId) { androidx.compose.foundation.ScrollState(0) }
     val values = remember(rootId) { FormEditorValues() }
@@ -72,7 +73,15 @@ internal fun NativeExtensionForm(root: JSONObject, liveRoot: () -> JSONObject?, 
             }
         }
     }
-    DisposableEffect(focus, values) { onDispose { focus.clear(); values.clear() } }
+    val nativeFocus = LocalFocusManager.current
+    DisposableEffect(focus, values, submission, nativeFocus) {
+        val token = Any()
+        submission.attach(token) {
+            focus.blurCurrent()
+            nativeFocus.clearFocus(force = true)
+        }
+        onDispose { submission.detach(token); focus.clear(); values.clear() }
+    }
     Column(modifier.fillMaxWidth().verticalScroll(scroll).padding(20.dp).testTag("extension-form"),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
         root.children().forEach { node -> key(node.optString("id")) { NativeFormNode(root, node, liveRoot, dispatch, focus, values) } }
