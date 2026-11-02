@@ -336,6 +336,12 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         return
     }
     val catalog=store.extensions
+    val launchEpoch=remember(runtime){catalog.launchEpoch}
+    fun liveRoot():JSONObject? {
+        val running=catalog.running
+        if(catalog.launchEpoch!=launchEpoch || running?.first!==extension || running?.second!==command || catalog.runtimeError!=null) return null
+        return activeRoot(catalog.runtimeTree)
+    }
     val context=LocalContext.current
     val root=activeRoot(catalog.runtimeTree)
     val failed=catalog.runtimeError!=null
@@ -348,9 +354,10 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         root?.props()?.optBoolean("filtering",true)==false||query.isBlank()||("${it.props().optString("title")} ${it.props().optString("subtitle")} ${it.props().optJSONArray("keywords")}").contains(query,true)
     }
     val item=rows.getOrNull(selected.coerceIn(0,(rows.size-1).coerceAtLeast(0)))
-    val actions=item?.actions().orEmpty().ifEmpty{root?.actions().orEmpty()}
+    val actionScope=extensionActionScope(root,item,rows.size,query)
+    val actions=actionScope.nodes
     fun liveRows(): List<JSONObject> {
-        val liveRoot = activeRoot(catalog.runtimeTree) ?: return emptyList()
+        val liveRoot = liveRoot() ?: return emptyList()
         if (liveRoot.optString("type") != "List" || liveRoot.optString("id") != root?.optString("id")) return emptyList()
         val liveQuery = listState.search.text
         return liveRoot.nodes("List.Item").filter {
@@ -358,16 +365,16 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 ("${it.props().optString("title")} ${it.props().optString("subtitle")} ${it.props().optJSONArray("keywords")}").contains(liveQuery, true)
         }
     }
-    fun liveActions(): List<JSONObject> {
-        val liveRoot = activeRoot(catalog.runtimeTree) ?: return emptyList()
-        if (liveRoot.optString("id") != root?.optString("id") || liveRoot.optString("type") != root?.optString("type")) return emptyList()
-        if (liveRoot.optString("type") != "List") return liveRoot.actions()
+    fun liveActionScope(): ExtensionActionScope {
+        val liveRoot = liveRoot() ?: return ExtensionActionScope("", "", emptyList())
+        if (liveRoot.optString("id") != root?.optString("id") || liveRoot.optString("type") != root?.optString("type")) return ExtensionActionScope("", "", emptyList())
+        if (liveRoot.optString("type") != "List") return extensionActionScope(liveRoot,null,0,"")
         val liveRows = liveRows()
-        return liveRows.getOrNull(listState.selected.coerceIn(0, liveRows.lastIndex.coerceAtLeast(0)))?.actions().orEmpty()
-            .ifEmpty { liveRoot.actions() }
+        return extensionActionScope(liveRoot,liveRows.getOrNull(listState.selected.coerceIn(0, liveRows.lastIndex.coerceAtLeast(0))),liveRows.size,listState.search.text)
     }
+    fun liveActions() = liveActionScope().nodes
     fun notifyCurrentSelection() {
-        val currentRoot = activeRoot(catalog.runtimeTree) ?: return
+        val currentRoot = liveRoot() ?: return
         if (catalog.runtimeError != null || currentRoot.optString("type") != "List" || currentRoot.optString("id") != root?.optString("id")) return
         val callback = currentRoot.handle("onSelectionChange") ?: return
         val currentRows = liveRows()
@@ -376,13 +383,15 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             runtime.dispatch(callback, JSONArray().put(id ?: JSONObject.NULL))
         }
     }
-    fun action(a: JSONObject?) {
-        if (catalog.runtimeError == null && a != null) {
+    fun action(a: JSONObject?, expected: ExtensionActionScope? = null) {
+        val live = liveActionScope()
+        val current = if(expected == null || (expected.rootId == live.rootId && expected.owner == live.owner)) live.resolve(a) else null
+        if (catalog.runtimeError == null && current != null) {
             listState.search = listState.search.copy(composition = null)
             // Queue selection before activation, including back-to-back keys
             // before Compose's selection effect can run. JS refs see this first.
             notifyCurrentSelection()
-            runtime.dispatch(a.handle("onAction"))
+            runtime.dispatch(current.handle("onAction"))
         }
         menu = false
     }
@@ -421,7 +430,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }else when(root.optString("type")){
             "Grid" -> Box(Modifier.weight(1f).fillMaxWidth()) {
                 val state = gridStates.getOrPut(root.optString("id")) { ExtensionGridState() }
-                NativeExtensionGrid(state, { activeRoot(catalog.runtimeTree) ?: root }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, runtime::dispatch, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
+                NativeExtensionGrid(state, { liveRoot()?.takeIf { it.optString("type")=="Grid" } }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, { handle,args -> if(liveRoot()?.optString("type")=="Grid")runtime.dispatch(handle,args) }, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
             }
             "List"->{
                 ExtensionSearchHeader(listSearch,{next->
@@ -431,13 +440,14 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                     IconButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"},modifier=Modifier.size(48.dp).semantics{contentDescription="Extension preferences"}){Glyph("settings",muted,16)}
                 }
                 if(root.props().optBoolean("isLoading"))LinearProgressIndicator(Modifier.fillMaxWidth().padding(top=5.dp))
-                LazyColumn(state=listState.scroll,modifier=Modifier.weight(1f).fillMaxWidth().testTag("extension-list"),contentPadding=PaddingValues(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
+                if(rows.isEmpty()) NativeExtensionEmptyView(extensionEmptyView(root,0,query),root.props().optBoolean("isLoading") && query.isEmpty(),gridImages,
+                    "extension-list-empty",Modifier.weight(1f).fillMaxWidth().testTag("extension-list"))
+                else LazyColumn(state=listState.scroll,modifier=Modifier.weight(1f).fillMaxWidth().testTag("extension-list"),contentPadding=PaddingValues(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
                     items(rows,key={it.optString("id")}){row->val i=rows.indexOf(row);val rowSelected=i==selected;Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(9.dp)).background(if(rowSelected)ink.copy(alpha=.12f)else card).semantics{this.selected=rowSelected}.clickable{selected=i;notifyCurrentSelection()}.padding(14.dp).testTag("extension-row-$i")){
                         Text(row.props().optString("title"),fontSize=14.sp,lineHeight=21.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
                         val subtitle=row.props().optString("subtitle");if(subtitle.isNotBlank())Text(subtitle,color=muted,fontSize=11.sp,lineHeight=17.sp)
                         row.props().optJSONArray("accessories").objects().forEach{Text(it.optString("text"),color=muted,fontSize=10.sp)}
                     }}
-                    if(rows.isEmpty())item{Text(if(root.props().optBoolean("isLoading"))"Loading…" else "No results",color=muted,modifier=Modifier.padding(20.dp))}
                     item?.props()?.optJSONObject("detail")?.let{detail->item{Text(detail.props().optString("markdown"),color=muted,fontSize=12.sp)}}
                 }
             }
@@ -457,7 +467,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 Box {
                     dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{action(liveActions().firstOrNull())},{menu=true},
                         "extension-primary","extension-actions",compact=!dev.tinycast.android.LocalPaletteWide.current)
-                    PaletteChoiceMenu(menu,{menu=false},actions.mapIndexed{i,a->PaletteChoice("extension-action-${a.optString("id",i.toString())}",a.props().optString("title","Action"),tag="extension-action-$i",shortcut=if(i==0)listOf("↵")else emptyList(),icon="command"){action(a)}},title=item?.props()?.optString("title") ?: command.title,searchable=true)
+                    PaletteChoiceMenu(menu,{menu=false},actions.mapIndexed{i,a->PaletteChoice("extension-action-${a.optString("id",i.toString())}",a.props().optString("title","Action"),tag="extension-action-$i",shortcut=if(i==0)listOf("↵")else emptyList(),icon="command"){action(a,actionScope)}},title=item?.props()?.optString("title") ?: command.title,searchable=true)
 
                 }
             }

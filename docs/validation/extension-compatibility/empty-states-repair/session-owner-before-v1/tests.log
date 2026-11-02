@@ -1,0 +1,143 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionEmptyViewDeviceTest:
+INSTRUMENTATION_STATUS: test=gridQueuedEmptyActionCannotRunInReplacementSession
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunInReplacementSession(ExtensionEmptyViewDeviceTest.kt:493)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridQueuedEmptyActionCannotRunInReplacementSession(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunInReplacementSession(ExtensionEmptyViewDeviceTest.kt:493)
+
+INSTRUMENTATION_STATUS: test=gridQueuedEmptyActionCannotRunInReplacementSession
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=listQueuedEmptyActionCannotRunInReplacementSession
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listQueuedEmptyActionCannotRunInReplacementSession(ExtensionEmptyViewDeviceTest.kt:492)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listQueuedEmptyActionCannotRunInReplacementSession(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listQueuedEmptyActionCannotRunInReplacementSession(ExtensionEmptyViewDeviceTest.kt:492)
+
+INSTRUMENTATION_STATUS: test=listQueuedEmptyActionCannotRunInReplacementSession
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=gridQueuedEmptyActionCannotRunAfterClose
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunAfterClose(ExtensionEmptyViewDeviceTest.kt:489)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridQueuedEmptyActionCannotRunAfterClose(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunAfterClose(ExtensionEmptyViewDeviceTest.kt:489)
+
+INSTRUMENTATION_STATUS: test=gridQueuedEmptyActionCannotRunAfterClose
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=gridQueuedEmptyActionCannotRunWithoutRoot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunWithoutRoot(ExtensionEmptyViewDeviceTest.kt:491)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridQueuedEmptyActionCannotRunWithoutRoot(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunWithoutRoot(ExtensionEmptyViewDeviceTest.kt:491)
+
+INSTRUMENTATION_STATUS: test=gridQueuedEmptyActionCannotRunWithoutRoot
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 45.188
+There were 4 failures:
+1) gridQueuedEmptyActionCannotRunInReplacementSession(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunInReplacementSession(ExtensionEmptyViewDeviceTest.kt:493)
+2) listQueuedEmptyActionCannotRunInReplacementSession(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listQueuedEmptyActionCannotRunInReplacementSession(ExtensionEmptyViewDeviceTest.kt:492)
+3) gridQueuedEmptyActionCannotRunAfterClose(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunAfterClose(ExtensionEmptyViewDeviceTest.kt:489)
+4) gridQueuedEmptyActionCannotRunWithoutRoot(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+org.junit.ComparisonFailure: expected:<{"attempts":[0,"dispatches":1]}> but was:<{"attempts":[1,"dispatches":2]}>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.queuedAfterOwnerChange(ExtensionEmptyViewDeviceTest.kt:429)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridQueuedEmptyActionCannotRunWithoutRoot(ExtensionEmptyViewDeviceTest.kt:491)
+
+FAILURES!!!
+Tests run: 4,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1

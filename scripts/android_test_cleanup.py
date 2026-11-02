@@ -1,10 +1,29 @@
 """Independent best-effort restoration for guarded, owned-emulator test runners."""
 import subprocess
 import time
+import re
 
 
 class CleanupError(RuntimeError):
     pass
+
+
+def empty_view_fixture_ids(value, owner_nonce):
+    """Validate the complete lease before a runner removes any fixture path."""
+    if not isinstance(owner_nonce, str) or not re.fullmatch(r'[0-9a-f]{32}', owner_nonce):
+        raise CleanupError('Invalid empty-view lease owner')
+    if not isinstance(value, dict) or set(value) != {'schema_version', 'fixture_kind', 'owner_nonce', 'owned_extension_ids'}:
+        raise CleanupError('Invalid empty-view lease schema')
+    if type(value['schema_version']) is not int or value['schema_version'] != 1 or value['fixture_kind'] != 'empty-view-device-test-v1' or value['owner_nonce'] != owner_nonce:
+        raise CleanupError('Empty-view lease belongs to another run')
+    ids = value['owned_extension_ids']
+    if not isinstance(ids, list) or len(ids) > 100:
+        raise CleanupError('Invalid empty-view fixture count')
+    if any(not isinstance(item, str) or not re.fullmatch(r'empty-view-[0-9a-f]{32}', item) for item in ids):
+        raise CleanupError('Unsafe empty-view fixture identity')
+    if len(set(ids)) != len(ids):
+        raise CleanupError('Duplicate empty-view fixture identity')
+    return list(ids)
 
 
 class Cleanup:

@@ -70,10 +70,10 @@ internal class ExtensionGridState {
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 internal fun NativeExtensionGrid(
-    state: ExtensionGridState, rootProvider: () -> JSONObject, images: ExtensionGridImages,
+    state: ExtensionGridState, rootProvider: () -> JSONObject?, images: ExtensionGridImages,
     title: String, status: String, preferences: android.content.SharedPreferences, commandKey: String, dispatch: (String?, JSONArray) -> Unit, back: () -> Unit, configure: () -> Unit,
 ) {
-    val root = rootProvider()
+    val root = rootProvider() ?: return
     val props = root.props()
     val focus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
@@ -126,8 +126,8 @@ internal fun NativeExtensionGrid(
     LaunchedEffect(wide, keyboardRequested, windowFocused, searchFocused, imeVisible) {
         if (wide && !keyboardRequested && windowFocused && searchFocused) { withFrameNanos { }; keyboard?.hide() }
     }
-    fun current(): Pair<List<ExtensionGridSection>, ExtensionGridItem?> {
-        val latest = rootProvider()
+    fun current(latest: JSONObject? = rootProvider()): Pair<List<ExtensionGridSection>, ExtensionGridItem?> {
+        if (latest == null) return emptyList<ExtensionGridSection>() to null
         val groups = gridSections(latest, state.search.text)
         val all = groups.flatMap { it.items }
         val remote = latest.props().opt("selectedItemId") as? String
@@ -136,9 +136,9 @@ internal fun NativeExtensionGrid(
         return groups to all.firstOrNull { it.key == choice.key }
     }
     fun notifyCurrentSelection() {
-        val latest = rootProvider()
+        val latest = rootProvider() ?: return
         val callback = latest.handle("onSelectionChange") ?: return
-        val (_, chosen) = current()
+        val (_, chosen) = current(latest)
         // Retain unresolved controlled IDs until their items arrive.
         if (state.pendingRemoteSelection != null) return
         state.selectionDelivery.deliver(latest.optString("id"), chosen?.id) {
@@ -146,16 +146,24 @@ internal fun NativeExtensionGrid(
         }
     }
     LaunchedEffect(root.optString("id"), selected?.id, selection.pendingId, root.handle("onSelectionChange")) { notifyCurrentSelection() }
-    fun currentActions(): List<JSONObject> = current().second?.node?.actions().orEmpty().ifEmpty { rootProvider().actions() }
-    fun action(node: JSONObject?) {
-        node?.let {
+    fun currentActionScope(): ExtensionActionScope {
+        val latest = rootProvider()
+        val (groups, chosen) = current(latest)
+        return extensionActionScope(latest,chosen?.node,groups.sumOf { it.items.size },state.search.text)
+    }
+    fun currentActions(): List<JSONObject> = currentActionScope().nodes
+    fun action(node: JSONObject?, expected: ExtensionActionScope? = null) {
+        val live = currentActionScope()
+        val current = if(expected == null || (expected.rootId == live.rootId && expected.owner == live.owner)) live.resolve(node) else null
+        current?.let {
             state.search = state.search.copy(composition = null)
             notifyCurrentSelection()
             dispatch(it.handle("onAction"), JSONArray())
         }
         menu = false
     }
-    val actions: List<JSONObject> = selected?.node?.actions().orEmpty().ifEmpty { root.actions() }
+    val actionScope = extensionActionScope(root,selected?.node,items.size,state.search.text)
+    val actions: List<JSONObject> = actionScope.nodes
     val history = state.history
     val recovery = remember { GridVisibilityRecovery() }
 
@@ -230,7 +238,7 @@ internal fun NativeExtensionGrid(
                 BasicTextField(state.search, { next ->
                     val changed = next.text != state.search.text
                     state.search = next
-                    if (changed) { state.selectLocally(null); dispatch(rootProvider().handle("onSearchTextChange"), JSONArray().put(next.text)) }
+                    if (changed) { state.selectLocally(null); dispatch(rootProvider()?.handle("onSearchTextChange"), JSONArray().put(next.text)) }
                 }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (state.search.composition == null) action(currentActions().firstOrNull()) }),
@@ -260,13 +268,9 @@ internal fun NativeExtensionGrid(
                 if (pagination?.optBoolean("hasMore") == true) TextButton(onClick = { dispatch(pagination.optJSONObject("onLoadMore")?.optString("\$fn"), JSONArray()) }, enabled = !props.optBoolean("isLoading"), modifier = Modifier.testTag("extension-grid-more")) { Text("Load more", fontSize = 11.sp) }
                 if (wide) Text(if (editingQuery) "Editing query · ↓ select" else "Type to search · arrows select · Ctrl L edit", color = PaletteTheme.secondary, fontSize = 10.sp)
             }
-            if (items.isEmpty()) Box(Modifier.weight(1f).fillMaxWidth().testTag("extension-grid-empty"), contentAlignment = Alignment.Center) {
-                val empty = root.nodes("Grid.EmptyView").firstOrNull()?.props()
-                Column(Modifier.verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(empty?.optString("title")?.takeIf { it.isNotBlank() } ?: if (props.optBoolean("isLoading")) "Loading…" else "No results", color = PaletteTheme.ink, fontSize = 16.sp)
-                    empty?.optString("description")?.takeIf { it.isNotBlank() }?.let { Text(it, color = PaletteTheme.secondary, fontSize = 12.sp) }
-                }
-            } else LazyVerticalGrid(GridCells.Fixed(columns), state = state.scroll, modifier = Modifier.weight(1f).fillMaxWidth().onFocusChanged { gridFocused = it.hasFocus }.focusable().onSizeChanged { gridHeight = it.height }.testTag("extension-grid"),
+            if (items.isEmpty()) NativeExtensionEmptyView(extensionEmptyView(root,0,state.search.text),props.optBoolean("isLoading") && state.search.text.isEmpty(),images,
+                "extension-grid-empty",Modifier.weight(1f).fillMaxWidth().testTag("extension-grid-empty"))
+            else LazyVerticalGrid(GridCells.Fixed(columns), state = state.scroll, modifier = Modifier.weight(1f).fillMaxWidth().onFocusChanged { gridFocused = it.hasFocus }.focusable().onSizeChanged { gridHeight = it.height }.testTag("extension-grid"),
                 contentPadding = PaddingValues(16.dp, 8.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 slots.forEach { slot ->
                     when (slot) {
@@ -302,7 +306,7 @@ internal fun NativeExtensionGrid(
                     dev.tinycast.android.PaletteActionCapsule(actions.firstOrNull()?.props()?.optString("title", "Run action") ?: "Run action",
                         { action(currentActions().firstOrNull()) }, { menu=true }, "extension-primary", "extension-actions", compact=!wide, enabled=actions.isNotEmpty())
                     PaletteChoiceMenu(menu, { menu = false }, actions.mapIndexed { index, node ->
-                        PaletteChoice("extension-action-${node.optString("id",index.toString())}", node.props().optString("title", "Action"), tag = "extension-action-$index",shortcut=if(index==0)listOf("↵")else emptyList(),icon="command") { action(node) }
+                        PaletteChoice("extension-action-${node.optString("id",index.toString())}", node.props().optString("title", "Action"), tag = "extension-action-$index",shortcut=if(index==0)listOf("↵")else emptyList(),icon="command") { action(node,actionScope) }
                     }, title = selected?.title ?: "Actions", returnFocus = focus, searchable = true)
                 }
             }

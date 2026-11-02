@@ -1,0 +1,96 @@
+{
+  "avd": "Tinycast_Tablet_API_36",
+  "serial": "emulator-5580",
+  "layout": "phone",
+  "classes": "dev.tinycast.android.ExtensionEmptyViewDeviceTest#listLongErrorLinesRemainReachableByTouch,dev.tinycast.android.ExtensionEmptyViewDeviceTest#gridLongErrorLinesRemainReachableByTouch",
+  "expected": 2,
+  "completed": true,
+  "runner_sha256": "4c17ecd209e296db486c2913b989233f927032e8922ae0e61d89485e9e08d54f",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "requested_font_scale": 2.0,
+  "requested_size": null,
+  "requested_density": null,
+  "empty_view_fixture_mode": true,
+  "empty_view_lease_owner": "6532f50d574d46639b3f71346c8fa695",
+  "pid": 84745,
+  "settings_before": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "show_ime_with_hard_keyboard": "0"
+  },
+  "fixture_upload_directory": null,
+  "apk_sha256": "92773eca4633e5714a523c382cf4d1a6cd5c5c43a0900f3e9df0d83b57936670",
+  "test_apk_sha256": "5d4d8635af708f6e278b13a1886e6c368d0842664c7482f742a9a1a2d44f4043",
+  "installed_matches": true,
+  "capture_background": "launcher-intent",
+  "suite_timeout_seconds": 600,
+  "passes": 2,
+  "tests_completed": true,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "empty-view-owned-data": {
+      "passed": true
+    },
+    "empty-view-lease": {
+      "passed": true
+    },
+    "preferences-backup": {
+      "passed": true
+    },
+    "preferences": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "private-fixture": {
+      "passed": true
+    },
+    "fixture-cache": {
+      "passed": true
+    },
+    "verify-data": {
+      "passed": true
+    },
+    "verify-geometry": {
+      "passed": true
+    },
+    "verify-identity": {
+      "passed": true
+    }
+  },
+  "empty_view_owners_cleaned": 2,
+  "preferences_restored": true,
+  "emoji_preferences_restored": true,
+  "settings_restored": true,
+  "font_scale_restored": true,
+  "size": "Physical size: 1920x1200",
+  "density": "Physical density: 240",
+  "adbd": "uid=2000(shell) gid=2000(shell)",
+  "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)"
+}

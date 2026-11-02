@@ -1,0 +1,101 @@
+{
+  "completed": true,
+  "pid": 28691,
+  "current_phase": null,
+  "phases": {
+    "session-owner-after": {
+      "exit_code": 0,
+      "record_sha256": "415d057aba92db89f6d4a3dc34f06fedb7c59fba4af297bafbff642c31bf8398",
+      "cleanup_checks": 15,
+      "passes": 4
+    },
+    "repair-empty-tablet": {
+      "exit_code": 0,
+      "record_sha256": "0b22bd64d8b6a46334448ac0b667330acbc4a611767938c245d470fdaf2b9f53",
+      "cleanup_checks": 15,
+      "passes": 18
+    },
+    "repair-empty-phone": {
+      "exit_code": 0,
+      "record_sha256": "c610ce761224716201e456855da6a9ec9ad20d9ff662a09ff304d66f855a639c",
+      "cleanup_checks": 17,
+      "passes": 18
+    },
+    "repair-font-phone200": {
+      "exit_code": 0,
+      "record_sha256": "399afce9d8ed244c87ffec1e69ad307caaf83c2327444e9f9ee6a45aaa2d464e",
+      "cleanup_checks": 18,
+      "passes": 2
+    },
+    "repair-font-landscape200": {
+      "exit_code": 0,
+      "record_sha256": "e2197ccd2efc3f1be96c6ca86421db9050b45ac62295d1dbbace124a84f6c91e",
+      "cleanup_checks": 18,
+      "passes": 2
+    },
+    "repair-weather-before-tablet": {
+      "exit_code": 0,
+      "record_sha256": "6cc43ec984ed9bafdb5e9577dffca58bb807b6a3783a5ac50a858209bd8890c4",
+      "cleanup_checks": 13,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "repair-weather-after-tablet": {
+      "exit_code": 0,
+      "record_sha256": "c7f01fe64adfab966ec490128882b0f8d7695e73d54ace62c23b7e7541fb530f",
+      "cleanup_checks": 13,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "repair-weather-before-phone": {
+      "exit_code": 0,
+      "record_sha256": "752a4d721f00e8b798bde856d5caed2f4c8e1dafe46f8e8445dbc4a05c252446",
+      "cleanup_checks": 15,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "repair-weather-after-phone": {
+      "exit_code": 0,
+      "record_sha256": "3a8399cd368a121a93f82925817c772ca9d820039875899cea76ed52223bd54c",
+      "cleanup_checks": 15,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "repair-native-tablet": {
+      "exit_code": 0,
+      "record_sha256": "220bcbfa4f28609c9c91b0ca8f8b1a52ceadf413e73ecae1d32f073a8600e841",
+      "cleanup_checks": 13,
+      "passes": 25
+    },
+    "repair-native-phone": {
+      "exit_code": 0,
+      "record_sha256": "62770db9e3026a207303a8d975c239e14f463fcfd3f403c5c2b7e6fb4e951df2",
+      "cleanup_checks": 15,
+      "passes": 25
+    },
+    "repair-batch-tablet": {
+      "exit_code": 0,
+      "record_sha256": "d9bfa25f56528a71e69bdf25e6645d4692d583259bb9b29597b0dda7fe8a86e3",
+      "cleanup_checks": 13,
+      "workflow_status_counts": {
+        "observed-failed": 1,
+        "tested-partial": 3,
+        "tested-working-for-listed-workflow": 12
+      }
+    },
+    "repair-batch-phone": {
+      "exit_code": 0,
+      "record_sha256": "bd1a369f36a80d9813340eed2ce21d153d8297cebee6220b59c295231dcb7488",
+      "cleanup_checks": 15,
+      "workflow_status_counts": {
+        "observed-failed": 1,
+        "tested-partial": 3,
+        "tested-working-for-listed-workflow": 12
+      }
+    }
+  }
+}

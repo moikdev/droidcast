@@ -494,7 +494,8 @@ class ExtensionGridDeviceTest {
         compose.onNodeWithTag("extension-grid-count").assertTextEquals("0 results")
         compose.onNodeWithTag("extension-primary").assertIsNotEnabled(); capture("empty-grid", "No matching fixture cards")
         compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
-        launch("loading"); compose.onNodeWithTag("extension-grid-loading").assertExists(); capture("loading-grid", "No matching fixture cards")
+        launch("loading"); compose.onNodeWithTag("extension-grid-loading").assertExists()
+        compose.onNodeWithText("No matching fixture cards").assertDoesNotExist(); capture("loading-grid", "Loading…")
     }
     @Test fun caretSelectionAndCompositionDoNotResetTheGridSelection() {
         launch(); compose.onNodeWithTag("extension-search").performTextReplacement("Landscape")
