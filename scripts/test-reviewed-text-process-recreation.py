@@ -103,6 +103,8 @@ def main():
         path = text('shell', 'pm', 'path', package).removeprefix('package:')
         require(sha(raw('exec-out', 'cat', path)) == expected, 'Install the frozen APK pair before this probe')
     args.output.mkdir(parents=True, exist_ok=False, mode=0o700)
+    (args.output / 'runner.py').write_bytes(Path(__file__).read_bytes())
+    (args.output / 'cleanup-helper.py').write_bytes(Path(__file__).with_name('android_test_cleanup.py').read_bytes())
     record = {'completed': False, 'pid': os.getpid(), 'serial': args.serial, 'avd': args.avd,
               'source_commit': build['source_commit'], 'apk_sha256': build['app.apk_sha256'], 'test_apk_sha256': build['test.apk_sha256'],
               'runner_sha256': sha(Path(__file__).read_bytes()), 'owner_nonce': owner, 'owned_extension_id': identity,
@@ -155,12 +157,14 @@ def main():
             archive = raw('exec-out', 'run-as', app, 'tar', '-cf', '-', directory)
             with tarfile.open(fileobj=io.BytesIO(archive), mode='r:') as tar:
                 for member in tar.getmembers():
+                    if member.name.rstrip('/') == directory:
+                        continue  # App-owned container creation is not an installed item.
                     parts = Path(member.name).parts
                     if identity in parts or Path(member.name).name in ['extension-' + identity + '.xml', 'extension-' + identity + '.xml.bak']:
                         continue
                     if directory == 'shared_prefs' and not Path(member.name).name.startswith('extension-'):
                         continue
-                    result[member.name] = sha(tar.extractfile(member).read()) if member.isfile() else member.type.decode('ascii')
+                    result[member.name] = sha(tar.extractfile(member).read()) if member.isfile() else member.type.decode('ascii') + ':' + member.linkname
         return result
 
     save()
@@ -211,8 +215,12 @@ return React.createElement(api.Detail,{markdown:message});};"""
             require(len(set(task_ids)) == 1, 'Cannot identify the exact resumed target task')
             task_id = task_ids[0]
             raw('shell', 'input', 'keyevent', 'KEYCODE_HOME')
-            raw('shell', 'am', 'kill', app)
-            wait(lambda: pid() is None, 'The target process was not killed')
+            wait(lambda: not any(node.get('package') == app for node in nodes()), 'The app did not reach the background')
+            # am kill may retain an important/bound process. A debug-owned
+            # run-as process can terminate only this app's own verified PID.
+            require(before.isdigit() and pid() == before, 'The target PID changed before termination')
+            raw('shell', 'run-as', app, 'kill', '-9', before)
+            wait(lambda: pid() != before, 'The original app process survived termination')
             # Bring forward the same saved task without a new incoming intent.
             try:
                 raw('shell', 'am', 'task', 'lock', task_id)
@@ -226,6 +234,7 @@ return React.createElement(api.Detail,{markdown:message});};"""
             require(not any(node.get('resource-id') == 'text-input-preview' or payload in node.get('text', '') for node in observed if node.get('package') == app), 'Restored app exposed the old input')
             require(run_count() == expected_count, 'The restored command silently ran again')
             capture(phase + '-after-death')
+            require(run_count() == expected_count, 'A late restored command silently ran again')
             tap('text-input-cancel')
             require(one('android:id/edit', app + '.test').get('text') == payload, 'The source changed after return')
             capture(phase + '-source-return')

@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         if (resources.configuration.smallestScreenWidthDp >= 600) window.setSoftInputMode((window.attributes.softInputMode and WindowManager.LayoutParams.SOFT_INPUT_MASK_STATE.inv()) or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         if (savedInstanceState == null) receive(intent)
         else if (store.textReview != null || savedInstanceState.getBoolean("text-review-active")) {
-            store.expireTextReview()
+            store.expireTextReview(store.textReview?.origin ?: if (savedInstanceState.getBoolean("text-review-shared")) TextInputOrigin.SHARE else TextInputOrigin.SELECTION)
             scrubTextIntent(intent)
         } else if (isTextIntent(intent)) scrubTextIntent(intent)
         setContent {
@@ -135,6 +135,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     override fun onSaveInstanceState(outState: Bundle) {
         // Only the expiry marker survives; never the preview or approved text.
         outState.putBoolean("text-review-active", store.textReview != null)
+        outState.putBoolean("text-review-shared", store.textReview?.origin == TextInputOrigin.SHARE)
         super.onSaveInstanceState(outState)
     }
     override fun onStop() { if (!isChangingConfigurations) store.cancelShortcutRecording(); super.onStop() }
@@ -170,6 +171,12 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     }
     private fun receive(intent: Intent) {
         if (!isTextIntent(intent)) TextReviewOwnership.revoke()
+        if (isTextIntent(intent) && intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY != 0) {
+            TextReviewOwnership.revoke()
+            store.expireTextReview(if (intent.action == Intent.ACTION_SEND) TextInputOrigin.SHARE else TextInputOrigin.SELECTION)
+            scrubTextIntent(intent)
+            return
+        }
         if (intent.action == "dev.droidcast.SHOW_FILES") { store.filter("Files"); return }
         if (intent.action == ShortcutRuntime.ACTION) { acceptShortcut(intent.getStringExtra(ShortcutRuntime.TOKEN)); return }
         if (isTextIntent(intent)) {

@@ -325,4 +325,15 @@ class ReviewedTextLifecycleDeviceTest {
         compose.waitForIdle(); rejected(second)
         record.put("async_and_sync_host_api_rejections_released_input", true).put("passed", true)
     }
+    @Test fun historyLaunchExpiresInsteadOfReplayingItsPayload() {
+        val grant = approve(receive()); awaitInput()
+        ui {
+            it.onNewIntent(Intent(Intent.ACTION_SEND).setType("text/plain").addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
+                .putExtra(Intent.EXTRA_TEXT, "Owned historical payload"))
+        }
+        rejected(grant); assertNull(catalog.running); assertNull(catalog.reviewedText.preview)
+        compose.onNodeWithTag("text-input-error").assertTextEquals(TextInputProblem.EXPIRED.message)
+        assertEquals(TextInputOrigin.SHARE, compose.activity.store.textReview!!.origin)
+        capture("history-expired"); record.put("history_intent_did_not_replay_input", true).put("passed", true)
+    }
 }
