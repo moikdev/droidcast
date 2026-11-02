@@ -114,9 +114,11 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
     }
     // A session remains attached while its preferences replace the body.
     Box(Modifier.size(0.dp).clipToBounds()) { AndroidView(factory={runtime.webView},modifier=Modifier.requiredSize(1.dp)) }
-    if(store.dialog == "extension-setup") CommandSetup(store, extension, command) {
-        if(store.extensionSetupFromRun && started) { store.extensionSetupFromRun = false; store.dialog="extension-run" }
-        else close()
+    if(store.dialog == "extension-setup") key(extension, command, store.extensions.launchEpoch) {
+        CommandSetup(store, extension, command) {
+            if(store.extensionSetupFromRun && started) { store.extensionSetupFromRun = false; store.dialog="extension-run" }
+            else close()
+        }
     }
     else CommandRunner(store, extension, command, runtime, images, grids, lists, details, close)
 }
@@ -303,7 +305,7 @@ private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command
     var arguments by remember{mutableStateOf(store.extensions.arguments)}
     var message by remember{mutableStateOf<String?>(null)}
     var missing by remember { mutableStateOf(emptySet<String>()) }
-    ExtensionWindow(command.title,"${extension.listing.title} · arguments & preferences",close){
+    ExtensionWindow(command.title,"${extension.listing.title} · arguments & preferences",{ if (currentSetup()) close() }){
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp).testTag("extension-configuration"),verticalArrangement=Arrangement.spacedBy(16.dp)){
             args.forEach { f -> val name = f.getString("name")
                 key("argument", name) { Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -380,7 +382,10 @@ private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command
         Button(onClick={
             if (!currentSetup()) return@Button
             val missingArgs=command.definition.optJSONArray("arguments").objects().filter{it.optBoolean("required")&&arguments[it.getString("name")].isNullOrBlank()}
-            val missingPrefs=extension.fields(command).filter{it.optBoolean("required")&&it.optString("type")!="checkbox"&&preferences.optString(it.getString("name")).isBlank()}
+            val missingPrefs=extension.fields(command).filter{
+                val value=preferences.opt(it.getString("name"))
+                it.optBoolean("required")&&it.optString("type")!="checkbox"&&(value==null||value==JSONObject.NULL||value.toString().isBlank())
+            }
             missing = missingArgs.map { "argument:${it.getString("name")}" }.toSet() + missingPrefs.map { "preference:${it.getString("name")}" }
             if(missing.isNotEmpty())message="Complete the required arguments and preferences."
             else try {

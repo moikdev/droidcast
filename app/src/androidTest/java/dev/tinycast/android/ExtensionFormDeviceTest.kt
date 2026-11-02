@@ -6,7 +6,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.webkit.WebView
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.core.view.ViewCompat
@@ -55,6 +60,12 @@ class ExtensionFormDeviceTest {
     private val choiceTitle = "Readable second layout"
     private val checkboxLabel = "Tap this complete option label to enable owned output"
     private val caller = "form-controls-owned-caller"
+    private var sensitiveValue: String? = null
+    private val longTitle = "Owned account name with a complete descriptive label that must wrap naturally on a narrow Android screen"
+    private val longError = "Owned validation error: enter the complete account name before continuing. Every line must stay readable when the keyboard opens and the font is enlarged."
+    private val longInfo = "Owned field help: this explanation is available by touch without hovering. Scroll to read every line, then continue with the choices below."
+    private val longOption = "Readable first layout with a complete descriptive title that remains available when the font is enlarged and the keyboard is open"
+    private val longCheckbox = "Enable the complete owned output option by tapping any part of this wrapped label, including its final line"
 
     private fun hash(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
     private fun fingerprint(root: File): Map<String, String> = if (!root.exists()) emptyMap() else root.walkTopDown().associate {
@@ -95,7 +106,7 @@ class ExtensionFormDeviceTest {
             .put("width_dp", context.resources.configuration.screenWidthDp).put("height_dp", context.resources.configuration.screenHeightDp)
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
     }
-    private fun launch(mode: String) {
+    private fun fixtureDirectory(): File {
         val id = "reviewed-text-" + UUID.randomUUID().toString().replace("-", "")
         val directory = File(context.cacheDir, id)
         listOf(directory, File(context.filesDir, "extensions/$id"), File(context.filesDir, "extension-data/$id"),
@@ -110,16 +121,49 @@ class ExtensionFormDeviceTest {
         temporary.writeText(lease.toString()); assertTrue(temporary.renameTo(leaseFile))
         ownedId = id
         assertTrue(directory.mkdir())
+        return directory
+    }
+    private fun launch(mode: String) {
+        val directory = fixtureDirectory(); val id = directory.name
         val script = """
             const React=require('react'), api=require('@raycast/api');
             const mode=${JSONObject.quote(mode)};
-            globalThis.__formProbe={changes:0,focus:0,blur:0,dispatches:0};
+            globalThis.__formProbe={changes:0,focus:{},blur:{},blurLengths:{},dispatches:0};
             const dispatch=globalThis.__tinycast.dispatch;
             globalThis.__tinycast.dispatch=function(...args){globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
+            function events(id){return {onFocus:e=>{const p=globalThis.__formProbe.focus;p[id]=(p[id]||0)+1},
+              onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0}}}
             module.exports.default=function(props){
               if(mode==='configuration'){
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
+              }
+              if(mode==='all-fields'||mode==='long'){
+                const [name,setName]=React.useState(''),[password,setPassword]=React.useState(''),[area,setArea]=React.useState('');
+                const [choice,setChoice]=React.useState('internal-layout-two'),[checked,setChecked]=React.useState(false),[render,setRender]=React.useState(0);
+                globalThis.__bumpOwnedForm=()=>setRender(n=>n+1);
+                const change=setter=>value=>{globalThis.__formProbe.changes++;setter(value)};
+                return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,React.createElement(api.Action.SubmitForm,{title:'Inspect owned values',onSubmit:()=>{}}))},
+                  React.createElement(api.Form.TextField,{key:'name',id:'name',title:mode==='long'?${JSONObject.quote(longTitle)}:'Owned account name',value:name,onChange:change(setName),...events('name'),
+                    error:mode==='long'?${JSONObject.quote(longError)}:undefined,info:mode==='long'?${JSONObject.quote(longInfo)}:undefined}),
+                  mode==='all-fields'?React.createElement(api.Form.PasswordField,{key:'password',id:'password',title:'Owned masked password',value:password,onChange:change(setPassword),...events('password')}):null,
+                  mode==='all-fields'?React.createElement(api.Form.TextArea,{key:'area',id:'area',title:'Owned multiline text',value:area,onChange:change(setArea),...events('area')}):null,
+                  mode==='all-fields'?React.createElement(api.Form.TextField,{key:'uncontrolled',id:'uncontrolled',title:'Owned uncontrolled text',defaultValue:'Owned initial',...events('uncontrolled')}):null,
+                  React.createElement(api.Form.Checkbox,{key:'enabled',id:'enabled',title:'Owned output option',label:mode==='long'?${JSONObject.quote(longCheckbox)}:${JSONObject.quote(checkboxLabel)},value:checked,onChange:change(setChecked),...events('enabled')}),
+                  React.createElement(api.Form.Dropdown,{key:'choice',id:'choice',title:'Owned layout choice',value:choice,onChange:change(setChoice),...events('choice')},
+                    React.createElement(api.Form.Dropdown.Item,{key:'one',value:'internal-layout-one',title:mode==='long'?${JSONObject.quote(longOption)}:'Readable first layout'}),
+                    React.createElement(api.Form.Dropdown.Item,{key:'two',value:'internal-layout-two',title:${JSONObject.quote(choiceTitle)}})),
+                  React.createElement(api.Form.Description,{key:'render',text:'Owned render '+render}));
+              }
+              if(mode==='edges'){
+                const [value,setValue]=React.useState('duplicate-two');
+                return React.createElement(api.Form,null,
+                  React.createElement(api.Form.Dropdown,{key:'unknown',id:'unknown',title:'Owned unavailable selection',value:'owned-unavailable-internal-value',onChange:()=>{}},
+                    React.createElement(api.Form.Dropdown.Item,{key:'known',value:'known',title:'Readable known option'})),
+                  React.createElement(api.Form.Dropdown,{key:'empty',id:'empty',title:'Owned empty choices',value:'',onChange:()=>{}}),
+                  React.createElement(api.Form.Dropdown,{key:'duplicates',id:'duplicates',title:'Owned duplicate titles',value:value,onChange:setValue},
+                    React.createElement(api.Form.Dropdown.Item,{key:'one',value:'duplicate-one',title:'Same readable title'}),
+                    React.createElement(api.Form.Dropdown.Item,{key:'two',value:'duplicate-two',title:'Same readable title'})));
               }
               const [name,setName]=React.useState(''),[notes,setNotes]=React.useState('');
               const [choice,setChoice]=React.useState('internal-layout-two'),[checked,setChecked]=React.useState(false),[changes,setChanges]=React.useState(0);
@@ -169,6 +213,7 @@ class ExtensionFormDeviceTest {
         val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-$phase"
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.dumpWindowHierarchy(File(evidence, "$name.xml")); assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
+        sensitiveValue?.let { secret -> assertFalse("Native hierarchy must not expose masked input", File(evidence, "$name.xml").readText().contains(secret)) }
         assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame", tree == catalog.runtimeTree?.toString())
         File(evidence, "$name-frame.json").writeText(JSONObject().put("scope", record.getString("scope")).put("phase", phase)
             .put("font_scale", context.resources.configuration.fontScale).put("launch_epoch", epoch)
@@ -261,7 +306,8 @@ class ExtensionFormDeviceTest {
     private fun openChoice() {
         // Both intermediate raw-value and repaired readable-label apps expose
         // this field tag. The selected item must subsequently change in JS.
-        touch("extension-choice-choice")
+        if (compose.onAllNodesWithTag("extension-choice-choice").fetchSemanticsNodes().isNotEmpty()) touch("extension-choice-choice")
+        else compose.onNodeWithText("internal-layout-two", useUnmergedTree = true).performTouchInput { click(center) }
         compose.onNodeWithTag("inline-menu").assertIsDisplayed()
     }
     private fun firstChoice() = compose.onNode(hasText("Readable first layout") and hasAnyAncestor(hasTestTag("inline-menu")), useUnmergedTree = true)
@@ -333,19 +379,79 @@ class ExtensionFormDeviceTest {
     @Test fun queuedTextCannotRunInReplacementSession() = queuedField("new-session")
     @Test fun queuedTextCannotRunAfterFieldReplacement() = queuedField("replaced-field")
 
+    private fun queuedChoice(transition: String) {
+        launch("choices"); openChoice()
+        val row = compose.onNode(hasClickAction() and hasText("Readable first layout") and hasAnyAncestor(hasTestTag("inline-menu")))
+        val click = requireNotNull(row.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val before = probe()
+        compose.activityRule.scenario.onActivity {
+            val tree = catalog.runtimeTree; val epoch = catalog.launchEpoch; val running = catalog.running
+            val ready = catalog.runtimeReady; val status = catalog.runtimeStatus; val savedError = catalog.runtimeError
+            val arguments = catalog.arguments; val depth = catalog.navigationDepth
+            try {
+                when (transition) {
+                    "root-missing" -> catalog.runtimeTree = null
+                    "changed-option" -> {
+                        val replacement = JSONObject(tree.toString())
+                        requireNotNull(activeRoot(replacement)).nodes("Form.Dropdown.Item").first().props().put("value", "replacement-option-value")
+                        catalog.runtimeTree = replacement
+                    }
+                    "closed" -> catalog.close()
+                    else -> error("Unknown choice transition")
+                }
+                assertTrue(click())
+            } finally {
+                catalog.runtimeTree = tree; catalog.launchEpoch = epoch; catalog.running = running
+                catalog.runtimeReady = ready; catalog.runtimeStatus = status; catalog.runtimeError = savedError
+                catalog.arguments = arguments; catalog.navigationDepth = depth
+            }
+        }
+        val after = probe(); assertEquals(before.toString(), after.toString())
+        assertEquals("internal-layout-two", field("Form.Dropdown", "choice").props().optString("value"))
+        record.put("controlled_native_transition", transition).put("scope_detail", "Retained menu callback before a Compose frame; native state restored in the same turn to inspect the original JS dispatch probe")
+            .put("probe_before", before).put("probe_after", after)
+        capture("queued-choice-rejected"); record.put("passed", true)
+    }
+    @Test fun queuedChoiceCannotRunWithoutRoot() = queuedChoice("root-missing")
+    @Test fun queuedChoiceCannotRunAfterOptionMeaningChanges() = queuedChoice("changed-option")
+    @Test fun queuedChoiceCannotRunAfterClose() = queuedChoice("closed")
+
+    @Test fun unavailableEmptyAndDuplicateChoicesKeepTheirExactValues() {
+        launch("edges")
+        compose.onNodeWithTag("extension-choice-unknown").performScrollTo()
+        compose.onNodeWithText("Selection unavailable", useUnmergedTree = true).assertIsDisplayed()
+        compose.onNodeWithText("owned-unavailable-internal-value", useUnmergedTree = true).assertDoesNotExist()
+        assertEquals("owned-unavailable-internal-value", field("Form.Dropdown", "unknown").props().getString("value"))
+        compose.onNodeWithTag("extension-choice-empty").performScrollTo().assertIsNotEnabled()
+        compose.onNodeWithText("No choices available", useUnmergedTree = true).assertIsDisplayed()
+        touch("extension-choice-duplicates")
+        val dropdown = field("Form.Dropdown", "duplicates")
+        val option = dropdown.nodes("Form.Dropdown.Item").single { it.props().optString("value") == "duplicate-one" }
+        compose.onAllNodesWithText("Same readable title", useUnmergedTree = true).assertCountEquals(3) // closed title + two menu rows
+        val tag = "form-option-${dropdown.optString("id")}-${option.optString("id")}-duplicate-one"
+        compose.onNodeWithTag(tag).performTouchInput { click(center) }
+        compose.waitUntil(5000) { field("Form.Dropdown", "duplicates").props().optString("value") == "duplicate-one" }
+        capture("edge-choices")
+        record.put("missing_selection_preserved", true).put("empty_choices_disabled", true).put("duplicate_title_exact_value", "duplicate-one").put("passed", true)
+    }
+
     @Test fun nativeConfigurationEditsValidateCancelAndRun() {
         launch("configuration")
         val prefs = context.getSharedPreferences("extension-${ownedExtension.listing.id}", Context.MODE_PRIVATE)
         assertTrue(prefs.all.isEmpty())
-        compose.onNodeWithTag("run-extension-setup").performTouchInput { click(center) }
+        touch("run-extension-setup")
         compose.onNodeWithTag("extension-configuration-error").performScrollTo().assertIsDisplayed()
         compose.onNodeWithTag("extension-field-error-argument-input").performScrollTo().assertIsDisplayed()
         compose.onNodeWithTag("extension-field-error-preference-account").performScrollTo().assertIsDisplayed()
-        capture("configuration-required")
+        inspectTextLines("extension-configuration", listOf(
+            compose.onNodeWithTag("argument-title-input"), compose.onNodeWithTag("preference-title-account"),
+            compose.onNodeWithTag("extension-field-error-argument-input"), compose.onNodeWithTag("extension-field-error-preference-account"),
+            compose.onNodeWithTag("extension-field-info-preference-account"), compose.onNodeWithTag("extension-configuration-error")
+        ), "configuration-required")
         compose.onNodeWithTag("argument-input").performScrollTo().performTextReplacement("Owned canceled argument")
         compose.onNodeWithTag("preference-account").performScrollTo().performTextReplacement("Owned canceled account")
         assertTrue("Editing a draft must not save preferences", prefs.all.isEmpty())
-        touch("inline-back")
+        touch("extension-back")
         assertNull(compose.activity.store.dialog); assertTrue(prefs.all.isEmpty())
         compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
         compose.onNodeWithTag("argument-input").assertTextEquals("")
@@ -359,7 +465,7 @@ class ExtensionFormDeviceTest {
         firstChoice().performTouchInput { click(center) }
         assertTrue("Choices are still a draft until Run", prefs.all.isEmpty())
         capture("configuration-edited")
-        compose.onNodeWithTag("run-extension-setup").performTouchInput { click(center) }
+        touch("run-extension-setup")
         compose.waitUntil(15000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
         assertNull(catalog.runtimeError, catalog.runtimeError)
         val result = JSONObject(requireNotNull(activeRoot(catalog.runtimeTree)).props().getString("markdown"))
@@ -368,9 +474,281 @@ class ExtensionFormDeviceTest {
         val saved = JSONObject(prefs.getString("preferences", "{}")!!)
         assertEquals(account, saved.getString("account")); assertTrue(saved.getBoolean("enabled")); assertEquals("internal-layout-one", saved.getString("layout"))
         capture("configuration-destination")
-        touch("inline-back"); assertNull(compose.activity.store.dialog)
+        touch("extension-back"); assertNull(compose.activity.store.dialog)
         compose.onNodeWithTag("search").assertTextEquals(caller)
         record.put("configuration_method", "Native required errors, actual argument/preference edits, label tap and menu choice; Cancel discards, explicit Run persists and starts the exact owned values")
             .put("passed", true)
+    }
+
+    @Test fun replacedConfigurationRejectsQueuedEditsRunAndBack() {
+        launch("configuration")
+        val account = compose.onNodeWithTag("preference-account")
+        val setText = requireNotNull(account.fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val run = requireNotNull(compose.onNodeWithTag("run-extension-setup").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val back = requireNotNull(compose.onNodeWithTag("extension-back").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val prefs = context.getSharedPreferences("extension-${ownedExtension.listing.id}", Context.MODE_PRIVATE)
+        compose.activityRule.scenario.onActivity {
+            val epoch = catalog.launchEpoch; val running = catalog.running
+            try {
+                catalog.launchEpoch++
+                assertTrue(setText(AnnotatedString("Owned stale account"))); assertTrue(run()); assertTrue(back())
+                assertEquals("extension-setup", it.store.dialog); assertSame(running, catalog.running)
+            } finally { catalog.launchEpoch = epoch }
+        }
+        account.assertTextEquals(""); assertTrue(prefs.all.isEmpty())
+        capture("stale-configuration-rejected")
+        record.put("controlled_native_transition", "Changed launch epoch before queued native edit, Run and Back; restored before a Compose frame")
+            .put("queued_edits_run_back_rejected", true).put("passed", true)
+    }
+
+    private fun evaluateOwned(script: String) {
+        var engine: WebView? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            fun visit(view: android.view.View) {
+                if (view is WebView) { assertNull(engine); engine = view }
+                if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+            }
+            visit(activity.window.decorView)
+        }
+        val done = CountDownLatch(1)
+        compose.activityRule.scenario.onActivity { requireNotNull(engine).evaluateJavascript(script) { done.countDown() } }
+        assertTrue(done.await(5, TimeUnit.SECONDS)); compose.waitForIdle()
+    }
+    @Test fun allFieldKindsKeepFocusValuesCompositionAndMasking() {
+        launch("all-fields")
+        touch("extension-field-name")
+        val original = "Owned café é 日本 🌱"
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(original)
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == original }
+        compose.onNodeWithTag("extension-field-name").performTextInputSelection(TextRange(2, 5))
+        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
+        assertEquals(1, probe().getJSONObject("focus").getInt("name"))
+        var input: android.view.inputmethod.InputConnection? = null
+        compose.activityRule.scenario.onActivity {
+            input = requireNotNull(it.window.decorView.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
+            assertTrue(input!!.setSelection(0, 0)); assertTrue(input!!.setComposingText("日本", 1))
+        }
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == "日本$original" }
+        // Complete composition after the real JS -> native value round trip.
+        // If recomposition discarded its range, this would append instead.
+        compose.activityRule.scenario.onActivity { assertTrue(input!!.commitText("日本語", 1)); assertTrue(input!!.finishComposingText()) }
+        val composed = "日本語$original"
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == composed }
+        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3)))
+        touch("extension-field-password")
+        val password = "owned-" + UUID.randomUUID().toString(); sensitiveValue = password
+        compose.onNodeWithTag("extension-field-password").performTextReplacement(password)
+        compose.waitUntil(5000) { field("Form.PasswordField", "password").props().optString("value") == password }
+        compose.onNodeWithTag("extension-field-password").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Password))
+        capture("masked-password")
+        touch("extension-field-area")
+        val area = "Owned multiline café é\n日本 🌱"
+        compose.onNodeWithTag("extension-field-area").performTextReplacement(area)
+        compose.waitUntil(5000) { field("Form.TextArea", "area").props().optString("value") == area }
+        touch("extension-field-uncontrolled")
+        val uncontrolled = "Owned uncontrolled 日本 🌱"
+        compose.onNodeWithTag("extension-field-uncontrolled").performTextReplacement(uncontrolled)
+        compose.waitUntil(5000) { field("Form.TextField", "uncontrolled").props().optString("value") == uncontrolled }
+        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        compose.onNodeWithTag("extension-field-uncontrolled").assertTextEquals(uncontrolled)
+        touch("extension-checkbox-enabled")
+        compose.waitUntil(5000) { field("Form.Checkbox", "enabled").props().optBoolean("value") }
+        openChoice()
+        compose.waitUntil(5000) { probe().getJSONObject("focus").optInt("choice") >= 1 && probe().getJSONObject("blur").optInt("enabled") == 1 }
+        val observed = probe()
+        listOf("name", "password", "area", "uncontrolled", "enabled").forEach { id ->
+            assertEquals("One ordinary focus for $id", 1, observed.getJSONObject("focus").getInt(id))
+            assertEquals("One ordinary blur for $id", 1, observed.getJSONObject("blur").getInt(id))
+        }
+        assertEquals(composed.length, observed.getJSONObject("blurLengths").getInt("name"))
+        assertEquals(password.length, observed.getJSONObject("blurLengths").getInt("password"))
+        assertEquals(area.length, observed.getJSONObject("blurLengths").getInt("area"))
+        assertEquals(uncontrolled.length, observed.getJSONObject("blurLengths").getInt("uncontrolled"))
+        firstChoice().performTouchInput { click(center) }
+        compose.waitUntil(5000) { field("Form.Dropdown", "choice").props().optString("value") == "internal-layout-one" }
+        capture("all-fields")
+        record.put("focus_probe", observed).put("composition_survived_javascript_round_trip", true)
+            .put("controlled_selection_preserved", true).put("password_masking_and_value_delivery", true).put("passed", true)
+    }
+
+    private fun imeVisible() = ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
+    private fun ime(show: Boolean) {
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+        compose.activityRule.scenario.onActivity {
+            val controller = androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView)
+            if (show) controller.show(WindowInsetsCompat.Type.ime()) else controller.hide(WindowInsetsCompat.Type.ime())
+        }
+        compose.waitUntil(10000) { imeVisible() == show }; compose.waitForIdle()
+    }
+    private fun fullBounds(interaction: SemanticsNodeInteraction): Rect {
+        val node = interaction.fetchSemanticsNode()
+        return compose.runOnUiThread {
+            val coordinates = node.layoutInfo.coordinates; val origin = coordinates.localToRoot(Offset.Zero)
+            Rect(origin.x, origin.y, origin.x + coordinates.size.width, origin.y + coordinates.size.height)
+        }
+    }
+    private fun drag(viewport: SemanticsNodeInteraction, direction: Int) {
+        viewport.performTouchInput {
+            down(center); moveTo(Offset(center.x, center.y + direction * height * .25f), delayMillis = 300)
+            advanceEventTime(200); up()
+        }
+        compose.waitForIdle()
+    }
+    private fun revealViewport(viewport: String, lineHeight: Float) {
+        val body = compose.onNodeWithTag(viewport)
+        val route = compose.onNode(hasTestTag("palette-content-scroll") and hasAnyAncestor(hasTestTag("extension-palette")), useUnmergedTree = true)
+        repeat(40) {
+            val bounds = fullBounds(body); val visible = body.fetchSemanticsNode().boundsInRoot
+            if (visible.height >= lineHeight + 2) return
+            val outer = route.fetchSemanticsNode().boundsInRoot
+            val upward = bounds.top > outer.top
+            val startY = if (upward) (minOf(bounds.top, outer.bottom) - outer.top) * .75f
+                else (maxOf(bounds.bottom, outer.top) - outer.top + outer.height) * .5f
+            val y = startY.coerceIn(2f, outer.height - 2f)
+            val endY = if (upward) (y - outer.height * .4f).coerceAtLeast(1f) else (y + outer.height * .4f).coerceAtMost(outer.height - 1f)
+            route.performTouchInput { down(Offset(center.x, y)); moveTo(Offset(center.x, endY), delayMillis = 300); advanceEventTime(200); up() }
+            compose.waitForIdle()
+        }
+        fail("Pointer scrolling could not reveal a text-line viewport")
+    }
+    private fun inspectTextLines(viewport: String, textNodes: List<SemanticsNodeInteraction>, phase: String) {
+        val layouts = textNodes.map { node ->
+            val results = mutableListOf<TextLayoutResult>(); node.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(results) }
+            results.single().also { layout ->
+                assertTrue(layout.lineCount > 0); assertTrue("Text needs its complete natural height", fullBounds(node).height + 1 >= layout.size.height)
+                assertTrue("Text must not be ellipsized", (0 until layout.lineCount).none(layout::isLineEllipsized))
+            }
+        }
+        val lineHeight = layouts.maxOf { text -> (0 until text.lineCount).maxOf { text.getLineBottom(it) - text.getLineTop(it) } }
+        if (viewport != "inline-menu-choices") revealViewport(viewport, lineHeight)
+        val body = compose.onNodeWithTag(viewport)
+        var reset = 0
+        while (reset++ < 120) {
+            val before = fullBounds(textNodes.first()).top
+            drag(body, 1)
+            if (kotlin.math.abs(fullBounds(textNodes.first()).top - before) < 1) break
+        }
+        val witnessed = layouts.map { BooleanArray(it.lineCount) }; val steps = JSONArray()
+        capture("$phase-top")
+        var attempts = 0
+        while (attempts++ < 200) {
+            val visible = body.fetchSemanticsNode().boundsInRoot
+            assertTrue("A complete text line needs a visible viewport", visible.height + 1 >= lineHeight)
+            val step = JSONObject().put("viewport", JSONArray(listOf(visible.left, visible.top, visible.right, visible.bottom)))
+            textNodes.forEachIndexed { index, node ->
+                val bounds = fullBounds(node); val layout = layouts[index]
+                step.put("text_$index", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+                for (line in 0 until layout.lineCount) {
+                    val left = bounds.left + layout.getLineLeft(line); val right = bounds.left + layout.getLineRight(line)
+                    val top = bounds.top + layout.getLineTop(line); val bottom = bounds.top + layout.getLineBottom(line)
+                    assertTrue("A text line exceeds viewport width", left >= visible.left - 1 && right <= visible.right + 1)
+                    if (top >= visible.top - 1 && bottom <= visible.bottom + 1) witnessed[index][line] = true
+                }
+                step.put("text_${index}_lines_seen", witnessed[index].count { it })
+            }
+            steps.put(step)
+            if (witnessed.all { it.all { seen -> seen } }) break
+            val before = fullBounds(textNodes.first()).top; drag(body, -1)
+            if (kotlin.math.abs(fullBounds(textNodes.first()).top - before) < 1) break
+        }
+        record.put("${phase}_line_probe", JSONObject().put("ime_visible", imeVisible()).put("line_counts", JSONArray(layouts.map { it.lineCount }))
+            .put("all_lines_reached", witnessed.all { it.all { seen -> seen } }).put("pointer_steps", steps))
+        capture("$phase-bottom")
+        assertTrue("Every natural text line must become fully visible through pointer scrolling", witnessed.all { it.all { seen -> seen } })
+    }
+    private fun touchLastLine(viewport: String, node: SemanticsNodeInteraction) {
+        val results = mutableListOf<TextLayoutResult>(); node.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(results) }
+        val layout = results.single(); val bounds = fullBounds(node); val last = layout.lineCount - 1
+        val visible = compose.onNodeWithTag(viewport).fetchSemanticsNode().boundsInRoot
+        val x = bounds.left + (layout.getLineLeft(last) + layout.getLineRight(last)) / 2
+        val y = bounds.top + (layout.getLineTop(last) + layout.getLineBottom(last)) / 2
+        assertTrue("The actual last label line must be visible before its pointer tap", visible.contains(Offset(x, y)))
+        compose.onNodeWithTag(viewport).performTouchInput { click(Offset(x - visible.left, y - visible.top)) }
+    }
+    @Test fun longMessagesAndTouchChoicesStayReadableAcrossImeTransitions() {
+        launch("long"); touch("extension-field-name")
+        val value = "Owned large-font café é 日本 🌱"
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(value)
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value }
+        for ((index, shown) in listOf(false, true, false).withIndex()) {
+            ime(shown)
+            inspectTextLines("extension-form", listOf(
+                compose.onNodeWithTag("extension-field-title-name"), compose.onNodeWithTag("extension-field-error-name"),
+                compose.onNodeWithTag("extension-field-info-name"), compose.onNodeWithText(longCheckbox, useUnmergedTree = true)
+            ), "long-$index")
+            assertEquals(shown, imeVisible())
+        }
+        val before = probe().getInt("changes")
+        touchLastLine("extension-form", compose.onNodeWithText(longCheckbox, useUnmergedTree = true))
+        compose.waitUntil(5000) { field("Form.Checkbox", "enabled").props().optBoolean("value") }
+        assertEquals(before + 1, probe().getInt("changes"))
+        val checkbox = fullBounds(compose.onNodeWithTag("extension-checkbox-enabled"))
+        assertTrue("Checkbox row must provide a 48dp touch target", checkbox.height + 1 >= 48 * context.resources.displayMetrics.density)
+        openChoice(); compose.onNodeWithTag("inline-menu-choices").performScrollToIndex(0)
+        inspectTextLines("inline-menu-choices", listOf(compose.onNodeWithText(longOption, useUnmergedTree = true)), "long-option")
+        touchLastLine("inline-menu-choices", compose.onNodeWithText(longOption, useUnmergedTree = true))
+        compose.waitUntil(5000) { field("Form.Dropdown", "choice").props().optString("value") == "internal-layout-one" }
+        compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+        inspectTextLines("extension-form", listOf(compose.onNodeWithText(longOption, useUnmergedTree = true)), "selected-long-option")
+        assertEquals(value, field("Form.TextField", "name").props().optString("value"))
+        record.put("checkbox_last_line_pointer_tap_once", true).put("dropdown_last_line_exact_value", true).put("ime_transitions", JSONArray(listOf(false, true, false)))
+            .put("passed", true)
+    }
+
+    @Test fun frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns() {
+        val directory = fixtureDirectory(); val id = directory.name
+        val archive = File(context.filesDir, "reviewed-text-fixture-lease/json-format.zip").readBytes()
+        assertEquals("fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58", hash(archive))
+        val extracted = ExtensionArchive.extract(archive, directory)
+        assertEquals("bcca05348f11ffc115adc346944dcd78d209958684cb9df44d571e70a99575a0", hash(File(extracted, "index.js").readBytes()))
+        val extension = InstalledExtension(StoreExtension(id, "json-format", "Format JSON (owned frozen copy)", "", "Droidcast tests", "test", "", "", "", 6),
+            extracted, JSONObject(File(extracted, "package.json").readText()))
+        val command = extension.commands.single { it.name == "index" }; ownedExtension = extension
+        record.put("scope", "Actual frozen json-format/index bundle in an owned namespace; native preference editing, Form input, View Result, exact Copy and launcher return; not whole-Store certification")
+            .put("archive_sha256", hash(archive)).put("command_sha256", hash(File(extracted, "index.js").readBytes())).put("owned_extension_id", id)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, command) }
+        compose.waitUntil(20000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        compose.onNodeWithText("Preferences", useUnmergedTree = true).performTouchInput { click(center) }
+        val prefs = context.getSharedPreferences("extension-$id", Context.MODE_PRIVATE)
+        assertTrue(prefs.all.isEmpty())
+        compose.onNodeWithTag("preference-checkbox-autopaste").performScrollTo().assertIsOff()
+        touch("preference-choice-indent")
+        compose.onNodeWithText("Spaces: 2", useUnmergedTree = true).performTouchInput { click(center) }
+        compose.onNodeWithTag("preference-maxInitialLines").performScrollTo().performTextReplacement("42")
+        assertTrue("Native editing stays private until Run", prefs.all.isEmpty())
+        capture("json-native-preferences"); touch("run-extension-setup")
+        compose.waitUntil(20000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        val saved = JSONObject(prefs.getString("preferences", "{}")!!)
+        assertEquals("2", saved.getString("indent")); assertEquals("42", saved.getString("maxInitialLines")); assertFalse(saved.getBoolean("autopaste"))
+        val input = " \n\t{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]}  \n"
+        val output = "{\n  \"message\": \"こんにちは 🌱 café é\",\n  \"items\": [1, 2]\n}"
+        touch("extension-field-input"); compose.onNodeWithTag("extension-field-input").performTextReplacement(input)
+        compose.waitUntil(5000) { field("Form.TextArea", "input").props().optString("value") == input }
+        ime(false); capture("json-form-input")
+        val actions = requireNotNull(activeRoot(catalog.runtimeTree)).actions()
+        val actionIndex = actions.indexOfFirst { it.props().optString("title") == "View Result" }; assertTrue(actionIndex >= 0)
+        touch("extension-actions"); touch("extension-action-$actionIndex")
+        compose.waitUntil(15000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
+        assertEquals("```json\n$output\n```", requireNotNull(activeRoot(catalog.runtimeTree)).props().getString("markdown"))
+        assertTrue(catalog.navigationDepth > 1)
+        compose.activityRule.scenario.onActivity { assertEquals("Owned Form clipboard sentinel", it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString()) }
+        capture("json-detail"); touch("extension-primary")
+        compose.waitUntil(5000) {
+            var matches = false
+            compose.activityRule.scenario.onActivity { matches = it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text?.toString() == output }
+            matches
+        }
+        dismissClipboardForEvidence(); capture("json-copied"); touch("extension-back")
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertEquals(input, field("Form.TextArea", "input").props().optString("value"))
+        touch("extension-back"); assertNull(compose.activity.store.dialog)
+        compose.onNodeWithTag("search").assertTextEquals(caller)
+        capture("json-launcher-return")
+        record.put("native_preferences_edited_not_seeded", true).put("exact_unicode_form_copy", true).put("form_state_preserved_on_back", true)
+            .put("launcher_query_preserved", true).put("passed", true)
     }
 }
