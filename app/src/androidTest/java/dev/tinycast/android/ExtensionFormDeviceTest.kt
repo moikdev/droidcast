@@ -1339,6 +1339,8 @@ class ExtensionFormDeviceTest {
         val editor = requireNotNull(connection)
         try {
             compose.runOnUiThread { assertTrue(editor.setComposingText("Owned composing 日本", 1)) }
+            compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value").contains("Owned composing 日本") }
+            assertTrue(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsProperties.EditableText].text.contains("Owned composing 日本"))
             InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER)
             submitBarrier(); assertEquals(0, probe().getInt("submits"))
             assertEquals("Form", activeRoot(catalog.runtimeTree)?.optString("type"))
