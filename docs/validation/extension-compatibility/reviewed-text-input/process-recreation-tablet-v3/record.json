@@ -1,0 +1,78 @@
+{
+  "completed": true,
+  "pid": 17225,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "source_commit": "f7c6cbcb36ad9adc902d8dada734abfbbc9e7e83",
+  "apk_sha256": "12853a0f32b38ee31c8437309d0e51b801a8b4eb42c2b765eb51af1bdc360fd1",
+  "test_apk_sha256": "3b21c0b85b3f2102eaf7657d0180011e8d7e19e03c356df6bb24047134d6b3dc",
+  "runner_sha256": "eecd547c48ad2bbce2d8bae62bbed26a2484e0b5d97ebb7cb989ba98d4de2a23",
+  "owner_nonce": "717318a043db41ffb5624491e9e7edf5",
+  "owned_extension_id": "reviewed-text-5cf15aeda41e475e9867f02fed61bd7b",
+  "scope": "Actual pending/approved process death and restoration of the same saved Android task; owned probe, not a Store workflow",
+  "phases": [
+    {
+      "phase": "pending",
+      "old_pid": "4917",
+      "new_pid": "5052",
+      "same_saved_task_id": "12402",
+      "no_new_intent_for_restoration": true,
+      "expired_without_input_or_replay": true,
+      "run_count_before_and_after": 0,
+      "source_unchanged": true
+    },
+    {
+      "phase": "approved",
+      "old_pid": "5299",
+      "new_pid": "5621",
+      "same_saved_task_id": "12403",
+      "no_new_intent_for_restoration": true,
+      "expired_without_input_or_replay": true,
+      "run_count_before_and_after": 1,
+      "source_unchanged": true
+    }
+  ],
+  "original_installation_data_fingerprint_sha256": "0f631323d90e761c3e72edb1d69911950e3a426be24cb9e524b09a795db1ed13",
+  "probe_sha256": "005dee5f226ebee929c46becfea9b1fe38dba09187809517de569baf40f235ae",
+  "cleanup": {
+    "exit-owned-task-lock": {
+      "passed": true
+    },
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "owned-ui-dump": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  }
+}
