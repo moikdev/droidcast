@@ -457,7 +457,8 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 }
             }
             "Detail"->SelectionContainerCompat(root.props().optString("markdown"),Modifier.weight(1f).fillMaxWidth().padding(20.dp),detailStates.getOrPut(root.optString("id")){ScrollState(0)})
-            "Form"->Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(14.dp)){root.children().forEach{FormNode(it,runtime)}}
+            "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },
+                { handle, args -> runtime.dispatch(handle, args) }, Modifier.weight(1f))
             else->Text("Unsupported extension view",modifier=Modifier.weight(1f).padding(20.dp))
         }
         if (!failed && root?.optString("type") != "Grid") {
@@ -490,18 +491,5 @@ private fun SelectionContainerCompat(text:String,modifier:Modifier,scroll:Scroll
         androidx.compose.foundation.text.selection.SelectionContainer(Modifier.fillMaxSize().verticalScroll(scroll)) {
             Text(text,fontSize=14.sp,lineHeight=23.sp)
         }
-    }
-}
-
-@Composable
-private fun FormNode(node:JSONObject,runtime:ExtensionRuntime){
-    val p=node.props();val title=p.optString("title",p.optString("label"));val type=node.optString("type")
-    when(type){
-        "Form.TextField","Form.PasswordField","Form.TextArea"->{var text by remember(node.optString("id"),p.optString("value")){mutableStateOf(p.optString("value"))};OutlinedTextField(text,{text=it;runtime.dispatch(node.handle("onTinycastChange"),JSONArray().put(it))},label={Text(title)},placeholder={Text(p.optString("placeholder"))},singleLine=type!="Form.TextArea",visualTransformation=if(type=="Form.PasswordField")PasswordVisualTransformation()else VisualTransformation.None,modifier=Modifier.fillMaxWidth().paletteFocusBookmark().testTag("extension-field-${p.optString("id")}"))}
-        "Form.Checkbox"->Row(verticalAlignment=Alignment.CenterVertically){Checkbox(p.optBoolean("value"),{runtime.dispatch(node.handle("onTinycastChange"),JSONArray().put(it))});Text(p.optString("label",title),fontSize=13.sp)}
-        "Form.Dropdown"->{var expanded by remember{mutableStateOf(false)};Text(title,fontSize=12.sp,color=muted);Box{OutlinedButton(onClick={expanded=true},modifier=Modifier.paletteFocusBookmark()){Text(p.optString("value").ifBlank{"Choose…"})};PaletteChoiceMenu(expanded,{expanded=false},node.nodes("Form.Dropdown.Item").mapIndexed{index,option->val value=option.props().optString("value");PaletteChoice("form-option-${node.optString("id")}-${index}-$value",option.props().optString("title"),checked=p.optString("value")==value){runtime.dispatch(node.handle("onTinycastChange"),JSONArray().put(value));expanded=false}},title=title)}}
-        "Form.Description"->Text(p.optString("text"),color=muted,fontSize=13.sp)
-        "Form.Separator"->HorizontalDivider(color=line)
-        else->if(node.children().isNotEmpty())node.children().forEach{FormNode(it,runtime)}else Text("$type is not supported yet",color=muted,fontSize=12.sp)
     }
 }
