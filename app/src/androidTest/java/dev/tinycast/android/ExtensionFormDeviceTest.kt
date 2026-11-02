@@ -423,8 +423,36 @@ class ExtensionFormDeviceTest {
 
     private fun touch(tag: String) {
         val node = compose.onNodeWithTag(tag)
-        if (!node.isDisplayed()) node.performScrollTo()
-        node.performTouchInput { click(center) }
+        val viewport = listOf("extension-form", "extension-configuration").firstOrNull {
+            compose.onAllNodes(hasTestTag(tag) and hasAnyAncestor(hasTestTag(it))).fetchSemanticsNodes().isNotEmpty()
+        }
+        // isDisplayed accepts a sliver. At 200% in short landscape, the full
+        // control's center can still be behind the IME or its clipped parent.
+        // Reveal both scroll owners before tapping a real visible hit region.
+        val minimumHitHeight = 48f * context.resources.displayMetrics.density
+        if (viewport != null) {
+            revealViewport(viewport, minimumHitHeight)
+            node.performScrollTo()
+            revealViewport(viewport, minimumHitHeight)
+        } else if (!node.isDisplayed()) node.performScrollTo()
+        compose.waitForIdle()
+        val target = node.fetchSemanticsNode()
+        val visible = target.boundsInRoot
+        val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+        val point = visible.center
+        val taps = record.optJSONArray("pointer_taps") ?: JSONArray().also { record.put("pointer_taps", it) }
+        taps.put(JSONObject().put("tag", tag).put("viewport", viewport)
+            .put("visible_bounds", JSONArray(listOf(visible.left, visible.top, visible.right, visible.bottom)))
+            .put("control_size", JSONArray(listOf(target.size.width, target.size.height)))
+            .put("point", JSONArray(listOf(point.x, point.y))))
+        assertTrue("A pointer target needs a useful visible hit region", visible.width > 1 &&
+            visible.height + 1 >= minOf(target.size.height.toFloat(), minimumHitHeight) && root.contains(point))
+        compose.onRoot().performTouchInput { click(point - root.topLeft) }
+        compose.waitForIdle()
+        if (target.config.contains(SemanticsProperties.EditableText)) {
+            compose.waitUntil(5000) { node.fetchSemanticsNode().config[SemanticsProperties.Focused] }
+            node.assertIsFocused()
+        }
     }
     private fun openChoice() {
         // Both intermediate raw-value and repaired readable-label apps expose
@@ -710,6 +738,25 @@ class ExtensionFormDeviceTest {
             if (show) controller.show(WindowInsetsCompat.Type.ime()) else controller.hide(WindowInsetsCompat.Type.ime())
         }
         compose.waitUntil(10000) { imeVisible() == show }; compose.waitForIdle()
+        if (!show) {
+            // Insets become hidden before the IME's final connection callbacks
+            // and window animation necessarily finish. Observe native window
+            // removal before constructing a separate controlled connection.
+            device.waitForIdle(2000)
+            val automation = testAutomation()
+            val flags = automation.serviceInfo.flags
+            try {
+                automation.serviceInfo = automation.serviceInfo.apply {
+                    this.flags = flags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+                }
+                compose.waitUntil(10000) {
+                    automation.clearCacheForTest()
+                    !imeVisible() && automation.windows.none { it.type == android.view.accessibility.AccessibilityWindowInfo.TYPE_INPUT_METHOD }
+                }
+                InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+            } finally { automation.serviceInfo = automation.serviceInfo.apply { this.flags = flags } }
+            record.put("hidden_ime_window_absence_confirmed", true)
+        }
     }
     private fun fullBounds(interaction: SemanticsNodeInteraction): Rect {
         val node = interaction.fetchSemanticsNode()
