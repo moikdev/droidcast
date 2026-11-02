@@ -356,9 +356,9 @@ class ExtensionFormDeviceTest {
         compose.waitUntil(5000) { field("Form.TextField", "filtered").props().optString("value") == expected }
         compose.onNodeWithTag("extension-field-filtered").assertTextEquals(expected)
         touch("extension-field-rejected")
-        val before = catalog.runtimeTree
         compose.onNodeWithTag("extension-field-rejected").performTextReplacement("Owned edit that the extension rejects")
-        compose.waitUntil(5000) { probe().getInt("changes") == 2 && catalog.runtimeTree !== before }
+        compose.waitUntil(5000) { probe().getInt("changes") == 2 }
+        compose.waitForIdle()
         assertEquals("Owned fixed value", field("Form.TextField", "rejected").props().optString("value"))
         compose.onNodeWithTag("extension-field-rejected").assertTextEquals("Owned fixed value")
         touch("extension-field-notes")

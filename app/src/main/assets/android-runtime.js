@@ -44,6 +44,7 @@
           return Reflect.apply(original, this, [{...event, target: {...event?.target, value: current.value}}]);
         };
         return Reflect.apply(target, receiver, [{...props,
+          __androidFormControlled: props.value !== undefined,
           onFocus: callback("focus", props.onFocus), onBlur: callback("blur", props.onBlur)}, ...args.slice(1)]);
       }
     }));

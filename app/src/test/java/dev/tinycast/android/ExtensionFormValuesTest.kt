@@ -34,4 +34,11 @@ class ExtensionFormValuesTest {
         val values = FormEditorValues(); values.observe(field, Any(), "owned"); values.clear()
         assertNull(values.value(field))
     }
+    @Test fun aControlledNativeRedrawCanRejectWithoutAnotherReactPublication() {
+        val values = FormEditorValues(); val render = Any()
+        values.observe(field, render, "fixed"); values.edit(field, "rejected")
+        assertEquals("rejected", values.value(field))
+        values.rendered(field, "fixed")
+        assertEquals("fixed", values.value(field))
+    }
 }

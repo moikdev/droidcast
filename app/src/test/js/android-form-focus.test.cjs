@@ -44,7 +44,11 @@ test('field props, callbacks and absent focus handlers are preserved', () => {
     assert.equal(field.id, props.id); assert.equal(field.value, props.value); assert.equal(field.defaultValue, props.defaultValue);
     assert.equal(field.onChange, change); assert.equal(field.children, child); assert.equal(field.ref, reference);
     assert.equal(field.onFocus, undefined); assert.equal(field.onBlur, undefined);
+    assert.equal(field.__androidFormControlled, true);
   }
+  assert.equal(api.Form.TextField({id: 'uncontrolled'}).__androidFormControlled, false);
+  assert.equal(api.Form.TextField({id: 'undefined', value: undefined}).__androidFormControlled, false);
+  assert.equal(api.Form.TextField({id: 'null', value: null}).__androidFormControlled, true);
 });
 test('matching focus and blur receive the native Unicode or boolean value', () => {
   const f = fixture(), api = f.load()[0], marker = {}, original = {target: {value: 'previous', marker}, detail: marker};
