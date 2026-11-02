@@ -431,9 +431,20 @@ class ExtensionFormDeviceTest {
         // Reveal both scroll owners before tapping a real visible hit region.
         val minimumHitHeight = 48f * context.resources.displayMetrics.density
         if (viewport != null) {
-            revealViewport(viewport, minimumHitHeight)
+            revealViewport(viewport, minimumHitHeight / 3)
             node.performScrollTo()
-            revealViewport(viewport, minimumHitHeight)
+            // ScrollTo uses the inner scroller's full layout height; a second
+            // outer scroller can clip that height. Finish with real pointer
+            // scrolling until the target itself has a visible hit region.
+            for (attempt in 0 until 60) {
+                revealViewport(viewport, minimumHitHeight / 3)
+                val current = node.fetchSemanticsNode()
+                if (current.boundsInRoot.height + 1 >= minOf(current.size.height.toFloat(), minimumHitHeight)) break
+                val body = compose.onNodeWithTag(viewport)
+                val visible = body.fetchSemanticsNode().boundsInRoot
+                val origin = compose.runOnUiThread { current.positionInRoot }
+                drag(body, if (origin.y < visible.top) 1 else -1)
+            }
         } else if (!node.isDisplayed()) node.performScrollTo()
         compose.waitForIdle()
         val target = node.fetchSemanticsNode()
@@ -681,14 +692,33 @@ class ExtensionFormDeviceTest {
         // synthetic composing region between the two asynchronous phases.
         ime(false)
         var input: android.view.inputmethod.InputConnection? = null
+        val compositionSteps = JSONArray().also { record.put("composition_steps", it) }
+        fun observeComposition(phase: String) {
+            compose.activityRule.scenario.onActivity {
+                val extracted = input?.getExtractedText(android.view.inputmethod.ExtractedTextRequest().apply {
+                    flags = android.view.inputmethod.InputConnection.GET_TEXT_WITH_STYLES
+                }, 0)
+                val styled = extracted?.text as? android.text.Spanned
+                val spans = if (styled != null) styled.getSpans(0, styled.length, Any::class.java).filter {
+                    styled.getSpanFlags(it) and android.text.Spanned.SPAN_COMPOSING != 0
+                } else emptyList()
+                compositionSteps.put(JSONObject().put("phase", phase).put("editor_length", extracted?.text?.length)
+                    .put("selection_start", extracted?.selectionStart).put("selection_end", extracted?.selectionEnd)
+                    .put("composition_spans", JSONArray(spans.map { span -> JSONArray(listOf(styled!!.getSpanStart(span), styled.getSpanEnd(span))) }))
+                    .put("runtime_value_length", field("Form.TextField", "name").props().optString("value").length))
+            }
+        }
         compose.activityRule.scenario.onActivity {
             input = requireNotNull(it.window.decorView.findFocus()?.onCreateInputConnection(android.view.inputmethod.EditorInfo()))
             assertTrue(input!!.setSelection(0, 0)); assertTrue(input!!.setComposingText("日本", 1))
         }
+        observeComposition("after-set-composing")
         compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == "日本$original" }
+        observeComposition("after-javascript-publication")
         // Complete composition after the real JS -> native value round trip.
         // If recomposition discarded its range, this would append instead.
         compose.activityRule.scenario.onActivity { assertTrue(input!!.commitText("日本語", 1)); assertTrue(input!!.finishComposingText()) }
+        observeComposition("after-commit")
         val composed = "日本語$original"
         compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == composed }
         compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3)))
@@ -754,6 +784,9 @@ class ExtensionFormDeviceTest {
                     !imeVisible() && automation.windows.none { it.type == android.view.accessibility.AccessibilityWindowInfo.TYPE_INPUT_METHOD }
                 }
                 InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+                val frames = CountDownLatch(1)
+                compose.activityRule.scenario.onActivity { it.window.decorView.postOnAnimation { it.window.decorView.postOnAnimation { frames.countDown() } } }
+                assertTrue(frames.await(5, TimeUnit.SECONDS)); compose.waitForIdle()
             } finally { automation.serviceInfo = automation.serviceInfo.apply { this.flags = flags } }
             record.put("hidden_ime_window_absence_confirmed", true)
         }
