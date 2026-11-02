@@ -745,14 +745,18 @@ class ExtensionFormDeviceTest {
         val original = "Owned café é 日本 🌱"
         compose.onNodeWithTag("extension-field-name").performTextReplacement(original)
         compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == original }
+        // Programmatic selection and the following controlled InputConnection
+        // own this editor with Gboard hidden. A separate real-pointer test
+        // covers selection while the live IME remains connected.
+        ime(false)
         compose.onNodeWithTag("extension-field-name").performTextInputSelection(TextRange(2, 5))
+        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
+        record.put("controlled_selection_before_publication", JSONArray(listOf(2, 5)))
         evaluateOwned("globalThis.__bumpOwnedForm();true")
         compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
+        record.put("controlled_selection_after_publication", JSONArray(listOf(2, 5)))
+            .put("selection_method", "Exact programmatic range before/after unrelated React publication with Gboard hidden; live-IME selection is a separate pointer test")
         assertEquals(1, probe().getJSONObject("focus").getInt("name"))
-        // The controlled InputConnection remains the editor input route. Hide
-        // Gboard first so its separate live connection cannot finish the
-        // synthetic composing region between the two asynchronous phases.
-        ime(false)
         var input: android.view.inputmethod.InputConnection? = null
         val compositionSteps = JSONArray().also { record.put("composition_steps", it) }
         fun observeComposition(phase: String) {
@@ -836,6 +840,29 @@ class ExtensionFormDeviceTest {
         assertEquals("Password editors must request TYPE_TEXT_VARIATION_PASSWORD", android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD,
             info.inputType and android.text.InputType.TYPE_MASK_VARIATION)
         assertEquals("Password editors must disable autocorrection", 0, info.inputType and android.text.InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
+    }
+
+    @Test fun liveImePointerSelectionSurvivesUnrelatedPublication() {
+        launch("all-fields"); touch("extension-field-name"); ime(true)
+        val value = "Owned caret"
+        val editor = compose.onNodeWithTag("extension-field-name")
+        editor.performTextReplacement(value)
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value }
+        awaitImeGeometry(true)
+        val density = context.resources.displayMetrics.density
+        editor.performTouchInput { longClick(Offset(32f * density, center.y)) }
+        compose.waitUntil(5000) { !editor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange].collapsed }
+        val before = editor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        assertEquals("Owned", value.substring(before.min, before.max))
+        assertTrue(imeVisible()); capture("live-ime-selection-before")
+        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        editor.assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, before))
+        assertTrue(imeVisible()); assertEquals(value, field("Form.TextField", "name").props().optString("value"))
+        capture("live-ime-selection-after")
+        record.put("pointer_selection_before_publication", JSONArray(listOf(before.start, before.end)))
+            .put("pointer_selection_after_publication", JSONArray(listOf(before.start, before.end)))
+            .put("selection_method", "Actual long-press word selection with the live IME visible before/after an unrelated React publication")
+            .put("passed", true)
     }
 
     @Test fun returningFromCheckboxRefocusesTheSameTextField() {
