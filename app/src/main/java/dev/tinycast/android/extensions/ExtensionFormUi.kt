@@ -53,28 +53,31 @@ internal fun ExtensionCheckboxRow(label: String, checked: Boolean, change: (Bool
 
 @Composable
 internal fun NativeExtensionForm(root: JSONObject, liveRoot: () -> JSONObject?, dispatch: (String?, JSONArray) -> Unit,
+                                  dispatchFocus: (String?, String, Boolean, Any) -> Unit,
                                   modifier: Modifier = Modifier) {
     val rootId = root.optString("id")
     val scroll = remember(rootId) { androidx.compose.foundation.ScrollState(0) }
+    val values = remember(rootId) { FormEditorValues() }
     // This provider belongs to CommandRunner's captured runtime/launch epoch.
     // Keeping it with this form prevents an old callback adopting a new session.
     val focus = remember(rootId) {
         FormFocusDelivery({ liveFormField(it, liveRoot()) != null }) { owner, focused ->
             liveFormField(owner, liveRoot())?.handle(if (focused) "onTinycastFocus" else "onTinycastBlur")?.let {
-                dispatch(it, JSONArray())
+                val value = values.value(owner) ?: return@let
+                dispatchFocus(it, owner.logicalId, focused, value)
             }
         }
     }
-    DisposableEffect(focus) { onDispose { focus.clear() } }
+    DisposableEffect(focus, values) { onDispose { focus.clear(); values.clear() } }
     Column(modifier.fillMaxWidth().verticalScroll(scroll).padding(20.dp).testTag("extension-form"),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        root.children().forEach { node -> key(node.optString("id")) { NativeFormNode(root, node, liveRoot, dispatch, focus) } }
+        root.children().forEach { node -> key(node.optString("id")) { NativeFormNode(root, node, liveRoot, dispatch, focus, values) } }
     }
 }
 
 @Composable
 private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> JSONObject?,
-                           dispatch: (String?, JSONArray) -> Unit, focus: FormFocusDelivery) {
+                           dispatch: (String?, JSONArray) -> Unit, focus: FormFocusDelivery, values: FormEditorValues) {
     val p = node.props()
     val type = node.optString("type")
     val id = p.optString("id")
@@ -82,6 +85,8 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
     val owner = formFieldOwner(root, node)
     val errorText = (p.opt("error") as? String).orEmpty()
     val info = (p.opt("info") as? String).orEmpty()
+    owner?.let { values.observe(it, root, if (type == "Form.Checkbox") p.optBoolean("value") else (p.opt("value") as? String).orEmpty()) }
+    DisposableEffect(owner, values) { onDispose { owner?.let(values::remove) } }
     var nativeFocused by remember(owner) { mutableStateOf(false) }
     val focusModifier = Modifier.onFocusChanged {
         if (nativeFocused != it.isFocused) {
@@ -90,15 +95,19 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
         }
     }
     fun change(value: Any): Boolean {
-        val current = owner?.let { liveFormField(it, liveRoot()) } ?: return false
+        val fieldOwner = owner ?: return false
+        val current = liveFormField(fieldOwner, liveRoot()) ?: return false
         val handle = current.handle("onTinycastChange") ?: return false
+        values.edit(fieldOwner, value)
         dispatch(handle, JSONArray().put(value))
         return true
     }
     when (type) {
         "Form.TextField", "Form.PasswordField", "Form.TextArea" -> {
             val supplied = (p.opt("value") as? String).orEmpty()
-            var text by remember(owner, supplied) { mutableStateOf(supplied) }
+            // A new publication is authoritative even when a controlled field
+            // rejects an edit and repeats its previous prop value.
+            var text by remember(owner, root) { mutableStateOf(supplied) }
             Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ExtensionFieldLabel(title, "extension-field-title-$id")
                 OutlinedTextField(text, { next -> if (change(next)) text = next },
@@ -145,7 +154,10 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                                 if (menu == null || menuOwner !== menu || owner == null) return@choose
                                 val current = liveFormChoice(owner, choice, liveRoot())
                                 menuOwner = null
-                                if (current != null) dispatch(current.first.handle("onTinycastChange"), JSONArray().put(current.second.value))
+                                if (current != null) {
+                                    values.edit(owner, current.second.value)
+                                    dispatch(current.first.handle("onTinycastChange"), JSONArray().put(current.second.value))
+                                }
                             }
                         }, title = title)
                 }
@@ -156,7 +168,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
         "Form.Description" -> Text(p.optString("text"), color = PaletteTheme.secondary, fontSize = 13.sp, lineHeight = 20.sp)
         "Form.Separator" -> HorizontalDivider(color = PaletteTheme.separator)
         else -> if (node.children().isNotEmpty()) node.children().forEach { child ->
-            key(child.optString("id")) { NativeFormNode(root, child, liveRoot, dispatch, focus) }
+            key(child.optString("id")) { NativeFormNode(root, child, liveRoot, dispatch, focus, values) }
         } else Text("$type is not supported yet", color = PaletteTheme.secondary, fontSize = 13.sp, lineHeight = 20.sp)
     }
 }

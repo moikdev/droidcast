@@ -57,6 +57,21 @@ internal fun liveFormChoice(owner: FormFieldOwner, expected: FormChoice, root: J
     return field to choice
 }
 
+/** Native edits precede asynchronous React publication. Preserve their event
+ * value through recomposition of the same tree; a fresh publication becomes
+ * the authoritative controlled/uncontrolled value again. */
+internal class FormEditorValues {
+    private data class Entry(val render: Any, var value: Any)
+    private val entries = mutableMapOf<FormFieldOwner, Entry>()
+    fun observe(owner: FormFieldOwner, render: Any, value: Any) {
+        if (entries[owner]?.render !== render) entries[owner] = Entry(render, value)
+    }
+    fun edit(owner: FormFieldOwner, value: Any) { entries[owner]?.value = value }
+    fun value(owner: FormFieldOwner): Any? = entries[owner]?.value
+    fun remove(owner: FormFieldOwner) { entries.remove(owner) }
+    fun clear() { entries.clear() }
+}
+
 /** One logical field focus across native text input and pointer-only controls. */
 internal class FormFocusDelivery(private val current: (FormFieldOwner) -> Boolean,
                                  private val deliver: (FormFieldOwner, Boolean) -> Unit) {

@@ -148,6 +148,15 @@ class ExtensionFormDeviceTest {
                     onBlur:event=>{nameEvents.onBlur(event);setError(event.target.value?'':${JSONObject.quote(fieldError)})}}),
                   React.createElement(api.Form.TextArea,{key:'notes',id:'notes',title:'Owned notes',value:notes,onChange:setNotes}));
               }
+              if(mode==='controlled'){
+                const [filtered,setFiltered]=React.useState('OWNED INITIAL');
+                return React.createElement(api.Form,null,
+                  React.createElement(api.Form.TextField,{key:'filtered',id:'filtered',title:'Owned transformed value',value:filtered,
+                    onChange:value=>{setFiltered(value.toUpperCase());globalThis.__formProbe.changes++},...fieldEvents('filtered')}),
+                  React.createElement(api.Form.TextField,{key:'rejected',id:'rejected',title:'Owned fixed value',value:'Owned fixed value',
+                    onChange:()=>{globalThis.__formProbe.changes++},...fieldEvents('rejected')}),
+                  React.createElement(api.Form.TextArea,{key:'notes',id:'notes',title:'Owned notes',...fieldEvents('notes')}));
+              }
               if(mode==='all-fields'||mode==='long'){
                 const [name,setName]=React.useState(''),[password,setPassword]=React.useState(''),[area,setArea]=React.useState('');
                 const [choice,setChoice]=React.useState('internal-layout-two'),[checked,setChecked]=React.useState(false),[render,setRender]=React.useState(0);
@@ -312,25 +321,73 @@ class ExtensionFormDeviceTest {
         record.put("focus_and_blur_once_with_current_value", true).put("payload_utf16_units", value.length).put("passed", true)
     }
     @Test fun rapidTextThenBlurDeliversCurrentValueBeforeRedraw() {
-        launch("focus"); touch("extension-field-name")
-        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any {
-            it.props().optString("text") == "Name focus=1 blur=0 length=0; checkbox changes=0"
-        } == true }
-        val setText = requireNotNull(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsActions.SetText].action)
-        val focusNotes = requireNotNull(compose.onNodeWithTag("extension-field-notes").fetchSemanticsNode().config[SemanticsActions.RequestFocus].action)
-        val value = "Owned rapid café é 日本 🌱"
-        compose.activityRule.scenario.onActivity {
-            assertTrue(setText(AnnotatedString(value))); assertTrue(focusNotes())
+        launch("focus")
+        val engine = engine()
+        val rounds = JSONArray(); record.put("rapid_rounds", rounds)
+        for (index in 1..5) {
+            touch("extension-field-name")
+            compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any {
+                it.props().optString("text").startsWith("Name focus=$index blur=${index - 1} ")
+            } == true }
+            val setText = requireNotNull(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsActions.SetText].action)
+            val focusNotes = requireNotNull(compose.onNodeWithTag("extension-field-notes").fetchSemanticsNode().config[SemanticsActions.RequestFocus].action)
+            val value = "Owned rapid $index café é 日本 🌱"
+            compose.activityRule.scenario.onActivity {
+                // Queue the two native events behind a bounded owned JS task.
+                // No native redraw or JS acknowledgement separates the edit
+                // from blur; this is a controlled ordering probe, not latency.
+                engine.evaluateJavascript("(()=>{const until=performance.now()+40;while(performance.now()<until){};return true})()", null)
+                assertTrue(setText(AnnotatedString(value))); assertTrue(focusNotes())
+            }
+            compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value && activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any {
+                it.props().optString("text").contains("blur=$index ")
+            } == true }
+            val observed = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("Form.Description").single().props().getString("text")
+            rounds.put(JSONObject().put("round", index).put("numeric_callback_status", observed).put("expected_value_utf16_units", value.length))
+            assertEquals("Name focus=$index blur=$index length=${value.length}; checkbox changes=0", observed)
         }
-        record.put("interaction", "Controlled retained SetText then RequestFocus in one main-thread turn, before a native redraw or waiting for the JS change acknowledgement")
-        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value && activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any {
-            it.props().optString("text").contains("blur=1")
+        record.put("interaction", "Five controlled SetText -> RequestFocus sequences in one main-thread turn, queued behind a 40ms owned JS task; no wait for change acknowledgement or native redraw")
+        capture("rapid-blur"); record.put("passed", true)
+    }
+    @Test fun controlledTransformsAndRejectedEditsRemainAuthoritative() {
+        launch("controlled"); touch("extension-field-filtered")
+        val value = "owned café é 日本"; val expected = value.uppercase(java.util.Locale.ROOT)
+        compose.onNodeWithTag("extension-field-filtered").performTextReplacement(value)
+        compose.waitUntil(5000) { field("Form.TextField", "filtered").props().optString("value") == expected }
+        compose.onNodeWithTag("extension-field-filtered").assertTextEquals(expected)
+        touch("extension-field-rejected")
+        val before = catalog.runtimeTree
+        compose.onNodeWithTag("extension-field-rejected").performTextReplacement("Owned edit that the extension rejects")
+        compose.waitUntil(5000) { probe().getInt("changes") == 2 && catalog.runtimeTree !== before }
+        assertEquals("Owned fixed value", field("Form.TextField", "rejected").props().optString("value"))
+        compose.onNodeWithTag("extension-field-rejected").assertTextEquals("Owned fixed value")
+        touch("extension-field-notes")
+        compose.waitUntil(5000) { probe().getJSONObject("blur").optInt("rejected") == 1 }
+        val observed = probe()
+        assertEquals(expected.length, observed.getJSONObject("blurLengths").getInt("filtered"))
+        assertEquals("Owned fixed value".length, observed.getJSONObject("blurLengths").getInt("rejected"))
+        capture("controlled-values")
+        record.put("transformed_and_rejected_native_values_verified", true).put("focus_probe", observed).put("passed", true)
+    }
+    @Test fun replacementSessionRejectsOldCallbackAndAcceptsNewFocus() {
+        launch("focus"); val originalRoot = requireNotNull(activeRoot(catalog.runtimeTree)).optString("id")
+        val oldSetText = requireNotNull(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val epoch = catalog.launchEpoch
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        compose.waitUntil(15000) { catalog.launchEpoch > epoch && catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertEquals("Fixture deliberately reuses the new runtime's native root ID", originalRoot, requireNotNull(activeRoot(catalog.runtimeTree)).optString("id"))
+        val before = probe(); compose.activityRule.scenario.onActivity { assertTrue(oldSetText(AnnotatedString("Owned stale session"))) }
+        assertEquals(before.toString(), probe().toString())
+        touch("extension-field-name")
+        val value = "Owned replacement 日本 🌱"
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(value)
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value }
+        touch("extension-field-notes")
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any {
+            it.props().optString("text") == "Name focus=1 blur=1 length=${value.length}; checkbox changes=0"
         } == true }
-        val observed = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("Form.Description").single().props().getString("text")
-        record.put("numeric_callback_status", observed).put("expected_value_utf16_units", value.length)
-        capture("rapid-blur")
-        assertEquals("Name focus=1 blur=1 length=${value.length}; checkbox changes=0", observed)
-        record.put("passed", true)
+        capture("new-session-focus")
+        record.put("actual_session_restart_with_reused_ids", true).put("old_callback_rejected_new_focus_works", true).put("passed", true)
     }
     @Test fun dropdownShowsSelectedItemTitle() {
         launch("choices")
@@ -348,10 +405,20 @@ class ExtensionFormDeviceTest {
         compose.onNodeWithText(checkboxLabel, useUnmergedTree = true).assertIsDisplayed().performTouchInput { click(center) }
         record.put("actual_label_pointer_tap_performed", true)
         compose.waitUntil(5000) { field("Form.Checkbox", "enabled").props().optBoolean("value") }
+        assertCheckboxSemantics("extension-checkbox-enabled", checkboxLabel)
         compose.waitForIdle(); capture("label-tap")
         assertTrue("Tapping the actual label must toggle its checkbox", field("Form.Checkbox", "enabled").props().optBoolean("value"))
         compose.onNodeWithText("Name focus=0 blur=0 length=0; checkbox changes=1", useUnmergedTree = true).assertIsDisplayed()
         record.put("label_pointer_tap_toggled_once", true).put("passed", true)
+    }
+    private fun assertCheckboxSemantics(tag: String, label: String) {
+        val node = compose.onNodeWithTag(tag).fetchSemanticsNode()
+        val labels = (if (node.config.contains(SemanticsProperties.ContentDescription)) node.config[SemanticsProperties.ContentDescription] else emptyList()) +
+            (if (node.config.contains(SemanticsProperties.Text)) node.config[SemanticsProperties.Text].map { it.text } else emptyList())
+        assertTrue("The actionable checkbox needs its complete native label", label in labels)
+        assertEquals(androidx.compose.ui.semantics.Role.Checkbox, node.config[SemanticsProperties.Role])
+        compose.onNodeWithTag(tag).assertIsOn()
+        record.put("native_checkbox_label_role_state_verified", true)
     }
 
     private fun touch(tag: String) {
@@ -367,7 +434,7 @@ class ExtensionFormDeviceTest {
         compose.onNodeWithTag("inline-menu").assertIsDisplayed()
     }
     private fun firstChoice() = compose.onNode(hasText("Readable first layout") and hasAnyAncestor(hasTestTag("inline-menu")), useUnmergedTree = true)
-    private fun probe(): JSONObject {
+    private fun engine(): WebView {
         var engine: WebView? = null
         compose.activityRule.scenario.onActivity { activity ->
             fun visit(view: android.view.View) {
@@ -376,6 +443,10 @@ class ExtensionFormDeviceTest {
             }
             visit(activity.window.decorView)
         }
+        return requireNotNull(engine)
+    }
+    private fun probe(): JSONObject {
+        val engine = engine()
         val result = AtomicReference<String>()
         compose.activityRule.scenario.onActivity { requireNotNull(engine).evaluateJavascript("JSON.stringify(globalThis.__formProbe)") { result.set(it) } }
         compose.waitUntil(5000) { result.get() != null }
@@ -562,14 +633,7 @@ class ExtensionFormDeviceTest {
     }
 
     private fun evaluateOwned(script: String) {
-        var engine: WebView? = null
-        compose.activityRule.scenario.onActivity { activity ->
-            fun visit(view: android.view.View) {
-                if (view is WebView) { assertNull(engine); engine = view }
-                if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
-            }
-            visit(activity.window.decorView)
-        }
+        val engine = engine()
         val done = CountDownLatch(1)
         compose.activityRule.scenario.onActivity { requireNotNull(engine).evaluateJavascript(script) { done.countDown() } }
         assertTrue(done.await(5, TimeUnit.SECONDS)); compose.waitForIdle()
