@@ -1,0 +1,29 @@
+{
+  "directory": "palette-colors",
+  "command": "index",
+  "archive_sha256": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+  "command_sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-working-for-listed-workflow",
+  "action_output_verified": true,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "native command screen captured; inspect the listed workflow checks",
+    "interaction_and_action": "verified for listed workflow",
+    "destination": "owned clipboard output verified",
+    "persistence": "verified across a new command session in the same app process",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {},
+  "persistence_verified": true,
+  "workflow": "Copy a displayed color, change to Contrast by touch, copy again, and reopen with the same scheme and items",
+  "runtime_status": "",
+  "capture": "workflow-palette-colors-index-0b6e3582.png",
+  "capture_receipt": "workflow-palette-colors-index-0b6e3582-frame.json",
+  "native_root": "Grid",
+  "return_capture": "workflow-palette-colors-index-0b6e3582-return.png",
+  "isolated_data_removed": true
+}

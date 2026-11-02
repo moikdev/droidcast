@@ -1,0 +1,35 @@
+{
+  "directory": "json-format",
+  "command": "formatSelectionAndShow",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "command_sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-partial",
+  "action_output_verified": false,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "native command screen captured; inspect the listed workflow checks",
+    "interaction_and_action": "not-checked",
+    "destination": "not-checked",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "autopaste": false,
+    "indent": "2"
+  },
+  "workflow": "Observe the selected-text Detail for up to five seconds and verify that owned clipboard input is not silently substituted or changed",
+  "settled_within_observation": false,
+  "selection_observation_ms": 5000,
+  "observed_markdown": "",
+  "remaining_workflow": "No external selection was supplied and no formatted selected-text output was verified. Desktop selectedText is unavailable in this host; this row does not certify an Android replacement or an observed bridge error.",
+  "runtime_status": "",
+  "capture": "workflow-json-format-formatselectionandshow-1c70e6ba.png",
+  "capture_receipt": "workflow-json-format-formatselectionandshow-1c70e6ba-frame.json",
+  "native_root": "Detail",
+  "return_capture": "workflow-json-format-formatselectionandshow-1c70e6ba-return.png",
+  "isolated_data_removed": true
+}

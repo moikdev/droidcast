@@ -1,0 +1,29 @@
+{
+  "directory": "base64",
+  "command": "index",
+  "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+  "command_sha256": "b4fbf304d94efaba62c845c1be21efb1cfb2e37fb714813432db4d3db53d773e",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-working-for-listed-workflow",
+  "action_output_verified": true,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "native command screen captured; inspect the listed workflow checks",
+    "interaction_and_action": "verified for listed workflow",
+    "destination": "owned clipboard output verified",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {},
+  "clipboard_bootstrap_copy_verified": true,
+  "workflow": "Copy the encoded owned clipboard value, type new input through native search, and copy the exact new Base64 output",
+  "runtime_status": "Copied to Clipboard",
+  "capture": "workflow-base64-index-5e20952e.png",
+  "capture_receipt": "workflow-base64-index-5e20952e-frame.json",
+  "native_root": "List",
+  "return_capture": "workflow-base64-index-5e20952e-return.png",
+  "isolated_data_removed": true
+}

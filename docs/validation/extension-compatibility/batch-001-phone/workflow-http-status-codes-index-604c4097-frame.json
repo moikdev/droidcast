@@ -1,0 +1,8 @@
+{
+  "launch_epoch": 21,
+  "native_root": null,
+  "runtime_tree_sha256": null,
+  "runtime_status": "Starting extension…",
+  "runtime_error": "Error: Extensions can only access their own package and data folder\n    at G (<anonymous>:13:2077)\n    at Object.realpathSync (<anonymous>:21:3661)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-e3ddb7e224614d04ac27b4ca52ed1c58\/http-status-codes\/index.js:3:819)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-e3ddb7e224614d04ac27b4ca52ed1c58\/http-status-codes\/index.js:3:222)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-e3ddb7e224614d04ac27b4ca52ed1c58\/http-status-codes\/index.js:12:4801)\n    at Yd (<anonymous>:23:9703)\n    at Object.start (<anonymous>:23:51035)\n    at <anonymous>:1:1198",
+  "synchronization": "Committed native semantics, two display frames, hierarchy before PNG, stable runtime state throughout capture"
+}

@@ -1,0 +1,31 @@
+{
+  "directory": "http-status-codes",
+  "command": "index",
+  "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+  "command_sha256": "96426ed0c09fd073a2411370e444dbbf45e2b02ad4970bf44f757b0f8b662cb9",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "observed-failed",
+  "action_output_verified": false,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "not-checked",
+    "rendering": "not-checked",
+    "interaction_and_action": "not-checked",
+    "destination": "not-checked",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "workflow": "Load the native status-code List, filter to 404 and choose Copy Code through Actions; browser\/image actions are not exercised",
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "typeOfPerson": "none"
+  },
+  "runtime_error": "Error: Extensions can only access their own package and data folder\n    at G (<anonymous>:13:2077)\n    at Object.realpathSync (<anonymous>:21:3661)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-d3ead52d7fda46a6b51c1ecefd36b372\/http-status-codes\/index.js:3:819)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-d3ead52d7fda46a6b51c1ecefd36b372\/http-status-codes\/index.js:3:222)\n    at eval (\/data\/user\/0\/dev.tinycast.android\/cache\/compat-batch-d3ead52d7fda46a6b51c1ecefd36b372\/http-status-codes\/index.js:12:4801)\n    at Yd (<anonymous>:23:9703)\n    at Object.start (<anonymous>:23:51035)\n    at <anonymous>:1:1198",
+  "runtime_status": "Starting extension…",
+  "capture": "workflow-http-status-codes-index-604c4097.png",
+  "capture_receipt": "workflow-http-status-codes-index-604c4097-frame.json",
+  "native_root": null,
+  "return_capture": "workflow-http-status-codes-index-604c4097-return.png",
+  "isolated_data_removed": true
+}

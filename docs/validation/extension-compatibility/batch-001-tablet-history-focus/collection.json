@@ -1,0 +1,61 @@
+{
+  "completed": true,
+  "fixture_sha256": "3c65e2c19452ba4be9b1b6becc6914146630462402257aec1730b0145b99958d",
+  "source_snapshot_sha256": "69646d42b6b4cc8438beb4c007b6c2640087441965f7ec256afd2bb556e96b2c",
+  "api": 36,
+  "abi": "arm64-v8a",
+  "webview_package": "com.google.android.webview",
+  "webview_version": "133.0.6943.137",
+  "font_scale": 1,
+  "density_dpi": 240,
+  "input_method": "Compose pointer actions and text semantics; no physical touchscreen\/keyboard certification",
+  "workflows": [
+    {
+      "directory": "uuid-generator",
+      "command": "viewHistory",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "command_sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d",
+      "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+      "status": "tested-working-for-listed-workflow",
+      "action_output_verified": true,
+      "phases": {
+        "archive_extraction": "verified",
+        "startup": "Host runtime reported ready",
+        "rendering": "native command screen captured; inspect the listed workflow checks",
+        "interaction_and_action": "verified for listed workflow",
+        "destination": "owned clipboard output verified",
+        "persistence": "verified across a new command session in the same app process",
+        "touch_return": "verified caller query and closed command session",
+        "isolated_data_cleanup": "verified"
+      },
+      "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+      "seeded_preferences": {
+        "upperCaseLetters": false,
+        "defaultAction": "copy"
+      },
+      "supporting_commands": [
+        {
+          "command": "generate",
+          "file_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d"
+        }
+      ],
+      "native_argument_steps": [
+        {
+          "command": "generate",
+          "values": {
+            "numberOfUUIDsToGenerate": "2"
+          }
+        }
+      ],
+      "persistence_verified": true,
+      "workflow": "Generate owned values, reopen the command session as history, and copy a persisted UUID through the native List action",
+      "runtime_status": "Copied to Clipboard",
+      "capture": "workflow-uuid-generator-viewhistory-5f21fd5d.png",
+      "capture_receipt": "workflow-uuid-generator-viewhistory-5f21fd5d-frame.json",
+      "native_root": "List",
+      "return_capture": "workflow-uuid-generator-viewhistory-5f21fd5d-return.png",
+      "isolated_data_removed": true
+    }
+  ],
+  "scope": "Collector completion is not a blanket compatibility pass; each status names its actual exercised workflow."
+}

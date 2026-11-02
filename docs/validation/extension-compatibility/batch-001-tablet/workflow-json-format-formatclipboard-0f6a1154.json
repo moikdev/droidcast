@@ -1,0 +1,31 @@
+{
+  "directory": "json-format",
+  "command": "formatClipboard",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "command_sha256": "2fcf507c9a1cf422d9410193e99ba7e4e496f4fc8c45ee78072e19ea58538d6e",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-working-for-listed-workflow",
+  "action_output_verified": true,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "not-applicable",
+    "interaction_and_action": "verified for listed workflow",
+    "destination": "owned clipboard output verified",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "autopaste": false,
+    "indent": "2"
+  },
+  "workflow": "Format owned clipboard JSON with two-space indentation and copy without changing values",
+  "runtime_status": "Copied to clipboard",
+  "capture": "workflow-json-format-formatclipboard-0f6a1154.png",
+  "capture_receipt": "workflow-json-format-formatclipboard-0f6a1154-frame.json",
+  "native_root": null,
+  "return_capture": "workflow-json-format-formatclipboard-0f6a1154-return.png",
+  "isolated_data_removed": true
+}

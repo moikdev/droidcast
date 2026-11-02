@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "batch_id": "representative-001-history-focus",
+  "planning_source": {
+    "repository": "raycast/extensions",
+    "commit": "11a912d89b576ca066e9ee42e75b8dd2e8aa0f5c",
+    "catalog_sha256": "af8c68f7c5cd5caf4e042a48cb87ea4c77d8c4ae4ed5c6202e6a63d39d459a40"
+  },
+  "extensions": [
+    {
+      "directory": "uuid-generator",
+      "store_name": "uuid-generator",
+      "handle": "jmaeso",
+      "planning_manifest_sha256": "b35a3136e94e19fa6d1e60b4c866df9331a4c1b754d37d221e20905a8f55530f",
+      "commands": [
+        "viewHistory"
+      ]
+    }
+  ]
+}

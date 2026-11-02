@@ -1,0 +1,1635 @@
+{
+  "schema_version": 1,
+  "scope": "Specific frozen Store bundle workflows on API36; collector success is separate from compatibility status. Source inventory remains untested.",
+  "host_source_commit": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+  "production_base": "8d60d5c1d60f1ef37e557f97445d65dab9fcbbff",
+  "production_sources_unchanged": true,
+  "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+  "test_apk_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+  "embedded_build_commit": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+  "candidate_identity_sha256": "51dbe2504c52ef037735199285fb7e6d16cb3e6b324f19d654dfd1cc47fed518",
+  "sources": {
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "56c56d6a652524f7fc7952b1478552314b1e465ace5c7216385d7f2ea3cf4b6c",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "c054241ddb3d633018c996531bb73add6aa2cd9a6547fe1edbc1bf7cf42d2f3a",
+    "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt": "86096d428b6554bcb6b8c9d7bc39b981baf1fd53f9367a33c97ce03c89020a82",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/FrozenBundleWorkflowDeviceTest.kt": "81274443d6314d1a5211c2f1d2adbdcf5638de845134a4325471369125cfcea0",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b2abb73e68216d3ef148ca55c742762659fc7172c24653970b94232ad981d946",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "3e2dc1698462c5806b7a6bb332496aaaff0c713328d102885df5ccc57e4f8e8a",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+    "app/src/androidTest/java/dev/tinycast/android/TouchReadabilityDeviceTest.kt": "6801d25bb0d9bc45899b04aeedba474e2ac8e5cc8cb168b6268e0305fb49345e",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "8c1be27aad2e952108cdc28c8d6c28c5039513baeaa23ec6d6069d967b8c9414",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "f0ebd7a3a73d85358f0576dc6ce0360478ede8e50e5bc6e5420f17f4358a94ff",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "f7228cdd6b6988fb049f0aaf1048d69cc8489e802b4cc42a2b4d6f9e7ceea3e0",
+    "app/src/main/java/dev/tinycast/android/PaletteColumn.kt": "cd6cdc348752bcc20bd631e2216abdd4ee0c91d9606aaab62ce0c01a145dd6aa",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "7fbd49fe46584b935de6a597f704fe8a3862beac4ace3a30990aef2ce731336d",
+    "app/src/main/java/dev/tinycast/android/PaletteFooter.kt": "5b62c907b46e5075975fc22d01771f5ab7c7f53e433692de55d92865231e967f",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "bfbc139e01a4276770644d5f4c1242016839fd98f5e2f21fa8afb31c886bc763",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "5f0d892989a5e1601b80506256de18b322e078590315b2798b1169b05151ef33",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "92271f5714538a24b6708d27693dbb83f73e03976a9a980ed07c1e375c579ee9",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "86c6720bc02173423390496d60ac07bcf762dd59528fca4e0e7fe5f3f098c6cb",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "7008b8535ec3e754450ce446f34b6d8e50e9b2f5a9de64f436583144f8dd83dc",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "2eea2634754415a4114ec8ea4e1976be95ad8fcaf52032688eed2e606df5d30e",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "1fd60a529ffd322fae6cde77a7a743353d7fc8d7c57b4e2ea393ca13f5806725",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "344fbeef5d14d3935f835b847bcf296f9c666c62363023cc5e595e368176c955",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "7eb7de79a8bcf090f79429e35865abfd304e521c011f55de116d5cf66f697ced",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487"
+  },
+  "tools_and_tests": {
+    "scripts/test-extension-workflows.py": "3a3b212c415b1ad791db5c0a931589567be817bbe1554720828c50b4e2451661",
+    "scripts/extension_bundle_snapshot.py": "08ae0408a22e4f4c3c8a8b22af31b6a6a16d304dc0d14d5e489596dd9731a950",
+    "scripts/extension_manifest_catalog.py": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+    "scripts/android_test_cleanup.py": "31a9c4e9a325af37366215754400e3097e29aecec5b80c1340c9c276e23276ec",
+    "scripts/tests/test_extension_bundle_snapshot.py": "382561907129ac58b7e20b963c1afcbc9bc1a03b7e18da64e7d61927a8b15783",
+    "scripts/tests/test_extension_workflow_guards.py": "1cea982b85cf759e691471cad72b8e2cbdccdf3c2ccc6c483b1ef01b49002a3f"
+  },
+  "local_checks": {
+    "jvm_cases": 147,
+    "python_normal_cases": 44,
+    "python_optimized_cases": 44,
+    "python_scope": "Both 44-case suites executed at bc06044; all six Python tool/test sources remain byte-identical at this source commit.",
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 43
+    },
+    "logs": {
+      "representative-001-build-native-captures-v3.log": "3c4a5202716e0bacae791bd05589c41e8840e7acc6da98e77f37108ea8f4cdb5",
+      "representative-001-python-normal-v2.log": "34d8957cac3ce3674ca19b0f4ec8159b74dfe7301d9cea00e341f82a42ad4509",
+      "representative-001-python-optimized-v2.log": "34d8957cac3ce3674ca19b0f4ec8159b74dfe7301d9cea00e341f82a42ad4509"
+    }
+  },
+  "original_snapshot_sha256": "91a78fddd17816fddb656d7b860286b21ded0b298968f03319d3d3d38377b0c3",
+  "original_plan_sha256": "62fab1f27a8c13147563c067b2ec472d97392a73135b9ca66721fc4b9a25517f",
+  "broad_master_sha256": "cebd39ac5ff3d72fd3944364432364f1c540099067e5029f07721d1588ec43be",
+  "environment": {
+    "avd": "Tinycast_Tablet_API_36",
+    "api": 36,
+    "abi": "arm64-v8a",
+    "font_scale": 1,
+    "input": "Compose pointer actions and text semantics; physical touchscreen/keyboard and IME transitions are not certified"
+  },
+  "runs": {
+    "tablet": {
+      "layout": "tablet",
+      "commands": 16,
+      "native_collector_tests": 1,
+      "record_sha256": "50dd52756674d30350f3487163b660804cae6d048eb8d8875780aadd01aa0c49",
+      "collection_sha256": "512df06382dc5cb73852e0e7815876978ae232ae30c23114a9821897c0cebfbc",
+      "tests_log_sha256": "f1c6c3e44be9f9e3a63b2f83f58b7c2d1b723aaad998e843be5f078705e5d88d",
+      "source_snapshot_sha256": "91a78fddd17816fddb656d7b860286b21ded0b298968f03319d3d3d38377b0c3",
+      "fixture_sha256": "6f848dea5e17f542de0a199f2d2ab0c998c00eb974162e4f1042ff533e509a03",
+      "workflow_status_counts": {
+        "observed-failed": 2,
+        "tested-partial": 3,
+        "tested-working-for-listed-workflow": 10,
+        "untested": 1
+      },
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "isolated-extension-data": {
+          "passed": true
+        },
+        "bundle-fixtures": {
+          "passed": true
+        },
+        "bundle-upload": {
+          "passed": true
+        },
+        "palette-backup": {
+          "passed": true
+        },
+        "palette-preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "owned_extension_ids_cleaned": 16,
+      "viewport": "1920x1200 / 240 dpi",
+      "webview_package": "com.google.android.webview",
+      "webview_version": "133.0.6943.137",
+      "raw_captures": 34,
+      "workflows": [
+        {
+          "directory": "uuid-generator",
+          "command": "generate",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "uuid-generator",
+          "command": "generateV5",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "uuid-generator",
+          "command": "viewHistory",
+          "status": "untested",
+          "action_output_verified": false,
+          "needs_triage": true
+        },
+        {
+          "directory": "oklch-color-converter",
+          "command": "convert-color",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "palette-colors",
+          "command": "index",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "base64",
+          "command": "index",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "base64",
+          "command": "encode",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "base64",
+          "command": "decode",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "json-format",
+          "command": "index",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "json-format",
+          "command": "formatClipboard",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "json-format",
+          "command": "formatSelectionAndShow",
+          "status": "tested-partial",
+          "action_output_verified": false,
+          "needs_triage": false
+        },
+        {
+          "directory": "lorem-ipsum",
+          "command": "words",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "google-translate",
+          "command": "translate-form",
+          "status": "tested-partial",
+          "action_output_verified": false,
+          "needs_triage": true
+        },
+        {
+          "directory": "google-translate",
+          "command": "instant-translate-copy",
+          "status": "tested-partial",
+          "action_output_verified": false,
+          "needs_triage": false
+        },
+        {
+          "directory": "http-status-codes",
+          "command": "index",
+          "status": "observed-failed",
+          "action_output_verified": false,
+          "needs_triage": false
+        },
+        {
+          "directory": "weather",
+          "command": "index",
+          "status": "observed-failed",
+          "action_output_verified": false,
+          "needs_triage": false
+        }
+      ]
+    },
+    "phone": {
+      "layout": "phone",
+      "commands": 16,
+      "native_collector_tests": 1,
+      "record_sha256": "9625f370d32b3c421dcd2b6e20a8d9e6b876ba43eca2609ba7682ebeb96cc3a6",
+      "collection_sha256": "fd85401a7d0dd7d2f33c26259ef69acdacabdfe51ab61fb7b9c692e615d82817",
+      "tests_log_sha256": "3465c28ea1785f4b780334489b3eb5c9607236e65dcdacdb67626e1ecaddd839",
+      "source_snapshot_sha256": "91a78fddd17816fddb656d7b860286b21ded0b298968f03319d3d3d38377b0c3",
+      "fixture_sha256": "6f848dea5e17f542de0a199f2d2ab0c998c00eb974162e4f1042ff533e509a03",
+      "workflow_status_counts": {
+        "observed-failed": 2,
+        "tested-partial": 3,
+        "tested-working-for-listed-workflow": 11
+      },
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "isolated-extension-data": {
+          "passed": true
+        },
+        "bundle-fixtures": {
+          "passed": true
+        },
+        "bundle-upload": {
+          "passed": true
+        },
+        "palette-backup": {
+          "passed": true
+        },
+        "palette-preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "size": {
+          "passed": true
+        },
+        "density": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "owned_extension_ids_cleaned": 16,
+      "viewport": "1080x2340 / 420 dpi",
+      "webview_package": "com.google.android.webview",
+      "webview_version": "133.0.6943.137",
+      "raw_captures": 34,
+      "workflows": [
+        {
+          "directory": "uuid-generator",
+          "command": "generate",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "uuid-generator",
+          "command": "generateV5",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "uuid-generator",
+          "command": "viewHistory",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "oklch-color-converter",
+          "command": "convert-color",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "palette-colors",
+          "command": "index",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "base64",
+          "command": "index",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "base64",
+          "command": "encode",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "base64",
+          "command": "decode",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "json-format",
+          "command": "index",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "json-format",
+          "command": "formatClipboard",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "json-format",
+          "command": "formatSelectionAndShow",
+          "status": "tested-partial",
+          "action_output_verified": false,
+          "needs_triage": false
+        },
+        {
+          "directory": "lorem-ipsum",
+          "command": "words",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        },
+        {
+          "directory": "google-translate",
+          "command": "translate-form",
+          "status": "tested-partial",
+          "action_output_verified": false,
+          "needs_triage": true
+        },
+        {
+          "directory": "google-translate",
+          "command": "instant-translate-copy",
+          "status": "tested-partial",
+          "action_output_verified": false,
+          "needs_triage": false
+        },
+        {
+          "directory": "http-status-codes",
+          "command": "index",
+          "status": "observed-failed",
+          "action_output_verified": false,
+          "needs_triage": false
+        },
+        {
+          "directory": "weather",
+          "command": "index",
+          "status": "observed-failed",
+          "action_output_verified": false,
+          "needs_triage": false
+        }
+      ]
+    },
+    "tablet-history-focus": {
+      "layout": "tablet",
+      "commands": 1,
+      "native_collector_tests": 1,
+      "record_sha256": "9820e491d9e4c54660094e6899813f06cdb929da9a2f39aa444df05711b021fc",
+      "collection_sha256": "d2478f3ca02172f6679665647e827a0259d69362e89ba046595c0f3a3bc7f256",
+      "tests_log_sha256": "ef820f75902bf32349dd9d370e5cc57408f7ca7792b40e71e28a86b8a0b20990",
+      "source_snapshot_sha256": "69646d42b6b4cc8438beb4c007b6c2640087441965f7ec256afd2bb556e96b2c",
+      "fixture_sha256": "3c65e2c19452ba4be9b1b6becc6914146630462402257aec1730b0145b99958d",
+      "workflow_status_counts": {
+        "tested-working-for-listed-workflow": 1
+      },
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "isolated-extension-data": {
+          "passed": true
+        },
+        "bundle-fixtures": {
+          "passed": true
+        },
+        "bundle-upload": {
+          "passed": true
+        },
+        "palette-backup": {
+          "passed": true
+        },
+        "palette-preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "secure-enabled_accessibility_services": {
+          "passed": true
+        },
+        "secure-accessibility_enabled": {
+          "passed": true
+        },
+        "secure-show_ime_with_hard_keyboard": {
+          "passed": true
+        },
+        "font-scale": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "owned_extension_ids_cleaned": 1,
+      "viewport": "1920x1200 / 240 dpi",
+      "webview_package": "com.google.android.webview",
+      "webview_version": "133.0.6943.137",
+      "raw_captures": 2,
+      "workflows": [
+        {
+          "directory": "uuid-generator",
+          "command": "viewHistory",
+          "status": "tested-working-for-listed-workflow",
+          "action_output_verified": true,
+          "needs_triage": false
+        }
+      ]
+    }
+  },
+  "prior_attempts": [
+    {
+      "attempt": "v1-tablet",
+      "collector_completed": true,
+      "collector_test_passed": true,
+      "record_sha256": "937a7c7983af68e3354a545abcc501a5f82d92e830a84bde4f8447ed220be184",
+      "tests_log_sha256": "95b399573caf92d0f743eeeeef50fb82244514b93f6e367d0654f3fd99ccb8f6",
+      "cleanup_checks": 13,
+      "cleanup_passed": true,
+      "triage_sha256": "07e23b6b07469d942fe0c809ad737a5824506d0c7cfc583ea6e0b298d3747cc5"
+    },
+    {
+      "attempt": "v2-tablet",
+      "collector_completed": false,
+      "collector_test_passed": false,
+      "record_sha256": "11bb4dfab221cc2a399a75d7ed44da105f1e5883c84750344006e83e301e966b",
+      "tests_log_sha256": "3f403d84c875deeba2be58f112b694ef8f1fdb9c7bc8c7b52f8c7daed6483077",
+      "cleanup_checks": 13,
+      "cleanup_passed": true,
+      "triage_sha256": "e7412785ec5686ee57d412e9e34326e652952d134ed08c6b66f6997dfc13c625"
+    }
+  ],
+  "hosted_ci_and_audits": "Reported separately on the exact final pull request head; native receipts do not certify hosted CI or review completion.",
+  "focused_subset_scope": "One-command subset of the same UUID archive, derived without retrieval. It supplements the tablet clipboard-cleanup interruption; the broad tablet untested row remains unchanged.",
+  "evidence_files": {
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-base64-decode-cc943abf-return.png": {
+      "sha256": "4e60bfe833c95e09170f9aaf551ece9929f860abe7385ba46ff71a6af823b490",
+      "bytes": 885519
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-decode-cc943abf-return.xml": {
+      "sha256": "f715f44eea7b11dc0152f3e7dabcf5dc73f8b8469fc17d624fc3b7a895ccfa16",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-decode-cc943abf-return-frame.json": {
+      "sha256": "938d18241dd9e559373c339d5105836f0887cdb171696760797061a56acf5d2d",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-base64-decode-cc943abf.png": {
+      "sha256": "b111d72e72a2aedd3c9905d33ce813f3309cd6ea640221d880b96906188e1f67",
+      "bytes": 795385
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-decode-cc943abf.xml": {
+      "sha256": "6b4f05fdde771b661fdc814642fc55f158904460e03c2a721df20b0229b75320",
+      "bytes": 21038
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-decode-cc943abf-frame.json": {
+      "sha256": "938d18241dd9e559373c339d5105836f0887cdb171696760797061a56acf5d2d",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-base64-encode-3c351e5c-return.png": {
+      "sha256": "dfd172c1117c6bce9078d6094a79885c51b50889ddd7636f6999e6f52edc8d16",
+      "bytes": 885578
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-encode-3c351e5c-return.xml": {
+      "sha256": "f715f44eea7b11dc0152f3e7dabcf5dc73f8b8469fc17d624fc3b7a895ccfa16",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-encode-3c351e5c-return-frame.json": {
+      "sha256": "e42a6320e60b0568cff169bceb60fe2997e90c74d853fb182b86ef3873fb6738",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-base64-encode-3c351e5c.png": {
+      "sha256": "ce7ebbe8885cf07bb9a0c7928722450bfcba55b1b92825d50a2bba5a6e55990a",
+      "bytes": 795403
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-encode-3c351e5c.xml": {
+      "sha256": "deeda1c6a33753b5eaba1861a64e3ccfbb9d0e900a9a0ce046e2a774ea686b6b",
+      "bytes": 21038
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-encode-3c351e5c-frame.json": {
+      "sha256": "e42a6320e60b0568cff169bceb60fe2997e90c74d853fb182b86ef3873fb6738",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-base64-index-5e20952e-return.png": {
+      "sha256": "28ce2b320eba2f552b5db9fb8e5f549d8e859747ad62500bbd6cf26e8168769d",
+      "bytes": 886000
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-index-5e20952e-return.xml": {
+      "sha256": "f715f44eea7b11dc0152f3e7dabcf5dc73f8b8469fc17d624fc3b7a895ccfa16",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-index-5e20952e-return-frame.json": {
+      "sha256": "81b5e736de46315eb7d1dabf7048405d002d99cb24c5700adda1ecd2c5819bb2",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-base64-index-5e20952e.png": {
+      "sha256": "d9f6ce96c5e63826f6ec489ee64587981c24e28bc35724cca69dc391a1800754",
+      "bytes": 806490
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-index-5e20952e.xml": {
+      "sha256": "8780475ba969a0714a0b49388f098d62aaa1bed1b6f25f7dca59f5d075e2c516",
+      "bytes": 27481
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-index-5e20952e-frame.json": {
+      "sha256": "baf8d0521216bec83972b9d5f976c5ce04945225e717c15e538b99c132dc79d4",
+      "bytes": 344
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-google-translate-instant-translate-copy-d11e8082-return.png": {
+      "sha256": "9c7c887125b027ae1d9915a4ed3fd134170dcc12b7db26c1c4addae6f6ddceb5",
+      "bytes": 889615
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-instant-translate-copy-d11e8082-return.xml": {
+      "sha256": "808515bf5b798d03b81cff408dc4644c03441f538a323283e3d8a8b7bbd09591",
+      "bytes": 26521
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-instant-translate-copy-d11e8082-return-frame.json": {
+      "sha256": "a635e0d3a0a393f8c2151c38e599960641ed38ddce34a8d5817a85414e0aec32",
+      "bytes": 311
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-google-translate-instant-translate-copy-d11e8082.png": {
+      "sha256": "2ed693eb71c5cdd7497bf8ac57afa46d6a26b3abd236c172e3fcf6d8b3a8d808",
+      "bytes": 802167
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-instant-translate-copy-d11e8082.xml": {
+      "sha256": "fa765db14093d88bccf559102f2ca549aa900ff8b9ff47870ba19a3e574dc0f0",
+      "bytes": 21115
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-instant-translate-copy-d11e8082-frame.json": {
+      "sha256": "a635e0d3a0a393f8c2151c38e599960641ed38ddce34a8d5817a85414e0aec32",
+      "bytes": 311
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda-form-input.png": {
+      "sha256": "1e179b8c8987f7d54166f5c5a5d19013d6a2a58ffe3df8df50de267440555e50",
+      "bytes": 810977
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda-form-input.xml": {
+      "sha256": "8824578f488871083a201cdf8b436abf647f2b3d72ecf78fe4cb272b7135413c",
+      "bytes": 29912
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda-form-input-frame.json": {
+      "sha256": "c4e8b3d5128e56f97c53f57bbbd4fd1ec2604a69e65cf1e247e1f14b8c320cca",
+      "bytes": 325
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda-return.png": {
+      "sha256": "085684f15bd355f1fcaa3369e6c464376565a0f53b87daa48e3cb57e060987dd",
+      "bytes": 889280
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda-return.xml": {
+      "sha256": "808515bf5b798d03b81cff408dc4644c03441f538a323283e3d8a8b7bbd09591",
+      "bytes": 26521
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda-return-frame.json": {
+      "sha256": "4d164e488f2617f83923d3a110103941896863152c5b2865f0c5448a26940121",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda.png": {
+      "sha256": "69fa46ac6ab9758af6002cd2ae37a26519c01053060f0b15fc240d8df6ec5e99",
+      "bytes": 811050
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda.xml": {
+      "sha256": "0ec6e1f47f13ef983c4bb5721fbd5d889d9e250697a11c731e7d84d654f85ea9",
+      "bytes": 29909
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda-frame.json": {
+      "sha256": "c4e8b3d5128e56f97c53f57bbbd4fd1ec2604a69e65cf1e247e1f14b8c320cca",
+      "bytes": 325
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-http-status-codes-index-604c4097-return.png": {
+      "sha256": "09461ce3a151e1198909b4c5bc96dceedaef36208da23db18e783217dcb42787",
+      "bytes": 888350
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-http-status-codes-index-604c4097-return.xml": {
+      "sha256": "d646906a753671e59c6db7ae7433da6702b5d8e5f65a65fb37217c60a37e37a7",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-http-status-codes-index-604c4097-return-frame.json": {
+      "sha256": "7979ecba3786f1563056f6279dddba065fc3be69e001a9b2e8b67d5025533bb0",
+      "bytes": 282
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-http-status-codes-index-604c4097.png": {
+      "sha256": "24f5712078be4deb08fbcb72750df6ae776e4197fb9a9dadd5eb8018cf334629",
+      "bytes": 861973
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-http-status-codes-index-604c4097.xml": {
+      "sha256": "92d39e69d6f7ead9339de085df87c4e12be3350e62e79396fc7a0bc5c4b66bbb",
+      "bytes": 20461
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-http-status-codes-index-604c4097-frame.json": {
+      "sha256": "5678e5d41af13fefa62e6d2830a100093bd1d6bf03e1a23e7392b34278e83079",
+      "bytes": 961
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-json-format-formatclipboard-0f6a1154-return.png": {
+      "sha256": "aaf8c82a426db655aab8a5e2265f95960030b3a2b33ae4a80b0735d73841569f",
+      "bytes": 885216
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatclipboard-0f6a1154-return.xml": {
+      "sha256": "f715f44eea7b11dc0152f3e7dabcf5dc73f8b8469fc17d624fc3b7a895ccfa16",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatclipboard-0f6a1154-return-frame.json": {
+      "sha256": "a5025a1cab07e23163fcec29982f40e02ac9282ae66c74575bf46c1dd34f4033",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-json-format-formatclipboard-0f6a1154.png": {
+      "sha256": "46fcc8ce7d3913069cddc2d159f26ea23ab58ccd7b645eefd9bb4f31dd6bb83b",
+      "bytes": 796931
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatclipboard-0f6a1154.xml": {
+      "sha256": "d87e070347fd83f87067d890b0eb90ac51117630d5c45e8ac1dac020cc624c69",
+      "bytes": 21051
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatclipboard-0f6a1154-frame.json": {
+      "sha256": "a5025a1cab07e23163fcec29982f40e02ac9282ae66c74575bf46c1dd34f4033",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-json-format-formatselectionandshow-1c70e6ba-return.png": {
+      "sha256": "caf4de885f54d858aa629db9217d6cf649cd98f07679d899af6c32aa290d212d",
+      "bytes": 889840
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatselectionandshow-1c70e6ba-return.xml": {
+      "sha256": "6dd31a2e22f66ea12d044c29255fe6faefb1c700b50c460e1c2102acaee74fd0",
+      "bytes": 26524
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatselectionandshow-1c70e6ba-return-frame.json": {
+      "sha256": "0bf980c41dfa4d8f2b64b5d609bd037c8049723385ed3746c36708c6519afe57",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-json-format-formatselectionandshow-1c70e6ba.png": {
+      "sha256": "ae7c1e439dd34c936d14f2e8ab2d137908ed7090a4ed7166be28cc6947749bf4",
+      "bytes": 791380
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatselectionandshow-1c70e6ba.xml": {
+      "sha256": "f4b6ebba91ef99eb25f780f738691488ab16e5d7276882a23889586984eb1a08",
+      "bytes": 20153
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatselectionandshow-1c70e6ba-frame.json": {
+      "sha256": "567d481e74d51ca7c749a3c0512cbf71540f2e4d9b91b0fa63d1b03a8d600b6d",
+      "bytes": 327
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79-form-input.png": {
+      "sha256": "3e02ab56036a9fe5c1a3f1b58de628de9944dbe5e0afeeeb4335ee7372fdcc01",
+      "bytes": 805505
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79-form-input.xml": {
+      "sha256": "8a99fb941b11b3fd8b231da81bfff0ed62574d2107dce45ad1f84c3ce2e4ac5e",
+      "bytes": 26177
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79-form-input-frame.json": {
+      "sha256": "f7e11e436cb0707c656d468b8431b621648ea054e0657fef4ed22104c96d0484",
+      "bytes": 325
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79-return.png": {
+      "sha256": "bf7b32d92b21946aebebd36b73adcd397a9aab088e7da4ddfbb2186e7b69597e",
+      "bytes": 885259
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79-return.xml": {
+      "sha256": "f715f44eea7b11dc0152f3e7dabcf5dc73f8b8469fc17d624fc3b7a895ccfa16",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79-return-frame.json": {
+      "sha256": "7907cd10ea5c1fe690d6efc89426c31c6aa59725c49eda61738c7c691d7beb17",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79.png": {
+      "sha256": "f3fbc7ffa40705a2cf426ad8ef8b6a2f279e6ece540bbf9ade4d946b691e79c8",
+      "bytes": 806532
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79.xml": {
+      "sha256": "c2db01d816a04eb356035729192c451441361be98ef6f7e3d7c6bf388eb424b9",
+      "bytes": 26597
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79-frame.json": {
+      "sha256": "9161eee5e9cb4619ed8b83682f2cc9ac02b96e5b4897246af26431e78d015492",
+      "bytes": 346
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-lorem-ipsum-words-f876a47d-return.png": {
+      "sha256": "65ac5b0fe0b2cfeb97bb817c682ee9944fc873c1b0661103d7fe6fbbe3383adf",
+      "bytes": 889612
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-lorem-ipsum-words-f876a47d-return.xml": {
+      "sha256": "6dd31a2e22f66ea12d044c29255fe6faefb1c700b50c460e1c2102acaee74fd0",
+      "bytes": 26524
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-lorem-ipsum-words-f876a47d-return-frame.json": {
+      "sha256": "99e5dd16f29aee1d9a4137990bbc95f5832f42c04341849e0ac13064529f1da9",
+      "bytes": 286
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-lorem-ipsum-words-f876a47d.png": {
+      "sha256": "fa6637204b2ca1beabbee469e36e3353dd086495d2cf5bfa12ee6752120b1e95",
+      "bytes": 800970
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-lorem-ipsum-words-f876a47d.xml": {
+      "sha256": "13b7a33786cd9ca9618b0a52448135296f225da4f88ea17aae3a5c7026cf43d9",
+      "bytes": 21065
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-lorem-ipsum-words-f876a47d-frame.json": {
+      "sha256": "99e5dd16f29aee1d9a4137990bbc95f5832f42c04341849e0ac13064529f1da9",
+      "bytes": 286
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-oklch-color-converter-convert-color-ab7a57f6-return.png": {
+      "sha256": "4567d37a36fd341c1460fced327ee3e40e3663c7501a0e17731b08171a2b2c4e",
+      "bytes": 889784
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-oklch-color-converter-convert-color-ab7a57f6-return.xml": {
+      "sha256": "e75888077c603efed20def48fec1d5d3c2143f050057dd9fd3893931bb5a10e4",
+      "bytes": 26521
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-oklch-color-converter-convert-color-ab7a57f6-return-frame.json": {
+      "sha256": "4124ae50486fec7ef4ce50dd5579b34a78ff5b0ddcd7c215970294c52b0dbdde",
+      "bytes": 279
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-oklch-color-converter-convert-color-ab7a57f6.png": {
+      "sha256": "63f69b738901c7b5b235f65b77a37e14003d2af4bd98d89706a831206078b53d",
+      "bytes": 826871
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-oklch-color-converter-convert-color-ab7a57f6.xml": {
+      "sha256": "4f2817686d4affb3e3a469826b8baf7793034c13450b467924fc296065fe4388",
+      "bytes": 31732
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-oklch-color-converter-convert-color-ab7a57f6-frame.json": {
+      "sha256": "778658e1be1031fb5be3d8499800437818d1218f1f0eb036fb2f27d054c72d49",
+      "bytes": 343
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-palette-colors-index-0b6e3582-return.png": {
+      "sha256": "5f59e7072aa6d3e738214eae86ae5df16de9538f64fe3f99a495e5e14db812d3",
+      "bytes": 889082
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-palette-colors-index-0b6e3582-return.xml": {
+      "sha256": "f715f44eea7b11dc0152f3e7dabcf5dc73f8b8469fc17d624fc3b7a895ccfa16",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-palette-colors-index-0b6e3582-return-frame.json": {
+      "sha256": "e7d7e85b922e4445505e7a6ab2699edf27e633dd4af94166c08bc8f8ca47ad43",
+      "bytes": 260
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-palette-colors-index-0b6e3582.png": {
+      "sha256": "6259b783f3f8b56355a22df89a76f2476e614cb5559290e68b4187ecbb97c078",
+      "bytes": 816045
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-palette-colors-index-0b6e3582.xml": {
+      "sha256": "1452ac5775a256cac96c6c162908d4bdf0f879cb5e8d56ac588c05fdb593cac1",
+      "bytes": 40427
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-palette-colors-index-0b6e3582-frame.json": {
+      "sha256": "00eef3f226ee7f542ddf1da046ad65d47d177022c211f4420f190e73444b5bb2",
+      "bytes": 324
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generate-d983fd9f-return.png": {
+      "sha256": "fd7b6a0ea14cef77175e89e2f81f80620035fc514dbe199d4e52a7bdb715e38f",
+      "bytes": 885914
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generate-d983fd9f-return.xml": {
+      "sha256": "8ab6efc2e2a17fe015911e0e1b67a6160ba568084dd894b6c715b5b494d6536a",
+      "bytes": 26522
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generate-d983fd9f-return-frame.json": {
+      "sha256": "0a4bceac84b574d5d28755ed7b2fee1df7a0ae08b6f0b705da193395d77805b5",
+      "bytes": 283
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generate-d983fd9f.png": {
+      "sha256": "a67d3aaed70ec6dd4e829c6e2e201ce9e3218089d2a8c2e54684d539c692ce19",
+      "bytes": 797515
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generate-d983fd9f.xml": {
+      "sha256": "feb7a96a5c9c5f1fde48c2661e0e7cfe75964467cbd5e52b9e340d7a32bd3674",
+      "bytes": 21052
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generate-d983fd9f-frame.json": {
+      "sha256": "0a4bceac84b574d5d28755ed7b2fee1df7a0ae08b6f0b705da193395d77805b5",
+      "bytes": 283
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generatev5-505f21ed-return.png": {
+      "sha256": "a37b77a869840c54ba737fbd1727861ae742a988aee3db5014afc9d633bf580a",
+      "bytes": 885976
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generatev5-505f21ed-return.xml": {
+      "sha256": "cf63613485615f2d35d7ddb789ad2de8e4b15dad95827c38268d87288f9a81d4",
+      "bytes": 26521
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generatev5-505f21ed-return-frame.json": {
+      "sha256": "205d52ab9538972bc50c07aa84800fe7c2264e98411e0b07b631674086491c34",
+      "bytes": 317
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generatev5-505f21ed.png": {
+      "sha256": "b87dea17c683d0de1e1227b3bf4de860f9cf0229fa64cc21a57e146462dae7bf",
+      "bytes": 807362
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generatev5-505f21ed.xml": {
+      "sha256": "7b480bf3532d21ccaec94a0f0b791f55332907c7c8ae049ae984d2d0f61ad249",
+      "bytes": 21123
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generatev5-505f21ed-frame.json": {
+      "sha256": "205d52ab9538972bc50c07aa84800fe7c2264e98411e0b07b631674086491c34",
+      "bytes": 317
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-uuid-generator-viewhistory-5f21fd5d-return.png": {
+      "sha256": "dab3c3395a419cf3cc3aed371434739c6825f52d7b3e39fa8fabb397283f1d26",
+      "bytes": 886496
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-viewhistory-5f21fd5d-return.xml": {
+      "sha256": "cf63613485615f2d35d7ddb789ad2de8e4b15dad95827c38268d87288f9a81d4",
+      "bytes": 26521
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-viewhistory-5f21fd5d-return-frame.json": {
+      "sha256": "eee8ad57ae352538633dfac71b9ee427ef1e7f71b304b89a06a08d313454ccaf",
+      "bytes": 283
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-uuid-generator-viewhistory-5f21fd5d.png": {
+      "sha256": "ee38575528a67ad7a04c6838552704528f0bf860140c7e35352ea3f9ef7ed672",
+      "bytes": 797421
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-viewhistory-5f21fd5d.xml": {
+      "sha256": "b9110c18fb866eff9130233e57482f9c365fc58d490b5a31693adc5d9a35dd4c",
+      "bytes": 21051
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-viewhistory-5f21fd5d-frame.json": {
+      "sha256": "eee8ad57ae352538633dfac71b9ee427ef1e7f71b304b89a06a08d313454ccaf",
+      "bytes": 283
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-weather-index-26711ed3-return.png": {
+      "sha256": "abb13ba58894d4a332c0c233f226065fbe061d3aed4f0c41d737da6586fded7b",
+      "bytes": 886144
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-weather-index-26711ed3-return.xml": {
+      "sha256": "d646906a753671e59c6db7ae7433da6702b5d8e5f65a65fb37217c60a37e37a7",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-weather-index-26711ed3-return-frame.json": {
+      "sha256": "5a8ad8930d369f89273c63d71ee069a74f3bcfd8a90801e0da6a4926630d61eb",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet/workflow-weather-index-26711ed3.png": {
+      "sha256": "7353713300a05c24fbca0e3118fdfdbec31af8588b4790fa29667b4a4fceb380",
+      "bytes": 789111
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-weather-index-26711ed3.xml": {
+      "sha256": "0dd8a01e82ac8f982a8dbc7018464ad195227ed6a620f8a187a333ca5e550637",
+      "bytes": 20624
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-weather-index-26711ed3-frame.json": {
+      "sha256": "583ec30064f353571edf791b0e59598fe0357de47ac17800427426f76babeb6d",
+      "bytes": 325
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generate-d983fd9f.json": {
+      "sha256": "a2d30bd7bb6debc5784901929baff4a79d2ebed4d84779a6e3a372d9afce4047",
+      "bytes": 1601
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-generatev5-505f21ed.json": {
+      "sha256": "238615b444bf161bca9e928ee0330271de8bfa213e4f95714d4c358dc61f0ba9",
+      "bytes": 1747
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-uuid-generator-viewhistory-5f21fd5d.json": {
+      "sha256": "5e506891c4f66b19076878ac9bd79c713f3b4616971540715def0ee1eb44f8ed",
+      "bytes": 2565
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-oklch-color-converter-convert-color-ab7a57f6.json": {
+      "sha256": "ec39bf4e7a30810a6a907f560c1e754bc5eab36c560b71fac4bb8562210629f2",
+      "bytes": 1511
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-palette-colors-index-0b6e3582.json": {
+      "sha256": "247f9814e20cce427c46e4d7a485bf0a7ac2507cce5cb1497a571c7a6f25a8f3",
+      "bytes": 1517
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-index-5e20952e.json": {
+      "sha256": "0831e92eb35e1b12f3957261b886e1982a3ebd14af5e3ed2dc12de383990d720",
+      "bytes": 1475
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-encode-3c351e5c.json": {
+      "sha256": "07a178824bc20244cc21ebfc9bb7b29528d4a48e76456f383f74b7f4fb1518db",
+      "bytes": 1336
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-base64-decode-cc943abf.json": {
+      "sha256": "f322cf7146fae363bd1319202c92f6ddc3fae388df661c9ace40b5abb37b0fe6",
+      "bytes": 1333
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-index-f21eab79.json": {
+      "sha256": "3d4fdefb180fecd89c4463ee7e15b17494cbd5748419e1ce5c749024bcb6217d",
+      "bytes": 1870
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatclipboard-0f6a1154.json": {
+      "sha256": "fe2dff8ed9af04bfd6da2f0c664ee10f439bb1a29fd4da3d02b50ac800b9ae46",
+      "bytes": 1454
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-json-format-formatselectionandshow-1c70e6ba.json": {
+      "sha256": "5fa7d120b54f08a47642c89fe0b192e517914d142cc508693a85a4024e2b0fd8",
+      "bytes": 1852
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-lorem-ipsum-words-f876a47d.json": {
+      "sha256": "d744414013c919661b3ffbfafabfe799cb299f7342ed7e577d9a21aaf8118f2e",
+      "bytes": 1527
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-translate-form-e3b8ffda.json": {
+      "sha256": "9a81a6d3355b43a2be2a0498f86fe30c45f12913d35d2c93927f2065ba0463b6",
+      "bytes": 2142
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-google-translate-instant-translate-copy-d11e8082.json": {
+      "sha256": "9c5d5e6460538e93a5227ba5e95786d877c590b36a16e7a53fe5c149b41a5c5a",
+      "bytes": 1765
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-http-status-codes-index-604c4097.json": {
+      "sha256": "e10a7f514a43379df368c106f900b2b42a882726f7d8ee80bf9b917344d51dd1",
+      "bytes": 2094
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/workflow-weather-index-26711ed3.json": {
+      "sha256": "49f5236ee67e7151b63f9e1db8879ea5fa297348b24f3a6943e64557c495758b",
+      "bytes": 1534
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/collection.json": {
+      "sha256": "512df06382dc5cb73852e0e7815876978ae232ae30c23114a9821897c0cebfbc",
+      "bytes": 30199
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/fixture.json": {
+      "sha256": "6f848dea5e17f542de0a199f2d2ab0c998c00eb974162e4f1042ff533e509a03",
+      "bytes": 12441
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet/tests.log": {
+      "sha256": "f1c6c3e44be9f9e3a63b2f83f58b7c2d1b723aaad998e843be5f078705e5d88d",
+      "bytes": 811
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-base64-decode-cc943abf-return.png": {
+      "sha256": "1be03d72529755a76ba3cf914d2ddbe9bb1a61fc72ca2692178ee974e0a2d09a",
+      "bytes": 351276
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-decode-cc943abf-return.xml": {
+      "sha256": "655d387894250bc3907391e411df7cdd6c1a1905e084c0611732268fe7d22db0",
+      "bytes": 102149
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-decode-cc943abf-return-frame.json": {
+      "sha256": "8886a14e00770f2edca557b7c73c1461be820ef7a98eed8902bb004426dd26f8",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-base64-decode-cc943abf.png": {
+      "sha256": "cbbdee068a4637926fd9fc6afdaee0d06cae153f94d95d5fce05c96c1073e384",
+      "bytes": 618058
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-decode-cc943abf.xml": {
+      "sha256": "70401175344316205bd94447c516d11a3049be1bfcabb1ac1531280ee1327beb",
+      "bytes": 21023
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-decode-cc943abf-frame.json": {
+      "sha256": "8886a14e00770f2edca557b7c73c1461be820ef7a98eed8902bb004426dd26f8",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-base64-encode-3c351e5c-return.png": {
+      "sha256": "09ffb5592b55a9a5e6da5b80d7a38b7a4f884671f11600a35eb1ed297c29f79f",
+      "bytes": 355702
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-encode-3c351e5c-return.xml": {
+      "sha256": "9eb5905060835dca17badab0adb32a1ed75cb13dcaae1ed6be37ecda4a341173",
+      "bytes": 102156
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-encode-3c351e5c-return-frame.json": {
+      "sha256": "938d18241dd9e559373c339d5105836f0887cdb171696760797061a56acf5d2d",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-base64-encode-3c351e5c.png": {
+      "sha256": "b497bc6541d3fc3bfe5816fa230d8550906a88b897c8b17c4a414bcb894f40d8",
+      "bytes": 617767
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-encode-3c351e5c.xml": {
+      "sha256": "ae68fe23b5eee5205aacc892ff80721f684f5a6372ee78826c33de3dc1ba2643",
+      "bytes": 21023
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-encode-3c351e5c-frame.json": {
+      "sha256": "938d18241dd9e559373c339d5105836f0887cdb171696760797061a56acf5d2d",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-base64-index-5e20952e-return.png": {
+      "sha256": "0d8da046d5a0dc5887ed86fc95008c65655b4bdfe18a7d0456d1a96d92001a19",
+      "bytes": 354996
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-index-5e20952e-return.xml": {
+      "sha256": "f3c28df17e3ac55525f3d6e049fd07aa1df57a354544a0fea6a68dd3083f1d2f",
+      "bytes": 102156
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-index-5e20952e-return-frame.json": {
+      "sha256": "ceabbab86acac7fa40931d8d18375132b2ab5d3475b5717131739167e458d862",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-base64-index-5e20952e.png": {
+      "sha256": "00fe623b72a3aa89c68aa7935ec2af3c31e5536a487102d2c60ea14aa0f6daba",
+      "bytes": 260003
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-index-5e20952e.xml": {
+      "sha256": "14a8558585cc0db0d193e9e8a8e4f9027dd522f7d017bd04e3b2f680a78c9c05",
+      "bytes": 103109
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-index-5e20952e-frame.json": {
+      "sha256": "8ed754cb4c9f620bfab71d113da95401df6bea3b16a6a6aa9509f5fcb4260ff6",
+      "bytes": 344
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-google-translate-instant-translate-copy-d11e8082-return.png": {
+      "sha256": "aaa3584ab46bb23b4a68c676460984d27b7a4d391cbd9684c98d9f3b4384ae40",
+      "bytes": 347710
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-instant-translate-copy-d11e8082-return.xml": {
+      "sha256": "d54945a3ca456811e25725e9a3a98e3327844566d67ff6dc3ed0417eb3a712c7",
+      "bytes": 102142
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-instant-translate-copy-d11e8082-return-frame.json": {
+      "sha256": "61c32554ccca30970739794f56800d521c971d22bc70d19bb7296bfd422a3e50",
+      "bytes": 311
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-google-translate-instant-translate-copy-d11e8082.png": {
+      "sha256": "87c5ab5d9c109e8bb307bc8d9608a5ff85179cf7ca4dba975b122f3b4495acac",
+      "bytes": 623102
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-instant-translate-copy-d11e8082.xml": {
+      "sha256": "3cbf48ddd0b4e2b2317a9196d27fcc23c44ce66a785f3b4bdc8c3d46f606167d",
+      "bytes": 21104
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-instant-translate-copy-d11e8082-frame.json": {
+      "sha256": "61c32554ccca30970739794f56800d521c971d22bc70d19bb7296bfd422a3e50",
+      "bytes": 311
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda-form-input.png": {
+      "sha256": "4d6274b1c1a9e2da6b6f32c415f0038dbc0309713d0748b19517e417a57deed4",
+      "bytes": 627949
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda-form-input.xml": {
+      "sha256": "162ee97eb073c383acea2c33588842758d5a1311604e871e298cbc50d1090e5c",
+      "bytes": 28197
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda-form-input-frame.json": {
+      "sha256": "c49a033e12ac82de0f15ca1ffceebd45888bb9711f23b748b8e1e2098f66fce9",
+      "bytes": 325
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda-return.png": {
+      "sha256": "f39c9dcf706d3d4043d40e55cf9f13ff5013c737d1fe29138cbb4f986a932b09",
+      "bytes": 355130
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda-return.xml": {
+      "sha256": "2011ba4e20dd2677c7cc9d00e42936d2e0fc0c50dcd5d7314045fc8bb875e7c5",
+      "bytes": 102164
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda-return-frame.json": {
+      "sha256": "078d1943299af5e7a95314cb6215322876c13e75114e16650e09236cde6c905e",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda.png": {
+      "sha256": "040aaaf41d632a32fd8363604ce89a57a064505504390ca81afaafa2bb0d4fc9",
+      "bytes": 627631
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda.xml": {
+      "sha256": "298d16b2b743cc24158b64f40bdf268673ee7038b18f8962092729ca5e62be3d",
+      "bytes": 28200
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda-frame.json": {
+      "sha256": "c49a033e12ac82de0f15ca1ffceebd45888bb9711f23b748b8e1e2098f66fce9",
+      "bytes": 325
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-http-status-codes-index-604c4097-return.png": {
+      "sha256": "c63bec9176566ae480e8308a70a25778ec87eeb655525caf9ca0d4abd6fd8730",
+      "bytes": 354714
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-http-status-codes-index-604c4097-return.xml": {
+      "sha256": "4b4e8a38ae9ccd7e6d7d316d146731ff9b42960b79980499f7d138fb10d5b75e",
+      "bytes": 102164
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-http-status-codes-index-604c4097-return-frame.json": {
+      "sha256": "cab1ab875370c37def5d6b23b3dd18ba23ac381ce01855c50b94f11f18976f0e",
+      "bytes": 282
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-http-status-codes-index-604c4097.png": {
+      "sha256": "52bc504c51f667a406c547e8307a6f0363521faadb1707be46f3efac7fab9295",
+      "bytes": 733269
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-http-status-codes-index-604c4097.xml": {
+      "sha256": "b4ff34a87b1dcc41ac629a0e47d399fa4cd4feacd398dd1ff029f0e3d6817a17",
+      "bytes": 20443
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-http-status-codes-index-604c4097-frame.json": {
+      "sha256": "9ae2ad7243579ce52dcf221c794d728eeae8f3314b3fc15a87af578f571175d9",
+      "bytes": 961
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-json-format-formatclipboard-0f6a1154-return.png": {
+      "sha256": "bd0de47f691deabafb6405ecfe7342946f93027e3cfee3d5a0d9932e027ed8ae",
+      "bytes": 356724
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatclipboard-0f6a1154-return.xml": {
+      "sha256": "c8217bdd2ea35ccb89a1438e086957f8dc13cbf52fe5cd4b08bbbd839dd65a59",
+      "bytes": 103708
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatclipboard-0f6a1154-return-frame.json": {
+      "sha256": "7a8389d685cab80f81cecbcf44c69e9385fadcfb4d565635b242ce9f19838978",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-json-format-formatclipboard-0f6a1154.png": {
+      "sha256": "a188ceb5b58a925be18475ba48ab3b55dc6bae3e164c7fe5f9091a31df0bcf36",
+      "bytes": 620330
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatclipboard-0f6a1154.xml": {
+      "sha256": "052b7dd29df6b40f4d98b5580e7f43db1337468aaa35a55a2ea5d19643bf155e",
+      "bytes": 21036
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatclipboard-0f6a1154-frame.json": {
+      "sha256": "7a8389d685cab80f81cecbcf44c69e9385fadcfb4d565635b242ce9f19838978",
+      "bytes": 280
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-json-format-formatselectionandshow-1c70e6ba-return.png": {
+      "sha256": "360aee8f68766a9acbdee6a8433d958a3e302dee834423f54368803f26d79372",
+      "bytes": 357150
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatselectionandshow-1c70e6ba-return.xml": {
+      "sha256": "92faaaef9378701e97fec316ccd97e47c76cb1208abd6ea1c1c008cc8d57f8f2",
+      "bytes": 103696
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatselectionandshow-1c70e6ba-return-frame.json": {
+      "sha256": "6d8092dfd0aee1c012f806800a22d391f8aa0686dbdc537717aaa06460308f1d",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-json-format-formatselectionandshow-1c70e6ba.png": {
+      "sha256": "449b5fcea905ed775b3ee64fb6af431a6df178844d957e7a7a29930925f1e1ef",
+      "bytes": 602440
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatselectionandshow-1c70e6ba.xml": {
+      "sha256": "cad53c3932951cc3abc2f42562b6bc79ddca22e99f898b200aa93bc9dcdc8ff8",
+      "bytes": 20130
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatselectionandshow-1c70e6ba-frame.json": {
+      "sha256": "8af63ff0ce92d83ba182d2ad24b7e836f131c3b7ce740a7f831969ebe6efa543",
+      "bytes": 327
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79-form-input.png": {
+      "sha256": "5a2911c268f9f38f07d9fcf860eed683a4dbd4f2be58e39b61ca566ebbc37c3e",
+      "bytes": 629165
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79-form-input.xml": {
+      "sha256": "e62dbd44e2f231201ad905583cef5348e31ec4648beb4fd555d1b4d14566ce09",
+      "bytes": 24904
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79-form-input-frame.json": {
+      "sha256": "5b5ab305e88ea4de15818916b43340a0d9800dcfcb286e3021f4dfd1d6013b7c",
+      "bytes": 325
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79-return.png": {
+      "sha256": "bd0de47f691deabafb6405ecfe7342946f93027e3cfee3d5a0d9932e027ed8ae",
+      "bytes": 356724
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79-return.xml": {
+      "sha256": "c8217bdd2ea35ccb89a1438e086957f8dc13cbf52fe5cd4b08bbbd839dd65a59",
+      "bytes": 103708
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79-return-frame.json": {
+      "sha256": "a10da4b1513b3b98808f7565aa08e21e7de1333d74ba9b936871132123bb606b",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79.png": {
+      "sha256": "483f62e41e1a270efd1075744606feb7dd617371c12eba3abc1d8a0fbe152977",
+      "bytes": 633104
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79.xml": {
+      "sha256": "32b5e86922d468b3230deb5d7329c31e4029234f270add25255a6e5f3252949e",
+      "bytes": 25297
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79-frame.json": {
+      "sha256": "25abe6f2b125687aebe54bce94527c34dd9c35f0fdd2730016b1665145e93678",
+      "bytes": 346
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-lorem-ipsum-words-f876a47d-return.png": {
+      "sha256": "6fee3a63534087349f41ffd520967d36c4fa53c46a7d376e1a48fcfe03f4b0fa",
+      "bytes": 352935
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-lorem-ipsum-words-f876a47d-return.xml": {
+      "sha256": "0f60f1179f29acb55be351113dcacf9eb37ea1ec0859ad8a625adf11e2900a09",
+      "bytes": 102187
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-lorem-ipsum-words-f876a47d-return-frame.json": {
+      "sha256": "4e6e467f278225295149392ef696bf4de83a13b34c27c4decd4995fd2a90eccc",
+      "bytes": 286
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-lorem-ipsum-words-f876a47d.png": {
+      "sha256": "a4f18e5dcfdfad1782cec8a9ec09112b5a5f6172d8de3437879e8752286f439e",
+      "bytes": 619061
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-lorem-ipsum-words-f876a47d.xml": {
+      "sha256": "00e842fd7a3280a1b382b50f178f5b56d6a3e233bfda11387091b36e5821e22b",
+      "bytes": 21049
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-lorem-ipsum-words-f876a47d-frame.json": {
+      "sha256": "4e6e467f278225295149392ef696bf4de83a13b34c27c4decd4995fd2a90eccc",
+      "bytes": 286
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-oklch-color-converter-convert-color-ab7a57f6-return.png": {
+      "sha256": "20958b3dc4f7dee4f58130ef4fa1cb3f0b498bc1fbc68c1761ccf8f2b4fd89f6",
+      "bytes": 356867
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-oklch-color-converter-convert-color-ab7a57f6-return.xml": {
+      "sha256": "b0c9f433c27e6a4fb0aee42e614e51ba52db383c3d0ce92926883817afd9ff9e",
+      "bytes": 102163
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-oklch-color-converter-convert-color-ab7a57f6-return-frame.json": {
+      "sha256": "8b61ccadcc3323c0cb3f4e970d74b7cc654985b7bd77a699450e3db2a4774813",
+      "bytes": 279
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-oklch-color-converter-convert-color-ab7a57f6.png": {
+      "sha256": "8e536f87a45b0215cc5ae7d574cb6282e16710c133961f0cd96bfb1d916803f6",
+      "bytes": 281473
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-oklch-color-converter-convert-color-ab7a57f6.xml": {
+      "sha256": "d7db8ece28dac3a048a2fb289128341a602b851cce36aa88b41dd0d7b7e39603",
+      "bytes": 106543
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-oklch-color-converter-convert-color-ab7a57f6-frame.json": {
+      "sha256": "0fb41b687547f7ba806fe2f6d24896247b66d77d6679c9b191f82edf51d09201",
+      "bytes": 343
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-palette-colors-index-0b6e3582-return.png": {
+      "sha256": "2806e5acce53a5e3e129ff5921a0dfeb6a9a07a56f4b1fc89f93e1a004121c1b",
+      "bytes": 350290
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-palette-colors-index-0b6e3582-return.xml": {
+      "sha256": "755579e29dd908617d9aeecb8638c153155de0569bc7e699a150dfbb0be89e33",
+      "bytes": 102143
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-palette-colors-index-0b6e3582-return-frame.json": {
+      "sha256": "755c28593f635f6a008b2aae0aaeacbd9194dd42edaf64c8104f472eb268a055",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-palette-colors-index-0b6e3582.png": {
+      "sha256": "f48398f6b54fc57e77ed7ed2a5c828276d3a5b6b4481ad357ecac78a27cd659c",
+      "bytes": 259209
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-palette-colors-index-0b6e3582.xml": {
+      "sha256": "861de9eff0151ee2fdaab496ece682a046d72a01ea2ec7b965da898020662d75",
+      "bytes": 109556
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-palette-colors-index-0b6e3582-frame.json": {
+      "sha256": "003339fb5df97a62e5e49122daf133faa93fb1da34fe0b5d660661eac8568aae",
+      "bytes": 325
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-uuid-generator-generate-d983fd9f-return.png": {
+      "sha256": "b92e2373158be7aee8a6261433fda6d40754ec4986746de47b50ce032aeb5f9f",
+      "bytes": 356055
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generate-d983fd9f-return.xml": {
+      "sha256": "d95eb939d86c872d59e08e24da44837ac0b90fcf3132c482209aa0a06adb6b1f",
+      "bytes": 102215
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generate-d983fd9f-return-frame.json": {
+      "sha256": "0a4bceac84b574d5d28755ed7b2fee1df7a0ae08b6f0b705da193395d77805b5",
+      "bytes": 283
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-uuid-generator-generate-d983fd9f.png": {
+      "sha256": "2921c94757ff53bf4b6b6138c5982ccb28f95c8e920ab448d8cabfbd6d54f693",
+      "bytes": 620023
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generate-d983fd9f.xml": {
+      "sha256": "637da99305772260be8099aff9131e53c5535309c6bf0e42a4485b488fba4866",
+      "bytes": 21041
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generate-d983fd9f-frame.json": {
+      "sha256": "0a4bceac84b574d5d28755ed7b2fee1df7a0ae08b6f0b705da193395d77805b5",
+      "bytes": 283
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-uuid-generator-generatev5-505f21ed-return.png": {
+      "sha256": "99fae96c31acc99099ed5368eebda982c351c53c9a899daebcc1d2a4f49e5dad",
+      "bytes": 355920
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generatev5-505f21ed-return.xml": {
+      "sha256": "db7d60c250dc20893582c2ca76c562e95d5c94810de7317f0cabce2ef4f77b81",
+      "bytes": 102173
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generatev5-505f21ed-return-frame.json": {
+      "sha256": "205d52ab9538972bc50c07aa84800fe7c2264e98411e0b07b631674086491c34",
+      "bytes": 317
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-uuid-generator-generatev5-505f21ed.png": {
+      "sha256": "fc7c2b823226765c74e8b568ffe83c4eebb8a9494031d1c697b23addf89e1dfc",
+      "bytes": 638974
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generatev5-505f21ed.xml": {
+      "sha256": "da42d95bffaf39984c9b34571c74d4902ec06b4e3b8a8037e5dc1e30fbbd94be",
+      "bytes": 21111
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generatev5-505f21ed-frame.json": {
+      "sha256": "205d52ab9538972bc50c07aa84800fe7c2264e98411e0b07b631674086491c34",
+      "bytes": 317
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-uuid-generator-viewhistory-5f21fd5d-return.png": {
+      "sha256": "4fe360f6f7621b2a7ab9d9a8ec12ce5d87cf19540011339484c8238609459b53",
+      "bytes": 355082
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-viewhistory-5f21fd5d-return.xml": {
+      "sha256": "f2b256f287b0e04be15c9c3bfc11f58ea662792f28620774379bb59e23b18290",
+      "bytes": 102173
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-viewhistory-5f21fd5d-return-frame.json": {
+      "sha256": "4124ae50486fec7ef4ce50dd5579b34a78ff5b0ddcd7c215970294c52b0dbdde",
+      "bytes": 279
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-uuid-generator-viewhistory-5f21fd5d.png": {
+      "sha256": "7d362976ed235921023e357dd3f13e0cf3e8e8e5a6a97d321402b387d9b4fa80",
+      "bytes": 265443
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-viewhistory-5f21fd5d.xml": {
+      "sha256": "503e39c672071f391a94f12a0797c57c3c4189450803252b5faeb0ff45fc6cdc",
+      "bytes": 102748
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-viewhistory-5f21fd5d-frame.json": {
+      "sha256": "69d8a48b03a34951489dd15a01c38a942aa25a066fef25328f0e5cd62a75b9ed",
+      "bytes": 343
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-weather-index-26711ed3-return.png": {
+      "sha256": "c63bec9176566ae480e8308a70a25778ec87eeb655525caf9ca0d4abd6fd8730",
+      "bytes": 354714
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-weather-index-26711ed3-return.xml": {
+      "sha256": "4b4e8a38ae9ccd7e6d7d316d146731ff9b42960b79980499f7d138fb10d5b75e",
+      "bytes": 102164
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-weather-index-26711ed3-return-frame.json": {
+      "sha256": "0fa7c8546ad3d6967889b61ef48dc013521c6db9a0b673c619b9ce136cec977b",
+      "bytes": 261
+    },
+    "docs/screenshots/extension-compatibility/batch-001-phone/workflow-weather-index-26711ed3.png": {
+      "sha256": "43aec9749cfa0eb4d61ee2d7978b2c3ff5d420c4378cbf22132432ee0d884b81",
+      "bytes": 232009
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-weather-index-26711ed3.xml": {
+      "sha256": "7fda11e61b6bad79f2a213861db00abb6dc5de16bfee54d208e50cc040198d6f",
+      "bytes": 97515
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-weather-index-26711ed3-frame.json": {
+      "sha256": "d0ce3ddc302346b4d811adfe4451747206b20d91be30192ec625696259357dd2",
+      "bytes": 325
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generate-d983fd9f.json": {
+      "sha256": "a2d30bd7bb6debc5784901929baff4a79d2ebed4d84779a6e3a372d9afce4047",
+      "bytes": 1601
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-generatev5-505f21ed.json": {
+      "sha256": "238615b444bf161bca9e928ee0330271de8bfa213e4f95714d4c358dc61f0ba9",
+      "bytes": 1747
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-uuid-generator-viewhistory-5f21fd5d.json": {
+      "sha256": "14ea6b0dc1d0546c3764d6eeb4827a8a9f4203899480e636ecdd73a1e4f1fc75",
+      "bytes": 1935
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-oklch-color-converter-convert-color-ab7a57f6.json": {
+      "sha256": "ec39bf4e7a30810a6a907f560c1e754bc5eab36c560b71fac4bb8562210629f2",
+      "bytes": 1511
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-palette-colors-index-0b6e3582.json": {
+      "sha256": "247f9814e20cce427c46e4d7a485bf0a7ac2507cce5cb1497a571c7a6f25a8f3",
+      "bytes": 1517
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-index-5e20952e.json": {
+      "sha256": "0831e92eb35e1b12f3957261b886e1982a3ebd14af5e3ed2dc12de383990d720",
+      "bytes": 1475
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-encode-3c351e5c.json": {
+      "sha256": "07a178824bc20244cc21ebfc9bb7b29528d4a48e76456f383f74b7f4fb1518db",
+      "bytes": 1336
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-base64-decode-cc943abf.json": {
+      "sha256": "f322cf7146fae363bd1319202c92f6ddc3fae388df661c9ace40b5abb37b0fe6",
+      "bytes": 1333
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-index-f21eab79.json": {
+      "sha256": "3d4fdefb180fecd89c4463ee7e15b17494cbd5748419e1ce5c749024bcb6217d",
+      "bytes": 1870
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatclipboard-0f6a1154.json": {
+      "sha256": "fe2dff8ed9af04bfd6da2f0c664ee10f439bb1a29fd4da3d02b50ac800b9ae46",
+      "bytes": 1454
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-json-format-formatselectionandshow-1c70e6ba.json": {
+      "sha256": "5fa7d120b54f08a47642c89fe0b192e517914d142cc508693a85a4024e2b0fd8",
+      "bytes": 1852
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-lorem-ipsum-words-f876a47d.json": {
+      "sha256": "d744414013c919661b3ffbfafabfe799cb299f7342ed7e577d9a21aaf8118f2e",
+      "bytes": 1527
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-translate-form-e3b8ffda.json": {
+      "sha256": "9a81a6d3355b43a2be2a0498f86fe30c45f12913d35d2c93927f2065ba0463b6",
+      "bytes": 2142
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-google-translate-instant-translate-copy-d11e8082.json": {
+      "sha256": "9c5d5e6460538e93a5227ba5e95786d877c590b36a16e7a53fe5c149b41a5c5a",
+      "bytes": 1765
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-http-status-codes-index-604c4097.json": {
+      "sha256": "53f6cbdde122a2da04feaa117a0b6fee938bef36429c5e111a2dce4b340fc15c",
+      "bytes": 2094
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/workflow-weather-index-26711ed3.json": {
+      "sha256": "49f5236ee67e7151b63f9e1db8879ea5fa297348b24f3a6943e64557c495758b",
+      "bytes": 1534
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/collection.json": {
+      "sha256": "fd85401a7d0dd7d2f33c26259ef69acdacabdfe51ab61fb7b9c692e615d82817",
+      "bytes": 29561
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/fixture.json": {
+      "sha256": "6f848dea5e17f542de0a199f2d2ab0c998c00eb974162e4f1042ff533e509a03",
+      "bytes": 12441
+    },
+    "docs/validation/extension-compatibility/batch-001-phone/tests.log": {
+      "sha256": "3465c28ea1785f4b780334489b3eb5c9607236e65dcdacdb67626e1ecaddd839",
+      "bytes": 811
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet-history-focus/workflow-uuid-generator-viewhistory-5f21fd5d-return.png": {
+      "sha256": "a603b32ee4f6402914af0b729a83d39ac72f2a9971f937bb4c51be8cdf8c31fb",
+      "bytes": 888183
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/workflow-uuid-generator-viewhistory-5f21fd5d-return.xml": {
+      "sha256": "25184f2f3a9b4fc3dc446a7e5b61abee31b877383a512fd5c184e8661e509849",
+      "bytes": 26521
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/workflow-uuid-generator-viewhistory-5f21fd5d-return-frame.json": {
+      "sha256": "0996229b3969886315d9fc103621075a8545e699cab5c4aff3cea9459156b6fe",
+      "bytes": 279
+    },
+    "docs/screenshots/extension-compatibility/batch-001-tablet-history-focus/workflow-uuid-generator-viewhistory-5f21fd5d.png": {
+      "sha256": "6f452dc9f61b2c4edb2e2398fa54b4eb5c4b60c12bd20a0e10aaab893abf46cb",
+      "bytes": 812224
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/workflow-uuid-generator-viewhistory-5f21fd5d.xml": {
+      "sha256": "14a09c2984630b074c3cb9b7d537d6a7207252ec9826b4b7fdcd3031441660e4",
+      "bytes": 27099
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/workflow-uuid-generator-viewhistory-5f21fd5d-frame.json": {
+      "sha256": "db17d0805d5de874845dbb2a2d5a367b1c4876f0084e8ac403502dc4898f2f90",
+      "bytes": 343
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/workflow-uuid-generator-viewhistory-5f21fd5d.json": {
+      "sha256": "14ea6b0dc1d0546c3764d6eeb4827a8a9f4203899480e636ecdd73a1e4f1fc75",
+      "bytes": 1935
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/collection.json": {
+      "sha256": "d2478f3ca02172f6679665647e827a0259d69362e89ba046595c0f3a3bc7f256",
+      "bytes": 2749
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/fixture.json": {
+      "sha256": "3c65e2c19452ba4be9b1b6becc6914146630462402257aec1730b0145b99958d",
+      "bytes": 2549
+    },
+    "docs/validation/extension-compatibility/batch-001-tablet-history-focus/tests.log": {
+      "sha256": "ef820f75902bf32349dd9d370e5cc57408f7ca7792b40e71e28a86b8a0b20990",
+      "bytes": 810
+    },
+    "docs/validation/extension-compatibility/batch-001-history-focus-plan.json": {
+      "sha256": "4379be25c11a517620891cdaee074cbf8036929c2433758cde3d22a776dc6ada",
+      "bytes": 579
+    },
+    "docs/validation/extension-compatibility/batch-001-history-focus-snapshot.json": {
+      "sha256": "69646d42b6b4cc8438beb4c007b6c2640087441965f7ec256afd2bb556e96b2c",
+      "bytes": 9218
+    }
+  }
+}

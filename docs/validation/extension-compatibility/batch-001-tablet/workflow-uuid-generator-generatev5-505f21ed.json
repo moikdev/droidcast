@@ -1,0 +1,41 @@
+{
+  "directory": "uuid-generator",
+  "command": "generateV5",
+  "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+  "command_sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04",
+  "installation": "Native archive extraction into isolated cache; Store UI installation not exercised",
+  "status": "tested-working-for-listed-workflow",
+  "action_output_verified": true,
+  "phases": {
+    "archive_extraction": "verified",
+    "startup": "Host runtime reported ready",
+    "rendering": "not-applicable",
+    "interaction_and_action": "verified for listed workflow",
+    "destination": "owned clipboard output verified",
+    "persistence": "not-checked",
+    "touch_return": "verified caller query and closed command session",
+    "isolated_data_cleanup": "verified"
+  },
+  "configuration_method": "Nonsecret preferences seeded in isolated storage; native preference editing is not exercised",
+  "seeded_preferences": {
+    "upperCaseLetters": false,
+    "defaultAction": "copy",
+    "uuidNamespace": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+  },
+  "native_argument_steps": [
+    {
+      "command": "generateV5",
+      "values": {
+        "name": "droidcast.example",
+        "numberOfUUIDsToGenerate": "1"
+      }
+    }
+  ],
+  "workflow": "Generate DNS-namespace UUIDv5 for the owned name and verify the deterministic clipboard value",
+  "runtime_status": "✅ Copied new UUID: 27f7df43-8cb5-5412-9ea0-8d9cf2c6f447",
+  "capture": "workflow-uuid-generator-generatev5-505f21ed.png",
+  "capture_receipt": "workflow-uuid-generator-generatev5-505f21ed-frame.json",
+  "native_root": null,
+  "return_capture": "workflow-uuid-generator-generatev5-505f21ed-return.png",
+  "isolated_data_removed": true
+}
