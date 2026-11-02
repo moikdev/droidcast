@@ -393,6 +393,45 @@ class ExtensionEmptyViewDeviceTest {
         capture("queued-blocked"); returnToCaller(); record.put("passed", true)
     }
 
+    private fun queuedAfterOwnerChange(type: String, transition: String) {
+        launch(type); query("owned"); touch("extension-actions")
+        val click = requireNotNull(compose.onNodeWithTag("extension-action-0").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val before = probe()
+        compose.activityRule.scenario.onActivity {
+            val running = catalog.running; val tree = catalog.runtimeTree; val epoch = catalog.launchEpoch
+            val ready = catalog.runtimeReady; val status = catalog.runtimeStatus; val savedError = catalog.runtimeError
+            val arguments = catalog.arguments; val depth = catalog.navigationDepth
+            try {
+                when (transition) {
+                    "closed" -> catalog.close()
+                    "root-missing" -> catalog.runtimeTree = null
+                    "new-session-same-tree" -> {
+                        val original = requireNotNull(running)
+                        catalog.launch(original.first, original.second)
+                        // Deliberately reuse IDs/handles: only session ownership
+                        // distinguishes the retained callback from the new run.
+                        catalog.runtimeTree = tree
+                    }
+                    else -> error("Unknown controlled transition")
+                }
+                assertTrue(click())
+            } finally {
+                // Restore within this same main-thread turn so Compose does not
+                // dispose the WebView before its dispatch probe can be read.
+                catalog.running = running; catalog.runtimeTree = tree; catalog.launchEpoch = epoch
+                catalog.runtimeReady = ready; catalog.runtimeStatus = status; catalog.runtimeError = savedError
+                catalog.arguments = arguments; catalog.navigationDepth = depth
+            }
+        }
+        val after = probe()
+        record.put("queued_callback_scope", "Controlled $transition and retained native menu callback before a Compose frame; native state restored in the same turn to inspect the existing WebView probe")
+            .put("before", before).put("after", after).put("invalidated_transition", transition)
+        assertEquals(before.toString(), after.toString())
+        assertEquals(0, after.getInt("attempts"))
+        compose.onNodeWithText(shortTitle).assertIsDisplayed()
+        capture("owner-blocked"); returnToCaller(); record.put("passed", true)
+    }
+
     private fun capture(phase: String) {
         compose.waitForIdle()
         val tree = catalog.runtimeTree?.toString(); val epoch = catalog.launchEpoch
@@ -446,4 +485,10 @@ class ExtensionEmptyViewDeviceTest {
     @Test fun gridOutsidePackageIconKeepsErrorAndRetry() = retry("Grid", "unavailable")
     @Test fun listQueuedEmptyActionCannotRunAfterItemsReturn() = queued("List")
     @Test fun gridQueuedEmptyActionCannotRunAfterItemsReturn() = queued("Grid")
+    @Test fun listQueuedEmptyActionCannotRunAfterClose() = queuedAfterOwnerChange("List", "closed")
+    @Test fun gridQueuedEmptyActionCannotRunAfterClose() = queuedAfterOwnerChange("Grid", "closed")
+    @Test fun listQueuedEmptyActionCannotRunWithoutRoot() = queuedAfterOwnerChange("List", "root-missing")
+    @Test fun gridQueuedEmptyActionCannotRunWithoutRoot() = queuedAfterOwnerChange("Grid", "root-missing")
+    @Test fun listQueuedEmptyActionCannotRunInReplacementSession() = queuedAfterOwnerChange("List", "new-session-same-tree")
+    @Test fun gridQueuedEmptyActionCannotRunInReplacementSession() = queuedAfterOwnerChange("Grid", "new-session-same-tree")
 }
