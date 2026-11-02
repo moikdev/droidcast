@@ -500,7 +500,8 @@ class ExtensionFormDeviceTest {
         compose.waitForIdle()
         val target = node.fetchSemanticsNode()
         val visible = target.boundsInRoot
-        val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+        val activityRoot = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag("extension-palette")), useUnmergedTree = true)
+        val root = activityRoot.fetchSemanticsNode().boundsInRoot
         val point = visible.center
         val taps = record.optJSONArray("pointer_taps") ?: JSONArray().also { record.put("pointer_taps", it) }
         taps.put(JSONObject().put("tag", tag).put("viewport", viewport)
@@ -509,7 +510,7 @@ class ExtensionFormDeviceTest {
             .put("point", JSONArray(listOf(point.x, point.y))))
         assertTrue("A pointer target needs a useful visible hit region", visible.width > 1 &&
             visible.height + 1 >= minOf(target.size.height.toFloat(), minimumHitHeight) && root.contains(point))
-        compose.onRoot().performTouchInput { click(point - root.topLeft) }
+        activityRoot.performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
         if (target.config.contains(SemanticsProperties.EditableText)) {
             compose.waitUntil(5000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()?.let {
@@ -1263,27 +1264,37 @@ class ExtensionFormDeviceTest {
     @Test fun queuedNativeSubmitRejectsChangedTitle() = assertQueuedNativeSubmitBlocked("title")
     private fun assertQueuedNativeSubmitBlocked(change: String) {
         launch("submit-valid")
-        val root = requireNotNull(activeRoot(catalog.runtimeTree)); val beforeAction = root.actions().first()
         val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree)
+        val replacement = JSONObject(original.toString()); val current = requireNotNull(activeRoot(replacement))
         when (change) {
-            "error" -> evaluateOwned("globalThis.__ownedSubmit.setError('Owned late validation error');true")
-            "action" -> evaluateOwned("globalThis.__ownedSubmit.replaceAction();true")
-            else -> evaluateOwned("globalThis.__ownedSubmit.setTitle('Different owned submission');true")
-        }
-        compose.waitUntil(5000) {
-            val current = requireNotNull(activeRoot(catalog.runtimeTree))
-            when (change) {
-                "error" -> field("Form.TextField", "name").props().optString("error") == "Owned late validation error"
-                "action" -> current.actions().first().optString("id") != beforeAction.optString("id")
-                else -> current.actions().first().props().optString("title") == "Different owned submission"
+            "error" -> current.nodes("Form.TextField").single { it.props().optString("id") == "name" }.props().put("error", "Owned late validation error")
+            "action" -> {
+                // Remove Submit while retaining the real ordinary action and
+                // its registered handler. An old primary must not adopt it.
+                val ordinary = current.actions()[1]
+                current.props().getJSONObject("actions").put("children", JSONArray().put(ordinary))
+            }
+            else -> {
+                val action = current.actions().first(); action.props().put("title", "Different owned submission")
+                (action.props().opt("__tinycastSubmitSignature") as? String)?.let {
+                    action.props().put("__tinycastSubmitSignature", JSONArray(it).put(0, "Different owned submission").toString())
+                }
             }
         }
-        compose.runOnUiThread { submit() }; submitBarrier()
-        val observed = probe(); record.put("observed_submit_count", observed.getInt("submits"))
-            .put("controlled_native_transition", "Captured primary callback invoked after published $change replacement")
-        capture("queued-submit-after-change")
-        assertEquals("Queued Submit must not adopt a changed action or new error state", 0, observed.getInt("submits"))
-        assertEquals(0, observed.getInt("successorSubmits")); record.put("passed", true)
+        val before = probe().getInt("dispatches")
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = replacement; submit() } finally { catalog.runtimeTree = original }
+        }
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_non_submit_actions", observed.getInt("nonSubmitActions"))
+            .put("dispatch_delta", observed.getInt("dispatches") - before)
+            .put("controlled_native_transition", "Published native $change model before captured primary callback in one UI turn; original restored before a Compose frame")
+        capture("queued-submit-model-restored")
+        assertEquals("Queued Submit must not adopt a changed action or new error state", 0,
+            observed.getInt("submits") + observed.getInt("nonSubmitActions"))
+        assertEquals(before, observed.getInt("dispatches")); record.put("passed", true)
     }
     @Test fun queuedJsSubmitRechecksPublishedErrors() {
         launch("submit-valid"); seedSubmitSession()
@@ -1300,13 +1311,39 @@ class ExtensionFormDeviceTest {
     }
     @Test fun queuedSubmitCannotAdoptAReplacementRoot() {
         launch("submit-valid")
-        val rootId = requireNotNull(activeRoot(catalog.runtimeTree)).optString("id")
         val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree); val replacement = JSONObject(original.toString())
+        val root = requireNotNull(activeRoot(replacement)); root.put("id", root.optString("id") + "-owned-replacement")
+        val before = probe().getInt("dispatches")
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = replacement; submit() } finally { catalog.runtimeTree = original }
+        }
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_successor_submits", observed.getInt("successorSubmits"))
+            .put("controlled_native_transition", "Root identity replaced before captured primary callback in one UI turn; original restored before a Compose frame")
+        capture("replacement-root-restored")
+        assertEquals(0, observed.getInt("submits")); assertEquals(0, observed.getInt("successorSubmits"))
+        assertEquals(before, observed.getInt("dispatches")); record.put("passed", true)
+    }
+    @Test fun queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation() {
+        launch("submit-valid"); seedSubmitSession()
+        val originalRoot = requireNotNull(activeRoot(catalog.runtimeTree))
+        val handle = requireNotNull(originalRoot.actions().first().handle("onAction"))
         evaluateOwned("globalThis.__ownedSubmit.pushReplacement();true")
-        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" && activeRoot(catalog.runtimeTree)?.optString("id") != rootId }
-        compose.runOnUiThread { submit() }; submitBarrier()
-        assertEquals(0, probe().getInt("submits")); assertEquals(0, probe().getInt("successorSubmits"))
-        capture("replacement-root-retained"); record.put("queued_root_replacement_rejected", true).put("passed", true)
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" && activeRoot(catalog.runtimeTree)?.optString("id") != originalRoot.optString("id") }
+        val successorId = requireNotNull(activeRoot(catalog.runtimeTree)).optString("id")
+        capture("actual-successor-form")
+        evaluateOwned("globalThis.__formProbe.queuedDispatchResult=globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');true")
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_successor_submits", observed.getInt("successorSubmits"))
+            .put("queued_dispatch_result", observed.getString("queuedDispatchResult"))
+            .put("controlled_js_dispatch", "Old owned handler requested after actual navigation to a successor Form")
+        capture("inactive-form-dispatch-result")
+        assertEquals("Inactive Form Submit must not replay after navigation", 0, observed.getInt("submits"))
+        assertEquals(0, observed.getInt("successorSubmits")); assertEquals(successorId, activeRoot(catalog.runtimeTree)?.optString("id"))
+        record.put("passed", true)
     }
     @Test fun queuedSubmitCannotCrossANewLaunchEpoch() {
         launch("submit-valid")
