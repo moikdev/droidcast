@@ -62,6 +62,7 @@ class ExtensionFormDeviceTest {
     private val checkboxLabel = "Tap this complete option label to enable owned output"
     private val caller = "form-controls-owned-caller"
     private var sensitiveValue: String? = null
+    private val submitValidationError = "Owned account validation error: correct the name before submitting."
     private val longTitle = "Owned account name with a complete descriptive label that must wrap naturally on a narrow Android screen"
     private val longError = "Owned validation error: enter the complete account name before continuing. Every line must stay readable when the keyboard opens and the font is enlarged."
     private val longInfo = "Owned field help: this explanation is available by touch without hovering. Scroll to read every line, then continue with the choices below."
@@ -140,6 +141,23 @@ class ExtensionFormDeviceTest {
               if(mode==='configuration'){
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
+              }
+              if(mode==='submit-validation'){
+                const [name,setName]=React.useState('Owned invalid 日本');
+                const [error,setError]=React.useState(${JSONObject.quote(submitValidationError)});
+                const {push}=api.useNavigation();
+                globalThis.__formProbe.submits ??= 0;
+                globalThis.__formProbe.nonSubmitActions ??= 0;
+                return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
+                  React.createElement(api.Action.SubmitForm,{title:'Submit owned values',onSubmit:values=>{
+                    globalThis.__formProbe.submits++;globalThis.__formProbe.submittedValues=values;
+                    push(React.createElement(api.Detail,{markdown:JSON.stringify({outcome:'Owned SubmitForm callback reached',values})}));
+                  }}),
+                  React.createElement(api.Action,{title:'Inspect owned validation',onAction:()=>{globalThis.__formProbe.nonSubmitActions++}}))},
+                  React.createElement(api.Form.TextField,{id:'name',title:'Owned account name',value:name,error,
+                    onChange:value=>{setName(value);setError(undefined)},
+                    onBlur:event=>{if(!event.target.value.trim())setError(${JSONObject.quote(submitValidationError)})}}),
+                  React.createElement(api.Form.TextArea,{id:'notes',title:'Owned notes',defaultValue:'Owned 日本 café é 🌱'}));
               }
               if(mode==='validation'){
                 const [name,setName]=React.useState(''),[error,setError]=React.useState(''),[notes,setNotes]=React.useState('');
@@ -1115,4 +1133,38 @@ class ExtensionFormDeviceTest {
         record.put("native_preferences_edited_not_seeded", true).put("exact_unicode_form_copy", true).put("form_state_preserved_on_back", true)
             .put("launcher_query_preserved", true).put("passed", true)
     }
+    @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
+    @Test fun formsWithErrorsBlockActionsMenuKeyboardSubmit() = assertErroredSubmitBlocked(true)
+
+    private fun assertErroredSubmitBlocked(menuKeyboard: Boolean) {
+        launch("submit-validation")
+        assertEquals(submitValidationError, field("Form.TextField", "name").props().getString("error"))
+        compose.onNodeWithTag("extension-field-error-name").performScrollTo().assertIsDisplayed()
+        val actions = requireNotNull(activeRoot(catalog.runtimeTree)).actions()
+        assertEquals("Submit owned values", actions.first().props().getString("title"))
+        record.put("submit_route", if (menuKeyboard) "Actions menu / native Enter" else "Primary pointer action")
+            .put("submit_native_action_type", actions.first().optString("type"))
+            .put("initial_submit_count", probe().getInt("submits"))
+        assertEquals(0, probe().getInt("submits"))
+        capture("submit-error-visible")
+        if (menuKeyboard) {
+            touch("extension-actions")
+            compose.onNodeWithTag("extension-action-0").assertIsDisplayed()
+            capture("submit-actions-menu")
+            InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER)
+            compose.waitForIdle()
+        } else touch("extension-primary")
+        // A separate WebView evaluation follows the native action's queued
+        // dispatch. Its callback is an execution barrier, not a timed retry.
+        evaluateOwned("globalThis.__ownedSubmitBarrier=(globalThis.__ownedSubmitBarrier||0)+1;true")
+        val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_dispatch_count", observed.getInt("dispatches"))
+            .put("result_root_type", activeRoot(catalog.runtimeTree)?.optString("type"))
+        capture("submit-action-result")
+        assertEquals("A current Form error must block the SubmitForm callback", 0, observed.getInt("submits"))
+        assertEquals("Form", activeRoot(catalog.runtimeTree)?.optString("type"))
+        record.put("passed", true)
+    }
+
 }
