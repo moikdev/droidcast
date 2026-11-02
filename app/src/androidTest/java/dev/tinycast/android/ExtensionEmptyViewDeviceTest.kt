@@ -175,6 +175,12 @@ class ExtensionEmptyViewDeviceTest {
         cell.assertIsSelected(); caption.assertTextEquals(title).assertIsDisplayed()
     }
     private fun returnToCaller() {
+        val tree = catalog.runtimeTree?.toString()
+        var revealSteps = 0
+        val route = compose.onNode(hasTestTag("palette-content-scroll") and hasAnyAncestor(hasTestTag("extension-palette")), useUnmergedTree = true)
+        while (!compose.onNodeWithTag("extension-back").isDisplayed() && revealSteps++ < 100) drag(route, 1)
+        assertEquals("Revealing the header must only scroll", tree, catalog.runtimeTree?.toString())
+        record.put("back_reveal_pointer_steps", revealSteps)
         touch("extension-back")
         compose.waitUntil(10000) { catalog.running == null && compose.activity.store.dialog == null }
         compose.onNodeWithTag("search").assertTextEquals(caller)
@@ -249,7 +255,10 @@ class ExtensionEmptyViewDeviceTest {
     }
 
     private fun drag(viewport: String, direction: Int) {
-        compose.onNodeWithTag(viewport).performTouchInput {
+        drag(compose.onNodeWithTag(viewport), direction)
+    }
+    private fun drag(viewport: SemanticsNodeInteraction, direction: Int) {
+        viewport.performTouchInput {
             down(center); moveTo(Offset(center.x, center.y + direction * height * .25f), delayMillis = 300)
             advanceEventTime(200); up()
         }
