@@ -1309,6 +1309,22 @@ class ExtensionFormDeviceTest {
         assertEquals("The JavaScript Submit gate must recheck current errors", 0, observed.getInt("submits"))
         record.put("passed", true)
     }
+    @Test fun queuedSubmitCannotRunWithoutItsRoot() {
+        launch("submit-valid")
+        val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree)
+        val before = probe().getInt("dispatches")
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = null; submit() } finally { catalog.runtimeTree = original }
+        }
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("dispatch_delta", observed.getInt("dispatches") - before)
+            .put("controlled_native_transition", "Root absent before captured primary callback in one UI turn; original restored before a Compose frame")
+        capture("absent-root-restored")
+        assertEquals(0, observed.getInt("submits")); assertEquals(before, observed.getInt("dispatches"))
+        record.put("passed", true)
+    }
     @Test fun queuedSubmitCannotAdoptAReplacementRoot() {
         launch("submit-valid")
         val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
