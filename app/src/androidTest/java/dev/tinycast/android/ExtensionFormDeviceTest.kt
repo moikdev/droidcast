@@ -284,7 +284,7 @@ class ExtensionFormDeviceTest {
         compose.onNodeWithText(fieldError, useUnmergedTree = true).assertDoesNotExist()
         touch("extension-field-name"); touch("extension-field-notes")
         compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("error") == fieldError }
-        compose.onNodeWithTag("extension-field-error-name").performScrollTo().assertIsDisplayed()
+        inspectTextLines("extension-form", listOf(compose.onNodeWithTag("extension-field-error-name")), "blur-validation-error")
         compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.Error, fieldError))
         capture("blur-validation")
         touch("extension-field-name")
