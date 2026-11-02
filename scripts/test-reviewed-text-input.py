@@ -81,9 +81,12 @@ def main():
         require(absent(path), 'An earlier fixture lease exists; inspect it before continuing')
     args.output.mkdir(parents=True, exist_ok=False, mode=0o700)
     shutil.copyfile(__file__, args.output / 'runner.py')
+    helper = Path(__file__).with_name('android_test_cleanup.py')
+    shutil.copyfile(helper, args.output / 'cleanup-helper.py')
     record = {'completed': False, 'pid': os.getpid(), 'serial': args.serial, 'avd': args.avd, 'layout': args.layout,
               'font_scale': args.font_scale, 'classes': args.classes, 'expected': args.expected, 'owner_nonce': owner,
               'runner_sha256': sha(Path(__file__).read_bytes()), 'archive_sha256': sha(archive),
+              'cleanup_helper_sha256': sha(helper.read_bytes()),
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root}
 

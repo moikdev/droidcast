@@ -182,7 +182,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         val chord = recordingCandidate ?: return
         runCatching { setShortcut(target, chord) }.onSuccess { cancelShortcutRecording() }.onFailure { recordingError = it.message }
     }
-    override fun onCleared() { clearTextReview(); extensions.close(); retainedEditorDraft = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
+    override fun onCleared() { clearTextReview(); extensions.close(); retainedEditorDraft = null; editing = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
 
     fun backupSnapshot() = BackupData(notes, links, clips, pins.filterNot { it.startsWith("files:") }.toSet(), aliases.filterKeys { !it.startsWith("files:") }, usage.filterKeys { !it.startsWith("files:") }, ShortcutConfiguration(shortcutConfiguration.bindings.filterKeys { !it.startsWith("files:") }))
     fun restorePlan(): RestorePlan = BackupPlanner.plan(backupSnapshot(), requireNotNull(backupDocument), restoreCategories, restorePolicy,

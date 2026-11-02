@@ -79,7 +79,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 return
             }
             if (store.textReview != null) return
-            if (store.dialog in setOf("note", "link", "clip")) store.discardEditorDraft()
+            if (store.dialog in setOf("note", "link", "clip")) { store.discardEditorDraft(); store.editing = null }
             if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
             if (store.dialog?.startsWith("backup") == true) {
                 if (store.backupBusy) return

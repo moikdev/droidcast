@@ -388,8 +388,9 @@ class ReviewedTextDeviceTest {
         assertNull(foregroundActivity().store.extensions.running)
         assertEquals(sentinel, clipboardText())
         capture("explicit-clip-draft")
-        compose.onNodeWithTag("cancel-editor").performTouchInput { click(center) }
+        touch("cancel-editor")
         assertEquals(before, foregroundActivity().store.clips)
+        assertNull(foregroundActivity().store.editing)
         record.put("explicit_clip_draft_preserved_exact_input_without_saving", true).put("passed", true)
     }
     @Test fun aNewExternalShareEndsThePriorSelectionCommand() {
