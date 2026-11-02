@@ -21,6 +21,8 @@ import android.widget.TextView;
 public class ReviewedTextCallerActivity extends Activity {
     private EditText source;
     private TextView selection;
+    private int requestedStart, requestedEnd;
+    private boolean requestedReadOnly;
 
     @Override public void onCreate(Bundle state) { super.onCreate(state); showCaller(); }
     @Override public void onNewIntent(Intent value) { super.onNewIntent(value); setIntent(value); showCaller(); }
@@ -87,6 +89,20 @@ public class ReviewedTextCallerActivity extends Activity {
         else if (!"missing".equals(kind)) value.putExtra(key, (CharSequence) selected);
         if ("badflag".equals(kind)) value.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, "invalid flag");
         else value.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, getIntent().getBooleanExtra("readOnly", true));
-        startActivity(value);
+        if (action.equals(Intent.ACTION_PROCESS_TEXT)) {
+            requestedStart = start; requestedEnd = end;
+            requestedReadOnly = getIntent().getBooleanExtra("readOnly", true);
+            startActivityForResult(value, 42);
+        } else startActivity(value);
+    }
+
+    @Override public void onActivityResult(int request, int result, Intent data) {
+        super.onActivityResult(request, result, data);
+        // A real writable PROCESS_TEXT caller would apply a successful result.
+        // The current Droidcast singleTask path returns no replacement result.
+        if (request == 42 && result == RESULT_OK && !requestedReadOnly && data != null) {
+            CharSequence replacement = data.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+            if (replacement != null) source.getText().replace(requestedStart, requestedEnd, replacement);
+        }
     }
 }

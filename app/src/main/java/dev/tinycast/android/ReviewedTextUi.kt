@@ -25,7 +25,7 @@ internal fun ReviewedTextScreen(store: PaletteStore, close: () -> Unit) {
         if (preview != null) {
             Text("Nothing runs until you press Run. The chosen extension can use, save, or send this text.",
                 color = PaletteTheme.secondary, fontSize = 13.sp, lineHeight = 20.sp)
-            Text("Preview · ${preview.text?.length ?: 0} characters", fontSize = 12.sp,
+            Text("Preview", fontSize = 12.sp,
                 color = PaletteTheme.secondary, modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
             Box(Modifier.fillMaxWidth().heightIn(min = 64.dp, max = 180.dp)
                 .background(PaletteTheme.control, RoundedCornerShape(8.dp))

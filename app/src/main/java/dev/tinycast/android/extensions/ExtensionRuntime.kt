@@ -25,7 +25,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private val extension: InstalledExtension, private val command: ExtensionCommand) {
     private val textContext = catalog.captureText(extension,command)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate + CoroutineExceptionHandler { _, error ->
-        if (active()) { catalog.runtimeError = error.message ?: "Could not start this extension"; catalog.runtimeReady = true }
+        fail(error.message ?: "Could not start this extension")
     })
     private val session = UUID.randomUUID().toString()
     private val storage = context.getSharedPreferences("extension-${extension.listing.id}", Context.MODE_PRIVATE)
@@ -49,17 +49,23 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
             override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?) = WebResourceResponse("text/plain", "UTF-8", ByteArrayInputStream(byteArrayOf()))
             override fun onPageFinished(view: WebView?, url: String?) { if(started && active())boot() }
             override fun onRenderProcessGone(view: WebView?, detail: RenderProcessGoneDetail?): Boolean {
-                if (active()) catalog.runtimeError = "The JavaScript engine stopped. Close this command and try again."
+                fail("The JavaScript engine stopped. Close this command and try again.")
                 (view?.parent as? android.view.ViewGroup)?.removeView(view)
                 view?.destroy(); return true
             }
         }
     }
     private fun active() = !destroyed && catalog.ownsRuntime(textContext.owner,extension,command) && catalog.runtimeError == null
+    private fun fail(message: String) {
+        if (!active()) return
+        ready()
+        catalog.runtimeError = message
+        scope.cancel()
+    }
     fun start() {
         if(started || !active())return
         started = true
-        watchdog = scope.launch { delay(20000); if (active() && !catalog.runtimeReady) catalog.runtimeError = "This command did not respond. It may require unsupported desktop APIs." }
+        watchdog = scope.launch { delay(20000); if (active() && !catalog.runtimeReady) fail("This command did not respond. It may require unsupported desktop APIs.") }
         webView.loadDataWithBaseURL("https://tinycast.invalid/", "<html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'\"></head><body></body></html>", "text/html", "UTF-8", null)
     }
     private fun evaluate(script: String, then: (() -> Unit)? = null) {
@@ -91,7 +97,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private fun post(block: () -> Unit) { if (active()) scope.launch { if (active()) block() } }
     inner class Bridge {
         @JavascriptInterface fun render(tree: String) = post { ready(); catalog.runtimeTree = JSONObject(tree); catalog.runtimeStatus = "" }
-        @JavascriptInterface fun failed(message: String) = post { ready(); catalog.runtimeError = message.take(3000) }
+        @JavascriptInterface fun failed(message: String) = post { fail(message.take(3000)) }
         @JavascriptInterface fun finished() = post { ready(); if(command.mode=="no-view")catalog.releaseText(textContext.owner); catalog.runtimeStatus = if (catalog.runtimeStatus.isBlank() || catalog.runtimeStatus == "Starting extension…") "Command completed" else catalog.runtimeStatus }
         @JavascriptInterface fun depth(value: String) = post { catalog.navigationDepth = value.toIntOrNull() ?: 1 }
         @JavascriptInterface fun log(message: String) = post { if (catalog.runtimeTree == null) catalog.runtimeStatus = message.take(300) }

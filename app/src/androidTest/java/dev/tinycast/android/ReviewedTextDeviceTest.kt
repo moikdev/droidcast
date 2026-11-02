@@ -193,11 +193,13 @@ class ReviewedTextDeviceTest {
     }
     private fun awaitCaller() {
         assertTrue(device.wait(Until.hasObject(By.pkg(instrumentation.context.packageName).depth(0)), 10000))
-        UiScrollable(UiSelector().scrollable(true)).scrollToBeginning(10)
+        val scroll = UiScrollable(UiSelector().scrollable(true))
+        if (scroll.exists()) scroll.scrollToBeginning(10)
     }
     private fun send(share: Boolean = false) {
         val label = if (share) "Share owned text" else "Process selected text"
-        assertTrue(UiScrollable(UiSelector().scrollable(true)).scrollTextIntoView(label))
+        val scroll = UiScrollable(UiSelector().scrollable(true))
+        if (scroll.exists()) assertTrue(scroll.scrollTextIntoView(label))
         device.findObject(By.text(label)).click()
         assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).depth(0)), 10000))
         compose.waitForIdle()

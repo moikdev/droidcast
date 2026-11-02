@@ -165,8 +165,9 @@ class ExtensionCatalog(private val context: Context) {
         begin(extension,command,args,Any(),null)
     }
     private fun begin(extension: InstalledExtension, command: ExtensionCommand, args: Map<String,String>, owner: Any, input: CommandTextInput?) {
+        invocationOwner = owner
         commandText?.let(reviewedText::release)
-        invocationOwner = owner; commandText = input
+        commandText = input
         running = extension to command; arguments = args; runtimeTree = null; runtimeError = null; runtimeStatus = "Starting extension…"; runtimeReady = false; navigationDepth = 1; launchEpoch++
     }
     internal fun launchReviewed(extension: InstalledExtension, command: ExtensionCommand, preview: TextInputPreview, needsSetup: Boolean) {

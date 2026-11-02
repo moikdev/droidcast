@@ -10,7 +10,7 @@ internal data class TextInputTarget(val extensionId: String, val commandName: St
 internal enum class TextInputProblem(val message: String) {
     MISSING("No text was provided. Select or share text and try again."),
     INVALID_TYPE("Droidcast needs plain text. Select or share text and try again."),
-    TOO_LONG("This text is too long. Select up to 65,536 characters and try again."),
+    TOO_LONG("This text is too long. Select a shorter passage and try again."),
     EXPIRED("This text review has ended. Select or share text again."),
     NO_COMMAND("Choose an extension command before running this text."),
     CHANGED_COMMAND("The chosen command changed. Review it and try again."),
