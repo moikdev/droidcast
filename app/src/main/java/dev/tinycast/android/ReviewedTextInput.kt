@@ -38,7 +38,7 @@ internal class TextInputPreview internal constructor(text: String, val origin: T
 internal class CommandTextInput internal constructor(
     private val owner: Any, val target: TextInputTarget, text: String, val readOnly: Boolean,
 ) {
-    private var content: String? = text
+    @Volatile private var content: String? = text
     internal fun read(requester: Any, requestedTarget: TextInputTarget): String {
         if (requester !== owner || requestedTarget != target) throw TextInputRejected(TextInputProblem.UNAVAILABLE)
         return content ?: throw TextInputRejected(TextInputProblem.UNAVAILABLE)

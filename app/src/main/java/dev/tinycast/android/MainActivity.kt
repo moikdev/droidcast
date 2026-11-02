@@ -30,7 +30,6 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     val store: PaletteStore by viewModels()
     var shortcutEnabled by mutableStateOf(false)
-    private var sharedText by mutableStateOf<String?>(null)
     private val modifierShortcuts = ModifierShortcutObserver()
     private var documentNameJob: Job? = null
     private var documentOpenJob: Job? = null
@@ -88,6 +87,10 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT), navigationBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT))
         if (resources.configuration.smallestScreenWidthDp >= 600) window.setSoftInputMode((window.attributes.softInputMode and WindowManager.LayoutParams.SOFT_INPUT_MASK_STATE.inv()) or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         if (savedInstanceState == null) receive(intent)
+        else if (store.textReview != null || savedInstanceState.getBoolean("text-review-active")) {
+            store.expireTextReview()
+            scrubTextIntent(intent)
+        } else if (isTextIntent(intent)) scrubTextIntent(intent)
         setContent {
             LaunchedEffect(store.pendingShortcut, store.loading, store.folderSearch.loading) {
                 val request = store.pendingShortcut
@@ -95,13 +98,6 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
                     store.pendingShortcut = null
                     if (!ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) store.message = "Shortcut changed or expired. Try again."
                     else store.command(request.target)?.let(::execute) ?: run { store.message = "This shortcut's command is unavailable. Clear or reassign it in Keyboard shortcuts." }
-                }
-            }
-            LaunchedEffect(sharedText) {
-                sharedText?.let {
-                    store.editing = SavedItem("", "Shared text", it)
-                    store.dialog = "clip"
-                    sharedText = null
                 }
             }
             TinycastApp(store, shortcutEnabled, ::execute, ::copyText, ::enableShortcut, { finish() }, { target, chord -> ShortcutRuntime.dispatch(this, target, chord) })
@@ -135,7 +131,12 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     override fun onInputDeviceAdded(deviceId: Int) = Unit
     override fun onInputDeviceChanged(deviceId: Int) { modifierShortcuts.clear(); store.clearModifierRecording() }
     override fun onInputDeviceRemoved(deviceId: Int) { modifierShortcuts.clear(); store.clearModifierRecording() }
-    override fun onDestroy() { getSystemService(InputManager::class.java).unregisterInputDeviceListener(this); super.onDestroy() }
+    override fun onDestroy() { if (isFinishing) store.clearTextReview(); getSystemService(InputManager::class.java).unregisterInputDeviceListener(this); super.onDestroy() }
+    override fun onSaveInstanceState(outState: Bundle) {
+        // Only the expiry marker survives; never the preview or approved text.
+        outState.putBoolean("text-review-active", store.textReview != null)
+        super.onSaveInstanceState(outState)
+    }
     override fun onStop() { if (!isChangingConfigurations) store.cancelShortcutRecording(); super.onStop() }
     fun acceptShortcut(token: String?, toggleExisting: Boolean = false) {
         val request = ShortcutRuntime.requests.consume(token)
@@ -150,17 +151,38 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         super.onNewIntent(intent)
         cancelDocumentOpen()
         modifierShortcuts.clear(); store.clearModifierRecording()
-        if (store.backupBusy) { store.message = "Backup in progress. Please try again when it finishes."; return }
+        if (store.backupBusy) {
+            store.clearTextReview()
+            if (isTextIntent(intent)) scrubTextIntent(intent)
+            store.message = "Backup in progress. Please try again when it finishes."; return
+        }
         store.pendingShortcut = null
-        store.reset(); receive(intent)
+        if (!isTextIntent(intent)) store.reset()
+        receive(intent)
+    }
+    private fun isTextIntent(value: Intent) = value.action in listOf(Intent.ACTION_SEND, Intent.ACTION_PROCESS_TEXT)
+    private fun scrubTextIntent(value: Intent) {
+        // Keep neither extras nor ClipData on this Activity's retained intent.
+        runCatching { value.removeExtra(Intent.EXTRA_TEXT); value.removeExtra(Intent.EXTRA_PROCESS_TEXT); value.clipData = null }
+        setIntent(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_MAIN))
     }
     private fun receive(intent: Intent) {
         if (intent.action == "dev.droidcast.SHOW_FILES") { store.filter("Files"); return }
         if (intent.action == ShortcutRuntime.ACTION) { acceptShortcut(intent.getStringExtra(ShortcutRuntime.TOKEN)); return }
-        sharedText = when (intent.action) {
-            Intent.ACTION_SEND -> intent.getStringExtra(Intent.EXTRA_TEXT)
-            Intent.ACTION_PROCESS_TEXT -> intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)?.toString()
-            else -> null
+        if (isTextIntent(intent)) {
+            val origin = if (intent.action == Intent.ACTION_PROCESS_TEXT) TextInputOrigin.SELECTION else TextInputOrigin.SHARE
+            try {
+                store.receiveTextReview(origin) {
+                    if (intent.type?.substringBefore(';')?.trim()?.equals("text/plain", true) != true)
+                        throw TextInputRejected(TextInputProblem.INVALID_TYPE)
+                    @Suppress("DEPRECATION") val extras = intent.extras
+                    @Suppress("DEPRECATION") val raw = extras?.get(if (origin == TextInputOrigin.SELECTION) Intent.EXTRA_PROCESS_TEXT else Intent.EXTRA_TEXT)
+                    @Suppress("DEPRECATION") val flag = extras?.get(Intent.EXTRA_PROCESS_TEXT_READONLY)
+                    if (origin == TextInputOrigin.SELECTION && flag != null && flag !is Boolean)
+                        throw TextInputRejected(TextInputProblem.INVALID_TYPE)
+                    TextIntentPayload(raw, origin == TextInputOrigin.SHARE || flag as? Boolean != false)
+                }
+            } finally { scrubTextIntent(intent) }
         }
     }
     override fun onProvideKeyboardShortcuts(data: MutableList<KeyboardShortcutGroup>?, menu: Menu?, deviceId: Int) {
@@ -199,7 +221,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         finish()
     }
     fun execute(command: Command) {
-        if (store.backupBusy) return
+        if (store.backupBusy || store.textReview != null) return
         cancelDocumentOpen()
         if (command.id !in setOf("backup", "backup-export", "backup-import", "backup-write", "backup-read")) store.used(command.id)
         if (command.kind == Kind.COMMAND) {

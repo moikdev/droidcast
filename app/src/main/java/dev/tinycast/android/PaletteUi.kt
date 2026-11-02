@@ -65,7 +65,20 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val launcherList = rememberLazyListState()
         val launcherScrollHistory = remember(store) { PaletteScrollHistory() }
         val launcherKeyboard = remember { mutableStateOf(false) }
+        val reviewOwner = store.textReview
+        val route = store.dialog
+        val extensionEpoch = store.extensions.launchEpoch
         fun closeRoute() {
+            // Queued Back/Cancel callbacks from an older surface cannot dismiss
+            // a newer incoming review or a replacement command.
+            if (store.dialog != route) return
+            if (reviewOwner != null) {
+                if (store.textReview !== reviewOwner) return
+                if (route in setOf("extension-run", "extension-setup") && store.extensions.launchEpoch != extensionEpoch) return
+                if (store.returnTextReview(reviewOwner)) dismiss()
+                return
+            }
+            if (store.textReview != null) return
             if (store.dialog in setOf("note", "link", "clip")) store.discardEditorDraft()
             if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
             if (store.dialog?.startsWith("backup") == true) {

@@ -30,7 +30,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private val session = UUID.randomUUID().toString()
     private val storage = context.getSharedPreferences("extension-${extension.listing.id}", Context.MODE_PRIVATE)
     private val support = File(context.filesDir, "extension-data/${extension.listing.id}").apply { mkdirs() }
-    private var destroyed = false
+    @Volatile private var destroyed = false
     private var started = false
     private var watchdog: Job? = null
     val webView = WebView(context).apply {
