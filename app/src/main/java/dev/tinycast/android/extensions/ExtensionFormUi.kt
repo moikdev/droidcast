@@ -78,7 +78,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
     val p = node.props()
     val type = node.optString("type")
     val id = p.optString("id")
-    val title = (p.opt("title") as? String) ?: (p.opt("label") as? String).orEmpty()
+    val title = (p.opt("title") as? String).orEmpty()
     val owner = formFieldOwner(root, node)
     val errorText = (p.opt("error") as? String).orEmpty()
     val info = (p.opt("info") as? String).orEmpty()

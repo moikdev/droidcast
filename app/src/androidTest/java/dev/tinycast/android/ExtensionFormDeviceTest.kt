@@ -158,13 +158,15 @@ class ExtensionFormDeviceTest {
               }
               if(mode==='edges'){
                 const [value,setValue]=React.useState('duplicate-two');
+                const [enabled,setEnabled]=React.useState(false);
                 return React.createElement(api.Form,null,
                   React.createElement(api.Form.Dropdown,{key:'unknown',id:'unknown',title:'Owned unavailable selection',value:'owned-unavailable-internal-value',onChange:()=>{}},
                     React.createElement(api.Form.Dropdown.Item,{key:'known',value:'known',title:'Readable known option'})),
                   React.createElement(api.Form.Dropdown,{key:'empty',id:'empty',title:'Owned empty choices',value:'',onChange:()=>{}}),
                   React.createElement(api.Form.Dropdown,{key:'duplicates',id:'duplicates',title:'Owned duplicate titles',value:value,onChange:setValue},
                     React.createElement(api.Form.Dropdown.Item,{key:'one',value:'duplicate-one',title:'Same readable title'}),
-                    React.createElement(api.Form.Dropdown.Item,{key:'two',value:'duplicate-two',title:'Same readable title'})));
+                    React.createElement(api.Form.Dropdown.Item,{key:'two',value:'duplicate-two',title:'Same readable title'})),
+                  React.createElement(api.Form.Checkbox,{key:'label-only',id:'label-only',label:'Owned label without a duplicated caption',value:enabled,onChange:setEnabled}));
               }
               const [name,setName]=React.useState(''),[notes,setNotes]=React.useState('');
               const [choice,setChoice]=React.useState('internal-layout-two'),[checked,setChecked]=React.useState(false),[changes,setChanges]=React.useState(0);
@@ -213,6 +215,7 @@ class ExtensionFormDeviceTest {
         assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame", tree == catalog.runtimeTree?.toString())
         val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-$phase"
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        testAutomation().clearCacheForTest()
         device.dumpWindowHierarchy(File(evidence, "$name.xml")); assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
         sensitiveValue?.let { secret -> assertFalse("Native hierarchy must not expose masked input", File(evidence, "$name.xml").readText().contains(secret)) }
         assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame", tree == catalog.runtimeTree?.toString())
@@ -432,6 +435,10 @@ class ExtensionFormDeviceTest {
         val tag = "form-option-${dropdown.optString("id")}-${option.optString("id")}-duplicate-one"
         compose.onNodeWithTag(tag).performTouchInput { click(center) }
         compose.waitUntil(5000) { field("Form.Dropdown", "duplicates").props().optString("value") == "duplicate-one" }
+        compose.onNodeWithTag("extension-checkbox-label-only").performScrollTo()
+        compose.onAllNodesWithText("Owned label without a duplicated caption", useUnmergedTree = true).assertCountEquals(1)
+        compose.onNodeWithText("Owned label without a duplicated caption", useUnmergedTree = true).performTouchInput { click(center) }
+        compose.waitUntil(5000) { field("Form.Checkbox", "label-only").props().optBoolean("value") }
         capture("edge-choices")
         record.put("missing_selection_preserved", true).put("empty_choices_disabled", true).put("duplicate_title_exact_value", "duplicate-one").put("passed", true)
     }

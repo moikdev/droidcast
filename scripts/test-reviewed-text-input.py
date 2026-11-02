@@ -47,8 +47,14 @@ def main():
     require(re.fullmatch(r'[A-Za-z0-9_.,#]+', args.classes) is not None and all(
         item.split('#')[0] in ['dev.tinycast.android.ReviewedTextDeviceTest', 'dev.tinycast.android.ReviewedTextLifecycleDeviceTest',
                               'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
-                              'dev.tinycast.android.ExtensionFormDeviceTest']
-        for item in args.classes.split(',')), 'Only the owned input/Form tests are allowed')
+                              'dev.tinycast.android.ExtensionFormDeviceTest',
+                              'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
+        for item in args.classes.split(',')), 'Only owned input/Form or shared menu/keyboard regression tests are allowed')
+    regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest'}
+    regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
+    require(not regression or all(item.split('#')[0] in regression_classes for item in args.classes.split(',')),
+            'Keep the shared menu/keyboard regression cohort separate from owned extension fixtures')
+    evidence_dirs = ['reviewed-text-evidence'] + (['extension-grid-evidence', 'readiness-evidence'] if regression else [])
     require(not args.inject_clipboard_restore_failure or args.classes == 'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
             'Restoration failure is limited to the deliberate process-death control')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
@@ -86,6 +92,8 @@ def main():
     font = text('shell', 'settings', 'get', 'system', 'font_scale')
     for path in [root, 'files/empty-view-fixture-lease', 'files/compatibility-batch-fixtures']:
         require(absent(path), 'An earlier fixture lease exists; inspect it before continuing')
+    for folder in evidence_dirs:
+        require(absent('files/' + folder), 'Retain or archive an earlier evidence directory before continuing')
     args.output.mkdir(parents=True, exist_ok=False, mode=0o700)
     shutil.copyfile(__file__, args.output / 'runner.py')
     helper = Path(__file__).with_name('android_test_cleanup.py')
@@ -98,7 +106,7 @@ def main():
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
-              'recovery_lease': root}
+              'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
 
     def save():
         (args.output / 'record.json').write_text(json.dumps(record, indent=2) + '\n')
@@ -132,7 +140,8 @@ def main():
             raw('shell', 'wm', 'density', '420')
         raw('shell', 'settings', 'put', 'system', 'font_scale', str(args.font_scale))
         raw('shell', 'am', 'start', '-a', 'android.intent.action.MAIN', '-c', 'android.intent.category.HOME')
-        require(absent('files/reviewed-text-evidence'), 'Retain or archive an earlier text evidence directory first')
+        for folder in evidence_dirs:
+            require(absent('files/' + folder), 'An evidence directory appeared before instrumentation')
         evidence_owned = True
         save()
         clipboard_recovery.allow_mutations()
@@ -147,11 +156,13 @@ def main():
         log = (args.output / 'tests.log').read_text()
         record['passes'] = len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: 0$', log, re.M))
         record['tests_completed'] = process.returncode == 0 and record['passes'] == args.expected and f'OK ({args.expected} test' in log and 'FAILURES!!!' not in log
-        if not absent('files/reviewed-text-evidence'):
-            destination = args.output / 'captures'; destination.mkdir()
-            for name in text('shell', 'run-as', app, 'ls', 'files/reviewed-text-evidence').splitlines():
+        for folder in evidence_dirs:
+            if absent('files/' + folder):
+                continue
+            destination = args.output / ('captures' if folder == 'reviewed-text-evidence' else folder); destination.mkdir()
+            for name in text('shell', 'run-as', app, 'ls', 'files/' + folder).splitlines():
                 require(re.fullmatch(r'[a-z0-9-]+\.(png|xml|json)', name), 'Unexpected evidence path')
-                data = raw('exec-out', 'run-as', app, 'cat', 'files/reviewed-text-evidence/' + name)
+                data = raw('exec-out', 'run-as', app, 'cat', 'files/' + folder + '/' + name)
                 (destination / name).write_bytes(data)
         record['completed'] = record['tests_completed']
     finally:
@@ -177,15 +188,19 @@ def main():
         cleanup.attempt('owned-fixture-data', owned_data)
         if evidence_owned:
             def remove_copied_evidence():
-                if absent('files/reviewed-text-evidence'):
-                    return
-                destination = args.output / 'captures'
-                for name in text('shell', 'run-as', app, 'ls', 'files/reviewed-text-evidence').splitlines():
-                    require(re.fullmatch(r'[a-z0-9-]+\.(png|xml|json)', name), 'Unexpected evidence path')
-                    cleanup.require((destination / name).is_file(), 'Retain uncopied failure evidence')
-                    cleanup.require((destination / name).read_bytes() == raw('exec-out', 'run-as', app, 'cat', 'files/reviewed-text-evidence/' + name), 'Evidence copy differs')
-                raw('shell', 'run-as', app, 'rm', '-rf', 'files/reviewed-text-evidence')
+                for folder in evidence_dirs:
+                    if absent('files/' + folder):
+                        continue
+                    destination = args.output / ('captures' if folder == 'reviewed-text-evidence' else folder)
+                    for name in text('shell', 'run-as', app, 'ls', 'files/' + folder).splitlines():
+                        require(re.fullmatch(r'[a-z0-9-]+\.(png|xml|json)', name), 'Unexpected evidence path')
+                        cleanup.require((destination / name).is_file(), 'Retain uncopied failure evidence')
+                        cleanup.require((destination / name).read_bytes() == raw('exec-out', 'run-as', app, 'cat', 'files/' + folder + '/' + name), 'Evidence copy differs')
+                    raw('shell', 'run-as', app, 'rm', '-rf', 'files/' + folder)
             cleanup.attempt('copied-evidence', remove_copied_evidence)
+        if regression:
+            cleanup.attempt('legacy-fixtures-completed', lambda: cleanup.require(record.get('tests_completed') is True,
+                            'Retain the lease for inspection after an incomplete legacy fixture cohort'))
         for name, data in backups.items():
             cleanup.attempt(name + '-backup', lambda name=name: raw('shell', 'run-as', app, 'rm', '-f', 'shared_prefs/' + name + '.xml.bak'))
             cleanup.attempt(name + '-preferences', lambda name=name, data=data: raw('shell', 'run-as', app, 'tee', 'shared_prefs/' + name + '.xml', data=data))
