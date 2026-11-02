@@ -1,0 +1,51 @@
+test_a_changed_owner_is_revalidated_and_never_released (test_android_test_cleanup.RunnerRestorationOwnershipTests.test_a_changed_owner_is_revalidated_and_never_released) ... FAIL
+test_failed_restoration_keeps_ownership_and_still_attempts_remaining_restoration (test_android_test_cleanup.RunnerRestorationOwnershipTests.test_failed_restoration_keeps_ownership_and_still_attempts_remaining_restoration) ... FAIL
+test_lease_release_is_the_last_device_operation_after_restoration_and_verification (test_android_test_cleanup.RunnerRestorationOwnershipTests.test_lease_release_is_the_last_device_operation_after_restoration_and_verification) ... FAIL
+
+======================================================================
+FAIL: test_a_changed_owner_is_revalidated_and_never_released (test_android_test_cleanup.RunnerRestorationOwnershipTests.test_a_changed_owner_is_revalidated_and_never_released)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/scripts/tests/test_android_test_cleanup.py", line 108, in test_a_changed_owner_is_revalidated_and_never_released
+    self.assertIsInstance(error, CleanupError)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None is not an instance of <class 'android_test_cleanup.CleanupError'>
+
+======================================================================
+FAIL: test_failed_restoration_keeps_ownership_and_still_attempts_remaining_restoration (test_android_test_cleanup.RunnerRestorationOwnershipTests.test_failed_restoration_keeps_ownership_and_still_attempts_remaining_restoration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/scripts/tests/test_android_test_cleanup.py", line 100, in test_failed_restoration_keeps_ownership_and_still_attempts_remaining_restoration
+    self.assertIsNotNone(lease)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_lease_release_is_the_last_device_operation_after_restoration_and_verification (test_android_test_cleanup.RunnerRestorationOwnershipTests.test_lease_release_is_the_last_device_operation_after_restoration_and_verification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/scripts/tests/test_android_test_cleanup.py", line 94, in test_lease_release_is_the_last_device_operation_after_restoration_and_verification
+    self.assertEqual(('shell', 'run-as', 'dev.tinycast.android', 'rm', '-rf', 'files/empty-view-fixture-lease'), events[-1])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('she[22 chars]nycast.android', 'rm', '-rf', 'files/empty-view-fixture-lease') != ('she[22 chars]nycast.android', 'id')
+
+First differing element 3:
+'rm'
+'id'
+
+First tuple contains 2 additional elements.
+First extra element 4:
+'-rf'
+
++ ('shell', 'run-as', 'dev.tinycast.android', 'id')
+- ('shell',
+-  'run-as',
+-  'dev.tinycast.android',
+-  'rm',
+-  '-rf',
+-  'files/empty-view-fixture-lease')
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.018s
+
+FAILED (failures=3)

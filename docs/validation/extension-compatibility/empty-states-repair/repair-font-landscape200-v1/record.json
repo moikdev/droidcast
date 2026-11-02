@@ -1,0 +1,96 @@
+{
+  "avd": "Tinycast_Tablet_API_36",
+  "serial": "emulator-5580",
+  "layout": "tablet",
+  "classes": "dev.tinycast.android.ExtensionEmptyViewDeviceTest#listLongErrorLinesRemainReachableByTouch,dev.tinycast.android.ExtensionEmptyViewDeviceTest#gridLongErrorLinesRemainReachableByTouch",
+  "expected": 2,
+  "completed": true,
+  "runner_sha256": "4ffce76b1f52e6d41743ff8021f3284f3574fa768d27b39fd1a6b73fa5769305",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "requested_font_scale": 2.0,
+  "requested_size": "2340x1080",
+  "requested_density": 420,
+  "empty_view_fixture_mode": true,
+  "empty_view_lease_owner": "f1c61156470f4734a49239fda0352f5e",
+  "pid": 34648,
+  "settings_before": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "show_ime_with_hard_keyboard": "0"
+  },
+  "fixture_upload_directory": null,
+  "apk_sha256": "af6ab4eb761f7bc08760592d89e253d5599b29645d1834328b1f3ee7f36d3536",
+  "test_apk_sha256": "a3d7b20db06d984f0ab9382b98b3c4d87ed4eed9cad6c595e231ee754ceda88e",
+  "installed_matches": true,
+  "capture_background": "launcher-intent",
+  "suite_timeout_seconds": 600,
+  "passes": 2,
+  "tests_completed": true,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "empty-view-owned-data": {
+      "passed": true
+    },
+    "preferences-backup": {
+      "passed": true
+    },
+    "preferences": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "private-fixture": {
+      "passed": true
+    },
+    "fixture-cache": {
+      "passed": true
+    },
+    "verify-data": {
+      "passed": true
+    },
+    "verify-geometry": {
+      "passed": true
+    },
+    "verify-identity": {
+      "passed": true
+    },
+    "empty-view-lease": {
+      "passed": true
+    }
+  },
+  "empty_view_owners_cleaned": 2,
+  "preferences_restored": true,
+  "emoji_preferences_restored": true,
+  "settings_restored": true,
+  "font_scale_restored": true,
+  "size": "Physical size: 1920x1200",
+  "density": "Physical density: 240",
+  "adbd": "uid=2000(shell) gid=2000(shell)",
+  "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)"
+}
