@@ -712,6 +712,10 @@ class ExtensionFormDeviceTest {
             drag(body, 1)
             if (kotlin.math.abs(fullBounds(textNodes.first()).top - before) < 1) break
         }
+        // Resetting the inner view at its leading edge can also scroll its
+        // parent back to the header. Reveal the bounded body again before
+        // measuring lines or starting short inner-view gestures.
+        if (viewport != "inline-menu-choices") revealViewport(viewport, lineHeight)
         val witnessed = layouts.map { BooleanArray(it.lineCount) }; val steps = JSONArray()
         capture("$phase-top")
         var attempts = 0
