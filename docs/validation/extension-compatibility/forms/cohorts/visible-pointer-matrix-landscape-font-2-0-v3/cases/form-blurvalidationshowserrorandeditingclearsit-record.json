@@ -1,0 +1,272 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "cef390f9844de1d1e2def94331b1ed0b887cb2af",
+  "fixture_mode": "validation",
+  "fixture_command_sha256": "ce4d9cb754e5ca0e4085f98cc1057deb312691b9c52d8a9288730252d31d75f7",
+  "owned_extension_id": "reviewed-text-913007d23ca54f299d282b228ae3a37f",
+  "viewport_reveal_gestures": [
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        228,
+        2155,
+        726
+      ],
+      "visible_height": 85,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 99.75,
+      "end_y": -9.25,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        140,
+        2155,
+        638
+      ],
+      "visible_height": 173,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 33.75,
+      "end_y": -75.25,
+      "touch_slop_px": 21
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        629
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        531.5
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        188,
+        2102,
+        313
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        250.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        95,
+        2102,
+        248
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        171.5
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        162,
+        2102,
+        313
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        237.5
+      ]
+    }
+  ],
+  "blur-validation-error_line_probe": {
+    "ime_visible": true,
+    "line_counts": [
+      1
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          430,
+          2102,
+          531
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          396,
+          2102,
+          497
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          363,
+          2102,
+          464
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          329,
+          2102,
+          430
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          296,
+          2102,
+          397
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          262,
+          2102,
+          363
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          229,
+          2102,
+          330
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          195,
+          2102,
+          296
+        ],
+        "text_0_lines_seen": 1
+      }
+    ]
+  },
+  "validation_method": "Real extension onBlur updates its error prop from the current value; real onChange clears it. Submit rejection is not exercised.",
+  "focus_probe": {
+    "changes": 1,
+    "focus": {
+      "name": 2
+    },
+    "blur": {
+      "name": 2
+    },
+    "blurLengths": {
+      "name": 19
+    },
+    "dispatches": 5
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

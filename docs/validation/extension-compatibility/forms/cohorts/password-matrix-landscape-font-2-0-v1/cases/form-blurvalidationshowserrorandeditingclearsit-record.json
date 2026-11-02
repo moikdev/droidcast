@@ -1,0 +1,1171 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "952fb168b482762791afb541bf2bd6b302842b9e",
+  "fixture_mode": "validation",
+  "fixture_command_sha256": "ce4d9cb754e5ca0e4085f98cc1057deb312691b9c52d8a9288730252d31d75f7",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-1ef9f5e3f5ee4891af29286a7a38c04d",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 8,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 8,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        -335,
+        2155,
+        163
+      ],
+      "visible_height": 68,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 143,
+      "end_y": 252,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        -247,
+        2155,
+        251
+      ],
+      "visible_height": 156,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 187,
+      "end_y": 296,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        227,
+        2155,
+        725
+      ],
+      "visible_height": 86,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 99,
+      "end_y": -10,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        139,
+        2155,
+        637
+      ],
+      "visible_height": 174,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 33,
+      "end_y": -76,
+      "touch_slop_px": 21
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        629
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        531.5
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        603,
+        2102,
+        798
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        700.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        95,
+        2102,
+        247
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        171
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        162,
+        2102,
+        313
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        237.5
+      ]
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        163.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        128,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        92.5
+      ],
+      "end": [
+        21,
+        138.75
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        153,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        80
+      ],
+      "end": [
+        21,
+        120
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        172,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        70.5
+      ],
+      "end": [
+        21,
+        105.75
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        186,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        63.5
+      ],
+      "end": [
+        21,
+        95.25
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        197,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        58
+      ],
+      "end": [
+        21,
+        87
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        205,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        54
+      ],
+      "end": [
+        21,
+        81
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        211,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        51
+      ],
+      "end": [
+        21,
+        76.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        216,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        48.5
+      ],
+      "end": [
+        21,
+        72.75
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        219,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        47
+      ],
+      "end": [
+        21,
+        70.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        221,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        46
+      ],
+      "end": [
+        21,
+        69
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        223,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        45
+      ],
+      "end": [
+        21,
+        67.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        225,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        44
+      ],
+      "end": [
+        21,
+        66
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        226,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        43.5
+      ],
+      "end": [
+        21,
+        65.25
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        227,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        43
+      ],
+      "end": [
+        21,
+        64.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    }
+  ],
+  "blur-validation-error_line_probe": {
+    "ime_visible": true,
+    "line_counts": [
+      1
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          429,
+          2102,
+          530
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          395,
+          2102,
+          496
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          362,
+          2102,
+          463
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          328,
+          2102,
+          429
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          295,
+          2102,
+          396
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          261,
+          2102,
+          362
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          228,
+          2102,
+          329
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          194,
+          2102,
+          295
+        ],
+        "text_0_lines_seen": 1
+      }
+    ]
+  },
+  "validation_method": "Real extension onBlur updates its error prop from the current value; real onChange clears it. Submit rejection is not exercised.",
+  "focus_probe": {
+    "changes": 1,
+    "focus": {
+      "name": 2
+    },
+    "blur": {
+      "name": 2
+    },
+    "blurLengths": {
+      "name": 19
+    },
+    "dispatches": 5
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

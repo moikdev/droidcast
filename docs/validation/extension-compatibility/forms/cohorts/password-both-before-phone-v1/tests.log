@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=nativeConfigurationEditsValidateCancelAndRun
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Password editors must request TYPE_TEXT_VARIATION_PASSWORD expected:<128> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertPasswordEditorMetadata(ExtensionFormDeviceTest.kt:795)
+	at dev.tinycast.android.ExtensionFormDeviceTest.nativeConfigurationEditsValidateCancelAndRun(ExtensionFormDeviceTest.kt:629)
+
+INSTRUMENTATION_STATUS: stream=
+Error in nativeConfigurationEditsValidateCancelAndRun(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Password editors must request TYPE_TEXT_VARIATION_PASSWORD expected:<128> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertPasswordEditorMetadata(ExtensionFormDeviceTest.kt:795)
+	at dev.tinycast.android.ExtensionFormDeviceTest.nativeConfigurationEditsValidateCancelAndRun(ExtensionFormDeviceTest.kt:629)
+
+INSTRUMENTATION_STATUS: test=nativeConfigurationEditsValidateCancelAndRun
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=allFieldKindsKeepFocusValuesCompositionAndMasking
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Password editors must request TYPE_TEXT_VARIATION_PASSWORD expected:<128> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertPasswordEditorMetadata(ExtensionFormDeviceTest.kt:795)
+	at dev.tinycast.android.ExtensionFormDeviceTest.allFieldKindsKeepFocusValuesCompositionAndMasking(ExtensionFormDeviceTest.kt:747)
+
+INSTRUMENTATION_STATUS: stream=
+Error in allFieldKindsKeepFocusValuesCompositionAndMasking(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Password editors must request TYPE_TEXT_VARIATION_PASSWORD expected:<128> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertPasswordEditorMetadata(ExtensionFormDeviceTest.kt:795)
+	at dev.tinycast.android.ExtensionFormDeviceTest.allFieldKindsKeepFocusValuesCompositionAndMasking(ExtensionFormDeviceTest.kt:747)
+
+INSTRUMENTATION_STATUS: test=allFieldKindsKeepFocusValuesCompositionAndMasking
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 18.991
+There were 2 failures:
+1) nativeConfigurationEditsValidateCancelAndRun(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Password editors must request TYPE_TEXT_VARIATION_PASSWORD expected:<128> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertPasswordEditorMetadata(ExtensionFormDeviceTest.kt:795)
+	at dev.tinycast.android.ExtensionFormDeviceTest.nativeConfigurationEditsValidateCancelAndRun(ExtensionFormDeviceTest.kt:629)
+2) allFieldKindsKeepFocusValuesCompositionAndMasking(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Password editors must request TYPE_TEXT_VARIATION_PASSWORD expected:<128> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertPasswordEditorMetadata(ExtensionFormDeviceTest.kt:795)
+	at dev.tinycast.android.ExtensionFormDeviceTest.allFieldKindsKeepFocusValuesCompositionAndMasking(ExtensionFormDeviceTest.kt:747)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

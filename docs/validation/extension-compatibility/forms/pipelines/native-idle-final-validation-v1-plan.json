@@ -1,0 +1,138 @@
+{
+  "name": "native-idle-final-validation-v1",
+  "source_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "json_archive": "<frozen-catalog-checkout>/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+  "frozen_inputs": [
+    "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+    "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+    "scripts/test-reviewed-text-input.py",
+    "scripts/android_test_cleanup.py",
+    "scripts/android_clipboard_recovery.py",
+    "artifacts/form-controls/run-cohorts-v2.py"
+  ],
+  "cohorts": [
+    {
+      "name": "idle-return-landscape-font-2-0-v1",
+      "layout": "landscape",
+      "font": 2.0,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#returningFromCheckboxRefocusesTheSameTextField",
+      "expected": 1
+    },
+    {
+      "name": "idle-matrix-tablet-font-1-3-v1",
+      "layout": "tablet",
+      "font": 1.3,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-phone-font-1-3-v1",
+      "layout": "phone",
+      "font": 1.3,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-landscape-font-1-3-v1",
+      "layout": "landscape",
+      "font": 1.3,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-tablet-font-1-5-v1",
+      "layout": "tablet",
+      "font": 1.5,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-phone-font-1-5-v1",
+      "layout": "phone",
+      "font": 1.5,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-landscape-font-1-5-v1",
+      "layout": "landscape",
+      "font": 1.5,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-phone-font-2-0-v1",
+      "layout": "phone",
+      "font": 2.0,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-tablet-font-2-0-v1",
+      "layout": "tablet",
+      "font": 2.0,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-matrix-landscape-font-2-0-v1",
+      "layout": "landscape",
+      "font": 2.0,
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions,dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns,dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+      "expected": 5
+    },
+    {
+      "name": "idle-shared-regression-tablet-v1",
+      "layout": "tablet",
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.InlinePaletteDeviceTest,dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "expected": 19
+    },
+    {
+      "name": "idle-shared-regression-phone-v1",
+      "layout": "phone",
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.InlinePaletteDeviceTest,dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "expected": 19
+    },
+    {
+      "name": "idle-reviewed-input-tablet-v1",
+      "layout": "tablet",
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ReviewedTextDeviceTest,dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "expected": 21
+    },
+    {
+      "name": "idle-reviewed-input-phone-v1",
+      "layout": "phone",
+      "apk": "artifacts/form-controls/candidate-d6fba18-native-focus-layout-build-v1/app.apk",
+      "test_apk": "artifacts/form-controls/harness-c31a5b0-native-idle-harness-v1/test.apk",
+      "classes": "dev.tinycast.android.ReviewedTextDeviceTest,dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "expected": 21
+    }
+  ],
+  "harness_source_commit": "c31a5b0554f1aa45bdc6b8b4502082b2f1c44e5d"
+}

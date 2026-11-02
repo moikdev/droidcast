@@ -48,13 +48,16 @@ import kotlin.math.roundToInt
 internal data class PaletteChoice(val id: String, val label: String, val checked: Boolean = false,
                                   val enabled: Boolean = true, val tag: String = id,
                                   val shortcut: List<String> = emptyList(), val icon: String? = null,
-                                  val separator: Boolean = false, val chord: KeyChord? = null, val activate: () -> Unit)
+                                  val separator: Boolean = false, val chord: KeyChord? = null,
+                                  val labelLines: Int = 3, val activateBeforeDismiss: Boolean = false,
+                                  val activate: () -> Unit)
 
 /** One menu owned by this activity's existing palette surface, never a new window. */
 internal class PaletteMenus {
     class Request(val owner: Any, val choices: State<List<PaletteChoice>>, val anchor: State<Rect?>,
                   val title: State<String?>, val dismiss: State<() -> Unit>, val returnFocus: State<FocusRequester?>, val searchable: Boolean)
     var current by mutableStateOf<Request?>(null); private set
+    var activation by mutableStateOf<Any?>(null); private set
     var surface by mutableStateOf<Rect?>(null)
     var header by mutableStateOf<Rect?>(null); private set
     var footer by mutableStateOf<Rect?>(null); private set
@@ -101,20 +104,35 @@ internal class PaletteMenus {
     fun open(request: Request) {
         restoreTarget = request.returnFocus.value ?: activeFocus
         restoreOwner = request.owner
+        activation = Any()
         current = request; prefix = ""; query=TextFieldValue("")
         selectedId = request.choices.value.firstOrNull { it.enabled && it.checked }?.id
             ?: request.choices.value.firstOrNull { it.enabled }?.id
     }
-    fun remove(owner: Any) { if (current?.owner === owner) current = null }
-    fun dismiss() { val old = current; current = null; old?.dismiss?.value?.invoke() }
+    fun remove(owner: Any) { if (current?.owner === owner) { current = null; activation = null } }
+    fun dismiss() { val old = current; current = null; activation = null; old?.dismiss?.value?.invoke() }
     fun choose(id: String) {
-        val choice = current?.choices?.value?.firstOrNull { it.id == id && it.enabled } ?: return
-        dismiss(); choice.activate()
+        val request = current ?: return
+        val choice = request.choices.value.firstOrNull { it.id == id && it.enabled } ?: return
+        choose(request, activation, choice)
     }
-    fun activateSelected(request: Request) {
-        if (current !== request || query.composition != null) return
+    fun choose(request: Request, opening: Any?, expected: PaletteChoice) {
+        if (current !== request || opening == null || activation !== opening) return
+        val currentChoice = request.choices.value.firstOrNull { it.id == expected.id && it.enabled } ?: return
+        if (currentChoice.label != expected.label) return
+        // Invoke the captured choice: its own live-target guard must assess the
+        // item the user saw, rather than adopting a replacement's callback.
+        if (expected.activateBeforeDismiss) {
+            current = null; activation = null
+            try { expected.activate() } finally { request.dismiss.value.invoke() }
+        } else {
+            dismiss(); expected.activate()
+        }
+    }
+    fun activateSelected(request: Request, opening: Any? = activation) {
+        if (current !== request || opening == null || activation !== opening || query.composition != null) return
         val enabled = choices().filter { it.enabled }
-        (enabled.firstOrNull { it.id == selectedId } ?: enabled.firstOrNull())?.let { choose(it.id) }
+        (enabled.firstOrNull { it.id == selectedId } ?: enabled.firstOrNull())?.let { choose(request, opening, it) }
     }
     fun normalizeSelection() {
         val choices = choices()
@@ -296,6 +314,7 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
         }
     }
     LaunchedEffect(request.owner, menus.selectedId, choices.map { it.id }) { scroll.requestScrollToItem(menus.index()) }
+    val opening = menus.activation
     Box(Modifier.fillMaxSize()) {
         Box(Modifier.matchParentSize().clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { menus.dismiss() })
         Layout(modifier = Modifier.fillMaxSize(), content = {
@@ -311,12 +330,12 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                         items(choices, key = { it.id }) { choice ->
                             if(choice.separator && menus.query.text.isBlank()) HorizontalDivider(color=PaletteTheme.separator,modifier=Modifier.padding(vertical=5.dp))
                             Row(Modifier.fillMaxWidth().heightIn(min=48.dp).background(if (choice.id == menus.selectedId) PaletteTheme.selection else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(8.dp))
-                                .focusProperties { canFocus = false }.clickable(enabled = choice.enabled,role=Role.Button) { menus.choose(choice.id) }
+                                .focusProperties { canFocus = false }.clickable(enabled = choice.enabled,role=Role.Button) { menus.choose(request, opening, choice) }
                                 .semantics { selected = choice.id == menus.selectedId; contentDescription=choice.label+
                                     if(choice.shortcut.isEmpty())"" else ". Shortcut ${choice.shortcut.joinToString(" ")}"; if (!choice.enabled) disabled() }
                                 .testTag(choice.tag).padding(horizontal = 10.dp,vertical=8.dp), verticalAlignment = Alignment.CenterVertically) {
                                 choice.icon?.let { Glyph(it,PaletteTheme.secondary,17); Spacer(Modifier.width(10.dp)) }
-                                Text(choice.label, fontSize = 13.sp, lineHeight=18.sp, maxLines = 3, overflow = TextOverflow.Ellipsis, color = if (choice.enabled) PaletteTheme.ink else PaletteTheme.tertiary, modifier = Modifier.weight(1f))
+                                Text(choice.label, fontSize = 13.sp, lineHeight=18.sp, maxLines = choice.labelLines.coerceAtLeast(1), overflow = TextOverflow.Ellipsis, color = if (choice.enabled) PaletteTheme.ink else PaletteTheme.tertiary, modifier = Modifier.weight(1f))
                                 if(showHints && choice.shortcut.isNotEmpty()) { Spacer(Modifier.width(8.dp)); choice.shortcut.forEach { KeyCap(it); Spacer(Modifier.width(2.dp)) } }
                                 if (choice.checked) Text("✓", fontSize = 12.sp, color = PaletteTheme.secondary)
                             }
@@ -328,7 +347,7 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                         BasicTextField(menus.query,menus::search,singleLine=true,
                             textStyle=TextStyle(color=PaletteTheme.ink,fontSize=13.sp,lineHeight=18.sp),cursorBrush=SolidColor(PaletteTheme.accent),
                             keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=keyboardRequested),
-                            keyboardActions=KeyboardActions(onSearch={ menus.activateSelected(request) }),
+                            keyboardActions=KeyboardActions(onSearch={ menus.activateSelected(request, opening) }),
                             modifier=Modifier.weight(1f).heightIn(min=48.dp).focusRequester(focus).testTag("inline-menu-search"),
                             decorationBox={ inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart) {
                                 if(menus.query.text.isEmpty()) Text("Search for actions…",color=PaletteTheme.secondary,fontSize=13.sp,maxLines=1,overflow=TextOverflow.Ellipsis); inner()

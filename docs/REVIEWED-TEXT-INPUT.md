@@ -93,3 +93,7 @@ These three further raw captures are real app smoke evidence with the rebuilt pa
 | ![Native review with the repaired recovery harness](screenshots/extension-compatibility/reviewed-text-input-recovery/current-tablet-review.png) | ![Actual JSON output and Copy on the rebuilt app](screenshots/extension-compatibility/reviewed-text-input-recovery/current-phone-json-output.png) | ![Large-font native command chooser with the actual keyboard](screenshots/extension-compatibility/reviewed-text-input-recovery/current-phone-font200-ime.png) |
 
 Hosted Android CI and two fresh independent gpt-6.1-sol/high audits must clear the final documentation head before an expected-head merge. The earlier audit clearances and hosted result do not clear this revised runner.
+
+## Merged checkpoint
+
+[PR #82](https://github.com/moikdev/droidcast/pull/82) merged as `89488acad5bd1c08dd91ac51a9252645706f4caa` after both fresh independent gpt-6.1-sol/high audits cleared `f4d0ae1a9e7158dc9205dab40eb6759dd99747db`. The reviewed and merged trees are identical (`0bda1f961643677423789d7267834bf929b6bf7f`). Actual exact-head [Android run 41458058902](https://github.com/moikdev/droidcast/actions/runs/41458058902) and head-bound local/android status 57843058257 succeeded. The audits inspected source/evidence without running additional checks. #81 is closed; broader #19/provider/apply, Store, platform, accessibility and release-readiness requirements remain open.

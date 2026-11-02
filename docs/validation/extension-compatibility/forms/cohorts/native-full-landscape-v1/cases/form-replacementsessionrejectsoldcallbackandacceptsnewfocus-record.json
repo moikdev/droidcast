@@ -1,0 +1,54 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "focus",
+  "fixture_command_sha256": "aec6473b7673c7ba8fc5d422ad4087280016bbbaaf0c8ebb2f9438bed29d5a84",
+  "owned_extension_id": "reviewed-text-4098429b65ac4fbebfc7407c624ddd71",
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        368,
+        2102,
+        515
+      ],
+      "control_size": [
+        1863,
+        147
+      ],
+      "point": [
+        1170.5,
+        441.5
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        164,
+        2102,
+        311
+      ],
+      "control_size": [
+        1863,
+        147
+      ],
+      "point": [
+        1170.5,
+        237.5
+      ]
+    }
+  ],
+  "actual_session_restart_with_reused_ids": true,
+  "old_callback_rejected_new_focus_works": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

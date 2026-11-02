@@ -1,0 +1,3481 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "cef390f9844de1d1e2def94331b1ed0b887cb2af",
+  "fixture_mode": "long",
+  "fixture_command_sha256": "fe0445ddf5d48eb231c18b45b3a20b5634e9754ce2637a5e6732c97af9c8f44f",
+  "owned_extension_id": "reviewed-text-f7d9adb3731b41bfb9b164535323144d",
+  "viewport_reveal_gestures": [
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        267,
+        2155,
+        765
+      ],
+      "visible_height": 46,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 129,
+      "end_y": 20,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        179,
+        2155,
+        677
+      ],
+      "visible_height": 134,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 63,
+      "end_y": -46,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        226,
+        2155,
+        724
+      ],
+      "visible_height": 87,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 98.25,
+      "end_y": -10.75,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        138,
+        2155,
+        636
+      ],
+      "visible_height": 175,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 32.25,
+      "end_y": -76.75,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        267,
+        2155,
+        765
+      ],
+      "visible_height": 46,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 129,
+      "end_y": 20,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        179,
+        2155,
+        677
+      ],
+      "visible_height": 134,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 63,
+      "end_y": -46,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        226,
+        2155,
+        724
+      ],
+      "visible_height": 87,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 98.25,
+      "end_y": -10.75,
+      "touch_slop_px": 21
+    },
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        138,
+        2155,
+        636
+      ],
+      "visible_height": 175,
+      "target_height": 218,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 32.25,
+      "end_y": -76.75,
+      "touch_slop_px": 21
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        532,
+        2102,
+        727
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        629.5
+      ]
+    },
+    {
+      "tag": "extension-choice-choice",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        625,
+        2102,
+        765
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        695
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "long-0_line_probe": {
+    "ime_visible": false,
+    "line_counts": [
+      2,
+      3,
+      3,
+      3
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          320,
+          2102,
+          516
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          743,
+          2102,
+          1046
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          1062,
+          2102,
+          1365
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1532,
+          2091,
+          1826
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          216,
+          2102,
+          412
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          639,
+          2102,
+          942
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          239,
+          958,
+          2102,
+          1261
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1428,
+          2091,
+          1722
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          113,
+          2102,
+          309
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          536,
+          2102,
+          839
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          239,
+          855,
+          2102,
+          1158
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1325,
+          2091,
+          1619
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          9,
+          2102,
+          205
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          432,
+          2102,
+          735
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          751,
+          2102,
+          1054
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1221,
+          2091,
+          1515
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -94,
+          2102,
+          102
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          329,
+          2102,
+          632
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          648,
+          2102,
+          951
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          376,
+          1118,
+          2091,
+          1412
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -198,
+          2102,
+          -2
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          225,
+          2102,
+          528
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          544,
+          2102,
+          847
+        ],
+        "text_2_lines_seen": 2,
+        "text_3": [
+          376,
+          1014,
+          2091,
+          1308
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -301,
+          2102,
+          -105
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          122,
+          2102,
+          425
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          441,
+          2102,
+          744
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          911,
+          2091,
+          1205
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -405,
+          2102,
+          -209
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          18,
+          2102,
+          321
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          337,
+          2102,
+          640
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          807,
+          2091,
+          1101
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -508,
+          2102,
+          -312
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -85,
+          2102,
+          218
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          234,
+          2102,
+          537
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          704,
+          2091,
+          998
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -612,
+          2102,
+          -416
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -189,
+          2102,
+          114
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          130,
+          2102,
+          433
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          600,
+          2091,
+          894
+        ],
+        "text_3_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -715,
+          2102,
+          -519
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -292,
+          2102,
+          11
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          27,
+          2102,
+          330
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          497,
+          2091,
+          791
+        ],
+        "text_3_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -819,
+          2102,
+          -623
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -396,
+          2102,
+          -93
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -77,
+          2102,
+          226
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          393,
+          2091,
+          687
+        ],
+        "text_3_lines_seen": 3
+      }
+    ]
+  },
+  "long-1_line_probe": {
+    "ime_visible": true,
+    "line_counts": [
+      2,
+      3,
+      3,
+      3
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          103,
+          2102,
+          299
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          526,
+          2102,
+          829
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          845,
+          2102,
+          1148
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1315,
+          2091,
+          1609
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          69,
+          2102,
+          265
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          492,
+          2102,
+          795
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          811,
+          2102,
+          1114
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1281,
+          2091,
+          1575
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          36,
+          2102,
+          232
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          459,
+          2102,
+          762
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          778,
+          2102,
+          1081
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1248,
+          2091,
+          1542
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          2,
+          2102,
+          198
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          425,
+          2102,
+          728
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          744,
+          2102,
+          1047
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1214,
+          2091,
+          1508
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -31,
+          2102,
+          165
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          392,
+          2102,
+          695
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          711,
+          2102,
+          1014
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1181,
+          2091,
+          1475
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -65,
+          2102,
+          131
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          358,
+          2102,
+          661
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          677,
+          2102,
+          980
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1147,
+          2091,
+          1441
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -98,
+          2102,
+          98
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          325,
+          2102,
+          628
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          644,
+          2102,
+          947
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1114,
+          2091,
+          1408
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -132,
+          2102,
+          64
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          291,
+          2102,
+          594
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          610,
+          2102,
+          913
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1080,
+          2091,
+          1374
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -165,
+          2102,
+          31
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          258,
+          2102,
+          561
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          577,
+          2102,
+          880
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1047,
+          2091,
+          1341
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -199,
+          2102,
+          -3
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          224,
+          2102,
+          527
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          543,
+          2102,
+          846
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1013,
+          2091,
+          1307
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -232,
+          2102,
+          -36
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          191,
+          2102,
+          494
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          239,
+          510,
+          2102,
+          813
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          980,
+          2091,
+          1274
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -266,
+          2102,
+          -70
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          157,
+          2102,
+          460
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          239,
+          476,
+          2102,
+          779
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          946,
+          2091,
+          1240
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -299,
+          2102,
+          -103
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          124,
+          2102,
+          427
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          239,
+          443,
+          2102,
+          746
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          913,
+          2091,
+          1207
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -333,
+          2102,
+          -137
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          90,
+          2102,
+          393
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          239,
+          409,
+          2102,
+          712
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          879,
+          2091,
+          1173
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -366,
+          2102,
+          -170
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          57,
+          2102,
+          360
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          239,
+          376,
+          2102,
+          679
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          846,
+          2091,
+          1140
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -400,
+          2102,
+          -204
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          23,
+          2102,
+          326
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          239,
+          342,
+          2102,
+          645
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          812,
+          2091,
+          1106
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -433,
+          2102,
+          -237
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -10,
+          2102,
+          293
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          309,
+          2102,
+          612
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          779,
+          2091,
+          1073
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -467,
+          2102,
+          -271
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -44,
+          2102,
+          259
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          275,
+          2102,
+          578
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          745,
+          2091,
+          1039
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -500,
+          2102,
+          -304
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -77,
+          2102,
+          226
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          242,
+          2102,
+          545
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          712,
+          2091,
+          1006
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -534,
+          2102,
+          -338
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -111,
+          2102,
+          192
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          208,
+          2102,
+          511
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          376,
+          678,
+          2091,
+          972
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -567,
+          2102,
+          -371
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -144,
+          2102,
+          159
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          175,
+          2102,
+          478
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          376,
+          645,
+          2091,
+          939
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -601,
+          2102,
+          -405
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -178,
+          2102,
+          125
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          141,
+          2102,
+          444
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          376,
+          611,
+          2091,
+          905
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -634,
+          2102,
+          -438
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -211,
+          2102,
+          92
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          108,
+          2102,
+          411
+        ],
+        "text_2_lines_seen": 2,
+        "text_3": [
+          376,
+          578,
+          2091,
+          872
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -668,
+          2102,
+          -472
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -245,
+          2102,
+          58
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          74,
+          2102,
+          377
+        ],
+        "text_2_lines_seen": 2,
+        "text_3": [
+          376,
+          544,
+          2091,
+          838
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -701,
+          2102,
+          -505
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -278,
+          2102,
+          25
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          41,
+          2102,
+          344
+        ],
+        "text_2_lines_seen": 2,
+        "text_3": [
+          376,
+          511,
+          2091,
+          805
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -735,
+          2102,
+          -539
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -312,
+          2102,
+          -9
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          7,
+          2102,
+          310
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          477,
+          2091,
+          771
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -768,
+          2102,
+          -572
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -345,
+          2102,
+          -42
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -26,
+          2102,
+          277
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          444,
+          2091,
+          738
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -802,
+          2102,
+          -606
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -379,
+          2102,
+          -76
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -60,
+          2102,
+          243
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          410,
+          2091,
+          704
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -835,
+          2102,
+          -639
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -412,
+          2102,
+          -109
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -93,
+          2102,
+          210
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          377,
+          2091,
+          671
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -869,
+          2102,
+          -673
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -446,
+          2102,
+          -143
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -127,
+          2102,
+          176
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          343,
+          2091,
+          637
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -902,
+          2102,
+          -706
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -479,
+          2102,
+          -176
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -160,
+          2102,
+          143
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          310,
+          2091,
+          604
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -936,
+          2102,
+          -740
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -513,
+          2102,
+          -210
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -194,
+          2102,
+          109
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          276,
+          2091,
+          570
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -969,
+          2102,
+          -773
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -546,
+          2102,
+          -243
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -227,
+          2102,
+          76
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          243,
+          2091,
+          537
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -1003,
+          2102,
+          -807
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -580,
+          2102,
+          -277
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -261,
+          2102,
+          42
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          209,
+          2091,
+          503
+        ],
+        "text_3_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -1036,
+          2102,
+          -840
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -613,
+          2102,
+          -310
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -294,
+          2102,
+          9
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          176,
+          2091,
+          470
+        ],
+        "text_3_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -1070,
+          2102,
+          -874
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -647,
+          2102,
+          -344
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -328,
+          2102,
+          -25
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          142,
+          2091,
+          436
+        ],
+        "text_3_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -1103,
+          2102,
+          -907
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -680,
+          2102,
+          -377
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -361,
+          2102,
+          -58
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          109,
+          2091,
+          403
+        ],
+        "text_3_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -1137,
+          2102,
+          -941
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -714,
+          2102,
+          -411
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -395,
+          2102,
+          -92
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          75,
+          2091,
+          369
+        ],
+        "text_3_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -1170,
+          2102,
+          -974
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -747,
+          2102,
+          -444
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -428,
+          2102,
+          -125
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          42,
+          2091,
+          336
+        ],
+        "text_3_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          239,
+          -1204,
+          2102,
+          -1008
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -781,
+          2102,
+          -478
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -462,
+          2102,
+          -159
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          8,
+          2091,
+          302
+        ],
+        "text_3_lines_seen": 3
+      }
+    ]
+  },
+  "long-2_line_probe": {
+    "ime_visible": false,
+    "line_counts": [
+      2,
+      3,
+      3,
+      3
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          320,
+          2102,
+          516
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          743,
+          2102,
+          1046
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          239,
+          1062,
+          2102,
+          1365
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1532,
+          2091,
+          1826
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          216,
+          2102,
+          412
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          639,
+          2102,
+          942
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          239,
+          958,
+          2102,
+          1261
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1428,
+          2091,
+          1722
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          113,
+          2102,
+          309
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          536,
+          2102,
+          839
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          239,
+          855,
+          2102,
+          1158
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1325,
+          2091,
+          1619
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          9,
+          2102,
+          205
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          432,
+          2102,
+          735
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          751,
+          2102,
+          1054
+        ],
+        "text_2_lines_seen": 0,
+        "text_3": [
+          376,
+          1221,
+          2091,
+          1515
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -94,
+          2102,
+          102
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          329,
+          2102,
+          632
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          648,
+          2102,
+          951
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          376,
+          1118,
+          2091,
+          1412
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -198,
+          2102,
+          -2
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          225,
+          2102,
+          528
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          544,
+          2102,
+          847
+        ],
+        "text_2_lines_seen": 2,
+        "text_3": [
+          376,
+          1014,
+          2091,
+          1308
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -301,
+          2102,
+          -105
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          122,
+          2102,
+          425
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          441,
+          2102,
+          744
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          911,
+          2091,
+          1205
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -405,
+          2102,
+          -209
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          18,
+          2102,
+          321
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          337,
+          2102,
+          640
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          807,
+          2091,
+          1101
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -508,
+          2102,
+          -312
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -85,
+          2102,
+          218
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          234,
+          2102,
+          537
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          704,
+          2091,
+          998
+        ],
+        "text_3_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -612,
+          2102,
+          -416
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -189,
+          2102,
+          114
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          130,
+          2102,
+          433
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          600,
+          2091,
+          894
+        ],
+        "text_3_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -715,
+          2102,
+          -519
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -292,
+          2102,
+          11
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          27,
+          2102,
+          330
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          497,
+          2091,
+          791
+        ],
+        "text_3_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          267,
+          2155,
+          765
+        ],
+        "text_0": [
+          239,
+          -819,
+          2102,
+          -623
+        ],
+        "text_0_lines_seen": 2,
+        "text_1": [
+          239,
+          -396,
+          2102,
+          -93
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          239,
+          -77,
+          2102,
+          226
+        ],
+        "text_2_lines_seen": 3,
+        "text_3": [
+          376,
+          393,
+          2091,
+          687
+        ],
+        "text_3_lines_seen": 3
+      }
+    ]
+  },
+  "checkbox_semantics_height_px": 316,
+  "density": 2.625,
+  "long-option_line_probe": {
+    "ime_visible": false,
+    "line_counts": [
+      6
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          1278,
+          406,
+          2086,
+          752
+        ],
+        "text_0": [
+          1304,
+          427,
+          2060,
+          973
+        ],
+        "text_0_lines_seen": 3
+      },
+      {
+        "viewport": [
+          1278,
+          406,
+          2086,
+          752
+        ],
+        "text_0": [
+          1304,
+          362,
+          2060,
+          908
+        ],
+        "text_0_lines_seen": 4
+      },
+      {
+        "viewport": [
+          1278,
+          406,
+          2086,
+          752
+        ],
+        "text_0": [
+          1304,
+          296,
+          2060,
+          842
+        ],
+        "text_0_lines_seen": 5
+      },
+      {
+        "viewport": [
+          1278,
+          406,
+          2086,
+          752
+        ],
+        "text_0": [
+          1304,
+          231,
+          2060,
+          777
+        ],
+        "text_0_lines_seen": 5
+      },
+      {
+        "viewport": [
+          1278,
+          406,
+          2086,
+          752
+        ],
+        "text_0": [
+          1304,
+          165,
+          2060,
+          711
+        ],
+        "text_0_lines_seen": 6
+      }
+    ]
+  },
+  "selected-long-option_line_probe": {
+    "ime_visible": true,
+    "line_counts": [
+      3
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1797,
+          2039,
+          2091
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1763,
+          2039,
+          2057
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1730,
+          2039,
+          2024
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1696,
+          2039,
+          1990
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1663,
+          2039,
+          1957
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1629,
+          2039,
+          1923
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1596,
+          2039,
+          1890
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1562,
+          2039,
+          1856
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1529,
+          2039,
+          1823
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1495,
+          2039,
+          1789
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1462,
+          2039,
+          1756
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1428,
+          2039,
+          1722
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1395,
+          2039,
+          1689
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1361,
+          2039,
+          1655
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1328,
+          2039,
+          1622
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1294,
+          2039,
+          1588
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1261,
+          2039,
+          1555
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1227,
+          2039,
+          1521
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1194,
+          2039,
+          1488
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1160,
+          2039,
+          1454
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1127,
+          2039,
+          1421
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1093,
+          2039,
+          1387
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1060,
+          2039,
+          1354
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          1026,
+          2039,
+          1320
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          993,
+          2039,
+          1287
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          959,
+          2039,
+          1253
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          926,
+          2039,
+          1220
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          892,
+          2039,
+          1186
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          859,
+          2039,
+          1153
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          825,
+          2039,
+          1119
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          792,
+          2039,
+          1086
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          758,
+          2039,
+          1052
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          725,
+          2039,
+          1019
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          691,
+          2039,
+          985
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          658,
+          2039,
+          952
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          624,
+          2039,
+          918
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          591,
+          2039,
+          885
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          557,
+          2039,
+          851
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          524,
+          2039,
+          818
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          490,
+          2039,
+          784
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          457,
+          2039,
+          751
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          423,
+          2039,
+          717
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          390,
+          2039,
+          684
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          356,
+          2039,
+          650
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          323,
+          2039,
+          617
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          289,
+          2039,
+          583
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          256,
+          2039,
+          550
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          222,
+          2039,
+          516
+        ],
+        "text_0_lines_seen": 0
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          189,
+          2039,
+          483
+        ],
+        "text_0_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          155,
+          2039,
+          449
+        ],
+        "text_0_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          122,
+          2039,
+          416
+        ],
+        "text_0_lines_seen": 1
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          88,
+          2039,
+          382
+        ],
+        "text_0_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          55,
+          2039,
+          349
+        ],
+        "text_0_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          22,
+          2039,
+          316
+        ],
+        "text_0_lines_seen": 2
+      },
+      {
+        "viewport": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "text_0": [
+          302,
+          -12,
+          2039,
+          282
+        ],
+        "text_0_lines_seen": 3
+      }
+    ]
+  },
+  "checkbox_last_line_pointer_tap_once": true,
+  "dropdown_last_line_exact_value": true,
+  "ime_transitions": [
+    false,
+    true,
+    false
+  ],
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

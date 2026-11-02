@@ -96,6 +96,9 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     fun dispatch(handle: String?, args: JSONArray = JSONArray()) {
         if (active() && !handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
     }
+    fun dispatchFormFocus(handle: String?, fieldId: String, focused: Boolean, value: Any) {
+        if (active() && !handle.isNullOrBlank()) evaluate("__androidDispatchFormFocus(${quote(session)},${quote(handle)},${quote(fieldId)},${quote(if (focused) "focus" else "blur")},${quote(JSONArray().put(value).toString())})")
+    }
     fun back() { evaluate("__tinycast.popNavigation(${quote(session)})") }
     fun close() { if (destroyed) return; destroyed = true; catalog.detachRuntime(runtimeRegistration); textContext.input?.let(catalog.reviewedText::release); scope.cancel(); webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost"); (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy() }
     private fun ready() { catalog.runtimeReady = true; watchdog?.cancel() }

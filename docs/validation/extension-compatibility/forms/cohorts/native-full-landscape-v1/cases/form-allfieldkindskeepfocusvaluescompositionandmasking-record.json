@@ -1,0 +1,202 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "all-fields",
+  "fixture_command_sha256": "ce17b94ab6942656119b40d907751876c4dbc7eb1b8bfe78451bacdab0fd7a74",
+  "owned_extension_id": "reviewed-text-d872682aa4aa4174a4ab22c0c50249b2",
+  "viewport_reveal_gestures": [
+    {
+      "viewport": "extension-form",
+      "body": [
+        186,
+        -65,
+        2155,
+        181
+      ],
+      "visible_height": 86,
+      "target_height": 128,
+      "outer": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start_y": 152,
+      "end_y": 261,
+      "touch_slop_px": 21
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        368,
+        2102,
+        515
+      ],
+      "control_size": [
+        1863,
+        147
+      ],
+      "point": [
+        1170.5,
+        441.5
+      ]
+    },
+    {
+      "tag": "extension-field-password",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        603,
+        2102,
+        750
+      ],
+      "control_size": [
+        1863,
+        147
+      ],
+      "point": [
+        1170.5,
+        676.5
+      ]
+    },
+    {
+      "tag": "extension-field-area",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        122,
+        2102,
+        269
+      ],
+      "control_size": [
+        1863,
+        147
+      ],
+      "point": [
+        1170.5,
+        195.5
+      ]
+    },
+    {
+      "tag": "extension-field-uncontrolled",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        122,
+        2102,
+        269
+      ],
+      "control_size": [
+        1863,
+        147
+      ],
+      "point": [
+        1170.5,
+        195.5
+      ]
+    },
+    {
+      "tag": "extension-checkbox-enabled",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        142,
+        2102,
+        269
+      ],
+      "control_size": [
+        1863,
+        127
+      ],
+      "point": [
+        1170.5,
+        205.5
+      ]
+    },
+    {
+      "tag": "extension-choice-choice",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        603,
+        2102,
+        729
+      ],
+      "control_size": [
+        1863,
+        126
+      ],
+      "point": [
+        1170.5,
+        666
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "composition_steps": [
+    {
+      "phase": "after-set-composing",
+      "editor_length": 21,
+      "selection_start": 2,
+      "selection_end": 2,
+      "composition_spans": [],
+      "runtime_value_length": 19
+    },
+    {
+      "phase": "after-javascript-publication",
+      "editor_length": 21,
+      "selection_start": 2,
+      "selection_end": 2,
+      "composition_spans": [],
+      "runtime_value_length": 21
+    },
+    {
+      "phase": "after-commit",
+      "editor_length": 22,
+      "selection_start": 3,
+      "selection_end": 3,
+      "composition_spans": [],
+      "runtime_value_length": 21
+    }
+  ],
+  "focus_probe": {
+    "changes": 6,
+    "focus": {
+      "name": 1,
+      "password": 1,
+      "area": 1,
+      "uncontrolled": 1,
+      "enabled": 1,
+      "choice": 1
+    },
+    "blur": {
+      "name": 1,
+      "password": 1,
+      "area": 1,
+      "uncontrolled": 1,
+      "enabled": 1
+    },
+    "blurLengths": {
+      "name": 22,
+      "password": 42,
+      "area": 29,
+      "uncontrolled": 24,
+      "enabled": 0
+    },
+    "dispatches": 18
+  },
+  "composition_survived_javascript_round_trip": true,
+  "composition_method": "Controlled Android InputConnection with Gboard hidden across asynchronous JS\/native phases; not phonetic typing gestures in a live OEM IME",
+  "controlled_selection_preserved": true,
+  "password_masking_and_value_delivery": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

@@ -63,7 +63,7 @@ Supported Android host capabilities:
 
 - Native `List` and multi-column `Grid`: searchable image/color/emoji cells, section headings, stable selection, four-way keyboard navigation, dropdowns and actions. Grid supports package raster assets and bounded HTTPS thumbnails; unsupported images show a placeholder.
 - `Detail` as selectable text/Markdown source.
-- Basic `Form` text/password/text-area, checkbox and dropdown fields, descriptions, separators and submit actions.
+- Basic `Form` text/password/text-area, checkbox and dropdown fields, descriptions, separators and submit actions. [Native Form controls](docs/EXTENSION-FORMS.md) add readable error/help text, current-value focus/blur events, option titles and full-row checkbox label taps; complete Form validation/parity remains partial.
 - Manifest arguments and preferences, including defaults and required fields.
 - Foreground clipboard copy/read, isolated LocalStorage and cache, timers, HTTPS fetch and ordinary web URLs.
 - Secure random bytes/UUIDs and common hashes. Read-only package assets and limited filesystem access within the extension's own data folder.

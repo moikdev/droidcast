@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=returningFromCheckboxRefocusesTheSameTextField
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #148 at (l=428.0, t=472.0, r=1493.0, b=544.0)px, Tag: 'extension-checkbox-enabled'
+Role = 'Checkbox'
+Focused = 'false'
+ToggleableState = 'On'
+Text = '[Tap this complete option label to enable owned output]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 12 siblings
+Selector used: (TestTag = 'extension-checkbox-enabled')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.ExtensionFormDeviceTest.returningFromCheckboxRefocusesTheSameTextField(ExtensionFormDeviceTest.kt:776)
+
+INSTRUMENTATION_STATUS: stream=
+Error in returningFromCheckboxRefocusesTheSameTextField(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #148 at (l=428.0, t=472.0, r=1493.0, b=544.0)px, Tag: 'extension-checkbox-enabled'
+Role = 'Checkbox'
+Focused = 'false'
+ToggleableState = 'On'
+Text = '[Tap this complete option label to enable owned output]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 12 siblings
+Selector used: (TestTag = 'extension-checkbox-enabled')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.ExtensionFormDeviceTest.returningFromCheckboxRefocusesTheSameTextField(ExtensionFormDeviceTest.kt:776)
+
+INSTRUMENTATION_STATUS: test=returningFromCheckboxRefocusesTheSameTextField
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.924
+There was 1 failure:
+1) returningFromCheckboxRefocusesTheSameTextField(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #148 at (l=428.0, t=472.0, r=1493.0, b=544.0)px, Tag: 'extension-checkbox-enabled'
+Role = 'Checkbox'
+Focused = 'false'
+ToggleableState = 'On'
+Text = '[Tap this complete option label to enable owned output]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 12 siblings
+Selector used: (TestTag = 'extension-checkbox-enabled')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.ExtensionFormDeviceTest.returningFromCheckboxRefocusesTheSameTextField(ExtensionFormDeviceTest.kt:776)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

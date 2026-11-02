@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=nativeConfigurationEditsValidateCancelAndRun
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Pointer scrolling could not reveal a text-line viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionFormDeviceTest.revealViewport(ExtensionFormDeviceTest.kt:807)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:434)
+	at dev.tinycast.android.ExtensionFormDeviceTest.nativeConfigurationEditsValidateCancelAndRun(ExtensionFormDeviceTest.kt:623)
+
+INSTRUMENTATION_STATUS: stream=
+Error in nativeConfigurationEditsValidateCancelAndRun(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Pointer scrolling could not reveal a text-line viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionFormDeviceTest.revealViewport(ExtensionFormDeviceTest.kt:807)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:434)
+	at dev.tinycast.android.ExtensionFormDeviceTest.nativeConfigurationEditsValidateCancelAndRun(ExtensionFormDeviceTest.kt:623)
+
+INSTRUMENTATION_STATUS: test=nativeConfigurationEditsValidateCancelAndRun
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=blurValidationShowsErrorAndEditingClearsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: A pointer target needs a useful visible hit region
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:448)
+	at dev.tinycast.android.ExtensionFormDeviceTest.blurValidationShowsErrorAndEditingClearsIt(ExtensionFormDeviceTest.kt:285)
+
+INSTRUMENTATION_STATUS: stream=
+Error in blurValidationShowsErrorAndEditingClearsIt(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: A pointer target needs a useful visible hit region
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:448)
+	at dev.tinycast.android.ExtensionFormDeviceTest.blurValidationShowsErrorAndEditingClearsIt(ExtensionFormDeviceTest.kt:285)
+
+INSTRUMENTATION_STATUS: test=blurValidationShowsErrorAndEditingClearsIt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=allFieldKindsKeepFocusValuesCompositionAndMasking
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.allFieldKindsKeepFocusValuesCompositionAndMasking(ExtensionFormDeviceTest.kt:693)
+
+INSTRUMENTATION_STATUS: stream=
+Error in allFieldKindsKeepFocusValuesCompositionAndMasking(dev.tinycast.android.ExtensionFormDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.allFieldKindsKeepFocusValuesCompositionAndMasking(ExtensionFormDeviceTest.kt:693)
+
+INSTRUMENTATION_STATUS: test=allFieldKindsKeepFocusValuesCompositionAndMasking
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 40.432
+There were 3 failures:
+1) nativeConfigurationEditsValidateCancelAndRun(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Pointer scrolling could not reveal a text-line viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionFormDeviceTest.revealViewport(ExtensionFormDeviceTest.kt:807)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:434)
+	at dev.tinycast.android.ExtensionFormDeviceTest.nativeConfigurationEditsValidateCancelAndRun(ExtensionFormDeviceTest.kt:623)
+2) blurValidationShowsErrorAndEditingClearsIt(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: A pointer target needs a useful visible hit region
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:448)
+	at dev.tinycast.android.ExtensionFormDeviceTest.blurValidationShowsErrorAndEditingClearsIt(ExtensionFormDeviceTest.kt:285)
+3) allFieldKindsKeepFocusValuesCompositionAndMasking(dev.tinycast.android.ExtensionFormDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.allFieldKindsKeepFocusValuesCompositionAndMasking(ExtensionFormDeviceTest.kt:693)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

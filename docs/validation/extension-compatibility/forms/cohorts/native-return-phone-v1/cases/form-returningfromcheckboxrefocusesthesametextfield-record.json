@@ -1,0 +1,117 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "all-fields",
+  "fixture_command_sha256": "ce17b94ab6942656119b40d907751876c4dbc7eb1b8bfe78451bacdab0fd7a74",
+  "owned_extension_id": "reviewed-text-d5670dd7a8be471fa52d1a6b38ba0da1",
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        368,
+        995,
+        515
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        441.5
+      ]
+    },
+    {
+      "tag": "extension-checkbox-enabled",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        955,
+        995,
+        1083
+      ],
+      "control_size": [
+        910,
+        128
+      ],
+      "point": [
+        540,
+        1019
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        246,
+        995,
+        393
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        319.5
+      ]
+    }
+  ],
+  "focus_after_checkbox": {
+    "changes": 2,
+    "focus": {
+      "name": 1,
+      "enabled": 1
+    },
+    "blur": {
+      "name": 1
+    },
+    "blurLengths": {
+      "name": 24
+    },
+    "dispatches": 5
+  },
+  "focus_after_text_return": {
+    "changes": 2,
+    "focus": {
+      "name": 2,
+      "enabled": 1
+    },
+    "blur": {
+      "name": 1,
+      "enabled": 1
+    },
+    "blurLengths": {
+      "name": 24,
+      "enabled": 0
+    },
+    "dispatches": 7
+  },
+  "focus_probe": {
+    "changes": 2,
+    "focus": {
+      "name": 2,
+      "enabled": 1
+    },
+    "blur": {
+      "name": 1,
+      "enabled": 1
+    },
+    "blurLengths": {
+      "name": 24,
+      "enabled": 0
+    },
+    "dispatches": 7
+  },
+  "direct_text_checkbox_text_pointer_round_trip": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

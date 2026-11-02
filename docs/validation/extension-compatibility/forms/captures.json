@@ -1,0 +1,1730 @@
+[
+  {
+    "cohort": "verified-common-before-tablet-v1",
+    "stem": "form-fieldvalidationerrorisvisible-feedback",
+    "name": "before-error-tablet",
+    "caption": "Prior app: Supplied error text; tablet, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-fieldvalidationerrorisvisible-feedback.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-error-tablet.png",
+        "sha256": "641dcfc85143fda4016709ac62310f50ab056d7f7c32cac0152d101af1c12cbe"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-fieldvalidationerrorisvisible-feedback.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-error-tablet.xml",
+        "sha256": "2177f10ff1837a03b6e4f7cb8da2999d57282b3180da67a4cf0beba47a6fb116"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-fieldvalidationerrorisvisible-feedback-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-error-tablet-frame.json",
+        "sha256": "c491bfc488e28207fe3ffb5e086c375a2fd5acd15992a626dbe92244fd00ab28"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-tablet-v1",
+    "stem": "form-fieldvalidationerrorisvisible-feedback",
+    "name": "after-error-tablet",
+    "caption": "Frozen cef390f app: Supplied error text; tablet, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-fieldvalidationerrorisvisible-feedback.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-error-tablet.png",
+        "sha256": "9fad2729e190ccd2ddca4fb171c66d2bf821ac02b00ca2512d63866ffb449fd3"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-fieldvalidationerrorisvisible-feedback.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-error-tablet.xml",
+        "sha256": "b995955da33ce0e822165e8dd494c833fd283e2c1fb01eb6fe2f4e8aea259a2c"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-fieldvalidationerrorisvisible-feedback-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-error-tablet-frame.json",
+        "sha256": "c491bfc488e28207fe3ffb5e086c375a2fd5acd15992a626dbe92244fd00ab28"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-tablet-v1",
+    "stem": "form-fieldhelpisvisiblewithouthover-help",
+    "name": "before-help-tablet",
+    "caption": "Prior app: Help without hover; tablet, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-help-tablet.png",
+        "sha256": "26718ff5bde1bd8a9ff42e3086284d726e2b60d7c8650194a45835b4f7348ff1"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-help-tablet.xml",
+        "sha256": "f373ea4ae9fbc6d7a22e0ed7010d752ed2ecd6b6a85887650f49f365ecf2a84a"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-help-tablet-frame.json",
+        "sha256": "c0704aadce0fa4507d8bfabc13d8eab8089df6f8fb679e97da25b9889ad31d4d"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-tablet-v1",
+    "stem": "form-fieldhelpisvisiblewithouthover-help",
+    "name": "after-help-tablet",
+    "caption": "Frozen cef390f app: Help without hover; tablet, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-help-tablet.png",
+        "sha256": "6beb74addebc78fa5c6f2baeaca69c7170a9a22ba5d472d9e280ce2ba6202a54"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-help-tablet.xml",
+        "sha256": "17af11f658419406f5d955755d117e307d9dd6354a52fd80b7984b815440b583"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-help-tablet-frame.json",
+        "sha256": "c0704aadce0fa4507d8bfabc13d8eab8089df6f8fb679e97da25b9889ad31d4d"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-tablet-v1",
+    "stem": "form-focusandblurdelivercurrentfieldvalue-failure",
+    "name": "before-focus-tablet",
+    "caption": "Prior app: Pointer focus and current blur value; tablet, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-focusandblurdelivercurrentfieldvalue-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-focus-tablet.png",
+        "sha256": "4b752270a0fafc179d2af6695a1d5ef797ccb2eb94cc41b31fc5fbec9a17ab99"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-focusandblurdelivercurrentfieldvalue-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-focus-tablet.xml",
+        "sha256": "7aabf4f573b0acdb7b149105c3acd16b88e6769d166c0ea8bcc924cee367ddca"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-focusandblurdelivercurrentfieldvalue-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-focus-tablet-frame.json",
+        "sha256": "75af7afa8896287ac6ba641eb642bd8c97f01d5adba780c823636c9ed50d346a"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-tablet-v1",
+    "stem": "form-focusandblurdelivercurrentfieldvalue-focused-fields",
+    "name": "after-focus-tablet",
+    "caption": "Frozen cef390f app: Pointer focus and current blur value; tablet, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-focusandblurdelivercurrentfieldvalue-focused-fields.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-focus-tablet.png",
+        "sha256": "80ed2991a6661e64bcc50e9efc1ca4cd1ee76029ee865e5958a30ff887ce3e38"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-focusandblurdelivercurrentfieldvalue-focused-fields.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-focus-tablet.xml",
+        "sha256": "20d06778d8bf9993cfb5e87a2533ec13d183876e6bf5a58b8327aac21fa8bfd4"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-focusandblurdelivercurrentfieldvalue-focused-fields-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-focus-tablet-frame.json",
+        "sha256": "958907124032c4ab668f6d2051111acea3bf61c593fa24856239c2ed0cce6ae6"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-tablet-v1",
+    "stem": "form-dropdownshowsselecteditemtitle-closed-choice",
+    "name": "before-dropdown-tablet",
+    "caption": "Prior app: Closed dropdown selected title; tablet, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-dropdown-tablet.png",
+        "sha256": "8abfcb8cda8fa12fe2bdb7a789f9e81f7ab84ca32ba13aeab7ac362e1803580c"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-dropdown-tablet.xml",
+        "sha256": "22e994a08c7b4407e6a9e5bca75492e3179df52a2e5d01440d51d355dc976491"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-dropdown-tablet-frame.json",
+        "sha256": "37c61ecc9927319f6ade90102f961f54dfdd6bc5299364df8eaa77d86c2c0269"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-tablet-v1",
+    "stem": "form-dropdownshowsselecteditemtitle-closed-choice",
+    "name": "after-dropdown-tablet",
+    "caption": "Frozen cef390f app: Closed dropdown selected title; tablet, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-dropdown-tablet.png",
+        "sha256": "6efe51ebf64cbe0cb1170354bbcbe046a17de39d95b0ad2ef5cc6eb2395a4bbe"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-dropdown-tablet.xml",
+        "sha256": "2b0aa206bc0892987bb3966ac3d08fa27092d967a28a0ee6767cb0feefea3fae"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-dropdown-tablet-frame.json",
+        "sha256": "37c61ecc9927319f6ade90102f961f54dfdd6bc5299364df8eaa77d86c2c0269"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-tablet-v1",
+    "stem": "form-checkboxlabeltogglesexactlyonce-failure",
+    "name": "before-checkbox-tablet",
+    "caption": "Prior app: Actual checkbox-label pointer tap; tablet, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-checkboxlabeltogglesexactlyonce-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-checkbox-tablet.png",
+        "sha256": "0661d980326ddff09d35b09d6c530d5ab1921c465d1be293f71f882b105a2321"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-checkboxlabeltogglesexactlyonce-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-checkbox-tablet.xml",
+        "sha256": "3f3839898faf915c53a723635bf4929b207bb92e16d7c9eac0d3f01716b4772d"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-tablet-v1/captures/form-checkboxlabeltogglesexactlyonce-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-checkbox-tablet-frame.json",
+        "sha256": "4e344615b2aa23387c921329887abf17d8f50c33be042fafaa4a9abedcd5c822"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-tablet-v1",
+    "stem": "form-checkboxlabeltogglesexactlyonce-label-tap",
+    "name": "after-checkbox-tablet",
+    "caption": "Frozen cef390f app: Actual checkbox-label pointer tap; tablet, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-checkbox-tablet.png",
+        "sha256": "0b8123ff6725fdb05c72a2f15547bafba14264e6e668ab6d42c9d847ff291e9d"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-checkbox-tablet.xml",
+        "sha256": "701bd0ef6140a80669c587d5b8444447a251ea36d563c8e1a3ab125c09ed4f94"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-checkbox-tablet-frame.json",
+        "sha256": "abbce7d209ce2211fbab73b2cadf806b0a8e12b5ea544589e339799bae6d7dd7"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-phone-v1",
+    "stem": "form-fieldvalidationerrorisvisible-feedback",
+    "name": "before-error-phone",
+    "caption": "Prior app: Supplied error text; phone, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-error-phone.png",
+        "sha256": "c755efddf2a55ebc2d80a8853197de9e8f3eaad81f004f1c357afe817d3caf93"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-error-phone.xml",
+        "sha256": "156f86ea52e0173c12b6abbca7753f2843dc3c08ef203ffb4acd5a3c908eeb1e"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-error-phone-frame.json",
+        "sha256": "c491bfc488e28207fe3ffb5e086c375a2fd5acd15992a626dbe92244fd00ab28"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-fieldvalidationerrorisvisible-feedback",
+    "name": "after-error-phone",
+    "caption": "Frozen cef390f app: Supplied error text; phone, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-error-phone.png",
+        "sha256": "f6a8bb711fa2adeac77d12247f1f966ecfe190480b0218f683ed9ad014c2a7cf"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-error-phone.xml",
+        "sha256": "cf2d9712435d79079e511d1183c4861fca74a9f974fd416e402aa6bafd240def"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-error-phone-frame.json",
+        "sha256": "c491bfc488e28207fe3ffb5e086c375a2fd5acd15992a626dbe92244fd00ab28"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-phone-v1",
+    "stem": "form-fieldhelpisvisiblewithouthover-help",
+    "name": "before-help-phone",
+    "caption": "Prior app: Help without hover; phone, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-fieldhelpisvisiblewithouthover-help.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-help-phone.png",
+        "sha256": "c755efddf2a55ebc2d80a8853197de9e8f3eaad81f004f1c357afe817d3caf93"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-fieldhelpisvisiblewithouthover-help.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-help-phone.xml",
+        "sha256": "156f86ea52e0173c12b6abbca7753f2843dc3c08ef203ffb4acd5a3c908eeb1e"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-fieldhelpisvisiblewithouthover-help-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-help-phone-frame.json",
+        "sha256": "c0704aadce0fa4507d8bfabc13d8eab8089df6f8fb679e97da25b9889ad31d4d"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-fieldhelpisvisiblewithouthover-help",
+    "name": "after-help-phone",
+    "caption": "Frozen cef390f app: Help without hover; phone, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-fieldhelpisvisiblewithouthover-help.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-help-phone.png",
+        "sha256": "a432df7db6d86e9e64dbeaf4cf8fdf149134b9cb3a13905dd4b28925e2237bac"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-fieldhelpisvisiblewithouthover-help.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-help-phone.xml",
+        "sha256": "cfabbd3fd7d32b3c640a3b97db5e340fe7c6d3b809e232fb3c23b4df8bc83a69"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-fieldhelpisvisiblewithouthover-help-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-help-phone-frame.json",
+        "sha256": "c0704aadce0fa4507d8bfabc13d8eab8089df6f8fb679e97da25b9889ad31d4d"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-phone-v1",
+    "stem": "form-focusandblurdelivercurrentfieldvalue-failure",
+    "name": "before-focus-phone",
+    "caption": "Prior app: Pointer focus and current blur value; phone, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-focusandblurdelivercurrentfieldvalue-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-focus-phone.png",
+        "sha256": "102934b63ec90080c3399a9bd3e25cd9fea34fee3bb6021abfb4dfd8487ab25d"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-focusandblurdelivercurrentfieldvalue-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-focus-phone.xml",
+        "sha256": "c0a0eb416f71c086b30e7f5f11e4d7aa8317b169f129a0b1f271e47a926a43ab"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-focusandblurdelivercurrentfieldvalue-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-focus-phone-frame.json",
+        "sha256": "75af7afa8896287ac6ba641eb642bd8c97f01d5adba780c823636c9ed50d346a"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-focusandblurdelivercurrentfieldvalue-focused-fields",
+    "name": "after-focus-phone",
+    "caption": "Frozen cef390f app: Pointer focus and current blur value; phone, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-focusandblurdelivercurrentfieldvalue-focused-fields.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-focus-phone.png",
+        "sha256": "47928d30d5dbcb75f66c778e1eb2b77e1190ddd0ac4bf5a7f6724bda41346cb8"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-focusandblurdelivercurrentfieldvalue-focused-fields.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-focus-phone.xml",
+        "sha256": "bdea02cc74a05e2c8f9dc12fb25a436da547dffa4847db9a06051e891331aa5e"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-focusandblurdelivercurrentfieldvalue-focused-fields-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-focus-phone-frame.json",
+        "sha256": "958907124032c4ab668f6d2051111acea3bf61c593fa24856239c2ed0cce6ae6"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-phone-v1",
+    "stem": "form-dropdownshowsselecteditemtitle-closed-choice",
+    "name": "before-dropdown-phone",
+    "caption": "Prior app: Closed dropdown selected title; phone, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-dropdown-phone.png",
+        "sha256": "a2d49ba5906571596b3350fedd6c4c229d549cd1ba0616f8f0f1b8b39bbf7805"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-dropdown-phone.xml",
+        "sha256": "6bb38152cc3b2c69e4ae472454ce98907c671d2877a37bf57f77c3804f93f93c"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-dropdown-phone-frame.json",
+        "sha256": "37c61ecc9927319f6ade90102f961f54dfdd6bc5299364df8eaa77d86c2c0269"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-dropdownshowsselecteditemtitle-closed-choice",
+    "name": "after-dropdown-phone",
+    "caption": "Frozen cef390f app: Closed dropdown selected title; phone, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-dropdown-phone.png",
+        "sha256": "45839c376b869f25e2ff853a00dec2bd97e75c0ca2b3a01923f2a01e1471feda"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-dropdown-phone.xml",
+        "sha256": "73430d3b45611e998f28ac4a233b72b934ae2bc3dbe0693d311bff2bf7409de1"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-dropdown-phone-frame.json",
+        "sha256": "37c61ecc9927319f6ade90102f961f54dfdd6bc5299364df8eaa77d86c2c0269"
+      }
+    }
+  },
+  {
+    "cohort": "verified-common-before-phone-v1",
+    "stem": "form-checkboxlabeltogglesexactlyonce-failure",
+    "name": "before-checkbox-phone",
+    "caption": "Prior app: Actual checkbox-label pointer tap; phone, 100% font",
+    "app_sha256": "d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/before-checkbox-phone.png",
+        "sha256": "7e48ea87cc71a014fa5802819b78fde64feca4819d8c751ef82a6f6e32b87458"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-checkbox-phone.xml",
+        "sha256": "d343d5b9e337d4962be9565c466a9ce4fbb3c23158c39e7ad09e86a68e76448f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-common-before-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/before-checkbox-phone-frame.json",
+        "sha256": "4e344615b2aa23387c921329887abf17d8f50c33be042fafaa4a9abedcd5c822"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-checkboxlabeltogglesexactlyonce-label-tap",
+    "name": "after-checkbox-phone",
+    "caption": "Frozen cef390f app: Actual checkbox-label pointer tap; phone, 100% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.png",
+        "public": "docs/screenshots/extension-compatibility/forms/after-checkbox-phone.png",
+        "sha256": "b73978387268168e29c08e6355b7893c67c95fa6b310eb485b79bbe456bf892f"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-checkbox-phone.xml",
+        "sha256": "9a8b0449920fb86c5b3d0c4af786cf4bdcbe575f8f51c5063bc1988d5a97c81e"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/after-checkbox-phone-frame.json",
+        "sha256": "abbce7d209ce2211fbab73b2cadf806b0a8e12b5ea544589e339799bae6d7dd7"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-tablet-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top",
+    "name": "font200-tablet-long-1-top",
+    "caption": "Frozen cef390f app, pointer harness 37856b9; tablet, 200%, actual IME open; long field lines long-1-top",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-tablet-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-tablet-long-1-top.png",
+        "sha256": "ab2e3b91914b471d32ebe46bc79ec5ffbb28811eac3a40aeaffc2a38ac09df79"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-tablet-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-tablet-long-1-top.xml",
+        "sha256": "1919189f3fdd5aa5caf6f9fc5ca5d0654df39f0f3a78a3e45f0756874dc7fc8b"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-tablet-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-tablet-long-1-top-frame.json",
+        "sha256": "b084d4e4ce4e508e88f0576179e8265f0614fd2089d4da62994309cbc34b6d88"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-tablet-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom",
+    "name": "font200-tablet-long-1-bottom",
+    "caption": "Frozen cef390f app, pointer harness 37856b9; tablet, 200%, actual IME open; long field lines long-1-bottom",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-tablet-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-tablet-long-1-bottom.png",
+        "sha256": "57a3419859b1eb0cfd26d1b476d5e41a4191d802345784a6ce963f2d869d4441"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-tablet-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-tablet-long-1-bottom.xml",
+        "sha256": "f82032458c2e4e84247060abd6cf2c841c89578f1aee73a639c4263dc10e7dc8"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-tablet-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-tablet-long-1-bottom-frame.json",
+        "sha256": "ab3696588d922426fa13bebc280952ec4cc6e73312b6a7ec1574f001f3050bf9"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-phone-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top",
+    "name": "font200-phone-long-1-top",
+    "caption": "Frozen cef390f app, pointer harness 37856b9; phone, 200%, actual IME open; long field lines long-1-top",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-phone-long-1-top.png",
+        "sha256": "50a54a5ec930ae0c97e0276fb9296d1b0b422ed59210e7e43b0880360b3029a9"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-1-top.xml",
+        "sha256": "f63081bb094f3d9f4c093d0ae2c4953a16e506f851873e4e2666afc330b2edfa"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-1-top-frame.json",
+        "sha256": "b084d4e4ce4e508e88f0576179e8265f0614fd2089d4da62994309cbc34b6d88"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-phone-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom",
+    "name": "font200-phone-long-1-bottom",
+    "caption": "Frozen cef390f app, pointer harness 37856b9; phone, 200%, actual IME open; long field lines long-1-bottom",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-phone-long-1-bottom.png",
+        "sha256": "6a3a508612fd395dc27fcd6aac58aaaddd9111d7fecd7186cd4acc8e1f2ce1d4"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-1-bottom.xml",
+        "sha256": "afe4770751a532529b2b2d68a6ed9ad1f61647cfbf732e9ba654ebe216461b6c"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-1-bottom-frame.json",
+        "sha256": "ab3696588d922426fa13bebc280952ec4cc6e73312b6a7ec1574f001f3050bf9"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-landscape-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top",
+    "name": "font200-landscape-long-1-top",
+    "caption": "Frozen cef390f app, pointer harness 37856b9; landscape, 200%, actual IME open; long field lines long-1-top",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-landscape-long-1-top.png",
+        "sha256": "b2357beb15abe07f2637e7567836d50fac6fa3a18d196244ebae469c93965ed3"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-1-top.xml",
+        "sha256": "bab182b202b619c40aeb0dff9fe125835d823ec8e528799bde571645383332ba"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-top-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-1-top-frame.json",
+        "sha256": "b084d4e4ce4e508e88f0576179e8265f0614fd2089d4da62994309cbc34b6d88"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-landscape-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom",
+    "name": "font200-landscape-long-1-bottom",
+    "caption": "Frozen cef390f app, pointer harness 37856b9; landscape, 200%, actual IME open; long field lines long-1-bottom",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-landscape-long-1-bottom.png",
+        "sha256": "8811335c1a5f317fe878c1d656d4f162c6d1688537a701ae820a0719ad34c1d0"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-1-bottom.xml",
+        "sha256": "f8b218ae1fcbc795545d631b18ea35753c09e6d4151a87ba6a60329af0771021"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-1-bottom-frame.json",
+        "sha256": "ab3696588d922426fa13bebc280952ec4cc6e73312b6a7ec1574f001f3050bf9"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-phone-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top",
+    "name": "font200-phone-long-option-top",
+    "caption": "Owned long dropdown option reached by pointer; phone, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-phone-long-option-top.png",
+        "sha256": "9403df83a6f46a3bdbb6b92b0c63a558c0341dbcf1f5e6eb5f5afb6f17c13d14"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-option-top.xml",
+        "sha256": "348bb6226d709ca9197865450263a1fdc894a0b2cfff5c177774c53197521981"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-option-top-frame.json",
+        "sha256": "f21a1aead65a180f8a423f65776e60e2bb9bb20e00099b1c7007b903d9b20a7d"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-phone-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom",
+    "name": "font200-phone-long-option-bottom",
+    "caption": "Owned long dropdown option reached by pointer; phone, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-phone-long-option-bottom.png",
+        "sha256": "9403df83a6f46a3bdbb6b92b0c63a558c0341dbcf1f5e6eb5f5afb6f17c13d14"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-option-bottom.xml",
+        "sha256": "348bb6226d709ca9197865450263a1fdc894a0b2cfff5c177774c53197521981"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-long-option-bottom-frame.json",
+        "sha256": "cf511f6b60ed9b72f070073181acad799ec3f9e26d5f6c818595df9711a4099f"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-landscape-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top",
+    "name": "font200-landscape-long-option-top",
+    "caption": "Owned long dropdown option reached by pointer; landscape, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-landscape-long-option-top.png",
+        "sha256": "f241e3fbf56f45c38946355123bc9171fe29363131ffd747c20391bd6bec81c8"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-option-top.xml",
+        "sha256": "cfec1ac96eb8b75a5225e5874fcd69a1e55651ec578884a62d103c16073ae876"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-top-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-option-top-frame.json",
+        "sha256": "f21a1aead65a180f8a423f65776e60e2bb9bb20e00099b1c7007b903d9b20a7d"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-landscape-font-2-0-v4",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom",
+    "name": "font200-landscape-long-option-bottom",
+    "caption": "Owned long dropdown option reached by pointer; landscape, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-landscape-long-option-bottom.png",
+        "sha256": "debb1e5ca91d0491542d24c292d403b0eb515266d9174c64df8185a283bd205d"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-option-bottom.xml",
+        "sha256": "6364a7e14a867e98a5cec17479025abb8be5dac4f9462c4f68164f42c41421c0"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-option-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-long-option-bottom-frame.json",
+        "sha256": "cf511f6b60ed9b72f070073181acad799ec3f9e26d5f6c818595df9711a4099f"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-landscape-font-2-0-v4",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-top",
+    "name": "font200-landscape-configuration-required-top",
+    "caption": "Actual required configuration errors, reached sequentially; short landscape, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-top.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-landscape-configuration-required-top.png",
+        "sha256": "14023c1c9689b7fdce3e6a22b6336d0a20fe64aefce509f505be8c667268d7dd"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-top.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-configuration-required-top.xml",
+        "sha256": "2a5a457de47b073e3f59294f32505748109847722cede1046b29c98ed2989172"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-top-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-configuration-required-top-frame.json",
+        "sha256": "823d7b822a9cc091ed96e214885a1086fbc177f64ad26599a652257ce94fb6ab"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-landscape-font-2-0-v4",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-bottom",
+    "name": "font200-landscape-configuration-required-bottom",
+    "caption": "Actual required configuration errors, reached sequentially; short landscape, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-landscape-configuration-required-bottom.png",
+        "sha256": "18d28df6bc2ffa56626a46e3a88497fb375f5024b88cfbc854a178ff76e87461"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-configuration-required-bottom.xml",
+        "sha256": "3723a10083625fa44fb19fae45426a67472dd1cfb31a791b9ee215c0b2cfebd9"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-landscape-font-2-0-v4/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-required-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-landscape-configuration-required-bottom-frame.json",
+        "sha256": "a0af1a385a3c0ada83d79c337950d395e2dc4dc2f235ba1bfbd2df9c6aa695cf"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-phone-font-2-0-v4",
+    "stem": "form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-top",
+    "name": "font200-phone-blur-validation-error-top",
+    "caption": "Error produced by the owned extension on real blur, full-line pointer witness; phone, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-top.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-phone-blur-validation-error-top.png",
+        "sha256": "ffe45c0dcf78f3f49e7d1934cb1b37a1c1d062739fb232ff83ad7b7ce640dbf9"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-top.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-blur-validation-error-top.xml",
+        "sha256": "e7de919b566f084114673ad4b8b586d33c732e5bc03235d1af7fe951508b25b1"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-top-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-blur-validation-error-top-frame.json",
+        "sha256": "110249fa9dc6b3e178e113875039740d2bcab2bbc5dbb308a9c4ef4e47599bfb"
+      }
+    }
+  },
+  {
+    "cohort": "visible-pointer-matrix-phone-font-2-0-v4",
+    "stem": "form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-bottom",
+    "name": "font200-phone-blur-validation-error-bottom",
+    "caption": "Error produced by the owned extension on real blur, full-line pointer witness; phone, 200% font",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/font200-phone-blur-validation-error-bottom.png",
+        "sha256": "ffe45c0dcf78f3f49e7d1934cb1b37a1c1d062739fb232ff83ad7b7ce640dbf9"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-blur-validation-error-bottom.xml",
+        "sha256": "e7de919b566f084114673ad4b8b586d33c732e5bc03235d1af7fe951508b25b1"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/visible-pointer-matrix-phone-font-2-0-v4/captures/form-blurvalidationshowserrorandeditingclearsit-blur-validation-error-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/font200-phone-blur-validation-error-bottom-frame.json",
+        "sha256": "5f98f6f2140cbf2750ab4339835babd9a924a46176045611a45981eaf4507ccf"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences",
+    "name": "phone-json-native-preferences",
+    "caption": "Actual frozen json-format/index native preference edit / output / Copy / launcher return; phone, 100%; json-native-preferences",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.png",
+        "public": "docs/screenshots/extension-compatibility/forms/phone-json-native-preferences.png",
+        "sha256": "57f1fcf439777e53f9ec220cdbe7a1bda66ca1be534b945e881fe1c6414389b2"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-native-preferences.xml",
+        "sha256": "d8f9921940545d29647794cbc3d5f81522d28995ada20c0a9b28d45feb6a0f31"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-native-preferences-frame.json",
+        "sha256": "c8740156eeb0e10d729b3efbcc79d2637eb438d34d2f17016662588766d695f2"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail",
+    "name": "phone-json-detail",
+    "caption": "Actual frozen json-format/index native preference edit / output / Copy / launcher return; phone, 100%; json-detail",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.png",
+        "public": "docs/screenshots/extension-compatibility/forms/phone-json-detail.png",
+        "sha256": "be7b411a9a2480a2e98a3e60cf09cfa436beb1b5810b2a93fbca3ee5f1fc44dd"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-detail.xml",
+        "sha256": "952a64d8ce0c990c72dd2b5eb1366557ea33c278728e702573fc8f31fddcea77"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-detail-frame.json",
+        "sha256": "2d0f109e34ecfddbfcae3cf93854bdf66eacfacb941ccaedbf4db4a70f90ba95"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied",
+    "name": "phone-json-copied",
+    "caption": "Actual frozen json-format/index native preference edit / output / Copy / launcher return; phone, 100%; json-copied",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied.png",
+        "public": "docs/screenshots/extension-compatibility/forms/phone-json-copied.png",
+        "sha256": "47de47795393635cda3471a6a691932baeafb5097ecf41bb63a59f77bde2fd85"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-copied.xml",
+        "sha256": "a4aed045b3121ffcf2ec8f20ef03122fb288e607257390f2a3ef53cf1282d74f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-copied-frame.json",
+        "sha256": "7627eb812926b0d7ba2f9adb74742eae47f1c72fe1058507d8408e1bc3e3bb86"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return",
+    "name": "phone-json-launcher-return",
+    "caption": "Actual frozen json-format/index native preference edit / output / Copy / launcher return; phone, 100%; json-launcher-return",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.png",
+        "public": "docs/screenshots/extension-compatibility/forms/phone-json-launcher-return.png",
+        "sha256": "1f90346eb19d688e9f9777328f60c361243303a261495f7403e0c36c1592fddd"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-launcher-return.xml",
+        "sha256": "37a72ec91643451ff297900b256243ddcb89dc2a4ae93f7cd175675a354c19d0"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-json-launcher-return-frame.json",
+        "sha256": "40a2d165d062132c8cfd83756132733ccb4049929bf510b87fcdeea89cb590c0"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-tablet-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input",
+    "name": "tablet-json-form-input",
+    "caption": "Actual frozen JSON Form, whitespace-preserving owned Unicode input; tablet, 100%",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input.png",
+        "public": "docs/screenshots/extension-compatibility/forms/tablet-json-form-input.png",
+        "sha256": "a77913c57b6d339ca0c805a648beae5c8781104b040485c7aec47ecdfee15c68"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/tablet-json-form-input.xml",
+        "sha256": "75dde3e5a9ea2b7e739d95d1d0b889258e82f38f1dc2532cad0c78ce5f4e27d1"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/tablet-json-form-input-frame.json",
+        "sha256": "44010f0de42240c4b3256fbb40e14bbd8e26e0a89546d8e20435daaee1edbb10"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-tablet-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination",
+    "name": "tablet-configuration-destination",
+    "caption": "Owned configuration command receives the exact native edited arguments/preferences after explicit Run; tablet, 100%",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination.png",
+        "public": "docs/screenshots/extension-compatibility/forms/tablet-configuration-destination.png",
+        "sha256": "ddfe6ccfa0923840197ff109aef17285d56d70c546b4e89bc99be9be1220ac6c"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/tablet-configuration-destination.xml",
+        "sha256": "a8297af307b01bd7d94c6e1427984c24da51af9f7dc35c6d1b3c49581d5b9a2b"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-tablet-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/tablet-configuration-destination-frame.json",
+        "sha256": "83378624a36f3a3aa0d365676fd2132aa1a09e163f6c53944a41401ed9195ff4"
+      }
+    }
+  },
+  {
+    "cohort": "verified-full-phone-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password",
+    "name": "phone-masked-password",
+    "caption": "Native masked input; ephemeral plaintext excluded from XML and public evidence; phone, 100%",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png",
+        "public": "docs/screenshots/extension-compatibility/forms/phone-masked-password.png",
+        "sha256": "cd8fd305c177c70de74c79c4587b1668f79c7bd30b0ce68fb34472420928dfe5"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-masked-password.xml",
+        "sha256": "0ad09ee3626586c1973af69b6fbfe009a7d91eec134b58b3121e3a213e3d5d59"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/verified-full-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/phone-masked-password-frame.json",
+        "sha256": "09f4412051c4a32a0fbe0d540655575d578d59a40800d93c657d93f8c3ca5f39"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-before-tablet-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-failure",
+    "name": "native-focus-before-tablet",
+    "caption": "Prior cef390f app with final d6fba18 harness: checkbox toggles but does not take native focus; expected native focus assertion failure",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-before-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-before-tablet.png",
+        "sha256": "33702265bcf0f90d31f8131165ac979091d7ed8e2e643af89c4804858e09cefa"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-before-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-before-tablet.xml",
+        "sha256": "79c43641b76c7347718dba8f82187b8d045d4ef694abcf9c562da23fc89d3c78"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-before-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-before-tablet-frame.json",
+        "sha256": "75af7afa8896287ac6ba641eb642bd8c97f01d5adba780c823636c9ed50d346a"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-tablet-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text",
+    "name": "native-focus-tablet-checkbox-after-text",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, tablet, 100%; checkbox-after-text",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-tablet-checkbox-after-text.png",
+        "sha256": "c50b3b8ce7a99309ba9b71ca4df8eb3d05e454ed397c92b23d1ab3d718d378b5"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-checkbox-after-text.xml",
+        "sha256": "9f4a66857e855092ac64b650eacb11732c5cffdef1c3278cdb5843ed6afb618f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-checkbox-after-text-frame.json",
+        "sha256": "ff49f61853db26536a20de517b61419500063549a07aeb55ba90a6a91e706009"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-tablet-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox",
+    "name": "native-focus-tablet-text-after-checkbox",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, tablet, 100%; text-after-checkbox",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-tablet-text-after-checkbox.png",
+        "sha256": "b6eaf4eff60a7d85c60f5d3fb8df72e421171f1e38c3f4cc30847b7a7a85d1f0"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-text-after-checkbox.xml",
+        "sha256": "aaaf2c397d87c303b6761070e3deaf086467c7eb4e064789a56fb2a46ac6ec42"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-text-after-checkbox-frame.json",
+        "sha256": "d72f173325a0320eae5374549c6182e9dc409287ec754b1c3c52e486ec034615"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-phone-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text",
+    "name": "native-focus-phone-checkbox-after-text",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, phone, 100%; checkbox-after-text",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-phone-checkbox-after-text.png",
+        "sha256": "80dc3fa3302b35242cada03dab51836e25fe4b7555829ae5dd951bca676dc0e3"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-checkbox-after-text.xml",
+        "sha256": "6d578a85bc5cc69152d91b365c1465f58689d2d8592266d000dadcf85b3a5069"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-checkbox-after-text-frame.json",
+        "sha256": "ff49f61853db26536a20de517b61419500063549a07aeb55ba90a6a91e706009"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-phone-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox",
+    "name": "native-focus-phone-text-after-checkbox",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, phone, 100%; text-after-checkbox",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-phone-text-after-checkbox.png",
+        "sha256": "ed4e9027e8f1499b10921777088b36fa3842b354db1eece4d746a86181c4f70f"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-text-after-checkbox.xml",
+        "sha256": "4bdcc4b38a12e6f600023bb19be119c921274abf7ca721e11624761342befa03"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-text-after-checkbox-frame.json",
+        "sha256": "d72f173325a0320eae5374549c6182e9dc409287ec754b1c3c52e486ec034615"
+      }
+    }
+  },
+  {
+    "cohort": "native-layout-before-landscape-font-1-3-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-failure",
+    "name": "native-layout-before-landscape-font130",
+    "caption": "Prior cef390f app with final d6fba18 harness; 130% short landscape and actual IME; Run chrome omitted, body only 35dp, expected full-hit-region assertion failure",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.3,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-layout-before-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-layout-before-landscape-font130.png",
+        "sha256": "343a1461e24a2238f7055aa4090ecdbcdf533d308ee28aadfb96eede6f5a8a97"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-layout-before-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-before-landscape-font130.xml",
+        "sha256": "e92ffaaf9cd0f6df547d17f62700aeda3de36c794ef8767a15b04cb204fd9fce"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-layout-before-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-before-landscape-font130-frame.json",
+        "sha256": "27418b56dbf873c9da7ce78a754fa4d282711d7d1a945f611086686b6f4864d7"
+      }
+    }
+  },
+  {
+    "cohort": "native-layout-landscape-font-1-3-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited",
+    "name": "native-layout-after-landscape-font130-configuration-edited",
+    "caption": "Repaired d6fba18 app; 130% short landscape, native edited configuration after full visible choice tap / exact destination; configuration-edited",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.3,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-layout-after-landscape-font130-configuration-edited.png",
+        "sha256": "08ee8e6ff9d2410f7d998a4572baae9ae9b8cb1a18a22a32affb1ee551f6f792"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-edited.xml",
+        "sha256": "41d1765daaa8d89d4418427358880e159a7fbcd44a0f6b80bbb98eee6f26ee82"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-edited-frame.json",
+        "sha256": "fa29a7fddcb51314a6e36ee6f16901f5212a35c741fe8117ee505aa208cfbb19"
+      }
+    }
+  },
+  {
+    "cohort": "native-layout-landscape-font-1-3-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination",
+    "name": "native-layout-after-landscape-font130-configuration-destination",
+    "caption": "Repaired d6fba18 app; 130% short landscape, native edited configuration after full visible choice tap / exact destination; configuration-destination",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.3,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-layout-after-landscape-font130-configuration-destination.png",
+        "sha256": "88b53eadd7b47c70ee75e9adc7b3c74ab1beafa8667208eda2ab2b38584f837b"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-destination.xml",
+        "sha256": "dc345f1b9c38744b2fbbe9a628b24fded9410425cb437da98fa5111a52440a80"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-destination-frame.json",
+        "sha256": "0a06df4b435f0a608d49209e52bb4febb3f7a81cd930a807ce8257a30da2599c"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-fieldvalidationerrorisvisible-feedback",
+    "name": "current-error-phone",
+    "caption": "Current 952fb16 native field error, phone at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-error-phone.png",
+        "sha256": "af07c6a40f89d3d84bd296d0b63202d02de3fdf245b280975ecf732fdba4d81d"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-error-phone.xml",
+        "sha256": "cc5ec271f1b6705f5e1e95825423d41ec150768bf624206ca028c8cd97b4c4a9"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-fieldvalidationerrorisvisible-feedback-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-error-phone-frame.json",
+        "sha256": "c491bfc488e28207fe3ffb5e086c375a2fd5acd15992a626dbe92244fd00ab28"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-tablet-v1",
+    "stem": "form-fieldhelpisvisiblewithouthover-help",
+    "name": "current-help-tablet",
+    "caption": "Current 952fb16 native field help, tablet at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-help-tablet.png",
+        "sha256": "82adda51acbd1fd0ff404f1d8f2fd2d14429b479267827b32e22b5faaf1b6452"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-help-tablet.xml",
+        "sha256": "700310630757a3b303b308db8beb346cedcf34d5793560c0f2721466dc1b69e7"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-tablet-v1/captures/form-fieldhelpisvisiblewithouthover-help-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-help-tablet-frame.json",
+        "sha256": "c0704aadce0fa4507d8bfabc13d8eab8089df6f8fb679e97da25b9889ad31d4d"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-dropdownshowsselecteditemtitle-closed-choice",
+    "name": "current-choice-phone",
+    "caption": "Current 952fb16 selected readable item title, phone at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-choice-phone.png",
+        "sha256": "0ace850063d14677fe64b718482e71681e32eeddd2601e71dbd3edfc4a1354de"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-choice-phone.xml",
+        "sha256": "595011cd70e98e0286e73a011785ec72dedc3c8c3e660a4ff4c4547ea9e3425f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-dropdownshowsselecteditemtitle-closed-choice-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-choice-phone-frame.json",
+        "sha256": "37c61ecc9927319f6ade90102f961f54dfdd6bc5299364df8eaa77d86c2c0269"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-checkboxlabeltogglesexactlyonce-label-tap",
+    "name": "current-checkbox-phone",
+    "caption": "Current 952fb16 full label pointer tap toggles once, phone at100%",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-checkbox-phone.png",
+        "sha256": "8ca37db2c1e2875a9ca6bf6751e02e594c0ffa0eb37bba962cb3486f2550b44d"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-checkbox-phone.xml",
+        "sha256": "a00b68314021bd68715112fd2baa2a9af3286f863cbefea4f8db3026c1cb2659"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-checkboxlabeltogglesexactlyonce-label-tap-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-checkbox-phone-frame.json",
+        "sha256": "abbce7d209ce2211fbab73b2cadf806b0a8e12b5ea544589e339799bae6d7dd7"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences",
+    "name": "current-phone-json-native-preferences",
+    "caption": "Current 952fb16 frozen json-format/index workflow, actual native preferences / exact output / return; json-native-preferences",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-phone-json-native-preferences.png",
+        "sha256": "fbfcbd71604f88212a1fc9cf67aef2e09f49defd3790aa2f28a46753847aa2b6"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-native-preferences.xml",
+        "sha256": "694d946d8c606f300c237587ab266c025a1324c9af7ab0349a0940187e32e086"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-native-preferences-frame.json",
+        "sha256": "c8740156eeb0e10d729b3efbcc79d2637eb438d34d2f17016662588766d695f2"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail",
+    "name": "current-phone-json-detail",
+    "caption": "Current 952fb16 frozen json-format/index workflow, actual native preferences / exact output / return; json-detail",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-phone-json-detail.png",
+        "sha256": "6b6605cd73d29f795a101796da369d6dc5834990e048ce892b2fcd6da8625da7"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-detail.xml",
+        "sha256": "bdac771addc640c10cb7f7c8877476f0e06df383b213e80577d064e986478347"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-detail-frame.json",
+        "sha256": "2d0f109e34ecfddbfcae3cf93854bdf66eacfacb941ccaedbf4db4a70f90ba95"
+      }
+    }
+  },
+  {
+    "cohort": "password-full-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return",
+    "name": "current-phone-json-launcher-return",
+    "caption": "Current 952fb16 frozen json-format/index workflow, actual native preferences / exact output / return; json-launcher-return",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-phone-json-launcher-return.png",
+        "sha256": "00fed8893c5218e835c8393f3c9db1d3a0809fcb426411858104afb7f4e37a07"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-launcher-return.xml",
+        "sha256": "1abcffd6e67108883a885cf8aaf10a33586748eabf925499b2a2c3a965f77907"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-full-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-phone-json-launcher-return-frame.json",
+        "sha256": "40a2d165d062132c8cfd83756132733ccb4049929bf510b87fcdeea89cb590c0"
+      }
+    }
+  },
+  {
+    "cohort": "password-matrix-phone-font-2-0-v1",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom",
+    "name": "current-font200-phone-long-bottom",
+    "caption": "Current 952fb16, actual IME open at200% font; long field/error/help/label lines sequentially reached by pointer; phone; 952fb16 instrumentation",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-matrix-phone-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-font200-phone-long-bottom.png",
+        "sha256": "3831e9d066422677634f15c93dd2a824336f9e9ccf9f07d82e04c52c30bb28b2"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-matrix-phone-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-phone-long-bottom.xml",
+        "sha256": "3296009ef84ac0583075df4fcdc05fa4b2de721e1f5df184021303b343878cb2"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-matrix-phone-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-phone-long-bottom-frame.json",
+        "sha256": "ab3696588d922426fa13bebc280952ec4cc6e73312b6a7ec1574f001f3050bf9"
+      }
+    }
+  },
+  {
+    "cohort": "password-matrix-landscape-font-2-0-v1",
+    "stem": "form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom",
+    "name": "current-font200-landscape-long-bottom",
+    "caption": "Current 952fb16, actual IME open at200% font; long field/error/help/label lines sequentially reached by pointer; landscape; 952fb16 instrumentation",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-matrix-landscape-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-font200-landscape-long-bottom.png",
+        "sha256": "eaf223a62457cc1ab4e8beb804e3096f2bd4b60f9c508c841e7dc159e2a82c11"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-matrix-landscape-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-landscape-long-bottom.xml",
+        "sha256": "2ae2db02bc6d2d2393e6dc8926c7923c0c2f346d01c095896897e6334b4471f0"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-matrix-landscape-font-2-0-v1/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-font200-landscape-long-bottom-frame.json",
+        "sha256": "ab3696588d922426fa13bebc280952ec4cc6e73312b6a7ec1574f001f3050bf9"
+      }
+    }
+  },
+  {
+    "cohort": "active-matrix-tablet-font-1-3-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure",
+    "name": "ime-request-earlier-failure-tablet-font130",
+    "caption": "Retained keyboard-request failure: same d6fba18 app with 767f208 harness, 130% tablet; no root-cause or regression clearance claimed",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "6044b05f748a230efd4938744ef953c690c14ddcf19ed2d3a9add74dc3744d3f",
+    "font_scale": 1.3,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/active-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/ime-request-earlier-failure-tablet-font130.png",
+        "sha256": "451e1ca7f386e419801f05e6e774428337b63d078723093c45cf4d272f8bc4ef"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/active-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/ime-request-earlier-failure-tablet-font130.xml",
+        "sha256": "8fdd53d31d7ea5da3fc0a9d3ff206487b454748233581d54c2ad8acae2150fc4"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/active-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/ime-request-earlier-failure-tablet-font130-frame.json",
+        "sha256": "3824d5bac67635ff45c7fff63fa5c23c7706880ebe9241c71d8b9ffbd84cebf0"
+      }
+    }
+  },
+  {
+    "cohort": "password-matrix-tablet-font-1-3-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime",
+    "name": "current-json-input-ime-tablet-font130",
+    "caption": "952fb16 app and instrumentation; actual frozen JSON input after a pointer tap at130% tablet; the paired frame records the observed IME state",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "23d8a9d29c2b03db764f61d2065c93d106712ffd2744392591971da56f97b660",
+    "font_scale": 1.3,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime.png",
+        "public": "docs/screenshots/extension-compatibility/forms/current-json-input-ime-tablet-font130.png",
+        "sha256": "3946a1f21c38b5527c4232834b24cb7b9a5dbe3f723a46a5d6c4f96eaa2a24b2"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-json-input-ime-tablet-font130.xml",
+        "sha256": "e35681eefb235a00aeecf7e8c215fa586dc797bdd7a1adbdb0dfc5538a26e21c"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-matrix-tablet-font-1-3-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/current-json-input-ime-tablet-font130-frame.json",
+        "sha256": "d7db54c5de762e752b9a2bcdffb5d8f0a86e31a3d61072e5c74f00e6aac34ef3"
+      }
+    }
+  },
+  {
+    "cohort": "password-both-before-phone-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-failure",
+    "name": "password-input-before-phone",
+    "caption": "Preceding d6fba18 app, phone100%, common 922530f instrumentation: actual focused Form password editor reports ordinary text variation before password entry",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-input-before-phone.png",
+        "sha256": "4b4583dfbefd7b9c426a091fa2674dab89a9ba0ae0f76111139d6aae60a46519"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-before-phone.xml",
+        "sha256": "2589bbe4e81fcd7d6061791b32cb5c205ee674492cc75624eda56d2b7c444e5b"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-before-phone-frame.json",
+        "sha256": "4e344615b2aa23387c921329887abf17d8f50c33be042fafaa4a9abedcd5c822"
+      }
+    }
+  },
+  {
+    "cohort": "password-both-before-phone-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-failure",
+    "name": "password-preference-before-phone",
+    "caption": "Preceding d6fba18 app, phone100%, common 922530f instrumentation: actual native optional password preference reports ordinary text variation; empty field",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-preference-before-phone.png",
+        "sha256": "21ccba567d0b6e74de88fe29d76fb1fb47970932e422e0ae1ec8201c336f25eb"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-before-phone.xml",
+        "sha256": "e63d266c339c0904b5c539acb6624f200703ebbe60dd75821f73b4b35d9b10c8"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-both-before-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-before-phone-frame.json",
+        "sha256": "4e344615b2aa23387c921329887abf17d8f50c33be042fafaa4a9abedcd5c822"
+      }
+    }
+  },
+  {
+    "cohort": "password-common-after-phone-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password",
+    "name": "password-input-after-phone",
+    "caption": "952fb16 app, phone100%, identical common 922530f instrumentation: input type129 (password variation128) and no autocorrection verified before entry; masked owned value shown afterwards",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-input-after-phone.png",
+        "sha256": "4780a7da06bd29917d0691a21d1f6c5a889c32c81b684ec4a650c273fe7c1be4"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-after-phone.xml",
+        "sha256": "486811c814af76a161507850a4d8b6a71f9a92c0e2fef057c8d72295a14a14a4"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-input-after-phone-frame.json",
+        "sha256": "8fca9d80c9f525dd75019a5f0654771b07bbe930899c54552de13576e40ece14"
+      }
+    }
+  },
+  {
+    "cohort": "password-common-after-phone-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor",
+    "name": "password-preference-after-phone",
+    "caption": "952fb16 app, phone100%, identical common 922530f instrumentation: input type129 (password variation128) and no autocorrection verified for the empty native optional password preference",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7c20358fd5a979e825bc07e74213e40b122bf2a1d3e61eec38a0431b820d4d43",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor.png",
+        "public": "docs/screenshots/extension-compatibility/forms/password-preference-after-phone.png",
+        "sha256": "af95dac941cd60774c15c6c2c8e26a965dbf1ebd1c5f4bbb61cc0ef8f48188bb"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-after-phone.xml",
+        "sha256": "c869c5cd266e0e8441674ffa1cbcb562e845c30b5103f82dc6d3d43d6387aad0"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/password-common-after-phone-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-password-editor-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/password-preference-after-phone-frame.json",
+        "sha256": "12379489dd1052b2e86f5c88f7128644e5ab7b67dfea1d9afff424c24b0f8449"
+      }
+    }
+  }
+]

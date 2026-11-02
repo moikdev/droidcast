@@ -27,10 +27,12 @@ class InlinePaletteDeviceTest {
     private var original = emptyMap<String, Any?>()
     private var prepared = false
     private var originalClip: android.content.ClipData? = null
+    private var hostClipboardRecovery = false
     @Before fun prepare() {
         val avd = InstrumentationRegistry.getArguments().getString("dedicatedAvd")
         assertFalse("Explicit owned AVD required", avd.isNullOrBlank())
         assertEquals(avd, device.executeShellCommand("getprop ro.boot.qemu.avd_name").trim())
+        hostClipboardRecovery = hostRestoresTestClipboard()
         original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         prepared = true
         compose.activityRule.scenario.onActivity {
@@ -38,6 +40,7 @@ class InlinePaletteDeviceTest {
             originalClip = manager.primaryClip; manager.resetClipboardForTest()
             it.store.reset(); it.store.filter("Apps")
         }
+        if (hostClipboardRecovery) dismissClipboardForEvidence()
         compose.waitUntil(10000) { !compose.activity.store.loading }
     }
     @After fun restore() {
@@ -45,7 +48,8 @@ class InlinePaletteDeviceTest {
         restorePalettePreferences(context, original)
         compose.activityRule.scenario.onActivity {
             val manager = it.getSystemService(ClipboardManager::class.java)
-            originalClip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+            if (hostClipboardRecovery) manager.resetClipboardForTest()
+            else originalClip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
         }
     }
     private fun key(code: Int, meta: Int = 0) {

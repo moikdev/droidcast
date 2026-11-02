@@ -1,0 +1,50 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "choices",
+  "fixture_command_sha256": "37efd10a98b56439c03e5d4f836087bb64f7eeca4927e921936c946cd5b8315a",
+  "owned_extension_id": "reviewed-text-501de5deece74c1f9dbe07c9ffa2023b",
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-choice-choice",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        239,
+        368,
+        2102,
+        494
+      ],
+      "control_size": [
+        1863,
+        126
+      ],
+      "point": [
+        1170.5,
+        431
+      ]
+    }
+  ],
+  "controlled_native_transition": "root-missing",
+  "scope_detail": "Retained menu callback before a Compose frame; native state restored in the same turn to inspect the original JS dispatch probe",
+  "probe_before": {
+    "changes": 0,
+    "focus": {},
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 0
+  },
+  "probe_after": {
+    "changes": 0,
+    "focus": {},
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 0
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

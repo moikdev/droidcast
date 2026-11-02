@@ -1,0 +1,16 @@
+{
+  "source_commit": "cef390f9844de1d1e2def94331b1ed0b887cb2af",
+  "command": [
+    "node",
+    "app/src/test/js/android-form-focus.test.cjs"
+  ],
+  "node_version": "v26.9.0",
+  "cases": 7,
+  "exit_code": 0,
+  "observed_summary": "7 adapter cases passed",
+  "scope": "Stub adapter contracts; actual generated React runtime and Android controls are separate device cohorts",
+  "source_hashes": {
+    "app/src/main/assets/android-runtime.js": "3eb34490ab59bf5fc40590c22b2018eb53725e43f79b83b88a82f9b087f87cb6",
+    "app/src/test/js/android-form-focus.test.cjs": "5a91678d0a576937218e61e41e7b6b986546bd51f9e133570a4ca9338f557342"
+  }
+}

@@ -1,0 +1,65 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preBenchmarkBuild UP-TO-DATE
+> Task :app:generateBenchmarkBuildConfig UP-TO-DATE
+> Task :app:generateBenchmarkResources UP-TO-DATE
+> Task :app:packageBenchmarkResources UP-TO-DATE
+> Task :app:processBenchmarkNavigationResources UP-TO-DATE
+> Task :app:parseBenchmarkLocalResources UP-TO-DATE
+> Task :app:generateBenchmarkRFile UP-TO-DATE
+> Task :app:compileBenchmarkKotlin UP-TO-DATE
+> Task :app:javaPreCompileBenchmark UP-TO-DATE
+> Task :app:compileBenchmarkJavaWithJavac UP-TO-DATE
+> Task :app:checkBenchmarkAarMetadata UP-TO-DATE
+> Task :app:mapBenchmarkSourceSetPaths UP-TO-DATE
+> Task :app:compileBenchmarkNavigationResources UP-TO-DATE
+> Task :app:mergeBenchmarkResources UP-TO-DATE
+> Task :app:createBenchmarkCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksBenchmark UP-TO-DATE
+> Task :app:processBenchmarkMainManifest UP-TO-DATE
+> Task :app:processBenchmarkManifest UP-TO-DATE
+> Task :app:processBenchmarkManifestForPackage UP-TO-DATE
+> Task :app:processBenchmarkResources UP-TO-DATE
+> Task :app:preBenchmarkAndroidTestBuild SKIPPED
+> Task :app:bundleBenchmarkClassesToCompileJar
+> Task :app:processBenchmarkAndroidTestManifest
+> Task :app:generateBenchmarkAndroidTestBuildConfig
+> Task :app:generateBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:packageBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:processBenchmarkAndroidTestNavigationResources
+> Task :app:parseBenchmarkAndroidTestLocalResources UP-TO-DATE
+> Task :app:generateBenchmarkAndroidTestRFile UP-TO-DATE
+> Task :app:javaPreCompileBenchmarkAndroidTest UP-TO-DATE
+> Task :app:generateBenchmarkAndroidTestAssets UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestAssets UP-TO-DATE
+> Task :app:compressBenchmarkAndroidTestAssets UP-TO-DATE
+> Task :app:desugarBenchmarkAndroidTestFileDependencies UP-TO-DATE
+> Task :app:checkBenchmarkAndroidTestAarMetadata UP-TO-DATE
+> Task :app:mapBenchmarkAndroidTestSourceSetPaths UP-TO-DATE
+> Task :app:compileBenchmarkAndroidTestNavigationResources UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:processBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:checkBenchmarkAndroidTestDuplicateClasses UP-TO-DATE
+> Task :app:mergeExtDexBenchmarkAndroidTest UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestJniLibFolders UP-TO-DATE
+> Task :app:mergeBenchmarkJniLibFolders UP-TO-DATE
+> Task :app:mergeBenchmarkNativeLibs UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripBenchmarkAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningBenchmarkAndroidTest UP-TO-DATE
+> Task :app:writeBenchmarkAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :app:compileBenchmarkAndroidTestKotlin
+> Task :app:compileBenchmarkAndroidTestJavaWithJavac
+> Task :app:dexBuilderBenchmarkAndroidTest
+> Task :app:mergeBenchmarkAndroidTestGlobalSynthetics UP-TO-DATE
+> Task :app:processBenchmarkAndroidTestJavaRes UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestJavaResource UP-TO-DATE
+> Task :app:mergeDexBenchmarkAndroidTest
+> Task :app:packageBenchmarkAndroidTest
+> Task :app:createBenchmarkAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleBenchmarkAndroidTest
+
+BUILD SUCCESSFUL in 30s
+52 actionable tasks: 9 executed, 43 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.4.1/userguide/configuration_cache_enabling.html

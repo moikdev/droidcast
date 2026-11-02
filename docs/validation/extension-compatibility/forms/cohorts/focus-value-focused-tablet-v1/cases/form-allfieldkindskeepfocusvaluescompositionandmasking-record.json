@@ -1,0 +1,43 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "cef390f9844de1d1e2def94331b1ed0b887cb2af",
+  "fixture_mode": "all-fields",
+  "fixture_command_sha256": "ce17b94ab6942656119b40d907751876c4dbc7eb1b8bfe78451bacdab0fd7a74",
+  "owned_extension_id": "reviewed-text-11dbf22dddb74ed28d1e5f085ac37f89",
+  "focus_probe": {
+    "changes": 6,
+    "focus": {
+      "name": 1,
+      "password": 1,
+      "area": 1,
+      "uncontrolled": 1,
+      "enabled": 1,
+      "choice": 1
+    },
+    "blur": {
+      "name": 1,
+      "password": 1,
+      "area": 1,
+      "uncontrolled": 1,
+      "enabled": 1
+    },
+    "blurLengths": {
+      "name": 22,
+      "password": 42,
+      "area": 29,
+      "uncontrolled": 24,
+      "enabled": 0
+    },
+    "dispatches": 18
+  },
+  "composition_survived_javascript_round_trip": true,
+  "composition_method": "Controlled Android InputConnection with Gboard hidden across asynchronous JS\/native phases; not phonetic typing gestures in a live OEM IME",
+  "controlled_selection_preserved": true,
+  "password_masking_and_value_delivery": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

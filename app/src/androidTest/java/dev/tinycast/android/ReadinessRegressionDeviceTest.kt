@@ -26,22 +26,27 @@ class ReadinessRegressionDeviceTest {
     private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     private var original = emptyMap<String, Any?>()
     private var clipboard: ClipData? = null
+    private var hostClipboardRecovery = false
     private var fixture: File? = null
     private var support: File? = null
     @Before fun prepare() {
+        hostClipboardRecovery = hostRestoresTestClipboard()
         original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         compose.waitUntil(15000) { !compose.activity.store.loading && !compose.activity.store.folderSearch.loading }
         compose.activityRule.scenario.onActivity {
             clipboard = it.getSystemService(ClipboardManager::class.java).primaryClip
+            if (hostClipboardRecovery) it.getSystemService(ClipboardManager::class.java).resetClipboardForTest()
             it.store.resetShortcuts(); it.store.reset()
         }
+        if (hostClipboardRecovery) dismissClipboardForEvidence()
         compose.waitForIdle()
     }
     @After fun restore() {
         compose.activityRule.scenario.onActivity {
             it.store.extensions.close()
             val manager = it.getSystemService(ClipboardManager::class.java)
-            clipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+            if (hostClipboardRecovery) manager.resetClipboardForTest()
+            else clipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
         }
         restorePalettePreferences(context, original)
         fixture?.deleteRecursively(); support?.deleteRecursively()

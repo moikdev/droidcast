@@ -1,0 +1,160 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=nativeConfigurationEditsValidateCancelAndRun
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=nativeConfigurationEditsValidateCancelAndRun
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=longMessagesAndTouchChoicesStayReadableAcrossImeTransitions
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=longMessagesAndTouchChoicesStayReadableAcrossImeTransitions
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=blurValidationShowsErrorAndEditingClearsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #919 at (l=428.0, t=630.0, r=1493.0, b=741.0)px, Tag: 'extension-field-notes'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'false'
+ContentDescription = '[Owned notes]'
+Text = '[]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Original selector: TestTag = 'extension-field-notes'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch$lambda$55(ExtensionFormDeviceTest.kt:468)
+	at dev.tinycast.android.ExtensionFormDeviceTest$$ExternalSyntheticLambda93.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:468)
+	at dev.tinycast.android.ExtensionFormDeviceTest.blurValidationShowsErrorAndEditingClearsIt(ExtensionFormDeviceTest.kt:285)
+
+INSTRUMENTATION_STATUS: stream=
+Error in blurValidationShowsErrorAndEditingClearsIt(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #919 at (l=428.0, t=630.0, r=1493.0, b=741.0)px, Tag: 'extension-field-notes'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'false'
+ContentDescription = '[Owned notes]'
+Text = '[]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Original selector: TestTag = 'extension-field-notes'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch$lambda$55(ExtensionFormDeviceTest.kt:468)
+	at dev.tinycast.android.ExtensionFormDeviceTest$$ExternalSyntheticLambda93.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:468)
+	at dev.tinycast.android.ExtensionFormDeviceTest.blurValidationShowsErrorAndEditingClearsIt(ExtensionFormDeviceTest.kt:285)
+
+INSTRUMENTATION_STATUS: test=blurValidationShowsErrorAndEditingClearsIt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=allFieldKindsKeepFocusValuesCompositionAndMasking
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=allFieldKindsKeepFocusValuesCompositionAndMasking
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 55.027
+There was 1 failure:
+1) blurValidationShowsErrorAndEditingClearsIt(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #919 at (l=428.0, t=630.0, r=1493.0, b=741.0)px, Tag: 'extension-field-notes'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'false'
+ContentDescription = '[Owned notes]'
+Text = '[]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Original selector: TestTag = 'extension-field-notes'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch$lambda$55(ExtensionFormDeviceTest.kt:468)
+	at dev.tinycast.android.ExtensionFormDeviceTest$$ExternalSyntheticLambda93.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:468)
+	at dev.tinycast.android.ExtensionFormDeviceTest.blurValidationShowsErrorAndEditingClearsIt(ExtensionFormDeviceTest.kt:285)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

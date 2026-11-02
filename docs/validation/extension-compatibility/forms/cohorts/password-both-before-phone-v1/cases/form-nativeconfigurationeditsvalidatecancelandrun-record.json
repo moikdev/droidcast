@@ -1,0 +1,83 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "d6fba18b0228e3af1aef35fd6981d2401a4073d8",
+  "fixture_mode": "configuration",
+  "fixture_command_sha256": "62d47df876096b5b3927391e878105d0f9264df6ae204b52ea623f2e55a01efe",
+  "fixture_manifest_sha256": "ff2d7e3a9e7cd92c0afc8bd1b3bc30081085347d57852267be44529ae5e89c6d",
+  "owned_extension_id": "reviewed-text-ba693ea7acd74469bb93b90b375d3e55",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 4,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "preference-secret",
+      "viewport": "extension-configuration",
+      "visible_bounds": [
+        85,
+        963,
+        995,
+        1110
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        1036.5
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "password_editor_metadata": [
+    {
+      "tag": "preference-secret",
+      "input_type": 32769,
+      "ime_options": 33554438,
+      "scope": "Actual focused editor InputConnection metadata before any password is entered"
+    }
+  ],
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}
