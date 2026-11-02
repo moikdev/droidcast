@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "scope": "Current collector precondition repair only. The earlier 33-workflow profile remains bound to eef1b8d and is not relabeled as this APK.",
+  "implementation_commit": "06d16edd0b4a6794578bd692c023b8b1bd144332",
+  "embedded_build_commit": "06d16edd0b4a6794578bd692c023b8b1bd144332",
+  "app_sha256": "d3c28a27752d83ffcdfa7ceb63c75335ab0b857e68c1fb45ff49671640cea066",
+  "test_apk_sha256": "3394bdb4325261a0867b80be1041f6a072c4d8515eee7ddc526f2eec70435bfb",
+  "sources": {
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "56c56d6a652524f7fc7952b1478552314b1e465ace5c7216385d7f2ea3cf4b6c",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "c054241ddb3d633018c996531bb73add6aa2cd9a6547fe1edbc1bf7cf42d2f3a",
+    "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt": "86096d428b6554bcb6b8c9d7bc39b981baf1fd53f9367a33c97ce03c89020a82",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/FrozenBundleWorkflowDeviceTest.kt": "9d31d56f739caa2509610cf4c07abf70dfd5ea0aead7ec5c5673bde1ca04bc45",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b2abb73e68216d3ef148ca55c742762659fc7172c24653970b94232ad981d946",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "3e2dc1698462c5806b7a6bb332496aaaff0c713328d102885df5ccc57e4f8e8a",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "475d88ee19cea0902b1551323e6e54de581672bf645a8f5a14da8d0498d4c905",
+    "app/src/androidTest/java/dev/tinycast/android/TouchReadabilityDeviceTest.kt": "6801d25bb0d9bc45899b04aeedba474e2ac8e5cc8cb168b6268e0305fb49345e",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "562172a16bf690e69d7100dca3fd74fbb7879fcdb702971c81d9e8244fe99fc6",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "8c1be27aad2e952108cdc28c8d6c28c5039513baeaa23ec6d6069d967b8c9414",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "f0ebd7a3a73d85358f0576dc6ce0360478ede8e50e5bc6e5420f17f4358a94ff",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "f7228cdd6b6988fb049f0aaf1048d69cc8489e802b4cc42a2b4d6f9e7ceea3e0",
+    "app/src/main/java/dev/tinycast/android/PaletteColumn.kt": "cd6cdc348752bcc20bd631e2216abdd4ee0c91d9606aaab62ce0c01a145dd6aa",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "7fbd49fe46584b935de6a597f704fe8a3862beac4ace3a30990aef2ce731336d",
+    "app/src/main/java/dev/tinycast/android/PaletteFooter.kt": "5b62c907b46e5075975fc22d01771f5ab7c7f53e433692de55d92865231e967f",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "bfbc139e01a4276770644d5f4c1242016839fd98f5e2f21fa8afb31c886bc763",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "5f0d892989a5e1601b80506256de18b322e078590315b2798b1169b05151ef33",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "92271f5714538a24b6708d27693dbb83f73e03976a9a980ed07c1e375c579ee9",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "86c6720bc02173423390496d60ac07bcf762dd59528fca4e0e7fe5f3f098c6cb",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "7008b8535ec3e754450ce446f34b6d8e50e9b2f5a9de64f436583144f8dd83dc",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "2eea2634754415a4114ec8ea4e1976be95ad8fcaf52032688eed2e606df5d30e",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "1fd60a529ffd322fae6cde77a7a743353d7fc8d7c57b4e2ea393ca13f5806725",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "344fbeef5d14d3935f835b847bcf296f9c666c62363023cc5e595e368176c955",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "7eb7de79a8bcf090f79429e35865abfd304e521c011f55de116d5cf66f697ced",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487"
+  },
+  "tools_and_tests": {
+    "scripts/test-extension-workflows.py": "3a3b212c415b1ad791db5c0a931589567be817bbe1554720828c50b4e2451661",
+    "scripts/extension_bundle_snapshot.py": "08ae0408a22e4f4c3c8a8b22af31b6a6a16d304dc0d14d5e489596dd9731a950",
+    "scripts/extension_manifest_catalog.py": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+    "scripts/android_test_cleanup.py": "31a9c4e9a325af37366215754400e3097e29aecec5b80c1340c9c276e23276ec",
+    "scripts/tests/test_extension_bundle_snapshot.py": "382561907129ac58b7e20b963c1afcbc9bc1a03b7e18da64e7d61927a8b15783",
+    "scripts/tests/test_extension_workflow_guards.py": "1cea982b85cf759e691471cad72b8e2cbdccdf3c2ccc6c483b1ef01b49002a3f"
+  },
+  "candidate_identity_sha256": "00a210b1ec27510b2512a2465683c6517d31180a2e5b423590139b4e18a3ee65",
+  "retained_profile_checkpoint_sha256": "a1b2c87e554ed755cd6b768dd94410458ac05022394500e4ee005d60eca4e910",
+  "production_base": "8d60d5c1d60f1ef37e557f97445d65dab9fcbbff",
+  "production_sources_unchanged": true,
+  "changed_sources_from_retained_profile": [
+    "app/src/androidTest/java/dev/tinycast/android/FrozenBundleWorkflowDeviceTest.kt"
+  ],
+  "workflow_body_sha256": "ee56eaa06bafbc1e7a3bf5a39cd21e94c9421c8250392548a84490eb7c801f64",
+  "capture_body_sha256": "53993c982a7f647abbd4763fe36104dc37aecf43e6d816688db4f928c00a28f3",
+  "guard_diff_sha256": "e1ed3fbd1b75f5bc31cc041b9eef229b3c45ddb16cdb75d48fc4b0e9d81e1cad",
+  "local_checks": {
+    "jvm_cases": 147,
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 43
+    },
+    "logs": {
+      "representative-001-build-opt-in-v1.log": "cf3534b0d08f7b369e75119c35572d0670c7440dc17e047c5dab49d4e2441b25",
+      "representative-001-python-normal-v2.log": "34d8957cac3ce3674ca19b0f4ec8159b74dfe7301d9cea00e341f82a42ad4509",
+      "representative-001-python-optimized-v2.log": "34d8957cac3ce3674ca19b0f4ec8159b74dfe7301d9cea00e341f82a42ad4509"
+    },
+    "python_normal_cases": 44,
+    "python_optimized_cases": 44,
+    "python_scope": "Retained bc06044 receipts; all Python tool/test sources are unchanged"
+  },
+  "unconfigured_controls": {
+    "before": {
+      "source_commit": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+      "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+      "test_apk_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+      "fixture_hash_argument": "omitted",
+      "observed": "expected fixture-precondition failure",
+      "status_codes": [
+        1,
+        -2
+      ],
+      "record_sha256": "b5d983e6ed31223f9f03806e9ec38c4012b95ab91cb5b43ecd1b47a9b30d4197",
+      "tests_log_sha256": "4f68b90ece89bcb320bc44e6345bf6531a257acc493c0a3dda3ec7f081406414",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "palette-backup": {
+          "passed": true
+        },
+        "palette-preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "owned_fixture_directory_absent_before_and_after": true,
+      "prior_evidence_hashes_unchanged": true
+    },
+    "after": {
+      "source_commit": "06d16edd0b4a6794578bd692c023b8b1bd144332",
+      "app_sha256": "d3c28a27752d83ffcdfa7ceb63c75335ab0b857e68c1fb45ff49671640cea066",
+      "test_apk_sha256": "3394bdb4325261a0867b80be1041f6a072c4d8515eee7ddc526f2eec70435bfb",
+      "fixture_hash_argument": "omitted",
+      "observed": "explicit opt-in assumption skip",
+      "status_codes": [
+        1,
+        -4
+      ],
+      "record_sha256": "38ebcd892b1c2669cecbd3821fa9aac6293f57f43101814ce4ea39910fcdd6d7",
+      "tests_log_sha256": "79b385cfb4c93045bf39ae47cbe908b1a8c382b28bf2d8b5e4c5cdabc5286262",
+      "cleanup": {
+        "stop-app": {
+          "passed": true
+        },
+        "palette-backup": {
+          "passed": true
+        },
+        "palette-preferences": {
+          "passed": true
+        },
+        "emoji-backup": {
+          "passed": true
+        },
+        "emoji-preferences": {
+          "passed": true
+        },
+        "verify-restoration": {
+          "passed": true
+        }
+      },
+      "owned_fixture_directory_absent_before_and_after": true,
+      "prior_evidence_hashes_unchanged": true
+    }
+  },
+  "configured_probe": {
+    "completed": true,
+    "native_collector_tests": 1,
+    "commands": 1,
+    "workflow": "Generate two owned UUIDs, reopen History and copy a persisted value, then return by touch",
+    "status": "tested-working-for-listed-workflow",
+    "record_sha256": "ad370ee9f857d863040b6f7182467acff952bb30a8eec3c5980bd9e40c06a6b2",
+    "collection_sha256": "d2478f3ca02172f6679665647e827a0259d69362e89ba046595c0f3a3bc7f256",
+    "fixture_sha256": "3c65e2c19452ba4be9b1b6becc6914146630462402257aec1730b0145b99958d",
+    "source_snapshot_sha256": "69646d42b6b4cc8438beb4c007b6c2640087441965f7ec256afd2bb556e96b2c",
+    "cleanup": {
+      "stop-app": {
+        "passed": true
+      },
+      "isolated-extension-data": {
+        "passed": true
+      },
+      "bundle-fixtures": {
+        "passed": true
+      },
+      "bundle-upload": {
+        "passed": true
+      },
+      "palette-backup": {
+        "passed": true
+      },
+      "palette-preferences": {
+        "passed": true
+      },
+      "emoji-backup": {
+        "passed": true
+      },
+      "emoji-preferences": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "font-scale": {
+        "passed": true
+      },
+      "verify-restoration": {
+        "passed": true
+      }
+    },
+    "avd": "Tinycast_Tablet_API_36",
+    "layout": "tablet",
+    "api": 36,
+    "abi": "arm64-v8a",
+    "webview_version": "133.0.6943.137",
+    "font_scale": 1,
+    "density_dpi": 240
+  },
+  "additional_cleanup_checks": 25,
+  "evidence_files": {
+    "docs/validation/extension-compatibility/batch-001-opt-in/workflow-uuid-generator-viewhistory-5f21fd5d-frame.json": {
+      "sha256": "3eb7ccedbf2a55c485581b070fb866980897041353cf5e259ff3937375720a00",
+      "bytes": 343
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/workflow-uuid-generator-viewhistory-5f21fd5d-return-frame.json": {
+      "sha256": "0996229b3969886315d9fc103621075a8545e699cab5c4aff3cea9459156b6fe",
+      "bytes": 279
+    },
+    "docs/screenshots/extension-compatibility/batch-001-opt-in/workflow-uuid-generator-viewhistory-5f21fd5d-return.png": {
+      "sha256": "67489174af3f7e44d2b4fa70d459139b04fc77ae14ad9404e53f1381954360fd",
+      "bytes": 890708
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/workflow-uuid-generator-viewhistory-5f21fd5d-return.xml": {
+      "sha256": "71e6ffd25a3eaf55db4083e219c524c7de2dd0e8e1265bb9e6c0ad2fd28f1ae3",
+      "bytes": 26525
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/workflow-uuid-generator-viewhistory-5f21fd5d.json": {
+      "sha256": "14ea6b0dc1d0546c3764d6eeb4827a8a9f4203899480e636ecdd73a1e4f1fc75",
+      "bytes": 1935
+    },
+    "docs/screenshots/extension-compatibility/batch-001-opt-in/workflow-uuid-generator-viewhistory-5f21fd5d.png": {
+      "sha256": "6283d70b58435062e9fd1f7ebdcb274cb56127d1d4efab70f7c58da88c150efa",
+      "bytes": 812408
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/workflow-uuid-generator-viewhistory-5f21fd5d.xml": {
+      "sha256": "13926ccf0c190dc4acf825416e4e84b94553d28114e8c802d2c4df67d9d09af0",
+      "bytes": 27103
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/collection.json": {
+      "sha256": "d2478f3ca02172f6679665647e827a0259d69362e89ba046595c0f3a3bc7f256",
+      "bytes": 2749
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/fixture.json": {
+      "sha256": "3c65e2c19452ba4be9b1b6becc6914146630462402257aec1730b0145b99958d",
+      "bytes": 2549
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/tests.log": {
+      "sha256": "e6225236fa2220d0a2d6ab3aa8b92c4b2a5a42c402e9e83eee0cc83956241c2d",
+      "bytes": 810
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/before-tests.log": {
+      "sha256": "4f68b90ece89bcb320bc44e6345bf6531a257acc493c0a3dda3ec7f081406414",
+      "bytes": 1893
+    },
+    "docs/validation/extension-compatibility/batch-001-opt-in/after-tests.log": {
+      "sha256": "79b385cfb4c93045bf39ae47cbe908b1a8c382b28bf2d8b5e4c5cdabc5286262",
+      "bytes": 5905
+    }
+  },
+  "hosted_ci_and_audits": "Recorded separately against the actual final pull request head."
+}

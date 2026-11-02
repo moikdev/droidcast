@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "batch_id": "representative-001-history-focus",
+  "source_snapshot_sha256": "69646d42b6b4cc8438beb4c007b6c2640087441965f7ec256afd2bb556e96b2c",
+  "scope": "Isolated execution of hash-verified prebuilt bundles; Store UI installation is not tested here.",
+  "extensions": [
+    {
+      "directory": "uuid-generator",
+      "store_name": "uuid-generator",
+      "store_id": "6d6a05b4-6003-4d28-afae-a9b721d11594",
+      "store_handle": "jmaeso",
+      "store_reported_commit_sha": "6939fc298cd701b66a652b5bcc6d1c763252391e",
+      "archive_name": "e34e4512815e96b67e47c9666f0307e501d9dfa1619bba4be8290c6205a55897.zip",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "manifest_sha256": "251e5540e44ee39c424321b6c1d98eeaaecc3118f5f932c7236e7013f70847c7",
+      "manifest_path": "uuid-generator/package.json",
+      "planned_commands": [
+        "viewHistory"
+      ],
+      "commands": [
+        {
+          "name": "generate",
+          "mode": "no-view",
+          "file_sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d"
+        },
+        {
+          "name": "generateV5",
+          "mode": "no-view",
+          "file_sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04"
+        },
+        {
+          "name": "generateV7",
+          "mode": "no-view",
+          "file_sha256": "4b9a760aea9de7f1cf720224050844b09ae842e88aaca9aec5969c69115b499a"
+        },
+        {
+          "name": "generateUlid",
+          "mode": "no-view",
+          "file_sha256": "b77ea4ed9a3cf13da20193cae737a3b0a62dea50ab5fbeaaa05de5c6e0769e8d"
+        },
+        {
+          "name": "generateTypeID",
+          "mode": "no-view",
+          "file_sha256": "71dbb01590489e51b50e1fb7ba5161075d6417fde1345759832471901b032be2"
+        },
+        {
+          "name": "parseTypeID",
+          "mode": "no-view",
+          "file_sha256": "bb3ef0b5708548df44d13ecb95d2e21d538d15bd492c5d5de731d6933ce828cf"
+        },
+        {
+          "name": "formatUuid",
+          "mode": "no-view",
+          "file_sha256": "29e73d55a4d9616e9493a8c64bbaa2019d76d00c81752eccb765532bb77b821f"
+        },
+        {
+          "name": "packTypeID",
+          "mode": "no-view",
+          "file_sha256": "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac"
+        },
+        {
+          "name": "viewHistory",
+          "mode": "view",
+          "file_sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d"
+        }
+      ]
+    }
+  ]
+}
