@@ -1,0 +1,72 @@
+{
+  "completed": true,
+  "pid": 67074,
+  "avd": "Tinycast_Tablet_API_36",
+  "serial": "emulator-5580",
+  "layout": "tablet",
+  "runner_sha256": "3a3b212c415b1ad791db5c0a931589567be817bbe1554720828c50b4e2451661",
+  "source_snapshot_sha256": "22669d4581900dd2ef2fe337e8a712661f0757fb64ec6839abee1cdc88489dcb",
+  "fixture_sha256": "815a48efc1dce7dd7f37e825529050c6d4c8b4197bc3a6ce99e25444d2c37fa2",
+  "expected_workflows": 1,
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "settings_before": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "show_ime_with_hard_keyboard": "0"
+  },
+  "fixture_upload_directory": "/data/local/tmp/droidcast-bundles-8383a2722db847c0a145527be8856be4",
+  "fixture_directory": "files/compatibility-batch-fixtures",
+  "scope": "Real prebuilt code in isolated cache/data. Store installation is not exercised. Collector pass is not a compatibility pass.",
+  "app_sha256": "df93da03b1e5455d1bf8507bbf34af51e4a763a478853f09d6c7c37aa5088b9d",
+  "test_apk_sha256": "6a204ddceb1f8217400e1aeb2689be7256df6100eca6101adbd7eda01a4a2d38",
+  "installed_matches": true,
+  "capture_background": "Dedicated emulator launcher shown before the app overlay; no other app destination is used as the backdrop",
+  "collector_test_passed": true,
+  "workflow_status_counts": {
+    "tested-working-for-listed-workflow": 1
+  },
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "isolated-extension-data": {
+      "passed": true
+    },
+    "bundle-fixtures": {
+      "passed": true
+    },
+    "bundle-upload": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "verify-restoration": {
+      "passed": true
+    }
+  },
+  "isolated_owners_cleaned": 1
+}

@@ -1,0 +1,21 @@
+{
+  "implementation_commit": "965d470cf47c2db543bf65a907582ce3321ad71d",
+  "command": [
+    "./gradlew",
+    "--no-daemon",
+    "-PdroidcastBuildCommit=965d470cf47c2db543bf65a907582ce3321ad71d",
+    "-PdroidcastTestBuildType=benchmark",
+    ":app:assembleBenchmark",
+    ":app:assembleBenchmarkAndroidTest",
+    ":app:lintBenchmark"
+  ],
+  "exit_code": 0,
+  "log_sha256": "f25191844818514c370c772ab68196e7b8aa9ec28585a6cbfb26523674c50351",
+  "app-benchmark.apk_sha256": "764754f1e6cc8326a62a5d8ae19a5034c6d8c50123567cfb2c6b82f056d73b01",
+  "app-benchmark-androidTest.apk_sha256": "c40d5d7a38f8a845c6bbaaec6dae43b7c6212fa263c949d54005eb178adc1496",
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 51
+  }
+}
