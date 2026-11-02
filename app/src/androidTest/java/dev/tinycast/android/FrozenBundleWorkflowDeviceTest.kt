@@ -19,6 +19,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.Assert.*
+import org.junit.Assume.assumeTrue
 import org.junit.runner.RunWith
 import java.io.File
 import java.security.MessageDigest
@@ -71,12 +72,15 @@ class FrozenBundleWorkflowDeviceTest {
 
     @Before fun prepare() {
         val arguments = InstrumentationRegistry.getArguments()
+        val expectedFixtureHash = arguments.getString("expectedBundleFixtureSha256")
+        assumeTrue("Use the guarded frozen-bundle workflow runner", expectedFixtureHash != null)
+        assertTrue("Expected a SHA-256 fixture identity", expectedFixtureHash?.matches(Regex("[0-9a-f]{64}")) == true)
         assertEquals("Tinycast_Tablet_API_36", arguments.getString("dedicatedAvd"))
         val file = File(fixtureRoot, "fixture.json")
         assertTrue(file.isFile && file.length() in 1..4L * 1024 * 1024)
         val bytes = file.readBytes()
         fixtureHash = hash(bytes)
-        assertEquals(arguments.getString("expectedBundleFixtureSha256"), fixtureHash)
+        assertEquals(expectedFixtureHash, fixtureHash)
         fixture = JSONObject(String(bytes, Charsets.UTF_8))
         assertEquals(1, fixture.getInt("schema_version"))
         compose.waitUntil(15000) { !compose.activity.store.loading }
