@@ -26,9 +26,9 @@ The real frozen `json-format/formatSelectionAndShow` command is used with Auto P
 
 The current process-restoration receipt covers two actual process-death phases. They use fresh app PIDs and the same saved Android tasks, without delivering a new intent. Pending input expires; the approved probe's execution counter remains one. The temporary shell task lock used to resume each saved task is released before observations, and all 13 restoration checks pass. The app and adbd retain ordinary identities.
 
-The repaired implementation is frozen at `f7c6cbcb36ad9adc902d8dada734abfbbc9e7e83`: app SHA-256 `12853a0f32b38ee31c8437309d0e51b801a8b4eb42c2b765eb51af1bdc360fd1`, instrumentation SHA-256 `3b21c0b85b3f2102eaf7657d0180011e8d7e19e03c356df6bb24047134d6b3dc`. All 164 frozen source/runner hashes match the implementation. Long-preview checks require natural height, non-ellipsized line extents and sequential full-line witnesses through pointer scrolling. Earlier failures retain their own binary/harness identities.
+The repaired implementation is frozen at `f7c6cbcb36ad9adc902d8dada734abfbbc9e7e83`: app SHA-256 `12853a0f32b38ee31c8437309d0e51b801a8b4eb42c2b765eb51af1bdc360fd1`, instrumentation SHA-256 `3b21c0b85b3f2102eaf7657d0180011e8d7e19e03c356df6bb24047134d6b3dc`. All 164 frozen source/runner hashes match that archived implementation. Long-preview checks require natural height, non-ellipsized line extents and sequential full-line witnesses through pointer scrolling. Earlier failures retain their own binary/harness identities.
 
-| Check | Current repaired-runtime result |
+| Check | Original f7c6cbc result |
 | --- | --- |
 | Reviewed-input workflows and lifecycle | 21/21 tablet and 21/21 phone |
 | 200% text, long-preview pointer witnesses, real IME chooser and required configuration | 10/10 per layout |
@@ -60,3 +60,36 @@ These images are unmodified device captures. The checkpoint maps each to its ori
 | ![Oversized input produces a fixed native error](screenshots/extension-compatibility/reviewed-text-input/oversized-error-phone.png) | ![Approved input expires after actual process death](screenshots/extension-compatibility/reviewed-text-input/process-approved-after-death.png) | ![Original external source after explicit Copy and Back](screenshots/extension-compatibility/reviewed-text-input/json-phone-return.png) |
 
 All device observations use the dedicated API-36 emulator: tablet 1920×1200 at 240 dpi and portrait phone 1080×2340 at 420 dpi. These are emulated profiles. Actual system selection-menu resolution across other apps, physical/OEM devices, split-window operation and full accessibility remain separate coverage boundaries. The generated upstream assets and AGPL/React notices remain unchanged.
+
+## Audit repair: recovery after instrumentation death
+
+The correctness audit at `cffb68e` identified a test-runner gap: clipboard restoration depended on JUnit's in-memory `@After`. Instrumentation death could skip that restoration while shell cleanup released the lease. The production implementation had no additional correctness findings; the independent UX/evidence audit reported no findings. Both old-head checks passed, but this runner finding withheld merge.
+
+The runner now starts a framework-only recovery activity in the separate test APK's UID before instrumentation begins. It saves a nonce-bound snapshot in Android's private no-backup directory and a mode-0600 host backup inside the private output directory. Instrumentation cannot start until the durable snapshot and exact owned receipt have been verified. No clipboard contents or their content/snapshot fingerprints are published.
+
+After tests stop, that independent foreground activity restores and verifies the clipboard without relying on JUnit cleanup. Snapshot/receipt identity or restoration failure keeps the recovery owners and backup. The main lease is released only after the remaining fixture, preference and device-state restoration checks. Empty and text-only clipboard payloads are supported; URI/Intent payloads are refused before test mutation because their grants can expire when replaced. Verification compares text/HTML, MIME types, label and extras; system-generated timestamps/classification are excluded.
+
+Native code is frozen at `757cffdb388f86c77a8174a60ed87ad612cb4178`, with the completed-receipt runner at `9b390faf29feffe3f8eca038a154465ad22da92c`. The [repair checkpoint](validation/extension-compatibility/reviewed-text-input-recovery-checkpoint.json) records all 168 current source/runner hashes and both native/current-runner identities. All production/build sources remain equal to `f7c6cbc`; rebuilding changes the embedded build identity. The APK payload comparison records the changed manifest and two DEX entries instead of claiming binary equality. Upstream runtime assets and notices remain unchanged.
+
+Rebuilt app SHA-256: `d2d484be150bca3ad99ecb98fd8e05ddf916c0f270b129340d2b37acb065e71e`. Revised instrumentation SHA-256: `07ff09117302e54feb37fc3727c4a2c7a25375c18d67b3857f44481c23ab5822`.
+
+| Revised runner check | Result and scope |
+| --- | --- |
+| Workflow/lifecycle | 21/21 per layout on the rebuilt APK pair |
+| 200% font workflows, pointer line witnesses and IME chooser | 10/10 per layout on the rebuilt pair |
+| Normal JSON workflow with independent clipboard restore | One pass; all 18 cleanup checks pass |
+| Deliberate own-UID instrumentation death, no JUnit cleanup | Zero JUnit passes as intended; independent restoration and all 18 cleanup checks pass |
+| Deliberately corrupt owned recovery snapshot after death | Two intentional cleanup failures retain both owners; the separate recovery receipt verifies restoration from the private original, state preservation and final owner release |
+| Python | 63 normal / 63 optimized, including receipt identity, readiness and failed-release cases |
+| JVM/build/lint | 175 JVM cases; debug and benchmark app/test builds; zero errors / 51 warnings per variant |
+| Retained legacy/process observations | Original `f7c6cbc` APK identities: 29 legacy cases per layout and two saved-task process-restoration phases; not relabeled as rebuilt-APK executions |
+
+The first new device attempt stopped before instrumentation or clipboard mutation because its receipt was not yet readable. That failed preflight and its 17 passing cleanup checks remain separate. The bounded readiness fix still requires a complete receipt for the exact owner/request. Deliberate death and failed-restoration controls remain failed native/cleanup outcomes where expected; they are not converted into JUnit passes or blanket successful cleanup claims.
+
+These three further raw captures are real app smoke evidence with the rebuilt pair and revised runner. They illustrate unchanged product UI; the nonce-bound receipts and process-death marker establish the recovery behavior.
+
+| Tablet review | Phone JSON destination | Phone at 200% with IME |
+| --- | --- | --- |
+| ![Native review with the repaired recovery harness](screenshots/extension-compatibility/reviewed-text-input-recovery/current-tablet-review.png) | ![Actual JSON output and Copy on the rebuilt app](screenshots/extension-compatibility/reviewed-text-input-recovery/current-phone-json-output.png) | ![Large-font native command chooser with the actual keyboard](screenshots/extension-compatibility/reviewed-text-input-recovery/current-phone-font200-ime.png) |
+
+Hosted Android CI and two fresh independent gpt-6.1-sol/high audits must clear the final documentation head before an expected-head merge. The earlier audit clearances and hosted result do not clear this revised runner.
