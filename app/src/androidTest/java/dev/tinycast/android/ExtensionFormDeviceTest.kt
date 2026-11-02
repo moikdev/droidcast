@@ -62,6 +62,7 @@ class ExtensionFormDeviceTest {
     private val checkboxLabel = "Tap this complete option label to enable owned output"
     private val caller = "form-controls-owned-caller"
     private var sensitiveValue: String? = null
+    private var requestedIme: Boolean? = null
     private val longTitle = "Owned account name with a complete descriptive label that must wrap naturally on a narrow Android screen"
     private val longError = "Owned validation error: enter the complete account name before continuing. Every line must stay readable when the keyboard opens and the font is enlarged."
     private val longInfo = "Owned field help: this explanation is available by touch without hovering. Scroll to read every line, then continue with the choices below."
@@ -422,6 +423,15 @@ class ExtensionFormDeviceTest {
     }
 
     private fun touch(tag: String) {
+        compose.waitForIdle()
+        val editorFocused = compose.onAllNodes(SemanticsMatcher("Focused editor") {
+            it.config.contains(SemanticsProperties.EditableText) && it.config.contains(SemanticsProperties.Focused) && it.config[SemanticsProperties.Focused]
+        }, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+        when {
+            editorFocused && requestedIme != false -> ime(true)
+            !editorFocused && imeVisible() -> ime(false)
+            else -> awaitImeGeometry(imeVisible())
+        }
         val node = compose.onNodeWithTag(tag)
         val viewport = listOf("extension-form", "extension-configuration").firstOrNull {
             compose.onAllNodes(hasTestTag(tag) and hasAnyAncestor(hasTestTag(it))).fetchSemanticsNodes().isNotEmpty()
@@ -465,8 +475,11 @@ class ExtensionFormDeviceTest {
         compose.onRoot().performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
         if (target.config.contains(SemanticsProperties.EditableText)) {
-            compose.waitUntil(5000) { node.fetchSemanticsNode().config[SemanticsProperties.Focused] }
+            compose.waitUntil(5000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()?.let {
+                it.config.contains(SemanticsProperties.Focused) && it.config[SemanticsProperties.Focused]
+            } == true }
             node.assertIsFocused()
+            ime(true)
         }
     }
     private fun openChoice() {
@@ -786,7 +799,40 @@ class ExtensionFormDeviceTest {
     }
 
     private fun imeVisible() = ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
+    private fun awaitImeGeometry(shown: Boolean) {
+        val done = CountDownLatch(1)
+        val deadline = android.os.SystemClock.uptimeMillis() + 10000
+        var previous: List<Int>? = null
+        var stableSince = 0L
+        var frames = 0
+        var settled = false
+        lateinit var observer: Runnable
+        lateinit var view: android.view.View
+        compose.activityRule.scenario.onActivity {
+            view = it.window.decorView
+            observer = object : Runnable {
+                override fun run() {
+                    val insets = ViewCompat.getRootWindowInsets(view)
+                    val geometry = listOf(if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true) 1 else 0,
+                        insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: -1, view.width, view.height)
+                    val now = android.os.SystemClock.uptimeMillis(); frames++
+                    if (geometry != previous) { previous = geometry; stableSince = now }
+                    settled = geometry[0] == (if (shown) 1 else 0) && geometry[1] >= 0 && now - stableSince >= 100
+                    if (settled || now >= deadline) done.countDown() else view.postOnAnimation(this)
+                }
+            }
+            view.postOnAnimation(observer)
+        }
+        val completed = done.await(10, TimeUnit.SECONDS)
+        compose.activityRule.scenario.onActivity { view.removeCallbacks(observer) }
+        val samples = record.optJSONArray("settled_ime_geometry") ?: JSONArray().also { record.put("settled_ime_geometry", it) }
+        samples.put(JSONObject().put("shown", shown).put("native_frames", frames).put("geometry", JSONArray(previous.orEmpty()))
+            .put("stable_for_at_least_ms", 100).put("settled", completed && settled))
+        assertTrue("Native IME visibility/insets and window geometry must settle before choosing pointer coordinates", completed && settled)
+        compose.waitForIdle()
+    }
     private fun ime(show: Boolean) {
+        requestedIme = show
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
         compose.activityRule.scenario.onActivity {
@@ -816,6 +862,7 @@ class ExtensionFormDeviceTest {
             } finally { automation.serviceInfo = automation.serviceInfo.apply { this.flags = flags } }
             record.put("hidden_ime_window_absence_confirmed", true)
         }
+        awaitImeGeometry(show)
     }
     private fun fullBounds(interaction: SemanticsNodeInteraction): Rect {
         val node = interaction.fetchSemanticsNode()
