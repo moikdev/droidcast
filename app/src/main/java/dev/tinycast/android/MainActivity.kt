@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         if (!ShortcutRuntime.paletteOpening()) { finish(); return }
         getSystemService(InputManager::class.java).registerInputDeviceListener(this, null)
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT), navigationBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT))
-        if (resources.configuration.smallestScreenWidthDp >= 600) window.setSoftInputMode((window.attributes.softInputMode and WindowManager.LayoutParams.SOFT_INPUT_MASK_STATE.inv()) or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        if (resources.configuration.smallestScreenWidthDp >= 600) window.setSoftInputMode((window.attributes.softInputMode and WindowManager.LayoutParams.SOFT_INPUT_MASK_STATE.inv()) or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         if (savedInstanceState == null) receive(intent)
         else if (store.textReview != null || savedInstanceState.getBoolean("text-review-active")) {
             store.expireTextReview(store.textReview?.origin ?: if (savedInstanceState.getBoolean("text-review-shared")) TextInputOrigin.SHARE else TextInputOrigin.SELECTION)
