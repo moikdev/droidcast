@@ -6,7 +6,7 @@ The renderer delivers focus and blur for the five supported field kinds. Events 
 
 Native argument/preference setup uses the same readable labels, feedback, checkbox rows and option titles. Edits remain drafts until the explicit **Run command** action. Cancel discards them. Run checks required fields, saves the accepted preferences and starts the captured extension/command. Callbacks from a disposed or replacement setup cannot edit, run or close its successor. Menu callbacks also belong to one opening and retain the option the user actually saw.
 
-Password editors now request Android's password keyboard type with autocorrection disabled, in addition to masking. A focused-editor metadata probe on the preceding runtime found ordinary text variation before any password was entered. The probe records only numeric input flags; the native preference fixture leaves its optional password empty and does not include it in destination output. The identical-instrumentation comparison passes on the repaired runtime for both editors. Android's [keyboard options](https://developer.android.com/develop/ui/compose/text/user-input#keyboard-options) describe the requested input behavior; this does not certify third-party keyboards.
+Password editors now request Android's password keyboard type with autocorrection disabled, in addition to masking. A focused-editor metadata probe on the preceding runtime found ordinary text variation before any password was entered. The probe records only numeric input flags; the native preference fixture leaves its optional password empty and does not include it in destination output. The identical-instrumentation comparison passes on the repaired runtime for both editors. Android's [keyboard options](https://developer.android.com/develop/ui/compose/text/user-input) describe the requested input behavior; this does not certify third-party keyboards.
 
 Raycast documents [controlled/uncontrolled fields and blur-driven validation](https://developers.raycast.com/api-reference/user-interface/form). This slice demonstrates an extension setting an error on blur and clearing it on change. It does **not** establish Raycast's separate rule that Form errors prevent `Action.SubmitForm` submission; [#84](https://github.com/moikdev/droidcast/issues/84) tracks that follow-up with explicit negative controls and acceptance criteria. DatePicker, TagPicker, FilePicker, drafts, full imperative focus and complete Form parity remain open under #6. Native error semantics and checkbox label/role/state checks are not a full TalkBack certification.
 
@@ -39,7 +39,8 @@ The current pointer helper reveals targets through both scroll owners, uses the 
 | Rapid edit/blur and controlled-value controls | Two matched prior-app failures, then 8/8 focused cases per portrait layout |
 | Five basic baseline behaviors | Five intended old-app failures per portrait layout; current full suites cover the repaired behaviors |
 | Stale text/choice callbacks | Six intended prior-app failures; current suites cover root removal, replacement field/session, changed option and reopened menu |
-| Current 952fb16 runtime, complete Form/font matrix | Phone 24/24 at 100%; tablet, landscape and enlarged-font matrix in progress |
+| Current 952fb16 runtime, complete Form cases | 24/24 on each phone, tablet and short-landscape profile at 100% |
+| Current 952fb16 runtime, enlarged-font matrix | In progress; no completed matrix claim yet |
 | Password input metadata | Two intended preceding-app failures, then 2/2 repaired-app passes with identical instrumentation |
 | Shared menu/IME and reviewed-input regressions | Pending |
 | JVM | 198 passing cases |
@@ -82,12 +83,20 @@ The test opens the actual native preference UI, chooses **Spaces: 2**, edits `ma
 
 ## Retained failures and limits
 
-The first implementation's isolated rapid-blur pass did not clear its later combined-suite failure: JavaScript's captured value could lag the native edit. The final adapter's matched negative controls exercise the failing behavior before the repair. Earlier prototype APKs, compile errors, probe failures and partial runs retain their own identities.
+The first implementation's isolated rapid-blur pass did not clear its later combined-suite failure: JavaScript's captured value could lag the native edit. Matched rapid-blur and controlled-rejection negative controls fail on the preceding app; the repaired adapter passes eight focused cases on each portrait layout. Basic error/help/focus/choice/checkbox and stale-callback controls likewise retain their expected failures. The checkpoint preserves each app/test identity rather than adding historical passes to the current runtime.
 
-With the frozen `cef390f` app and original harness, the 200% tablet and phone profiles pass all five workflows. The first 200% short-landscape cohort remains **2/5**, with failed navigation/composition setup. Stricter helper revisions retain their separate **0/3**, **2/3** and **4/5** receipts. The latter's JSON Copy succeeds, but its Back assertion finds only a two-pixel visible target. The strengthened same-APK harness then passes all five workflows at 200% on all three layouts and at 130% on tablet/phone. Its 130% landscape group remains **4/5**: the stricter visible-target check exposes the actual insufficient configuration-body allocation. The remaining 150% groups and final full landscape run did not start in that pipeline. None is credited to the `d6fba18` repair.
+| Earlier app / instrumentation | Retained outcome and boundary |
+| --- | --- |
+| `cef390f` / original `db59…` | 23/23 normal cases per layout; five 200% workflows pass on tablet/phone, 2/5 on short landscape |
+| `cef390f` / `37856b9` pointer helper | Five 200% workflows pass per layout; 130% tablet/phone pass, landscape 4/5 exposes the configuration allocation defect |
+| `d6fba18` / original `9e72…` | 24/24 normal cases per layout; 200% landscape 4/5, with a parent drag intercepted by a focused editor |
+| `d6fba18` / `65088a0` gutter helper | Focused blur check and 200% landscape 5/5 pass; tablet 4/5 uses a pointer rectangle measured before IME resizing |
+| `d6fba18` / `57557b7` geometry helper | Focused check and 200% tablet/landscape 5/5 pass; phone 4/5 fails menu geometry setup |
+| `d6fba18` / `dde79a7`, then `767f208` | First focused JSON check fails an added keyboard request; active-editor focused recheck passes, but the next 130% tablet group remains 4/5 |
+| `d6fba18` / `c31a5b0` native-idle helper | 130% groups pass 5/5 on all layouts; 150% tablet remains 4/5 when an extra post-tap keyboard request fails |
+| Activity keyboard-policy experiment / identical `767f208` instrumentation | Isolated JSON and five-workflow comparisons pass on both preceding and experimental apps; no causal or regression credit, change reverted |
+| `d6fba18` / password metadata probes | One Form-only failure, then two common-harness failures establish ordinary input metadata; the two repaired-app checks pass with identical common instrumentation |
 
-The separate same-text return probe on the `cef390f` app fails. Two new-harness matched controls also fail the intended native-focus and configuration-target assertions against that prior app. All their restoration checks pass. The repaired app's focused return checks pass on tablet, phone and 200% short landscape. Completed broader repair outcomes remain a separate gate.
-
-The repaired `d6fba18` app's first 200% landscape group with instrumentation `9e72…` remains **4/5**: blur-validation navigation ends with the name editor focused and the next field outside the visible region. Moving the test's parent-navigation drags into the padding gutter yields a passing focused check on the byte-identical app. The final matrix uses the separately identified `71609…` instrumentation; the earlier failure is retained.
+Every listed attempt retains its actual logs and restoration outcomes. Later groups in a stopped pipeline were not executed. The final helper removes the artificial keyboard request from ordinary pointer taps while retaining explicit show/hide assertions in the IME-transition scenarios. Earlier setup failures do not establish a production keyboard-policy fix.
 
 Natural-height/non-ellipsized text and sequential full-line reachability are required; a screenshot of a clipped fragment is insufficient. Native XML is captured before each unmodified PNG, with a frame receipt and stable runtime tree. Destination/error/return captures complement assertions. Owned probes establish renderer and callback behavior, not external service recovery, arbitrary extension compatibility or broader platform readiness. Physical/OEM devices, full accessibility, actual split-window, production signing/migration and full parity remain open.
