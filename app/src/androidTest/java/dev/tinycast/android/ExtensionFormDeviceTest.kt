@@ -311,6 +311,27 @@ class ExtensionFormDeviceTest {
         capture("focused-fields")
         record.put("focus_and_blur_once_with_current_value", true).put("payload_utf16_units", value.length).put("passed", true)
     }
+    @Test fun rapidTextThenBlurDeliversCurrentValueBeforeRedraw() {
+        launch("focus"); touch("extension-field-name")
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any {
+            it.props().optString("text") == "Name focus=1 blur=0 length=0; checkbox changes=0"
+        } == true }
+        val setText = requireNotNull(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val focusNotes = requireNotNull(compose.onNodeWithTag("extension-field-notes").fetchSemanticsNode().config[SemanticsActions.RequestFocus].action)
+        val value = "Owned rapid café é 日本 🌱"
+        compose.activityRule.scenario.onActivity {
+            assertTrue(setText(AnnotatedString(value))); assertTrue(focusNotes())
+        }
+        record.put("interaction", "Controlled retained SetText then RequestFocus in one main-thread turn, before a native redraw or waiting for the JS change acknowledgement")
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value && activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any {
+            it.props().optString("text").contains("blur=1")
+        } == true }
+        val observed = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("Form.Description").single().props().getString("text")
+        record.put("numeric_callback_status", observed).put("expected_value_utf16_units", value.length)
+        capture("rapid-blur")
+        assertEquals("Name focus=1 blur=1 length=${value.length}; checkbox changes=0", observed)
+        record.put("passed", true)
+    }
     @Test fun dropdownShowsSelectedItemTitle() {
         launch("choices")
         val node = field("Form.Dropdown", "choice")
@@ -583,7 +604,7 @@ class ExtensionFormDeviceTest {
         val password = "owned-" + UUID.randomUUID().toString(); sensitiveValue = password
         compose.onNodeWithTag("extension-field-password").performTextReplacement(password)
         compose.waitUntil(5000) { field("Form.PasswordField", "password").props().optString("value") == password }
-        compose.onNodeWithTag("extension-field-password").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Password))
+        assertTrue("Password input must retain masking semantics", compose.onNodeWithTag("extension-field-password").fetchSemanticsNode().config.contains(SemanticsProperties.Password))
         capture("masked-password")
         touch("extension-field-area")
         val area = "Owned multiline café é\n日本 🌱"
