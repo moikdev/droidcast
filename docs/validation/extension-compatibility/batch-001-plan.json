@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "batch_id": "representative-001",
+  "planning_source": {
+    "repository": "raycast/extensions",
+    "commit": "11a912d89b576ca066e9ee42e75b8dd2e8aa0f5c",
+    "catalog_sha256": "af8c68f7c5cd5caf4e042a48cb87ea4c77d8c4ae4ed5c6202e6a63d39d459a40"
+  },
+  "extensions": [
+    {
+      "directory": "uuid-generator",
+      "store_name": "uuid-generator",
+      "handle": "jmaeso",
+      "planning_manifest_sha256": "b35a3136e94e19fa6d1e60b4c866df9331a4c1b754d37d221e20905a8f55530f",
+      "commands": [
+        "generate",
+        "generateV5",
+        "viewHistory"
+      ]
+    },
+    {
+      "directory": "oklch-color-converter",
+      "store_name": "oklch-color-converter",
+      "handle": "strongeron",
+      "planning_manifest_sha256": "beb8f8ed59c20aab8974ca7ccc184ca8fdd6996546e9a8d79b4b25a7471172bd",
+      "commands": [
+        "convert-color"
+      ]
+    },
+    {
+      "directory": "palette-colors",
+      "store_name": "palette-colors",
+      "handle": "douglas-pires",
+      "planning_manifest_sha256": "d693802a718709c1ab742780df8d10abc7eeca361215a532b5b373cc694beb56",
+      "commands": [
+        "index"
+      ]
+    },
+    {
+      "directory": "base64",
+      "store_name": "base64",
+      "handle": "DanielSinclair",
+      "planning_manifest_sha256": "ba5c54cadeb4431721fd29c78df604dbf9850660960dc687e7a0b65114630bdb",
+      "commands": [
+        "index",
+        "encode",
+        "decode"
+      ]
+    },
+    {
+      "directory": "json-format",
+      "store_name": "json-format",
+      "handle": "destiner",
+      "planning_manifest_sha256": "4a3b497b0a88dd8a8f6250fc94900524ccb02a66eb45893b887c100f18d7e698",
+      "commands": [
+        "index",
+        "formatClipboard",
+        "formatSelectionAndShow"
+      ]
+    },
+    {
+      "directory": "lorem-ipsum",
+      "store_name": "lorem-ipsum",
+      "handle": "AntonNiklasson",
+      "planning_manifest_sha256": "f415e6fcdce756b92e43f8faf7c8b109e62d33d1b841dbca2b658a481ca8237b",
+      "commands": [
+        "words"
+      ]
+    },
+    {
+      "directory": "google-translate",
+      "store_name": "translate",
+      "handle": "gebeto",
+      "planning_manifest_sha256": "b9a77dded993df0f7d4ca969a59a7bc1913bcf7eb4e71d6ca5ab3a54e4611f3e",
+      "commands": [
+        "translate-form",
+        "instant-translate-copy"
+      ]
+    },
+    {
+      "directory": "http-status-codes",
+      "store_name": "http-status-codes",
+      "handle": "Alex_",
+      "planning_manifest_sha256": "1d1ef0c959d5b01224f0bdb4f9dd34cb45b17c4447fbb1a84a9f8787d00b1d5d",
+      "commands": [
+        "index"
+      ]
+    },
+    {
+      "directory": "weather",
+      "store_name": "weather",
+      "handle": "tonka3000",
+      "planning_manifest_sha256": "1de7e8e2f303ffd62d12d72a34525936b6c4b21741cabe76d9e551b00d52b79b",
+      "commands": [
+        "index"
+      ]
+    }
+  ]
+}
