@@ -1,6 +1,8 @@
 package dev.tinycast.android
 
 import android.webkit.JavascriptInterface
+import android.system.Os
+import android.util.Base64
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -50,6 +52,65 @@ class ExtensionSandboxDiagnosticDeviceTest {
 
     private fun hash(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
 
+    private fun filesystemChecks(bridge: ExtensionRuntime.Bridge, root: File, support: File,
+                                 ownedCache: File, frozenCalls: List<JSONObject>): JSONArray {
+        val checks = JSONArray()
+        fun check(name: String, method: String, path: String, allowed: Boolean,
+                  extra: List<Any> = emptyList(), valid: (JSONObject) -> Boolean = { true }) {
+            val arguments = JSONArray().put(path).apply { extra.forEach(::put) }
+            val response = JSONObject(bridge.invokeSync("fs", method, arguments.toString()))
+            val ok = response.optBoolean("ok")
+            val passed = if (allowed) ok && valid(response)
+                else !ok && response.optString("error") == "Extensions can only access their own package and data folder"
+            checks.put(JSONObject().put("name", name).put("method", method).put("input", path)
+                .put("expected_allowed", allowed).put("observed_ok", ok).put("passed", passed)
+                .put("error", response.opt("error") ?: JSONObject.NULL).put("code", response.opt("code") ?: JSONObject.NULL))
+        }
+        for ((name, directory) in listOf("data-raw" to support, "data-canonical" to support.canonicalFile,
+                                        "package-raw" to root, "package-canonical" to root.canonicalFile)) {
+            check("$name-realpath", "realpath", directory.path, true) { it.getString("value") == directory.canonicalPath }
+            check("$name-exists", "exists", directory.path, true) { it.getBoolean("value") }
+            check("$name-stat", "stat", directory.path, true) { it.getJSONObject("value").getBoolean("_isDirectory") }
+            check("$name-readdir", "readdir", directory.path, true) { it.getJSONArray("value") != null }
+        }
+        check("data-root-mkdir", "mkdir", support.path, true)
+        check("data-canonical-root-mkdir", "mkdir", support.canonicalPath, true)
+        val child = File(support, "owned/marker.txt")
+        val payload = "Droidcast owned marker ✓".toByteArray(Charsets.UTF_8)
+        val encoded = Base64.encodeToString(payload, Base64.NO_WRAP)
+        check("data-child-mkdir", "mkdir", child.parentFile!!.path, true)
+        check("data-child-write", "writeFile", child.path, true, listOf(encoded))
+        check("data-child-read", "readFile", child.path, true) { it.getString("value") == encoded }
+        check("package-child-read", "readFile", File(root, "index.js").path, true) {
+            hash(Base64.decode(it.getString("value"), Base64.DEFAULT)) == hash(File(root, "index.js").readBytes())
+        }
+
+        assertEquals(ownedCache.canonicalFile, root.parentFile!!.canonicalFile)
+        val outside = File(ownedCache, "boundary-outside").apply { assertTrue(mkdir()) }
+        val outsideMarker = File(outside, "marker.txt").apply { writeText("Owned outside-scope control") }
+        check("absolute-outside-read", "readFile", outsideMarker.path, false)
+        check("package-parent-traversal", "readFile", File(root, "../boundary-outside/marker.txt").path, false)
+        check("data-parent-traversal", "exists", File(support, "../outside-sibling/marker.txt").path, false)
+        check("data-prefix-sibling", "exists", support.path + "-sibling/marker.txt", false)
+        check("global-tmp", "realpath", "/tmp", false)
+        val packageWrite = File(root, "forbidden-write.txt")
+        check("package-write", "writeFile", packageWrite.path, false, listOf(encoded))
+        check("package-root-write", "mkdir", root.path, false)
+        val link = File(support, "outside-link")
+        Os.symlink(outside.path, link.path)
+        try {
+            check("symlink-outside-realpath", "realpath", link.path, false)
+            check("symlink-outside-read", "readFile", File(link, "marker.txt").path, false)
+            check("symlink-outside-write", "writeFile", File(link, "marker.txt").path, false, listOf(encoded))
+        } finally { Os.unlink(link.path) }
+        checks.put(JSONObject().put("name", "outside-owned-marker-preserved").put("passed", outsideMarker.readText() == "Owned outside-scope control"))
+        checks.put(JSONObject().put("name", "package-write-absent").put("passed", !packageWrite.exists()))
+        checks.put(JSONObject().put("name", "frozen-temp-dir-call-owned-and-allowed").put("passed", frozenCalls.any {
+            it.optString("java_canonical_input") == support.canonicalPath && it.getJSONObject("response").optBoolean("ok")
+        }))
+        return checks
+    }
+
     @Test fun frozenHttpBundleRecordsRealpathRequest() {
         val arguments = InstrumentationRegistry.getArguments()
         assumeTrue("Explicit sandbox diagnostic only", arguments.getString("sandboxDiagnostic") == "true")
@@ -68,6 +129,7 @@ class ExtensionSandboxDiagnosticDeviceTest {
         val id = "compat-batch-" + UUID.randomUUID().toString().replace("-", "")
         assertFalse(File(context.cacheDir, id).exists())
         assertFalse(File(context.filesDir, "extension-data/$id").exists())
+        assertFalse(File(context.applicationInfo.dataDir, "shared_prefs/extension-$id.xml").exists())
         val leaseFile = File(fixtureRoot, "owners.json")
         val lease = JSONObject(leaseFile.readText())
         assertEquals(0, lease.getJSONArray("owned_extension_ids").length())
@@ -88,11 +150,12 @@ class ExtensionSandboxDiagnosticDeviceTest {
         val extension = InstalledExtension(listing, root, manifest)
         val calls = ConcurrentLinkedQueue<JSONObject>()
         lateinit var catalog: ExtensionCatalog
+        lateinit var bridge: ExtensionRuntime.Bridge
         compose.activityRule.scenario.onActivity {
             catalog = ExtensionCatalog(context)
             catalog.savePreferences(extension, JSONObject().put("typeOfPerson", "none"))
             runtime = ExtensionRuntime(context, catalog, extension, extension.commands.single()).also { engine ->
-                val bridge = engine.Bridge()
+                bridge = engine.Bridge()
                 engine.webView.removeJavascriptInterface("AndroidHost")
                 engine.webView.addJavascriptInterface(RecordingBridge(bridge, calls), "AndroidHost")
                 engine.start()
@@ -101,6 +164,9 @@ class ExtensionSandboxDiagnosticDeviceTest {
         compose.waitUntil(20000) { catalog.runtimeError != null || (catalog.runtimeReady && catalog.runtimeTree != null) }
         assertTrue("The actual frozen import must reach the recorded filesystem call", calls.isNotEmpty())
         val support = File(context.filesDir, "extension-data/$id")
+        val frozenCalls = calls.toList()
+        val checks = filesystemChecks(bridge, root, support, File(context.cacheDir, id), frozenCalls)
+        val allPassed = checks.objects().all { it.getBoolean("passed") }
         val row = JSONObject().put("directory", "http-status-codes").put("command", "index")
             .put("archive_sha256", entry.getString("archive_sha256"))
             .put("command_sha256", declared.getString("file_sha256"))
@@ -110,13 +176,14 @@ class ExtensionSandboxDiagnosticDeviceTest {
             .put("runtime_ready", catalog.runtimeReady).put("native_root", activeRoot(catalog.runtimeTree)?.optString("type") ?: JSONObject.NULL)
             .put("support_path", support.path).put("support_canonical", support.canonicalPath)
             .put("package_path", root.path).put("package_canonical", root.canonicalPath)
-            .put("realpath_calls", JSONArray(calls.toList()))
+            .put("realpath_calls", JSONArray(frozenCalls)).put("filesystem_checks", checks)
         compose.activityRule.scenario.onActivity { runtime?.close(); runtime = null }
         val evidence = File(context.filesDir, "compatibility-evidence").apply { mkdirs() }
         File(evidence, "diagnostic-record.json").writeText(row.toString(2))
-        File(evidence, "collection.json").writeText(JSONObject().put("completed", true)
+        File(evidence, "collection.json").writeText(JSONObject().put("completed", allPassed)
             .put("fixture_sha256", fixtureHash).put("source_snapshot_sha256", fixture.getString("source_snapshot_sha256"))
             .put("workflows", JSONArray().put(row)).toString(2))
+        assertTrue("Owned roots must work and filesystem boundaries must remain enforced: ${checks.objects().filterNot { it.getBoolean("passed") }.map { it.getString("name") }}", allPassed)
     }
 
     @After fun closeRuntime() {
