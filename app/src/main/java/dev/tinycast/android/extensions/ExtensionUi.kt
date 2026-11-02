@@ -51,6 +51,7 @@ import dev.tinycast.android.PaletteTheme
 import dev.tinycast.android.PaletteChoice
 import dev.tinycast.android.PaletteChoiceMenu
 import dev.tinycast.android.paletteHeaderSurface
+import dev.tinycast.android.paletteFooterSurface
 import dev.tinycast.android.paletteFocusBookmark
 import dev.tinycast.android.LocalPaletteMenus
 import kotlinx.coroutines.CancellationException
@@ -393,7 +394,7 @@ private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command
                     store.extensionSetupFromRun=false;store.dialog="extension-run"
                 }
             } catch(failure:Exception) { message="Could not start this command. Check its configuration and try again." }
-        },modifier=Modifier.fillMaxWidth().padding(20.dp).heightIn(min=48.dp).testTag("run-extension-setup")){Text("Run command",fontSize=14.sp,lineHeight=20.sp)}
+        },modifier=Modifier.fillMaxWidth().paletteFooterSurface().padding(20.dp).heightIn(min=48.dp).testTag("run-extension-setup")){Text("Run command",fontSize=14.sp,lineHeight=20.sp)}
     }
 }
 

@@ -8,6 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -123,12 +125,21 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                 ExtensionFieldFeedback(errorText, info, id)
             }
         }
-        "Form.Checkbox" -> Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            ExtensionFieldLabel(title, "extension-field-title-$id")
-            ExtensionCheckboxRow(p.optString("label", title), p.optBoolean("value"), { next ->
-                if (owner != null && liveFormField(owner, liveRoot()) != null) { focus.focus(owner); change(next) }
-            }, Modifier.paletteFocusBookmark().then(focusModifier).testTag("extension-checkbox-$id"))
-            ExtensionFieldFeedback(errorText, info, id)
+        "Form.Checkbox" -> {
+            val requester = remember(owner) { FocusRequester() }
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                ExtensionFieldLabel(title, "extension-field-title-$id")
+                ExtensionCheckboxRow(p.optString("label", title), p.optBoolean("value"), { next ->
+                    if (owner != null && liveFormField(owner, liveRoot()) != null) {
+                        // A touch checkbox normally leaves the text editor's
+                        // native focus in place. Move it with our logical Form
+                        // focus so returning to that editor delivers onFocus.
+                        requester.requestFocus(); focus.focus(owner); change(next)
+                    }
+                }, Modifier.paletteFocusBookmark(requester).focusProperties { canFocus = true }
+                    .then(focusModifier).testTag("extension-checkbox-$id"))
+                ExtensionFieldFeedback(errorText, info, id)
+            }
         }
         "Form.Dropdown" -> {
             val choices = formChoices(node)

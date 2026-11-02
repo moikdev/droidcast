@@ -6,7 +6,7 @@ The renderer delivers focus and blur for the five supported field kinds. Events 
 
 Native argument/preference setup uses the same readable labels, feedback, checkbox rows and option titles. Edits remain drafts until the explicit **Run command** action. Cancel discards them. Run checks required fields, saves the accepted preferences and starts the captured extension/command. Callbacks from a disposed or replacement setup cannot edit, run or close its successor. Menu callbacks also belong to one opening and retain the option the user actually saw.
 
-Raycast documents [controlled/uncontrolled fields and blur-driven validation](https://developers.raycast.com/api-reference/user-interface/form). This slice demonstrates an extension setting an error on blur and clearing it on change. It does **not** establish Raycast's separate rule that Form errors prevent `Action.SubmitForm` submission. DatePicker, TagPicker, FilePicker, drafts, full imperative focus and complete Form parity remain open under #6. Native error semantics and checkbox label/role/state checks are not a full TalkBack certification.
+Raycast documents [controlled/uncontrolled fields and blur-driven validation](https://developers.raycast.com/api-reference/user-interface/form). This slice demonstrates an extension setting an error on blur and clearing it on change. It does **not** establish Raycast's separate rule that Form errors prevent `Action.SubmitForm` submission; [#84](https://github.com/moikdev/droidcast/issues/84) tracks that follow-up with explicit negative controls and acceptance criteria. DatePicker, TagPicker, FilePicker, drafts, full imperative focus and complete Form parity remain open under #6. Native error semantics and checkbox label/role/state checks are not a full TalkBack certification.
 
 ## Verification and binary boundaries
 
@@ -33,6 +33,22 @@ The final pointer harness is built from `37856b97c4d2bd99d69f10aa6c4af741d48ff17
 The five profile workflows check long labels/errors/help with actual IME open/closed transitions and full-line pointer witnesses; native required-field editing, Cancel and Run; the five supported fields with Unicode, selection, controlled composition and masked input; a frozen JSON command; and extension-driven blur validation. The composition check uses a controlled Android InputConnection across an asynchronous JavaScript round trip with Gboard hidden. It does not simulate phonetic typing gestures in a live OEM keyboard. Password assertions and public captures exclude the ephemeral plaintext password.
 
 The guarded runner holds one nonce-bound lease through fixture deletion, independent clipboard restoration, preferences, font, geometry and final verification. It preserves pre-existing extensions/data and host state. Clipboard snapshots remain private in a separate test-APK UID and the private host backup. Public evidence contains restoration outcomes, never clipboard contents or their fingerprints.
+
+## Raw Android captures
+
+The [capture manifest](validation/extension-compatibility/forms/captures.json) binds all 41 unmodified PNGs to their paired XML/frame receipts and exact app/test hashes. The normal before/after pairs use the identical original `cef390f` instrumentation against the old and repaired apps. The 200% sets use the separate `37856b9` pointer harness with the unchanged repaired app.
+
+| Old supplied error, phone | Repaired error, phone | Readable selected option, phone |
+| --- | --- | --- |
+| ![Old app omits the supplied field error](screenshots/extension-compatibility/forms/before-error-phone.png) | ![Repaired native Form displays the supplied error](screenshots/extension-compatibility/forms/after-error-phone.png) | ![Closed dropdown displays the selected item title](screenshots/extension-compatibility/forms/after-dropdown-phone.png) |
+
+| Help without hover, tablet | Checkbox label tapped, phone | Extension error after blur, 200% phone |
+| --- | --- | --- |
+| ![Supplied help is visible below its field](screenshots/extension-compatibility/forms/after-help-tablet.png) | ![Tapping the actual label toggles the native checkbox](screenshots/extension-compatibility/forms/after-checkbox-phone.png) | ![Pointer scrolling reaches the owned extension's blur-validation error](screenshots/extension-compatibility/forms/font200-phone-blur-validation-error-bottom.png) |
+
+| 200% phone, actual IME open | 200% short landscape, long option | Actual JSON Copy destination, phone |
+| --- | --- | --- |
+| ![Long Form title with the requested enlarged font and Gboard open](screenshots/extension-compatibility/forms/font200-phone-long-1-top.png) | ![Long option lines reached by pointer in short landscape](screenshots/extension-compatibility/forms/font200-landscape-long-option-bottom.png) | ![Frozen JSON command's exact Unicode output and explicit Copy action](screenshots/extension-compatibility/forms/phone-json-detail.png) |
 
 ## Real frozen JSON workflow
 

@@ -772,10 +772,14 @@ class ExtensionFormDeviceTest {
         touch("extension-checkbox-enabled")
         compose.waitUntil(5000) { probe().getJSONObject("blur").optInt("name") == 1 &&
             probe().getJSONObject("focus").optInt("enabled") == 1 }
+        record.put("focus_after_checkbox", probe())
+        compose.onNodeWithTag("extension-checkbox-enabled").assertIsFocused()
         capture("checkbox-after-text")
         touch("extension-field-name")
-        compose.waitUntil(5000) { probe().getJSONObject("focus").optInt("name") == 2 &&
-            probe().getJSONObject("blur").optInt("enabled") == 1 }
+        try {
+            compose.waitUntil(5000) { probe().getJSONObject("focus").optInt("name") == 2 &&
+                probe().getJSONObject("blur").optInt("enabled") == 1 }
+        } finally { record.put("focus_after_text_return", probe()) }
         compose.onNodeWithTag("extension-field-name").assertTextEquals(value)
         capture("text-after-checkbox")
         record.put("focus_probe", probe()).put("direct_text_checkbox_text_pointer_round_trip", true).put("passed", true)
