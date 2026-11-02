@@ -12,6 +12,8 @@ import android.webkit.WebView
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -240,7 +242,7 @@ class ReviewedTextDeviceTest {
             .putExtra("mime", mime).putExtra("readOnly", readOnly).putExtra("payloadKind", kind)
         instrumentation.context.startActivity(value)
         awaitCaller()
-        assertEquals(source, device.findObject(By.res("android:id/edit")).text)
+        assertEquals(source, device.findObject(By.res("android:id/edit")).text ?: "")
     }
     private fun awaitCaller() {
         assertTrue(device.wait(Until.hasObject(By.pkg(instrumentation.context.packageName).depth(0)), 10000))
@@ -381,7 +383,7 @@ class ReviewedTextDeviceTest {
         caller(); send(); assertReview()
         val before = foregroundActivity().store.clips
         touch("text-input-save-clip")
-        compose.onNodeWithTag("editor-body").assertTextEquals(input)
+        compose.onNodeWithTag("editor-body").assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(input)))
         assertEquals(before, foregroundActivity().store.clips)
         assertNull(foregroundActivity().store.extensions.running)
         assertEquals(sentinel, clipboardText())

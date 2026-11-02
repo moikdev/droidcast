@@ -166,7 +166,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     private fun scrubTextIntent(value: Intent) {
         // Keep neither extras nor ClipData on this Activity's retained intent.
         runCatching { value.removeExtra(Intent.EXTRA_TEXT); value.removeExtra(Intent.EXTRA_PROCESS_TEXT); value.clipData = null }
-        setIntent(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_MAIN))
+        setIntent(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER))
     }
     private fun receive(intent: Intent) {
         if (!isTextIntent(intent)) TextReviewOwnership.revoke()

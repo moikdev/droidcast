@@ -96,6 +96,7 @@ class ReviewedTextLifecycleDeviceTest {
             it.onNewIntent(incoming)
             assertFalse(incoming.hasExtra(Intent.EXTRA_PROCESS_TEXT))
             assertEquals(Intent.ACTION_MAIN, it.intent.action); assertNull(it.intent.extras); assertNull(it.intent.clipData)
+            assertEquals(setOf(Intent.CATEGORY_LAUNCHER), it.intent.categories)
             preview = it.store.extensions.reviewedText.preview
         }
         return requireNotNull(preview)
