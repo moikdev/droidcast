@@ -37,7 +37,7 @@ class ReviewedTextCallerActivity : Activity() {
         selection = TextView(this).apply { id = android.R.id.text2; textSize = 14f }
         column.addView(selection)
         fun button(label: String, id: Int, action: () -> Unit) {
-            column.addView(Button(this).apply { text = label; isAllCaps = false; this.id = id; setOnClickListener { action() } }, LinearLayout.LayoutParams(-1, -2))
+            column.addView(Button(this).apply { this.text = label; isAllCaps = false; this.id = id; setOnClickListener { action() } }, LinearLayout.LayoutParams(-1, -2))
         }
         button("Process selected text", android.R.id.button1) { send(Intent.ACTION_PROCESS_TEXT) }
         button("Share owned text", android.R.id.button2) { send(Intent.ACTION_SEND) }

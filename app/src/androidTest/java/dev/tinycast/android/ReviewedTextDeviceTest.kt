@@ -225,7 +225,7 @@ class ReviewedTextDeviceTest {
         var steps = 0
         while (!node.isDisplayed() && steps++ < 30) {
             compose.onNodeWithTag("shell-content-scroll").performTouchInput {
-                swipe(Offset(4f, size.height * .82f), Offset(4f, size.height * .18f), 300)
+                swipe(Offset(4f, height * .82f), Offset(4f, height * .18f), 300)
             }
         }
         node.assertIsDisplayed().performTouchInput { click(center) }
