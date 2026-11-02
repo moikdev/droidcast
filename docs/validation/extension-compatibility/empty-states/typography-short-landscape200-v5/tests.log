@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionEmptyViewDeviceTest:
+INSTRUMENTATION_STATUS: test=listLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Pointer scrolling could not reveal the empty-state viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:293)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:300)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:350)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:440)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Pointer scrolling could not reveal the empty-state viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:293)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:300)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:350)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:440)
+
+INSTRUMENTATION_STATUS: test=listLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=gridLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Pointer scrolling could not reveal the empty-state viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:293)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:300)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:350)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:441)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Pointer scrolling could not reveal the empty-state viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:293)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:300)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:350)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:441)
+
+INSTRUMENTATION_STATUS: test=gridLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.616
+There were 2 failures:
+1) listLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Pointer scrolling could not reveal the empty-state viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:293)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:300)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:350)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:440)
+2) gridLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Pointer scrolling could not reveal the empty-state viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:293)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:300)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:350)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:441)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

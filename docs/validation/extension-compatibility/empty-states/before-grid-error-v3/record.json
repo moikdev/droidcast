@@ -1,0 +1,90 @@
+{
+  "avd": "Tinycast_Tablet_API_36",
+  "serial": "emulator-5580",
+  "layout": "tablet",
+  "classes": "dev.tinycast.android.ExtensionEmptyViewDeviceTest#gridErrorRetriesThroughTouchActions",
+  "expected": 1,
+  "completed": false,
+  "runner_sha256": "4c17ecd209e296db486c2913b989233f927032e8922ae0e61d89485e9e08d54f",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "requested_font_scale": 1.0,
+  "requested_size": null,
+  "requested_density": null,
+  "empty_view_fixture_mode": true,
+  "empty_view_lease_owner": "d7c6c64f21be4b409b9e59414ad34238",
+  "pid": 59386,
+  "settings_before": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "show_ime_with_hard_keyboard": "0"
+  },
+  "fixture_upload_directory": null,
+  "apk_sha256": "df93da03b1e5455d1bf8507bbf34af51e4a763a478853f09d6c7c37aa5088b9d",
+  "test_apk_sha256": "5b6dd5a0afb99639056a838386e312398494e2d432c5fc6c05c31c7c6cfcfda1",
+  "installed_matches": true,
+  "capture_background": "launcher-intent",
+  "suite_timeout_seconds": 600,
+  "passes": 0,
+  "tests_completed": false,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "empty-view-owned-data": {
+      "passed": true
+    },
+    "empty-view-lease": {
+      "passed": true
+    },
+    "preferences-backup": {
+      "passed": true
+    },
+    "preferences": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "private-fixture": {
+      "passed": true
+    },
+    "fixture-cache": {
+      "passed": true
+    },
+    "verify-data": {
+      "passed": true
+    },
+    "verify-geometry": {
+      "passed": true
+    },
+    "verify-identity": {
+      "passed": true
+    }
+  },
+  "empty_view_owners_cleaned": 1,
+  "preferences_restored": true,
+  "emoji_preferences_restored": true,
+  "settings_restored": true,
+  "font_scale_restored": true,
+  "size": "Physical size: 1920x1200",
+  "density": "Physical density: 240",
+  "adbd": "uid=2000(shell) gid=2000(shell)",
+  "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)"
+}

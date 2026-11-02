@@ -1,0 +1,80 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionEmptyViewDeviceTest:
+INSTRUMENTATION_STATUS: test=gridErrorRetriesThroughTouchActions
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #143 at (l=1324.0, t=872.0, r=1511.0, b=944.0)px, Tag: 'extension-actions'
+Role = 'Button'
+Text = '[Actions, Ctrl, K]'
+[Disabled]
+Actions = [OnClick, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-actions')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:56)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry(ExtensionEmptyViewDeviceTest.kt:200)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry$default(ExtensionEmptyViewDeviceTest.kt:191)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridErrorRetriesThroughTouchActions(ExtensionEmptyViewDeviceTest.kt:404)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridErrorRetriesThroughTouchActions(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #143 at (l=1324.0, t=872.0, r=1511.0, b=944.0)px, Tag: 'extension-actions'
+Role = 'Button'
+Text = '[Actions, Ctrl, K]'
+[Disabled]
+Actions = [OnClick, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-actions')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:56)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry(ExtensionEmptyViewDeviceTest.kt:200)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry$default(ExtensionEmptyViewDeviceTest.kt:191)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridErrorRetriesThroughTouchActions(ExtensionEmptyViewDeviceTest.kt:404)
+
+INSTRUMENTATION_STATUS: test=gridErrorRetriesThroughTouchActions
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.449
+There was 1 failure:
+1) gridErrorRetriesThroughTouchActions(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #143 at (l=1324.0, t=872.0, r=1511.0, b=944.0)px, Tag: 'extension-actions'
+Role = 'Button'
+Text = '[Actions, Ctrl, K]'
+[Disabled]
+Actions = [OnClick, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-actions')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:56)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry(ExtensionEmptyViewDeviceTest.kt:200)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry$default(ExtensionEmptyViewDeviceTest.kt:191)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridErrorRetriesThroughTouchActions(ExtensionEmptyViewDeviceTest.kt:404)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

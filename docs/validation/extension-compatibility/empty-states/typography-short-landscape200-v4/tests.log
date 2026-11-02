@@ -1,0 +1,137 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionEmptyViewDeviceTest:
+INSTRUMENTATION_STATUS: test=listLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #108 at (l=186.0, t=130.0, r=2155.0, b=628.0)px, Tag: 'extension-list'
+Has 1 child, 5 siblings
+Original selector: TestTag = 'extension-list'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.fullBounds(ExtensionEmptyViewDeviceTest.kt:249)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:272)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:297)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:347)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:437)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #108 at (l=186.0, t=130.0, r=2155.0, b=628.0)px, Tag: 'extension-list'
+Has 1 child, 5 siblings
+Original selector: TestTag = 'extension-list'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.fullBounds(ExtensionEmptyViewDeviceTest.kt:249)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:272)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:297)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:347)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:437)
+
+INSTRUMENTATION_STATUS: test=listLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=gridLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #296 at (l=186.0, t=138.0, r=2155.0, b=507.0)px, Tag: 'extension-grid-empty'
+Has 1 child, 7 siblings
+Original selector: TestTag = 'extension-grid-empty'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.fullBounds(ExtensionEmptyViewDeviceTest.kt:249)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:272)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:297)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:347)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:438)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #296 at (l=186.0, t=138.0, r=2155.0, b=507.0)px, Tag: 'extension-grid-empty'
+Has 1 child, 7 siblings
+Original selector: TestTag = 'extension-grid-empty'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.fullBounds(ExtensionEmptyViewDeviceTest.kt:249)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:272)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:297)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:347)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:438)
+
+INSTRUMENTATION_STATUS: test=gridLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.454
+There were 2 failures:
+1) listLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #108 at (l=186.0, t=130.0, r=2155.0, b=628.0)px, Tag: 'extension-list'
+Has 1 child, 5 siblings
+Original selector: TestTag = 'extension-list'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.fullBounds(ExtensionEmptyViewDeviceTest.kt:249)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:272)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:297)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:347)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:437)
+2) gridLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #296 at (l=186.0, t=138.0, r=2155.0, b=507.0)px, Tag: 'extension-grid-empty'
+Has 1 child, 7 siblings
+Original selector: TestTag = 'extension-grid-empty'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.fullBounds(ExtensionEmptyViewDeviceTest.kt:249)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.revealViewport(ExtensionEmptyViewDeviceTest.kt:272)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:297)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:347)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:438)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

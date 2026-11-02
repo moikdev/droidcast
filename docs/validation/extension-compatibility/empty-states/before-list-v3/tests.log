@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionEmptyViewDeviceTest:
+INSTRUMENTATION_STATUS: test=listErrorRetriesThroughTouchActions
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry(ExtensionEmptyViewDeviceTest.kt:193)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry$default(ExtensionEmptyViewDeviceTest.kt:191)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listErrorRetriesThroughTouchActions(ExtensionEmptyViewDeviceTest.kt:403)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listErrorRetriesThroughTouchActions(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry(ExtensionEmptyViewDeviceTest.kt:193)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry$default(ExtensionEmptyViewDeviceTest.kt:191)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listErrorRetriesThroughTouchActions(ExtensionEmptyViewDeviceTest.kt:403)
+
+INSTRUMENTATION_STATUS: test=listErrorRetriesThroughTouchActions
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.412
+There was 1 failure:
+1) listErrorRetriesThroughTouchActions(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry(ExtensionEmptyViewDeviceTest.kt:193)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.retry$default(ExtensionEmptyViewDeviceTest.kt:191)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listErrorRetriesThroughTouchActions(ExtensionEmptyViewDeviceTest.kt:403)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,62 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionEmptyViewDeviceTest:
+INSTRUMENTATION_STATUS: test=gridLoadingAndFilteredEmptySwitchActions
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + EditableText contains 'Owned request needs attention' (ignoreCase: false))
+Node found:
+Node #124 at (l=783.0, t=579.0, r=1140.0, b=615.0)px
+Text = '[Owned request needs attention]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 1 sibling
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.loading(ExtensionEmptyViewDeviceTest.kt:213)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLoadingAndFilteredEmptySwitchActions(ExtensionEmptyViewDeviceTest.kt:406)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridLoadingAndFilteredEmptySwitchActions(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + EditableText contains 'Owned request needs attention' (ignoreCase: false))
+Node found:
+Node #124 at (l=783.0, t=579.0, r=1140.0, b=615.0)px
+Text = '[Owned request needs attention]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 1 sibling
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.loading(ExtensionEmptyViewDeviceTest.kt:213)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLoadingAndFilteredEmptySwitchActions(ExtensionEmptyViewDeviceTest.kt:406)
+
+INSTRUMENTATION_STATUS: test=gridLoadingAndFilteredEmptySwitchActions
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.996
+There was 1 failure:
+1) gridLoadingAndFilteredEmptySwitchActions(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + EditableText contains 'Owned request needs attention' (ignoreCase: false))
+Node found:
+Node #124 at (l=783.0, t=579.0, r=1140.0, b=615.0)px
+Text = '[Owned request needs attention]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 1 sibling
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.loading(ExtensionEmptyViewDeviceTest.kt:213)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLoadingAndFilteredEmptySwitchActions(ExtensionEmptyViewDeviceTest.kt:406)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

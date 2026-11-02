@@ -1,0 +1,89 @@
+{
+  "completed": true,
+  "pid": 82169,
+  "current_phase": null,
+  "phases": {
+    "empty-final-tablet": {
+      "exit_code": 0,
+      "record_sha256": "7831a8032442c1d714a7125144874edc21af5fcd2330258fc45a2b1cc3eac91d",
+      "cleanup_checks": 15,
+      "passes": 12
+    },
+    "empty-final-phone": {
+      "exit_code": 0,
+      "record_sha256": "19f4229092639f8fd601e699016dc89550556752fc34d112e0cc9d5f557363ba",
+      "cleanup_checks": 17,
+      "passes": 12
+    },
+    "typography-final-phone200": {
+      "exit_code": 0,
+      "record_sha256": "a1a063353089fde141a1c47309fbd42dd03c3717f203aade0f38beb1abd68576",
+      "cleanup_checks": 18,
+      "passes": 2
+    },
+    "weather-before-tablet": {
+      "exit_code": 0,
+      "record_sha256": "a946c13428507ab9527350b84e8062160af5bc6e9bd991da9b1224e9b974425a",
+      "cleanup_checks": 13,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "weather-after-tablet": {
+      "exit_code": 0,
+      "record_sha256": "a21f59e3186de5edf71f25c449b4a3ed26eb1c5fbb4e1cb7095291451ee88108",
+      "cleanup_checks": 13,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "weather-before-phone": {
+      "exit_code": 0,
+      "record_sha256": "0bc1e8b46e11a88d8c907a37be7b4b80dc422a6685dab7d282f526f16a676cd3",
+      "cleanup_checks": 15,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "weather-after-phone": {
+      "exit_code": 0,
+      "record_sha256": "84e933ce37918e24db17e1af58842e8351849c04ba07d4bee64eb0fc5299caf7",
+      "cleanup_checks": 15,
+      "workflow_status_counts": {
+        "observed-failed": 1
+      }
+    },
+    "native-final-tablet": {
+      "exit_code": 0,
+      "record_sha256": "60db5a6add21be218b03057d234fe6d5cf0609cd138117aafb135e39f5242624",
+      "cleanup_checks": 13,
+      "passes": 25
+    },
+    "native-final-phone": {
+      "exit_code": 0,
+      "record_sha256": "1dbf45e86380083e835cb2cfb5057c292d6a56ceb3bdac0c27f214f9c16ae735",
+      "cleanup_checks": 15,
+      "passes": 25
+    },
+    "batch-final-tablet": {
+      "exit_code": 0,
+      "record_sha256": "a43e8a19e47f2fdc2fe85eea847148250fe2eadb2d88e41c65693915bf1b86ad",
+      "cleanup_checks": 13,
+      "workflow_status_counts": {
+        "observed-failed": 1,
+        "tested-partial": 3,
+        "tested-working-for-listed-workflow": 12
+      }
+    },
+    "batch-final-phone": {
+      "exit_code": 0,
+      "record_sha256": "db17f7f1d18056c4761f6e2642ad3f6c24096c3987b24c328b2cb35b687ee691",
+      "cleanup_checks": 15,
+      "workflow_status_counts": {
+        "observed-failed": 1,
+        "tested-partial": 3,
+        "tested-working-for-listed-workflow": 12
+      }
+    }
+  }
+}

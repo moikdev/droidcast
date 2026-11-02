@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionEmptyViewDeviceTest:
+INSTRUMENTATION_STATUS: test=listLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Every natural title/description line must become fully visible through pointer scrolling
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:311)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:317)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:407)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: Every natural title/description line must become fully visible through pointer scrolling
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:311)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:317)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:407)
+
+INSTRUMENTATION_STATUS: test=listLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=gridLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionEmptyViewDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The text viewport needs visible height
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:289)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:317)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:408)
+
+INSTRUMENTATION_STATUS: stream=
+Error in gridLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest):
+java.lang.AssertionError: The text viewport needs visible height
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:289)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:317)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:408)
+
+INSTRUMENTATION_STATUS: test=gridLongErrorLinesRemainReachableByTouch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 43.702
+There were 2 failures:
+1) listLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: Every natural title/description line must become fully visible through pointer scrolling
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:311)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:317)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.listLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:407)
+2) gridLongErrorLinesRemainReachableByTouch(dev.tinycast.android.ExtensionEmptyViewDeviceTest)
+java.lang.AssertionError: The text viewport needs visible height
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.inspectLines(ExtensionEmptyViewDeviceTest.kt:289)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.typography(ExtensionEmptyViewDeviceTest.kt:317)
+	at dev.tinycast.android.ExtensionEmptyViewDeviceTest.gridLongErrorLinesRemainReachableByTouch(ExtensionEmptyViewDeviceTest.kt:408)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
