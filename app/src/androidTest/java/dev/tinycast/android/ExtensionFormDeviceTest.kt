@@ -825,8 +825,21 @@ class ExtensionFormDeviceTest {
         }
     }
     private fun drag(viewport: SemanticsNodeInteraction, direction: Int) {
+        val semantic = viewport.fetchSemanticsNode()
+        val tag = if (semantic.config.contains(SemanticsProperties.TestTag)) semantic.config[SemanticsProperties.TestTag] else ""
+        val gutter = tag == "extension-form" || tag == "extension-configuration"
+        val gutterPx = 8f * context.resources.displayMetrics.density
+        val scrolls = record.optJSONArray("pointer_scrolls") ?: JSONArray().also { record.put("pointer_scrolls", it) }
         viewport.performTouchInput {
-            down(center); moveTo(Offset(center.x, center.y + direction * height * .25f), delayMillis = 300)
+            // A focused text editor or multiline editor can consume a drag
+            // that starts in its center. The Form's 20dp padding provides an
+            // actual pointer gutter belonging to its parent scroll container.
+            val x = if (gutter) minOf(gutterPx, width * .25f) else center.x
+            val start = Offset(x, center.y); val end = Offset(x, center.y + direction * height * .25f)
+            scrolls.put(JSONObject().put("viewport", tag).put("gutter", gutter)
+                .put("visible_bounds", JSONArray(listOf(semantic.boundsInRoot.left, semantic.boundsInRoot.top, semantic.boundsInRoot.right, semantic.boundsInRoot.bottom)))
+                .put("start", JSONArray(listOf(start.x, start.y))).put("end", JSONArray(listOf(end.x, end.y))))
+            down(start); moveTo(end, delayMillis = 300)
             advanceEventTime(200); up()
         }
         compose.waitForIdle()

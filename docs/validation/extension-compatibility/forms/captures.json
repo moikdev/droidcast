@@ -1105,5 +1105,221 @@
         "sha256": "09f4412051c4a32a0fbe0d540655575d578d59a40800d93c657d93f8c3ca5f39"
       }
     }
+  },
+  {
+    "cohort": "native-return-before-tablet-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-failure",
+    "name": "native-focus-before-tablet",
+    "caption": "Prior cef390f app with final d6fba18 harness: checkbox toggles but does not take native focus; expected native focus assertion failure",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-before-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-before-tablet.png",
+        "sha256": "33702265bcf0f90d31f8131165ac979091d7ed8e2e643af89c4804858e09cefa"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-before-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-before-tablet.xml",
+        "sha256": "79c43641b76c7347718dba8f82187b8d045d4ef694abcf9c562da23fc89d3c78"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-before-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-before-tablet-frame.json",
+        "sha256": "75af7afa8896287ac6ba641eb642bd8c97f01d5adba780c823636c9ed50d346a"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-tablet-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text",
+    "name": "native-focus-tablet-checkbox-after-text",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, tablet, 100%; checkbox-after-text",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-tablet-checkbox-after-text.png",
+        "sha256": "c50b3b8ce7a99309ba9b71ca4df8eb3d05e454ed397c92b23d1ab3d718d378b5"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-checkbox-after-text.xml",
+        "sha256": "9f4a66857e855092ac64b650eacb11732c5cffdef1c3278cdb5843ed6afb618f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-checkbox-after-text-frame.json",
+        "sha256": "ff49f61853db26536a20de517b61419500063549a07aeb55ba90a6a91e706009"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-tablet-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox",
+    "name": "native-focus-tablet-text-after-checkbox",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, tablet, 100%; text-after-checkbox",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-tablet-text-after-checkbox.png",
+        "sha256": "b6eaf4eff60a7d85c60f5d3fb8df72e421171f1e38c3f4cc30847b7a7a85d1f0"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-text-after-checkbox.xml",
+        "sha256": "aaaf2c397d87c303b6761070e3deaf086467c7eb4e064789a56fb2a46ac6ec42"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-tablet-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-tablet-text-after-checkbox-frame.json",
+        "sha256": "d72f173325a0320eae5374549c6182e9dc409287ec754b1c3c52e486ec034615"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-phone-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text",
+    "name": "native-focus-phone-checkbox-after-text",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, phone, 100%; checkbox-after-text",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-phone-checkbox-after-text.png",
+        "sha256": "80dc3fa3302b35242cada03dab51836e25fe4b7555829ae5dd951bca676dc0e3"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-checkbox-after-text.xml",
+        "sha256": "6d578a85bc5cc69152d91b365c1465f58689d2d8592266d000dadcf85b3a5069"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-checkbox-after-text-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-checkbox-after-text-frame.json",
+        "sha256": "ff49f61853db26536a20de517b61419500063549a07aeb55ba90a6a91e706009"
+      }
+    }
+  },
+  {
+    "cohort": "native-return-phone-v1",
+    "stem": "form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox",
+    "name": "native-focus-phone-text-after-checkbox",
+    "caption": "Repaired d6fba18 app; actual text/checkbox/same-text focus return, phone, 100%; text-after-checkbox",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-focus-phone-text-after-checkbox.png",
+        "sha256": "ed4e9027e8f1499b10921777088b36fa3842b354db1eece4d746a86181c4f70f"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-text-after-checkbox.xml",
+        "sha256": "4bdcc4b38a12e6f600023bb19be119c921274abf7ca721e11624761342befa03"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-return-phone-v1/captures/form-returningfromcheckboxrefocusesthesametextfield-text-after-checkbox-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-focus-phone-text-after-checkbox-frame.json",
+        "sha256": "d72f173325a0320eae5374549c6182e9dc409287ec754b1c3c52e486ec034615"
+      }
+    }
+  },
+  {
+    "cohort": "native-layout-before-landscape-font-1-3-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-failure",
+    "name": "native-layout-before-landscape-font130",
+    "caption": "Prior cef390f app with final d6fba18 harness; 130% short landscape and actual IME; Run chrome omitted, body only 35dp, expected full-hit-region assertion failure",
+    "app_sha256": "23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.3,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-layout-before-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-layout-before-landscape-font130.png",
+        "sha256": "343a1461e24a2238f7055aa4090ecdbcdf533d308ee28aadfb96eede6f5a8a97"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-layout-before-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-before-landscape-font130.xml",
+        "sha256": "e92ffaaf9cd0f6df547d17f62700aeda3de36c794ef8767a15b04cb204fd9fce"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-layout-before-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-before-landscape-font130-frame.json",
+        "sha256": "27418b56dbf873c9da7ce78a754fa4d282711d7d1a945f611086686b6f4864d7"
+      }
+    }
+  },
+  {
+    "cohort": "native-layout-landscape-font-1-3-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited",
+    "name": "native-layout-after-landscape-font130-configuration-edited",
+    "caption": "Repaired d6fba18 app; 130% short landscape, native edited configuration after full visible choice tap / exact destination; configuration-edited",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.3,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-layout-after-landscape-font130-configuration-edited.png",
+        "sha256": "08ee8e6ff9d2410f7d998a4572baae9ae9b8cb1a18a22a32affb1ee551f6f792"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-edited.xml",
+        "sha256": "41d1765daaa8d89d4418427358880e159a7fbcd44a0f6b80bbb98eee6f26ee82"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-edited-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-edited-frame.json",
+        "sha256": "fa29a7fddcb51314a6e36ee6f16901f5212a35c741fe8117ee505aa208cfbb19"
+      }
+    }
+  },
+  {
+    "cohort": "native-layout-landscape-font-1-3-v1",
+    "stem": "form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination",
+    "name": "native-layout-after-landscape-font130-configuration-destination",
+    "caption": "Repaired d6fba18 app; 130% short landscape, native edited configuration after full visible choice tap / exact destination; configuration-destination",
+    "app_sha256": "ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec",
+    "test_apk_sha256": "9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5",
+    "font_scale": 1.3,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination.png",
+        "public": "docs/screenshots/extension-compatibility/forms/native-layout-after-landscape-font130-configuration-destination.png",
+        "sha256": "88b53eadd7b47c70ee75e9adc7b3c74ab1beafa8667208eda2ab2b38584f837b"
+      },
+      ".xml": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination.xml",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-destination.xml",
+        "sha256": "dc345f1b9c38744b2fbbe9a628b24fded9410425cb437da98fa5111a52440a80"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-controls/native-layout-landscape-font-1-3-v1/captures/form-nativeconfigurationeditsvalidatecancelandrun-configuration-destination-frame.json",
+        "public": "docs/validation/extension-compatibility/forms/frames/native-layout-after-landscape-font130-configuration-destination-frame.json",
+        "sha256": "0a06df4b435f0a608d49209e52bb4febb3f7a81cd930a807ce8257a30da2599c"
+      }
+    }
   }
 ]

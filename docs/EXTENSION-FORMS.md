@@ -12,17 +12,20 @@ Raycast documents [controlled/uncontrolled fields and blur-driven validation](ht
 
 All observations use the dedicated `Tinycast_Tablet_API_36` emulator, with ordinary app/adbd identities. The emulated profiles are tablet 1920×1200 at 240 dpi, portrait phone 1080×2340 at 420 dpi, and short landscape 2340×1080 at 420 dpi. Font scales are requested at 100%, 130%, 150% and 200%, then checked inside the running app. These are three profiles on one emulator, not physical device or actual split-window coverage.
 
-The production implementation is frozen at `cef390f9844de1d1e2def94331b1ed0b887cb2af`. App SHA-256: `23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67`. Its original instrumentation is `db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173`.
+The first complete Form runtime is frozen at `cef390f9844de1d1e2def94331b1ed0b887cb2af`. App SHA-256: `23044efca3f831657c1f291638d3897f31ce27333df4d4ddebae3575b144ea67`. Its original instrumentation is `db59aac8fc700e8d5a69ede60dd2477116183a4ed20634c9646a27fc9741c173`. These observations retain that identity after the later native focus/layout repair.
 
-The final pointer harness is built from `37856b97c4d2bd99d69f10aa6c4af741d48ff171`, against the same frozen production sources/build stamp. Its instrumentation SHA-256 is `74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792`. Later harness changes reveal partially clipped targets through both scroll owners, tap within the visible rectangle and verify editable focus. They also wait for native IME-window removal and two display frames before constructing the controlled InputConnection. The app APK remains byte-identical.
+The strengthened pointer harness is built from `37856b97c4d2bd99d69f10aa6c4af741d48ff171`, against those same frozen production sources/build stamp. Its instrumentation SHA-256 is `74e759521111238aa9409e6322e2dda5446453c58aa6d1c5c52a26e10c713792`. It reveals partially clipped targets through both scroll owners, taps within the visible rectangle and verifies editable focus. It also waits for native IME-window removal and two display frames before constructing the controlled InputConnection. This harness cohort uses the byte-identical `cef390f` app.
+
+Two additional native checks exposed app defects: the configuration Run button was absent from the palette's chrome budget, leaving only a 35 dp body at 130% in short landscape; and checkbox taps moved logical Form focus while leaving the native text editor focused, preventing the return focus callback. The current repair registers the full Run-button chrome and explicitly moves native checkbox focus. Frozen source: `d6fba18b0228e3af1aef35fd6981d2401a4073d8`; app SHA-256 `ca754322576650b25f0ff3d0a1555781bd9c6973408427241c7b008f4d0c6dec`; instrumentation SHA-256 `9e72fe58c1ed93b640e30d4751bc9e51d76494c2a75ff4be2ac4c20b579b27c5`. Its final native matrix and regressions are still in progress.
 
 | Check | Observed result |
 | --- | --- |
 | Original frozen harness, complete Form cases | 23/23 on tablet, phone and short landscape at 100% |
+| Repaired d6fba18 runtime, complete Form cases | 24/24 on tablet, phone and short landscape at 100%; includes native checkbox/same-text focus return |
 | Rapid edit/blur and controlled-value controls | Two matched prior-app failures, then 8/8 focused cases per portrait layout |
 | Five basic baseline behaviors | Five intended old-app failures per portrait layout; current full suites cover the repaired behaviors |
 | Stale text/choice callbacks | Six intended prior-app failures; current suites cover root removal, replacement field/session, changed option and reopened menu |
-| Current pointer harness/profile matrix | In progress; no completed matrix claim yet |
+| Repaired d6fba18 runtime, enlarged-font matrix | In progress; no completed matrix claim yet |
 | Shared menu/IME and reviewed-input regressions | Pending |
 | JVM | 198 passing cases |
 | Android adapter stub contracts | Seven passing Node cases, separate from actual React/device checks |
@@ -36,7 +39,13 @@ The guarded runner holds one nonce-bound lease through fixture deletion, indepen
 
 ## Raw Android captures
 
-The [capture manifest](validation/extension-compatibility/forms/captures.json) binds all 41 unmodified PNGs to their paired XML/frame receipts and exact app/test hashes. The normal before/after pairs use the identical original `cef390f` instrumentation against the old and repaired apps. The 200% sets use the separate `37856b9` pointer harness with the unchanged repaired app.
+The [capture manifest](validation/extension-compatibility/forms/captures.json) binds 49 unmodified PNGs to their paired XML/frame receipts and exact app/test hashes. The first 41 keep their `cef390f` runtime identity: normal before/after pairs use identical original instrumentation, while the 200% sets use the separate `37856b9` pointer harness. Eight additional raw sets bind the matched `cef390f` failure / `d6fba18` native-focus and configuration-layout repair to the same final instrumentation.
+
+| Prior native focus, tablet | Repaired same-text return, tablet | Configuration draft after selection, IME hidden |
+| --- | --- | --- |
+| ![Prior checkbox takes logical focus but fails the native focus assertion](screenshots/extension-compatibility/forms/native-focus-before-tablet.png) | ![Returning from checkbox to the same text field delivers the fresh native focus](screenshots/extension-compatibility/forms/native-focus-tablet-text-after-checkbox.png) | ![Native edited configuration draft and Run button at 130%, after the choice menu closes](screenshots/extension-compatibility/forms/native-layout-after-landscape-font130-configuration-edited.png) |
+
+The old configuration failure capture has the IME open. The repaired draft capture follows menu selection with the IME hidden; the receipt separately records the full visible pre-tap target bounds and exact selected value.
 
 | Old supplied error, phone | Repaired error, phone | Readable selected option, phone |
 | --- | --- | --- |
@@ -60,6 +69,8 @@ The test opens the actual native preference UI, chooses **Spaces: 2**, edits `ma
 
 The first implementation's isolated rapid-blur pass did not clear its later combined-suite failure: JavaScript's captured value could lag the native edit. The final adapter's matched negative controls exercise the failing behavior before the repair. Earlier prototype APKs, compile errors, probe failures and partial runs retain their own identities.
 
-With the frozen `cef390f` app and original harness, the 200% tablet and phone profiles pass all five workflows. The first 200% short-landscape cohort remains **2/5**, with failed navigation/composition setup. Stricter helper revisions retain their separate **0/3**, **2/3** and **4/5** receipts. The latter's JSON Copy succeeds, but its Back assertion finds only a two-pixel visible target. These attempts are not relabeled as successful matrix executions. Later same-APK cohorts establish the corrected helper's result separately.
+With the frozen `cef390f` app and original harness, the 200% tablet and phone profiles pass all five workflows. The first 200% short-landscape cohort remains **2/5**, with failed navigation/composition setup. Stricter helper revisions retain their separate **0/3**, **2/3** and **4/5** receipts. The latter's JSON Copy succeeds, but its Back assertion finds only a two-pixel visible target. The strengthened same-APK harness then passes all five workflows at 200% on all three layouts and at 130% on tablet/phone. Its 130% landscape group remains **4/5**: the stricter visible-target check exposes the actual insufficient configuration-body allocation. The remaining 150% groups and final full landscape run did not start in that pipeline. None is credited to the `d6fba18` repair.
+
+The separate same-text return probe on the `cef390f` app fails. Two new-harness matched controls also fail the intended native-focus and configuration-target assertions against that prior app. All their restoration checks pass. The repaired app's focused return checks pass on tablet, phone and 200% short landscape. Completed broader repair outcomes remain a separate gate.
 
 Natural-height/non-ellipsized text and sequential full-line reachability are required; a screenshot of a clipped fragment is insufficient. Native XML is captured before each unmodified PNG, with a frame receipt and stable runtime tree. Destination/error/return captures complement assertions. Owned probes establish renderer and callback behavior, not external service recovery, arbitrary extension compatibility or broader platform readiness. Physical/OEM devices, full accessibility, actual split-window, production signing/migration and full parity remain open.
