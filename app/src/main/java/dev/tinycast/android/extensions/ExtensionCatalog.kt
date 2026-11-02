@@ -236,5 +236,5 @@ class ExtensionCatalog(private val context: Context) {
         stopRuntime(Any())
         reviewedText.invalidate(); commandText = null; preparedText = null
     }
-    fun close() { revokeReviewedText(); running = null; runtimeTree = null; runtimeError = null; runtimeReady = false }
+    fun close() { revokeReviewedText(); running = null; runtimeTree = null; runtimeError = null; runtimeStatus = ""; runtimeReady = false }
 }

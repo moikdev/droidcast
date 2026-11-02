@@ -43,7 +43,11 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         settings.mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
         settings.cacheMode = WebSettings.LOAD_NO_CACHE
         addJavascriptInterface(Bridge(), "AndroidHost")
-        webChromeClient = WebChromeClient()
+        webChromeClient = object : WebChromeClient() {
+            // Extension output can contain reviewed input. Consume engine
+            // console messages instead of forwarding them to Android logs.
+            override fun onConsoleMessage(message: ConsoleMessage?): Boolean = true
+        }
         webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?) = true
             override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?) = WebResourceResponse("text/plain", "UTF-8", ByteArrayInputStream(byteArrayOf()))
