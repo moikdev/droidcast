@@ -238,7 +238,7 @@ internal fun NativeExtensionGrid(
                 BasicTextField(state.search, { next ->
                     val changed = next.text != state.search.text
                     state.search = next
-                    if (changed) { state.selectLocally(null); dispatch(rootProvider().handle("onSearchTextChange"), JSONArray().put(next.text)) }
+                    if (changed) { state.selectLocally(null); dispatch(rootProvider()?.handle("onSearchTextChange"), JSONArray().put(next.text)) }
                 }, singleLine = true, textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search, showKeyboardOnFocus = !wide || keyboardRequested),
                     keyboardActions = KeyboardActions(onSearch = { if (state.search.composition == null) action(currentActions().firstOrNull()) }),
