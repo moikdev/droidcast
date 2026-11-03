@@ -23,12 +23,13 @@
   },
   "layout": "landscape",
   "font_scale": 1,
-  "common_failing_assertion": "InlinePaletteDeviceTest.kt:370 action-Copy content assertIsDisplayed",
+  "common_failing_assertion": "InlinePaletteDeviceTest.kt:370 inline-menu-empty assertIsDisplayed (No matching actions)",
   "cause_unisolated": true,
   "current_execution_credit": 0,
   "remaining_issue": 71,
   "independent_recovery_receipts": [
     "recovery/landscape-baseline-legacy-recovery.json",
     "recovery/landscape-candidate-legacy-recovery.json"
-  ]
+  ],
+  "label_correction": "Original Copy content label referred to the later assertion at line374; the actual failure is the empty state at line370. Runtime and test outcomes are unchanged."
 }

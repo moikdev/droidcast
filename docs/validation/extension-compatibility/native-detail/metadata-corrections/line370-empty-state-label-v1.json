@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "baseline_publication_commit": "fd2a78027f0189257cb31cc67c375cfaa2186036",
+  "scope": "Correct assertion-target labels only; no change to source/test/runner binaries, captures, test outcomes or execution credit.",
+  "actual_assertion": "InlinePaletteDeviceTest.kt:370 inline-menu-empty assertIsDisplayed",
+  "actual_text": "No matching actions",
+  "previous_label": "action-Copy content (a later assertion at line374)",
+  "original_input_sha256": {
+    "docs/EXTENSION-MARKDOWN-DETAIL.md": "7f5e04075020d821363f2cb8734216dab89f564f61ba630d217ef9d8abe97d7f",
+    "docs/validation/extension-compatibility/native-detail/checkpoint.json": "242a74008de2fb2a9c150b207a0f43a1c70e256c8531864bbcef13bc1d6fa80c",
+    "docs/validation/extension-compatibility/native-detail/publication-plan.json": "4c42412eb4b91d574f4895b398af975579300f2afb1f86f3dd679f6c81ac4750",
+    "docs/validation/extension-compatibility/native-detail/pipelines/action-search-boundary-v1.json": "2ed8b6958ad5fc2cf4e23285b4401161ef5668aa68d06e9968b66b506c343020",
+    "docs/validation/extension-compatibility/native-detail/publication-bindings.json": "024c73b01c512fc52109a8e32bc60377a2d0f618097710ca8009a9c7fc901810"
+  },
+  "corrected_file_sha256": {
+    "docs/EXTENSION-MARKDOWN-DETAIL.md": "77c6309e7e51bc4accad8feb091d2dcadb090de5ffba00ed79cf58c91736c111",
+    "docs/validation/extension-compatibility/native-detail/publication-plan.json": "217469e6d8eea94912a8a505fa02a06e89908b57237495558f641d1bc5d6a836",
+    "docs/validation/extension-compatibility/native-detail/pipelines/action-search-boundary-v1.json": "562a119579a1b557e15986724d5ea107c39e3e4c5a04fd5c549e7d155ebdf46e",
+    "docs/validation/extension-compatibility/native-detail/publication-bindings.json": "6b8a06bd7251bf7b2b25f103f5ee7934c1fa34752622abae4f0b97f5443cc0ae"
+  },
+  "all_216_current_source_hashes_unchanged": true,
+  "all_43_raw_capture_sets_unchanged": true,
+  "current_native_executions": 161,
+  "current_native_cohorts": 24,
+  "current_cohort_cleanup_checks": 467
+}

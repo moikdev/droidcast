@@ -242,7 +242,7 @@
     "Whole Store/source parity; static3491 directories/11153 declarations remain untested",
     "Complete note preview/import/export under #10 and production signing/migration stay separate",
     "Legacy category-menu geometry assertion fails on both base/current at phone200%; cause unisolated under #71; shared-key cohorts are100% only.",
-    "Legacy action-search Copy-content visibility assertion fails on both base/current at landscape100%; cause unisolated under #71; excluded from the three-case landscape keyboard cohort."
+    "Legacy action-search empty-state visibility assertion fails on both base/current at landscape100%; cause unisolated under #71; excluded from the three-case landscape keyboard cohort."
   ],
   "scope": "Scoped native Markdown/metadata/Detail milestone; retained failures and older binary identities remain distinct. No full Store/platform/OEM/accessibility/production clearance.",
   "public_files": {
@@ -996,6 +996,7 @@
     "docs/validation/extension-compatibility/native-detail/cohorts/touch-finish-matched-v2-before-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": "c18d2a15f6f370d5cd428b0734725fd9ccd4c368ae2d2bf009fe4173cd21923b",
     "docs/validation/extension-compatibility/native-detail/cohorts/touch-finish-matched-v2-before-tablet100/record.json": "a1dab39041f921d66aa4b1f8a0fcccaaedc2b70f57521c830a036e93d9f53ee8",
     "docs/validation/extension-compatibility/native-detail/cohorts/touch-finish-matched-v2-before-tablet100/tests.log": "ca6720d129c489df64c54aca586c030871db93d0d2a98a51e114952354015d18",
+    "docs/validation/extension-compatibility/native-detail/correct-line370-label-v1.py": "3fc7fc6693bf6a18fc93f436236566a04f4c78a475d4a6b6c480b3c8bf5e684e",
     "docs/validation/extension-compatibility/native-detail/final-source-identity.json": "d758e7088150c440f2296d3f5e0512a6d942f3068fd917f5c35dc7a6f6766eaf",
     "docs/validation/extension-compatibility/native-detail/frames/block-geometry-before-landscape200-frame.json": "cbb6fea0df9a6b0b9390fc78560886d47a938cd67ceab168a375659858294d80",
     "docs/validation/extension-compatibility/native-detail/frames/block-geometry-before-landscape200.xml": "12480444950f18ae0243c0a0ab91ee688277bc3e951d138940dc16b54ba251c9",
@@ -1085,7 +1086,8 @@
     "docs/validation/extension-compatibility/native-detail/frames/unsupported-link-phone200.xml": "7b1f48961461e1459a242e84500003a9a07fea4a635dc91329e240171230c4cf",
     "docs/validation/extension-compatibility/native-detail/frames.json": "c017f6957950dafdc000994a455e0dcee037a717ef6e65dfdf387ecb6f5f8fa5",
     "docs/validation/extension-compatibility/native-detail/local-checks.json": "43b2005b04af6707a870a5352cd6659a87621e71b95d6f37e57d14d230d1958c",
-    "docs/validation/extension-compatibility/native-detail/pipelines/action-search-boundary-v1.json": "2ed8b6958ad5fc2cf4e23285b4401161ef5668aa68d06e9968b66b506c343020",
+    "docs/validation/extension-compatibility/native-detail/metadata-corrections/line370-empty-state-label-v1.json": "86a2e5f6574ac2c50ec46fd79a4971dc2642b322a9dffd4227acd548c55f0b8c",
+    "docs/validation/extension-compatibility/native-detail/pipelines/action-search-boundary-v1.json": "562a119579a1b557e15986724d5ea107c39e3e4c5a04fd5c549e7d155ebdf46e",
     "docs/validation/extension-compatibility/native-detail/pipelines/before-controls-v1-state.json": "773842be626ceda6b8fad1e1b6a4ad69336744584a9ac0936340e836faa19b89",
     "docs/validation/extension-compatibility/native-detail/pipelines/category-menu-boundary-v1.json": "8e90404c86ea769859ecefd4abebd55e83cbe6071676f8e452630fd5003cd5d7",
     "docs/validation/extension-compatibility/native-detail/pipelines/deadline-boundary-v1.json": "3355af9872ad39f7699a5e197793f8ca75002a55a399666c053c94a139e3e0ea",
@@ -1120,8 +1122,8 @@
     "docs/validation/extension-compatibility/native-detail/pipelines/touch-finish-after-v1-state.json": "235725dbbb177970a0df5281a3b4b9e8ed4d2b5868ec631d800e7f55177feeba",
     "docs/validation/extension-compatibility/native-detail/pipelines/touch-finish-before-v1-state.json": "f65d07e86dbc300eb2e20d235d3c23e64a62e613e344bc5f348b7c29e4725520",
     "docs/validation/extension-compatibility/native-detail/pipelines/touch-finish-matched-v2-state.json": "b903e4d3066a5269c52113ab98775588ad441791ba7a05ce0ea73e5c97ce9c43",
-    "docs/validation/extension-compatibility/native-detail/publication-bindings.json": "024c73b01c512fc52109a8e32bc60377a2d0f618097710ca8009a9c7fc901810",
-    "docs/validation/extension-compatibility/native-detail/publication-plan.json": "4c42412eb4b91d574f4895b398af975579300f2afb1f86f3dd679f6c81ac4750",
+    "docs/validation/extension-compatibility/native-detail/publication-bindings.json": "6b8a06bd7251bf7b2b25f103f5ee7934c1fa34752622abae4f0b97f5443cc0ae",
+    "docs/validation/extension-compatibility/native-detail/publication-plan.json": "217469e6d8eea94912a8a505fa02a06e89908b57237495558f641d1bc5d6a836",
     "docs/validation/extension-compatibility/native-detail/publish.py": "f874028015c60def3212c7666d01b633ebf70bc3a4c0489fea0fb7d1dd8434d4",
     "docs/validation/extension-compatibility/native-detail/recovery/baseline-legacy-recovery.json": "a39be572854fb203c01a7465d2d5123681fa70557ecd30969bba92f9c1167244",
     "docs/validation/extension-compatibility/native-detail/recovery/candidate-legacy-recovery.json": "637f95455a8c4a5ba774c8f3a8b49434c2000d3401de33c35fc79961bbd39a38",
@@ -1133,5 +1135,8 @@
     "docs/validation/extension-compatibility/native-detail/research/material3-tooltip-1.3.1-v1/record.json": "75c5873bed121290c6a520b0f56eb94ee477b8c8d868a52ba10fa41208473483",
     "docs/validation/extension-compatibility/native-detail/research/parser-0.32.0-v1/dependency-record.json": "cddf908211b85c15552a1af25a79bd37be1ffd5fb1ceb986a4bd6b8a541bca06",
     "docs/validation/extension-compatibility/native-detail/retained-capture-hashes.json": "d038869f9547f1058a286bd10eb51e709aa84df44207ae19f1923bdd0e06bfbe"
-  }
+  },
+  "metadata_corrections": [
+    "docs/validation/extension-compatibility/native-detail/metadata-corrections/line370-empty-state-label-v1.json"
+  ]
 }
