@@ -36,7 +36,7 @@ Final debug builds exactly reproduce the frozen app and final selection test APK
 | Original common primary/menu controls | Four intended old-app failures across tablet/phone, then four repaired-app passes with byte-identical instrumentation |
 | Additional controls | Seven intended old-app failures: blur, aliases, current JS error and three native queued-model transitions; repaired core cases pass with the same instrumentation |
 | Core acceptance | 22/22 on each normal-size profile: 66 executions |
-| Separate missing-root supplement | 1/1 on each profile: three executions, final harness |
+| Separate missing-root supplement | 1/1 on each profile: three executions, root/normal harness `ca788c5` |
 | Critical 200% validation/reason text | 1/1 per profile with actual IME hidden/shown/hidden, pointer scrolling and full-line witnesses |
 | Existing Form regression suite | 24/24 per profile: 72 executions, root/normal harness `ca788c5` |
 | Enlarged-font Form/JSON/valid-submit regressions | Six workflows per profile at 200%: 18 executions, final selection harness `b54243f` |
