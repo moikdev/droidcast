@@ -120,9 +120,11 @@ public final class OwnedFormDocumentsProvider extends DocumentsProvider {
         for (String child : children) addDocument(result, child);
         return result;
     }
-    @Override public boolean isChildDocument(String parent, String id) throws FileNotFoundException {
-        entry(parent); entry(id);
-        return ("root".equals(parent) && !"root".equals(id)) || ("folder".equals(parent) && "nested".equals(id));
+    @Override public boolean isChildDocument(String parent, String id) {
+        try {
+            entry(parent); entry(id);
+            return ("root".equals(parent) && !"root".equals(id)) || ("folder".equals(parent) && "nested".equals(id));
+        } catch (FileNotFoundException ignored) { return false; }
     }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
         if (signal != null) signal.throwIfCanceled();
