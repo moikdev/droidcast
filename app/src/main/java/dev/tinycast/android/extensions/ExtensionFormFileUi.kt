@@ -144,7 +144,11 @@ internal fun NativeFormFilePicker(root: JSONObject, field: JSONObject, owner: Fo
                     } catch (_: TimeoutCancellationException) {
                         if (pick === expected) problem = "The document provider took too long. You can try again."
                     } catch (cancelled: CancellationException) { throw cancelled
-                    } catch (_: Exception) {
+                    } catch (failure: Exception) {
+                        if (dev.tinycast.android.BuildConfig.DEBUG) {
+                            val site = failure.stackTrace.firstOrNull { it.className.startsWith("dev.tinycast.android.") }
+                            android.util.Log.w("Droidcast-FormImport", "Import failed: ${failure.javaClass.simpleName} at ${site?.className}.${site?.methodName}:${site?.lineNumber}")
+                        }
                         // Provider exceptions can include private URIs or paths.
                         if (pick === expected) problem = "Could not import this selection. Check access, document names and the import limits."
                     } finally {
