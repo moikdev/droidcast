@@ -155,10 +155,13 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
             Dialog(onDismissRequest = { if (opening === token) opening = null },
                 properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
                 FormPickerBackdrop(resizeForIme = true)
-                Surface(Modifier.heightIn(max = pickerVisibleHeight(parentView, parentIme))
-                    .padding(horizontal = 12.dp, vertical = 6.dp).widthIn(max = 560.dp).fillMaxWidth()
+                val visibleHeight = pickerVisibleHeight(parentView, parentIme)
+                val compact = visibleHeight < 200.dp
+                Surface(Modifier.heightIn(max = visibleHeight)
+                    .padding(horizontal = 12.dp, vertical = if (compact) 0.dp else 6.dp).widthIn(max = 560.dp).fillMaxWidth()
                     .testTag("extension-date-dialog-$id"), shape = MaterialTheme.shapes.extraLarge, color = PaletteTheme.surface) {
-                    Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Column(Modifier.padding(horizontal = 8.dp, vertical = if (compact) 0.dp else 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(if (compact) 4.dp else 12.dp)) {
                         Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             Text(title, fontSize = 18.sp, lineHeight = 26.sp, color = PaletteTheme.ink)
                             DatePicker(state, title = null, headline = null, modifier = Modifier.fillMaxWidth().testTag("extension-date-calendar-$id"))
