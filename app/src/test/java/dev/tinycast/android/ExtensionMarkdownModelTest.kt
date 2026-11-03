@@ -50,6 +50,7 @@ class ExtensionMarkdownModelTest {
         assertEquals("first", text((items.items[0][0] as MarkdownBlock.Paragraph).content))
         val nested = items.items[0][1] as MarkdownBlock.Items
         assertFalse(nested.ordered); assertEquals("nested", text((nested.items.single().single() as MarkdownBlock.Paragraph).content))
+        assertEquals(0, (ExtensionMarkdown.parse("0. zero\n").blocks.single() as MarkdownBlock.Items).start)
     }
     @Test fun quotesAndDividersRemainSeparateBlocks() {
         val blocks = ExtensionMarkdown.parse("> first\n>\n> second\n\n---\n").blocks
@@ -68,7 +69,8 @@ class ExtensionMarkdownModelTest {
         val content = (document.blocks[0] as MarkdownBlock.Paragraph).content.filterIsInstance<MarkdownInline.Words>()
         assertTrue(content.first().marks.strike)
         assertEquals("javascript:owned", content.last().link?.destination)
-        assertEquals(MarkdownBlock.Code("<script>owned()</script>\n", "html"), document.blocks[1])
+        // CommonMark's HTML-block literal excludes its terminal line ending.
+        assertEquals(MarkdownBlock.Code("<script>owned()</script>", "html"), document.blocks[1])
     }
     @Test fun oversizedSourcesAndNodeCountsDoNotProducePartialDocuments() {
         val source = ExtensionMarkdown.parse("x".repeat(ExtensionMarkdown.MAX_SOURCE_UNITS + 1))

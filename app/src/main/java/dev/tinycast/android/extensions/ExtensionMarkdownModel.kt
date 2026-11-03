@@ -72,7 +72,7 @@ internal object ExtensionMarkdown {
                 is HtmlBlock -> add(MarkdownBlock.Code(node.literal, "html"))
                 is BlockQuote -> add(MarkdownBlock.Quote(blocks(node, check)))
                 is BulletList -> add(MarkdownBlock.Items(false, 1, children(node).map { blocks(it, check) }))
-                is OrderedList -> add(MarkdownBlock.Items(true, node.startNumber, children(node).map { blocks(it, check) }))
+                is OrderedList -> add(MarkdownBlock.Items(true, node.markerStartNumber ?: 1, children(node).map { blocks(it, check) }))
                 is ThematicBreak -> add(MarkdownBlock.Divider)
                 is TableBlock -> {
                     val header = children(node).filterIsInstance<TableHead>().flatMap(::children).filterIsInstance<TableRow>().firstOrNull()
