@@ -1342,6 +1342,47 @@ class ExtensionFormDeviceTest {
         capture("date-confirmed")
         submittedTypedDate(expected); record.put("passed", true)
     }
+    private fun typedTagValues() = field("Form.TagPicker", "tags").props().getJSONArray("value").toString()
+    private fun typedTagRow(index: Int): SemanticsNodeInteraction {
+        val tag = "extension-tags-option-tags-$index"
+        compose.onNodeWithTag("extension-tags-options-tags").performScrollToNode(hasTestTag(tag))
+        return compose.onNodeWithTag(tag)
+    }
+    private fun submittedTypedTags(expected: List<String>) {
+        touch("extension-primary")
+        compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val values = probe().getJSONObject("submittedValues")
+        assertEquals(JSONArray(expected).toString(), values.getJSONArray("tags").toString())
+        assertEquals("2024-02-29T12:34:00.000Z", values.getString("date"))
+        assertEquals(0, values.getJSONArray("files").length())
+        record.put("submitted_tags", JSONArray(expected)).put("submit_count", probe().getInt("submits"))
+            .put("test_boundary", "Actual tag pointer changes and owned JS callback array values; file selection and a separate destination are not exercised")
+    }
+    @Test fun tagPickerAddsAndRemovesExactValuesByTouch() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertIsDisplayed()
+        typedTagRow(1).assertIsOn()
+        typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        compose.waitForIdle(); typedTagRow(0).assertIsOn(); capture("tags-two-selected")
+        typedTagRow(1).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-one\"]" }
+        compose.waitForIdle(); typedTagRow(1).assertIsOff()
+        compose.onNodeWithTag("extension-tags-done-tags").performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
+        compose.onNodeWithTag("extension-tags-tags").assertTextContains("Readable first category")
+        capture("tags-one-selected"); submittedTypedTags(listOf("internal-one")); record.put("passed", true)
+    }
+    @Test fun tagPickerClearsAndSubmitsAnEmptyArray() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        typedTagRow(1).assertIsOn(); capture("tags-before-clear")
+        compose.onNodeWithTag("extension-tags-clear-tags").performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[]" }
+        compose.waitForIdle(); typedTagRow(1).assertIsOff()
+        compose.onNodeWithTag("extension-tags-done-tags").performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
+        capture("tags-cleared"); submittedTypedTags(emptyList()); record.put("passed", true)
+    }
 
     @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
     @Test fun formsWithErrorsBlockActionsMenuKeyboardSubmit() = assertErroredSubmitBlocked(true)
