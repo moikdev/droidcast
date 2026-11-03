@@ -48,6 +48,7 @@ def main():
     parser.add_argument('--json-archive', type=Path, required=True)
     parser.add_argument('--mood-archive', type=Path, help='Optional hash-pinned Mood Tracker bundle for the owned real-Form workflow')
     parser.add_argument('--checksum-archive', type=Path, help='Optional hash-pinned Checksum bundle for the owned real-picker workflow')
+    parser.add_argument('--html-colors-archive', type=Path, help='Optional hash-pinned HTML Colors bundle for the owned native Detail workflow')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
@@ -74,6 +75,8 @@ def main():
     evidence_dirs = ['reviewed-text-evidence'] + (['extension-grid-evidence', 'readiness-evidence'] if regression else [])
     require(not args.inject_clipboard_restore_failure or args.classes == 'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
             'Restoration failure is limited to the deliberate process-death control')
+    require(not args.html_colors_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
+        for item in args.classes.split(',')), 'HTML Colors belongs only to the owned Detail cohort')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     archive = frozen_form_archive(args.json_archive, 'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
     typed_archives = {}
@@ -84,6 +87,9 @@ def main():
                                  ('checksum', args.checksum_archive, '8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d')]:
         if path is not None:
             typed_archives[name] = frozen_form_archive(path, expected)
+    if args.html_colors_archive is not None:
+        typed_archives['html-colors'] = frozen_form_archive(args.html_colors_archive,
+            '8a346fd2bd4ed01ceeacdeb71462b458014faa539a1f2b563638983843bdf0fb')
     sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
     if not sdk:
         sdk = next(line.removeprefix('sdk.dir=') for line in Path('local.properties').read_text().splitlines() if line.startswith('sdk.dir='))

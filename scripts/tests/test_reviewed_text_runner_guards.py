@@ -66,6 +66,22 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
     def test_similarly_named_detail_class_is_not_authorized(self):
         self.refused_without_device_access(DETAIL + 'Extra', [], 'Only owned input/Form/Markdown')
 
+    def test_markdown_cannot_claim_html_colors(self):
+        self.refused_without_device_access(MARKDOWN, ['--html-colors-archive', 'not-read.zip'],
+                                           'HTML Colors belongs only to the owned Detail cohort')
+
+    def test_form_cannot_claim_html_colors(self):
+        self.refused_without_device_access('dev.tinycast.android.ExtensionFormDeviceTest', ['--html-colors-archive', 'not-read.zip'],
+                                           'HTML Colors belongs only to the owned Detail cohort')
+
+    def test_legacy_cannot_claim_html_colors(self):
+        self.refused_without_device_access('dev.tinycast.android.InlinePaletteDeviceTest', ['--html-colors-archive', 'not-read.zip'],
+                                           'HTML Colors belongs only to the owned Detail cohort')
+
+    def test_html_colors_cannot_mix_with_another_owned_class(self):
+        self.refused_without_device_access(DETAIL + ',' + MARKDOWN, ['--html-colors-archive', 'not-read.zip'],
+                                           'HTML Colors belongs only to the owned Detail cohort')
+
 
 if __name__ == '__main__':
     unittest.main()

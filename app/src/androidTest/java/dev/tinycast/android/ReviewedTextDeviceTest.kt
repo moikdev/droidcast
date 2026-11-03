@@ -15,6 +15,7 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.core.view.ViewCompat
@@ -325,6 +326,18 @@ class ReviewedTextDeviceTest {
         assertEquals("```json\n$output\n```", markdown)
         assertEquals(sentinel, clipboardText())
         compose.onNodeWithTag("extension-primary").assertTextContains("Copy Full JSON", substring = true)
+        compose.waitForIdle()
+        compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-markdown-loading").fetchSemanticsNodes().isEmpty() }
+        record.put("native_format_contract_started", true)
+        assertEquals("Frozen JSON must expose exact selectable native code without Markdown fences", 1,
+            compose.onAllNodesWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNodes().size)
+        val code = compose.onNodeWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNode()
+        val rendered = code.config[SemanticsProperties.Text].single().text
+        assertEquals(output + "\n", rendered)
+        val layouts = mutableListOf<TextLayoutResult>()
+        instrumentation.runOnMainSync { assertTrue(requireNotNull(code.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        assertEquals(FontFamily.Monospace, layouts.single().layoutInput.style.fontFamily)
+        record.put("native_code_exact_output_sha256", hash(rendered.toByteArray())).put("native_code_monospace", true)
         capture("formatted")
         touch("extension-primary")
         compose.waitUntil(10000) { clipboardText() == output }

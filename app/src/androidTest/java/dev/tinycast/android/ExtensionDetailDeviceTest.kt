@@ -110,7 +110,7 @@ class ExtensionDetailDeviceTest {
             .put("width_dp", context.resources.configuration.screenWidthDp).put("height_dp", context.resources.configuration.screenHeightDp)
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
     }
-    private fun launch(mode: String) {
+    private fun fixtureDirectory(): File {
         val id = "reviewed-text-" + UUID.randomUUID().toString().replace("-", "")
         val directory = File(context.cacheDir, id)
         listOf(directory, File(context.filesDir, "extensions/$id"), File(context.filesDir, "extension-data/$id"),
@@ -123,6 +123,10 @@ class ExtensionDetailDeviceTest {
         val temporary = File(leaseFile.path + ".tmp"); assertFalse(temporary.exists())
         temporary.writeText(value.toString()); assertTrue(temporary.renameTo(leaseFile))
         ownedId = id; ownedIds += id; assertTrue(directory.mkdir())
+        return directory
+    }
+    private fun launch(mode: String) {
+        val directory = fixtureDirectory(); val id = directory.name
         val png = java.io.ByteArrayOutputStream().use { output ->
             val bitmap = Bitmap.createBitmap(120, 80, Bitmap.Config.ARGB_8888)
             bitmap.eraseColor(0xffe7582b.toInt()); assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, output)); bitmap.recycle(); output.toByteArray()
@@ -585,5 +589,74 @@ class ExtensionDetailDeviceTest {
         }
         launch("links"); staleLinks("successor-session", closingMarkdown, closingMetadata)
         capture("successor-link-owner"); record.put("closed_before_compose_disposal_rejected", true).put("passed", true)
+    }
+    @Test fun frozenHtmlColorsRendersSvgMetadataCopiesAndReturns() {
+        val archive = File(context.filesDir, "reviewed-text-fixture-lease/html-colors.zip")
+        assertTrue("Use the guarded frozen HTML Colors archive", archive.isFile)
+        val bytes = archive.readBytes()
+        assertEquals("8a346fd2bd4ed01ceeacdeb71462b458014faa539a1f2b563638983843bdf0fb", hash(bytes))
+        val directory = fixtureDirectory(); val id = directory.name
+        val extracted = ExtensionArchive.extract(bytes, directory)
+        val commandHash = "0271dcb698ac556e5973a4a2a412a1746e36e1f8f67994cd29b59a0338da3d67"
+        assertEquals(commandHash, hash(File(extracted, "html-color.js").readBytes()))
+        val extension = InstalledExtension(StoreExtension(id, "html-colors", "HTML Colors (owned frozen copy)", "", "Droidcast tests", "test", "", "", "", 1),
+            extracted, JSONObject(File(extracted, "package.json").readText()))
+        record.put("scope", "Unmodified frozen HTML Colors JavaScript in an owned namespace; default Blue search/detail/Copy path only")
+            .put("archive_sha256", hash(bytes)).put("frozen_command_sha256", commandHash).put("owned_extension_id", id)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single { command -> command.name == "html-color" }) }
+        compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "List" }
+        assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle(); ime(false)
+        assertEquals(false, activeRoot(catalog.runtimeTree)!!.props().opt("isShowingDetail"))
+        compose.onNodeWithTag("extension-detail").assertDoesNotExist(); capture("html-colors-default-list")
+        compose.onNodeWithTag("extension-search").performTextReplacement("Blue")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.let { root -> root.props().optString("searchText") == "Blue" &&
+            root.nodes("List.Item").any { it.props().optString("title") == "Blue" } } == true }
+        compose.waitForIdle(); ime(false)
+        fun blue() = compose.onAllNodes(hasText("Blue") and hasAnyAncestor(hasTestTag("extension-list"))).onFirst()
+        fun selectBlue() {
+            compose.onNodeWithTag("extension-list").performScrollToNode(hasText("Blue"))
+            touch(blue())
+        }
+        fun mode(title: String, expected: Boolean) {
+            val root = requireNotNull(activeRoot(catalog.runtimeTree)); val row = root.nodes("List.Item").first { it.props().optString("title") == "Blue" }
+            val scope = extensionActionScope(root, row, root.nodes("List.Item").size, "Blue")
+            val index = scope.nodes.indexOfFirst { it.props().optString("title") == title }; assertTrue(index >= 0)
+            touchTag("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement(title)
+            touchTag("extension-action-$index")
+            compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.props()?.opt("isShowingDetail") == expected }; compose.waitForIdle()
+        }
+        fun metadataValue(text: String) {
+            val target = compose.onNode(hasText(text) and hasAnyAncestor(hasTestTag("extension-detail-metadata")), useUnmergedTree = true)
+            val node = reveal(target).fetchSemanticsNode(); val layouts = mutableListOf<TextLayoutResult>()
+            compose.runOnUiThread { assertTrue(requireNotNull(node.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+            val layout = layouts.single(); val origin = compose.runOnUiThread { node.positionInRoot }; val viewport = node.boundsInRoot
+            assertTrue(node.size.height + 1 >= layout.multiParagraph.height)
+            val receipts = record.optJSONArray("html_metadata_lines") ?: JSONArray().also { record.put("html_metadata_lines", it) }
+            for (line in 0 until layout.lineCount) {
+                assertFalse(layout.isLineEllipsized(line))
+                val bounds = Rect(origin.x + layout.getLineLeft(line), origin.y + layout.getLineTop(line),
+                    origin.x + layout.getLineRight(line), origin.y + layout.getLineBottom(line))
+                receipts.put(JSONObject().put("text", text).put("line", line).put("line_bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+                    .put("clipped_text_bounds", JSONArray(listOf(viewport.left, viewport.top, viewport.right, viewport.bottom))))
+                assertTrue("Frozen metadata value must be completely readable", bounds.left >= viewport.left - 1f && bounds.right <= viewport.right + 1f &&
+                    bounds.top >= viewport.top - 1f && bounds.bottom <= viewport.bottom + 1f)
+            }
+        }
+        selectBlue(); mode("Show Details", true); selectBlue()
+        imagePixel("Blue Color Preview", 0xff0000ff.toInt()); capture("html-colors-blue-svg")
+        metadataValue("#0000FF"); capture("html-colors-hex-metadata")
+        metadataValue("rgb(0, 0, 255)"); capture("html-colors-rgb-metadata")
+        mode("Hide Details", false); compose.onNodeWithTag("extension-detail").assertDoesNotExist(); capture("html-colors-hidden-detail")
+        mode("Show Details", true); selectBlue(); imagePixel("Blue Color Preview", 0xff0000ff.toInt())
+        assertEquals("Owned Markdown clipboard sentinel", clipboard()); touchTag("extension-primary")
+        compose.waitUntil(10000) { clipboard() == "#0000FF" }; dismissClipboard("html-colors-copy"); capture("html-colors-copied-hex")
+        backToResults(); compose.onNodeWithTag("extension-search").assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("Blue")))
+        touchTag("extension-back"); assertNull(compose.activity.store.dialog); assertEquals(caller, compose.activity.store.query)
+        record.put("phase_outcomes", JSONObject().put("startup", "working").put("rendering", "Blue SVG and metadata working")
+            .put("interaction", "search, select, detail toggle, Copy HEX working").put("destination", "exact #0000FF clipboard and caller return")
+            .put("configuration", "no preferences or arguments required for this path").put("service", "not exercised; static-bundle path"))
+            .put("overall_command", "partial").put("remaining_scope", "List dropdown/accessory modes, other colors/actions and complete command parity are untested")
+            .put("passed", true)
+        capture("html-colors-caller-return")
     }
 }

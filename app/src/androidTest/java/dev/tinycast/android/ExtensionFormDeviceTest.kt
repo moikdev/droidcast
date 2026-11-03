@@ -2147,9 +2147,40 @@ class ExtensionFormDeviceTest {
         val row = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("List.Item").single()
         assertEquals("Neutral", row.props().getString("title")); assertTrue(row.props().getJSONObject("detail").props().getString("markdown").contains(notes))
         assertArrayEquals(bytes, entries.readBytes()); capture("mood-reloaded-search-destination")
+        assertEquals(false, activeRoot(catalog.runtimeTree)!!.props().opt("isShowingDetail"))
+        compose.onNodeWithTag("extension-detail").assertDoesNotExist()
+        assertTrue(compose.onAllNodesWithText(notes, substring = true).fetchSemanticsNodes().isEmpty())
+        fun toggleDetails(expected: Boolean, phase: String) {
+            val current = requireNotNull(activeRoot(catalog.runtimeTree))
+            val currentRow = current.nodes("List.Item").single()
+            val scope = extensionActionScope(current, currentRow, 1, "")
+            val action = scope.nodes.withIndex().single { it.value.props().optString("title").contains("detail", true) }
+            val title = action.value.props().getString("title")
+            touch("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement(title)
+            touch("extension-action-${action.index}")
+            compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.props()?.opt("isShowingDetail") == expected }
+            compose.waitForIdle(); assertArrayEquals(bytes, entries.readBytes())
+            val observations = record.optJSONArray("mood_detail_modes") ?: JSONArray().also { record.put("mood_detail_modes", it) }
+            observations.put(JSONObject().put("phase", phase).put("menu_action_title", title).put("is_showing_detail", expected)
+                .put("saved_bytes_unchanged", true))
+        }
+        fun inspectNotes(phase: String) {
+            touch("extension-row-0")
+            compose.waitUntil(10000) { compose.onAllNodesWithText(notes, substring = true).fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithText(notes, substring = true).performScrollTo().assertIsDisplayed()
+            assertArrayEquals(bytes, entries.readBytes()); capture(phase)
+        }
+        toggleDetails(true, "first-visible"); inspectNotes("mood-native-detail-visible")
+        toggleDetails(false, "hidden-again")
+        compose.onNodeWithTag("extension-detail").assertDoesNotExist()
+        assertTrue(compose.onAllNodesWithText(notes, substring = true).fetchSemanticsNodes().isEmpty())
+        capture("mood-detail-hidden-again")
+        toggleDetails(true, "reopened"); inspectNotes("mood-native-detail-reopened")
+        if (compose.onAllNodesWithTag("extension-detail-back").fetchSemanticsNodes().isNotEmpty()) touch("extension-detail-back")
         frozenTypedCallerReturn()
         record.put("record_and_search_use_same_persisted_owned_data", true)
-            .put("test_boundary", "Two frozen commands: actual Date/tag/note editing, exact private record and new-runtime Search destination. AI/charts/drafts/storeValue/OEM behavior untested")
+            .put("native_detail_false_true_false_true_verified", true)
+            .put("test_boundary", "Two frozen commands: actual Date/tag/note editing, exact private record, new-runtime Search, actual detail-mode menu toggles and narrow touch return. AI/charts/drafts/storeValue/OEM and all other actions untested")
             .put("passed", true)
     }
     @Test fun frozenChecksumHashesTheActualImportedBytesCopiesAndReturns() {
