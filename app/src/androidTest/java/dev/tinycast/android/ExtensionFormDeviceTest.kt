@@ -372,10 +372,15 @@ class ExtensionFormDeviceTest {
                     if (view is androidx.compose.ui.window.DialogWindowProvider) {
                         val window = view.window
                         val insets = ViewCompat.getRootWindowInsets(window.decorView)
+                        val screen = IntArray(2); window.decorView.getLocationOnScreen(screen)
+                        val visibleFrame = android.graphics.Rect(); window.decorView.getWindowVisibleDisplayFrame(visibleFrame)
                         dialogs.put(JSONObject().put("dim_enabled", (window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND) != 0)
                             .put("dim_amount", window.attributes.dimAmount.toDouble())
                             .put("ime_visible", insets?.isVisible(WindowInsetsCompat.Type.ime()) == true)
-                            .put("width_px", window.decorView.width).put("height_px", window.decorView.height))
+                            .put("width_px", window.decorView.width).put("height_px", window.decorView.height)
+                            .put("soft_input_mode", window.attributes.softInputMode)
+                            .put("screen_origin", JSONArray(screen.toList()))
+                            .put("visible_display_frame", JSONArray(listOf(visibleFrame.left, visibleFrame.top, visibleFrame.right, visibleFrame.bottom))))
                     }
                     if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
                 }
@@ -1061,8 +1066,11 @@ class ExtensionFormDeviceTest {
             observer = object : Runnable {
                 override fun run() {
                     val insets = ViewCompat.getRootWindowInsets(view)
+                    val screen = IntArray(2); view.getLocationOnScreen(screen)
+                    val visible = android.graphics.Rect(); view.getWindowVisibleDisplayFrame(visible)
                     val geometry = listOf(if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true) 1 else 0,
-                        insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: -1, view.width, view.height)
+                        insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: -1, view.width, view.height,
+                        screen[0], screen[1], visible.left, visible.top, visible.right, visible.bottom)
                     val now = android.os.SystemClock.uptimeMillis(); frames++
                     if (geometry != previous) { previous = geometry; stableSince = now }
                     settled = (shown == null || geometry[0] == (if (shown) 1 else 0)) && geometry[1] >= 0 && now - stableSince >= 100
@@ -1741,12 +1749,40 @@ class ExtensionFormDeviceTest {
         awaitImeGeometry(true, window)
         compose.onNodeWithTag("extension-date-time-date-minute").performTextReplacement("35")
         compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals("35")
+        awaitImeGeometry(true, window)
         capture("date-time-editor-ime")
-        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "date confirmed with dialog IME")
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val automation = testAutomation(); val entryFlags = automation.serviceInfo.flags
+        val keyboards = mutableListOf<android.graphics.Rect>()
+        try {
+            automation.serviceInfo = automation.serviceInfo.apply { flags = entryFlags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS }
+            automation.clearCacheForTest()
+            automation.windows.filter { it.type == android.view.accessibility.AccessibilityWindowInfo.TYPE_INPUT_METHOD }.forEach {
+                val bounds = android.graphics.Rect(); it.getBoundsInScreen(bounds); if (!bounds.isEmpty) keyboards += bounds
+            }
+        } finally { automation.serviceInfo = automation.serviceInfo.apply { flags = entryFlags } }
+        assertTrue("The actual screen IME window must be observed", keyboards.isNotEmpty())
+        record.put("actual_ime_window_bounds", JSONArray(keyboards.map { listOf(it.left, it.top, it.right, it.bottom) }))
+        val text = device.wait(Until.findObject(By.pkg(context.packageName).text("Use date")), 3000)
+        record.put("screen_confirm_control_found", text != null)
+        assertNotNull("Use date must be accessible on screen while the keyboard is visible", text)
+        var button = requireNotNull(text)
+        for (step in 0 until 4) { if (button.isClickable) break; button = requireNotNull(button.parent) }
+        assertTrue(button.isEnabled && button.isClickable)
+        val bounds = button.visibleBounds; val x = bounds.centerX(); val y = bounds.centerY()
+        record.put("screen_confirm_bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("screen_confirm_point", JSONArray(listOf(x, y)))
+        assertTrue("The button needs a useful screen target", bounds.width() > 1 && bounds.height() + 1 >= 48 * context.resources.displayMetrics.density)
+        assertTrue(android.graphics.Rect(0, 0, device.displayWidth, device.displayHeight).contains(bounds))
+        assertTrue("The actual keyboard must not cover the confirmation button", keyboards.none { android.graphics.Rect.intersects(it, bounds) })
+        val before = typedPublication()
+        record.put("screen_click_injected", device.click(x, y))
+        awaitTypedPublication(before, "date confirmed by Android screen input with dialog IME")
         assertEquals("2024-02-29T12:35:00.000Z", typedDateIso())
         compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        awaitImeGeometry(false)
         submittedTypedDate("2024-02-29T12:35:00.000Z"); capture("date-time-ime-submitted")
-        record.put("ime_observation", "Insets observed on actual owned Dialog window, not Activity; pointer focus/confirm with controlled SetText entry")
+        record.put("ime_observation", "Owned Dialog insets and actual TYPE_INPUT_METHOD bounds; non-overlapping native Use date button activated through Android screen coordinates. Controlled SetText entry; no physical-device claim")
             .put("passed", true)
     }
     @Test fun tagPickerCanRemoveAnUnavailableValueAndShowItsEmptyState() {
