@@ -918,6 +918,32 @@ class ExtensionDetailDeviceTest {
         capture("block-returned-pixels")
         record.put("offscreen_geometry_and_returned_pixels_verified", true).put("passed", true)
     }
+    @Test fun cachedBlockImageReturnsItsPixelsAfterRepeatedVisibilityChanges() {
+        launch("image-scroll"); imagePixel("Owned scrolling image", 0xff228833.toInt())
+        val height = image("Owned scrolling image").fetchSemanticsNode().size.height
+        val cycles = JSONArray(); record.put("cached_image_visibility_cycles", cycles)
+        repeat(6) { cycle ->
+            show("Owned scroll-away destination.")
+            compose.waitUntil(5000) {
+                val node = image("Owned scrolling image").fetchSemanticsNode()
+                node.boundsInRoot.height == 0f &&
+                    node.config.getOrNull(SemanticsProperties.StateDescription) == "Image loading"
+            }
+            val hidden = image("Owned scrolling image").fetchSemanticsNode()
+            val receipt = JSONObject().put("cycle", cycle).put("hidden_height_px", hidden.size.height)
+                .put("hidden_visible_height_px", hidden.boundsInRoot.height)
+            cycles.put(receipt)
+            assertEquals("Cached image release must retain scroll geometry", height, hidden.size.height)
+            imagePixel("Owned scrolling image", 0xff228833.toInt())
+            val returned = image("Owned scrolling image").fetchSemanticsNode()
+            receipt.put("returned_height_px", returned.size.height)
+                .put("returned_state", returned.config.getOrNull(SemanticsProperties.StateDescription))
+            assertEquals(height, returned.size.height)
+        }
+        capture("cached-image-sixth-return")
+        record.put("cached_image_visibility_scope", "Six observed offscreen bitmap releases and visible green-pixel returns with unchanged document/source; semantic scroll positioning is setup")
+            .put("passed", true)
+    }
     @Test fun compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks() {
         launch("table-limit"); show("Owned table limit sentinel"); capture("before-table-expansion")
         record.put("table_limit_source_units", 8008).put("table_limit_columns", 1001).put("table_limit_body_rows", 1000)
