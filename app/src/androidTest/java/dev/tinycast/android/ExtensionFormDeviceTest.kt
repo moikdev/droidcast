@@ -1437,6 +1437,13 @@ class ExtensionFormDeviceTest {
         assertTrue(rootRow.isEnabled)
         recordPickerAcknowledgement("location drawer / Droidcast owned files", false, rootRow.click())
         assertTrue("The root drawer must finish closing", device.wait(Until.gone(By.res(pickerPackage, "roots_list")), 5000))
+        record.put("system_picker_package", pickerPackage)
+        if (device.hasObject(By.res(pickerPackage, "sub_menu_list"))) {
+            // A large thumbnail grid can put even the first filename below
+            // the viewport. Use the picker's real list-view control for touch.
+            clickDocumentResource(device, "sub_menu_list")
+            assertTrue(device.wait(Until.hasObject(By.res(pickerPackage, "sub_menu_grid")), 5000))
+        }
         assertNotNull(device.wait(Until.findObject(By.text("café 日本.txt")), 10000))
         record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
             .put("system_picker_path", "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor")
@@ -1463,6 +1470,12 @@ class ExtensionFormDeviceTest {
         val item = device.findObject(selector)
         assertTrue("The exact system-picker item must be available", item.waitForExists(5000)); assertTrue(item.isEnabled)
         recordPickerAcknowledgement(text, long, if (long) item.longClick() else item.click())
+    }
+    private fun clickDocumentResource(device: UiDevice, id: String) {
+        val pkg = record.getString("system_picker_package")
+        val item = device.findObject(UiSelector().packageName(pkg).resourceId(pkg + ":id/" + id))
+        assertTrue(item.waitForExists(5000)); assertTrue(item.isEnabled)
+        recordPickerAcknowledgement(id, false, item.click())
     }
     private fun recordPickerAcknowledgement(label: String, long: Boolean, acknowledged: Boolean) {
         // Pinned UIAutomator 2.3.0 clickAndSync returns whether an accessibility
@@ -1588,10 +1601,11 @@ class ExtensionFormDeviceTest {
         val device = openOwnedDocuments()
         clickDocumentText(device, "café 日本.txt", long = true)
         clickDocumentText(device, "owned-bytes.bin")
-        val openSelector = By.text(java.util.regex.Pattern.compile("(?i)open"))
+        val openSelector = By.res(record.getString("system_picker_package"), "action_menu_select")
         assertTrue(device.wait(Until.hasObject(openSelector), 5000))
+        assertTrue(device.hasObject(By.text("2 selected")))
         captureDocumentPicker("android-two-documents-selected", device)
-        clickDocumentText(device, "(?i)open", pattern = true)
+        clickDocumentResource(device, "action_menu_select")
         val paths = awaitImportedFiles(2)
         assertEquals(setOf("café 日本.txt", "owned-bytes.bin"), paths.map { File(it).name }.toSet())
         capture("file-two-imported"); touch("extension-files-done-files")
