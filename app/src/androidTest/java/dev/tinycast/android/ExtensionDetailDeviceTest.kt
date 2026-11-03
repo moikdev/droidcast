@@ -412,6 +412,9 @@ class ExtensionDetailDeviceTest {
     }
     private fun image(label: String) = compose.onNodeWithContentDescription(label, useUnmergedTree = true)
     private fun readyImage(label: String) {
+        // A root publication can precede the off-Main Markdown parse. Wait
+        // for its actual image node before attempting any scroll action.
+        compose.waitUntil(10000) { compose.onAllNodesWithContentDescription(label, useUnmergedTree = true).fetchSemanticsNodes().size == 1 }
         fun observe(phase: String) {
             val node = image(label).fetchSemanticsNode()
             val observations = record.optJSONArray("image_readiness") ?: JSONArray().also { record.put("image_readiness", it) }
