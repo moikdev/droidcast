@@ -62,6 +62,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private val runtimeRegistration = catalog.attachRuntime(textContext.owner, extension, command) { scope.cancel(); webView.stopLoading() }
     init { if (runtimeRegistration == null) scope.cancel() }
     private fun active() = !destroyed && scope.isActive && catalog.ownsRuntime(textContext.owner,extension,command) && catalog.runtimeError == null
+    internal fun formFileStorage(): FormFileStorage? = if (active()) FormFileStorage(context.filesDir, extension.listing.id) else null
     private fun fail(message: String) {
         if (!active()) return
         ready()
