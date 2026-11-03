@@ -9,6 +9,7 @@ class ExtensionMetadataVisualsTest {
     @Test fun freshlySerializedAdaptiveIconsRetainTheSameVisualValue() {
         val first = JSONObject("""{"source":{"light":"light.svg","dark":"dark.svg"},"mask":"circle","tintColor":{"light":"#ffffff","dark":"#228833"}}""")
         val second = JSONObject("""{"tintColor":{"dark":"#228833","light":"#ffffff"},"mask":"circle","source":{"dark":"dark.svg","light":"light.svg"}}""")
+        assertEquals("dark.svg", first.getJSONObject("source").getString("dark"))
         assertNotSame(first, second)
         assertEquals(metadataIconSignature(first), metadataIconSignature(second))
     }
