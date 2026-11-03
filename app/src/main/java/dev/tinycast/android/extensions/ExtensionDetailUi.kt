@@ -68,6 +68,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
     val context = LocalContext.current
     val sourceId = source.optString("id"); val sourceType = source.optString("type")
     val markdown = (source.props().opt("markdown") as? String).orEmpty()
+    val documentIdentity = remember(ownerKey, sourceId, sourceType, markdown) { Any() }
     val metadata = metadataDocument(source.props().opt("metadata"))
     fun current(): JSONObject? = liveSource()?.takeIf { it.optString("id") == sourceId && it.optString("type") == sourceType }
     fun activateLink(target: String) {
@@ -110,7 +111,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                 if (metadata.rows.isNotEmpty()) Column(Modifier.fillMaxWidth().testTag("extension-detail-metadata"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     metadata.rows.forEach { node ->
                         val props = node.props(); val title = (props.opt("title") as? String).orEmpty()
-                        key(node.optString("id"), node.optString("type"), title, metadataText(props.opt("text")), props.opt("target")) {
+                        key(documentIdentity, node.optString("id"), node.optString("type"), title, metadataText(props.opt("text")), props.opt("target")) {
                         when (metadataKind(node)) {
                             "Separator" -> HorizontalDivider(color = PaletteTheme.ink.copy(alpha = .15f))
                             "Label" -> Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
