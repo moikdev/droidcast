@@ -1833,6 +1833,56 @@ class ExtensionFormDeviceTest {
         capture("date-replacement-field-rejected")
         record.put("queued_callback", "Old confirm invoked after actual replacement field publication; no successor value or dispatch change").put("passed", true)
     }
+    private fun awaitRecreatedTypedRuntime(previousActivity: MainActivity, previousEngine: WebView) {
+        compose.waitForIdle()
+        compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertNull(catalog.runtimeError)
+        assertNotSame(previousActivity, compose.activity)
+        assertNotSame(previousEngine, engine())
+        compose.waitForIdle()
+        record.put("recreation_boundary", "Same-process ActivityScenario recreation; fresh Activity and actual runtime WebView, not process-death restoration")
+            .put("recreated_activity_and_webview_verified", true)
+    }
+
+    @Test fun datePickerQueuedConfirmationCannotSurviveActivityRecreation() {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val previousActivity = compose.activity; val previousEngine = engine()
+        capture("date-draft-before-recreation")
+        compose.activityRule.scenario.recreate()
+        awaitRecreatedTypedRuntime(previousActivity, previousEngine)
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        mutateTyped("void 0", "old date callback after activity recreation")
+        assertEquals(0, probe().getInt("changes")); assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        capture("date-old-recreation-result-rejected")
+        touch("extension-date-date"); val expected = increaseTypedDateMinute(); val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "fresh date callback after activity recreation")
+        assertEquals(expected, typedDateIso()); submittedTypedDate(expected)
+        capture("date-fresh-recreation-result-accepted")
+        record.put("old_recreation_callback_rejected", true).put("fresh_recreation_callback_accepted", true).put("passed", true)
+    }
+
+    @Test fun tagPickerQueuedOptionCannotSurviveActivityRecreation() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        val queued = requireNotNull(typedTagRow(0).fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val previousActivity = compose.activity; val previousEngine = engine()
+        capture("tags-before-recreation")
+        compose.activityRule.scenario.recreate()
+        awaitRecreatedTypedRuntime(previousActivity, previousEngine)
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        mutateTyped("void 0", "old tag callback after activity recreation")
+        assertEquals(0, probe().getInt("changes")); assertEquals("[\"internal-two\"]", typedTagValues())
+        capture("tags-old-recreation-result-rejected")
+        touch("extension-tags-tags"); val before = typedPublication()
+        typedTagRow(0).performTouchInput { click(center) }
+        awaitTypedPublication(before, "fresh tag callback after activity recreation")
+        touch("extension-tags-done-tags"); submittedTypedTags(listOf("internal-two", "internal-one"))
+        capture("tags-fresh-recreation-result-accepted")
+        record.put("old_recreation_callback_rejected", true).put("fresh_recreation_callback_accepted", true).put("passed", true)
+    }
+
     @Test fun typedUncontrolledRefsResetToTheirInitialValues() {
         launch("typed-defaults"); touch("extension-date-clear-date")
         compose.waitUntil(5000) { typedDateIso() == null }
@@ -2260,6 +2310,26 @@ class ExtensionFormDeviceTest {
         record.put("transition", "Same owned command relaunched while real DocumentsUI was open; old selection leaves successor unchanged")
             .put("successor_selection_empty", true).put("passed", true)
     }
+    @Test fun filePickerResultCannotSurviveActivityRecreation() {
+        launch("typed-file-single-workflow")
+        val previousActivity = compose.activity; val previousEngine = engine()
+        val device = openOwnedDocuments()
+        compose.activityRule.scenario.recreate()
+        clickDocumentText(device, "café 日本.txt")
+        awaitRecreatedTypedRuntime(previousActivity, previousEngine)
+        mutateTyped("void 0", "old real document result after activity recreation")
+        assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        assertTrue(File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty())
+        capture("file-old-recreation-result-rejected")
+        val fresh = openOwnedDocuments(); clickDocumentText(fresh, "café 日本.txt")
+        val paths = awaitImportedFiles(1, "text")
+        assertArrayEquals("Owned file café 日本 🌱\n".toByteArray(), File(paths.single()).readBytes())
+        capture("file-fresh-recreation-result-accepted"); touch("extension-files-done-files")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray()))
+        returnFromFileDestination()
+        record.put("old_real_document_result_rejected", true).put("fresh_real_document_result_accepted", true).put("passed", true)
+    }
+
     @Test fun disposedFilePickerRegistrationCannotConsumeASuccessorResult() {
         launch("typed-controls")
         val codes = mutableListOf<Int>()
