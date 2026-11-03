@@ -551,17 +551,21 @@ class ExtensionFormDeviceTest {
         compose.waitForIdle()
         val target = node.fetchSemanticsNode()
         val visible = target.boundsInRoot
-        val activityRoot = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag("extension-palette")), useUnmergedTree = true)
-        val root = activityRoot.fetchSemanticsNode().boundsInRoot
+        // Dialog bounds use a different local origin. Inject through the root
+        // that owns this exact target, rather than the launcher Activity root.
+        val targetRoot = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
+        val rootNode = targetRoot.fetchSemanticsNode()
+        val root = rootNode.boundsInRoot
         val point = visible.center
         val taps = record.optJSONArray("pointer_taps") ?: JSONArray().also { record.put("pointer_taps", it) }
         taps.put(JSONObject().put("tag", tag).put("viewport", viewport)
+            .put("injection_owner", "Compose root containing the exact target tag").put("owner_root_semantics_id", rootNode.id)
             .put("visible_bounds", JSONArray(listOf(visible.left, visible.top, visible.right, visible.bottom)))
             .put("control_size", JSONArray(listOf(target.size.width, target.size.height)))
             .put("point", JSONArray(listOf(point.x, point.y))))
         assertTrue("A pointer target needs a useful visible hit region", visible.width > 1 &&
             visible.height + 1 >= minOf(target.size.height.toFloat(), minimumHitHeight) && root.contains(point))
-        activityRoot.performTouchInput { click(point - root.topLeft) }
+        targetRoot.performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
         if (target.config.contains(SemanticsProperties.EditableText)) {
             compose.waitUntil(5000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()?.let {
