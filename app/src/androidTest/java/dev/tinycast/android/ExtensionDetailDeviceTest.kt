@@ -957,7 +957,7 @@ class ExtensionDetailDeviceTest {
     }
     private fun objectTagBinding(): JSONObject {
         val root = requireNotNull(activeRoot(catalog.runtimeTree))
-        val tag = root.nodes("Detail.Metadata.TagList.Item").single()
+        val tag = root.props().getJSONObject("metadata").nodes("Detail.Metadata.TagList.Item").single()
         return JSONObject().put("root_id", root.optString("id")).put("tag_id", tag.optString("id"))
             .put("markdown", root.props().getString("markdown")).put("handle", requireNotNull(tag.handle("onAction")))
             .put("icon", tag.props().getJSONObject("icon")).put("color", tag.props().getJSONObject("color"))
