@@ -66,6 +66,9 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
     val id = field.props().optString("id")
     val title = (field.props().opt("title") as? String).orEmpty().ifBlank { "Choose date" }
     val zone = ZoneId.systemDefault()
+    // Floating Dialogs can report IME visibility with a zero bottom inset.
+    // Capture the parent window's holder before entering the Dialog composition.
+    val parentIme = WindowInsets.ime
     val parameters = dateParameters(field)
     val label = dateLabel(parameters.value, parameters.kind, zone)
     var opening by remember(owner) { mutableStateOf<Any?>(null) }
@@ -124,10 +127,11 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
             Dialog(onDismissRequest = { if (opening === token) opening = null },
                 properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
                 FormPickerBackdrop(resizeForIme = true)
-                Surface(Modifier.safeDrawingPadding().padding(12.dp).widthIn(max = 560.dp).fillMaxWidth()
+                Surface(Modifier.safeDrawingPadding().windowInsetsPadding(parentIme)
+                    .padding(horizontal = 12.dp, vertical = 6.dp).widthIn(max = 560.dp).fillMaxWidth()
                     .heightIn(max = (LocalConfiguration.current.screenHeightDp - 48).coerceAtLeast(160).dp)
                     .testTag("extension-date-dialog-$id"), shape = MaterialTheme.shapes.extraLarge, color = PaletteTheme.surface) {
-                    Column(Modifier.padding(horizontal = 8.dp, vertical = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             Text(title, fontSize = 18.sp, lineHeight = 26.sp, color = PaletteTheme.ink)
                             DatePicker(state, title = null, headline = null, modifier = Modifier.fillMaxWidth().testTag("extension-date-calendar-$id"))
