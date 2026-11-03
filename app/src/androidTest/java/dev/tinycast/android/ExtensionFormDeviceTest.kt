@@ -1522,9 +1522,9 @@ class ExtensionFormDeviceTest {
         record.put("calendar_day_pointer", JSONObject().put("label", label).put("point", JSONArray(listOf(point.x, point.y)))
             .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom))))
         root.performTouchInput { click(point - origin) }; compose.waitForIdle()
-        // Material 3 exposes the selected Day Surface as a checked control.
+        // Material 3 exposes selection on the Day Surface itself.
         // A scroll request or successful event injection alone proves neither.
-        day.assertIsOn(); record.put("calendar_checked_after_pointer", true)
+        day.assertIsSelected(); record.put("calendar_selected_after_pointer", true)
     }
 
     @Test fun dateOnlySelectsACalendarDayWithInclusiveDayBounds() {
@@ -2203,6 +2203,51 @@ class ExtensionFormDeviceTest {
                 .put("late_deliveries", deliveries).put("unrelated_extension_data_preserved", true)
             capture("file-prepared-result-cancelled"); record.put("passed", true)
         } finally { request.cancel() }
+    }
+    @Test fun intentionalFileImportDeathRequiresIndependentHostRecovery() {
+        assumeTrue("Select this process-death control by its exact method name", InstrumentationRegistry.getArguments().getString("class") ==
+            "dev.tinycast.android.ExtensionFormDeviceTest#intentionalFileImportDeathRequiresIndependentHostRecovery")
+        launch("typed-file-single-workflow")
+        val root = formFileStorageRoot(context.filesDir, requireNotNull(ownedId))
+        val blocked = CountDownLatch(1); val release = CountDownLatch(1)
+        val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf("owned"), true, false) {
+            memoryFileSource {
+                object : java.io.InputStream() {
+                    var first = true
+                    override fun read(): Int = error("Use the bounded bulk-read path")
+                    override fun read(target: ByteArray, offset: Int, length: Int): Int {
+                        if (first) { first = false; target[offset] = 0; target[offset + 1] = 1; return 2 }
+                        blocked.countDown()
+                        check(release.await(30, TimeUnit.SECONDS)) { "The owned death probe did not terminate" }
+                        return -1
+                    }
+                }
+            }
+        }
+        val worker = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        val copying = worker.launch { request.prepare() }
+        try {
+            assertTrue(blocked.await(5, TimeUnit.SECONDS))
+            val pending = File(root, "form-input").listFiles().orEmpty().single()
+            val nonce = pending.name.removePrefix("pending-")
+            assertTrue(pending.name.startsWith("pending-")); assertEquals(nonce, UUID.fromString(nonce).toString())
+            assertEquals(nonce, File(pending, ".owner").readText())
+            val partial = pending.walkTopDown().single { it.isFile && it.name != ".owner" }
+            assertArrayEquals(byteArrayOf(0, 1), partial.readBytes()); assertTrue(copying.isActive)
+            ownedLease(); assertEquals(context.applicationInfo.uid, android.os.Process.myUid())
+            compose.activityRule.scenario.onActivity {
+                assertEquals("Owned Form clipboard sentinel", it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text?.toString())
+            }
+            record.put("scope", "Controlled owned worker import interrupted during a blocked read; no actual provider selection or JUnit cleanup")
+                .put("intentional_process_death", true).put("manual_record_before_kill", true).put("blocked_worker_active", true)
+                .put("pending_owner_validated", true).put("partial_copy_bytes", partial.length()).put("owned_clipboard_mutation_verified", true)
+                .put("instrumentation_pid", android.os.Process.myPid()).put("owner_nonce", expectedOwner)
+            capture("file-blocked-worker-before-death")
+            val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json"
+            java.io.FileOutputStream(File(evidence, name)).use { output -> output.write(record.toString(2).toByteArray()); output.fd.sync() }
+            android.os.Process.killProcess(android.os.Process.myPid())
+            throw AssertionError("The explicitly selected owned instrumentation process must terminate")
+        } finally { release.countDown(); request.cancel(); worker.cancel() }
     }
 
     @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
