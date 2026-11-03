@@ -43,7 +43,7 @@ Final debug builds exactly reproduce the frozen app and publication-witness test
 | Critical 200% validation/reason text | 1/1 per profile with actual IME hidden/shown/hidden, pointer scrolling and full-line witnesses |
 | Retained Form regression suite | Recorded 24/24 per profile; 23 per profile remain credited after withdrawing the unwitnessed all-fields case: 69 executions, original `ca788c5` identity |
 | Retained enlarged-font Form/JSON/valid-submit regressions | Recorded six per profile; five per profile remain credited after the same withdrawal: 15 executions, original `b54243f` identity |
-| Affected menu/keyboard and reviewed-input/lifecycle regressions | 19 + 21 cases on both tablet and phone: 80 executions, final harness |
+| Affected menu/keyboard and reviewed-input/lifecycle regressions | 19 + 21 cases on both tablet and phone: 80 retained executions with their original `b54243f` instrumentation |
 | Fresh witnessed selection/value scenarios | 10/10: six controlled all-fields cases across three layouts at 100%/200%, four actual live-IME long-press cases across tablet/phone at both sizes; 16 native/Compose publication transitions |
 | Original common JSON successes | Two separate real frozen-bundle executions on tablet/phone |
 | Credited repaired-app executions | 252 = historical 257 − 15 affected duplicate executions + 10 fresh replacements; earlier failed/ambiguous groups remain excluded |
@@ -64,7 +64,7 @@ Guarded runners hold ownership through fixture cleanup, independent durable clip
 
 ## Raw Android captures
 
-The [capture manifest](validation/extension-compatibility/form-submission/captures.json) supplies a caption and exact binary identity for every raw set. These are actual runtime/UI observations, not mockups.
+The [historical capture manifest](validation/extension-compatibility/form-submission/captures.json) supplies captions and binary identities for the original 33 sets. The [repair manifest](validation/extension-compatibility/form-submission-publication-repair/captures.json) binds the six fresh selection sets. These are actual runtime/UI observations, not mockups.
 
 | Preceding invalid primary destination, phone | Repaired blocked primary, same common harness |
 | --- | --- |
