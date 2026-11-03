@@ -16,6 +16,7 @@ import uuid
 
 from android_test_cleanup import Cleanup, reviewed_text_fixture_ids
 from android_clipboard_recovery import ClipboardRecovery
+from android_form_documents_fixture import FormDocumentsFixture
 
 
 def require(condition, message):
@@ -39,6 +40,7 @@ def main():
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
+    parser.add_argument('--document-fixtures', action='store_true', help='Lease read-only documents in the test APK for real system-picker workflows')
     parser.add_argument('--inject-clipboard-restore-failure', action='store_true',
                         help='Negative control only: retain the lease after an intentional process-death probe')
     args = parser.parse_args()
@@ -54,6 +56,8 @@ def main():
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
     require(not regression or all(item.split('#')[0] in regression_classes for item in args.classes.split(',')),
             'Keep the shared menu/keyboard regression cohort separate from owned extension fixtures')
+    require(not args.document_fixtures or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),
+            'Document fixtures belong only to the owned Form cohort')
     evidence_dirs = ['reviewed-text-evidence'] + (['extension-grid-evidence', 'readiness-evidence'] if regression else [])
     require(not args.inject_clipboard_restore_failure or args.classes == 'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
             'Restoration failure is limited to the deliberate process-death control')
@@ -100,11 +104,14 @@ def main():
     shutil.copyfile(helper, args.output / 'cleanup-helper.py')
     clipboard_helper = Path(__file__).with_name('android_clipboard_recovery.py')
     shutil.copyfile(clipboard_helper, args.output / 'clipboard-helper.py')
+    document_helper = Path(__file__).with_name('android_form_documents_fixture.py')
+    shutil.copyfile(document_helper, args.output / 'document-helper.py')
     record = {'completed': False, 'pid': os.getpid(), 'serial': args.serial, 'avd': args.avd, 'layout': args.layout,
               'font_scale': args.font_scale, 'classes': args.classes, 'expected': args.expected, 'owner_nonce': owner,
               'runner_sha256': sha(Path(__file__).read_bytes()), 'archive_sha256': sha(archive),
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
+              'document_helper_sha256': sha(document_helper.read_bytes()),
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
 
@@ -116,6 +123,7 @@ def main():
     backups = {}
     evidence_owned = False
     clipboard_recovery = ClipboardRecovery(raw, args.output, owner, app + '.test', record)
+    document_fixture = FormDocumentsFixture(raw, owner, app + '.test', record)
     try:
         lease = {'schema_version': 1, 'fixture_kind': 'reviewed-text-device-test-v1', 'owner_nonce': owner, 'owned_extension_ids': []}
         raw('shell', 'run-as', app, 'tee', lease_path, data=(json.dumps(lease) + '\n').encode())
@@ -134,6 +142,8 @@ def main():
             require(sha(raw('exec-out', 'cat', path)) == expected, 'Installed APK identity mismatch')
         record['installed_apks_match'] = True
         clipboard_recovery.snapshot()  # Durable before any test clipboard writes.
+        if args.document_fixtures:
+            document_fixture.setup()
         raw('shell', 'run-as', app, 'tee', root + '/json-format.zip', data=archive)
         if args.layout in ['phone', 'landscape']:
             raw('shell', 'wm', 'size', '1080x2340' if args.layout == 'phone' else '2340x1080')
@@ -149,6 +159,7 @@ def main():
         command = adb + ['shell', 'am', 'instrument', '-w', '-r', '-e', 'dedicatedAvd', args.avd,
                          '-e', 'reviewedTextFixture', 'true', '-e', 'expectedTextInputLeaseOwner', owner,
                          '-e', 'expectedClipboardRecoveryOwner', owner,
+                         '-e', 'expectedFormDocumentOwner', owner if args.document_fixtures else 'none',
                          '-e', 'class', args.classes, app + '.test/androidx.test.runner.AndroidJUnitRunner']
         with (args.output / 'tests.log').open('wb') as log:
             process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=max(600, args.expected * 90))
@@ -219,10 +230,14 @@ def main():
             cleanup.require(text('shell', 'id').startswith('uid=2000('), 'adbd UID changed')
             cleanup.require(not text('shell', 'run-as', app, 'id').startswith(('uid=0', 'uid=1000(', 'uid=2000(')), 'App UID is privileged')
         cleanup.attempt('verify-state-and-unprivileged-identity', verify)
+        if args.document_fixtures and document_fixture.claimed:
+            cleanup.attempt('owned-document-sources-unchanged', document_fixture.verify)
 
         def release():
             cleanup.require(not cleanup.errors, 'Retain recovery ownership after restoration failure')
             reviewed_text_fixture_ids(json.loads(raw('exec-out', 'run-as', app, 'cat', lease_path)), owner)
+            if args.document_fixtures:
+                document_fixture.release()
             clipboard_recovery.release()
             raw('shell', 'run-as', app, 'rm', '-rf', root)  # Final device operation.
         cleanup.attempt('release-lease', release)

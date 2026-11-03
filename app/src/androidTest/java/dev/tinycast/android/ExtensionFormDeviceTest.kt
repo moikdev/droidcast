@@ -19,6 +19,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.Direction
 import dev.tinycast.android.extensions.*
 import org.json.JSONObject
 import org.json.JSONArray
@@ -34,6 +37,8 @@ import java.util.UUID
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.*
 
 /** Real runtime/native controls. The same harness can run against the old app.
  * Uses the shared guarded input runner/lease and independent clipboard recovery.
@@ -145,6 +150,9 @@ class ExtensionFormDeviceTest {
               if(mode.startsWith('typed-')){
                 const [date,setDate]=React.useState(new Date('2024-02-29T12:34:00.000Z'));
                 const [tags,setTags]=React.useState(['internal-two']),[files,setFiles]=React.useState([]);
+                const fileWorkflow=mode.startsWith('typed-file-'),{push}=api.useNavigation();
+                const [fileEnabled,setFileEnabled]=React.useState(true);
+                globalThis.__ownedTypedFiles={setFileEnabled};
                 const errorId=mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null;
                 globalThis.__formProbe.submits ??= 0;
                 const change=(id,setter)=>value=>{globalThis.__formProbe.changes++;setter(value)};
@@ -152,6 +160,15 @@ class ExtensionFormDeviceTest {
                 return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
                   React.createElement(api.Action.SubmitForm,{title:'Inspect owned typed values',onSubmit:values=>{
                     globalThis.__formProbe.submits++;globalThis.__formProbe.submittedValues=values;
+                    if(fileWorkflow){
+                      const fs=require('fs');
+                      const reads=values.files.map(path=>{
+                        const directory=fs.statSync(path).isDirectory(),leaf=directory?path+'/nested.txt':path;
+                        return {name:path.split('/').pop(),directory,base64:fs.readFileSync(leaf).toString('base64')};
+                      });
+                      globalThis.__formProbe.fileReads=reads;
+                      push(React.createElement(api.Detail,{markdown:JSON.stringify({outcome:'Owned imported documents',reads})}));
+                    }
                   }}))},
                   React.createElement(api.Form.DatePicker,{key:'date',id:'date',title:'Owned appointment date and time',
                     type:api.Form.DatePicker.Type.DateTime,value:date,onChange:change('date',setDate),error:error('date'),
@@ -161,8 +178,9 @@ class ExtensionFormDeviceTest {
                     React.createElement(api.Form.TagPicker.Item,{key:'one',value:'internal-one',title:'Readable first category'}),
                     React.createElement(api.Form.TagPicker.Item,{key:'two',value:'internal-two',title:'Readable second category'})),
                   React.createElement(api.Form.FilePicker,{key:'files',id:'files',title:'Owned input documents',
+                    ...(fileWorkflow?{canChooseFiles:fileEnabled&&!mode.includes('folder'),canChooseDirectories:mode.includes('folder'),allowMultipleSelection:mode.includes('multiple')}:{}),
                     value:files,onChange:change('files',setFiles),error:error('files'),...fieldEvents('files')}),
-                  React.createElement(api.Form.Description,{key:'scope',text:'Owned typed controls; no Store or provider workflow is certified by this fixture.'}));
+                  React.createElement(api.Form.Description,{key:'scope',text:fileWorkflow?'Owned documents through Android picker, private copies and exact byte inspection. No Store or arbitrary-provider certification.':'Owned typed controls; no Store or provider workflow is certified by this fixture.'}));
               }
               if(mode.startsWith('submit-')){
                 const [name,setName]=React.useState(mode==='submit-reject'?'OWNED FIXED':'Owned invalid 日本');
@@ -1382,6 +1400,260 @@ class ExtensionFormDeviceTest {
         compose.onNodeWithTag("extension-tags-done-tags").performTouchInput { click(center) }
         compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
         capture("tags-cleared"); submittedTypedTags(emptyList()); record.put("passed", true)
+    }
+
+    private fun typedFileValues(): List<String> {
+        val values = field("Form.FilePicker", "files").props().getJSONArray("value")
+        return (0 until values.length()).map { values.getString(it) }
+    }
+    private fun openOwnedDocuments(folder: Boolean = false): UiDevice {
+        assertEquals("Use the host's --document-fixtures lease", expectedOwner, InstrumentationRegistry.getArguments().getString("expectedFormDocumentOwner"))
+        touch("extension-files-files")
+        compose.onNodeWithTag("extension-files-dialog-files").assertIsDisplayed()
+        capture("file-import-choice")
+        touch(if (folder) "extension-files-folder-files" else "extension-files-choose-files")
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        assertTrue("The real Android document picker must open", device.wait(Until.hasObject(By.pkg(java.util.regex.Pattern.compile(".*documentsui"))), 15000))
+        val pickerPackage = requireNotNull(device.currentPackageName)
+        assertTrue(pickerPackage.endsWith("documentsui"))
+        // Always choose the leased root, even if DocumentsUI remembers a prior
+        // folder. No app-side URI injection or ActivityMonitor supplies results.
+        val drawer = device.wait(Until.findObject(By.desc("Show roots")), 5000)
+        if (drawer != null) drawer.click()
+        var root = device.findObject(By.text("Droidcast owned files"))
+        repeat(5) {
+            if (root == null) {
+                device.findObject(By.res(pickerPackage, "roots_list"))?.scroll(Direction.DOWN, .7f)
+                root = device.findObject(By.text("Droidcast owned files"))
+            }
+        }
+        requireNotNull(root) { "The leased provider root must be available" }.click()
+        assertNotNull(device.wait(Until.findObject(By.text("café 日本.txt")), 10000))
+        record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
+            .put("system_picker_path", "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor")
+        captureDocumentPicker("android-picker-owned-root", device)
+        return device
+    }
+    private fun captureDocumentPicker(phase: String, device: UiDevice) {
+        val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-$phase"
+        testAutomation().clearCacheForTest()
+        device.waitForIdle(1500)
+        device.dumpWindowHierarchy(File(evidence, "$name.xml"))
+        assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
+        val frame = JSONObject().put("scope", "Actual Android document picker showing only leased owned documents; not the extension's Compose frame")
+            .put("phase", phase).put("system_package", device.currentPackageName)
+            .put("font_scale", context.resources.configuration.fontScale)
+            .put("installed_build_commit", record.getString("installed_build_commit"))
+            .put("synchronization", "Bounded DocumentsUI idle observation; native hierarchy before screenshot; no Compose frame claim")
+        File(evidence, "$name-frame.json").writeText(frame.toString(2))
+    }
+    private fun awaitImportedFiles(expected: Int): List<String> {
+        compose.waitUntil(15000) { typedFileValues().size == expected }
+        compose.waitForIdle()
+        val paths = typedFileValues()
+        val root = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}").canonicalFile
+        paths.forEach { path ->
+            assertFalse("A content URI must never be forwarded as a filesystem path", path.startsWith("content:"))
+            val file = File(path)
+            assertEquals(file.absoluteFile, file.canonicalFile)
+            assertTrue(file.canonicalPath.startsWith(root.path + File.separator)); assertTrue(file.exists())
+        }
+        record.put("private_copy_inside_own_extension_data", true)
+        return paths
+    }
+    private fun submitImportedFiles(expected: Map<String, ByteArray>, folder: Boolean = false) {
+        val paths = typedFileValues()
+        val submits = probe().getInt("submits")
+        touch("extension-primary")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
+        assertEquals(submits + 1, probe().getInt("submits"))
+        val submitted = probe().getJSONObject("submittedValues").getJSONArray("files")
+        assertEquals(JSONArray(paths).toString(), submitted.toString())
+        val reads = probe().getJSONArray("fileReads")
+        assertEquals(expected.size, reads.length())
+        val observed = (0 until reads.length()).map { reads.getJSONObject(it) }.associateBy { it.getString("name") }
+        assertEquals(expected.keys, observed.keys)
+        expected.forEach { (name, bytes) ->
+            val row = requireNotNull(observed[name]); assertEquals(folder, row.getBoolean("directory"))
+            assertArrayEquals(bytes, android.util.Base64.decode(row.getString("base64"), android.util.Base64.DEFAULT))
+        }
+        record.put("submitted_exact_native_path_array", true).put("js_exact_bytes", JSONObject(expected.mapValues { hash(it.value) }))
+            .put("destination", "Owned Detail with base64 bytes read by the real extension fs bridge")
+        capture("file-byte-destination")
+    }
+    private fun returnFromFileDestination() {
+        touch("extension-back")
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        compose.waitForIdle(); capture("file-returned-form")
+        touch("extension-back")
+        compose.waitUntil(5000) { compose.activity.store.dialog == null }
+        compose.onNodeWithTag("search").assertTextEquals(caller)
+        record.put("caller_query_restored", true)
+    }
+    @Test fun filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments()
+        requireNotNull(device.findObject(By.text("café 日本.txt"))).click()
+        val paths = awaitImportedFiles(1)
+        assertEquals("café 日本.txt", File(paths.single()).name)
+        assertArrayEquals("Owned file café 日本 🌱\n".toByteArray(), File(paths.single()).readBytes())
+        capture("file-imported-unicode")
+        touch("extension-files-done-files")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray()))
+        returnFromFileDestination(); record.put("passed", true)
+    }
+    @Test fun filePickerCancellationPreservesTheValueAndDoesNotImport() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments()
+        device.pressBack()
+        compose.waitForIdle(); compose.onNodeWithTag("extension-files-dialog-files").assertIsDisplayed()
+        assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        assertTrue(File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty())
+        capture("file-picker-cancelled")
+        touch("extension-files-done-files"); record.put("cancel_preserved_selection_and_changes", true).put("passed", true)
+    }
+    @Test fun filePickerRejectsAnOversizeDocumentWithoutChangingItsSelection() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments()
+        requireNotNull(device.findObject(By.text("Owned too large.bin"))).click()
+        compose.waitUntil(15000) { compose.onAllNodesWithTag("extension-field-error-files-import-files").fetchSemanticsNodes().isNotEmpty() }
+        assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        compose.waitUntil(5000) { File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty() }
+        capture("file-import-error")
+        record.put("negative_control", "Owned provider declares a 17 MiB size; actual-stream bounds are separately tested")
+            .put("selection_and_callback_count_unchanged", true).put("passed", true)
+    }
+    @Test fun filePickerImportsARealSelectedFolderAndNestedBytes() {
+        launch("typed-file-folder-workflow")
+        val device = openOwnedDocuments(true)
+        requireNotNull(device.findObject(By.text("Owned folder"))).click()
+        assertNotNull(device.wait(Until.findObject(By.text("nested.txt")), 10000))
+        val use = device.wait(Until.findObject(By.text(java.util.regex.Pattern.compile("(?i)use this folder"))), 5000)
+        requireNotNull(use).click()
+        val allow = device.wait(Until.findObject(By.text(java.util.regex.Pattern.compile("(?i)allow"))), 5000)
+        captureDocumentPicker("android-folder-permission", device)
+        requireNotNull(allow).click()
+        val path = awaitImportedFiles(1).single(); assertTrue(File(path).isDirectory)
+        assertEquals("Owned folder", File(path).name)
+        assertArrayEquals("Owned nested café 日本 🌱\n".toByteArray(), File(path, "nested.txt").readBytes())
+        capture("file-folder-imported"); touch("extension-files-done-files")
+        submitImportedFiles(mapOf("Owned folder" to "Owned nested café 日本 🌱\n".toByteArray()), true)
+        returnFromFileDestination(); record.put("passed", true)
+    }
+    @Test fun filePickerMultipleSelectionPreservesBinaryBytesAndCanRemoveAndClear() {
+        launch("typed-file-multiple-workflow")
+        val device = openOwnedDocuments()
+        requireNotNull(device.findObject(By.text("café 日本.txt"))).longClick()
+        requireNotNull(device.findObject(By.text("owned-bytes.bin"))).click()
+        val open = device.wait(Until.findObject(By.text(java.util.regex.Pattern.compile("(?i)open"))), 5000)
+        captureDocumentPicker("android-two-documents-selected", device)
+        requireNotNull(open).click()
+        val paths = awaitImportedFiles(2)
+        assertEquals(setOf("café 日本.txt", "owned-bytes.bin"), paths.map { File(it).name }.toSet())
+        capture("file-two-imported"); touch("extension-files-done-files")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray(), "owned-bytes.bin" to byteArrayOf(0, 1, 2, -2, -1, 10)))
+        touch("extension-back"); compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        touch("extension-files-files")
+        val binary = typedFileValues().indexOfFirst { File(it).name == "owned-bytes.bin" }; assertTrue(binary >= 0)
+        touch("extension-files-remove-files-$binary")
+        compose.waitUntil(5000) { typedFileValues().map { File(it).name } == listOf("café 日本.txt") }
+        compose.waitForIdle(); capture("file-one-removed")
+        touch("extension-files-clear-files")
+        compose.waitUntil(5000) { typedFileValues().isEmpty() }
+        compose.waitForIdle(); capture("file-selection-cleared"); touch("extension-files-done-files")
+        submitImportedFiles(emptyMap()); returnFromFileDestination(); record.put("passed", true)
+    }
+    @Test fun filePickerResultCannotEnterAReplacementCommand() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments(); val epoch = catalog.launchEpoch
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        assertNotEquals(epoch, catalog.launchEpoch)
+        requireNotNull(device.findObject(By.text("café 日本.txt"))).click()
+        compose.waitUntil(25000) { catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        compose.waitForIdle(); assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        assertTrue(File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty())
+        capture("file-late-selection-rejected")
+        record.put("transition", "Same owned command relaunched while real DocumentsUI was open; old selection leaves successor unchanged")
+            .put("successor_selection_empty", true).put("passed", true)
+    }
+    @Test fun disposedFilePickerRegistrationCannotConsumeASuccessorResult() {
+        launch("typed-controls")
+        val codes = mutableListOf<Int>()
+        val registry = object : androidx.activity.result.ActivityResultRegistry() {
+            override fun <I, O> onLaunch(requestCode: Int, contract: androidx.activity.result.contract.ActivityResultContract<I, O>, input: I,
+                options: androidx.core.app.ActivityOptionsCompat?) { codes.add(requestCode) }
+        }
+        var oldCalls = 0; var successorCalls = 0
+        compose.activityRule.scenario.onActivity {
+            val old = FormDocumentPicker(registry)
+            old.launch(android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT)) { oldCalls++ }
+            old.close()
+            val successor = FormDocumentPicker(registry)
+            successor.launch(android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT)) { successorCalls++ }
+            assertEquals(2, codes.size); assertNotEquals(codes[0], codes[1])
+            assertTrue(registry.dispatchResult(codes[0], android.app.Activity.RESULT_OK, android.content.Intent()))
+            assertEquals(0, oldCalls); assertEquals(0, successorCalls)
+            assertTrue(registry.dispatchResult(codes[1], android.app.Activity.RESULT_OK, android.content.Intent()))
+            assertEquals(0, oldCalls); assertEquals(1, successorCalls)
+            successor.close()
+        }
+        record.put("test_boundary", "Controlled real ActivityResultRegistry dispatch: distinct unsaved keys, disposed-result tombstone, exact successor callback count; no system picker launch")
+            .put("old_callbacks", oldCalls).put("successor_callbacks", successorCalls)
+        capture("file-registry-isolation"); record.put("passed", true)
+    }
+    private fun memoryFileSource(open: () -> java.io.InputStream) = object : FormDocumentSource {
+        override fun document(key: String) = FormDocument(key, "owned-memory.bin", false)
+        override fun children(document: FormDocument, visit: (FormDocument) -> Unit) = Unit
+        override fun open(document: FormDocument) = open()
+    }
+    @Test fun cancelledFileImportCannotDeliverAfterItsBlockedReadFinishes() {
+        launch("typed-controls")
+        val entered = CountDownLatch(1); val release = CountDownLatch(1); val finished = CountDownLatch(1)
+        val offMain = AtomicBoolean(false); val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf("owned"), true, false) {
+            memoryFileSource {
+                object : java.io.ByteArrayInputStream(byteArrayOf(0, 1, 2, -1)) {
+                    override fun read(bytes: ByteArray, offset: Int, length: Int): Int {
+                        offMain.set(android.os.Looper.myLooper() != android.os.Looper.getMainLooper()); entered.countDown()
+                        while (release.count > 0) try { release.await(30, TimeUnit.MILLISECONDS) } catch (_: InterruptedException) { /* Controlled uncooperative provider read. */ }
+                        finished.countDown(); return super.read(bytes, offset, length)
+                    }
+                }
+            }
+        }
+        var deliveries = 0
+        try {
+            compose.activityRule.scenario.onActivity { scope.launch { request.prepare(); request.deliver { deliveries++; true } } }
+            assertTrue(entered.await(5, TimeUnit.SECONDS)); assertTrue(offMain.get())
+            touch("extension-files-files"); compose.onNodeWithTag("extension-files-dialog-files").assertIsDisplayed()
+            compose.activityRule.scenario.onActivity { request.cancel(); scope.cancel() }
+            release.countDown(); assertTrue(finished.await(5, TimeUnit.SECONDS))
+            compose.waitUntil(5000) { File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty() }
+            assertEquals(0, deliveries); assertTrue(typedFileValues().isEmpty())
+            capture("file-cancelled-read-released")
+            record.put("test_boundary", "Controlled blocked InputStream on the actual bounded copy worker; real app pointer remains responsive; no DocumentsUI/provider-service timeout claim")
+                .put("read_off_main", true).put("late_deliveries", deliveries).put("undelivered_copies_removed", true).put("passed", true)
+        } finally { release.countDown(); request.cancel(); scope.cancel() }
+    }
+    @Test fun cancellationBetweenFilePreparationAndDeliveryRemovesOnlyTheUndeliveredCopy() {
+        launch("typed-controls")
+        val root = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}")
+        val original = File(root, "owned-existing.txt").apply { writeText("Owned pre-existing extension data") }
+        val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf("owned"), true, false) {
+            memoryFileSource { java.io.ByteArrayInputStream(byteArrayOf(0, 1, 2, -1)) }
+        }
+        var deliveries = 0
+        try {
+            runBlocking { withTimeout(5000) { request.prepare() } }
+            assertEquals(1, File(root, "form-input").listFiles().orEmpty().size)
+            request.cancel()
+            compose.waitUntil(5000) { File(root, "form-input").listFiles().orEmpty().isEmpty() }
+            compose.activityRule.scenario.onActivity { assertFalse(request.deliver { deliveries++; true }) }
+            assertEquals(0, deliveries); assertEquals("Owned pre-existing extension data", original.readText())
+            record.put("test_boundary", "Controlled cancellation after successful prepare/commit but before field acceptance; no external picker launch")
+                .put("late_deliveries", deliveries).put("unrelated_extension_data_preserved", true)
+            capture("file-prepared-result-cancelled"); record.put("passed", true)
+        } finally { request.cancel() }
     }
 
     @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
