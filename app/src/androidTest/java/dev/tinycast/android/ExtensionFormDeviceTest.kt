@@ -142,6 +142,28 @@ class ExtensionFormDeviceTest {
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
               }
+              if(mode.startsWith('typed-')){
+                const [date,setDate]=React.useState(new Date('2024-02-29T12:34:00.000Z'));
+                const [tags,setTags]=React.useState(['internal-two']),[files,setFiles]=React.useState([]);
+                const errorId=mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null;
+                globalThis.__formProbe.submits ??= 0;
+                const change=(id,setter)=>value=>{globalThis.__formProbe.changes++;setter(value)};
+                const error=id=>errorId===id?'Owned typed field must be corrected before submitting.':undefined;
+                return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
+                  React.createElement(api.Action.SubmitForm,{title:'Inspect owned typed values',onSubmit:values=>{
+                    globalThis.__formProbe.submits++;globalThis.__formProbe.submittedValues=values;
+                  }}))},
+                  React.createElement(api.Form.DatePicker,{key:'date',id:'date',title:'Owned appointment date and time',
+                    type:api.Form.DatePicker.Type.DateTime,value:date,onChange:change('date',setDate),error:error('date'),
+                    info:'Choose an owned calendar date and time by touch.',...fieldEvents('date')}),
+                  React.createElement(api.Form.TagPicker,{key:'tags',id:'tags',title:'Owned output categories',
+                    value:tags,onChange:change('tags',setTags),error:error('tags'),...fieldEvents('tags')},
+                    React.createElement(api.Form.TagPicker.Item,{key:'one',value:'internal-one',title:'Readable first category'}),
+                    React.createElement(api.Form.TagPicker.Item,{key:'two',value:'internal-two',title:'Readable second category'})),
+                  React.createElement(api.Form.FilePicker,{key:'files',id:'files',title:'Owned input documents',
+                    value:files,onChange:change('files',setFiles),error:error('files'),...fieldEvents('files')}),
+                  React.createElement(api.Form.Description,{key:'scope',text:'Owned typed controls; no Store or provider workflow is certified by this fixture.'}));
+              }
               if(mode.startsWith('submit-')){
                 const [name,setName]=React.useState(mode==='submit-reject'?'OWNED FIXED':'Owned invalid 日本');
                 const initialError=['submit-validation','submit-alias','submit-default','submit-long'].includes(mode);
@@ -1239,6 +1261,37 @@ class ExtensionFormDeviceTest {
         record.put("native_preferences_edited_not_seeded", true).put("exact_unicode_form_copy", true).put("form_state_preserved_on_back", true)
             .put("launcher_query_preserved", true).put("passed", true)
     }
+    private fun typedTouchControl(type: String, id: String, tag: String) {
+        launch("typed-controls")
+        val current = field(type, id)
+        record.put("typed_field_type", type).put("typed_field_id", id)
+            .put("initial_native_value", current.props().get("value"))
+            .put("matching_native_controls", compose.onAllNodesWithTag(tag).fetchSemanticsNodes().size)
+            .put("test_boundary", "Native touch-control availability only; no picker selection, provider or submitted-value workflow is certified")
+        capture("typed-control-before-interaction")
+        compose.onNodeWithTag(tag).assertIsDisplayed().assertHasClickAction()
+        record.put("native_touch_control_available", true).put("passed", true)
+    }
+    @Test fun datePickerHasNativeTouchControl() = typedTouchControl("Form.DatePicker", "date", "extension-date-date")
+    @Test fun tagPickerHasNativeTouchControl() = typedTouchControl("Form.TagPicker", "tags", "extension-tags-tags")
+    @Test fun filePickerHasNativeTouchControl() = typedTouchControl("Form.FilePicker", "files", "extension-files-files")
+    private fun typedErrorDisablesSubmit(type: String, id: String) {
+        launch("typed-error-$id")
+        val supplied = field(type, id).props().getString("error")
+        assertEquals("Owned typed field must be corrected before submitting.", supplied)
+        record.put("typed_field_type", type).put("typed_field_id", id).put("runtime_supplied_error", supplied)
+            .put("initial_submit_count", probe().getInt("submits"))
+            .put("native_submit_enabled", !compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config.contains(SemanticsProperties.Disabled))
+            .put("test_boundary", "Current native Submit enabled/disabled state only; this case does not attempt activation or certify JavaScript callback rejection")
+        assertEquals(0, probe().getInt("submits"))
+        capture("typed-error-primary-state")
+        compose.onNodeWithTag("extension-primary").assertIsNotEnabled()
+        record.put("native_submit_disabled_for_typed_error", true).put("passed", true)
+    }
+    @Test fun datePickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.DatePicker", "date")
+    @Test fun tagPickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.TagPicker", "tags")
+    @Test fun filePickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.FilePicker", "files")
+
     @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
     @Test fun formsWithErrorsBlockActionsMenuKeyboardSubmit() = assertErroredSubmitBlocked(true)
 
