@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.*
@@ -19,6 +20,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 internal fun DetailImageInformation(information: String, active: Boolean, modifier: Modifier,
     content: @Composable () -> Unit) {
     val state = rememberTooltipState(isPersistent = true)
+    val focus = LocalFocusManager.current
     val view = LocalView.current
     val density = LocalDensity.current
     fun visibleFrame(): IntRect {
@@ -40,6 +42,11 @@ internal fun DetailImageInformation(information: String, active: Boolean, modifi
     val imeBottom = WindowInsets.ime.getBottom(density)
     val visible = remember(frame, imeBottom) { visibleFrame() }
     LaunchedEffect(active) { if (!active) state.dismiss() }
+    LaunchedEffect(state.isVisible) {
+        // A selectable inline image can begin text selection at the same
+        // long-press boundary. Release its handles before showing information.
+        if (state.isVisible) focus.clearFocus(force = true)
+    }
     val margin = with(density) { 8.dp.roundToPx() }
     val position = remember(visible, margin) {
         object : PopupPositionProvider {

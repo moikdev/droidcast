@@ -195,7 +195,12 @@ private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue
             modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged{focused=it.isFocused}
                 .onPreviewKeyEvent { keys?.invoke(it) ?: false }.testTag(tag),
             decorationBox={inner->Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(value.text.isEmpty())Text(placeholder,color=muted,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
-        if(wide)IconButton(onClick={requested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",muted,16)}
+        if(wide || ime) IconButton(onClick={
+            if (ime) {
+                requested=false; keyboard?.hide()
+                androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
+            } else { requested=true;focus.requestFocus();keyboard?.show() }
+        },modifier=Modifier.size(48.dp).semantics{contentDescription=if(ime)"Hide on-screen keyboard" else "Show on-screen keyboard"}){Glyph("keyboard",muted,16)}
         trailing()
     }
     HorizontalDivider(color=line)
