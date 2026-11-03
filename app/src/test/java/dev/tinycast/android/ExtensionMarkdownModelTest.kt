@@ -99,4 +99,22 @@ class ExtensionMarkdownModelTest {
         assertNotNull("Parser allocation limits must become an unavailable document", result.problem)
         assertTrue("A rejected table must not publish a partial document", result.blocks.isEmpty())
     }
+    @Test fun tableCellBudgetAllowsItsBoundaryAndRejectsTheNextPaddedRow() {
+        fun table(rows: Int) = "|" + "x|".repeat(64) + "\n|" + "-|".repeat(64) + "\n" + "|x|\n".repeat(rows)
+        assertEquals(4096, ExtensionMarkdown.MAX_TABLE_CELLS)
+        val accepted = ExtensionMarkdown.parse(table(63))
+        assertNull(accepted.problem)
+        val block = accepted.blocks.single() as MarkdownBlock.Table
+        assertEquals(64, block.header.size); assertEquals(63, block.rows.size)
+        assertTrue(block.rows.all { it.size == 64 })
+        val rejected = ExtensionMarkdown.parse(table(64))
+        assertEquals(MarkdownProblem.PARSER_LIMIT, rejected.problem); assertTrue(rejected.blocks.isEmpty())
+    }
+    @Test fun cancellationAfterParserLimitIsNotConvertedToAnUnavailableDocument() {
+        val source = "|" + "x|".repeat(1001) + "\n|" + "-|".repeat(1001) + "\n" + "|x|\n".repeat(1000)
+        val expected = java.util.concurrent.CancellationException("Owned cancelled preview")
+        var checks = 0
+        val result = runCatching { ExtensionMarkdown.parse(source) { if (++checks > 1) throw expected } }
+        assertSame(expected, result.exceptionOrNull())
+    }
 }

@@ -28,7 +28,7 @@ internal sealed interface MarkdownBlock {
     data class Table(val header: List<MarkdownCell>, val rows: List<List<MarkdownCell>>) : MarkdownBlock
     data object Divider : MarkdownBlock
 }
-internal enum class MarkdownProblem { SOURCE_LIMIT, NODE_LIMIT }
+internal enum class MarkdownProblem { SOURCE_LIMIT, NODE_LIMIT, PARSER_LIMIT }
 internal data class MarkdownDocument(val blocks: List<MarkdownBlock>, val nodeCount: Int,
     val problem: MarkdownProblem? = null)
 
@@ -36,13 +36,21 @@ internal data class MarkdownDocument(val blocks: List<MarkdownBlock>, val nodeCo
 internal object ExtensionMarkdown {
     const val MAX_SOURCE_UNITS = 512 * 1024
     const val MAX_NODES = 16 * 1024
-    private val parser = Parser.builder().extensions(listOf(TablesExtension.create(), StrikethroughExtension.create()))
+    const val MAX_TABLE_CELLS = 4 * 1024
+    private val parser = Parser.builder().extensions(listOf(TablesExtension.builder().maxCells(MAX_TABLE_CELLS).build(), StrikethroughExtension.create()))
         .maxOpenBlockParsers(64).maxInlineNesting(64).build()
 
     fun parse(source: String, cancellationCheck: () -> Unit = {}): MarkdownDocument {
         cancellationCheck()
         if (source.length > MAX_SOURCE_UNITS) return MarkdownDocument(emptyList(), 0, MarkdownProblem.SOURCE_LIMIT)
-        val root = parser.parse(source)
+        val root = try { parser.parse(source) }
+        catch (_: IllegalArgumentException) {
+            // The table parser can reject padded-cell expansion before an AST
+            // exists for our node check. A cancelled owner still wins over the
+            // readable unavailable state.
+            cancellationCheck()
+            return MarkdownDocument(emptyList(), 0, MarkdownProblem.PARSER_LIMIT)
+        }
         cancellationCheck()
         val pending = ArrayDeque<Node>(); pending.addLast(root)
         var count = 0

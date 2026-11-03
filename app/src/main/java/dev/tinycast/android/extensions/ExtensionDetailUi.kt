@@ -51,7 +51,7 @@ private fun metadataText(value: Any?): String = when (value) {
     else -> ""
 }
 internal fun metadataTint(value: Any?): Color {
-    val name = when (value) { is JSONObject -> (value.opt("dark") as? String) ?: (value.opt("light") as? String).orEmpty(); is String -> value; else -> "" }
+    val name = metadataColorName(value)
     return when (name) {
         "raycast-blue" -> Color(0xff3b82f6); "raycast-green" -> Color(0xff22c55e); "raycast-red" -> Color(0xffef4444)
         "raycast-yellow" -> Color(0xffeab308); "raycast-orange" -> Color(0xfff97316); "raycast-purple" -> Color(0xffa855f7)
@@ -87,8 +87,14 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
             candidate.optString("type") == expected.optString("type") &&
                 (expected.optString("id").isBlank() || candidate.optString("id") == expected.optString("id")) &&
                 fields.all { field ->
-                    if (field == "onAction") candidate.handle(field) == expected.handle(field)
-                    else candidate.props().opt(field) == expected.props().opt(field)
+                    val live = candidate.props().opt(field); val shown = expected.props().opt(field)
+                    when (field) {
+                        "onAction" -> candidate.handle(field) == expected.handle(field)
+                        "icon" -> metadataIconSignature(live) == metadataIconSignature(shown)
+                        "color" -> metadataColorName(live) == metadataColorName(shown)
+                        "text" -> metadataText(live) == metadataText(shown)
+                        else -> live == shown
+                    }
                 }
         }.singleOrNull()
     }
@@ -132,6 +138,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                                 }
                             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                                 .semantics { contentDescription = if (available) "Open link: $label" else label },
+                                shape = RoundedCornerShape(8.dp),
                                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)) {
                                 Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                     if (title.isNotEmpty()) Text(title, color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
@@ -149,7 +156,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                                     tags.forEach { tag ->
                                         val text = metadataText(tag.props().opt("text")); val handle = tag.handle("onAction")
                                         val tint = metadataTint(tag.props().opt("color"))
-                                        key(tag.optString("id"), text, handle, tag.props().opt("icon"), tag.props().opt("color")) {
+                                        key(tag.optString("id"), text, handle, metadataIconSignature(tag.props().opt("icon")), metadataColorName(tag.props().opt("color"))) {
                                         val click = if (handle.isNullOrBlank()) Modifier else Modifier.clickable(role = Role.Button) {
                                             val live = liveMetadata(tag, listOf("text", "color", "icon", "onAction"))
                                             if (live?.handle("onAction") == handle) dispatch(handle, JSONArray())
