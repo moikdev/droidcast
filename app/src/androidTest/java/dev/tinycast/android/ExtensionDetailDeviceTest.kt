@@ -412,28 +412,55 @@ class ExtensionDetailDeviceTest {
         record.put("passed", true)
     }
     private fun image(label: String) = compose.onNodeWithContentDescription(label, useUnmergedTree = true)
+    private fun imageStatePublishedAndComposed(snapshot: JSONObject): Boolean {
+        val events = snapshot.getJSONArray("events")
+        fun last(stage: String) = (0 until events.length()).map { events.getJSONObject(it) }.lastOrNull { it.getString("stage") == stage }
+        val written = last("state-ready") ?: return false
+        val composed = last("composed") ?: return false
+        return written.getBoolean("bitmap_ready") && composed.getBoolean("bitmap_ready") &&
+            written.getInt("producer_generation") == snapshot.getInt("generation") &&
+            written.getInt("value_token") == composed.getInt("value_token")
+    }
+    private fun observeImage(label: String, phase: String): JSONObject {
+        val node = image(label).fetchSemanticsNode()
+        val observations = record.optJSONArray("image_readiness") ?: JSONArray().also { record.put("image_readiness", it) }
+        val debug = node.config.firstOrNull { it.key.name == "DetailImageLoadState" }?.value
+        val snapshot = node.config.firstOrNull { it.key.name == "DetailImageLoadSnapshot" }?.value as? Function0<*>
+        var loadSnapshot: String? = null
+        val geometry = compose.runOnUiThread {
+            loadSnapshot = snapshot?.invoke() as? String
+            Triple(node.positionInRoot, compose.activity.lifecycle.currentState.name, debug?.toString() ?: "not available")
+        }
+        val svg = ownedId?.let { File(context.cacheDir, "$it/assets/owned.svg") }
+        val observation = JSONObject().put("alternative", label).put("phase", phase)
+            .put("state", node.config.getOrNull(SemanticsProperties.StateDescription)).put("activity_lifecycle", geometry.second)
+            .put("debug_load_state", geometry.third)
+            .put("load_snapshot", loadSnapshot?.let(::JSONObject) ?: JSONObject.NULL)
+            .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
+            .put("unclipped_origin", JSONArray(listOf(geometry.first.x, geometry.first.y)))
+            .put("size", JSONArray(listOf(node.size.width, node.size.height)))
+            .put("owned_fixture_svg_assets_file_unchanged", svg?.isFile == true && hash(svg.readBytes()) == record.optString("owned_svg_sha256"))
+        observations.put(observation)
+        return observation
+    }
     private fun readyImage(label: String) {
         // A root publication can precede the off-Main Markdown parse. Wait
         // for its actual image node before attempting any scroll action.
         compose.waitUntil(10000) { compose.onAllNodesWithContentDescription(label, useUnmergedTree = true).fetchSemanticsNodes().size == 1 }
-        fun observe(phase: String) {
+        reveal(image(label)); observeImage(label, "before-wait")
+        try { compose.waitUntil(10000) {
             val node = image(label).fetchSemanticsNode()
-            val observations = record.optJSONArray("image_readiness") ?: JSONArray().also { record.put("image_readiness", it) }
-            val debug = node.config.firstOrNull { it.key.name == "DetailImageLoadState" }?.value
-            val geometry = compose.runOnUiThread { Triple(node.positionInRoot, compose.activity.lifecycle.currentState.name, debug?.toString() ?: "not available") }
-            val svg = ownedId?.let { File(context.cacheDir, "$it/assets/owned.svg") }
-            observations.put(JSONObject().put("alternative", label).put("phase", phase)
-                .put("state", node.config.getOrNull(SemanticsProperties.StateDescription)).put("activity_lifecycle", geometry.second)
-                .put("debug_load_state", geometry.third)
-                .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
-                .put("unclipped_origin", JSONArray(listOf(geometry.first.x, geometry.first.y)))
-                .put("size", JSONArray(listOf(node.size.width, node.size.height)))
-                .put("owned_fixture_svg_assets_file_unchanged", svg?.isFile == true && hash(svg.readBytes()) == record.optString("owned_svg_sha256")))
-        }
-        reveal(image(label)); observe("before-wait")
-        try { compose.waitUntil(10000) { image(label).fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription) == "Image ready" } }
-        catch (failure: Throwable) { observe("wait-failed"); throw failure }
-        observe("ready")
+            if (node.config.getOrNull(SemanticsProperties.StateDescription) != "Image ready") false
+            else {
+                val snapshot = node.config.firstOrNull { it.key.name == "DetailImageLoadSnapshot" }?.value as? Function0<*>
+                val encoded = compose.runOnUiThread { snapshot?.invoke() as? String }
+                // Earlier frozen apps expose only native semantics. Preserve
+                // that boundary rather than inventing a publication witness.
+                encoded == null || imageStatePublishedAndComposed(JSONObject(encoded))
+            }
+        } }
+        catch (failure: Throwable) { observeImage(label, "wait-failed"); throw failure }
+        observeImage(label, "ready")
     }
     private fun imagePixel(label: String, expected: Int) {
         readyImage(label)
@@ -444,6 +471,19 @@ class ExtensionDetailDeviceTest {
         val receipts = record.optJSONArray("image_pixels") ?: JSONArray().also { record.put("image_pixels", it) }
         receipts.put(JSONObject().put("alternative", label).put("expected_argb", expected.toLong()).put("red", actual.red.toDouble())
             .put("green", actual.green.toDouble()).put("blue", actual.blue.toDouble()).put("width_px", pixels.width).put("height_px", pixels.height))
+        val observation = observeImage(label, "pixels-captured")
+        observation.optJSONObject("load_snapshot")?.let { snapshot ->
+            val events = snapshot.getJSONArray("events")
+            fun last(stage: String) = (0 until events.length()).map { events.getJSONObject(it) }.lastOrNull { it.getString("stage") == stage }
+            val written = requireNotNull(last("state-ready")) { "Ready pixels need an actual state-publication witness" }
+            val composed = requireNotNull(last("composed")) { "Ready pixels need an applied-composition witness" }
+            val drawn = requireNotNull(last("draw-recorded")) { "Ready pixels need a draw-command witness" }
+            assertTrue(written.getBoolean("bitmap_ready")); assertTrue(composed.getBoolean("bitmap_ready")); assertTrue(drawn.getBoolean("bitmap_ready"))
+            assertEquals("Composition must consume the published value", written.getInt("value_token"), composed.getInt("value_token"))
+            assertEquals("Draw must use the composed value", composed.getInt("value_token"), drawn.getInt("value_token"))
+            assertEquals("The publication must belong to the current producer", snapshot.getInt("generation"), written.getInt("producer_generation"))
+            observation.put("published_composed_drawn_value_and_pixels_agree", true)
+        }
     }
     @Test fun packageSvgTintAndFailureImagesRenderWithBoundedAlternatives() {
         launch("images")
@@ -758,7 +798,7 @@ class ExtensionDetailDeviceTest {
         record.put("native_lists_quotes_escapes_marks_verified", true).put("passed", true)
     }
     @Test fun imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument() {
-        launch("image-information"); readyImage("Owned block image"); capture("image-information-before-contract")
+        launch("image-information"); imagePixel("Owned block image", 0xff228833.toInt()); capture("image-information-before-contract")
         record.put("contract_assertions_started", true)
         assertTrue("Markdown image title needs a touch-readable equivalent",
             compose.onAllNodesWithText("Owned block description A café 日本").fetchSemanticsNodes().isNotEmpty())

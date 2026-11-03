@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -34,18 +35,57 @@ import dev.tinycast.android.Glyph
 import dev.tinycast.android.BuildConfig
 import dev.tinycast.android.PaletteTheme
 import kotlinx.coroutines.CancellationException
+import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.ref.WeakReference
 
 private data class DetailImageResult(val source: String, val bitmap: Bitmap? = null, val failed: Boolean = false)
 private class DetailImageLoadTrace {
+    companion object { private val owners = java.util.concurrent.atomic.AtomicLong() }
+    private val owner = owners.incrementAndGet()
     @Volatile var generation = 0
     @Volatile var cancellations = 0
     @Volatile var phase = "new"
     @Volatile var sample: (() -> String)? = null
+    private var nextToken = 0
+    private val tokens = mutableListOf<Pair<WeakReference<Any>, Int>>()
+    private val events = ArrayDeque<JSONObject>()
+    private var previousEvent = ""
+
+    // Match produceState's rendered-value equality: a fresh equal wrapper
+    // need not recompose. Weak references never retain a decoded bitmap.
+    @Synchronized fun token(value: Any?): Int {
+        if (value == null) return 0
+        tokens.removeAll { it.first.get() == null }
+        tokens.firstOrNull { it.first.get() == value }?.let { return it.second }
+        val token = ++nextToken
+        tokens += WeakReference(value) to token
+        if (tokens.size > 128) tokens.removeAt(0)
+        return token
+    }
+    @Synchronized fun event(stage: String, producer: Int = generation, value: Any? = null, ready: Boolean = false) {
+        val valueToken = token(value)
+        val signature = "$stage:$producer:$valueToken:$ready"
+        if (previousEvent == signature) return
+        previousEvent = signature
+        events.addLast(JSONObject().put("stage", stage).put("producer_generation", producer)
+            .put("value_token", valueToken).put("bitmap_ready", ready)
+            .put("uptime_ms", android.os.SystemClock.uptimeMillis()))
+        while (events.size > 64) events.removeFirst()
+    }
+    fun snapshot(): String {
+        val live = runCatching { sample?.invoke() ?: "detached" }.getOrDefault("detached")
+        return synchronized(this) {
+            JSONObject().put("schema_version", 1).put("trace_owner", owner)
+                .put("generation", generation).put("phase", phase).put("cancellations", cancellations)
+                .put("live_state", live).put("events", JSONArray(events.map { JSONObject(it.toString()) })).toString()
+        }
+    }
     override fun toString() = "generation=$generation;phase=$phase;cancellations=$cancellations;" +
         runCatching { sample?.invoke().orEmpty() }.getOrDefault("detached")
 }
 private val imageLoadTraceKey = SemanticsPropertyKey<DetailImageLoadTrace>("DetailImageLoadState")
+private val imageLoadSnapshotKey = SemanticsPropertyKey<() -> String>("DetailImageLoadSnapshot")
 
 /** Offscreen/stopped views retain their aspect ratio, not decoded bitmap references or jobs. */
 @Composable
@@ -64,6 +104,7 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
     val view = LocalView.current
     val trace = remember { if (BuildConfig.DEBUG) DetailImageLoadTrace() else null }
+    if (trace != null) DisposableEffect(trace) { onDispose { trace.sample = null; trace.event("disposed") } }
     fun updateVisibility(bounds: LayoutCoordinates?) {
         val clipped = bounds?.takeIf { it.isAttached }?.boundsInWindow()
         visible = clipped != null && clipped.width > 0f && clipped.height > 0f
@@ -80,31 +121,46 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     var aspect by remember(source) { mutableFloatStateOf(1.6f) }
     val observed by produceState(DetailImageResult(source), source, images, visible, started, inline) {
         val generation = trace?.let { ++it.generation } ?: 0
-        fun phase(value: String) { if (trace != null && trace.generation == generation) trace.phase = value }
+        fun phase(value: String) {
+            if (trace != null && trace.generation == generation) trace.phase = value
+            trace?.event("producer-$value", generation)
+        }
         value = DetailImageResult(source)
-        if (request == null) { phase("invalid-request"); value = DetailImageResult(source, failed = true) }
+        trace?.event("state-reset", generation, value, value.bitmap != null)
+        if (request == null) {
+            phase("invalid-request"); value = DetailImageResult(source, failed = true)
+            trace?.event("state-unavailable", generation, value)
+        }
         else if (visible && started) try {
             phase("loading")
             val bitmap = images.load(request.source, if (inline) 128 else ExtensionDetailImages.MAX_EDGE)
             aspect = bitmap.width.toFloat() / bitmap.height
             phase("ready")
             value = DetailImageResult(source, bitmap)
+            trace?.event("state-ready", generation, value, value.bitmap != null)
         } catch (cancelled: CancellationException) {
             trace?.let { it.cancellations++ }; phase("cancelled"); throw cancelled
-        } catch (failure: Exception) { phase("failed:${failure.javaClass.simpleName}"); value = DetailImageResult(source, failed = true) }
+        } catch (failure: Exception) {
+            phase("failed:${failure.javaClass.simpleName}"); value = DetailImageResult(source, failed = true)
+            trace?.event("state-unavailable", generation, value)
+        }
         else phase(if (started) "waiting-visibility" else "waiting-lifecycle")
     }
     // A retained metadata icon can receive a new source before its producer's
     // restart executes. Never paint the preceding source during that interval.
     val result = observed.takeIf { it.source == source } ?: DetailImageResult(source)
     SideEffect {
-        // A read-only DEBUG semantic probe carries no URL, content or bitmap.
-        // Plain trace fields deliberately cause no recomposition of their own.
-        trace?.sample = {
-            val bounds = coordinates?.takeIf { it.isAttached }?.boundsInWindow()
-            "visible=$visible;started=$started;request=${request != null};source_matches=${observed.source == source};" +
-                "observed_ready=${observed.bitmap != null};composed_ready=${result.bitmap != null};" +
-                "attached=${coordinates?.isAttached == true};window_bounds=$bounds;lifecycle=${lifecycle.currentState}"
+        if (trace != null) {
+            trace.event("composed", value = result, ready = result.bitmap != null)
+            // A read-only DEBUG semantic probe carries no URL, content or bitmap.
+            // Plain trace fields deliberately cause no recomposition of their own.
+            trace.sample = {
+                val bounds = coordinates?.takeIf { it.isAttached }?.boundsInWindow()
+                "visible=$visible;started=$started;request=${request != null};source_matches=${observed.source == source};" +
+                    "observed_ready=${observed.bitmap != null};composed_ready=${result.bitmap != null};" +
+                    "observed_value_token=${trace.token(observed)};composed_value_token=${trace.token(result)};" +
+                    "attached=${coordinates?.isAttached == true};window_bounds=$bounds;lifecycle=${lifecycle.currentState}"
+            }
         }
     }
     val label = alternative.ifBlank { "Image" }
@@ -112,10 +168,18 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     val content: @Composable (Modifier) -> Unit = { imageModifier ->
     BoxWithConstraints(imageModifier.onGloballyPositioned { bounds ->
         coordinates = bounds; updateVisibility(bounds); refreshAfterPlacement()
-    }.testTag("extension-detail-image").semantics {
+    }.then(if (trace == null) Modifier else Modifier.drawWithContent {
+        drawContent()
+        // This records a Compose draw command, not display scanout. Tests must
+        // separately inspect the committed pixels before crediting rendering.
+        trace.event("draw-recorded", value = result, ready = result.bitmap != null)
+    }).testTag("extension-detail-image").semantics {
         contentDescription = label
         stateDescription = when { result.failed -> "Image unavailable"; result.bitmap != null -> "Image ready"; else -> "Image loading" }
-        if (trace != null) this[imageLoadTraceKey] = trace
+        if (trace != null) {
+            this[imageLoadTraceKey] = trace
+            this[imageLoadSnapshotKey] = trace::snapshot
+        }
     }) {
         val width = (request?.width?.dp ?: maxWidth).coerceAtMost(maxWidth)
         val height = (request?.height?.dp ?: (width / aspect.coerceIn(1f / 1024, 1024f))).coerceIn(1.dp, 2048.dp)
