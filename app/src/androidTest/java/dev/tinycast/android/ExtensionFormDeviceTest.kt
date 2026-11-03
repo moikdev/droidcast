@@ -1434,7 +1434,8 @@ class ExtensionFormDeviceTest {
         // Resolve only descendants of the drawer's roots_list for the gesture.
         val rootRow = UiScrollable(listSelector).getChildByText(UiSelector().className("android.widget.TextView")
             .resourceId("android:id/title"), "Droidcast owned files", true)
-        assertTrue(rootRow.isEnabled); assertTrue(rootRow.click())
+        assertTrue(rootRow.isEnabled)
+        recordPickerAcknowledgement("location drawer / Droidcast owned files", false, rootRow.click())
         assertTrue("The root drawer must finish closing", device.wait(Until.gone(By.res(pickerPackage, "roots_list")), 5000))
         assertNotNull(device.wait(Until.findObject(By.text("café 日本.txt")), 10000))
         record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
@@ -1461,7 +1462,15 @@ class ExtensionFormDeviceTest {
         }
         val item = device.findObject(selector)
         assertTrue("The exact system-picker item must be available", item.waitForExists(5000)); assertTrue(item.isEnabled)
-        assertTrue("The actual system-picker pointer gesture must complete", if (long) item.longClick() else item.click())
+        recordPickerAcknowledgement(text, long, if (long) item.longClick() else item.click())
+    }
+    private fun recordPickerAcknowledgement(label: String, long: Boolean, acknowledged: Boolean) {
+        // Pinned UIAutomator 2.3.0 clickAndSync returns whether an accessibility
+        // content/selection event arrived, not the resulting field value. Keep
+        // its actual return and require the following route/value/byte checks.
+        val actions = record.optJSONArray("system_picker_gestures") ?: JSONArray().also { record.put("system_picker_gestures", it) }
+        actions.put(JSONObject().put("owned_target", label).put("long_press", long).put("accessibility_acknowledged", acknowledged)
+            .put("acceptance", "Subsequent actual picker route, native field values, JS bytes and caller state; no retry on a false acknowledgement"))
     }
     private fun awaitImportedFiles(expected: Int, diagnosticDocument: String? = null): List<String> {
         compose.waitUntil(15000) { typedFileValues().size == expected ||
