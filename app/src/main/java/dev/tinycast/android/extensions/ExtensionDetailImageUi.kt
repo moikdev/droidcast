@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -45,7 +46,21 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
         val observer = LifecycleEventObserver { _, _ -> started = lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) }
         lifecycle.addObserver(observer); onDispose { lifecycle.removeObserver(observer) }
     }
-    var visible by remember(source) { mutableStateOf(false) }
+    // Visibility belongs to the attached layout, not its image URI. Updating
+    // the source in an unchanged slot need not cause a position callback.
+    var visible by remember { mutableStateOf(false) }
+    var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
+    fun updateVisibility(bounds: LayoutCoordinates?) {
+        val clipped = bounds?.takeIf { it.isAttached }?.boundsInWindow()
+        visible = clipped != null && clipped.width > 0f && clipped.height > 0f
+    }
+    LaunchedEffect(source, images, started, coordinates) {
+        // Allow ancestor clipping/scroll bounds to settle after publication.
+        // This is one recheck per change, with no continuous polling or load
+        // permitted for a detached/offscreen/stopped element.
+        withFrameNanos { }
+        updateVisibility(coordinates)
+    }
     var aspect by remember(source) { mutableFloatStateOf(1.6f) }
     val observed by produceState(DetailImageResult(source), source, images, visible, started, inline) {
         value = DetailImageResult(source)
@@ -64,7 +79,7 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     val color = tint ?: request?.tint?.let(::metadataTint)
     val content: @Composable (Modifier) -> Unit = { imageModifier ->
     BoxWithConstraints(imageModifier.onGloballyPositioned { bounds ->
-        val clipped = bounds.boundsInWindow(); visible = clipped.width > 0f && clipped.height > 0f
+        coordinates = bounds; updateVisibility(bounds)
     }.testTag("extension-detail-image").semantics {
         contentDescription = label
         stateDescription = when { result.failed -> "Image unavailable"; result.bitmap != null -> "Image ready"; else -> "Image loading" }

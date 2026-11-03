@@ -414,13 +414,13 @@ class ExtensionDetailDeviceTest {
             val node = image(label).fetchSemanticsNode()
             val observations = record.optJSONArray("image_readiness") ?: JSONArray().also { record.put("image_readiness", it) }
             val geometry = compose.runOnUiThread { node.positionInRoot to compose.activity.lifecycle.currentState.name }
-            val svg = ownedId?.let { File(context.cacheDir, "$it/owned.svg") }
+            val svg = ownedId?.let { File(context.cacheDir, "$it/assets/owned.svg") }
             observations.put(JSONObject().put("alternative", label).put("phase", phase)
                 .put("state", node.config.getOrNull(SemanticsProperties.StateDescription)).put("activity_lifecycle", geometry.second)
                 .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
                 .put("unclipped_origin", JSONArray(listOf(geometry.first.x, geometry.first.y)))
                 .put("size", JSONArray(listOf(node.size.width, node.size.height)))
-                .put("owned_svg_still_matches", svg?.isFile == true && hash(svg.readBytes()) == record.optString("owned_svg_sha256")))
+                .put("owned_fixture_svg_assets_file_unchanged", svg?.isFile == true && hash(svg.readBytes()) == record.optString("owned_svg_sha256")))
         }
         reveal(image(label)); observe("before-wait")
         try { compose.waitUntil(10000) { image(label).fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription) == "Image ready" } }
