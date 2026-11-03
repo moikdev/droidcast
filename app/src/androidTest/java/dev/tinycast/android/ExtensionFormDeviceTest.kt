@@ -1292,6 +1292,53 @@ class ExtensionFormDeviceTest {
     @Test fun tagPickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.TagPicker", "tags")
     @Test fun filePickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.FilePicker", "files")
 
+    private fun typedDateIso(): String? = field("Form.DatePicker", "date").props().optJSONObject("value")?.getString("\$date")
+    private fun submittedTypedDate(expected: String?) {
+        touch("extension-primary")
+        compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val values = probe().getJSONObject("submittedValues")
+        if (expected == null) assertTrue(values.isNull("date")) else assertEquals(expected, values.getString("date"))
+        assertEquals("[\"internal-two\"]", values.getJSONArray("tags").toString())
+        assertEquals(0, values.getJSONArray("files").length())
+        record.put("submitted_date", expected ?: JSONObject.NULL).put("submit_count", probe().getInt("submits"))
+            .put("test_boundary", "Actual native date interaction and owned JS callback values; tag/file selection and a separate destination are not exercised")
+    }
+    @Test fun datePickerClearsAndSubmitsAnActualNull() {
+        launch("typed-controls")
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        touch("extension-date-clear-date")
+        compose.waitUntil(5000) { field("Form.DatePicker", "date").props().isNull("value") }
+        compose.waitForIdle(); capture("date-cleared")
+        submittedTypedDate(null); capture("date-null-submitted")
+        record.put("passed", true)
+    }
+    @Test fun datePickerCancelsAnEditedDraftWithoutChangingTheValue() {
+        launch("typed-controls"); val before = typedDateIso()
+        touch("extension-date-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        compose.onNodeWithTag("extension-date-time-plus-date-minute").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals("35")
+        capture("date-draft-before-cancel")
+        compose.onNodeWithTag("extension-date-cancel-date").performTouchInput { click(center) }
+        compose.waitForIdle(); compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        assertEquals(before, typedDateIso()); assertEquals(0, probe().getInt("changes"))
+        capture("date-cancelled")
+        record.put("date_before", before).put("date_after", typedDateIso()).put("cancel_preserved_value_and_callback_count", true).put("passed", true)
+    }
+    @Test fun datePickerConfirmsAnEditedTimeAndSubmitsItsExactInstant() {
+        launch("typed-controls"); touch("extension-date-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        compose.onNodeWithTag("extension-date-time-plus-date-minute").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals("35")
+        capture("date-draft-before-confirm")
+        compose.onNodeWithTag("extension-date-confirm-date").performTouchInput { click(center) }
+        val expected = "2024-02-29T12:35:00.000Z"
+        compose.waitUntil(5000) { typedDateIso() == expected }
+        compose.waitForIdle(); compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        capture("date-confirmed")
+        submittedTypedDate(expected); record.put("passed", true)
+    }
+
     @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
     @Test fun formsWithErrorsBlockActionsMenuKeyboardSubmit() = assertErroredSubmitBlocked(true)
 
