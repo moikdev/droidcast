@@ -167,7 +167,8 @@ class ExtensionFormDeviceTest {
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
               }
               if(mode.startsWith('typed-')){
-                const initialDate=mode==='typed-date-dst-gap'?'2024-03-10T06:30:00.000Z':mode==='typed-date-dst-overlap'?'2024-11-03T06:30:12.345Z':'2024-02-29T12:34:00.000Z';
+                const initialDate=mode==='typed-date-dst-gap'?'2024-03-10T06:30:00.000Z':mode==='typed-date-dst-overlap'?'2024-11-03T06:30:12.345Z':
+                  mode==='typed-date-full-day'?'2024-02-29T00:00:00.001Z':'2024-02-29T12:34:00.000Z';
                 const [date,setDate]=React.useState(mode==='typed-date-day'?new Date(2024,1,28,12,34):new Date(initialDate));
                 const [tags,setTags]=React.useState(mode==='typed-tags-empty'?['missing-owned-value']:['internal-two']),[files,setFiles]=React.useState([]);
                 const [revision,bump]=React.useReducer(value=>value+1,0),[dateKey,setDateKey]=React.useState('date');
@@ -1433,6 +1434,33 @@ class ExtensionFormDeviceTest {
         compose.waitForIdle(); compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
         capture("date-confirmed")
         submittedTypedDate(expected); record.put("passed", true)
+    }
+    @Test fun dateTimeCanChooseAnAllDayDateWithTheFullDayMarker() {
+        launch("typed-controls"); val original = java.time.Instant.parse(requireNotNull(typedDateIso()))
+        touch("extension-date-date"); capture("date-time-before-all-day-choice")
+        compose.onNodeWithTag("extension-date-all-day-date").assertIsOff(); touch("extension-date-all-day-date")
+        compose.onNodeWithTag("extension-date-all-day-date").assertIsOn()
+        compose.onNodeWithTag("extension-date-time-date-minute").assertDoesNotExist(); capture("date-time-all-day-draft")
+        touch("extension-date-confirm-date")
+        val expected = dateIso(original.atZone(java.time.ZoneId.systemDefault()).toLocalDate().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().plusMillis(1))
+        compose.waitUntil(5000) { typedDateIso() == expected }; submittedTypedDate(expected)
+        assertTrue(record.getJSONObject("date_change_runtime_type").getBoolean("full_day"))
+        assertTrue(record.getJSONObject("date_submit_runtime_type").getBoolean("full_day"))
+        capture("date-time-all-day-submitted"); record.put("explicit_all_day_choice_in_datetime_field", true).put("passed", true)
+    }
+    @Test fun aFullDayDefaultCanBecomeAnExplicitTimeWithoutItsReservedMarker() {
+        launch("typed-date-full-day"); val original = java.time.Instant.parse(requireNotNull(typedDateIso())).atZone(java.time.ZoneId.systemDefault())
+        touch("extension-date-date"); capture("date-time-full-day-default")
+        compose.onNodeWithTag("extension-date-all-day-date").assertIsOn()
+        compose.onNodeWithTag("extension-date-time-date-minute").assertDoesNotExist()
+        touch("extension-date-all-day-date"); compose.onNodeWithTag("extension-date-all-day-date").assertIsOff()
+        touch("extension-date-time-plus-date-minute")
+        val expected = dateIso(original.withMinute((original.minute + 1) % 60).withNano(0).toInstant())
+        capture("date-time-explicit-clock-draft"); touch("extension-date-confirm-date")
+        compose.waitUntil(5000) { typedDateIso() == expected }; submittedTypedDate(expected)
+        assertFalse(record.getJSONObject("date_change_runtime_type").getBoolean("full_day"))
+        assertFalse(record.getJSONObject("date_submit_runtime_type").getBoolean("full_day"))
+        capture("date-time-explicit-clock-submitted"); record.put("specific_time_does_not_keep_full_day_marker", true).put("passed", true)
     }
     private fun typedTagValues() = field("Form.TagPicker", "tags").props().getJSONArray("value").toString()
     private fun typedTagRow(index: Int): SemanticsNodeInteraction {
