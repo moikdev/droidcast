@@ -107,6 +107,16 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
             owner?.let { current -> if (nativeFocused) focus.focus(current) else focus.blur(current) }
         }
     }
+    val nativeFocus = LocalFocusManager.current
+    fun beginPickerFocus() {
+        val fieldOwner = owner ?: return
+        if (liveFormField(fieldOwner, liveRoot()) == null) return
+        // Touch buttons can leave the previous text editor natively focused.
+        // Release it before moving logical focus so returning to the same
+        // editor delivers onFocus. Preserve an already focused picker control.
+        if (!nativeFocused) nativeFocus.clearFocus(force = true)
+        focus.focus(fieldOwner)
+    }
     fun change(value: Any, observedValue: Any = value): Boolean {
         val fieldOwner = owner ?: return false
         val current = liveFormField(fieldOwner, liveRoot()) ?: return false
@@ -164,7 +174,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
             Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ExtensionFieldLabel(title, "extension-field-title-$id")
                 NativeFormDatePicker(node, owner, liveRoot, Modifier.paletteFocusBookmark().then(focusModifier),
-                    onOpen = { owner?.let(focus::focus) }, change = { selected ->
+                    onOpen = ::beginPickerFocus, change = { selected ->
                         val iso = selected?.toString()
                         change(iso ?: JSONObject.NULL, iso?.let { JSONObject().put("\$date", it) } ?: JSONObject.NULL)
                     })
@@ -175,7 +185,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
             Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ExtensionFieldLabel(title, "extension-field-title-$id")
                 NativeFormTagPicker(root, node, owner, liveRoot, Modifier.paletteFocusBookmark().then(focusModifier),
-                    onOpen = { owner?.let(focus::focus) }, currentValue = ::currentValue,
+                    onOpen = ::beginPickerFocus, currentValue = ::currentValue,
                     change = { selected -> change(JSONArray(selected)) })
                 ExtensionFieldFeedback(errorText, info, id)
             }
@@ -184,7 +194,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
             Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ExtensionFieldLabel(title, "extension-field-title-$id")
                 NativeFormFilePicker(root, node, owner, liveRoot, fileStorage, Modifier.paletteFocusBookmark().then(focusModifier),
-                    onOpen = { owner?.let(focus::focus) }, currentValue = ::currentValue,
+                    onOpen = ::beginPickerFocus, currentValue = ::currentValue,
                     change = { selected -> change(JSONArray(selected)) })
                 ExtensionFieldFeedback(errorText, info, id)
             }

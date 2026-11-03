@@ -121,6 +121,12 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
     val token = opening
     if (token != null) {
         key(token) {
+            LaunchedEffect(token, parameters, zone) {
+                // An asynchronous controlled update/reset supersedes this
+                // opening's draft. Unrelated publications keep it intact.
+                if (opening === token && (parameters.value != initial.value ||
+                    parameters.kind != initial.kind || parameters.unavailable(zone))) opening = null
+            }
             val initialValue = (initial.value as? FormDateValue.Selected)?.instant?.let { runCatching { it.atZone(zone) }.getOrNull() }
             val firstDay = initial.first?.atZone(zone)?.toLocalDate()
             val lastDay = initial.last?.atZone(zone)?.toLocalDate()
@@ -188,7 +194,11 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
                                 val current = owner?.let { liveFormField(it, liveRoot()) }
                                 if (current == null) { opening = null; return@Button }
                                 val now = dateParameters(current)
-                                if (now.kind != initial.kind || now.unavailable(zone)) { opening = null; return@Button }
+                                // Native delivery can precede the composition
+                                // that invalidates an obsolete opening.
+                                if (now.kind != initial.kind || now.value != initial.value || now.unavailable(zone)) {
+                                    opening = null; return@Button
+                                }
                                 val value = selected()
                                 if (value == null) message = "Choose a valid date and time. This local time may not exist when the clocks change."
                                 else if (!formDateWithinBounds(value, requireNotNull(now.kind), now.first, now.last, zone)) message = "Choose a date and time within the allowed range."
