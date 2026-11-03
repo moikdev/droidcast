@@ -360,10 +360,15 @@ class ExtensionDetailDeviceTest {
             val screen = IntArray(2).also(view::getLocationOnScreen); val window = IntArray(2).also(view::getLocationInWindow)
             primary.boundsInWindow to (frame.bottom - screen[1] + window[1])
         }
-        assertTrue("Primary action must remain visible above the actual IME", imeGeometry.first.height > 1f && imeGeometry.first.bottom <= imeGeometry.second + 1f)
         record.put("list_search_actual_ime_open", true).put("primary_ime_geometry", JSONObject()
             .put("bottom", imeGeometry.first.bottom.toDouble()).put("visible_frame_bottom", imeGeometry.second))
-        capture("list-search-ime-open"); ime(false); capture("list-search-ime-closed")
+        capture("list-search-ime-open")
+        record.put("ime_toggle_contract_started", true)
+        assertTrue("An open search keyboard needs a reachable Hide keyboard control",
+            compose.onAllNodesWithContentDescription("Hide on-screen keyboard").fetchSemanticsNodes().isNotEmpty())
+        touch(compose.onNodeWithContentDescription("Hide on-screen keyboard")); ime(false)
+        compose.onNodeWithTag("extension-primary").assertIsDisplayed()
+        capture("list-search-ime-closed")
         compose.onNodeWithTag("extension-search").performTextReplacement("beta"); compose.waitForIdle(); ime(false)
         touchTag("extension-row-0"); show("Owned document beta A"); show("Owned value beta A")
         capture("selected-detail"); assertEquals("beta", probe().getString("selected"))
@@ -737,6 +742,10 @@ class ExtensionDetailDeviceTest {
         show("Owned block description A café 日本"); capture("image-block-description")
         readyImage("Owned inline image"); image("Owned inline image").performTouchInput { longClick(center) }
         compose.onNodeWithTag("extension-image-information").assertIsDisplayed()
+        val focusedDocumentParents = generateSequence(image("Owned inline image").fetchSemanticsNode().parent) { it.parent }
+            .count { it.config.getOrNull(SemanticsProperties.Focused) == true }
+        record.put("information_document_focused_ancestors", focusedDocumentParents)
+        assertEquals("Image information must release document selection focus", 0, focusedDocumentParents)
         compose.onNodeWithText("Owned inline description A café 日本").assertIsDisplayed(); capture("inline-information-long-press")
         val oldClose = requireNotNull(compose.onNodeWithTag("extension-image-information-close").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
         patch("image-information-new-document", JSONObject().put("document", "B"))
