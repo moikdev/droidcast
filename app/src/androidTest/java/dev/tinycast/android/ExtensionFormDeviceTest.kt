@@ -2060,6 +2060,16 @@ class ExtensionFormDeviceTest {
         touch("extension-row-$sha256Row")
         sampleSelection("after SHA256 pointer before Copy")
         sha256Target.assertIsSelected()
+        // Submission automatically copies the chosen hash. A new sentinel
+        // makes this separate explicit Copy action prove a fresh write even
+        // when the chosen algorithm was already SHA256.
+        val explicitCopySentinel = "Owned checksum explicit Copy sentinel"
+        compose.activityRule.scenario.onActivity {
+            it.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Owned checksum Copy control", explicitCopySentinel))
+        }
+        assertTrue(clipboardEquals(explicitCopySentinel)); dismissClipboardForEvidence()
+        assertTrue(clipboardEquals(explicitCopySentinel))
+        record.put("explicit_copy_sentinel_verified_before_tap", true)
         touch("extension-primary")
         compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected["sha256"])) }
         dismissClipboardForEvidence(); capture("checksum-sha256-copied")
