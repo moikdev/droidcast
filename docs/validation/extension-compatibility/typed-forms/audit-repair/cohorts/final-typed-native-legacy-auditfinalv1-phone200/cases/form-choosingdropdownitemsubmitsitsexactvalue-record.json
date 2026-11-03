@@ -1,0 +1,61 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "choices",
+  "fixture_command_sha256": "0a9b6326dcccf612745f8863d2bd8f816987dd50070daf2238564fca87e3ae84",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-c4326adec32149f79c5727077e15151e",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-choice-choice",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1868,
+      "visible_bounds": [
+        85,
+        434,
+        995,
+        574
+      ],
+      "control_size": [
+        910,
+        140
+      ],
+      "point": [
+        540,
+        504
+      ]
+    }
+  ],
+  "selected_exact_value": "internal-layout-one",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

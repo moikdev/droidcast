@@ -1,0 +1,1161 @@
+{
+  "scope": "34 byte-exact raw sets. Initial images remain historical; current/negative/common/current-APK bindings are explicit.",
+  "captures": [
+    {
+      "name": "current-checksum-sha256-copied-phone200",
+      "source_root": "final-typed-native-real-auditfinalv1-phone200",
+      "source_file": "form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-sha256-copied.png",
+      "caption": "Repaired350c2fe/current compiled APK frozen Checksum workflow, checksum-sha256-copied, phone200; exact four hashes and SHA256 Copy verified in case receipt, not all values simultaneously visible. The protocol requires placed/selected SHA256 and a fresh owned sentinel before explicit Copy.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "7328c08115b1096e7cc5487778fbe902b6111bd36e12ae2d428af9ca4c5b0688",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-sha256-copied.png",
+          "source_sha256": "0a7e2eea273d69b7fd515d82f6a057d699e9d566e8f16933183fe621e6871bfb",
+          "published_sha256": "0a7e2eea273d69b7fd515d82f6a057d699e9d566e8f16933183fe621e6871bfb",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-checksum-sha256-copied-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-sha256-copied.xml",
+          "source_sha256": "281f68025462ddd04bcb78a38ba53dcfe54a396cf84b95f4ecc97597b1480f37",
+          "published_sha256": "281f68025462ddd04bcb78a38ba53dcfe54a396cf84b95f4ecc97597b1480f37",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-checksum-sha256-copied-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-sha256-copied-frame.json",
+          "source_sha256": "d74c6a952a0bc5f94e1394dab63f062e0150651acd247d7f8837baed77affeac",
+          "published_sha256": "d74c6a952a0bc5f94e1394dab63f062e0150651acd247d7f8837baed77affeac",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-checksum-sha256-copied-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-checksum-returned-form-phone200",
+      "source_root": "final-typed-native-real-auditfinalv1-phone200",
+      "source_file": "form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-returned-form.png",
+      "caption": "Repaired350c2fe/current compiled APK frozen Checksum workflow, checksum-returned-form, phone200; exact four hashes and SHA256 Copy verified in case receipt, not all values simultaneously visible. The protocol requires placed/selected SHA256 and a fresh owned sentinel before explicit Copy.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "7328c08115b1096e7cc5487778fbe902b6111bd36e12ae2d428af9ca4c5b0688",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-returned-form.png",
+          "source_sha256": "b14f72d7b0df47d95db68fbabfe92aa21000152bc78b7d6dbbde19c8387e705f",
+          "published_sha256": "b14f72d7b0df47d95db68fbabfe92aa21000152bc78b7d6dbbde19c8387e705f",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-checksum-returned-form-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-returned-form.xml",
+          "source_sha256": "fca346d163a396a21ca18ef7fec5df23d32851622cf753e3d48f995467997247",
+          "published_sha256": "fca346d163a396a21ca18ef7fec5df23d32851622cf753e3d48f995467997247",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-checksum-returned-form-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-checksum-returned-form-frame.json",
+          "source_sha256": "2b56c74762b723f9dc3a38f903b54ba6409c36a3c0967129d1ae2b2af95af8ef",
+          "published_sha256": "2b56c74762b723f9dc3a38f903b54ba6409c36a3c0967129d1ae2b2af95af8ef",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-checksum-returned-form-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-mood-typed-values-before-save-phone200",
+      "source_root": "final-typed-native-real-auditfinalv1-phone200",
+      "source_file": "form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-typed-values-before-save.png",
+      "caption": "Repaired350c2fe/current compiled APK frozen Mood workflow, mood-typed-values-before-save, phone200; exact persisted date/tags/notes. Search retains existing raw-Markdown rendering limit.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "1d520c492b52fdf04aa4df622ac1fa587de8b2067104ca13a870547e8fa54fcd",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-typed-values-before-save.png",
+          "source_sha256": "25b2c8d5109423f1ea1e0fe1508ee3ecca2551c837b4fb7b7f0e2bdd6b8f5a4d",
+          "published_sha256": "25b2c8d5109423f1ea1e0fe1508ee3ecca2551c837b4fb7b7f0e2bdd6b8f5a4d",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-mood-typed-values-before-save-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-typed-values-before-save.xml",
+          "source_sha256": "1a02ff992be245bd521dbae99cb5d7648bfdf170f1343c614b46d7197df92f9e",
+          "published_sha256": "1a02ff992be245bd521dbae99cb5d7648bfdf170f1343c614b46d7197df92f9e",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-mood-typed-values-before-save-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-typed-values-before-save-frame.json",
+          "source_sha256": "7bc0befdd74215545bbe0534175214573e5debbc73539afd76856a71523f8ad9",
+          "published_sha256": "7bc0befdd74215545bbe0534175214573e5debbc73539afd76856a71523f8ad9",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-mood-typed-values-before-save-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-mood-reloaded-search-destination-phone200",
+      "source_root": "final-typed-native-real-auditfinalv1-phone200",
+      "source_file": "form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-reloaded-search-destination.png",
+      "caption": "Repaired350c2fe/current compiled APK frozen Mood workflow, mood-reloaded-search-destination, phone200; exact persisted date/tags/notes. Search retains existing raw-Markdown rendering limit.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "1d520c492b52fdf04aa4df622ac1fa587de8b2067104ca13a870547e8fa54fcd",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-reloaded-search-destination.png",
+          "source_sha256": "fa22719e5400446da48c113166c756be239b2fb1328fa608e9d8988b5289a1f8",
+          "published_sha256": "fa22719e5400446da48c113166c756be239b2fb1328fa608e9d8988b5289a1f8",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-mood-reloaded-search-destination-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-reloaded-search-destination.xml",
+          "source_sha256": "fe214dd1c3a6f107a37b293e42f349f9b48bd798b9fc20aa710a7fc4544e0c46",
+          "published_sha256": "fe214dd1c3a6f107a37b293e42f349f9b48bd798b9fc20aa710a7fc4544e0c46",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-mood-reloaded-search-destination-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-real-auditfinalv1-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-reloaded-search-destination-frame.json",
+          "source_sha256": "974119d7186f5d560b7c0df6c3ea5ce20d3e9d76e5837ce97571a92fd970efb2",
+          "published_sha256": "974119d7186f5d560b7c0df6c3ea5ce20d3e9d76e5837ce97571a92fd970efb2",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-mood-reloaded-search-destination-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-current-all-day-draft-landscape200",
+      "source_root": "final-typed-native-typed-auditfinalv1-landscape200",
+      "source_file": "form-datetimecanchooseanalldaydatewiththefulldaymarker-date-time-all-day-draft.png",
+      "caption": "Repaired350c2fe/current compiled APK DateTime All day draft, landscape200. Actual Date/full-day facts are checked before serialization.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "d9da617caff4e891816229d40e483074c69dcf2dc60f2894a2ef554049b91e46",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-landscape200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-date-time-all-day-draft.png",
+          "source_sha256": "53d05291955952fcd5cfd07f66be06f0c49a649e8a1a8aa5b676c2e4304d5015",
+          "published_sha256": "53d05291955952fcd5cfd07f66be06f0c49a649e8a1a8aa5b676c2e4304d5015",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-current-all-day-draft-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-landscape200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-date-time-all-day-draft.xml",
+          "source_sha256": "c5f9d6a971a975348d5a80f01c1863b31b2ad5a4932a29c1faf0b130d91538f9",
+          "published_sha256": "c5f9d6a971a975348d5a80f01c1863b31b2ad5a4932a29c1faf0b130d91538f9",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-current-all-day-draft-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-landscape200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-date-time-all-day-draft-frame.json",
+          "source_sha256": "88441216fa828e916bc4618cf698c141c989906fe9bfe001d82756f5c55db78e",
+          "published_sha256": "88441216fa828e916bc4618cf698c141c989906fe9bfe001d82756f5c55db78e",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-current-all-day-draft-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-long-tag-option-top-landscape200",
+      "source_root": "final-typed-native-extended-auditfinalv1-landscape200",
+      "source_file": "form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-top.png",
+      "caption": "Repaired350c2fe/current compiled APK long category option at200% landscape; pointer line witnesses require sequential full-line reachability, not simultaneous visibility of every line.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "d6e3b147220a8ef81614720140a86833b2f812e37d7fa4f40c5ad79a01f698e0",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-top.png",
+          "source_sha256": "1bd9865203b12532e197db67fb237de236add823e033444f253c7c04747fa38e",
+          "published_sha256": "1bd9865203b12532e197db67fb237de236add823e033444f253c7c04747fa38e",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-long-tag-option-top-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-top.xml",
+          "source_sha256": "d257c1b217b8a4c3a7a037cb8e11eb62ee64eb7622cf8760244463c874980bb6",
+          "published_sha256": "d257c1b217b8a4c3a7a037cb8e11eb62ee64eb7622cf8760244463c874980bb6",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-long-tag-option-top-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-top-frame.json",
+          "source_sha256": "de8a957776e2895b7ec4c64a0cb726a9196b325b0ad4e76d1fa8f0806921975a",
+          "published_sha256": "de8a957776e2895b7ec4c64a0cb726a9196b325b0ad4e76d1fa8f0806921975a",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-long-tag-option-top-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-long-tag-option-bottom-landscape200",
+      "source_root": "final-typed-native-extended-auditfinalv1-landscape200",
+      "source_file": "form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-bottom.png",
+      "caption": "Repaired350c2fe/current compiled APK long category option at200% landscape; pointer line witnesses require sequential full-line reachability, not simultaneous visibility of every line.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "d6e3b147220a8ef81614720140a86833b2f812e37d7fa4f40c5ad79a01f698e0",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-bottom.png",
+          "source_sha256": "1bd9865203b12532e197db67fb237de236add823e033444f253c7c04747fa38e",
+          "published_sha256": "1bd9865203b12532e197db67fb237de236add823e033444f253c7c04747fa38e",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-long-tag-option-bottom-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-bottom.xml",
+          "source_sha256": "d257c1b217b8a4c3a7a037cb8e11eb62ee64eb7622cf8760244463c874980bb6",
+          "published_sha256": "d257c1b217b8a4c3a7a037cb8e11eb62ee64eb7622cf8760244463c874980bb6",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-long-tag-option-bottom-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-long-tag-option-bottom-frame.json",
+          "source_sha256": "a9312cbe584d7d5c9907686966f9a8754bb235e156d3a5623cd15fa1d7d72fac",
+          "published_sha256": "a9312cbe584d7d5c9907686966f9a8754bb235e156d3a5623cd15fa1d7d72fac",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-long-tag-option-bottom-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-tags-two-selected-phone200",
+      "source_root": "final-typed-native-typed-auditfinalv1-phone200",
+      "source_file": "form-tagpickeraddsandremovesexactvaluesbytouch-tags-two-selected.png",
+      "caption": "Repaired350c2fe/current compiled APK two titled categories selected by touch, phone200; exact ordered string array verified.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "aaa614d9741da7d83d8bac7be3f82a8e225e80f5522ada2331063215ab38d55b",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-phone200/captures/form-tagpickeraddsandremovesexactvaluesbytouch-tags-two-selected.png",
+          "source_sha256": "da90efe419e365f2a8b0fe402cf6ddd8563f792ed16672f7dbcd163f289f7c1c",
+          "published_sha256": "da90efe419e365f2a8b0fe402cf6ddd8563f792ed16672f7dbcd163f289f7c1c",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-tags-two-selected-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-phone200/captures/form-tagpickeraddsandremovesexactvaluesbytouch-tags-two-selected.xml",
+          "source_sha256": "b529d87c779958e14e0ca1d1e06cb2d2a195207e212d4a2b6bc4c840d9c8e96b",
+          "published_sha256": "b529d87c779958e14e0ca1d1e06cb2d2a195207e212d4a2b6bc4c840d9c8e96b",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-tags-two-selected-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-phone200/captures/form-tagpickeraddsandremovesexactvaluesbytouch-tags-two-selected-frame.json",
+          "source_sha256": "c1a128f1030e53bfc51e9f67f58ddf342c87117e1ca1c9f27bdfef1d2911f071",
+          "published_sha256": "c1a128f1030e53bfc51e9f67f58ddf342c87117e1ca1c9f27bdfef1d2911f071",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-tags-two-selected-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-tags-cleared-phone200",
+      "source_root": "final-typed-native-typed-auditfinalv1-phone200",
+      "source_file": "form-tagpickerclearsandsubmitsanemptyarray-tags-cleared.png",
+      "caption": "Repaired350c2fe/current compiled APK cleared categories, phone200; actual empty array is submitted.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "153a107b87240a9c93fa935c69b5ebc80c457f53b50aac043ef0cb6cdf6145fe",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-phone200/captures/form-tagpickerclearsandsubmitsanemptyarray-tags-cleared.png",
+          "source_sha256": "90edfe18470121b530bdb912ba074ca1d57de2d711aec5714a53989a31be631e",
+          "published_sha256": "90edfe18470121b530bdb912ba074ca1d57de2d711aec5714a53989a31be631e",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-tags-cleared-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-phone200/captures/form-tagpickerclearsandsubmitsanemptyarray-tags-cleared.xml",
+          "source_sha256": "a08c553c725b33037f57fda182a8d4131c3fd084d2a0714bf783bca58a1c5f07",
+          "published_sha256": "a08c553c725b33037f57fda182a8d4131c3fd084d2a0714bf783bca58a1c5f07",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-tags-cleared-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-typed-auditfinalv1-phone200/captures/form-tagpickerclearsandsubmitsanemptyarray-tags-cleared-frame.json",
+          "source_sha256": "4b1e3a94f9c8f6a27a1d44ed42d34e15ad68c8c2e95c1fa142fe0ed9160d0c17",
+          "published_sha256": "4b1e3a94f9c8f6a27a1d44ed42d34e15ad68c8c2e95c1fa142fe0ed9160d0c17",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-tags-cleared-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-tags-empty-choices-phone200",
+      "source_root": "final-typed-native-extended-auditfinalv1-phone200",
+      "source_file": "form-tagpickercanremoveanunavailablevalueandshowitsemptystate-tags-no-choices.png",
+      "caption": "Repaired350c2fe/current compiled APK after removing an unavailable value, phone200; actual empty/unavailable choice outcome.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "eee590d418ff7eae283a7887778a9316142ca4dee31f8d40172c886d229cf97e",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-phone200/captures/form-tagpickercanremoveanunavailablevalueandshowitsemptystate-tags-no-choices.png",
+          "source_sha256": "84dbd47f7651b75cd224461e02fbc988efce2099bceb8da80084dd092479dd19",
+          "published_sha256": "84dbd47f7651b75cd224461e02fbc988efce2099bceb8da80084dd092479dd19",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-tags-empty-choices-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-phone200/captures/form-tagpickercanremoveanunavailablevalueandshowitsemptystate-tags-no-choices.xml",
+          "source_sha256": "165cdcfc682b4bb51c3112a0287b4bd2465c783c11678d1506b6d3e93a4b61e6",
+          "published_sha256": "165cdcfc682b4bb51c3112a0287b4bd2465c783c11678d1506b6d3e93a4b61e6",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-tags-empty-choices-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-phone200/captures/form-tagpickercanremoveanunavailablevalueandshowitsemptystate-tags-no-choices-frame.json",
+          "source_sha256": "b0275934904f2d7055454629991abd0efc7d5b2088c7874f457b9db0bc0631e7",
+          "published_sha256": "b0275934904f2d7055454629991abd0efc7d5b2088c7874f457b9db0bc0631e7",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-tags-empty-choices-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-date-dst-gap-error-landscape200",
+      "source_root": "final-typed-native-extended-auditfinalv1-landscape200",
+      "source_file": "form-nativedatetimerejectsadstgapthenacceptsavalidwalltime-date-dst-gap-rejected.png",
+      "caption": "Repaired350c2fe/current compiled APK DST gap rejection after test ScrollTo reveals the error, landscape200. Owned native JVM timezone is NewYork; system/WebView timezone unchanged. This frame is rendering/validation evidence, not a pointer-only error-reveal claim.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "b47f368e108e55c37851b3efb49ecd596911dc26b0d09f82b191d2a920bd0fcc",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-nativedatetimerejectsadstgapthenacceptsavalidwalltime-date-dst-gap-rejected.png",
+          "source_sha256": "44ad2f0ea76fb4681c8eb89a96fa7d3da83396e34b38e32baf81a89b47d5108f",
+          "published_sha256": "44ad2f0ea76fb4681c8eb89a96fa7d3da83396e34b38e32baf81a89b47d5108f",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-date-dst-gap-error-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-nativedatetimerejectsadstgapthenacceptsavalidwalltime-date-dst-gap-rejected.xml",
+          "source_sha256": "0aacca0271c0f2c2ae89d5189b664e9c2cbf42f835c54e8bb3fb9e9f08802b5f",
+          "published_sha256": "0aacca0271c0f2c2ae89d5189b664e9c2cbf42f835c54e8bb3fb9e9f08802b5f",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-dst-gap-error-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-landscape200/captures/form-nativedatetimerejectsadstgapthenacceptsavalidwalltime-date-dst-gap-rejected-frame.json",
+          "source_sha256": "75ba1de78820fa93bfecfeae01008a9a363ad95ce51a32dd02af6cc771f707b5",
+          "published_sha256": "75ba1de78820fa93bfecfeae01008a9a363ad95ce51a32dd02af6cc771f707b5",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-dst-gap-error-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-date-bound-error-phone200",
+      "source_root": "final-typed-native-extended-auditfinalv1-phone200",
+      "source_file": "form-datetimeboundsrejectoutsidethenaccepttheinclusivemaximum-date-outside-instant-bound.png",
+      "caption": "Repaired350c2fe/current compiled APK out-of-bound rejection after test ScrollTo reveals the error, phone200; inclusive maximum is separately accepted with exact Date output.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "317e35d5e1890d73ddfe5b5998b243ba471a70b52d79b2d143e566002f837b5f",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-phone200/captures/form-datetimeboundsrejectoutsidethenaccepttheinclusivemaximum-date-outside-instant-bound.png",
+          "source_sha256": "7e533733af63eed3a97f2cef387409f7b84aec6a0c90219cabba92a349c18a85",
+          "published_sha256": "7e533733af63eed3a97f2cef387409f7b84aec6a0c90219cabba92a349c18a85",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-date-bound-error-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-phone200/captures/form-datetimeboundsrejectoutsidethenaccepttheinclusivemaximum-date-outside-instant-bound.xml",
+          "source_sha256": "7a04bd86d34df18afbe1c2e2ac1486b870f02ab5cf9eae2877d6444c57a1d391",
+          "published_sha256": "7a04bd86d34df18afbe1c2e2ac1486b870f02ab5cf9eae2877d6444c57a1d391",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-bound-error-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-phone200/captures/form-datetimeboundsrejectoutsidethenaccepttheinclusivemaximum-date-outside-instant-bound-frame.json",
+          "source_sha256": "66791c9abf58b90a6cda7c268f6298c25a5a1f849f6e9c86db050ebdc8ec497a",
+          "published_sha256": "66791c9abf58b90a6cda7c268f6298c25a5a1f849f6e9c86db050ebdc8ec497a",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-bound-error-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-date-controlled-rejection-tablet",
+      "source_root": "final-typed-native-extended-auditfinalv1-tablet100",
+      "source_file": "form-datepickercontrolledrejectionwaitsforitspublication-date-controlled-rejection.png",
+      "caption": "Repaired350c2fe/current compiled APK controlled rejection restores the authoritative date after a witnessed native/composed publication, tablet100.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "b73569741911f9113515eb8c27ea209b95ece271f0377917c2b8a21c87a18ddb",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-tablet100/captures/form-datepickercontrolledrejectionwaitsforitspublication-date-controlled-rejection.png",
+          "source_sha256": "2a56e6cd87a191b84b112b5eb42a71a79e71b124315d9db603811ffc842d16eb",
+          "published_sha256": "2a56e6cd87a191b84b112b5eb42a71a79e71b124315d9db603811ffc842d16eb",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-date-controlled-rejection-tablet.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-tablet100/captures/form-datepickercontrolledrejectionwaitsforitspublication-date-controlled-rejection.xml",
+          "source_sha256": "56b1e179e96c9f16ae400d6ad427f6d419ca6b5d5ab910110589718418dcaf5e",
+          "published_sha256": "56b1e179e96c9f16ae400d6ad427f6d419ca6b5d5ab910110589718418dcaf5e",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-controlled-rejection-tablet.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-extended-auditfinalv1-tablet100/captures/form-datepickercontrolledrejectionwaitsforitspublication-date-controlled-rejection-frame.json",
+          "source_sha256": "f3d02917323349b9531b20185c2b9bb2d837916a6aaca745898587097fdd094c",
+          "published_sha256": "f3d02917323349b9531b20185c2b9bb2d837916a6aaca745898587097fdd094c",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-controlled-rejection-tablet-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-file-oversize-error-phone200",
+      "source_root": "final-typed-native-files-auditfinalv1-phone200",
+      "source_file": "form-filepickerrejectsanoversizedocumentwithoutchangingitsselection-file-import-error.png",
+      "caption": "Repaired350c2fe/current compiled APK real system selection rejects the owned oversize document and preserves the empty field, phone200; safe generic error after test reveal.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "933bd979cb0da09e81d622f72c28daf26ca654447fa50abd8819c9c5160d6efc",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickerrejectsanoversizedocumentwithoutchangingitsselection-file-import-error.png",
+          "source_sha256": "bb7136ca1aeef08fcf4feef25d429a4933c935f1f3434c99aba475d6e8e7b770",
+          "published_sha256": "bb7136ca1aeef08fcf4feef25d429a4933c935f1f3434c99aba475d6e8e7b770",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-file-oversize-error-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickerrejectsanoversizedocumentwithoutchangingitsselection-file-import-error.xml",
+          "source_sha256": "393ad8abe26575e70d620ba015c21861075a95c05694be984a7d83f019f812c3",
+          "published_sha256": "393ad8abe26575e70d620ba015c21861075a95c05694be984a7d83f019f812c3",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-oversize-error-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickerrejectsanoversizedocumentwithoutchangingitsselection-file-import-error-frame.json",
+          "source_sha256": "7fc7e2a9594c87ea62391f663b1e61e5b6c0cc12d396b0fb09e5bbbc90ffba51",
+          "published_sha256": "7fc7e2a9594c87ea62391f663b1e61e5b6c0cc12d396b0fb09e5bbbc90ffba51",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-oversize-error-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-android-two-selected-phone200",
+      "source_root": "final-typed-native-files-auditfinalv1-phone200",
+      "source_file": "form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-android-two-documents-selected.png",
+      "caption": "Real DocumentsUI multi-selection of two leased owned documents, phone200; repaired350c2fe/current compiled APK. Separate test-APK provider, not arbitrary-provider certification.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "64059a1301a0f96266ae5b0fc8a817d1bf0876c74a5b50d51e3b78f0824cb361",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-android-two-documents-selected.png",
+          "source_sha256": "f9a4f8837fe9a16c6b1712877064810a74db5d6fd622863a2f828cb50e72b4ab",
+          "published_sha256": "f9a4f8837fe9a16c6b1712877064810a74db5d6fd622863a2f828cb50e72b4ab",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-android-two-selected-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-android-two-documents-selected.xml",
+          "source_sha256": "bf6114e7d1b2fd90f1d6a778331650d4fc6d9a4efd04639ec274c1f092b50de6",
+          "published_sha256": "bf6114e7d1b2fd90f1d6a778331650d4fc6d9a4efd04639ec274c1f092b50de6",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-android-two-selected-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-android-two-documents-selected-frame.json",
+          "source_sha256": "bc903657fde66c57eb447a5827a614a5d097e60a6523a6fceb9bc558900e99ea",
+          "published_sha256": "bc903657fde66c57eb447a5827a614a5d097e60a6523a6fceb9bc558900e99ea",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-android-two-selected-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-file-two-imported-phone200",
+      "source_root": "final-typed-native-files-auditfinalv1-phone200",
+      "source_file": "form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-two-imported.png",
+      "caption": "Repaired350c2fe/current compiled APK multi-file file-two-imported, phone200; exact Unicode and binary bytes/ordered native path array are checked separately.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "64059a1301a0f96266ae5b0fc8a817d1bf0876c74a5b50d51e3b78f0824cb361",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-two-imported.png",
+          "source_sha256": "c6a239ddefbf1b08dcc872b4590b361f0f757794eafa878e370bd5055c3d3336",
+          "published_sha256": "c6a239ddefbf1b08dcc872b4590b361f0f757794eafa878e370bd5055c3d3336",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-file-two-imported-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-two-imported.xml",
+          "source_sha256": "5d1ef4deb8d659b88d2f87e981b059e4b4fe6cd4c61969753cf70782a6c4e9b5",
+          "published_sha256": "5d1ef4deb8d659b88d2f87e981b059e4b4fe6cd4c61969753cf70782a6c4e9b5",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-two-imported-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-two-imported-frame.json",
+          "source_sha256": "d6538b66f3a239ab26f260ba1d785d3ad9d95e73c3dc1b350ccb050aa2683c0a",
+          "published_sha256": "d6538b66f3a239ab26f260ba1d785d3ad9d95e73c3dc1b350ccb050aa2683c0a",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-two-imported-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-file-selection-cleared-phone200",
+      "source_root": "final-typed-native-files-auditfinalv1-phone200",
+      "source_file": "form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-selection-cleared.png",
+      "caption": "Repaired350c2fe/current compiled APK multi-file file-selection-cleared, phone200; exact Unicode and binary bytes/ordered native path array are checked separately.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "64059a1301a0f96266ae5b0fc8a817d1bf0876c74a5b50d51e3b78f0824cb361",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-selection-cleared.png",
+          "source_sha256": "b85dd49db28616da63a0248d9763dbd24900011fc9ee61a72807ec7b0df66dc2",
+          "published_sha256": "b85dd49db28616da63a0248d9763dbd24900011fc9ee61a72807ec7b0df66dc2",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-file-selection-cleared-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-selection-cleared.xml",
+          "source_sha256": "bc2a80ed10016c712d3a679b4de2b23e4593ac7d3a7e6cfd7b4bc732dea8e39d",
+          "published_sha256": "bc2a80ed10016c712d3a679b4de2b23e4593ac7d3a7e6cfd7b4bc732dea8e39d",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-selection-cleared-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-file-selection-cleared-frame.json",
+          "source_sha256": "9c04f070c4b62130f1062dca75712d6770eb54787ce679e4b417367f8f4f43a4",
+          "published_sha256": "9c04f070c4b62130f1062dca75712d6770eb54787ce679e4b417367f8f4f43a4",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-selection-cleared-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-android-folder-permission-landscape200",
+      "source_root": "final-typed-native-files-auditfinalv1-landscape200",
+      "source_file": "form-filepickerimportsarealselectedfolderandnestedbytes-android-folder-permission.png",
+      "caption": "Repaired350c2fe/current compiled APK selected-folder workflow, android-folder-permission, landscape200; real Android tree choice and exact nested bytes, with original provider data verified unchanged.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "124e9da3e7a5bd6102de9b52a969791d671c44dcb760bcc4b04908c1228cbc1f",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-android-folder-permission.png",
+          "source_sha256": "d80a564dfb1d4347073f4e337afa888de698903dea890828808fa88f645492bb",
+          "published_sha256": "d80a564dfb1d4347073f4e337afa888de698903dea890828808fa88f645492bb",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-android-folder-permission-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-android-folder-permission.xml",
+          "source_sha256": "953bc979ff930ea222d920ecf926d0fd9faedd4b8dd82ea9689ea031ef6da6d8",
+          "published_sha256": "953bc979ff930ea222d920ecf926d0fd9faedd4b8dd82ea9689ea031ef6da6d8",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-android-folder-permission-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-android-folder-permission-frame.json",
+          "source_sha256": "d6f867ce8ccc432021aeb82ee513c60642cca986ff34a7cb66ce2bf44e5f2468",
+          "published_sha256": "d6f867ce8ccc432021aeb82ee513c60642cca986ff34a7cb66ce2bf44e5f2468",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-android-folder-permission-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-file-folder-imported-landscape200",
+      "source_root": "final-typed-native-files-auditfinalv1-landscape200",
+      "source_file": "form-filepickerimportsarealselectedfolderandnestedbytes-file-folder-imported.png",
+      "caption": "Repaired350c2fe/current compiled APK selected-folder workflow, file-folder-imported, landscape200; real Android tree choice and exact nested bytes, with original provider data verified unchanged.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "124e9da3e7a5bd6102de9b52a969791d671c44dcb760bcc4b04908c1228cbc1f",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-file-folder-imported.png",
+          "source_sha256": "64a87da6d45c7118f5b20c232e6c135c6196a7cd426d1619d22952eeddc392bd",
+          "published_sha256": "64a87da6d45c7118f5b20c232e6c135c6196a7cd426d1619d22952eeddc392bd",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-file-folder-imported-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-file-folder-imported.xml",
+          "source_sha256": "3f2122dd0bce9cc398c56c6e25964f53eb309997d58849630243b950555a9f08",
+          "published_sha256": "3f2122dd0bce9cc398c56c6e25964f53eb309997d58849630243b950555a9f08",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-folder-imported-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-file-folder-imported-frame.json",
+          "source_sha256": "8971bddb9665fedbd71ef1671063ee639d41f97e2f6098ee3e04ca204b153122",
+          "published_sha256": "8971bddb9665fedbd71ef1671063ee639d41f97e2f6098ee3e04ca204b153122",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-folder-imported-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-file-cancelled-phone200",
+      "source_root": "final-typed-native-files-auditfinalv1-phone200",
+      "source_file": "form-filepickercancellationpreservesthevalueanddoesnotimport-file-picker-cancelled.png",
+      "caption": "Repaired350c2fe/current compiled APK after cancelling actual DocumentsUI, phone200; selection and callback count are unchanged, no import accepted.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "1982389de2856e1de9b6cd01e7ed1f762a1d5bb40b3e764c820fca56e4c39195",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickercancellationpreservesthevalueanddoesnotimport-file-picker-cancelled.png",
+          "source_sha256": "065238e779a068af82780f96d91c98ab42b0873112f776d309b1898e521832c2",
+          "published_sha256": "065238e779a068af82780f96d91c98ab42b0873112f776d309b1898e521832c2",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-file-cancelled-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickercancellationpreservesthevalueanddoesnotimport-file-picker-cancelled.xml",
+          "source_sha256": "4597716509e269e20002297bb57cf715d5d85b026dd385380d228f018f8fb2cf",
+          "published_sha256": "4597716509e269e20002297bb57cf715d5d85b026dd385380d228f018f8fb2cf",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-cancelled-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-phone200/captures/form-filepickercancellationpreservesthevalueanddoesnotimport-file-picker-cancelled-frame.json",
+          "source_sha256": "21c7d864bec76b27820a3736941a48c180e81d5e27ab51c32967cd931a3e549b",
+          "published_sha256": "21c7d864bec76b27820a3736941a48c180e81d5e27ab51c32967cd931a3e549b",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-cancelled-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-file-byte-destination-current-tablet",
+      "source_root": "final-typed-native-files-auditfinalv1-tablet100",
+      "source_file": "form-filepickerimportsexactunicodebytesthroughandroidandreturnstocaller-file-byte-destination.png",
+      "caption": "Repaired350c2fe/current compiled APK owned Unicode document is read through the actual extension fs bridge into a controlled Detail destination, tablet100; subsequent Form/caller return is asserted.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "83cec75dd9a3a4ee40e99b63762a4219a19b72776588c41a0cc55fb470c6b832",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-tablet100/captures/form-filepickerimportsexactunicodebytesthroughandroidandreturnstocaller-file-byte-destination.png",
+          "source_sha256": "d577a70502875ed5551b603d9ddfb46388b39b3eea72b146a0aaafadb25cb1df",
+          "published_sha256": "d577a70502875ed5551b603d9ddfb46388b39b3eea72b146a0aaafadb25cb1df",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-file-byte-destination-current-tablet.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-tablet100/captures/form-filepickerimportsexactunicodebytesthroughandroidandreturnstocaller-file-byte-destination.xml",
+          "source_sha256": "15d9363fdacbdb57cc4842a45cde24569d085e49cb3800ce0739a814d97befae",
+          "published_sha256": "15d9363fdacbdb57cc4842a45cde24569d085e49cb3800ce0739a814d97befae",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-byte-destination-current-tablet.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-files-auditfinalv1-tablet100/captures/form-filepickerimportsexactunicodebytesthroughandroidandreturnstocaller-file-byte-destination-frame.json",
+          "source_sha256": "14e26be52a2a50e0baa7ce241283282f6a7c60ff0618369abf32a60387215b00",
+          "published_sha256": "14e26be52a2a50e0baa7ce241283282f6a7c60ff0618369abf32a60387215b00",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-file-byte-destination-current-tablet-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-date-ime-tablet100",
+      "source_root": "final-typed-native-criticalfonts-auditfinalv1-tablet100",
+      "source_file": "form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.png",
+      "caption": "Repaired350c2fe/current compiled APK, actual Dialog IME and full confirmation screen target, tablet100. Screen-coordinate activation and exact Date/publication are asserted; emulator input is not physical-device certification.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "6534fa5d5f0c5f26e6ec0c895671e86f1a416b1c9ebdcbe7b7d5d030428f111d",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-tablet100/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.png",
+          "source_sha256": "878e6aea9ccd9f7ae75ca545378d051c25089bf0a73bf81db2779150765f704c",
+          "published_sha256": "878e6aea9ccd9f7ae75ca545378d051c25089bf0a73bf81db2779150765f704c",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-date-ime-tablet100.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-tablet100/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.xml",
+          "source_sha256": "9d05949870ffea66384f2a9e2d3111656813b5291a85e8f63704fd054ecc3581",
+          "published_sha256": "9d05949870ffea66384f2a9e2d3111656813b5291a85e8f63704fd054ecc3581",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-ime-tablet100.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-tablet100/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime-frame.json",
+          "source_sha256": "7aaeedb607e0ec9e8602825db071dd1bd365e5612b5c35cdd6b91fbd78d869f9",
+          "published_sha256": "7aaeedb607e0ec9e8602825db071dd1bd365e5612b5c35cdd6b91fbd78d869f9",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-ime-tablet100-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-date-ime-phone200",
+      "source_root": "final-typed-native-criticalfonts-auditfinalv1-phone200",
+      "source_file": "form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.png",
+      "caption": "Repaired350c2fe/current compiled APK, actual Dialog IME and full confirmation screen target, phone200. Screen-coordinate activation and exact Date/publication are asserted; emulator input is not physical-device certification.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "9f942666089cf926a9bd1492d49d7ccdf5c561c4c356c42b04f2dd58b82f1f9d",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-phone200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.png",
+          "source_sha256": "22cc9f9d86b173c54c0f461a24fb290b28d33c08ba90b7baf060688089a5f651",
+          "published_sha256": "22cc9f9d86b173c54c0f461a24fb290b28d33c08ba90b7baf060688089a5f651",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-date-ime-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-phone200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.xml",
+          "source_sha256": "e592216b6e0b92752d8fe4b8d2d2a1c721bf2170b6270dd339c9830c3aa5152c",
+          "published_sha256": "e592216b6e0b92752d8fe4b8d2d2a1c721bf2170b6270dd339c9830c3aa5152c",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-ime-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-phone200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime-frame.json",
+          "source_sha256": "082b6b846babff80e31dcacf577efab043e8998d849bb282653fc79fbe160fa6",
+          "published_sha256": "082b6b846babff80e31dcacf577efab043e8998d849bb282653fc79fbe160fa6",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-ime-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "current-date-ime-landscape200",
+      "source_root": "final-typed-native-criticalfonts-auditfinalv1-landscape200",
+      "source_file": "form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.png",
+      "caption": "Repaired350c2fe/current compiled APK, actual Dialog IME and full confirmation screen target, landscape200. Screen-coordinate activation and exact Date/publication are asserted; emulator input is not physical-device certification.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+      "case_passed": true,
+      "case_source_sha256": "1d54625a2a29b9aa90ee6964c7849174782b28a430a6c0a36dbfc3aa56bc4921",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-landscape200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.png",
+          "source_sha256": "935a2f0fa043ae2b5ddc148df4995125edf1ae3baf93a86658ef77096eac940e",
+          "published_sha256": "935a2f0fa043ae2b5ddc148df4995125edf1ae3baf93a86658ef77096eac940e",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/current-date-ime-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-landscape200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime.xml",
+          "source_sha256": "d46022e36033f70650f153a5812feb9da1fbadfab96b6dba0b814ce9cad0c74d",
+          "published_sha256": "d46022e36033f70650f153a5812feb9da1fbadfab96b6dba0b814ce9cad0c74d",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-ime-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/final-typed-native-criticalfonts-auditfinalv1-landscape200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-date-time-editor-ime-frame.json",
+          "source_sha256": "9e8d594e2b749b7a4e081fa766cd603ae0d3aad00ae0a11357f7946370309d60",
+          "published_sha256": "9e8d594e2b749b7a4e081fa766cd603ae0d3aad00ae0a11357f7946370309d60",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/current-date-ime-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-value-before-authoritative-value-published-phone200",
+      "source_root": "date-audit-controls-before-v1-phone200",
+      "source_file": "form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published.png",
+      "caption": "Old55e641a with the exact same common v29 test APK, phone200. Controlled same-field React/native/composed value update precedes invocation of the captured original confirmation; this is queued-callback coverage, not a pointer to a still-visible stale control. Before retains/accepts the obsolete draft; after closes it and preserves the newer authoritative Date.",
+      "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+      "app_sha256": "ae9e4aa7139a36ad0e3b968903c0c89daf3f045f40d1d552f87a4dd638c17aec",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": false,
+      "case_source_sha256": "126cd845dfc6bd6f36fd6066495130509e5e3e1a255f85d7822e9c6decbf066a",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published.png",
+          "source_sha256": "6e831ada311808a59ef52597654f7d662ae620c65aa0d6100cc49860603bf646",
+          "published_sha256": "6e831ada311808a59ef52597654f7d662ae620c65aa0d6100cc49860603bf646",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-value-before-authoritative-value-published-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published.xml",
+          "source_sha256": "f19720f1b1573e940492cd6e341216366f67d87a304987a1538517f4db45406f",
+          "published_sha256": "f19720f1b1573e940492cd6e341216366f67d87a304987a1538517f4db45406f",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-before-authoritative-value-published-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published-frame.json",
+          "source_sha256": "f1714b1d0b4e8b2f862f5a53cf8b139e1d69f0eda01cdebb7caef1ca1b466920",
+          "published_sha256": "f1714b1d0b4e8b2f862f5a53cf8b139e1d69f0eda01cdebb7caef1ca1b466920",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-before-authoritative-value-published-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-value-before-original-confirmation-result-phone200",
+      "source_root": "date-audit-controls-before-v1-phone200",
+      "source_file": "form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result.png",
+      "caption": "Old55e641a with the exact same common v29 test APK, phone200. Controlled same-field React/native/composed value update precedes invocation of the captured original confirmation; this is queued-callback coverage, not a pointer to a still-visible stale control. Before retains/accepts the obsolete draft; after closes it and preserves the newer authoritative Date.",
+      "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+      "app_sha256": "ae9e4aa7139a36ad0e3b968903c0c89daf3f045f40d1d552f87a4dd638c17aec",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": false,
+      "case_source_sha256": "126cd845dfc6bd6f36fd6066495130509e5e3e1a255f85d7822e9c6decbf066a",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result.png",
+          "source_sha256": "e530d7b4fd92c05b3952dd0f2f470e4700ce0d97a58425dae5c7496d519d77bf",
+          "published_sha256": "e530d7b4fd92c05b3952dd0f2f470e4700ce0d97a58425dae5c7496d519d77bf",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-value-before-original-confirmation-result-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result.xml",
+          "source_sha256": "5d4e85c68da680ea858c603663550302d67fae6ce0aff7335a005f342b9ecbd2",
+          "published_sha256": "5d4e85c68da680ea858c603663550302d67fae6ce0aff7335a005f342b9ecbd2",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-before-original-confirmation-result-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result-frame.json",
+          "source_sha256": "2a33be867400473bb2dd4b83c6dc8a502d80431e8ef86e4b29c58f4cd092cd1b",
+          "published_sha256": "2a33be867400473bb2dd4b83c6dc8a502d80431e8ef86e4b29c58f4cd092cd1b",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-before-original-confirmation-result-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-value-after-authoritative-value-published-phone200",
+      "source_root": "date-audit-controls-after-v1-phone200",
+      "source_file": "form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published.png",
+      "caption": "Repaired350c2fe with the exact same common v29 test APK, phone200. Controlled same-field React/native/composed value update precedes invocation of the captured original confirmation; this is queued-callback coverage, not a pointer to a still-visible stale control. Before retains/accepts the obsolete draft; after closes it and preserves the newer authoritative Date.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": true,
+      "case_source_sha256": "6968db03c758c5af52b45c9c8070f5d9a7195df3d78012134ca5ed1394e74320",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published.png",
+          "source_sha256": "eb8c90ec4240181f9ad11175a26abd0f90b32e29f379f79710000a8c54083da0",
+          "published_sha256": "eb8c90ec4240181f9ad11175a26abd0f90b32e29f379f79710000a8c54083da0",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-value-after-authoritative-value-published-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published.xml",
+          "source_sha256": "550798b7d9e80b1255bd88efdd052a0278d716f6f5c41b3f645d8d4263c12318",
+          "published_sha256": "550798b7d9e80b1255bd88efdd052a0278d716f6f5c41b3f645d8d4263c12318",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-after-authoritative-value-published-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-authoritative-value-published-frame.json",
+          "source_sha256": "c3199a9d75015daddfff091c95b17938a314857d2ca877918f90ba89f453aca2",
+          "published_sha256": "c3199a9d75015daddfff091c95b17938a314857d2ca877918f90ba89f453aca2",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-after-authoritative-value-published-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-value-after-original-confirmation-result-phone200",
+      "source_root": "date-audit-controls-after-v1-phone200",
+      "source_file": "form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result.png",
+      "caption": "Repaired350c2fe with the exact same common v29 test APK, phone200. Controlled same-field React/native/composed value update precedes invocation of the captured original confirmation; this is queued-callback coverage, not a pointer to a still-visible stale control. Before retains/accepts the obsolete draft; after closes it and preserves the newer authoritative Date.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": true,
+      "case_source_sha256": "6968db03c758c5af52b45c9c8070f5d9a7195df3d78012134ca5ed1394e74320",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result.png",
+          "source_sha256": "eb8c90ec4240181f9ad11175a26abd0f90b32e29f379f79710000a8c54083da0",
+          "published_sha256": "eb8c90ec4240181f9ad11175a26abd0f90b32e29f379f79710000a8c54083da0",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-value-after-original-confirmation-result-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result.xml",
+          "source_sha256": "550798b7d9e80b1255bd88efdd052a0278d716f6f5c41b3f645d8d4263c12318",
+          "published_sha256": "550798b7d9e80b1255bd88efdd052a0278d716f6f5c41b3f645d8d4263c12318",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-after-original-confirmation-result-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-datepickerqueuedconfirmationcannotoverwriteanewervalue-original-confirmation-result-frame.json",
+          "source_sha256": "2a33be867400473bb2dd4b83c6dc8a502d80431e8ef86e4b29c58f4cd092cd1b",
+          "published_sha256": "2a33be867400473bb2dd4b83c6dc8a502d80431e8ef86e4b29c58f4cd092cd1b",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-value-after-original-confirmation-result-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-focus-before-phone200",
+      "source_root": "date-audit-controls-before-v1-phone200",
+      "source_file": "form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus.png",
+      "caption": "Old55e641a with the common v29 APK after a real pointer Clear date, phone200. Native editor focus is true before and false after; corrected native focus also hides the keyboard and changes viewport geometry. Exact callback order is established by the receipt, not cursor appearance alone.",
+      "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+      "app_sha256": "ae9e4aa7139a36ad0e3b968903c0c89daf3f045f40d1d552f87a4dd638c17aec",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": false,
+      "case_source_sha256": "865a593a438f44d37fd67b81752a521436398a9b45c5f6a60ec4fd37512ce512",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus.png",
+          "source_sha256": "e109582e3b9f0ba5ecc9b5458c51fe1b8fdf7e328afc180091e92e20054ec3ef",
+          "published_sha256": "e109582e3b9f0ba5ecc9b5458c51fe1b8fdf7e328afc180091e92e20054ec3ef",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-focus-before-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus.xml",
+          "source_sha256": "56f6ac1675fdcabe83c27974390ee00485bfb02658fa720cb826a3f226918317",
+          "published_sha256": "56f6ac1675fdcabe83c27974390ee00485bfb02658fa720cb826a3f226918317",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-before-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-before-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus-frame.json",
+          "source_sha256": "cd528580d75f6f5887c4b7c9c3ea1c5fb16a8f5a83f455cb5f87940b30464b83",
+          "published_sha256": "cd528580d75f6f5887c4b7c9c3ea1c5fb16a8f5a83f455cb5f87940b30464b83",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-before-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-focus-after-phone200",
+      "source_root": "date-audit-controls-after-v1-phone200",
+      "source_file": "form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus.png",
+      "caption": "Repaired350c2fe with the common v29 APK after a real pointer Clear date, phone200. Native editor focus is true before and false after; corrected native focus also hides the keyboard and changes viewport geometry. Exact callback order is established by the receipt, not cursor appearance alone.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": true,
+      "case_source_sha256": "61dda961e124c5acb3e8f37834f7ed01508dcc224210aac14f4f606660ccce11",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus.png",
+          "source_sha256": "c421c97a33cc9f03c7e259c35f4d2dc706f9dc39c736876310661d28872e51f7",
+          "published_sha256": "c421c97a33cc9f03c7e259c35f4d2dc706f9dc39c736876310661d28872e51f7",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-focus-after-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus.xml",
+          "source_sha256": "808ae19590394e505cd3d43af86aa6373588322b1a44425888e4c00f818d0c5f",
+          "published_sha256": "808ae19590394e505cd3d43af86aa6373588322b1a44425888e4c00f818d0c5f",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-after-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-cleared-native-focus-frame.json",
+          "source_sha256": "2e3443939b8b8b86c3994e292a28907c609148110c2c14003ebd988113649ad2",
+          "published_sha256": "2e3443939b8b8b86c3994e292a28907c609148110c2c14003ebd988113649ad2",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-after-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-focus-after-same-text-editor-returned-phone200",
+      "source_root": "date-audit-controls-after-v1-phone200",
+      "source_file": "form-clearingdateletsthesametextfieldrefocusandsubmit-same-text-editor-returned.png",
+      "caption": "Repaired350c2fe/common v29, phone200. Actual pointer return to the same text editor and submit; owned text entry uses SetText semantics. Post-submit UI is an app smoke frame; the receipt verifies the exact Unicode text, explicit null Date, seven-event order and one submit.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": true,
+      "case_source_sha256": "61dda961e124c5acb3e8f37834f7ed01508dcc224210aac14f4f606660ccce11",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-same-text-editor-returned.png",
+          "source_sha256": "d68424306925848c7304cce8d42d7f2d13581203a504cfb742687b44c1acce77",
+          "published_sha256": "d68424306925848c7304cce8d42d7f2d13581203a504cfb742687b44c1acce77",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-focus-after-same-text-editor-returned-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-same-text-editor-returned.xml",
+          "source_sha256": "26cfdee5cf57e0e42ca3560d2017fdea4fd172d01f11f695f7244952929c000d",
+          "published_sha256": "26cfdee5cf57e0e42ca3560d2017fdea4fd172d01f11f695f7244952929c000d",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-after-same-text-editor-returned-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-same-text-editor-returned-frame.json",
+          "source_sha256": "2df619a9a342210a5f3b5467901cbc08de27c43be006d43f4dd6857d7269a113",
+          "published_sha256": "2df619a9a342210a5f3b5467901cbc08de27c43be006d43f4dd6857d7269a113",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-after-same-text-editor-returned-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-focus-after-date-clear-focus-submitted-phone200",
+      "source_root": "date-audit-controls-after-v1-phone200",
+      "source_file": "form-clearingdateletsthesametextfieldrefocusandsubmit-date-clear-focus-submitted.png",
+      "caption": "Repaired350c2fe/common v29, phone200. Actual pointer return to the same text editor and submit; owned text entry uses SetText semantics. Post-submit UI is an app smoke frame; the receipt verifies the exact Unicode text, explicit null Date, seven-event order and one submit.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": true,
+      "case_source_sha256": "61dda961e124c5acb3e8f37834f7ed01508dcc224210aac14f4f606660ccce11",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-clear-focus-submitted.png",
+          "source_sha256": "c421c97a33cc9f03c7e259c35f4d2dc706f9dc39c736876310661d28872e51f7",
+          "published_sha256": "c421c97a33cc9f03c7e259c35f4d2dc706f9dc39c736876310661d28872e51f7",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-focus-after-date-clear-focus-submitted-phone200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-clear-focus-submitted.xml",
+          "source_sha256": "808ae19590394e505cd3d43af86aa6373588322b1a44425888e4c00f818d0c5f",
+          "published_sha256": "808ae19590394e505cd3d43af86aa6373588322b1a44425888e4c00f818d0c5f",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-after-date-clear-focus-submitted-phone200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-phone200/captures/form-clearingdateletsthesametextfieldrefocusandsubmit-date-clear-focus-submitted-frame.json",
+          "source_sha256": "4eb5adaf79c2245c5e96566ce82879b0634f26c60e7deec77f14b187a40a6071",
+          "published_sha256": "4eb5adaf79c2245c5e96566ce82879b0634f26c60e7deec77f14b187a40a6071",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-focus-after-date-clear-focus-submitted-phone200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-reset-preserved-landscape200",
+      "source_root": "date-audit-controls-after-v1-landscape200",
+      "source_file": "form-datepickerqueuedconfirmationcannotoverwritearesetvalue-authoritative-value-published.png",
+      "caption": "Repaired350c2fe/common v29, landscape200. A controlled same-field null reset has a native/composed publication witness, invalidates the open draft and survives the captured old confirmation. No external service is certified.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": true,
+      "case_source_sha256": "ca1dee9cd0778345fd934ffa9452ddb3de9d9e5ecd1f43409d86920c967fa9b6",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-landscape200/captures/form-datepickerqueuedconfirmationcannotoverwritearesetvalue-authoritative-value-published.png",
+          "source_sha256": "e08b9e35a09dedac0aa9973992d7058882a7700b2069335b6fb48eedead7e03f",
+          "published_sha256": "e08b9e35a09dedac0aa9973992d7058882a7700b2069335b6fb48eedead7e03f",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-reset-preserved-landscape200.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-landscape200/captures/form-datepickerqueuedconfirmationcannotoverwritearesetvalue-authoritative-value-published.xml",
+          "source_sha256": "0e220d55c5ac8c1867a000f759a1446161e5db066d1a86135e2213737fc36611",
+          "published_sha256": "0e220d55c5ac8c1867a000f759a1446161e5db066d1a86135e2213737fc36611",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-reset-preserved-landscape200.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-landscape200/captures/form-datepickerqueuedconfirmationcannotoverwritearesetvalue-authoritative-value-published-frame.json",
+          "source_sha256": "c3199a9d75015daddfff091c95b17938a314857d2ca877918f90ba89f453aca2",
+          "published_sha256": "c3199a9d75015daddfff091c95b17938a314857d2ca877918f90ba89f453aca2",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-reset-preserved-landscape200-frame.json"
+        }
+      ]
+    },
+    {
+      "name": "date-preframe-guard-restored-tablet100",
+      "source_root": "date-audit-controls-after-v1-tablet100",
+      "source_file": "form-datepickerconfirmationrechecksvaluebeforecomposition-native-value-model-restored.png",
+      "caption": "Repaired350c2fe/common v29, tablet100. Controlled native value replacement and original confirmation happen in one UI turn; the original tree is restored before a frame. This is a restored-app smoke image; the receipt establishes zero dispatch/change and unchanged original JS value, not a visibly replaced native model.",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+      "case_passed": true,
+      "case_source_sha256": "7d059dc2436f07f259b8d1dfe81f7e98f56ff9792e6b3d6b11381f9f321b9fd9",
+      "raw_files": [
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-tablet100/captures/form-datepickerconfirmationrechecksvaluebeforecomposition-native-value-model-restored.png",
+          "source_sha256": "6ff1ecda17eafef3eb3e7e6511b526a463a13c60612da8f256b59ff04e503fb7",
+          "published_sha256": "6ff1ecda17eafef3eb3e7e6511b526a463a13c60612da8f256b59ff04e503fb7",
+          "transformation": "Byte-exact raw copy",
+          "destination": "screenshots/date-preframe-guard-restored-tablet100.png"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-tablet100/captures/form-datepickerconfirmationrechecksvaluebeforecomposition-native-value-model-restored.xml",
+          "source_sha256": "c7736478ff82b42a855c4736783645f8cfe049655f7a3cc1d2e03d6793df60ba",
+          "published_sha256": "c7736478ff82b42a855c4736783645f8cfe049655f7a3cc1d2e03d6793df60ba",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-preframe-guard-restored-tablet100.xml"
+        },
+        {
+          "source": "artifacts/form-pickers/date-audit-controls-after-v1-tablet100/captures/form-datepickerconfirmationrechecksvaluebeforecomposition-native-value-model-restored-frame.json",
+          "source_sha256": "3fb2b9b6adb7a02c706d3211f9d6134e8d2d2f546f854a1d41e407bd4886fba7",
+          "published_sha256": "3fb2b9b6adb7a02c706d3211f9d6134e8d2d2f546f854a1d41e407bd4886fba7",
+          "transformation": "Byte-exact raw copy",
+          "destination": "validation/captures/date-preframe-guard-restored-tablet100-frame.json"
+        }
+      ]
+    }
+  ]
+}

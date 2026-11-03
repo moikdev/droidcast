@@ -1,0 +1,37 @@
+{
+  "groups": {
+    "criticalfonts": [
+      "dateTimeEditorKeepsConfirmationReachableWithItsOwnIme",
+      "dateTimeCanChooseAnAllDayDateWithTheFullDayMarker",
+      "tagPickerLongOptionKeepsEveryLineReachable",
+      "filePickerImportsARealSelectedFolderAndNestedBytes"
+    ]
+  },
+  "profiles": [
+    [
+      "tablet",
+      1
+    ],
+    [
+      "tablet",
+      2
+    ],
+    [
+      "phone",
+      1
+    ],
+    [
+      "phone",
+      2
+    ],
+    [
+      "landscape",
+      1
+    ],
+    [
+      "landscape",
+      2
+    ]
+  ],
+  "scope": "Critical date IME/all-day, natural tag text and real folder workflows at both 100% and 200% on each layout; not all tests on all six profiles."
+}

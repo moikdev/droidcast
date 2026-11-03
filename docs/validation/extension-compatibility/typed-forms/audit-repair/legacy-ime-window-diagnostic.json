@@ -1,0 +1,111 @@
+{
+  "completed": true,
+  "scope": "Read-only input-method and WindowManager samples only during the active live-IME test in a complete fresh landscape cohort. Same app/test APK; no policy change, input retry or prior failure relabeling.",
+  "engine_exit_code": 0,
+  "samples": [
+    {
+      "sample": 0,
+      "time": 1793710165.9298549,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 1,
+      "time": 1793710167.24286,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 2,
+      "time": 1793710168.610909,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 3,
+      "time": 1793710169.474707,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 4,
+      "time": 1793710170.287485,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 5,
+      "time": 1793710171.300564,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 6,
+      "time": 1793710172.1108649,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 7,
+      "time": 1793710172.946507,
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "cohort": "final-typed-native-legacy-imewindowv1-landscape200",
+      "input_method_exit_code": 0,
+      "window_exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "submit-validation",
+  "fixture_command_sha256": "1061be9daf9e9410263d56cad887e5d72ae9115f804e4499c26423312fa7b0dd",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-e2eee427551f4de6aca2eb668966391f",
+  "submit_route": "Primary pointer action",
+  "submit_native_action_type": "Action",
+  "initial_submit_count": 0,
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 620,
+      "visible_bounds": [
+        53,
+        1701,
+        713,
+        1949
+      ],
+      "control_size": [
+        660,
+        248
+      ],
+      "point": [
+        383,
+        1825
+      ]
+    }
+  ],
+  "observed_submit_count": 0,
+  "observed_non_submit_actions": 0,
+  "observed_dispatch_count": 0,
+  "result_root_type": "Form",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

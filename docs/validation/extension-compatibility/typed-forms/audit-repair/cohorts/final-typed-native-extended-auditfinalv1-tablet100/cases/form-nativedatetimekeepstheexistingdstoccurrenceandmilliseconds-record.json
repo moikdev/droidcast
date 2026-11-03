@@ -1,0 +1,174 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "native_process_time_zone": "America\/New_York",
+  "time_zone_boundary": "Owned JVM default override for native picker; Android system setting and WebView timezone unchanged",
+  "fixture_mode": "typed-date-dst-overlap",
+  "fixture_command_sha256": "e079ca64009f9125e499de29e6b90a106c10111176d22fb37a52022d96b66c64",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-886dd3fe54384ca7894561df8e7f5933",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 682,
+      "visible_bounds": [
+        428,
+        392,
+        1493,
+        464
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        428
+      ]
+    },
+    {
+      "tag": "extension-date-confirm-date",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 821,
+      "visible_bounds": [
+        444,
+        1023,
+        846,
+        1095
+      ],
+      "control_size": [
+        402,
+        72
+      ],
+      "point": [
+        645,
+        1059
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 682,
+      "visible_bounds": [
+        970,
+        872,
+        1322,
+        944
+      ],
+      "control_size": [
+        352,
+        72
+      ],
+      "point": [
+        1146,
+        908
+      ]
+    }
+  ],
+  "typed_publications": [
+    {
+      "phase": "same DST occurrence",
+      "root_id": "11",
+      "before": 0,
+      "native_counter": 1,
+      "composed_marker": "Typed publication 1",
+      "composed_semantics_id": 803
+    }
+  ],
+  "date_change_runtime_type": {
+    "is_date": true,
+    "is_null": false,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": true,
+    "date_iso": "2024-11-03T06:30:12.345Z",
+    "full_day_helper": true,
+    "full_day": false
+  },
+  "date_submit_runtime_type": {
+    "is_date": true,
+    "is_null": false,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": true,
+    "date_iso": "2024-11-03T06:30:12.345Z",
+    "full_day_helper": true,
+    "full_day": false,
+    "present": true
+  },
+  "submitted_date": "2024-11-03T06:30:12.345Z",
+  "submit_count": 1,
+  "test_boundary": "Actual native date interaction and owned JS callback values; tag\/file selection and a separate destination are not exercised",
+  "existing_repeated_hour_and_fractional_seconds_preserved": true,
+  "passed": true,
+  "native_process_time_zone_restored": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

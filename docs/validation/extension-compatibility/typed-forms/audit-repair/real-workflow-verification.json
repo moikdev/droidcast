@@ -1,0 +1,59 @@
+{
+  "completed": true,
+  "production_source_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+  "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+  "workflow_executions": 6,
+  "enclosing_group_executions": 18,
+  "observations": [
+    {
+      "profile": "tablet100",
+      "case": "cohorts/final-typed-native-real-auditfinalv1-tablet100/cases/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+      "case_sha256": "e82eb3a44be707416232a77bca0023b5c25e3a806172a197a3480002dcb58b43",
+      "workflow": "Mood record/search",
+      "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+      "passed": true
+    },
+    {
+      "profile": "tablet100",
+      "case": "cohorts/final-typed-native-real-auditfinalv1-tablet100/cases/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+      "case_sha256": "c58d25049f928e9d1de99a04cd653ca93c8491c4d1ce2fa269ed45579d26e342",
+      "workflow": "Checksum hashfile",
+      "archive_sha256": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d",
+      "passed": true
+    },
+    {
+      "profile": "phone200",
+      "case": "cohorts/final-typed-native-real-auditfinalv1-phone200/cases/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+      "case_sha256": "1d520c492b52fdf04aa4df622ac1fa587de8b2067104ca13a870547e8fa54fcd",
+      "workflow": "Mood record/search",
+      "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+      "passed": true
+    },
+    {
+      "profile": "phone200",
+      "case": "cohorts/final-typed-native-real-auditfinalv1-phone200/cases/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+      "case_sha256": "7328c08115b1096e7cc5487778fbe902b6111bd36e12ae2d428af9ca4c5b0688",
+      "workflow": "Checksum hashfile",
+      "archive_sha256": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d",
+      "passed": true
+    },
+    {
+      "profile": "landscape200",
+      "case": "cohorts/final-typed-native-real-auditfinalv1-landscape200/cases/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+      "case_sha256": "409e629f491f4b9b874b6eeddeccd20682c72a9168eca658854b965e8eb50bb1",
+      "workflow": "Mood record/search",
+      "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+      "passed": true
+    },
+    {
+      "profile": "landscape200",
+      "case": "cohorts/final-typed-native-real-auditfinalv1-landscape200/cases/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+      "case_sha256": "d77162cfe1ffb24df2ae5318eb1539b1977c61e5bc69727ed11a4d9c7b95ec27",
+      "workflow": "Checksum hashfile",
+      "archive_sha256": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d",
+      "passed": true
+    }
+  ],
+  "boundary": "Two scenarios spanning three commands on three layouts; not eighteen Store passes. Mood Search remains partial for Markdown/Detail visibility. Bundle identities remain unchanged from the initial publication."
+}

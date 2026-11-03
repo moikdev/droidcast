@@ -1,0 +1,605 @@
+{
+  "completed": true,
+  "scope": "Current repaired-runtime legacy group with the separately compiled current APK. Read-only input-method samples only while live IME test is actively running; raw dumps private, no repair/retry.",
+  "engine_exit_code": 1,
+  "samples": [
+    {
+      "sample": 0,
+      "time": 1793708424.5006552,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 1,
+      "time": 1793708425.916764,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 2,
+      "time": 1793708427.053084,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 3,
+      "time": 1793708428.168211,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 4,
+      "time": 1793708429.261503,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 5,
+      "time": 1793708430.1382349,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 6,
+      "time": 1793708431.103604,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 7,
+      "time": 1793708432.687379,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 8,
+      "time": 1793708433.398041,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 9,
+      "time": 1793708434.118645,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 10,
+      "time": 1793708434.7969012,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 11,
+      "time": 1793708437.57273,
+      "cohort": "final-typed-native-legacy-auditfinalv1-tablet100",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=3",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 12,
+      "time": 1793708656.2619252,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 13,
+      "time": 1793708657.5854762,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 14,
+      "time": 1793708658.451487,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 15,
+      "time": 1793708659.066994,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 16,
+      "time": 1793708659.821536,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=0",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 17,
+      "time": 1793708660.608234,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 18,
+      "time": 1793708661.413672,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 19,
+      "time": 1793708662.3521101,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 20,
+      "time": 1793708663.062807,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 21,
+      "time": 1793708663.764766,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 22,
+      "time": 1793708664.7658272,
+      "cohort": "final-typed-native-legacy-auditfinalv1-phone200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 23,
+      "time": 1793708850.08416,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 24,
+      "time": 1793708851.10175,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 25,
+      "time": 1793708851.834852,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 26,
+      "time": 1793708852.901162,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=false",
+        "mImeWindowVis=0",
+        "mInputShown=false"
+      ]
+    },
+    {
+      "sample": 27,
+      "time": 1793708854.058343,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=0",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 28,
+      "time": 1793708855.004939,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 29,
+      "time": 1793708855.6744041,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 30,
+      "time": 1793708856.4800699,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 31,
+      "time": 1793708857.0703502,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 32,
+      "time": 1793708857.661581,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 33,
+      "time": 1793708858.346197,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 34,
+      "time": 1793708858.994345,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 35,
+      "time": 1793708859.628573,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 36,
+      "time": 1793708860.285142,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 37,
+      "time": 1793708860.942796,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 38,
+      "time": 1793708861.5218382,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 39,
+      "time": 1793708862.0988622,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 40,
+      "time": 1793708862.702802,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 41,
+      "time": 1793708863.310006,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 42,
+      "time": 1793708863.9951491,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 43,
+      "time": 1793708864.626391,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 44,
+      "time": 1793708865.239464,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    },
+    {
+      "sample": 45,
+      "time": 1793708865.82795,
+      "cohort": "final-typed-native-legacy-auditfinalv1-landscape200",
+      "active_test": "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "instrumentation_status_code": 1,
+      "exit_code": 0,
+      "flags": [
+        "mVisibleBound=true",
+        "mImeWindowVis=3",
+        "mInputShown=true"
+      ]
+    }
+  ]
+}

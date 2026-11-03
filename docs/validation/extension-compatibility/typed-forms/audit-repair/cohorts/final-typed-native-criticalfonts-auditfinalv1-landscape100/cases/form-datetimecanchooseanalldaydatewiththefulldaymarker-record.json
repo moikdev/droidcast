@@ -1,0 +1,199 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "typed-controls",
+  "fixture_command_sha256": "e36b9117b120edb23eae9d3a6d2447d0e94ccb96ec7e2fc85086192e1c53fb26",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-8045b55d39604c3fb3ea4ec340262b56",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 367,
+      "visible_bounds": [
+        239,
+        368,
+        2102,
+        494
+      ],
+      "control_size": [
+        1863,
+        126
+      ],
+      "point": [
+        1170.5,
+        431
+      ]
+    },
+    {
+      "tag": "extension-date-all-day-date",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 506,
+      "visible_bounds": [
+        53,
+        632,
+        1481,
+        759
+      ],
+      "control_size": [
+        1428,
+        127
+      ],
+      "point": [
+        767,
+        695.5
+      ]
+    },
+    {
+      "tag": "extension-date-confirm-date",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 506,
+      "visible_bounds": [
+        777,
+        791,
+        1481,
+        917
+      ],
+      "control_size": [
+        704,
+        126
+      ],
+      "point": [
+        1129,
+        854
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 367,
+      "visible_bounds": [
+        1201,
+        849,
+        1805,
+        975
+      ],
+      "control_size": [
+        604,
+        126
+      ],
+      "point": [
+        1503,
+        912
+      ]
+    }
+  ],
+  "date_change_runtime_type": {
+    "is_date": true,
+    "is_null": false,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": true,
+    "date_iso": "2024-02-28T15:00:00.001Z",
+    "full_day_helper": true,
+    "full_day": true
+  },
+  "date_submit_runtime_type": {
+    "is_date": true,
+    "is_null": false,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": true,
+    "date_iso": "2024-02-28T15:00:00.001Z",
+    "full_day_helper": true,
+    "full_day": true,
+    "present": true
+  },
+  "submitted_date": "2024-02-28T15:00:00.001Z",
+  "submit_count": 1,
+  "test_boundary": "Actual native date interaction and owned JS callback values; tag\/file selection and a separate destination are not exercised",
+  "explicit_all_day_choice_in_datetime_field": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

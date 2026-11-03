@@ -2,7 +2,7 @@
 
 [#87](https://github.com/moikdev/droidcast/issues/87) adds native DatePicker, TagPicker and an Android document-selection equivalent for FilePicker. The controls deliver actual JavaScript Date/null and string-array values through the unchanged generated runtime. This is a milestone under [#6](https://github.com/moikdev/droidcast/issues/6), [#71](https://github.com/moikdev/droidcast/issues/71) and [#72](https://github.com/moikdev/droidcast/issues/72); complete Form, extension and platform parity remains open.
 
-The current frozen production build is `55e641a8321277edf9ca8c033e0fe1fbb306a1e0`. The retained first five native groups use instrumentation `71493bc`; legacy and critical-font groups use `5edba75`. Only the checkbox test body differs, with the rest of all source files byte-identical. The [checkpoint](validation/extension-compatibility/typed-forms/checkpoint.json) binds the current and retained source manifests, both instrumentation APKs, public evidence and local results. Actual exact-head hosted CI and independent reviews are reported separately on the implementation PR.
+The repaired frozen production build is `350c2fe775ecdac2094538c977aeca7ac0737bfc`. It prevents an open date draft from overwriting a newer authoritative value, and synchronizes native/logical focus when clearing a date. The [checkpoint](validation/extension-compatibility/typed-forms/checkpoint.json) binds its 190 source hashes, APKs, completed native cohorts and matched audit controls. The initial `55e641a` evidence remains historical and is bound to its original Git publication, rather than relabeled as this runtime. Exact-head hosted CI and two fresh independent reviews are separate PR gates.
 
 ## Supported contracts and Android equivalents
 
@@ -35,7 +35,7 @@ Pre-serialization probes check `instanceof Date`, null, string-array elements, I
 
 All three new field types participate in focus/blur, readable help/error output and SubmitForm error detection. Correction scenarios attempt both the disabled native action and a controlled JavaScript request, wait for the committed submission drain, then correct the value and require exactly one valid callback. Controlled JavaScript dispatch is labeled separately from pointer input.
 
-`storeValue` persistence and imperative field `.focus()` are still unsupported contracts. Uncontrolled Date/tag `.reset()` is exercised; controlled reset, arbitrary drafts and every FilePicker ref method are not certified. These gaps keep complete Forms open. A basic native selected/disabled/focus semantic is not a TalkBack or accessibility certification. Physical/OEM keyboards, arbitrary Dialog headings, actual split-window operation and wider platform readiness remain unverified.
+`storeValue` persistence and imperative field `.focus()` are still unsupported contracts. Uncontrolled Date/tag `.reset()` is exercised; same-field Date/null resets while a draft is open are covered. Other controlled reset contracts, arbitrary drafts and every FilePicker ref method are not certified. These gaps keep complete Forms open. A basic native selected/disabled/focus semantic is not a TalkBack or accessibility certification. Physical/OEM keyboards, arbitrary Dialog headings, actual split-window operation and wider platform readiness remain unverified.
 
 ## Frozen real-bundle workflows
 
@@ -58,51 +58,78 @@ The original inventory's **3,491 directories and 11,153 command declarations rem
 
 Environment: dedicated `Tinycast_Tablet_API_36`, API 36 arm64; tablet 1920×1200 / 240 dpi at 100% text, phone 1080×2340 / 420 dpi at 200%, and short landscape 2340×1080 / 420 dpi at 200%. The app and adbd remain unprivileged. Host runners restore clipboard independently, preferences, font, geometry, secure settings, owned fixtures and provider originals before revalidating and releasing leases. Private clipboard contents, original-data fingerprints and recovery snapshots are excluded from publication.
 
-The frozen `55e641a` full build executed **229 JVM cases with zero failures/errors/skips**, **25 Node contracts** and **77 Python cases in each of normal and optimized modes**, plus debug/instrumentation/benchmark builds and lint **0 errors/52 warnings** per variant. Final Gradle verification at `5edba75` succeeds and reproduces all frozen APK hashes; its JVM task is explicitly **UP-TO-DATE**, reusing those 229 results. The Node/Python results are retained rather than rerun because every corresponding source is unchanged. The separately compiled `71493bc` and `5edba75` native harnesses share the same frozen production app. The latter repairs only the checkbox assertion/reveal path. All other test bodies and shared input helpers remain byte-identical.
+The repaired `350c2fe` build **executed 229 JVM cases with zero failures/errors/skips**, built debug/instrumentation/benchmark variants, and completed lint with **0 errors/52 warnings** per variant. Its JVM task was executed, not UP-TO-DATE. The earlier **25 Node contracts and 77 Python cases per mode** are retained against unchanged corresponding sources; they were not rerun for these two Kotlin repairs.
 
-The common v20 IME instrumentation observes the real TYPE_INPUT_METHOD window, requires a full 48 dp confirmation target outside it, injects an Android screen-coordinate tap, and waits for exact Date output plus native/composed publication. The old `f05645f` app fails this control. The `55e641a` app passes on all three profiles (**3/3; 58 successful cleanup checks**). Raw screenshots also confirm the compact time editor's full border. Earlier direct Compose-root IME taps do **not** earn screen-touch reachability credit, because they could activate a control covered by the actual keyboard. Screen injection on an emulator is distinct from physical touch-device certification.
+### Date draft and focus audit controls
 
-The first own-inset candidate fails; the parent-inset candidate still clips its confirmation target. Both failed receipts are retained. `d37dd37` passes the full button test but clips the compact editor's lower border; the following `55e641a` spacing change addresses that observed image. No test assertion was weakened.
+An open date picker now invalidates its draft when the same field publishes another Date or null. Confirmation independently compares the current authoritative value with the value at opening, so a callback queued before composition cannot overwrite the update. A fresh picker still edits the new value. Clearing a date transfers native editor focus before logical Form focus changes; returning to the same text editor delivers the expected focus/blur callbacks before submission. The handoff is shared with tag/file entry while retaining native focus for an already-focused picker.
 
-Other development failures retain their own identities: missing old controls/errors, full-day marker/helper failures, the off-Main file delivery failure and its matched repaired pass, calendar/selector corrections, the failed phone Checksum row lookup, and the interrupted emulator cohort. An absent-device preflight created no native output or lease and earns no native case credit. The separate serial-only emulator recoveries do not establish an application cause for the transport loss. Normal, cancellation, blocked-worker death and independent recovery outcomes are reported separately from JUnit passes.
+Four common tests run on the old and repaired apps at tablet 100%, phone 200% and landscape 200%:
 
-The completed current-runtime set is **183 executions across 24 cohorts**, with **479 successful cohort-level restoration checks**. All use the same frozen `55e641a` app. The first five groups retain `71493bc` instrumentation (123 executions); legacy and critical-font groups use `5edba75` (60 executions). Only `checkboxLabelTogglesExactlyOnce` differs; the other method bodies, shared helpers and all other source files are byte-identical. Their test APKs differ only in `classes3.dex`. These retained observations are not described as a rerun on the newer test APK.
+| Probe | Old `55e641a` | Repaired `350c2fe` |
+| --- | --- | --- |
+| New same-field Date publication, then captured old confirmation | Overwrites the newer Date | Preserves the new Date, closes the draft; fresh edit and submit work |
+| Same-field null publication, then captured old confirmation | Overwrites the reset | Preserves null; fresh open/cancel/submit work |
+| Native model changes immediately before confirmation, restored before a frame | Dispatches the stale result | Zero dispatch/change; original JS value unchanged |
+| Pointer text → Clear date → same text → submit | Native editor remains focused; missing return callbacks | Native focus cleared; exact seven-event sequence and one submit |
+
+The old app has **12 expected-negative executions and zero JUnit passes**, with **58 successful restoration checks**. The repaired app has **12/12 matched positive executions**, separately with **58 successful restoration checks**. Value-sensitive checks wait for an incremented same-root native marker and exact composed text before invoking the original callback. The acceptance-time probe replaces/restores the native model within one UI turn; its image is a restored-app smoke frame. Pointer focus navigation is real, while owned Unicode entry uses SetText semantics. Its exact sequence is `name:focus, name:blur, date:focus, date:blur, name:focus, name:blur, form:submit`.
+
+Both sides use the **exact same common test APK** (`d8e9a4a9…e1389`, sources `97ccf81`). The main regression APK (`6c13d8f0…39951`, sources `350c2fe`) has byte-identical AndroidTest bodies/helpers. Their ZIP payloads differ only in `classes4.dex`, containing generated test BuildConfig stamp/checksum differences. An exact stamp-only reconstruction was not established; results retain their separate APK identities.
+
+### Completed regression scope and excluded failures
+
+The completed repaired-runtime regression set is **195 executions across 27 cohorts**, with **537 successful cohort-level restoration checks**, all using the repaired app and the current `6c13d8f0…39951` test APK. The matched positive controls above remain separate, and historical observations are not added to this total.
 
 | Group | Executions | Cleanup checks | Profiles |
 | --- | ---: | ---: | --- |
-| Frozen real workflows, reset and correction | 18 | 61 | Tablet 100%, phone/landscape 200% |
+| Frozen real workflows, reset and correction | 18 | 61 | Tablet100%, phone/landscape 200% |
 | Core typed date/tag contracts | 21 | 58 | Same three |
 | Actual activity recreation | 9 | 61 | Same three |
 | Bounds, DST, stale callbacks and extended contracts | 48 | 58 | Same three |
 | Real document workflows and controlled worker/registry cases | 27 | 61 | Same three |
-| Existing Form regression | 36 | 58 | Same three; active IME monitoring disclosed below |
+| Existing Form regression | 36 | 58 | Two retained successful cohorts plus one fresh whole landscape cohort |
 | Critical font/picker checks | 24 | 122 | All three layouts at both 100% and 200% |
-| Total | **183** | **479** | **24 cohorts** |
+| Date draft/focus audit regressions | 12 | 58 | Two retained successful cohorts plus one fresh whole landscape cohort |
+| Total | **195** | **537** | **27 cohorts** |
 
-The critical set covers the real-IME date confirmation, All day mode, long tag lines and real selected-folder/nested-byte workflow. It is not every test on every font profile. File cohorts distinguish real DocumentsUI actions from controlled worker/registry publication. Actual exact-head hosted CI and both required independent audits remain separate PR gates. Historical observations are not added to this total.
+The critical set covers real-IME date confirmation, All day mode, long tag lines and real selected-folder/nested bytes. It is not every test on every font profile. Real DocumentsUI actions, controlled worker/registry probes, actual recreation and deliberate instrumentation death remain distinct. The latter earns zero JUnit passes.
 
-Two later unmonitored legacy groups time out while asking Android to show the main Form IME, before value entry. The same source and APK pass a focused case, a two-case sequence and the complete legacy group with read-only input-method monitoring coupled to the active test. The monitor observes the keyboard shown on each layout. No Activity keyboard-policy change, cause isolation or application repair is claimed. Those failed receipts remain excluded from the completed total; raw system dumps remain private. The first checkbox-caption repair also asserts an unrelated text-edit counter and fails; the corrected test observes the actual checkbox change-count description and reveals it by pointer scrolling without weakening its exact/displayed assertions.
+Two repaired-runtime pipelines remain **failed**, with all restoration checks successful:
+
+- The first legacy group records 35/36. Its landscape live-IME case times out while showing the main editor keyboard before value entry. A separate complete 12-case landscape diagnostic passes with read-only input-method/WindowManager monitoring. The completed total retains the original successful tablet/phone cohorts and this distinct fresh landscape cohort. It does not relabel the failed landscape 11/12, isolate a cause or demonstrate a keyboard-policy repair. Raw system dumps stay private.
+- The original current-APK audit-control group records 11/12. Its landscape null-reset case fails in `@Before` because exact-ID SystemUI clipboard dismissal cannot establish settled absence within its five-second deadline. The product test never starts. A distinct fresh whole 4-case landscape cohort passes with read-only host-load observations. The completed total retains the original successful tablet/phone members and this fresh landscape cohort; the failed landscape 3/4 remains failed and excluded. The common APK 12/12 positive controls remain separate. No cause isolation, clipboard-helper change or product fix is claimed for the setup timeout.
+
+Earlier unmonitored IME timeouts, checkbox-caption corrections, own/parent-inset Dialog candidates, missing typed controls, full-day helpers, off-Main delivery, Checksum row selection, transport interruption and absent-device preflight retain their original identities in the initial evidence. Earlier direct Compose-root taps do not earn screen-touch reachability credit. The common actual-keyboard control independently fails the old `f05645f` app and passes the ancestor `55e641a` on all three profiles; current real-IME critical checks run again on `350c2fe`. The Activity keyboard policy remains unchanged. The initial 183-case set is historical, separate from the repaired app's 195-case set.
+
+Actual exact-head hosted CI and both required independent audits remain separate PR gates. Physical/OEM, TalkBack, arbitrary providers, complete Store parity and production signing/migration remain open.
 
 ## Raw Android views and evidence
 
-All 33 selected PNG/XML/frame sets are unmodified captures from the stated emulator. The [capture manifest](validation/extension-compatibility/typed-forms/capture-manifest.json) supplies each original cohort, app/test APK hash, build stamp and caption; [publication verification](validation/extension-compatibility/typed-forms/publication-verification.json) records 621 reconstructed transformations and 76 allowlisted host records. The [retained-capture manifest](validation/extension-compatibility/typed-forms/retained-capture-hashes.json) binds 4,859 original capture files. Raw XML retains its original CRLF bytes. Historical failed, controlled and current-runtime captures keep their individual identities.
+The [initial capture manifest](validation/extension-compatibility/typed-forms/capture-manifest.json) preserves 33 raw sets from the first publication. The [repair manifest](validation/extension-compatibility/typed-forms/audit-repair/capture-manifest.json) adds 34 raw sets from the repaired runtime and matched controls. Each supplies original cohort, app/test APK hashes, build stamp and caption. PNG/XML/frame bytes are copied exactly; raw XML preserves CRLF. Current and historical retained-capture manifests bind their original files separately.
 
-| Old control state | Current date editor with actual keyboard |
+| Old date confirmation overwrites the new value | Repaired confirmation preserves the new value |
 | --- | --- |
-| ![Old app reports unsupported typed controls](screenshots/extension-compatibility/typed-forms/before-missing-controls-tablet.png) | ![Current compact date editor retains a full confirmation target above Android IME at 200% landscape](screenshots/extension-compatibility/typed-forms/after-ime-landscape200.png) |
+| ![Old captured confirmation overwrites the published Date](screenshots/extension-compatibility/typed-forms/audit-repair/date-value-before-original-confirmation-result-phone200.png) | ![Repaired captured confirmation preserves the authoritative Date](screenshots/extension-compatibility/typed-forms/audit-repair/date-value-after-original-confirmation-result-phone200.png) |
 
-| Touch tag selection, phone 200% | Real Android multi-file selection, phone 200% |
+| Old Clear date leaves the native editor focused | Repaired Clear date clears native focus |
 | --- | --- |
-| ![Two titled categories selected](screenshots/extension-compatibility/typed-forms/tags-two-selected-phone200.png) | ![DocumentsUI selects two owned provider documents](screenshots/extension-compatibility/typed-forms/android-two-selected-phone200.png) |
+| ![Old native focus retains the keyboard](screenshots/extension-compatibility/typed-forms/audit-repair/date-focus-before-phone200.png) | ![Repaired focus handoff hides the keyboard](screenshots/extension-compatibility/typed-forms/audit-repair/date-focus-after-phone200.png) |
+
+These common controls use phone 200% and the same test APK. The first comparison invokes the captured callback after a controlled publication; it is not a pointer to a still-visible stale control. Native focus changes keyboard/viewport geometry in the second comparison. Receipts establish focus and callback order; cursor appearance alone does not.
+
+| Actual date Dialog keyboard, landscape 200% | Touch tag selection, phone 200% |
+| --- | --- |
+| ![Repaired date confirmation remains fully outside the real keyboard](screenshots/extension-compatibility/typed-forms/audit-repair/current-date-ime-landscape200.png) | ![Two titled categories selected](screenshots/extension-compatibility/typed-forms/audit-repair/current-tags-two-selected-phone200.png) |
 
 | DST-gap error after semantic reveal, landscape 200% | Import error after semantic reveal, phone 200% |
 | --- | --- |
-| ![Nonexistent wall time is rejected](screenshots/extension-compatibility/typed-forms/date-dst-gap-error-landscape200.png) | ![Oversize owned document is rejected without changing selection](screenshots/extension-compatibility/typed-forms/file-oversize-error-phone200.png) |
+| ![Nonexistent wall time rejected](screenshots/extension-compatibility/typed-forms/audit-repair/current-date-dst-gap-error-landscape200.png) | ![Oversize owned document rejected](screenshots/extension-compatibility/typed-forms/audit-repair/current-file-oversize-error-phone200.png) |
 
 | Checksum destination after fresh Copy, phone 200% | Mood Search destination, phone 200% |
 | --- | --- |
-| ![SHA256 result after the exact clipboard write is verified](screenshots/extension-compatibility/typed-forms/checksum-sha256-copied-phone200.png) | ![Persisted Mood entry reloads; raw Markdown and Detail visibility remain partial](screenshots/extension-compatibility/typed-forms/mood-reloaded-search-destination-phone200.png) |
+| ![SHA256 destination after exact fresh clipboard write](screenshots/extension-compatibility/typed-forms/audit-repair/current-checksum-sha256-copied-phone200.png) | ![Persisted Mood entry; raw Markdown and Detail visibility stay partial](screenshots/extension-compatibility/typed-forms/audit-repair/current-mood-reloaded-search-destination-phone200.png) |
 
-The error images follow a test semantic ScrollTo and do not certify pointer-only error reveal. Recreation's old-result image is a restored-app smoke frame; its assertions establish rejection before capture. The blocked-worker image precedes deliberate instrumentation death and earns zero JUnit passes. The initial All day comparison has different scroll positions; its common missing-control assertion and source inspection establish the old absence.
+The error images follow test semantic ScrollTo and do not certify pointer-only error reveal. Complete hashes/values are checked by receipts rather than being simultaneously visible in every image. The remaining Mood rendering/visibility work is tracked in [#89](https://github.com/moikdev/droidcast/issues/89); it does not clear broader [#6](https://github.com/moikdev/droidcast/issues/6) or note workflows in [#10](https://github.com/moikdev/droidcast/issues/10).
 
-The [evidence guide](validation/extension-compatibility/typed-forms/README.md) describes source bindings and publication boundaries. Archival Python references contain redacted host paths and are not portable runner commands. The executable guarded runners remain under `scripts/`.
+The [evidence guide](validation/extension-compatibility/typed-forms/README.md) describes historical Git bindings, publication transforms and exclusions. Archival Python references contain redacted host paths and are not portable runner commands. Executable guarded runners remain under `scripts/`.

@@ -1,0 +1,20 @@
+{
+  "groups": {
+    "auditrepairs": [
+      "datePickerQueuedConfirmationCannotOverwriteANewerValue",
+      "datePickerQueuedConfirmationCannotOverwriteAResetValue",
+      "datePickerConfirmationRechecksValueBeforeComposition",
+      "clearingDateLetsTheSameTextFieldRefocusAndSubmit"
+    ]
+  },
+  "profiles": [
+    [
+      "landscape",
+      2
+    ]
+  ],
+  "ime_group_separate_common_v20": true,
+  "legacy_claim": "Targeted current-runtime Form regressions; not a rerun of all historical native suites.",
+  "revision_reason": "Add actual ActivityScenario recreation for all three pickers, including real late document selection and fresh successor acceptance.",
+  "scope": "Current repaired-runtime regression includes the four audit cases in addition to the existing groups; frozen common controls are separate."
+}

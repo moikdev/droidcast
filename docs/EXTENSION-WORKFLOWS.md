@@ -4,15 +4,15 @@ This is the execution portion of [#72](https://github.com/moikdev/droidcast/issu
 
 ## Typed Form workflows
 
-The separate [typed Form milestone](EXTENSION-TYPED-FORMS.md) exercises frozen Mood and Checksum bundles on the `55e641a` app, with `71493bc` instrumentation. These are two scenarios spanning three named commands on tablet 100%, phone 200% and short landscape 200%. Their six real-workflow executions are part of an eighteen-execution group that also checks reset and typed-error correction. They are not eighteen Store compatibility passes, and they do not rerun the earlier sixteen-command batch.
+The separate [typed Form milestone](EXTENSION-TYPED-FORMS.md) exercises frozen Mood and Checksum bundles on the repaired `350c2fe` app, with its current compiled instrumentation. The earlier `55e641a` observations retain their original identities. These are two scenarios spanning three named commands on tablet 100%, phone 200% and short landscape 200%. Their six real-workflow executions are part of an eighteen-execution group that also checks reset and typed-error correction. They are not eighteen Store compatibility passes, and they do not rerun the earlier sixteen-command batch.
 
 | Frozen command | Tablet / phone / landscape | Exercised workflow and limit |
 | --- | --- | --- |
 | `mood/record-mood` | Working / working / working for listed workflow | Touch-edit date/time and tags, enter owned Unicode notes, save one exact persisted entry and verify its bytes in a fresh Search session. AI, charts, drafts and storeValue are untested. |
-| `mood/search-moods` | Partial / partial / partial | Reload the exact saved entry and return to the caller. Existing raw-Markdown rendering and Detail visibility despite `showDetails:false` remain unresolved. A passing data/persistence probe does not clear rendering parity. |
+| `mood/search-moods` | Partial / partial / partial | Reload the exact saved entry and return to the caller. Existing raw-Markdown rendering and Detail visibility despite `isShowingDetail:false` remain unresolved. A passing data/persistence probe does not clear rendering parity. |
 | `checksum/hashfile` | Working / working / working for listed workflow | Set the actual command preference, select an owned Unicode file through DocumentsUI, verify all four hashes, select a laid-out SHA-256 row and require a fresh explicit Copy to replace a new sentinel. Back to Form, caller-query restoration and retained imported bytes are checked. Other providers/configurations/actions are not certified. |
 
-The [workflow receipt](validation/extension-compatibility/typed-forms/real-workflow-verification.json) and [bundle identities](validation/extension-compatibility/typed-forms/bundle-identities.json) bind exact archive/command hashes. Store-reported commits remain distinct from the pinned source inventory. Its 3,491 directories and 11,153 declarations remain statically untested. Historical Copy checks without a fresh sentinel do not earn explicit-action credit; the current protocol preserves their original outcomes separately.
+The [workflow receipt](validation/extension-compatibility/typed-forms/audit-repair/real-workflow-verification.json) and [bundle identities](validation/extension-compatibility/typed-forms/bundle-identities.json) bind exact archive/command hashes. Store-reported commits remain distinct from the pinned source inventory. Its 3,491 directories and 11,153 declarations remain statically untested. Historical Copy checks without a fresh sentinel do not earn explicit-action credit; the current protocol preserves their original outcomes separately.
 
 ## HTTP startup follow-up
 

@@ -1,0 +1,267 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "typed-controls",
+  "fixture_command_sha256": "e36b9117b120edb23eae9d3a6d2447d0e94ccb96ec7e2fc85086192e1c53fb26",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-009595e2b5aa41df8f4127ef3e9828b6",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        574
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        504
+      ]
+    },
+    {
+      "tag": "extension-date-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        574
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        504
+      ]
+    },
+    {
+      "tag": "extension-date-confirm-date",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 352,
+      "visible_bounds": [
+        777,
+        777,
+        1481,
+        917
+      ],
+      "control_size": [
+        704,
+        140
+      ],
+      "point": [
+        1129,
+        847
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1031,
+        738,
+        1820,
+        986
+      ],
+      "control_size": [
+        789,
+        248
+      ],
+      "point": [
+        1425.5,
+        862
+      ]
+    }
+  ],
+  "typed_publications": [
+    {
+      "phase": "same-field authoritative date changed with an open draft",
+      "root_id": "11",
+      "before": 0,
+      "native_counter": 1,
+      "composed_marker": "Typed publication 1",
+      "composed_semantics_id": 116
+    },
+    {
+      "phase": "fresh draft confirms from the newer authoritative date",
+      "root_id": "11",
+      "before": 1,
+      "native_counter": 2,
+      "composed_marker": "Typed publication 2",
+      "composed_semantics_id": 116
+    }
+  ],
+  "authoritative_date": "2025-09-17T05:18:00.000Z",
+  "same_native_field_id_preserved": true,
+  "dialog_present_after_authoritative_publication": false,
+  "probe_before_original_confirmation": {
+    "changes": 0,
+    "focus": {
+      "date": 1
+    },
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 1,
+    "submits": 0,
+    "focusFacts": {
+      "date": {
+        "is_date": true,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": true,
+        "date_iso": "2024-02-29T12:34:00.000Z",
+        "full_day_helper": true,
+        "full_day": false
+      }
+    }
+  },
+  "probe_after_original_confirmation": {
+    "changes": 0,
+    "focus": {
+      "date": 1
+    },
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 1,
+    "submits": 0,
+    "focusFacts": {
+      "date": {
+        "is_date": true,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": true,
+        "date_iso": "2024-02-29T12:34:00.000Z",
+        "full_day_helper": true,
+        "full_day": false
+      }
+    }
+  },
+  "date_after_original_confirmation": "2025-09-17T05:18:00.000Z",
+  "queued_callback_boundary": "Original native confirm invoked after same-field actual React\/native\/composed value publication; separate WebView execution barrier follows dispatch.",
+  "date_change_runtime_type": {
+    "is_date": true,
+    "is_null": false,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": true,
+    "date_iso": "2025-09-17T05:19:00.000Z",
+    "full_day_helper": true,
+    "full_day": false
+  },
+  "date_submit_runtime_type": {
+    "is_date": true,
+    "is_null": false,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": true,
+    "date_iso": "2025-09-17T05:19:00.000Z",
+    "full_day_helper": true,
+    "full_day": false,
+    "present": true
+  },
+  "submitted_date": "2025-09-17T05:19:00.000Z",
+  "submit_count": 1,
+  "test_boundary": "Actual native date interaction and owned JS callback values; tag\/file selection and a separate destination are not exercised",
+  "fresh_confirmed_date": "2025-09-17T05:19:00.000Z",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

@@ -1,0 +1,106 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "typed-controls",
+  "fixture_command_sha256": "e36b9117b120edb23eae9d3a6d2447d0e94ccb96ec7e2fc85086192e1c53fb26",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-ece2728326cc4ba8a4292dd1bf6b8d3e",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1285,
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        574
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        504
+      ]
+    }
+  ],
+  "probe_before": {
+    "changes": 0,
+    "focus": {
+      "date": 1
+    },
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 1,
+    "submits": 0,
+    "focusFacts": {
+      "date": {
+        "is_date": true,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": true,
+        "date_iso": "2024-02-29T12:34:00.000Z",
+        "full_day_helper": true,
+        "full_day": false
+      }
+    }
+  },
+  "probe_after": {
+    "changes": 0,
+    "focus": {
+      "date": 1
+    },
+    "blur": {},
+    "blurLengths": {},
+    "dispatches": 1,
+    "submits": 0,
+    "focusFacts": {
+      "date": {
+        "is_date": true,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": true,
+        "date_iso": "2024-02-29T12:34:00.000Z",
+        "full_day_helper": true,
+        "full_day": false
+      }
+    }
+  },
+  "controlled_native_transition": "Same field native value changed before captured confirm in one UI turn, then original tree restored before a Compose frame. JS authoritative value was not replaced by this fixture.",
+  "date_after_original_confirmation": "2024-02-29T12:34:00.000Z",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

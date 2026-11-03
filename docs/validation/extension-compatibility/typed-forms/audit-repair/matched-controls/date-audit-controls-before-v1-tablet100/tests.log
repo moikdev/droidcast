@@ -1,0 +1,131 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=datePickerQueuedConfirmationCannotOverwriteANewerValue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: A stale draft must not call onChange expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateDraftCannotOverwritePublishedValue(ExtensionFormDeviceTest.kt:1929)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerQueuedConfirmationCannotOverwriteANewerValue(ExtensionFormDeviceTest.kt:1953)
+
+INSTRUMENTATION_STATUS: stream=
+Error in datePickerQueuedConfirmationCannotOverwriteANewerValue(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: A stale draft must not call onChange expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateDraftCannotOverwritePublishedValue(ExtensionFormDeviceTest.kt:1929)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerQueuedConfirmationCannotOverwriteANewerValue(ExtensionFormDeviceTest.kt:1953)
+
+INSTRUMENTATION_STATUS: test=datePickerQueuedConfirmationCannotOverwriteANewerValue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=datePickerQueuedConfirmationCannotOverwriteAResetValue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: A stale draft must not call onChange expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateDraftCannotOverwritePublishedValue(ExtensionFormDeviceTest.kt:1929)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerQueuedConfirmationCannotOverwriteAResetValue(ExtensionFormDeviceTest.kt:1955)
+
+INSTRUMENTATION_STATUS: stream=
+Error in datePickerQueuedConfirmationCannotOverwriteAResetValue(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: A stale draft must not call onChange expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateDraftCannotOverwritePublishedValue(ExtensionFormDeviceTest.kt:1929)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerQueuedConfirmationCannotOverwriteAResetValue(ExtensionFormDeviceTest.kt:1955)
+
+INSTRUMENTATION_STATUS: test=datePickerQueuedConfirmationCannotOverwriteAResetValue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=clearingDateLetsTheSameTextFieldRefocusAndSubmit
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Clear date must release the previous native editor focus
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.tinycast.android.ExtensionFormDeviceTest.clearingDateLetsTheSameTextFieldRefocusAndSubmit(ExtensionFormDeviceTest.kt:1789)
+
+INSTRUMENTATION_STATUS: stream=
+Error in clearingDateLetsTheSameTextFieldRefocusAndSubmit(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Clear date must release the previous native editor focus
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.tinycast.android.ExtensionFormDeviceTest.clearingDateLetsTheSameTextFieldRefocusAndSubmit(ExtensionFormDeviceTest.kt:1789)
+
+INSTRUMENTATION_STATUS: test=clearingDateLetsTheSameTextFieldRefocusAndSubmit
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=datePickerConfirmationRechecksValueBeforeComposition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: Acceptance must recheck the value before composition can invalidate the dialog expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerConfirmationRechecksValueBeforeComposition(ExtensionFormDeviceTest.kt:1979)
+
+INSTRUMENTATION_STATUS: stream=
+Error in datePickerConfirmationRechecksValueBeforeComposition(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: Acceptance must recheck the value before composition can invalidate the dialog expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerConfirmationRechecksValueBeforeComposition(ExtensionFormDeviceTest.kt:1979)
+
+INSTRUMENTATION_STATUS: test=datePickerConfirmationRechecksValueBeforeComposition
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 59.251
+There were 4 failures:
+1) datePickerQueuedConfirmationCannotOverwriteANewerValue(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: A stale draft must not call onChange expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateDraftCannotOverwritePublishedValue(ExtensionFormDeviceTest.kt:1929)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerQueuedConfirmationCannotOverwriteANewerValue(ExtensionFormDeviceTest.kt:1953)
+2) datePickerQueuedConfirmationCannotOverwriteAResetValue(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: A stale draft must not call onChange expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateDraftCannotOverwritePublishedValue(ExtensionFormDeviceTest.kt:1929)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerQueuedConfirmationCannotOverwriteAResetValue(ExtensionFormDeviceTest.kt:1955)
+3) clearingDateLetsTheSameTextFieldRefocusAndSubmit(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Clear date must release the previous native editor focus
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.tinycast.android.ExtensionFormDeviceTest.clearingDateLetsTheSameTextFieldRefocusAndSubmit(ExtensionFormDeviceTest.kt:1789)
+4) datePickerConfirmationRechecksValueBeforeComposition(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: Acceptance must recheck the value before composition can invalidate the dialog expected:<{"changes":[0,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":1,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34]:00.000Z","full_day_...> but was:<{"changes":[1,"focus":{"date":1},"blur":{},"blurLengths":{},"dispatches":2,"submits":0,"focusFacts":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:34:00.000Z","full_day_helper":true,"full_day":false}},"typedChanges":{"date":{"is_date":true,"is_null":false,"is_array":false,"array_strings":false,"valid_date":true,"date_iso":"2024-02-29T12:35]:00.000Z","full_day_...>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerConfirmationRechecksValueBeforeComposition(ExtensionFormDeviceTest.kt:1979)
+
+FAILURES!!!
+Tests run: 4,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1
