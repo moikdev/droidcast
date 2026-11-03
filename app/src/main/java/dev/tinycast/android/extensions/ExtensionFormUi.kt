@@ -59,7 +59,7 @@ internal fun ExtensionCheckboxRow(label: String, checked: Boolean, change: (Bool
 @Composable
 internal fun NativeExtensionForm(root: JSONObject, liveRoot: () -> JSONObject?, dispatch: (String?, JSONArray) -> Unit,
                                   dispatchFocus: (String?, String, Boolean, Any) -> Unit,
-                                  submission: FormSubmitPreparation, modifier: Modifier = Modifier) {
+                                  submission: FormSubmitPreparation, fileStorage: () -> FormFileStorage?, modifier: Modifier = Modifier) {
     val rootId = root.optString("id")
     val scroll = remember(rootId) { androidx.compose.foundation.ScrollState(0) }
     val values = remember(rootId) { FormEditorValues() }
@@ -84,13 +84,13 @@ internal fun NativeExtensionForm(root: JSONObject, liveRoot: () -> JSONObject?, 
     }
     Column(modifier.fillMaxWidth().verticalScroll(scroll).padding(20.dp).testTag("extension-form"),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        root.children().forEach { node -> key(node.optString("id")) { NativeFormNode(root, node, liveRoot, dispatch, focus, values) } }
+        root.children().forEach { node -> key(node.optString("id")) { NativeFormNode(root, node, liveRoot, dispatch, focus, values, fileStorage) } }
     }
 }
 
 @Composable
 private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> JSONObject?,
-                           dispatch: (String?, JSONArray) -> Unit, focus: FormFocusDelivery, values: FormEditorValues) {
+                           dispatch: (String?, JSONArray) -> Unit, focus: FormFocusDelivery, values: FormEditorValues, fileStorage: () -> FormFileStorage?) {
     val p = node.props()
     val type = node.optString("type")
     val id = p.optString("id")
@@ -98,7 +98,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
     val owner = formFieldOwner(root, node)
     val errorText = (p.opt("error") as? String).orEmpty()
     val info = (p.opt("info") as? String).orEmpty()
-    owner?.let { values.observe(it, root, if (type == "Form.Checkbox") p.optBoolean("value") else (p.opt("value") as? String).orEmpty()) }
+    owner?.let { values.observe(it, root, formFieldValue(node)) }
     DisposableEffect(owner, values) { onDispose { owner?.let(values::remove) } }
     var nativeFocused by remember(owner) { mutableStateOf(false) }
     val focusModifier = Modifier.onFocusChanged {
@@ -107,13 +107,30 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
             owner?.let { current -> if (nativeFocused) focus.focus(current) else focus.blur(current) }
         }
     }
-    fun change(value: Any): Boolean {
+    val nativeFocus = LocalFocusManager.current
+    fun beginPickerFocus() {
+        val fieldOwner = owner ?: return
+        if (liveFormField(fieldOwner, liveRoot()) == null) return
+        // Touch buttons can leave the previous text editor natively focused.
+        // Release it before moving logical focus so returning to the same
+        // editor delivers onFocus. Preserve an already focused picker control.
+        if (!nativeFocused) nativeFocus.clearFocus(force = true)
+        focus.focus(fieldOwner)
+    }
+    fun change(value: Any, observedValue: Any = value): Boolean {
         val fieldOwner = owner ?: return false
         val current = liveFormField(fieldOwner, liveRoot()) ?: return false
         val handle = current.handle("onTinycastChange") ?: return false
-        values.edit(fieldOwner, value)
+        values.edit(fieldOwner, observedValue)
         dispatch(handle, JSONArray().put(value))
         return true
+    }
+    fun currentValue(): Any? {
+        val fieldOwner = owner ?: return null
+        val latest = liveRoot() ?: return null
+        val current = liveFormField(fieldOwner, latest) ?: return null
+        values.observe(fieldOwner, latest, formFieldValue(current))
+        return values.value(fieldOwner)
     }
     when (type) {
         "Form.TextField", "Form.PasswordField", "Form.TextArea" -> {
@@ -150,6 +167,35 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                     }
                 }, Modifier.paletteFocusBookmark(requester).focusProperties { canFocus = true }
                     .then(focusModifier).testTag("extension-checkbox-$id"))
+                ExtensionFieldFeedback(errorText, info, id)
+            }
+        }
+        "Form.DatePicker" -> {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                ExtensionFieldLabel(title, "extension-field-title-$id")
+                NativeFormDatePicker(node, owner, liveRoot, Modifier.paletteFocusBookmark().then(focusModifier),
+                    onOpen = ::beginPickerFocus, change = { selected ->
+                        val iso = selected?.toString()
+                        change(iso ?: JSONObject.NULL, iso?.let { JSONObject().put("\$date", it) } ?: JSONObject.NULL)
+                    })
+                ExtensionFieldFeedback(errorText, info, id)
+            }
+        }
+        "Form.TagPicker" -> {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                ExtensionFieldLabel(title, "extension-field-title-$id")
+                NativeFormTagPicker(root, node, owner, liveRoot, Modifier.paletteFocusBookmark().then(focusModifier),
+                    onOpen = ::beginPickerFocus, currentValue = ::currentValue,
+                    change = { selected -> change(JSONArray(selected)) })
+                ExtensionFieldFeedback(errorText, info, id)
+            }
+        }
+        "Form.FilePicker" -> {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                ExtensionFieldLabel(title, "extension-field-title-$id")
+                NativeFormFilePicker(root, node, owner, liveRoot, fileStorage, Modifier.paletteFocusBookmark().then(focusModifier),
+                    onOpen = ::beginPickerFocus, currentValue = ::currentValue,
+                    change = { selected -> change(JSONArray(selected)) })
                 ExtensionFieldFeedback(errorText, info, id)
             }
         }
@@ -191,7 +237,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
         "Form.Description" -> Text(p.optString("text"), color = PaletteTheme.secondary, fontSize = 13.sp, lineHeight = 20.sp)
         "Form.Separator" -> HorizontalDivider(color = PaletteTheme.separator)
         else -> if (node.children().isNotEmpty()) node.children().forEach { child ->
-            key(child.optString("id")) { NativeFormNode(root, child, liveRoot, dispatch, focus, values) }
+            key(child.optString("id")) { NativeFormNode(root, child, liveRoot, dispatch, focus, values, fileStorage) }
         } else Text("$type is not supported yet", color = PaletteTheme.secondary, fontSize = 13.sp, lineHeight = 20.sp)
     }
 }

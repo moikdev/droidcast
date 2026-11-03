@@ -28,14 +28,19 @@
   const hydratedHttp = new WeakSet();
   const nativeApis = new WeakMap(), nativeForms = new WeakMap(), nativeFields = new WeakMap();
   const nativeActions = new WeakMap(), nativeSubmits = new WeakMap();
-  const inputFields = new Set(["TextField", "PasswordField", "TextArea", "Checkbox", "Dropdown"]);
+  const inputFields = new Set(["TextField", "PasswordField", "TextArea", "Checkbox", "Dropdown", "DatePicker", "TagPicker", "FilePicker"]);
   let focusEvent = null;
   // The generated wrapper captures a React value. Android's native editor may
   // have received another edit before that asynchronous render is published.
   // Supply only the matching field callback's event-time target.value; retain
   // the original API functions, props, static members and other event data.
-  function nativeField(field, react) {
+  const fullDayDate = date => !!date && date.getMilliseconds() === 1;
+  function nativeField(field, react, kind) {
     if (!nativeFields.has(field)) nativeFields.set(field, new Proxy(field, {
+      get(target, name, receiver) {
+        const value = Reflect.get(target, name, receiver);
+        return kind === "DatePicker" && name === "isFullDay" && value === undefined ? fullDayDate : value;
+      },
       apply(target, receiver, args) {
         const props = args[0];
         const [, publish] = react.useReducer(version => version + 1, 0);
@@ -174,11 +179,13 @@
         if (name === "default" && value === target) return nativeApis.get(target);
         if (name === "Action" && typeof value === "function") return nativeAction(value, react);
         if (name === "SubmitFormAction" && typeof value === "function") return nativeSubmit(value, react);
+        if (typeof name === "string" && name.startsWith("Form") && inputFields.has(name.slice(4)) && typeof value === "function")
+          return nativeField(value, react, name.slice(4));
         if (name !== "Form" || typeof value !== "function") return value;
         if (!nativeForms.has(value)) nativeForms.set(value, new Proxy(value, {
           get(form, member, formReceiver) {
             const item = Reflect.get(form, member, formReceiver);
-            return inputFields.has(member) && typeof item === "function" ? nativeField(item, react) : item;
+            return inputFields.has(member) && typeof item === "function" ? nativeField(item, react, member) : item;
           }
         }));
         return nativeForms.get(value);
@@ -188,7 +195,18 @@
   }
   globalThis.__androidDispatchFormFocus = (session, handle, id, kind, encodedValue) => {
     const previous = focusEvent;
-    focusEvent = {id, kind, value: JSON.parse(encodedValue)[0]};
+    // Native trees encode Date values; callbacks still receive JavaScript Date.
+    // Arrays of tag values/file paths retain their ordered string values.
+    const values = JSON.parse(encodedValue, (key, value) => {
+      if (value && typeof value === "object" && !Array.isArray(value) &&
+          Object.keys(value).length === 1 && typeof value.$date === "string") {
+        const date = new Date(value.$date);
+        if (!Number.isFinite(date.getTime())) throw new TypeError("Invalid Form date value");
+        return date;
+      }
+      return value;
+    });
+    focusEvent = {id, kind, value: values[0]};
     try { return globalThis.__tinycast.dispatch(session, handle, "[]"); }
     finally { focusEvent = previous; }
   };

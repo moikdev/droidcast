@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=dateOnlySelectsACalendarDayWithInclusiveDayBounds
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<...24-02-28T15:00:00.00[1]Z> but was:<...24-02-28T15:00:00.00[0]Z>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateOnlySelectsACalendarDayWithInclusiveDayBounds(ExtensionFormDeviceTest.kt:1509)
+
+INSTRUMENTATION_STATUS: stream=
+Error in dateOnlySelectsACalendarDayWithInclusiveDayBounds(dev.tinycast.android.ExtensionFormDeviceTest):
+org.junit.ComparisonFailure: expected:<...24-02-28T15:00:00.00[1]Z> but was:<...24-02-28T15:00:00.00[0]Z>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateOnlySelectsACalendarDayWithInclusiveDayBounds(ExtensionFormDeviceTest.kt:1509)
+
+INSTRUMENTATION_STATUS: test=dateOnlySelectsACalendarDayWithInclusiveDayBounds
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.59
+There was 1 failure:
+1) dateOnlySelectsACalendarDayWithInclusiveDayBounds(dev.tinycast.android.ExtensionFormDeviceTest)
+org.junit.ComparisonFailure: expected:<...24-02-28T15:00:00.00[1]Z> but was:<...24-02-28T15:00:00.00[0]Z>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateOnlySelectsACalendarDayWithInclusiveDayBounds(ExtensionFormDeviceTest.kt:1509)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

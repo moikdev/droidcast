@@ -1,0 +1,2133 @@
+{
+  "completed": true,
+  "production_source_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+  "source_hashes": {
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "app/src/androidTest/AndroidManifest.xml": "5d5a39153ed75d64af76674ab767709ee57017bdf39e6fe55ce7fd58ab8b3598",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "56c56d6a652524f7fc7952b1478552314b1e465ace5c7216385d7f2ea3cf4b6c",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardRecoveryActivity.java": "48627f465b10c316cca7fdfa735928095328241b4fb98bf90e5c247add17345d",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionEmptyViewDeviceTest.kt": "64e6b1e68c61cf67b24ba02d1e14a72d297b1bdeebbdf1008905d5619ce2558f",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionFormDeviceTest.kt": "e6c75ae579c2e8e891517d07458ae82536c401126bca904fdc2165f13290f505",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "952b4f2988379c1545575d1332f8358acc9053e257a382b7549a27f6b4b40de3",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionSandboxDiagnosticDeviceTest.kt": "3e192cb65d011e021d5b47b6bde765e1136c2ddf7e039b5c9dce6dedbf39da15",
+    "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt": "86096d428b6554bcb6b8c9d7bc39b981baf1fd53f9367a33c97ce03c89020a82",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/FormDocumentsFixtureActivity.java": "434e72d8a0c977a83cbe6524cc51638eaff9cca5581c570ea58d4068ad2156a9",
+    "app/src/androidTest/java/dev/tinycast/android/FrozenBundleWorkflowDeviceTest.kt": "9d31d56f739caa2509610cf4c07abf70dfd5ea0aead7ec5c5673bde1ca04bc45",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b6c11a5b7babb6726a7a4ba23aaadff87384af9c26b49c631959a36546929395",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/OwnedFormDocumentsProvider.java": "67c22d543cb2136d81dc3544d8f63df94ce67f9524c7f19dc9c6b1b586713e89",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "17545e645708b0f9c38ec1b9c4ca27c9ab7d3ee54a11e92c2932553493561770",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextCallerActivity.java": "640609575a0711566bf23f3028a5144e8aeae912604f9b7180912fd2c9b96200",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextClipboardCrashDeviceTest.kt": "6a1ebc4d90c8b5fa9a07f4b288c20b361297efbeaf7d4423eb211da47b4cf0c0",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextDeviceTest.kt": "d55357e7eac47e93809856389adb8886977b6e6e76810cbc969b4c0f8ebbdf19",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextLifecycleDeviceTest.kt": "ef799e02e8d95738d5642cece8898a9a65d2b416b616f37c1687451732228d4e",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "faad509cd41b06c4cc1087e5de8e0218abca78773603b2050bb2825c880588fb",
+    "app/src/androidTest/java/dev/tinycast/android/TouchReadabilityDeviceTest.kt": "6801d25bb0d9bc45899b04aeedba474e2ac8e5cc8cb168b6268e0305fb49345e",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "3ba8d46631a11de8e9e24fd1d79a13afe7aac5ccc0b2f8219505c13a9b771d4e",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "8c1be27aad2e952108cdc28c8d6c28c5039513baeaa23ec6d6069d967b8c9414",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "2bc08e693d69ba4668a675c42dbcabb507755f8e3daf9ee01eaf62fd5744efe0",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "f7228cdd6b6988fb049f0aaf1048d69cc8489e802b4cc42a2b4d6f9e7ceea3e0",
+    "app/src/main/java/dev/tinycast/android/PaletteColumn.kt": "cd6cdc348752bcc20bd631e2216abdd4ee0c91d9606aaab62ce0c01a145dd6aa",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "c6092280b2cf3c7e82043a6d756f2d7eccb63f08e86c0c33da6cfa7bf87643a3",
+    "app/src/main/java/dev/tinycast/android/PaletteFooter.kt": "5b62c907b46e5075975fc22d01771f5ab7c7f53e433692de55d92865231e967f",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "bfbc139e01a4276770644d5f4c1242016839fd98f5e2f21fa8afb31c886bc763",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a3c78359529847e63da649221fae6fce95fecf8378526527e33d584534fed9e9",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "e4c7be2eb2618a636fa4786e70c489b2e4d4908e5915ce43114c82373c0dcd79",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "4e7eb794545c066df34e1a2446efa91a943c1d9b1172470811bf82a56e15315b",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "7008b8535ec3e754450ce446f34b6d8e50e9b2f5a9de64f436583144f8dd83dc",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextFlow.kt": "7daf246a7b8a608fe61e06f078bf3167c17df8f784f8779977ba6e87914526ea",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextInput.kt": "ca681bb2c4eb91188a1550650bf5fb5f83569bf8ac954ab22abc0ce05ed17e73",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextUi.kt": "5ded41175e114968aa1994c93ade551b21121db15c4a4a7ea5ff87deaff00d86",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "a39cc4a614625c7c3bb3c25d20cda54c3fc6708df1de094328c6e339ed235177",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionEmptyView.kt": "4ab1b0093364ad790235b666fc70ec2642bb40692f3ce7fdb830e6bc514c61dd",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormContract.kt": "6eba4aa3f33b19d4c452212b3bbb33c8ac0cbb8ae8e61963867e83094d6778ed",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormDateUi.kt": "43371dfae4a0070a8db67087ade3de2617badf147956480c788d6fd85ba85271",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormDocuments.kt": "1071c99bd42ec6265991731022662729fd1ccc0269fee924b229f9ab8c2980fc",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormFileImport.kt": "c91ee69d460190918ee649a61a340429ac0478a59ab5e7ca824db8c17d1f5d00",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormFileUi.kt": "4241a498c65c255db94f833038a1f86a8cb06f27b4cecb3838cc20e953262b01",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormPickerBackdrop.kt": "dff8e4e37d38c1387bfd221f6c43c29272abfa144fff34ada0a0734a9c0f946d",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormSubmission.kt": "7f89b0ef7216cafb22c72a636b3b2998e5d71c9933bcd87d7c65a25b9a2bd9d8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormTagUi.kt": "509187d014c00ca027720e16d22934686d1c0491f10e5e151a27b574cde86a96",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormTypedValues.kt": "bd6b1c9b3e45101715916ee145ad41cfb1b74e206ae733f97d375c119f86af97",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormUi.kt": "2d303cdf3a118802c158c111334f6ea7dcd73224f3961e7dfb052255378f32b1",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "c66cd6ee6d29cd2cc43d45ddbdc15f175ac5a5a39b332736b4cbddecdbf9e6bf",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "eea1b55e6207fc64162458744d873b3e2764e167e3bed6ed21c091152d565f39",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "bf957272371d46853aa1893c5cc2ce69bf6bb3f993dcbb002b20ca3effb08267",
+    "app/src/main/java/dev/tinycast/android/extensions/NodeCpuInfo.kt": "eea176a7259e8f3736878886350610a84a23a6d2799f5337f5c8b07a8fefa398",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormContractTest.kt": "432d658e2a177312105e2ec86db2c59d0625086e86464a7ff946acb61c07e283",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormFileImportTest.kt": "784f5b78f1dfd0d23ca653b36fc59bd13cba42e68c708c499678ac1ce474b673",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormSubmissionTest.kt": "4bbdd8068cd95c314f7cf7aa156c7928cd815c5da11ef5f2cab1b4c5d23dd7d5",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormTypedValuesTest.kt": "3a485a387e1527163d4318c3f0863b743bff02fe4e485adfff490d95cd554395",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormValuesTest.kt": "6bc5bc8caaa5763e12dc3136bbba1d99249db10387c163cb1efeb0ae03f09d2a",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/ReviewedTextInputTest.kt": "4bff225dd9fc1963736ad1f992e3eda3ffff21554c3ebef63d25acfdb41a29f3",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/java/dev/tinycast/android/extensions/NodeCpuInfoTest.kt": "5f3a7aae9b24435a4dbca77f9132a4b203ea736b1c76fc9108a51251983c2797",
+    "app/src/test/js/android-form-focus.test.cjs": "dd065271386dfdb2552caef1ae6e0c6f30e32783571abd85be328b9864bff8b6",
+    "app/src/test/js/android-form-submit.test.cjs": "7cbbb553dc2e657951b9195593b11add03597adad2710b4daa3e2cb807f87334",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "gradle.properties": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325",
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "scripts/android_form_documents_fixture.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "scripts/android_test_cleanup.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "scripts/extension_bundle_snapshot.py": "08ae0408a22e4f4c3c8a8b22af31b6a6a16d304dc0d14d5e489596dd9731a950",
+    "scripts/extension_manifest_catalog.py": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+    "scripts/generate-emoji.py": "98f43c9a5941b4e65533e31ff7d7eaa4e697d8fecd4c7424297e6957e07abd53",
+    "scripts/generate-tinycast-grid-oracle.py": "bd53975673883b624d2553cd47687c5a3a760b17181a8c0621715ed1599b3118",
+    "scripts/modifier-test-input.c": "859cd4f868c0739124384652eb05dcff09f67bd65933c6546ec828adaf4f8756",
+    "scripts/package-nightly-update.py": "2a650baee0c7c76eadd360171e19686aad7b960fe34ebc780638c6b231032420",
+    "scripts/summarize-readiness.py": "e63d9d2ec435d2c369ae0be126bafb0b0507e903b03674f11a77ee10b428fe64",
+    "scripts/test-api-compatibility.py": "1ba4bf24535130bfd59a5f1d9d4830ca075e7158fc2cbe316696fcadb6108065",
+    "scripts/test-assistant-touch.py": "fd5a4acfdd19ddc60eb467fea3c7d2e8ab7ac717bea35c76d007577c23235a54",
+    "scripts/test-calculator-intent.py": "93ef5653c4d0c153d8f216c9fd74557089a964eaab80c84c85ab5460ec58f1a1",
+    "scripts/test-configurable-shortcuts.py": "56f4581f78265ec2c28faa1da115ae10a8349cf47e10db60bfba3e88f0cc3e73",
+    "scripts/test-extension-grid.py": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "scripts/test-extension-workflows.py": "c6cce4d533b45655a7763305379107840a93a1a953be0322a869c7505ffc0997",
+    "scripts/test-global-shortcut.py": "4a0f57d16dfccbd0c7b33d6b78a841ccad030c4bad6fb108ac80f15dc89f6d6a",
+    "scripts/test-modifier-taps-hardware.py": "b0d2da7fd2410095d65ef20e25cd9b8e90f9b480849dfd5e497f75d4d713139c",
+    "scripts/test-modifier-taps.py": "8cb08d228371c90f995ae2246ef0a92daf6c81724c11a1ac67374ed0dd347dab",
+    "scripts/test-readiness-benchmark.py": "1f92dc1989f1ff36c82433d6eaab1e2c896abf7541a24a9b215c109e49d1a7d9",
+    "scripts/test-restart-files.py": "65f1c311df77634f746cb155d831acf1fa4d8cf05d0e1dabc9d372bf1e842065",
+    "scripts/test-reviewed-text-input.py": "81ca546c2bbe4e2ee6ce80b838c974378f7ffe991762821d893b353a39e9d2b9",
+    "scripts/test-reviewed-text-process-recreation.py": "eecd547c48ad2bbce2d8bae62bbed26a2484e0b5d97ebb7cb989ba98d4de2a23",
+    "scripts/test-search-header.py": "772cb70442bbf28086beb8087ebce94d02ba6cc10e6acf8c2cf91a0d8d5b39d0",
+    "scripts/test-self-updates.py": "4ff148ea90c3a148a1eacf74116db288e5e9c282f69e0c331caa6f22b1a40889",
+    "scripts/test-startup-performance.py": "9ac605bf3347fde625d279767bb8fc4de76ae82f099e7d8351416fa5bc9250ae",
+    "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6",
+    "scripts/tests/test_android_clipboard_recovery.py": "b260d3adcfa33e2641affebee9bebb1676097b4a24bbdbeb89cef7f3fc889176",
+    "scripts/tests/test_android_form_documents_fixture.py": "c2b573793d6c5d48fe9dc8e75ffc554e11818e319507080a4b96aa4e24e1fc03",
+    "scripts/tests/test_android_test_cleanup.py": "49c8831c517f0777f46952376f5d3b783322eeb25f063d69a9b1bc2f8cde01cf",
+    "scripts/tests/test_extension_bundle_snapshot.py": "382561907129ac58b7e20b963c1afcbc9bc1a03b7e18da64e7d61927a8b15783",
+    "scripts/tests/test_extension_manifest_catalog.py": "57af21edf39e3e4084453830eed62d3c052ba8d8a4f942d3d69807e2cd4b69a6",
+    "scripts/tests/test_extension_workflow_guards.py": "1cea982b85cf759e691471cad72b8e2cbdccdf3c2ccc6c483b1ef01b49002a3f",
+    "scripts/tests/test_private_path_observation.py": "3c0fff3062ac9b43aab67ed4ab2d53b92fa39f9af9e0ada9d197856a1df94e95",
+    "scripts/tests/test_reviewed_text_archives.py": "f2be727bc793f08eee3169b67923867728049b06639aaf299ded7f0e50acbe36",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487"
+  },
+  "retained_source_hashes": {
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "app/src/androidTest/AndroidManifest.xml": "5d5a39153ed75d64af76674ab767709ee57017bdf39e6fe55ce7fd58ab8b3598",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "56c56d6a652524f7fc7952b1478552314b1e465ace5c7216385d7f2ea3cf4b6c",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardRecoveryActivity.java": "48627f465b10c316cca7fdfa735928095328241b4fb98bf90e5c247add17345d",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionEmptyViewDeviceTest.kt": "64e6b1e68c61cf67b24ba02d1e14a72d297b1bdeebbdf1008905d5619ce2558f",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionFormDeviceTest.kt": "d51a837af34cad92439d6082c953be6fb595729fe1cdadc5690cf075956e35e4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "952b4f2988379c1545575d1332f8358acc9053e257a382b7549a27f6b4b40de3",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionSandboxDiagnosticDeviceTest.kt": "3e192cb65d011e021d5b47b6bde765e1136c2ddf7e039b5c9dce6dedbf39da15",
+    "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt": "86096d428b6554bcb6b8c9d7bc39b981baf1fd53f9367a33c97ce03c89020a82",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/FormDocumentsFixtureActivity.java": "434e72d8a0c977a83cbe6524cc51638eaff9cca5581c570ea58d4068ad2156a9",
+    "app/src/androidTest/java/dev/tinycast/android/FrozenBundleWorkflowDeviceTest.kt": "9d31d56f739caa2509610cf4c07abf70dfd5ea0aead7ec5c5673bde1ca04bc45",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b6c11a5b7babb6726a7a4ba23aaadff87384af9c26b49c631959a36546929395",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/OwnedFormDocumentsProvider.java": "67c22d543cb2136d81dc3544d8f63df94ce67f9524c7f19dc9c6b1b586713e89",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "17545e645708b0f9c38ec1b9c4ca27c9ab7d3ee54a11e92c2932553493561770",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextCallerActivity.java": "640609575a0711566bf23f3028a5144e8aeae912604f9b7180912fd2c9b96200",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextClipboardCrashDeviceTest.kt": "6a1ebc4d90c8b5fa9a07f4b288c20b361297efbeaf7d4423eb211da47b4cf0c0",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextDeviceTest.kt": "d55357e7eac47e93809856389adb8886977b6e6e76810cbc969b4c0f8ebbdf19",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextLifecycleDeviceTest.kt": "ef799e02e8d95738d5642cece8898a9a65d2b416b616f37c1687451732228d4e",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "faad509cd41b06c4cc1087e5de8e0218abca78773603b2050bb2825c880588fb",
+    "app/src/androidTest/java/dev/tinycast/android/TouchReadabilityDeviceTest.kt": "6801d25bb0d9bc45899b04aeedba474e2ac8e5cc8cb168b6268e0305fb49345e",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "3ba8d46631a11de8e9e24fd1d79a13afe7aac5ccc0b2f8219505c13a9b771d4e",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "8c1be27aad2e952108cdc28c8d6c28c5039513baeaa23ec6d6069d967b8c9414",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "2bc08e693d69ba4668a675c42dbcabb507755f8e3daf9ee01eaf62fd5744efe0",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "f7228cdd6b6988fb049f0aaf1048d69cc8489e802b4cc42a2b4d6f9e7ceea3e0",
+    "app/src/main/java/dev/tinycast/android/PaletteColumn.kt": "cd6cdc348752bcc20bd631e2216abdd4ee0c91d9606aaab62ce0c01a145dd6aa",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "c6092280b2cf3c7e82043a6d756f2d7eccb63f08e86c0c33da6cfa7bf87643a3",
+    "app/src/main/java/dev/tinycast/android/PaletteFooter.kt": "5b62c907b46e5075975fc22d01771f5ab7c7f53e433692de55d92865231e967f",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "bfbc139e01a4276770644d5f4c1242016839fd98f5e2f21fa8afb31c886bc763",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a3c78359529847e63da649221fae6fce95fecf8378526527e33d584534fed9e9",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "e4c7be2eb2618a636fa4786e70c489b2e4d4908e5915ce43114c82373c0dcd79",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "4e7eb794545c066df34e1a2446efa91a943c1d9b1172470811bf82a56e15315b",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "7008b8535ec3e754450ce446f34b6d8e50e9b2f5a9de64f436583144f8dd83dc",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextFlow.kt": "7daf246a7b8a608fe61e06f078bf3167c17df8f784f8779977ba6e87914526ea",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextInput.kt": "ca681bb2c4eb91188a1550650bf5fb5f83569bf8ac954ab22abc0ce05ed17e73",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextUi.kt": "5ded41175e114968aa1994c93ade551b21121db15c4a4a7ea5ff87deaff00d86",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "a39cc4a614625c7c3bb3c25d20cda54c3fc6708df1de094328c6e339ed235177",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionEmptyView.kt": "4ab1b0093364ad790235b666fc70ec2642bb40692f3ce7fdb830e6bc514c61dd",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormContract.kt": "6eba4aa3f33b19d4c452212b3bbb33c8ac0cbb8ae8e61963867e83094d6778ed",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormDateUi.kt": "43371dfae4a0070a8db67087ade3de2617badf147956480c788d6fd85ba85271",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormDocuments.kt": "1071c99bd42ec6265991731022662729fd1ccc0269fee924b229f9ab8c2980fc",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormFileImport.kt": "c91ee69d460190918ee649a61a340429ac0478a59ab5e7ca824db8c17d1f5d00",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormFileUi.kt": "4241a498c65c255db94f833038a1f86a8cb06f27b4cecb3838cc20e953262b01",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormPickerBackdrop.kt": "dff8e4e37d38c1387bfd221f6c43c29272abfa144fff34ada0a0734a9c0f946d",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormSubmission.kt": "7f89b0ef7216cafb22c72a636b3b2998e5d71c9933bcd87d7c65a25b9a2bd9d8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormTagUi.kt": "509187d014c00ca027720e16d22934686d1c0491f10e5e151a27b574cde86a96",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormTypedValues.kt": "bd6b1c9b3e45101715916ee145ad41cfb1b74e206ae733f97d375c119f86af97",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormUi.kt": "2d303cdf3a118802c158c111334f6ea7dcd73224f3961e7dfb052255378f32b1",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "c66cd6ee6d29cd2cc43d45ddbdc15f175ac5a5a39b332736b4cbddecdbf9e6bf",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "eea1b55e6207fc64162458744d873b3e2764e167e3bed6ed21c091152d565f39",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "bf957272371d46853aa1893c5cc2ce69bf6bb3f993dcbb002b20ca3effb08267",
+    "app/src/main/java/dev/tinycast/android/extensions/NodeCpuInfo.kt": "eea176a7259e8f3736878886350610a84a23a6d2799f5337f5c8b07a8fefa398",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormContractTest.kt": "432d658e2a177312105e2ec86db2c59d0625086e86464a7ff946acb61c07e283",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormFileImportTest.kt": "784f5b78f1dfd0d23ca653b36fc59bd13cba42e68c708c499678ac1ce474b673",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormSubmissionTest.kt": "4bbdd8068cd95c314f7cf7aa156c7928cd815c5da11ef5f2cab1b4c5d23dd7d5",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormTypedValuesTest.kt": "3a485a387e1527163d4318c3f0863b743bff02fe4e485adfff490d95cd554395",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormValuesTest.kt": "6bc5bc8caaa5763e12dc3136bbba1d99249db10387c163cb1efeb0ae03f09d2a",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/ReviewedTextInputTest.kt": "4bff225dd9fc1963736ad1f992e3eda3ffff21554c3ebef63d25acfdb41a29f3",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/java/dev/tinycast/android/extensions/NodeCpuInfoTest.kt": "5f3a7aae9b24435a4dbca77f9132a4b203ea736b1c76fc9108a51251983c2797",
+    "app/src/test/js/android-form-focus.test.cjs": "dd065271386dfdb2552caef1ae6e0c6f30e32783571abd85be328b9864bff8b6",
+    "app/src/test/js/android-form-submit.test.cjs": "7cbbb553dc2e657951b9195593b11add03597adad2710b4daa3e2cb807f87334",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "gradle.properties": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325",
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "scripts/android_form_documents_fixture.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "scripts/android_test_cleanup.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "scripts/extension_bundle_snapshot.py": "08ae0408a22e4f4c3c8a8b22af31b6a6a16d304dc0d14d5e489596dd9731a950",
+    "scripts/extension_manifest_catalog.py": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+    "scripts/generate-emoji.py": "98f43c9a5941b4e65533e31ff7d7eaa4e697d8fecd4c7424297e6957e07abd53",
+    "scripts/generate-tinycast-grid-oracle.py": "bd53975673883b624d2553cd47687c5a3a760b17181a8c0621715ed1599b3118",
+    "scripts/modifier-test-input.c": "859cd4f868c0739124384652eb05dcff09f67bd65933c6546ec828adaf4f8756",
+    "scripts/package-nightly-update.py": "2a650baee0c7c76eadd360171e19686aad7b960fe34ebc780638c6b231032420",
+    "scripts/summarize-readiness.py": "e63d9d2ec435d2c369ae0be126bafb0b0507e903b03674f11a77ee10b428fe64",
+    "scripts/test-api-compatibility.py": "1ba4bf24535130bfd59a5f1d9d4830ca075e7158fc2cbe316696fcadb6108065",
+    "scripts/test-assistant-touch.py": "fd5a4acfdd19ddc60eb467fea3c7d2e8ab7ac717bea35c76d007577c23235a54",
+    "scripts/test-calculator-intent.py": "93ef5653c4d0c153d8f216c9fd74557089a964eaab80c84c85ab5460ec58f1a1",
+    "scripts/test-configurable-shortcuts.py": "56f4581f78265ec2c28faa1da115ae10a8349cf47e10db60bfba3e88f0cc3e73",
+    "scripts/test-extension-grid.py": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "scripts/test-extension-workflows.py": "c6cce4d533b45655a7763305379107840a93a1a953be0322a869c7505ffc0997",
+    "scripts/test-global-shortcut.py": "4a0f57d16dfccbd0c7b33d6b78a841ccad030c4bad6fb108ac80f15dc89f6d6a",
+    "scripts/test-modifier-taps-hardware.py": "b0d2da7fd2410095d65ef20e25cd9b8e90f9b480849dfd5e497f75d4d713139c",
+    "scripts/test-modifier-taps.py": "8cb08d228371c90f995ae2246ef0a92daf6c81724c11a1ac67374ed0dd347dab",
+    "scripts/test-readiness-benchmark.py": "1f92dc1989f1ff36c82433d6eaab1e2c896abf7541a24a9b215c109e49d1a7d9",
+    "scripts/test-restart-files.py": "65f1c311df77634f746cb155d831acf1fa4d8cf05d0e1dabc9d372bf1e842065",
+    "scripts/test-reviewed-text-input.py": "81ca546c2bbe4e2ee6ce80b838c974378f7ffe991762821d893b353a39e9d2b9",
+    "scripts/test-reviewed-text-process-recreation.py": "eecd547c48ad2bbce2d8bae62bbed26a2484e0b5d97ebb7cb989ba98d4de2a23",
+    "scripts/test-search-header.py": "772cb70442bbf28086beb8087ebce94d02ba6cc10e6acf8c2cf91a0d8d5b39d0",
+    "scripts/test-self-updates.py": "4ff148ea90c3a148a1eacf74116db288e5e9c282f69e0c331caa6f22b1a40889",
+    "scripts/test-startup-performance.py": "9ac605bf3347fde625d279767bb8fc4de76ae82f099e7d8351416fa5bc9250ae",
+    "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6",
+    "scripts/tests/test_android_clipboard_recovery.py": "b260d3adcfa33e2641affebee9bebb1676097b4a24bbdbeb89cef7f3fc889176",
+    "scripts/tests/test_android_form_documents_fixture.py": "c2b573793d6c5d48fe9dc8e75ffc554e11818e319507080a4b96aa4e24e1fc03",
+    "scripts/tests/test_android_test_cleanup.py": "49c8831c517f0777f46952376f5d3b783322eeb25f063d69a9b1bc2f8cde01cf",
+    "scripts/tests/test_extension_bundle_snapshot.py": "382561907129ac58b7e20b963c1afcbc9bc1a03b7e18da64e7d61927a8b15783",
+    "scripts/tests/test_extension_manifest_catalog.py": "57af21edf39e3e4084453830eed62d3c052ba8d8a4f942d3d69807e2cd4b69a6",
+    "scripts/tests/test_extension_workflow_guards.py": "1cea982b85cf759e691471cad72b8e2cbdccdf3c2ccc6c483b1ef01b49002a3f",
+    "scripts/tests/test_private_path_observation.py": "3c0fff3062ac9b43aab67ed4ab2d53b92fa39f9af9e0ada9d197856a1df94e95",
+    "scripts/tests/test_reviewed_text_archives.py": "f2be727bc793f08eee3169b67923867728049b06639aaf299ded7f0e50acbe36",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487"
+  },
+  "retained_test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+  "source_binding": "Five completed groups retain v26 and byte-identical method bodies; only checkboxLabelTogglesExactlyOnce changed, and the whole legacy group plus critical fonts use v28; legacy includes read-only monitoring of the active IME case and earlier unmonitored IME failures remain unresolved. All183 use the same55e app.",
+  "current_native_executions": 183,
+  "current_cohorts": 24,
+  "current_cleanup_checks": 479,
+  "transformations": [
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/tests.log",
+      "source_sha256": "2776b761cf60820706e4a4eb4e290b0f7f802d31abe43007a5270671352d9b32",
+      "published_sha256": "2776b761cf60820706e4a4eb4e290b0f7f802d31abe43007a5270671352d9b32",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+      "source_sha256": "f8e4f6792e0d5b93c68c27adeeaabb1886179be78b79667b897e832ae845bf24",
+      "published_sha256": "f8e4f6792e0d5b93c68c27adeeaabb1886179be78b79667b897e832ae845bf24",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-typeduncontrolledrefsresettotheirinitialvalues-record.json",
+      "source_sha256": "cfba6f89f08fb6e322b82e3947998ef177142c3519c36e3e1286f826a4da82fc",
+      "published_sha256": "cfba6f89f08fb6e322b82e3947998ef177142c3519c36e3e1286f826a4da82fc",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-correctingtypeddateerrorenablesexactlyonenullsubmission-record.json",
+      "source_sha256": "1b56a5b5393a3f28ca2187d59fdde439bd74360cb3d0006567308e356efad736",
+      "published_sha256": "1b56a5b5393a3f28ca2187d59fdde439bd74360cb3d0006567308e356efad736",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-correctingtypedtagerrorenablesexactlyonearraysubmission-record.json",
+      "source_sha256": "03447769b9e241f706ca4c04ca63d91bb5f675d66588352045979e93e9d56c91",
+      "published_sha256": "03447769b9e241f706ca4c04ca63d91bb5f675d66588352045979e93e9d56c91",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+      "source_sha256": "79f9238a1697fe9f207ae95d54d65e0dc653fa394504c953dbe56107ad3b9b56",
+      "published_sha256": "79f9238a1697fe9f207ae95d54d65e0dc653fa394504c953dbe56107ad3b9b56",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-correctingtypedfileerrorimportsbytesandsubmitsexactlyonce-record.json",
+      "source_sha256": "12c53ebecb59dc7445eee8cd90970068685fb50c846a2e58ac5707db7bc6e468",
+      "published_sha256": "12c53ebecb59dc7445eee8cd90970068685fb50c846a2e58ac5707db7bc6e468",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-phone200/tests.log",
+      "source_sha256": "4e4dcd20975f4af8ca351930c0e318a6c13250d8d0122895837fa17a43f98256",
+      "published_sha256": "4e4dcd20975f4af8ca351930c0e318a6c13250d8d0122895837fa17a43f98256",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+      "source_sha256": "9f1e7c831f170d1550c45ac569019dfa89a6fb81a042f232ea8ef5d6063452be",
+      "published_sha256": "9f1e7c831f170d1550c45ac569019dfa89a6fb81a042f232ea8ef5d6063452be",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-typeduncontrolledrefsresettotheirinitialvalues-record.json",
+      "source_sha256": "0ff0ebd36cd4b290dc1fddd83724b5074d456eb9ccfac350ffc9b6040e0d1bb4",
+      "published_sha256": "0ff0ebd36cd4b290dc1fddd83724b5074d456eb9ccfac350ffc9b6040e0d1bb4",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-correctingtypeddateerrorenablesexactlyonenullsubmission-record.json",
+      "source_sha256": "7ec9ff07e529101a2d61e1e162bdd0514112923dbf3159b44f8d19eb2d3d432c",
+      "published_sha256": "7ec9ff07e529101a2d61e1e162bdd0514112923dbf3159b44f8d19eb2d3d432c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-correctingtypedtagerrorenablesexactlyonearraysubmission-record.json",
+      "source_sha256": "bcd36ff7f98a9b1e8e3424d60a9a3d1e58f43b899a177978bb1a4c2d22f41306",
+      "published_sha256": "bcd36ff7f98a9b1e8e3424d60a9a3d1e58f43b899a177978bb1a4c2d22f41306",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+      "source_sha256": "2c259ec83376e06c5fec51ca0b649e8fcb1d01c6fb4b1c5cb856b63ce7b98bb7",
+      "published_sha256": "2c259ec83376e06c5fec51ca0b649e8fcb1d01c6fb4b1c5cb856b63ce7b98bb7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-correctingtypedfileerrorimportsbytesandsubmitsexactlyonce-record.json",
+      "source_sha256": "b5fae8242dcb505c3f670d5e6cd68010f484d6257ace54c439155e00bcca53c4",
+      "published_sha256": "b5fae8242dcb505c3f670d5e6cd68010f484d6257ace54c439155e00bcca53c4",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/tests.log",
+      "source_sha256": "d43fff99324ef5a82b95c37589d218fd26a819ba5585b95913f7a19e336daebc",
+      "published_sha256": "d43fff99324ef5a82b95c37589d218fd26a819ba5585b95913f7a19e336daebc",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+      "source_sha256": "065b4f6267e66ea5699087702312a6df6bce4d5d0e32eb7fa5b77f4b9562a1b3",
+      "published_sha256": "065b4f6267e66ea5699087702312a6df6bce4d5d0e32eb7fa5b77f4b9562a1b3",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-typeduncontrolledrefsresettotheirinitialvalues-record.json",
+      "source_sha256": "ff48aa70520f5703a88d869c8873496dc63de8e5de5f13fae37a10990311c252",
+      "published_sha256": "ff48aa70520f5703a88d869c8873496dc63de8e5de5f13fae37a10990311c252",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-correctingtypeddateerrorenablesexactlyonenullsubmission-record.json",
+      "source_sha256": "14a53603238103f64b117c515a2d14a928bae3820a1d13f0887d9b75f8bbe7fb",
+      "published_sha256": "14a53603238103f64b117c515a2d14a928bae3820a1d13f0887d9b75f8bbe7fb",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-correctingtypedtagerrorenablesexactlyonearraysubmission-record.json",
+      "source_sha256": "ba0a313428c5d31da4aa23a17f51309801cffc2db00415bf22abe6756f68953c",
+      "published_sha256": "ba0a313428c5d31da4aa23a17f51309801cffc2db00415bf22abe6756f68953c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+      "source_sha256": "e1a6504fdccf6178ffcef80313222c6d6d8b8fb8d3217623cd7252e327ba30c6",
+      "published_sha256": "e1a6504fdccf6178ffcef80313222c6d6d8b8fb8d3217623cd7252e327ba30c6",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-correctingtypedfileerrorimportsbytesandsubmitsexactlyonce-record.json",
+      "source_sha256": "2519d00adad0552c8305b82044466a800d940b1c7bbba1dce8b11d89222907df",
+      "published_sha256": "2519d00adad0552c8305b82044466a800d940b1c7bbba1dce8b11d89222907df",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/tests.log",
+      "source_sha256": "88f1052612b6cd8387ed05b22edc0e2361178a6179fab39c21ba6f6879e14d97",
+      "published_sha256": "88f1052612b6cd8387ed05b22edc0e2361178a6179fab39c21ba6f6879e14d97",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/captures/form-afulldaydefaultcanbecomeanexplicittimewithoutitsreservedmarker-record.json",
+      "source_sha256": "47f38743c605f8a4f2f216c2be080dcf0b1a6bcc2f32c3a6fec449336156de55",
+      "published_sha256": "47f38743c605f8a4f2f216c2be080dcf0b1a6bcc2f32c3a6fec449336156de55",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "15d8cfcc098a81e55669225bb48095a5a7187e5a4e244f86922f47164c651139",
+      "published_sha256": "15d8cfcc098a81e55669225bb48095a5a7187e5a4e244f86922f47164c651139",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/captures/form-datepickerclearsandsubmitsanactualnull-record.json",
+      "source_sha256": "f8bf70b915b9e67ed3db2a44741b83f7d56668bbdd82e939b61cb3c4a8c88b29",
+      "published_sha256": "f8bf70b915b9e67ed3db2a44741b83f7d56668bbdd82e939b61cb3c4a8c88b29",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/captures/form-datepickercancelsanediteddraftwithoutchangingthevalue-record.json",
+      "source_sha256": "c56bc5f3b948018fffbc1010ce26ee81919894cf0eaf24e58f82164b19787a58",
+      "published_sha256": "c56bc5f3b948018fffbc1010ce26ee81919894cf0eaf24e58f82164b19787a58",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/captures/form-datepickerconfirmsaneditedtimeandsubmitsitsexactinstant-record.json",
+      "source_sha256": "d403388029ff151df63d092e0dc4c59520d9304b32501e9e1a3bb747a260a9bd",
+      "published_sha256": "d403388029ff151df63d092e0dc4c59520d9304b32501e9e1a3bb747a260a9bd",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/captures/form-tagpickerclearsandsubmitsanemptyarray-record.json",
+      "source_sha256": "52dc8a8eff9efa8366aa30f5a9ad06bce8a249f786bcd5353aa2eaad69b99078",
+      "published_sha256": "52dc8a8eff9efa8366aa30f5a9ad06bce8a249f786bcd5353aa2eaad69b99078",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-tablet100/captures/form-tagpickeraddsandremovesexactvaluesbytouch-record.json",
+      "source_sha256": "fab088ab5d3ed111d774dbdec5663d544e59ba0696617d926ad9e4852ca7c6c6",
+      "published_sha256": "fab088ab5d3ed111d774dbdec5663d544e59ba0696617d926ad9e4852ca7c6c6",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/tests.log",
+      "source_sha256": "185496b611f8d5ad5942e68a3f156d0484b2fc7c76a8e9e85d8a927e64526cb7",
+      "published_sha256": "185496b611f8d5ad5942e68a3f156d0484b2fc7c76a8e9e85d8a927e64526cb7",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/captures/form-afulldaydefaultcanbecomeanexplicittimewithoutitsreservedmarker-record.json",
+      "source_sha256": "e68f6c551a8f099a62e218de03548c6965b1bd73a19d5ba3e9506c6ba05db4ce",
+      "published_sha256": "e68f6c551a8f099a62e218de03548c6965b1bd73a19d5ba3e9506c6ba05db4ce",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "333c77f342b21bc866814832a540f5c701fffb9ebd8344433fef6818fc62210b",
+      "published_sha256": "333c77f342b21bc866814832a540f5c701fffb9ebd8344433fef6818fc62210b",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/captures/form-datepickerclearsandsubmitsanactualnull-record.json",
+      "source_sha256": "1fb804661b275408bce807d24fbbee82ac76476897b9ef7ed11ce3fd4200211f",
+      "published_sha256": "1fb804661b275408bce807d24fbbee82ac76476897b9ef7ed11ce3fd4200211f",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/captures/form-datepickercancelsanediteddraftwithoutchangingthevalue-record.json",
+      "source_sha256": "e76b27966e1f8443a80348cf6ffb2512bb172e11be8ead624e3faed25a8413ad",
+      "published_sha256": "e76b27966e1f8443a80348cf6ffb2512bb172e11be8ead624e3faed25a8413ad",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/captures/form-datepickerconfirmsaneditedtimeandsubmitsitsexactinstant-record.json",
+      "source_sha256": "8859e369aac2e5f58c6561424ec3df40f866943b56a9639663c6b92664cabd29",
+      "published_sha256": "8859e369aac2e5f58c6561424ec3df40f866943b56a9639663c6b92664cabd29",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/captures/form-tagpickerclearsandsubmitsanemptyarray-record.json",
+      "source_sha256": "85cb3541ac6c4a372c830ff649ad52ca02a1fc8e197217e9008438429ac75caa",
+      "published_sha256": "85cb3541ac6c4a372c830ff649ad52ca02a1fc8e197217e9008438429ac75caa",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-phone200/captures/form-tagpickeraddsandremovesexactvaluesbytouch-record.json",
+      "source_sha256": "47445233adf34f8c07c42562b553ddae0a8c64f14215de0d1b7a15ac48ee927c",
+      "published_sha256": "47445233adf34f8c07c42562b553ddae0a8c64f14215de0d1b7a15ac48ee927c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/tests.log",
+      "source_sha256": "9bb8f5a207426555c0ac830e3fa1784b0fadca34b847dcd70392a3a5346936db",
+      "published_sha256": "9bb8f5a207426555c0ac830e3fa1784b0fadca34b847dcd70392a3a5346936db",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/captures/form-afulldaydefaultcanbecomeanexplicittimewithoutitsreservedmarker-record.json",
+      "source_sha256": "78dad7b435b27bc3a0cfde5eef1f983ac4cd91d5a83ee319c08332337c28f799",
+      "published_sha256": "78dad7b435b27bc3a0cfde5eef1f983ac4cd91d5a83ee319c08332337c28f799",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "e3b7e002277f5ac5c89689807cd2c3f3bf93b6e06a3a2e0c08927ed6e8813f75",
+      "published_sha256": "e3b7e002277f5ac5c89689807cd2c3f3bf93b6e06a3a2e0c08927ed6e8813f75",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/captures/form-datepickerclearsandsubmitsanactualnull-record.json",
+      "source_sha256": "91486ba34b22e0df09749e5b5ae2605a51af49c1d7d87b4db30cceaa5075dce9",
+      "published_sha256": "91486ba34b22e0df09749e5b5ae2605a51af49c1d7d87b4db30cceaa5075dce9",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/captures/form-datepickercancelsanediteddraftwithoutchangingthevalue-record.json",
+      "source_sha256": "6f0af686ecc5eea886085e70d2aaacc08303a6ff186e1060ff82173ce4da3b70",
+      "published_sha256": "6f0af686ecc5eea886085e70d2aaacc08303a6ff186e1060ff82173ce4da3b70",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/captures/form-datepickerconfirmsaneditedtimeandsubmitsitsexactinstant-record.json",
+      "source_sha256": "1c53c2bd9cad93b2d083ed8dfe24d13cfe9011f49e1d5b09398b0948c84f249f",
+      "published_sha256": "1c53c2bd9cad93b2d083ed8dfe24d13cfe9011f49e1d5b09398b0948c84f249f",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/captures/form-tagpickerclearsandsubmitsanemptyarray-record.json",
+      "source_sha256": "cd074612da8c29a6f9d9abce60f9a5ea679db7b94c531cf56572c7fb9ae35045",
+      "published_sha256": "cd074612da8c29a6f9d9abce60f9a5ea679db7b94c531cf56572c7fb9ae35045",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-landscape200/captures/form-tagpickeraddsandremovesexactvaluesbytouch-record.json",
+      "source_sha256": "68a273daff35be5e4c287a8164b2a58e29fb5f62098009d2688e2b5f3083dbfc",
+      "published_sha256": "68a273daff35be5e4c287a8164b2a58e29fb5f62098009d2688e2b5f3083dbfc",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-tablet100/tests.log",
+      "source_sha256": "5ee30c8f35b665f5a2397e5b412bf78d463d7f94404d16b61fa619dec7220139",
+      "published_sha256": "5ee30c8f35b665f5a2397e5b412bf78d463d7f94404d16b61fa619dec7220139",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-tablet100/captures/form-filepickerresultcannotsurviveactivityrecreation-record.json",
+      "source_sha256": "0633b752a4fe9995855ae73e5a04d9dee4882b83748d1a817843c8246aa0df6d",
+      "published_sha256": "0633b752a4fe9995855ae73e5a04d9dee4882b83748d1a817843c8246aa0df6d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-tablet100/captures/form-datepickerqueuedconfirmationcannotsurviveactivityrecreation-record.json",
+      "source_sha256": "98f9e54e0393a81c9c514c216e52a1bb1c676597ee82f0cc1d8fd4de1af0749e",
+      "published_sha256": "98f9e54e0393a81c9c514c216e52a1bb1c676597ee82f0cc1d8fd4de1af0749e",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-tablet100/captures/form-tagpickerqueuedoptioncannotsurviveactivityrecreation-record.json",
+      "source_sha256": "942206b71dad8c72b1a779b44886e8fe0b0506f29acbf6a1b26b15d4a84e3453",
+      "published_sha256": "942206b71dad8c72b1a779b44886e8fe0b0506f29acbf6a1b26b15d4a84e3453",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-phone200/tests.log",
+      "source_sha256": "adbbedf1f9417480f2ee3667ca031c546de8f3772b73adf8fe4dc97d1a6cd99b",
+      "published_sha256": "adbbedf1f9417480f2ee3667ca031c546de8f3772b73adf8fe4dc97d1a6cd99b",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-phone200/captures/form-filepickerresultcannotsurviveactivityrecreation-record.json",
+      "source_sha256": "0b05c17427b65d97b999696e4543698c13277a86c438ee52604e916d551d0ef2",
+      "published_sha256": "0b05c17427b65d97b999696e4543698c13277a86c438ee52604e916d551d0ef2",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-phone200/captures/form-datepickerqueuedconfirmationcannotsurviveactivityrecreation-record.json",
+      "source_sha256": "1104d47b9ddffe260ee0517796c24cff1cbec31a8a33a5824d4b5589aa1fcaa6",
+      "published_sha256": "1104d47b9ddffe260ee0517796c24cff1cbec31a8a33a5824d4b5589aa1fcaa6",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-phone200/captures/form-tagpickerqueuedoptioncannotsurviveactivityrecreation-record.json",
+      "source_sha256": "ce71c5a6198481c2c174f04bcff346035a8959ca3c543ca04da9f9bd133b2dad",
+      "published_sha256": "ce71c5a6198481c2c174f04bcff346035a8959ca3c543ca04da9f9bd133b2dad",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-landscape200/tests.log",
+      "source_sha256": "5e13585c16f825020b264f14b93e9633a91a4bf0864408dd89304badfa85e822",
+      "published_sha256": "5e13585c16f825020b264f14b93e9633a91a4bf0864408dd89304badfa85e822",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-landscape200/captures/form-filepickerresultcannotsurviveactivityrecreation-record.json",
+      "source_sha256": "3f8ab96f63e21b5711157d003c16a48cc43b7f832bf4e4bd7609b15b20b63b06",
+      "published_sha256": "3f8ab96f63e21b5711157d003c16a48cc43b7f832bf4e4bd7609b15b20b63b06",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-landscape200/captures/form-datepickerqueuedconfirmationcannotsurviveactivityrecreation-record.json",
+      "source_sha256": "30bd5b97f8e534545546a4829085f35a7b986d445d92fb87610db7456480d959",
+      "published_sha256": "30bd5b97f8e534545546a4829085f35a7b986d445d92fb87610db7456480d959",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-landscape200/captures/form-tagpickerqueuedoptioncannotsurviveactivityrecreation-record.json",
+      "source_sha256": "60a3899f942386b422d162929c2c6a5cbe5ac9f7d5f29f969e72366da7f74d7d",
+      "published_sha256": "60a3899f942386b422d162929c2c6a5cbe5ac9f7d5f29f969e72366da7f74d7d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/tests.log",
+      "source_sha256": "23d065015cf91a918162c72767592a20ce1be0d13ad6ec042a6547aab1d51aa9",
+      "published_sha256": "23d065015cf91a918162c72767592a20ce1be0d13ad6ec042a6547aab1d51aa9",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-nativedatetimekeepstheexistingdstoccurrenceandmilliseconds-record.json",
+      "source_sha256": "f658aa3ebeaf710352b79d084e5925af740be3aa5895b1109a791f77666cd227",
+      "published_sha256": "f658aa3ebeaf710352b79d084e5925af740be3aa5895b1109a791f77666cd227",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-dateonlyselectsacalendardaywithinclusivedaybounds-record.json",
+      "source_sha256": "68651c9f567be720161cdf66c3bad7a12f16fe6b6a7e2313be82f7262780de5a",
+      "published_sha256": "68651c9f567be720161cdf66c3bad7a12f16fe6b6a7e2313be82f7262780de5a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-nativedatetimerejectsadstgapthenacceptsavalidwalltime-record.json",
+      "source_sha256": "dc716b8dc35747f16a6b08ba9b87c43debd0d97f2f303a04bb0c099bb55c557c",
+      "published_sha256": "dc716b8dc35747f16a6b08ba9b87c43debd0d97f2f303a04bb0c099bb55c557c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-datetimecanconfirmtheinclusiveminimum-record.json",
+      "source_sha256": "a6954e66a130b973b92e2e442e54a1638d808d69e7fcb30387c23693b31bf291",
+      "published_sha256": "a6954e66a130b973b92e2e442e54a1638d808d69e7fcb30387c23693b31bf291",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-datepickerexplainsmalformednativebounds-record.json",
+      "source_sha256": "70151e9ffe6d5e830a7fc58c581b59adce065fa7fc3da534377fb51041e0dea3",
+      "published_sha256": "70151e9ffe6d5e830a7fc58c581b59adce065fa7fc3da534377fb51041e0dea3",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-typedfocusandblurdelivercurrentdatenullandarrays-record.json",
+      "source_sha256": "8223b2edd0272dd6b1b6a5db35c1e59e2a0ffeeb691646c4b68e270aa715f190",
+      "published_sha256": "8223b2edd0272dd6b1b6a5db35c1e59e2a0ffeeb691646c4b68e270aa715f190",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-datepickerqueuedconfirmationcannotenterareplacementfield-record.json",
+      "source_sha256": "d32d7fd676392c12c0382e8f916ae678e9902885bbf69653f11d7a49b468e762",
+      "published_sha256": "d32d7fd676392c12c0382e8f916ae678e9902885bbf69653f11d7a49b468e762",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-datetimeboundsrejectoutsidethenaccepttheinclusivemaximum-record.json",
+      "source_sha256": "712605f5dccd9e60c5bb8a05515aac40b9cff013d93621eae763ae175bbbf8c2",
+      "published_sha256": "712605f5dccd9e60c5bb8a05515aac40b9cff013d93621eae763ae175bbbf8c2",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-datepickercontrolledtransformationwaitsforitspublication-record.json",
+      "source_sha256": "ea4dfa6509878340f82f19cbfeace67c7c4d6dfd5865e7f778c4e8d2b80f91dc",
+      "published_sha256": "ea4dfa6509878340f82f19cbfeace67c7c4d6dfd5865e7f778c4e8d2b80f91dc",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-tagpickercanremoveanunavailablevalueandshowitsemptystate-record.json",
+      "source_sha256": "1b12a8d44ef9d97f695275f3f81bc27c8289cde6d6ab80227d0dc7d3a925b2e0",
+      "published_sha256": "1b12a8d44ef9d97f695275f3f81bc27c8289cde6d6ab80227d0dc7d3a925b2e0",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-tagpickercontrolledrejectionwaitsforitspublication-record.json",
+      "source_sha256": "36f55a9f631a1305ff0453651159a9e27a31ef17a1dd9c5e5fbc0984c4219374",
+      "published_sha256": "36f55a9f631a1305ff0453651159a9e27a31ef17a1dd9c5e5fbc0984c4219374",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-datepickercontrolledrejectionwaitsforitspublication-record.json",
+      "source_sha256": "8c6ab0706b044c96923043c10d2993da7a2b33a03b656d3280fbb2a80219b2e2",
+      "published_sha256": "8c6ab0706b044c96923043c10d2993da7a2b33a03b656d3280fbb2a80219b2e2",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "4c520a237fb15210f8886c2281d79534f6e28bbbc5d23954d47964684551207c",
+      "published_sha256": "4c520a237fb15210f8886c2281d79534f6e28bbbc5d23954d47964684551207c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-typeddefaultsdonotreseteditsonalaterpublication-record.json",
+      "source_sha256": "cd361211aa249f9dcd198df9ff0ca1dbd36d27da6907732e5146496065c35c84",
+      "published_sha256": "cd361211aa249f9dcd198df9ff0ca1dbd36d27da6907732e5146496065c35c84",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-tagpickerqueuedoptioncannotselectareplacedchoice-record.json",
+      "source_sha256": "8480710598742714a383534bb41710aef3650d4a03e72f08efdaf9265f9f1a1e",
+      "published_sha256": "8480710598742714a383534bb41710aef3650d4a03e72f08efdaf9265f9f1a1e",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-tablet100/captures/form-datepickerexplainsinconsistentboundswithoutopening-record.json",
+      "source_sha256": "3c275e589fb375c36f06ac5f554b412b15d27fb61e3fc06fef96fb673bee584a",
+      "published_sha256": "3c275e589fb375c36f06ac5f554b412b15d27fb61e3fc06fef96fb673bee584a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/tests.log",
+      "source_sha256": "f25a0b4931b48d1f3b4da21d44875f423f71888694f516f79fa7011d4c84d729",
+      "published_sha256": "f25a0b4931b48d1f3b4da21d44875f423f71888694f516f79fa7011d4c84d729",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-nativedatetimekeepstheexistingdstoccurrenceandmilliseconds-record.json",
+      "source_sha256": "dfde3ec2ded02378d9981a87cc09f2858b1e07442d531b294c3d4a028343dd2c",
+      "published_sha256": "dfde3ec2ded02378d9981a87cc09f2858b1e07442d531b294c3d4a028343dd2c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-dateonlyselectsacalendardaywithinclusivedaybounds-record.json",
+      "source_sha256": "a59fab407e04be2f707d308c93c7521c714e0f3306c5b16abf71d7cb5e91f9e7",
+      "published_sha256": "a59fab407e04be2f707d308c93c7521c714e0f3306c5b16abf71d7cb5e91f9e7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-nativedatetimerejectsadstgapthenacceptsavalidwalltime-record.json",
+      "source_sha256": "53777775d3d614fbd5c0fe8d568d97239a45d4cc698426111ea07d4608fd38a9",
+      "published_sha256": "53777775d3d614fbd5c0fe8d568d97239a45d4cc698426111ea07d4608fd38a9",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-datetimecanconfirmtheinclusiveminimum-record.json",
+      "source_sha256": "69310cf3d75bde43cb4a057d1ca9bcef4e64c9db47c67f4d5a091fd8b565ed70",
+      "published_sha256": "69310cf3d75bde43cb4a057d1ca9bcef4e64c9db47c67f4d5a091fd8b565ed70",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-datepickerexplainsmalformednativebounds-record.json",
+      "source_sha256": "c30618bc70db3007e1e9435051ea1bfaa972c8700595107a0921b6a3decc267a",
+      "published_sha256": "c30618bc70db3007e1e9435051ea1bfaa972c8700595107a0921b6a3decc267a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-typedfocusandblurdelivercurrentdatenullandarrays-record.json",
+      "source_sha256": "910080e813b07d679cb2bb127dd642d3cc4066c7e6e48fb0f8d36518ebed5287",
+      "published_sha256": "910080e813b07d679cb2bb127dd642d3cc4066c7e6e48fb0f8d36518ebed5287",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-datepickerqueuedconfirmationcannotenterareplacementfield-record.json",
+      "source_sha256": "ad10e115de13081e3fd32fdc712e9320ddc212f9c16caebe2d6ca35c16f30f99",
+      "published_sha256": "ad10e115de13081e3fd32fdc712e9320ddc212f9c16caebe2d6ca35c16f30f99",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-datetimeboundsrejectoutsidethenaccepttheinclusivemaximum-record.json",
+      "source_sha256": "dfe7d8f94837f64621d33c20af7c184743daa8301dd67e8395bc161403346364",
+      "published_sha256": "dfe7d8f94837f64621d33c20af7c184743daa8301dd67e8395bc161403346364",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-datepickercontrolledtransformationwaitsforitspublication-record.json",
+      "source_sha256": "400910bc96702ec191cede2b27fdd52cf07ef271f89f46cc958bd154c7d9d02f",
+      "published_sha256": "400910bc96702ec191cede2b27fdd52cf07ef271f89f46cc958bd154c7d9d02f",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-tagpickercanremoveanunavailablevalueandshowitsemptystate-record.json",
+      "source_sha256": "7fcb1744640fe5353c961e4582afe7ae4293274c428d1a8ef2742630e69f209e",
+      "published_sha256": "7fcb1744640fe5353c961e4582afe7ae4293274c428d1a8ef2742630e69f209e",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-tagpickercontrolledrejectionwaitsforitspublication-record.json",
+      "source_sha256": "eccf9c723c8a77ffae95f29b2e1c92a570021a6b6e50e1a573606611969761e1",
+      "published_sha256": "eccf9c723c8a77ffae95f29b2e1c92a570021a6b6e50e1a573606611969761e1",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-datepickercontrolledrejectionwaitsforitspublication-record.json",
+      "source_sha256": "9dc6479cabd82cd35607845140c28ccde0576750c2dbfdc064fb8a041148455f",
+      "published_sha256": "9dc6479cabd82cd35607845140c28ccde0576750c2dbfdc064fb8a041148455f",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "a725e7ea88d7ec1e254b2b08bb7c2942a42de218113ac44296fa9f08cfe8793e",
+      "published_sha256": "a725e7ea88d7ec1e254b2b08bb7c2942a42de218113ac44296fa9f08cfe8793e",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-typeddefaultsdonotreseteditsonalaterpublication-record.json",
+      "source_sha256": "4814d20c26d0d7a7f4186a24d9507e888c198eb4d9f0f40010573d1ba1ace2ef",
+      "published_sha256": "4814d20c26d0d7a7f4186a24d9507e888c198eb4d9f0f40010573d1ba1ace2ef",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-tagpickerqueuedoptioncannotselectareplacedchoice-record.json",
+      "source_sha256": "7e4c02ce7ed34053c5ee0cb60840198f1caefc56bd122dd0807d16757d894356",
+      "published_sha256": "7e4c02ce7ed34053c5ee0cb60840198f1caefc56bd122dd0807d16757d894356",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-phone200/captures/form-datepickerexplainsinconsistentboundswithoutopening-record.json",
+      "source_sha256": "682b7c6596344bbe67f958b51fde940b68ba46731ebc6e8c49f38e1d5120f833",
+      "published_sha256": "682b7c6596344bbe67f958b51fde940b68ba46731ebc6e8c49f38e1d5120f833",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/tests.log",
+      "source_sha256": "9a75afcc17df457b2566dfde86bacc5d3e44cbc6976a6826d286bb5e801bcaf6",
+      "published_sha256": "9a75afcc17df457b2566dfde86bacc5d3e44cbc6976a6826d286bb5e801bcaf6",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-nativedatetimekeepstheexistingdstoccurrenceandmilliseconds-record.json",
+      "source_sha256": "6f220c86ff98e2301570c18ad1598cc84e5907642b7d86b053cb75470959858c",
+      "published_sha256": "6f220c86ff98e2301570c18ad1598cc84e5907642b7d86b053cb75470959858c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-dateonlyselectsacalendardaywithinclusivedaybounds-record.json",
+      "source_sha256": "9b1dc6ac03ea038e633edde9e7e4984c7d2de6789a511afebf74bde43c80d38b",
+      "published_sha256": "9b1dc6ac03ea038e633edde9e7e4984c7d2de6789a511afebf74bde43c80d38b",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-nativedatetimerejectsadstgapthenacceptsavalidwalltime-record.json",
+      "source_sha256": "fecca7a24add7048e8a575c00b41a51a2dc5f44c0abddd0716125a7e0e482a0e",
+      "published_sha256": "fecca7a24add7048e8a575c00b41a51a2dc5f44c0abddd0716125a7e0e482a0e",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-datetimecanconfirmtheinclusiveminimum-record.json",
+      "source_sha256": "ca65b94a1b34c6234af4bee4ff55da854838b25dbba68a277194e8a3f7d782dd",
+      "published_sha256": "ca65b94a1b34c6234af4bee4ff55da854838b25dbba68a277194e8a3f7d782dd",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-datepickerexplainsmalformednativebounds-record.json",
+      "source_sha256": "8b03add98b7d4149a64660b24713643da4a0e85eb0c60396f7b65aa21abd4856",
+      "published_sha256": "8b03add98b7d4149a64660b24713643da4a0e85eb0c60396f7b65aa21abd4856",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-typedfocusandblurdelivercurrentdatenullandarrays-record.json",
+      "source_sha256": "35b4059ef00f743918d80f46269f9ec93706731bea4416b19effddefea435d72",
+      "published_sha256": "35b4059ef00f743918d80f46269f9ec93706731bea4416b19effddefea435d72",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-datepickerqueuedconfirmationcannotenterareplacementfield-record.json",
+      "source_sha256": "10b9681a8356e552f71f515247a0e6e8573d9e3292e019f64a74638708524b4a",
+      "published_sha256": "10b9681a8356e552f71f515247a0e6e8573d9e3292e019f64a74638708524b4a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-datetimeboundsrejectoutsidethenaccepttheinclusivemaximum-record.json",
+      "source_sha256": "be5ef38e4fd8cb63d81c5135a20b96ff7f9cdc62eb68736c07df030dc0a411c2",
+      "published_sha256": "be5ef38e4fd8cb63d81c5135a20b96ff7f9cdc62eb68736c07df030dc0a411c2",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-datepickercontrolledtransformationwaitsforitspublication-record.json",
+      "source_sha256": "bbce7c178e2662ecc8feead67313176afff381d3ae48e8dbbb3ca0aeb654f7f9",
+      "published_sha256": "bbce7c178e2662ecc8feead67313176afff381d3ae48e8dbbb3ca0aeb654f7f9",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-tagpickercanremoveanunavailablevalueandshowitsemptystate-record.json",
+      "source_sha256": "8bb19a9dccbd80c35a8a504a9ff99292c2c6c45d1301a61e1324f201c7b83d23",
+      "published_sha256": "8bb19a9dccbd80c35a8a504a9ff99292c2c6c45d1301a61e1324f201c7b83d23",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-tagpickercontrolledrejectionwaitsforitspublication-record.json",
+      "source_sha256": "a5abd505e42a2c485f099568dde9262d12039cfdfaed8132c9ac58b5c8dbd2a7",
+      "published_sha256": "a5abd505e42a2c485f099568dde9262d12039cfdfaed8132c9ac58b5c8dbd2a7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-datepickercontrolledrejectionwaitsforitspublication-record.json",
+      "source_sha256": "322e8e1f264b4f5c08780c5d78e24accd2ba7ecb1206de50b7110e1a6d88f9d1",
+      "published_sha256": "322e8e1f264b4f5c08780c5d78e24accd2ba7ecb1206de50b7110e1a6d88f9d1",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "384729233330c039bc825fec0bf8ff7fe57f7fcc1ff8b202521355cba79c9d23",
+      "published_sha256": "384729233330c039bc825fec0bf8ff7fe57f7fcc1ff8b202521355cba79c9d23",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-typeddefaultsdonotreseteditsonalaterpublication-record.json",
+      "source_sha256": "db7a2cb025eab77e334a595a00ebcc4323eabfe15cd0fa2b993ce607e863fbd7",
+      "published_sha256": "db7a2cb025eab77e334a595a00ebcc4323eabfe15cd0fa2b993ce607e863fbd7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-tagpickerqueuedoptioncannotselectareplacedchoice-record.json",
+      "source_sha256": "2cffee31e0eec58131f56f195220f9cf1440da9a63a8cd9bcd7e3b3f07c52447",
+      "published_sha256": "2cffee31e0eec58131f56f195220f9cf1440da9a63a8cd9bcd7e3b3f07c52447",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-landscape200/captures/form-datepickerexplainsinconsistentboundswithoutopening-record.json",
+      "source_sha256": "8c926c75e3452621784029319a35d62c44ddb4672df1ae180dc1ac8c475cd393",
+      "published_sha256": "8c926c75e3452621784029319a35d62c44ddb4672df1ae180dc1ac8c475cd393",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/tests.log",
+      "source_sha256": "94c38a2268049c00704dd53e49aee1fd110037f98cec96887457bcfaf7653d7d",
+      "published_sha256": "94c38a2268049c00704dd53e49aee1fd110037f98cec96887457bcfaf7653d7d",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-disposedfilepickerregistrationcannotconsumeasuccessorresult-record.json",
+      "source_sha256": "669a917d2d30b429aaeae725bf948c7f10e44a267204e3c996d423780c7456d7",
+      "published_sha256": "669a917d2d30b429aaeae725bf948c7f10e44a267204e3c996d423780c7456d7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-filepickerimportsexactunicodebytesthroughandroidandreturnstocaller-record.json",
+      "source_sha256": "b4822806dce753f648e7c5bd3b338d9afa8945ccabd8f2544c440bd9b51ec68a",
+      "published_sha256": "b4822806dce753f648e7c5bd3b338d9afa8945ccabd8f2544c440bd9b51ec68a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-filepickerrejectsanoversizedocumentwithoutchangingitsselection-record.json",
+      "source_sha256": "8cab588a0018d0810af7e7e7f59e23ca021a6ea1b1bbe42babceeeb437cde2bb",
+      "published_sha256": "8cab588a0018d0810af7e7e7f59e23ca021a6ea1b1bbe42babceeeb437cde2bb",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-cancelledfileimportcannotdeliverafteritsblockedreadfinishes-record.json",
+      "source_sha256": "e0040576645570dd30cfb8cce1423e47289dcd6d1ed9cbbe7c44ff8e16a97f18",
+      "published_sha256": "e0040576645570dd30cfb8cce1423e47289dcd6d1ed9cbbe7c44ff8e16a97f18",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "8bef9adc8ec154b2ff897ee7d269c64d57c07f0d49239f9128fe90ed499583e5",
+      "published_sha256": "8bef9adc8ec154b2ff897ee7d269c64d57c07f0d49239f9128fe90ed499583e5",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-cancellationbetweenfilepreparationanddeliveryremovesonlytheundeliveredcopy-record.json",
+      "source_sha256": "1ee6261fdbef5805c36c35abcd509cba4289e17392acc19d4d9273aa66e74597",
+      "published_sha256": "1ee6261fdbef5805c36c35abcd509cba4289e17392acc19d4d9273aa66e74597",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-filepickercancellationpreservesthevalueanddoesnotimport-record.json",
+      "source_sha256": "311a043df54261d5859a8f5ddcb22f087b4352625ae2f76839f52aa280e53240",
+      "published_sha256": "311a043df54261d5859a8f5ddcb22f087b4352625ae2f76839f52aa280e53240",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-record.json",
+      "source_sha256": "8cb6f47df5fc39108dcec1a26d8b9ee32abbf8a0d8f6677fb12ce0bb317bd7a2",
+      "published_sha256": "8cb6f47df5fc39108dcec1a26d8b9ee32abbf8a0d8f6677fb12ce0bb317bd7a2",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-tablet100/captures/form-filepickerresultcannotenterareplacementcommand-record.json",
+      "source_sha256": "35dc90dede7ff7e270f82cb1f65c79868bdecf39e93b42c050970e0e2de2937d",
+      "published_sha256": "35dc90dede7ff7e270f82cb1f65c79868bdecf39e93b42c050970e0e2de2937d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/tests.log",
+      "source_sha256": "59a9f5378017c291e966cd831f84f87f44ac7abde13130481e19b3455abe76b3",
+      "published_sha256": "59a9f5378017c291e966cd831f84f87f44ac7abde13130481e19b3455abe76b3",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-disposedfilepickerregistrationcannotconsumeasuccessorresult-record.json",
+      "source_sha256": "e04c81c8ed5b9206204ef025045331e19aa6acaf46ea13e7c116424268521bbb",
+      "published_sha256": "e04c81c8ed5b9206204ef025045331e19aa6acaf46ea13e7c116424268521bbb",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-filepickerimportsexactunicodebytesthroughandroidandreturnstocaller-record.json",
+      "source_sha256": "28a2186c2d73a7252ac1b85a3eac9f492920cf62d08ae810fe643d68ac4b7f98",
+      "published_sha256": "28a2186c2d73a7252ac1b85a3eac9f492920cf62d08ae810fe643d68ac4b7f98",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-filepickerrejectsanoversizedocumentwithoutchangingitsselection-record.json",
+      "source_sha256": "3482d3da0044d9c2e1a7ab961b6830a9a41ae51dd53eeb12dcdd76f1c4493ea6",
+      "published_sha256": "3482d3da0044d9c2e1a7ab961b6830a9a41ae51dd53eeb12dcdd76f1c4493ea6",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-cancelledfileimportcannotdeliverafteritsblockedreadfinishes-record.json",
+      "source_sha256": "f9e4aaf12728e622dc232589bf787363ab02cc52a3fc457d298dfdea71a3b7d2",
+      "published_sha256": "f9e4aaf12728e622dc232589bf787363ab02cc52a3fc457d298dfdea71a3b7d2",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "1ede90be6a8a70b642d1162ec284e1073ac5380380e6f5db8f8a9794c8689e66",
+      "published_sha256": "1ede90be6a8a70b642d1162ec284e1073ac5380380e6f5db8f8a9794c8689e66",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-cancellationbetweenfilepreparationanddeliveryremovesonlytheundeliveredcopy-record.json",
+      "source_sha256": "d26c0dcd1c025fff4ff854b4677e0ddbe87267780bb83d70366bf6a931e1c8e8",
+      "published_sha256": "d26c0dcd1c025fff4ff854b4677e0ddbe87267780bb83d70366bf6a931e1c8e8",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-filepickercancellationpreservesthevalueanddoesnotimport-record.json",
+      "source_sha256": "ac8990aa9636418eac52c5ac5fd96d878b4f29ac383efa7d0fbf32349d3c3439",
+      "published_sha256": "ac8990aa9636418eac52c5ac5fd96d878b4f29ac383efa7d0fbf32349d3c3439",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-record.json",
+      "source_sha256": "164d4d686fbea202686eeb7be3390310b9a9c33174affb86b10227afdae3dbc5",
+      "published_sha256": "164d4d686fbea202686eeb7be3390310b9a9c33174affb86b10227afdae3dbc5",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-phone200/captures/form-filepickerresultcannotenterareplacementcommand-record.json",
+      "source_sha256": "be6a13a601706db018cc3b30c270ce6861ab01cc708805dd18035ba60f595901",
+      "published_sha256": "be6a13a601706db018cc3b30c270ce6861ab01cc708805dd18035ba60f595901",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/tests.log",
+      "source_sha256": "76d7e4e2ecb15baf4f123de892e725e31e1af6ba9126169fd6aac985f74a5242",
+      "published_sha256": "76d7e4e2ecb15baf4f123de892e725e31e1af6ba9126169fd6aac985f74a5242",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-disposedfilepickerregistrationcannotconsumeasuccessorresult-record.json",
+      "source_sha256": "f070141c01ed9db488f7d2343f4a425ada6cb09b72249a225c131bf43f471142",
+      "published_sha256": "f070141c01ed9db488f7d2343f4a425ada6cb09b72249a225c131bf43f471142",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-filepickerimportsexactunicodebytesthroughandroidandreturnstocaller-record.json",
+      "source_sha256": "5903463be22bcc0e0807bc712d44648a5379ae21f5e5980139bba86a468b8d72",
+      "published_sha256": "5903463be22bcc0e0807bc712d44648a5379ae21f5e5980139bba86a468b8d72",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-filepickerrejectsanoversizedocumentwithoutchangingitsselection-record.json",
+      "source_sha256": "46c8838540f13eebf2ab0a465b3033c9b0c3db85e288828607d707eed2271f7f",
+      "published_sha256": "46c8838540f13eebf2ab0a465b3033c9b0c3db85e288828607d707eed2271f7f",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-cancelledfileimportcannotdeliverafteritsblockedreadfinishes-record.json",
+      "source_sha256": "6d7e071c4a14988bab812c862a53b9af9aaf75901cf41358ec171bffc0dcbef8",
+      "published_sha256": "6d7e071c4a14988bab812c862a53b9af9aaf75901cf41358ec171bffc0dcbef8",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "91a1cb86c49ba5e6a930f996f9dce87ffcfeb4ef8299c58f07758e6cb18617e4",
+      "published_sha256": "91a1cb86c49ba5e6a930f996f9dce87ffcfeb4ef8299c58f07758e6cb18617e4",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-cancellationbetweenfilepreparationanddeliveryremovesonlytheundeliveredcopy-record.json",
+      "source_sha256": "2bd289707cd58c6c579c24680be2485a063128783102e073c2c45e577f4e2439",
+      "published_sha256": "2bd289707cd58c6c579c24680be2485a063128783102e073c2c45e577f4e2439",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-filepickercancellationpreservesthevalueanddoesnotimport-record.json",
+      "source_sha256": "1ab80223151c5f015453d47a637ef74ffdc42d92951a74d2bba3297ce2e0ae98",
+      "published_sha256": "1ab80223151c5f015453d47a637ef74ffdc42d92951a74d2bba3297ce2e0ae98",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-filepickermultipleselectionpreservesbinarybytesandcanremoveandclear-record.json",
+      "source_sha256": "6a283d8d305b982629660ee0ac85602422df0bd020eec04136a1e81ae5eec048",
+      "published_sha256": "6a283d8d305b982629660ee0ac85602422df0bd020eec04136a1e81ae5eec048",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-landscape200/captures/form-filepickerresultcannotenterareplacementcommand-record.json",
+      "source_sha256": "439a3a727fe4c405c6e033e906ada12a9584bc6014846ca1dbd41ca2a869c019",
+      "published_sha256": "439a3a727fe4c405c6e033e906ada12a9584bc6014846ca1dbd41ca2a869c019",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/tests.log",
+      "source_sha256": "b5ab02a03376b75e3f10def4ee9478719869dd8acbaad5f0f6a5f3c37d49c730",
+      "published_sha256": "b5ab02a03376b75e3f10def4ee9478719869dd8acbaad5f0f6a5f3c37d49c730",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-focusandblurdelivercurrentfieldvalue-record.json",
+      "source_sha256": "600da7027566d06a021aa9d633d926e54af9f11d4b50eb4f10a6b18f2f2722ca",
+      "published_sha256": "600da7027566d06a021aa9d633d926e54af9f11d4b50eb4f10a6b18f2f2722ca",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-controlledtransformsandrejectededitsremainauthoritative-record.json",
+      "source_sha256": "6bfa3569ac8119a8ffe861b10755d6d5d5a23786f6a692ecdb526ef392a8cd47",
+      "published_sha256": "6bfa3569ac8119a8ffe861b10755d6d5d5a23786f6a692ecdb526ef392a8cd47",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-record.json",
+      "source_sha256": "f6eb4b066c6f147a61639a49afb8cd1203a2bd60e2f69f451cacc7496888b52d",
+      "published_sha256": "f6eb4b066c6f147a61639a49afb8cd1203a2bd60e2f69f451cacc7496888b52d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-checkboxlabeltogglesexactlyonce-record.json",
+      "source_sha256": "397dffabc540386a786c372c346b4401bec5164d379cbbae573c9391b834a0cc",
+      "published_sha256": "397dffabc540386a786c372c346b4401bec5164d379cbbae573c9391b834a0cc",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-everysupportedfielderrorblocksbothnativeandqueuedjssubmit-record.json",
+      "source_sha256": "91ad6db874edb8fa11e959cd0d68fb1415ede1b6644ab16b1f76fd61c615bcab",
+      "published_sha256": "91ad6db874edb8fa11e959cd0d68fb1415ede1b6644ab16b1f76fd61c615bcab",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-rapidtextthenblurdeliverscurrentvaluebeforeredraw-record.json",
+      "source_sha256": "d9a2642424612e012430927e9fefa44140dd926e99db862080a450b2a60a9517",
+      "published_sha256": "d9a2642424612e012430927e9fefa44140dd926e99db862080a450b2a60a9517",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-replacementsessionrejectsoldcallbackandacceptsnewfocus-record.json",
+      "source_sha256": "44831513610898a79c4a8e19ccf20d5365c2b91b1851c2e82e7a4abdaec6891c",
+      "published_sha256": "44831513610898a79c4a8e19ccf20d5365c2b91b1851c2e82e7a4abdaec6891c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-choosingdropdownitemsubmitsitsexactvalue-record.json",
+      "source_sha256": "375190b13c8f4e6e4caebd8651e496114ca5e63250148f0dcc53c2c542f0205d",
+      "published_sha256": "375190b13c8f4e6e4caebd8651e496114ca5e63250148f0dcc53c2c542f0205d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-record.json",
+      "source_sha256": "f3bf03a6aa0ccb93e438650e4ded31a4886b9701fe15065ed36b79a58de40952",
+      "published_sha256": "f3bf03a6aa0ccb93e438650e4ded31a4886b9701fe15065ed36b79a58de40952",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "source_sha256": "f62aa34546cbccf396ee2ae2eafd96df51059c27e58270393755facdb9f29b78",
+      "published_sha256": "f62aa34546cbccf396ee2ae2eafd96df51059c27e58270393755facdb9f29b78",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-formswitherrorsblockprimarysubmit-record.json",
+      "source_sha256": "72ca23b9ca73f942c6757a5ca43cca600e5922d7100946a240275f01f01e5150",
+      "published_sha256": "72ca23b9ca73f942c6757a5ca43cca600e5922d7100946a240275f01f01e5150",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-tablet100/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "source_sha256": "da5005d850c01912c779d2e6c2c84c7c83f726ad0584a7c5bdf6c00086373627",
+      "published_sha256": "da5005d850c01912c779d2e6c2c84c7c83f726ad0584a7c5bdf6c00086373627",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/tests.log",
+      "source_sha256": "3b0b51d44ef567f952ef879bcfbc22ce4d1cc8cdc0e8550d705b412371241011",
+      "published_sha256": "3b0b51d44ef567f952ef879bcfbc22ce4d1cc8cdc0e8550d705b412371241011",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-focusandblurdelivercurrentfieldvalue-record.json",
+      "source_sha256": "362ab7fc8b1dd278979dc2ae7612d64b13d3ea4ffd80debc7ee72e2fc6caab0d",
+      "published_sha256": "362ab7fc8b1dd278979dc2ae7612d64b13d3ea4ffd80debc7ee72e2fc6caab0d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-controlledtransformsandrejectededitsremainauthoritative-record.json",
+      "source_sha256": "cfb212ba925cf369c82824395e668755b5841c428936af072eabfc9f622f413b",
+      "published_sha256": "cfb212ba925cf369c82824395e668755b5841c428936af072eabfc9f622f413b",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-record.json",
+      "source_sha256": "4d2373bfbc397e5ba6b4014be75e56d76fd3029dc277f2d8f627273537eec4d8",
+      "published_sha256": "4d2373bfbc397e5ba6b4014be75e56d76fd3029dc277f2d8f627273537eec4d8",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-checkboxlabeltogglesexactlyonce-record.json",
+      "source_sha256": "e604e8043f6ec6f424fa9b43944a0a54b844d9aef7e7e2b13f2bf49e41d6c3f4",
+      "published_sha256": "e604e8043f6ec6f424fa9b43944a0a54b844d9aef7e7e2b13f2bf49e41d6c3f4",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-everysupportedfielderrorblocksbothnativeandqueuedjssubmit-record.json",
+      "source_sha256": "664e1c7f66cc13d62d775079ee11ae208b88530c696a118321637fbdf97aeeb3",
+      "published_sha256": "664e1c7f66cc13d62d775079ee11ae208b88530c696a118321637fbdf97aeeb3",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-rapidtextthenblurdeliverscurrentvaluebeforeredraw-record.json",
+      "source_sha256": "71bdeebce1ac5ed2dded1c5be1efcd25b045e2ba059868e843205f91537283c9",
+      "published_sha256": "71bdeebce1ac5ed2dded1c5be1efcd25b045e2ba059868e843205f91537283c9",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-replacementsessionrejectsoldcallbackandacceptsnewfocus-record.json",
+      "source_sha256": "55d7e2c8c8897c4673fa5b114441dbf2a9bb311219bec76e4c22342648d55375",
+      "published_sha256": "55d7e2c8c8897c4673fa5b114441dbf2a9bb311219bec76e4c22342648d55375",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-choosingdropdownitemsubmitsitsexactvalue-record.json",
+      "source_sha256": "72c0a39d8651487463aabf362df9ce9161e9b4667cc1e8748e4c948d1de36f34",
+      "published_sha256": "72c0a39d8651487463aabf362df9ce9161e9b4667cc1e8748e4c948d1de36f34",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-record.json",
+      "source_sha256": "929855b21166ca42424c260fbef355c27a20939e02b3917b671d5d7a2b15594b",
+      "published_sha256": "929855b21166ca42424c260fbef355c27a20939e02b3917b671d5d7a2b15594b",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "source_sha256": "b6778d0c065dd6b7cf6541fa05557c658cdf80b74edba9e53c8ab8ea1b095a4d",
+      "published_sha256": "b6778d0c065dd6b7cf6541fa05557c658cdf80b74edba9e53c8ab8ea1b095a4d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-formswitherrorsblockprimarysubmit-record.json",
+      "source_sha256": "037c0fa9afc5709e632d95a7ca8b2c69ea7a965d37f6d1d44da5d9b6d4619fcf",
+      "published_sha256": "037c0fa9afc5709e632d95a7ca8b2c69ea7a965d37f6d1d44da5d9b6d4619fcf",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-phone200/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "source_sha256": "a8fe80ea59ef851c5193cab7b91a60e18946c0c5d5947b419991ab2d82b92f8f",
+      "published_sha256": "a8fe80ea59ef851c5193cab7b91a60e18946c0c5d5947b419991ab2d82b92f8f",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/tests.log",
+      "source_sha256": "25cee44bd4b5868624e6e809cc9f0281c816570b84564edc47aad8b604c62316",
+      "published_sha256": "25cee44bd4b5868624e6e809cc9f0281c816570b84564edc47aad8b604c62316",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-focusandblurdelivercurrentfieldvalue-record.json",
+      "source_sha256": "dce55aae421cbcf4f1164a217bac9f68bd0659e86a23a16f7c5243cbeff3c319",
+      "published_sha256": "dce55aae421cbcf4f1164a217bac9f68bd0659e86a23a16f7c5243cbeff3c319",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-controlledtransformsandrejectededitsremainauthoritative-record.json",
+      "source_sha256": "858c1468a2ef5b7beb789db43589bc9ef9c4268182f5e93e7d96a153cab8ce51",
+      "published_sha256": "858c1468a2ef5b7beb789db43589bc9ef9c4268182f5e93e7d96a153cab8ce51",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-longmessagesandtouchchoicesstayreadableacrossimetransitions-record.json",
+      "source_sha256": "62ee291f1c3158cba045d70c52b68151e3ee78584dc85657ac7ffd4e590ed694",
+      "published_sha256": "62ee291f1c3158cba045d70c52b68151e3ee78584dc85657ac7ffd4e590ed694",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-checkboxlabeltogglesexactlyonce-record.json",
+      "source_sha256": "fe7f28014cd2e55ea791ea3033a6705ed3d9d6d6d09dc969a0f2f833e22d660a",
+      "published_sha256": "fe7f28014cd2e55ea791ea3033a6705ed3d9d6d6d09dc969a0f2f833e22d660a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-everysupportedfielderrorblocksbothnativeandqueuedjssubmit-record.json",
+      "source_sha256": "68bba2ade91d2e1597db9b003fb40f47c5028f4e0f50f05c6e82e524c6f38945",
+      "published_sha256": "68bba2ade91d2e1597db9b003fb40f47c5028f4e0f50f05c6e82e524c6f38945",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-rapidtextthenblurdeliverscurrentvaluebeforeredraw-record.json",
+      "source_sha256": "1b7af1dae1fec30afbf2f3fb3c6e25c6c3a6c1c66fd8699b6610945132da6a8a",
+      "published_sha256": "1b7af1dae1fec30afbf2f3fb3c6e25c6c3a6c1c66fd8699b6610945132da6a8a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-replacementsessionrejectsoldcallbackandacceptsnewfocus-record.json",
+      "source_sha256": "2c8061c821a683bd87d981e909fcfbb7a482ecdda96771ad51583fb2b231b147",
+      "published_sha256": "2c8061c821a683bd87d981e909fcfbb7a482ecdda96771ad51583fb2b231b147",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-choosingdropdownitemsubmitsitsexactvalue-record.json",
+      "source_sha256": "09c027d6162bf1863292efff58458d04cdedd0966af34e681f2c2cdb3bed2df8",
+      "published_sha256": "09c027d6162bf1863292efff58458d04cdedd0966af34e681f2c2cdb3bed2df8",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-record.json",
+      "source_sha256": "f67b4951e71a3495e5ce630b66d9fc8fc2d6fd9dc2cde1c04a35fa5925c4cb78",
+      "published_sha256": "f67b4951e71a3495e5ce630b66d9fc8fc2d6fd9dc2cde1c04a35fa5925c4cb78",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "source_sha256": "abd64478d58ecaa83caa780c658c967e93610b95e88cd471da35648aa77c3665",
+      "published_sha256": "abd64478d58ecaa83caa780c658c967e93610b95e88cd471da35648aa77c3665",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-formswitherrorsblockprimarysubmit-record.json",
+      "source_sha256": "a3507f04c52063c177de44eb323f03dbaa6f516eed48fdb2c7b1d474b91dbeee",
+      "published_sha256": "a3507f04c52063c177de44eb323f03dbaa6f516eed48fdb2c7b1d474b91dbeee",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-landscape200/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "source_sha256": "cc29832ca0484c98f5d120c2272c455b9121011d1ba7138e28895c9f2d27a4e5",
+      "published_sha256": "cc29832ca0484c98f5d120c2272c455b9121011d1ba7138e28895c9f2d27a4e5",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet100/tests.log",
+      "source_sha256": "1ff3674e293f1706246b3713d771e4b81739d630b7559ad4f229dbd991f7202c",
+      "published_sha256": "1ff3674e293f1706246b3713d771e4b81739d630b7559ad4f229dbd991f7202c",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet100/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "58914b1337cf8b619d98e8c06feeb250d98315198150d3ebb6a8a427c7ba41c5",
+      "published_sha256": "58914b1337cf8b619d98e8c06feeb250d98315198150d3ebb6a8a427c7ba41c5",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet100/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-record.json",
+      "source_sha256": "2bf3f21423539c1b616fe7599d7b80e6cecba0481ef3035d4070619a4706db19",
+      "published_sha256": "2bf3f21423539c1b616fe7599d7b80e6cecba0481ef3035d4070619a4706db19",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet100/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "5fe76ce12970f9ebf5596a23a1e527825ebf72abecc92c2c8063da252b576ff9",
+      "published_sha256": "5fe76ce12970f9ebf5596a23a1e527825ebf72abecc92c2c8063da252b576ff9",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet100/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "04630e5c32d7a8ce2bf4ea76f85ad2ccd3717e7dd5874d7631c1656affb503d3",
+      "published_sha256": "04630e5c32d7a8ce2bf4ea76f85ad2ccd3717e7dd5874d7631c1656affb503d3",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet200/tests.log",
+      "source_sha256": "49d09f0e15572bd0c6f4167f7c30e5aa8c5717f21effadba7aa556026e85840a",
+      "published_sha256": "49d09f0e15572bd0c6f4167f7c30e5aa8c5717f21effadba7aa556026e85840a",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "7064b141fa828d105a3ede9ecbb4ea7cdc4c837e8dbfb984d9e039781d29ba82",
+      "published_sha256": "7064b141fa828d105a3ede9ecbb4ea7cdc4c837e8dbfb984d9e039781d29ba82",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-record.json",
+      "source_sha256": "9e586b7b33e59d3417651783f84f626a9a42b9d0040d9fc398b2b449876473a7",
+      "published_sha256": "9e586b7b33e59d3417651783f84f626a9a42b9d0040d9fc398b2b449876473a7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet200/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "35a534b3447d1a42ac07732afa0c6867c72c1209385669e1b15a1857c09b432c",
+      "published_sha256": "35a534b3447d1a42ac07732afa0c6867c72c1209385669e1b15a1857c09b432c",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-tablet200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "127fc393c1fe2ec41f65eb977571a396995ae76648482b8968a6d56145e82feb",
+      "published_sha256": "127fc393c1fe2ec41f65eb977571a396995ae76648482b8968a6d56145e82feb",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone100/tests.log",
+      "source_sha256": "b79306d67efbd715f739e085d0081087eefdb38e92ffbb3ae9efa6fafffd4d71",
+      "published_sha256": "b79306d67efbd715f739e085d0081087eefdb38e92ffbb3ae9efa6fafffd4d71",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone100/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "8765c3f48f8cc109a746bc4c7472399ba644739ed26bb296993fd061d9ff004d",
+      "published_sha256": "8765c3f48f8cc109a746bc4c7472399ba644739ed26bb296993fd061d9ff004d",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone100/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-record.json",
+      "source_sha256": "c1f2bfc00a4d5ceb268c62b3855aa6877f945efbf862e716215626d1f5fece46",
+      "published_sha256": "c1f2bfc00a4d5ceb268c62b3855aa6877f945efbf862e716215626d1f5fece46",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone100/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "a8c3da60500f0d386b7fc3446a42a339fdcc9a4157f1ee8cf6c48939ca5e7ba4",
+      "published_sha256": "a8c3da60500f0d386b7fc3446a42a339fdcc9a4157f1ee8cf6c48939ca5e7ba4",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone100/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "728b98a02ccc9444e94ebf4ad6bb80e846837878cf335c7d7babbc718e5cc9c4",
+      "published_sha256": "728b98a02ccc9444e94ebf4ad6bb80e846837878cf335c7d7babbc718e5cc9c4",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone200/tests.log",
+      "source_sha256": "4b5776845617524e0e2f32738677aa88df751378c63cef6cb32b2c5177e357e9",
+      "published_sha256": "4b5776845617524e0e2f32738677aa88df751378c63cef6cb32b2c5177e357e9",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "c7f462146a17041e9e863fc49c72dbd04a1322b28e106bf626e93bd5c8956203",
+      "published_sha256": "c7f462146a17041e9e863fc49c72dbd04a1322b28e106bf626e93bd5c8956203",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-record.json",
+      "source_sha256": "bfcb8f4e6150db1b332fb945e0b15968e1d9a25e43c6f631699a1d086c494159",
+      "published_sha256": "bfcb8f4e6150db1b332fb945e0b15968e1d9a25e43c6f631699a1d086c494159",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone200/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "9936db081a05f12e588fe567dbb38f30c4b5073afadb7f58b91a76c16a703fce",
+      "published_sha256": "9936db081a05f12e588fe567dbb38f30c4b5073afadb7f58b91a76c16a703fce",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-phone200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "4a3f878d42c13eea7ce9383edff7e36862ca960e3e2f218998fe07595af568e7",
+      "published_sha256": "4a3f878d42c13eea7ce9383edff7e36862ca960e3e2f218998fe07595af568e7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape100/tests.log",
+      "source_sha256": "24d910fb398e05dc5b735fc8fad53fe9a0a617ba377324066a10da0623780da9",
+      "published_sha256": "24d910fb398e05dc5b735fc8fad53fe9a0a617ba377324066a10da0623780da9",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape100/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "44032eee9ecc50bee18423232bc1651d25e631372d432fa70d2bfd79a727b7a1",
+      "published_sha256": "44032eee9ecc50bee18423232bc1651d25e631372d432fa70d2bfd79a727b7a1",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape100/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-record.json",
+      "source_sha256": "e774814c53a485e08ffe74404a8cf5639a05ea6953f7d5e883d96c2ac6c367a7",
+      "published_sha256": "e774814c53a485e08ffe74404a8cf5639a05ea6953f7d5e883d96c2ac6c367a7",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape100/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "0de75d49667888ba7a9da31a0cb35cf5cbbb8a441afdaa17f2d6eab64b945262",
+      "published_sha256": "0de75d49667888ba7a9da31a0cb35cf5cbbb8a441afdaa17f2d6eab64b945262",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape100/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "541672812504a4a410ada7a56fda66e48cbe0786dc8876ff7011fff1f37c3b70",
+      "published_sha256": "541672812504a4a410ada7a56fda66e48cbe0786dc8876ff7011fff1f37c3b70",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape200/tests.log",
+      "source_sha256": "e2308b3cbd7f0a73c94dc2a49a1d3bfe33aed3c6453c4b04e66e67341c279f0e",
+      "published_sha256": "e2308b3cbd7f0a73c94dc2a49a1d3bfe33aed3c6453c4b04e66e67341c279f0e",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape200/captures/form-datetimecanchooseanalldaydatewiththefulldaymarker-record.json",
+      "source_sha256": "9d7b04757092466a43c6884a6748ad1d8c84d279024d231927876e8de074f284",
+      "published_sha256": "9d7b04757092466a43c6884a6748ad1d8c84d279024d231927876e8de074f284",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape200/captures/form-datetimeeditorkeepsconfirmationreachablewithitsownime-record.json",
+      "source_sha256": "0a2c158b5ce69c877f1d90e1d66e5845653dbc7fb8e4423961e9d462670e66e0",
+      "published_sha256": "0a2c158b5ce69c877f1d90e1d66e5845653dbc7fb8e4423961e9d462670e66e0",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape200/captures/form-tagpickerlongoptionkeepseverylinereachable-record.json",
+      "source_sha256": "80e0a4ab2094a7b9a8444d897375ac40c2902c39d2456f8350443ffd1567494a",
+      "published_sha256": "80e0a4ab2094a7b9a8444d897375ac40c2902c39d2456f8350443ffd1567494a",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-landscape200/captures/form-filepickerimportsarealselectedfolderandnestedbytes-record.json",
+      "source_sha256": "d388b11e9546d7de4dcc93ee11158e2207c002d633700218060b8fc6044fc750",
+      "published_sha256": "d388b11e9546d7de4dcc93ee11158e2207c002d633700218060b8fc6044fc750",
+      "transformation": "Byte-exact raw copy"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-real-v4-state.json",
+      "source_sha256": "94fd04d5715dd2a4195b45fc9e6d990219b0f8d5d1904f1809786e3af1d3a910",
+      "published_sha256": "6f73c1cd28dfacfa7871583af08a413b4f9575dca040c9ceded7611510137b9b",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-typed-v4-state.json",
+      "source_sha256": "5ad6ea8443db94bc30e3fe40e273f8fd354507cb1d67b695743b93dac20e7c36",
+      "published_sha256": "4948dabb33399565fe3e29034711aa4e4f8ab90584d0e3bc23d52b63e9dca9ff",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-lifecycle-v4-state.json",
+      "source_sha256": "abbb042de15b979cdd9501dac2537c74d4b2ce1e5b58c4d91fc8a8a600ee393b",
+      "published_sha256": "4445b02a587eeb4ecccafb205d411a819c80c1a07cdd16b420d58ebbb9f41639",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-extended-v4-state.json",
+      "source_sha256": "f097376028dea7e567af1a3d0919334e5ee8b726de24a2b7be7652fcf7450a5b",
+      "published_sha256": "5b23f422ac3131685fc78c98bee782a5028a47f13fc7f3f021add66a238b6870",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-files-v4-state.json",
+      "source_sha256": "05b7572957c9cf513fb77b996facd4d8362233d2431c94d71e81e2f7f17c4422",
+      "published_sha256": "fce4cb1fad471c7641cdfdeec16b2c3ae4638f6b99130ad1604bdacb9997bbcb",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-legacy-legacymonitoredv1-state.json",
+      "source_sha256": "edb52e52a86d073f96f1b034f943cd950debc526a6e5c4a11a05cf1e45e5b8d3",
+      "published_sha256": "a1013ef918d9ebdd3c2f8f83ed0224551ef53c3742d443025b8a754fe5f39026",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-criticalfonts-fontfinalv1-state.json",
+      "source_sha256": "dccb712dbf8e3716a42fe45268794c488a6ff2f1231ed6cc70d156a8b2b4da10",
+      "published_sha256": "d216836a16ee9668dbcb475a20853514de2d5c12a2c05eb39abfefaa64a9fbb6",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-pipeline-v5-state.json",
+      "source_sha256": "11db9d9e066f8d97e33e073329cea8acc7db64912d392a98b311183bc7917f3f",
+      "published_sha256": "11db9d9e066f8d97e33e073329cea8acc7db64912d392a98b311183bc7917f3f",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/file-workflow-harness-v28-state.json",
+      "source_sha256": "974195db556ed940111d0bfbdd1dd5fe5e40992dcc6f2a6b0830816a37aa18a2",
+      "published_sha256": "974195db556ed940111d0bfbdd1dd5fe5e40992dcc6f2a6b0830816a37aa18a2",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/file-workflow-harness-v26-state.json",
+      "source_sha256": "05c8cf6394434d4d95317d1865310d2c6b187531a61f00d7be892505420ca3fc",
+      "published_sha256": "05c8cf6394434d4d95317d1865310d2c6b187531a61f00d7be892505420ca3fc",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/typed-build-ime-layout-v4-state.json",
+      "source_sha256": "15187e0639c0a1d6225c57b2916f34aa96fd845b293a0bab44071d5f29a4a748",
+      "published_sha256": "15187e0639c0a1d6225c57b2916f34aa96fd845b293a0bab44071d5f29a4a748",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/publication-transform-check-v2.json",
+      "source_sha256": "2d0848d172f4934dfa79b27688f9be36b43ce380d10e44ec5c75347e6166ea59",
+      "published_sha256": "2d0848d172f4934dfa79b27688f9be36b43ce380d10e44ec5c75347e6166ea59",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/run-final-typed-pipeline-v5.py",
+      "source_sha256": "d3ddf378046542f2ddf9ad116d5daeec61822d3f1dbcd2009d07bc508c8de0bd",
+      "published_sha256": "d3ddf378046542f2ddf9ad116d5daeec61822d3f1dbcd2009d07bc508c8de0bd",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/run-final-typed-native-v2.py",
+      "source_sha256": "6eab57d7d9313726018908e78610fbeefc91e0f512a714aa8034751733cbb7f6",
+      "published_sha256": "59489614fa24f6f3a8b16a7d0fa9dd41cc23ea03ec6220c336c83d285153ba42",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/run-critical-font-native-v1.py",
+      "source_sha256": "5f5ba8ef47e051035a5c61c55b5a79a6f9e339739d6647e43d9e4bf0c587d214",
+      "published_sha256": "7dbe3f6bfded6aefe1f9a4c56aa075c28a0365ac0d3f58bf1bbcb5e3b7b7a161",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/final-typed-native-plan-v2.json",
+      "source_sha256": "71922f82c70775e9ca3c4b60830b45254e1e86af298169bd5bf296b133ad9e35",
+      "published_sha256": "71922f82c70775e9ca3c4b60830b45254e1e86af298169bd5bf296b133ad9e35",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/critical-font-native-plan-v1.json",
+      "source_sha256": "99567ee3cd129a412db95cc6e1ae678700571336ec6548256d2bbdb71ff4815e",
+      "published_sha256": "99567ee3cd129a412db95cc6e1ae678700571336ec6548256d2bbdb71ff4815e",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/typed_publication_helpers_v2.py",
+      "source_sha256": "38f980a026114fc87d83f501bbc5f5a8e9768dfe27b43a6eff25bba34d4c5770",
+      "published_sha256": "15ff246e96d29716cbcebd7eae2f2e79683cd965dec3d5ffc6afd06b623e10bd",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/prepare-typed-evidence-v5.py",
+      "source_sha256": "c82fe080a691ed8086b606397077a0ca5decd87599ac54ad206a67332088dabd",
+      "published_sha256": "c82fe080a691ed8086b606397077a0ca5decd87599ac54ad206a67332088dabd",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.BackupPlannerTest.xml",
+      "source_sha256": "dc41c592819d73db2cd883f0f5d200d553c6d632cac0eaf3c0d6020c9813c497",
+      "published_sha256": "dc41c592819d73db2cd883f0f5d200d553c6d632cac0eaf3c0d6020c9813c497",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.CommandEngineTest.xml",
+      "source_sha256": "4cf64641c9864b4b9c237ab314aa0a8dc35edb840939efe3edfac5b9385c4efc",
+      "published_sha256": "4cf64641c9864b4b9c237ab314aa0a8dc35edb840939efe3edfac5b9385c4efc",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.EmojiCatalogTest.xml",
+      "source_sha256": "ed3a9b09b01be7361245fc939556a12e111842bc4f8e91b03402992f3d1b032f",
+      "published_sha256": "ed3a9b09b01be7361245fc939556a12e111842bc4f8e91b03402992f3d1b032f",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionFormContractTest.xml",
+      "source_sha256": "ad53ecc91fcf8ff2ae791222444ad4e9219e470bb85d521e1cbec9a7f3a6760b",
+      "published_sha256": "ad53ecc91fcf8ff2ae791222444ad4e9219e470bb85d521e1cbec9a7f3a6760b",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionFormFileImportTest.xml",
+      "source_sha256": "dd2fe00d44a0057469d990435b2d21c8fd40f00750ad6d75f456d1d3100933e6",
+      "published_sha256": "dd2fe00d44a0057469d990435b2d21c8fd40f00750ad6d75f456d1d3100933e6",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionFormSubmissionTest.xml",
+      "source_sha256": "1f4aba3739f41a086499ff90181b94b1626fac1aca32edd8f07cce49d7ff2381",
+      "published_sha256": "1f4aba3739f41a086499ff90181b94b1626fac1aca32edd8f07cce49d7ff2381",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionFormTypedValuesTest.xml",
+      "source_sha256": "ba290237d7b75916bd8127351e5c0ad59f9ade81f5384f6e9c210bc648232dec",
+      "published_sha256": "ba290237d7b75916bd8127351e5c0ad59f9ade81f5384f6e9c210bc648232dec",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionFormValuesTest.xml",
+      "source_sha256": "3f3a33c8fad9c73e7fbd6415c9a2f97758a6e0a3adf587f8cd4ee0256224f025",
+      "published_sha256": "3f3a33c8fad9c73e7fbd6415c9a2f97758a6e0a3adf587f8cd4ee0256224f025",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionGridContractTest.xml",
+      "source_sha256": "f705401eeb79fd697a68555f17f2deaecfe7ff2ff2bcd3840239fac2144dd628",
+      "published_sha256": "f705401eeb79fd697a68555f17f2deaecfe7ff2ff2bcd3840239fac2144dd628",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionGridNavigationTest.xml",
+      "source_sha256": "287223e63422b5f01ad8b92bda9435bcc423da7664f5a6194d82b0af27596e05",
+      "published_sha256": "287223e63422b5f01ad8b92bda9435bcc423da7664f5a6194d82b0af27596e05",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionHttpTest.xml",
+      "source_sha256": "68a8088be0199fbbcdd3a17d0169ccf0b80c0d0546efca4a1c5b25bb2b173411",
+      "published_sha256": "68a8088be0199fbbcdd3a17d0169ccf0b80c0d0546efca4a1c5b25bb2b173411",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ExtensionSelectionDeliveryTest.xml",
+      "source_sha256": "ae9e0cb7551df19e9444144e520e5741d9a9257dc7b705ffc981fc45665fe3de",
+      "published_sha256": "ae9e0cb7551df19e9444144e520e5741d9a9257dc7b705ffc981fc45665fe3de",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.FolderGrantTransactionTest.xml",
+      "source_sha256": "bd5347eff940279fe64d03e0e0c3592bf481baa44eb9fcfdd314da852f920319",
+      "published_sha256": "bd5347eff940279fe64d03e0e0c3592bf481baa44eb9fcfdd314da852f920319",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.FolderIndexTest.xml",
+      "source_sha256": "2da593b6c4b9b34fd45a8a6cf407d742c5ed51c4f1722bdbd96f9e40a4f2abe1",
+      "published_sha256": "2da593b6c4b9b34fd45a8a6cf407d742c5ed51c4f1722bdbd96f9e40a4f2abe1",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ModifierTapTest.xml",
+      "source_sha256": "92b29abff9d38648b99219a548cd0a2f382681fc5814f07cf02ee8fece8608a6",
+      "published_sha256": "92b29abff9d38648b99219a548cd0a2f382681fc5814f07cf02ee8fece8608a6",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.PaletteMenuOwnershipTest.xml",
+      "source_sha256": "f8a4291e000c248075fc8f65ed8aeba413cc683491493a7ea2d16fdfe64ed365",
+      "published_sha256": "f8a4291e000c248075fc8f65ed8aeba413cc683491493a7ea2d16fdfe64ed365",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.PaletteScrollHistoryTest.xml",
+      "source_sha256": "7a665876b8947432e134c67d3e118de8cabafc2c8adf266c73d46319308fabc4",
+      "published_sha256": "7a665876b8947432e134c67d3e118de8cabafc2c8adf266c73d46319308fabc4",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ReviewedTextInputTest.xml",
+      "source_sha256": "8b822783c1f3aee19537a993a2dcc3fa1b65d48e67a5640909f67a0ee72b3340",
+      "published_sha256": "8b822783c1f3aee19537a993a2dcc3fa1b65d48e67a5640909f67a0ee72b3340",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ShortcutReadinessTest.xml",
+      "source_sha256": "1db2103da8255a2b892fef93a0fc1d3154d7887588aa4467625995b900286c3e",
+      "published_sha256": "1db2103da8255a2b892fef93a0fc1d3154d7887588aa4467625995b900286c3e",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.ShortcutTest.xml",
+      "source_sha256": "e6f8ea582aad55a98aca3bb9955023a9b6f60c25b4afb5bd721963465ea5b669",
+      "published_sha256": "e6f8ea582aad55a98aca3bb9955023a9b6f60c25b4afb5bd721963465ea5b669",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.SystemSettingsTest.xml",
+      "source_sha256": "125aee075b6d9fbd7cbf43d91f079289874703852dfd5e7175666645654c592e",
+      "published_sha256": "125aee075b6d9fbd7cbf43d91f079289874703852dfd5e7175666645654c592e",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.TinycastGridParityTest.xml",
+      "source_sha256": "177a2b777d759851c3cc3d9877aa6b418e79591dc4407fc3f481d622817d4f08",
+      "published_sha256": "177a2b777d759851c3cc3d9877aa6b418e79591dc4407fc3f481d622817d4f08",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.UpdatePolicyTest.xml",
+      "source_sha256": "69b838c5ec9e21cb081dc0fe1f9d2e29144624370ed10f8f0cb76512b04af00a",
+      "published_sha256": "69b838c5ec9e21cb081dc0fe1f9d2e29144624370ed10f8f0cb76512b04af00a",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/jvm/TEST-dev.tinycast.android.extensions.NodeCpuInfoTest.xml",
+      "source_sha256": "ee032874ed69116befa7cdfbbaab363afff038e5a2588130018abfad4343d686",
+      "published_sha256": "ee032874ed69116befa7cdfbbaab363afff038e5a2588130018abfad4343d686",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/lint-results-benchmark.xml",
+      "source_sha256": "8a21db85da4a31e6a4cdef7e5bb607a26481d0f2c95d483eee27cd7e0d19f491",
+      "published_sha256": "73fbaf28a92ef7b63f7ed7882c5baf74722736a3489e684218a7311b706d3e93",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/candidate-55e641a-ime-layout-v4/checks/lint-results-debug.xml",
+      "source_sha256": "8a21db85da4a31e6a4cdef7e5bb607a26481d0f2c95d483eee27cd7e0d19f491",
+      "published_sha256": "73fbaf28a92ef7b63f7ed7882c5baf74722736a3489e684218a7311b706d3e93",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/typed-build-ime-layout-v4-gradle.log",
+      "source_sha256": "a4a83ceea3fda7b7f974fc7a9153315c8e9e4585cb9fc9504391de1baf905ecf",
+      "published_sha256": "2ef25cb437766fa8909e0618be49734d90b125d2f0e8ef3cc8a2c911218f12ab",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/typed-build-ime-layout-v4-node-focus.log",
+      "source_sha256": "5163aa39c6d4c2d898b2745252ce33861b26ba9afa63b31137cdfd99d3d18806",
+      "published_sha256": "5163aa39c6d4c2d898b2745252ce33861b26ba9afa63b31137cdfd99d3d18806",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/typed-build-ime-layout-v4-node-submit.log",
+      "source_sha256": "4bb3262b071ab2b24e65fb4d5d5f09ba5a93a44f48c8397a7fa22f7ce19ab424",
+      "published_sha256": "4bb3262b071ab2b24e65fb4d5d5f09ba5a93a44f48c8397a7fa22f7ce19ab424",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/typed-build-ime-layout-v4-python.log",
+      "source_sha256": "e6d2c036b9aaee49b05fb1cf6ae5141b06f93722f0ace739a05b3e7f01dad25e",
+      "published_sha256": "e6d2c036b9aaee49b05fb1cf6ae5141b06f93722f0ace739a05b3e7f01dad25e",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    },
+    {
+      "source": "artifacts/form-pickers/typed-build-ime-layout-v4-python-optimized.log",
+      "source_sha256": "fa9a9d39e80e8ace011e9d13b232a77ab16189fa31d7669104450bbb47c95af4",
+      "published_sha256": "fa9a9d39e80e8ace011e9d13b232a77ab16189fa31d7669104450bbb47c95af4",
+      "transformation": "Fixed host-path replacements; XML-escaped placeholders for XML; line endings preserved"
+    }
+  ],
+  "cohorts": [
+    {
+      "name": "final-typed-native-real-v4-tablet100",
+      "controller_state": "final-typed-native-real-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 6,
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-real-v4-phone200",
+      "controller_state": "final-typed-native-real-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 6,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-real-v4-landscape200",
+      "controller_state": "final-typed-native-real-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 6,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-typed-v4-tablet100",
+      "controller_state": "final-typed-native-typed-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 7,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-typed-v4-phone200",
+      "controller_state": "final-typed-native-typed-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 7,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-typed-v4-landscape200",
+      "controller_state": "final-typed-native-typed-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 7,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-lifecycle-v4-tablet100",
+      "controller_state": "final-typed-native-lifecycle-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 3,
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-lifecycle-v4-phone200",
+      "controller_state": "final-typed-native-lifecycle-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 3,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-lifecycle-v4-landscape200",
+      "controller_state": "final-typed-native-lifecycle-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 3,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-extended-v4-tablet100",
+      "controller_state": "final-typed-native-extended-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 16,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-extended-v4-phone200",
+      "controller_state": "final-typed-native-extended-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 16,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-extended-v4-landscape200",
+      "controller_state": "final-typed-native-extended-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 16,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-files-v4-tablet100",
+      "controller_state": "final-typed-native-files-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 9,
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-files-v4-phone200",
+      "controller_state": "final-typed-native-files-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 9,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-files-v4-landscape200",
+      "controller_state": "final-typed-native-files-v4-state.json",
+      "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+      "passes": 9,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-legacy-legacymonitoredv1-tablet100",
+      "controller_state": "final-typed-native-legacy-legacymonitoredv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 12,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-legacy-legacymonitoredv1-phone200",
+      "controller_state": "final-typed-native-legacy-legacymonitoredv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 12,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-legacy-legacymonitoredv1-landscape200",
+      "controller_state": "final-typed-native-legacy-legacymonitoredv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 12,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-criticalfonts-fontfinalv1-tablet100",
+      "controller_state": "final-typed-native-criticalfonts-fontfinalv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 4,
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-criticalfonts-fontfinalv1-tablet200",
+      "controller_state": "final-typed-native-criticalfonts-fontfinalv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 4,
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-criticalfonts-fontfinalv1-phone100",
+      "controller_state": "final-typed-native-criticalfonts-fontfinalv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 4,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-criticalfonts-fontfinalv1-phone200",
+      "controller_state": "final-typed-native-criticalfonts-fontfinalv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 4,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-criticalfonts-fontfinalv1-landscape100",
+      "controller_state": "final-typed-native-criticalfonts-fontfinalv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 4,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "name": "final-typed-native-criticalfonts-fontfinalv1-landscape200",
+      "controller_state": "final-typed-native-criticalfonts-fontfinalv1-state.json",
+      "test_source_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+      "passes": 4,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    }
+  ],
+  "scope": "Prepared final current-runtime receipts only; publication requires historical controls and raw-image manifest before commit."
+}

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
+        <provider android:name="dev.tinycast.android.OwnedFormDocumentsProvider"
+            android:authorities="${applicationId}.formdocuments" android:exported="true"
+            android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
+        </provider>
+        <activity android:name="dev.tinycast.android.FormDocumentsFixtureActivity"
+            android:exported="true" android:theme="@android:style/Theme.NoDisplay" />
         <activity android:name="dev.tinycast.android.ReviewedTextCallerActivity"
             android:exported="true" android:launchMode="singleTask"
             android:taskAffinity="dev.tinycast.android.test.textcaller"

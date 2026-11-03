@@ -1,0 +1,765 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "date-clear-focus",
+  "fixture_command_sha256": "5c91eaed24d48393da63ee01dcf7214ed78b06e816cb78b7b2ebb51a9bddf633",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-67776a9182ec49fdba74fe09073267ab",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 5,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1143,
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        629
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        531.5
+      ]
+    },
+    {
+      "tag": "extension-date-clear-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1143,
+      "visible_bounds": [
+        239,
+        175,
+        618,
+        313
+      ],
+      "control_size": [
+        379,
+        140
+      ],
+      "point": [
+        428.5,
+        244
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1143,
+      "visible_bounds": [
+        239,
+        95,
+        2102,
+        221
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        158
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1143,
+      "visible_bounds": [
+        1031,
+        95,
+        1820,
+        313
+      ],
+      "control_size": [
+        789,
+        248
+      ],
+      "point": [
+        1425.5,
+        204
+      ]
+    }
+  ],
+  "typed_publications": [
+    {
+      "phase": "owned text entered before Clear date",
+      "root_id": "7",
+      "before": 0,
+      "native_counter": 1,
+      "composed_marker": "Typed publication 1",
+      "composed_semantics_id": 1255
+    },
+    {
+      "phase": "date cleared while a text editor was focused",
+      "root_id": "7",
+      "before": 1,
+      "native_counter": 2,
+      "composed_marker": "Typed publication 2",
+      "composed_semantics_id": 1255
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    }
+  ],
+  "native_editor_focused_after_date_clear": false,
+  "probe_after_date_clear": {
+    "changes": 2,
+    "focus": {
+      "name": 1,
+      "date": 1
+    },
+    "blur": {
+      "name": 1
+    },
+    "blurLengths": {
+      "name": 38
+    },
+    "dispatches": 5,
+    "submits": 0,
+    "events": [
+      {
+        "id": "name",
+        "event": "focus",
+        "value": "Owned starting text",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "name",
+        "event": "blur",
+        "value": "Owned same-editor return café é 日本 🌱",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "date",
+        "event": "focus",
+        "value": "2024-02-29T12:34:00.000Z",
+        "facts": {
+          "is_date": true,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": true,
+          "date_iso": "2024-02-29T12:34:00.000Z",
+          "full_day_helper": true,
+          "full_day": false
+        }
+      }
+    ],
+    "focusFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "date": {
+        "is_date": true,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": true,
+        "date_iso": "2024-02-29T12:34:00.000Z",
+        "full_day_helper": true,
+        "full_day": false
+      }
+    },
+    "blurFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    },
+    "blurValues": {
+      "name": "Owned same-editor return café é 日本 🌱"
+    },
+    "dateChangeFacts": {
+      "is_date": false,
+      "is_null": true,
+      "is_array": false,
+      "array_strings": false,
+      "valid_date": false,
+      "date_iso": null,
+      "full_day_helper": true,
+      "full_day": null
+    }
+  },
+  "probe_after_same_editor_return": {
+    "changes": 2,
+    "focus": {
+      "name": 2,
+      "date": 1
+    },
+    "blur": {
+      "name": 1,
+      "date": 1
+    },
+    "blurLengths": {
+      "name": 38,
+      "date": 0
+    },
+    "dispatches": 7,
+    "submits": 0,
+    "events": [
+      {
+        "id": "name",
+        "event": "focus",
+        "value": "Owned starting text",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "name",
+        "event": "blur",
+        "value": "Owned same-editor return café é 日本 🌱",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "date",
+        "event": "focus",
+        "value": "2024-02-29T12:34:00.000Z",
+        "facts": {
+          "is_date": true,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": true,
+          "date_iso": "2024-02-29T12:34:00.000Z",
+          "full_day_helper": true,
+          "full_day": false
+        }
+      },
+      {
+        "id": "date",
+        "event": "blur",
+        "value": null,
+        "facts": {
+          "is_date": false,
+          "is_null": true,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "name",
+        "event": "focus",
+        "value": "Owned same-editor return café é 日本 🌱",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      }
+    ],
+    "focusFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "date": {
+        "is_date": true,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": true,
+        "date_iso": "2024-02-29T12:34:00.000Z",
+        "full_day_helper": true,
+        "full_day": false
+      }
+    },
+    "blurFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "date": {
+        "is_date": false,
+        "is_null": true,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    },
+    "blurValues": {
+      "name": "Owned same-editor return café é 日本 🌱",
+      "date": null
+    },
+    "dateChangeFacts": {
+      "is_date": false,
+      "is_null": true,
+      "is_array": false,
+      "array_strings": false,
+      "valid_date": false,
+      "date_iso": null,
+      "full_day_helper": true,
+      "full_day": null
+    }
+  },
+  "focus_probe": {
+    "changes": 2,
+    "focus": {
+      "name": 2,
+      "date": 1
+    },
+    "blur": {
+      "name": 2,
+      "date": 1
+    },
+    "blurLengths": {
+      "name": 38,
+      "date": 0
+    },
+    "dispatches": 9,
+    "submits": 1,
+    "events": [
+      {
+        "id": "name",
+        "event": "focus",
+        "value": "Owned starting text",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "name",
+        "event": "blur",
+        "value": "Owned same-editor return café é 日本 🌱",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "date",
+        "event": "focus",
+        "value": "2024-02-29T12:34:00.000Z",
+        "facts": {
+          "is_date": true,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": true,
+          "date_iso": "2024-02-29T12:34:00.000Z",
+          "full_day_helper": true,
+          "full_day": false
+        }
+      },
+      {
+        "id": "date",
+        "event": "blur",
+        "value": null,
+        "facts": {
+          "is_date": false,
+          "is_null": true,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "name",
+        "event": "focus",
+        "value": "Owned same-editor return café é 日本 🌱",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "name",
+        "event": "blur",
+        "value": "Owned same-editor return café é 日本 🌱",
+        "facts": {
+          "is_date": false,
+          "is_null": false,
+          "is_array": false,
+          "array_strings": false,
+          "valid_date": false,
+          "date_iso": null,
+          "full_day_helper": true,
+          "full_day": null
+        }
+      },
+      {
+        "id": "form",
+        "event": "submit"
+      }
+    ],
+    "focusFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "date": {
+        "is_date": true,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": true,
+        "date_iso": "2024-02-29T12:34:00.000Z",
+        "full_day_helper": true,
+        "full_day": false
+      }
+    },
+    "blurFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "date": {
+        "is_date": false,
+        "is_null": true,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    },
+    "blurValues": {
+      "name": "Owned same-editor return café é 日本 🌱",
+      "date": null
+    },
+    "dateChangeFacts": {
+      "is_date": false,
+      "is_null": true,
+      "is_array": false,
+      "array_strings": false,
+      "valid_date": false,
+      "date_iso": null,
+      "full_day_helper": true,
+      "full_day": null
+    },
+    "submittedValues": {
+      "name": "Owned same-editor return café é 日本 🌱",
+      "date": null
+    },
+    "typedSubmitted": {
+      "date": {
+        "is_date": false,
+        "is_null": true,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    }
+  },
+  "observed_focus_sequence": [
+    "name:focus",
+    "name:blur",
+    "date:focus",
+    "date:blur",
+    "name:focus",
+    "name:blur",
+    "form:submit"
+  ],
+  "input_boundary": "Pointer text -> Clear date -> same text -> submit; owned Unicode text uses SetText semantics. No forced IME request.",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

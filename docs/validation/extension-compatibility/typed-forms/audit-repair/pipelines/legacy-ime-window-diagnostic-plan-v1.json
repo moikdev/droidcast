@@ -1,0 +1,85 @@
+{
+  "groups": {
+    "typed": [
+      "datePickerClearsAndSubmitsAnActualNull",
+      "datePickerCancelsAnEditedDraftWithoutChangingTheValue",
+      "datePickerConfirmsAnEditedTimeAndSubmitsItsExactInstant",
+      "dateTimeCanChooseAnAllDayDateWithTheFullDayMarker",
+      "aFullDayDefaultCanBecomeAnExplicitTimeWithoutItsReservedMarker",
+      "tagPickerAddsAndRemovesExactValuesByTouch",
+      "tagPickerClearsAndSubmitsAnEmptyArray"
+    ],
+    "extended": [
+      "dateOnlySelectsACalendarDayWithInclusiveDayBounds",
+      "dateTimeBoundsRejectOutsideThenAcceptTheInclusiveMaximum",
+      "dateTimeCanConfirmTheInclusiveMinimum",
+      "datePickerExplainsInconsistentBoundsWithoutOpening",
+      "datePickerExplainsMalformedNativeBounds",
+      "datePickerControlledRejectionWaitsForItsPublication",
+      "datePickerControlledTransformationWaitsForItsPublication",
+      "typedDefaultsDoNotResetEditsOnALaterPublication",
+      "typedFocusAndBlurDeliverCurrentDateNullAndArrays",
+      "tagPickerCanRemoveAnUnavailableValueAndShowItsEmptyState",
+      "tagPickerLongOptionKeepsEveryLineReachable",
+      "tagPickerQueuedOptionCannotSelectAReplacedChoice",
+      "tagPickerControlledRejectionWaitsForItsPublication",
+      "datePickerQueuedConfirmationCannotEnterAReplacementField",
+      "nativeDateTimeRejectsADstGapThenAcceptsAValidWallTime",
+      "nativeDateTimeKeepsTheExistingDstOccurrenceAndMilliseconds"
+    ],
+    "files": [
+      "filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller",
+      "filePickerCancellationPreservesTheValueAndDoesNotImport",
+      "filePickerRejectsAnOversizeDocumentWithoutChangingItsSelection",
+      "filePickerImportsARealSelectedFolderAndNestedBytes",
+      "filePickerMultipleSelectionPreservesBinaryBytesAndCanRemoveAndClear",
+      "filePickerResultCannotEnterAReplacementCommand",
+      "disposedFilePickerRegistrationCannotConsumeASuccessorResult",
+      "cancelledFileImportCannotDeliverAfterItsBlockedReadFinishes",
+      "cancellationBetweenFilePreparationAndDeliveryRemovesOnlyTheUndeliveredCopy"
+    ],
+    "real": [
+      "typedUncontrolledRefsResetToTheirInitialValues",
+      "frozenMoodStoresExactTypedValuesAndReloadsThemInSearch",
+      "frozenChecksumHashesTheActualImportedBytesCopiesAndReturns",
+      "correctingTypedDateErrorEnablesExactlyOneNullSubmission",
+      "correctingTypedTagErrorEnablesExactlyOneArraySubmission",
+      "correctingTypedFileErrorImportsBytesAndSubmitsExactlyOnce"
+    ],
+    "legacy": [
+      "focusAndBlurDeliverCurrentFieldValue",
+      "rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+      "controlledTransformsAndRejectedEditsRemainAuthoritative",
+      "replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+      "choosingDropdownItemSubmitsItsExactValue",
+      "checkboxLabelTogglesExactlyOnce",
+      "allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "liveImePointerSelectionSurvivesUnrelatedPublication",
+      "longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+      "frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "formsWithErrorsBlockPrimarySubmit",
+      "everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit"
+    ],
+    "lifecycle": [
+      "datePickerQueuedConfirmationCannotSurviveActivityRecreation",
+      "tagPickerQueuedOptionCannotSurviveActivityRecreation",
+      "filePickerResultCannotSurviveActivityRecreation"
+    ],
+    "auditrepairs": [
+      "datePickerQueuedConfirmationCannotOverwriteANewerValue",
+      "datePickerQueuedConfirmationCannotOverwriteAResetValue",
+      "datePickerConfirmationRechecksValueBeforeComposition",
+      "clearingDateLetsTheSameTextFieldRefocusAndSubmit"
+    ]
+  },
+  "profiles": [
+    [
+      "landscape",
+      2
+    ]
+  ],
+  "ime_group_separate_common_v20": true,
+  "legacy_claim": "Targeted current-runtime Form regressions; not a rerun of all historical native suites.",
+  "revision_reason": "Add actual ActivityScenario recreation for all three pickers, including real late document selection and fresh successor acceptance.",
+  "scope": "Fresh complete landscape legacy cohort with the unchanged repaired app/current test APK, coupled to read-only IME and WindowManager diagnostics. Earlier35/36 remains failed."
+}

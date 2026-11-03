@@ -1,0 +1,87 @@
+{
+  "completed": true,
+  "production_source_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "test_source_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+  "scope": "Two real workflow scenarios (three named commands) on three layouts. The six-case parent group also has reset and three correction cases; its18executions are not18Storepasses.",
+  "rows": [
+    {
+      "cohort": "final-typed-native-real-v4-tablet100",
+      "cases": {
+        "frozenchecksumhashestheactualimportedbytescopiesandreturns": {
+          "case_path": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+          "case_sha256": "f8e4f6792e0d5b93c68c27adeeaabb1886179be78b79667b897e832ae845bf24",
+          "archive_sha256": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d",
+          "command_sha256": {
+            "hashfile": "b42e7c5bbe881ae5397aa43660c29c23651b8d06e8165b5f11a962232a9d9a68"
+          },
+          "passed": true
+        },
+        "frozenmoodstoresexacttypedvaluesandreloadstheminsearch": {
+          "case_path": "artifacts/form-pickers/final-typed-native-real-v4-tablet100/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+          "case_sha256": "79f9238a1697fe9f207ae95d54d65e0dc653fa394504c953dbe56107ad3b9b56",
+          "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+          "command_sha256": {
+            "record-mood": "11e2a3e9900c47a8697004f267024865c2f4a5d21b87cb396e07ed4a5cc56478",
+            "search-moods": "9eee3a5852244fc06109e695358c2780a3970d28d04776b7d6416a11653bdea0"
+          },
+          "passed": true
+        }
+      },
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true
+    },
+    {
+      "cohort": "final-typed-native-real-v4-phone200",
+      "cases": {
+        "frozenchecksumhashestheactualimportedbytescopiesandreturns": {
+          "case_path": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+          "case_sha256": "9f1e7c831f170d1550c45ac569019dfa89a6fb81a042f232ea8ef5d6063452be",
+          "archive_sha256": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d",
+          "command_sha256": {
+            "hashfile": "b42e7c5bbe881ae5397aa43660c29c23651b8d06e8165b5f11a962232a9d9a68"
+          },
+          "passed": true
+        },
+        "frozenmoodstoresexacttypedvaluesandreloadstheminsearch": {
+          "case_path": "artifacts/form-pickers/final-typed-native-real-v4-phone200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+          "case_sha256": "2c259ec83376e06c5fec51ca0b649e8fcb1d01c6fb4b1c5cb856b63ce7b98bb7",
+          "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+          "command_sha256": {
+            "record-mood": "11e2a3e9900c47a8697004f267024865c2f4a5d21b87cb396e07ed4a5cc56478",
+            "search-moods": "9eee3a5852244fc06109e695358c2780a3970d28d04776b7d6416a11653bdea0"
+          },
+          "passed": true
+        }
+      },
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    },
+    {
+      "cohort": "final-typed-native-real-v4-landscape200",
+      "cases": {
+        "frozenchecksumhashestheactualimportedbytescopiesandreturns": {
+          "case_path": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-frozenchecksumhashestheactualimportedbytescopiesandreturns-record.json",
+          "case_sha256": "065b4f6267e66ea5699087702312a6df6bce4d5d0e32eb7fa5b77f4b9562a1b3",
+          "archive_sha256": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d",
+          "command_sha256": {
+            "hashfile": "b42e7c5bbe881ae5397aa43660c29c23651b8d06e8165b5f11a962232a9d9a68"
+          },
+          "passed": true
+        },
+        "frozenmoodstoresexacttypedvaluesandreloadstheminsearch": {
+          "case_path": "artifacts/form-pickers/final-typed-native-real-v4-landscape200/captures/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json",
+          "case_sha256": "e1a6504fdccf6178ffcef80313222c6d6d8b8fb8d3217623cd7252e327ba30c6",
+          "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+          "command_sha256": {
+            "record-mood": "11e2a3e9900c47a8697004f267024865c2f4a5d21b87cb396e07ed4a5cc56478",
+            "search-moods": "9eee3a5852244fc06109e695358c2780a3970d28d04776b7d6416a11653bdea0"
+          },
+          "passed": true
+        }
+      },
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true
+    }
+  ],
+  "whole_inventory_status": "3491directories/11153declarations remain statically untested"
+}

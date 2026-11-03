@@ -549,7 +549,8 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             "Detail"->SelectionContainerCompat(root.props().optString("markdown"),Modifier.weight(1f).fillMaxWidth().padding(20.dp),detailStates.getOrPut(root.optString("id")){ScrollState(0)})
             "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },
                 { handle, args -> runtime.dispatch(handle, args) },
-                { handle, id, focused, value -> runtime.dispatchFormFocus(handle, id, focused, value) }, formSubmission, Modifier.weight(1f))
+                { handle, id, focused, value -> runtime.dispatchFormFocus(handle, id, focused, value) }, formSubmission,
+                { runtime.formFileStorage() }, Modifier.weight(1f))
             else->Text("Unsupported extension view",modifier=Modifier.weight(1f).padding(20.dp))
         }
         if (!failed && root?.optString("type") != "Grid") {

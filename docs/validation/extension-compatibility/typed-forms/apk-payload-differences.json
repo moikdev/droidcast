@@ -1,0 +1,16 @@
+{
+  "scope": "Same frozen production APK; v26 to v28 instrumentation changes only checkboxLabelTogglesExactlyOnce. ZIP entry hashes exclude directory entries.",
+  "old_test_commit": "71493bcaf3f9abca93fb73e7ec76cb37ac1364f0",
+  "current_test_commit": "5edba7535709d1065f629db10d37187ce237bd38",
+  "old_test_apk_sha256": "29a98d0e5129ba5e905a0cf8c9650ddab396e03df809cb926069f3198540caf0",
+  "current_test_apk_sha256": "62a33a3a4e9009f41cdd58466eae6c84dba935912f17550571b8b3f2686944d3",
+  "changed_payload_entries": [
+    "classes3.dex"
+  ],
+  "entry_hashes": {
+    "classes3.dex": {
+      "old": "fb265af2ae2dd639fbd021c7ad9b8bf46a61e53de2880717d7be6b919bab456b",
+      "current": "fbdf607afc15b47b8357ee789c201eadb64dc566f3342da802ee34e8ffb37f9e"
+    }
+  }
+}

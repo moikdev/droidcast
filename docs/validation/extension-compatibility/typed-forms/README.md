@@ -1,0 +1,16 @@
+# Typed Form evidence
+
+Issue #87 / PR #88 now has a repaired `350c2fe` production checkpoint. Its completed current-test-APK set contains **195 executions / 27 cohorts / 537 successful restoration checks**, including 24 critical font/picker executions. The common test APK separately records 12 repaired positives and 12 expected-negative executions on the old app, with 116 successful restoration checks. Expected negatives earn zero JUnit passes.
+
+- `checkpoint.json` binds the current 190 sources, app/current/common test APKs, completed groups, excluded failures and all current public files except itself.
+- `initial-checkpoint.json` is the exact initial manifest from Git commit `d67f71cd5402197f19ffcecd622dee8c343f26aa`. Its 742 listed hashes must be checked against that original commit, not against subsequently edited reports. The original `55e641a` runtime and its 183 executions/24 cohorts remain historical.
+- `audit-repair/cohorts/` contains the repaired-runtime completed outcomes. Legacy and audit-control groups explicitly assemble successful whole tablet/phone cohorts with distinct fresh whole landscape diagnostic cohorts. No failed group is relabeled as passed.
+- `audit-repair/matched-controls/` preserves four exact-common-APK negative/positive contracts across three layouts. Test bodies/helpers are identical to the separately compiled current APK; only `classes4.dex` payload differs. Exact stamp-only reconstruction was not established.
+- `audit-repair/excluded-cohorts/` retains the failed landscape legacy 11/12 and audit-control 3/4. Their original controllers/pipelines retain 35/36 and 11/12. IME-show and clipboard-dismissal setup timeouts remain unexplained; diagnostic passes establish neither cause nor a helper/product repair. Earlier failures remain in the initial evidence.
+- `audit-repair/capture-manifest.json` binds 34 additional byte-exact PNG/XML/frame sets. Initial `capture-manifest.json` preserves 33 earlier sets. Every caption names its original profile/build and controlled/pointer/semantic boundary. Raw XML keeps CRLF.
+- `audit-repair/retained-capture-hashes.json` binds7,017 retained capture files, including historical failures. It excludes private full host records, original-data/clipboard backups and raw system dumps.
+- `audit-repair/checks/` records the freshly executed 229 JVM cases, debug/test/benchmark builds and lint 0 errors/52 warnings per variant. The unchanged-source 25 Node and 77 Python results per mode remain retained in the initial `checks/`; they were not rerun.
+- `audit-repair/publication-verification.json` verifies 441 transforms, 35 allowlisted host records, 34 raw sets and 60 parseable supplemental XMLs. Initial publication verification retains its own scope. Host paths use XML-safe redactions; originals and private full host hashes are excluded.
+- `pipelines/` and `audit-repair/pipelines/` are archival references with redacted host paths. Executable guarded runners live under `scripts/`.
+
+Actual exact-head hosted CI and two fresh independent gpt-6.1-sol/high audits remain separate PR gates. Full Forms/Store, arbitrary providers, physical/OEM, TalkBack and production signing/migration remain open. Markdown/metadata and List.Detail visibility follow in #89.

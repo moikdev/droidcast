@@ -1,0 +1,74 @@
+{
+  "completed": true,
+  "groups": [
+    {
+      "group": "real",
+      "state": "final-typed-native-real-auditfinalv1-state.json",
+      "state_sha256": "6e65a7967193ca3f06d3939ea9a64e009d39033aab72b317934e7c02edcd3752",
+      "passes": 18,
+      "cohorts": 3,
+      "cleanup_checks": 61
+    },
+    {
+      "group": "typed",
+      "state": "final-typed-native-typed-auditfinalv1-state.json",
+      "state_sha256": "4d5dd33438b27ba3c416d4a126fbc74be539390ca4506bd9a301ebff442007f1",
+      "passes": 21,
+      "cohorts": 3,
+      "cleanup_checks": 58
+    },
+    {
+      "group": "lifecycle",
+      "state": "final-typed-native-lifecycle-auditfinalv1-state.json",
+      "state_sha256": "412b1d5e3f2cd981253e7fe619758c5fc96ff7a38658d100cede3d3ff49d94b7",
+      "passes": 9,
+      "cohorts": 3,
+      "cleanup_checks": 61
+    },
+    {
+      "group": "extended",
+      "state": "final-typed-native-extended-auditfinalv1-state.json",
+      "state_sha256": "1e79ae281c56f59bc86c658855d48d8dfa0fbbb2303aedb7353167d2c629b269",
+      "passes": 48,
+      "cohorts": 3,
+      "cleanup_checks": 58
+    },
+    {
+      "group": "files",
+      "state": "final-typed-native-files-auditfinalv1-state.json",
+      "state_sha256": "bbd04887285d7bab5a6c988917dd99d7e792784fec111fcd7d2efaf13e02441a",
+      "passes": 27,
+      "cohorts": 3,
+      "cleanup_checks": 61
+    },
+    {
+      "group": "legacy",
+      "state": "final-typed-native-legacy-auditverifiedv1-state.json",
+      "state_sha256": "e7ca7b1393481c6a3e487fbf9f29440065348c39750ed0f0aea2435b27177ee1",
+      "passes": 36,
+      "cohorts": 3,
+      "cleanup_checks": 58
+    },
+    {
+      "group": "auditrepairs",
+      "state": "final-typed-native-auditrepairs-auditverifiedv2-state.json",
+      "state_sha256": "283862e0bca878968b2881dab6e67129f320e5b082a9f0e034a7e76a14548aea",
+      "passes": 12,
+      "cohorts": 3,
+      "cleanup_checks": 58
+    },
+    {
+      "group": "criticalfonts",
+      "state": "final-typed-native-criticalfonts-auditfinalv1-state.json",
+      "state_sha256": "3810bce8abdd1ba70f18d8efd165aff7c2c60b68e9800ef26b5981b432057db7",
+      "passes": 24,
+      "cohorts": 6,
+      "cleanup_checks": 122
+    }
+  ],
+  "boundary": "195 completed current-APK executions; twelve same-body common-APK positive controls and twelve expected-negative executions remain separate. Legacy and audit-control groups explicitly assemble completed whole cohorts. Earlier failed pipelines are not relabeled as successful.",
+  "excluded_failed_groups": [
+    "final-typed-native-legacy-auditfinalv1-state.json",
+    "final-typed-native-auditrepairs-auditfinalv1-state.json"
+  ]
+}

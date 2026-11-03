@@ -8,12 +8,14 @@ let cases = 0;
 function test(name, body) { body(); cases++; process.stdout.write(`PASS ${name}\n`); }
 function fixture() {
   function Form(props) { return props; }
-  for (const name of ['TextField', 'PasswordField', 'TextArea', 'Checkbox', 'Dropdown', 'Description'])
+  for (const name of ['TextField', 'PasswordField', 'TextArea', 'Checkbox', 'Dropdown', 'DatePicker', 'TagPicker', 'FilePicker', 'Description'])
     Form[name] = function (props) { return props; };
   Form.Dropdown.Item = function Item() {};
   Form.Dropdown.Section = function Section() {};
   const api = {Clipboard: {copy() {}}, marker: {}};
   Object.defineProperty(api, 'Form', {enumerable: true, get: () => Form});
+  for (const kind of ['TextField', 'TextArea', 'Checkbox', 'Dropdown', 'DatePicker', 'TagPicker']) api['Form' + kind] = Form[kind];
+  Form.DatePicker.Type = Object.freeze({Date: 'date', DateTime: 'date_time'});
   const http = {STATUS_CODES: {}};
   const react = {publications: 0, useReducer() { return [0, () => { react.publications++; }]; }};
   const other = {};
@@ -50,6 +52,31 @@ test('field props, callbacks and absent focus handlers are preserved', () => {
   assert.equal(api.Form.TextField({id: 'uncontrolled', onChange: change}).onChange, change);
   assert.equal(api.Form.TextField({id: 'undefined', value: undefined, onChange: change}).onChange, change);
 });
+test('full-day dates use the reserved millisecond, including non-midnight and invalid dates', () => {
+  const f = fixture(), api = f.load()[0], helper = api.Form.DatePicker.isFullDay;
+  assert.equal(typeof helper, 'function');
+  assert.equal(helper, api.FormDatePicker.isFullDay);
+  assert.equal(api.Form.DatePicker.Type, f.Form.DatePicker.Type);
+  for (const value of [undefined, null, new Date(NaN), new Date('2024-02-29T00:00:00.000Z'), new Date('2024-02-29T12:34:56.345Z')])
+    assert.equal(helper(value), false);
+  for (const value of [new Date('2024-02-29T00:00:00.001Z'), new Date('2024-02-29T12:34:56.001Z'), new Date(-999)])
+    assert.equal(helper(value), true);
+  assert.equal(f.Form.DatePicker.isFullDay, undefined, 'The Android adapter must not mutate the upstream export');
+});
+test('deprecated field aliases share wrapping and native event values with Form members', () => {
+  const f = fixture(), api = f.load()[0];
+  for (const kind of ['TextField', 'TextArea', 'Checkbox', 'Dropdown', 'DatePicker', 'TagPicker']) {
+    assert.equal(api['Form' + kind], api.Form[kind]);
+    let observed;
+    const field = api['Form' + kind]({id: 'alias', value: 'controlled', onBlur: event => { observed = event.target.value; }});
+    f.context.__tinycast = {dispatch() { field.onBlur({target: {value: 'previous'}}); }};
+    const encoded = kind === 'DatePicker' ? [{$date: '2024-02-29T00:00:00.001Z'}] : kind === 'TagPicker' ? [['café 日本', 'second']] : [true];
+    f.native('session', 'handle', 'alias', 'blur', JSON.stringify(encoded));
+    if (kind === 'DatePicker') { assert.equal(observed.toISOString(), encoded[0].$date); assert.equal(api.FormDatePicker.isFullDay(observed), true); }
+    else if (kind === 'TagPicker') assert.deepEqual(Array.from(observed), encoded[0]);
+    else assert.equal(observed, true);
+  }
+});
 test('controlled acceptance, rejection and exceptions publish without changing callback results', () => {
   const f = fixture(), api = f.load()[0], marker = {}; let received;
   const field = api.Form.TextField({id: 'controlled', value: 'fixed', marker,
@@ -80,6 +107,31 @@ test('a different field or callback kind cannot inherit the override', () => {
   f.context.__tinycast = {dispatch() { props.onBlur(event); }};
   f.native('session', 'handle', 'another-field', 'blur', '["native"]'); assert.equal(observed, event);
   f.native('session', 'handle', 'owned', 'focus', '["native"]'); assert.equal(observed, event);
+});
+test('typed focus values revive dates and retain exact tag/file arrays', () => {
+  const f = fixture(), api = f.load()[0];
+  for (const [kind, encoded, expected] of [
+    ['DatePicker', [{$date: '2024-02-29T12:34:56.123Z'}], '2024-02-29T12:34:56.123Z'],
+    ['DatePicker', [null], null],
+    ['TagPicker', [['internal-two', 'café é 日本 🌱']], ['internal-two', 'café é 日本 🌱']],
+    ['FilePicker', [['/owned/a.json', '/owned/café 日本.txt']], ['/owned/a.json', '/owned/café 日本.txt']]
+  ]) {
+    let observed;
+    const props = api.Form[kind]({id: 'typed', onBlur: event => { observed = event.target.value; }});
+    f.context.__tinycast = {dispatch() { props.onBlur({target: {value: 'previous'}}); }};
+    f.native('session', 'handle', 'typed', 'blur', JSON.stringify(encoded));
+    if (expected === null) assert.equal(observed, null);
+    else if (kind === 'DatePicker') assert.equal(observed.toISOString(), expected);
+    else assert.deepEqual(Array.from(observed), expected);
+  }
+});
+test('invalid typed date payloads do not dispatch or retain event overrides', () => {
+  const f = fixture(), api = f.load()[0]; let observed, dispatches = 0;
+  const props = api.Form.DatePicker({id: 'typed', onBlur: event => { observed = event.target.value; }});
+  f.context.__tinycast = {dispatch() { dispatches++; props.onBlur({target: {value: 'original'}}); }};
+  assert.throws(() => f.native('session', 'handle', 'typed', 'blur', '[{"$date":"invalid"}]'), /Invalid Form date/);
+  assert.equal(dispatches, 0);
+  props.onBlur({target: {value: 'outside'}}); assert.equal(observed, 'outside');
 });
 test('throwing and nested dispatch restore their caller context', () => {
   const f = fixture(), api = f.load()[0], values = [];

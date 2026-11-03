@@ -8,6 +8,16 @@ class CleanupError(RuntimeError):
     pass
 
 
+def private_path_absent(result):
+    """A silent remote test may return 1 for absence. ADB also returns 1 for
+    transport/run-as failures, with error output; those are never absence.
+    """
+    if (type(result.returncode) is not int or result.returncode not in (0, 1)
+            or result.stdout != b'' or result.stderr != b''):
+        raise CleanupError('Cannot establish private path state')
+    return result.returncode == 1
+
+
 def reviewed_text_fixture_ids(value, owner_nonce, *, process_recreation=False):
     """Validate the whole selected-text lease before removing any owned path."""
     if type(process_recreation) is not bool:

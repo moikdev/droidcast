@@ -1,0 +1,148 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "fixture_mode": "typed-file-single-workflow",
+  "fixture_command_sha256": "0bd7b6edc08a322cad50f8dc328f3308db63ea455f8d442dbd38601d07c39bf7",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-faf2d116ece945e7b3574dac79690f85",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-files-files",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 344,
+      "visible_bounds": [
+        85,
+        1363,
+        995,
+        1503
+      ],
+      "control_size": [
+        910,
+        140
+      ],
+      "point": [
+        540,
+        1433
+      ]
+    },
+    {
+      "tag": "extension-files-choose-files",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 474,
+      "visible_bounds": [
+        74,
+        757,
+        1005,
+        897
+      ],
+      "control_size": [
+        931,
+        140
+      ],
+      "point": [
+        539.5,
+        827
+      ]
+    },
+    {
+      "tag": "extension-files-done-files",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 474,
+      "visible_bounds": [
+        74,
+        1101,
+        1005,
+        1241
+      ],
+      "control_size": [
+        931,
+        140
+      ],
+      "point": [
+        539.5,
+        1171
+      ]
+    }
+  ],
+  "system_picker_gestures": [
+    {
+      "owned_target": "location drawer \/ Droidcast owned files",
+      "long_press": false,
+      "accessibility_acknowledged": true,
+      "acceptance": "Subsequent actual picker route, native field values, JS bytes and caller state; no retry on a false acknowledgement"
+    }
+  ],
+  "system_picker_package": "com.google.android.documentsui",
+  "system_picker_root": "Droidcast owned files",
+  "system_picker_path": "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor",
+  "cancel_preserved_selection_and_changes": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

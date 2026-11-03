@@ -19,6 +19,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.UiSelector
+import androidx.test.uiautomator.UiScrollable
 import dev.tinycast.android.extensions.*
 import org.json.JSONObject
 import org.json.JSONArray
@@ -34,6 +38,8 @@ import java.util.UUID
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.*
 
 /** Real runtime/native controls. The same harness can run against the old app.
  * Uses the shared guarded input runner/lease and independent clipboard recovery.
@@ -135,12 +141,108 @@ class ExtensionFormDeviceTest {
             globalThis.__formProbe={changes:0,focus:{},blur:{},blurLengths:{},dispatches:0};
             const dispatch=globalThis.__tinycast.dispatch;
             globalThis.__tinycast.dispatch=function(...args){globalThis.__ownedFormSession=args[0];globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
-            function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe.focus;p[id]=(p[id]||0)+1},
-              onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0}}}
+            const hostRender=globalThis.__tinycastHost.render;
+            globalThis.__tinycastHost.render=function(...args){
+              const probe=globalThis.__formProbe,request=probe.typedGateRequest,result=hostRender.apply(this,args);
+              // The Android adapter enqueues its pending-submit drain before
+              // returning from render. This witness runs after that drain.
+              if(request&&!request.witnessQueued){request.witnessQueued=true;Promise.resolve().then(()=>{
+                request.after_host_render_and_submit_drain=true;request.settled_submits=probe.submits;
+              })}
+              return result;
+            };
+            function typedFacts(value){
+              const date=value instanceof Date,array=Array.isArray(value),valid=date&&!Number.isNaN(value.getTime());
+              return {is_date:date,is_null:value===null,is_array:array,array_strings:array&&value.every(item=>typeof item==='string'),
+                valid_date:valid,date_iso:valid?value.toISOString():null,
+                full_day_helper:typeof api.Form.DatePicker.isFullDay==='function',
+                full_day:date&&typeof api.Form.DatePicker.isFullDay==='function'?api.Form.DatePicker.isFullDay(value):null};
+            }
+            function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe;p.focus[id]=(p.focus[id]||0)+1;(p.focusFacts??={})[id]=typedFacts(e.target.value)},
+              onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0;
+                (p.blurFacts??={})[id]=typedFacts(e.target.value);(p.blurValues??={})[id]=e.target.value}}}
             module.exports.default=function(props){
               if(mode==='configuration'){
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
+              }
+              if(mode==='date-clear-focus'){
+                const [name,setName]=React.useState('Owned starting text'),[date,setDate]=React.useState(new Date('2024-02-29T12:34:00.000Z'));
+                const [revision,bump]=React.useReducer(value=>value+1,0);
+                const probe=globalThis.__formProbe;probe.submits??=0;probe.events??=[];
+                globalThis.__ownedTyped={bump};
+                const events=id=>{
+                  const base=fieldEvents(id);
+                  return {onFocus:e=>{base.onFocus(e);probe.events.push({id,event:'focus',value:e.target.value,facts:typedFacts(e.target.value)})},
+                    onBlur:e=>{base.onBlur(e);probe.events.push({id,event:'blur',value:e.target.value,facts:typedFacts(e.target.value)})}};
+                };
+                return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
+                  React.createElement(api.Action.SubmitForm,{title:'Submit owned focus values',onSubmit:values=>{
+                    probe.submits++;probe.submittedValues=values;probe.typedSubmitted={date:typedFacts(values.date)};
+                    probe.events.push({id:'form',event:'submit'});
+                  }}))},
+                  React.createElement(api.Form.TextField,{key:'name',id:'name',title:'Owned focus-return text',value:name,
+                    onChange:value=>{setName(value);probe.changes++;bump()},...events('name')}),
+                  React.createElement(api.Form.DatePicker,{key:'date',id:'date',title:'Owned focus-return date',value:date,
+                    onChange:value=>{setDate(value);probe.changes++;probe.dateChangeFacts=typedFacts(value);bump()},...events('date')}),
+                  React.createElement(api.Form.Description,{key:'typed-publication',text:'Typed publication '+revision}));
+              }
+              if(mode.startsWith('typed-')){
+                const initialDate=mode==='typed-date-dst-gap'?'2024-03-10T06:30:00.000Z':mode==='typed-date-dst-overlap'?'2024-11-03T06:30:12.345Z':
+                  mode==='typed-date-full-day'?'2024-02-29T00:00:00.001Z':'2024-02-29T12:34:00.000Z';
+                const [date,setDate]=React.useState(mode==='typed-date-day'?new Date(2024,1,28,12,34):new Date(initialDate));
+                const [tags,setTags]=React.useState(mode==='typed-tags-empty'?['missing-owned-value']:['internal-two']),[files,setFiles]=React.useState([]);
+                const [revision,bump]=React.useReducer(value=>value+1,0),[dateKey,setDateKey]=React.useState('date');
+                const dateRef=React.useRef(null),tagsRef=React.useRef(null);
+                const [defaultDate,setDefaultDate]=React.useState('2024-02-29T12:34:00.000Z'),[defaultTags,setDefaultTags]=React.useState(['internal-two']);
+                const [options,setOptions]=React.useState(mode==='typed-tags-empty'?[]:[
+                  {value:'internal-one',title:mode==='typed-tags-long'?${JSONObject.quote(longTitle)}:'Readable first category'},
+                  {value:'internal-two',title:'Readable second category'}]);
+                const fileWorkflow=mode.startsWith('typed-file-'),{push}=api.useNavigation();
+                const [fileEnabled,setFileEnabled]=React.useState(true);
+                globalThis.__ownedTypedFiles={setFileEnabled};
+                globalThis.__ownedTyped={setDate,setTags,setOptions,setDateKey,setDefaultDate,setDefaultTags,bump,
+                  resetDate:()=>dateRef.current.reset(),resetTags:()=>tagsRef.current.reset(),focusDate:()=>dateRef.current.focus()};
+                const [errorId,setErrorId]=React.useState(mode==='typed-file-error-workflow'?'files':mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null);
+                globalThis.__formProbe.submits ??= 0;
+                const change=(id,setter)=>value=>{
+                  const probe=globalThis.__formProbe;probe.changes++;(probe.typedChanges??={})[id]=typedFacts(value);
+                  if(mode!=='typed-'+id+'-reject')setter(mode==='typed-date-transform'&&id==='date'&&value?new Date(value.getTime()+30000):value);
+                  if(errorId===id)setErrorId(null);
+                  bump();
+                };
+                const error=id=>errorId===id?'Owned typed field must be corrected before submitting.':undefined;
+                const dateKind=mode==='typed-date-day'?api.Form.DatePicker.Type.Date:api.Form.DatePicker.Type.DateTime;
+                const bounds=mode==='typed-date-day'?{min:new Date(2024,1,29,23,59),max:new Date(2024,1,29,0,0)}:
+                  mode==='typed-date-bounds'?{min:new Date('2024-02-29T12:34:00.000Z'),max:new Date('2024-02-29T12:35:00.000Z')}:
+                  mode==='typed-date-inconsistent'?{min:new Date('2024-03-01T00:00:00.000Z'),max:new Date('2024-02-28T00:00:00.000Z')}:{};
+                return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
+                  React.createElement(api.Action.SubmitForm,{title:'Inspect owned typed values',onSubmit:values=>{
+                    globalThis.__formProbe.submits++;globalThis.__formProbe.submittedValues=values;
+                    const types={};
+                    for(const id of ['date','tags','files'])types[id]={...typedFacts(values[id]),present:Object.prototype.hasOwnProperty.call(values,id)};
+                    globalThis.__formProbe.typedSubmitted=types;
+                    if(fileWorkflow){
+                      const fs=require('fs');
+                      const reads=values.files.map(path=>{
+                        const directory=fs.statSync(path).isDirectory(),leaf=directory?path+'/nested.txt':path;
+                        return {name:path.split('/').pop(),directory,base64:fs.readFileSync(leaf).toString('base64')};
+                      });
+                      globalThis.__formProbe.fileReads=reads;
+                      push(React.createElement(api.Detail,{markdown:JSON.stringify({outcome:'Owned imported documents',reads})}));
+                    }
+                  }}))},
+                  React.createElement(api.Form.DatePicker,{key:dateKey,ref:dateRef,id:'date',title:'Owned appointment date and time',
+                    type:dateKind,...bounds,...(mode==='typed-defaults'?{defaultValue:new Date(defaultDate)}:{value:date}),onChange:change('date',setDate),error:error('date'),
+                    info:'Choose an owned calendar date and time by touch.',...fieldEvents('date')}),
+                  React.createElement(api.Form.TagPicker,{key:'tags',ref:tagsRef,id:'tags',title:'Owned output categories',
+                    ...(mode==='typed-defaults'?{defaultValue:defaultTags}:{value:tags}),onChange:change('tags',setTags),error:error('tags'),...fieldEvents('tags')},
+                    ...options.map(option=>React.createElement(api.Form.TagPicker.Item,{key:option.value,...option}))),
+                  React.createElement(api.Form.FilePicker,{key:'files',id:'files',title:'Owned input documents',
+                    ...(fileWorkflow?{canChooseFiles:fileEnabled&&!mode.includes('folder'),canChooseDirectories:mode.includes('folder'),allowMultipleSelection:mode.includes('multiple')}:{}),
+                    value:files,onChange:change('files',setFiles),error:error('files'),...fieldEvents('files')}),
+                  React.createElement(api.Form.Description,{key:'scope',text:fileWorkflow?'Owned documents through Android picker, private copies and exact byte inspection. No Store or arbitrary-provider certification.':'Owned typed controls; no Store or provider workflow is certified by this fixture.'}),
+                  React.createElement(api.Form.Description,{key:'typed-publication',text:'Typed publication '+revision}));
               }
               if(mode.startsWith('submit-')){
                 const [name,setName]=React.useState(mode==='submit-reject'?'OWNED FIXED':'Owned invalid 日本');
@@ -284,6 +386,29 @@ class ExtensionFormDeviceTest {
             .put("font_scale", context.resources.configuration.fontScale).put("launch_epoch", epoch)
             .put("ime_visible", ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true)
             .put("synchronization", "Committed semantics and two display frames; hierarchy before PNG; stable runtime tree")
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            val dialogs = JSONArray()
+            compose.activityRule.scenario.onActivity {
+                fun visit(view: android.view.View) {
+                    if (view is androidx.compose.ui.window.DialogWindowProvider) {
+                        val window = view.window
+                        val insets = ViewCompat.getRootWindowInsets(window.decorView)
+                        val screen = IntArray(2); window.decorView.getLocationOnScreen(screen)
+                        val visibleFrame = android.graphics.Rect(); window.decorView.getWindowVisibleDisplayFrame(visibleFrame)
+                        dialogs.put(JSONObject().put("dim_enabled", (window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND) != 0)
+                            .put("dim_amount", window.attributes.dimAmount.toDouble())
+                            .put("ime_visible", insets?.isVisible(WindowInsetsCompat.Type.ime()) == true)
+                            .put("width_px", window.decorView.width).put("height_px", window.decorView.height)
+                            .put("soft_input_mode", window.attributes.softInputMode)
+                            .put("screen_origin", JSONArray(screen.toList()))
+                            .put("visible_display_frame", JSONArray(listOf(visibleFrame.left, visibleFrame.top, visibleFrame.right, visibleFrame.bottom))))
+                    }
+                    if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+                }
+                android.view.inspector.WindowInspector.getGlobalWindowViews().forEach(::visit)
+            }
+            frame.put("process_dialog_windows", dialogs)
+        }
         ownedPublication()?.let { publication ->
             val composed = compose.onNodeWithText(publication.marker, useUnmergedTree = true).fetchSemanticsNode()
             val text = composed.config[SemanticsProperties.Text].joinToString("") { it.text }
@@ -462,8 +587,17 @@ class ExtensionFormDeviceTest {
         assertCheckboxSemantics("extension-checkbox-enabled", checkboxLabel)
         compose.waitForIdle(); capture("label-tap")
         assertTrue("Tapping the actual label must toggle its checkbox", field("Form.Checkbox", "enabled").props().optBoolean("value"))
-        compose.onNodeWithText("Name focus=0 blur=0 length=0; checkbox changes=1", useUnmergedTree = true).assertIsDisplayed()
-        record.put("label_pointer_tap_toggled_once", true).put("passed", true)
+        val counterText = "Name focus=0 blur=0 length=0; checkbox changes=1"
+        compose.waitUntil(5000) {
+            activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any { it.props().optString("text") == counterText } == true
+        }
+        val counter = compose.onNodeWithText(counterText, useUnmergedTree = true)
+        var revealSteps = 0
+        while (!counter.isDisplayed() && revealSteps++ < 60) drag(compose.onNodeWithTag("extension-form"), -1)
+        counter.assertIsDisplayed()
+        counter.assertTextEquals(counterText)
+        capture("label-tap-count-visible")
+        record.put("checkbox_rendered_change_count", 1).put("label_pointer_tap_toggled_once", true).put("passed", true)
     }
     private fun assertCheckboxSemantics(tag: String, label: String) {
         val node = compose.onNodeWithTag(tag).fetchSemanticsNode()
@@ -509,19 +643,25 @@ class ExtensionFormDeviceTest {
             node.performScrollTo()
         }
         compose.waitForIdle()
+        node.assertIsDisplayed()
         val target = node.fetchSemanticsNode()
+        assertTrue("A pointer target must actually be placed", target.layoutInfo.isPlaced)
         val visible = target.boundsInRoot
-        val activityRoot = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag("extension-palette")), useUnmergedTree = true)
-        val root = activityRoot.fetchSemanticsNode().boundsInRoot
+        // Dialog bounds use a different local origin. Inject through the root
+        // that owns this exact target, rather than the launcher Activity root.
+        val targetRoot = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
+        val rootNode = targetRoot.fetchSemanticsNode()
+        val root = rootNode.boundsInRoot
         val point = visible.center
         val taps = record.optJSONArray("pointer_taps") ?: JSONArray().also { record.put("pointer_taps", it) }
         taps.put(JSONObject().put("tag", tag).put("viewport", viewport)
+            .put("injection_owner", "Compose root containing the exact target tag").put("owner_root_semantics_id", rootNode.id)
             .put("visible_bounds", JSONArray(listOf(visible.left, visible.top, visible.right, visible.bottom)))
             .put("control_size", JSONArray(listOf(target.size.width, target.size.height)))
             .put("point", JSONArray(listOf(point.x, point.y))))
         assertTrue("A pointer target needs a useful visible hit region", visible.width > 1 &&
             visible.height + 1 >= minOf(target.size.height.toFloat(), minimumHitHeight) && root.contains(point))
-        activityRoot.performTouchInput { click(point - root.topLeft) }
+        targetRoot.performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
         if (target.config.contains(SemanticsProperties.EditableText)) {
             compose.waitUntil(5000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()?.let {
@@ -944,7 +1084,7 @@ class ExtensionFormDeviceTest {
     }
 
     private fun imeVisible() = ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
-    private fun awaitImeGeometry(shown: Boolean? = null) {
+    private fun awaitImeGeometry(shown: Boolean? = null, window: android.view.Window? = null) {
         val done = CountDownLatch(1)
         val deadline = android.os.SystemClock.uptimeMillis() + 10000
         var previous: List<Int>? = null
@@ -954,12 +1094,15 @@ class ExtensionFormDeviceTest {
         lateinit var observer: Runnable
         lateinit var view: android.view.View
         compose.activityRule.scenario.onActivity {
-            view = it.window.decorView
+            view = window?.decorView ?: it.window.decorView
             observer = object : Runnable {
                 override fun run() {
                     val insets = ViewCompat.getRootWindowInsets(view)
+                    val screen = IntArray(2); view.getLocationOnScreen(screen)
+                    val visible = android.graphics.Rect(); view.getWindowVisibleDisplayFrame(visible)
                     val geometry = listOf(if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true) 1 else 0,
-                        insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: -1, view.width, view.height)
+                        insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: -1, view.width, view.height,
+                        screen[0], screen[1], visible.left, visible.top, visible.right, visible.bottom)
                     val now = android.os.SystemClock.uptimeMillis(); frames++
                     if (geometry != previous) { previous = geometry; stableSince = now }
                     settled = (shown == null || geometry[0] == (if (shown) 1 else 0)) && geometry[1] >= 0 && now - stableSince >= 100
@@ -971,7 +1114,8 @@ class ExtensionFormDeviceTest {
         val completed = done.await(10, TimeUnit.SECONDS)
         compose.activityRule.scenario.onActivity { view.removeCallbacks(observer) }
         val samples = record.optJSONArray("settled_ime_geometry") ?: JSONArray().also { record.put("settled_ime_geometry", it) }
-        samples.put(JSONObject().put("requested_visibility", shown ?: JSONObject.NULL).put("native_frames", frames).put("geometry", JSONArray(previous.orEmpty()))
+        samples.put(JSONObject().put("requested_visibility", shown ?: JSONObject.NULL).put("window_scope", if (window == null) "activity" else "owned picker dialog")
+            .put("native_frames", frames).put("geometry", JSONArray(previous.orEmpty()))
             .put("stable_for_at_least_ms", 100).put("settled", completed && settled))
         assertTrue("Native IME visibility/insets and window geometry must settle before choosing pointer coordinates", completed && settled)
         compose.waitForIdle()
@@ -1104,7 +1248,7 @@ class ExtensionFormDeviceTest {
             }
         }
         val lineHeight = layouts.maxOf { text -> (0 until text.lineCount).maxOf { text.getLineBottom(it) - text.getLineTop(it) } }
-        if (viewport != "inline-menu-choices") revealViewport(viewport, lineHeight)
+        if (viewport in setOf("extension-form", "extension-configuration")) revealViewport(viewport, lineHeight)
         val body = compose.onNodeWithTag(viewport)
         var reset = 0
         while (reset++ < 120) {
@@ -1115,7 +1259,7 @@ class ExtensionFormDeviceTest {
         // Resetting the inner view at its leading edge can also scroll its
         // parent back to the header. Reveal the bounded body again before
         // measuring lines or starting short inner-view gestures.
-        if (viewport != "inline-menu-choices") revealViewport(viewport, lineHeight)
+        if (viewport in setOf("extension-form", "extension-configuration")) revealViewport(viewport, lineHeight)
         val witnessed = layouts.map { BooleanArray(it.lineCount) }; val steps = JSONArray()
         capture("$phase-top")
         var attempts = 0
@@ -1239,6 +1383,1318 @@ class ExtensionFormDeviceTest {
         record.put("native_preferences_edited_not_seeded", true).put("exact_unicode_form_copy", true).put("form_state_preserved_on_back", true)
             .put("launcher_query_preserved", true).put("passed", true)
     }
+    private fun typedTouchControl(type: String, id: String, tag: String) {
+        launch("typed-controls")
+        val current = field(type, id)
+        record.put("typed_field_type", type).put("typed_field_id", id)
+            .put("initial_native_value", current.props().get("value"))
+            .put("matching_native_controls", compose.onAllNodesWithTag(tag).fetchSemanticsNodes().size)
+            .put("test_boundary", "Native touch-control availability only; no picker selection, provider or submitted-value workflow is certified")
+        capture("typed-control-before-interaction")
+        compose.onNodeWithTag(tag).assertIsDisplayed().assertHasClickAction()
+        record.put("native_touch_control_available", true).put("passed", true)
+    }
+    @Test fun datePickerHasNativeTouchControl() = typedTouchControl("Form.DatePicker", "date", "extension-date-date")
+    @Test fun tagPickerHasNativeTouchControl() = typedTouchControl("Form.TagPicker", "tags", "extension-tags-tags")
+    @Test fun filePickerHasNativeTouchControl() = typedTouchControl("Form.FilePicker", "files", "extension-files-files")
+    private fun typedErrorDisablesSubmit(type: String, id: String) {
+        launch("typed-error-$id")
+        val supplied = field(type, id).props().getString("error")
+        assertEquals("Owned typed field must be corrected before submitting.", supplied)
+        record.put("typed_field_type", type).put("typed_field_id", id).put("runtime_supplied_error", supplied)
+            .put("initial_submit_count", probe().getInt("submits"))
+            .put("native_submit_enabled", !compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config.contains(SemanticsProperties.Disabled))
+            .put("test_boundary", "Current native Submit enabled/disabled state only; this case does not attempt activation or certify JavaScript callback rejection")
+        assertEquals(0, probe().getInt("submits"))
+        capture("typed-error-primary-state")
+        compose.onNodeWithTag("extension-primary").assertIsNotEnabled()
+        record.put("native_submit_disabled_for_typed_error", true).put("passed", true)
+    }
+    @Test fun datePickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.DatePicker", "date")
+    @Test fun tagPickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.TagPicker", "tags")
+    @Test fun filePickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.FilePicker", "files")
+
+    private fun typedDateIso(): String? = field("Form.DatePicker", "date").props().optJSONObject("value")?.getString("\$date")
+    private fun increaseTypedDateMinute(): String {
+        val before = java.time.Instant.parse(requireNotNull(typedDateIso())).atZone(java.time.ZoneId.systemDefault())
+        val minute = (before.minute + 1) % 60
+        compose.onNodeWithTag("extension-date-time-plus-date-minute").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals(minute.toString().padStart(2, '0'))
+        return java.time.format.DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(before.withMinute(minute).toInstant())
+    }
+    private fun submittedTypedDate(expected: String?, expectedChange: String? = expected) {
+        touch("extension-primary")
+        compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val values = probe().getJSONObject("submittedValues")
+        assertTrue("Explicit null must not be confused with an absent date key", values.has("date"))
+        if (expected == null) assertTrue(values.isNull("date")) else assertEquals(expected, values.getString("date"))
+        val current = probe()
+        val changed = current.getJSONObject("typedChanges").getJSONObject("date")
+        val submitted = current.getJSONObject("typedSubmitted").getJSONObject("date")
+        assertTrue(submitted.getBoolean("present"))
+        for ((facts, value) in listOf(changed to expectedChange, submitted to expected)) {
+            assertEquals(value == null, facts.getBoolean("is_null"))
+            assertEquals(value != null, facts.getBoolean("is_date"))
+            if (value != null) { assertTrue(facts.getBoolean("valid_date")); assertEquals(value, facts.getString("date_iso")) }
+        }
+        record.put("date_change_runtime_type", changed).put("date_submit_runtime_type", submitted)
+        assertEquals("[\"internal-two\"]", values.getJSONArray("tags").toString())
+        assertEquals(0, values.getJSONArray("files").length())
+        record.put("submitted_date", expected ?: JSONObject.NULL).put("submit_count", probe().getInt("submits"))
+            .put("test_boundary", "Actual native date interaction and owned JS callback values; tag/file selection and a separate destination are not exercised")
+    }
+    @Test fun datePickerClearsAndSubmitsAnActualNull() {
+        launch("typed-controls")
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        touch("extension-date-clear-date")
+        compose.waitUntil(5000) { field("Form.DatePicker", "date").props().isNull("value") }
+        compose.waitForIdle(); capture("date-cleared")
+        submittedTypedDate(null); capture("date-null-submitted")
+        record.put("passed", true)
+    }
+    @Test fun datePickerCancelsAnEditedDraftWithoutChangingTheValue() {
+        launch("typed-controls"); val before = typedDateIso()
+        touch("extension-date-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        increaseTypedDateMinute()
+        capture("date-draft-before-cancel")
+        compose.onNodeWithTag("extension-date-cancel-date").performTouchInput { click(center) }
+        compose.waitForIdle(); compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        assertEquals(before, typedDateIso()); assertEquals(0, probe().getInt("changes"))
+        capture("date-cancelled")
+        record.put("date_before", before).put("date_after", typedDateIso()).put("cancel_preserved_value_and_callback_count", true).put("passed", true)
+    }
+    @Test fun datePickerConfirmsAnEditedTimeAndSubmitsItsExactInstant() {
+        launch("typed-controls"); touch("extension-date-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        val expected = increaseTypedDateMinute()
+        capture("date-draft-before-confirm")
+        compose.onNodeWithTag("extension-date-confirm-date").performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedDateIso() == expected }
+        compose.waitForIdle(); compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        capture("date-confirmed")
+        submittedTypedDate(expected); record.put("passed", true)
+    }
+    @Test fun dateTimeCanChooseAnAllDayDateWithTheFullDayMarker() {
+        launch("typed-controls"); val original = java.time.Instant.parse(requireNotNull(typedDateIso()))
+        touch("extension-date-date"); capture("date-time-before-all-day-choice")
+        compose.onNodeWithTag("extension-date-all-day-date").assertIsOff(); touch("extension-date-all-day-date")
+        compose.onNodeWithTag("extension-date-all-day-date").assertIsOn()
+        compose.onNodeWithTag("extension-date-time-date-minute").assertDoesNotExist(); capture("date-time-all-day-draft")
+        touch("extension-date-confirm-date")
+        val expected = dateIso(original.atZone(java.time.ZoneId.systemDefault()).toLocalDate().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().plusMillis(1))
+        compose.waitUntil(5000) { typedDateIso() == expected }; submittedTypedDate(expected)
+        assertTrue(record.getJSONObject("date_change_runtime_type").getBoolean("full_day"))
+        assertTrue(record.getJSONObject("date_submit_runtime_type").getBoolean("full_day"))
+        capture("date-time-all-day-submitted"); record.put("explicit_all_day_choice_in_datetime_field", true).put("passed", true)
+    }
+    @Test fun aFullDayDefaultCanBecomeAnExplicitTimeWithoutItsReservedMarker() {
+        launch("typed-date-full-day"); val original = java.time.Instant.parse(requireNotNull(typedDateIso())).atZone(java.time.ZoneId.systemDefault())
+        touch("extension-date-date"); capture("date-time-full-day-default")
+        compose.onNodeWithTag("extension-date-all-day-date").assertIsOn()
+        compose.onNodeWithTag("extension-date-time-date-minute").assertDoesNotExist()
+        touch("extension-date-all-day-date"); compose.onNodeWithTag("extension-date-all-day-date").assertIsOff()
+        touch("extension-date-time-plus-date-minute")
+        val expected = dateIso(original.withMinute((original.minute + 1) % 60).withNano(0).toInstant())
+        capture("date-time-explicit-clock-draft"); touch("extension-date-confirm-date")
+        compose.waitUntil(5000) { typedDateIso() == expected }; submittedTypedDate(expected)
+        assertFalse(record.getJSONObject("date_change_runtime_type").getBoolean("full_day"))
+        assertFalse(record.getJSONObject("date_submit_runtime_type").getBoolean("full_day"))
+        capture("date-time-explicit-clock-submitted"); record.put("specific_time_does_not_keep_full_day_marker", true).put("passed", true)
+    }
+    private fun typedTagValues() = field("Form.TagPicker", "tags").props().getJSONArray("value").toString()
+    private fun typedTagRow(index: Int): SemanticsNodeInteraction {
+        val tag = "extension-tags-option-tags-$index"
+        compose.onNodeWithTag("extension-tags-options-tags").performScrollToNode(hasTestTag(tag))
+        return compose.onNodeWithTag(tag)
+    }
+    private fun submittedTypedTags(expected: List<String>) {
+        touch("extension-primary")
+        compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val values = probe().getJSONObject("submittedValues")
+        assertEquals(JSONArray(expected).toString(), values.getJSONArray("tags").toString())
+        val changed = probe().getJSONObject("typedChanges").getJSONObject("tags")
+        val submitted = probe().getJSONObject("typedSubmitted").getJSONObject("tags")
+        assertTrue(submitted.getBoolean("present"))
+        for (facts in listOf(changed, submitted)) { assertTrue(facts.getBoolean("is_array")); assertTrue(facts.getBoolean("array_strings")) }
+        record.put("tag_change_runtime_type", changed).put("tag_submit_runtime_type", submitted)
+        assertEquals("2024-02-29T12:34:00.000Z", values.getString("date"))
+        assertEquals(0, values.getJSONArray("files").length())
+        record.put("submitted_tags", JSONArray(expected)).put("submit_count", probe().getInt("submits"))
+            .put("test_boundary", "Actual tag pointer changes and owned JS callback array values; file selection and a separate destination are not exercised")
+    }
+    @Test fun tagPickerAddsAndRemovesExactValuesByTouch() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertIsDisplayed()
+        typedTagRow(1).assertIsOn()
+        typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        compose.waitForIdle(); typedTagRow(0).assertIsOn(); capture("tags-two-selected")
+        typedTagRow(1).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-one\"]" }
+        compose.waitForIdle(); typedTagRow(1).assertIsOff()
+        compose.onNodeWithTag("extension-tags-done-tags").performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
+        compose.onNodeWithTag("extension-tags-tags").assertTextContains("Readable first category")
+        capture("tags-one-selected"); submittedTypedTags(listOf("internal-one")); record.put("passed", true)
+    }
+    @Test fun tagPickerClearsAndSubmitsAnEmptyArray() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        typedTagRow(1).assertIsOn(); capture("tags-before-clear")
+        compose.onNodeWithTag("extension-tags-clear-tags").performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[]" }
+        compose.waitForIdle(); typedTagRow(1).assertIsOff()
+        compose.onNodeWithTag("extension-tags-done-tags").performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
+        capture("tags-cleared"); submittedTypedTags(emptyList()); record.put("passed", true)
+    }
+
+    private fun typedPublication(): Pair<String, Int> {
+        val root = requireNotNull(activeRoot(catalog.runtimeTree))
+        val counter = root.nodes("Form.Description").mapNotNull {
+            Regex("Typed publication ([0-9]+)").matchEntire(it.props().optString("text"))?.groupValues?.get(1)?.toIntOrNull()
+        }.single()
+        return root.optString("id") to counter
+    }
+    private fun awaitTypedPublication(before: Pair<String, Int>, phase: String) {
+        val expected = before.first to before.second + 1
+        compose.waitUntil(5000) { typedPublication() == expected }
+        compose.waitForIdle()
+        val marker = "Typed publication ${expected.second}"
+        val composed = compose.onNodeWithText(marker, useUnmergedTree = true).fetchSemanticsNode()
+        assertEquals(marker, composed.config[SemanticsProperties.Text].joinToString("") { it.text })
+        assertEquals(expected, typedPublication())
+        val witnesses = record.optJSONArray("typed_publications") ?: JSONArray().also { record.put("typed_publications", it) }
+        witnesses.put(JSONObject().put("phase", phase).put("root_id", expected.first).put("before", before.second)
+            .put("native_counter", expected.second).put("composed_marker", marker).put("composed_semantics_id", composed.id))
+    }
+    private fun mutateTyped(script: String, phase: String) {
+        val before = typedPublication()
+        evaluateOwned("(()=>{$script;globalThis.__ownedTyped.bump();return true})()")
+        awaitTypedPublication(before, phase)
+    }
+    private fun dateIso(instant: java.time.Instant): String = java.time.format.DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(instant)
+
+    private fun touchTypedCalendarDay(label: String) {
+        val calendar = hasTestTag("extension-date-calendar-date")
+        val day = compose.onNode(hasText(label) and hasAnyAncestor(calendar))
+        val viewport = compose.onNode(hasScrollAction() and hasAnyDescendant(calendar) and
+            hasAnyAncestor(hasTestTag("extension-date-dialog-date")), useUnmergedTree = true)
+        val minimum = 48f * context.resources.displayMetrics.density
+        var revealed = false
+        for (attempt in 0 until 60) {
+            val node = day.fetchSemanticsNode(); val visible = node.boundsInRoot
+            val bounds = viewport.fetchSemanticsNode().boundsInRoot
+            if (visible.height + 1 >= minOf(node.size.height.toFloat(), minimum) &&
+                visible.width + 1 >= minOf(node.size.width.toFloat(), minimum) && bounds.contains(visible.center)) {
+                revealed = true; break
+            }
+            assertTrue("The calendar needs a useful vertical pointer viewport", bounds.height + 1 >= minimum)
+            val direction = if (fullBounds(day).top < bounds.top) 1 else -1
+            drag(viewport, direction)
+        }
+        assertTrue("The actual calendar day must be visible before its pointer tap", revealed)
+        day.assertIsEnabled()
+        val node = day.fetchSemanticsNode(); val point = node.boundsInRoot.center
+        val root = compose.onNode(isRoot() and hasAnyDescendant(calendar), useUnmergedTree = true)
+        val origin = root.fetchSemanticsNode().boundsInRoot.topLeft
+        record.put("calendar_day_pointer", JSONObject().put("label", label).put("point", JSONArray(listOf(point.x, point.y)))
+            .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom))))
+        root.performTouchInput { click(point - origin) }; compose.waitForIdle()
+        // Material 3 exposes selection on the Day Surface itself.
+        // A scroll request or successful event injection alone proves neither.
+        day.assertIsSelected(); record.put("calendar_selected_after_pointer", true)
+    }
+
+    @Test fun dateOnlySelectsACalendarDayWithInclusiveDayBounds() {
+        launch("typed-date-day"); touch("extension-date-date")
+        touchTypedCalendarDay("Thursday, February 29, 2024")
+        capture("date-calendar-day-selected")
+        val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "calendar day accepted")
+        val zone = java.time.ZoneId.systemDefault()
+        val expected = dateIso(java.time.LocalDate.of(2024, 2, 29).atStartOfDay(zone).toInstant().plusMillis(1))
+        record.put("expected_date_iso", expected).put("observed_date_iso", typedDateIso())
+            .put("date_change_runtime_type", probe().getJSONObject("typedChanges").getJSONObject("date"))
+        capture("date-calendar-returned")
+        assertEquals(expected, typedDateIso()); submittedTypedDate(expected)
+        for (key in listOf("date_change_runtime_type", "date_submit_runtime_type")) {
+            assertTrue(record.getJSONObject(key).getBoolean("full_day_helper"))
+            assertTrue(record.getJSONObject(key).getBoolean("full_day"))
+        }
+        capture("date-calendar-day-submitted")
+        record.put("zone", zone.id).put("calendar_day", "2024-02-29")
+            .put("bounds_contract", "Same local day accepted despite min 23:59 and max 00:00; exact time components ignored for Date kind")
+            .put("passed", true)
+    }
+    @Test fun dateTimeBoundsRejectOutsideThenAcceptTheInclusiveMaximum() {
+        launch("typed-date-bounds"); touch("extension-date-date")
+        repeat(2) { touch("extension-date-time-plus-date-minute") }
+        touch("extension-date-confirm-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        compose.onNodeWithTag("extension-date-picker-error-date").performScrollTo().assertTextEquals("Choose a date and time within the allowed range.")
+        assertEquals(0, probe().getInt("changes")); assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        capture("date-outside-instant-bound")
+        touch("extension-date-time-minus-date-minute")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "inclusive maximum")
+        assertEquals("2024-02-29T12:35:00.000Z", typedDateIso())
+        submittedTypedDate("2024-02-29T12:35:00.000Z"); capture("date-inclusive-maximum")
+        record.put("outside_value_did_not_dispatch", true).put("inclusive_maximum_accepted", true).put("passed", true)
+    }
+    @Test fun dateTimeCanConfirmTheInclusiveMinimum() {
+        launch("typed-date-bounds"); touch("extension-date-date")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "inclusive minimum")
+        submittedTypedDate("2024-02-29T12:34:00.000Z"); capture("date-inclusive-minimum")
+        record.put("inclusive_minimum_accepted", true).put("passed", true)
+    }
+    @Test fun datePickerExplainsInconsistentBoundsWithoutOpening() {
+        launch("typed-date-inconsistent")
+        compose.onNodeWithTag("extension-date-date").assertIsNotEnabled()
+        compose.onNodeWithTag("extension-date-unavailable-date").performScrollTo().assertTextEquals("No dates are available for this field.")
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        assertEquals(0, probe().getInt("changes")); capture("date-inconsistent-bounds")
+        record.put("invalid_bounds_have_disabled_control_and_explanation", true).put("passed", true)
+    }
+    private fun inOwnedNativeTimeZone(zone: String, body: () -> Unit) {
+        val original = java.util.TimeZone.getDefault()
+        try {
+            compose.activityRule.scenario.onActivity { java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(zone)) }
+            assertEquals(zone, java.time.ZoneId.systemDefault().id)
+            record.put("native_process_time_zone", zone).put("time_zone_boundary", "Owned JVM default override for native picker; Android system setting and WebView timezone unchanged")
+            body()
+        } finally {
+            compose.activityRule.scenario.onActivity { java.util.TimeZone.setDefault(original) }
+            assertEquals(original.id, java.util.TimeZone.getDefault().id)
+            record.put("native_process_time_zone_restored", true)
+        }
+    }
+    @Test fun nativeDateTimeRejectsADstGapThenAcceptsAValidWallTime() = inOwnedNativeTimeZone("America/New_York") {
+        launch("typed-date-dst-gap"); touch("extension-date-date")
+        touch("extension-date-time-plus-date-hour"); touch("extension-date-confirm-date")
+        compose.onNodeWithTag("extension-date-picker-error-date").performScrollTo()
+            .assertTextEquals("Choose a valid date and time. This local time may not exist when the clocks change.")
+        assertEquals(0, probe().getInt("changes")); assertEquals("2024-03-10T06:30:00.000Z", typedDateIso())
+        capture("date-dst-gap-rejected")
+        touch("extension-date-time-plus-date-hour")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "valid DST wall time")
+        submittedTypedDate("2024-03-10T07:30:00.000Z"); capture("date-dst-valid-wall-time")
+        record.put("nonexistent_wall_time_did_not_shift_or_dispatch", true).put("passed", true)
+    }
+    @Test fun nativeDateTimeKeepsTheExistingDstOccurrenceAndMilliseconds() = inOwnedNativeTimeZone("America/New_York") {
+        launch("typed-date-dst-overlap"); touch("extension-date-date")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "same DST occurrence")
+        submittedTypedDate("2024-11-03T06:30:12.345Z"); capture("date-dst-existing-offset")
+        record.put("existing_repeated_hour_and_fractional_seconds_preserved", true).put("passed", true)
+    }
+    @Test fun datePickerExplainsMalformedNativeBounds() {
+        launch("typed-controls")
+        val saved = catalog.runtimeTree
+        try {
+            val replacement = JSONObject(requireNotNull(saved).toString())
+            requireNotNull(activeRoot(replacement)).nodes("Form.DatePicker").single().props()
+                .put("min", JSONObject().put("\$date", "invalid-owned-date"))
+            compose.activityRule.scenario.onActivity { catalog.runtimeTree = replacement }
+            compose.waitForIdle(); compose.onNodeWithTag("extension-date-date").assertIsNotEnabled()
+            compose.onNodeWithTag("extension-date-unavailable-date").performScrollTo().assertIsDisplayed()
+            capture("date-malformed-native-bound")
+            assertEquals(0, probe().getInt("changes"))
+            record.put("test_boundary", "Controlled malformed native date envelope, not a successful JS Invalid Date serialization workflow").put("passed", true)
+        } finally { compose.activityRule.scenario.onActivity { catalog.runtimeTree = saved }; compose.waitForIdle() }
+    }
+    @Test fun datePickerControlledRejectionWaitsForItsPublication() {
+        launch("typed-date-reject"); touch("extension-date-date")
+        val edited = increaseTypedDateMinute(); val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "controlled date rejection")
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        submittedTypedDate("2024-02-29T12:34:00.000Z", edited); capture("date-controlled-rejection")
+        record.put("controlled_rejection_is_authoritative", true).put("passed", true)
+    }
+    @Test fun datePickerControlledTransformationWaitsForItsPublication() {
+        launch("typed-date-transform"); touch("extension-date-date")
+        val edited = increaseTypedDateMinute(); val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "controlled date transformation")
+        val expected = dateIso(java.time.Instant.parse(edited).plusSeconds(30))
+        assertEquals(expected, typedDateIso()); submittedTypedDate(expected, edited); capture("date-controlled-transformation")
+        record.put("controlled_transformation_is_authoritative", true).put("passed", true)
+    }
+    @Test fun typedDefaultsDoNotResetEditsOnALaterPublication() {
+        launch("typed-defaults"); touch("extension-date-clear-date")
+        compose.waitUntil(5000) { typedDateIso() == null }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags")
+        mutateTyped("globalThis.__ownedTyped.setDefaultDate('2030-01-01T00:00:00.000Z');globalThis.__ownedTyped.setDefaultTags([])", "later default props")
+        assertNull(typedDateIso()); assertEquals("[\"internal-two\",\"internal-one\"]", typedTagValues())
+        touch("extension-primary"); compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val observed = probe(); val submitted = observed.getJSONObject("submittedValues")
+        assertTrue(submitted.has("date") && submitted.isNull("date")); assertEquals(typedTagValues(), submitted.getJSONArray("tags").toString())
+        val types = observed.getJSONObject("typedSubmitted")
+        assertTrue(types.getJSONObject("date").getBoolean("is_null")); assertTrue(types.getJSONObject("tags").getBoolean("array_strings"))
+        capture("typed-defaults-preserved"); record.put("submitted_values", submitted).put("default_props_do_not_reset_edits", true).put("passed", true)
+    }
+    @Test fun typedFocusAndBlurDeliverCurrentDateNullAndArrays() {
+        launch("typed-controls"); touch("extension-date-date")
+        val edited = increaseTypedDateMinute(); touch("extension-date-confirm-date")
+        compose.waitUntil(5000) { typedDateIso() == edited }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); touch("extension-files-files"); touch("extension-files-done-files")
+        touch("extension-primary"); compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        var observed = probe(); var blur = observed.getJSONObject("blurFacts")
+        assertTrue(blur.getJSONObject("date").getBoolean("is_date")); assertEquals(edited, blur.getJSONObject("date").getString("date_iso"))
+        for (id in listOf("tags", "files")) { assertTrue(blur.getJSONObject(id).getBoolean("is_array")); assertTrue(blur.getJSONObject(id).getBoolean("array_strings")) }
+        assertEquals("[\"internal-two\",\"internal-one\"]", observed.getJSONObject("blurValues").getJSONArray("tags").toString())
+        assertEquals(0, observed.getJSONObject("blurValues").getJSONArray("files").length())
+        touch("extension-date-clear-date"); compose.waitUntil(5000) { typedDateIso() == null }
+        touch("extension-tags-tags"); touch("extension-tags-done-tags")
+        compose.waitUntil(5000) { probe().getJSONObject("blurFacts").getJSONObject("date").getBoolean("is_null") }
+        observed = probe(); blur = observed.getJSONObject("blurFacts")
+        assertTrue(blur.getJSONObject("date").getBoolean("is_null"))
+        record.put("typed_focus_facts", observed.getJSONObject("focusFacts")).put("typed_blur_facts", blur)
+            .put("test_boundary", "Owned Date/null and current tag/file array focus/blur; file array is empty, provider import is a separate workflow")
+        capture("typed-current-focus-values"); record.put("passed", true)
+    }
+    @Test fun clearingDateLetsTheSameTextFieldRefocusAndSubmit() {
+        launch("date-clear-focus")
+        touch("extension-field-name")
+        val value = "Owned same-editor return café é 日本 🌱"
+        val beforeText = typedPublication()
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(value)
+        awaitTypedPublication(beforeText, "owned text entered before Clear date")
+        capture("text-before-date-clear")
+        val beforeClear = typedPublication()
+        touch("extension-date-clear-date")
+        awaitTypedPublication(beforeClear, "date cleared while a text editor was focused")
+        assertNull(typedDateIso())
+        val nativeFocusedAfterClear = compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsProperties.Focused]
+        record.put("native_editor_focused_after_date_clear", nativeFocusedAfterClear)
+            .put("probe_after_date_clear", probe())
+        capture("date-cleared-native-focus")
+        touch("extension-field-name")
+        compose.onNodeWithTag("extension-field-name").assertIsFocused().assertTextEquals(value)
+        record.put("probe_after_same_editor_return", probe())
+        capture("same-text-editor-returned")
+        touch("extension-primary")
+        evaluateOwned("globalThis.__ownedDateFocusBarrier=true;true")
+        compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val observed = probe()
+        val events = observed.getJSONArray("events")
+        val sequence = (0 until events.length()).map { events.getJSONObject(it).let { event ->
+            event.getString("id") + ":" + event.getString("event")
+        } }
+        record.put("focus_probe", observed).put("observed_focus_sequence", JSONArray(sequence))
+            .put("input_boundary", "Pointer text -> Clear date -> same text -> submit; owned Unicode text uses SetText semantics. No forced IME request.")
+        capture("date-clear-focus-submitted")
+        assertFalse("Clear date must release the previous native editor focus", nativeFocusedAfterClear)
+        assertEquals(listOf("name:focus", "name:blur", "date:focus", "date:blur", "name:focus", "name:blur", "form:submit"), sequence)
+        assertEquals(2, observed.getJSONObject("focus").getInt("name"))
+        assertEquals(2, observed.getJSONObject("blur").getInt("name"))
+        assertEquals(1, observed.getJSONObject("focus").getInt("date"))
+        assertEquals(1, observed.getJSONObject("blur").getInt("date"))
+        assertEquals(value, observed.getJSONObject("submittedValues").getString("name"))
+        assertTrue(observed.getJSONObject("submittedValues").has("date") && observed.getJSONObject("submittedValues").isNull("date"))
+        assertTrue(observed.getJSONObject("typedSubmitted").getJSONObject("date").getBoolean("is_null"))
+        assertTrue(observed.getJSONObject("dateChangeFacts").getBoolean("is_null"))
+        assertEquals(value, observed.getJSONObject("blurValues").getString("name"))
+        assertTrue(observed.getJSONObject("blurFacts").getJSONObject("date").getBoolean("is_null"))
+        record.put("passed", true)
+    }
+
+    private fun typedDialogWindow(): android.view.Window {
+        var result: android.view.Window? = null
+        compose.activityRule.scenario.onActivity {
+            fun visit(view: android.view.View) {
+                if (view is androidx.compose.ui.window.DialogWindowProvider) { assertNull(result); result = view.window }
+                if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+            }
+            android.view.inspector.WindowInspector.getGlobalWindowViews().forEach(::visit)
+        }
+        return requireNotNull(result)
+    }
+    @Test fun dateTimeEditorKeepsConfirmationReachableWithItsOwnIme() {
+        launch("typed-controls"); touch("extension-date-date"); touch("extension-date-time-date-minute")
+        val window = typedDialogWindow()
+        compose.waitUntil(10000) {
+            var ready = false
+            compose.activityRule.scenario.onActivity {
+                val editor = window.decorView.findFocus()
+                ready = editor != null && editor.hasWindowFocus() && it.getSystemService(android.view.inputmethod.InputMethodManager::class.java).isActive(editor)
+            }
+            ready
+        }
+        compose.activityRule.scenario.onActivity { androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).show(WindowInsetsCompat.Type.ime()) }
+        awaitImeGeometry(true, window)
+        compose.onNodeWithTag("extension-date-time-date-minute").performTextReplacement("35")
+        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals("35")
+        awaitImeGeometry(true, window)
+        capture("date-time-editor-ime")
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val automation = testAutomation(); val entryFlags = automation.serviceInfo.flags
+        val keyboards = mutableListOf<android.graphics.Rect>()
+        try {
+            automation.serviceInfo = automation.serviceInfo.apply { flags = entryFlags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS }
+            automation.clearCacheForTest()
+            automation.windows.filter { it.type == android.view.accessibility.AccessibilityWindowInfo.TYPE_INPUT_METHOD }.forEach {
+                val bounds = android.graphics.Rect(); it.getBoundsInScreen(bounds); if (!bounds.isEmpty) keyboards += bounds
+            }
+        } finally { automation.serviceInfo = automation.serviceInfo.apply { flags = entryFlags } }
+        assertTrue("The actual screen IME window must be observed", keyboards.isNotEmpty())
+        record.put("actual_ime_window_bounds", JSONArray(keyboards.map { listOf(it.left, it.top, it.right, it.bottom) }))
+        val text = device.wait(Until.findObject(By.pkg(context.packageName).text("Use date")), 3000)
+        record.put("screen_confirm_control_found", text != null)
+        assertNotNull("Use date must be accessible on screen while the keyboard is visible", text)
+        var button = requireNotNull(text)
+        for (step in 0 until 4) { if (button.isClickable) break; button = requireNotNull(button.parent) }
+        assertTrue(button.isEnabled && button.isClickable)
+        val bounds = button.visibleBounds; val x = bounds.centerX(); val y = bounds.centerY()
+        record.put("screen_confirm_bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("screen_confirm_point", JSONArray(listOf(x, y)))
+        assertTrue("The button needs a useful screen target", bounds.width() > 1 && bounds.height() + 1 >= 48 * context.resources.displayMetrics.density)
+        assertTrue(android.graphics.Rect(0, 0, device.displayWidth, device.displayHeight).contains(bounds))
+        assertTrue("The actual keyboard must not cover the confirmation button", keyboards.none { android.graphics.Rect.intersects(it, bounds) })
+        val before = typedPublication()
+        record.put("screen_click_injected", device.click(x, y))
+        awaitTypedPublication(before, "date confirmed by Android screen input with dialog IME")
+        assertEquals("2024-02-29T12:35:00.000Z", typedDateIso())
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        awaitImeGeometry(false)
+        submittedTypedDate("2024-02-29T12:35:00.000Z"); capture("date-time-ime-submitted")
+        record.put("ime_observation", "Owned Dialog insets and actual TYPE_INPUT_METHOD bounds; non-overlapping native Use date button activated through Android screen coordinates. Controlled SetText entry; no physical-device claim")
+            .put("passed", true)
+    }
+    @Test fun tagPickerCanRemoveAnUnavailableValueAndShowItsEmptyState() {
+        launch("typed-tags-empty"); touch("extension-tags-tags")
+        compose.onNodeWithTag("extension-tags-unavailable-tags-0").assertIsDisplayed(); capture("tags-unavailable-value")
+        val before = typedPublication(); touch("extension-tags-unavailable-tags-0"); awaitTypedPublication(before, "unavailable tag removed")
+        compose.onNodeWithText("No categories available", useUnmergedTree = true).assertIsDisplayed()
+        capture("tags-no-choices"); touch("extension-tags-done-tags"); submittedTypedTags(emptyList())
+        record.put("unavailable_value_removable_without_inventing_an_option", true).put("passed", true)
+    }
+    @Test fun tagPickerLongOptionKeepsEveryLineReachable() {
+        launch("typed-tags-long"); touch("extension-tags-tags"); typedTagRow(0)
+        inspectTextLines("extension-tags-options-tags", listOf(compose.onNodeWithText(longTitle, useUnmergedTree = true)), "long-tag-option")
+        typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); submittedTypedTags(listOf("internal-two", "internal-one"))
+        record.put("passed", true)
+    }
+    @Test fun tagPickerQueuedOptionCannotSelectAReplacedChoice() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        val queued = requireNotNull(typedTagRow(0).fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        mutateTyped("globalThis.__ownedTyped.setOptions([{value:'replacement-choice',title:'Readable replacement category'}])", "tag option replaced")
+        compose.onNodeWithText("Readable replacement category", useUnmergedTree = true).assertIsDisplayed()
+        val before = probe().toString()
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        assertEquals(before, probe().toString()); assertEquals("[\"internal-two\"]", typedTagValues())
+        capture("tags-queued-option-rejected"); touch("extension-tags-done-tags")
+        record.put("queued_callback", "Captured native row callback invoked after actual replacement publication and composition; not a pointer to a still-visible old row")
+            .put("passed", true)
+    }
+    @Test fun tagPickerControlledRejectionWaitsForItsPublication() {
+        launch("typed-tags-reject"); touch("extension-tags-tags")
+        val before = typedPublication(); typedTagRow(0).performTouchInput { click(center) }
+        awaitTypedPublication(before, "controlled tag rejection")
+        assertEquals("[\"internal-two\"]", typedTagValues()); typedTagRow(0).assertIsOff(); typedTagRow(1).assertIsOn()
+        capture("tags-controlled-rejection"); touch("extension-tags-done-tags"); submittedTypedTags(listOf("internal-two"))
+        record.put("controlled_rejection_is_authoritative", true).put("passed", true)
+    }
+    private fun dateDraftCannotOverwritePublishedValue(expected: String?) {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val nativeId = field("Form.DatePicker", "date").optString("id")
+        val expression = if (expected == null) "null" else "new Date(" + JSONObject.quote(expected) + ")"
+        mutateTyped("globalThis.__ownedTyped.setDate(" + expression + ")", "same-field authoritative date changed with an open draft")
+        assertEquals(nativeId, field("Form.DatePicker", "date").optString("id"))
+        assertEquals(expected, typedDateIso())
+        val dialogAfterPublication = compose.onAllNodesWithTag("extension-date-dialog-date").fetchSemanticsNodes().isNotEmpty()
+        val before = probe()
+        val publication = typedPublication()
+        record.put("authoritative_date", expected ?: JSONObject.NULL)
+            .put("same_native_field_id_preserved", true).put("dialog_present_after_authoritative_publication", dialogAfterPublication)
+            .put("probe_before_original_confirmation", before)
+        capture("authoritative-value-published")
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        evaluateOwned("globalThis.__ownedDateConfirmationBarrier=true;true")
+        val observed = probe()
+        // Preserve the old-app failure's actual React publication before taking
+        // its frame. The repaired path must enqueue no callback/publication.
+        if (observed.getInt("changes") != before.getInt("changes")) {
+            awaitTypedPublication(publication, "unexpected stale date callback publication")
+        }
+        record.put("probe_after_original_confirmation", observed)
+            .put("date_after_original_confirmation", typedDateIso() ?: JSONObject.NULL)
+            .put("queued_callback_boundary", "Original native confirm invoked after same-field actual React/native/composed value publication; separate WebView execution barrier follows dispatch.")
+        capture("original-confirmation-result")
+        assertEquals("A stale draft must not call onChange", before.toString(), observed.toString())
+        assertEquals("A stale draft must not replace the authoritative value", expected, typedDateIso())
+        assertFalse("An authoritative value change must invalidate the open draft", dialogAfterPublication)
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        touch("extension-date-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        if (expected != null) {
+            val next = increaseTypedDateMinute()
+            val beforeFresh = typedPublication()
+            touch("extension-date-confirm-date")
+            awaitTypedPublication(beforeFresh, "fresh draft confirms from the newer authoritative date")
+            submittedTypedDate(next)
+            record.put("fresh_confirmed_date", next)
+        } else {
+            touch("extension-date-cancel-date"); touch("extension-primary")
+            compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+            val current = probe()
+            assertTrue(current.getJSONObject("submittedValues").has("date") && current.getJSONObject("submittedValues").isNull("date"))
+            assertTrue(current.getJSONObject("typedSubmitted").getJSONObject("date").getBoolean("is_null"))
+            assertEquals(0, current.getInt("changes"))
+        }
+        capture("fresh-current-value-operation"); record.put("passed", true)
+    }
+    @Test fun datePickerQueuedConfirmationCannotOverwriteANewerValue() =
+        dateDraftCannotOverwritePublishedValue("2025-09-17T05:18:00.000Z")
+    @Test fun datePickerQueuedConfirmationCannotOverwriteAResetValue() =
+        dateDraftCannotOverwritePublishedValue(null)
+
+    @Test fun datePickerConfirmationRechecksValueBeforeComposition() {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree)
+        val replacement = JSONObject(original.toString())
+        requireNotNull(activeRoot(replacement)).nodes("Form.DatePicker").single().props()
+            .put("value", JSONObject().put("\$date", "2025-09-17T05:18:00.000Z"))
+        val before = probe()
+        val publication = typedPublication()
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = replacement; assertTrue(queued()) }
+            finally { catalog.runtimeTree = original }
+        }
+        evaluateOwned("globalThis.__ownedDateBeforeFrameBarrier=true;true")
+        val observed = probe()
+        if (observed.getInt("changes") != before.getInt("changes")) {
+            awaitTypedPublication(publication, "unexpected pre-frame stale date callback publication")
+        }
+        record.put("probe_before", before).put("probe_after", observed)
+            .put("controlled_native_transition", "Same field native value changed before captured confirm in one UI turn, then original tree restored before a Compose frame. JS authoritative value was not replaced by this fixture.")
+            .put("date_after_original_confirmation", typedDateIso() ?: JSONObject.NULL)
+        capture("native-value-model-restored")
+        assertEquals("Acceptance must recheck the value before composition can invalidate the dialog", before.toString(), observed.toString())
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        record.put("passed", true)
+    }
+
+    @Test fun datePickerQueuedConfirmationCannotEnterAReplacementField() {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val oldId = field("Form.DatePicker", "date").optString("id")
+        mutateTyped("globalThis.__ownedTyped.setDateKey('replacement-date')", "date field replaced")
+        assertNotEquals(oldId, field("Form.DatePicker", "date").optString("id"))
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        val before = probe().toString(); compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        assertEquals(before, probe().toString()); assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        capture("date-replacement-field-rejected")
+        record.put("queued_callback", "Old confirm invoked after actual replacement field publication; no successor value or dispatch change").put("passed", true)
+    }
+    private fun awaitRecreatedTypedRuntime(previousActivity: MainActivity, previousEngine: WebView) {
+        compose.waitForIdle()
+        assertNotSame(previousActivity, compose.activity)
+        val recreatedEngine = engine(); assertNotSame(previousEngine, recreatedEngine)
+        val token = "owned-recreated-" + UUID.randomUUID().toString()
+        val acknowledged = AtomicBoolean(false)
+        val script = """(()=>{
+            const owned=globalThis.__ownedTyped;
+            if(!owned||typeof owned.bump!=='function')return false;
+            if(globalThis.__ownedRecreationWitness===undefined){
+              globalThis.__ownedRecreationWitness=${JSONObject.quote(token)};owned.bump();
+            }
+            return globalThis.__ownedRecreationWitness===${JSONObject.quote(token)};
+        })()""".trimIndent()
+        compose.waitUntil(25000) {
+            if (!acknowledged.get()) compose.activityRule.scenario.onActivity {
+                recreatedEngine.evaluateJavascript(script) { if (it == "true") acknowledged.set(true) }
+            }
+            catalog.runtimeError != null || acknowledged.get() && runCatching { typedPublication().second == 1 }.getOrDefault(false)
+        }
+        assertNull(catalog.runtimeError); assertTrue(acknowledged.get())
+        compose.waitForIdle()
+        val marker = "Typed publication 1"
+        val composed = compose.onNodeWithText(marker, useUnmergedTree = true).fetchSemanticsNode()
+        assertEquals(marker, composed.config[SemanticsProperties.Text].joinToString("") { it.text })
+        assertEquals(1, typedPublication().second)
+        record.put("recreation_boundary", "Same-process Activity recreation; fresh Activity and actual runtime WebView, not process-death restoration")
+            .put("recreated_activity_and_webview_verified", true)
+            .put("recreation_readiness", JSONObject().put("new_page_token", token).put("new_webview_acknowledged", true)
+                .put("native_root_id", typedPublication().first).put("native_counter", 1)
+                .put("composed_marker", marker).put("composed_semantics_id", composed.id))
+    }
+
+    @Test fun datePickerQueuedConfirmationCannotSurviveActivityRecreation() {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val previousActivity = compose.activity; val previousEngine = engine()
+        capture("date-draft-before-recreation")
+        compose.activityRule.scenario.recreate()
+        awaitRecreatedTypedRuntime(previousActivity, previousEngine)
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        mutateTyped("void 0", "old date callback after activity recreation")
+        assertEquals(0, probe().getInt("changes")); assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        capture("date-old-recreation-result-rejected")
+        touch("extension-date-date"); val expected = increaseTypedDateMinute(); val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "fresh date callback after activity recreation")
+        assertEquals(expected, typedDateIso()); submittedTypedDate(expected)
+        capture("date-fresh-recreation-result-accepted")
+        record.put("old_recreation_callback_rejected", true).put("fresh_recreation_callback_accepted", true).put("passed", true)
+    }
+
+    @Test fun tagPickerQueuedOptionCannotSurviveActivityRecreation() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        val queued = requireNotNull(typedTagRow(0).fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val previousActivity = compose.activity; val previousEngine = engine()
+        capture("tags-before-recreation")
+        compose.activityRule.scenario.recreate()
+        awaitRecreatedTypedRuntime(previousActivity, previousEngine)
+        compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        mutateTyped("void 0", "old tag callback after activity recreation")
+        assertEquals(0, probe().getInt("changes")); assertEquals("[\"internal-two\"]", typedTagValues())
+        capture("tags-old-recreation-result-rejected")
+        touch("extension-tags-tags"); val before = typedPublication()
+        typedTagRow(0).performTouchInput { click(center) }
+        awaitTypedPublication(before, "fresh tag callback after activity recreation")
+        touch("extension-tags-done-tags"); submittedTypedTags(listOf("internal-two", "internal-one"))
+        capture("tags-fresh-recreation-result-accepted")
+        record.put("old_recreation_callback_rejected", true).put("fresh_recreation_callback_accepted", true).put("passed", true)
+    }
+
+    @Test fun typedUncontrolledRefsResetToTheirInitialValues() {
+        launch("typed-defaults"); touch("extension-date-clear-date")
+        compose.waitUntil(5000) { typedDateIso() == null }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); val changes = probe().getInt("changes")
+        mutateTyped("globalThis.__ownedTyped.resetDate();globalThis.__ownedTyped.resetTags()", "uncontrolled refs reset")
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso()); assertEquals("[\"internal-two\"]", typedTagValues())
+        assertEquals(changes, probe().getInt("changes"))
+        touch("extension-primary"); compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val observed = probe(); val values = observed.getJSONObject("submittedValues")
+        assertEquals("2024-02-29T12:34:00.000Z", values.getString("date")); assertEquals("[\"internal-two\"]", values.getJSONArray("tags").toString())
+        assertTrue(observed.getJSONObject("typedSubmitted").getJSONObject("date").getBoolean("is_date"))
+        assertTrue(observed.getJSONObject("typedSubmitted").getJSONObject("tags").getBoolean("array_strings"))
+        capture("typed-refs-reset")
+        record.put("uncontrolled_reset_published", true).put("reset_did_not_invoke_on_change", true)
+            .put("test_boundary", "Actual generated uncontrolled Date/tag reset refs; imperative focus and storeValue persistence are separate open contracts")
+            .put("passed", true)
+    }
+
+    private fun frozenTypedBundle(name: String): InstalledExtension {
+        val expectedArchive = when (name) {
+            "mood" -> "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221"
+            "checksum" -> "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d"
+            else -> error("Unknown owned typed bundle")
+        }
+        val directory = fixtureDirectory(); val id = directory.name
+        val archive = File(context.filesDir, "reviewed-text-fixture-lease/$name.zip").readBytes()
+        assertEquals(expectedArchive, hash(archive))
+        val extracted = ExtensionArchive.extract(archive, directory)
+        val extension = InstalledExtension(StoreExtension(id, name, "$name (owned frozen copy)", "", "Droidcast tests", "test", "", "", "", 1),
+            extracted, JSONObject(File(extracted, "package.json").readText()))
+        ownedExtension = extension
+        record.put("scope", "Unmodified frozen $name Store command JavaScript in an owned namespace; only owned test input/data, not whole-Store certification")
+            .put("archive_sha256", hash(archive)).put("owned_extension_id", id)
+        return extension
+    }
+    private fun runFrozenTypedCommand(extension: InstalledExtension, name: String, rootType: String) {
+        val expectedHash = when (name) {
+            "record-mood" -> "11e2a3e9900c47a8697004f267024865c2f4a5d21b87cb396e07ed4a5cc56478"
+            "search-moods" -> "9eee3a5852244fc06109e695358c2780a3970d28d04776b7d6416a11653bdea0"
+            "hashfile" -> "b42e7c5bbe881ae5397aa43660c29c23651b8d06e8165b5f11a962232a9d9a68"
+            else -> error("Unknown owned frozen command")
+        }
+        assertEquals(expectedHash, hash(File(extension.directory, "$name.js").readBytes()))
+        val commands = record.optJSONObject("frozen_command_sha256") ?: JSONObject().also { record.put("frozen_command_sha256", it) }
+        commands.put(name, expectedHash)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single { command -> command.name == name }) }
+        compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == rootType }
+        record.put("runtime_start_error", catalog.runtimeError ?: JSONObject.NULL)
+        assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle()
+    }
+    private fun frozenTypedCallerReturn() {
+        if (compose.activity.store.dialog != null) touch("extension-back")
+        compose.waitUntil(5000) { compose.activity.store.dialog == null }
+        compose.onNodeWithTag("search").assertTextEquals(caller)
+        record.put("caller_query_restored", true)
+    }
+    @Test fun frozenMoodStoresExactTypedValuesAndReloadsThemInSearch() {
+        val extension = frozenTypedBundle("mood")
+        runFrozenTypedCommand(extension, "record-mood", "Form")
+        val entries = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/entries.json")
+        assertFalse(entries.exists())
+        touch("extension-date-date"); val expectedDate = increaseTypedDateMinute(); touch("extension-date-confirm-date")
+        compose.waitUntil(5000) { typedDateIso() == expectedDate }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }; typedTagRow(3).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"work\",\"health\"]" }; touch("extension-tags-done-tags")
+        val notes = "Owned mood café é 日本 🌱"
+        touch("extension-field-notes"); compose.onNodeWithTag("extension-field-notes").performTextReplacement(notes)
+        compose.waitUntil(5000) { field("Form.TextArea", "notes").props().optString("value") == notes }
+        ime(false); capture("mood-typed-values-before-save"); touch("extension-primary")
+        compose.waitUntil(10000) { runCatching { JSONArray(entries.readText()).length() == 1 }.getOrDefault(false) }
+        val saved = JSONArray(entries.readText()).getJSONObject(0)
+        assertEquals("neutral", saved.getString("mood")); assertEquals(notes, saved.getString("notes")); assertEquals(expectedDate, saved.getString("date"))
+        assertEquals("[\"work\",\"health\"]", saved.getJSONArray("tags").toString()); UUID.fromString(saved.getString("id"))
+        val bytes = entries.readBytes(); record.put("saved_owned_record", saved).put("saved_data_sha256", hash(bytes))
+        capture("mood-record-persisted"); frozenTypedCallerReturn()
+        runFrozenTypedCommand(extension, "search-moods", "List")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.nodes("List.Item")?.singleOrNull()?.props()?.optString("subtitle") == "work, health" }
+        val row = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("List.Item").single()
+        assertEquals("Neutral", row.props().getString("title")); assertTrue(row.props().getJSONObject("detail").props().getString("markdown").contains(notes))
+        assertArrayEquals(bytes, entries.readBytes()); capture("mood-reloaded-search-destination")
+        frozenTypedCallerReturn()
+        record.put("record_and_search_use_same_persisted_owned_data", true)
+            .put("test_boundary", "Two frozen commands: actual Date/tag/note editing, exact private record and new-runtime Search destination. AI/charts/drafts/storeValue/OEM behavior untested")
+            .put("passed", true)
+    }
+    @Test fun frozenChecksumHashesTheActualImportedBytesCopiesAndReturns() {
+        val extension = frozenTypedBundle("checksum"); runFrozenTypedCommand(extension, "hashfile", "Form")
+        compose.onNodeWithText("Preferences", useUnmergedTree = true).performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("preference-checkbox-popRootAfterSubmit").performScrollTo().assertIsOn().performTouchInput { click(center) }
+        compose.onNodeWithTag("preference-checkbox-popRootAfterSubmit").assertIsOff(); capture("checksum-preferences-edited")
+        val configuredEpoch = catalog.launchEpoch; touch("run-extension-setup")
+        compose.waitUntil(20000) { catalog.launchEpoch > configuredEpoch && catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        val preferences = context.getSharedPreferences("extension-${extension.listing.id}", Context.MODE_PRIVATE)
+        assertFalse(JSONObject(preferences.getString("preferences", "{}")!!).getBoolean("popRootAfterSubmit"))
+        val device = openOwnedDocuments(id = "file"); clickDocumentText(device, "café 日本.txt")
+        val imported = awaitImportedFiles(1, id = "file").single()
+        val bytes = "Owned file café 日本 🌱\n".toByteArray(); assertArrayEquals(bytes, File(imported).readBytes())
+        capture("checksum-owned-file-imported"); touch("extension-files-done-file")
+        val selected = field("Form.Dropdown", "dropdown").props().getString("value")
+        val algorithms = linkedMapOf("md5" to "MD5", "sha1" to "SHA-1", "sha256" to "SHA-256", "sha512" to "SHA-512")
+        assertTrue(selected in algorithms)
+        val expected = algorithms.mapValues { (_, algorithm) -> MessageDigest.getInstance(algorithm).digest(bytes).joinToString("") { "%02x".format(it) } }
+        touch("extension-primary")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.optString("type") == "List" }
+        val rows = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("List.Item")
+        for ((algorithm, digest) in expected) assertEquals(digest, rows.single { it.props().optString("title") == algorithm.uppercase(java.util.Locale.ROOT) }.props().getString("subtitle"))
+        fun clipboardEquals(expected: String): Boolean {
+            var matches = false
+            compose.activityRule.scenario.onActivity { matches = it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text?.toString() == expected }
+            return matches
+        }
+        compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected[selected])) }
+        dismissClipboardForEvidence(); capture("checksum-real-hash-destination")
+        val sha256Row = rows.indexOfFirst { it.props().optString("title") == "SHA256" }; assertTrue(sha256Row >= 0)
+        fun sampleSelection(phase: String) {
+            val snapshot = JSONObject().put("phase", phase)
+                .put("native_tree", activeRoot(catalog.runtimeTree)?.let { JSONObject(it.toString()) } ?: JSONObject.NULL)
+            val composedRows = compose.onAllNodes(SemanticsMatcher("Checksum result rows") {
+                it.config.contains(SemanticsProperties.TestTag) && it.config[SemanticsProperties.TestTag].startsWith("extension-row-")
+            }).fetchSemanticsNodes()
+            snapshot.put("composed_rows", JSONArray(composedRows.map {
+                JSONObject().put("tag", it.config[SemanticsProperties.TestTag])
+                    .put("selected", it.config.contains(SemanticsProperties.Selected) && it.config[SemanticsProperties.Selected])
+                    .put("placed", it.layoutInfo.isPlaced)
+                    .put("bounds", it.boundsInRoot.toString())
+            })).put("composed_primary_count", compose.onAllNodesWithTag("extension-primary").fetchSemanticsNodes().size)
+            val snapshots = record.optJSONArray("checksum_selection_samples") ?: JSONArray().also { record.put("checksum_selection_samples", it) }
+            snapshots.put(snapshot)
+        }
+        sampleSelection("before revealing SHA256")
+        val resultsList = compose.onNodeWithTag("extension-list")
+        val sha256Target = compose.onNodeWithTag("extension-row-$sha256Row")
+        var sha256Revealed = false; var sampledPrefetch = false
+        for (attempt in 0 until 40) {
+            val candidate = compose.onAllNodesWithTag("extension-row-$sha256Row").fetchSemanticsNodes().singleOrNull()
+            if (candidate != null && candidate.layoutInfo.isPlaced && sha256Target.isDisplayed()) {
+                val bounds = candidate.boundsInRoot; val viewport = resultsList.fetchSemanticsNode().boundsInRoot
+                if (bounds.height + 1 >= minOf(candidate.size.height.toFloat(), 48f * context.resources.displayMetrics.density) && viewport.contains(bounds.center)) {
+                    sha256Revealed = true; break
+                }
+            } else if (candidate != null && !candidate.layoutInfo.isPlaced && !sampledPrefetch) {
+                sampleSelection("unplaced prefetched SHA256 is not a pointer target"); sampledPrefetch = true
+            }
+            drag(resultsList, -1)
+        }
+        assertTrue("SHA256 needs a placed visible pointer target", sha256Revealed)
+        record.put("sha256_row_placed_before_pointer", true)
+        sampleSelection("before SHA256 pointer")
+        touch("extension-row-$sha256Row")
+        sampleSelection("after SHA256 pointer before Copy")
+        sha256Target.assertIsSelected()
+        // Submission automatically copies the chosen hash. A new sentinel
+        // makes this separate explicit Copy action prove a fresh write even
+        // when the chosen algorithm was already SHA256.
+        val explicitCopySentinel = "Owned checksum explicit Copy sentinel"
+        compose.activityRule.scenario.onActivity {
+            it.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Owned checksum Copy control", explicitCopySentinel))
+        }
+        assertTrue(clipboardEquals(explicitCopySentinel)); dismissClipboardForEvidence()
+        assertTrue(clipboardEquals(explicitCopySentinel))
+        record.put("explicit_copy_sentinel_verified_before_tap", true)
+        touch("extension-primary")
+        compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected["sha256"])) }
+        dismissClipboardForEvidence(); capture("checksum-sha256-copied")
+        touch("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement("Back to Form")
+        // Match the actual second action, not the search editor containing
+        // the same query text.
+        touch("extension-action-1")
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertTrue(typedFileValues("file").isEmpty()); assertArrayEquals(bytes, File(imported).readBytes())
+        capture("checksum-returned-form"); frozenTypedCallerReturn(); assertArrayEquals(bytes, File(imported).readBytes())
+        record.put("all_four_hashes_match_exact_owned_bytes", JSONObject(expected)).put("selected_algorithm", selected)
+            .put("actual_sha256_copy_verified", true).put("delivered_private_copy_retained_after_command_close", true)
+            .put("test_boundary", "Frozen checksum/hashfile real DocumentsUI import, four actual hashes, exact Copy, actual Back to Form action and caller return; no arbitrary-provider or writeback certification")
+            .put("passed", true)
+    }
+    private fun assertTypedErrorBlocksBothGates(id: String, type: String) {
+        assertEquals("Owned typed field must be corrected before submitting.", field(type, id).props().getString("error"))
+        compose.onNodeWithTag("extension-primary").assertIsNotEnabled(); touch("extension-primary")
+        assertEquals(0, probe().getInt("submits"))
+        // A genuine onFocus establishes this fixture's current JS session.
+        // The direct dispatch below deliberately bypasses the native gate.
+        when (id) {
+            "date" -> { touch("extension-date-date"); touch("extension-date-cancel-date") }
+            "tags" -> { touch("extension-tags-tags"); touch("extension-tags-done-tags") }
+            "files" -> { touch("extension-files-files"); touch("extension-files-done-files") }
+        }
+        evaluateOwned("if(typeof globalThis.__ownedFormSession!=='string')throw Error('Owned dispatch session missing');true")
+        val handle = requireNotNull(requireNotNull(activeRoot(catalog.runtimeTree)).actions().first().handle("onAction"))
+        val before = probe().getInt("dispatches")
+        val beforeTree = catalog.runtimeTree; val rootId = requireNotNull(activeRoot(beforeTree)).optString("id")
+        evaluateOwned("globalThis.__formProbe.typedGateRequest={};globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');true")
+        compose.waitUntil(5000) { probe().optJSONObject("typedGateRequest")?.optBoolean("after_host_render_and_submit_drain") == true && catalog.runtimeTree !== beforeTree }
+        assertEquals(rootId, activeRoot(catalog.runtimeTree)?.optString("id")); compose.waitForIdle()
+        submitBarrier(); val observed = probe()
+        assertEquals(before + 1, observed.getInt("dispatches")); assertEquals(0, observed.getInt("submits"))
+        assertEquals(0, observed.getJSONObject("typedGateRequest").getInt("settled_submits"))
+        record.put("typed_error_gates", JSONObject().put("field", id).put("type", type).put("native_disabled_attempt_verified", true)
+            .put("direct_owned_js_request_dispatch_delta", observed.getInt("dispatches") - before).put("blocked_submit_count", observed.getInt("submits"))
+            .put("same_native_root_published", rootId).put("js_post_drain_witness", observed.getJSONObject("typedGateRequest")))
+        capture("typed-$id-both-submit-gates")
+    }
+    private fun awaitTypedErrorCleared(id: String, type: String) {
+        compose.waitUntil(5000) { (field(type, id).props().opt("error") as? String).isNullOrBlank() }
+        compose.onNodeWithTag("extension-primary").assertIsEnabled()
+        compose.onNodeWithTag("extension-field-error-$id").assertDoesNotExist()
+        assertEquals(0, probe().getInt("submits"))
+    }
+    @Test fun correctingTypedDateErrorEnablesExactlyOneNullSubmission() {
+        launch("typed-error-date"); assertTypedErrorBlocksBothGates("date", "Form.DatePicker")
+        touch("extension-date-clear-date"); awaitTypedErrorCleared("date", "Form.DatePicker")
+        assertNull(typedDateIso()); submittedTypedDate(null); capture("typed-date-corrected-submitted")
+        record.put("corrected_submit_count", probe().getInt("submits")).put("passed", true)
+    }
+    @Test fun correctingTypedTagErrorEnablesExactlyOneArraySubmission() {
+        launch("typed-error-tags"); assertTypedErrorBlocksBothGates("tags", "Form.TagPicker")
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); awaitTypedErrorCleared("tags", "Form.TagPicker")
+        submittedTypedTags(listOf("internal-two", "internal-one")); capture("typed-tag-corrected-submitted")
+        record.put("corrected_submit_count", probe().getInt("submits")).put("passed", true)
+    }
+    @Test fun correctingTypedFileErrorImportsBytesAndSubmitsExactlyOnce() {
+        launch("typed-file-error-workflow"); assertTypedErrorBlocksBothGates("files", "Form.FilePicker")
+        val device = openOwnedDocuments(); clickDocumentText(device, "café 日本.txt")
+        awaitImportedFiles(1); touch("extension-files-done-files"); awaitTypedErrorCleared("files", "Form.FilePicker")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray()))
+        assertEquals(1, probe().getInt("submits")); record.put("corrected_submit_count", probe().getInt("submits"))
+        returnFromFileDestination(); record.put("passed", true)
+    }
+
+    private fun typedFileValues(id: String = "files"): List<String> {
+        val values = field("Form.FilePicker", id).props().getJSONArray("value")
+        return (0 until values.length()).map { values.getString(it) }
+    }
+    private fun openOwnedDocuments(folder: Boolean = false, id: String = "files"): UiDevice {
+        assertEquals("Use the host's --document-fixtures lease", expectedOwner, InstrumentationRegistry.getArguments().getString("expectedFormDocumentOwner"))
+        touch("extension-files-$id")
+        compose.onNodeWithTag("extension-files-dialog-$id").assertIsDisplayed()
+        capture("file-import-choice")
+        touch(if (folder) "extension-files-folder-$id" else "extension-files-choose-$id")
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        assertTrue("The real Android document picker must open", device.wait(Until.hasObject(By.pkg(java.util.regex.Pattern.compile(".*documentsui"))), 15000))
+        val pickerPackage = requireNotNull(device.currentPackageName)
+        assertTrue(pickerPackage.endsWith("documentsui"))
+        // Always choose the leased root, even if DocumentsUI remembers a prior
+        // folder. No app-side URI injection or ActivityMonitor supplies results.
+        val listSelector = UiSelector().packageName(pickerPackage).resourceId(pickerPackage + ":id/roots_list")
+        val roots = device.findObject(listSelector)
+        if (!roots.exists()) {
+            val drawer = device.findObject(UiSelector().packageName(pickerPackage).description("Show roots"))
+            assertTrue(drawer.waitForExists(5000)); assertTrue(drawer.click())
+        }
+        assertTrue("The actual location drawer must open", roots.waitForExists(5000))
+        // Recent also has an android:id/title app shortcut with this text.
+        // Resolve only descendants of the drawer's roots_list for the gesture.
+        val rootRow = UiScrollable(listSelector).getChildByText(UiSelector().className("android.widget.TextView")
+            .resourceId("android:id/title"), "Droidcast owned files", true)
+        assertTrue(rootRow.isEnabled)
+        recordPickerAcknowledgement("location drawer / Droidcast owned files", false, rootRow.click())
+        assertTrue("The root drawer must finish closing", device.wait(Until.gone(By.res(pickerPackage, "roots_list")), 5000))
+        record.put("system_picker_package", pickerPackage)
+        if (device.hasObject(By.res(pickerPackage, "sub_menu_list"))) {
+            // A large thumbnail grid can put even the first filename below
+            // the viewport. Use the picker's real list-view control for touch.
+            clickDocumentResource(device, "sub_menu_list")
+            assertTrue(device.wait(Until.hasObject(By.res(pickerPackage, "sub_menu_grid")), 5000))
+        }
+        assertTrue(documentRow(device, "café 日本.txt").waitForExists(5000))
+        record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
+            .put("system_picker_path", "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor")
+        captureDocumentPicker("android-picker-owned-root", device)
+        return device
+    }
+    private fun captureDocumentPicker(phase: String, device: UiDevice) {
+        val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-$phase"
+        testAutomation().clearCacheForTest()
+        device.waitForIdle(1500)
+        device.dumpWindowHierarchy(File(evidence, "$name.xml"))
+        assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
+        val frame = JSONObject().put("scope", "Actual Android document picker showing only leased owned documents; not the extension's Compose frame")
+            .put("phase", phase).put("system_package", device.currentPackageName)
+            .put("font_scale", context.resources.configuration.fontScale)
+            .put("installed_build_commit", record.getString("installed_build_commit"))
+            .put("synchronization", "Bounded DocumentsUI idle observation; native hierarchy before screenshot; no Compose frame claim")
+        File(evidence, "$name-frame.json").writeText(frame.toString(2))
+    }
+    private fun clickDocumentText(device: UiDevice, text: String, long: Boolean = false, pattern: Boolean = false) {
+        val selector = UiSelector().packageName(record.getString("system_picker_package")).let {
+            if (pattern) it.textMatches(text) else it.text(text)
+        }
+        val item = if (pattern) device.findObject(selector) else documentRow(device, text)
+        assertTrue("The exact system-picker item must be available", item.waitForExists(5000)); assertTrue(item.isEnabled)
+        recordPickerAcknowledgement(text, long, if (long) item.longClick() else item.click())
+    }
+    private fun documentRow(device: UiDevice, title: String): androidx.test.uiautomator.UiObject {
+        val pkg = record.getString("system_picker_package")
+        val list = UiScrollable(UiSelector().packageName(pkg).resourceId(pkg + ":id/dir_list"))
+        assertTrue("The actual document list must be available", list.waitForExists(5000))
+        return list.getChildByText(UiSelector().className("android.widget.TextView").resourceId("android:id/title"), title, true)
+    }
+    private fun clickDocumentResource(device: UiDevice, id: String) {
+        val pkg = record.getString("system_picker_package")
+        val item = device.findObject(UiSelector().packageName(pkg).resourceId(pkg + ":id/" + id))
+        assertTrue(item.waitForExists(5000)); assertTrue(item.isEnabled)
+        recordPickerAcknowledgement(id, false, item.click())
+    }
+    private fun recordPickerAcknowledgement(label: String, long: Boolean, acknowledged: Boolean) {
+        // Pinned UIAutomator 2.3.0 clickAndSync returns whether an accessibility
+        // content/selection event arrived, not the resulting field value. Keep
+        // its actual return and require the following route/value/byte checks.
+        val actions = record.optJSONArray("system_picker_gestures") ?: JSONArray().also { record.put("system_picker_gestures", it) }
+        actions.put(JSONObject().put("owned_target", label).put("long_press", long).put("accessibility_acknowledged", acknowledged)
+            .put("acceptance", "Subsequent actual picker route, native field values, JS bytes and caller state; no retry on a false acknowledgement"))
+    }
+    private fun awaitImportedFiles(expected: Int, diagnosticDocument: String? = null, id: String = "files"): List<String> {
+        compose.waitUntil(15000) { typedFileValues(id).size == expected ||
+            compose.onAllNodesWithTag("extension-field-error-files-import-$id").fetchSemanticsNodes().isNotEmpty() }
+        if (typedFileValues(id).size != expected) {
+            if (diagnosticDocument != null) {
+                // Failure-only diagnostic, after a real picker grant. It never
+                // supplies a result to the UI or earns workflow pass credit.
+                val uri = "content://dev.tinycast.android.test.formdocuments/document/$diagnosticDocument"
+                val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf(uri), true, false) {
+                    AndroidFormDocuments(context.contentResolver, it)
+                }
+                try { runBlocking { withTimeout(5000) { request.prepare() } } }
+                catch (failure: Exception) {
+                    record.put("post_failure_diagnostic", "Independent bounded import of the actually selected owned document")
+                        .put("diagnostic_failure_type", failure.javaClass.simpleName)
+                    throw AssertionError("Owned selected-document diagnostic failed", failure)
+                } finally { request.cancel() }
+            }
+            fail("The real picker selection was rejected by the native import")
+        }
+        compose.waitForIdle()
+        val paths = typedFileValues(id)
+        val root = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}").canonicalFile
+        paths.forEach { path ->
+            assertFalse("A content URI must never be forwarded as a filesystem path", path.startsWith("content:"))
+            val file = File(path)
+            assertEquals(file.absoluteFile, file.canonicalFile)
+            assertTrue(file.canonicalPath.startsWith(root.path + File.separator)); assertTrue(file.exists())
+        }
+        record.put("private_copy_inside_own_extension_data", true)
+        return paths
+    }
+    private fun submitImportedFiles(expected: Map<String, ByteArray>, folder: Boolean = false) {
+        val paths = typedFileValues()
+        val submits = probe().getInt("submits")
+        touch("extension-primary")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
+        assertEquals(submits + 1, probe().getInt("submits"))
+        val submitted = probe().getJSONObject("submittedValues").getJSONArray("files")
+        assertEquals(JSONArray(paths).toString(), submitted.toString())
+        val facts = probe().getJSONObject("typedSubmitted").getJSONObject("files")
+        assertTrue(facts.getBoolean("present")); assertTrue(facts.getBoolean("is_array")); assertTrue(facts.getBoolean("array_strings"))
+        record.put("file_submit_runtime_type", facts)
+        val reads = probe().getJSONArray("fileReads")
+        assertEquals(expected.size, reads.length())
+        val observed = (0 until reads.length()).map { reads.getJSONObject(it) }.associateBy { it.getString("name") }
+        assertEquals(expected.keys, observed.keys)
+        expected.forEach { (name, bytes) ->
+            val row = requireNotNull(observed[name]); assertEquals(folder, row.getBoolean("directory"))
+            assertArrayEquals(bytes, android.util.Base64.decode(row.getString("base64"), android.util.Base64.DEFAULT))
+        }
+        record.put("submitted_exact_native_path_array", true).put("js_exact_bytes", JSONObject(expected.mapValues { hash(it.value) }))
+            .put("destination", "Owned Detail with base64 bytes read by the real extension fs bridge")
+        capture("file-byte-destination")
+    }
+    private fun returnFromFileDestination() {
+        touch("extension-back")
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        compose.waitForIdle(); capture("file-returned-form")
+        touch("extension-back")
+        compose.waitUntil(5000) { compose.activity.store.dialog == null }
+        compose.onNodeWithTag("search").assertTextEquals(caller)
+        record.put("caller_query_restored", true)
+    }
+    @Test fun filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments()
+        clickDocumentText(device, "café 日本.txt")
+        val paths = awaitImportedFiles(1, "text")
+        assertEquals("café 日本.txt", File(paths.single()).name)
+        assertArrayEquals("Owned file café 日本 🌱\n".toByteArray(), File(paths.single()).readBytes())
+        capture("file-imported-unicode")
+        touch("extension-files-done-files")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray()))
+        returnFromFileDestination(); record.put("passed", true)
+    }
+    @Test fun filePickerCancellationPreservesTheValueAndDoesNotImport() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments()
+        device.pressBack()
+        compose.waitForIdle(); compose.onNodeWithTag("extension-files-dialog-files").assertIsDisplayed()
+        assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        assertTrue(File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty())
+        capture("file-picker-cancelled")
+        touch("extension-files-done-files"); record.put("cancel_preserved_selection_and_changes", true).put("passed", true)
+    }
+    @Test fun filePickerRejectsAnOversizeDocumentWithoutChangingItsSelection() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments()
+        clickDocumentText(device, "Owned too large.bin")
+        compose.waitUntil(15000) { compose.onAllNodesWithTag("extension-field-error-files-import-files").fetchSemanticsNodes().isNotEmpty() }
+        assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        compose.waitUntil(5000) { File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty() }
+        capture("file-import-error")
+        record.put("negative_control", "Owned provider declares a 17 MiB size; actual-stream bounds are separately tested")
+            .put("selection_and_callback_count_unchanged", true).put("passed", true)
+    }
+    @Test fun filePickerImportsARealSelectedFolderAndNestedBytes() {
+        launch("typed-file-folder-workflow")
+        val device = openOwnedDocuments(true)
+        clickDocumentText(device, "Owned folder")
+        assertTrue(documentRow(device, "nested.txt").waitForExists(5000))
+        clickDocumentText(device, "(?i)use this folder", pattern = true)
+        val allowSelector = By.text(java.util.regex.Pattern.compile("(?i)allow"))
+        assertTrue(device.wait(Until.hasObject(allowSelector), 5000))
+        captureDocumentPicker("android-folder-permission", device)
+        clickDocumentText(device, "(?i)allow", pattern = true)
+        val path = awaitImportedFiles(1).single(); assertTrue(File(path).isDirectory)
+        assertEquals("Owned folder", File(path).name)
+        assertArrayEquals("Owned nested café 日本 🌱\n".toByteArray(), File(path, "nested.txt").readBytes())
+        capture("file-folder-imported"); touch("extension-files-done-files")
+        submitImportedFiles(mapOf("Owned folder" to "Owned nested café 日本 🌱\n".toByteArray()), true)
+        returnFromFileDestination(); record.put("passed", true)
+    }
+    @Test fun filePickerMultipleSelectionPreservesBinaryBytesAndCanRemoveAndClear() {
+        launch("typed-file-multiple-workflow")
+        val device = openOwnedDocuments()
+        clickDocumentText(device, "café 日本.txt", long = true)
+        clickDocumentText(device, "owned-bytes.bin")
+        val openSelector = By.res(record.getString("system_picker_package"), "action_menu_select")
+        assertTrue(device.wait(Until.hasObject(openSelector), 5000))
+        assertTrue(device.hasObject(By.text("2 selected")))
+        captureDocumentPicker("android-two-documents-selected", device)
+        clickDocumentResource(device, "action_menu_select")
+        val paths = awaitImportedFiles(2)
+        assertEquals(setOf("café 日本.txt", "owned-bytes.bin"), paths.map { File(it).name }.toSet())
+        capture("file-two-imported"); touch("extension-files-done-files")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray(), "owned-bytes.bin" to byteArrayOf(0, 1, 2, -2, -1, 10)))
+        touch("extension-back"); compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        touch("extension-files-files")
+        val binary = typedFileValues().indexOfFirst { File(it).name == "owned-bytes.bin" }; assertTrue(binary >= 0)
+        touch("extension-files-remove-files-$binary")
+        compose.waitUntil(5000) { typedFileValues().map { File(it).name } == listOf("café 日本.txt") }
+        compose.waitForIdle(); capture("file-one-removed")
+        touch("extension-files-clear-files")
+        compose.waitUntil(5000) { typedFileValues().isEmpty() }
+        compose.waitForIdle(); capture("file-selection-cleared"); touch("extension-files-done-files")
+        submitImportedFiles(emptyMap()); returnFromFileDestination(); record.put("passed", true)
+    }
+    @Test fun filePickerResultCannotEnterAReplacementCommand() {
+        launch("typed-file-single-workflow")
+        val device = openOwnedDocuments(); val epoch = catalog.launchEpoch
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        assertNotEquals(epoch, catalog.launchEpoch)
+        clickDocumentText(device, "café 日本.txt")
+        compose.waitUntil(25000) { catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        compose.waitForIdle(); assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        assertTrue(File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty())
+        capture("file-late-selection-rejected")
+        record.put("transition", "Same owned command relaunched while real DocumentsUI was open; old selection leaves successor unchanged")
+            .put("successor_selection_empty", true).put("passed", true)
+    }
+    @Test fun filePickerResultCannotSurviveActivityRecreation() {
+        launch("typed-file-single-workflow")
+        val previousActivity = compose.activity; val previousEngine = engine()
+        val device = openOwnedDocuments()
+        // ActivityScenario.recreate() first forces RESUMED, which cannot be
+        // reached while the real DocumentsUI owns the foreground. Request the
+        // normal platform recreation at the Activity's actual stopped state.
+        compose.activityRule.scenario.onActivity { it.recreate() }
+        compose.waitUntil(15000) {
+            var replaced = false
+            InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                val monitor = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                replaced = previousActivity.isDestroyed && listOf(
+                    androidx.test.runner.lifecycle.Stage.CREATED, androidx.test.runner.lifecycle.Stage.STARTED,
+                    androidx.test.runner.lifecycle.Stage.RESUMED, androidx.test.runner.lifecycle.Stage.STOPPED
+                ).any { stage -> monitor.getActivitiesInStage(stage).any { it is MainActivity && it !== previousActivity && !it.isDestroyed } }
+            }
+            replaced
+        }
+        record.put("file_recreation_request", "Platform Activity.recreate while stopped behind real DocumentsUI; old destruction and replacement creation witnessed before document selection")
+        clickDocumentText(device, "café 日本.txt")
+        awaitRecreatedTypedRuntime(previousActivity, previousEngine)
+        mutateTyped("void 0", "old real document result after activity recreation")
+        assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
+        assertTrue(File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty())
+        capture("file-old-recreation-result-rejected")
+        val fresh = openOwnedDocuments(); clickDocumentText(fresh, "café 日本.txt")
+        val paths = awaitImportedFiles(1, "text")
+        assertArrayEquals("Owned file café 日本 🌱\n".toByteArray(), File(paths.single()).readBytes())
+        capture("file-fresh-recreation-result-accepted"); touch("extension-files-done-files")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray()))
+        returnFromFileDestination()
+        record.put("old_real_document_result_rejected", true).put("fresh_real_document_result_accepted", true).put("passed", true)
+    }
+
+    @Test fun disposedFilePickerRegistrationCannotConsumeASuccessorResult() {
+        launch("typed-controls")
+        val codes = mutableListOf<Int>()
+        val registry = object : androidx.activity.result.ActivityResultRegistry() {
+            override fun <I, O> onLaunch(requestCode: Int, contract: androidx.activity.result.contract.ActivityResultContract<I, O>, input: I,
+                options: androidx.core.app.ActivityOptionsCompat?) { codes.add(requestCode) }
+        }
+        var oldCalls = 0; var successorCalls = 0
+        compose.activityRule.scenario.onActivity {
+            val old = FormDocumentPicker(registry)
+            old.launch(android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT)) { oldCalls++ }
+            old.close()
+            val successor = FormDocumentPicker(registry)
+            successor.launch(android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT)) { successorCalls++ }
+            assertEquals(2, codes.size); assertNotEquals(codes[0], codes[1])
+            assertTrue(registry.dispatchResult(codes[0], android.app.Activity.RESULT_OK, android.content.Intent()))
+            assertEquals(0, oldCalls); assertEquals(0, successorCalls)
+            assertTrue(registry.dispatchResult(codes[1], android.app.Activity.RESULT_OK, android.content.Intent()))
+            assertEquals(0, oldCalls); assertEquals(1, successorCalls)
+            successor.close()
+        }
+        record.put("test_boundary", "Controlled real ActivityResultRegistry dispatch: distinct unsaved keys, disposed-result tombstone, exact successor callback count; no system picker launch")
+            .put("old_callbacks", oldCalls).put("successor_callbacks", successorCalls)
+        capture("file-registry-isolation"); record.put("passed", true)
+    }
+    private fun memoryFileSource(open: () -> java.io.InputStream) = object : FormDocumentSource {
+        override fun document(key: String) = FormDocument(key, "owned-memory.bin", false)
+        override fun children(document: FormDocument, visit: (FormDocument) -> Unit) = Unit
+        override fun open(document: FormDocument) = open()
+    }
+    @Test fun cancelledFileImportCannotDeliverAfterItsBlockedReadFinishes() {
+        launch("typed-controls")
+        val entered = CountDownLatch(1); val release = CountDownLatch(1); val finished = CountDownLatch(1)
+        val offMain = AtomicBoolean(false); val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf("owned"), true, false) {
+            memoryFileSource {
+                object : java.io.ByteArrayInputStream(byteArrayOf(0, 1, 2, -1)) {
+                    override fun read(bytes: ByteArray, offset: Int, length: Int): Int {
+                        offMain.set(android.os.Looper.myLooper() != android.os.Looper.getMainLooper()); entered.countDown()
+                        while (release.count > 0) try { release.await(30, TimeUnit.MILLISECONDS) } catch (_: InterruptedException) { /* Controlled uncooperative provider read. */ }
+                        finished.countDown(); return super.read(bytes, offset, length)
+                    }
+                }
+            }
+        }
+        var deliveries = 0
+        try {
+            compose.activityRule.scenario.onActivity { scope.launch { request.prepare(); request.deliver { deliveries++; true } } }
+            assertTrue(entered.await(5, TimeUnit.SECONDS)); assertTrue(offMain.get())
+            touch("extension-files-files"); compose.onNodeWithTag("extension-files-dialog-files").assertIsDisplayed()
+            compose.activityRule.scenario.onActivity { request.cancel(); scope.cancel() }
+            release.countDown(); assertTrue(finished.await(5, TimeUnit.SECONDS))
+            compose.waitUntil(5000) { File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty() }
+            assertEquals(0, deliveries); assertTrue(typedFileValues().isEmpty())
+            capture("file-cancelled-read-released")
+            record.put("test_boundary", "Controlled blocked InputStream on the actual bounded copy worker; real app pointer remains responsive; no DocumentsUI/provider-service timeout claim")
+                .put("read_off_main", true).put("late_deliveries", deliveries).put("undelivered_copies_removed", true).put("passed", true)
+        } finally { release.countDown(); request.cancel(); scope.cancel() }
+    }
+    @Test fun cancellationBetweenFilePreparationAndDeliveryRemovesOnlyTheUndeliveredCopy() {
+        launch("typed-controls")
+        val root = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}")
+        val original = File(root, "owned-existing.txt").apply { writeText("Owned pre-existing extension data") }
+        val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf("owned"), true, false) {
+            memoryFileSource { java.io.ByteArrayInputStream(byteArrayOf(0, 1, 2, -1)) }
+        }
+        var deliveries = 0
+        try {
+            runBlocking { withTimeout(5000) { request.prepare() } }
+            assertEquals(1, File(root, "form-input").listFiles().orEmpty().size)
+            request.cancel()
+            compose.waitUntil(5000) { File(root, "form-input").listFiles().orEmpty().isEmpty() }
+            compose.activityRule.scenario.onActivity { assertFalse(request.deliver { deliveries++; true }) }
+            assertEquals(0, deliveries); assertEquals("Owned pre-existing extension data", original.readText())
+            record.put("test_boundary", "Controlled cancellation after successful prepare/commit but before field acceptance; no external picker launch")
+                .put("late_deliveries", deliveries).put("unrelated_extension_data_preserved", true)
+            capture("file-prepared-result-cancelled"); record.put("passed", true)
+        } finally { request.cancel() }
+    }
+    @Test fun intentionalFileImportDeathRequiresIndependentHostRecovery() {
+        assumeTrue("Select this process-death control by its exact method name", InstrumentationRegistry.getArguments().getString("class") ==
+            "dev.tinycast.android.ExtensionFormDeviceTest#intentionalFileImportDeathRequiresIndependentHostRecovery")
+        launch("typed-file-single-workflow")
+        val root = formFileStorageRoot(context.filesDir, requireNotNull(ownedId))
+        val blocked = CountDownLatch(1); val release = CountDownLatch(1)
+        val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf("owned"), true, false) {
+            memoryFileSource {
+                object : java.io.InputStream() {
+                    var first = true
+                    override fun read(): Int = error("Use the bounded bulk-read path")
+                    override fun read(target: ByteArray, offset: Int, length: Int): Int {
+                        if (first) { first = false; target[offset] = 0; target[offset + 1] = 1; return 2 }
+                        blocked.countDown()
+                        check(release.await(30, TimeUnit.SECONDS)) { "The owned death probe did not terminate" }
+                        return -1
+                    }
+                }
+            }
+        }
+        val worker = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        val copying = worker.launch { request.prepare() }
+        try {
+            assertTrue(blocked.await(5, TimeUnit.SECONDS))
+            val pending = File(root, "form-input").listFiles().orEmpty().single()
+            val nonce = pending.name.removePrefix("pending-")
+            assertTrue(pending.name.startsWith("pending-")); assertEquals(nonce, UUID.fromString(nonce).toString())
+            assertEquals(nonce, File(pending, ".owner").readText())
+            val partial = pending.walkTopDown().single { it.isFile && it.name != ".owner" }
+            assertArrayEquals(byteArrayOf(0, 1), partial.readBytes()); assertTrue(copying.isActive)
+            ownedLease(); assertEquals(context.applicationInfo.uid, android.os.Process.myUid())
+            compose.activityRule.scenario.onActivity {
+                assertEquals("Owned Form clipboard sentinel", it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text?.toString())
+            }
+            record.put("scope", "Controlled owned worker import interrupted during a blocked read; no actual provider selection or JUnit cleanup")
+                .put("intentional_process_death", true).put("manual_record_before_kill", true).put("blocked_worker_active", true)
+                .put("pending_owner_validated", true).put("partial_copy_bytes", partial.length()).put("owned_clipboard_mutation_verified", true)
+                .put("instrumentation_pid", android.os.Process.myPid()).put("owner_nonce", expectedOwner)
+            capture("file-blocked-worker-before-death")
+            assertTrue(copying.isActive); assertTrue(pending.exists())
+            val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json"
+            java.io.FileOutputStream(File(evidence, name)).use { output -> output.write(record.toString(2).toByteArray()); output.fd.sync() }
+            android.os.Process.killProcess(android.os.Process.myPid())
+            throw AssertionError("The explicitly selected owned instrumentation process must terminate")
+        } finally { release.countDown(); request.cancel(); worker.cancel() }
+    }
+
     @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
     @Test fun formsWithErrorsBlockActionsMenuKeyboardSubmit() = assertErroredSubmitBlocked(true)
 

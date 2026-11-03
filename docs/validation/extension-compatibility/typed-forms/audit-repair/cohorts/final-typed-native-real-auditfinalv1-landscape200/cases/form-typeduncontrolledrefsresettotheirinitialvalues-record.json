@@ -1,0 +1,188 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "typed-defaults",
+  "fixture_command_sha256": "a2e6b8ec3a4071714bbedef9a070afc3e8b46fccc71abf75c920cf47b1d9626e",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-0529bc448c2e40149fba279e4fb77760",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-clear-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 269,
+      "visible_bounds": [
+        239,
+        585,
+        618,
+        725
+      ],
+      "control_size": [
+        379,
+        140
+      ],
+      "point": [
+        428.5,
+        655
+      ]
+    },
+    {
+      "tag": "extension-tags-tags",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 269,
+      "visible_bounds": [
+        239,
+        625,
+        2102,
+        765
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        695
+      ]
+    },
+    {
+      "tag": "extension-tags-done-tags",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 402,
+      "visible_bounds": [
+        777,
+        517,
+        1460,
+        657
+      ],
+      "control_size": [
+        683,
+        140
+      ],
+      "point": [
+        1118.5,
+        587
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 269,
+      "visible_bounds": [
+        1031,
+        738,
+        1820,
+        986
+      ],
+      "control_size": [
+        789,
+        248
+      ],
+      "point": [
+        1425.5,
+        862
+      ]
+    }
+  ],
+  "typed_publications": [
+    {
+      "phase": "uncontrolled refs reset",
+      "root_id": "11",
+      "before": 2,
+      "native_counter": 3,
+      "composed_marker": "Typed publication 3",
+      "composed_semantics_id": 384
+    }
+  ],
+  "uncontrolled_reset_published": true,
+  "reset_did_not_invoke_on_change": true,
+  "test_boundary": "Actual generated uncontrolled Date\/tag reset refs; imperative focus and storeValue persistence are separate open contracts",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

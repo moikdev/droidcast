@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "helper_sha256": "38f980a026114fc87d83f501bbc5f5a8e9768dfe27b43a6eff25bba34d4c5770",
+  "previous_private_staging_failure": "publication-v4 stopped before publication because the reference helper contained its own contiguous generic host-prefix matcher. Runtime transforms are unchanged; v2 spells the matcher as concatenated bytes so the helper can be safely exported.",
+  "lint": {
+    "debug": {
+      "source": "artifacts/form-pickers/final-typed-checks-v3/lint-results-debug.xml",
+      "source_sha256": "8a21db85da4a31e6a4cdef7e5bb607a26481d0f2c95d483eee27cd7e0d19f491",
+      "published_sha256": "73fbaf28a92ef7b63f7ed7882c5baf74722736a3489e684218a7311b706d3e93",
+      "counts": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 52
+      },
+      "crlf_count_preserved": true
+    },
+    "benchmark": {
+      "source": "artifacts/form-pickers/final-typed-checks-v3/lint-results-benchmark.xml",
+      "source_sha256": "8a21db85da4a31e6a4cdef7e5bb607a26481d0f2c95d483eee27cd7e0d19f491",
+      "published_sha256": "73fbaf28a92ef7b63f7ed7882c5baf74722736a3489e684218a7311b706d3e93",
+      "counts": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 52
+      },
+      "crlf_count_preserved": true
+    }
+  },
+  "host_allowlist_checked": true,
+  "public_cleanup_checks": 19,
+  "original_data_and_recovery_fields_excluded": true,
+  "reference_helper_export_checked": true
+}

@@ -1,0 +1,84 @@
+{
+  "completed": false,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "tablet",
+  "font_scale": 1,
+  "classes": "dev.tinycast.android.ExtensionFormDeviceTest#datePickerHasNativeTouchControl,dev.tinycast.android.ExtensionFormDeviceTest#tagPickerHasNativeTouchControl,dev.tinycast.android.ExtensionFormDeviceTest#filePickerHasNativeTouchControl,dev.tinycast.android.ExtensionFormDeviceTest#datePickerErrorDisablesSubmit,dev.tinycast.android.ExtensionFormDeviceTest#tagPickerErrorDisablesSubmit,dev.tinycast.android.ExtensionFormDeviceTest#filePickerErrorDisablesSubmit",
+  "expected": 6,
+  "runner_sha256": "d9d1bc019c396d974f65884f9d1aec3c4e9fa3f0156e6ef8ff3c7af9587934eb",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "cleanup_helper_sha256": "c22e9d8dbe59a022391b3d64bc574891a682aa681109b59afc76c203e638bfe1",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "evidence_directories": [
+    "reviewed-text-evidence"
+  ],
+  "shared_regression_cohort": false,
+  "apk_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+  "test_apk_sha256": "e7cf2114131aeddb387d73973dba4a2f4300d4a250bcb6fd9ebdc4924a0fe5ed",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 0,
+  "tests_completed": false,
+  "owned_extension_count": 6,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  },
+  "publication_boundary": "Allowlisted host outcomes only. Original preferences, clipboard snapshots/contents/fingerprints, backup hashes, recovery receipts, host PIDs and nonce owner material are excluded. No hash of the private full host record is published."
+}

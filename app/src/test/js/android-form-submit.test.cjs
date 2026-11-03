@@ -36,7 +36,7 @@ function fixture() {
   f.callback = values => { f.calls.push(values); return 'owned result'; };
   f.publish = () => {
     const action = {id: f.actionId, type: 'Action', props: {...f.element.props, onAction: {$fn: 'action:onAction'}}, children: []};
-    const field = {id: 'field', type: 'Form.TextField', props: {id: 'name', error: f.error}, children: []};
+    const field = {id: 'field', type: f.fieldType || 'Form.TextField', props: {id: 'name', error: f.error}, children: []};
     const root = {id: f.rootId, type: f.rootType || 'Form', props: {actions: {type: 'ActionPanel', props: {}, children: [action]}}, children: [field]};
     const inactive = {type: '__screen', props: {active: false}, children: [{id: 'old-form', type: 'Form', props: {}, children: [{type: 'Form.TextField', props: {error: 'Old hidden error'}}]}]};
     context.__tinycastHost.render(f.session, JSON.stringify({children: [inactive, {type: '__screen', props: {active: true}, children: [root]}]}));
@@ -65,6 +65,14 @@ test('blank or absent errors allow exact Unicode values and callback results', a
   for (const error of [undefined, null, '', '  ']) {
     const f = fixture(); f.error = error; f.render();
     assert.equal(await f.element.props.onAction(), 'owned result'); assert.deepEqual(f.calls, [{name: 'Owned 日本 🌱'}]);
+  }
+});
+test('date, tag and file field errors block their fresh committed submission', async () => {
+  for (const fieldType of ['Form.DatePicker', 'Form.TagPicker', 'Form.FilePicker']) {
+    const f = fixture(); f.fieldType = fieldType; f.error = 'Owned typed validation error'; f.render();
+    assert.equal(await f.element.props.onAction(), undefined); assert.equal(f.calls.length, 0);
+    f.error = undefined; f.render();
+    assert.equal(await f.element.props.onAction(), 'owned result'); assert.equal(f.calls.length, 1);
   }
 });
 test('the post-publication callback sees accepted current values', async () => {

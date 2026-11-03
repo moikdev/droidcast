@@ -1,0 +1,48 @@
+{
+  "scope": "Two workflow scenarios spanning three frozen commands. Listing projection changes only owned fixture namespace/title; command JavaScript is unchanged. Store metadata and the pinned source inventory are separate populations.",
+  "extensions": [
+    {
+      "directory": "mood",
+      "title": "Mood Tracker",
+      "archive_bytes": 357056,
+      "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+      "manifest_sha256": "bc7d363822f938ce3a0a63ed4d4170c6bfaf3bebc9476ce5db8ca57b3834c0a0",
+      "file_inventory_sha256": "620fba14e982f8885be70aa640ae552e21524da436c3113915630df88eb5e24d",
+      "store_reported_commit_sha": "6e41546d4072ee1684be8a03feaf4dcd655d5378",
+      "commands": [
+        {
+          "name": "record-mood",
+          "title": "Record Mood",
+          "mode": "view",
+          "file_bytes": 3380,
+          "file_sha256": "11e2a3e9900c47a8697004f267024865c2f4a5d21b87cb396e07ed4a5cc56478"
+        },
+        {
+          "name": "search-moods",
+          "title": "Search Moods",
+          "mode": "view",
+          "file_bytes": 3493,
+          "file_sha256": "9eee3a5852244fc06109e695358c2780a3970d28d04776b7d6416a11653bdea0"
+        }
+      ]
+    },
+    {
+      "directory": "checksum",
+      "title": "Checksum",
+      "archive_bytes": 169260,
+      "archive_sha256": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d",
+      "manifest_sha256": "7bf75bc0353a02f60c3d1df007ec453fdc30ac0d25a28c8612e22f426926065f",
+      "file_inventory_sha256": "59ca551560e77d5a2acfd01444807d0f89071625f1747b75a828c92d4d86f14e",
+      "store_reported_commit_sha": "901f653478056a6e0463276a5c2548c6a9a7ff78",
+      "commands": [
+        {
+          "name": "hashfile",
+          "title": "Get File Hash",
+          "mode": "view",
+          "file_bytes": 4268,
+          "file_sha256": "b42e7c5bbe881ae5397aa43660c29c23651b8d06e8165b5f11a962232a9d9a68"
+        }
+      ]
+    }
+  ]
+}

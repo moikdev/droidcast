@@ -1,0 +1,30 @@
+{
+  "completed": true,
+  "production_source_commit": "332d354ca25393b28d875aef6b36882a674e37c8",
+  "test_source_commit": "f768163812d02fd30d260721e157443175129825",
+  "host_source_commit": "332d354ca25393b28d875aef6b36882a674e37c8",
+  "methods": [
+    "filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller"
+  ],
+  "frozen_inputs": {
+    "artifacts/form-pickers/candidate-332d354-file-stage-v3/app.apk": "f97fb4b8463cef10f2e894f5dfabf293837eda2b140e3605cd27b73669c2b4b9",
+    "artifacts/form-pickers/candidate-332d354-file-stage-v3/test.apk": "29f806e5e5d408e99f87509550b7d8c1cdc6c38b9506702951a7d0f4cfbeda03",
+    "scripts/test-reviewed-text-input.py": "d1b5199dd02f1d373ef0e69f17fad5e57696212d00f981248f3fec7d22f8e2fd",
+    "scripts/android_form_documents_fixture.py": "cef4d7384a5fcc86cb9fe13763e249b8394f0ce19c5decbe8632921a8c165082",
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "scripts/android_test_cleanup.py": "c22e9d8dbe59a022391b3d64bc574891a682aa681109b59afc76c203e638bfe1"
+  },
+  "wrapper_sha256": "383ebb673396aa30ae752013cec5f80585b44e6f83ec0730d25b0fcb488c3e61",
+  "source_controller": "file-native-single-v12-state.json",
+  "cohorts": [
+    {
+      "name": "file-single-v12-tablet100",
+      "completed": true,
+      "exit_code": 0,
+      "passes": 1,
+      "cleanup_checks": 19,
+      "cleanup_all_passed": true,
+      "document_sources_verified": true
+    }
+  ]
+}

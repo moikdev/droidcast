@@ -1,0 +1,13 @@
+{
+  "common_test_apk_sha256": "d8e9a4a9c40dfffecf68b2fa02b7049466b9534997f5d0f433ac8acbb23e1389",
+  "current_test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+  "changed_zip_payloads": [
+    "classes4.dex"
+  ],
+  "changed_source_paths": [
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormDateUi.kt",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormUi.kt"
+  ],
+  "android_test_and_shared_helper_sources_byte_identical": true,
+  "boundary": "Only classes4.dex ZIP payload differs; generated test BuildConfig commit/checksum metadata differs. Exact stamp-only reconstruction was not established. Matched common-APK controls and current-APK regression receipts remain distinct."
+}

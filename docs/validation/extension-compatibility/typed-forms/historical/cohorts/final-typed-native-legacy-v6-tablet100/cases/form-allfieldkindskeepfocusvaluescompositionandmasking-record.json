@@ -1,0 +1,593 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "fixture_mode": "all-fields",
+  "fixture_command_sha256": "bd8874a96bd625c0d37e98910e9009c2e657a6bc8bfc50671303c58c246b34b9",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-b7956da6f6b34410b0016a520f555a35",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 12,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 11,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1777,
+      "visible_bounds": [
+        428,
+        392,
+        1493,
+        476
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        434
+      ]
+    },
+    {
+      "tag": "extension-field-password",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1777,
+      "visible_bounds": [
+        428,
+        539,
+        1493,
+        623
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        581
+      ]
+    },
+    {
+      "tag": "extension-field-area",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1777,
+      "visible_bounds": [
+        428,
+        607,
+        1493,
+        691
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        649
+      ]
+    },
+    {
+      "tag": "extension-field-uncontrolled",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1777,
+      "visible_bounds": [
+        428,
+        460,
+        1493,
+        544
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        502
+      ]
+    },
+    {
+      "tag": "extension-checkbox-enabled",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1777,
+      "visible_bounds": [
+        428,
+        472,
+        1493,
+        544
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        508
+      ]
+    },
+    {
+      "tag": "extension-choice-choice",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1777,
+      "visible_bounds": [
+        428,
+        708,
+        1493,
+        780
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        744
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "controlled_selection_before_publication": [
+    2,
+    5
+  ],
+  "publication_witnesses": [
+    {
+      "phase": "controlled-selection",
+      "before_counter": 0,
+      "expected_counter": 1,
+      "observed_native": {
+        "root_id": "13",
+        "counter": 1,
+        "marker": "Owned render 1"
+      },
+      "composed_marker": "Owned render 1",
+      "composed_semantics_id": 1935,
+      "native_delivery_and_compose_consumption_observed": true
+    },
+    {
+      "phase": "uncontrolled-value",
+      "before_counter": 1,
+      "expected_counter": 2,
+      "observed_native": {
+        "root_id": "13",
+        "counter": 2,
+        "marker": "Owned render 2"
+      },
+      "composed_marker": "Owned render 2",
+      "composed_semantics_id": 1935,
+      "native_delivery_and_compose_consumption_observed": true
+    }
+  ],
+  "controlled_selection_after_publication": [
+    2,
+    5
+  ],
+  "selection_method": "Exact programmatic range before\/after unrelated React publication with Gboard hidden; live-IME selection is a separate pointer test",
+  "composition_steps": [
+    {
+      "phase": "after-set-composing",
+      "editor_length": 21,
+      "selection_start": 2,
+      "selection_end": 2,
+      "composition_spans": [],
+      "runtime_value_length": 19
+    },
+    {
+      "phase": "after-javascript-publication",
+      "editor_length": 21,
+      "selection_start": 2,
+      "selection_end": 2,
+      "composition_spans": [],
+      "runtime_value_length": 21
+    },
+    {
+      "phase": "after-commit",
+      "editor_length": 22,
+      "selection_start": 3,
+      "selection_end": 3,
+      "composition_spans": [],
+      "runtime_value_length": 21
+    }
+  ],
+  "password_editor_metadata": [
+    {
+      "tag": "extension-field-password",
+      "input_type": 129,
+      "ime_options": 33554438,
+      "scope": "Actual focused editor InputConnection metadata before any password is entered"
+    }
+  ],
+  "uncontrolled_value_preserved_after_witnessed_publication": true,
+  "focus_probe": {
+    "changes": 6,
+    "focus": {
+      "name": 1,
+      "password": 1,
+      "area": 1,
+      "uncontrolled": 1,
+      "enabled": 1,
+      "choice": 1
+    },
+    "blur": {
+      "name": 1,
+      "password": 1,
+      "area": 1,
+      "uncontrolled": 1,
+      "enabled": 1
+    },
+    "blurLengths": {
+      "name": 22,
+      "password": 42,
+      "area": 29,
+      "uncontrolled": 24,
+      "enabled": 0
+    },
+    "dispatches": 18,
+    "focusFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "password": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "area": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "uncontrolled": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "enabled": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "choice": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    },
+    "blurFacts": {
+      "name": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "password": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "area": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "uncontrolled": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "enabled": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    },
+    "blurValues": {
+      "name": "日本語Owned café é 日本 🌱",
+      "password": "owned-f5075e87-91ce-46ff-acb2-2d10cd4f1f4c",
+      "area": "Owned multiline café é\n日本 🌱",
+      "uncontrolled": "Owned uncontrolled 日本 🌱",
+      "enabled": true
+    }
+  },
+  "composition_survived_javascript_round_trip": true,
+  "composition_method": "Controlled Android InputConnection with Gboard hidden across asynchronous JS\/native phases; not phonetic typing gestures in a live OEM IME",
+  "controlled_selection_preserved": true,
+  "password_masking_and_value_delivery": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

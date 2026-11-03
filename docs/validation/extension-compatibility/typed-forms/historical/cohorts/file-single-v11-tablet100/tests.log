@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The real picker selection was rejected by the native import
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionFormDeviceTest.awaitImportedFiles(ExtensionFormDeviceTest.kt:1493)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller(ExtensionFormDeviceTest.kt:1540)
+
+INSTRUMENTATION_STATUS: stream=
+Error in filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: The real picker selection was rejected by the native import
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionFormDeviceTest.awaitImportedFiles(ExtensionFormDeviceTest.kt:1493)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller(ExtensionFormDeviceTest.kt:1540)
+
+INSTRUMENTATION_STATUS: test=filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.754
+There was 1 failure:
+1) filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: The real picker selection was rejected by the native import
+	at org.junit.Assert.fail(Assert.java:89)
+	at dev.tinycast.android.ExtensionFormDeviceTest.awaitImportedFiles(ExtensionFormDeviceTest.kt:1493)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller(ExtensionFormDeviceTest.kt:1540)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

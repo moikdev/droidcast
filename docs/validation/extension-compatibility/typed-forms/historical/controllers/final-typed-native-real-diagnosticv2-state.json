@@ -1,0 +1,34 @@
+{
+  "completed": true,
+  "production_source_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "test_source_commit": "e27b7926d4ef4b15de1cdd2cebcef6496db9365d",
+  "host_source_commit": "e27b7926d4ef4b15de1cdd2cebcef6496db9365d",
+  "methods": [
+    "frozenChecksumHashesTheActualImportedBytesCopiesAndReturns"
+  ],
+  "frozen_inputs": {
+    "artifacts/form-pickers/checksum-selection-diagnostic-plan-v1.json": "4199f64c3dd0d8d7f4ab434e7261c87643ca59fc4d483556d5fe2c846121439e",
+    "artifacts/form-pickers/file-workflow-harness-v25-state.json": "51e5dff8f4495335bc96c4e0f519527e22f73f664b6c24b9aa86b81f992df956",
+    "artifacts/form-pickers/harness-e27b792-file-workflows-v25/app.apk": "ae9e4aa7139a36ad0e3b968903c0c89daf3f045f40d1d552f87a4dd638c17aec",
+    "artifacts/form-pickers/harness-e27b792-file-workflows-v25/test.apk": "4f62f11e119f50591b0b612523c987a76b7932d6dfbeb7346a3cee88d9c25e66",
+    "scripts/test-reviewed-text-input.py": "81ca546c2bbe4e2ee6ce80b838c974378f7ffe991762821d893b353a39e9d2b9",
+    "scripts/android_form_documents_fixture.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "scripts/android_test_cleanup.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "artifacts/form-pickers/typed-real-bundles-v1/archives/ee0e4f309c9a47317d3344b5bcd25dcbf0727a91833d5c6e21b842b53c406878.zip": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+    "artifacts/form-pickers/typed-real-bundles-v1/archives/96fa8f226d3801741e807533552bc4b177ac4544d834073b6a5298934d34b40b.zip": "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d"
+  },
+  "wrapper_sha256": "97b8a56307f3eeba70422e4bf12de5a518e7a9c8ae47ac8f3fb0850636394d18",
+  "source_controller": "final-typed-native-real-diagnosticv2-state.json",
+  "cohorts": [
+    {
+      "name": "final-typed-native-real-diagnosticv2-landscape200",
+      "completed": true,
+      "exit_code": 0,
+      "passes": 1,
+      "cleanup_checks": 21,
+      "cleanup_all_passed": true,
+      "document_sources_verified": true
+    }
+  ]
+}

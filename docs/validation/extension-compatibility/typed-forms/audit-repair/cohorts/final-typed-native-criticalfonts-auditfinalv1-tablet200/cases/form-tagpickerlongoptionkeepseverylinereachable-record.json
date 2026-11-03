@@ -1,0 +1,207 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "fixture_mode": "typed-tags-long",
+  "fixture_command_sha256": "e0195effcee8be49223ae55a0a68a6e3fd65889aea4b1d630193b084a2cf7b3d",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-ae70a4c9ea0e48888ea3032d9a83ff38",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-tags-tags",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 959,
+      "visible_bounds": [
+        428,
+        752,
+        1493,
+        832
+      ],
+      "control_size": [
+        1065,
+        80
+      ],
+      "point": [
+        960.5,
+        792
+      ]
+    },
+    {
+      "tag": "extension-tags-done-tags",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1091,
+      "visible_bounds": [
+        444,
+        457,
+        834,
+        537
+      ],
+      "control_size": [
+        390,
+        80
+      ],
+      "point": [
+        639,
+        497
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 959,
+      "visible_bounds": [
+        881,
+        983,
+        1333,
+        1125
+      ],
+      "control_size": [
+        452,
+        142
+      ],
+      "point": [
+        1107,
+        1054
+      ]
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-tags-options-tags",
+      "gutter": false,
+      "visible_bounds": [
+        42,
+        125,
+        834,
+        439
+      ],
+      "start": [
+        396,
+        157
+      ],
+      "end": [
+        396,
+        235.5
+      ]
+    }
+  ],
+  "long-tag-option_line_probe": {
+    "ime_visible": false,
+    "line_counts": [
+      4
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          42,
+          125,
+          834,
+          439
+        ],
+        "text_0": [
+          120,
+          131,
+          828,
+          355
+        ],
+        "text_0_lines_seen": 4
+      }
+    ]
+  },
+  "tag_change_runtime_type": {
+    "is_date": false,
+    "is_null": false,
+    "is_array": true,
+    "array_strings": true,
+    "valid_date": false,
+    "date_iso": null,
+    "full_day_helper": true,
+    "full_day": null
+  },
+  "tag_submit_runtime_type": {
+    "is_date": false,
+    "is_null": false,
+    "is_array": true,
+    "array_strings": true,
+    "valid_date": false,
+    "date_iso": null,
+    "full_day_helper": true,
+    "full_day": null,
+    "present": true
+  },
+  "submitted_tags": [
+    "internal-two",
+    "internal-one"
+  ],
+  "submit_count": 1,
+  "test_boundary": "Actual tag pointer changes and owned JS callback array values; file selection and a separate destination are not exercised",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

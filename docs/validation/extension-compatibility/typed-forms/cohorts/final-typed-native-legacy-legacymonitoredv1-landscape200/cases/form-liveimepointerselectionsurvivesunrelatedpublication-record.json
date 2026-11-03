@@ -1,0 +1,141 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "fixture_mode": "all-fields",
+  "fixture_command_sha256": "bd8874a96bd625c0d37e98910e9009c2e657a6bc8bfc50671303c58c246b34b9",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-d876db1bd42f41649ef3d61757c9b262",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": true,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": true,
+      "window_scope": "activity",
+      "native_frames": 4,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 920,
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        629
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        531.5
+      ]
+    }
+  ],
+  "publication_witnesses": [
+    {
+      "phase": "live-ime-pointer-selection",
+      "before_counter": 0,
+      "expected_counter": 1,
+      "observed_native": {
+        "root_id": "13",
+        "counter": 1,
+        "marker": "Owned render 1"
+      },
+      "composed_marker": "Owned render 1",
+      "composed_semantics_id": 1072,
+      "native_delivery_and_compose_consumption_observed": true
+    }
+  ],
+  "pointer_selection_before_publication": [
+    0,
+    5
+  ],
+  "pointer_selection_after_publication": [
+    0,
+    5
+  ],
+  "selection_method": "Actual long-press word selection with the live IME visible before\/after an unrelated React publication",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

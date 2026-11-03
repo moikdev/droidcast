@@ -10,7 +10,8 @@ internal fun sameFormField(owner: FormFieldOwner, rootId: String, nativeId: Stri
 
 internal fun currentFormChoice(expected: FormChoice, choices: List<FormChoice>): FormChoice? = choices.firstOrNull { it == expected }
 
-private val inputTypes = setOf("Form.TextField", "Form.PasswordField", "Form.TextArea", "Form.Checkbox", "Form.Dropdown")
+private val inputTypes = setOf("Form.TextField", "Form.PasswordField", "Form.TextArea", "Form.Checkbox", "Form.Dropdown",
+    "Form.DatePicker", "Form.TagPicker", "Form.FilePicker")
 private fun formProps(node: JSONObject) = node.optJSONObject("props") ?: JSONObject()
 private fun formChildren(node: JSONObject): List<JSONObject> {
     val children = node.optJSONArray("children") ?: return emptyList()
@@ -45,19 +46,38 @@ internal fun formHasErrors(root: JSONObject?): Boolean = root?.optString("type")
     it.optString("type") in inputTypes && (formProps(it).opt("error") as? String)?.isNotBlank() == true
 }
 
-internal fun formChoices(field: JSONObject): List<FormChoice> = descendants(field).filter { it.optString("type") == "Form.Dropdown.Item" }.mapNotNull {
+/** Keep typed field values intact for event-time focus/blur delivery. */
+internal fun formFieldValue(field: JSONObject): Any {
+    val props = formProps(field)
+    return when (field.optString("type")) {
+        "Form.Checkbox" -> props.optBoolean("value")
+        "Form.DatePicker" -> props.opt("value") ?: JSONObject.NULL
+        "Form.TagPicker", "Form.FilePicker" -> props.opt("value") ?: org.json.JSONArray()
+        else -> (props.opt("value") as? String).orEmpty()
+    }
+}
+
+private fun formItemChoices(field: JSONObject, itemType: String): List<FormChoice> = descendants(field).filter { it.optString("type") == itemType }.mapNotNull {
     val p = formProps(it)
     val value = p.opt("value") as? String ?: return@mapNotNull null
     val id = it.optString("id").takeIf(String::isNotBlank) ?: return@mapNotNull null
     FormChoice(id, value, (p.opt("title") as? String).orEmpty().ifBlank { "Untitled option" })
 }.toList()
 
+internal fun formChoices(field: JSONObject): List<FormChoice> = formItemChoices(field, "Form.Dropdown.Item")
+internal fun formTagChoices(field: JSONObject): List<FormChoice> = formItemChoices(field, "Form.TagPicker.Item")
+
 internal fun formChoiceTitle(value: String, choices: List<FormChoice>, placeholder: String = "Choose…"): String =
     choices.firstOrNull { it.value == value }?.title ?: if (value.isBlank()) placeholder else "Selection unavailable"
 
 internal fun liveFormChoice(owner: FormFieldOwner, expected: FormChoice, root: JSONObject?): Pair<JSONObject, FormChoice>? {
     val field = liveFormField(owner, root) ?: return null
-    val choice = currentFormChoice(expected, formChoices(field)) ?: return null
+    val choices = when (owner.type) {
+        "Form.Dropdown" -> formChoices(field)
+        "Form.TagPicker" -> formTagChoices(field)
+        else -> return null
+    }
+    val choice = currentFormChoice(expected, choices) ?: return null
     return field to choice
 }
 

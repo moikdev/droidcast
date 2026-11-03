@@ -1,0 +1,96 @@
+{
+  "completed": true,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "phone",
+  "font_scale": 2.0,
+  "classes": "dev.tinycast.android.ExtensionFormDeviceTest#filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller,dev.tinycast.android.ExtensionFormDeviceTest#filePickerCancellationPreservesTheValueAndDoesNotImport,dev.tinycast.android.ExtensionFormDeviceTest#filePickerRejectsAnOversizeDocumentWithoutChangingItsSelection,dev.tinycast.android.ExtensionFormDeviceTest#filePickerImportsARealSelectedFolderAndNestedBytes,dev.tinycast.android.ExtensionFormDeviceTest#filePickerMultipleSelectionPreservesBinaryBytesAndCanRemoveAndClear,dev.tinycast.android.ExtensionFormDeviceTest#filePickerResultCannotEnterAReplacementCommand,dev.tinycast.android.ExtensionFormDeviceTest#disposedFilePickerRegistrationCannotConsumeASuccessorResult,dev.tinycast.android.ExtensionFormDeviceTest#cancelledFileImportCannotDeliverAfterItsBlockedReadFinishes,dev.tinycast.android.ExtensionFormDeviceTest#cancellationBetweenFilePreparationAndDeliveryRemovesOnlyTheUndeliveredCopy",
+  "expected": 9,
+  "runner_sha256": "81ca546c2bbe4e2ee6ce80b838c974378f7ffe991762821d893b353a39e9d2b9",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "typed_workflow_archive_sha256": {},
+  "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "evidence_directories": [
+    "reviewed-text-evidence"
+  ],
+  "shared_regression_cohort": false,
+  "apk_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+  "test_apk_sha256": "6c13d8f0c9073d84ccf26b4505c9312abce8ee6db7591af61e1146b87b739951",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 9,
+  "tests_completed": true,
+  "owned_extension_count": 9,
+  "document_fixture_restored": true,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "owned-document-sources-unchanged": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  },
+  "publication_boundary": "Allowlisted host outcomes only. Original preferences, clipboard snapshots/contents/fingerprints, backup hashes, recovery receipts, host PIDs and nonce owner material are excluded. No hash of the private full host record is published."
+}
