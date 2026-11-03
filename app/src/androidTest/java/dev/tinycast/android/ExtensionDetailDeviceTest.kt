@@ -478,4 +478,30 @@ class ExtensionDetailDeviceTest {
             .put("table_overflowed", range.maxValue() > 0f).put("code_table_setup", "Axis-aware semantic reveal followed by real horizontal pointer gestures; final column uses semantic reveal")
             .put("passed", true)
     }
+    @Test fun metadataLinkTextKeepsNaturalLinesInsideRoundedTouchTarget() {
+        launch("detail")
+        val label = compose.onNodeWithText("Owned link standalone", useUnmergedTree = true)
+        reveal(label); capture("link-before-safe-area-assertions")
+        record.put("contract_assertions_started", true)
+        val probes = JSONArray(); record.put("link_line_safe_area", probes)
+        for (text in listOf("Owned reference", "Owned link standalone")) {
+            val node = compose.onNodeWithText(text, useUnmergedTree = true).fetchSemanticsNode()
+            val button = requireNotNull(generateSequence(node.parent) { it.parent }.firstOrNull { SemanticsActions.OnClick in it.config })
+            val origin = compose.runOnUiThread { node.positionInRoot }
+            val buttonOrigin = compose.runOnUiThread { button.positionInRoot }
+            val safe = 8f * context.resources.displayMetrics.density
+            val layouts = mutableListOf<TextLayoutResult>()
+            compose.runOnUiThread { assertTrue(requireNotNull(node.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+            val layout = layouts.single()
+            for (line in 0 until layout.lineCount) {
+                val left = origin.x + layout.getLineLeft(line); val right = origin.x + layout.getLineRight(line)
+                probes.put(JSONObject().put("text", text).put("line", line).put("left", left.toDouble()).put("right", right.toDouble())
+                    .put("button_left", buttonOrigin.x.toDouble()).put("button_width", button.size.width).put("minimum_inset", safe.toDouble()))
+                assertFalse(layout.isLineEllipsized(line))
+                assertTrue("Link line must stay inside the rounded touch target's text safe area", left >= buttonOrigin.x + safe - 1f &&
+                    right <= buttonOrigin.x + button.size.width - safe + 1f)
+            }
+        }
+        capture("link-safe-area-verified"); record.put("passed", true)
+    }
 }
