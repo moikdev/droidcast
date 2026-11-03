@@ -5,6 +5,8 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.font.FontFamily
@@ -31,6 +33,7 @@ import java.util.concurrent.TimeUnit
 
 /** Pre-feature production APIs only, so identical instrumentation can test old/new apps. */
 @RunWith(AndroidJUnit4::class)
+@OptIn(ExperimentalTestApi::class)
 class ExtensionMarkdownDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @get:Rule val testName = org.junit.rules.TestName()
@@ -184,7 +187,41 @@ class ExtensionMarkdownDeviceTest {
     }
     private fun show(text: String, substring: Boolean = false): SemanticsNodeInteraction {
         val node = compose.onNodeWithText(text, substring = substring)
-        node.performScrollTo(); node.assertIsDisplayed(); return node
+        node.performScrollTo()
+        // Compose1.7.6 stops at a code block's horizontal-only scroll owner.
+        // Reveal through actual vertical ancestors too, keeping all assertions.
+        val receipts = record.optJSONArray("axis_aware_scrolls") ?: JSONArray().also { record.put("axis_aware_scrolls", it) }
+        for (attempt in 0 until 20) {
+            compose.waitForIdle()
+            val target = node.fetchSemanticsNode()
+            val origin = compose.runOnUiThread { target.positionInRoot }
+            val bounds = Rect(origin.x, origin.y, origin.x + target.size.width, origin.y + target.size.height)
+            val ancestors = generateSequence(target.parent) { it.parent }.filter {
+                SemanticsActions.ScrollBy in it.config && SemanticsProperties.VerticalScrollAxisRange in it.config
+            }.toList()
+            var moved = false
+            for (ancestor in ancestors) {
+                val viewport = ancestor.boundsInRoot
+                if (viewport.height <= 0f) continue
+                val top = bounds.top - viewport.top; val bottom = bounds.bottom - viewport.bottom
+                val delta = if (top >= 0f && bottom >= 0f) minOf(top, bottom)
+                    else if (top <= 0f && bottom <= 0f) maxOf(top, bottom) else 0f
+                if (kotlin.math.abs(delta) < 1f) continue
+                val range = ancestor.config[SemanticsProperties.VerticalScrollAxisRange]
+                val action = ancestor.config[SemanticsActions.ScrollBy].action ?: continue
+                val before = range.value()
+                compose.runOnUiThread { action(0f, if (range.reverseScrolling) -delta else delta) }
+                compose.waitForIdle()
+                val after = range.value()
+                receipts.put(JSONObject().put("attempt", attempt).put("ancestor_id", ancestor.id)
+                    .put("requested_dy_px", delta.toDouble()).put("before", before.toDouble()).put("after", after.toDouble())
+                    .put("viewport", JSONArray(listOf(viewport.left, viewport.top, viewport.right, viewport.bottom)))
+                    .put("target", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom))))
+                if (kotlin.math.abs(after - before) >= 1f) { moved = true; break }
+            }
+            if (!moved) break
+        }
+        node.assertIsDisplayed(); return node
     }
     @Test fun commonMarkHeadingEmphasisAndCodeRenderAsNativeText() {
         launch("markdown"); capture("before-contract-assertions")
