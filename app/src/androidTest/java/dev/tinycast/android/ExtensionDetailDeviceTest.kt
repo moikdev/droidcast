@@ -936,10 +936,17 @@ class ExtensionDetailDeviceTest {
         launch("object-tag"); val tag = show("Owned object tag")
         val callback = requireNotNull(tag.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
         val original = requireNotNull(catalog.runtimeTree); val replacement = JSONObject(original.toString())
+        val before = objectTagBinding()
         assertNotSame(original, replacement)
         record.put("contract_assertions_started", true).put("object_tag_publication_scope", "Controlled equivalent native JSON replacement before recomposition; actual unchanged JavaScript callback dispatch")
         capture("object-tag-before-publication")
-        compose.runOnUiThread { catalog.runtimeTree = replacement; assertTrue(callback()) }
+        compose.runOnUiThread {
+            catalog.runtimeTree = replacement
+            val after = objectTagBinding()
+            record.put("object_tag_binding_before", before).put("object_tag_binding_after", after)
+            assertEquals("Controlled publication preserves document, node, handle and visual values", before.toString(), after.toString())
+            assertTrue(callback())
+        }
         assertEquals("Equivalent object-valued visuals must not invalidate the visible callback", 1, probe().getInt("tagCalls"))
         witness("object-tag-after-equivalent-native-tree", 1); capture("object-tag-current-callback")
         patch("object-tag-visual-replaced", JSONObject().put("objectTagVariant", "B"))
@@ -947,6 +954,13 @@ class ExtensionDetailDeviceTest {
         touch(show("Owned object tag")); witness("object-tag-new-visual-action", 3)
         assertEquals(2, probe().getInt("tagCalls")); capture("object-tag-new-visual-owner")
         record.put("object_tag_unchanged_callback_preserved_and_changed_visual_rejected", true).put("passed", true)
+    }
+    private fun objectTagBinding(): JSONObject {
+        val root = requireNotNull(activeRoot(catalog.runtimeTree))
+        val tag = root.nodes("Detail.Metadata.TagList.Item").single()
+        return JSONObject().put("root_id", root.optString("id")).put("tag_id", tag.optString("id"))
+            .put("markdown", root.props().getString("markdown")).put("handle", requireNotNull(tag.handle("onAction")))
+            .put("icon", tag.props().getJSONObject("icon")).put("color", tag.props().getJSONObject("color"))
     }
     @Test fun objectTagKeepsActualKeyboardFocusAcrossUnrelatedReactPublication() {
         launch("object-tag"); val tag = show("Owned object tag")
@@ -956,9 +970,13 @@ class ExtensionDetailDeviceTest {
         }
         assertTrue(tag.fetchSemanticsNode().config.getOrNull(SemanticsProperties.Focused) == true)
         val beforeId = tag.fetchSemanticsNode().id
+        val beforeBinding = objectTagBinding()
         record.put("contract_assertions_started", true).put("object_tag_focus_before_id", beforeId).put("keyboard_tab_count", tabs)
         capture("object-tag-keyboard-before-publication")
         patch("object-tag-unrelated-loading-publication", JSONObject().put("loading", true))
+        val afterBinding = objectTagBinding()
+        record.put("object_tag_binding_before", beforeBinding).put("object_tag_binding_after", afterBinding)
+        assertEquals("Unrelated publication preserves document, node, handle and visual values", beforeBinding.toString(), afterBinding.toString())
         val after = tag.fetchSemanticsNode()
         record.put("object_tag_focus_after_id", after.id)
         assertEquals("An unchanged object-valued tag keeps its composed control", beforeId, after.id)
