@@ -548,6 +548,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             }
             "Detail"->NativeExtensionDetail(root,
                 { liveRoot()?.takeIf { it.optString("type") == "Detail" && it.optString("id") == root.optString("id") } },
+                runtime,
                 { handle, args -> runtime.dispatch(handle, args) }, { catalog.runtimeStatus = it },
                 detailStates.getOrPut(root.optString("id")) { ScrollState(0) }, Modifier.weight(1f).fillMaxWidth())
             "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },
@@ -589,4 +590,3 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }
     }
 }
-

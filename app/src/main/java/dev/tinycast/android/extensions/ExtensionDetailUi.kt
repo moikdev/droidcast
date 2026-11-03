@@ -63,7 +63,7 @@ private fun metadataTint(value: Any?): Color {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObject?,
-    dispatch: (String, JSONArray) -> Unit, status: (String) -> Unit, scroll: ScrollState,
+    ownerKey: Any, dispatch: (String, JSONArray) -> Unit, status: (String) -> Unit, scroll: ScrollState,
     modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val sourceId = source.optString("id"); val sourceType = source.optString("type")
@@ -93,6 +93,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
         if (current()?.props()?.opt("markdown") == markdown) activateLink(link.destination)
     }
     Box(modifier.testTag("extension-detail")) {
+        key(ownerKey, sourceId, sourceType) {
         SelectionContainer(Modifier.fillMaxSize().verticalScroll(scroll)) {
             Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 if (source.props().optBoolean("isLoading")) LinearProgressIndicator(Modifier.fillMaxWidth().testTag("extension-detail-loading"))
@@ -109,6 +110,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                 if (metadata.rows.isNotEmpty()) Column(Modifier.fillMaxWidth().testTag("extension-detail-metadata"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     metadata.rows.forEach { node ->
                         val props = node.props(); val title = (props.opt("title") as? String).orEmpty()
+                        key(node.optString("id"), node.optString("type"), title, metadataText(props.opt("text")), props.opt("target")) {
                         when (metadataKind(node)) {
                             "Separator" -> HorizontalDivider(color = PaletteTheme.ink.copy(alpha = .15f))
                             "Label" -> Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -136,6 +138,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                                     tags.forEach { tag ->
                                         val text = metadataText(tag.props().opt("text")); val handle = tag.handle("onAction")
                                         val tint = metadataTint(tag.props().opt("color"))
+                                        key(tag.optString("id"), text, handle, tag.props().opt("icon"), tag.props().opt("color")) {
                                         val click = if (handle.isNullOrBlank()) Modifier else Modifier.clickable(role = Role.Button) {
                                             val live = liveMetadata(tag, listOf("text", "color", "icon", "onAction"))
                                             if (live?.handle("onAction") == handle) dispatch(handle, JSONArray())
@@ -144,9 +147,11 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                                             .clip(RoundedCornerShape(12.dp)).background(tint.copy(alpha = .15f)).then(click).padding(horizontal = 12.dp, vertical = 8.dp)) {
                                             Text(text.ifBlank { "Tag" }, color = tint, fontSize = 14.sp, lineHeight = 22.sp, fontWeight = FontWeight.Medium)
                                         }
+                                        }
                                     }
                                 }
                             }
+                        }
                         }
                     }
                 }
@@ -154,6 +159,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                     if (source.props().optBoolean("isLoading")) "Loading details…" else "No detail content", color = PaletteTheme.secondary,
                     fontSize = 14.sp, lineHeight = 22.sp, modifier = Modifier.testTag("extension-detail-empty"))
             }
+        }
         }
     }
 }
