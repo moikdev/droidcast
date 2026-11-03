@@ -17,6 +17,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.toPixelMap
