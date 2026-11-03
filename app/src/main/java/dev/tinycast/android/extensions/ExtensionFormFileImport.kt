@@ -13,6 +13,7 @@ import java.nio.file.StandardOpenOption.CREATE_NEW
 import java.nio.file.StandardOpenOption.WRITE
 import java.nio.file.attribute.BasicFileAttributes
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 internal data class FormDocument(val key: String, val name: String, val directory: Boolean, val size: Long? = null)
 
@@ -29,8 +30,35 @@ internal data class FormImportLimits(val fileBytes: Long = 16L * 1024 * 1024, va
                                      val entries: Int = 512, val depth: Int = 32)
 
 private fun checkedDirectory(path: Path) {
+    require(path.toFile().canonicalFile.toPath() == path.toAbsolutePath().normalize()) { "Extension file storage changed" }
     try { Files.createDirectory(path) } catch (_: FileAlreadyExistsException) { /* Validate an existing directory below. */ }
     require(Files.isDirectory(path, NOFOLLOW_LINKS) && !Files.isSymbolicLink(path)) { "Extension file storage is unavailable" }
+}
+
+private object ActiveFormImports {
+    val lock = Any()
+    val paths: MutableSet<Path> = ConcurrentHashMap.newKeySet()
+}
+
+/** A new process has no live requests. Recover only nonce-owned pending
+ * directories, leaving delivered imports and unknown data untouched.
+ */
+internal fun recoverFormFileImports(root: File, active: Set<Path>? = null) = synchronized(ActiveFormImports.lock) {
+    val parent = root.toPath().resolve("form-input")
+    if (!Files.exists(parent, NOFOLLOW_LINKS)) return@synchronized
+    checkedDirectory(parent)
+    Files.newDirectoryStream(parent).use { paths ->
+        paths.forEach { path ->
+            val name = path.fileName.toString()
+            val nonce = name.removePrefix("pending-")
+            if (!name.startsWith("pending-") || runCatching { UUID.fromString(nonce).toString() }.getOrNull() != nonce || path in (active ?: ActiveFormImports.paths)) return@forEach
+            val marker = path.resolve(".owner")
+            if (Files.isDirectory(path, NOFOLLOW_LINKS) && Files.isRegularFile(marker, NOFOLLOW_LINKS) &&
+                Files.size(marker) == nonce.length.toLong() && Files.readAllBytes(marker).contentEquals(nonce.toByteArray(Charsets.UTF_8))) {
+                PreparedFormFiles(parent, path, nonce, emptyList()).discard()
+            }
+        }
+    }
 }
 
 internal fun formFileStorageRoot(files: File, extensionId: String): File {
@@ -50,7 +78,10 @@ internal class PreparedFormFiles internal constructor(private val parent: Path, 
     private var retained = false
     private var committed = false
     private var discarded = false
-    private fun ownsDirectory(): Boolean = Files.isDirectory(directory, NOFOLLOW_LINKS) && !Files.isSymbolicLink(directory) &&
+    init { ActiveFormImports.paths.add(directory) }
+    private fun parentAtExpectedPath() = parent.toFile().canonicalFile.toPath() == parent.toAbsolutePath().normalize()
+    private fun ownsDirectory(): Boolean = parentAtExpectedPath() && Files.isDirectory(parent, NOFOLLOW_LINKS) &&
+        Files.isDirectory(directory, NOFOLLOW_LINKS) && !Files.isSymbolicLink(directory) &&
         Files.isRegularFile(directory.resolve(".owner"), NOFOLLOW_LINKS) && Files.size(directory.resolve(".owner")) == nonce.length.toLong() &&
         Files.readAllBytes(directory.resolve(".owner")).contentEquals(nonce.toByteArray(Charsets.UTF_8))
 
@@ -59,16 +90,18 @@ internal class PreparedFormFiles internal constructor(private val parent: Path, 
         val target = parent.resolve("import-$nonce")
         check(!Files.exists(target, NOFOLLOW_LINKS)) { "File import destination already exists" }
         Files.move(directory, target)
+        ActiveFormImports.paths.remove(directory)
         directory = target; committed = true
         return relativePaths.map { directory.resolve(it).toString() }
     }
     @Synchronized fun retain() {
-        check(committed && !discarded && ownsDirectory()) { "File import was not committed" }
+        check(committed && !discarded) { "File import was not committed" }
         retained = true
     }
     @Synchronized fun discard() {
         if (retained || discarded) return
-        if (!Files.exists(directory, NOFOLLOW_LINKS)) { discarded = true; return }
+        check(parentAtExpectedPath()) { "File import cleanup lost its storage" }
+        if (!Files.exists(directory, NOFOLLOW_LINKS)) { discarded = true; ActiveFormImports.paths.remove(directory); return }
         check(ownsDirectory()) { "File import cleanup lost its owner" }
         // Default walk options do not follow links planted in the owned tree.
         Files.walkFileTree(directory, object : SimpleFileVisitor<Path>() {
@@ -79,6 +112,7 @@ internal class PreparedFormFiles internal constructor(private val parent: Path, 
             }
         })
         discarded = true
+        ActiveFormImports.paths.remove(directory)
     }
 }
 
@@ -92,11 +126,29 @@ internal class FormFileImport(private val root: File, private val limits: FormIm
                 cancelled: () -> Boolean): PreparedFormFiles {
         require(keys.isNotEmpty() && keys.size <= limits.entries && keys.distinct().size == keys.size) { "Choose a supported number of documents" }
         val parent = root.toPath().resolve("form-input"); checkedDirectory(parent)
-        val nonce = UUID.randomUUID().toString()
-        val workspace = parent.resolve("pending-$nonce"); Files.createDirectory(workspace)
-        Files.write(workspace.resolve(".owner"), nonce.toByteArray(Charsets.UTF_8), CREATE_NEW, WRITE)
         val relative = mutableListOf<Path>()
-        val prepared = PreparedFormFiles(parent, workspace, nonce, relative)
+        val (workspace, prepared) = synchronized(ActiveFormImports.lock) {
+            val nonce = UUID.randomUUID().toString()
+            val workspace = parent.resolve("pending-$nonce"); Files.createDirectory(workspace)
+            val directoryKey = Files.readAttributes(workspace, BasicFileAttributes::class.java, NOFOLLOW_LINKS).fileKey()
+            var markerKey: Any? = null
+            try {
+                Files.newOutputStream(workspace.resolve(".owner"), CREATE_NEW, WRITE, NOFOLLOW_LINKS).use { output ->
+                    markerKey = Files.readAttributes(workspace.resolve(".owner"), BasicFileAttributes::class.java, NOFOLLOW_LINKS).fileKey()
+                    output.write(nonce.toByteArray(Charsets.UTF_8))
+                }
+                workspace to PreparedFormFiles(parent, workspace, nonce, relative)
+            } catch (failure: Throwable) {
+                runCatching {
+                    if (directoryKey != null && Files.readAttributes(workspace, BasicFileAttributes::class.java, NOFOLLOW_LINKS).fileKey() == directoryKey) {
+                        val marker = workspace.resolve(".owner")
+                        if (markerKey != null && Files.readAttributes(marker, BasicFileAttributes::class.java, NOFOLLOW_LINKS).fileKey() == markerKey) Files.delete(marker)
+                        Files.delete(workspace) // Fails safely if an unexpected file appeared.
+                    }
+                }.exceptionOrNull()?.let(failure::addSuppressed)
+                throw failure
+            }
+        }
         var bytes = 0L; var entries = 0
         fun active() { if (cancelled() || Thread.currentThread().isInterrupted) throw IOException("File import was cancelled") }
         fun name(value: String): String {
@@ -105,7 +157,7 @@ internal class FormFileImport(private val root: File, private val limits: FormIm
         }
         fun parents(destination: Path) {
             var path = workspace
-            require(Files.isDirectory(path, NOFOLLOW_LINKS)) { "File import storage changed" }
+            require(path.toFile().canonicalFile.toPath() == path.toAbsolutePath().normalize() && Files.isDirectory(path, NOFOLLOW_LINKS)) { "File import storage changed" }
             workspace.relativize(destination.parent).forEach { component ->
                 path = path.resolve(component)
                 require(Files.isDirectory(path, NOFOLLOW_LINKS) && !Files.isSymbolicLink(path)) { "File import storage changed" }
@@ -141,6 +193,7 @@ internal class FormFileImport(private val root: File, private val limits: FormIm
             keys.forEachIndexed { index, key ->
                 active(); val document = source.document(key)
                 require(if (document.directory) directories else files) { "This document type is not allowed for this field" }
+                require(workspace.toFile().canonicalFile.toPath() == workspace.toAbsolutePath().normalize() && Files.isDirectory(workspace, NOFOLLOW_LINKS)) { "File import storage changed" }
                 val container = workspace.resolve(index.toString()); Files.createDirectory(container)
                 val destination = container.resolve(name(document.name))
                 copy(document, destination, 1, emptySet()); relative.add(workspace.relativize(destination))

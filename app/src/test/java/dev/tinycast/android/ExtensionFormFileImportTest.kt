@@ -125,4 +125,29 @@ class ExtensionFormFileImportTest {
         assertThrows(IllegalArgumentException::class.java) { FormFileImport(root).prepare(listOf("owned"), source(), true, false) { false } }
         assertTrue(outside.listFiles().orEmpty().isEmpty())
     }
+    @Test fun recoveryLeavesLiveRequestsAndDeliveredImportsAlone() {
+        val root = root(); val importer = FormFileImport(root)
+        val live = importer.prepare(listOf("owned"), source(), true, false) { false }
+        recoverFormFileImports(root)
+        val paths = live.commit(); live.retain()
+        recoverFormFileImports(root, emptySet())
+        assertTrue(File(paths.single()).isFile)
+    }
+    @Test fun recoveryRemovesOnlyNonceOwnedOrphansFromAnEarlierProcess() {
+        val root = root(); FormFileImport(root).prepare(listOf("owned"), source(), true, false) { false }
+        val unknown = File(root, "form-input/pending-${java.util.UUID.randomUUID()}").apply { mkdir() }
+        File(unknown, "existing.txt").writeText("Owned unknown data")
+        recoverFormFileImports(root, emptySet())
+        assertEquals(listOf(unknown.name), File(root, "form-input").listFiles()!!.map { it.name })
+        assertEquals("Owned unknown data", File(unknown, "existing.txt").readText())
+    }
+    @Test fun aLinkedReplacementParentCannotReceiveCommitOrCleanup() {
+        val root = root(); val prepared = FormFileImport(root).prepare(listOf("owned"), source(), true, false) { false }
+        val parent = File(root, "form-input"); val saved = File(root, "saved-imports"); assertTrue(parent.renameTo(saved))
+        val outside = temporary.newFolder(); Files.createSymbolicLink(parent.toPath(), outside.toPath())
+        assertThrows(IllegalStateException::class.java) { prepared.commit() }
+        assertThrows(IllegalStateException::class.java) { prepared.discard() }
+        assertTrue(outside.listFiles().orEmpty().isEmpty())
+        Files.delete(parent.toPath()); assertTrue(saved.renameTo(parent)); prepared.discard(); emptyImports(root)
+    }
 }
