@@ -129,7 +129,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                                 }
                             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                                 .semantics { contentDescription = "Open link: ${metadataText(props.opt("text"))}" },
-                                contentPadding = PaddingValues(vertical = 4.dp)) {
+                                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)) {
                                 Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                     if (title.isNotEmpty()) Text(title, color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
                                     Text(metadataText(props.opt("text")), color = PaletteTheme.ink, textDecoration = TextDecoration.Underline,
