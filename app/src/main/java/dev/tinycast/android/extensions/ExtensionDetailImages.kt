@@ -36,51 +36,53 @@ internal class ExtensionDetailImages(private val directory: File) : Closeable {
     private var cacheBytes = 0
     @Volatile private var closed = false
 
-    suspend fun load(source: String, edge: Int): Bitmap = suspendCancellableCoroutine { continuation ->
-        val work = AtomicReference<Future<*>?>()
-        val requests = ConcurrentHashMap.newKeySet<HttpURLConnection>()
-        fun cancel() { work.get()?.let { future -> future.cancel(true); (future as? Runnable)?.let(executor::remove) } }
-        continuation.invokeOnCancellation { requests.forEach { it.disconnect() }; cancel() }
-        try {
-            require(edge in 16..MAX_EDGE && source.length <= 3 * 1024 * 1024)
-            check(!closed)
-            work.set(executor.submit {
-                fun active() { check(!closed && continuation.isActive && !Thread.currentThread().isInterrupted) }
-                try {
-                    active()
-                    val key = MessageDigest.getInstance("SHA-256").digest(source.toByteArray(Charsets.UTF_8))
-                        .joinToString("") { "%02x".format(it) } + ":$edge"
-                    val cached = synchronized(cache) { cache[key] }
-                    if (cached != null) {
-                        active(); continuation.resumeWith(Result.success(cached)); return@submit
-                    }
-                    val bytes = when {
-                        source.startsWith("data:", true) -> data(source)
-                        source.startsWith("https:", true) -> download(source, requests, ::active)
-                        else -> {
-                            val file = detailImageAsset(directory, source)
-                            require(file.isFile && file.length() in 1L..MAX_BYTES.toLong())
-                            file.inputStream().use { boundedRead(it, ::active) }
+    suspend fun load(source: String, edge: Int): Bitmap = withDetailImageTimeout {
+        suspendCancellableCoroutine<Bitmap> { continuation ->
+            val work = AtomicReference<Future<*>?>()
+            val requests = ConcurrentHashMap.newKeySet<HttpURLConnection>()
+            fun cancel() { work.get()?.let { future -> future.cancel(true); (future as? Runnable)?.let(executor::remove) } }
+            continuation.invokeOnCancellation { requests.forEach { it.disconnect() }; cancel() }
+            try {
+                require(edge in 16..MAX_EDGE && source.length <= 3 * 1024 * 1024)
+                check(!closed)
+                work.set(executor.submit {
+                    fun active() { check(!closed && continuation.isActive && !Thread.currentThread().isInterrupted) }
+                    try {
+                        active()
+                        val key = MessageDigest.getInstance("SHA-256").digest(source.toByteArray(Charsets.UTF_8))
+                            .joinToString("") { "%02x".format(it) } + ":$edge"
+                        val cached = synchronized(cache) { cache[key] }
+                        if (cached != null) {
+                            active(); continuation.resumeWith(Result.success(cached)); return@submit
                         }
-                    }
-                    active()
-                    val isSvg = bytes.firstOrNull { it.toInt().toChar() !in listOf(' ', '\t', '\r', '\n') } == '<'.code.toByte()
-                    val bitmap = if (isSvg) svg(bytes, edge, ::active) else raster(bytes, edge)
-                    active()
-                    synchronized(cache) {
-                        if (!closed && continuation.isActive) {
-                            cache.put(key, bitmap)?.let { cacheBytes -= it.allocationByteCount }
-                            cacheBytes += bitmap.allocationByteCount
-                            while ((cacheBytes > MAX_CACHE_BYTES || cache.size > 32) && cache.isNotEmpty()) {
-                                val iterator = cache.entries.iterator(); cacheBytes -= iterator.next().value.allocationByteCount; iterator.remove()
+                        val bytes = when {
+                            source.startsWith("data:", true) -> data(source)
+                            source.startsWith("https:", true) -> download(source, requests, ::active)
+                            else -> {
+                                val file = detailImageAsset(directory, source)
+                                require(file.isFile && file.length() in 1L..MAX_BYTES.toLong())
+                                file.inputStream().use { boundedRead(it, ::active) }
                             }
                         }
-                    }
-                    active(); continuation.resumeWith(Result.success(bitmap))
-                } catch (error: Exception) { if (continuation.isActive) continuation.resumeWith(Result.failure(error)) }
-            })
-            if (!continuation.isActive) cancel()
-        } catch (error: Exception) { if (continuation.isActive) continuation.resumeWith(Result.failure(error)) }
+                        active()
+                        val isSvg = bytes.firstOrNull { it.toInt().toChar() !in listOf(' ', '\t', '\r', '\n') } == '<'.code.toByte()
+                        val bitmap = if (isSvg) svg(bytes, edge, ::active) else raster(bytes, edge)
+                        active()
+                        synchronized(cache) {
+                            if (!closed && continuation.isActive) {
+                                cache.put(key, bitmap)?.let { cacheBytes -= it.allocationByteCount }
+                                cacheBytes += bitmap.allocationByteCount
+                                while ((cacheBytes > MAX_CACHE_BYTES || cache.size > 32) && cache.isNotEmpty()) {
+                                    val iterator = cache.entries.iterator(); cacheBytes -= iterator.next().value.allocationByteCount; iterator.remove()
+                                }
+                            }
+                        }
+                        active(); continuation.resumeWith(Result.success(bitmap))
+                    } catch (error: Exception) { if (continuation.isActive) continuation.resumeWith(Result.failure(error)) }
+                })
+                if (!continuation.isActive) cancel()
+            } catch (error: Exception) { if (continuation.isActive) continuation.resumeWith(Result.failure(error)) }
+        }
     }
 
     private fun data(source: String): ByteArray {
