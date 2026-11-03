@@ -57,19 +57,27 @@ internal fun formFieldValue(field: JSONObject): Any {
     }
 }
 
-internal fun formChoices(field: JSONObject): List<FormChoice> = descendants(field).filter { it.optString("type") == "Form.Dropdown.Item" }.mapNotNull {
+private fun formItemChoices(field: JSONObject, itemType: String): List<FormChoice> = descendants(field).filter { it.optString("type") == itemType }.mapNotNull {
     val p = formProps(it)
     val value = p.opt("value") as? String ?: return@mapNotNull null
     val id = it.optString("id").takeIf(String::isNotBlank) ?: return@mapNotNull null
     FormChoice(id, value, (p.opt("title") as? String).orEmpty().ifBlank { "Untitled option" })
 }.toList()
 
+internal fun formChoices(field: JSONObject): List<FormChoice> = formItemChoices(field, "Form.Dropdown.Item")
+internal fun formTagChoices(field: JSONObject): List<FormChoice> = formItemChoices(field, "Form.TagPicker.Item")
+
 internal fun formChoiceTitle(value: String, choices: List<FormChoice>, placeholder: String = "Choose…"): String =
     choices.firstOrNull { it.value == value }?.title ?: if (value.isBlank()) placeholder else "Selection unavailable"
 
 internal fun liveFormChoice(owner: FormFieldOwner, expected: FormChoice, root: JSONObject?): Pair<JSONObject, FormChoice>? {
     val field = liveFormField(owner, root) ?: return null
-    val choice = currentFormChoice(expected, formChoices(field)) ?: return null
+    val choices = when (owner.type) {
+        "Form.Dropdown" -> formChoices(field)
+        "Form.TagPicker" -> formTagChoices(field)
+        else -> return null
+    }
+    val choice = currentFormChoice(expected, choices) ?: return null
     return field to choice
 }
 

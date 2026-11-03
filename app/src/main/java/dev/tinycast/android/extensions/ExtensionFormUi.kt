@@ -115,6 +115,13 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
         dispatch(handle, JSONArray().put(value))
         return true
     }
+    fun currentValue(): Any? {
+        val fieldOwner = owner ?: return null
+        val latest = liveRoot() ?: return null
+        val current = liveFormField(fieldOwner, latest) ?: return null
+        values.observe(fieldOwner, latest, formFieldValue(current))
+        return values.value(fieldOwner)
+    }
     when (type) {
         "Form.TextField", "Form.PasswordField", "Form.TextArea" -> {
             val supplied = (p.opt("value") as? String).orEmpty()
@@ -161,6 +168,15 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                         val iso = selected?.toString()
                         change(iso ?: JSONObject.NULL, iso?.let { JSONObject().put("\$date", it) } ?: JSONObject.NULL)
                     })
+                ExtensionFieldFeedback(errorText, info, id)
+            }
+        }
+        "Form.TagPicker" -> {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                ExtensionFieldLabel(title, "extension-field-title-$id")
+                NativeFormTagPicker(root, node, owner, liveRoot, Modifier.paletteFocusBookmark().then(focusModifier),
+                    onOpen = { owner?.let(focus::focus) }, currentValue = ::currentValue,
+                    change = { selected -> change(JSONArray(selected)) })
                 ExtensionFieldFeedback(errorText, info, id)
             }
         }
