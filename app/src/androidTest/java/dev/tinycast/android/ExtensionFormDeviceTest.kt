@@ -2021,12 +2021,30 @@ class ExtensionFormDeviceTest {
         compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected[selected])) }
         dismissClipboardForEvidence(); capture("checksum-real-hash-destination")
         val sha256Row = rows.indexOfFirst { it.props().optString("title") == "SHA256" }; assertTrue(sha256Row >= 0)
+        fun sampleSelection(phase: String) {
+            val snapshot = JSONObject().put("phase", phase)
+                .put("native_tree", activeRoot(catalog.runtimeTree)?.let { JSONObject(it.toString()) } ?: JSONObject.NULL)
+            val composedRows = compose.onAllNodes(SemanticsMatcher("Checksum result rows") {
+                it.config.contains(SemanticsProperties.TestTag) && it.config[SemanticsProperties.TestTag].startsWith("extension-row-")
+            }).fetchSemanticsNodes()
+            snapshot.put("composed_rows", JSONArray(composedRows.map {
+                JSONObject().put("tag", it.config[SemanticsProperties.TestTag])
+                    .put("selected", it.config.contains(SemanticsProperties.Selected) && it.config[SemanticsProperties.Selected])
+                    .put("bounds", it.boundsInRoot.toString())
+            })).put("composed_primary_count", compose.onAllNodesWithTag("extension-primary").fetchSemanticsNodes().size)
+            val snapshots = record.optJSONArray("checksum_selection_samples") ?: JSONArray().also { record.put("checksum_selection_samples", it) }
+            snapshots.put(snapshot)
+        }
+        sampleSelection("before revealing SHA256")
         val resultsList = compose.onNodeWithTag("extension-list")
         for (attempt in 0 until 40) {
             if (compose.onAllNodesWithTag("extension-row-$sha256Row").fetchSemanticsNodes().isNotEmpty()) break
             drag(resultsList, -1)
         }
-        touch("extension-row-$sha256Row"); touch("extension-primary")
+        sampleSelection("before SHA256 pointer")
+        touch("extension-row-$sha256Row")
+        sampleSelection("after SHA256 pointer before Copy")
+        touch("extension-primary")
         compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected["sha256"])) }
         dismissClipboardForEvidence(); capture("checksum-sha256-copied")
         touch("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement("Back to Form")
