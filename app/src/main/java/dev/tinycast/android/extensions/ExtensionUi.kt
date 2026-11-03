@@ -81,11 +81,14 @@ private class StoreBrowserState {
     var lastRequest: Triple<String, Int, Int>? = null
 }
 
-private class ExtensionListState {
+internal class ExtensionListState {
     var search by mutableStateOf(TextFieldValue(""))
     var selected by mutableIntStateOf(0)
     val selectionDelivery = ExtensionSelectionDelivery()
     val scroll = androidx.compose.foundation.lazy.LazyListState()
+    var detailRowId by mutableStateOf<String?>(null)
+    var detailOnly by mutableStateOf(false)
+    val details = mutableMapOf<String, ScrollState>()
 }
 
 @Composable
@@ -493,6 +496,20 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     fun activateCurrent() {
         if (root?.optString("type") != "List" || listState.search.composition == null) action(liveActions().firstOrNull())
     }
+    fun moveSelection(delta: Int) {
+        val current = liveRows()
+        if (current.isEmpty()) return
+        selected = (selected + delta).coerceIn(0, current.lastIndex)
+        if (listState.detailOnly) listState.detailRowId = current[selected].optString("id")
+        notifyCurrentSelection()
+    }
+    fun back() {
+        if (root?.optString("type") == "List" && listState.detailOnly) {
+            listState.detailRowId = null
+            listState.detailOnly = false
+        } else if (catalog.runtimeError != null) close()
+        else if (catalog.navigationDepth > 1) runtime.back() else close()
+    }
     LaunchedEffect(root?.optString("id"), item?.props()?.optString("id"), root?.handle("onSelectionChange"), failed) {
         if (!failed) notifyCurrentSelection()
     }
@@ -501,13 +518,13 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         val eventRows=if(it.key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
         when{
             it.key==Key.K&&it.isCtrlPressed->{menu=true;true}
-            it.key==Key.DirectionDown&&eventRows.isNotEmpty()->{selected=(selected+1).coerceAtMost(eventRows.lastIndex);notifyCurrentSelection();true}
-            it.key==Key.DirectionUp&&eventRows.isNotEmpty()->{selected=(selected-1).coerceAtLeast(0);notifyCurrentSelection();true}
+            it.key==Key.DirectionDown&&eventRows.isNotEmpty()->{moveSelection(1);true}
+            it.key==Key.DirectionUp&&eventRows.isNotEmpty()->{moveSelection(-1);true}
             it.key in listOf(Key.Enter, Key.NumPadEnter)&&root?.optString("type")!="Form"->{activateCurrent();true}
             else->false
         }
         }
-    },compact=true,onEscape={ if(catalog.runtimeError!=null)close() else if(catalog.navigationDepth>1)runtime.back() else close() },headerless=!failed && root?.optString("type") in listOf("Grid","List"),headerActions={
+    },compact=true,onEscape=::back,headerless=!failed && root?.optString("type") in listOf("Grid","List"),headerActions={
         if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
         else {
             if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
@@ -528,23 +545,22 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 NativeExtensionGrid(state, { liveRoot()?.takeIf { it.optString("type")=="Grid" } }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, { handle,args -> if(liveRoot()?.optString("type")=="Grid")runtime.dispatch(handle,args) }, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
             }
             "List"->{
+                NativeExtensionList(root, rows, listState, runtime, ::liveRoot, ::liveRows,
+                    select = { expected ->
+                        val current = liveRows().indexOfFirst { it.optString("id") == expected.optString("id") &&
+                            it.props().opt("title") == expected.props().opt("title") }
+                        if (current < 0) false else { selected = current; notifyCurrentSelection(); true }
+                    }, dispatch = { handle, args -> runtime.dispatch(handle, args) }, status = { catalog.runtimeStatus = it },
+                    empty = { modifier -> NativeExtensionEmptyView(extensionEmptyView(root,0,query),root.props().optBoolean("isLoading") && query.isEmpty(),gridImages,
+                        "extension-list-empty", modifier) }, modifier = Modifier.weight(1f).fillMaxWidth(), searchHeader = {
                 ExtensionSearchHeader(listSearch,{next->
-                    if(next.text != query){selected=0;runtime.dispatch(root.handle("onSearchTextChange"),JSONArray().put(next.text))}
+                    val current = liveRoot()?.takeIf { it.optString("type") == "List" && it.optString("id") == root.optString("id") }
+                    if(current != null && next.text != query){selected=0;listState.detailRowId=null;runtime.dispatch(current.handle("onSearchTextChange"),JSONArray().put(next.text))}
                     listSearch=next
-                },root.props().optString("searchBarPlaceholder","Search extension…"),"extension-search",{if(catalog.navigationDepth>1)runtime.back() else close()}) {
+                },root.props().optString("searchBarPlaceholder","Search extension…"),"extension-search",::back) {
                     IconButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"},modifier=Modifier.size(48.dp).semantics{contentDescription="Extension preferences"}){Glyph("settings",muted,16)}
                 }
-                if(root.props().optBoolean("isLoading"))LinearProgressIndicator(Modifier.fillMaxWidth().padding(top=5.dp))
-                if(rows.isEmpty()) NativeExtensionEmptyView(extensionEmptyView(root,0,query),root.props().optBoolean("isLoading") && query.isEmpty(),gridImages,
-                    "extension-list-empty",Modifier.weight(1f).fillMaxWidth().testTag("extension-list"))
-                else LazyColumn(state=listState.scroll,modifier=Modifier.weight(1f).fillMaxWidth().testTag("extension-list"),contentPadding=PaddingValues(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
-                    items(rows,key={it.optString("id")}){row->val i=rows.indexOf(row);val rowSelected=i==selected;Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(9.dp)).background(if(rowSelected)ink.copy(alpha=.12f)else card).semantics{this.selected=rowSelected}.clickable{selected=i;notifyCurrentSelection()}.padding(14.dp).testTag("extension-row-$i")){
-                        Text(row.props().optString("title"),fontSize=14.sp,lineHeight=21.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
-                        val subtitle=row.props().optString("subtitle");if(subtitle.isNotBlank())Text(subtitle,color=muted,fontSize=11.sp,lineHeight=17.sp)
-                        row.props().optJSONArray("accessories").objects().forEach{Text(it.optString("text"),color=muted,fontSize=10.sp)}
-                    }}
-                    if (root.props().opt("isShowingDetail") == true) item?.props()?.optJSONObject("detail")?.let{detail->item{Text(detail.props().optString("markdown"),color=muted,fontSize=12.sp)}}
-                }
+                })
             }
             "Detail"->NativeExtensionDetail(root,
                 { liveRoot()?.takeIf { it.optString("type") == "Detail" && it.optString("id") == root.optString("id") } },

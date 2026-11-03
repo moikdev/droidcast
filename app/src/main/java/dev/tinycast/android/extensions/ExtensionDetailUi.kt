@@ -25,6 +25,7 @@ import org.json.JSONObject
 
 private data class MetadataDocument(val rows: List<JSONObject>, val all: List<JSONObject>, val limited: Boolean = false)
 private data class MetadataPending(val value: Any?, val inTags: Boolean, val depth: Int)
+private class DetailAttachment { var active = false }
 private fun metadataKind(node: JSONObject) = node.optString("type").substringAfter(".Metadata.", "")
 private fun metadataDocument(value: Any?): MetadataDocument {
     val pending = ArrayDeque<MetadataPending>(); pending.addLast(MetadataPending(value, false, 0))
@@ -69,8 +70,10 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
     val sourceId = source.optString("id"); val sourceType = source.optString("type")
     val markdown = (source.props().opt("markdown") as? String).orEmpty()
     val documentIdentity = remember(ownerKey, sourceId, sourceType, markdown) { Any() }
+    val attachment = remember(ownerKey, sourceId, sourceType) { DetailAttachment() }
+    DisposableEffect(attachment) { attachment.active = true; onDispose { attachment.active = false } }
     val metadata = metadataDocument(source.props().opt("metadata"))
-    fun current(): JSONObject? = liveSource()?.takeIf { it.optString("id") == sourceId && it.optString("type") == sourceType }
+    fun current(): JSONObject? = if (!attachment.active) null else liveSource()?.takeIf { it.optString("id") == sourceId && it.optString("type") == sourceType }
     fun activateLink(target: String) {
         try { openExtensionLink(context, target) }
         catch (failure: IllegalArgumentException) { status(failure.message ?: "This link is unavailable on Android") }
