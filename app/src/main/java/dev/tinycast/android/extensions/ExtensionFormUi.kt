@@ -107,11 +107,11 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
             owner?.let { current -> if (nativeFocused) focus.focus(current) else focus.blur(current) }
         }
     }
-    fun change(value: Any): Boolean {
+    fun change(value: Any, observedValue: Any = value): Boolean {
         val fieldOwner = owner ?: return false
         val current = liveFormField(fieldOwner, liveRoot()) ?: return false
         val handle = current.handle("onTinycastChange") ?: return false
-        values.edit(fieldOwner, value)
+        values.edit(fieldOwner, observedValue)
         dispatch(handle, JSONArray().put(value))
         return true
     }
@@ -150,6 +150,17 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
                     }
                 }, Modifier.paletteFocusBookmark(requester).focusProperties { canFocus = true }
                     .then(focusModifier).testTag("extension-checkbox-$id"))
+                ExtensionFieldFeedback(errorText, info, id)
+            }
+        }
+        "Form.DatePicker" -> {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                ExtensionFieldLabel(title, "extension-field-title-$id")
+                NativeFormDatePicker(node, owner, liveRoot, Modifier.paletteFocusBookmark().then(focusModifier),
+                    onOpen = { owner?.let(focus::focus) }, change = { selected ->
+                        val iso = selected?.toString()
+                        change(iso ?: JSONObject.NULL, iso?.let { JSONObject().put("\$date", it) } ?: JSONObject.NULL)
+                    })
                 ExtensionFieldFeedback(errorText, info, id)
             }
         }
