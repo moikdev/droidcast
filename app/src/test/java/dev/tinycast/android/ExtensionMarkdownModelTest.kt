@@ -90,4 +90,13 @@ class ExtensionMarkdownModelTest {
         val result = runCatching { ExtensionMarkdown.parse("Owned") { throw expected } }
         assertSame(expected, result.exceptionOrNull())
     }
+    @Test fun compactPaddedTableLimitBecomesAnUnavailableDocument() {
+        val columns = 1001
+        val source = "|" + "x|".repeat(columns) + "\n|" + "-|".repeat(columns) + "\n" + "|x|\n".repeat(1000)
+        assertEquals(8008, source.length)
+        assertTrue(source.length < ExtensionMarkdown.MAX_SOURCE_UNITS)
+        val result = ExtensionMarkdown.parse(source)
+        assertNotNull("Parser allocation limits must become an unavailable document", result.problem)
+        assertTrue("A rejected table must not publish a partial document", result.blocks.isEmpty())
+    }
 }

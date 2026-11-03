@@ -200,6 +200,7 @@ class ExtensionDetailDeviceTest {
                 "A persistent description stays readable while the user scrolls to Close. ".repeat(8) + "\") preview.")
             .put("imageScroll", "![Owned scrolling image](owned.svg)\n\n" +
                 "Owned scroll-away tail café 日本. ".repeat(100) + "\n\nOwned scroll-away destination.")
+            .put("tableOverflow", "|" + "x|".repeat(1001) + "\n|" + "-|".repeat(1001) + "\n" + "|x|\n".repeat(1000))
         val script = "globalThis.__ownedDetailConfiguration = " + configuration + ";\n" +
             InstrumentationRegistry.getInstrumentation().context.assets.open("owned-detail-fixture.js").bufferedReader().use { it.readText() }
         File(directory, "detail.js").writeText(script)
@@ -811,7 +812,50 @@ class ExtensionDetailDeviceTest {
         show("Owned tag count 1"); capture("metadata-keyboard-activation")
         record.put("actual_tab_focus_and_enter", true).put("primary_copy_not_invoked", true).put("passed", true)
     }
-    private fun pointerEveryTextLine(prefix: String, phase: String) {
+    private fun assertVisibleEdgeGlyphs(node: androidx.compose.ui.semantics.SemanticsNode, layout: TextLayoutResult, line: Int, phase: String) {
+        val origin = compose.runOnUiThread { node.positionInRoot }
+        val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+        val actual = compose.onRoot().captureToImage().toPixelMap()
+        val reference = Bitmap.createBitmap(layout.size.width.coerceAtLeast(1), layout.size.height.coerceAtLeast(1), Bitmap.Config.ARGB_8888)
+        val ink = layout.layoutInput.style.color.takeUnless { it == androidx.compose.ui.graphics.Color.Unspecified } ?: PaletteTheme.ink
+        val expectedRed = ink.red * ink.alpha + PaletteTheme.surface.red * (1 - ink.alpha)
+        val expectedGreen = ink.green * ink.alpha + PaletteTheme.surface.green * (1 - ink.alpha)
+        val expectedBlue = ink.blue * ink.alpha + PaletteTheme.surface.blue * (1 - ink.alpha)
+        try {
+            // Paint the actual resolved paragraph without ancestor clipping. This
+            // is a reference alpha mask, not an implementation screenshot.
+            compose.runOnUiThread { layout.multiParagraph.paint(androidx.compose.ui.graphics.Canvas(reference),
+                color = androidx.compose.ui.graphics.Color.White, decoration = layout.layoutInput.style.textDecoration) }
+            val start = layout.getLineStart(line); val end = layout.getLineEnd(line, visibleEnd = true)
+            val offsets = listOf(start, end - 1).filter { it in start until end && !layout.layoutInput.text[it].isWhitespace() }.distinct()
+            for (offset in offsets) {
+                val box = layout.getBoundingBox(offset)
+                var expected = 0; var missing = 0
+                for (y in kotlin.math.floor(box.top).toInt().coerceAtLeast(0) until kotlin.math.ceil(box.bottom).toInt().coerceAtMost(reference.height))
+                    for (x in kotlin.math.floor(box.left).toInt().coerceAtLeast(0) until kotlin.math.ceil(box.right).toInt().coerceAtMost(reference.width)) {
+                        if (android.graphics.Color.alpha(reference.getPixel(x, y)) < 200) continue
+                        expected++
+                        val px = kotlin.math.round(origin.x + x - root.left).toInt()
+                        val py = kotlin.math.round(origin.y + y - root.top).toInt()
+                        val found = (-1..1).any { dy -> (-1..1).any { dx ->
+                            val ax = px + dx; val ay = py + dy
+                            ax in 0 until actual.width && ay in 0 until actual.height && actual[ax, ay].let {
+                                kotlin.math.abs(it.red - expectedRed) < .16f && kotlin.math.abs(it.green - expectedGreen) < .16f && kotlin.math.abs(it.blue - expectedBlue) < .16f
+                            }
+                        } }
+                        if (!found) missing++
+                    }
+                val receipts = record.optJSONArray("native_text_edge_glyph_pixels") ?: JSONArray().also { record.put("native_text_edge_glyph_pixels", it) }
+                receipts.put(JSONObject().put("phase", phase).put("line", line).put("character_offset", offset).put("expected_core_pixels", expected)
+                    .put("missing_core_pixels", missing).put("alignment_neighborhood_px", 1)
+                    .put("expected_rgb", JSONArray(listOf(expectedRed, expectedGreen, expectedBlue)))
+                    .put("method", "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"))
+                assertTrue("Every edge-glyph probe must contain reference ink", expected > 0)
+                assertEquals("Visible metadata link glyphs must survive ancestor clipping (line $line, offset $offset)", 0, missing)
+            }
+        } finally { reference.recycle() }
+    }
+    private fun pointerEveryTextLine(prefix: String, phase: String, verifyGlyphs: Boolean = false) {
         val target = compose.onNodeWithText(prefix, substring = true, useUnmergedTree = true)
         val ancestor = generateSequence(target.fetchSemanticsNode().parent) { it.parent }
             .first { SemanticsProperties.VerticalScrollAxisRange in it.config && SemanticsActions.ScrollBy in it.config }
@@ -829,9 +873,11 @@ class ExtensionDetailDeviceTest {
                 assertFalse(layout.isLineEllipsized(line))
                 val top = origin.y + layout.getLineTop(line); val bottom = origin.y + layout.getLineBottom(line)
                 val left = origin.x + layout.getLineLeft(line); val right = origin.x + layout.getLineRight(line)
-                if (top >= viewport.top - 1f && bottom <= viewport.bottom + 1f && left >= viewport.left - 1f && right <= viewport.right + 1f && seen.add(line))
+                if (top >= viewport.top - 1f && bottom <= viewport.bottom + 1f && left >= viewport.left - 1f && right <= viewport.right + 1f && seen.add(line)) {
+                    if (verifyGlyphs) assertVisibleEdgeGlyphs(node, layout, line, phase)
                     receipts.put(JSONObject().put("line", line).put("attempt", attempt).put("line_rect", JSONArray(listOf(left, top, right, bottom)))
                         .put("viewport", JSONArray(listOf(viewport.left, viewport.top, viewport.right, viewport.bottom))))
+                }
             }
             if (attempt == 0) capture("$phase-first-lines")
             if (seen.size == total) break
@@ -843,9 +889,9 @@ class ExtensionDetailDeviceTest {
     }
     @Test fun longMetadataUrlsTagsAndImageInformationRemainReachableByTouch() {
         launch("long-metadata"); show("Owned long metadata café", substring = true)
-        pointerEveryTextLine("Owned long metadata title", "metadata-title")
+        pointerEveryTextLine("Owned long metadata title", "metadata-title", verifyGlyphs = true)
         pointerEveryTextLine("Owned long metadata café", "metadata-value")
-        pointerEveryTextLine("https://example.invalid/owned/", "metadata-url")
+        pointerEveryTextLine("https://example.invalid/owned/", "metadata-url", verifyGlyphs = true)
         touch(show("Owned wrapping tag 3 café 日本")); witness("long-metadata-tag", 1); assertEquals(1, probe().getInt("tagCalls"))
         capture("wrapping-tags-destination")
         patch("long-information-publication", JSONObject().put("contentMode", "long-information"))
@@ -871,5 +917,56 @@ class ExtensionDetailDeviceTest {
         assertEquals(initialHeight, image("Owned scrolling image").fetchSemanticsNode().size.height)
         capture("block-returned-pixels")
         record.put("offscreen_geometry_and_returned_pixels_verified", true).put("passed", true)
+    }
+    @Test fun compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks() {
+        launch("table-limit"); show("Owned table limit sentinel"); capture("before-table-expansion")
+        record.put("table_limit_source_units", 8008).put("table_limit_columns", 1001).put("table_limit_body_rows", 1000)
+            .put("contract_assertions_started", true)
+        // Durable before the old parser can abort the preview effect/process.
+        File(evidence, "detail-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json").writeText(record.toString(2))
+        patch("table-allocation-limit", JSONObject().put("contentMode", "table-overflow"))
+        show("This document is too large to preview."); compose.onNodeWithTag("extension-markdown-unavailable").assertIsDisplayed()
+        assertNull(catalog.runtimeError); capture("table-unavailable")
+        patch("normal-after-rejection", JSONObject().put("contentMode", "detail"))
+        show("Owned document standalone A"); touch(show("Owned tag standalone")); witness("normal-tag-after-limit", 3)
+        assertEquals(1, probe().getInt("tagCalls")); capture("normal-document-recovered")
+        record.put("parser_limit_is_readable_and_next_document_works", true).put("passed", true)
+    }
+    @Test fun unchangedObjectTagCallbackSurvivesEquivalentNativePublication() {
+        launch("object-tag"); val tag = show("Owned object tag")
+        val callback = requireNotNull(tag.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree); val replacement = JSONObject(original.toString())
+        assertNotSame(original, replacement)
+        record.put("contract_assertions_started", true).put("object_tag_publication_scope", "Controlled equivalent native JSON replacement before recomposition; actual unchanged JavaScript callback dispatch")
+        capture("object-tag-before-publication")
+        compose.runOnUiThread { catalog.runtimeTree = replacement; assertTrue(callback()) }
+        assertEquals("Equivalent object-valued visuals must not invalidate the visible callback", 1, probe().getInt("tagCalls"))
+        witness("object-tag-after-equivalent-native-tree", 1); capture("object-tag-current-callback")
+        patch("object-tag-visual-replaced", JSONObject().put("objectTagVariant", "B"))
+        callStale("object-tag-real-visual-change", callback)
+        touch(show("Owned object tag")); witness("object-tag-new-visual-action", 3)
+        assertEquals(2, probe().getInt("tagCalls")); capture("object-tag-new-visual-owner")
+        record.put("object_tag_unchanged_callback_preserved_and_changed_visual_rejected", true).put("passed", true)
+    }
+    @Test fun objectTagKeepsActualKeyboardFocusAcrossUnrelatedReactPublication() {
+        launch("object-tag"); val tag = show("Owned object tag")
+        val instrumentation = InstrumentationRegistry.getInstrumentation(); var tabs = 0
+        while (tag.fetchSemanticsNode().config.getOrNull(SemanticsProperties.Focused) != true && tabs < 30) {
+            instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_TAB); compose.waitForIdle(); tabs++
+        }
+        assertTrue(tag.fetchSemanticsNode().config.getOrNull(SemanticsProperties.Focused) == true)
+        val beforeId = tag.fetchSemanticsNode().id
+        record.put("contract_assertions_started", true).put("object_tag_focus_before_id", beforeId).put("keyboard_tab_count", tabs)
+        capture("object-tag-keyboard-before-publication")
+        patch("object-tag-unrelated-loading-publication", JSONObject().put("loading", true))
+        val after = tag.fetchSemanticsNode()
+        record.put("object_tag_focus_after_id", after.id)
+        assertEquals("An unchanged object-valued tag keeps its composed control", beforeId, after.id)
+        assertTrue("Unrelated React publication keeps actual tag focus", after.config.getOrNull(SemanticsProperties.Focused) == true)
+        capture("object-tag-keyboard-after-publication")
+        instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER); compose.waitForIdle()
+        assertEquals(1, probe().getInt("tagCalls")); witness("object-tag-enter-after-publication", 2)
+        assertEquals("Owned Markdown clipboard sentinel", clipboard()); capture("object-tag-enter-destination")
+        record.put("object_tag_keyboard_focus_and_current_enter_preserved", true).put("primary_copy_not_invoked", true).put("passed", true)
     }
 }

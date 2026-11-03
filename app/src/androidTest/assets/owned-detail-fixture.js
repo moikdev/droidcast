@@ -7,7 +7,8 @@ module.exports.default = function OwnedDetail() {
   const [revision, publish] = React.useState(0);
   const state = React.useRef({ view: configuration.mode === "list" ? "list" : "detail", shown: true,
     document: "A", icon: api.Icon.CircleEllipsis, contentMode: configuration.mode, rootKey: 0, detailKey: 0, tagCalls: 0, selected: null,
-    target: "javascript:globalThis.__ownedUnexpectedLink=true", loading: configuration.mode === "loading" }).current;
+    target: "javascript:globalThis.__ownedUnexpectedLink=true", loading: configuration.mode === "loading", objectTagVariant: "A" }).current;
+  const objectTagAction = React.useCallback(() => { state.tagCalls++; publish(value => value + 1); }, [state]);
   globalThis.__ownedDetailPatch = patch => { Object.assign(state, patch); publish(value => value + 1); };
   globalThis.__ownedDetailRead = () => ({ revision, tagCalls: state.tagCalls, selected: state.selected,
     unexpectedLink: globalThis.__ownedUnexpectedLink === true });
@@ -23,7 +24,13 @@ module.exports.default = function OwnedDetail() {
         onAction: () => { state.tagCalls++; publish(value => value + 1); } })),
       h(M.Separator), h(M.Label, { title: "Owned activation", text: "Owned tag count " + state.tagCalls }),
       h(M.Label, { title: "Owned publication", text: marker }));
-    const metadata = state.contentMode === "long-metadata" ? h(M, null,
+    const metadata = state.contentMode === "object-tag" ? h(M, null,
+      h(M.TagList, { title: "Owned object visuals" }, h(M.TagList.Item, {
+        text: "Owned object tag", color: { light: "#228833", dark: state.objectTagVariant === "A" ? "#228833" : "#dd3322" },
+        icon: { source: { light: "owned.svg", dark: "owned.svg" }, mask: state.objectTagVariant === "A" ? "circle" : "roundedRectangle",
+          tintColor: { light: "#228833", dark: "#228833" } }, onAction: objectTagAction })),
+      h(M.Label, { title: "Owned activation", text: "Owned tag count " + state.tagCalls }),
+      h(M.Label, { title: "Owned publication", text: marker })) : state.contentMode === "long-metadata" ? h(M, null,
       h(M.Label, { title: "Owned long metadata title " + "readable café 日本 ".repeat(5), text: configuration.longMetadata }),
       h(M.Link, { title: "Owned long reference", text: configuration.longUrl, target: state.target }),
       h(M.TagList, { title: "Owned wrapping tags" }, [0,1,2,3].map(index => h(M.TagList.Item, {
@@ -39,10 +46,13 @@ module.exports.default = function OwnedDetail() {
     if (state.contentMode === "image-information") markdown = configuration.imageInformation.split("__DOCUMENT__").join(state.document) + "\n\n" + marker;
     if (state.contentMode === "long-information") markdown = configuration.longInformation + "\n\n" + marker;
     if (state.contentMode === "image-scroll") markdown = configuration.imageScroll + "\n\n" + marker;
+    if (state.contentMode === "object-tag") markdown = "# Owned stable object-tag document";
+    if (state.contentMode === "table-limit") markdown = "# Owned table limit sentinel";
+    if (state.contentMode === "table-overflow") markdown = configuration.tableOverflow;
     if (state.contentMode === "links") markdown += "\n\n[Owned paragraph link](javascript:owned-unused)";
     if (state.contentMode === "entity-lines") markdown = "Owned entity foo&#10;&#10;bar\n\nOwned hard first  \nOwned hard second\n\n```text\nOwned code first\n\nOwned code third\n```\n\n" + marker;
     if (["metadata-only", "empty", "loading", "empty-metadata", "long-metadata"].includes(state.contentMode)) markdown = "";
-    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines", "gallery", "image-information", "long-information", "image-scroll"].includes(state.contentMode);
+    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines", "gallery", "image-information", "long-information", "image-scroll", "table-limit", "table-overflow"].includes(state.contentMode);
     return h(Type, { key: state.detailKey, navigationTitle: marker, markdown, metadata: noMetadata ? undefined : metadata,
       isLoading: state.loading, actions: actions(row) });
   }
