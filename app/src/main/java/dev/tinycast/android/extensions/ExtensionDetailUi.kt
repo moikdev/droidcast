@@ -96,10 +96,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
         // A callback from a preceding document may not adopt a new row's URL.
         if (current()?.props()?.opt("markdown") == markdown) activateLink(link.destination)
     }
-    Box(modifier.testTag("extension-detail")) {
-        key(ownerKey, sourceId, sourceType) {
-        SelectionContainer(Modifier.fillMaxSize().verticalScroll(scroll)) {
-            Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    val body: @Composable ColumnScope.() -> Unit = {
                 if (source.props().optBoolean("isLoading")) LinearProgressIndicator(Modifier.fillMaxWidth().testTag("extension-detail-loading"))
                 if (markdown.isNotEmpty()) NativeMarkdownContent(markdown, openMarkdown, image = { picture, imageModifier, inline ->
                     val link = picture.link
@@ -108,6 +105,8 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                     }
                     NativeDetailImage(picture.source, picture.alternative, images, imageModifier.then(click), inline)
                 })
+    }
+    val information: @Composable ColumnScope.() -> Unit = {
                 if (metadata.limited) Text("This information is too large to preview.", color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp)
                 if (metadata.rows.isNotEmpty()) Column(Modifier.fillMaxWidth().testTag("extension-detail-metadata"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     metadata.rows.forEach { node ->
@@ -164,11 +163,26 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                         }
                     }
                 }
-                if (markdown.isEmpty() && metadata.rows.isEmpty() && !metadata.limited) Text(
-                    if (source.props().optBoolean("isLoading")) "Loading details…" else "No detail content", color = PaletteTheme.secondary,
-                    fontSize = 14.sp, lineHeight = 22.sp, modifier = Modifier.testTag("extension-detail-empty"))
+    }
+    val metadataScroll = remember(ownerKey, sourceId, sourceType) { ScrollState(0) }
+    BoxWithConstraints(modifier.testTag("extension-detail")) {
+        val panes = markdown.isNotEmpty() && metadata.rows.isNotEmpty() &&
+            maxWidth >= maxOf(680.dp, 600.dp * androidx.compose.ui.platform.LocalDensity.current.fontScale)
+        key(ownerKey, sourceId, sourceType) {
+            SelectionContainer(Modifier.fillMaxSize()) {
+                if (panes) Row(Modifier.fillMaxSize().testTag("extension-detail-panes")) {
+                    Column(Modifier.weight(.62f).fillMaxHeight().verticalScroll(scroll).padding(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp), content = body)
+                    VerticalDivider(Modifier.fillMaxHeight(), color = PaletteTheme.separator)
+                    Column(Modifier.weight(.38f).fillMaxHeight().verticalScroll(metadataScroll).padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp), content = information)
+                } else Column(Modifier.fillMaxWidth().verticalScroll(scroll).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    body(); information()
+                    if (markdown.isEmpty() && metadata.rows.isEmpty() && !metadata.limited) Text(
+                        if (source.props().optBoolean("isLoading")) "Loading details…" else "No detail content", color = PaletteTheme.secondary,
+                        fontSize = 14.sp, lineHeight = 22.sp, modifier = Modifier.testTag("extension-detail-empty"))
+                }
             }
-        }
         }
     }
 }

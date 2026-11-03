@@ -9,6 +9,7 @@ import unittest
 
 RUNNER = Path(__file__).resolve().parents[1] / 'test-reviewed-text-input.py'
 MARKDOWN = 'dev.tinycast.android.ExtensionMarkdownDeviceTest'
+DETAIL = 'dev.tinycast.android.ExtensionDetailDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
@@ -50,6 +51,20 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
 
     def test_similarly_named_arbitrary_class_is_not_authorized(self):
         self.refused_without_device_access(MARKDOWN + 'Extra', [], 'Only owned input/Form/Markdown')
+
+    def test_detail_cannot_claim_document_fixtures(self):
+        self.refused_without_device_access(DETAIL, ['--document-fixtures'], 'Document fixtures belong only to the owned Form cohort')
+
+    def test_detail_cannot_inject_a_clipboard_recovery_failure(self):
+        self.refused_without_device_access(DETAIL, ['--inject-clipboard-restore-failure'],
+                                           'Restoration failure is limited to the deliberate process-death control')
+
+    def test_detail_cannot_mix_with_shared_legacy_fixtures(self):
+        self.refused_without_device_access(DETAIL + ',dev.tinycast.android.ReadinessRegressionDeviceTest', [],
+                                           'Keep the shared menu/keyboard regression cohort separate')
+
+    def test_similarly_named_detail_class_is_not_authorized(self):
+        self.refused_without_device_access(DETAIL + 'Extra', [], 'Only owned input/Form/Markdown')
 
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -69,7 +69,7 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
         val height = (request?.height?.dp ?: (width / aspect.coerceIn(1f / 1024, 1024f))).coerceIn(1.dp, 2048.dp)
         val bitmap = result.bitmap
         if (bitmap != null) Image(bitmap.asImageBitmap(), contentDescription = null,
-            modifier = if (inline) Modifier.fillMaxSize() else Modifier.width(width).height(height),
+            modifier = (if (inline) Modifier.fillMaxSize() else Modifier.width(width).height(height)).testTag("extension-detail-image-content"),
             contentScale = ContentScale.Fit, colorFilter = color?.let { ColorFilter.tint(it) })
         else if (inline) Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Glyph("extension", PaletteTheme.secondary, 20) }
         else Column(Modifier.fillMaxWidth().heightIn(min = 60.dp).background(PaletteTheme.ink.copy(alpha = .05f), RoundedCornerShape(8.dp)).padding(12.dp),

@@ -62,6 +62,7 @@ def main():
                               'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
                               'dev.tinycast.android.ExtensionFormDeviceTest',
                               'dev.tinycast.android.ExtensionMarkdownDeviceTest',
+                              'dev.tinycast.android.ExtensionDetailDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
         for item in args.classes.split(',')), 'Only owned input/Form/Markdown or shared menu/keyboard regression tests are allowed')
     regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest'}
