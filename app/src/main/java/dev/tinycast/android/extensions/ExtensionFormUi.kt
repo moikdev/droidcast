@@ -98,7 +98,7 @@ private fun NativeFormNode(root: JSONObject, node: JSONObject, liveRoot: () -> J
     val owner = formFieldOwner(root, node)
     val errorText = (p.opt("error") as? String).orEmpty()
     val info = (p.opt("info") as? String).orEmpty()
-    owner?.let { values.observe(it, root, if (type == "Form.Checkbox") p.optBoolean("value") else (p.opt("value") as? String).orEmpty()) }
+    owner?.let { values.observe(it, root, formFieldValue(node)) }
     DisposableEffect(owner, values) { onDispose { owner?.let(values::remove) } }
     var nativeFocused by remember(owner) { mutableStateOf(false) }
     val focusModifier = Modifier.onFocusChanged {
