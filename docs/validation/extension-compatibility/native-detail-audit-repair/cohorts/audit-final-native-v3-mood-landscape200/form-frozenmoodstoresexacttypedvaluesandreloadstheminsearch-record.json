@@ -1,0 +1,746 @@
+{
+  "scope": "Unmodified frozen mood Store command JavaScript in an owned namespace; only owned test input/data, not whole-Store certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "8e75546f98cbacc214172550251f1abcf9788069",
+  "archive_sha256": "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221",
+  "frozen_command_sha256": {
+    "record-mood": "11e2a3e9900c47a8697004f267024865c2f4a5d21b87cb396e07ed4a5cc56478",
+    "search-moods": "9eee3a5852244fc06109e695358c2780a3970d28d04776b7d6416a11653bdea0"
+  },
+  "runtime_start_error": null,
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 5,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 5,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        625,
+        2102,
+        765
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        695
+      ]
+    },
+    {
+      "tag": "extension-date-confirm-date",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 146,
+      "visible_bounds": [
+        777,
+        777,
+        1481,
+        917
+      ],
+      "control_size": [
+        704,
+        140
+      ],
+      "point": [
+        1129,
+        847
+      ]
+    },
+    {
+      "tag": "extension-tags-tags",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        267,
+        2102,
+        407
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        337
+      ]
+    },
+    {
+      "tag": "extension-tags-done-tags",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 366,
+      "visible_bounds": [
+        777,
+        803,
+        1460,
+        943
+      ],
+      "control_size": [
+        683,
+        140
+      ],
+      "point": [
+        1118.5,
+        873
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        459,
+        2102,
+        765
+      ],
+      "control_size": [
+        1863,
+        306
+      ],
+      "point": [
+        1170.5,
+        612
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1031,
+        833,
+        1820,
+        986
+      ],
+      "control_size": [
+        789,
+        153
+      ],
+      "point": [
+        1425.5,
+        909.5
+      ]
+    },
+    {
+      "tag": "extension-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        186,
+        95,
+        312,
+        221
+      ],
+      "control_size": [
+        126,
+        126
+      ],
+      "point": [
+        249,
+        158
+      ]
+    },
+    {
+      "tag": "extension-actions",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1823,
+        833,
+        2134,
+        986
+      ],
+      "control_size": [
+        311,
+        153
+      ],
+      "point": [
+        1978.5,
+        909.5
+      ]
+    },
+    {
+      "tag": "extension-action-0",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1310,
+        687,
+        2118,
+        820
+      ],
+      "control_size": [
+        808,
+        133
+      ],
+      "point": [
+        1714,
+        753.5
+      ]
+    },
+    {
+      "tag": "extension-row-0",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        228,
+        277,
+        2113,
+        639
+      ],
+      "control_size": [
+        1885,
+        362
+      ],
+      "point": [
+        1170.5,
+        458
+      ]
+    },
+    {
+      "tag": "extension-actions",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1823,
+        833,
+        2134,
+        986
+      ],
+      "control_size": [
+        311,
+        153
+      ],
+      "point": [
+        1978.5,
+        909.5
+      ]
+    },
+    {
+      "tag": "extension-action-0",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1310,
+        687,
+        2118,
+        820
+      ],
+      "control_size": [
+        808,
+        133
+      ],
+      "point": [
+        1714,
+        753.5
+      ]
+    },
+    {
+      "tag": "extension-actions",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1823,
+        833,
+        2134,
+        986
+      ],
+      "control_size": [
+        311,
+        153
+      ],
+      "point": [
+        1978.5,
+        909.5
+      ]
+    },
+    {
+      "tag": "extension-action-0",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1310,
+        687,
+        2118,
+        820
+      ],
+      "control_size": [
+        808,
+        133
+      ],
+      "point": [
+        1714,
+        753.5
+      ]
+    },
+    {
+      "tag": "extension-row-0",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        228,
+        277,
+        2113,
+        639
+      ],
+      "control_size": [
+        1885,
+        362
+      ],
+      "point": [
+        1170.5,
+        458
+      ]
+    },
+    {
+      "tag": "extension-detail-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        186,
+        95,
+        312,
+        221
+      ],
+      "control_size": [
+        126,
+        126
+      ],
+      "point": [
+        249,
+        158
+      ]
+    },
+    {
+      "tag": "extension-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        186,
+        95,
+        312,
+        221
+      ],
+      "control_size": [
+        126,
+        126
+      ],
+      "point": [
+        249,
+        158
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "saved_owned_record": {
+    "id": "6dca9d0a-e38c-4f8d-bde3-20a58c1715d5",
+    "mood": "neutral",
+    "tags": [
+      "work",
+      "health"
+    ],
+    "notes": "Owned mood café é 日本 🌱",
+    "date": "2026-11-03T22:57:31.484Z"
+  },
+  "saved_data_sha256": "242ed52d9c10c92729d0346e694f351e6fbf8f94068a8d34bbc96e4b80c5239e",
+  "caller_query_restored": true,
+  "mood_detail_modes": [
+    {
+      "phase": "first-visible",
+      "menu_action_title": "Show Details",
+      "is_showing_detail": true,
+      "saved_bytes_unchanged": true
+    },
+    {
+      "phase": "hidden-again",
+      "menu_action_title": "Hide Details",
+      "is_showing_detail": false,
+      "saved_bytes_unchanged": true
+    },
+    {
+      "phase": "reopened",
+      "menu_action_title": "Show Details",
+      "is_showing_detail": true,
+      "saved_bytes_unchanged": true
+    }
+  ],
+  "record_and_search_use_same_persisted_owned_data": true,
+  "native_detail_false_true_false_true_verified": true,
+  "test_boundary": "Two frozen commands: actual Date/tag/note editing, exact private record, new-runtime Search, actual detail-mode menu toggles and narrow touch return. AI/charts/drafts/storeValue/OEM and all other actions untested",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

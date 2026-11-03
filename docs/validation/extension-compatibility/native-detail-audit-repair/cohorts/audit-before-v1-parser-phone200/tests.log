@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionDetailDeviceTest:
+INSTRUMENTATION_STATUS: test=compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Aborting parsing because maximum number of cells reached (maxCells = 1000000)
+	at org.commonmark.ext.gfm.tables.internal.TableBlockParser.parseCell(TableBlockParser.java:124)
+	at org.commonmark.ext.gfm.tables.internal.TableBlockParser.parseInlines(TableBlockParser.java:106)
+	at org.commonmark.internal.DocumentParser.processInlines(DocumentParser.java:523)
+	at org.commonmark.internal.DocumentParser.finalizeAndProcess(DocumentParser.java:570)
+	at org.commonmark.internal.DocumentParser.parse(DocumentParser.java:152)
+	at org.commonmark.parser.Parser.parse(Parser.java:89)
+	at dev.tinycast.android.extensions.ExtensionMarkdown.parse(ExtensionMarkdownModel.kt:45)
+	at dev.tinycast.android.extensions.ExtensionMarkdownUiKt$NativeMarkdownContent$result$2$1$1.invokeSuspend(ExtensionMarkdownUi.kt:40)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+
+INSTRUMENTATION_STATUS: stream=
+Error in compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.IllegalArgumentException: Aborting parsing because maximum number of cells reached (maxCells = 1000000)
+	at org.commonmark.ext.gfm.tables.internal.TableBlockParser.parseCell(TableBlockParser.java:124)
+	at org.commonmark.ext.gfm.tables.internal.TableBlockParser.parseInlines(TableBlockParser.java:106)
+	at org.commonmark.internal.DocumentParser.processInlines(DocumentParser.java:523)
+	at org.commonmark.internal.DocumentParser.finalizeAndProcess(DocumentParser.java:570)
+	at org.commonmark.internal.DocumentParser.parse(DocumentParser.java:152)
+	at org.commonmark.parser.Parser.parse(Parser.java:89)
+	at dev.tinycast.android.extensions.ExtensionMarkdown.parse(ExtensionMarkdownModel.kt:45)
+	at dev.tinycast.android.extensions.ExtensionMarkdownUiKt$NativeMarkdownContent$result$2$1$1.invokeSuspend(ExtensionMarkdownUi.kt:40)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+
+INSTRUMENTATION_STATUS: test=compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.762
+There was 1 failure:
+1) compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.IllegalArgumentException: Aborting parsing because maximum number of cells reached (maxCells = 1000000)
+	at org.commonmark.ext.gfm.tables.internal.TableBlockParser.parseCell(TableBlockParser.java:124)
+	at org.commonmark.ext.gfm.tables.internal.TableBlockParser.parseInlines(TableBlockParser.java:106)
+	at org.commonmark.internal.DocumentParser.processInlines(DocumentParser.java:523)
+	at org.commonmark.internal.DocumentParser.finalizeAndProcess(DocumentParser.java:570)
+	at org.commonmark.internal.DocumentParser.parse(DocumentParser.java:152)
+	at org.commonmark.parser.Parser.parse(Parser.java:89)
+	at dev.tinycast.android.extensions.ExtensionMarkdown.parse(ExtensionMarkdownModel.kt:45)
+	at dev.tinycast.android.extensions.ExtensionMarkdownUiKt$NativeMarkdownContent$result$2$1$1.invokeSuspend(ExtensionMarkdownUi.kt:40)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

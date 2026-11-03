@@ -1,0 +1,40 @@
+{
+  "completed": true,
+  "production_source_commit": "952fec8a521eda9cbe80a8197c0548b05de8e729",
+  "test_source_commit": "8e75546f98cbacc214172550251f1abcf9788069",
+  "app_sha256": "6be8d996b8a808b32eaccec1141c1b77cd60700ce2dce2e4152579c929e1fdb4",
+  "test_apk_sha256": "abb4ae4fbb295b7f0392e6759530960b79968cd08d90dce82dc6f066f851efb3",
+  "scope": "Six release/return transitions per case; semantic positioning is explicit setup. Unchanged diagnostic runtime, not a production repair claim.",
+  "cohorts": [
+    {
+      "layout": "landscape",
+      "font_scale": 1,
+      "output": "artifacts/markdown-detail/image-visibility-stress-v1-landscape100",
+      "completed": true,
+      "exit_code": 0,
+      "passes": 1,
+      "cleanup_all_passed": true,
+      "cleanup_checks": 20
+    },
+    {
+      "layout": "phone",
+      "font_scale": 2,
+      "output": "artifacts/markdown-detail/image-visibility-stress-v1-phone200",
+      "completed": true,
+      "exit_code": 0,
+      "passes": 1,
+      "cleanup_all_passed": true,
+      "cleanup_checks": 20
+    },
+    {
+      "layout": "tablet",
+      "font_scale": 1,
+      "output": "artifacts/markdown-detail/image-visibility-stress-v1-tablet100",
+      "completed": true,
+      "exit_code": 0,
+      "passes": 1,
+      "cleanup_all_passed": true,
+      "cleanup_checks": 18
+    }
+  ]
+}

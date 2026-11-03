@@ -1,0 +1,200 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "37eb0ed62c80c53123388e1e376a3fa2ec41e93f",
+  "fixture_mode": "image-scroll",
+  "fixture_command_sha256": "702de7f608ea6893491d9cd4e1a3a6a89ec42d850d3b8a6a8a4c3a4235463184",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_png_sha256": "9d6eb0bb52ca2b690f4d60646c909d3f54e18e7ce4ea7181a774c898e56ef5f0",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "4",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 1703
+    }
+  ],
+  "axis_aware_scrolls": [
+    {
+      "attempt": 0,
+      "ancestor_id": 1740,
+      "requested_dy_px": 30,
+      "before": 0,
+      "after": 30,
+      "viewport": [
+        398,
+        323,
+        1523,
+        864
+      ],
+      "target": [
+        428,
+        353,
+        1493,
+        1063
+      ]
+    },
+    {
+      "attempt": 1,
+      "ancestor_id": 1697,
+      "requested_dy_px": 83,
+      "before": 0,
+      "after": 0,
+      "viewport": [
+        398,
+        237,
+        1523,
+        950
+      ],
+      "target": [
+        428,
+        323,
+        1493,
+        1033
+      ]
+    },
+    {
+      "attempt": 0,
+      "ancestor_id": 1697,
+      "requested_dy_px": -83,
+      "before": 0,
+      "after": 0,
+      "viewport": [
+        398,
+        237,
+        1523,
+        950
+      ],
+      "target": [
+        428,
+        154,
+        1493,
+        864
+      ]
+    }
+  ],
+  "image_readiness": [
+    {
+      "alternative": "Owned scrolling image",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 864.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        864
+      ],
+      "unclipped_origin": [
+        428,
+        323
+      ],
+      "size": [
+        1065,
+        710
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Owned scrolling image",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 864.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        864
+      ],
+      "unclipped_origin": [
+        428,
+        323
+      ],
+      "size": [
+        1065,
+        710
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Owned scrolling image",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=4;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 864.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        864
+      ],
+      "unclipped_origin": [
+        428,
+        154
+      ],
+      "size": [
+        1065,
+        710
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Owned scrolling image",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=4;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 864.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        864
+      ],
+      "unclipped_origin": [
+        428,
+        154
+      ],
+      "size": [
+        1065,
+        710
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    }
+  ],
+  "image_pixels": [
+    {
+      "alternative": "Owned scrolling image",
+      "expected_argb": -14514125,
+      "red": 0.13333334028720856,
+      "green": 0.5333333611488342,
+      "blue": 0.20000000298023224,
+      "width_px": 1065,
+      "height_px": 541
+    },
+    {
+      "alternative": "Owned scrolling image",
+      "expected_argb": -14514125,
+      "red": 0.13333334028720856,
+      "green": 0.5333333611488342,
+      "blue": 0.20000000298023224,
+      "width_px": 1065,
+      "height_px": 541
+    }
+  ],
+  "last_native_text_wait": "Owned scroll-away destination.",
+  "offscreen_block_initial_height_px": 710,
+  "offscreen_block_height_px": 710,
+  "offscreen_view_bitmap_cleared": true,
+  "offscreen_geometry_contract_started": true,
+  "offscreen_geometry_and_returned_pixels_verified": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

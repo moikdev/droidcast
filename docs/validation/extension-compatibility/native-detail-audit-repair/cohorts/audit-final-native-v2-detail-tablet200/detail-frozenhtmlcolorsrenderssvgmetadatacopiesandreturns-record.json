@@ -1,0 +1,206 @@
+{
+  "scope": "Unmodified frozen HTML Colors JavaScript in an owned namespace; default Blue search/detail/Copy path only",
+  "font_scale": 2,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "8e75546f98cbacc214172550251f1abcf9788069",
+  "archive_sha256": "8a346fd2bd4ed01ceeacdeb71462b458014faa539a1f2b563638983843bdf0fb",
+  "frozen_command_sha256": "0271dcb698ac556e5973a4a2a412a1746e36e1f8f67994cd29b59a0338da3d67",
+  "axis_aware_scrolls": [
+    {
+      "attempt": 0,
+      "ancestor_id": 3081,
+      "requested_dy_px": 30,
+      "before": 0,
+      "after": 30,
+      "viewport": [
+        398,
+        323,
+        1523,
+        870
+      ],
+      "target": [
+        428,
+        353,
+        1493,
+        1152
+      ]
+    },
+    {
+      "attempt": 0,
+      "ancestor_id": 2911,
+      "requested_dy_px": -149,
+      "before": 0,
+      "after": 0,
+      "viewport": [
+        398,
+        237,
+        1523,
+        1134
+      ],
+      "target": [
+        428,
+        88,
+        1493,
+        887
+      ]
+    }
+  ],
+  "image_readiness": [
+    {
+      "alternative": "Blue Color Preview",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 870.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        870
+      ],
+      "unclipped_origin": [
+        428,
+        323
+      ],
+      "size": [
+        1065,
+        799
+      ],
+      "owned_fixture_svg_assets_file_unchanged": false
+    },
+    {
+      "alternative": "Blue Color Preview",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 870.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        870
+      ],
+      "unclipped_origin": [
+        428,
+        323
+      ],
+      "size": [
+        1065,
+        799
+      ],
+      "owned_fixture_svg_assets_file_unchanged": false
+    },
+    {
+      "alternative": "Blue Color Preview",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 870.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        870
+      ],
+      "unclipped_origin": [
+        428,
+        88
+      ],
+      "size": [
+        1065,
+        799
+      ],
+      "owned_fixture_svg_assets_file_unchanged": false
+    },
+    {
+      "alternative": "Blue Color Preview",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;attached=true;window_bounds=Rect.fromLTRB(428.0, 323.0, 1493.0, 870.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        428,
+        323,
+        1493,
+        870
+      ],
+      "unclipped_origin": [
+        428,
+        88
+      ],
+      "size": [
+        1065,
+        799
+      ],
+      "owned_fixture_svg_assets_file_unchanged": false
+    }
+  ],
+  "image_pixels": [
+    {
+      "alternative": "Blue Color Preview",
+      "expected_argb": -16776961,
+      "red": 0,
+      "green": 0,
+      "blue": 1,
+      "width_px": 1065,
+      "height_px": 547
+    },
+    {
+      "alternative": "Blue Color Preview",
+      "expected_argb": -16776961,
+      "red": 0,
+      "green": 0,
+      "blue": 1,
+      "width_px": 1065,
+      "height_px": 547
+    }
+  ],
+  "html_metadata_lines": [
+    {
+      "text": "#0000FF",
+      "line": 0,
+      "line_bounds": [
+        428,
+        808,
+        593,
+        870
+      ],
+      "clipped_text_bounds": [
+        428,
+        808,
+        1493,
+        870
+      ]
+    },
+    {
+      "text": "rgb(0, 0, 255)",
+      "line": 0,
+      "line_bounds": [
+        428,
+        808,
+        677.1367,
+        870
+      ],
+      "clipped_text_bounds": [
+        428,
+        808,
+        1493,
+        870
+      ]
+    }
+  ],
+  "phase_outcomes": {
+    "startup": "working",
+    "rendering": "Blue SVG and metadata working",
+    "interaction": "search, select, detail toggle, Copy HEX working",
+    "destination": "exact #0000FF clipboard and caller return",
+    "configuration": "no preferences or arguments required for this path",
+    "service": "not exercised; static-bundle path"
+  },
+  "overall_command": "partial",
+  "remaining_scope": "List dropdown/accessory modes, other colors/actions and complete command parity are untested",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

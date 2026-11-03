@@ -1,0 +1,224 @@
+{
+  "final_native": "audit-final-native-v3-state.json",
+  "final_candidate": "audit-final-source-identity-v4.json",
+  "final_local": "audit-final-local-v3-state.json",
+  "before": "audit-before-controls-v1-state.json",
+  "after": "audit-after-controls-v1-state.json",
+  "public_validation": "docs/validation/extension-compatibility/native-detail-audit-repair",
+  "public_images": "docs/screenshots/extension-compatibility/native-detail-audit-repair",
+  "frames": [
+    {
+      "name": "table-before-trigger-phone200",
+      "origin_cohort": "audit-before-v1-parser-phone200",
+      "basename": "detail-compactpaddedtablebecomesunavailableandthenextdocumentstillworks-before-table-expansion",
+      "caption": "Old runtime before the compact table triggers its preview-effect exception; not a screenshot of a process crash."
+    },
+    {
+      "name": "table-old-failure-phone200",
+      "origin_cohort": "audit-before-v1-parser-phone200",
+      "basename": "detail-compactpaddedtablebecomesunavailableandthenextdocumentstillworks-failure",
+      "caption": "Old runtime after the instrumented parser exception; retained failure UI, with zero JUnit passes."
+    },
+    {
+      "name": "table-unavailable-phone200",
+      "origin_cohort": "audit-after-v1-parser-phone200",
+      "basename": "detail-compactpaddedtablebecomesunavailableandthenextdocumentstillworks-table-unavailable",
+      "caption": "Repaired runtime rejects padded-cell expansion with a readable unavailable preview."
+    },
+    {
+      "name": "table-recovered-phone200",
+      "origin_cohort": "audit-after-v1-parser-phone200",
+      "basename": "detail-compactpaddedtablebecomesunavailableandthenextdocumentstillworks-normal-document-recovered",
+      "caption": "A normal document and its tag callback work after table rejection."
+    },
+    {
+      "name": "table-unavailable-landscape200",
+      "origin_cohort": "audit-after-v1-parser-landscape200",
+      "basename": "detail-compactpaddedtablebecomesunavailableandthenextdocumentstillworks-table-unavailable",
+      "caption": "Readable table-limit outcome in the short landscape 200% profile."
+    },
+    {
+      "name": "object-callback-before-phone200",
+      "origin_cohort": "audit-before-v1-object-tag-phone200",
+      "basename": "detail-unchangedobjecttagcallbacksurvivesequivalentnativepublication-failure",
+      "caption": "Old captured callback is rejected after an equivalent controlled native JSON publication; actual JS count remains zero."
+    },
+    {
+      "name": "object-callback-after-phone200",
+      "origin_cohort": "audit-after-v1-object-tag-phone200",
+      "basename": "detail-unchangedobjecttagcallbacksurvivesequivalentnativepublication-object-tag-current-callback",
+      "caption": "The same captured callback dispatches its actual JavaScript action after equivalent native JSON replacement; this is not pointer-action credit."
+    },
+    {
+      "name": "object-changed-visual-phone200",
+      "origin_cohort": "audit-after-v1-object-tag-phone200",
+      "basename": "detail-unchangedobjecttagcallbacksurvivesequivalentnativepublication-object-tag-new-visual-owner",
+      "caption": "Old action rejects an actual visual change; a fresh pointer activation reaches the new visual owner."
+    },
+    {
+      "name": "object-focus-before-phone200",
+      "origin_cohort": "audit-before-v1-object-tag-phone200",
+      "basename": "detail-objecttagkeepsactualkeyboardfocusacrossunrelatedreactpublication-failure",
+      "caption": "Old control loses identity/focus after a witnessed unrelated real React publication."
+    },
+    {
+      "name": "object-focus-after-phone200",
+      "origin_cohort": "audit-after-v1-object-tag-phone200",
+      "basename": "detail-objecttagkeepsactualkeyboardfocusacrossunrelatedreactpublication-object-tag-keyboard-after-publication",
+      "caption": "Actual keyboard focus and control identity survive the real unrelated React publication."
+    },
+    {
+      "name": "object-enter-after-phone200",
+      "origin_cohort": "audit-after-v1-object-tag-phone200",
+      "basename": "detail-objecttagkeepsactualkeyboardfocusacrossunrelatedreactpublication-object-tag-enter-destination",
+      "caption": "Enter invokes the focused current tag; the clipboard sentinel is unchanged."
+    },
+    {
+      "name": "object-focus-after-tablet100",
+      "origin_cohort": "audit-after-v1-object-tag-tablet100",
+      "basename": "detail-objecttagkeepsactualkeyboardfocusacrossunrelatedreactpublication-object-tag-keyboard-after-publication",
+      "caption": "Real React publication retains actual focused control; initial semantic positioning is separate from keyboard activation."
+    },
+    {
+      "name": "object-focus-after-landscape200",
+      "origin_cohort": "audit-after-v1-object-tag-landscape200",
+      "basename": "detail-objecttagkeepsactualkeyboardfocusacrossunrelatedreactpublication-object-tag-keyboard-after-publication",
+      "caption": "Real React publication retains actual focused control; initial semantic positioning is separate from keyboard activation."
+    },
+    {
+      "name": "link-glyph-before-phone200",
+      "origin_cohort": "audit-before-v1-glyph-phone200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-failure",
+      "caption": "Old pill clips link-edge glyphs; the independent paragraph alpha-mask probe fails after unclipped-title calibration passes."
+    },
+    {
+      "name": "link-glyph-after-phone200",
+      "origin_cohort": "audit-after-v1-glyph-phone200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Same instrumentation verifies complete edge glyph pixels after bounded-corner repair; normal viewport scrolling remains visible."
+    },
+    {
+      "name": "link-glyph-before-landscape200",
+      "origin_cohort": "audit-before-v1-glyph-landscape200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-failure",
+      "caption": "Old pill clips link-edge glyphs; the independent paragraph alpha-mask probe fails after unclipped-title calibration passes."
+    },
+    {
+      "name": "link-glyph-after-landscape200",
+      "origin_cohort": "audit-after-v1-glyph-landscape200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Same instrumentation verifies complete edge glyph pixels after bounded-corner repair; normal viewport scrolling remains visible."
+    },
+    {
+      "name": "current-link-glyph-tablet100",
+      "origin_cohort": "audit-final-native-v2-detail-tablet100",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Retained v2 same-APK cohort: all natural link lines and their leading/trailing glyph pixels are witnessed through pointer scrolling."
+    },
+    {
+      "name": "current-link-glyph-tablet200",
+      "origin_cohort": "audit-final-native-v2-detail-tablet200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Retained v2 same-APK cohort: all natural link lines and their leading/trailing glyph pixels are witnessed through pointer scrolling."
+    },
+    {
+      "name": "current-link-glyph-phone100",
+      "origin_cohort": "audit-final-native-v2-detail-phone100",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Retained v2 same-APK cohort: all natural link lines and their leading/trailing glyph pixels are witnessed through pointer scrolling."
+    },
+    {
+      "name": "current-link-glyph-phone200",
+      "origin_cohort": "audit-final-native-v2-detail-phone200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Retained v2 same-APK cohort: all natural link lines and their leading/trailing glyph pixels are witnessed through pointer scrolling."
+    },
+    {
+      "name": "current-link-glyph-landscape100",
+      "origin_cohort": "audit-final-native-v2-detail-landscape100",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Retained v2 same-APK cohort: all natural link lines and their leading/trailing glyph pixels are witnessed through pointer scrolling."
+    },
+    {
+      "name": "current-link-glyph-landscape200",
+      "origin_cohort": "audit-final-native-v2-detail-landscape200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Retained v2 same-APK cohort: all natural link lines and their leading/trailing glyph pixels are witnessed through pointer scrolling."
+    },
+    {
+      "name": "current-table-unavailable-phone200",
+      "origin_cohort": "audit-final-native-v2-detail-phone200",
+      "basename": "detail-compactpaddedtablebecomesunavailableandthenextdocumentstillworks-table-unavailable",
+      "caption": "Retained v2 same-APK cohort: table allocation failure remains readable."
+    },
+    {
+      "name": "current-object-focus-phone200",
+      "origin_cohort": "audit-final-native-v2-detail-phone200",
+      "basename": "detail-objecttagkeepsactualkeyboardfocusacrossunrelatedreactpublication-object-tag-keyboard-after-publication",
+      "caption": "Retained v2 same-APK cohort: the same focused tag survives real React publication."
+    },
+    {
+      "name": "current-image-error-phone200",
+      "origin_cohort": "audit-final-native-v2-detail-phone200",
+      "basename": "detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-image-error-alternative",
+      "caption": "Retained v2 same-APK cohort: fresh current image failure has a readable alternative."
+    },
+    {
+      "name": "current-html-colors-phone200",
+      "origin_cohort": "audit-final-native-v2-detail-phone200",
+      "basename": "detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-html-colors-rgb-metadata",
+      "caption": "Retained v2 same-APK cohort: frozen unmodified Blue command: current native metadata; Copy/return outcomes are bound separately."
+    },
+    {
+      "name": "current-json-code-phone200",
+      "origin_cohort": "audit-final-native-v3-json-phone200",
+      "basename": "text-selectedjsonrunsonlyafterreviewthencopiesandreturns-formatted",
+      "caption": "Frozen formatter after reviewed explicit Run: exact native monospace output. This also serves as a real app smoke capture after the host-query timeout change; it establishes no repair of the transport or prior image failure."
+    },
+    {
+      "name": "current-json-source-return-phone200",
+      "origin_cohort": "audit-final-native-v3-json-phone200",
+      "basename": "text-selectedjsonrunsonlyafterreviewthencopiesandreturns-return",
+      "caption": "Fresh exact Copy returns to unchanged owned external source text/range."
+    },
+    {
+      "name": "current-mood-native-detail-phone200",
+      "origin_cohort": "audit-final-native-v3-mood-phone200",
+      "basename": "form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-native-detail-visible",
+      "caption": "Frozen Mood persisted owned notes render in current native Detail after actual Show Details."
+    },
+    {
+      "name": "image-readiness-failure-landscape100",
+      "origin_cohort": "audit-final-native-v1-detail-landscape100",
+      "basename": "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-failure",
+      "caption": "Retained earlier21/22 failed cohort: actual blank block image while the debug loader phase reports ready. Cause and repair are not established."
+    },
+    {
+      "name": "diagnostic-image-information-landscape100",
+      "origin_cohort": "image-state-diagnostic-v1-landscape100",
+      "basename": "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-image-block-description",
+      "caption": "Separate unchanged-behavior diagnostic22/22 run shows the image/caption; this successful rerun establishes no cause or repair."
+    },
+    {
+      "name": "current-cached-image-tablet100",
+      "origin_cohort": "audit-final-native-v2-detail-tablet100",
+      "basename": "detail-cachedblockimagereturnsitspixelsafterrepeatedvisibilitychanges-cached-image-sixth-return",
+      "caption": "Retained v2 same-APK cohort: current test observes six offscreen releases, stable geometry and returned green pixels. Semantic scroll positioning is setup; this does not explain the earlier failure."
+    },
+    {
+      "name": "current-cached-image-phone200",
+      "origin_cohort": "audit-final-native-v2-detail-phone200",
+      "basename": "detail-cachedblockimagereturnsitspixelsafterrepeatedvisibilitychanges-cached-image-sixth-return",
+      "caption": "Retained v2 same-APK cohort: current test observes six offscreen releases, stable geometry and returned green pixels. Semantic scroll positioning is setup; this does not explain the earlier failure."
+    },
+    {
+      "name": "current-cached-image-landscape200",
+      "origin_cohort": "audit-final-native-v2-detail-landscape200",
+      "basename": "detail-cachedblockimagereturnsitspixelsafterrepeatedvisibilitychanges-cached-image-sixth-return",
+      "caption": "Retained v2 same-APK cohort: current test observes six offscreen releases, stable geometry and returned green pixels. Semantic scroll positioning is setup; this does not explain the earlier failure."
+    }
+  ],
+  "initial_publication_commit": "7a1e38628ab1b5af867de50656c6fc49609d977b",
+  "initial_checkpoint": "docs/validation/extension-compatibility/native-detail/checkpoint.json",
+  "initial_report": "docs/EXTENSION-MARKDOWN-DETAIL.md"
+}

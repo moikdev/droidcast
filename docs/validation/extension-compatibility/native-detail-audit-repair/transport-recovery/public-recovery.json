@@ -1,0 +1,23 @@
+{
+  "completed": true,
+  "original_failed_record": "audit-final-native-v2-markdown-phone200/record.json",
+  "original_failed_cleanup_checks_retained": 20,
+  "original_failed_cohort_not_credited": true,
+  "recovered_case_receipts": 4,
+  "recovered_raw_files": 22,
+  "preserved_evidence_files": 136,
+  "checks": {
+    "failed_cohort_raw_evidence_recovered_byte_identically": true,
+    "only_registered_fixture_paths_removed": true,
+    "preferences_equal_private_originals": true,
+    "font_geometry_secure_settings_and_unprivileged_identity_restored": true,
+    "clipboard_restored_and_verified_independently": true,
+    "all_136_preserved_evidence_files_match_private_originals": true,
+    "outer_preservation_owner_released_after_restoration": true,
+    "clipboard_owner_released_after_verified_restoration": true,
+    "application_recovery_lease_released_last": true
+  },
+  "original_and_restarted_apks_match": true,
+  "private_disk_checkpoint_retained": true,
+  "scope": "Manual recovery after a transport stall and cold boot. Original failed runner/outer-preservation results remain failed. APK identity, preferences, clipboard, font, geometry, secure settings and 136 evidence bytes are verified. Original logical installed-data fingerprints were not persisted for a cross-boot comparison; the private pre-restart disk checkpoint remains available. No app/image-readiness fix is established."
+}

@@ -2,6 +2,10 @@
 
 This is the execution portion of [#72](https://github.com/moikdev/droidcast/issues/72), under [#7](https://github.com/moikdev/droidcast/issues/7). [Command discovery](EXTENSION-CATALOG.md) records declarations from a pinned open-source repository. A workflow batch executes specific prebuilt Store bundles on Android. These are different versioned populations; a Store result does not change the pinned source inventory's untested declarations.
 
+## Native Detail audit repair
+
+The [repair checkpoint](EXTENSION-MARKDOWN-DETAIL-REPAIR.md) records four commands in three frozen bundles on the `8e75546` app/test pair. Its twelve workflow executions are part of the 185 positive same-APK executions: six Blue cases retain their completed v2 receipts; JSON three and the two-command Mood scenario three execute in v3 after transport recovery with the bounded runner. The failed transport cohort and separate recovery earn no workflow credit. Actual output/Copy/source return, owned persistence/detail toggles and SVG/metadata retain their listed scope. The initial `4bb10aa` observations below remain historical. The blank-image observation is still unexplained; later passes establish no repair. Static inventory remains untested.
+
 ## Native Markdown/Detail follow-up
 
 The [native rendering milestone](EXTENSION-MARKDOWN-DETAIL.md) refreshes four named commands in three frozen bundles on implementation `4bb10aa`. JSON and the Mood scenario run on tablet100%, phone200% and landscape200%; HTML Colors also runs on all six 100%/200% profiles. These twelve scenarios retain their own archive/command/app/test identities and do not rerun or reclassify the earlier sixteen-command batch.

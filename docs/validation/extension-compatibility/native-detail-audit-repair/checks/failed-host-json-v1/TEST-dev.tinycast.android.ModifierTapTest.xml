@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ModifierTapTest" tests="23" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:01:42.706Z" hostname="MacBook-Pro-2.local" time="0.005">
+  <properties/>
+  <testcase name="imeWindowChangeDoesNotCancelButAppAndUnknownWindowsDo" classname="dev.tinycast.android.ModifierTapTest" time="0.001"/>
+  <testcase name="malformedModifierIdentitiesFailClosed" classname="dev.tinycast.android.ModifierTapTest" time="0.001"/>
+  <testcase name="repeatsCancelFirstAndSecondTap" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="bindingAndConnectionEpochChangesDiscardEarlierTap" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="twoCompletePairsDispatchExactlyOnceOnSecondRelease" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="sideConflictsAreRejectedAcrossTargetsWithoutRejectingDistinctSides" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="ordinaryTypingAndChordsCancelBothBeforeAndDuringSecondPress" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="delayedWindowNotificationBeforeFirstKeyAlsoPreservesAnInProgressFirstPress" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="simultaneousModifiersAndAdditionalMetaStateCancel" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="ordinaryCtrlChordDownAndUpStillPassThroughTheChordEngine" classname="dev.tinycast.android.ModifierTapTest" time="0.001"/>
+  <testcase name="exactlyOneOfServiceAndForegroundObserversCanDispatchTheSameEvents" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="missingMismatchedAndDuplicateReleasesCannotActivate" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="inclusiveTimingBoundariesAreDeterministic" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="allFourModifierFamiliesAndBothSidesHaveStableIdentities" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="enteringAndLeavingRecorderWithoutKeyEventsStillDiscardsEarlierTap" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="differentDeviceOrDifferentPhysicalModifierCannotCompleteAPair" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="delayedOldWindowNotificationCannotCancelNewerKeysFromCapturedTrace" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="cancellationStaleDeliveryAndNonmonotonicTimesClearPendingGesture" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="windowChangesDuringEitherTapStillCancelIncludingUnknownAndEqualTime" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="eitherSideAndSpecificSideDispatchUseTheActualPersistedIdentity" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="explicitResetDiscardsPartialGestureAcrossFocusConfigurationOrConnectionChanges" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="pauseAndOwnershipTransferNeverCompleteAPartialTap" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <testcase name="holdsAndTooSlowSecondPressNeverDispatch" classname="dev.tinycast.android.ModifierTapTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionFormFileImportTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:01:42.289Z" hostname="MacBook-Pro-2.local" time="0.101">
+  <properties/>
+  <testcase name="aggregateLimitsRollBackTheWholeSelection" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.038"/>
+  <testcase name="cleanupDoesNotFollowLinksToOtherData" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.006"/>
+  <testcase name="directoriesRespectChoicePolicyAndRejectProviderCycles" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.006"/>
+  <testcase name="actualStreamBytesAreBoundedEvenWhenSizeMetadataIsMissing" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.003"/>
+  <testcase name="cancellationAfterAReadDiscardsTheUndeliveredCopy" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.004"/>
+  <testcase name="aSelectedDirectoryRetainsItsHierarchyAndExactLeafBytes" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.005"/>
+  <testcase name="losingTheCleanupOwnerRetainsDataUntilOwnershipIsRecovered" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.004"/>
+  <testcase name="aProviderThatMakesNoReadProgressDoesNotSpinOrLeaveACopy" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.003"/>
+  <testcase name="recoveryRemovesOnlyNonceOwnedOrphansFromAnEarlierProcess" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.004"/>
+  <testcase name="recoveryLeavesLiveRequestsAndDeliveredImportsAlone" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.003"/>
+  <testcase name="traversalNamesNeverBecomeDestinationPaths" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.012"/>
+  <testcase name="anUndeliveredCommitCanBeDiscardedWithoutChangingUnrelatedData" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.004"/>
+  <testcase name="aLinkedReplacementParentCannotReceiveCommitOrCleanup" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.003"/>
+  <testcase name="selectedBytesAndUnicodeNamesAreExactAndRetainedCopiesStayReadable" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.004"/>
+  <testcase name="storageRootRejectsTraversalAndLinkedImportDirectories" classname="dev.tinycast.android.ExtensionFormFileImportTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,91 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "37eb0ed62c80c53123388e1e376a3fa2ec41e93f",
+  "fixture_mode": "object-tag",
+  "fixture_command_sha256": "1e66ad84f56eba79c6bff09000291d376e2144ecc6fc128d4fde4ae24aea0f2a",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_png_sha256": "9d6eb0bb52ca2b690f4d60646c909d3f54e18e7ce4ea7181a774c898e56ef5f0",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "10",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 261
+    },
+    {
+      "phase": "object-tag-unrelated-loading-publication",
+      "counter": 1,
+      "root_id": "10",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 1",
+      "semantics_id": 261
+    },
+    {
+      "phase": "object-tag-enter-after-publication",
+      "counter": 2,
+      "root_id": "10",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 2",
+      "semantics_id": 261
+    }
+  ],
+  "last_native_text_wait": "Owned object tag",
+  "axis_aware_scrolls": [],
+  "contract_assertions_started": true,
+  "object_tag_focus_before_id": 309,
+  "keyboard_tab_count": 4,
+  "object_tag_binding_before": {
+    "root_id": "10",
+    "tag_id": "4",
+    "markdown": "# Owned stable object-tag document",
+    "handle": "4:onAction",
+    "icon": {
+      "source": {
+        "light": "owned.svg",
+        "dark": "owned.svg"
+      },
+      "mask": "circle",
+      "tintColor": {
+        "light": "#228833",
+        "dark": "#228833"
+      }
+    },
+    "color": {
+      "light": "#228833",
+      "dark": "#228833"
+    }
+  },
+  "object_tag_binding_after": {
+    "root_id": "10",
+    "tag_id": "4",
+    "markdown": "# Owned stable object-tag document",
+    "handle": "4:onAction",
+    "icon": {
+      "source": {
+        "light": "owned.svg",
+        "dark": "owned.svg"
+      },
+      "mask": "circle",
+      "tintColor": {
+        "light": "#228833",
+        "dark": "#228833"
+      }
+    },
+    "color": {
+      "light": "#228833",
+      "dark": "#228833"
+    }
+  },
+  "object_tag_focus_after_id": 309,
+  "object_tag_keyboard_focus_and_current_enter_preserved": true,
+  "primary_copy_not_invoked": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}
