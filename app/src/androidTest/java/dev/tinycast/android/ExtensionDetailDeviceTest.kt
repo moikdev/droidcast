@@ -212,6 +212,8 @@ class ExtensionDetailDeviceTest {
         }
     }
     private fun show(text: String, substring: Boolean = false): SemanticsNodeInteraction {
+        record.put("last_native_text_wait", text)
+        compose.waitUntil(10000) { compose.onAllNodesWithText(text, substring = substring).fetchSemanticsNodes().isNotEmpty() }
         return reveal(compose.onNodeWithText(text, substring = substring))
     }
     private fun reveal(node: SemanticsNodeInteraction): SemanticsNodeInteraction {
