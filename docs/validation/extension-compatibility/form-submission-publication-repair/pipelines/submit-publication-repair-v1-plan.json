@@ -1,0 +1,88 @@
+{
+  "name": "submit-publication-repair-v1",
+  "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "test_source_commit": "5d541a7a52101c9b8b047fe1ebf16df8972e2721",
+  "json_archive": "<frozen-catalog-checkout>/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+  "frozen_inputs": [
+    "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+    "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+    "scripts/test-reviewed-text-input.py",
+    "scripts/android_test_cleanup.py",
+    "scripts/android_clipboard_recovery.py",
+    "artifacts/form-validation/run-cohorts-v1.py"
+  ],
+  "cohorts": [
+    {
+      "name": "publication-both-tablet200-v1",
+      "layout": "tablet",
+      "font": 2,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+      "expected": 2
+    },
+    {
+      "name": "publication-both-phone200-v1",
+      "layout": "phone",
+      "font": 2,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking,dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+      "expected": 2
+    },
+    {
+      "name": "publication-controlled-landscape200-v1",
+      "layout": "landscape",
+      "font": 2,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "expected": 1
+    },
+    {
+      "name": "publication-controlled-tablet100-v1",
+      "layout": "tablet",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "expected": 1
+    },
+    {
+      "name": "publication-controlled-phone100-v1",
+      "layout": "phone",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "expected": 1
+    },
+    {
+      "name": "publication-controlled-landscape100-v1",
+      "layout": "landscape",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking",
+      "expected": 1
+    },
+    {
+      "name": "publication-pointer-tablet100-v1",
+      "layout": "tablet",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+      "expected": 1
+    },
+    {
+      "name": "publication-pointer-phone100-v1",
+      "layout": "phone",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+      "expected": 1
+    }
+  ]
+}

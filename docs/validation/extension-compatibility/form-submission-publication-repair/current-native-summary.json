@@ -1,0 +1,990 @@
+{
+  "completed": true,
+  "historical_summary": "docs/validation/extension-compatibility/form-submission/checks/current-native-summary-v1.json",
+  "historical_summary_sha256": "d9de587cf5cc2bc10420bde85c62b43c69407e998e3a4ec8396aaf2b3d59fa5a",
+  "preceding_recorded_credit": 257,
+  "withdrawn_executions": 15,
+  "fresh_replacement_executions": 10,
+  "credited_current_runtime_executions": 252,
+  "credited_cohort_count": 29,
+  "host_cleanup_checks_in_credited_cohorts": 560,
+  "fresh_restoration_checks": 154,
+  "independent_evidence_preservation_checks": 5,
+  "preexisting_evidence_files_restored": 136,
+  "witnessed_publication_transitions": 16,
+  "withdrawn": [
+    {
+      "cohort": "submit-original-forms-phone-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "submit-original-forms-tablet-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "submit-original-forms-landscape-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "selection-current-tablet200-v2",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 2
+    },
+    {
+      "cohort": "selection-current-phone200-v2",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 2
+    },
+    {
+      "cohort": "selection-controlled-tablet100-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "selection-controlled-phone100-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "selection-controlled-landscape100-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "selection-pointer-tablet100-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "selection-pointer-phone100-v1",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "submit-forms-font200-tablet-v2",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "submit-forms-font200-landscape-v2",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    },
+    {
+      "cohort": "submit-forms-font200-phone-v2",
+      "cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "withdrawn_executions": 1
+    }
+  ],
+  "cohorts": [
+    {
+      "name": "submit-common-after-phone-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 3,
+      "credited_executions": 3,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-phone-v1/record.json",
+      "record_sha256": "5afa82cbc1a349e203958d378d49d79f450f1c0b742981c4245511ae3f2f9a20",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-phone-v1/tests.log",
+      "tests_log_sha256": "fc2be83b7391771cf43ffec4356bb3e1030eac853f46fcaa27c0c44a9408ceeb"
+    },
+    {
+      "name": "submit-common-after-tablet-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 3,
+      "credited_executions": 3,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-tablet-v1/record.json",
+      "record_sha256": "13839f89e6225838fe273c8df76318559910d8f468aeeabeafc07cb38f5d7bcb",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-tablet-v1/tests.log",
+      "tests_log_sha256": "4daeb6386101599f63397be9ac6b0b07f1a85583d8c4c2ec2e6e29fbc5b8fdf8"
+    },
+    {
+      "name": "submit-acceptance-phone-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 22,
+      "credited_executions": 22,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction",
+        "dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch",
+        "dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation",
+        "dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked",
+        "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-phone-v2/record.json",
+      "record_sha256": "8affe62f2e48bdda5611c3de70aa98fb72b59716e1f5562652806feaabcebf3e",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-phone-v2/tests.log",
+      "tests_log_sha256": "b9865d393f50d38d291524aaabf1937745d702967ffce3ff5e67080f1a858e3e"
+    },
+    {
+      "name": "submit-acceptance-tablet-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 22,
+      "credited_executions": 22,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction",
+        "dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch",
+        "dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation",
+        "dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked",
+        "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-tablet-v2/record.json",
+      "record_sha256": "e21eb39c623ebbe356ca2d396ec906cd317ac84cd98eee9289fae15a6f885edd",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-tablet-v2/tests.log",
+      "tests_log_sha256": "c362dff9c05e0eaf19120abe15513de7cb431b904ce67f338367da7b763f78dd"
+    },
+    {
+      "name": "submit-acceptance-landscape-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 22,
+      "credited_executions": 22,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction",
+        "dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch",
+        "dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation",
+        "dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked",
+        "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-landscape-v2/record.json",
+      "record_sha256": "370e76fdd0883fd839819381279f26d96e9c3e37e661d43311318c8ae88283a5",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-landscape-v2/tests.log",
+      "tests_log_sha256": "f131063ed7af9001a9a0bb204e1ce273299011c5c5a1bbfa54c0c41eb161ca8d"
+    },
+    {
+      "name": "submit-critical-font200-phone-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-phone-v2/record.json",
+      "record_sha256": "c43849818ab56822d8a3b8644b4a468160be4cded669b20c838d5ab0f25a3f7b",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-phone-v2/tests.log",
+      "tests_log_sha256": "ad43dc8824bd67deda37c63d23b48a2bb2e974cda847b76d3e528943adaec64b"
+    },
+    {
+      "name": "submit-critical-font200-landscape-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-landscape-v2/record.json",
+      "record_sha256": "148bb74550b6fd3f2482e98ca1316cc85cf36737c76cc08f5ba516aaa2790ede",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-landscape-v2/tests.log",
+      "tests_log_sha256": "ed56145d87e98e3d0b3b4640e46c966a2e354fb87328c0197705e398b49b5801"
+    },
+    {
+      "name": "submit-critical-font200-tablet-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-tablet-v2/record.json",
+      "record_sha256": "71542f5dd71e34c6b3eb0fd2d3c21b1edc5dee810fa99769a11840feb10be087",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-tablet-v2/tests.log",
+      "tests_log_sha256": "a90d3f1983ad9179a4fb6725ec31967d8381449873bb97f181c3614619ee5ad0"
+    },
+    {
+      "name": "submit-root-removal-phone-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-phone-v1/record.json",
+      "record_sha256": "fd6e8dd5a6ad24cb173218277df2077dbfd74e220b6904e455b170f82b0abd1f",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-phone-v1/tests.log",
+      "tests_log_sha256": "29ff6a1116c7c697f3a287f4b5622413fb011e9c873c2dfae457ee0e529311e1"
+    },
+    {
+      "name": "submit-root-removal-tablet-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-tablet-v1/record.json",
+      "record_sha256": "4cd22559f1c23cd351fce60ad336efddbc41f755d9980b44cdc9563254d10e34",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-tablet-v1/tests.log",
+      "tests_log_sha256": "dc4c4a7dfa479e7c39d469865623544846daffbb5a7bd3926cf86d7dea110b92"
+    },
+    {
+      "name": "submit-root-removal-landscape-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-landscape-v1/record.json",
+      "record_sha256": "fa19044c8511d8e3f4918a5d093b13e5b06024aeb8dad274116c6a678ba3e915",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-landscape-v1/tests.log",
+      "tests_log_sha256": "56dea30fbc8fe2888cc6df4c07e9351163da66b92d01cfdd090c984604f8dc0f"
+    },
+    {
+      "name": "submit-original-forms-phone-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 24,
+      "credited_executions": 23,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+        "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterClose",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunAfterFieldReplacement",
+        "dev.tinycast.android.ExtensionFormDeviceTest#replacedConfigurationRejectsQueuedEditsRunAndBack",
+        "dev.tinycast.android.ExtensionFormDeviceTest#focusAndBlurDeliverCurrentFieldValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#checkboxLabelTogglesExactlyOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#returningFromCheckboxRefocusesTheSameTextField",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunWithoutRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterOptionMeaningChanges",
+        "dev.tinycast.android.ExtensionFormDeviceTest#dismissedDropdownCallbackCannotSelectAfterReopen",
+        "dev.tinycast.android.ExtensionFormDeviceTest#fieldValidationErrorIsVisible",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunWithoutRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#dropdownShowsSelectedItemTitle",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunInReplacementSession",
+        "dev.tinycast.android.ExtensionFormDeviceTest#fieldHelpIsVisibleWithoutHover",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+        "dev.tinycast.android.ExtensionFormDeviceTest#controlledTransformsAndRejectedEditsRemainAuthoritative",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+        "dev.tinycast.android.ExtensionFormDeviceTest#choosingDropdownItemSubmitsItsExactValue"
+      ],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-phone-v1/record.json",
+      "record_sha256": "c9201339c834f476202db06afafc25f7ca970087e3cc44ebb24497d42d0e64b7",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-phone-v1/tests.log",
+      "tests_log_sha256": "c81c4315692c53a50017ceb931ad562d3614ef56a0beed4fc65b8024cd693f91"
+    },
+    {
+      "name": "submit-original-forms-tablet-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 24,
+      "credited_executions": 23,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+        "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterClose",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunAfterFieldReplacement",
+        "dev.tinycast.android.ExtensionFormDeviceTest#replacedConfigurationRejectsQueuedEditsRunAndBack",
+        "dev.tinycast.android.ExtensionFormDeviceTest#focusAndBlurDeliverCurrentFieldValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#checkboxLabelTogglesExactlyOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#returningFromCheckboxRefocusesTheSameTextField",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunWithoutRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterOptionMeaningChanges",
+        "dev.tinycast.android.ExtensionFormDeviceTest#dismissedDropdownCallbackCannotSelectAfterReopen",
+        "dev.tinycast.android.ExtensionFormDeviceTest#fieldValidationErrorIsVisible",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunWithoutRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#dropdownShowsSelectedItemTitle",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunInReplacementSession",
+        "dev.tinycast.android.ExtensionFormDeviceTest#fieldHelpIsVisibleWithoutHover",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+        "dev.tinycast.android.ExtensionFormDeviceTest#controlledTransformsAndRejectedEditsRemainAuthoritative",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+        "dev.tinycast.android.ExtensionFormDeviceTest#choosingDropdownItemSubmitsItsExactValue"
+      ],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-tablet-v1/record.json",
+      "record_sha256": "e8d810f53f042e488f535dc913ace8d8754ca5d0f7cdfea0ce7fb040c491a7e2",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-tablet-v1/tests.log",
+      "tests_log_sha256": "c1d030a8854a8e96ab802fb9b088bab105cf50679e96647e3d34fc9f0e4942f1"
+    },
+    {
+      "name": "submit-original-forms-landscape-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 24,
+      "credited_executions": 23,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+        "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterClose",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunAfterFieldReplacement",
+        "dev.tinycast.android.ExtensionFormDeviceTest#replacedConfigurationRejectsQueuedEditsRunAndBack",
+        "dev.tinycast.android.ExtensionFormDeviceTest#focusAndBlurDeliverCurrentFieldValue",
+        "dev.tinycast.android.ExtensionFormDeviceTest#checkboxLabelTogglesExactlyOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#returningFromCheckboxRefocusesTheSameTextField",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunWithoutRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+        "dev.tinycast.android.ExtensionFormDeviceTest#rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterOptionMeaningChanges",
+        "dev.tinycast.android.ExtensionFormDeviceTest#dismissedDropdownCallbackCannotSelectAfterReopen",
+        "dev.tinycast.android.ExtensionFormDeviceTest#fieldValidationErrorIsVisible",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunWithoutRoot",
+        "dev.tinycast.android.ExtensionFormDeviceTest#dropdownShowsSelectedItemTitle",
+        "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunInReplacementSession",
+        "dev.tinycast.android.ExtensionFormDeviceTest#fieldHelpIsVisibleWithoutHover",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+        "dev.tinycast.android.ExtensionFormDeviceTest#controlledTransformsAndRejectedEditsRemainAuthoritative",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+        "dev.tinycast.android.ExtensionFormDeviceTest#choosingDropdownItemSubmitsItsExactValue"
+      ],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-landscape-v1/record.json",
+      "record_sha256": "49da723e34bc55240af741650539606b9df6960a8959ee7bbe90e6353d2b387a",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-landscape-v1/tests.log",
+      "tests_log_sha256": "2d6c04e15b72d68a0bfec45e181ab026ef23e9b5a69ea2a513741e9e598060f8"
+    },
+    {
+      "name": "selection-current-tablet200-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 2,
+      "credited_executions": 0,
+      "credited_cases": [],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-tablet200-v2/record.json",
+      "record_sha256": "ba25cacd1248c25b23f263af68db8fa44d8c12b5c8e43d6d8731949a20073728",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-tablet200-v2/tests.log",
+      "tests_log_sha256": "4ce03a66c5f333efe38cd679e9ee0c286523654f66e32ed85f21e8ed881d8f74"
+    },
+    {
+      "name": "selection-current-phone200-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 2,
+      "credited_executions": 0,
+      "credited_cases": [],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-phone200-v2/record.json",
+      "record_sha256": "9b5a5c885af55123a5b4ee682502b7b345c90de4f3f8b3c2942908c12552c529",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-phone200-v2/tests.log",
+      "tests_log_sha256": "a0962880af63c87b23d91b7a692049e4a2d334666a2f9b46e7a98a9e04523c16"
+    },
+    {
+      "name": "selection-controlled-tablet100-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 0,
+      "credited_cases": [],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-tablet100-v1/record.json",
+      "record_sha256": "3e9a78c9f3350885666fea2c8dd491f18deee989620dc97c559b07f4752e7c3a",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-tablet100-v1/tests.log",
+      "tests_log_sha256": "a8371a5543d8b28dd2d1cd73fee16e5507cc6738dc49a62781146aad9774eceb"
+    },
+    {
+      "name": "selection-controlled-phone100-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 0,
+      "credited_cases": [],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-phone100-v1/record.json",
+      "record_sha256": "9547b7ed46daad27cb266b5a3761079aa02ec2acb11b761aa63e03348fb53fda",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-phone100-v1/tests.log",
+      "tests_log_sha256": "f12076eb2d7168a90c36d53726607273fe475e0be7ccb657071c98c8f0b0741f"
+    },
+    {
+      "name": "selection-controlled-landscape100-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 0,
+      "credited_cases": [],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-landscape100-v1/record.json",
+      "record_sha256": "869fa5cc6ea845754b876a37e966ac4d6023eb9e765b9f873b8c73b2b99195d1",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-landscape100-v1/tests.log",
+      "tests_log_sha256": "78beae0bc9942af4be5539e3844438ac1eaad50d80d7c8b7f9e2bae64c7d1fa7"
+    },
+    {
+      "name": "selection-pointer-tablet100-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 0,
+      "credited_cases": [],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-tablet100-v1/record.json",
+      "record_sha256": "22cedd2850643c025e6d553629128b9d057b16baa9016e0e46c345f5d2a1ecee",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-tablet100-v1/tests.log",
+      "tests_log_sha256": "2e93d308a6f942380cf5fa4871b6a93d5d775a4a10502fd9111979dfdba29d3a"
+    },
+    {
+      "name": "selection-pointer-phone100-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 1,
+      "credited_executions": 0,
+      "credited_cases": [],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-phone100-v1/record.json",
+      "record_sha256": "f9c814a303d548ce3ddd2efd61eb6cc77e11ae5ec2a28012af6189428cbd58ab",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-phone100-v1/tests.log",
+      "tests_log_sha256": "487fe2be311d73f5c6eed7e9d87a44abf883f95b461e821fb8d02e438ff301d9"
+    },
+    {
+      "name": "submit-forms-font200-tablet-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 6,
+      "credited_executions": 5,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+        "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+        "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt"
+      ],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-tablet-v2/record.json",
+      "record_sha256": "eded50d5cd7390b255f538ea3704eee694761fe6623673a5aa176432ae6a54b8",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-tablet-v2/tests.log",
+      "tests_log_sha256": "257c5afcdead7c9da7a53ec16bc1856b9abe315030b09e0f6e7846c818691a40"
+    },
+    {
+      "name": "submit-forms-font200-landscape-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 6,
+      "credited_executions": 5,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+        "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+        "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt"
+      ],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-landscape-v2/record.json",
+      "record_sha256": "e7d34aa2258f24db9d0bfe256d95945bc8b45b57cc6c4c7b77f396d04ca06418",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-landscape-v2/tests.log",
+      "tests_log_sha256": "f45b4bc0b91bf3f062e5df2728140efc68ca95592e3324dfa3c63537ea747dbb"
+    },
+    {
+      "name": "submit-forms-font200-phone-v2",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 6,
+      "credited_executions": 5,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+        "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+        "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+        "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+        "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt"
+      ],
+      "excluded_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-phone-v2/record.json",
+      "record_sha256": "fab21b0f789ba38ce4a13bb0e6ca6d73488f15906ecc8f3bada75b3b270f12db",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-phone-v2/tests.log",
+      "tests_log_sha256": "5669fefbd043fa4b4ea591d247ed4607b2eb7ae4c3c03f5c60a7a1d9fa735780"
+    },
+    {
+      "name": "submit-shared-regression-tablet-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 19,
+      "credited_executions": 19,
+      "credited_cases": [
+        "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+        "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+        "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+        "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+        "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+        "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+        "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 19,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-tablet-v1/record.json",
+      "record_sha256": "5867abfff25f0f51b450929395b0a4b5499cfa59bd74db9aeb728c43181fadd4",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-tablet-v1/tests.log",
+      "tests_log_sha256": "0b945780e98a740de1803871acde28e92efcdac8828811bea1361b7be5ecf56f"
+    },
+    {
+      "name": "submit-shared-regression-phone-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 19,
+      "credited_executions": 19,
+      "credited_cases": [
+        "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+        "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+        "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+        "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+        "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+        "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+        "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+        "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+        "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+        "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 21,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-phone-v1/record.json",
+      "record_sha256": "f86fdea9c1bf811cd097049d1325d86b1ad9e550d2b98b32e7f86bf0148deb46",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-phone-v1/tests.log",
+      "tests_log_sha256": "c27febe569c3db02589256a73fa98659ce3bad7989238734a6c710365d03e7a6"
+    },
+    {
+      "name": "submit-reviewed-input-tablet-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 21,
+      "credited_executions": 21,
+      "credited_cases": [
+        "dev.tinycast.android.ReviewedTextDeviceTest#longPreviewAndCommandSearchRemainReachableByTouch",
+        "dev.tinycast.android.ReviewedTextDeviceTest#cancelBeforeRunReturnsWithoutExecutingOrSaving",
+        "dev.tinycast.android.ReviewedTextDeviceTest#ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+        "dev.tinycast.android.ReviewedTextDeviceTest#writableSelectionStillUsesCopyWithoutReplacingSource",
+        "dev.tinycast.android.ReviewedTextDeviceTest#sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "dev.tinycast.android.ReviewedTextDeviceTest#explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+        "dev.tinycast.android.ReviewedTextDeviceTest#malformedAndOversizedInputCannotRunOrChangeClipboard",
+        "dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "dev.tinycast.android.ReviewedTextDeviceTest#aNewExternalShareEndsThePriorSelectionCommand",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#historyLaunchExpiresInsteadOfReplayingItsPayload",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#requiredConfigurationNeedsAnotherExplicitRun",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#pendingRecreationExpiresWithoutRunning",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#newAndMalformedIntentsRevokeThePreviousGrant",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#staleRuntimeCannotPublishOrWriteAfterReplacement",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#approvedRecreationRevokesInputWithoutRerunning",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#rejectedAsyncAndSyncHostCallsReleaseApprovedInput",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#resetCloseErrorAndOrdinaryLaunchRevokeInput",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#noViewCompletionReleasesItsApprovedInput",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#anotherActivityStoreRevokesThePreviousOwnerButOldCleanupCannotRevokeItsSuccessor",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#queuedPreviewActionsCannotChangeANewerReview"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-tablet-v1/record.json",
+      "record_sha256": "0ed299844d8b299080dd5f0a5f7e155844387f0356b0d69df321ffce4e1870b7",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-tablet-v1/tests.log",
+      "tests_log_sha256": "165a897abdc5228edcc11ecb70dbbf32a078a8c1dc7b2639c145f475e9f4fd70"
+    },
+    {
+      "name": "submit-reviewed-input-phone-v1",
+      "origin": "retained prior cohort; not rerun with repaired harness",
+      "recorded_passes": 21,
+      "credited_executions": 21,
+      "credited_cases": [
+        "dev.tinycast.android.ReviewedTextDeviceTest#longPreviewAndCommandSearchRemainReachableByTouch",
+        "dev.tinycast.android.ReviewedTextDeviceTest#cancelBeforeRunReturnsWithoutExecutingOrSaving",
+        "dev.tinycast.android.ReviewedTextDeviceTest#ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+        "dev.tinycast.android.ReviewedTextDeviceTest#writableSelectionStillUsesCopyWithoutReplacingSource",
+        "dev.tinycast.android.ReviewedTextDeviceTest#sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "dev.tinycast.android.ReviewedTextDeviceTest#explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+        "dev.tinycast.android.ReviewedTextDeviceTest#malformedAndOversizedInputCannotRunOrChangeClipboard",
+        "dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "dev.tinycast.android.ReviewedTextDeviceTest#aNewExternalShareEndsThePriorSelectionCommand",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#historyLaunchExpiresInsteadOfReplayingItsPayload",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#requiredConfigurationNeedsAnotherExplicitRun",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#pendingRecreationExpiresWithoutRunning",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#newAndMalformedIntentsRevokeThePreviousGrant",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#staleRuntimeCannotPublishOrWriteAfterReplacement",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#approvedRecreationRevokesInputWithoutRerunning",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#rejectedAsyncAndSyncHostCallsReleaseApprovedInput",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#resetCloseErrorAndOrdinaryLaunchRevokeInput",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#noViewCompletionReleasesItsApprovedInput",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#anotherActivityStoreRevokesThePreviousOwnerButOldCleanupCannotRevokeItsSuccessor",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime",
+        "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#queuedPreviewActionsCannotChangeANewerReview"
+      ],
+      "excluded_cases": [],
+      "exclusion_reason": null,
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+      "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-phone-v1/record.json",
+      "record_sha256": "daa1ee605b7d07d9e10b5e71323ae3649e8e882eead452d40d7479c8ad0ddb4e",
+      "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-phone-v1/tests.log",
+      "tests_log_sha256": "fd8f65a250b3c54f0a5a7cc33cef0a126e717b4e75de0ea465fab9764af94c46"
+    },
+    {
+      "name": "publication-both-tablet200-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 2,
+      "credited_executions": 2,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/record.json",
+      "record_sha256": "d66c14ee63e1aee6811fb4eb403c13f779de7454ed24aaf9481bde7021cea691",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/tests.log",
+      "tests_log_sha256": "70ed5806d6d3b81d9dc2df88a6f5ff4e05643bff3531b53b763af4c6d0859ccb"
+    },
+    {
+      "name": "publication-both-phone200-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 2,
+      "credited_executions": 2,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/record.json",
+      "record_sha256": "4f52438ff05261ad34619784cedc9294612971400acc2ab83bfe7c9173de54bd",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/tests.log",
+      "tests_log_sha256": "6408262e8125bb26ab2253e373116c9cc6301da71f30049cfc6d3a0ef4246b30"
+    },
+    {
+      "name": "publication-controlled-landscape200-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/record.json",
+      "record_sha256": "56385fd05ec5fa900a5811cc10df98885b24517ad3ecb1dabe600ef697391e5a",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/tests.log",
+      "tests_log_sha256": "96aa9c746ba085652ca58e673a374f599670169dc026ac0d49e4bd0928008584"
+    },
+    {
+      "name": "publication-controlled-tablet100-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/record.json",
+      "record_sha256": "dde92d3719d53cc91079c47e6d7ef9cf729b4c7ae253fc8ba9ce91c6ecf594b0",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/tests.log",
+      "tests_log_sha256": "2180a1e9db85595fe78b19b241f7cd1aea2179a8613f40d3215d78774b2954a7"
+    },
+    {
+      "name": "publication-controlled-phone100-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/record.json",
+      "record_sha256": "8a377e6b0f96a3d7bc4e8c43046a8b667c165701b5e01e54e31188c8e55d9adc",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/tests.log",
+      "tests_log_sha256": "f3d4e6a4ead09102495cd11d793e68b324210bf5e1b54925ab8c29f22fcc2cf3"
+    },
+    {
+      "name": "publication-controlled-landscape100-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/record.json",
+      "record_sha256": "be866bd0346ef6e9a1a35978ebfa73b2b46303be01b49e50af4e26645c84b76b",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/tests.log",
+      "tests_log_sha256": "9d3a8eaf2d5f933101f53fda9583683b8088c0e197210534cca39ae096b23883"
+    },
+    {
+      "name": "publication-pointer-tablet100-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 18,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/record.json",
+      "record_sha256": "adf06e2931f4c7ce568a1c6330872e5999cbc71b3804769e6736e7198028a143",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/tests.log",
+      "tests_log_sha256": "833a3695da25254b5730002f0e59cfa409a53f3d36942a73a3b07177278cd9d4"
+    },
+    {
+      "name": "publication-pointer-phone100-v1",
+      "origin": "fresh repaired-harness execution",
+      "recorded_passes": 1,
+      "credited_executions": 1,
+      "credited_cases": [
+        "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+      ],
+      "excluded_cases": [],
+      "host_cleanup_checks": 20,
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/record.json",
+      "record_sha256": "e99a3665bce823ff75546366f22b85d939caaeca4120e5aeff51fa3ad35e3319",
+      "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/tests.log",
+      "tests_log_sha256": "4856e469aa89181806e9c43fa8397eaf4e182e4e3be1557232444db82567c2c9"
+    }
+  ],
+  "boundary": "Retained unaffected cases keep their original harness identities. Entire affected cases are withdrawn, including their uncontrolled-value claim; fresh ten unique scenarios replace fifteen duplicate older executions. Cleanup totals count successful cohort-level checks, not per-case cleanup. No production code changed for this repair."
+}

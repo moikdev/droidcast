@@ -1,0 +1,24 @@
+from pathlib import Path
+import os,subprocess,hashlib,json,shutil
+base=Path('artifacts/form-validation');parent=Path('<preceding-form-checkout>')
+prior=json.loads((base/'submit-gate-build-v1-state.json').read_text())
+state=base/'submit-acceptance-harness-v7-state.json';assert not state.exists()
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert not subprocess.check_output(['git','status','--porcelain']).strip()
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+production={p:v for p,v in prior['source_hashes'].items() if not p.startswith('app/src/androidTest/')}
+assert all(sha(p)==v for p,v in production.items())
+paths=subprocess.check_output(['git','ls-files','app/src/androidTest'],text=True).splitlines();tests={p:sha(p) for p in paths}
+app=Path(prior['candidate_directory'])/'app.apk';assert sha(app)==prior['app_sha256']
+out=base/('harness-'+head[:7]+'-submit-acceptance-v7');assert not out.exists()
+r={'completed':False,'pid':os.getpid(),'test_source_commit':head,'production_source_commit':prior['source_commit'],'production_source_hashes':production,'android_test_source_hashes':tests,'frozen_app_sha256':sha(app)}
+env=dict(os.environ);env['JAVA_HOME']='<java-home>';env['ANDROID_HOME']='<android-sdk>';env['PATH']=env['JAVA_HOME']+'/bin:'+env['PATH']
+command=['./gradlew','--no-daemon','-PdroidcastBuildCommit='+prior['source_commit'],':app:assembleDebugAndroidTest'];r['command']=command
+state.write_text(json.dumps(r,indent=2)+'\n')
+with (base/'submit-acceptance-harness-v7.log').open('w') as log:r['exit_code']=subprocess.run(command,env=env,stdout=log,stderr=subprocess.STDOUT).returncode
+if r['exit_code']==0:
+ assert head==subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip() and not subprocess.check_output(['git','status','--porcelain']).strip()
+ assert all(sha(p)==v for p,v in {**production,**tests}.items())
+ out.mkdir();shutil.copyfile('app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk',out/'test.apk');shutil.copyfile(app,out/'app.apk')
+ r.update(completed=True,candidate_directory=str(out),test_apk_sha256=sha(out/'test.apk'))
+ (out/'identity.json').write_text(json.dumps(r,indent=2)+'\n')
+state.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps({k:v for k,v in r.items() if not k.endswith('_hashes')},indent=2));assert r['completed']

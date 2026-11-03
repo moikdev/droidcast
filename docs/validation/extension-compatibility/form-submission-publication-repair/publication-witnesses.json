@@ -1,0 +1,242 @@
+[
+  {
+    "cohort": "publication-both-tablet200-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "controlled-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 331,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-both-tablet200-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "uncontrolled-value",
+    "before_counter": 1,
+    "expected_counter": 2,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 2,
+      "marker": "Owned render 2"
+    },
+    "composed_marker": "Owned render 2",
+    "composed_semantics_id": 331,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-both-tablet200-v1",
+    "case": "form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+    "phase": "live-ime-pointer-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 153,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-both-phone200-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "controlled-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 326,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-both-phone200-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "uncontrolled-value",
+    "before_counter": 1,
+    "expected_counter": 2,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 2,
+      "marker": "Owned render 2"
+    },
+    "composed_marker": "Owned render 2",
+    "composed_semantics_id": 326,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-both-phone200-v1",
+    "case": "form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+    "phase": "live-ime-pointer-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 151,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-landscape200-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "controlled-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 153,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-landscape200-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "uncontrolled-value",
+    "before_counter": 1,
+    "expected_counter": 2,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 2,
+      "marker": "Owned render 2"
+    },
+    "composed_marker": "Owned render 2",
+    "composed_semantics_id": 153,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-tablet100-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "controlled-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 159,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-tablet100-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "uncontrolled-value",
+    "before_counter": 1,
+    "expected_counter": 2,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 2,
+      "marker": "Owned render 2"
+    },
+    "composed_marker": "Owned render 2",
+    "composed_semantics_id": 159,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-phone100-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "controlled-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 151,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-phone100-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "uncontrolled-value",
+    "before_counter": 1,
+    "expected_counter": 2,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 2,
+      "marker": "Owned render 2"
+    },
+    "composed_marker": "Owned render 2",
+    "composed_semantics_id": 151,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-landscape100-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "controlled-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 159,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-controlled-landscape100-v1",
+    "case": "form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+    "phase": "uncontrolled-value",
+    "before_counter": 1,
+    "expected_counter": 2,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 2,
+      "marker": "Owned render 2"
+    },
+    "composed_marker": "Owned render 2",
+    "composed_semantics_id": 159,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-pointer-tablet100-v1",
+    "case": "form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+    "phase": "live-ime-pointer-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 159,
+    "native_delivery_and_compose_consumption_observed": true
+  },
+  {
+    "cohort": "publication-pointer-phone100-v1",
+    "case": "form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+    "phase": "live-ime-pointer-selection",
+    "before_counter": 0,
+    "expected_counter": 1,
+    "observed_native": {
+      "root_id": "13",
+      "counter": 1,
+      "marker": "Owned render 1"
+    },
+    "composed_marker": "Owned render 1",
+    "composed_semantics_id": 151,
+    "native_delivery_and_compose_consumption_observed": true
+  }
+]
