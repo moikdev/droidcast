@@ -1,0 +1,39 @@
+{
+  "completed": true,
+  "production_source_commit": "dff9238e8117887fa1d4ad6c72f18e404eeb0ed5",
+  "test_source_commit": "59bd14dc02ba52d11292800bcb266bb2abb39dcc",
+  "host_source_commit": "521e0fb12edc640f7438b9d4ef50ec5ae8307dbf",
+  "expectation": "negative",
+  "frozen_inputs": {
+    "artifacts/form-pickers/candidate-dff9238-full-day-v1/app.apk": "f73718c01e9a6f613b0a9b00f9c56663becfcdb9e4d95df9fe0ede5b5d168c52",
+    "artifacts/form-pickers/harness-59bd14d-file-workflows-v19/test.apk": "8c8ed4ddd9b6d155317554b050617556025eba2266c2888cb26963091d77c9a0",
+    "scripts/test-reviewed-text-input.py": "81ca546c2bbe4e2ee6ce80b838c974378f7ffe991762821d893b353a39e9d2b9",
+    "scripts/android_form_documents_fixture.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "scripts/android_test_cleanup.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373"
+  },
+  "wrapper_sha256": "c137a3dc9c9c5a7dd1d9b8bc35889c90f9d380845dd2e1bb6d8aad3b996fda67",
+  "source_controller": "all-day-control-v1-before-state.json",
+  "cohorts": [
+    {
+      "completed": true,
+      "name": "all-day-control-v1-before-tablet100",
+      "exit_code": 1,
+      "native_completed": false,
+      "passes": 0,
+      "cleanup_checks": 18,
+      "cleanup_all_passed": true,
+      "expected_missing_all_day_control_verified": true
+    },
+    {
+      "completed": true,
+      "name": "all-day-control-v1-before-landscape200",
+      "exit_code": 1,
+      "native_completed": false,
+      "passes": 0,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "expected_missing_all_day_control_verified": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "completed": true,
+  "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "test_source_commit": "64440c254bd91eb73222c01d8d4b6ada02d2c252",
+  "frozen_inputs": {
+    "artifacts/form-pickers/harness-64440c2-typed-common-v1/app.apk": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "artifacts/form-pickers/harness-64440c2-typed-common-v1/test.apk": "e7cf2114131aeddb387d73973dba4a2f4300d4a250bcb6fd9ebdc4924a0fe5ed",
+    "scripts/test-reviewed-text-input.py": "d9d1bc019c396d974f65884f9d1aec3c4e9fa3f0156e6ef8ff3c7af9587934eb",
+    "scripts/android_test_cleanup.py": "c22e9d8dbe59a022391b3d64bc574891a682aa681109b59afc76c203e638bfe1",
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1"
+  },
+  "source_controller": "typed-old-baseline-v1-state.json",
+  "cohorts": [
+    {
+      "name": "typed-before-tablet-v1",
+      "layout": "tablet",
+      "completed": true,
+      "expected_negative_executions": 6,
+      "exit_code": 1,
+      "passes": 0,
+      "tests_completed": false,
+      "cleanup_all_passed": true,
+      "cleanup_checks": 18,
+      "junit_failure_codes": 6,
+      "all_six_owned_case_boundaries_confirmed": true
+    },
+    {
+      "name": "typed-before-phone-v1",
+      "layout": "phone",
+      "completed": true,
+      "expected_negative_executions": 6,
+      "exit_code": 1,
+      "passes": 0,
+      "tests_completed": false,
+      "cleanup_all_passed": true,
+      "cleanup_checks": 20,
+      "junit_failure_codes": 6,
+      "all_six_owned_case_boundaries_confirmed": true
+    }
+  ]
+}

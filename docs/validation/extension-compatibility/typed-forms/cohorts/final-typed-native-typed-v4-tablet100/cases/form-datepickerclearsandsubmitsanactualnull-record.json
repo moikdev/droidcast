@@ -1,0 +1,122 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "fixture_mode": "typed-controls",
+  "fixture_command_sha256": "261d66f2c395ed9038f81b45cb33acec941e487a6d15f5c2370c7709260d3091",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-f490de8bfa9f444c979841c40ab42580",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-clear-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1396,
+      "visible_bounds": [
+        428,
+        470,
+        561,
+        542
+      ],
+      "control_size": [
+        133,
+        72
+      ],
+      "point": [
+        494.5,
+        506
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1396,
+      "visible_bounds": [
+        970,
+        872,
+        1322,
+        944
+      ],
+      "control_size": [
+        352,
+        72
+      ],
+      "point": [
+        1146,
+        908
+      ]
+    }
+  ],
+  "date_change_runtime_type": {
+    "is_date": false,
+    "is_null": true,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": false,
+    "date_iso": null,
+    "full_day_helper": true,
+    "full_day": null
+  },
+  "date_submit_runtime_type": {
+    "is_date": false,
+    "is_null": true,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": false,
+    "date_iso": null,
+    "full_day_helper": true,
+    "full_day": null,
+    "present": true
+  },
+  "submitted_date": null,
+  "submit_count": 1,
+  "test_boundary": "Actual native date interaction and owned JS callback values; tag\/file selection and a separate destination are not exercised",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

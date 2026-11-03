@@ -1,0 +1,100 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "f768163812d02fd30d260721e157443175129825",
+  "fixture_mode": "typed-file-single-workflow",
+  "fixture_command_sha256": "926df416c3852cd6cf114380523a9b35bb37b83184951b875e33870e76b2eefe",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-9501f7f6b54444b6837f3e547c092c2b",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "native_frames": 6,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-files-files",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        428,
+        779,
+        1493,
+        851
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        815
+      ]
+    },
+    {
+      "tag": "extension-files-choose-files",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 139,
+      "visible_bounds": [
+        42,
+        177,
+        834,
+        249
+      ],
+      "control_size": [
+        792,
+        72
+      ],
+      "point": [
+        438,
+        213
+      ]
+    }
+  ],
+  "system_picker_gestures": [
+    {
+      "owned_target": "location drawer \/ Droidcast owned files",
+      "long_press": false,
+      "accessibility_acknowledged": true,
+      "acceptance": "Subsequent actual picker route, native field values, JS bytes and caller state; no retry on a false acknowledgement"
+    },
+    {
+      "owned_target": "café 日本.txt",
+      "long_press": false,
+      "accessibility_acknowledged": false,
+      "acceptance": "Subsequent actual picker route, native field values, JS bytes and caller state; no retry on a false acknowledgement"
+    }
+  ],
+  "system_picker_package": "com.google.android.documentsui",
+  "system_picker_root": "Droidcast owned files",
+  "system_picker_path": "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor",
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

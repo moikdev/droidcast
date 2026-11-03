@@ -1,0 +1,24 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "332d354ca25393b28d875aef6b36882a674e37c8",
+  "fixture_mode": "typed-controls",
+  "fixture_command_sha256": "70c0a455d8835212f8fecfc090ae33b4e52755641f6ee95b16e2b8043fd63c78",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-598d5741405d48e686e5d53167d2a8f4",
+  "typed_field_type": "Form.DatePicker",
+  "typed_field_id": "date",
+  "initial_native_value": {
+    "$date": "2024-02-29T12:34:00.000Z"
+  },
+  "matching_native_controls": 1,
+  "test_boundary": "Native touch-control availability only; no picker selection, provider or submitted-value workflow is certified",
+  "native_touch_control_available": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

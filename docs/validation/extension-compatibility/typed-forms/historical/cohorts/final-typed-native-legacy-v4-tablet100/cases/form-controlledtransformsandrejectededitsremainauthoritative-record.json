@@ -1,0 +1,271 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "fixture_mode": "controlled",
+  "fixture_command_sha256": "d6894baae53adae3aecbe5c73df2ba869fde869ec5578ffb8a9b588e4e31475e",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-6804f93c5ffd41a5ba1ba5f39e187f8d",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 5,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-filtered",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1646,
+      "visible_bounds": [
+        428,
+        392,
+        1493,
+        476
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        434
+      ]
+    },
+    {
+      "tag": "extension-field-rejected",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1646,
+      "visible_bounds": [
+        428,
+        466,
+        1493,
+        550
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        508
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1646,
+      "visible_bounds": [
+        428,
+        466,
+        1493,
+        550
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        508
+      ]
+    }
+  ],
+  "transformed_and_rejected_native_values_verified": true,
+  "focus_probe": {
+    "changes": 2,
+    "focus": {
+      "filtered": 1,
+      "rejected": 1,
+      "notes": 1
+    },
+    "blur": {
+      "filtered": 1,
+      "rejected": 1
+    },
+    "blurLengths": {
+      "filtered": 16,
+      "rejected": 17
+    },
+    "dispatches": 7,
+    "focusFacts": {
+      "filtered": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "rejected": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "notes": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    },
+    "blurFacts": {
+      "filtered": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      },
+      "rejected": {
+        "is_date": false,
+        "is_null": false,
+        "is_array": false,
+        "array_strings": false,
+        "valid_date": false,
+        "date_iso": null,
+        "full_day_helper": true,
+        "full_day": null
+      }
+    },
+    "blurValues": {
+      "filtered": "OWNED CAFÉ É 日本",
+      "rejected": "Owned fixed value"
+    }
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

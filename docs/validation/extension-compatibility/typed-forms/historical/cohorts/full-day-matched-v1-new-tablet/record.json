@@ -1,0 +1,85 @@
+{
+  "completed": true,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "tablet",
+  "font_scale": 1.0,
+  "classes": "dev.tinycast.android.ExtensionFormDeviceTest#dateOnlySelectsACalendarDayWithInclusiveDayBounds",
+  "expected": 1,
+  "runner_sha256": "db9ede4ec7124c67ff52c0f9cca57830c6e1f3df4b60f7be1e140d1e6a2875f1",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "evidence_directories": [
+    "reviewed-text-evidence"
+  ],
+  "shared_regression_cohort": false,
+  "apk_sha256": "f73718c01e9a6f613b0a9b00f9c56663becfcdb9e4d95df9fe0ede5b5d168c52",
+  "test_apk_sha256": "e58d8d6a7442da0fb8b02894d70547e476dcc0a17c94a29007b230a9f82a04a7",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 1,
+  "tests_completed": true,
+  "owned_extension_count": 1,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  },
+  "publication_boundary": "Allowlisted host outcomes only. Original preferences, clipboard snapshots/contents/fingerprints, backup hashes, recovery receipts, host PIDs and nonce owner material are excluded. No hash of the private full host record is published."
+}

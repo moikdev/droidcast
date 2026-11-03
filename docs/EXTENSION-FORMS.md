@@ -1,5 +1,7 @@
 # Readable native extension Forms
 
+The later [typed picker milestone](EXTENSION-TYPED-FORMS.md) adds DatePicker, TagPicker and Android document selection, with separate source/APK evidence. The five-field results below retain their original runtime identity. Complete Form contracts, including storeValue and imperative focus, remain open.
+
 [Issue #83](https://github.com/moikdev/droidcast/issues/83) improves Android's existing Form subset: text, password, multiline text, checkbox and dropdown controls. Field labels, supplied errors and help use natural wrapping in a bounded scroll area. Help is available directly on screen. Checkbox labels toggle the entire row, whose minimum touch height is 48 dp. Closed dropdowns show the selected item's title while submitting its exact value; missing selections and empty option sets remain explicit.
 
 The renderer delivers focus and blur for the five supported field kinds. Events resolve the current root, field and runtime session before dispatch. Native edits can precede a JavaScript publication, so the Android adapter supplies the matching callback's event-time value. Controlled fields can transform or reject an edit; an adapter acknowledgement publishes that decision even when the extension retains its previous React value. Uncontrolled fields retain their upstream state. The generated upstream runtime and AGPL/React notices are unchanged.

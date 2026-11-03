@@ -1,5 +1,7 @@
 # Validated native Form submission
 
+The later [typed picker milestone](EXTENSION-TYPED-FORMS.md) extends field ownership, focus/blur and submission-error detection to DatePicker, TagPicker and the Android FilePicker equivalent. Its corrected-value and lifecycle receipts are separate from this historical five-field slice.
+
 [Issue #84](https://github.com/moikdev/droidcast/issues/84) adds error-aware submission to Android's existing five-field Form subset. A supplied nonblank error disables the actual SubmitForm action and explains the blocked state. Editing can clear the error; the same caller can then submit its exact accepted values once. Ordinary Actions remain usable. This follows the separate [readability/focus work](EXTENSION-FORMS.md) merged in PR #85.
 
 Raycast's [Form validation contract](https://developers.raycast.com/api-reference/user-interface/form#validation) prevents the SubmitForm callback while errors remain. Its [guidance](https://developers.raycast.com/information/best-practices#use-forms-validation) uses blur for validation and change for clearing an error. The preceding generated runtime projected SubmitForm into a generic Action and retained Form values, without an error gate. Real old-app controls below establish the resulting Android behavior.

@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=dateTimeEditorKeepsConfirmationReachableWithItsOwnIme
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The button needs a useful screen target
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateTimeEditorKeepsConfirmationReachableWithItsOwnIme(ExtensionFormDeviceTest.kt:1775)
+
+INSTRUMENTATION_STATUS: stream=
+Error in dateTimeEditorKeepsConfirmationReachableWithItsOwnIme(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: The button needs a useful screen target
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateTimeEditorKeepsConfirmationReachableWithItsOwnIme(ExtensionFormDeviceTest.kt:1775)
+
+INSTRUMENTATION_STATUS: test=dateTimeEditorKeepsConfirmationReachableWithItsOwnIme
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 33.986
+There was 1 failure:
+1) dateTimeEditorKeepsConfirmationReachableWithItsOwnIme(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: The button needs a useful screen target
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionFormDeviceTest.dateTimeEditorKeepsConfirmationReachableWithItsOwnIme(ExtensionFormDeviceTest.kt:1775)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

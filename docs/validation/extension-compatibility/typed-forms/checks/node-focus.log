@@ -1,0 +1,12 @@
+PASS API aliases, original members and field statics retain identity
+PASS field props, callbacks and absent focus handlers are preserved
+PASS full-day dates use the reserved millisecond, including non-midnight and invalid dates
+PASS deprecated field aliases share wrapping and native event values with Form members
+PASS controlled acceptance, rejection and exceptions publish without changing callback results
+PASS matching focus and blur receive the native Unicode or boolean value
+PASS a different field or callback kind cannot inherit the override
+PASS typed focus values revive dates and retain exact tag/file arrays
+PASS invalid typed date payloads do not dispatch or retain event overrides
+PASS throwing and nested dispatch restore their caller context
+PASS malformed payload cannot retain a previous event value
+11 adapter cases passed

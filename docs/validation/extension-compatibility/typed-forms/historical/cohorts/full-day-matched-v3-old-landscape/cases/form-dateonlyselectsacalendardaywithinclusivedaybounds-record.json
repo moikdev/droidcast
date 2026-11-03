@@ -1,0 +1,213 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "4cf40f12fb9e70905d0c874c117dc4c4ed91b081",
+  "fixture_mode": "typed-date-day",
+  "fixture_command_sha256": "f4c4654c0ed3f75a76800794979724ef6dad8f924cf6730018fa7d5344cc7329",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-7f8943845aed4e709fe89b675df79af8",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-date-date",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        434,
+        2102,
+        574
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        504
+      ]
+    },
+    {
+      "tag": "extension-date-confirm-date",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 134,
+      "visible_bounds": [
+        777,
+        803,
+        1481,
+        943
+      ],
+      "control_size": [
+        704,
+        140
+      ],
+      "point": [
+        1129,
+        873
+      ]
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "",
+      "gutter": false,
+      "visible_bounds": [
+        53,
+        220,
+        1481,
+        771
+      ],
+      "start": [
+        714,
+        275.5
+      ],
+      "end": [
+        714,
+        137.75
+      ]
+    },
+    {
+      "viewport": "",
+      "gutter": false,
+      "visible_bounds": [
+        53,
+        220,
+        1481,
+        771
+      ],
+      "start": [
+        714,
+        275.5
+      ],
+      "end": [
+        714,
+        137.75
+      ]
+    },
+    {
+      "viewport": "",
+      "gutter": false,
+      "visible_bounds": [
+        53,
+        220,
+        1481,
+        771
+      ],
+      "start": [
+        714,
+        275.5
+      ],
+      "end": [
+        714,
+        137.75
+      ]
+    },
+    {
+      "viewport": "",
+      "gutter": false,
+      "visible_bounds": [
+        53,
+        220,
+        1481,
+        771
+      ],
+      "start": [
+        714,
+        275.5
+      ],
+      "end": [
+        714,
+        137.75
+      ]
+    },
+    {
+      "viewport": "",
+      "gutter": false,
+      "visible_bounds": [
+        53,
+        220,
+        1481,
+        771
+      ],
+      "start": [
+        714,
+        275.5
+      ],
+      "end": [
+        714,
+        137.75
+      ]
+    }
+  ],
+  "calendar_day_pointer": {
+    "label": "Thursday, February 29, 2024",
+    "point": [
+      953,
+      637
+    ],
+    "visible_bounds": [
+      890,
+      574,
+      1016,
+      700
+    ]
+  },
+  "calendar_selected_after_pointer": true,
+  "typed_publications": [
+    {
+      "phase": "calendar day accepted",
+      "root_id": "11",
+      "before": 0,
+      "native_counter": 1,
+      "composed_marker": "Typed publication 1",
+      "composed_semantics_id": 116
+    }
+  ],
+  "expected_date_iso": "2024-02-28T15:00:00.001Z",
+  "observed_date_iso": "2024-02-28T15:00:00.000Z",
+  "date_change_runtime_type": {
+    "is_date": true,
+    "is_null": false,
+    "is_array": false,
+    "array_strings": false,
+    "valid_date": true,
+    "date_iso": "2024-02-28T15:00:00.000Z",
+    "full_day_helper": false,
+    "full_day": null
+  },
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

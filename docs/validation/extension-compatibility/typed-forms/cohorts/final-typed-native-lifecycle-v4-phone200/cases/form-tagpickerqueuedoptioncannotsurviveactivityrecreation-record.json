@@ -1,0 +1,232 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "55e641a8321277edf9ca8c033e0fe1fbb306a1e0",
+  "fixture_mode": "typed-controls",
+  "fixture_command_sha256": "261d66f2c395ed9038f81b45cb33acec941e487a6d15f5c2370c7709260d3091",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-9248046560fe478bb673a13a2eccb295",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-tags-tags",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 634,
+      "visible_bounds": [
+        85,
+        1265,
+        995,
+        1503
+      ],
+      "control_size": [
+        910,
+        238
+      ],
+      "point": [
+        540,
+        1384
+      ]
+    },
+    {
+      "tag": "extension-tags-tags",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 787,
+      "visible_bounds": [
+        85,
+        1265,
+        995,
+        1503
+      ],
+      "control_size": [
+        910,
+        238
+      ],
+      "point": [
+        540,
+        1384
+      ]
+    },
+    {
+      "tag": "extension-tags-done-tags",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 854,
+      "visible_bounds": [
+        550,
+        608,
+        1005,
+        748
+      ],
+      "control_size": [
+        455,
+        140
+      ],
+      "point": [
+        777.5,
+        678
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 787,
+      "visible_bounds": [
+        53,
+        1701,
+        713,
+        1949
+      ],
+      "control_size": [
+        660,
+        248
+      ],
+      "point": [
+        383,
+        1825
+      ]
+    }
+  ],
+  "recreation_boundary": "Same-process Activity recreation; fresh Activity and actual runtime WebView, not process-death restoration",
+  "recreated_activity_and_webview_verified": true,
+  "recreation_readiness": {
+    "new_page_token": "owned-recreated-5c5b98c9-78c2-4a57-b97a-684c97a9f2b0",
+    "new_webview_acknowledged": true,
+    "native_root_id": "11",
+    "native_counter": 1,
+    "composed_marker": "Typed publication 1",
+    "composed_semantics_id": 829
+  },
+  "typed_publications": [
+    {
+      "phase": "old tag callback after activity recreation",
+      "root_id": "11",
+      "before": 1,
+      "native_counter": 2,
+      "composed_marker": "Typed publication 2",
+      "composed_semantics_id": 829
+    },
+    {
+      "phase": "fresh tag callback after activity recreation",
+      "root_id": "11",
+      "before": 2,
+      "native_counter": 3,
+      "composed_marker": "Typed publication 3",
+      "composed_semantics_id": 829
+    }
+  ],
+  "tag_change_runtime_type": {
+    "is_date": false,
+    "is_null": false,
+    "is_array": true,
+    "array_strings": true,
+    "valid_date": false,
+    "date_iso": null,
+    "full_day_helper": true,
+    "full_day": null
+  },
+  "tag_submit_runtime_type": {
+    "is_date": false,
+    "is_null": false,
+    "is_array": true,
+    "array_strings": true,
+    "valid_date": false,
+    "date_iso": null,
+    "full_day_helper": true,
+    "full_day": null,
+    "present": true
+  },
+  "submitted_tags": [
+    "internal-two",
+    "internal-one"
+  ],
+  "submit_count": 1,
+  "test_boundary": "Actual tag pointer changes and owned JS callback array values; file selection and a separate destination are not exercised",
+  "old_recreation_callback_rejected": true,
+  "fresh_recreation_callback_accepted": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

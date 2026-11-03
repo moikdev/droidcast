@@ -1,0 +1,308 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=datePickerErrorDisablesSubmit
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #111 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1291)
+
+INSTRUMENTATION_STATUS: stream=
+Error in datePickerErrorDisablesSubmit(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #111 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1291)
+
+INSTRUMENTATION_STATUS: test=datePickerErrorDisablesSubmit
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=filePickerErrorDisablesSubmit
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #232 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1293)
+
+INSTRUMENTATION_STATUS: stream=
+Error in filePickerErrorDisablesSubmit(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #232 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1293)
+
+INSTRUMENTATION_STATUS: test=filePickerErrorDisablesSubmit
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=filePickerHasNativeTouchControl
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1277)
+
+INSTRUMENTATION_STATUS: stream=
+Error in filePickerHasNativeTouchControl(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1277)
+
+INSTRUMENTATION_STATUS: test=filePickerHasNativeTouchControl
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=datePickerHasNativeTouchControl
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1275)
+
+INSTRUMENTATION_STATUS: stream=
+Error in datePickerHasNativeTouchControl(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1275)
+
+INSTRUMENTATION_STATUS: test=datePickerHasNativeTouchControl
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=tagPickerErrorDisablesSubmit
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #595 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.tagPickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1292)
+
+INSTRUMENTATION_STATUS: stream=
+Error in tagPickerErrorDisablesSubmit(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #595 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.tagPickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1292)
+
+INSTRUMENTATION_STATUS: test=tagPickerErrorDisablesSubmit
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=tagPickerHasNativeTouchControl
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.tagPickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1276)
+
+INSTRUMENTATION_STATUS: stream=
+Error in tagPickerHasNativeTouchControl(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.tagPickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1276)
+
+INSTRUMENTATION_STATUS: test=tagPickerHasNativeTouchControl
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 57.656
+There were 6 failures:
+1) datePickerErrorDisablesSubmit(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #111 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1291)
+2) filePickerErrorDisablesSubmit(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #232 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1293)
+3) filePickerHasNativeTouchControl(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.filePickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1277)
+4) datePickerHasNativeTouchControl(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.datePickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1275)
+5) tagPickerErrorDisablesSubmit(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Semantics of the node:
+Node #595 at (l=970.0, t=872.0, r=1322.0, b=944.0)px, Tag: 'extension-primary'
+ContentDescription = '[Inspect owned typed values]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Inspect owned typed values, ↵]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'extension-primary')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:63)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1288)
+	at dev.tinycast.android.ExtensionFormDeviceTest.tagPickerErrorDisablesSubmit(ExtensionFormDeviceTest.kt:1292)
+6) tagPickerHasNativeTouchControl(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.typedTouchControl(ExtensionFormDeviceTest.kt:1272)
+	at dev.tinycast.android.ExtensionFormDeviceTest.tagPickerHasNativeTouchControl(ExtensionFormDeviceTest.kt:1276)
+
+FAILURES!!!
+Tests run: 6,  Failures: 6
+
+
+INSTRUMENTATION_CODE: -1
