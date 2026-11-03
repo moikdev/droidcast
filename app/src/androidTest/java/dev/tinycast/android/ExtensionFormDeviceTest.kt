@@ -22,6 +22,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
 import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.UiSelector
 import dev.tinycast.android.extensions.*
 import org.json.JSONObject
 import org.json.JSONArray
@@ -1435,7 +1436,11 @@ class ExtensionFormDeviceTest {
                 root = device.findObject(rootSelector)
             }
         }
-        requireNotNull(root) { "The leased provider root must be available" }.click()
+        assertNotNull("The leased provider root must be available", root)
+        // UiObject resolves the node again for each gesture. UiObject2 retains
+        // a node that this asynchronous root drawer can replace before click.
+        val rootRow = device.findObject(UiSelector().packageName(pickerPackage).resourceId("android:id/title").text("Droidcast owned files"))
+        assertTrue(rootRow.waitForExists(5000)); assertTrue(rootRow.isEnabled); assertTrue(rootRow.click())
         assertTrue("The root drawer must finish closing", device.wait(Until.gone(rootSelector), 5000))
         assertNotNull(device.wait(Until.findObject(By.text("café 日本.txt")), 10000))
         record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
@@ -1455,6 +1460,14 @@ class ExtensionFormDeviceTest {
             .put("installed_build_commit", record.getString("installed_build_commit"))
             .put("synchronization", "Bounded DocumentsUI idle observation; native hierarchy before screenshot; no Compose frame claim")
         File(evidence, "$name-frame.json").writeText(frame.toString(2))
+    }
+    private fun clickDocumentText(device: UiDevice, text: String, long: Boolean = false, pattern: Boolean = false) {
+        val selector = UiSelector().packageName(record.getString("system_picker_package")).let {
+            if (pattern) it.textMatches(text) else it.text(text)
+        }
+        val item = device.findObject(selector)
+        assertTrue("The exact system-picker item must be available", item.waitForExists(5000)); assertTrue(item.isEnabled)
+        assertTrue("The actual system-picker pointer gesture must complete", if (long) item.longClick() else item.click())
     }
     private fun awaitImportedFiles(expected: Int, diagnosticDocument: String? = null): List<String> {
         compose.waitUntil(15000) { typedFileValues().size == expected ||
@@ -1520,7 +1533,7 @@ class ExtensionFormDeviceTest {
     @Test fun filePickerImportsExactUnicodeBytesThroughAndroidAndReturnsToCaller() {
         launch("typed-file-single-workflow")
         val device = openOwnedDocuments()
-        requireNotNull(device.findObject(By.text("café 日本.txt"))).click()
+        clickDocumentText(device, "café 日本.txt")
         val paths = awaitImportedFiles(1, "text")
         assertEquals("café 日本.txt", File(paths.single()).name)
         assertArrayEquals("Owned file café 日本 🌱\n".toByteArray(), File(paths.single()).readBytes())
@@ -1542,7 +1555,7 @@ class ExtensionFormDeviceTest {
     @Test fun filePickerRejectsAnOversizeDocumentWithoutChangingItsSelection() {
         launch("typed-file-single-workflow")
         val device = openOwnedDocuments()
-        requireNotNull(device.findObject(By.text("Owned too large.bin"))).click()
+        clickDocumentText(device, "Owned too large.bin")
         compose.waitUntil(15000) { compose.onAllNodesWithTag("extension-field-error-files-import-files").fetchSemanticsNodes().isNotEmpty() }
         assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
         compose.waitUntil(5000) { File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty() }
@@ -1553,14 +1566,13 @@ class ExtensionFormDeviceTest {
     @Test fun filePickerImportsARealSelectedFolderAndNestedBytes() {
         launch("typed-file-folder-workflow")
         val device = openOwnedDocuments(true)
-        requireNotNull(device.findObject(By.text("Owned folder"))).click()
+        clickDocumentText(device, "Owned folder")
         assertNotNull(device.wait(Until.findObject(By.text("nested.txt")), 10000))
-        val use = device.wait(Until.findObject(By.text(java.util.regex.Pattern.compile("(?i)use this folder"))), 5000)
-        requireNotNull(use).click()
+        clickDocumentText(device, "(?i)use this folder", pattern = true)
         val allowSelector = By.text(java.util.regex.Pattern.compile("(?i)allow"))
         assertTrue(device.wait(Until.hasObject(allowSelector), 5000))
         captureDocumentPicker("android-folder-permission", device)
-        requireNotNull(device.findObject(allowSelector)).click()
+        clickDocumentText(device, "(?i)allow", pattern = true)
         val path = awaitImportedFiles(1).single(); assertTrue(File(path).isDirectory)
         assertEquals("Owned folder", File(path).name)
         assertArrayEquals("Owned nested café 日本 🌱\n".toByteArray(), File(path, "nested.txt").readBytes())
@@ -1571,12 +1583,12 @@ class ExtensionFormDeviceTest {
     @Test fun filePickerMultipleSelectionPreservesBinaryBytesAndCanRemoveAndClear() {
         launch("typed-file-multiple-workflow")
         val device = openOwnedDocuments()
-        requireNotNull(device.findObject(By.text("café 日本.txt"))).longClick()
-        requireNotNull(device.findObject(By.text("owned-bytes.bin"))).click()
+        clickDocumentText(device, "café 日本.txt", long = true)
+        clickDocumentText(device, "owned-bytes.bin")
         val openSelector = By.text(java.util.regex.Pattern.compile("(?i)open"))
         assertTrue(device.wait(Until.hasObject(openSelector), 5000))
         captureDocumentPicker("android-two-documents-selected", device)
-        requireNotNull(device.findObject(openSelector)).click()
+        clickDocumentText(device, "(?i)open", pattern = true)
         val paths = awaitImportedFiles(2)
         assertEquals(setOf("café 日本.txt", "owned-bytes.bin"), paths.map { File(it).name }.toSet())
         capture("file-two-imported"); touch("extension-files-done-files")
@@ -1597,7 +1609,7 @@ class ExtensionFormDeviceTest {
         val device = openOwnedDocuments(); val epoch = catalog.launchEpoch
         compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
         assertNotEquals(epoch, catalog.launchEpoch)
-        requireNotNull(device.findObject(By.text("café 日本.txt"))).click()
+        clickDocumentText(device, "café 日本.txt")
         compose.waitUntil(25000) { catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
         compose.waitForIdle(); assertTrue(typedFileValues().isEmpty()); assertEquals(0, probe().getInt("changes"))
         assertTrue(File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/form-input").listFiles().orEmpty().isEmpty())
