@@ -613,7 +613,9 @@ class ExtensionFormDeviceTest {
             node.performScrollTo()
         }
         compose.waitForIdle()
+        node.assertIsDisplayed()
         val target = node.fetchSemanticsNode()
+        assertTrue("A pointer target must actually be placed", target.layoutInfo.isPlaced)
         val visible = target.boundsInRoot
         // Dialog bounds use a different local origin. Inject through the root
         // that owns this exact target, rather than the launcher Activity root.
@@ -2030,6 +2032,7 @@ class ExtensionFormDeviceTest {
             snapshot.put("composed_rows", JSONArray(composedRows.map {
                 JSONObject().put("tag", it.config[SemanticsProperties.TestTag])
                     .put("selected", it.config.contains(SemanticsProperties.Selected) && it.config[SemanticsProperties.Selected])
+                    .put("placed", it.layoutInfo.isPlaced)
                     .put("bounds", it.boundsInRoot.toString())
             })).put("composed_primary_count", compose.onAllNodesWithTag("extension-primary").fetchSemanticsNodes().size)
             val snapshots = record.optJSONArray("checksum_selection_samples") ?: JSONArray().also { record.put("checksum_selection_samples", it) }
@@ -2037,13 +2040,26 @@ class ExtensionFormDeviceTest {
         }
         sampleSelection("before revealing SHA256")
         val resultsList = compose.onNodeWithTag("extension-list")
+        val sha256Target = compose.onNodeWithTag("extension-row-$sha256Row")
+        var sha256Revealed = false; var sampledPrefetch = false
         for (attempt in 0 until 40) {
-            if (compose.onAllNodesWithTag("extension-row-$sha256Row").fetchSemanticsNodes().isNotEmpty()) break
+            val candidate = compose.onAllNodesWithTag("extension-row-$sha256Row").fetchSemanticsNodes().singleOrNull()
+            if (candidate != null && candidate.layoutInfo.isPlaced && sha256Target.isDisplayed()) {
+                val bounds = candidate.boundsInRoot; val viewport = resultsList.fetchSemanticsNode().boundsInRoot
+                if (bounds.height + 1 >= minOf(candidate.size.height.toFloat(), 48f * context.resources.displayMetrics.density) && viewport.contains(bounds.center)) {
+                    sha256Revealed = true; break
+                }
+            } else if (candidate != null && !candidate.layoutInfo.isPlaced && !sampledPrefetch) {
+                sampleSelection("unplaced prefetched SHA256 is not a pointer target"); sampledPrefetch = true
+            }
             drag(resultsList, -1)
         }
+        assertTrue("SHA256 needs a placed visible pointer target", sha256Revealed)
+        record.put("sha256_row_placed_before_pointer", true)
         sampleSelection("before SHA256 pointer")
         touch("extension-row-$sha256Row")
         sampleSelection("after SHA256 pointer before Copy")
+        sha256Target.assertIsSelected()
         touch("extension-primary")
         compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected["sha256"])) }
         dismissClipboardForEvidence(); capture("checksum-sha256-copied")
