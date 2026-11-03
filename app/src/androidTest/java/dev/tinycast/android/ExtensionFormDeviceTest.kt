@@ -161,6 +161,7 @@ class ExtensionFormDeviceTest {
                 const [date,setDate]=React.useState(mode==='typed-date-day'?new Date(2024,1,28,12,34):new Date(initialDate));
                 const [tags,setTags]=React.useState(mode==='typed-tags-empty'?['missing-owned-value']:['internal-two']),[files,setFiles]=React.useState([]);
                 const [revision,bump]=React.useReducer(value=>value+1,0),[dateKey,setDateKey]=React.useState('date');
+                const dateRef=React.useRef(null),tagsRef=React.useRef(null);
                 const [defaultDate,setDefaultDate]=React.useState('2024-02-29T12:34:00.000Z'),[defaultTags,setDefaultTags]=React.useState(['internal-two']);
                 const [options,setOptions]=React.useState(mode==='typed-tags-empty'?[]:[
                   {value:'internal-one',title:mode==='typed-tags-long'?${JSONObject.quote(longTitle)}:'Readable first category'},
@@ -168,7 +169,8 @@ class ExtensionFormDeviceTest {
                 const fileWorkflow=mode.startsWith('typed-file-'),{push}=api.useNavigation();
                 const [fileEnabled,setFileEnabled]=React.useState(true);
                 globalThis.__ownedTypedFiles={setFileEnabled};
-                globalThis.__ownedTyped={setDate,setTags,setOptions,setDateKey,setDefaultDate,setDefaultTags,bump};
+                globalThis.__ownedTyped={setDate,setTags,setOptions,setDateKey,setDefaultDate,setDefaultTags,bump,
+                  resetDate:()=>dateRef.current.reset(),resetTags:()=>tagsRef.current.reset(),focusDate:()=>dateRef.current.focus()};
                 const errorId=mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null;
                 globalThis.__formProbe.submits ??= 0;
                 const change=(id,setter)=>value=>{
@@ -197,10 +199,10 @@ class ExtensionFormDeviceTest {
                       push(React.createElement(api.Detail,{markdown:JSON.stringify({outcome:'Owned imported documents',reads})}));
                     }
                   }}))},
-                  React.createElement(api.Form.DatePicker,{key:dateKey,id:'date',title:'Owned appointment date and time',
+                  React.createElement(api.Form.DatePicker,{key:dateKey,ref:dateRef,id:'date',title:'Owned appointment date and time',
                     type:dateKind,...bounds,...(mode==='typed-defaults'?{defaultValue:new Date(defaultDate)}:{value:date}),onChange:change('date',setDate),error:error('date'),
                     info:'Choose an owned calendar date and time by touch.',...fieldEvents('date')}),
-                  React.createElement(api.Form.TagPicker,{key:'tags',id:'tags',title:'Owned output categories',
+                  React.createElement(api.Form.TagPicker,{key:'tags',ref:tagsRef,id:'tags',title:'Owned output categories',
                     ...(mode==='typed-defaults'?{defaultValue:defaultTags}:{value:tags}),onChange:change('tags',setTags),error:error('tags'),...fieldEvents('tags')},
                     ...options.map(option=>React.createElement(api.Form.TagPicker.Item,{key:option.value,...option}))),
                   React.createElement(api.Form.FilePicker,{key:'files',id:'files',title:'Owned input documents',
@@ -1726,17 +1728,146 @@ class ExtensionFormDeviceTest {
         capture("date-replacement-field-rejected")
         record.put("queued_callback", "Old confirm invoked after actual replacement field publication; no successor value or dispatch change").put("passed", true)
     }
+    @Test fun typedUncontrolledRefsResetToTheirInitialValues() {
+        launch("typed-defaults"); touch("extension-date-clear-date")
+        compose.waitUntil(5000) { typedDateIso() == null }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); val changes = probe().getInt("changes")
+        mutateTyped("globalThis.__ownedTyped.resetDate();globalThis.__ownedTyped.resetTags()", "uncontrolled refs reset")
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso()); assertEquals("[\"internal-two\"]", typedTagValues())
+        assertEquals(changes, probe().getInt("changes"))
+        touch("extension-primary"); compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val observed = probe(); val values = observed.getJSONObject("submittedValues")
+        assertEquals("2024-02-29T12:34:00.000Z", values.getString("date")); assertEquals("[\"internal-two\"]", values.getJSONArray("tags").toString())
+        assertTrue(observed.getJSONObject("typedSubmitted").getJSONObject("date").getBoolean("is_date"))
+        assertTrue(observed.getJSONObject("typedSubmitted").getJSONObject("tags").getBoolean("array_strings"))
+        capture("typed-refs-reset")
+        record.put("uncontrolled_reset_published", true).put("reset_did_not_invoke_on_change", true)
+            .put("test_boundary", "Actual generated uncontrolled Date/tag reset refs; imperative focus and storeValue persistence are separate open contracts")
+            .put("passed", true)
+    }
 
-    private fun typedFileValues(): List<String> {
-        val values = field("Form.FilePicker", "files").props().getJSONArray("value")
+    private fun frozenTypedBundle(name: String): InstalledExtension {
+        val expectedArchive = when (name) {
+            "mood" -> "46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221"
+            "checksum" -> "8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d"
+            else -> error("Unknown owned typed bundle")
+        }
+        val directory = fixtureDirectory(); val id = directory.name
+        val archive = File(context.filesDir, "reviewed-text-fixture-lease/$name.zip").readBytes()
+        assertEquals(expectedArchive, hash(archive))
+        val extracted = ExtensionArchive.extract(archive, directory)
+        val extension = InstalledExtension(StoreExtension(id, name, "$name (owned frozen copy)", "", "Droidcast tests", "test", "", "", "", 1),
+            extracted, JSONObject(File(extracted, "package.json").readText()))
+        ownedExtension = extension
+        record.put("scope", "Unmodified frozen $name Store command JavaScript in an owned namespace; only owned test input/data, not whole-Store certification")
+            .put("archive_sha256", hash(archive)).put("owned_extension_id", id)
+        return extension
+    }
+    private fun runFrozenTypedCommand(extension: InstalledExtension, name: String, rootType: String) {
+        val expectedHash = when (name) {
+            "record-mood" -> "11e2a3e9900c47a8697004f267024865c2f4a5d21b87cb396e07ed4a5cc56478"
+            "search-moods" -> "9eee3a5852244fc06109e695358c2780a3970d28d04776b7d6416a11653bdea0"
+            "hashfile" -> "b42e7c5bbe881ae5397aa43660c29c23651b8d06e8165b5f11a962232a9d9a68"
+            else -> error("Unknown owned frozen command")
+        }
+        assertEquals(expectedHash, hash(File(extension.directory, "$name.js").readBytes()))
+        val commands = record.optJSONObject("frozen_command_sha256") ?: JSONObject().also { record.put("frozen_command_sha256", it) }
+        commands.put(name, expectedHash)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single { command -> command.name == name }) }
+        compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == rootType }
+        record.put("runtime_start_error", catalog.runtimeError ?: JSONObject.NULL)
+        assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle()
+    }
+    private fun frozenTypedCallerReturn() {
+        if (compose.activity.store.dialog != null) touch("extension-back")
+        compose.waitUntil(5000) { compose.activity.store.dialog == null }
+        compose.onNodeWithTag("search").assertTextEquals(caller)
+        record.put("caller_query_restored", true)
+    }
+    @Test fun frozenMoodStoresExactTypedValuesAndReloadsThemInSearch() {
+        val extension = frozenTypedBundle("mood")
+        runFrozenTypedCommand(extension, "record-mood", "Form")
+        val entries = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}/entries.json")
+        assertFalse(entries.exists())
+        touch("extension-date-date"); val expectedDate = increaseTypedDateMinute(); touch("extension-date-confirm-date")
+        compose.waitUntil(5000) { typedDateIso() == expectedDate }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }; typedTagRow(3).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"work\",\"health\"]" }; touch("extension-tags-done-tags")
+        val notes = "Owned mood café é 日本 🌱"
+        touch("extension-field-notes"); compose.onNodeWithTag("extension-field-notes").performTextReplacement(notes)
+        compose.waitUntil(5000) { field("Form.TextArea", "notes").props().optString("value") == notes }
+        ime(false); capture("mood-typed-values-before-save"); touch("extension-primary")
+        compose.waitUntil(10000) { runCatching { JSONArray(entries.readText()).length() == 1 }.getOrDefault(false) }
+        val saved = JSONArray(entries.readText()).getJSONObject(0)
+        assertEquals("neutral", saved.getString("mood")); assertEquals(notes, saved.getString("notes")); assertEquals(expectedDate, saved.getString("date"))
+        assertEquals("[\"work\",\"health\"]", saved.getJSONArray("tags").toString()); UUID.fromString(saved.getString("id"))
+        val bytes = entries.readBytes(); record.put("saved_owned_record", saved).put("saved_data_sha256", hash(bytes))
+        capture("mood-record-persisted"); frozenTypedCallerReturn()
+        runFrozenTypedCommand(extension, "search-moods", "List")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.nodes("List.Item")?.singleOrNull()?.props()?.optString("subtitle") == "work, health" }
+        val row = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("List.Item").single()
+        assertEquals("Neutral", row.props().getString("title")); assertTrue(row.props().getJSONObject("detail").props().getString("markdown").contains(notes))
+        assertArrayEquals(bytes, entries.readBytes()); capture("mood-reloaded-search-destination")
+        frozenTypedCallerReturn()
+        record.put("record_and_search_use_same_persisted_owned_data", true)
+            .put("test_boundary", "Two frozen commands: actual Date/tag/note editing, exact private record and new-runtime Search destination. AI/charts/drafts/storeValue/OEM behavior untested")
+            .put("passed", true)
+    }
+    @Test fun frozenChecksumHashesTheActualImportedBytesCopiesAndReturns() {
+        val extension = frozenTypedBundle("checksum"); runFrozenTypedCommand(extension, "hashfile", "Form")
+        compose.onNodeWithText("Preferences", useUnmergedTree = true).performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("preference-checkbox-popRootAfterSubmit").performScrollTo().assertIsOn().performTouchInput { click(center) }
+        compose.onNodeWithTag("preference-checkbox-popRootAfterSubmit").assertIsOff(); capture("checksum-preferences-edited")
+        touch("run-extension-setup")
+        compose.waitUntil(20000) { catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertFalse(context.getSharedPreferences("extension-${extension.listing.id}", Context.MODE_PRIVATE).getBoolean("popRootAfterSubmit", true))
+        val device = openOwnedDocuments(id = "file"); clickDocumentText(device, "café 日本.txt")
+        val imported = awaitImportedFiles(1, id = "file").single()
+        val bytes = "Owned file café 日本 🌱\n".toByteArray(); assertArrayEquals(bytes, File(imported).readBytes())
+        capture("checksum-owned-file-imported"); touch("extension-files-done-file")
+        val selected = field("Form.Dropdown", "dropdown").props().getString("value")
+        val algorithms = linkedMapOf("md5" to "MD5", "sha1" to "SHA-1", "sha256" to "SHA-256", "sha512" to "SHA-512")
+        assertTrue(selected in algorithms)
+        val expected = algorithms.mapValues { (_, algorithm) -> MessageDigest.getInstance(algorithm).digest(bytes).joinToString("") { "%02x".format(it) } }
+        touch("extension-primary")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.optString("type") == "List" }
+        val rows = requireNotNull(activeRoot(catalog.runtimeTree)).nodes("List.Item")
+        for ((algorithm, digest) in expected) assertEquals(digest, rows.single { it.props().optString("title") == algorithm.uppercase(java.util.Locale.ROOT) }.props().getString("subtitle"))
+        fun clipboardEquals(expected: String): Boolean {
+            var matches = false
+            compose.activityRule.scenario.onActivity { matches = it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text?.toString() == expected }
+            return matches
+        }
+        compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected[selected])) }
+        dismissClipboardForEvidence(); capture("checksum-real-hash-destination")
+        val sha256Row = rows.indexOfFirst { it.props().optString("title") == "SHA256" }; assertTrue(sha256Row >= 0)
+        touch("extension-row-$sha256Row"); touch("extension-primary")
+        compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected["sha256"])) }
+        dismissClipboardForEvidence(); capture("checksum-sha256-copied")
+        touch("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement("Back to Form")
+        compose.onNode(hasText("Back to Form") and hasAnyAncestor(hasTestTag("inline-menu")), useUnmergedTree = true)
+            .performScrollTo().performTouchInput { click(center) }
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertTrue(typedFileValues("file").isEmpty()); assertArrayEquals(bytes, File(imported).readBytes())
+        capture("checksum-returned-form"); frozenTypedCallerReturn(); assertArrayEquals(bytes, File(imported).readBytes())
+        record.put("all_four_hashes_match_exact_owned_bytes", JSONObject(expected)).put("selected_algorithm", selected)
+            .put("actual_sha256_copy_verified", true).put("delivered_private_copy_retained_after_command_close", true)
+            .put("test_boundary", "Frozen checksum/hashfile real DocumentsUI import, four actual hashes, exact Copy, actual Back to Form action and caller return; no arbitrary-provider or writeback certification")
+            .put("passed", true)
+    }
+
+    private fun typedFileValues(id: String = "files"): List<String> {
+        val values = field("Form.FilePicker", id).props().getJSONArray("value")
         return (0 until values.length()).map { values.getString(it) }
     }
-    private fun openOwnedDocuments(folder: Boolean = false): UiDevice {
+    private fun openOwnedDocuments(folder: Boolean = false, id: String = "files"): UiDevice {
         assertEquals("Use the host's --document-fixtures lease", expectedOwner, InstrumentationRegistry.getArguments().getString("expectedFormDocumentOwner"))
-        touch("extension-files-files")
-        compose.onNodeWithTag("extension-files-dialog-files").assertIsDisplayed()
+        touch("extension-files-$id")
+        compose.onNodeWithTag("extension-files-dialog-$id").assertIsDisplayed()
         capture("file-import-choice")
-        touch(if (folder) "extension-files-folder-files" else "extension-files-choose-files")
+        touch(if (folder) "extension-files-folder-$id" else "extension-files-choose-$id")
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         assertTrue("The real Android document picker must open", device.wait(Until.hasObject(By.pkg(java.util.regex.Pattern.compile(".*documentsui"))), 15000))
         val pickerPackage = requireNotNull(device.currentPackageName)
@@ -1811,10 +1942,10 @@ class ExtensionFormDeviceTest {
         actions.put(JSONObject().put("owned_target", label).put("long_press", long).put("accessibility_acknowledged", acknowledged)
             .put("acceptance", "Subsequent actual picker route, native field values, JS bytes and caller state; no retry on a false acknowledgement"))
     }
-    private fun awaitImportedFiles(expected: Int, diagnosticDocument: String? = null): List<String> {
-        compose.waitUntil(15000) { typedFileValues().size == expected ||
-            compose.onAllNodesWithTag("extension-field-error-files-import-files").fetchSemanticsNodes().isNotEmpty() }
-        if (typedFileValues().size != expected) {
+    private fun awaitImportedFiles(expected: Int, diagnosticDocument: String? = null, id: String = "files"): List<String> {
+        compose.waitUntil(15000) { typedFileValues(id).size == expected ||
+            compose.onAllNodesWithTag("extension-field-error-files-import-$id").fetchSemanticsNodes().isNotEmpty() }
+        if (typedFileValues(id).size != expected) {
             if (diagnosticDocument != null) {
                 // Failure-only diagnostic, after a real picker grant. It never
                 // supplies a result to the UI or earns workflow pass credit.
@@ -1832,7 +1963,7 @@ class ExtensionFormDeviceTest {
             fail("The real picker selection was rejected by the native import")
         }
         compose.waitForIdle()
-        val paths = typedFileValues()
+        val paths = typedFileValues(id)
         val root = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}").canonicalFile
         paths.forEach { path ->
             assertFalse("A content URI must never be forwarded as a filesystem path", path.startsWith("content:"))
