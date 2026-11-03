@@ -54,7 +54,7 @@ class CommonMarkPrimaryConformanceTest {
                     setFeature("http://xml.org/sax/features/external-general-entities", false)
                     setFeature("http://xml.org/sax/features/external-parameter-entities", false)
                 }
-                val root = factory.newDocumentBuilder().parse(InputSource(StringReader("<root>${example.html}</root>"))).documentElement
+                val root = factory.newDocumentBuilder().parse(InputSource(StringReader("<root>${htmlAttributesForXml(example.html)}</root>"))).documentElement
                 val expected = canonical(blocks(children(root))); val actual = canonical(document.blocks)
                 if (expected != actual) mismatches += "Example ${example.id}: ${example.section}\nExpected:$expected\nActual:$actual"
                 compared++
@@ -66,6 +66,22 @@ class CommonMarkPrimaryConformanceTest {
         assertTrue(mismatches.joinToString("\n\n"), mismatches.isEmpty())
     }
     private fun children(node: HtmlNode) = (0 until node.childNodes.length).map { node.childNodes.item(it) }
+    private fun htmlAttributesForXml(html: String): String = buildString {
+        // XML attribute normalization would otherwise erase the primary HTML's
+        // actual multiline link/image titles. Character references preserve them.
+        var tag = false; var quote: Char? = null
+        for (character in html) {
+            if (quote != null) {
+                append(when (character) { '\n' -> "&#10;"; '\r' -> "&#13;"; '\t' -> "&#9;"; else -> character.toString() })
+                if (character == quote) quote = null
+            } else {
+                append(character)
+                if (tag && character in listOf('\'', '"')) quote = character
+                else if (character == '<') tag = true
+                else if (character == '>') tag = false
+            }
+        }
+    }
     private fun blocks(nodes: List<HtmlNode>): List<MarkdownBlock> = buildList {
         val run = mutableListOf<HtmlNode>()
         fun flush() {
