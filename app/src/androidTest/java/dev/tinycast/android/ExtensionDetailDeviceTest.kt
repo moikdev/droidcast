@@ -919,7 +919,7 @@ class ExtensionDetailDeviceTest {
         record.put("offscreen_geometry_and_returned_pixels_verified", true).put("passed", true)
     }
     @Test fun cachedBlockImageReturnsItsPixelsAfterRepeatedVisibilityChanges() {
-        launch("image-scroll"); imagePixel("Owned scrolling image", 0xff228833.toInt())
+        launch("image-scroll-information"); imagePixel("Owned scrolling image", 0xff228833.toInt())
         val height = image("Owned scrolling image").fetchSemanticsNode().size.height
         val cycles = JSONArray(); record.put("cached_image_visibility_cycles", cycles)
         repeat(6) { cycle ->

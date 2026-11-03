@@ -46,13 +46,14 @@ module.exports.default = function OwnedDetail() {
     if (state.contentMode === "image-information") markdown = configuration.imageInformation.split("__DOCUMENT__").join(state.document) + "\n\n" + marker;
     if (state.contentMode === "long-information") markdown = configuration.longInformation + "\n\n" + marker;
     if (state.contentMode === "image-scroll") markdown = configuration.imageScroll + "\n\n" + marker;
+    if (state.contentMode === "image-scroll-information") markdown = configuration.imageScroll.replace("](owned.svg)", '](owned.svg "Owned scrolling image information")') + "\n\n" + marker;
     if (state.contentMode === "object-tag") markdown = "# Owned stable object-tag document";
     if (state.contentMode === "table-limit") markdown = "# Owned table limit sentinel";
     if (state.contentMode === "table-overflow") markdown = configuration.tableOverflow;
     if (state.contentMode === "links") markdown += "\n\n[Owned paragraph link](javascript:owned-unused)";
     if (state.contentMode === "entity-lines") markdown = "Owned entity foo&#10;&#10;bar\n\nOwned hard first  \nOwned hard second\n\n```text\nOwned code first\n\nOwned code third\n```\n\n" + marker;
     if (["metadata-only", "empty", "loading", "empty-metadata", "long-metadata"].includes(state.contentMode)) markdown = "";
-    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines", "gallery", "image-information", "long-information", "image-scroll", "table-limit", "table-overflow"].includes(state.contentMode);
+    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines", "gallery", "image-information", "long-information", "image-scroll", "image-scroll-information", "table-limit", "table-overflow"].includes(state.contentMode);
     return h(Type, { key: state.detailKey, navigationTitle: marker, markdown, metadata: noMetadata ? undefined : metadata,
       isLoading: state.loading, actions: actions(row) });
   }
