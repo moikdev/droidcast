@@ -32,7 +32,7 @@ import dev.tinycast.android.PaletteTheme
 import kotlinx.coroutines.CancellationException
 import org.json.JSONObject
 
-private data class DetailImageResult(val bitmap: Bitmap? = null, val failed: Boolean = false)
+private data class DetailImageResult(val source: String, val bitmap: Bitmap? = null, val failed: Boolean = false)
 
 /** Offscreen/stopped views retain their aspect ratio, not decoded bitmap references or jobs. */
 @Composable
@@ -47,16 +47,19 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     }
     var visible by remember(source) { mutableStateOf(false) }
     var aspect by remember(source) { mutableFloatStateOf(1.6f) }
-    val result by produceState(DetailImageResult(), source, images, visible, started, inline) {
-        value = DetailImageResult()
-        if (request == null) value = DetailImageResult(failed = true)
+    val observed by produceState(DetailImageResult(source), source, images, visible, started, inline) {
+        value = DetailImageResult(source)
+        if (request == null) value = DetailImageResult(source, failed = true)
         else if (visible && started) try {
             val bitmap = images.load(request.source, if (inline) 128 else ExtensionDetailImages.MAX_EDGE)
             aspect = bitmap.width.toFloat() / bitmap.height
-            value = DetailImageResult(bitmap)
+            value = DetailImageResult(source, bitmap)
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { value = DetailImageResult(failed = true) }
+        catch (_: Exception) { value = DetailImageResult(source, failed = true) }
     }
+    // A retained metadata icon can receive a new source before its producer's
+    // restart executes. Never paint the preceding source during that interval.
+    val result = observed.takeIf { it.source == source } ?: DetailImageResult(source)
     val label = alternative.ifBlank { "Image" }
     val color = tint ?: request?.tint?.let(::metadataTint)
     BoxWithConstraints(modifier.onGloballyPositioned { bounds ->
