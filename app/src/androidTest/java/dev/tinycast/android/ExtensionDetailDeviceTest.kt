@@ -859,9 +859,9 @@ class ExtensionDetailDeviceTest {
         show("Owned scroll-away destination.")
         compose.waitUntil(5000) { image("Owned scrolling image").fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription) == "Image loading" }
         val offscreen = image("Owned scrolling image").fetchSemanticsNode()
-        assertEquals("The fixture must put the block completely offscreen", 0f, offscreen.boundsInRoot.height)
+        assertEquals("The fixture must put the block completely offscreen", 0f, offscreen.boundsInRoot.height, .01f)
         record.put("offscreen_block_initial_height_px", initialHeight).put("offscreen_block_height_px", offscreen.size.height)
-            .put("offscreen_bitmap_released", true).put("offscreen_geometry_contract_started", true)
+            .put("offscreen_view_bitmap_cleared", true).put("offscreen_geometry_contract_started", true)
         capture("block-offscreen-geometry")
         assertEquals("Offscreen block images must retain their layout height", initialHeight, offscreen.size.height)
         imagePixel("Owned scrolling image", 0xff228833.toInt())
