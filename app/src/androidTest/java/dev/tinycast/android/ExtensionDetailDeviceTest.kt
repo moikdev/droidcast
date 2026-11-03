@@ -535,6 +535,24 @@ class ExtensionDetailDeviceTest {
         val listener = requireNotNull(annotation.linkInteractionListener)
         return { listener.onClick(annotation) }
     }
+    private fun touchMarkdownLink() {
+        val target = show("Owned paragraph link"); val node = target.fetchSemanticsNode()
+        val text = node.config[SemanticsProperties.Text].single()
+        val range = text.getLinkAnnotations(0, text.length).single()
+        val index = (range.start until range.end).first { !text.text[it].isWhitespace() }
+        val layouts = mutableListOf<TextLayoutResult>()
+        compose.runOnUiThread { assertTrue(requireNotNull(node.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        val layout = layouts.single(); assertEquals(text, layout.layoutInput.text)
+        val glyph = layout.getBoundingBox(index); val point = glyph.center
+        val origin = compose.runOnUiThread { node.positionInRoot }
+        val rootPoint = Offset(origin.x + point.x, origin.y + point.y)
+        assertTrue("The actual linked glyph must be visible before its pointer tap", node.boundsInRoot.contains(rootPoint))
+        record.put("markdown_link_pointer", JSONObject().put("range_start", range.start).put("range_end", range.end).put("glyph_index", index)
+            .put("glyph_box", JSONArray(listOf(glyph.left, glyph.top, glyph.right, glyph.bottom)))
+            .put("local_point", JSONArray(listOf(point.x, point.y))).put("root_point", JSONArray(listOf(rootPoint.x, rootPoint.y)))
+            .put("clipped_text_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom))))
+        target.performTouchInput { click(point) }; compose.waitForIdle()
+    }
     private fun structuredLinkCallback(): () -> Boolean = requireNotNull(show("Owned link standalone").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
     private fun staleLinks(phase: String, markdown: () -> Unit, metadata: () -> Boolean) {
         val marker = "Owned inactive link $phase"
@@ -544,7 +562,7 @@ class ExtensionDetailDeviceTest {
         receipts.put(JSONObject().put("phase", phase).put("markdown_and_metadata_rejected", true).put("unchanged_status", marker))
     }
     @Test fun markdownAndMetadataLinksRejectReplacedHiddenAndClosedOwners() {
-        launch("links"); touch(show("Owned paragraph link"))
+        launch("links"); touchMarkdownLink()
         assertEquals("This link is unavailable on Android", catalog.runtimeStatus); capture("explicit-markdown-link-outcome")
         val originalMarkdown = markdownLinkCallback(); val originalMetadata = structuredLinkCallback()
         patch("new-document", JSONObject().put("document", "B")); staleLinks("changed-document", originalMarkdown, originalMetadata)
