@@ -1889,8 +1889,9 @@ class ExtensionFormDeviceTest {
         compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected["sha256"])) }
         dismissClipboardForEvidence(); capture("checksum-sha256-copied")
         touch("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement("Back to Form")
-        compose.onNode(hasText("Back to Form") and hasAnyAncestor(hasTestTag("inline-menu")), useUnmergedTree = true)
-            .performScrollTo().performTouchInput { click(center) }
+        // Match the actual second action, not the search editor containing
+        // the same query text.
+        touch("extension-action-1")
         compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
         assertTrue(typedFileValues("file").isEmpty()); assertArrayEquals(bytes, File(imported).readBytes())
         capture("checksum-returned-form"); frozenTypedCallerReturn(); assertArrayEquals(bytes, File(imported).readBytes())
@@ -2308,6 +2309,7 @@ class ExtensionFormDeviceTest {
                 .put("pending_owner_validated", true).put("partial_copy_bytes", partial.length()).put("owned_clipboard_mutation_verified", true)
                 .put("instrumentation_pid", android.os.Process.myPid()).put("owner_nonce", expectedOwner)
             capture("file-blocked-worker-before-death")
+            assertTrue(copying.isActive); assertTrue(pending.exists())
             val name = "form-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json"
             java.io.FileOutputStream(File(evidence, name)).use { output -> output.write(record.toString(2).toByteArray()); output.fd.sync() }
             android.os.Process.killProcess(android.os.Process.myPid())
