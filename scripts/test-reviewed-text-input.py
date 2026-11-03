@@ -106,7 +106,7 @@ def main():
         return raw(*values).decode().strip()
 
     def absent(path):
-        result = subprocess.run(adb + ['shell', 'run-as', app, 'test', '-e', path], capture_output=True)
+        result = subprocess.run(adb + ['shell', 'run-as', app, 'test', '-e', path], capture_output=True, timeout=60)
         return private_path_absent(result)
 
     require(text('shell', 'getprop', 'ro.kernel.qemu') == '1', 'Refuse physical devices')
