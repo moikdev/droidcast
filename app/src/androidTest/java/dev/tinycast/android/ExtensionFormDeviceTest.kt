@@ -335,6 +335,24 @@ class ExtensionFormDeviceTest {
             .put("font_scale", context.resources.configuration.fontScale).put("launch_epoch", epoch)
             .put("ime_visible", ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true)
             .put("synchronization", "Committed semantics and two display frames; hierarchy before PNG; stable runtime tree")
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            val dialogs = JSONArray()
+            compose.activityRule.scenario.onActivity {
+                fun visit(view: android.view.View) {
+                    if (view is androidx.compose.ui.window.DialogWindowProvider) {
+                        val window = view.window
+                        val insets = ViewCompat.getRootWindowInsets(window.decorView)
+                        dialogs.put(JSONObject().put("dim_enabled", (window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND) != 0)
+                            .put("dim_amount", window.attributes.dimAmount.toDouble())
+                            .put("ime_visible", insets?.isVisible(WindowInsetsCompat.Type.ime()) == true)
+                            .put("width_px", window.decorView.width).put("height_px", window.decorView.height))
+                    }
+                    if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+                }
+                android.view.inspector.WindowInspector.getGlobalWindowViews().forEach(::visit)
+            }
+            frame.put("process_dialog_windows", dialogs)
+        }
         ownedPublication()?.let { publication ->
             val composed = compose.onNodeWithText(publication.marker, useUnmergedTree = true).fetchSemanticsNode()
             val text = composed.config[SemanticsProperties.Text].joinToString("") { it.text }
