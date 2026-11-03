@@ -1293,6 +1293,13 @@ class ExtensionFormDeviceTest {
     @Test fun filePickerErrorDisablesSubmit() = typedErrorDisablesSubmit("Form.FilePicker", "files")
 
     private fun typedDateIso(): String? = field("Form.DatePicker", "date").props().optJSONObject("value")?.getString("\$date")
+    private fun increaseTypedDateMinute(): String {
+        val before = java.time.Instant.parse(requireNotNull(typedDateIso())).atZone(java.time.ZoneId.systemDefault())
+        val minute = (before.minute + 1) % 60
+        compose.onNodeWithTag("extension-date-time-plus-date-minute").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals(minute.toString().padStart(2, '0'))
+        return java.time.format.DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(before.withMinute(minute).toInstant())
+    }
     private fun submittedTypedDate(expected: String?) {
         touch("extension-primary")
         compose.waitUntil(5000) { probe().getInt("submits") == 1 }
@@ -1316,8 +1323,7 @@ class ExtensionFormDeviceTest {
         launch("typed-controls"); val before = typedDateIso()
         touch("extension-date-date")
         compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
-        compose.onNodeWithTag("extension-date-time-plus-date-minute").performScrollTo().performTouchInput { click(center) }
-        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals("35")
+        increaseTypedDateMinute()
         capture("date-draft-before-cancel")
         compose.onNodeWithTag("extension-date-cancel-date").performTouchInput { click(center) }
         compose.waitForIdle(); compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
@@ -1328,11 +1334,9 @@ class ExtensionFormDeviceTest {
     @Test fun datePickerConfirmsAnEditedTimeAndSubmitsItsExactInstant() {
         launch("typed-controls"); touch("extension-date-date")
         compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
-        compose.onNodeWithTag("extension-date-time-plus-date-minute").performScrollTo().performTouchInput { click(center) }
-        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals("35")
+        val expected = increaseTypedDateMinute()
         capture("date-draft-before-confirm")
         compose.onNodeWithTag("extension-date-confirm-date").performTouchInput { click(center) }
-        val expected = "2024-02-29T12:35:00.000Z"
         compose.waitUntil(5000) { typedDateIso() == expected }
         compose.waitForIdle(); compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
         capture("date-confirmed")
