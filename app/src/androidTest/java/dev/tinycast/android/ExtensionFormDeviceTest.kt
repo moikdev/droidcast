@@ -280,11 +280,22 @@ class ExtensionFormDeviceTest {
         device.dumpWindowHierarchy(File(evidence, "$name.xml")); assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
         sensitiveValue?.let { secret -> assertFalse("Native hierarchy must not expose masked input", File(evidence, "$name.xml").readText().contains(secret)) }
         assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame", tree == catalog.runtimeTree?.toString())
-        File(evidence, "$name-frame.json").writeText(JSONObject().put("scope", record.getString("scope")).put("phase", phase)
+        val frame = JSONObject().put("scope", record.getString("scope")).put("phase", phase)
             .put("font_scale", context.resources.configuration.fontScale).put("launch_epoch", epoch)
             .put("ime_visible", ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true)
             .put("synchronization", "Committed semantics and two display frames; hierarchy before PNG; stable runtime tree")
-            .toString(2))
+        ownedPublication()?.let { publication ->
+            val composed = compose.onNodeWithText(publication.marker, useUnmergedTree = true).fetchSemanticsNode()
+            val text = composed.config[SemanticsProperties.Text].joinToString("") { it.text }
+            assertEquals(publication.marker, text)
+            val nameEditor = compose.onNodeWithTag("extension-field-name").fetchSemanticsNode()
+            val selection = nameEditor.config[SemanticsProperties.TextSelectionRange]
+            frame.put("owned_publication", publication.json().put("composed_marker", text).put("composed_semantics_id", composed.id))
+                .put("name_editor_observation", JSONObject().put("selection_start", selection.start).put("selection_end", selection.end)
+                    .put("text_length", nameEditor.config[SemanticsProperties.EditableText].text.length))
+        }
+        assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame receipt", tree == catalog.runtimeTree?.toString())
+        File(evidence, "$name-frame.json").writeText(frame.toString(2))
     }
     @After fun restore() {
         if (!prepared) return
@@ -733,6 +744,39 @@ class ExtensionFormDeviceTest {
             .put("queued_edits_run_back_rejected", true).put("passed", true)
     }
 
+    private data class OwnedPublication(val rootId: String, val counter: Int) {
+        val marker get() = "Owned render $counter"
+        fun json() = JSONObject().put("root_id", rootId).put("counter", counter).put("marker", marker)
+    }
+    private fun ownedPublication(): OwnedPublication? {
+        val root = activeRoot(catalog.runtimeTree)?.takeIf { it.optString("type") == "Form" } ?: return null
+        val counters = root.nodes("Form.Description").mapNotNull {
+            Regex("Owned render (\d+)").matchEntire(it.props().optString("text"))?.groupValues?.get(1)?.toIntOrNull()
+        }
+        return counters.singleOrNull()?.let { OwnedPublication(root.optString("id"), it) }
+    }
+    private fun advanceOwnedPublication(phase: String): OwnedPublication {
+        val before = requireNotNull(ownedPublication()) { "Owned native publication marker is missing or ambiguous" }
+        val expected = before.counter + 1
+        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        // JavaScript evaluation completion does not acknowledge the async
+        // AndroidHost.render delivery. Observe its actual native tree first.
+        compose.waitUntil(5000) {
+            ownedPublication()?.let { it.rootId == before.rootId && it.counter == expected } == true
+        }
+        compose.waitForIdle()
+        val marker = "Owned render $expected"
+        val composed = compose.onNodeWithText(marker, useUnmergedTree = true).fetchSemanticsNode()
+        val composedText = composed.config[SemanticsProperties.Text].joinToString("") { it.text }
+        assertEquals(marker, composedText)
+        val observed = requireNotNull(ownedPublication())
+        assertEquals(before.rootId, observed.rootId); assertEquals(expected, observed.counter)
+        val witnesses = record.optJSONArray("publication_witnesses") ?: JSONArray().also { record.put("publication_witnesses", it) }
+        witnesses.put(JSONObject().put("phase", phase).put("before_counter", before.counter).put("expected_counter", expected)
+            .put("observed_native", observed.json()).put("composed_marker", composedText).put("composed_semantics_id", composed.id)
+            .put("native_delivery_and_compose_consumption_observed", true))
+        return observed
+    }
     private fun evaluateOwned(script: String) {
         val engine = engine()
         val done = CountDownLatch(1)
@@ -751,10 +795,17 @@ class ExtensionFormDeviceTest {
         ime(false)
         compose.onNodeWithTag("extension-field-name").performTextInputSelection(TextRange(2, 5))
         compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
-        record.put("controlled_selection_before_publication", JSONArray(listOf(2, 5)))
-        evaluateOwned("globalThis.__bumpOwnedForm();true")
-        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
-        record.put("controlled_selection_after_publication", JSONArray(listOf(2, 5)))
+        val selectedBefore = compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        record.put("controlled_selection_before_publication", JSONArray(listOf(selectedBefore.start, selectedBefore.end)))
+        advanceOwnedPublication("controlled-selection")
+        val nameEditor = compose.onNodeWithTag("extension-field-name")
+        nameEditor.assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
+        nameEditor.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(original)))
+        assertEquals(original, field("Form.TextField", "name").props().optString("value")); assertFalse(imeVisible())
+        capture("controlled-selection-published")
+        val selectedAfter = nameEditor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        assertEquals(TextRange(2, 5), selectedAfter)
+        record.put("controlled_selection_after_publication", JSONArray(listOf(selectedAfter.start, selectedAfter.end)))
             .put("selection_method", "Exact programmatic range before/after unrelated React publication with Gboard hidden; live-IME selection is a separate pointer test")
         assertEquals(1, probe().getJSONObject("focus").getInt("name"))
         var input: android.view.inputmethod.InputConnection? = null
@@ -803,8 +854,10 @@ class ExtensionFormDeviceTest {
         val uncontrolled = "Owned uncontrolled 日本 🌱"
         compose.onNodeWithTag("extension-field-uncontrolled").performTextReplacement(uncontrolled)
         compose.waitUntil(5000) { field("Form.TextField", "uncontrolled").props().optString("value") == uncontrolled }
-        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        advanceOwnedPublication("uncontrolled-value")
         compose.onNodeWithTag("extension-field-uncontrolled").assertTextEquals(uncontrolled)
+        assertEquals(uncontrolled, field("Form.TextField", "uncontrolled").props().optString("value"))
+        record.put("uncontrolled_value_preserved_after_witnessed_publication", true)
         touch("extension-checkbox-enabled")
         compose.waitUntil(5000) { field("Form.Checkbox", "enabled").props().optBoolean("value") }
         openChoice()
@@ -855,12 +908,15 @@ class ExtensionFormDeviceTest {
         val before = editor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
         assertEquals("Owned", value.substring(before.min, before.max))
         assertTrue(imeVisible()); capture("live-ime-selection-before")
-        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        advanceOwnedPublication("live-ime-pointer-selection")
         editor.assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, before))
+        editor.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)))
         assertTrue(imeVisible()); assertEquals(value, field("Form.TextField", "name").props().optString("value"))
         capture("live-ime-selection-after")
+        val after = editor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        assertEquals(before, after); assertTrue(imeVisible())
         record.put("pointer_selection_before_publication", JSONArray(listOf(before.start, before.end)))
-            .put("pointer_selection_after_publication", JSONArray(listOf(before.start, before.end)))
+            .put("pointer_selection_after_publication", JSONArray(listOf(after.start, after.end)))
             .put("selection_method", "Actual long-press word selection with the live IME visible before/after an unrelated React publication")
             .put("passed", true)
     }
