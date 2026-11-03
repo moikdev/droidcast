@@ -25,6 +25,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import dev.tinycast.android.PaletteTheme
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
@@ -132,7 +133,10 @@ internal fun NativeFormFilePicker(root: JSONObject, field: JSONObject, owner: Fo
                     AndroidFormDocuments(resolver, signal)
                 }
                 operation = request
-                job = scope.launch {
+                // The copy continuation can resume on an I/O worker when the
+                // composition supplies an unconfined effect dispatcher. Native
+                // state and the command's WebView must always run on Main.
+                job = scope.launch(Dispatchers.Main.immediate) {
                     try {
                         withTimeout(30_000) { request.prepare() }
                         request.deliver { paths ->
