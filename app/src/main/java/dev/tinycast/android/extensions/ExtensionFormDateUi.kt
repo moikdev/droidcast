@@ -121,14 +121,15 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
                 }
                 return formDateFromLocal(day, clock, if (allDay) FormDateKind.DATE else FormDateKind.DATE_TIME, zone, initialValue?.offset)
             }
-            Dialog(onDismissRequest = { if (opening === token) opening = null }, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-                FormPickerBackdrop()
-                Surface(Modifier.padding(12.dp).widthIn(max = 560.dp).fillMaxWidth()
+            Dialog(onDismissRequest = { if (opening === token) opening = null },
+                properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
+                FormPickerBackdrop(resizeForIme = true)
+                Surface(Modifier.safeDrawingPadding().padding(12.dp).widthIn(max = 560.dp).fillMaxWidth()
                     .heightIn(max = (LocalConfiguration.current.screenHeightDp - 48).coerceAtLeast(160).dp)
                     .testTag("extension-date-dialog-$id"), shape = MaterialTheme.shapes.extraLarge, color = PaletteTheme.surface) {
                     Column(Modifier.padding(horizontal = 8.dp, vertical = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text(title, fontSize = 18.sp, lineHeight = 26.sp, color = PaletteTheme.ink)
                         Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Text(title, fontSize = 18.sp, lineHeight = 26.sp, color = PaletteTheme.ink)
                             DatePicker(state, title = null, headline = null, modifier = Modifier.fillMaxWidth().testTag("extension-date-calendar-$id"))
                             if (initial.kind == FormDateKind.DATE_TIME) {
                                 ExtensionCheckboxRow("All day", allDay, { allDay = it; message = null },
