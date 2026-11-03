@@ -504,4 +504,66 @@ class ExtensionDetailDeviceTest {
         }
         capture("link-safe-area-verified"); record.put("passed", true)
     }
+    @Test fun entityReferencesKeepParagraphFlowWithoutChangingHardBreaksOrCode() {
+        launch("entity-lines"); capture("entity-before-contract-assertions")
+        record.put("contract_assertions_started", true)
+        assertTrue("Paragraph character references must not synthesize hard line breaks",
+            compose.onAllNodesWithText("Owned entity foo  bar").fetchSemanticsNodes().isNotEmpty())
+        show("Owned entity foo  bar"); capture("entity-paragraph-flow")
+        show("Owned hard first\nOwned hard second"); capture("explicit-hard-lines")
+        show("Owned code first\n\nOwned code third\n"); capture("exact-code-lines")
+        record.put("paragraph_exact_text", "Owned entity foo  bar").put("hard_line_exact_text", "Owned hard first\nOwned hard second")
+            .put("code_exact_text", "Owned code first\n\nOwned code third\n").put("passed", true)
+    }
+    @Test fun retainedMetadataIconUsesTheFreshPublishedImageSource() {
+        launch("metadata-only"); val rootId = activeRoot(catalog.runtimeTree)!!.optString("id")
+        fun icon(color: String): String = "data:image/svg+xml;base64," + Base64.getEncoder().encodeToString(
+            """<svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" fill="$color"/></svg>""".toByteArray())
+        patch("first-metadata-image", JSONObject().put("icon", icon("#228833")))
+        imagePixel("Metadata icon", 0xff228833.toInt()); capture("metadata-green-image")
+        patch("replacement-metadata-image", JSONObject().put("icon", icon("#ff0000")))
+        assertEquals(rootId, activeRoot(catalog.runtimeTree)!!.optString("id"))
+        assertEquals("", activeRoot(catalog.runtimeTree)!!.props().optString("markdown"))
+        imagePixel("Metadata icon", 0xffff0000.toInt()); capture("metadata-red-image")
+        record.put("same_root_and_empty_markdown_preserved", true)
+            .put("image_transition_scope", "Fresh output pixels after witnessed publication and ready state; not a claim about every transient display frame")
+            .put("passed", true)
+    }
+    private fun markdownLinkCallback(): () -> Unit {
+        val text = show("Owned paragraph link").fetchSemanticsNode().config[SemanticsProperties.Text].single()
+        val annotation = text.getLinkAnnotations(0, text.length).single().item as LinkAnnotation.Clickable
+        val listener = requireNotNull(annotation.linkInteractionListener)
+        return { listener.onClick(annotation) }
+    }
+    private fun structuredLinkCallback(): () -> Boolean = requireNotNull(show("Owned link standalone").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+    private fun staleLinks(phase: String, markdown: () -> Unit, metadata: () -> Boolean) {
+        val marker = "Owned inactive link $phase"
+        compose.runOnUiThread { catalog.runtimeStatus = marker; markdown(); metadata() }
+        assertEquals(marker, catalog.runtimeStatus)
+        val receipts = record.optJSONArray("stale_link_callbacks") ?: JSONArray().also { record.put("stale_link_callbacks", it) }
+        receipts.put(JSONObject().put("phase", phase).put("markdown_and_metadata_rejected", true).put("unchanged_status", marker))
+    }
+    @Test fun markdownAndMetadataLinksRejectReplacedHiddenAndClosedOwners() {
+        launch("links"); touch(show("Owned paragraph link"))
+        assertEquals("This link is unavailable on Android", catalog.runtimeStatus); capture("explicit-markdown-link-outcome")
+        val originalMarkdown = markdownLinkCallback(); val originalMetadata = structuredLinkCallback()
+        patch("new-document", JSONObject().put("document", "B")); staleLinks("changed-document", originalMarkdown, originalMetadata)
+        val beforeSetupMarkdown = markdownLinkCallback(); val beforeSetupMetadata = structuredLinkCallback()
+        touch(show("Preferences")); assertEquals("extension-setup", compose.activity.store.dialog)
+        staleLinks("preferences-hidden", beforeSetupMarkdown, beforeSetupMetadata)
+        UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack(); compose.waitForIdle()
+        assertEquals("extension-run", compose.activity.store.dialog)
+        staleLinks("reopened-slot", beforeSetupMarkdown, beforeSetupMetadata)
+        val replacedMarkdown = markdownLinkCallback(); val replacedMetadata = structuredLinkCallback()
+        val oldRoot = activeRoot(catalog.runtimeTree)!!.optString("id")
+        patch("new-root", JSONObject().put("rootKey", 2)); assertNotEquals(oldRoot, activeRoot(catalog.runtimeTree)!!.optString("id"))
+        staleLinks("replacement-root", replacedMarkdown, replacedMetadata)
+        val closingMarkdown = markdownLinkCallback(); val closingMetadata = structuredLinkCallback()
+        compose.activityRule.scenario.onActivity {
+            it.store.extensions.close(); catalog.runtimeStatus = "Owned closed link"; closingMarkdown(); closingMetadata()
+            assertEquals("Owned closed link", catalog.runtimeStatus); it.store.dialog = null
+        }
+        launch("links"); staleLinks("successor-session", closingMarkdown, closingMetadata)
+        capture("successor-link-owner"); record.put("closed_before_compose_disposal_rejected", true).put("passed", true)
+    }
 }
