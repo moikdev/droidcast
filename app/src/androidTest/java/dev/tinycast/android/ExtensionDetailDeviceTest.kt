@@ -703,7 +703,7 @@ class ExtensionDetailDeviceTest {
         show("3."); show("Owned ordered item"); show("Owned nested item"); capture("native-lists")
         show("Owned quote café 日本"); show("Owned second quotation"); capture("native-quotations")
         show("Owned secondary heading").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
-        show("Owned gallery final paragraph"); capture("native-gallery-destination")
+        show("Owned gallery final paragraph."); capture("native-gallery-destination")
         record.put("native_lists_quotes_escapes_marks_verified", true).put("passed", true)
     }
     @Test fun imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument() {
