@@ -1424,14 +1424,19 @@ class ExtensionFormDeviceTest {
         // folder. No app-side URI injection or ActivityMonitor supplies results.
         val drawer = device.wait(Until.findObject(By.desc("Show roots")), 5000)
         if (drawer != null) drawer.click()
-        var root = device.findObject(By.text("Droidcast owned files"))
+        device.waitForIdle(1500)
+        // The toolbar and breadcrumb repeat the provider title. Only the
+        // native drawer row can choose its root; never tap a matching header.
+        val rootSelector = By.res("android", "title").text("Droidcast owned files")
+        var root = device.wait(Until.findObject(rootSelector), 5000)
         repeat(5) {
             if (root == null) {
                 device.findObject(By.res(pickerPackage, "roots_list"))?.scroll(Direction.DOWN, .7f)
-                root = device.findObject(By.text("Droidcast owned files"))
+                root = device.findObject(rootSelector)
             }
         }
         requireNotNull(root) { "The leased provider root must be available" }.click()
+        assertTrue("The root drawer must finish closing", device.wait(Until.gone(rootSelector), 5000))
         assertNotNull(device.wait(Until.findObject(By.text("café 日本.txt")), 10000))
         record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
             .put("system_picker_path", "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor")
@@ -1552,9 +1557,10 @@ class ExtensionFormDeviceTest {
         assertNotNull(device.wait(Until.findObject(By.text("nested.txt")), 10000))
         val use = device.wait(Until.findObject(By.text(java.util.regex.Pattern.compile("(?i)use this folder"))), 5000)
         requireNotNull(use).click()
-        val allow = device.wait(Until.findObject(By.text(java.util.regex.Pattern.compile("(?i)allow"))), 5000)
+        val allowSelector = By.text(java.util.regex.Pattern.compile("(?i)allow"))
+        assertTrue(device.wait(Until.hasObject(allowSelector), 5000))
         captureDocumentPicker("android-folder-permission", device)
-        requireNotNull(allow).click()
+        requireNotNull(device.findObject(allowSelector)).click()
         val path = awaitImportedFiles(1).single(); assertTrue(File(path).isDirectory)
         assertEquals("Owned folder", File(path).name)
         assertArrayEquals("Owned nested café 日本 🌱\n".toByteArray(), File(path, "nested.txt").readBytes())
@@ -1567,9 +1573,10 @@ class ExtensionFormDeviceTest {
         val device = openOwnedDocuments()
         requireNotNull(device.findObject(By.text("café 日本.txt"))).longClick()
         requireNotNull(device.findObject(By.text("owned-bytes.bin"))).click()
-        val open = device.wait(Until.findObject(By.text(java.util.regex.Pattern.compile("(?i)open"))), 5000)
+        val openSelector = By.text(java.util.regex.Pattern.compile("(?i)open"))
+        assertTrue(device.wait(Until.hasObject(openSelector), 5000))
         captureDocumentPicker("android-two-documents-selected", device)
-        requireNotNull(open).click()
+        requireNotNull(device.findObject(openSelector)).click()
         val paths = awaitImportedFiles(2)
         assertEquals(setOf("café 日本.txt", "owned-bytes.bin"), paths.map { File(it).name }.toSet())
         capture("file-two-imported"); touch("extension-files-done-files")
