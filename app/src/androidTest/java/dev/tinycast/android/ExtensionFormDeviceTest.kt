@@ -1444,7 +1444,7 @@ class ExtensionFormDeviceTest {
             clickDocumentResource(device, "sub_menu_list")
             assertTrue(device.wait(Until.hasObject(By.res(pickerPackage, "sub_menu_grid")), 5000))
         }
-        assertNotNull(device.wait(Until.findObject(By.text("café 日本.txt")), 10000))
+        assertTrue(documentRow(device, "café 日本.txt").waitForExists(5000))
         record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
             .put("system_picker_path", "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor")
         captureDocumentPicker("android-picker-owned-root", device)
@@ -1467,9 +1467,15 @@ class ExtensionFormDeviceTest {
         val selector = UiSelector().packageName(record.getString("system_picker_package")).let {
             if (pattern) it.textMatches(text) else it.text(text)
         }
-        val item = device.findObject(selector)
+        val item = if (pattern) device.findObject(selector) else documentRow(device, text)
         assertTrue("The exact system-picker item must be available", item.waitForExists(5000)); assertTrue(item.isEnabled)
         recordPickerAcknowledgement(text, long, if (long) item.longClick() else item.click())
+    }
+    private fun documentRow(device: UiDevice, title: String): androidx.test.uiautomator.UiObject {
+        val pkg = record.getString("system_picker_package")
+        val list = UiScrollable(UiSelector().packageName(pkg).resourceId(pkg + ":id/dir_list"))
+        assertTrue("The actual document list must be available", list.waitForExists(5000))
+        return list.getChildByText(UiSelector().className("android.widget.TextView").resourceId("android:id/title"), title, true)
     }
     private fun clickDocumentResource(device: UiDevice, id: String) {
         val pkg = record.getString("system_picker_package")
@@ -1583,7 +1589,7 @@ class ExtensionFormDeviceTest {
         launch("typed-file-folder-workflow")
         val device = openOwnedDocuments(true)
         clickDocumentText(device, "Owned folder")
-        assertNotNull(device.wait(Until.findObject(By.text("nested.txt")), 10000))
+        assertTrue(documentRow(device, "nested.txt").waitForExists(5000))
         clickDocumentText(device, "(?i)use this folder", pattern = true)
         val allowSelector = By.text(java.util.regex.Pattern.compile("(?i)allow"))
         assertTrue(device.wait(Until.hasObject(allowSelector), 5000))
