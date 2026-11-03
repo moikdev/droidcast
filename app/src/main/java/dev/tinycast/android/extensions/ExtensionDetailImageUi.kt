@@ -37,7 +37,7 @@ private data class DetailImageResult(val source: String, val bitmap: Bitmap? = n
 /** Offscreen/stopped views retain their aspect ratio, not decoded bitmap references or jobs. */
 @Composable
 internal fun NativeDetailImage(source: String, alternative: String, images: ExtensionDetailImages,
-    modifier: Modifier = Modifier, inline: Boolean = false, tint: Color? = null) {
+    modifier: Modifier = Modifier, inline: Boolean = false, tint: Color? = null, information: String? = null) {
     val request = remember(source) { try { detailImageRequest(source) } catch (_: Exception) { null } }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     var started by remember(lifecycle) { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) }
@@ -62,7 +62,8 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     val result = observed.takeIf { it.source == source } ?: DetailImageResult(source)
     val label = alternative.ifBlank { "Image" }
     val color = tint ?: request?.tint?.let(::metadataTint)
-    BoxWithConstraints(modifier.onGloballyPositioned { bounds ->
+    val content: @Composable (Modifier) -> Unit = { imageModifier ->
+    BoxWithConstraints(imageModifier.onGloballyPositioned { bounds ->
         val clipped = bounds.boundsInWindow(); visible = clipped.width > 0f && clipped.height > 0f
     }.testTag("extension-detail-image").semantics {
         contentDescription = label
@@ -80,6 +81,15 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
             Text(label, color = PaletteTheme.ink, fontSize = 14.sp, lineHeight = 22.sp)
             if (result.failed) Text("Image unavailable", color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
             else LinearProgressIndicator(Modifier.widthIn(max = 160.dp).fillMaxWidth())
+        }
+    }
+    }
+    if (information.isNullOrBlank()) content(modifier)
+    else key(images, source, information) {
+        Column(modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            val bounds = if (inline) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
+            DetailImageInformation(information, visible && started, bounds) { content(bounds) }
+            if (!inline) Text(information, color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp)
         }
     }
 }

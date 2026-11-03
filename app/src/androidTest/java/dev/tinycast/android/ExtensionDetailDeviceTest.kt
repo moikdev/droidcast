@@ -179,6 +179,10 @@ class ExtensionDetailDeviceTest {
 
             ## Owned secondary heading
 
+            | Owned image column | Owned text column |
+            | --- | --- |
+            | ![Owned table image](owned.svg) | Owned table image neighbor |
+
             Owned gallery final paragraph.
         """.trimIndent()
         val information = """
@@ -703,6 +707,7 @@ class ExtensionDetailDeviceTest {
         show("3."); show("Owned ordered item"); show("Owned nested item"); capture("native-lists")
         show("Owned quote café 日本"); show("Owned second quotation"); capture("native-quotations")
         show("Owned secondary heading").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
+        imagePixel("Owned table image", 0xff228833.toInt()); show("Owned table image neighbor"); capture("native-table-image")
         show("Owned gallery final paragraph."); capture("native-gallery-destination")
         record.put("native_lists_quotes_escapes_marks_verified", true).put("passed", true)
     }

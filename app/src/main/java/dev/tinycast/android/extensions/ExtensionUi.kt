@@ -133,10 +133,12 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
 private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier,
                             compact: Boolean = false, onEscape: () -> Unit = close, headerless: Boolean = false,
                             headerActions: (@Composable RowScope.() -> Unit)? = null,
+                            keys: ((KeyEvent, Boolean) -> Boolean)? = null,
                             content: @Composable ColumnScope.() -> Unit) {
     val escapePresses = remember { mutableMapOf<Int, Long>() }
     val focus = remember { FocusRequester() }
     var hasFocus by remember { mutableStateOf(false) }
+    var directlyFocused by remember { mutableStateOf(false) }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val menus = LocalPaletteMenus.current
     val menuOpen = menus.current != null
@@ -144,10 +146,10 @@ private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, 
         if (windowFocused && !hasFocus && !menuOpen) { withFrameNanos { }; if (!hasFocus && menus.current == null) focus.requestFocus() }
         if (!windowFocused) escapePresses.clear()
     }
-    dev.tinycast.android.PaletteFrame(onEscape, modifier.focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus }
+    dev.tinycast.android.PaletteFrame(onEscape, modifier.focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus; directlyFocused = it.isFocused }
         .focusable().onPreviewKeyEvent {
             val event = it.nativeKeyEvent
-            if (event.keyCode != android.view.KeyEvent.KEYCODE_ESCAPE) false
+            if (event.keyCode != android.view.KeyEvent.KEYCODE_ESCAPE) keys?.invoke(it, directlyFocused) ?: false
             else if (event.action == android.view.KeyEvent.ACTION_DOWN) {
                 if (event.repeatCount == 0) { escapePresses[event.deviceId] = event.downTime; onEscape() }; true
             } else if (escapePresses[event.deviceId] == event.downTime) { escapePresses.remove(event.deviceId); true } else false
@@ -168,7 +170,7 @@ private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue) -> Unit, placeholder: String, tag: String,
-                                  back: () -> Unit, trailing: @Composable RowScope.() -> Unit = {}) {
+                                  back: () -> Unit, keys: ((KeyEvent) -> Boolean)? = null, trailing: @Composable RowScope.() -> Unit = {}) {
     val focus = remember { FocusRequester() }
     val wide = dev.tinycast.android.LocalPaletteWide.current
     val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
@@ -190,7 +192,8 @@ private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue
         Spacer(Modifier.width(2.dp))
         BasicTextField(value,change,singleLine=true,textStyle=TextStyle(color=ink,fontSize=20.sp,lineHeight=26.sp),cursorBrush=SolidColor(PaletteTheme.accent),
             keyboardOptions=KeyboardOptions(showKeyboardOnFocus=!wide || requested),
-            modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged{focused=it.isFocused}.testTag(tag),
+            modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged{focused=it.isFocused}
+                .onPreviewKeyEvent { keys?.invoke(it) ?: false }.testTag(tag),
             decorationBox={inner->Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(value.text.isEmpty())Text(placeholder,color=muted,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
         if(wide)IconButton(onClick={requested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",muted,16)}
         trailing()
@@ -514,18 +517,25 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     LaunchedEffect(root?.optString("id"), item?.props()?.optString("id"), root?.handle("onSelectionChange"), failed) {
         if (!failed) notifyCurrentSelection()
     }
-    ExtensionWindow((root?.props()?.opt("navigationTitle") as? String)?.takeIf { it.isNotBlank() } ?: command.title,extension.listing.title,close,Modifier.onPreviewKeyEvent{
-        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else {
-        val eventRows=if(it.key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
+    fun defaultKeys(event: KeyEvent): Boolean = with(event) {
+        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || type!=KeyEventType.KeyDown)false else {
+        val eventRows=if(key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
         when{
-            it.key==Key.K&&it.isCtrlPressed->{menu=true;true}
-            it.key==Key.DirectionDown&&eventRows.isNotEmpty()->{moveSelection(1);true}
-            it.key==Key.DirectionUp&&eventRows.isNotEmpty()->{moveSelection(-1);true}
-            it.key in listOf(Key.Enter, Key.NumPadEnter)&&root?.optString("type")!="Form"->{activateCurrent();true}
+            key==Key.K&&isCtrlPressed->{menu=true;true}
+            key==Key.DirectionDown&&eventRows.isNotEmpty()->{moveSelection(1);true}
+            key==Key.DirectionUp&&eventRows.isNotEmpty()->{moveSelection(-1);true}
+            key in listOf(Key.Enter, Key.NumPadEnter)&&root?.optString("type")!="Form"->{activateCurrent();true}
             else->false
         }
         }
-    },compact=true,onEscape=::back,headerless=!failed && root?.optString("type") in listOf("Grid","List"),headerActions={
+    }
+    ExtensionWindow((root?.props()?.opt("navigationTitle") as? String)?.takeIf { it.isNotBlank() } ?: command.title,extension.listing.title,close,
+        compact=true,onEscape=::back,headerless=!failed && root?.optString("type") in listOf("Grid","List"),
+        keys={ event, frameFocused ->
+            // Descendant buttons and links own their normal Enter/arrow keys.
+            // Search receives the same list navigation explicitly below.
+            if (frameFocused || (event.key == Key.K && event.isCtrlPressed)) defaultKeys(event) else false
+        },headerActions={
         if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
         else {
             if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
@@ -558,7 +568,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                     val current = liveRoot()?.takeIf { it.optString("type") == "List" && it.optString("id") == root.optString("id") }
                     if(current != null && next.text != query){selected=0;listState.detailRowId=null;runtime.dispatch(current.handle("onSearchTextChange"),JSONArray().put(next.text))}
                     listSearch=next
-                },root.props().optString("searchBarPlaceholder","Search extension…"),"extension-search",::back) {
+                },root.props().optString("searchBarPlaceholder","Search extension…"),"extension-search",::back,keys=::defaultKeys) {
                     IconButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"},modifier=Modifier.size(48.dp).semantics{contentDescription="Extension preferences"}){Glyph("settings",muted,16)}
                 }
                 })

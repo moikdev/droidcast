@@ -103,7 +103,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                     val click = if (link == null || inline) Modifier else Modifier.heightIn(min = 48.dp).clickable(role = Role.Button) {
                         openMarkdown(link)
                     }
-                    NativeDetailImage(picture.source, picture.alternative, images, imageModifier.then(click), inline)
+                    NativeDetailImage(picture.source, picture.alternative, images, imageModifier.then(click), inline, information = picture.title)
                 })
     }
     val information: @Composable ColumnScope.() -> Unit = {
@@ -119,26 +119,32 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                                 val text = metadataText(props.opt("text"))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                                     props.opt("icon")?.takeIf { it != JSONObject.NULL }?.let { NativeDetailIcon(it, images) }
-                                    if (text.isNotEmpty()) Text(text, color = metadataTint((props.opt("text") as? JSONObject)?.opt("color")), fontSize = 14.sp, lineHeight = 22.sp,
+                                    Text(text.ifBlank { "Not provided" }, color = if (text.isBlank()) PaletteTheme.secondary else metadataTint((props.opt("text") as? JSONObject)?.opt("color")), fontSize = 14.sp, lineHeight = 22.sp,
                                         modifier = Modifier.weight(1f))
                                 }
                             }
-                            "Link" -> TextButton(onClick = {
+                            "Link" -> {
+                                val available = !(props.opt("target") as? String).isNullOrBlank()
+                                val label = metadataText(props.opt("text")).ifBlank { if (available) "Open link" else "Link unavailable" }
+                                TextButton(enabled = available, onClick = {
                                 liveMetadata(node, listOf("title", "text", "target"))?.props()?.opt("target")?.let { target ->
                                     if (target is String) activateLink(target)
                                 }
                             }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
-                                .semantics { contentDescription = "Open link: ${metadataText(props.opt("text"))}" },
+                                .semantics { contentDescription = if (available) "Open link: $label" else label },
                                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)) {
                                 Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                     if (title.isNotEmpty()) Text(title, color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
-                                    Text(metadataText(props.opt("text")), color = PaletteTheme.ink, textDecoration = TextDecoration.Underline,
+                                    Text(label, color = if (available) PaletteTheme.ink else PaletteTheme.secondary,
+                                        textDecoration = if (available) TextDecoration.Underline else null,
                                         fontSize = 14.sp, lineHeight = 22.sp)
                                 }
+                            }
                             }
                             "TagList" -> Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                 if (title.isNotEmpty()) Text(title, color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
                                 val tags = metadataDocument(node.opt("children")).all.filter { metadataKind(it) == "TagList.Item" }
+                                if (tags.isEmpty()) Text("No tags", color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp)
                                 FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                     tags.forEach { tag ->
                                         val text = metadataText(tag.props().opt("text")); val handle = tag.handle("onAction")

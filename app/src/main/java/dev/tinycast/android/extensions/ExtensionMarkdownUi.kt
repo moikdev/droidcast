@@ -108,10 +108,11 @@ private fun MarkdownBlocks(blocks: List<MarkdownBlock>, onLink: (MarkdownLink) -
 @Composable
 private fun MarkdownInlineText(content: List<MarkdownInline>, onLink: (MarkdownLink) -> Unit,
     image: @Composable (MarkdownInline.Picture, Modifier, Boolean) -> Unit, modifier: Modifier = Modifier,
-    size: Int = 14, weight: FontWeight = FontWeight.Normal, alignment: TextAlign = TextAlign.Start) {
+    size: Int = 14, weight: FontWeight = FontWeight.Normal, alignment: TextAlign = TextAlign.Start,
+    allowBlockImages: Boolean = true) {
     // A standalone illustration gets the full document width. Inline illustrations
     // retain a native text placeholder and their accessibility alternative.
-    if (content.isNotEmpty() && content.all { it is MarkdownInline.Picture }) {
+    if (allowBlockImages && content.isNotEmpty() && content.all { it is MarkdownInline.Picture }) {
         Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             content.filterIsInstance<MarkdownInline.Picture>().forEach { image(it, Modifier.fillMaxWidth(), false) }
         }
@@ -169,7 +170,10 @@ private fun MarkdownTable(table: MarkdownBlock.Table, onLink: (MarkdownLink) -> 
                         val cell = cells.getOrNull(column)
                         Box(Modifier.width(width).fillMaxHeight().border(1.dp, PaletteTheme.ink.copy(alpha = .15f)).padding(10.dp)) {
                             MarkdownInlineText(cell?.content.orEmpty(), onLink, image, weight = if (rowIndex == 0) FontWeight.SemiBold else FontWeight.Normal,
-                                alignment = when (cell?.alignment) { MarkdownAlignment.CENTER -> TextAlign.Center; MarkdownAlignment.END -> TextAlign.End; else -> TextAlign.Start })
+                                alignment = when (cell?.alignment) { MarkdownAlignment.CENTER -> TextAlign.Center; MarkdownAlignment.END -> TextAlign.End; else -> TextAlign.Start },
+                                // Table rows ask for intrinsic text height. Keep images in
+                                // fixed text placeholders, outside subcomposed block layout.
+                                allowBlockImages = false)
                         }
                     }
                 }
