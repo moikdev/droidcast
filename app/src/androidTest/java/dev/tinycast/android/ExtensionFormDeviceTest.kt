@@ -141,6 +141,16 @@ class ExtensionFormDeviceTest {
             globalThis.__formProbe={changes:0,focus:{},blur:{},blurLengths:{},dispatches:0};
             const dispatch=globalThis.__tinycast.dispatch;
             globalThis.__tinycast.dispatch=function(...args){globalThis.__ownedFormSession=args[0];globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
+            const hostRender=globalThis.__tinycastHost.render;
+            globalThis.__tinycastHost.render=function(...args){
+              const probe=globalThis.__formProbe,request=probe.typedGateRequest,result=hostRender.apply(this,args);
+              // The Android adapter enqueues its pending-submit drain before
+              // returning from render. This witness runs after that drain.
+              if(request&&!request.witnessQueued){request.witnessQueued=true;Promise.resolve().then(()=>{
+                request.after_host_render_and_submit_drain=true;request.settled_submits=probe.submits;
+              })}
+              return result;
+            };
             function typedFacts(value){
               const date=value instanceof Date,array=Array.isArray(value),valid=date&&!Number.isNaN(value.getTime());
               return {is_date:date,is_null:value===null,is_array:array,array_strings:array&&value.every(item=>typeof item==='string'),
@@ -171,11 +181,12 @@ class ExtensionFormDeviceTest {
                 globalThis.__ownedTypedFiles={setFileEnabled};
                 globalThis.__ownedTyped={setDate,setTags,setOptions,setDateKey,setDefaultDate,setDefaultTags,bump,
                   resetDate:()=>dateRef.current.reset(),resetTags:()=>tagsRef.current.reset(),focusDate:()=>dateRef.current.focus()};
-                const errorId=mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null;
+                const [errorId,setErrorId]=React.useState(mode==='typed-file-error-workflow'?'files':mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null);
                 globalThis.__formProbe.submits ??= 0;
                 const change=(id,setter)=>value=>{
                   const probe=globalThis.__formProbe;probe.changes++;(probe.typedChanges??={})[id]=typedFacts(value);
                   if(mode!=='typed-'+id+'-reject')setter(mode==='typed-date-transform'&&id==='date'&&value?new Date(value.getTime()+30000):value);
+                  if(errorId===id)setErrorId(null);
                   bump();
                 };
                 const error=id=>errorId===id?'Owned typed field must be corrected before submitting.':undefined;
@@ -1887,6 +1898,60 @@ class ExtensionFormDeviceTest {
             .put("actual_sha256_copy_verified", true).put("delivered_private_copy_retained_after_command_close", true)
             .put("test_boundary", "Frozen checksum/hashfile real DocumentsUI import, four actual hashes, exact Copy, actual Back to Form action and caller return; no arbitrary-provider or writeback certification")
             .put("passed", true)
+    }
+    private fun assertTypedErrorBlocksBothGates(id: String, type: String) {
+        assertEquals("Owned typed field must be corrected before submitting.", field(type, id).props().getString("error"))
+        compose.onNodeWithTag("extension-primary").assertIsNotEnabled(); touch("extension-primary")
+        assertEquals(0, probe().getInt("submits"))
+        // A genuine onFocus establishes this fixture's current JS session.
+        // The direct dispatch below deliberately bypasses the native gate.
+        when (id) {
+            "date" -> { touch("extension-date-date"); touch("extension-date-cancel-date") }
+            "tags" -> { touch("extension-tags-tags"); touch("extension-tags-done-tags") }
+            "files" -> { touch("extension-files-files"); touch("extension-files-done-files") }
+        }
+        evaluateOwned("if(typeof globalThis.__ownedFormSession!=='string')throw Error('Owned dispatch session missing');true")
+        val handle = requireNotNull(requireNotNull(activeRoot(catalog.runtimeTree)).actions().first().handle("onAction"))
+        val before = probe().getInt("dispatches")
+        val beforeTree = catalog.runtimeTree; val rootId = requireNotNull(activeRoot(beforeTree)).optString("id")
+        evaluateOwned("globalThis.__formProbe.typedGateRequest={};globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');true")
+        compose.waitUntil(5000) { probe().optJSONObject("typedGateRequest")?.optBoolean("after_host_render_and_submit_drain") == true && catalog.runtimeTree !== beforeTree }
+        assertEquals(rootId, activeRoot(catalog.runtimeTree)?.optString("id")); compose.waitForIdle()
+        submitBarrier(); val observed = probe()
+        assertEquals(before + 1, observed.getInt("dispatches")); assertEquals(0, observed.getInt("submits"))
+        assertEquals(0, observed.getJSONObject("typedGateRequest").getInt("settled_submits"))
+        record.put("typed_error_gates", JSONObject().put("field", id).put("type", type).put("native_disabled_attempt_verified", true)
+            .put("direct_owned_js_request_dispatch_delta", observed.getInt("dispatches") - before).put("blocked_submit_count", observed.getInt("submits"))
+            .put("same_native_root_published", rootId).put("js_post_drain_witness", observed.getJSONObject("typedGateRequest")))
+        capture("typed-$id-both-submit-gates")
+    }
+    private fun awaitTypedErrorCleared(id: String, type: String) {
+        compose.waitUntil(5000) { (field(type, id).props().opt("error") as? String).isNullOrBlank() }
+        compose.onNodeWithTag("extension-primary").assertIsEnabled()
+        compose.onNodeWithTag("extension-field-error-$id").assertDoesNotExist()
+        assertEquals(0, probe().getInt("submits"))
+    }
+    @Test fun correctingTypedDateErrorEnablesExactlyOneNullSubmission() {
+        launch("typed-error-date"); assertTypedErrorBlocksBothGates("date", "Form.DatePicker")
+        touch("extension-date-clear-date"); awaitTypedErrorCleared("date", "Form.DatePicker")
+        assertNull(typedDateIso()); submittedTypedDate(null); capture("typed-date-corrected-submitted")
+        record.put("corrected_submit_count", probe().getInt("submits")).put("passed", true)
+    }
+    @Test fun correctingTypedTagErrorEnablesExactlyOneArraySubmission() {
+        launch("typed-error-tags"); assertTypedErrorBlocksBothGates("tags", "Form.TagPicker")
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); awaitTypedErrorCleared("tags", "Form.TagPicker")
+        submittedTypedTags(listOf("internal-two", "internal-one")); capture("typed-tag-corrected-submitted")
+        record.put("corrected_submit_count", probe().getInt("submits")).put("passed", true)
+    }
+    @Test fun correctingTypedFileErrorImportsBytesAndSubmitsExactlyOnce() {
+        launch("typed-file-error-workflow"); assertTypedErrorBlocksBothGates("files", "Form.FilePicker")
+        val device = openOwnedDocuments(); clickDocumentText(device, "café 日本.txt")
+        awaitImportedFiles(1); touch("extension-files-done-files"); awaitTypedErrorCleared("files", "Form.FilePicker")
+        submitImportedFiles(mapOf("café 日本.txt" to "Owned file café 日本 🌱\n".toByteArray()))
+        assertEquals(1, probe().getInt("submits")); record.put("corrected_submit_count", probe().getInt("submits"))
+        returnFromFileDestination(); record.put("passed", true)
     }
 
     private fun typedFileValues(id: String = "files"): List<String> {
