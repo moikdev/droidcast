@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run owned reviewed-input and native Form workflows on the dedicated emulator.
+"""Run owned reviewed-input, Form and Markdown workflows on the dedicated emulator.
 
 The recovery lease remains held through all shared-state restoration and checks.
 Archives, backups and raw diagnostics stay in the private local output directory.
@@ -61,8 +61,9 @@ def main():
         item.split('#')[0] in ['dev.tinycast.android.ReviewedTextDeviceTest', 'dev.tinycast.android.ReviewedTextLifecycleDeviceTest',
                               'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
                               'dev.tinycast.android.ExtensionFormDeviceTest',
+                              'dev.tinycast.android.ExtensionMarkdownDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
-        for item in args.classes.split(',')), 'Only owned input/Form or shared menu/keyboard regression tests are allowed')
+        for item in args.classes.split(',')), 'Only owned input/Form/Markdown or shared menu/keyboard regression tests are allowed')
     regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
     require(not regression or all(item.split('#')[0] in regression_classes for item in args.classes.split(',')),
