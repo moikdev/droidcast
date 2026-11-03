@@ -144,7 +144,9 @@ class ExtensionFormDeviceTest {
             function typedFacts(value){
               const date=value instanceof Date,array=Array.isArray(value),valid=date&&!Number.isNaN(value.getTime());
               return {is_date:date,is_null:value===null,is_array:array,array_strings:array&&value.every(item=>typeof item==='string'),
-                valid_date:valid,date_iso:valid?value.toISOString():null};
+                valid_date:valid,date_iso:valid?value.toISOString():null,
+                full_day_helper:typeof api.Form.DatePicker.isFullDay==='function',
+                full_day:date&&typeof api.Form.DatePicker.isFullDay==='function'?api.Form.DatePicker.isFullDay(value):null};
             }
             function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe;p.focus[id]=(p.focus[id]||0)+1;(p.focusFacts??={})[id]=typedFacts(e.target.value)},
               onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0;
@@ -1494,14 +1496,21 @@ class ExtensionFormDeviceTest {
 
     @Test fun dateOnlySelectsACalendarDayWithInclusiveDayBounds() {
         launch("typed-date-day"); touch("extension-date-date")
-        val day = compose.onNode(hasText("29") and hasAnyAncestor(hasTestTag("extension-date-calendar-date")))
+        val day = compose.onNode(hasText("Thursday, February 29, 2024") and hasAnyAncestor(hasTestTag("extension-date-calendar-date")))
         day.assertIsEnabled().performScrollTo().performTouchInput { click(center) }
         capture("date-calendar-day-selected")
         val before = typedPublication()
         touch("extension-date-confirm-date"); awaitTypedPublication(before, "calendar day accepted")
         val zone = java.time.ZoneId.systemDefault()
-        val expected = dateIso(java.time.LocalDate.of(2024, 2, 29).atStartOfDay(zone).toInstant())
+        val expected = dateIso(java.time.LocalDate.of(2024, 2, 29).atStartOfDay(zone).toInstant().plusMillis(1))
+        record.put("expected_date_iso", expected).put("observed_date_iso", typedDateIso())
+            .put("date_change_runtime_type", probe().getJSONObject("typedChanges").getJSONObject("date"))
+        capture("date-calendar-returned")
         assertEquals(expected, typedDateIso()); submittedTypedDate(expected)
+        for (key in listOf("date_change_runtime_type", "date_submit_runtime_type")) {
+            assertTrue(record.getJSONObject(key).getBoolean("full_day_helper"))
+            assertTrue(record.getJSONObject(key).getBoolean("full_day"))
+        }
         capture("date-calendar-day-submitted")
         record.put("zone", zone.id).put("calendar_day", "2024-02-29")
             .put("bounds_contract", "Same local day accepted despite min 23:59 and max 00:00; exact time components ignored for Date kind")
@@ -1551,7 +1560,8 @@ class ExtensionFormDeviceTest {
     @Test fun nativeDateTimeRejectsADstGapThenAcceptsAValidWallTime() = inOwnedNativeTimeZone("America/New_York") {
         launch("typed-date-dst-gap"); touch("extension-date-date")
         touch("extension-date-time-plus-date-hour"); touch("extension-date-confirm-date")
-        compose.onNodeWithTag("extension-date-picker-error-date").performScrollTo().assertTextContains("This local time may not exist")
+        compose.onNodeWithTag("extension-date-picker-error-date").performScrollTo()
+            .assertTextEquals("Choose a valid date and time. This local time may not exist when the clocks change.")
         assertEquals(0, probe().getInt("changes")); assertEquals("2024-03-10T06:30:00.000Z", typedDateIso())
         capture("date-dst-gap-rejected")
         touch("extension-date-time-plus-date-hour")

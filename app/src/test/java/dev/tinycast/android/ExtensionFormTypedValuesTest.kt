@@ -52,8 +52,8 @@ class ExtensionFormTypedValuesTest {
         assertEquals(Instant.parse("2024-11-03T06:30:12.345Z"), formDateFromLocal(day, time, FormDateKind.DATE_TIME, newYork, ZoneOffset.ofHours(-5)))
         assertEquals(Instant.parse("2024-11-03T05:30:12.345Z"), formDateFromLocal(day, time, FormDateKind.DATE_TIME, newYork, ZoneOffset.ofHours(-4)))
     }
-    @Test fun dateOnlyUsesLocalStartAndRejectsAnEntireSkippedCalendarDay() {
-        assertEquals(Instant.parse("2024-03-10T05:00:00Z"),
+    @Test fun dateOnlyUsesTheFullDayMarkerAtLocalStartAndRejectsASkippedDay() {
+        assertEquals(Instant.parse("2024-03-10T05:00:00.001Z"),
             formDateFromLocal(LocalDate.of(2024, 3, 10), LocalTime.NOON, FormDateKind.DATE, newYork))
         assertNull(formDateFromLocal(LocalDate.of(2011, 12, 30), LocalTime.MIDNIGHT, FormDateKind.DATE, ZoneId.of("Pacific/Apia")))
     }
@@ -62,7 +62,7 @@ class ExtensionFormTypedValuesTest {
         assertEquals(-86400000L, formPickerMillis(day))
         assertEquals(day, formPickerDay(formPickerMillis(day)))
         val tokyo = ZoneId.of("Asia/Tokyo")
-        assertEquals(Instant.parse("1969-12-30T15:00:00Z"), formDateFromLocal(day, LocalTime.NOON, FormDateKind.DATE, tokyo))
+        assertEquals(Instant.parse("1969-12-30T15:00:00.001Z"), formDateFromLocal(day, LocalTime.NOON, FormDateKind.DATE, tokyo))
     }
     @Test fun tagChangesPreserveExactOrderedValuesAndDoNotInventSelections() {
         val original = listOf("internal-two", "unavailable-🌱", "internal-one")

@@ -42,7 +42,9 @@ internal fun formDateWithinBounds(value: Instant, kind: FormDateKind, minimum: I
 internal fun formDateFromLocal(day: LocalDate, time: LocalTime, kind: FormDateKind, zone: ZoneId,
                                preferredOffset: ZoneOffset? = null): Instant? = try {
     if (kind == FormDateKind.DATE) {
-        day.atStartOfDay(zone).takeIf { it.toLocalDate() == day }?.toInstant()
+        // Raycast reserves one millisecond as the full-day Date marker.
+        // Keep the selected local calendar day across the Date/JSON boundary.
+        day.atStartOfDay(zone).takeIf { it.toLocalDate() == day }?.toInstant()?.plusMillis(1)
     } else {
         val local = day.atTime(time)
         val offsets = zone.rules.getValidOffsets(local)
