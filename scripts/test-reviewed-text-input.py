@@ -14,7 +14,7 @@ import shutil
 import subprocess
 import uuid
 
-from android_test_cleanup import Cleanup, reviewed_text_fixture_ids
+from android_test_cleanup import Cleanup, private_path_absent, reviewed_text_fixture_ids
 from android_clipboard_recovery import ClipboardRecovery
 from android_form_documents_fixture import FormDocumentsFixture
 
@@ -81,8 +81,7 @@ def main():
 
     def absent(path):
         result = subprocess.run(adb + ['shell', 'run-as', app, 'test', '-e', path], capture_output=True)
-        require(result.returncode in [0, 1], 'Cannot determine private path ownership')
-        return result.returncode == 1
+        return private_path_absent(result)
 
     require(text('shell', 'getprop', 'ro.kernel.qemu') == '1', 'Refuse physical devices')
     require(text('shell', 'getprop', 'ro.boot.qemu.avd_name') == args.avd, 'Wrong emulator identity')

@@ -35,7 +35,7 @@ class FormDocumentsFixture:
             self.raw('shell', 'run-as', self.package, 'test', '-e', ROOT)
             return True
         except subprocess.CalledProcessError as failure:
-            require(failure.returncode == 1, 'Cannot determine document fixture ownership')
+            require(failure.returncode == 1 and failure.output == b'', 'Cannot determine document fixture ownership')
             return False
 
     def metadata(self):

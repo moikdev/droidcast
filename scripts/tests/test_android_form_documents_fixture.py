@@ -1,4 +1,5 @@
 import json
+import subprocess
 from pathlib import Path
 import sys
 import unittest
@@ -86,6 +87,13 @@ class FormDocumentOwnershipTest(unittest.TestCase):
         self.assertLess(events.index(parent), events.index(claim))
         self.assertTrue(fixture.ready)
         fixture.verify.assert_called_once()
+
+    def test_transport_loss_after_identity_check_cannot_certify_an_absent_fixture(self):
+        raw = Mock(side_effect=[b'uid=10214(test)', subprocess.CalledProcessError(1, ['adb'], output=b'adb: device offline\n')])
+        fixture = FormDocumentsFixture(raw, self.owner, self.package, {})
+        with self.assertRaises(ValueError):
+            fixture.exists()
+        self.assertFalse(fixture.claimed)
 
 
 if __name__ == '__main__':
