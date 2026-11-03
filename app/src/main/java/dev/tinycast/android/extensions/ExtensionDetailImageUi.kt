@@ -21,6 +21,8 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -29,11 +31,21 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import dev.tinycast.android.Glyph
+import dev.tinycast.android.BuildConfig
 import dev.tinycast.android.PaletteTheme
 import kotlinx.coroutines.CancellationException
 import org.json.JSONObject
 
 private data class DetailImageResult(val source: String, val bitmap: Bitmap? = null, val failed: Boolean = false)
+private class DetailImageLoadTrace {
+    @Volatile var generation = 0
+    @Volatile var cancellations = 0
+    @Volatile var phase = "new"
+    @Volatile var sample: (() -> String)? = null
+    override fun toString() = "generation=$generation;phase=$phase;cancellations=$cancellations;" +
+        runCatching { sample?.invoke().orEmpty() }.getOrDefault("detached")
+}
+private val imageLoadTraceKey = SemanticsPropertyKey<DetailImageLoadTrace>("DetailImageLoadState")
 
 /** Offscreen/stopped views retain their aspect ratio, not decoded bitmap references or jobs. */
 @Composable
@@ -50,39 +62,59 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     // the source in an unchanged slot need not cause a position callback.
     var visible by remember { mutableStateOf(false) }
     var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
+    val view = LocalView.current
+    val trace = remember { if (BuildConfig.DEBUG) DetailImageLoadTrace() else null }
     fun updateVisibility(bounds: LayoutCoordinates?) {
         val clipped = bounds?.takeIf { it.isAttached }?.boundsInWindow()
         visible = clipped != null && clipped.width > 0f && clipped.height > 0f
     }
-    LaunchedEffect(source, images, started, coordinates) {
-        // Allow ancestor clipping/scroll bounds to settle after publication.
-        // This is one recheck per change, with no continuous polling or load
-        // permitted for a detached/offscreen/stopped element.
-        withFrameNanos { }
-        updateVisibility(coordinates)
+    val sampleVisibility = rememberUpdatedState { updateVisibility(coordinates) }
+    val refresh = remember(view) { Runnable { sampleVisibility.value() } }
+    fun refreshAfterPlacement() {
+        // Coalesce position events into one sample after ancestor clipping has
+        // settled. Posting does not continuously request frames or poll.
+        view.removeCallbacks(refresh); view.postOnAnimation(refresh)
     }
+    DisposableEffect(view, refresh) { onDispose { view.removeCallbacks(refresh) } }
+    LaunchedEffect(source, images, started) { refreshAfterPlacement() }
     var aspect by remember(source) { mutableFloatStateOf(1.6f) }
     val observed by produceState(DetailImageResult(source), source, images, visible, started, inline) {
+        val generation = trace?.let { ++it.generation } ?: 0
+        fun phase(value: String) { if (trace != null && trace.generation == generation) trace.phase = value }
         value = DetailImageResult(source)
-        if (request == null) value = DetailImageResult(source, failed = true)
+        if (request == null) { phase("invalid-request"); value = DetailImageResult(source, failed = true) }
         else if (visible && started) try {
+            phase("loading")
             val bitmap = images.load(request.source, if (inline) 128 else ExtensionDetailImages.MAX_EDGE)
             aspect = bitmap.width.toFloat() / bitmap.height
+            phase("ready")
             value = DetailImageResult(source, bitmap)
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { value = DetailImageResult(source, failed = true) }
+        } catch (cancelled: CancellationException) {
+            trace?.let { it.cancellations++ }; phase("cancelled"); throw cancelled
+        } catch (failure: Exception) { phase("failed:${failure.javaClass.simpleName}"); value = DetailImageResult(source, failed = true) }
+        else phase(if (started) "waiting-visibility" else "waiting-lifecycle")
     }
     // A retained metadata icon can receive a new source before its producer's
     // restart executes. Never paint the preceding source during that interval.
     val result = observed.takeIf { it.source == source } ?: DetailImageResult(source)
+    SideEffect {
+        // A read-only DEBUG semantic probe carries no URL, content or bitmap.
+        // Plain trace fields deliberately cause no recomposition of their own.
+        trace?.sample = {
+            val bounds = coordinates?.takeIf { it.isAttached }?.boundsInWindow()
+            "visible=$visible;started=$started;request=${request != null};source_matches=${observed.source == source};" +
+                "attached=${coordinates?.isAttached == true};window_bounds=$bounds;lifecycle=${lifecycle.currentState}"
+        }
+    }
     val label = alternative.ifBlank { "Image" }
     val color = tint ?: request?.tint?.let(::metadataTint)
     val content: @Composable (Modifier) -> Unit = { imageModifier ->
     BoxWithConstraints(imageModifier.onGloballyPositioned { bounds ->
-        coordinates = bounds; updateVisibility(bounds)
+        coordinates = bounds; updateVisibility(bounds); refreshAfterPlacement()
     }.testTag("extension-detail-image").semantics {
         contentDescription = label
         stateDescription = when { result.failed -> "Image unavailable"; result.bitmap != null -> "Image ready"; else -> "Image loading" }
+        if (trace != null) this[imageLoadTraceKey] = trace
     }) {
         val width = (request?.width?.dp ?: maxWidth).coerceAtMost(maxWidth)
         val height = (request?.height?.dp ?: (width / aspect.coerceIn(1f / 1024, 1024f))).coerceIn(1.dp, 2048.dp)
@@ -91,11 +123,14 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
             modifier = (if (inline) Modifier.fillMaxSize() else Modifier.width(width).height(height)).testTag("extension-detail-image-content"),
             contentScale = ContentScale.Fit, colorFilter = color?.let { ColorFilter.tint(it) })
         else if (inline) Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Glyph("extension", PaletteTheme.secondary, 20) }
-        else Column(Modifier.fillMaxWidth().heightIn(min = 60.dp).background(PaletteTheme.ink.copy(alpha = .05f), RoundedCornerShape(8.dp)).padding(12.dp),
+        else if (result.failed) Column(Modifier.fillMaxWidth().heightIn(min = 60.dp).background(PaletteTheme.ink.copy(alpha = .05f), RoundedCornerShape(8.dp)).padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(label, color = PaletteTheme.ink, fontSize = 14.sp, lineHeight = 22.sp)
-            if (result.failed) Text("Image unavailable", color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
-            else LinearProgressIndicator(Modifier.widthIn(max = 160.dp).fillMaxWidth())
+            Text("Image unavailable", color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
+        } else Box(Modifier.width(width).height(height).background(PaletteTheme.ink.copy(alpha = .05f), RoundedCornerShape(8.dp)),
+            contentAlignment = Alignment.Center) {
+            // Releasing an offscreen bitmap must not collapse its scroll space.
+            LinearProgressIndicator(Modifier.widthIn(max = 160.dp).fillMaxWidth().padding(horizontal = 12.dp))
         }
     }
     }
