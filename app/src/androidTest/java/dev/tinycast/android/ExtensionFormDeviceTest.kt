@@ -566,7 +566,13 @@ class ExtensionFormDeviceTest {
         assertCheckboxSemantics("extension-checkbox-enabled", checkboxLabel)
         compose.waitForIdle(); capture("label-tap")
         assertTrue("Tapping the actual label must toggle its checkbox", field("Form.Checkbox", "enabled").props().optBoolean("value"))
-        compose.onNodeWithText("Name focus=0 blur=0 length=0; checkbox changes=1", useUnmergedTree = true).assertIsDisplayed()
+        assertEquals("The label must invoke exactly one change", 1, probe().getInt("changes"))
+        val counter = compose.onNodeWithText("Name focus=0 blur=0 length=0; checkbox changes=1", useUnmergedTree = true)
+        var revealSteps = 0
+        while (!counter.isDisplayed() && revealSteps++ < 60) drag(compose.onNodeWithTag("extension-form"), -1)
+        counter.assertIsDisplayed()
+        assertEquals(1, probe().getInt("changes"))
+        capture("label-tap-count-visible")
         record.put("label_pointer_tap_toggled_once", true).put("passed", true)
     }
     private fun assertCheckboxSemantics(tag: String, label: String) {
