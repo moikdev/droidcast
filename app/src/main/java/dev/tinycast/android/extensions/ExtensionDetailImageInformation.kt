@@ -2,6 +2,7 @@ package dev.tinycast.android.extensions
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -59,6 +60,9 @@ internal fun DetailImageInformation(information: String, active: Boolean, modifi
     val width = with(density) { (visible.width - margin * 2).coerceAtLeast(1).toDp() }
     val height = with(density) { (visible.height - margin * 2).coerceAtLeast(1).toDp() }
     TooltipBox(position, state = state, enableUserInput = active, modifier = modifier, tooltip = {
+        // A Popup has a different layout owner from the document. Its text
+        // must not register with the document's SelectionContainer.
+        DisableSelection {
         RichTooltip(Modifier.widthIn(max = width).heightIn(max = height)
             .verticalScroll(rememberScrollState()).testTag("extension-image-information")) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -66,6 +70,7 @@ internal fun DetailImageInformation(information: String, active: Boolean, modifi
                 TextButton(onClick = state::dismiss,
                     modifier = Modifier.heightIn(min = 48.dp).testTag("extension-image-information-close")) { Text("Close") }
             }
+        }
         }
     }, content = content)
 }
