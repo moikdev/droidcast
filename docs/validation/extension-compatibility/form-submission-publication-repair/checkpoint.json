@@ -1,0 +1,1986 @@
+{
+  "schema_version": 1,
+  "scope": "PR86 publication-barrier harness correction; frozen production app unchanged",
+  "source_hashes": {
+    "app/build.gradle.kts": "e71a6d9d09a3b242c3e9a0bb19808ed49a9a519a67fc0d3f6d01ad7f5e84cfcf",
+    "app/src/androidTest/AndroidManifest.xml": "df6a0d20aaf475a870a155482356ed31849fa73a1210861c9f6e8b74d253b500",
+    "app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt": "9ac0590edb786eb5cc3e6504dda03442ecb0e2730ecf0f6d93e329d81a7c2cbd",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantDeviceTest.kt": "1ecebcf20fe9aa7aa63701c81500195eddd1ae88618d89f31105fecc58189b6b",
+    "app/src/androidTest/java/dev/tinycast/android/AssistantTouchDeviceTest.kt": "1f33a283e5b1f05a5a74dbb76bc3ff8920193cd761edd1cce1e61cb733cb9874",
+    "app/src/androidTest/java/dev/tinycast/android/BackupDeviceTest.kt": "56c56d6a652524f7fc7952b1478552314b1e465ace5c7216385d7f2ea3cf4b6c",
+    "app/src/androidTest/java/dev/tinycast/android/CalculatorIntentDeviceTest.kt": "628ddcef4b50880170fba97cd925fefc5f463f632799d9e2686e7512b2bbc15f",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardApiDeviceTest.kt": "e53bbc080d17b59aae6280b7b817a3c81b4df684dcfd5ca787a993d89caf5de4",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt": "e3fa0147f1e3b01780d9b25d59fbe37f11c8c8ac9e5391ade685d690062d4715",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt": "39ab348b4b8e22a277515e80b715bdf1264b8445ec603b17bb0d6837fed21ba8",
+    "app/src/androidTest/java/dev/tinycast/android/ClipboardRecoveryActivity.java": "48627f465b10c316cca7fdfa735928095328241b4fb98bf90e5c247add17345d",
+    "app/src/androidTest/java/dev/tinycast/android/DocumentProviderDeviceTest.kt": "13895d23b8758affd8889461ef660c442d3bfd1bb111fce08a064aa4b582aea2",
+    "app/src/androidTest/java/dev/tinycast/android/EmojiDeviceTest.kt": "ab9907d4e4acd7e52ed26f12ac14648271e5740784cdba678671ca8ad42fb415",
+    "app/src/androidTest/java/dev/tinycast/android/EnduranceDeviceTest.kt": "4802d3755ce6bc1cdf8e60c7cf9998a09ced8e0be6d9888f0b9d9a32ee332dc4",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionDeviceTest.kt": "3087ff055f70cdf43d2565e22703b9c57445b5c3e1594126d60b0279c32b2640",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionEmptyViewDeviceTest.kt": "64e6b1e68c61cf67b24ba02d1e14a72d297b1bdeebbdf1008905d5619ce2558f",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionFormDeviceTest.kt": "eaf2bb2580d46100fccd93ed35b318355e39e2c2cb594c4cc7bef13faabc8f15",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt": "952b4f2988379c1545575d1332f8358acc9053e257a382b7549a27f6b4b40de3",
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionSandboxDiagnosticDeviceTest.kt": "3e192cb65d011e021d5b47b6bde765e1136c2ddf7e039b5c9dce6dedbf39da15",
+    "app/src/androidTest/java/dev/tinycast/android/FeedbackReadabilityDeviceTest.kt": "86096d428b6554bcb6b8c9d7bc39b981baf1fd53f9367a33c97ce03c89020a82",
+    "app/src/androidTest/java/dev/tinycast/android/FolderDeviceTest.kt": "f3d54b0d788459d34470d2d87c8882cdfe30e8956a8886cd324dd63160f5628d",
+    "app/src/androidTest/java/dev/tinycast/android/FrozenBundleWorkflowDeviceTest.kt": "9d31d56f739caa2509610cf4c07abf70dfd5ea0aead7ec5c5673bde1ca04bc45",
+    "app/src/androidTest/java/dev/tinycast/android/InlinePaletteDeviceTest.kt": "b6c11a5b7babb6726a7a4ba23aaadff87384af9c26b49c631959a36546929395",
+    "app/src/androidTest/java/dev/tinycast/android/LegacyInputDiagnosticDeviceTest.kt": "4966fac20af96b8597fb38a278d8f3ef89b7e335f3d3b6e5df00fb349ebabc55",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierHardwareClipboardTest.kt": "141499cea10d4c80b8ef690fd43e985c066d1b420afa23895c32e75de737ec8d",
+    "app/src/androidTest/java/dev/tinycast/android/ModifierTapDeviceTest.kt": "d33bafba795569c15bab709a9830ca06ecffda9feb754492ec437d55c1d1cae1",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteDeviceTest.kt": "7f5861ffec2e762c1e629519802c10d4b31e3bebd49a3c5867013c6aad77f3f4",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteOverlayTest.kt": "0755f9aa38bdb5785d2cb8902157ce990b5b9825db0ae71847e11c8b1bd4b7aa",
+    "app/src/androidTest/java/dev/tinycast/android/PaletteStabilityDeviceTest.kt": "87896693541425799e7815d2fc1e3988e29afd9bba346da48183a91fa91be9c9",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessDeviceTest.kt": "c6f3ea767e9adc8384a3b662223ab57bef067fca8501509e0415111b711589f3",
+    "app/src/androidTest/java/dev/tinycast/android/ReadinessRegressionDeviceTest.kt": "17545e645708b0f9c38ec1b9c4ca27c9ab7d3ee54a11e92c2932553493561770",
+    "app/src/androidTest/java/dev/tinycast/android/RecentDocumentDeviceTest.kt": "85af5ed0fd05c0716b8ac14b24e98397829ff8d241695999a0cfc68727923e40",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextCallerActivity.java": "640609575a0711566bf23f3028a5144e8aeae912604f9b7180912fd2c9b96200",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextClipboardCrashDeviceTest.kt": "6a1ebc4d90c8b5fa9a07f4b288c20b361297efbeaf7d4423eb211da47b4cf0c0",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextDeviceTest.kt": "d55357e7eac47e93809856389adb8886977b6e6e76810cbc969b4c0f8ebbdf19",
+    "app/src/androidTest/java/dev/tinycast/android/ReviewedTextLifecycleDeviceTest.kt": "ef799e02e8d95738d5642cece8898a9a65d2b416b616f37c1687451732228d4e",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsDeviceTest.kt": "dd9b9a2492c497a2a3ac3218d0833d2e8b536eb904975aa536b08361acc323a9",
+    "app/src/androidTest/java/dev/tinycast/android/SettingsRouteDeviceTest.kt": "8f6991670e740a07d3a6b30aea270b60e19f6d237c4b7b6afaf25200962ad736",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutDeviceTest.kt": "5376ede8474d5eaa4ec7ecb628d1056a5bfc963bd2a292d17d9b86eead8a5415",
+    "app/src/androidTest/java/dev/tinycast/android/ShortcutReadinessDeviceTest.kt": "41bdf7ab67a6899dc8a0b1b0f697135bc587dc401c9234eb56d25385eadf3dcf",
+    "app/src/androidTest/java/dev/tinycast/android/SystemSettingsDeviceTest.kt": "80e0c919fbf04916d2441aa3fbc4cccfac534f56c29dfd908e5ae2d917cfe13b",
+    "app/src/androidTest/java/dev/tinycast/android/TestAutomation.kt": "faad509cd41b06c4cc1087e5de8e0218abca78773603b2050bb2825c880588fb",
+    "app/src/androidTest/java/dev/tinycast/android/TouchReadabilityDeviceTest.kt": "6801d25bb0d9bc45899b04aeedba474e2ac8e5cc8cb168b6268e0305fb49345e",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateDeviceTest.kt": "380e4d7702d2f8c68fd575581309113bc67abf3e5713bdb177cc3b920c4e2787",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSelfInstallDeviceTest.kt": "fc94ef400b54ee2cf8378d2b1632fff1521299f188a132f0330e930b40f80ed3",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateSourceDeviceTest.kt": "76d91931dc044fdeb001a8325a321306011f2b0c54aa631bea25751c59f3ea50",
+    "app/src/androidTest/java/dev/tinycast/android/UpdateVerificationDeviceTest.kt": "cebe3033132db567affccc5419ec59a9639c87ceb88b20c38ffbba16c13b4592",
+    "app/src/androidTest/java/dev/tinycast/android/WebViewCompatibilityDeviceTest.kt": "ce5842cad291b9cb77aed19ecb9436dc80de24beb27e018797a7f84fb4a84895",
+    "app/src/main/AndroidManifest.xml": "65fefcf86296b7103c2237f1e29bca7890bf33f6b5056f860c2e39ede371a55b",
+    "app/src/main/assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "app/src/main/assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "app/src/main/assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "app/src/main/assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "app/src/main/assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "app/src/main/assets/android-runtime.js": "3edb45b6bac932a45de5af4b352fece48b71bea56f1c6b01916f46f0a5890268",
+    "app/src/main/assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "app/src/main/java/dev/tinycast/android/AndroidShortcuts.kt": "1738bc2fe26a117f3d00edddf2639cd49d118f9d91bd5f6eff86d6ee6804b68c",
+    "app/src/main/java/dev/tinycast/android/AssistantActivation.kt": "b5855f87a029362bd06a63136dea7a1572fff716d0c302056f2a3647d9d95560",
+    "app/src/main/java/dev/tinycast/android/Backup.kt": "97f09aa4c2cf7ef42473be8728be28cadd3f3ab14930a6804590c0544a7c104b",
+    "app/src/main/java/dev/tinycast/android/BackupUi.kt": "d13aabc798d7fb19746b09d28a38593792792b67e916824776413d2fbe82870f",
+    "app/src/main/java/dev/tinycast/android/CommandEngine.kt": "75c368d09c942931b3bf9fc0d105a01c7201c156fa2dc3d45c10a56da2d3b07b",
+    "app/src/main/java/dev/tinycast/android/EmojiCatalog.kt": "4dd39955ec38adea02d0c1974ace2b33d86ae738efea0e59d3e62b9072c10b81",
+    "app/src/main/java/dev/tinycast/android/EmojiStore.kt": "f7f5dd63af030b9d179c70336f4b52789d23a318020b6f19ac0c24d20ba8cd8e",
+    "app/src/main/java/dev/tinycast/android/EmojiUi.kt": "8c1be27aad2e952108cdc28c8d6c28c5039513baeaa23ec6d6069d967b8c9414",
+    "app/src/main/java/dev/tinycast/android/FolderGrantTransaction.kt": "11361d342e1e1598c85b5ea630f174c3a4590cbfaf9b430a30fbea2b9686a5c7",
+    "app/src/main/java/dev/tinycast/android/FolderIndex.kt": "6f1b1617a39c0c6e954a1b9b4da0d0d6af3ab7eeac25f2619e299621eec83a99",
+    "app/src/main/java/dev/tinycast/android/FolderSearch.kt": "4fcf90368ed70b49c192ab1b92b6e367d0a61643f928245f8447f542e745b60d",
+    "app/src/main/java/dev/tinycast/android/FolderSearchUi.kt": "dad0f473544f8e459aa301ad8eb91ec7380cebbe572e3e2be3f94443585a75c6",
+    "app/src/main/java/dev/tinycast/android/FolderStorageCoordinator.kt": "ff5491baf9d81ff19b04b35e33a503fc1656bfee9d8eb066453fdbe7e0f83bfb",
+    "app/src/main/java/dev/tinycast/android/MainActivity.kt": "2bc08e693d69ba4668a675c42dbcabb507755f8e3daf9ee01eaf62fd5744efe0",
+    "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt": "f7228cdd6b6988fb049f0aaf1048d69cc8489e802b4cc42a2b4d6f9e7ceea3e0",
+    "app/src/main/java/dev/tinycast/android/PaletteColumn.kt": "cd6cdc348752bcc20bd631e2216abdd4ee0c91d9606aaab62ce0c01a145dd6aa",
+    "app/src/main/java/dev/tinycast/android/PaletteDialogs.kt": "c6092280b2cf3c7e82043a6d756f2d7eccb63f08e86c0c33da6cfa7bf87643a3",
+    "app/src/main/java/dev/tinycast/android/PaletteFooter.kt": "5b62c907b46e5075975fc22d01771f5ab7c7f53e433692de55d92865231e967f",
+    "app/src/main/java/dev/tinycast/android/PaletteFrame.kt": "bfbc139e01a4276770644d5f4c1242016839fd98f5e2f21fa8afb31c886bc763",
+    "app/src/main/java/dev/tinycast/android/PaletteMenuOwnership.kt": "0be25f335246b8e47bf07ea057adf2045a20f9db5bee90a396109adfa7426174",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a3c78359529847e63da649221fae6fce95fecf8378526527e33d584534fed9e9",
+    "app/src/main/java/dev/tinycast/android/PaletteScrollHistory.kt": "84e26b8544adc069c9f86e3273acd2254e2189f1680dec592570a261cdf87602",
+    "app/src/main/java/dev/tinycast/android/PaletteStore.kt": "e4c7be2eb2618a636fa4786e70c489b2e4d4908e5915ce43114c82373c0dcd79",
+    "app/src/main/java/dev/tinycast/android/PaletteTheme.kt": "7afa29642b2bda9c9f669eaf6cdefcb977d14417d313547aff1ff807f4e37471",
+    "app/src/main/java/dev/tinycast/android/PaletteTileService.kt": "6f29825b3560944aae77935bc3abfb6a53e9577735dc622bf80e5ea1a1fbad00",
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "4e7eb794545c066df34e1a2446efa91a943c1d9b1172470811bf82a56e15315b",
+    "app/src/main/java/dev/tinycast/android/PaletteViewport.kt": "7008b8535ec3e754450ce446f34b6d8e50e9b2f5a9de64f436583144f8dd83dc",
+    "app/src/main/java/dev/tinycast/android/RecentDocumentQueries.kt": "b60f5f6ac3458eb3659dd41aef01bcd20be9d59f3841ff0fa77c3eb6ee82c92b",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextFlow.kt": "7daf246a7b8a608fe61e06f078bf3167c17df8f784f8779977ba6e87914526ea",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextInput.kt": "ca681bb2c4eb91188a1550650bf5fb5f83569bf8ac954ab22abc0ce05ed17e73",
+    "app/src/main/java/dev/tinycast/android/ReviewedTextUi.kt": "5ded41175e114968aa1994c93ade551b21121db15c4a4a7ea5ff87deaff00d86",
+    "app/src/main/java/dev/tinycast/android/SettingsActivity.kt": "6c8a09cf51abdfc1f61c305b17e613f7b40f9960168aad2fafebdc31155a3601",
+    "app/src/main/java/dev/tinycast/android/SettingsUi.kt": "55886d17261a019fcddac77f25e655896217dadd081db6da23a2e519a6bad35b",
+    "app/src/main/java/dev/tinycast/android/ShortcutReadiness.kt": "83a422a837edc657f1f3faf94c155019eae73f1abcc8761379dcb2051ceed505",
+    "app/src/main/java/dev/tinycast/android/ShortcutUi.kt": "394fadd7890bbb2dd5f851bd5a290ebf19ad4e05fae64c321e529eeccd35c632",
+    "app/src/main/java/dev/tinycast/android/Shortcuts.kt": "14e08d112e3cc5689a5717f68dce1334d3c2bf92f4a7cfbc2057fdc96418a9b2",
+    "app/src/main/java/dev/tinycast/android/SystemSettings.kt": "c5c1535d12627b975f8f582437e53d02b4110f4bfb185d5c8d1e9307debc319a",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionCatalog.kt": "a39cc4a614625c7c3bb3c25d20cda54c3fc6708df1de094328c6e339ed235177",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionEmptyView.kt": "4ab1b0093364ad790235b666fc70ec2642bb40692f3ce7fdb830e6bc514c61dd",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormContract.kt": "25ed1a67ce34d23533876947a8757f9186546dc69fd7751d1d76eb85a7f733fc",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormSubmission.kt": "7f89b0ef7216cafb22c72a636b3b2998e5d71c9933bcd87d7c65a25b9a2bd9d8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionFormUi.kt": "30e393d5ebf8531dd3b65c9d9d870f3bd294dc7484fd5471740d12bf1af19dc6",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridImages.kt": "777de62995b645310418d2f0da8adf87c450d8b7459d1c9abab0e9a02ce84258",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridModel.kt": "5b104c726a950f09a7cf890a14c0e4e654dfe8f5ea8b1b41468a0822f42a2f48",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionGridUi.kt": "c66cd6ee6d29cd2cc43d45ddbdc15f175ac5a5a39b332736b4cbddecdbf9e6bf",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionHttp.kt": "88ed57ca318c3e0c45e50f85e3157692d479bdae9636127869556cfb553abfe8",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionRuntime.kt": "53409f3f633eb327f10be34d97ace93a310457f37abb2d192fab6b169b904d10",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionSelectionDelivery.kt": "f13388787b615343c214a861a619bdba88b6327dc939365a130e9e799169c397",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt": "68c9b5665ec40eba033097661c8a31f5687c74c93e5f770ceeb617330873f0ec",
+    "app/src/main/java/dev/tinycast/android/extensions/NodeCpuInfo.kt": "eea176a7259e8f3736878886350610a84a23a6d2799f5337f5c8b07a8fefa398",
+    "app/src/main/java/dev/tinycast/android/updates/AppUpdates.kt": "63ace29d7dc29e005ffbbdde31cbac4e1d923732604b1e43e6a4db8a3285b508",
+    "app/src/main/java/dev/tinycast/android/updates/UpdatePolicy.kt": "350a9142ebfc663cd4a0c982ab220fb5f1e3399bfb3207c980ea20fd4c5c4e6e",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateSource.kt": "aa860f14bd3a9f39e19899f1927fb7a790c54bb4f2704651253d8f867bb3c100",
+    "app/src/main/java/dev/tinycast/android/updates/UpdateUi.kt": "0bceb6a4221787a58dfb14ee1bcdcd266388720ca8862bd705cfeb10cfe52457",
+    "app/src/main/res/drawable/ic_launcher.xml": "104e38ffdf3214de23909b7896392f4a974e4fcbcc778c447d5d7a9ce56380af",
+    "app/src/main/res/drawable/ic_palette_tile.xml": "e063a6c4a1a25d6717a31bc355543d76c7d1babf8e9556e68b1b5e6a2b860748",
+    "app/src/main/res/values/styles.xml": "de4ad14f9ef41aaa4ffc824af155831579fa1194af5055edd112efee5042f5e1",
+    "app/src/main/res/xml/assistant_service.xml": "1e9e560563a7d0260fc83126d3a9bf027bf6357adfc811b43bc3224290c77ddf",
+    "app/src/main/res/xml/data_extraction_rules.xml": "cb4d1da1c1bd38761a9a08cc4d8d1b55839fcc14a6e19badb653f75b23c20eca",
+    "app/src/main/res/xml/keyboard_service.xml": "b1839c96988c03fea26ce4ed5932b1315013f3d2c16165993afc17368ab7bdd4",
+    "app/src/test/java/dev/tinycast/android/BackupPlannerTest.kt": "12a55d3644b5094b84cad2e88a5432738021fc8d7c59c232d4e5fc4c2c9a1454",
+    "app/src/test/java/dev/tinycast/android/CommandEngineTest.kt": "65d9d198e8e1a188e4dcfd5551ced8f558f87a106f42b1d02a1432e8d6b7c234",
+    "app/src/test/java/dev/tinycast/android/EmojiCatalogTest.kt": "9d70ef96696215e14e561d73f5a41f0b1a8272c3b58e5ad5a8438c31bc53aaa5",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormContractTest.kt": "432d658e2a177312105e2ec86db2c59d0625086e86464a7ff946acb61c07e283",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormSubmissionTest.kt": "4bbdd8068cd95c314f7cf7aa156c7928cd815c5da11ef5f2cab1b4c5d23dd7d5",
+    "app/src/test/java/dev/tinycast/android/ExtensionFormValuesTest.kt": "6bc5bc8caaa5763e12dc3136bbba1d99249db10387c163cb1efeb0ae03f09d2a",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridContractTest.kt": "50681a34c624a01867f287c66523d653e1931cf759f5e2926dda60feb85fa2b3",
+    "app/src/test/java/dev/tinycast/android/ExtensionGridNavigationTest.kt": "94ffe218ed5f9411210c2599db2a10dcd20c1a94655ef53e8cac1c574318b68f",
+    "app/src/test/java/dev/tinycast/android/ExtensionHttpTest.kt": "76917bbbdcc33dcc90d9b152d5a3e478fd981139e1df1d9edc0916e4f81b8e76",
+    "app/src/test/java/dev/tinycast/android/ExtensionSelectionDeliveryTest.kt": "1ea1e17cf0ea43fa3418a61f71587dbee9ec341b288d17fdaba3c5d3d8da4cb7",
+    "app/src/test/java/dev/tinycast/android/FolderGrantTransactionTest.kt": "ef710edc4ed1eb45782f90c385bc73305217f26882b630cd3e79ee93c59ef118",
+    "app/src/test/java/dev/tinycast/android/FolderIndexTest.kt": "bd371b19d1678ea876889cfb25505d690a4296c37d042e4cabd38bc7c7e4eff4",
+    "app/src/test/java/dev/tinycast/android/ModifierTapTest.kt": "bc0f6191ef2837018ca33a71010c1582cd39d0b3713c55acec4f91406a74d4fd",
+    "app/src/test/java/dev/tinycast/android/PaletteMenuOwnershipTest.kt": "c3134a62d61b5cd7ed810b867a6b40219713f21b798fabf6e659129cfab55506",
+    "app/src/test/java/dev/tinycast/android/PaletteScrollHistoryTest.kt": "b1610e3c3818e5823f99ded35bc36325042da250cfd48d98c0d6381066cfad5f",
+    "app/src/test/java/dev/tinycast/android/ReviewedTextInputTest.kt": "4bff225dd9fc1963736ad1f992e3eda3ffff21554c3ebef63d25acfdb41a29f3",
+    "app/src/test/java/dev/tinycast/android/ShortcutReadinessTest.kt": "45d32b02d4f89f857867d2585f3f5968251e9580edd34d9312bbfc158adc12e1",
+    "app/src/test/java/dev/tinycast/android/ShortcutTest.kt": "ae8034901d8ca73d704d40992b85ed43a64a021a078ff4eb5b2b853c4f398610",
+    "app/src/test/java/dev/tinycast/android/SystemSettingsTest.kt": "cdfc38bed12779bb92b0ddaeb79d197733243b24da43ab89d8580ecfd1f1fb51",
+    "app/src/test/java/dev/tinycast/android/TinycastGridParityTest.kt": "df6ca13f0f0a1e4bfa1f0085e274ed87457a6aa1a69492afa1041128af99c5e3",
+    "app/src/test/java/dev/tinycast/android/UpdatePolicyTest.kt": "d87ee4f7d6aa7b39b998267bd4d042d0b494ec6a1280d18860f262355c25cbe3",
+    "app/src/test/java/dev/tinycast/android/extensions/NodeCpuInfoTest.kt": "5f3a7aae9b24435a4dbca77f9132a4b203ea736b1c76fc9108a51251983c2797",
+    "app/src/test/js/android-form-focus.test.cjs": "5a91678d0a576937218e61e41e7b6b986546bd51f9e133570a4ca9338f557342",
+    "app/src/test/js/android-form-submit.test.cjs": "62320672439198a9a9f2985ab6ce0bf125c4b543186c74f04bcc9501d4e3a59a",
+    "app/src/test/resources/tinycast-grid-navigation.tsv": "da620f314fc39300beb7a11436715809ac1a9fd230fa4640c7f4f9c34b69aaf7",
+    "build.gradle.kts": "780d597cbe0f80d0103221a566db7574d1e07b17adca5bdbe7d6c728d77df12a",
+    "gradle.properties": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325",
+    "gradle/wrapper/gradle-wrapper.jar": "55243ef57851f12b070ad14f7f5bb8302daceeebc5bce5ece5fa6edb23e1145c",
+    "gradle/wrapper/gradle-wrapper.properties": "13287ffad6cf3064056ddad80d95b855132348930b2dc6c91490588c55b3ac7d",
+    "gradlew": "aed171fb114f82e6eaea4970a245a200e0582a7dcc8ec0891ca41b6e4a62b754",
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "scripts/android_test_cleanup.py": "c22e9d8dbe59a022391b3d64bc574891a682aa681109b59afc76c203e638bfe1",
+    "scripts/extension_bundle_snapshot.py": "08ae0408a22e4f4c3c8a8b22af31b6a6a16d304dc0d14d5e489596dd9731a950",
+    "scripts/extension_manifest_catalog.py": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+    "scripts/generate-emoji.py": "98f43c9a5941b4e65533e31ff7d7eaa4e697d8fecd4c7424297e6957e07abd53",
+    "scripts/generate-tinycast-grid-oracle.py": "bd53975673883b624d2553cd47687c5a3a760b17181a8c0621715ed1599b3118",
+    "scripts/modifier-test-input.c": "859cd4f868c0739124384652eb05dcff09f67bd65933c6546ec828adaf4f8756",
+    "scripts/package-nightly-update.py": "2a650baee0c7c76eadd360171e19686aad7b960fe34ebc780638c6b231032420",
+    "scripts/summarize-readiness.py": "e63d9d2ec435d2c369ae0be126bafb0b0507e903b03674f11a77ee10b428fe64",
+    "scripts/test-api-compatibility.py": "1ba4bf24535130bfd59a5f1d9d4830ca075e7158fc2cbe316696fcadb6108065",
+    "scripts/test-assistant-touch.py": "fd5a4acfdd19ddc60eb467fea3c7d2e8ab7ac717bea35c76d007577c23235a54",
+    "scripts/test-calculator-intent.py": "93ef5653c4d0c153d8f216c9fd74557089a964eaab80c84c85ab5460ec58f1a1",
+    "scripts/test-configurable-shortcuts.py": "56f4581f78265ec2c28faa1da115ae10a8349cf47e10db60bfba3e88f0cc3e73",
+    "scripts/test-extension-grid.py": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "scripts/test-extension-workflows.py": "c6cce4d533b45655a7763305379107840a93a1a953be0322a869c7505ffc0997",
+    "scripts/test-global-shortcut.py": "4a0f57d16dfccbd0c7b33d6b78a841ccad030c4bad6fb108ac80f15dc89f6d6a",
+    "scripts/test-modifier-taps-hardware.py": "b0d2da7fd2410095d65ef20e25cd9b8e90f9b480849dfd5e497f75d4d713139c",
+    "scripts/test-modifier-taps.py": "8cb08d228371c90f995ae2246ef0a92daf6c81724c11a1ac67374ed0dd347dab",
+    "scripts/test-readiness-benchmark.py": "1f92dc1989f1ff36c82433d6eaab1e2c896abf7541a24a9b215c109e49d1a7d9",
+    "scripts/test-restart-files.py": "65f1c311df77634f746cb155d831acf1fa4d8cf05d0e1dabc9d372bf1e842065",
+    "scripts/test-reviewed-text-input.py": "d9d1bc019c396d974f65884f9d1aec3c4e9fa3f0156e6ef8ff3c7af9587934eb",
+    "scripts/test-reviewed-text-process-recreation.py": "eecd547c48ad2bbce2d8bae62bbed26a2484e0b5d97ebb7cb989ba98d4de2a23",
+    "scripts/test-search-header.py": "772cb70442bbf28086beb8087ebce94d02ba6cc10e6acf8c2cf91a0d8d5b39d0",
+    "scripts/test-self-updates.py": "4ff148ea90c3a148a1eacf74116db288e5e9c282f69e0c331caa6f22b1a40889",
+    "scripts/test-startup-performance.py": "9ac605bf3347fde625d279767bb8fc4de76ae82f099e7d8351416fa5bc9250ae",
+    "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6",
+    "scripts/tests/test_android_clipboard_recovery.py": "b260d3adcfa33e2641affebee9bebb1676097b4a24bbdbeb89cef7f3fc889176",
+    "scripts/tests/test_android_test_cleanup.py": "49c8831c517f0777f46952376f5d3b783322eeb25f063d69a9b1bc2f8cde01cf",
+    "scripts/tests/test_extension_bundle_snapshot.py": "382561907129ac58b7e20b963c1afcbc9bc1a03b7e18da64e7d61927a8b15783",
+    "scripts/tests/test_extension_manifest_catalog.py": "57af21edf39e3e4084453830eed62d3c052ba8d8a4f942d3d69807e2cd4b69a6",
+    "scripts/tests/test_extension_workflow_guards.py": "1cea982b85cf759e691471cad72b8e2cbdccdf3c2ccc6c483b1ef01b49002a3f",
+    "settings.gradle.kts": "6a8db88135b364d8bd2facb607fc4e9e9476c171d2b7f7f3a0892c57a9ee6487"
+  },
+  "historical_checkpoint": "docs/validation/extension-compatibility/form-submission/checkpoint.json",
+  "historical_checkpoint_sha256": "41b298f2553e8b5c936dd83d70c07f05f991d29a3f2a0326b5cb5d36b4d64df3",
+  "historical_source_hashes_verified_at": "7f8de69c344e996a592cdd9ae820bfd52fd2a8a4",
+  "harness_boundary": {
+    "completed": true,
+    "historical_reviewed_head": "7f8de69c344e996a592cdd9ae820bfd52fd2a8a4",
+    "historical_harness_source": "b54243f53e0f383c102eb42d10e4343c10daf33d",
+    "repaired_harness_source": "5d541a7a52101c9b8b047fe1ebf16df8972e2721",
+    "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+    "changed_sources": [
+      "app/src/androidTest/java/dev/tinycast/android/ExtensionFormDeviceTest.kt"
+    ],
+    "all_177_other_source_hashes_unchanged": true,
+    "production_and_jvm_node_python_sources_unchanged": true,
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "prior_test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+    "repaired_test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+    "changed_instrumentation_payloads": [
+      "classes3.dex"
+    ],
+    "prior_public_files_unchanged": 538,
+    "prior_retained_capture_hashes_unchanged": 2358,
+    "historical_source_hashes_verified_against": "7f8de69c344e996a592cdd9ae820bfd52fd2a8a4",
+    "failed_v6_compile": "Illegal Kotlin regex escape; exit 1 and zero native credit. v7 uses [0-9]+ and compiles.",
+    "old_assertion_limit": "JavaScript evaluation and Compose idle did not witness asynchronous React native delivery; prior selection/uncontrolled publication cases are withdrawn.",
+    "repair": "Wait for same-root incremented Owned render marker in catalog.runtimeTree and exact composed marker, then assert actual range, text and IME; record witnesses and synchronized frames."
+  },
+  "current_native_summary": {
+    "completed": true,
+    "historical_summary": "docs/validation/extension-compatibility/form-submission/checks/current-native-summary-v1.json",
+    "historical_summary_sha256": "d9de587cf5cc2bc10420bde85c62b43c69407e998e3a4ec8396aaf2b3d59fa5a",
+    "preceding_recorded_credit": 257,
+    "withdrawn_executions": 15,
+    "fresh_replacement_executions": 10,
+    "credited_current_runtime_executions": 252,
+    "credited_cohort_count": 29,
+    "host_cleanup_checks_in_credited_cohorts": 560,
+    "fresh_restoration_checks": 154,
+    "independent_evidence_preservation_checks": 5,
+    "preexisting_evidence_files_restored": 136,
+    "witnessed_publication_transitions": 16,
+    "withdrawn": [
+      {
+        "cohort": "submit-original-forms-phone-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "submit-original-forms-tablet-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "submit-original-forms-landscape-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "selection-current-tablet200-v2",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 2
+      },
+      {
+        "cohort": "selection-current-phone200-v2",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 2
+      },
+      {
+        "cohort": "selection-controlled-tablet100-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "selection-controlled-phone100-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "selection-controlled-landscape100-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "selection-pointer-tablet100-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "selection-pointer-phone100-v1",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "submit-forms-font200-tablet-v2",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "submit-forms-font200-landscape-v2",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      },
+      {
+        "cohort": "submit-forms-font200-phone-v2",
+        "cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "withdrawn_executions": 1
+      }
+    ],
+    "cohorts": [
+      {
+        "name": "submit-common-after-phone-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 3,
+        "credited_executions": 3,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-phone-v1/record.json",
+        "record_sha256": "5afa82cbc1a349e203958d378d49d79f450f1c0b742981c4245511ae3f2f9a20",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-phone-v1/tests.log",
+        "tests_log_sha256": "fc2be83b7391771cf43ffec4356bb3e1030eac853f46fcaa27c0c44a9408ceeb"
+      },
+      {
+        "name": "submit-common-after-tablet-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 3,
+        "credited_executions": 3,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-tablet-v1/record.json",
+        "record_sha256": "13839f89e6225838fe273c8df76318559910d8f468aeeabeafc07cb38f5d7bcb",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-common-after-tablet-v1/tests.log",
+        "tests_log_sha256": "4daeb6386101599f63397be9ac6b0b07f1a85583d8c4c2ec2e6e29fbc5b8fdf8"
+      },
+      {
+        "name": "submit-acceptance-phone-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 22,
+        "credited_executions": 22,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction",
+          "dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch",
+          "dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation",
+          "dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked",
+          "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-phone-v2/record.json",
+        "record_sha256": "8affe62f2e48bdda5611c3de70aa98fb72b59716e1f5562652806feaabcebf3e",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-phone-v2/tests.log",
+        "tests_log_sha256": "b9865d393f50d38d291524aaabf1937745d702967ffce3ff5e67080f1a858e3e"
+      },
+      {
+        "name": "submit-acceptance-tablet-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 22,
+        "credited_executions": 22,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction",
+          "dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch",
+          "dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation",
+          "dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked",
+          "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-tablet-v2/record.json",
+        "record_sha256": "e21eb39c623ebbe356ca2d396ec906cd317ac84cd98eee9289fae15a6f885edd",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-tablet-v2/tests.log",
+        "tests_log_sha256": "c362dff9c05e0eaf19120abe15513de7cb431b904ce67f338367da7b763f78dd"
+      },
+      {
+        "name": "submit-acceptance-landscape-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 22,
+        "credited_executions": 22,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction",
+          "dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch",
+          "dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation",
+          "dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked",
+          "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-landscape-v2/record.json",
+        "record_sha256": "370e76fdd0883fd839819381279f26d96e9c3e37e661d43311318c8ae88283a5",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-acceptance-landscape-v2/tests.log",
+        "tests_log_sha256": "f131063ed7af9001a9a0bb204e1ce273299011c5c5a1bbfa54c0c41eb161ca8d"
+      },
+      {
+        "name": "submit-critical-font200-phone-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-phone-v2/record.json",
+        "record_sha256": "c43849818ab56822d8a3b8644b4a468160be4cded669b20c838d5ab0f25a3f7b",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-phone-v2/tests.log",
+        "tests_log_sha256": "ad43dc8824bd67deda37c63d23b48a2bb2e974cda847b76d3e528943adaec64b"
+      },
+      {
+        "name": "submit-critical-font200-landscape-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-landscape-v2/record.json",
+        "record_sha256": "148bb74550b6fd3f2482e98ca1316cc85cf36737c76cc08f5ba516aaa2790ede",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-landscape-v2/tests.log",
+        "tests_log_sha256": "ed56145d87e98e3d0b3b4640e46c966a2e354fb87328c0197705e398b49b5801"
+      },
+      {
+        "name": "submit-critical-font200-tablet-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-tablet-v2/record.json",
+        "record_sha256": "71542f5dd71e34c6b3eb0fd2d3c21b1edc5dee810fa99769a11840feb10be087",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-critical-font200-tablet-v2/tests.log",
+        "tests_log_sha256": "a90d3f1983ad9179a4fb6725ec31967d8381449873bb97f181c3614619ee5ad0"
+      },
+      {
+        "name": "submit-root-removal-phone-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-phone-v1/record.json",
+        "record_sha256": "fd6e8dd5a6ad24cb173218277df2077dbfd74e220b6904e455b170f82b0abd1f",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-phone-v1/tests.log",
+        "tests_log_sha256": "29ff6a1116c7c697f3a287f4b5622413fb011e9c873c2dfae457ee0e529311e1"
+      },
+      {
+        "name": "submit-root-removal-tablet-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-tablet-v1/record.json",
+        "record_sha256": "4cd22559f1c23cd351fce60ad336efddbc41f755d9980b44cdc9563254d10e34",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-tablet-v1/tests.log",
+        "tests_log_sha256": "dc4c4a7dfa479e7c39d469865623544846daffbb5a7bd3926cf86d7dea110b92"
+      },
+      {
+        "name": "submit-root-removal-landscape-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-landscape-v1/record.json",
+        "record_sha256": "fa19044c8511d8e3f4918a5d093b13e5b06024aeb8dad274116c6a678ba3e915",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-root-removal-landscape-v1/tests.log",
+        "tests_log_sha256": "56dea30fbc8fe2888cc6df4c07e9351163da66b92d01cfdd090c984604f8dc0f"
+      },
+      {
+        "name": "submit-original-forms-phone-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 24,
+        "credited_executions": 23,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+          "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterClose",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunAfterFieldReplacement",
+          "dev.tinycast.android.ExtensionFormDeviceTest#replacedConfigurationRejectsQueuedEditsRunAndBack",
+          "dev.tinycast.android.ExtensionFormDeviceTest#focusAndBlurDeliverCurrentFieldValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#checkboxLabelTogglesExactlyOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#returningFromCheckboxRefocusesTheSameTextField",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunWithoutRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterOptionMeaningChanges",
+          "dev.tinycast.android.ExtensionFormDeviceTest#dismissedDropdownCallbackCannotSelectAfterReopen",
+          "dev.tinycast.android.ExtensionFormDeviceTest#fieldValidationErrorIsVisible",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunWithoutRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#dropdownShowsSelectedItemTitle",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunInReplacementSession",
+          "dev.tinycast.android.ExtensionFormDeviceTest#fieldHelpIsVisibleWithoutHover",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+          "dev.tinycast.android.ExtensionFormDeviceTest#controlledTransformsAndRejectedEditsRemainAuthoritative",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+          "dev.tinycast.android.ExtensionFormDeviceTest#choosingDropdownItemSubmitsItsExactValue"
+        ],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-phone-v1/record.json",
+        "record_sha256": "c9201339c834f476202db06afafc25f7ca970087e3cc44ebb24497d42d0e64b7",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-phone-v1/tests.log",
+        "tests_log_sha256": "c81c4315692c53a50017ceb931ad562d3614ef56a0beed4fc65b8024cd693f91"
+      },
+      {
+        "name": "submit-original-forms-tablet-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 24,
+        "credited_executions": 23,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+          "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterClose",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunAfterFieldReplacement",
+          "dev.tinycast.android.ExtensionFormDeviceTest#replacedConfigurationRejectsQueuedEditsRunAndBack",
+          "dev.tinycast.android.ExtensionFormDeviceTest#focusAndBlurDeliverCurrentFieldValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#checkboxLabelTogglesExactlyOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#returningFromCheckboxRefocusesTheSameTextField",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunWithoutRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterOptionMeaningChanges",
+          "dev.tinycast.android.ExtensionFormDeviceTest#dismissedDropdownCallbackCannotSelectAfterReopen",
+          "dev.tinycast.android.ExtensionFormDeviceTest#fieldValidationErrorIsVisible",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunWithoutRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#dropdownShowsSelectedItemTitle",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunInReplacementSession",
+          "dev.tinycast.android.ExtensionFormDeviceTest#fieldHelpIsVisibleWithoutHover",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+          "dev.tinycast.android.ExtensionFormDeviceTest#controlledTransformsAndRejectedEditsRemainAuthoritative",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+          "dev.tinycast.android.ExtensionFormDeviceTest#choosingDropdownItemSubmitsItsExactValue"
+        ],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-tablet-v1/record.json",
+        "record_sha256": "e8d810f53f042e488f535dc913ace8d8754ca5d0f7cdfea0ce7fb040c491a7e2",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-tablet-v1/tests.log",
+        "tests_log_sha256": "c1d030a8854a8e96ab802fb9b088bab105cf50679e96647e3d34fc9f0e4942f1"
+      },
+      {
+        "name": "submit-original-forms-landscape-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 24,
+        "credited_executions": 23,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#replacementSessionRejectsOldCallbackAndAcceptsNewFocus",
+          "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterClose",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunAfterFieldReplacement",
+          "dev.tinycast.android.ExtensionFormDeviceTest#replacedConfigurationRejectsQueuedEditsRunAndBack",
+          "dev.tinycast.android.ExtensionFormDeviceTest#focusAndBlurDeliverCurrentFieldValue",
+          "dev.tinycast.android.ExtensionFormDeviceTest#checkboxLabelTogglesExactlyOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#returningFromCheckboxRefocusesTheSameTextField",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunWithoutRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#unavailableEmptyAndDuplicateChoicesKeepTheirExactValues",
+          "dev.tinycast.android.ExtensionFormDeviceTest#rapidTextThenBlurDeliversCurrentValueBeforeRedraw",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedChoiceCannotRunAfterOptionMeaningChanges",
+          "dev.tinycast.android.ExtensionFormDeviceTest#dismissedDropdownCallbackCannotSelectAfterReopen",
+          "dev.tinycast.android.ExtensionFormDeviceTest#fieldValidationErrorIsVisible",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunWithoutRoot",
+          "dev.tinycast.android.ExtensionFormDeviceTest#dropdownShowsSelectedItemTitle",
+          "dev.tinycast.android.ExtensionFormDeviceTest#queuedTextCannotRunInReplacementSession",
+          "dev.tinycast.android.ExtensionFormDeviceTest#fieldHelpIsVisibleWithoutHover",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+          "dev.tinycast.android.ExtensionFormDeviceTest#controlledTransformsAndRejectedEditsRemainAuthoritative",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt",
+          "dev.tinycast.android.ExtensionFormDeviceTest#choosingDropdownItemSubmitsItsExactValue"
+        ],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-landscape-v1/record.json",
+        "record_sha256": "49da723e34bc55240af741650539606b9df6960a8959ee7bbe90e6353d2b387a",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-original-forms-landscape-v1/tests.log",
+        "tests_log_sha256": "2d6c04e15b72d68a0bfec45e181ab026ef23e9b5a69ea2a513741e9e598060f8"
+      },
+      {
+        "name": "selection-current-tablet200-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 2,
+        "credited_executions": 0,
+        "credited_cases": [],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-tablet200-v2/record.json",
+        "record_sha256": "ba25cacd1248c25b23f263af68db8fa44d8c12b5c8e43d6d8731949a20073728",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-tablet200-v2/tests.log",
+        "tests_log_sha256": "4ce03a66c5f333efe38cd679e9ee0c286523654f66e32ed85f21e8ed881d8f74"
+      },
+      {
+        "name": "selection-current-phone200-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 2,
+        "credited_executions": 0,
+        "credited_cases": [],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-phone200-v2/record.json",
+        "record_sha256": "9b5a5c885af55123a5b4ee682502b7b345c90de4f3f8b3c2942908c12552c529",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-current-phone200-v2/tests.log",
+        "tests_log_sha256": "a0962880af63c87b23d91b7a692049e4a2d334666a2f9b46e7a98a9e04523c16"
+      },
+      {
+        "name": "selection-controlled-tablet100-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 0,
+        "credited_cases": [],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-tablet100-v1/record.json",
+        "record_sha256": "3e9a78c9f3350885666fea2c8dd491f18deee989620dc97c559b07f4752e7c3a",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-tablet100-v1/tests.log",
+        "tests_log_sha256": "a8371a5543d8b28dd2d1cd73fee16e5507cc6738dc49a62781146aad9774eceb"
+      },
+      {
+        "name": "selection-controlled-phone100-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 0,
+        "credited_cases": [],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-phone100-v1/record.json",
+        "record_sha256": "9547b7ed46daad27cb266b5a3761079aa02ec2acb11b761aa63e03348fb53fda",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-phone100-v1/tests.log",
+        "tests_log_sha256": "f12076eb2d7168a90c36d53726607273fe475e0be7ccb657071c98c8f0b0741f"
+      },
+      {
+        "name": "selection-controlled-landscape100-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 0,
+        "credited_cases": [],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-landscape100-v1/record.json",
+        "record_sha256": "869fa5cc6ea845754b876a37e966ac4d6023eb9e765b9f873b8c73b2b99195d1",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-controlled-landscape100-v1/tests.log",
+        "tests_log_sha256": "78beae0bc9942af4be5539e3844438ac1eaad50d80d7c8b7f9e2bae64c7d1fa7"
+      },
+      {
+        "name": "selection-pointer-tablet100-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 0,
+        "credited_cases": [],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-tablet100-v1/record.json",
+        "record_sha256": "22cedd2850643c025e6d553629128b9d057b16baa9016e0e46c345f5d2a1ecee",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-tablet100-v1/tests.log",
+        "tests_log_sha256": "2e93d308a6f942380cf5fa4871b6a93d5d775a4a10502fd9111979dfdba29d3a"
+      },
+      {
+        "name": "selection-pointer-phone100-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 1,
+        "credited_executions": 0,
+        "credited_cases": [],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-phone100-v1/record.json",
+        "record_sha256": "f9c814a303d548ce3ddd2efd61eb6cc77e11ae5ec2a28012af6189428cbd58ab",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/selection-pointer-phone100-v1/tests.log",
+        "tests_log_sha256": "487fe2be311d73f5c6eed7e9d87a44abf883f95b461e821fb8d02e438ff301d9"
+      },
+      {
+        "name": "submit-forms-font200-tablet-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 6,
+        "credited_executions": 5,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+          "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+          "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt"
+        ],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-tablet-v2/record.json",
+        "record_sha256": "eded50d5cd7390b255f538ea3704eee694761fe6623673a5aa176432ae6a54b8",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-tablet-v2/tests.log",
+        "tests_log_sha256": "257c5afcdead7c9da7a53ec16bc1856b9abe315030b09e0f6e7846c818691a40"
+      },
+      {
+        "name": "submit-forms-font200-landscape-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 6,
+        "credited_executions": 5,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+          "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+          "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt"
+        ],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-landscape-v2/record.json",
+        "record_sha256": "e7d34aa2258f24db9d0bfe256d95945bc8b45b57cc6c4c7b77f396d04ca06418",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-landscape-v2/tests.log",
+        "tests_log_sha256": "f45b4bc0b91bf3f062e5df2728140efc68ca95592e3324dfa3c63537ea747dbb"
+      },
+      {
+        "name": "submit-forms-font200-phone-v2",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 6,
+        "credited_executions": 5,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun",
+          "dev.tinycast.android.ExtensionFormDeviceTest#longMessagesAndTouchChoicesStayReadableAcrossImeTransitions",
+          "dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+          "dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce",
+          "dev.tinycast.android.ExtensionFormDeviceTest#blurValidationShowsErrorAndEditingClearsIt"
+        ],
+        "excluded_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "exclusion_reason": "Missing native/Compose publication barrier; superseded by fresh witnessed scenarios",
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-phone-v2/record.json",
+        "record_sha256": "fab21b0f789ba38ce4a13bb0e6ca6d73488f15906ecc8f3bada75b3b270f12db",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-forms-font200-phone-v2/tests.log",
+        "tests_log_sha256": "5669fefbd043fa4b4ea591d247ed4607b2eb7ae4c3c03f5c60a7a1d9fa735780"
+      },
+      {
+        "name": "submit-shared-regression-tablet-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 19,
+        "credited_executions": 19,
+        "credited_cases": [
+          "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+          "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+          "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+          "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+          "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+          "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+          "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+          "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+          "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+          "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+          "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 19,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-tablet-v1/record.json",
+        "record_sha256": "5867abfff25f0f51b450929395b0a4b5499cfa59bd74db9aeb728c43181fadd4",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-tablet-v1/tests.log",
+        "tests_log_sha256": "0b945780e98a740de1803871acde28e92efcdac8828811bea1361b7be5ecf56f"
+      },
+      {
+        "name": "submit-shared-regression-phone-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 19,
+        "credited_executions": 19,
+        "credited_cases": [
+          "dev.tinycast.android.InlinePaletteDeviceTest#inlineAliasConflictDeleteCancellationAndFeedbackStayInThePalette",
+          "dev.tinycast.android.InlinePaletteDeviceTest#staleMenuOwnerCannotClearTheCurrentWindowState",
+          "dev.tinycast.android.InlinePaletteDeviceTest#actionCapsuleAndSearchableActionsPreserveTheSelectedCommand",
+          "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+          "dev.tinycast.android.InlinePaletteDeviceTest#programmaticCommandDismissesMenuBeforeEditingNewQuery",
+          "dev.tinycast.android.InlinePaletteDeviceTest#editorSaveRemainsReachableAboveTheRealDockedKeyboard",
+          "dev.tinycast.android.InlinePaletteDeviceTest#menuOwnershipEpochCancelsModifierPairsAcrossOpeningAndClosing",
+          "dev.tinycast.android.InlinePaletteDeviceTest#actionSearchImeActivatesOnlyTheCurrentEnabledResultOutsideComposition",
+          "dev.tinycast.android.InlinePaletteDeviceTest#editorReplacesPaletteAndRestoresLauncherQueryCaretAndFrame",
+          "dev.tinycast.android.InlinePaletteDeviceTest#emojiFilterUsesSameWindowAndEscapeRestoresTyping",
+          "dev.tinycast.android.InlinePaletteDeviceTest#returningFromEditorRetainsTheScrolledLauncherViewport",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedQuicklinkFieldsSurviveActivityRecreation",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#largeUnsavedDraftSurvivesRecreationWithoutBundleSerialization",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenActionsUsesTheCurrentSelection",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#unsavedNewNoteSurvivesActivityRecreation",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenEnterUsesTheCurrentSelection",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#rapidLauncherDownThenPinUsesTheCurrentSelection",
+          "dev.tinycast.android.ReadinessRegressionDeviceTest#cancellingADraftDoesNotRestoreItInANewEditor"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 21,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-phone-v1/record.json",
+        "record_sha256": "f86fdea9c1bf811cd097049d1325d86b1ad9e550d2b98b32e7f86bf0148deb46",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-shared-regression-phone-v1/tests.log",
+        "tests_log_sha256": "c27febe569c3db02589256a73fa98659ce3bad7989238734a6c710365d03e7a6"
+      },
+      {
+        "name": "submit-reviewed-input-tablet-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 21,
+        "credited_executions": 21,
+        "credited_cases": [
+          "dev.tinycast.android.ReviewedTextDeviceTest#longPreviewAndCommandSearchRemainReachableByTouch",
+          "dev.tinycast.android.ReviewedTextDeviceTest#cancelBeforeRunReturnsWithoutExecutingOrSaving",
+          "dev.tinycast.android.ReviewedTextDeviceTest#ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+          "dev.tinycast.android.ReviewedTextDeviceTest#writableSelectionStillUsesCopyWithoutReplacingSource",
+          "dev.tinycast.android.ReviewedTextDeviceTest#sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+          "dev.tinycast.android.ReviewedTextDeviceTest#explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+          "dev.tinycast.android.ReviewedTextDeviceTest#malformedAndOversizedInputCannotRunOrChangeClipboard",
+          "dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+          "dev.tinycast.android.ReviewedTextDeviceTest#aNewExternalShareEndsThePriorSelectionCommand",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#historyLaunchExpiresInsteadOfReplayingItsPayload",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#requiredConfigurationNeedsAnotherExplicitRun",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#pendingRecreationExpiresWithoutRunning",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#newAndMalformedIntentsRevokeThePreviousGrant",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#staleRuntimeCannotPublishOrWriteAfterReplacement",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#approvedRecreationRevokesInputWithoutRerunning",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#rejectedAsyncAndSyncHostCallsReleaseApprovedInput",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#resetCloseErrorAndOrdinaryLaunchRevokeInput",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#noViewCompletionReleasesItsApprovedInput",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#anotherActivityStoreRevokesThePreviousOwnerButOldCleanupCannotRevokeItsSuccessor",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#queuedPreviewActionsCannotChangeANewerReview"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-tablet-v1/record.json",
+        "record_sha256": "0ed299844d8b299080dd5f0a5f7e155844387f0356b0d69df321ffce4e1870b7",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-tablet-v1/tests.log",
+        "tests_log_sha256": "165a897abdc5228edcc11ecb70dbbf32a078a8c1dc7b2639c145f475e9f4fd70"
+      },
+      {
+        "name": "submit-reviewed-input-phone-v1",
+        "origin": "retained prior cohort; not rerun with repaired harness",
+        "recorded_passes": 21,
+        "credited_executions": 21,
+        "credited_cases": [
+          "dev.tinycast.android.ReviewedTextDeviceTest#longPreviewAndCommandSearchRemainReachableByTouch",
+          "dev.tinycast.android.ReviewedTextDeviceTest#cancelBeforeRunReturnsWithoutExecutingOrSaving",
+          "dev.tinycast.android.ReviewedTextDeviceTest#ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+          "dev.tinycast.android.ReviewedTextDeviceTest#writableSelectionStillUsesCopyWithoutReplacingSource",
+          "dev.tinycast.android.ReviewedTextDeviceTest#sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+          "dev.tinycast.android.ReviewedTextDeviceTest#explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+          "dev.tinycast.android.ReviewedTextDeviceTest#malformedAndOversizedInputCannotRunOrChangeClipboard",
+          "dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+          "dev.tinycast.android.ReviewedTextDeviceTest#aNewExternalShareEndsThePriorSelectionCommand",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#historyLaunchExpiresInsteadOfReplayingItsPayload",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#requiredConfigurationNeedsAnotherExplicitRun",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#pendingRecreationExpiresWithoutRunning",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#newAndMalformedIntentsRevokeThePreviousGrant",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#staleRuntimeCannotPublishOrWriteAfterReplacement",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#approvedRecreationRevokesInputWithoutRerunning",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#rejectedAsyncAndSyncHostCallsReleaseApprovedInput",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#resetCloseErrorAndOrdinaryLaunchRevokeInput",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#noViewCompletionReleasesItsApprovedInput",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#anotherActivityStoreRevokesThePreviousOwnerButOldCleanupCannotRevokeItsSuccessor",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime",
+          "dev.tinycast.android.ReviewedTextLifecycleDeviceTest#queuedPreviewActionsCannotChangeANewerReview"
+        ],
+        "excluded_cases": [],
+        "exclusion_reason": null,
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+        "record": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-phone-v1/record.json",
+        "record_sha256": "daa1ee605b7d07d9e10b5e71323ae3649e8e882eead452d40d7479c8ad0ddb4e",
+        "tests_log": "docs/validation/extension-compatibility/form-submission/cohorts/submit-reviewed-input-phone-v1/tests.log",
+        "tests_log_sha256": "fd8f65a250b3c54f0a5a7cc33cef0a126e717b4e75de0ea465fab9764af94c46"
+      },
+      {
+        "name": "publication-both-tablet200-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 2,
+        "credited_executions": 2,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/record.json",
+        "record_sha256": "d66c14ee63e1aee6811fb4eb403c13f779de7454ed24aaf9481bde7021cea691",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/tests.log",
+        "tests_log_sha256": "70ed5806d6d3b81d9dc2df88a6f5ff4e05643bff3531b53b763af4c6d0859ccb"
+      },
+      {
+        "name": "publication-both-phone200-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 2,
+        "credited_executions": 2,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication",
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/record.json",
+        "record_sha256": "4f52438ff05261ad34619784cedc9294612971400acc2ab83bfe7c9173de54bd",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/tests.log",
+        "tests_log_sha256": "6408262e8125bb26ab2253e373116c9cc6301da71f30049cfc6d3a0ef4246b30"
+      },
+      {
+        "name": "publication-controlled-landscape200-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/record.json",
+        "record_sha256": "56385fd05ec5fa900a5811cc10df98885b24517ad3ecb1dabe600ef697391e5a",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/tests.log",
+        "tests_log_sha256": "96aa9c746ba085652ca58e673a374f599670169dc026ac0d49e4bd0928008584"
+      },
+      {
+        "name": "publication-controlled-tablet100-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/record.json",
+        "record_sha256": "dde92d3719d53cc91079c47e6d7ef9cf729b4c7ae253fc8ba9ce91c6ecf594b0",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/tests.log",
+        "tests_log_sha256": "2180a1e9db85595fe78b19b241f7cd1aea2179a8613f40d3215d78774b2954a7"
+      },
+      {
+        "name": "publication-controlled-phone100-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/record.json",
+        "record_sha256": "8a377e6b0f96a3d7bc4e8c43046a8b667c165701b5e01e54e31188c8e55d9adc",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/tests.log",
+        "tests_log_sha256": "f3d4e6a4ead09102495cd11d793e68b324210bf5e1b54925ab8c29f22fcc2cf3"
+      },
+      {
+        "name": "publication-controlled-landscape100-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#allFieldKindsKeepFocusValuesCompositionAndMasking"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/record.json",
+        "record_sha256": "be866bd0346ef6e9a1a35978ebfa73b2b46303be01b49e50af4e26645c84b76b",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/tests.log",
+        "tests_log_sha256": "9d3a8eaf2d5f933101f53fda9583683b8088c0e197210534cca39ae096b23883"
+      },
+      {
+        "name": "publication-pointer-tablet100-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 18,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/record.json",
+        "record_sha256": "adf06e2931f4c7ce568a1c6330872e5999cbc71b3804769e6736e7198028a143",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/tests.log",
+        "tests_log_sha256": "833a3695da25254b5730002f0e59cfa409a53f3d36942a73a3b07177278cd9d4"
+      },
+      {
+        "name": "publication-pointer-phone100-v1",
+        "origin": "fresh repaired-harness execution",
+        "recorded_passes": 1,
+        "credited_executions": 1,
+        "credited_cases": [
+          "dev.tinycast.android.ExtensionFormDeviceTest#liveImePointerSelectionSurvivesUnrelatedPublication"
+        ],
+        "excluded_cases": [],
+        "host_cleanup_checks": 20,
+        "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+        "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+        "record": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/record.json",
+        "record_sha256": "e99a3665bce823ff75546366f22b85d939caaeca4120e5aeff51fa3ad35e3319",
+        "tests_log": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/tests.log",
+        "tests_log_sha256": "4856e469aa89181806e9c43fa8397eaf4e182e4e3be1557232444db82567c2c9"
+      }
+    ],
+    "boundary": "Retained unaffected cases keep their original harness identities. Entire affected cases are withdrawn, including their uncontrolled-value claim; fresh ten unique scenarios replace fifteen duplicate older executions. Cleanup totals count successful cohort-level checks, not per-case cleanup. No production code changed for this repair."
+  },
+  "raw_captures": [
+    {
+      "cohort": "publication-both-tablet200-v1",
+      "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before",
+      "name": "pointer-tablet200-before",
+      "caption": "Actual long-press selects Owned with the live keyboard visible; native and composed marker 0.",
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "layout": "tablet",
+      "font_scale": 2.0,
+      "files": {
+        ".png": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png",
+          "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-before.png",
+          "sha256": "b1ad36e46b9f77dd1533b4281da993ca3b3e4cff88c6fe4128144c526e56ad18"
+        },
+        ".xml": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before.xml",
+          "sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372"
+        },
+        "-frame.json": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before-frame.json",
+          "sha256": "80d7e228ce8287b03bea5258cc7c86e0b49d07073def6966766ffda07b68fb93"
+        }
+      }
+    },
+    {
+      "cohort": "publication-both-tablet200-v1",
+      "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after",
+      "name": "pointer-tablet200-after",
+      "caption": "After native delivery and Compose consume marker 1, actual range 0..5 and live keyboard remain.",
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "layout": "tablet",
+      "font_scale": 2.0,
+      "files": {
+        ".png": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+          "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-after.png",
+          "sha256": "c52808a81b3b9bb462710ee80e7337cdd1a1da47e8cf45c6c2f3ce6510c24cc9"
+        },
+        ".xml": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after.xml",
+          "sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372"
+        },
+        "-frame.json": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after-frame.json",
+          "sha256": "ad70d7861f18001edb74b669adf84cb1c28f3412660c7eeb083226c196fa2435"
+        }
+      }
+    },
+    {
+      "cohort": "publication-both-phone200-v1",
+      "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after",
+      "name": "pointer-phone200-after",
+      "caption": "Phone 200%: actual long-press range 0..5 after witnessed marker 1, keyboard visible.",
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "layout": "phone",
+      "font_scale": 2.0,
+      "files": {
+        ".png": {
+          "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+          "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-phone200-after.png",
+          "sha256": "3b44121fa0fa8d5283e93569ae59c5a25d9d76441197a9adc8ba7c5409ec1801"
+        },
+        ".xml": {
+          "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after.xml",
+          "sha256": "dc9003d9ba738ac3f1b42c04cb993bc5720dc9382845ae07643a4250033d9bc2"
+        },
+        "-frame.json": {
+          "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after-frame.json",
+          "sha256": "b083149b899a88a0cd5d822c1831d80ef4231ee3ae3cf1dabff01084af2cf44a"
+        }
+      }
+    },
+    {
+      "cohort": "publication-both-tablet200-v1",
+      "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published",
+      "name": "controlled-tablet200-after",
+      "caption": "Tablet 200%: exact programmatic range 2..5 after witnessed marker 1; keyboard hidden.",
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "layout": "tablet",
+      "font_scale": 2.0,
+      "files": {
+        ".png": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+          "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-tablet200-after.png",
+          "sha256": "7bc467d5db48dce69751a95541ef0528c985f9cb321d464fa4a53740d81b6b78"
+        },
+        ".xml": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after.xml",
+          "sha256": "cdd9afb39d565d71c6d057feba8ff7bb0a3abdc6c009d6e117e527cae5a3e567"
+        },
+        "-frame.json": {
+          "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after-frame.json",
+          "sha256": "3fcfb7934edeafe02a2aeae530c2dd75d55811c4af82ad2e335b0ae5c5da0d21"
+        }
+      }
+    },
+    {
+      "cohort": "publication-both-phone200-v1",
+      "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published",
+      "name": "controlled-phone200-after",
+      "caption": "Phone 200%: exact programmatic range 2..5 after witnessed marker 1; keyboard hidden.",
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "layout": "phone",
+      "font_scale": 2.0,
+      "files": {
+        ".png": {
+          "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+          "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-phone200-after.png",
+          "sha256": "c3dc3d78a014802209fa248997adf3af64175d47d24464951306b60ff288fcb3"
+        },
+        ".xml": {
+          "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after.xml",
+          "sha256": "83612be7f337e64d46c0cc1ee56f74a870dd04773e78c86d8f88f466d5cfad70"
+        },
+        "-frame.json": {
+          "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after-frame.json",
+          "sha256": "97e7db87054f6ce0c6b33776811952eada06e2226810b533b1ad1080796404f5"
+        }
+      }
+    },
+    {
+      "cohort": "publication-controlled-landscape200-v1",
+      "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published",
+      "name": "controlled-landscape200-after",
+      "caption": "Short landscape 200%: range 2..5 after witnessed marker 1; keyboard hidden. The marker may be outside the visible scroll viewport; composed semantics and frame record bind it.",
+      "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+      "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+      "layout": "landscape",
+      "font_scale": 2.0,
+      "files": {
+        ".png": {
+          "source": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+          "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-landscape200-after.png",
+          "sha256": "0f88b93f9f35b7e8f95b87fe66a8ae2f04d1c347132270f0ae17655714c0bd86"
+        },
+        ".xml": {
+          "source": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after.xml",
+          "sha256": "6fc97b987a0b34a788df9ee7560a38932fcd292a2706a381c58f17aa6c13c822"
+        },
+        "-frame.json": {
+          "source": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+          "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after-frame.json",
+          "sha256": "356cb152da85498e373251265497a7fff332c11194cd9d4e28201cfbc4c659af"
+        }
+      }
+    }
+  ],
+  "retained_capture_hashes": {
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields-frame.json": "559fdaa05b87b73db3fd348e57062e4034504bae9c39304f528051c33dcfc68e",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.png": "9dfe0f968a1215ca1b4f95835b57fa8461a6a668c03c442564724d150cd1c0e6",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.xml": "5d15cad67b27fa6a2dd157cbcd5bba84148a375db4ca2618378568e77934be04",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json": "3fcfb7934edeafe02a2aeae530c2dd75d55811c4af82ad2e335b0ae5c5da0d21",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png": "7bc467d5db48dce69751a95541ef0528c985f9cb321d464fa4a53740d81b6b78",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml": "cdd9afb39d565d71c6d057feba8ff7bb0a3abdc6c009d6e117e527cae5a3e567",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json": "42b40be64470f429e0b02a260cd60bf8dea578a170e292a158cfc6728126edd1",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png": "251f54bcf069998dcb8b1d06d91c3a9e065f64d895c437b0c24fc7ee71f093be",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml": "9c60321c9fa3a6f974ea956adcb5c85925726ee82ce89c73492a9211c52553c4",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "b3789359d01d24bf70e1319319afca7304df0a04fcb6fd0f036981964dc55bc5",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json": "ad70d7861f18001edb74b669adf84cb1c28f3412660c7eeb083226c196fa2435",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png": "c52808a81b3b9bb462710ee80e7337cdd1a1da47e8cf45c6c2f3ce6510c24cc9",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json": "80d7e228ce8287b03bea5258cc7c86e0b49d07073def6966766ffda07b68fb93",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png": "b1ad36e46b9f77dd1533b4281da993ca3b3e4cff88c6fe4128144c526e56ad18",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+    "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "77ba8927c05c1dc90c3bb721ad51cfc4c3b0751e01daa33b142136d453fd16e6",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields-frame.json": "2d02f5f4f3468a21e80c588ed76944776681432b82e649d42b68993908f9bd8f",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.png": "73bf6791c32bfa8ab1bb1375f1f913ee818e0c73c75eba83a83921ac015af0d4",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.xml": "4fe095f81ab389938959009d5f7849da09f2a9b28c32bb9cc2cea2754d143ece",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json": "97e7db87054f6ce0c6b33776811952eada06e2226810b533b1ad1080796404f5",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png": "c3dc3d78a014802209fa248997adf3af64175d47d24464951306b60ff288fcb3",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml": "83612be7f337e64d46c0cc1ee56f74a870dd04773e78c86d8f88f466d5cfad70",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json": "d516ee4a2f665a7cad9c546310a75dcf98a98f3e89d67b2ce03714d7ec0eacb6",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png": "276c3ef192e87c1af10d6cf064ab87d9a4ce1758a3cc87f5c7178b693d1ffa7d",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml": "e8ff30de932342fd3892729b1963c45df64dcba1784d55ee30fd026c94aa9eed",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "76b2b8112da6676693f6ae46f2a4a572a448d8dde6ddb019fadef55e562d13c0",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json": "b083149b899a88a0cd5d822c1831d80ef4231ee3ae3cf1dabff01084af2cf44a",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png": "3b44121fa0fa8d5283e93569ae59c5a25d9d76441197a9adc8ba7c5409ec1801",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml": "dc9003d9ba738ac3f1b42c04cb993bc5720dc9382845ae07643a4250033d9bc2",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json": "a6d2f8e5109076c27ff0e5a04c381ce1abeef1ba24646ed11088a9a468445fad",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png": "3b44121fa0fa8d5283e93569ae59c5a25d9d76441197a9adc8ba7c5409ec1801",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml": "dc9003d9ba738ac3f1b42c04cb993bc5720dc9382845ae07643a4250033d9bc2",
+    "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "017521361f8962608a936d496fd28e18304ea146315f390ac5538477a87c0529",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields-frame.json": "b5277f2a12b51a67ce517a0a77bad78ee377602b745f1e696059bb37b1351be6",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.png": "1340967d8c67ee375ecc9fab29171ea6640a54cd3de69075bfca37efc724b1c4",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.xml": "2e286f113a3684ef65d15e89eea5c8528aca293aafc7ac0cc15e911f19d539c4",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json": "356cb152da85498e373251265497a7fff332c11194cd9d4e28201cfbc4c659af",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png": "0f88b93f9f35b7e8f95b87fe66a8ae2f04d1c347132270f0ae17655714c0bd86",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml": "6fc97b987a0b34a788df9ee7560a38932fcd292a2706a381c58f17aa6c13c822",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json": "a53153fe1a212b643e68b3a1e39dd5432a0c45386b41c1a08ca150734ae68ac7",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png": "1a52acfc72f6620cc33f63d90a205ebc77f2d346340cbc58e5c211f6e24b25c0",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml": "217c3978bd5bdb2c77e1def4364264b41562596676a36465131505a743e58698",
+    "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "020f2194b6b604c33ec1901e90ccfa604eb7ce77633c69fd290ab967bb1c5830",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields-frame.json": "e41e9ecf2c76c63e256fba840bbce78e29b987be7b751230ba19a04808a63fe4",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.png": "b1a2c0ea01ed291b50c4e774bd602453a3b23109863c811958b6f49cbaba0a42",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.xml": "f5869a83ff7ebeea49f5ba1c0d0f4b1463e29b1dbbaacc77766fe723f945770e",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json": "bd42fbad1b3ca7eddc07be18f1d2611b782098c38144e5b601f0675a19e78d9f",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png": "15e0482d9f73c4f2f1fc15cc69e99aad40f9cc24a5bc1cb5dfb6d9eac7c62b55",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml": "719514fd6d3f84a9ada804f85705c8f4b2418f607f990b872edb20afb5528cd6",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json": "cc7c92c83cec80ab50151e91d855804204575d61214fb4c80729e8e9587b2ff0",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png": "215c3b7f2689a21f0c17cf39cd426c3a996cf3c882c8d0fbb2f755cfc3ff2224",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml": "095cf4cd99e77e94f9a8e116305bf01e6d459a9ebe29fbedab8e9f802a1205af",
+    "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "02de2054e004938614085f21de29d156caa164fa4ae2fc6fdf5a43cb4ec06295",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields-frame.json": "cc6a0678baecb6f4f0604baf8304839a06b268c1ee279086d2a5b0d8d4226720",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.png": "b24977ac1e1aa2be96fedc7122619477a02e59165cdf1f3090fa621590d43947",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.xml": "317a09b3af8f4e3b82104d959e5acecebd549e9f7e3527b544e30d1526afd767",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json": "49eb5405b5adead536e9f3852c49c5c2535ca257265cbba05aaa36ad67baaeef",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png": "1882b9852befc3f15129fbb2a7f70df655b705ef60abc0b455e3cc3458721d32",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml": "886e1bb743ea18448e8c90ddefae71121201bbfcfe4638c3617fb2f1f074175b",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json": "fe5cee446fd8b1a3e5bb0dc865305802d6e7c35eb648540c155915ee14b6ea7c",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png": "1b4b98019b0e5dff3cb290f67945e02d19a87674962b7401db5d3e2f749673df",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml": "cfe134b5862f2498e9b0ed838790292e6aad6c9a1ce3cefa297cf5f0729dfd4c",
+    "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "57d73e9a4baa1f86cd076a5ce23eec0f9b9dd745d729012898fc4afee169ca7c",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields-frame.json": "e41e9ecf2c76c63e256fba840bbce78e29b987be7b751230ba19a04808a63fe4",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.png": "31e51df0a854afefc32162531fc060b45c283d448a4c8056bfca67e715eca143",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-all-fields.xml": "fc9c99dad66418187bd55616646bf4ce656025ebcfcdc9b52935d354addc0af7",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json": "bd42fbad1b3ca7eddc07be18f1d2611b782098c38144e5b601f0675a19e78d9f",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png": "c3fb9145d56c7c4a4c08218d48bc10684c20df98d2fe8896e33740f7ee5f9c48",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml": "ab2e8f799e4982016b2f533c1df4e25b52e5d18513dc27da7117f4695ec94d14",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password-frame.json": "cc7c92c83cec80ab50151e91d855804204575d61214fb4c80729e8e9587b2ff0",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.png": "28f506adc779026798d41eb07e39b4149bcc3a77cbab51e30f651560dbb37946",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-masked-password.xml": "d0531d5960d9e2d3f0700d078b64c4e650680280f00f1e62181e0554f78e4b03",
+    "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "39ea0d99abf9c86f972bb34320553810c422a8ab564117d8a91f42d01d37b35e",
+    "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json": "c42e8b0550d0aafb23792cce6cb5bb9db73d1142e562cda4ea8dee13302f5ec9",
+    "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png": "94dd51068b189e900b4b810cd794be04496efddebcd443d04403bdf3aacdbd93",
+    "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml": "916e2a4738ec87a849f391928cfb0e5c7158c14d487aa5d4d6ed833bf2b63243",
+    "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json": "96333c7b604d6133c869e1c01eed579542cfaa8b8b4dfdf43d550dc354684ca1",
+    "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png": "a3bc950286111a079552ab94a9880e07d40278935416a631fde66e75352adeb2",
+    "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml": "916e2a4738ec87a849f391928cfb0e5c7158c14d487aa5d4d6ed833bf2b63243",
+    "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "f9109ebb2116e69405688e4824a9b81d6ee69f6912ea698c74b3ed5e0aafa398",
+    "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json": "d7c258a61e6b2e4a17c8d8a08c2e12b9e27a871cad97a90a6fac7f7f21ee81c0",
+    "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png": "667272e5953077e227eb4f5edfc8eb2a3045632790f09668aa79321d50793d75",
+    "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml": "bc6d2282c0a85c7893220852a22594abcc6ae248f8415f304a1d095eac998d09",
+    "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json": "3fd8cc8fd1dc04b74462dc778752a98d54aea6820e01993f10afb2d27cc739d3",
+    "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png": "667272e5953077e227eb4f5edfc8eb2a3045632790f09668aa79321d50793d75",
+    "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml": "bc6d2282c0a85c7893220852a22594abcc6ae248f8415f304a1d095eac998d09",
+    "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "105ee4105f28011907817b54b4d24adab7b8ee538d2ae0e4fc6392c756f87af0"
+  },
+  "published_transformations": [
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/record.json",
+      "original_sha256": "d66c14ee63e1aee6811fb4eb403c13f779de7454ed24aaf9481bde7021cea691",
+      "public_sha256": "d66c14ee63e1aee6811fb4eb403c13f779de7454ed24aaf9481bde7021cea691",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/tests.log",
+      "original_sha256": "70ed5806d6d3b81d9dc2df88a6f5ff4e05643bff3531b53b763af4c6d0859ccb",
+      "public_sha256": "70ed5806d6d3b81d9dc2df88a6f5ff4e05643bff3531b53b763af4c6d0859ccb",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "original_sha256": "b3789359d01d24bf70e1319319afca7304df0a04fcb6fd0f036981964dc55bc5",
+      "public_sha256": "b3789359d01d24bf70e1319319afca7304df0a04fcb6fd0f036981964dc55bc5",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "original_sha256": "77ba8927c05c1dc90c3bb721ad51cfc4c3b0751e01daa33b142136d453fd16e6",
+      "public_sha256": "77ba8927c05c1dc90c3bb721ad51cfc4c3b0751e01daa33b142136d453fd16e6",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/record.json",
+      "original_sha256": "4f52438ff05261ad34619784cedc9294612971400acc2ab83bfe7c9173de54bd",
+      "public_sha256": "4f52438ff05261ad34619784cedc9294612971400acc2ab83bfe7c9173de54bd",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/tests.log",
+      "original_sha256": "6408262e8125bb26ab2253e373116c9cc6301da71f30049cfc6d3a0ef4246b30",
+      "public_sha256": "6408262e8125bb26ab2253e373116c9cc6301da71f30049cfc6d3a0ef4246b30",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "original_sha256": "76b2b8112da6676693f6ae46f2a4a572a448d8dde6ddb019fadef55e562d13c0",
+      "public_sha256": "76b2b8112da6676693f6ae46f2a4a572a448d8dde6ddb019fadef55e562d13c0",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "original_sha256": "017521361f8962608a936d496fd28e18304ea146315f390ac5538477a87c0529",
+      "public_sha256": "017521361f8962608a936d496fd28e18304ea146315f390ac5538477a87c0529",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape200-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/record.json",
+      "original_sha256": "56385fd05ec5fa900a5811cc10df98885b24517ad3ecb1dabe600ef697391e5a",
+      "public_sha256": "56385fd05ec5fa900a5811cc10df98885b24517ad3ecb1dabe600ef697391e5a",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape200-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/tests.log",
+      "original_sha256": "96aa9c746ba085652ca58e673a374f599670169dc026ac0d49e4bd0928008584",
+      "public_sha256": "96aa9c746ba085652ca58e673a374f599670169dc026ac0d49e4bd0928008584",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "original_sha256": "020f2194b6b604c33ec1901e90ccfa604eb7ce77633c69fd290ab967bb1c5830",
+      "public_sha256": "020f2194b6b604c33ec1901e90ccfa604eb7ce77633c69fd290ab967bb1c5830",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-tablet100-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/record.json",
+      "original_sha256": "dde92d3719d53cc91079c47e6d7ef9cf729b4c7ae253fc8ba9ce91c6ecf594b0",
+      "public_sha256": "dde92d3719d53cc91079c47e6d7ef9cf729b4c7ae253fc8ba9ce91c6ecf594b0",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-tablet100-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/tests.log",
+      "original_sha256": "2180a1e9db85595fe78b19b241f7cd1aea2179a8613f40d3215d78774b2954a7",
+      "public_sha256": "2180a1e9db85595fe78b19b241f7cd1aea2179a8613f40d3215d78774b2954a7",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-tablet100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "original_sha256": "02de2054e004938614085f21de29d156caa164fa4ae2fc6fdf5a43cb4ec06295",
+      "public_sha256": "02de2054e004938614085f21de29d156caa164fa4ae2fc6fdf5a43cb4ec06295",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-phone100-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/record.json",
+      "original_sha256": "8a377e6b0f96a3d7bc4e8c43046a8b667c165701b5e01e54e31188c8e55d9adc",
+      "public_sha256": "8a377e6b0f96a3d7bc4e8c43046a8b667c165701b5e01e54e31188c8e55d9adc",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-phone100-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/tests.log",
+      "original_sha256": "f3d4e6a4ead09102495cd11d793e68b324210bf5e1b54925ab8c29f22fcc2cf3",
+      "public_sha256": "f3d4e6a4ead09102495cd11d793e68b324210bf5e1b54925ab8c29f22fcc2cf3",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-phone100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "original_sha256": "57d73e9a4baa1f86cd076a5ce23eec0f9b9dd745d729012898fc4afee169ca7c",
+      "public_sha256": "57d73e9a4baa1f86cd076a5ce23eec0f9b9dd745d729012898fc4afee169ca7c",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape100-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/record.json",
+      "original_sha256": "be866bd0346ef6e9a1a35978ebfa73b2b46303be01b49e50af4e26645c84b76b",
+      "public_sha256": "be866bd0346ef6e9a1a35978ebfa73b2b46303be01b49e50af4e26645c84b76b",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape100-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/tests.log",
+      "original_sha256": "9d3a8eaf2d5f933101f53fda9583683b8088c0e197210534cca39ae096b23883",
+      "public_sha256": "9d3a8eaf2d5f933101f53fda9583683b8088c0e197210534cca39ae096b23883",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape100-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json",
+      "original_sha256": "39ea0d99abf9c86f972bb34320553810c422a8ab564117d8a91f42d01d37b35e",
+      "public_sha256": "39ea0d99abf9c86f972bb34320553810c422a8ab564117d8a91f42d01d37b35e",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-pointer-tablet100-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/record.json",
+      "original_sha256": "adf06e2931f4c7ce568a1c6330872e5999cbc71b3804769e6736e7198028a143",
+      "public_sha256": "adf06e2931f4c7ce568a1c6330872e5999cbc71b3804769e6736e7198028a143",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-pointer-tablet100-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/tests.log",
+      "original_sha256": "833a3695da25254b5730002f0e59cfa409a53f3d36942a73a3b07177278cd9d4",
+      "public_sha256": "833a3695da25254b5730002f0e59cfa409a53f3d36942a73a3b07177278cd9d4",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-pointer-tablet100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "original_sha256": "f9109ebb2116e69405688e4824a9b81d6ee69f6912ea698c74b3ed5e0aafa398",
+      "public_sha256": "f9109ebb2116e69405688e4824a9b81d6ee69f6912ea698c74b3ed5e0aafa398",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-pointer-phone100-v1/record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/record.json",
+      "original_sha256": "e99a3665bce823ff75546366f22b85d939caaeca4120e5aeff51fa3ad35e3319",
+      "public_sha256": "e99a3665bce823ff75546366f22b85d939caaeca4120e5aeff51fa3ad35e3319",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-pointer-phone100-v1/tests.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/tests.log",
+      "original_sha256": "4856e469aa89181806e9c43fa8397eaf4e182e4e3be1557232444db82567c2c9",
+      "public_sha256": "4856e469aa89181806e9c43fa8397eaf4e182e4e3be1557232444db82567c2c9",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-pointer-phone100-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json",
+      "original_sha256": "105ee4105f28011907817b54b4d24adab7b8ee538d2ae0e4fc6392c756f87af0",
+      "public_sha256": "105ee4105f28011907817b54b4d24adab7b8ee538d2ae0e4fc6392c756f87af0",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png",
+      "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-before.png",
+      "original_sha256": "b1ad36e46b9f77dd1533b4281da993ca3b3e4cff88c6fe4128144c526e56ad18",
+      "public_sha256": "b1ad36e46b9f77dd1533b4281da993ca3b3e4cff88c6fe4128144c526e56ad18",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before.xml",
+      "original_sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+      "public_sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before-frame.json",
+      "original_sha256": "80d7e228ce8287b03bea5258cc7c86e0b49d07073def6966766ffda07b68fb93",
+      "public_sha256": "80d7e228ce8287b03bea5258cc7c86e0b49d07073def6966766ffda07b68fb93",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+      "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-after.png",
+      "original_sha256": "c52808a81b3b9bb462710ee80e7337cdd1a1da47e8cf45c6c2f3ce6510c24cc9",
+      "public_sha256": "c52808a81b3b9bb462710ee80e7337cdd1a1da47e8cf45c6c2f3ce6510c24cc9",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after.xml",
+      "original_sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+      "public_sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after-frame.json",
+      "original_sha256": "ad70d7861f18001edb74b669adf84cb1c28f3412660c7eeb083226c196fa2435",
+      "public_sha256": "ad70d7861f18001edb74b669adf84cb1c28f3412660c7eeb083226c196fa2435",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+      "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-phone200-after.png",
+      "original_sha256": "3b44121fa0fa8d5283e93569ae59c5a25d9d76441197a9adc8ba7c5409ec1801",
+      "public_sha256": "3b44121fa0fa8d5283e93569ae59c5a25d9d76441197a9adc8ba7c5409ec1801",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after.xml",
+      "original_sha256": "dc9003d9ba738ac3f1b42c04cb993bc5720dc9382845ae07643a4250033d9bc2",
+      "public_sha256": "dc9003d9ba738ac3f1b42c04cb993bc5720dc9382845ae07643a4250033d9bc2",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after-frame.json",
+      "original_sha256": "b083149b899a88a0cd5d822c1831d80ef4231ee3ae3cf1dabff01084af2cf44a",
+      "public_sha256": "b083149b899a88a0cd5d822c1831d80ef4231ee3ae3cf1dabff01084af2cf44a",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+      "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-tablet200-after.png",
+      "original_sha256": "7bc467d5db48dce69751a95541ef0528c985f9cb321d464fa4a53740d81b6b78",
+      "public_sha256": "7bc467d5db48dce69751a95541ef0528c985f9cb321d464fa4a53740d81b6b78",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after.xml",
+      "original_sha256": "cdd9afb39d565d71c6d057feba8ff7bb0a3abdc6c009d6e117e527cae5a3e567",
+      "public_sha256": "cdd9afb39d565d71c6d057feba8ff7bb0a3abdc6c009d6e117e527cae5a3e567",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after-frame.json",
+      "original_sha256": "3fcfb7934edeafe02a2aeae530c2dd75d55811c4af82ad2e335b0ae5c5da0d21",
+      "public_sha256": "3fcfb7934edeafe02a2aeae530c2dd75d55811c4af82ad2e335b0ae5c5da0d21",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+      "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-phone200-after.png",
+      "original_sha256": "c3dc3d78a014802209fa248997adf3af64175d47d24464951306b60ff288fcb3",
+      "public_sha256": "c3dc3d78a014802209fa248997adf3af64175d47d24464951306b60ff288fcb3",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after.xml",
+      "original_sha256": "83612be7f337e64d46c0cc1ee56f74a870dd04773e78c86d8f88f466d5cfad70",
+      "public_sha256": "83612be7f337e64d46c0cc1ee56f74a870dd04773e78c86d8f88f466d5cfad70",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after-frame.json",
+      "original_sha256": "97e7db87054f6ce0c6b33776811952eada06e2226810b533b1ad1080796404f5",
+      "public_sha256": "97e7db87054f6ce0c6b33776811952eada06e2226810b533b1ad1080796404f5",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+      "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-landscape200-after.png",
+      "original_sha256": "0f88b93f9f35b7e8f95b87fe66a8ae2f04d1c347132270f0ae17655714c0bd86",
+      "public_sha256": "0f88b93f9f35b7e8f95b87fe66a8ae2f04d1c347132270f0ae17655714c0bd86",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after.xml",
+      "original_sha256": "6fc97b987a0b34a788df9ee7560a38932fcd292a2706a381c58f17aa6c13c822",
+      "public_sha256": "6fc97b987a0b34a788df9ee7560a38932fcd292a2706a381c58f17aa6c13c822",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after-frame.json",
+      "original_sha256": "356cb152da85498e373251265497a7fff332c11194cd9d4e28201cfbc4c659af",
+      "public_sha256": "356cb152da85498e373251265497a7fff332c11194cd9d4e28201cfbc4c659af",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/submit-publication-repair-v1-plan.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/submit-publication-repair-v1-plan.json",
+      "original_sha256": "e86e99b0fa61b86db2b90f9de5ff637a5b5a4833461b12c2a0dbb23c1e83e6ee",
+      "public_sha256": "9f5cb1023c0754ed8f4e60a2c319042626bf49826983017c2090dd0202ca39e0",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    },
+    {
+      "original": "artifacts/form-validation/submit-publication-repair-v1-state.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/submit-publication-repair-v1-state.json",
+      "original_sha256": "fb7e7872f30407cb430e3527d39571aadc18c5b65308746f17f76b7923d5aea1",
+      "public_sha256": "a5a6844785d536656adfedc275219910b3e9edc6f90fc85046749104b528a211",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    },
+    {
+      "original": "artifacts/form-validation/run-cohorts-v1.py",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/run-cohorts-v1.py.txt",
+      "original_sha256": "5f3a1e2f2d798345a78495f8129ea15df04577d99ddd6bb0a33544040f33502f",
+      "public_sha256": "5f3a1e2f2d798345a78495f8129ea15df04577d99ddd6bb0a33544040f33502f",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/build-acceptance-harness-v6.py",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/build-acceptance-harness-v6.py.txt",
+      "original_sha256": "028262c3c5868bdc8451a125b5473a83fa5c971a08ea9c151a584dc2ac71cf47",
+      "public_sha256": "2e8748e9b3b70d91cc335f9fb0ae54be7282115586561881bf0fec635e519533",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    },
+    {
+      "original": "artifacts/form-validation/build-acceptance-harness-v7.py",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/build-acceptance-harness-v7.py.txt",
+      "original_sha256": "61426b75c975a49e588ff5f4d5a50c702b5eb601cbdd00e179cf34d38eae368d",
+      "public_sha256": "1b023cc67676d45066b400879f7e3baf464600c3af632a85814fc0e29a9e2e4d",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    },
+    {
+      "original": "artifacts/form-validation/build-final-checks-v2.py",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/build-final-checks-v2.py.txt",
+      "original_sha256": "26696a1088b53e7572093afa1e0c2d4ec4973ff39d3411e3e58757260bc00ed4",
+      "public_sha256": "6c3e8b33d5bc196f4a6b4695a239c73d07f4d6e609fd6b03ce59750d0139f069",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    },
+    {
+      "original": "artifacts/form-validation/submit-acceptance-harness-v6-state.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v6-state.json",
+      "original_sha256": "6b7469ce79c8be42432cd379045c64e92517a324e8b811b35b6031aee3b857a6",
+      "public_sha256": "6b7469ce79c8be42432cd379045c64e92517a324e8b811b35b6031aee3b857a6",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/submit-acceptance-harness-v6.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v6.log",
+      "original_sha256": "32e4d08a3ea962e70b1e9c0f5dde4201dfbee1cba000877f19aadf5b1575d356",
+      "public_sha256": "dd1971ac080205b872dfcac60eb83c65c693da66e0c2c4987825d67b5493dd4d",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    },
+    {
+      "original": "artifacts/form-validation/submit-acceptance-harness-v7-state.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v7-state.json",
+      "original_sha256": "d8fe108b13a4b72eee9a9f338fbf6a3f200e68e7a57373cce21f63700385c3ce",
+      "public_sha256": "d8fe108b13a4b72eee9a9f338fbf6a3f200e68e7a57373cce21f63700385c3ce",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/submit-acceptance-harness-v7.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v7.log",
+      "original_sha256": "251d599af0db36ef7ea451c9f85607f761f443dd450ca2ebcf7c09b0c56d6d46",
+      "public_sha256": "251d599af0db36ef7ea451c9f85607f761f443dd450ca2ebcf7c09b0c56d6d46",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/submit-publication-final-checks-v1-state.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-publication-final-checks-v1-state.json",
+      "original_sha256": "4b20b040cb3b7c1e0801d389e50437526ce5c1c5024dd09993b682705922e231",
+      "public_sha256": "4b20b040cb3b7c1e0801d389e50437526ce5c1c5024dd09993b682705922e231",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/submit-publication-final-checks-v1.log",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-publication-final-checks-v1.log",
+      "original_sha256": "982a44716e5b567f3c7a5a5ff8a6f69bdb367a43b71434b6617c42f3c835c901",
+      "public_sha256": "982a44716e5b567f3c7a5a5ff8a6f69bdb367a43b71434b6617c42f3c835c901",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/publication-final-check-details-v1.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/publication-final-check-details-v1.json",
+      "original_sha256": "e989a834d572a98bf8f35a6623d8e77a91958f9a4d260c9c9a613eeb6cad23db",
+      "public_sha256": "e989a834d572a98bf8f35a6623d8e77a91958f9a4d260c9c9a613eeb6cad23db",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/harness-5d541a7-submit-acceptance-v7/identity.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/identities/harness-5d541a7.json",
+      "original_sha256": "d8fe108b13a4b72eee9a9f338fbf6a3f200e68e7a57373cce21f63700385c3ce",
+      "public_sha256": "d8fe108b13a4b72eee9a9f338fbf6a3f200e68e7a57373cce21f63700385c3ce",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "artifacts/form-validation/candidate-5d541a7-submit-publication-final-checks-v1/identity.json",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/identities/final-debug.json",
+      "original_sha256": "cfff06143d34e936b40d0e8126b963b15806b0ec0d8e80095c30222bd052a4e3",
+      "public_sha256": "cfff06143d34e936b40d0e8126b963b15806b0ec0d8e80095c30222bd052a4e3",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "original": "app/build/reports/lint-results-debug.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/lint-results-debug.xml",
+      "original_sha256": "cacf4c0b13ac61b8527674375fc3659b77e1f2dfbc6b9c230d96699909500d61",
+      "public_sha256": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    },
+    {
+      "original": "app/build/reports/lint-results-benchmark.xml",
+      "public": "docs/validation/extension-compatibility/form-submission-publication-repair/checks/lint-results-benchmark.xml",
+      "original_sha256": "cacf4c0b13ac61b8527674375fc3659b77e1f2dfbc6b9c230d96699909500d61",
+      "public_sha256": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+      "transformation": "declared literal path replacements; XML-escaped when applicable"
+    }
+  ],
+  "literal_path_replacements": [
+    {
+      "original_prefix_sha256": "3eb1502b0895605ed06740ad6076c7f4e79ee3be9d0694ababff459f38f4a1bb",
+      "replacement": "<checkout>",
+      "xml_replacement": "&lt;checkout&gt;"
+    },
+    {
+      "original_prefix_sha256": "af5a723405caf7a0f556ffe5efc12a5c45ea3cda08fd7daf1046a8fad209c774",
+      "replacement": "<frozen-catalog-checkout>",
+      "xml_replacement": "&lt;frozen-catalog-checkout&gt;"
+    },
+    {
+      "original_prefix_sha256": "19eedb4f395eb0e14ae015e4e62bc036ebccca8b5d677c1b10ee35d6ed938d57",
+      "replacement": "<android-sdk>",
+      "xml_replacement": "&lt;android-sdk&gt;"
+    },
+    {
+      "original_prefix_sha256": "e187855977f75330f9d6548d4a3017e67467b9207e063b62963f90b7cf920c52",
+      "replacement": "<java-home>",
+      "xml_replacement": "&lt;java-home&gt;"
+    },
+    {
+      "original_prefix_sha256": "fb321be387eaf6604b3b856182534d0d937d90da7ee36b6933033f30e810dd55",
+      "replacement": "<gradle-cache>",
+      "xml_replacement": "&lt;gradle-cache&gt;"
+    },
+    {
+      "original_prefix_sha256": "3a74dc3f6e4a5053b8e8a15f12f429e1d279512d6ac8f967828e8ca964b34921",
+      "replacement": "<preceding-form-checkout>",
+      "xml_replacement": "&lt;preceding-form-checkout&gt;"
+    }
+  ],
+  "public_xml_parse_count": 8,
+  "hosted_ci": "Actual exact-head hosted Android and two independent fresh sol/high audits remain separate merge gates.",
+  "privacy": "Owned fixture text only; private original clipboard snapshots and unrelated evidence remain private.",
+  "public_files": {
+    "docs/validation/extension-compatibility/form-submission-publication-repair/captures.json": "c9d6e25f424b29eb98aa29cf6e19ae0fa14dd9b034e9c567033e4f1907d0ae43",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/lint-results-benchmark.xml": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/lint-results-debug.xml": "3ba5bc7df33fdc5fda180402dab09cccef739111f9bd5f9ef32ab206b5a71553",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/publication-final-check-details-v1.json": "e989a834d572a98bf8f35a6623d8e77a91958f9a4d260c9c9a613eeb6cad23db",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v6-state.json": "6b7469ce79c8be42432cd379045c64e92517a324e8b811b35b6031aee3b857a6",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v6.log": "dd1971ac080205b872dfcac60eb83c65c693da66e0c2c4987825d67b5493dd4d",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v7-state.json": "d8fe108b13a4b72eee9a9f338fbf6a3f200e68e7a57373cce21f63700385c3ce",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-acceptance-harness-v7.log": "251d599af0db36ef7ea451c9f85607f761f443dd450ca2ebcf7c09b0c56d6d46",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-publication-final-checks-v1-state.json": "4b20b040cb3b7c1e0801d389e50437526ce5c1c5024dd09993b682705922e231",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/checks/submit-publication-final-checks-v1.log": "982a44716e5b567f3c7a5a5ff8a6f69bdb367a43b71434b6617c42f3c835c901",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "76b2b8112da6676693f6ae46f2a4a572a448d8dde6ddb019fadef55e562d13c0",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "017521361f8962608a936d496fd28e18304ea146315f390ac5538477a87c0529",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/record.json": "4f52438ff05261ad34619784cedc9294612971400acc2ab83bfe7c9173de54bd",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-phone200-v1/tests.log": "6408262e8125bb26ab2253e373116c9cc6301da71f30049cfc6d3a0ef4246b30",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "b3789359d01d24bf70e1319319afca7304df0a04fcb6fd0f036981964dc55bc5",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "77ba8927c05c1dc90c3bb721ad51cfc4c3b0751e01daa33b142136d453fd16e6",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/record.json": "d66c14ee63e1aee6811fb4eb403c13f779de7454ed24aaf9481bde7021cea691",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-both-tablet200-v1/tests.log": "70ed5806d6d3b81d9dc2df88a6f5ff4e05643bff3531b53b763af4c6d0859ccb",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "39ea0d99abf9c86f972bb34320553810c422a8ab564117d8a91f42d01d37b35e",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/record.json": "be866bd0346ef6e9a1a35978ebfa73b2b46303be01b49e50af4e26645c84b76b",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape100-v1/tests.log": "9d3a8eaf2d5f933101f53fda9583683b8088c0e197210534cca39ae096b23883",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "020f2194b6b604c33ec1901e90ccfa604eb7ce77633c69fd290ab967bb1c5830",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/record.json": "56385fd05ec5fa900a5811cc10df98885b24517ad3ecb1dabe600ef697391e5a",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-landscape200-v1/tests.log": "96aa9c746ba085652ca58e673a374f599670169dc026ac0d49e4bd0928008584",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "57d73e9a4baa1f86cd076a5ce23eec0f9b9dd745d729012898fc4afee169ca7c",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/record.json": "8a377e6b0f96a3d7bc4e8c43046a8b667c165701b5e01e54e31188c8e55d9adc",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-phone100-v1/tests.log": "f3d4e6a4ead09102495cd11d793e68b324210bf5e1b54925ab8c29f22fcc2cf3",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/cases/form-allfieldkindskeepfocusvaluescompositionandmasking-record.json": "02de2054e004938614085f21de29d156caa164fa4ae2fc6fdf5a43cb4ec06295",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/record.json": "dde92d3719d53cc91079c47e6d7ef9cf729b4c7ae253fc8ba9ce91c6ecf594b0",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-controlled-tablet100-v1/tests.log": "2180a1e9db85595fe78b19b241f7cd1aea2179a8613f40d3215d78774b2954a7",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "105ee4105f28011907817b54b4d24adab7b8ee538d2ae0e4fc6392c756f87af0",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/record.json": "e99a3665bce823ff75546366f22b85d939caaeca4120e5aeff51fa3ad35e3319",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-phone100-v1/tests.log": "4856e469aa89181806e9c43fa8397eaf4e182e4e3be1557232444db82567c2c9",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/cases/form-liveimepointerselectionsurvivesunrelatedpublication-record.json": "f9109ebb2116e69405688e4824a9b81d6ee69f6912ea698c74b3ed5e0aafa398",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/record.json": "adf06e2931f4c7ce568a1c6330872e5999cbc71b3804769e6736e7198028a143",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/cohorts/publication-pointer-tablet100-v1/tests.log": "833a3695da25254b5730002f0e59cfa409a53f3d36942a73a3b07177278cd9d4",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/current-native-summary.json": "ecae012e4a14df97a7c2b4f25d35e1814972b842fef55f979826df709e8e22ca",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after-frame.json": "356cb152da85498e373251265497a7fff332c11194cd9d4e28201cfbc4c659af",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after.xml": "6fc97b987a0b34a788df9ee7560a38932fcd292a2706a381c58f17aa6c13c822",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after-frame.json": "97e7db87054f6ce0c6b33776811952eada06e2226810b533b1ad1080796404f5",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after.xml": "83612be7f337e64d46c0cc1ee56f74a870dd04773e78c86d8f88f466d5cfad70",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after-frame.json": "3fcfb7934edeafe02a2aeae530c2dd75d55811c4af82ad2e335b0ae5c5da0d21",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after.xml": "cdd9afb39d565d71c6d057feba8ff7bb0a3abdc6c009d6e117e527cae5a3e567",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after-frame.json": "b083149b899a88a0cd5d822c1831d80ef4231ee3ae3cf1dabff01084af2cf44a",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after.xml": "dc9003d9ba738ac3f1b42c04cb993bc5720dc9382845ae07643a4250033d9bc2",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after-frame.json": "ad70d7861f18001edb74b669adf84cb1c28f3412660c7eeb083226c196fa2435",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after.xml": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before-frame.json": "80d7e228ce8287b03bea5258cc7c86e0b49d07073def6966766ffda07b68fb93",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before.xml": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/harness-boundary.json": "36d5736a81ffba1df019a34685ca5d4fd4b750926d3b511e1b07c992c776624e",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/identities/final-debug.json": "cfff06143d34e936b40d0e8126b963b15806b0ec0d8e80095c30222bd052a4e3",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/identities/harness-5d541a7.json": "d8fe108b13a4b72eee9a9f338fbf6a3f200e68e7a57373cce21f63700385c3ce",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/build-acceptance-harness-v6.py.txt": "2e8748e9b3b70d91cc335f9fb0ae54be7282115586561881bf0fec635e519533",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/build-acceptance-harness-v7.py.txt": "1b023cc67676d45066b400879f7e3baf464600c3af632a85814fc0e29a9e2e4d",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/build-final-checks-v2.py.txt": "6c3e8b33d5bc196f4a6b4695a239c73d07f4d6e609fd6b03ce59750d0139f069",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/run-cohorts-v1.py.txt": "5f3a1e2f2d798345a78495f8129ea15df04577d99ddd6bb0a33544040f33502f",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/submit-publication-repair-v1-plan.json": "9f5cb1023c0754ed8f4e60a2c319042626bf49826983017c2090dd0202ca39e0",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/pipelines/submit-publication-repair-v1-state.json": "a5a6844785d536656adfedc275219910b3e9edc6f90fc85046749104b528a211",
+    "docs/validation/extension-compatibility/form-submission-publication-repair/publication-witnesses.json": "ccf683848de3b3b2eb96e23c63f8b09e0dc845b6354be3be805a5cf271038205",
+    "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-landscape200-after.png": "0f88b93f9f35b7e8f95b87fe66a8ae2f04d1c347132270f0ae17655714c0bd86",
+    "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-phone200-after.png": "c3dc3d78a014802209fa248997adf3af64175d47d24464951306b60ff288fcb3",
+    "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-tablet200-after.png": "7bc467d5db48dce69751a95541ef0528c985f9cb321d464fa4a53740d81b6b78",
+    "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-phone200-after.png": "3b44121fa0fa8d5283e93569ae59c5a25d9d76441197a9adc8ba7c5409ec1801",
+    "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-after.png": "c52808a81b3b9bb462710ee80e7337cdd1a1da47e8cf45c6c2f3ce6510c24cc9",
+    "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-before.png": "b1ad36e46b9f77dd1533b4281da993ca3b3e4cff88c6fe4128144c526e56ad18"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "completed": true,
+  "preceding_harness_source_commit": "ca788c5ece328a069e1b9bab2a8755eb3209a6b6",
+  "final_harness_source_commit": "b54243f53e0f383c102eb42d10e4343c10daf33d",
+  "only_changed_source": "app/src/androidTest/java/dev/tinycast/android/ExtensionFormDeviceTest.kt",
+  "preceding_source_sha256": "5c0328f36166db1fefaa2a92ffa41468a7224c272c1044d0eb764cd165e2ae17",
+  "final_source_sha256": "a0644569dbf09c9e4e5596a8fd0b36ec1c7bae53f2b6ce737632e1c600e909db",
+  "only_changes": [
+    "Isolate programmatic selection with Gboard hidden, retaining exact2..5 assertions before and after unrelated React publication",
+    "Add liveImePointerSelectionSurvivesUnrelatedPublication: actual long press, noncollapsed exact word/range retained with IME visible"
+  ],
+  "reversing_those_changes_exactly_reconstructs_prior_source": true,
+  "all_other_tests_fixtures_helpers_and_production_sources_unchanged": true,
+  "prior_test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+  "final_test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+  "apk_payload_entries_changed": [
+    "classes3.dex"
+  ],
+  "retained_failure": {
+    "cohort": "submit-forms-font200-tablet-v1",
+    "passed": 5,
+    "expected": 6,
+    "range_expected": [
+      2,
+      5
+    ],
+    "range_observed": [
+      19,
+      19
+    ],
+    "cause": "Unisolated; unchanged focused old/current cases both pass. No production regression or app fix is established."
+  },
+  "diagnostic_only_not_credited": [
+    "selection-current-tablet200-v1",
+    "selection-prior-tablet200-v1",
+    "selection-prior-tablet200-v2"
+  ]
+}

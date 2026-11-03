@@ -431,6 +431,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     val context=LocalContext.current
     val root=activeRoot(catalog.runtimeTree)
     val failed=catalog.runtimeError!=null
+    val formSubmission = remember(runtime, root?.optString("id")) { FormSubmitPreparation() }
     val listState = listStates.getOrPut(root?.optString("id").orEmpty()) { ExtensionListState() }
     var listSearch by listState::search
     val query = listSearch.text
@@ -471,8 +472,16 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
     fun action(a: JSONObject?, expected: ExtensionActionScope? = null) {
         val live = liveActionScope()
-        val current = if(expected == null || (expected.rootId == live.rootId && expected.owner == live.owner)) live.resolve(a) else null
+        var current = if(expected == null || (expected.rootId == live.rootId && expected.owner == live.owner)) {
+            if (liveRoot()?.optString("type") == "Form" && isFormSubmit(a)) liveFormSubmitAction(live.rootId, a, liveRoot()) else live.resolve(a)
+        } else null
         if (catalog.runtimeError == null && current != null) {
+            if (liveRoot()?.optString("type") == "Form" && isFormSubmit(current)) {
+                if (formSubmitBlocked(liveRoot(), current) || !formSubmission.prepare()) { menu = false; return }
+                val after = liveActionScope()
+                current = if (after.rootId == live.rootId && after.owner == live.owner) liveFormSubmitAction(live.rootId, current, liveRoot()) else null
+                if (current == null || formSubmitBlocked(liveRoot(), current)) { menu = false; return }
+            }
             listState.search = listState.search.copy(composition = null)
             // Queue selection before activation, including back-to-back keys
             // before Compose's selection effect can run. JS refs see this first.
@@ -540,22 +549,35 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             "Detail"->SelectionContainerCompat(root.props().optString("markdown"),Modifier.weight(1f).fillMaxWidth().padding(20.dp),detailStates.getOrPut(root.optString("id")){ScrollState(0)})
             "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },
                 { handle, args -> runtime.dispatch(handle, args) },
-                { handle, id, focused, value -> runtime.dispatchFormFocus(handle, id, focused, value) }, Modifier.weight(1f))
+                { handle, id, focused, value -> runtime.dispatchFormFocus(handle, id, focused, value) }, formSubmission, Modifier.weight(1f))
             else->Text("Unsupported extension view",modifier=Modifier.weight(1f).padding(20.dp))
         }
         if (!failed && root?.optString("type") != "Grid") {
         HorizontalDivider(color=line)
         dev.tinycast.android.PaletteFooter(metadata={ modifier ->
             Column(modifier) {
+                if (root?.optString("type") == "Form" && formHasErrors(root) && actions.any(::isFormSubmit)) {
+                    Text("Correct the highlighted fields before submitting.", color = MaterialTheme.colorScheme.error,
+                        fontSize = 12.sp, lineHeight = 18.sp, modifier = Modifier.testTag("extension-form-validation-summary"))
+                }
                 Text(extension.listing.title,color=muted,fontSize=12.sp,lineHeight=16.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
                 Text(catalog.runtimeStatus,color=muted,fontSize=11.sp,lineHeight=15.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
             }
         },showActions=actions.isNotEmpty()) {
             if(actions.isNotEmpty()){
                 Box {
-                    dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{action(liveActions().firstOrNull())},{menu=true},
-                        "extension-primary","extension-actions",compact=!dev.tinycast.android.LocalPaletteWide.current)
-                    PaletteChoiceMenu(menu,{menu=false},actions.mapIndexed{i,a->PaletteChoice("extension-action-${a.optString("id",i.toString())}",a.props().optString("title","Action"),tag="extension-action-$i",shortcut=if(i==0)listOf("↵")else emptyList(),icon="command"){action(a,actionScope)}},title=item?.props()?.optString("title") ?: command.title,searchable=true)
+                    dev.tinycast.android.PaletteActionCapsule(actions.first().props().optString("title","Run action"),{
+                        if (root?.optString("type") == "Form") action(actions.first(), actionScope) else action(liveActions().firstOrNull())
+                    },{menu=true}, "extension-primary","extension-actions",compact=!dev.tinycast.android.LocalPaletteWide.current,
+                        enabled = !formSubmitBlocked(root, actions.first()), actionsEnabled = true)
+                    PaletteChoiceMenu(menu,{menu=false},actions.mapIndexed { i, a ->
+                        val blocked = formSubmitBlocked(root, a)
+                        val title = a.props().optString("title", "Action")
+                        PaletteChoice("extension-action-${a.optString("id",i.toString())}",
+                            if (blocked) "$title · Correct highlighted fields" else title, enabled = !blocked,
+                            tag="extension-action-$i",shortcut=if(i==0)listOf("↵")else emptyList(),icon="command",
+                            labelLines = if (blocked) Int.MAX_VALUE else 3) { action(a, actionScope) }
+                    },title=item?.props()?.optString("title") ?: command.title,searchable=true)
 
                 }
             }

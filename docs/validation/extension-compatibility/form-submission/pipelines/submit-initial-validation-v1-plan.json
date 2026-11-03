@@ -1,0 +1,34 @@
+{
+  "name": "submit-initial-validation-v1",
+  "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "test_source_commit": "1318591b49780009a9c38ee59cc8737fec1478e7",
+  "json_archive": "<frozen-catalog-checkout>/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+  "frozen_inputs": [
+    "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+    "artifacts/form-validation/harness-1318591-submit-baseline-v2/test.apk",
+    "scripts/test-reviewed-text-input.py",
+    "scripts/android_test_cleanup.py",
+    "scripts/android_clipboard_recovery.py",
+    "artifacts/form-validation/run-cohorts-v1.py"
+  ],
+  "cohorts": [
+    {
+      "name": "submit-common-after-phone-v1",
+      "layout": "phone",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-1318591-submit-baseline-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit,dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "expected": 3
+    },
+    {
+      "name": "submit-common-after-tablet-v1",
+      "layout": "tablet",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-1318591-submit-baseline-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit,dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonFormUsesEditedPreferencesCopiesUnicodeAndReturns",
+      "expected": 3
+    }
+  ]
+}

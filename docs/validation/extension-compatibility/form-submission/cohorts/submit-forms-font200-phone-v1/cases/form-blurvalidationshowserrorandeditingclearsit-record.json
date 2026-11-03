@@ -1,0 +1,247 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "fixture_mode": "validation",
+  "fixture_command_sha256": "eddf9a94f464ab83dad2de34448cd6096affac53aa42359e16d06766f712b45c",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-f2558f176d51402b87d60f0351dae43b",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 8,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        434,
+        995,
+        629
+      ],
+      "control_size": [
+        910,
+        195
+      ],
+      "point": [
+        540,
+        531.5
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        785,
+        995,
+        980
+      ],
+      "control_size": [
+        910,
+        195
+      ],
+      "point": [
+        540,
+        882.5
+      ]
+    },
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        434,
+        995,
+        629
+      ],
+      "control_size": [
+        910,
+        195
+      ],
+      "point": [
+        540,
+        531.5
+      ]
+    },
+    {
+      "tag": "extension-field-notes",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        785,
+        995,
+        980
+      ],
+      "control_size": [
+        910,
+        195
+      ],
+      "point": [
+        540,
+        882.5
+      ]
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1155
+      ],
+      "start": [
+        21,
+        444
+      ],
+      "end": [
+        21,
+        666
+      ]
+    }
+  ],
+  "blur-validation-error_line_probe": {
+    "ime_visible": true,
+    "line_counts": [
+      3
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1155
+        ],
+        "text_0": [
+          85,
+          645,
+          995,
+          948
+        ],
+        "text_0_lines_seen": 3
+      }
+    ]
+  },
+  "validation_method": "Real extension onBlur updates its error prop from the current value; real onChange clears it. Submit rejection is not exercised.",
+  "focus_probe": {
+    "changes": 1,
+    "focus": {
+      "name": 2
+    },
+    "blur": {
+      "name": 2
+    },
+    "blurLengths": {
+      "name": 19
+    },
+    "dispatches": 5
+  },
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

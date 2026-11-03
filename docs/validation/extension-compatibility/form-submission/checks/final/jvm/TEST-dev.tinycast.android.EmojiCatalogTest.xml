@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.EmojiCatalogTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-02T22:46:44.011Z" hostname="MacBook-Pro-2.local" time="0.211">
+  <properties/>
+  <testcase name="filtersFavoritesAndRecentsHaveDeterministicOrder" classname="dev.tinycast.android.EmojiCatalogTest" time="0.067"/>
+  <testcase name="namesAliasesKeywordsAndMultipleWordsAreSearchable" classname="dev.tinycast.android.EmojiCatalogTest" time="0.09"/>
+  <testcase name="malformedCatalogsAreRejected" classname="dev.tinycast.android.EmojiCatalogTest" time="0.015"/>
+  <testcase name="bundledCatalogPreservesSequencesAndStableIdentities" classname="dev.tinycast.android.EmojiCatalogTest" time="0.025"/>
+  <testcase name="exactMatchesOutrankHistoryAndRecentIsBoundedWithoutDuplicates" classname="dev.tinycast.android.EmojiCatalogTest" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

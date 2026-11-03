@@ -1,0 +1,19 @@
+{
+  "completed": true,
+  "original_directories": [
+    "extension-grid-evidence",
+    "readiness-evidence"
+  ],
+  "original_file_count": 136,
+  "restored_directory_count": 2,
+  "checks": {
+    "private_snapshot_retained": true,
+    "archived_device_bytes_match_original": true,
+    "all_preexisting_evidence_restored_byte_exact": true,
+    "idle_unprivileged_no_recovery_lease_or_geometry_override": true,
+    "archive_owner_released_after_verified_restoration": true
+  },
+  "pipeline": "submit-shared-regressions-v1",
+  "pipeline_exit_code": 0,
+  "privacy": "Original evidence and its file fingerprints are retained only in private backup/owner records."
+}

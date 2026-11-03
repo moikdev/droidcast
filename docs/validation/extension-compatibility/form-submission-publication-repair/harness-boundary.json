@@ -1,0 +1,24 @@
+{
+  "completed": true,
+  "historical_reviewed_head": "7f8de69c344e996a592cdd9ae820bfd52fd2a8a4",
+  "historical_harness_source": "b54243f53e0f383c102eb42d10e4343c10daf33d",
+  "repaired_harness_source": "5d541a7a52101c9b8b047fe1ebf16df8972e2721",
+  "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "changed_sources": [
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionFormDeviceTest.kt"
+  ],
+  "all_177_other_source_hashes_unchanged": true,
+  "production_and_jvm_node_python_sources_unchanged": true,
+  "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+  "prior_test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+  "repaired_test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+  "changed_instrumentation_payloads": [
+    "classes3.dex"
+  ],
+  "prior_public_files_unchanged": 538,
+  "prior_retained_capture_hashes_unchanged": 2358,
+  "historical_source_hashes_verified_against": "7f8de69c344e996a592cdd9ae820bfd52fd2a8a4",
+  "failed_v6_compile": "Illegal Kotlin regex escape; exit 1 and zero native credit. v7 uses [0-9]+ and compiles.",
+  "old_assertion_limit": "JavaScript evaluation and Compose idle did not witness asynchronous React native delivery; prior selection/uncontrolled publication cases are withdrawn.",
+  "repair": "Wait for same-root incremented Owned render marker in catalog.runtimeTree and exact composed marker, then assert actual range, text and IME; record witnesses and synchronized frames."
+}

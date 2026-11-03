@@ -1,0 +1,87 @@
+{
+  "name": "submit-acceptance-validation-v1",
+  "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "test_source_commit": "417828958821aeda937f47c14e1160ab2ea03914",
+  "json_archive": "<frozen-catalog-checkout>/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+  "frozen_inputs": [
+    "artifacts/form-validation/harness-1318591-submit-baseline-v2/app.apk",
+    "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+    "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+    "scripts/test-reviewed-text-input.py",
+    "scripts/android_test_cleanup.py",
+    "scripts/android_clipboard_recovery.py",
+    "artifacts/form-validation/run-cohorts-v1.py"
+  ],
+  "cohorts": [
+    {
+      "name": "submit-expanded-before-phone-v1",
+      "layout": "phone",
+      "font": 1,
+      "apk": "artifacts/form-validation/harness-1318591-submit-baseline-v2/app.apk",
+      "test_apk": "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors,dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle,dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors",
+      "expected": 7,
+      "expected_failure": true,
+      "failure_markers": [
+        "Submit must allow current blur validation before invoking the callback",
+        "A current Form error must block the SubmitForm callback",
+        "Queued Submit must not adopt a changed action or new error state",
+        "The JavaScript Submit gate must recheck current errors"
+      ]
+    },
+    {
+      "name": "submit-acceptance-phone-v1",
+      "layout": "phone",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit,dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit,dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors,dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce,dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked,dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue,dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue,dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue,dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle,dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors,dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot,dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch,dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback,dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm,dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback,dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit,dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+      "expected": 21
+    },
+    {
+      "name": "submit-acceptance-tablet-v1",
+      "layout": "tablet",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit,dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit,dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors,dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce,dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked,dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue,dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue,dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue,dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle,dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors,dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot,dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch,dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback,dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm,dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback,dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit,dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+      "expected": 21
+    },
+    {
+      "name": "submit-acceptance-landscape-v1",
+      "layout": "landscape",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit,dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit,dev.tinycast.android.ExtensionFormDeviceTest#submitBlursCurrentEmptyFieldBeforeCheckingErrors,dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce,dev.tinycast.android.ExtensionFormDeviceTest#ordinaryActionsRemainUsableWhileSubmitIsBlocked,dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledTransformIsTheSubmittedValue,dev.tinycast.android.ExtensionFormDeviceTest#rapidControlledRejectionKeepsTheAuthoritativeValue,dev.tinycast.android.ExtensionFormDeviceTest#rapidUncontrolledEditRemainsTheSubmittedValue,dev.tinycast.android.ExtensionFormDeviceTest#legacySubmitAliasStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#defaultApiSubmitStillBlocksCurrentErrors,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsNewError,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsReplacementAction,dev.tinycast.android.ExtensionFormDeviceTest#queuedNativeSubmitRejectsChangedTitle,dev.tinycast.android.ExtensionFormDeviceTest#queuedJsSubmitRechecksPublishedErrors,dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotAdoptAReplacementRoot,dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotCrossANewLaunchEpoch,dev.tinycast.android.ExtensionFormDeviceTest#reopenedSubmitMenuRejectsItsOldItemCallback,dev.tinycast.android.ExtensionFormDeviceTest#composingFieldEnterCannotSubmitTheForm,dev.tinycast.android.ExtensionFormDeviceTest#duplicateQueuedSubmitDispatchesInvokeOneCallback,dev.tinycast.android.ExtensionFormDeviceTest#everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit,dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+      "expected": 21
+    },
+    {
+      "name": "submit-critical-font200-phone-v1",
+      "layout": "phone",
+      "font": 2,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+      "expected": 1
+    },
+    {
+      "name": "submit-critical-font200-landscape-v1",
+      "layout": "landscape",
+      "font": 2,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+      "expected": 1
+    },
+    {
+      "name": "submit-critical-font200-tablet-v1",
+      "layout": "tablet",
+      "font": 2,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-4178289-submit-acceptance-v2/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions",
+      "expected": 1
+    }
+  ]
+}

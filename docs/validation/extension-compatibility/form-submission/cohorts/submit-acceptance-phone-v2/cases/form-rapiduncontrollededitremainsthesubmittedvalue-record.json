@@ -1,0 +1,78 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "fixture_mode": "submit-uncontrolled",
+  "fixture_command_sha256": "df514a5dc2a9cb885115532a0450b33c673f93b41a2e1034429276b7432be812",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_extension_id": "reviewed-text-81bc365e886d47919d2900a079776470",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "visible_bounds": [
+        85,
+        368,
+        995,
+        515
+      ],
+      "control_size": [
+        910,
+        147
+      ],
+      "point": [
+        540,
+        441.5
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "controlled_native_sequence": "Native SetText and captured primary activation in one UI turn before a Compose frame",
+  "accepted_values_preserved": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

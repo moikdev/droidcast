@@ -62,6 +62,7 @@ class ExtensionFormDeviceTest {
     private val checkboxLabel = "Tap this complete option label to enable owned output"
     private val caller = "form-controls-owned-caller"
     private var sensitiveValue: String? = null
+    private val submitValidationError = "Owned account validation error: correct the name before submitting."
     private val longTitle = "Owned account name with a complete descriptive label that must wrap naturally on a narrow Android screen"
     private val longError = "Owned validation error: enter the complete account name before continuing. Every line must stay readable when the keyboard opens and the font is enlarged."
     private val longInfo = "Owned field help: this explanation is available by touch without hovering. Scroll to read every line, then continue with the choices below."
@@ -133,13 +134,52 @@ class ExtensionFormDeviceTest {
             const mode=${JSONObject.quote(mode)};
             globalThis.__formProbe={changes:0,focus:{},blur:{},blurLengths:{},dispatches:0};
             const dispatch=globalThis.__tinycast.dispatch;
-            globalThis.__tinycast.dispatch=function(...args){globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
+            globalThis.__tinycast.dispatch=function(...args){globalThis.__ownedFormSession=args[0];globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
             function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe.focus;p[id]=(p[id]||0)+1},
               onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0}}}
             module.exports.default=function(props){
               if(mode==='configuration'){
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
+              }
+              if(mode.startsWith('submit-')){
+                const [name,setName]=React.useState(mode==='submit-reject'?'OWNED FIXED':'Owned invalid 日本');
+                const initialError=['submit-validation','submit-alias','submit-default','submit-long'].includes(mode);
+                const [error,setError]=React.useState(initialError?(mode==='submit-long'?${JSONObject.quote(longError)}:${JSONObject.quote(submitValidationError)}):undefined);
+                const [actionKey,replaceAction]=React.useReducer(value=>value+1,0);
+                const [actionTitle,setTitle]=React.useState('Submit owned values');
+                const [errorField,setErrorField]=React.useState('name');
+                const {push}=api.useNavigation();
+                globalThis.__formProbe.submits ??= 0;
+                globalThis.__formProbe.nonSubmitActions ??= 0;
+                globalThis.__formProbe.successorSubmits ??= 0;
+                globalThis.__formProbe.blurs ??= 0;
+                globalThis.__ownedSubmit={setError,replaceAction,setTitle,setErrorField,pushReplacement:()=>push(
+                  React.createElement(api.Form,{key:'owned-successor',actions:React.createElement(api.ActionPanel,null,
+                    React.createElement(api.Action.SubmitForm,{title:'Submit successor values',onSubmit:values=>{
+                      globalThis.__formProbe.successorSubmits++;globalThis.__formProbe.submittedValues=values;
+                    }}))},React.createElement(api.Form.TextField,{id:'successor',title:'Owned successor name',defaultValue:'Owned successor 日本'})))};
+                const errorFor=id=>mode==='submit-fields'?(errorField===id?${JSONObject.quote(submitValidationError)}:undefined):(id==='name'?error:undefined);
+                const Submit=mode==='submit-alias'?api.SubmitFormAction:mode==='submit-default'?api.default.Action.SubmitForm:api.Action.SubmitForm;
+                const fields=[React.createElement(api.Form.TextField,{key:'name',id:'name',title:mode==='submit-long'?${JSONObject.quote(longTitle)}:'Owned account name',
+                  ...(mode==='submit-uncontrolled'?{defaultValue:'Owned default'}:{value:name}),error:errorFor('name'),
+                  info:mode==='submit-long'?${JSONObject.quote(longInfo)}:undefined,
+                  onChange:value=>{if(mode!=='submit-reject')setName(mode==='submit-transform'?value.toUpperCase():value);setError(undefined);if(mode==='submit-fields')setErrorField(null)},
+                  onBlur:event=>{globalThis.__formProbe.blurs++;if(!event.target.value.trim()){
+                    if(mode==='submit-fields')setErrorField('name');else setError(${JSONObject.quote(submitValidationError)});
+                  }}}),
+                  React.createElement(api.Form.TextArea,{key:'notes',id:'notes',title:'Owned notes',defaultValue:'Owned 日本 café é 🌱',error:errorFor('notes')})];
+                if(mode==='submit-fields')fields.push(
+                  React.createElement(api.Form.PasswordField,{key:'secret',id:'secret',title:'Owned empty password',defaultValue:'',error:errorFor('secret')}),
+                  React.createElement(api.Form.Checkbox,{key:'enabled',id:'enabled',label:'Owned output enabled',defaultValue:false,error:errorFor('enabled')}),
+                  React.createElement(api.Form.Dropdown,{key:'choice',id:'choice',title:'Owned layout',defaultValue:'one',error:errorFor('choice')},
+                    React.createElement(api.Form.Dropdown.Item,{value:'one',title:'Owned first layout'})));
+                return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
+                  React.createElement(Submit,{key:'owned-submit-'+actionKey,title:actionTitle,onSubmit:values=>{
+                    globalThis.__formProbe.submits++;globalThis.__formProbe.submittedValues=values;
+                    push(React.createElement(api.Detail,{markdown:JSON.stringify({outcome:'Owned SubmitForm callback reached',values})}));
+                  }}),
+                  React.createElement(api.Action,{title:'Inspect owned validation',onAction:()=>{globalThis.__formProbe.nonSubmitActions++}}))},...fields);
               }
               if(mode==='validation'){
                 const [name,setName]=React.useState(''),[error,setError]=React.useState(''),[notes,setNotes]=React.useState('');
@@ -240,11 +280,22 @@ class ExtensionFormDeviceTest {
         device.dumpWindowHierarchy(File(evidence, "$name.xml")); assertTrue(device.takeScreenshot(File(evidence, "$name.png")))
         sensitiveValue?.let { secret -> assertFalse("Native hierarchy must not expose masked input", File(evidence, "$name.xml").readText().contains(secret)) }
         assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame", tree == catalog.runtimeTree?.toString())
-        File(evidence, "$name-frame.json").writeText(JSONObject().put("scope", record.getString("scope")).put("phase", phase)
+        val frame = JSONObject().put("scope", record.getString("scope")).put("phase", phase)
             .put("font_scale", context.resources.configuration.fontScale).put("launch_epoch", epoch)
             .put("ime_visible", ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true)
             .put("synchronization", "Committed semantics and two display frames; hierarchy before PNG; stable runtime tree")
-            .toString(2))
+        ownedPublication()?.let { publication ->
+            val composed = compose.onNodeWithText(publication.marker, useUnmergedTree = true).fetchSemanticsNode()
+            val text = composed.config[SemanticsProperties.Text].joinToString("") { it.text }
+            assertEquals(publication.marker, text)
+            val nameEditor = compose.onNodeWithTag("extension-field-name").fetchSemanticsNode()
+            val selection = nameEditor.config[SemanticsProperties.TextSelectionRange]
+            frame.put("owned_publication", publication.json().put("composed_marker", text).put("composed_semantics_id", composed.id))
+                .put("name_editor_observation", JSONObject().put("selection_start", selection.start).put("selection_end", selection.end)
+                    .put("text_length", nameEditor.config[SemanticsProperties.EditableText].text.length))
+        }
+        assertEquals(epoch, catalog.launchEpoch); assertTrue("Runtime changed around the frame receipt", tree == catalog.runtimeTree?.toString())
+        File(evidence, "$name-frame.json").writeText(frame.toString(2))
     }
     @After fun restore() {
         if (!prepared) return
@@ -460,7 +511,8 @@ class ExtensionFormDeviceTest {
         compose.waitForIdle()
         val target = node.fetchSemanticsNode()
         val visible = target.boundsInRoot
-        val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+        val activityRoot = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag("extension-palette")), useUnmergedTree = true)
+        val root = activityRoot.fetchSemanticsNode().boundsInRoot
         val point = visible.center
         val taps = record.optJSONArray("pointer_taps") ?: JSONArray().also { record.put("pointer_taps", it) }
         taps.put(JSONObject().put("tag", tag).put("viewport", viewport)
@@ -469,7 +521,7 @@ class ExtensionFormDeviceTest {
             .put("point", JSONArray(listOf(point.x, point.y))))
         assertTrue("A pointer target needs a useful visible hit region", visible.width > 1 &&
             visible.height + 1 >= minOf(target.size.height.toFloat(), minimumHitHeight) && root.contains(point))
-        compose.onRoot().performTouchInput { click(point - root.topLeft) }
+        activityRoot.performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
         if (target.config.contains(SemanticsProperties.EditableText)) {
             compose.waitUntil(5000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()?.let {
@@ -692,6 +744,39 @@ class ExtensionFormDeviceTest {
             .put("queued_edits_run_back_rejected", true).put("passed", true)
     }
 
+    private data class OwnedPublication(val rootId: String, val counter: Int) {
+        val marker get() = "Owned render $counter"
+        fun json() = JSONObject().put("root_id", rootId).put("counter", counter).put("marker", marker)
+    }
+    private fun ownedPublication(): OwnedPublication? {
+        val root = activeRoot(catalog.runtimeTree)?.takeIf { it.optString("type") == "Form" } ?: return null
+        val counters = root.nodes("Form.Description").mapNotNull {
+            Regex("Owned render ([0-9]+)").matchEntire(it.props().optString("text"))?.groupValues?.get(1)?.toIntOrNull()
+        }
+        return counters.singleOrNull()?.let { OwnedPublication(root.optString("id"), it) }
+    }
+    private fun advanceOwnedPublication(phase: String): OwnedPublication {
+        val before = requireNotNull(ownedPublication()) { "Owned native publication marker is missing or ambiguous" }
+        val expected = before.counter + 1
+        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        // JavaScript evaluation completion does not acknowledge the async
+        // AndroidHost.render delivery. Observe its actual native tree first.
+        compose.waitUntil(5000) {
+            ownedPublication()?.let { it.rootId == before.rootId && it.counter == expected } == true
+        }
+        compose.waitForIdle()
+        val marker = "Owned render $expected"
+        val composed = compose.onNodeWithText(marker, useUnmergedTree = true).fetchSemanticsNode()
+        val composedText = composed.config[SemanticsProperties.Text].joinToString("") { it.text }
+        assertEquals(marker, composedText)
+        val observed = requireNotNull(ownedPublication())
+        assertEquals(before.rootId, observed.rootId); assertEquals(expected, observed.counter)
+        val witnesses = record.optJSONArray("publication_witnesses") ?: JSONArray().also { record.put("publication_witnesses", it) }
+        witnesses.put(JSONObject().put("phase", phase).put("before_counter", before.counter).put("expected_counter", expected)
+            .put("observed_native", observed.json()).put("composed_marker", composedText).put("composed_semantics_id", composed.id)
+            .put("native_delivery_and_compose_consumption_observed", true))
+        return observed
+    }
     private fun evaluateOwned(script: String) {
         val engine = engine()
         val done = CountDownLatch(1)
@@ -704,14 +789,25 @@ class ExtensionFormDeviceTest {
         val original = "Owned café é 日本 🌱"
         compose.onNodeWithTag("extension-field-name").performTextReplacement(original)
         compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == original }
-        compose.onNodeWithTag("extension-field-name").performTextInputSelection(TextRange(2, 5))
-        evaluateOwned("globalThis.__bumpOwnedForm();true")
-        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
-        assertEquals(1, probe().getJSONObject("focus").getInt("name"))
-        // The controlled InputConnection remains the editor input route. Hide
-        // Gboard first so its separate live connection cannot finish the
-        // synthetic composing region between the two asynchronous phases.
+        // Programmatic selection and the following controlled InputConnection
+        // own this editor with Gboard hidden. A separate real-pointer test
+        // covers selection while the live IME remains connected.
         ime(false)
+        compose.onNodeWithTag("extension-field-name").performTextInputSelection(TextRange(2, 5))
+        compose.onNodeWithTag("extension-field-name").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
+        val selectedBefore = compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        record.put("controlled_selection_before_publication", JSONArray(listOf(selectedBefore.start, selectedBefore.end)))
+        advanceOwnedPublication("controlled-selection")
+        val nameEditor = compose.onNodeWithTag("extension-field-name")
+        nameEditor.assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 5)))
+        nameEditor.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(original)))
+        assertEquals(original, field("Form.TextField", "name").props().optString("value")); assertFalse(imeVisible())
+        capture("controlled-selection-published")
+        val selectedAfter = nameEditor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        assertEquals(TextRange(2, 5), selectedAfter)
+        record.put("controlled_selection_after_publication", JSONArray(listOf(selectedAfter.start, selectedAfter.end)))
+            .put("selection_method", "Exact programmatic range before/after unrelated React publication with Gboard hidden; live-IME selection is a separate pointer test")
+        assertEquals(1, probe().getJSONObject("focus").getInt("name"))
         var input: android.view.inputmethod.InputConnection? = null
         val compositionSteps = JSONArray().also { record.put("composition_steps", it) }
         fun observeComposition(phase: String) {
@@ -758,8 +854,10 @@ class ExtensionFormDeviceTest {
         val uncontrolled = "Owned uncontrolled 日本 🌱"
         compose.onNodeWithTag("extension-field-uncontrolled").performTextReplacement(uncontrolled)
         compose.waitUntil(5000) { field("Form.TextField", "uncontrolled").props().optString("value") == uncontrolled }
-        evaluateOwned("globalThis.__bumpOwnedForm();true")
+        advanceOwnedPublication("uncontrolled-value")
         compose.onNodeWithTag("extension-field-uncontrolled").assertTextEquals(uncontrolled)
+        assertEquals(uncontrolled, field("Form.TextField", "uncontrolled").props().optString("value"))
+        record.put("uncontrolled_value_preserved_after_witnessed_publication", true)
         touch("extension-checkbox-enabled")
         compose.waitUntil(5000) { field("Form.Checkbox", "enabled").props().optBoolean("value") }
         openChoice()
@@ -795,6 +893,32 @@ class ExtensionFormDeviceTest {
         assertEquals("Password editors must request TYPE_TEXT_VARIATION_PASSWORD", android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD,
             info.inputType and android.text.InputType.TYPE_MASK_VARIATION)
         assertEquals("Password editors must disable autocorrection", 0, info.inputType and android.text.InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
+    }
+
+    @Test fun liveImePointerSelectionSurvivesUnrelatedPublication() {
+        launch("all-fields"); touch("extension-field-name"); ime(true)
+        val value = "Owned caret"
+        val editor = compose.onNodeWithTag("extension-field-name")
+        editor.performTextReplacement(value)
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == value }
+        awaitImeGeometry(true)
+        val density = context.resources.displayMetrics.density
+        editor.performTouchInput { longClick(Offset(32f * density, center.y)) }
+        compose.waitUntil(5000) { !editor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange].collapsed }
+        val before = editor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        assertEquals("Owned", value.substring(before.min, before.max))
+        assertTrue(imeVisible()); capture("live-ime-selection-before")
+        advanceOwnedPublication("live-ime-pointer-selection")
+        editor.assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, before))
+        editor.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)))
+        assertTrue(imeVisible()); assertEquals(value, field("Form.TextField", "name").props().optString("value"))
+        capture("live-ime-selection-after")
+        val after = editor.fetchSemanticsNode().config[SemanticsProperties.TextSelectionRange]
+        assertEquals(before, after); assertTrue(imeVisible())
+        record.put("pointer_selection_before_publication", JSONArray(listOf(before.start, before.end)))
+            .put("pointer_selection_after_publication", JSONArray(listOf(after.start, after.end)))
+            .put("selection_method", "Actual long-press word selection with the live IME visible before/after an unrelated React publication")
+            .put("passed", true)
     }
 
     @Test fun returningFromCheckboxRefocusesTheSameTextField() {
@@ -1115,4 +1239,287 @@ class ExtensionFormDeviceTest {
         record.put("native_preferences_edited_not_seeded", true).put("exact_unicode_form_copy", true).put("form_state_preserved_on_back", true)
             .put("launcher_query_preserved", true).put("passed", true)
     }
+    @Test fun formsWithErrorsBlockPrimarySubmit() = assertErroredSubmitBlocked(false)
+    @Test fun formsWithErrorsBlockActionsMenuKeyboardSubmit() = assertErroredSubmitBlocked(true)
+
+    private fun assertErroredSubmitBlocked(menuKeyboard: Boolean, mode: String = "submit-validation") {
+        launch(mode)
+        assertEquals(submitValidationError, field("Form.TextField", "name").props().getString("error"))
+        compose.onNodeWithTag("extension-field-error-name").performScrollTo().assertIsDisplayed()
+        val actions = requireNotNull(activeRoot(catalog.runtimeTree)).actions()
+        assertEquals("Submit owned values", actions.first().props().getString("title"))
+        record.put("submit_route", if (menuKeyboard) "Actions menu / native Enter" else "Primary pointer action")
+            .put("submit_native_action_type", actions.first().optString("type"))
+            .put("initial_submit_count", probe().getInt("submits"))
+        assertEquals(0, probe().getInt("submits"))
+        capture("submit-error-visible")
+        if (menuKeyboard) {
+            touch("extension-actions")
+            compose.onNodeWithTag("inline-menu-search").performTextReplacement("Submit owned values")
+            compose.onNodeWithTag("inline-menu-search").assertTextEquals("Submit owned values").assertIsFocused()
+            compose.onNodeWithTag("extension-action-0").assertIsDisplayed()
+            record.put("submit_menu_query", "Submit owned values")
+            capture("submit-actions-menu")
+            InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER)
+            compose.waitForIdle()
+        } else touch("extension-primary")
+        // A separate WebView evaluation follows the native action's queued
+        // dispatch. Its callback is an execution barrier, not a timed retry.
+        evaluateOwned("globalThis.__ownedSubmitBarrier=(globalThis.__ownedSubmitBarrier||0)+1;true")
+        val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_non_submit_actions", observed.getInt("nonSubmitActions"))
+            .put("observed_dispatch_count", observed.getInt("dispatches"))
+            .put("result_root_type", activeRoot(catalog.runtimeTree)?.optString("type"))
+        capture("submit-action-result")
+        assertEquals("An attempted Submit must not activate an ordinary action", 0, observed.getInt("nonSubmitActions"))
+        assertEquals("A current Form error must block the SubmitForm callback", 0, observed.getInt("submits"))
+        assertEquals("Form", activeRoot(catalog.runtimeTree)?.optString("type"))
+        record.put("passed", true)
+    }
+
+    private fun submitBarrier() = evaluateOwned("globalThis.__ownedSubmitBarrier=(globalThis.__ownedSubmitBarrier||0)+1;true")
+    private fun seedSubmitSession() {
+        touch("extension-field-name")
+        compose.onNodeWithTag("extension-field-name").performTextReplacement("Owned session seed")
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value") == "Owned session seed" }
+        evaluateOwned("if(typeof globalThis.__ownedFormSession!=='string')throw Error('Owned dispatch session missing');true")
+    }
+    private fun submittedOwnedValues(): JSONObject {
+        compose.waitUntil(10000) { probe().getInt("submits") >= 1 }
+        assertEquals("One explicit request must invoke one Submit callback", 1, probe().getInt("submits"))
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
+        val result = JSONObject(requireNotNull(activeRoot(catalog.runtimeTree)).props().getString("markdown"))
+        assertEquals("Owned SubmitForm callback reached", result.getString("outcome"))
+        assertEquals(0, probe().getInt("nonSubmitActions"))
+        return result.getJSONObject("values")
+    }
+    @Test fun submitBlursCurrentEmptyFieldBeforeCheckingErrors() {
+        launch("submit-valid"); touch("extension-field-name")
+        compose.onNodeWithTag("extension-field-name").performTextReplacement("")
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value").isEmpty() &&
+            (field("Form.TextField", "name").props().opt("error") as? String).isNullOrBlank() }
+        compose.onNodeWithTag("extension-primary").assertIsEnabled(); capture("empty-before-submit")
+        touch("extension-primary"); submitBarrier()
+        val observed = probe(); record.put("observed_submit_count", observed.getInt("submits")).put("observed_blurs", observed.getInt("blurs"))
+        capture("empty-after-submit")
+        assertEquals("Submit must allow current blur validation before invoking the callback", 0, observed.getInt("submits"))
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("error") == submitValidationError }
+        assertEquals(1, probe().getInt("blurs")); compose.onNodeWithTag("extension-primary").assertIsNotEnabled()
+        record.put("current_empty_blur_validated_once", true).put("passed", true)
+    }
+    @Test fun correctingAnErrorSubmitsExactUnicodeOnce() {
+        launch("submit-validation"); touch("extension-field-name")
+        val value = "Owned café é 日本 🌱"
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(value)
+        compose.waitUntil(5000) { (field("Form.TextField", "name").props().opt("error") as? String).isNullOrBlank() &&
+            field("Form.TextField", "name").props().optString("value") == value }
+        compose.onNodeWithTag("extension-primary").assertIsEnabled(); capture("corrected-before-submit")
+        touch("extension-primary"); val values = submittedOwnedValues()
+        assertEquals(value, values.getString("name")); assertEquals("Owned 日本 café é 🌱", values.getString("notes"))
+        capture("corrected-destination"); record.put("exact_valid_unicode_once", true).put("passed", true)
+    }
+    @Test fun ordinaryActionsRemainUsableWhileSubmitIsBlocked() {
+        launch("submit-validation"); touch("extension-actions")
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("Inspect owned validation")
+        touch("extension-action-1")
+        compose.waitUntil(5000) { probe().getInt("nonSubmitActions") == 1 }
+        assertEquals(0, probe().getInt("submits")); assertEquals("Form", activeRoot(catalog.runtimeTree)?.optString("type"))
+        capture("ordinary-action-with-error"); record.put("ordinary_action_preserved", true).put("passed", true)
+    }
+    @Test fun rapidControlledTransformIsTheSubmittedValue() = assertRapidSubmission("submit-transform", "OWNED CAFÉ É 日本 🌱")
+    @Test fun rapidControlledRejectionKeepsTheAuthoritativeValue() = assertRapidSubmission("submit-reject", "OWNED FIXED")
+    @Test fun rapidUncontrolledEditRemainsTheSubmittedValue() = assertRapidSubmission("submit-uncontrolled", "Owned café é 日本 🌱")
+    private fun assertRapidSubmission(mode: String, expected: String) {
+        launch(mode); touch("extension-field-name"); ime(false)
+        val edit = requireNotNull(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.runOnUiThread { assertTrue(edit(AnnotatedString("Owned café é 日本 🌱"))); assertTrue(submit()) }
+        val values = submittedOwnedValues(); assertEquals(expected, values.getString("name"))
+        assertEquals("Owned 日本 café é 🌱", values.getString("notes")); capture("rapid-owned-destination")
+        record.put("controlled_native_sequence", "Native SetText and captured primary activation in one UI turn before a Compose frame")
+            .put("accepted_values_preserved", true).put("passed", true)
+    }
+    @Test fun legacySubmitAliasStillBlocksCurrentErrors() = assertErroredSubmitBlocked(false, "submit-alias")
+    @Test fun defaultApiSubmitStillBlocksCurrentErrors() = assertErroredSubmitBlocked(false, "submit-default")
+    @Test fun queuedNativeSubmitRejectsNewError() = assertQueuedNativeSubmitBlocked("error")
+    @Test fun queuedNativeSubmitRejectsReplacementAction() = assertQueuedNativeSubmitBlocked("action")
+    @Test fun queuedNativeSubmitRejectsChangedTitle() = assertQueuedNativeSubmitBlocked("title")
+    private fun assertQueuedNativeSubmitBlocked(change: String) {
+        launch("submit-valid")
+        val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree)
+        val replacement = JSONObject(original.toString()); val current = requireNotNull(activeRoot(replacement))
+        when (change) {
+            "error" -> current.nodes("Form.TextField").single { it.props().optString("id") == "name" }.props().put("error", "Owned late validation error")
+            "action" -> {
+                // Remove Submit while retaining the real ordinary action and
+                // its registered handler. An old primary must not adopt it.
+                val ordinary = current.actions()[1]
+                current.props().getJSONObject("actions").put("children", JSONArray().put(ordinary))
+            }
+            else -> {
+                val action = current.actions().first(); action.props().put("title", "Different owned submission")
+                (action.props().opt("__tinycastSubmitSignature") as? String)?.let {
+                    action.props().put("__tinycastSubmitSignature", JSONArray(it).put(0, "Different owned submission").toString())
+                }
+            }
+        }
+        val before = probe().getInt("dispatches")
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = replacement; submit() } finally { catalog.runtimeTree = original }
+        }
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_non_submit_actions", observed.getInt("nonSubmitActions"))
+            .put("dispatch_delta", observed.getInt("dispatches") - before)
+            .put("controlled_native_transition", "Published native $change model before captured primary callback in one UI turn; original restored before a Compose frame")
+        capture("queued-submit-model-restored")
+        assertEquals("Queued Submit must not adopt a changed action or new error state", 0,
+            observed.getInt("submits") + observed.getInt("nonSubmitActions"))
+        assertEquals(before, observed.getInt("dispatches")); record.put("passed", true)
+    }
+    @Test fun queuedJsSubmitRechecksPublishedErrors() {
+        launch("submit-valid"); seedSubmitSession()
+        val handle = requireNotNull(requireNotNull(activeRoot(catalog.runtimeTree)).actions().first().handle("onAction"))
+        evaluateOwned("globalThis.__ownedSubmit.setError('Owned queued validation error');true")
+        compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("error") == "Owned queued validation error" }
+        val before = probe().getInt("dispatches")
+        evaluateOwned("globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');true")
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits")).put("controlled_js_dispatch", "Owned queued handler invoked after error publication, bypassing the disabled native control")
+        assertEquals(before + 1, observed.getInt("dispatches")); capture("queued-js-error-result")
+        assertEquals("The JavaScript Submit gate must recheck current errors", 0, observed.getInt("submits"))
+        record.put("passed", true)
+    }
+    @Test fun queuedSubmitCannotRunWithoutItsRoot() {
+        launch("submit-valid")
+        val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree)
+        val before = probe().getInt("dispatches")
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = null; submit() } finally { catalog.runtimeTree = original }
+        }
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("dispatch_delta", observed.getInt("dispatches") - before)
+            .put("controlled_native_transition", "Root absent before captured primary callback in one UI turn; original restored before a Compose frame")
+        capture("absent-root-restored")
+        assertEquals(0, observed.getInt("submits")); assertEquals(before, observed.getInt("dispatches"))
+        record.put("passed", true)
+    }
+    @Test fun queuedSubmitCannotAdoptAReplacementRoot() {
+        launch("submit-valid")
+        val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree); val replacement = JSONObject(original.toString())
+        val root = requireNotNull(activeRoot(replacement)); root.put("id", root.optString("id") + "-owned-replacement")
+        val before = probe().getInt("dispatches")
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = replacement; submit() } finally { catalog.runtimeTree = original }
+        }
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_successor_submits", observed.getInt("successorSubmits"))
+            .put("controlled_native_transition", "Root identity replaced before captured primary callback in one UI turn; original restored before a Compose frame")
+        capture("replacement-root-restored")
+        assertEquals(0, observed.getInt("submits")); assertEquals(0, observed.getInt("successorSubmits"))
+        assertEquals(before, observed.getInt("dispatches")); record.put("passed", true)
+    }
+    @Test fun queuedJsSubmitCannotReplayAnInactiveFormAfterNavigation() {
+        launch("submit-valid"); seedSubmitSession()
+        val originalRoot = requireNotNull(activeRoot(catalog.runtimeTree))
+        val handle = requireNotNull(originalRoot.actions().first().handle("onAction"))
+        evaluateOwned("globalThis.__ownedSubmit.pushReplacement();true")
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" && activeRoot(catalog.runtimeTree)?.optString("id") != originalRoot.optString("id") }
+        val successorId = requireNotNull(activeRoot(catalog.runtimeTree)).optString("id")
+        capture("actual-successor-form")
+        evaluateOwned("globalThis.__formProbe.queuedDispatchResult=globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');true")
+        submitBarrier(); val observed = probe()
+        record.put("observed_submit_count", observed.getInt("submits"))
+            .put("observed_successor_submits", observed.getInt("successorSubmits"))
+            .put("queued_dispatch_result", observed.getString("queuedDispatchResult"))
+            .put("controlled_js_dispatch", "Old owned handler requested after actual navigation to a successor Form")
+        capture("inactive-form-dispatch-result")
+        assertEquals("Inactive Form Submit must not replay after navigation", 0, observed.getInt("submits"))
+        assertEquals(0, observed.getInt("successorSubmits")); assertEquals(successorId, activeRoot(catalog.runtimeTree)?.optString("id"))
+        record.put("passed", true)
+    }
+    @Test fun queuedSubmitCannotCrossANewLaunchEpoch() {
+        launch("submit-valid")
+        val submit = requireNotNull(compose.onNodeWithTag("extension-primary").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val before = probe().getInt("dispatches")
+        compose.activityRule.scenario.onActivity {
+            val epoch = catalog.launchEpoch
+            try { catalog.launchEpoch++; submit() } finally { catalog.launchEpoch = epoch }
+        }
+        submitBarrier(); assertEquals(before, probe().getInt("dispatches")); assertEquals(0, probe().getInt("submits"))
+        capture("replaced-session-restored"); record.put("controlled_native_transition", "Launch epoch replaced before captured Submit callback; restored before a Compose frame")
+            .put("passed", true)
+    }
+    @Test fun reopenedSubmitMenuRejectsItsOldItemCallback() {
+        launch("submit-valid"); touch("extension-actions")
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("Submit owned values")
+        val choose = requireNotNull(compose.onNodeWithTag("extension-action-0").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ESCAPE)
+        compose.waitUntil(5000) { compose.onAllNodesWithTag("inline-menu").fetchSemanticsNodes().isEmpty() }
+        touch("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement("Submit owned values")
+        compose.runOnUiThread { choose() }; submitBarrier()
+        assertEquals(0, probe().getInt("submits")); compose.onNodeWithTag("inline-menu").assertIsDisplayed()
+        compose.onNodeWithTag("inline-menu-search").assertTextEquals("Submit owned values")
+        capture("reopened-submit-menu"); record.put("queued_menu_reopening_rejected", true).put("passed", true)
+    }
+    @Test fun composingFieldEnterCannotSubmitTheForm() {
+        launch("submit-valid"); touch("extension-field-name"); ime(false)
+        val info = android.view.inputmethod.EditorInfo(); var connection: android.view.inputmethod.InputConnection? = null
+        compose.activityRule.scenario.onActivity { connection = it.window.decorView.findFocus()?.onCreateInputConnection(info) }
+        val editor = requireNotNull(connection)
+        try {
+            compose.runOnUiThread { assertTrue(editor.setComposingText("Owned composing 日本", 1)) }
+            compose.waitUntil(5000) { field("Form.TextField", "name").props().optString("value").contains("Owned composing 日本") }
+            assertTrue(compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsProperties.EditableText].text.contains("Owned composing 日本"))
+            InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER)
+            submitBarrier(); assertEquals(0, probe().getInt("submits"))
+            assertEquals("Form", activeRoot(catalog.runtimeTree)?.optString("type"))
+            capture("composing-enter-retained"); record.put("controlled_composition_enter_not_submit", true).put("passed", true)
+        } finally { compose.runOnUiThread { editor.finishComposingText(); editor.closeConnection() } }
+    }
+    @Test fun duplicateQueuedSubmitDispatchesInvokeOneCallback() {
+        launch("submit-valid"); seedSubmitSession()
+        val handle = requireNotNull(requireNotNull(activeRoot(catalog.runtimeTree)).actions().first().handle("onAction"))
+        evaluateOwned("globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');true")
+        val values = submittedOwnedValues(); assertEquals("Owned session seed", values.getString("name"))
+        capture("coalesced-owned-destination"); record.put("controlled_js_dispatch", "Two owned handler requests in one JavaScript stack; not a physical double-tap timing claim")
+            .put("passed", true)
+    }
+    @Test fun everySupportedFieldErrorBlocksBothNativeAndQueuedJsSubmit() {
+        launch("submit-fields"); seedSubmitSession(); ime(false)
+        val kinds = listOf("name" to "Form.TextField", "notes" to "Form.TextArea", "secret" to "Form.PasswordField", "enabled" to "Form.Checkbox", "choice" to "Form.Dropdown")
+        val checked = JSONArray()
+        for ((id, type) in kinds) {
+            evaluateOwned("globalThis.__ownedSubmit.setErrorField(${JSONObject.quote(id)});true")
+            compose.waitUntil(5000) { field(type, id).props().optString("error") == submitValidationError }
+            compose.onNodeWithTag("extension-field-error-$id").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithTag("extension-primary").assertIsNotEnabled(); touch("extension-primary")
+            val handle = requireNotNull(requireNotNull(activeRoot(catalog.runtimeTree)).actions().first().handle("onAction"))
+            evaluateOwned("globalThis.__tinycast.dispatch(globalThis.__ownedFormSession,${JSONObject.quote(handle)},'[]');true")
+            submitBarrier(); assertEquals("Error in $type must block submission", 0, probe().getInt("submits"))
+            checked.put(type); capture("blocked-$id")
+        }
+        record.put("current_error_field_kinds_checked", checked).put("passed", true)
+    }
+    @Test fun blockedSubmitFeedbackStaysReachableAtLargeFontsAndImeTransitions() {
+        launch("submit-long"); touch("extension-field-name")
+        for ((index, shown) in listOf(false, true, false).withIndex()) {
+            ime(shown)
+            inspectTextLines("extension-form", listOf(compose.onNodeWithTag("extension-field-title-name"),
+                compose.onNodeWithTag("extension-field-error-name"), compose.onNodeWithTag("extension-field-info-name")), "submit-long-$index")
+            compose.onNodeWithTag("extension-primary").assertIsNotEnabled()
+            touch("extension-primary"); submitBarrier(); assertEquals(0, probe().getInt("submits"))
+        }
+        touch("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement("Submit owned values")
+        compose.onNodeWithTag("extension-action-0").assertIsNotEnabled()
+        inspectTextLines("inline-menu-choices", listOf(compose.onNodeWithText("Submit owned values · Correct highlighted fields", useUnmergedTree = true)), "blocked-submit-option")
+        assertEquals(0, probe().getInt("submits")); record.put("passed", true)
+    }
+
 }

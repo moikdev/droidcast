@@ -1,0 +1,17 @@
+{
+  "completed": true,
+  "core_harness_source_commit": "54e9038fedde8d8876794a08bad70098e773cc53",
+  "supplemental_harness_source_commit": "ca788c5ece328a069e1b9bab2a8755eb3209a6b6",
+  "only_changed_source": "app/src/androidTest/java/dev/tinycast/android/ExtensionFormDeviceTest.kt",
+  "core_source_sha256": "9b8a7bef81729834d6bbaf6f648483f446db4d3011998e0144e57745364392aa",
+  "supplement_source_sha256": "5c0328f36166db1fefaa2a92ffa41468a7224c272c1044d0eb764cd165e2ae17",
+  "only_added_method": "queuedSubmitCannotRunWithoutItsRoot",
+  "removing_that_method_exactly_reconstructs_core_source": true,
+  "all_existing_tests_fixture_helpers_and_production_sources_unchanged": true,
+  "core_test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+  "supplement_test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+  "apk_payload_entries_changed": [
+    "classes3.dex"
+  ],
+  "boundary": "The22-case cohorts and critical-font observations retain their original test APK identity; the extra missing-root and subsequent regressions use the supplemental harness."
+}

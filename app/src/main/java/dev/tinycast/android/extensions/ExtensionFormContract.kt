@@ -41,6 +41,10 @@ internal fun liveFormField(owner: FormFieldOwner, root: JSONObject?): JSONObject
     }
 }
 
+internal fun formHasErrors(root: JSONObject?): Boolean = root?.optString("type") == "Form" && descendants(root).any {
+    it.optString("type") in inputTypes && (formProps(it).opt("error") as? String)?.isNotBlank() == true
+}
+
 internal fun formChoices(field: JSONObject): List<FormChoice> = descendants(field).filter { it.optString("type") == "Form.Dropdown.Item" }.mapNotNull {
     val p = formProps(it)
     val value = p.opt("value") as? String ?: return@mapNotNull null
@@ -95,5 +99,6 @@ internal class FormFocusDelivery(private val current: (FormFieldOwner) -> Boolea
         active = null
         if (current(owner)) deliver(owner, false)
     }
+    fun blurCurrent() { active?.let(::blur) }
     fun clear() { generation++; active = null }
 }

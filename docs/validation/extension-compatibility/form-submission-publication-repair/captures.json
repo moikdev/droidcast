@@ -1,0 +1,164 @@
+[
+  {
+    "cohort": "publication-both-tablet200-v1",
+    "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before",
+    "name": "pointer-tablet200-before",
+    "caption": "Actual long-press selects Owned with the live keyboard visible; native and composed marker 0.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+    "layout": "tablet",
+    "font_scale": 2.0,
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-before.png",
+        "sha256": "b1ad36e46b9f77dd1533b4281da993ca3b3e4cff88c6fe4128144c526e56ad18"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before.xml",
+        "sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-before-frame.json",
+        "sha256": "80d7e228ce8287b03bea5258cc7c86e0b49d07073def6966766ffda07b68fb93"
+      }
+    }
+  },
+  {
+    "cohort": "publication-both-tablet200-v1",
+    "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after",
+    "name": "pointer-tablet200-after",
+    "caption": "After native delivery and Compose consume marker 1, actual range 0..5 and live keyboard remain.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+    "layout": "tablet",
+    "font_scale": 2.0,
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-tablet200-after.png",
+        "sha256": "c52808a81b3b9bb462710ee80e7337cdd1a1da47e8cf45c6c2f3ce6510c24cc9"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after.xml",
+        "sha256": "5d64fa9bb7754ffcede42fb50613bf3560a5888898adf11794869bbf3b57f372"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-tablet200-after-frame.json",
+        "sha256": "ad70d7861f18001edb74b669adf84cb1c28f3412660c7eeb083226c196fa2435"
+      }
+    }
+  },
+  {
+    "cohort": "publication-both-phone200-v1",
+    "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after",
+    "name": "pointer-phone200-after",
+    "caption": "Phone 200%: actual long-press range 0..5 after witnessed marker 1, keyboard visible.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+    "layout": "phone",
+    "font_scale": 2.0,
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/pointer-phone200-after.png",
+        "sha256": "3b44121fa0fa8d5283e93569ae59c5a25d9d76441197a9adc8ba7c5409ec1801"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after.xml",
+        "sha256": "dc9003d9ba738ac3f1b42c04cb993bc5720dc9382845ae07643a4250033d9bc2"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/pointer-phone200-after-frame.json",
+        "sha256": "b083149b899a88a0cd5d822c1831d80ef4231ee3ae3cf1dabff01084af2cf44a"
+      }
+    }
+  },
+  {
+    "cohort": "publication-both-tablet200-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published",
+    "name": "controlled-tablet200-after",
+    "caption": "Tablet 200%: exact programmatic range 2..5 after witnessed marker 1; keyboard hidden.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+    "layout": "tablet",
+    "font_scale": 2.0,
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-tablet200-after.png",
+        "sha256": "7bc467d5db48dce69751a95541ef0528c985f9cb321d464fa4a53740d81b6b78"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after.xml",
+        "sha256": "cdd9afb39d565d71c6d057feba8ff7bb0a3abdc6c009d6e117e527cae5a3e567"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/publication-both-tablet200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-tablet200-after-frame.json",
+        "sha256": "3fcfb7934edeafe02a2aeae530c2dd75d55811c4af82ad2e335b0ae5c5da0d21"
+      }
+    }
+  },
+  {
+    "cohort": "publication-both-phone200-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published",
+    "name": "controlled-phone200-after",
+    "caption": "Phone 200%: exact programmatic range 2..5 after witnessed marker 1; keyboard hidden.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+    "layout": "phone",
+    "font_scale": 2.0,
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-phone200-after.png",
+        "sha256": "c3dc3d78a014802209fa248997adf3af64175d47d24464951306b60ff288fcb3"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after.xml",
+        "sha256": "83612be7f337e64d46c0cc1ee56f74a870dd04773e78c86d8f88f466d5cfad70"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/publication-both-phone200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-phone200-after-frame.json",
+        "sha256": "97e7db87054f6ce0c6b33776811952eada06e2226810b533b1ad1080796404f5"
+      }
+    }
+  },
+  {
+    "cohort": "publication-controlled-landscape200-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published",
+    "name": "controlled-landscape200-after",
+    "caption": "Short landscape 200%: range 2..5 after witnessed marker 1; keyboard hidden. The marker may be outside the visible scroll viewport; composed semantics and frame record bind it.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "e9701d00bb46cd1e735f63712af9dea48941d9484a735f56a87e38effbbd9645",
+    "layout": "landscape",
+    "font_scale": 2.0,
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission-publication-repair/controlled-landscape200-after.png",
+        "sha256": "0f88b93f9f35b7e8f95b87fe66a8ae2f04d1c347132270f0ae17655714c0bd86"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published.xml",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after.xml",
+        "sha256": "6fc97b987a0b34a788df9ee7560a38932fcd292a2706a381c58f17aa6c13c822"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/publication-controlled-landscape200-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-controlled-selection-published-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission-publication-repair/frames/controlled-landscape200-after-frame.json",
+        "sha256": "356cb152da85498e373251265497a7fff332c11194cd9d4e28201cfbc4c659af"
+      }
+    }
+  }
+]

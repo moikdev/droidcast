@@ -1,0 +1,893 @@
+[
+  {
+    "cohort": "submit-error-before-phone-v1",
+    "stem": "form-formswitherrorsblockprimarysubmit-submit-error-visible",
+    "name": "before-primary-error-phone",
+    "caption": "Preceding app, original common harness: a supplied error is visible but the primary Submit is enabled.",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-error-visible.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/before-primary-error-phone.png",
+        "sha256": "1991a92974d3213c782d4a0cb35847516102213f47b448ee744879933198c4a8"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-error-visible.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-primary-error-phone.xml",
+        "sha256": "dea1d2715e5d58d97608acf3a6187cbe7723c98e1ecbeac9872a5a4809873598"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-error-visible-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-primary-error-phone-frame.json",
+        "sha256": "05783f2552488e116bd9edd3e0003642f66ce01f3a72e43e9454cc34834aca4f"
+      }
+    }
+  },
+  {
+    "cohort": "submit-error-before-phone-v1",
+    "stem": "form-formswitherrorsblockprimarysubmit-submit-action-result",
+    "name": "before-primary-invalid-result-phone",
+    "caption": "Preceding app: the explicit primary action incorrectly reaches the owned callback destination with invalid values.",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-action-result.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/before-primary-invalid-result-phone.png",
+        "sha256": "2b8b8edd26ac23d289e92ff6eef1aa05e11cd75ff4d561a8a6cb75dfc46ba8ba"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-action-result.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-primary-invalid-result-phone.xml",
+        "sha256": "56b015a203cff91b67519c8fa2934fb93d7281707e07055b4c324dc57a4c677f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-action-result-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-primary-invalid-result-phone-frame.json",
+        "sha256": "e1733b7f1fbd20df874aad31e5013a1b1af7422aacafeedd217f4eb8911ddda9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-error-before-phone-v1",
+    "stem": "form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu",
+    "name": "before-menu-error-phone",
+    "caption": "Preceding app: the filtered Actions menu offers the invalid Submit; Enter incorrectly activates it in the paired receipt.",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/before-menu-error-phone.png",
+        "sha256": "08fcfd0d9361264fda564ce3d6753308e011b3f9c77e271d2e79ddf2bdea93c7"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-menu-error-phone.xml",
+        "sha256": "821ebd9bf07474d4144e6b7b02ace0b52891ee108da5bfa7902bfdedaef98dd8"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-menu-error-phone-frame.json",
+        "sha256": "3b1e34e169dd6888c90ea9ca8e470d12c8e296e835c001f3ca733c18ae429eb9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-error-before-phone-v1",
+    "stem": "form-formswitherrorsblockactionsmenukeyboardsubmit-submit-action-result",
+    "name": "before-menu-invalid-result-phone",
+    "caption": "Preceding app: menu/Enter reaches the invalid owned callback destination.",
+    "app_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+    "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-action-result.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/before-menu-invalid-result-phone.png",
+        "sha256": "88a9728b3ac24b23f3faa8b0e068342276105405cc3c086c6f0b1b0d25665392"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-action-result.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-menu-invalid-result-phone.xml",
+        "sha256": "56b015a203cff91b67519c8fa2934fb93d7281707e07055b4c324dc57a4c677f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-error-before-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-action-result-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/before-menu-invalid-result-phone-frame.json",
+        "sha256": "e1733b7f1fbd20df874aad31e5013a1b1af7422aacafeedd217f4eb8911ddda9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-common-after-phone-v1",
+    "stem": "form-formswitherrorsblockprimarysubmit-submit-action-result",
+    "name": "after-primary-blocked-phone",
+    "caption": "Repaired app, byte-identical original common harness: supplied error and explanation remain; primary Submit is disabled and callback count is zero.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-common-after-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-action-result.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/after-primary-blocked-phone.png",
+        "sha256": "a82c30e3cd042bebd00240102a65598824987c60f3503a97626939117b5aeb45"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-common-after-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-action-result.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/after-primary-blocked-phone.xml",
+        "sha256": "6560e2bc6d881616099e3d69ed590e36d4fb516a611f38e2eef01ba1b9bdf159"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-common-after-phone-v1/captures/form-formswitherrorsblockprimarysubmit-submit-action-result-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/after-primary-blocked-phone-frame.json",
+        "sha256": "e1733b7f1fbd20df874aad31e5013a1b1af7422aacafeedd217f4eb8911ddda9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-common-after-phone-v1",
+    "stem": "form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu",
+    "name": "after-menu-blocked-phone",
+    "caption": "Repaired app, byte-identical common harness: filtered Submit option is disabled with a reason; Enter does not run an ordinary fallback action.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-common-after-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/after-menu-blocked-phone.png",
+        "sha256": "e810e589d10d282c44af86e4c6ca21c1ff3285f97351749c96ff3811d4968765"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-common-after-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/after-menu-blocked-phone.xml",
+        "sha256": "2224657a5289dc2c3a6a6f2efb77b0423eab64915665b820fe89d5b235b15549"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-common-after-phone-v1/captures/form-formswitherrorsblockactionsmenukeyboardsubmit-submit-actions-menu-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/after-menu-blocked-phone-frame.json",
+        "sha256": "3b1e34e169dd6888c90ea9ca8e470d12c8e296e835c001f3ca733c18ae429eb9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-acceptance-phone-v2",
+    "stem": "form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-before-submit",
+    "name": "blur-before-empty-phone",
+    "caption": "Empty current field before Submit: no error has yet been published; the primary action is initially enabled.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-before-submit.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/blur-before-empty-phone.png",
+        "sha256": "0f294546a73378cde73f4f4834fb4164cba488ae6f8a90440ee9ae9ab54ca4a6"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-before-submit.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/blur-before-empty-phone.xml",
+        "sha256": "b49de85203fd248be6a976eaf460f684b26b6b9ee048f470531dc63971886244"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-before-submit-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/blur-before-empty-phone-frame.json",
+        "sha256": "0dc33424752496fe5725623751792f8f72c4846fc9445574bb2af9451ee3c125"
+      }
+    }
+  },
+  {
+    "cohort": "submit-acceptance-phone-v2",
+    "stem": "form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-after-submit",
+    "name": "blur-after-error-phone",
+    "caption": "Submit delivers current-value blur validation; the error becomes visible and callback count remains zero.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-after-submit.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/blur-after-error-phone.png",
+        "sha256": "0b0202b9c9853fcbfd6cebb35edcbba25db44ffa56ad58a40d1b720d7257f8df"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-after-submit.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/blur-after-error-phone.xml",
+        "sha256": "9564b790e4ecd7f205f64e443ed35ca7cad5814eb24b011bf5fc52b06a47d795"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-submitblurscurrentemptyfieldbeforecheckingerrors-empty-after-submit-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/blur-after-error-phone-frame.json",
+        "sha256": "b213c5c2ecabf2c9ba7a24d9c21245dcf349f21e3a973ea25defd33490a345dc"
+      }
+    }
+  },
+  {
+    "cohort": "submit-acceptance-phone-v2",
+    "stem": "form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit",
+    "name": "valid-edited-phone",
+    "caption": "Correcting the same errored Form clears its error and enables the explicit Submit action.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/valid-edited-phone.png",
+        "sha256": "e8e6c59f7b9d27b01e61ff7330a76d3c22dc2a084c5e739fc981d2e155374503"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/valid-edited-phone.xml",
+        "sha256": "06b5631de7e4acfce4c04da73a13aa7dc6a6d02dba638727bcee080b863bf379"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/valid-edited-phone-frame.json",
+        "sha256": "2b2853c579ee3cbfe5642b4058f2b3357ff3b4301495080f7f0d77d6fd147e5d"
+      }
+    }
+  },
+  {
+    "cohort": "submit-acceptance-phone-v2",
+    "stem": "form-correctinganerrorsubmitsexactunicodeonce-corrected-destination",
+    "name": "valid-exact-result-phone",
+    "caption": "One valid request reaches the owned Detail with exact Japanese, emoji and combining-accent values.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-destination.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/valid-exact-result-phone.png",
+        "sha256": "87135f1edb8c4f150a0e46210d8822bfa6ece9adb20b4be2e4e1fb1a10fbb3a3"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-destination.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/valid-exact-result-phone.xml",
+        "sha256": "d6ade47aee944824a126baaa170c4862f59c46c0b0f15eb1ff448413cc54d184"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-destination-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/valid-exact-result-phone-frame.json",
+        "sha256": "b5e93e04731a0812da44d99a409b4a55f9539f2e8a8149a69ae16e435f78c721"
+      }
+    }
+  },
+  {
+    "cohort": "submit-acceptance-phone-v2",
+    "stem": "form-ordinaryactionsremainusablewhilesubmitisblocked-ordinary-action-with-error",
+    "name": "ordinary-action-phone",
+    "caption": "An ordinary Action remains usable while the actual SubmitForm action is blocked; the receipt records one ordinary callback and zero submits.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-ordinaryactionsremainusablewhilesubmitisblocked-ordinary-action-with-error.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/ordinary-action-phone.png",
+        "sha256": "5e173cf28ab049ac30663e3e85750233c68fbea05a10cd9d518b72cb1d4d6759"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-ordinaryactionsremainusablewhilesubmitisblocked-ordinary-action-with-error.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/ordinary-action-phone.xml",
+        "sha256": "0d1c4e4306eab40330e4aa5d11f92d59647e254cd8394527f939bb90e0458ed4"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-ordinaryactionsremainusablewhilesubmitisblocked-ordinary-action-with-error-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/ordinary-action-phone-frame.json",
+        "sha256": "9f66a8600c4c721e540bd159bc231a871ba663dc1ff990e582ba940b22938907"
+      }
+    }
+  },
+  {
+    "cohort": "submit-acceptance-phone-v2",
+    "stem": "form-queuedjssubmitcannotreplayaninactiveformafternavigation-inactive-form-dispatch-result",
+    "name": "inactive-handler-successor-phone",
+    "caption": "Actual navigation has replaced the active Form; a controlled old JavaScript handler request leaves the successor intact and invokes neither submit callback.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-queuedjssubmitcannotreplayaninactiveformafternavigation-inactive-form-dispatch-result.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/inactive-handler-successor-phone.png",
+        "sha256": "da412cad7affba80f92cb213bb3b8bbbfbdc5be8fb9ea6ac2e2e0712bc7419a0"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-queuedjssubmitcannotreplayaninactiveformafternavigation-inactive-form-dispatch-result.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/inactive-handler-successor-phone.xml",
+        "sha256": "046b1b80d6e46898d1b7353ddb26600bedfac4048fac8af8cb91893ff4d47927"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-queuedjssubmitcannotreplayaninactiveformafternavigation-inactive-form-dispatch-result-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/inactive-handler-successor-phone-frame.json",
+        "sha256": "85fe4093af3d7adbd0efa66212a1bc5ad0cc09239c76a558140100d780b4799d"
+      }
+    }
+  },
+  {
+    "cohort": "submit-acceptance-phone-v2",
+    "stem": "form-everysupportedfielderrorblocksbothnativeandqueuedjssubmit-blocked-secret",
+    "name": "password-error-phone",
+    "caption": "An empty owned password field with its supplied error; native and queued JavaScript Submit remain blocked. No password plaintext is entered in this fixture.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-everysupportedfielderrorblocksbothnativeandqueuedjssubmit-blocked-secret.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/password-error-phone.png",
+        "sha256": "5a66df1d5124e652bf7f0e6a33cdf5a9fc6601fcd77c4415685712eed7f5d8ae"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-everysupportedfielderrorblocksbothnativeandqueuedjssubmit-blocked-secret.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/password-error-phone.xml",
+        "sha256": "e8288d3cb33fa70b5dfe8c7d32fcb10e40df531c494de8af914b2f287e1d778e"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-acceptance-phone-v2/captures/form-everysupportedfielderrorblocksbothnativeandqueuedjssubmit-blocked-secret-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/password-error-phone-frame.json",
+        "sha256": "6bae83a29d90604b93054e6e2f98a3095b2c32db302599422aad7eaec0f52ee9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-phone-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top",
+    "name": "font200-phone-ime-top",
+    "caption": "200% phone: first full text lines with actual IME visible; the receipt checks every line sequentially by pointer scrolling.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-phone-ime-top.png",
+        "sha256": "6b297e4725497959686ecc46dc517d4bd2933bfa82a5870beeba0a69a19c20e4"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-phone-ime-top.xml",
+        "sha256": "12d5ab205e7f26d8b9e7c957f25e620be11f4c6257710dcf745efe7dc655c5fa"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-phone-ime-top-frame.json",
+        "sha256": "4b71e6d98181689b7f797b08cf5cd5d147da7517ca5909902f432844c4fc917b"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-phone-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom",
+    "name": "font200-phone-ime-bottom",
+    "caption": "200% phone: later full text lines reached with actual IME visible; not simultaneous visibility of all content.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-phone-ime-bottom.png",
+        "sha256": "52a1e53bc072308eb9b18adc6c0b34dd12f64e509f2c2c247f4894a84a02f367"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-phone-ime-bottom.xml",
+        "sha256": "15a4e64e77f3bd0586822935d5d83f988d08bc4c0331b7f36eb8c9682f340d64"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-phone-ime-bottom-frame.json",
+        "sha256": "2e35faf74f0f0a7424f7e44387adecc2f728069d5f4f9f83cb006ab5d774c4a9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-phone-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom",
+    "name": "font200-phone-blocked-option",
+    "caption": "200% phone: pointer scrolling reaches the disabled Submit option and its complete reason in the Actions menu.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-phone-blocked-option.png",
+        "sha256": "a385ca4cfd5ca1750e73ce9e5c5eec7ca9e9ef3dbef2da60811ebffc9c92d483"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-phone-blocked-option.xml",
+        "sha256": "3ac033e160bea89395706fb8776a2e37058b18c9a2b23d97f5f89e9bd6718418"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-phone-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-phone-blocked-option-frame.json",
+        "sha256": "a7d5f602174175ed8da8f41a4c51a40ee38f73ade02d34bdb1974d2d15789af2"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-landscape-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top",
+    "name": "font200-landscape-ime-top",
+    "caption": "200% landscape: first full text lines with actual IME visible; the receipt checks every line sequentially by pointer scrolling.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-landscape-ime-top.png",
+        "sha256": "620903d61ce738852a0d9161f0b90798921d1d9f337cc1548e4ad9542c4c7d11"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-ime-top.xml",
+        "sha256": "b5188c417ccc141aed63aad1faf30ad7ea77ed5d093fd3cc8370fd91b57e9514"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-ime-top-frame.json",
+        "sha256": "4b71e6d98181689b7f797b08cf5cd5d147da7517ca5909902f432844c4fc917b"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-landscape-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom",
+    "name": "font200-landscape-ime-bottom",
+    "caption": "200% landscape: later full text lines reached with actual IME visible; not simultaneous visibility of all content.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-landscape-ime-bottom.png",
+        "sha256": "c9b882428d97b186b73ffeb32acc18ee7059ac6028b6eec0950ed3bc20ccb281"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-ime-bottom.xml",
+        "sha256": "88178f50e28f5a5ee88ade9c998409163aa82df1f656a7876c1315bd9e345438"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-ime-bottom-frame.json",
+        "sha256": "2e35faf74f0f0a7424f7e44387adecc2f728069d5f4f9f83cb006ab5d774c4a9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-landscape-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom",
+    "name": "font200-landscape-blocked-option",
+    "caption": "200% landscape: pointer scrolling reaches the disabled Submit option and its complete reason in the Actions menu.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-landscape-blocked-option.png",
+        "sha256": "f77469b5efcf9c81656dd3294d9366324fc8bed6cdc0d38f677becd6fbcae57c"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-blocked-option.xml",
+        "sha256": "923633fa819759c48bbdb9d334cf6049759fcc479a39eb69fc9e74f412bb2be9"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-landscape-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-blocked-option-frame.json",
+        "sha256": "b2533599dc8b897144ce2c1e8ff448a24681d07b48f3b5801e402075af4ea60f"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-tablet-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top",
+    "name": "font200-tablet-ime-top",
+    "caption": "200% tablet: first full text lines with actual IME visible; the receipt checks every line sequentially by pointer scrolling.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-tablet-ime-top.png",
+        "sha256": "30071ffef7927ce8e3e2d2b451eaac537ed4f9c5f0c93618c00d1a2c6034eb12"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-tablet-ime-top.xml",
+        "sha256": "2670303427a7fdc37b8e50597a807cd55c81d271f1a77160cfd45b3d996bc61f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-top-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-tablet-ime-top-frame.json",
+        "sha256": "4b71e6d98181689b7f797b08cf5cd5d147da7517ca5909902f432844c4fc917b"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-tablet-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom",
+    "name": "font200-tablet-ime-bottom",
+    "caption": "200% tablet: later full text lines reached with actual IME visible; not simultaneous visibility of all content.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-tablet-ime-bottom.png",
+        "sha256": "571291edf4fe30a79ce465ea4b426d50b2a8fec8aa789cf31c241ecaa32f7eb4"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-tablet-ime-bottom.xml",
+        "sha256": "dd81c47a95ee237d513a95b14c3a013b81b124a9b3eaf26b3b6a8286d51b6bae"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-submit-long-1-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-tablet-ime-bottom-frame.json",
+        "sha256": "2e35faf74f0f0a7424f7e44387adecc2f728069d5f4f9f83cb006ab5d774c4a9"
+      }
+    }
+  },
+  {
+    "cohort": "submit-critical-font200-tablet-v2",
+    "stem": "form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom",
+    "name": "font200-tablet-blocked-option",
+    "caption": "200% tablet: pointer scrolling reaches the disabled Submit option and its complete reason in the Actions menu.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "3add76ffbcd71144697bd8b603ace1545635d8685b04037b06f4d12ad18a3fd7",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-tablet-blocked-option.png",
+        "sha256": "2eff9c54ee1f8bd5bbd66499712039a68cc613fc35a5b886b644412e37bb3dc3"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-tablet-blocked-option.xml",
+        "sha256": "c0f59e4cb7020dbf232be42eca4f0b6d6d5977a2085c43a3e063a01cefcb725f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-critical-font200-tablet-v2/captures/form-blockedsubmitfeedbackstaysreachableatlargefontsandimetransitions-blocked-submit-option-bottom-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-tablet-blocked-option-frame.json",
+        "sha256": "b2533599dc8b897144ce2c1e8ff448a24681d07b48f3b5801e402075af4ea60f"
+      }
+    }
+  },
+  {
+    "cohort": "submit-original-forms-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences",
+    "name": "json-native-preferences-phone",
+    "caption": "Frozen JSON command: actual native preferences edited and explicitly run in an owned namespace.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/json-native-preferences-phone.png",
+        "sha256": "85bc6a888177bc2ae663f80872bdde1059e7b0e0087065d032113c9db045c115"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-native-preferences-phone.xml",
+        "sha256": "c68d1e63c0f91bf3a51a80183ea4c68710b0751dc062bef2c863f531d1587222"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-native-preferences-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-native-preferences-phone-frame.json",
+        "sha256": "e123bd5b4ab4b15f7862d70ca0853a17f23ddcfa0c2003bebdf1f37135cfa5db"
+      }
+    }
+  },
+  {
+    "cohort": "submit-original-forms-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime",
+    "name": "json-input-ime-phone",
+    "caption": "Frozen JSON command: exact multilingual input with its actual IME visible after ordinary pointer focus.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/json-input-ime-phone.png",
+        "sha256": "37e5417d848e105d81fe66a9ca94fc1d887c09e67fba168575add76fe4fe7d80"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-input-ime-phone.xml",
+        "sha256": "a8fb209dd921630dcff5902bb06ce84626bfaec7db38f42d4d70d750b1f428a0"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-form-input-ime-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-input-ime-phone-frame.json",
+        "sha256": "3a9867ad786b94b65e6e3ce545e22443a30836d0ad00918c51a3b4e66a2432bc"
+      }
+    }
+  },
+  {
+    "cohort": "submit-original-forms-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail",
+    "name": "json-detail-phone",
+    "caption": "Frozen JSON command: exact formatted Detail destination and explicit Copy action.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/json-detail-phone.png",
+        "sha256": "930a850d8dc8b2b31b8acb42c73541ab61d17cd5855b49bd62709887501b843e"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-detail-phone.xml",
+        "sha256": "178df45b67f32cfe23ec1398df0024b26417a6cb16b650804129a88487b4ad3e"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-detail-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-detail-phone-frame.json",
+        "sha256": "2d0f109e34ecfddbfcae3cf93854bdf66eacfacb941ccaedbf4db4a70f90ba95"
+      }
+    }
+  },
+  {
+    "cohort": "submit-original-forms-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied",
+    "name": "json-copy-phone",
+    "caption": "Frozen JSON command: explicit Copy after exact clipboard equality verification; the original clipboard is restored independently afterward.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/json-copy-phone.png",
+        "sha256": "f12ea0fbc4fa029ffe917b42a786563b90a15271802877344b9f879fc319dbfc"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-copy-phone.xml",
+        "sha256": "bba5e60342845ad440196c84c85166120984456d286e79732040c327214d5900"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-copied-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-copy-phone-frame.json",
+        "sha256": "7627eb812926b0d7ba2f9adb74742eae47f1c72fe1058507d8408e1bc3e3bb86"
+      }
+    }
+  },
+  {
+    "cohort": "submit-original-forms-phone-v1",
+    "stem": "form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return",
+    "name": "json-return-phone",
+    "caption": "Frozen JSON command: Back restores its caller and original launcher query.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+    "font_scale": 1.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/json-return-phone.png",
+        "sha256": "5a8cc7edf8fc179906032ef4fd4edf58eb90fdfb4a2ab09d984e6965b29e868e"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-return-phone.xml",
+        "sha256": "9ab1a5f4f9449c60a1bffeb36ba86022a02ea81c63263789f1abcc637502c015"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-original-forms-phone-v1/captures/form-frozenjsonformuseseditedpreferencescopiesunicodeandreturns-json-launcher-return-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/json-return-phone-frame.json",
+        "sha256": "40a2d165d062132c8cfd83756132733ccb4049929bf510b87fcdeea89cb590c0"
+      }
+    }
+  },
+  {
+    "cohort": "submit-forms-font200-landscape-v2",
+    "stem": "form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit",
+    "name": "font200-landscape-valid-edited",
+    "caption": "200% short landscape: exact valid edit clears the error before the explicit action.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-forms-font200-landscape-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-landscape-valid-edited.png",
+        "sha256": "cecef7c8292b3c8cb29f832fa82784680338b8c3d1ed57cb8de0e7716309f733"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-forms-font200-landscape-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-valid-edited.xml",
+        "sha256": "effe10b8010d9d64481a6e60e3fe246e1fdc30785cf4f6bb5a290a53d32d107f"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-forms-font200-landscape-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-before-submit-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-valid-edited-frame.json",
+        "sha256": "0be50bcab8214b24703349aadf5ac34e99ca3c7ee91b64056c55f29927e6d489"
+      }
+    }
+  },
+  {
+    "cohort": "submit-forms-font200-landscape-v2",
+    "stem": "form-correctinganerrorsubmitsexactunicodeonce-corrected-destination",
+    "name": "font200-landscape-valid-result",
+    "caption": "200% short landscape: one explicit valid submission reaches the exact owned Unicode result.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+    "font_scale": 2.0,
+    "layout": "landscape",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-forms-font200-landscape-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-destination.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/font200-landscape-valid-result.png",
+        "sha256": "4226d732246dbaf2bc2a35533445b5258b121851e8cf096ffda1b427610f39b0"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-forms-font200-landscape-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-destination.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-valid-result.xml",
+        "sha256": "ddd212b546a7f4cca105791f78580dc2f061da779303413edb4d94d106ea36c1"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-forms-font200-landscape-v2/captures/form-correctinganerrorsubmitsexactunicodeonce-corrected-destination-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/font200-landscape-valid-result-frame.json",
+        "sha256": "e6b39b60bc350a8d38f28126275ee9c55e72ac6f814c252f3182058f76716836"
+      }
+    }
+  },
+  {
+    "cohort": "selection-current-tablet200-v2",
+    "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before",
+    "name": "pointer-selection-tablet200-before",
+    "caption": "Actual long-press selects the owned word with live IME visible; exact range survives an unrelated React publication. No app-fix claim.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/selection-current-tablet200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/pointer-selection-tablet200-before.png",
+        "sha256": "12b9f32a8d8d85b55f21d02622e90390e3f137ddd8d879920d0b29ec55523005"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/selection-current-tablet200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/pointer-selection-tablet200-before.xml",
+        "sha256": "e37a5d7e7af55f0761cb432eab7d4fac4c4ae56b4fd4409aa6d67ad4757388f9"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/selection-current-tablet200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-before-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/pointer-selection-tablet200-before-frame.json",
+        "sha256": "e0b912ba3c0fbf90fb06bf9dc7a96fe74f2d74018ca092478ff62c3a298c7b59"
+      }
+    }
+  },
+  {
+    "cohort": "selection-current-tablet200-v2",
+    "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after",
+    "name": "pointer-selection-tablet200-after",
+    "caption": "Actual long-press selects the owned word with live IME visible; exact range survives an unrelated React publication. No app-fix claim.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/selection-current-tablet200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/pointer-selection-tablet200-after.png",
+        "sha256": "b77465cddb83cc30f2c0a2994377964a62596511c2ec273e453ab9c3113dffc0"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/selection-current-tablet200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/pointer-selection-tablet200-after.xml",
+        "sha256": "e37a5d7e7af55f0761cb432eab7d4fac4c4ae56b4fd4409aa6d67ad4757388f9"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/selection-current-tablet200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/pointer-selection-tablet200-after-frame.json",
+        "sha256": "0660a531893158535662813331f43f12bd0fd43bed3d89f29a310e3731d9dc22"
+      }
+    }
+  },
+  {
+    "cohort": "selection-current-phone200-v2",
+    "stem": "form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after",
+    "name": "pointer-selection-phone200-after",
+    "caption": "Actual phone long-press selection remains after unrelated publication with live IME visible; not a programmatic selection injection.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "58cc25d51a6ad94097a8734c3c0d5a74af90a642e6d8376734a100a739d90c1f",
+    "font_scale": 2.0,
+    "layout": "phone",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/selection-current-phone200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/pointer-selection-phone200-after.png",
+        "sha256": "72d248e4fa5c99e3acfc0a055bc875920e500b18054c9bca33073abadc0472b4"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/selection-current-phone200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/pointer-selection-phone200-after.xml",
+        "sha256": "a1720f253200a07cd923ede62afbb20602c11c2eab9130cbd5b15dde5b7cd5b9"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/selection-current-phone200-v2/captures/form-liveimepointerselectionsurvivesunrelatedpublication-live-ime-selection-after-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/pointer-selection-phone200-after-frame.json",
+        "sha256": "0660a531893158535662813331f43f12bd0fd43bed3d89f29a310e3731d9dc22"
+      }
+    }
+  },
+  {
+    "cohort": "submit-forms-font200-tablet-v1",
+    "stem": "form-allfieldkindskeepfocusvaluescompositionandmasking-failure",
+    "name": "selection-failure-tablet200",
+    "caption": "Retained original synthetic-selection failure: expected2..5, observed19..19 while Gboard was live. Cause is unisolated; separate unchanged focused old/current runs pass. No app repair credit.",
+    "app_sha256": "61667f7ab952b8c6ef9ee309bf0c19b4f402dfc715fc01dc262cdebfbeadfcb7",
+    "test_apk_sha256": "5d775470452b9470175dbfa29a8479d4107adbbc56444e964c822c76e5f57233",
+    "font_scale": 2.0,
+    "layout": "tablet",
+    "files": {
+      ".png": {
+        "source": "artifacts/form-validation/submit-forms-font200-tablet-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure.png",
+        "public": "docs/screenshots/extension-compatibility/form-submission/selection-failure-tablet200.png",
+        "sha256": "9c88cb3814c14dab0efcd67c6f534c469e90849d5c014e66eaccbb620a670e3b"
+      },
+      ".xml": {
+        "source": "artifacts/form-validation/submit-forms-font200-tablet-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure.xml",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/selection-failure-tablet200.xml",
+        "sha256": "6910442ead5d9dc21e659b7da671f70e29478bbd6a8319cd0d2dba704275e521"
+      },
+      "-frame.json": {
+        "source": "artifacts/form-validation/submit-forms-font200-tablet-v1/captures/form-allfieldkindskeepfocusvaluescompositionandmasking-failure-frame.json",
+        "public": "docs/validation/extension-compatibility/form-submission/frames/selection-failure-tablet200-frame.json",
+        "sha256": "8eb0525f0d6d77a29fa2f178a2a9de89acbd9b29f418844d4159f33121b38877"
+      }
+    }
+  }
+]
