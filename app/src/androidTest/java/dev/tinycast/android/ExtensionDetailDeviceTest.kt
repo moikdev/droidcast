@@ -194,6 +194,10 @@ class ExtensionDetailDeviceTest {
         """.trimIndent()
         val configuration = JSONObject().put("mode", mode).put("images", images).put("typography", typography)
             .put("gallery", gallery).put("imageInformation", information)
+            .put("longMetadata", "Owned long metadata café é 日本 🌱. " + "Every natural line remains readable at the configured text size. ".repeat(8))
+            .put("longUrl", "https://example.invalid/owned/" + "LongUnbrokenReference日本".repeat(18))
+            .put("longInformation", "Owned bounded ![Owned long information image](owned.svg \"Owned long image information café 日本. " +
+                "A persistent description stays readable while the user scrolls to Close. ".repeat(8) + "\") preview.")
         val script = "globalThis.__ownedDetailConfiguration = " + configuration + ";\n" +
             InstrumentationRegistry.getInstrumentation().context.assets.open("owned-detail-fixture.js").bufferedReader().use { it.readText() }
         File(directory, "detail.js").writeText(script)
@@ -346,6 +350,20 @@ class ExtensionDetailDeviceTest {
     }
     @Test fun listTouchDetailPreservesQuerySelectionExactCopyAndCaller() {
         launch("list"); capture("list-entry")
+        val keyboardButton = compose.onAllNodesWithContentDescription("Show on-screen keyboard")
+        if (keyboardButton.fetchSemanticsNodes().isNotEmpty()) touch(keyboardButton[0]) else touchTag("extension-search")
+        ime(true)
+        val primary = compose.onNodeWithTag("extension-primary").fetchSemanticsNode()
+        val imeGeometry = compose.runOnUiThread {
+            val view = compose.activity.window.decorView
+            val frame = android.graphics.Rect().also(view::getWindowVisibleDisplayFrame)
+            val screen = IntArray(2).also(view::getLocationOnScreen); val window = IntArray(2).also(view::getLocationInWindow)
+            primary.boundsInWindow to (frame.bottom - screen[1] + window[1])
+        }
+        assertTrue("Primary action must remain visible above the actual IME", imeGeometry.first.height > 1f && imeGeometry.first.bottom <= imeGeometry.second + 1f)
+        record.put("list_search_actual_ime_open", true).put("primary_ime_geometry", JSONObject()
+            .put("bottom", imeGeometry.first.bottom.toDouble()).put("visible_frame_bottom", imeGeometry.second))
+        capture("list-search-ime-open"); ime(false); capture("list-search-ime-closed")
         compose.onNodeWithTag("extension-search").performTextReplacement("beta"); compose.waitForIdle(); ime(false)
         touchTag("extension-row-0"); show("Owned document beta A"); show("Owned value beta A")
         capture("selected-detail"); assertEquals("beta", probe().getString("selected"))
@@ -753,5 +771,49 @@ class ExtensionDetailDeviceTest {
         witness("metadata-keyboard-enter", before.getInt("revision") + 1)
         show("Owned tag count 1"); capture("metadata-keyboard-activation")
         record.put("actual_tab_focus_and_enter", true).put("primary_copy_not_invoked", true).put("passed", true)
+    }
+    private fun pointerEveryTextLine(prefix: String, phase: String) {
+        val target = compose.onNodeWithText(prefix, substring = true, useUnmergedTree = true)
+        val ancestor = generateSequence(target.fetchSemanticsNode().parent) { it.parent }
+            .first { SemanticsProperties.VerticalScrollAxisRange in it.config && SemanticsActions.ScrollBy in it.config }
+        val owner = compose.onNode(SemanticsMatcher("Exact long-text scroll owner ${ancestor.id}") { it.id == ancestor.id }, useUnmergedTree = true)
+        // Reset only the setup position, then witness every complete natural line through pointer swipes.
+        compose.runOnUiThread { requireNotNull(ancestor.config[SemanticsActions.ScrollBy].action)(0f, -ancestor.config[SemanticsProperties.VerticalScrollAxisRange].value()) }
+        compose.waitForIdle()
+        val seen = mutableSetOf<Int>(); val receipts = JSONArray(); var total = 0
+        for (attempt in 0 until 80) {
+            val node = target.fetchSemanticsNode(); val layouts = mutableListOf<TextLayoutResult>()
+            compose.runOnUiThread { assertTrue(requireNotNull(node.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+            val layout = layouts.single(); total = layout.lineCount
+            val origin = compose.runOnUiThread { node.positionInRoot }; val viewport = owner.fetchSemanticsNode().boundsInRoot
+            for (line in 0 until total) {
+                assertFalse(layout.isLineEllipsized(line))
+                val top = origin.y + layout.getLineTop(line); val bottom = origin.y + layout.getLineBottom(line)
+                val left = origin.x + layout.getLineLeft(line); val right = origin.x + layout.getLineRight(line)
+                if (top >= viewport.top - 1f && bottom <= viewport.bottom + 1f && left >= viewport.left - 1f && right <= viewport.right + 1f && seen.add(line))
+                    receipts.put(JSONObject().put("line", line).put("attempt", attempt).put("line_rect", JSONArray(listOf(left, top, right, bottom)))
+                        .put("viewport", JSONArray(listOf(viewport.left, viewport.top, viewport.right, viewport.bottom))))
+            }
+            if (attempt == 0) capture("$phase-first-lines")
+            if (seen.size == total) break
+            pointerSwipe(owner, false)
+        }
+        record.put("$phase-line-witnesses", receipts).put("$phase-natural-lines", total)
+        assertTrue(total > 0); assertEquals("Every $phase natural line must become fully visible", (0 until total).toSet(), seen)
+        capture("$phase-last-lines")
+    }
+    @Test fun longMetadataUrlsTagsAndImageInformationRemainReachableByTouch() {
+        launch("long-metadata"); show("Owned long metadata café", substring = true)
+        pointerEveryTextLine("Owned long metadata title", "metadata-title")
+        pointerEveryTextLine("Owned long metadata café", "metadata-value")
+        pointerEveryTextLine("https://example.invalid/owned/", "metadata-url")
+        touch(show("Owned wrapping tag 3 café 日本")); witness("long-metadata-tag", 1); assertEquals(1, probe().getInt("tagCalls"))
+        capture("wrapping-tags-destination")
+        patch("long-information-publication", JSONObject().put("contentMode", "long-information"))
+        readyImage("Owned long information image"); image("Owned long information image").performTouchInput { longClick(center) }
+        compose.onNodeWithTag("extension-image-information").assertIsDisplayed()
+        pointerEveryTextLine("Owned long image information café", "image-information")
+        touch(show("Close")); compose.onNodeWithTag("extension-image-information").assertDoesNotExist()
+        record.put("long_metadata_url_and_image_information_pointer_reachability", true).put("passed", true)
     }
 }
