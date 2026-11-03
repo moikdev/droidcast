@@ -1,0 +1,89 @@
+{
+  "completed": false,
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "phone",
+  "font_scale": 2.0,
+  "classes": "dev.tinycast.android.InlinePaletteDeviceTest#categoryMenuIsInsidePaletteAndKeyboardReturnsFocus",
+  "expected": 1,
+  "runner_sha256": "0d165585cbc8f58b3ab077cb61aa2aac6c50ee83914c4144b5badd5ac2bebad9",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "typed_workflow_archive_sha256": {},
+  "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+  "shared_regression_cohort": true,
+  "apk_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+  "test_apk_sha256": "e14e449bdf09711a1b25f3276aa3f5ced078b9abf49f2e4e01e67d01d428f2aa",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 0,
+  "tests_completed": false,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "legacy-fixtures-completed": {
+      "passed": false,
+      "error_type": "CleanupError"
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": false,
+      "error_type": "CleanupError"
+    }
+  },
+  "owned_extension_count": 0
+}

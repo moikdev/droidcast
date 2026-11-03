@@ -1,0 +1,792 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "8e75546f98cbacc214172550251f1abcf9788069",
+  "fixture_mode": "long-metadata",
+  "fixture_command_sha256": "b42beaca51a303aea773a092bfd153c8a87b7073b24eb984060c7f5601e83875",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_png_sha256": "9d6eb0bb52ca2b690f4d60646c909d3f54e18e7ce4ea7181a774c898e56ef5f0",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 83
+    },
+    {
+      "phase": "long-metadata-tag",
+      "counter": 1,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 1",
+      "semantics_id": 83
+    },
+    {
+      "phase": "long-information-publication",
+      "counter": 2,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 2",
+      "semantics_id": 83
+    }
+  ],
+  "last_native_text_wait": "Close",
+  "axis_aware_scrolls": [],
+  "native_text_edge_glyph_pixels": [
+    {
+      "phase": "metadata-title",
+      "line": 0,
+      "character_offset": 0,
+      "expected_core_pixels": 142,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        0.6501961,
+        0.6501961,
+        0.6501961
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-title",
+      "line": 0,
+      "character_offset": 109,
+      "expected_core_pixels": 220,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        0.6501961,
+        0.6501961,
+        0.6501961
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 0,
+      "character_offset": 0,
+      "expected_core_pixels": 236,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 0,
+      "character_offset": 75,
+      "expected_core_pixels": 412,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 1,
+      "character_offset": 76,
+      "expected_core_pixels": 161,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 1,
+      "character_offset": 144,
+      "expected_core_pixels": 412,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 2,
+      "character_offset": 145,
+      "expected_core_pixels": 161,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 2,
+      "character_offset": 213,
+      "expected_core_pixels": 412,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 3,
+      "character_offset": 214,
+      "expected_core_pixels": 161,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 3,
+      "character_offset": 282,
+      "expected_core_pixels": 412,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 4,
+      "character_offset": 283,
+      "expected_core_pixels": 161,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 4,
+      "character_offset": 351,
+      "expected_core_pixels": 412,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 5,
+      "character_offset": 352,
+      "expected_core_pixels": 161,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 5,
+      "character_offset": 420,
+      "expected_core_pixels": 412,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 6,
+      "character_offset": 421,
+      "expected_core_pixels": 161,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    },
+    {
+      "phase": "metadata-url",
+      "line": 6,
+      "character_offset": 443,
+      "expected_core_pixels": 412,
+      "missing_core_pixels": 0,
+      "alignment_neighborhood_px": 1,
+      "expected_rgb": [
+        1,
+        1,
+        1
+      ],
+      "method": "Actual root capture versus unclipped resolved paragraph alpha mask; first/last visible glyph"
+    }
+  ],
+  "metadata-title-line-witnesses": [
+    {
+      "line": 0,
+      "attempt": 0,
+      "line_rect": [
+        239,
+        299,
+        2071.8208,
+        347
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    }
+  ],
+  "metadata-title-natural-lines": 1,
+  "metadata-value-line-witnesses": [
+    {
+      "line": 0,
+      "attempt": 0,
+      "line_rect": [
+        239,
+        358,
+        2075.0068,
+        416
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 1,
+      "attempt": 0,
+      "line_rect": [
+        239,
+        416,
+        1938.8569,
+        474
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 2,
+      "attempt": 0,
+      "line_rect": [
+        239,
+        474,
+        1984.6833,
+        532
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 3,
+      "attempt": 0,
+      "line_rect": [
+        239,
+        532,
+        2098.5186,
+        590
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 4,
+      "attempt": 0,
+      "line_rect": [
+        239,
+        590,
+        2040.2041,
+        648
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 5,
+      "attempt": 0,
+      "line_rect": [
+        239,
+        648,
+        601.3867,
+        706
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    }
+  ],
+  "metadata-value-natural-lines": 6,
+  "metadata-url-line-witnesses": [
+    {
+      "line": 0,
+      "attempt": 1,
+      "line_rect": [
+        271,
+        389,
+        1726.813,
+        447
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 1,
+      "attempt": 1,
+      "line_rect": [
+        271,
+        447,
+        1693.8098,
+        505
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 2,
+      "attempt": 1,
+      "line_rect": [
+        271,
+        505,
+        1693.8098,
+        563
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 3,
+      "attempt": 1,
+      "line_rect": [
+        271,
+        563,
+        1693.8098,
+        621
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 4,
+      "attempt": 1,
+      "line_rect": [
+        271,
+        621,
+        1693.8098,
+        679
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 5,
+      "attempt": 1,
+      "line_rect": [
+        271,
+        679,
+        1693.8098,
+        737
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    },
+    {
+      "line": 6,
+      "attempt": 1,
+      "line_rect": [
+        271,
+        737,
+        745.0985,
+        795
+      ],
+      "viewport": [
+        186,
+        246,
+        2155,
+        835
+      ]
+    }
+  ],
+  "metadata-url-natural-lines": 7,
+  "image_readiness": [
+    {
+      "alternative": "Owned long information image",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;attached=true;window_bounds=Rect.fromLTRB(525.0, 299.0, 588.0, 362.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        525,
+        299,
+        588,
+        362
+      ],
+      "unclipped_origin": [
+        525,
+        299
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Owned long information image",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;attached=true;window_bounds=Rect.fromLTRB(525.0, 299.0, 588.0, 362.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        525,
+        299,
+        588,
+        362
+      ],
+      "unclipped_origin": [
+        525,
+        299
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    }
+  ],
+  "image-information-line-witnesses": [
+    {
+      "line": 0,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        11,
+        761.1209,
+        69
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 1,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        69,
+        750.00616,
+        127
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 2,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        127,
+        661.83966,
+        185
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 3,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        185,
+        717.9776,
+        243
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 4,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        243,
+        713.3825,
+        301
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 5,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        301,
+        686.7602,
+        359
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 6,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        359,
+        648.2525,
+        417
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 7,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        417,
+        734.56476,
+        475
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 8,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        475,
+        750.00616,
+        533
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 9,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        533,
+        661.83966,
+        591
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 10,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        591,
+        717.9776,
+        649
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 11,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        649,
+        713.3825,
+        707
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 12,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        707,
+        686.7602,
+        765
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 13,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        765,
+        648.2525,
+        823
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    },
+    {
+      "line": 14,
+      "attempt": 0,
+      "line_rect": [
+        42,
+        823,
+        711.0505,
+        881
+      ],
+      "viewport": [
+        0,
+        0,
+        840,
+        912
+      ]
+    }
+  ],
+  "image-information-natural-lines": 15,
+  "long_metadata_url_and_image_information_pointer_reachability": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

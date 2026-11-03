@@ -1,0 +1,25 @@
+{
+  "completed": true,
+  "scope": "Two isolated copies of the actual old/current absent function with the same delayed host client. No device, UI or JUnit executions. Original probe is terminated after the observation bound; current probe must raise its real 60-second timeout without certifying absence.",
+  "source_hashes": {
+    "artifacts/markdown-detail/audit-final-native-v2-markdown-phone200/runner.py": "0d165585cbc8f58b3ab077cb61aa2aac6c50ee83914c4144b5badd5ac2bebad9",
+    "scripts/test-reviewed-text-input.py": "d945e15ad9c69af07f4c88430f6594a0bcad60dab4e300c06e698cfccc780026"
+  },
+  "probes": [
+    {
+      "phase": "before",
+      "expected_blocked": true,
+      "terminated_after_seconds": 66.13301770808175,
+      "credited_pass": false
+    },
+    {
+      "phase": "after",
+      "completed": true,
+      "outcome": "TimeoutExpired",
+      "elapsed_seconds": 60.00702341692522,
+      "absence_inspection_calls": 0,
+      "absence_certified": false
+    }
+  ],
+  "cohorts": []
+}

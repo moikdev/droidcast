@@ -2,6 +2,22 @@
 
 This is the execution portion of [#72](https://github.com/moikdev/droidcast/issues/72), under [#7](https://github.com/moikdev/droidcast/issues/7). [Command discovery](EXTENSION-CATALOG.md) records declarations from a pinned open-source repository. A workflow batch executes specific prebuilt Store bundles on Android. These are different versioned populations; a Store result does not change the pinned source inventory's untested declarations.
 
+## Native Detail audit repair
+
+The [repair checkpoint](EXTENSION-MARKDOWN-DETAIL-REPAIR.md) records four commands in three frozen bundles on the `8e75546` app/test pair. Its twelve workflow executions are part of the 185 positive same-APK executions: six Blue cases retain their completed v2 receipts; JSON three and the two-command Mood scenario three execute in v3 after transport recovery with the bounded runner. The failed transport cohort and separate recovery earn no workflow credit. Actual output/Copy/source return, owned persistence/detail toggles and SVG/metadata retain their listed scope. The initial `4bb10aa` observations below remain historical. The blank-image observation is still unexplained; later passes establish no repair. Static inventory remains untested.
+
+## Native Markdown/Detail follow-up
+
+The [native rendering milestone](EXTENSION-MARKDOWN-DETAIL.md) refreshes four named commands in three frozen bundles on implementation `4bb10aa`. JSON and the Mood scenario run on tablet100%, phone200% and landscape200%; HTML Colors also runs on all six 100%/200% profiles. These twelve scenarios retain their own archive/command/app/test identities and do not rerun or reclassify the earlier sixteen-command batch.
+
+| Frozen command | Listed current outcome | Limit |
+| --- | --- | --- |
+| `json-format/formatSelectionAndShow` | Native exact monospace output after explicit reviewed Run; fresh exact Copy and unchanged owned external source return. | Other formatter commands/configurations and arbitrary callers remain untested. |
+| `mood/record-mood` + `mood/search-moods` | Exact persisted entry; new Search respects false/true detail mode, renders native notes, toggles by touch and preserves saved bytes/caller. | AI/charts/drafts/storeValue and other actions remain open. The old 350c2fe raw-Detail observation below is historical. |
+| `html-colors/html-color` | Default Blue SVG/HEX/RGB metadata, actual detail toggle, exact HEX Copy and return. | Overall command remains partial: dropdown/accessory modes, other colors/actions untested. |
+
+Startup/rendering/interaction/destination/configuration/service phase outcomes are retained separately. Static **3,491 directories / 11,153 declarations remain untested**, and Store-reported commits are not source-correspondence certification.
+
 ## Typed Form workflows
 
 The separate [typed Form milestone](EXTENSION-TYPED-FORMS.md) exercises frozen Mood and Checksum bundles on the repaired `350c2fe` app, with its current compiled instrumentation. The earlier `55e641a` observations retain their original identities. These are two scenarios spanning three named commands on tablet 100%, phone 200% and short landscape 200%. Their six real-workflow executions are part of an eighteen-execution group that also checks reset and typed-error correction. They are not eighteen Store compatibility passes, and they do not rerun the earlier sixteen-command batch.

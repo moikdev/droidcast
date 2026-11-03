@@ -1,0 +1,77 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "font_scale": 2,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "df0464a3d41f79796d69998a43c039a110130d05",
+  "fixture_mode": "metadata-only",
+  "fixture_command_sha256": "04e22b76df30de318f9a2fdfdbf1b979628b33d964be511360117c5afb34457f",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_png_sha256": "9d6eb0bb52ca2b690f4d60646c909d3f54e18e7ce4ea7181a774c898e56ef5f0",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 1840
+    },
+    {
+      "phase": "first-metadata-image",
+      "counter": 1,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 1",
+      "semantics_id": 1840
+    }
+  ],
+  "axis_aware_scrolls": [],
+  "image_readiness": [
+    {
+      "alternative": "Metadata icon",
+      "phase": "before-wait",
+      "state": "Image loading",
+      "activity_lifecycle": "RESUMED",
+      "visible_bounds": [
+        428,
+        438,
+        464,
+        474
+      ],
+      "unclipped_origin": [
+        428,
+        438
+      ],
+      "size": [
+        36,
+        36
+      ],
+      "owned_svg_still_matches": false
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "wait-failed",
+      "state": "Image loading",
+      "activity_lifecycle": "RESUMED",
+      "visible_bounds": [
+        428,
+        438,
+        464,
+        474
+      ],
+      "unclipped_origin": [
+        428,
+        438
+      ],
+      "size": [
+        36,
+        36
+      ],
+      "owned_svg_still_matches": false
+    }
+  ],
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

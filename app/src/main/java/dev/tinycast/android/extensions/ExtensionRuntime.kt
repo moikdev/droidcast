@@ -172,7 +172,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         "system" -> when (method) {
             "selectedText" -> textContext.input?.read(textContext.owner,textContext.target)
                 ?: throw TextInputRejected(TextInputProblem.UNAVAILABLE)
-            "open" -> { val uri = Uri.parse(a.getString(0)); require(uri.scheme in listOf("https", "http", "mailto", "geo")) { "This desktop URL cannot be opened on Android" }; context.startActivity(Intent(Intent.ACTION_VIEW, uri).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); null }
+            "open" -> { openExtensionLink(context, a.getString(0)); null }
             "frontmostApplication", "applications", "selectedFinderItems" -> error("$method requires a desktop API unavailable on Android")
             else -> error("$method is not supported on Android")
         }

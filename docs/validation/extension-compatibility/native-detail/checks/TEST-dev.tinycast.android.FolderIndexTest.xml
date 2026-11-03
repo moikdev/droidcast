@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.FolderIndexTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-03T19:12:33.384Z" hostname="MacBook-Pro-2.local" time="0.01">
+  <properties/>
+  <testcase name="resultsAreBoundedAndQueriesCanBeCancelled" classname="dev.tinycast.android.FolderIndexTest" time="0.003"/>
+  <testcase name="identityUsesProviderAndPersistentDocumentId" classname="dev.tinycast.android.FolderIndexTest" time="0.005"/>
+  <testcase name="typesRespectDirectoriesAndNativeMime" classname="dev.tinycast.android.FolderIndexTest" time="0.001"/>
+  <testcase name="hiddenNamesRankAfterVisibleNamesAtEqualScore" classname="dev.tinycast.android.FolderIndexTest" time="0.0"/>
+  <testcase name="filenameMatchesOutrankPathOnlyMatches" classname="dev.tinycast.android.FolderIndexTest" time="0.0"/>
+  <testcase name="overlappingScopesDoNotDuplicateAnIdentity" classname="dev.tinycast.android.FolderIndexTest" time="0.0"/>
+  <testcase name="emptySearchUsesModifiedDateWithStableOrdering" classname="dev.tinycast.android.FolderIndexTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

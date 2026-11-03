@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionDetailDeviceTest:
+INSTRUMENTATION_STATUS: test=emptyMetadataHasReadableValuesAndAnUnavailableLink
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Empty metadata value needs a readable alternative
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.emptyMetadataHasReadableValuesAndAnUnavailableLink(ExtensionDetailDeviceTest.kt:690)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emptyMetadataHasReadableValuesAndAnUnavailableLink(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: Empty metadata value needs a readable alternative
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.emptyMetadataHasReadableValuesAndAnUnavailableLink(ExtensionDetailDeviceTest.kt:690)
+
+INSTRUMENTATION_STATUS: test=emptyMetadataHasReadableValuesAndAnUnavailableLink
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Markdown image title needs a touch-readable equivalent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(ExtensionDetailDeviceTest.kt:712)
+
+INSTRUMENTATION_STATUS: stream=
+Error in imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: Markdown image title needs a touch-readable equivalent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(ExtensionDetailDeviceTest.kt:712)
+
+INSTRUMENTATION_STATUS: test=imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.157
+There were 2 failures:
+1) emptyMetadataHasReadableValuesAndAnUnavailableLink(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: Empty metadata value needs a readable alternative
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.emptyMetadataHasReadableValuesAndAnUnavailableLink(ExtensionDetailDeviceTest.kt:690)
+2) imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: Markdown image title needs a touch-readable equivalent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(ExtensionDetailDeviceTest.kt:712)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

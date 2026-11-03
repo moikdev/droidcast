@@ -81,11 +81,14 @@ private class StoreBrowserState {
     var lastRequest: Triple<String, Int, Int>? = null
 }
 
-private class ExtensionListState {
+internal class ExtensionListState {
     var search by mutableStateOf(TextFieldValue(""))
     var selected by mutableIntStateOf(0)
     val selectionDelivery = ExtensionSelectionDelivery()
     val scroll = androidx.compose.foundation.lazy.LazyListState()
+    var detailRowId by mutableStateOf<String?>(null)
+    var detailOnly by mutableStateOf(false)
+    val details = mutableMapOf<String, ScrollState>()
 }
 
 @Composable
@@ -106,11 +109,12 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
     val context = LocalContext.current
     val runtime = remember { ExtensionRuntime(context, store.extensions, extension, command) }
     val images = remember { ExtensionGridImages(extension.directory) }
+    val detailImages = remember { ExtensionDetailImages(extension.directory) }
     val grids = remember { mutableMapOf<String, ExtensionGridState>() }
     val lists = remember { mutableMapOf<String, ExtensionListState>() }
     val details = remember { mutableMapOf<String, ScrollState>() }
     var started by remember { mutableStateOf(false) }
-    DisposableEffect(runtime) { onDispose { runtime.close(); images.close() } }
+    DisposableEffect(runtime) { onDispose { runtime.close(); images.close(); detailImages.close() } }
     LaunchedEffect(store.dialog) {
         if(store.dialog == "extension-run" && !started) { started = true; runtime.start() }
     }
@@ -122,17 +126,19 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
             else close()
         }
     }
-    else CommandRunner(store, extension, command, runtime, images, grids, lists, details, close)
+    else CommandRunner(store, extension, command, runtime, images, detailImages, grids, lists, details, close)
 }
 
 @Composable
 private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier,
                             compact: Boolean = false, onEscape: () -> Unit = close, headerless: Boolean = false,
                             headerActions: (@Composable RowScope.() -> Unit)? = null,
+                            keys: ((KeyEvent, Boolean) -> Boolean)? = null,
                             content: @Composable ColumnScope.() -> Unit) {
     val escapePresses = remember { mutableMapOf<Int, Long>() }
     val focus = remember { FocusRequester() }
     var hasFocus by remember { mutableStateOf(false) }
+    var directlyFocused by remember { mutableStateOf(false) }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val menus = LocalPaletteMenus.current
     val menuOpen = menus.current != null
@@ -140,10 +146,10 @@ private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, 
         if (windowFocused && !hasFocus && !menuOpen) { withFrameNanos { }; if (!hasFocus && menus.current == null) focus.requestFocus() }
         if (!windowFocused) escapePresses.clear()
     }
-    dev.tinycast.android.PaletteFrame(onEscape, modifier.focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus }
+    dev.tinycast.android.PaletteFrame(onEscape, modifier.focusRequester(focus).onFocusChanged { hasFocus = it.hasFocus; directlyFocused = it.isFocused }
         .focusable().onPreviewKeyEvent {
             val event = it.nativeKeyEvent
-            if (event.keyCode != android.view.KeyEvent.KEYCODE_ESCAPE) false
+            if (event.keyCode != android.view.KeyEvent.KEYCODE_ESCAPE) keys?.invoke(it, directlyFocused) ?: false
             else if (event.action == android.view.KeyEvent.ACTION_DOWN) {
                 if (event.repeatCount == 0) { escapePresses[event.deviceId] = event.downTime; onEscape() }; true
             } else if (escapePresses[event.deviceId] == event.downTime) { escapePresses.remove(event.deviceId); true } else false
@@ -164,7 +170,7 @@ private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue) -> Unit, placeholder: String, tag: String,
-                                  back: () -> Unit, trailing: @Composable RowScope.() -> Unit = {}) {
+                                  back: () -> Unit, keys: ((KeyEvent) -> Boolean)? = null, trailing: @Composable RowScope.() -> Unit = {}) {
     val focus = remember { FocusRequester() }
     val wide = dev.tinycast.android.LocalPaletteWide.current
     val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
@@ -186,9 +192,15 @@ private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue
         Spacer(Modifier.width(2.dp))
         BasicTextField(value,change,singleLine=true,textStyle=TextStyle(color=ink,fontSize=20.sp,lineHeight=26.sp),cursorBrush=SolidColor(PaletteTheme.accent),
             keyboardOptions=KeyboardOptions(showKeyboardOnFocus=!wide || requested),
-            modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged{focused=it.isFocused}.testTag(tag),
+            modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged{focused=it.isFocused}
+                .onPreviewKeyEvent { keys?.invoke(it) ?: false }.testTag(tag),
             decorationBox={inner->Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(value.text.isEmpty())Text(placeholder,color=muted,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
-        if(wide)IconButton(onClick={requested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",muted,16)}
+        if(wide || ime) IconButton(onClick={
+            if (ime) {
+                requested=false; keyboard?.hide()
+                androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
+            } else { requested=true;focus.requestFocus();keyboard?.show() }
+        },modifier=Modifier.size(48.dp).semantics{contentDescription=if(ime)"Hide on-screen keyboard" else "Show on-screen keyboard"}){Glyph("keyboard",muted,16)}
         trailing()
     }
     HorizontalDivider(color=line)
@@ -415,7 +427,7 @@ internal fun activeRoot(tree:JSONObject?):JSONObject? {
 
 @Composable
 private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,command:ExtensionCommand,
-                          runtime:ExtensionRuntime,gridImages:ExtensionGridImages,gridStates:MutableMap<String,ExtensionGridState>,
+                          runtime:ExtensionRuntime,gridImages:ExtensionGridImages,detailImages:ExtensionDetailImages,gridStates:MutableMap<String,ExtensionGridState>,
                           listStates:MutableMap<String,ExtensionListState>,detailStates:MutableMap<String,ScrollState>,close:()->Unit){
     if(command.mode !in listOf("view","no-view")){
         ExtensionWindow(command.title,extension.listing.title,close){Text("This command needs a desktop menu bar. It can be installed, but cannot run on Android.",color=muted,fontSize=15.sp,modifier=Modifier.padding(24.dp))}
@@ -493,21 +505,42 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     fun activateCurrent() {
         if (root?.optString("type") != "List" || listState.search.composition == null) action(liveActions().firstOrNull())
     }
+    fun moveSelection(delta: Int) {
+        val current = liveRows()
+        if (current.isEmpty()) return
+        selected = (selected + delta).coerceIn(0, current.lastIndex)
+        if (listState.detailOnly) listState.detailRowId = current[selected].optString("id")
+        notifyCurrentSelection()
+    }
+    fun back() {
+        if (root?.optString("type") == "List" && listState.detailOnly) {
+            listState.detailRowId = null
+            listState.detailOnly = false
+        } else if (catalog.runtimeError != null) close()
+        else if (catalog.navigationDepth > 1) runtime.back() else close()
+    }
     LaunchedEffect(root?.optString("id"), item?.props()?.optString("id"), root?.handle("onSelectionChange"), failed) {
         if (!failed) notifyCurrentSelection()
     }
-    ExtensionWindow(command.title,extension.listing.title,close,Modifier.onPreviewKeyEvent{
-        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else {
-        val eventRows=if(it.key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
+    fun defaultKeys(event: KeyEvent): Boolean = with(event) {
+        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || type!=KeyEventType.KeyDown)false else {
+        val eventRows=if(key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
         when{
-            it.key==Key.K&&it.isCtrlPressed->{menu=true;true}
-            it.key==Key.DirectionDown&&eventRows.isNotEmpty()->{selected=(selected+1).coerceAtMost(eventRows.lastIndex);notifyCurrentSelection();true}
-            it.key==Key.DirectionUp&&eventRows.isNotEmpty()->{selected=(selected-1).coerceAtLeast(0);notifyCurrentSelection();true}
-            it.key in listOf(Key.Enter, Key.NumPadEnter)&&root?.optString("type")!="Form"->{activateCurrent();true}
+            key==Key.K&&isCtrlPressed->{menu=true;true}
+            key==Key.DirectionDown&&eventRows.isNotEmpty()->{moveSelection(1);true}
+            key==Key.DirectionUp&&eventRows.isNotEmpty()->{moveSelection(-1);true}
+            key in listOf(Key.Enter, Key.NumPadEnter)&&root?.optString("type")!="Form"->{activateCurrent();true}
             else->false
         }
         }
-    },compact=true,onEscape={ if(catalog.runtimeError!=null)close() else if(catalog.navigationDepth>1)runtime.back() else close() },headerless=!failed && root?.optString("type") in listOf("Grid","List"),headerActions={
+    }
+    ExtensionWindow((root?.props()?.opt("navigationTitle") as? String)?.takeIf { it.isNotBlank() } ?: command.title,extension.listing.title,close,
+        compact=true,onEscape=::back,headerless=!failed && root?.optString("type") in listOf("Grid","List"),
+        keys={ event, frameFocused ->
+            // Descendant buttons and links own their normal Enter/arrow keys.
+            // Search receives the same list navigation explicitly below.
+            if (frameFocused || (event.key == Key.K && event.isCtrlPressed)) defaultKeys(event) else false
+        },headerActions={
         if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
         else {
             if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
@@ -528,25 +561,28 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 NativeExtensionGrid(state, { liveRoot()?.takeIf { it.optString("type")=="Grid" } }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, { handle,args -> if(liveRoot()?.optString("type")=="Grid")runtime.dispatch(handle,args) }, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
             }
             "List"->{
+                NativeExtensionList(root, rows, listState, runtime, detailImages, ::liveRoot, ::liveRows,
+                    select = { expected ->
+                        val current = liveRows().indexOfFirst { it.optString("id") == expected.optString("id") &&
+                            it.props().opt("title") == expected.props().opt("title") }
+                        if (current < 0) false else { selected = current; notifyCurrentSelection(); true }
+                    }, dispatch = { handle, args -> runtime.dispatch(handle, args) }, status = { catalog.runtimeStatus = it },
+                    empty = { modifier -> NativeExtensionEmptyView(extensionEmptyView(root,0,query),root.props().optBoolean("isLoading") && query.isEmpty(),gridImages,
+                        "extension-list-empty", modifier) }, modifier = Modifier.weight(1f).fillMaxWidth(), searchHeader = {
                 ExtensionSearchHeader(listSearch,{next->
-                    if(next.text != query){selected=0;runtime.dispatch(root.handle("onSearchTextChange"),JSONArray().put(next.text))}
+                    val current = liveRoot()?.takeIf { it.optString("type") == "List" && it.optString("id") == root.optString("id") }
+                    if(current != null && next.text != query){selected=0;listState.detailRowId=null;runtime.dispatch(current.handle("onSearchTextChange"),JSONArray().put(next.text))}
                     listSearch=next
-                },root.props().optString("searchBarPlaceholder","Search extension…"),"extension-search",{if(catalog.navigationDepth>1)runtime.back() else close()}) {
+                },root.props().optString("searchBarPlaceholder","Search extension…"),"extension-search",::back,keys=::defaultKeys) {
                     IconButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"},modifier=Modifier.size(48.dp).semantics{contentDescription="Extension preferences"}){Glyph("settings",muted,16)}
                 }
-                if(root.props().optBoolean("isLoading"))LinearProgressIndicator(Modifier.fillMaxWidth().padding(top=5.dp))
-                if(rows.isEmpty()) NativeExtensionEmptyView(extensionEmptyView(root,0,query),root.props().optBoolean("isLoading") && query.isEmpty(),gridImages,
-                    "extension-list-empty",Modifier.weight(1f).fillMaxWidth().testTag("extension-list"))
-                else LazyColumn(state=listState.scroll,modifier=Modifier.weight(1f).fillMaxWidth().testTag("extension-list"),contentPadding=PaddingValues(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
-                    items(rows,key={it.optString("id")}){row->val i=rows.indexOf(row);val rowSelected=i==selected;Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(9.dp)).background(if(rowSelected)ink.copy(alpha=.12f)else card).semantics{this.selected=rowSelected}.clickable{selected=i;notifyCurrentSelection()}.padding(14.dp).testTag("extension-row-$i")){
-                        Text(row.props().optString("title"),fontSize=14.sp,lineHeight=21.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
-                        val subtitle=row.props().optString("subtitle");if(subtitle.isNotBlank())Text(subtitle,color=muted,fontSize=11.sp,lineHeight=17.sp)
-                        row.props().optJSONArray("accessories").objects().forEach{Text(it.optString("text"),color=muted,fontSize=10.sp)}
-                    }}
-                    item?.props()?.optJSONObject("detail")?.let{detail->item{Text(detail.props().optString("markdown"),color=muted,fontSize=12.sp)}}
-                }
+                })
             }
-            "Detail"->SelectionContainerCompat(root.props().optString("markdown"),Modifier.weight(1f).fillMaxWidth().padding(20.dp),detailStates.getOrPut(root.optString("id")){ScrollState(0)})
+            "Detail"->NativeExtensionDetail(root,
+                { liveRoot()?.takeIf { it.optString("type") == "Detail" && it.optString("id") == root.optString("id") } },
+                runtime, detailImages,
+                { handle, args -> runtime.dispatch(handle, args) }, { catalog.runtimeStatus = it },
+                detailStates.getOrPut(root.optString("id")) { ScrollState(0) }, Modifier.weight(1f).fillMaxWidth())
             "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },
                 { handle, args -> runtime.dispatch(handle, args) },
                 { handle, id, focused, value -> runtime.dispatchFormFocus(handle, id, focused, value) }, formSubmission,
@@ -583,18 +619,6 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 }
             }
         }
-        }
-    }
-}
-
-@Composable
-private fun SelectionContainerCompat(text:String,modifier:Modifier,scroll:ScrollState){
-    // In pinned Compose 1.7.6, Android's selection context-menu wrapper sits
-    // above the supplied modifier. Keep Column's weight on our outer layout
-    // so long selectable text cannot consume the footer's allocation.
-    Box(modifier.testTag("extension-detail")) {
-        androidx.compose.foundation.text.selection.SelectionContainer(Modifier.fillMaxSize().verticalScroll(scroll)) {
-            Text(text,fontSize=14.sp,lineHeight=23.sp)
         }
     }
 }

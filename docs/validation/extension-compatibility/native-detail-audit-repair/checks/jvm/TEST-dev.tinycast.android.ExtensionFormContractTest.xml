@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionFormContractTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:50:14.613Z" hostname="MacBook-Pro-2.local" time="0.005">
+  <properties/>
+  <testcase name="reusedNativeIdsCannotChangeTheirLogicalFieldOrControlType" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.001"/>
+  <testcase name="rerendersDoNotDuplicateFocusAndBlur" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.001"/>
+  <testcase name="anExplicitEmptyValuedOptionKeepsItsOwnTitle" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="clearingAnOutgoingFormDropsItsPendingFocusWithoutDispatching" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="changedOptionMeaningInvalidatesItsCapturedChoice" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.001"/>
+  <testcase name="aNewOptionAtTheSamePositionCannotInheritAnOldMenuChoice" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="reorderingTheSameOptionsDoesNotChangeTheirIdentity" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="ordinaryRerendersKeepTheSameFieldAuthority" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="aRemovedFieldCannotReceiveFocusOrAStaleBlur" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="selectedTitlesNeverReplaceTheUnderlyingSubmittedValue" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="aMissingSelectionHasAnExplicitLabelWithoutInventingANewValue" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.001"/>
+  <testcase name="reentrantFocusFromBlurSupersedesTheOutgoingTransition" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="duplicateReadableTitlesStillIdentifyDistinctValues" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="anOutgoingBlurCannotClearTheNewerFocusedField" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="aReplacementFieldWithTheSameLogicalIdRejectsTheOldNativeCallback" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="blurValidationCanRemoveTheNextFieldBeforeItReceivesFocus" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <testcase name="identicalLogicalIdsInAnotherRootCannotInheritAQueuedFieldEvent" classname="dev.tinycast.android.ExtensionFormContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
