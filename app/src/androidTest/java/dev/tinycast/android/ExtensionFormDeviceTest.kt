@@ -1496,10 +1496,40 @@ class ExtensionFormDeviceTest {
     }
     private fun dateIso(instant: java.time.Instant): String = java.time.format.DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(instant)
 
+    private fun touchTypedCalendarDay(label: String) {
+        val calendar = hasTestTag("extension-date-calendar-date")
+        val day = compose.onNode(hasText(label) and hasAnyAncestor(calendar))
+        val viewport = compose.onNode(hasScrollAction() and hasAnyDescendant(calendar) and
+            hasAnyAncestor(hasTestTag("extension-date-dialog-date")), useUnmergedTree = true)
+        val minimum = 48f * context.resources.displayMetrics.density
+        var revealed = false
+        for (attempt in 0 until 60) {
+            val node = day.fetchSemanticsNode(); val visible = node.boundsInRoot
+            val bounds = viewport.fetchSemanticsNode().boundsInRoot
+            if (visible.height + 1 >= minOf(node.size.height.toFloat(), minimum) &&
+                visible.width + 1 >= minOf(node.size.width.toFloat(), minimum) && bounds.contains(visible.center)) {
+                revealed = true; break
+            }
+            assertTrue("The calendar needs a useful vertical pointer viewport", bounds.height + 1 >= minimum)
+            val direction = if (fullBounds(day).top < bounds.top) 1 else -1
+            drag(viewport, direction)
+        }
+        assertTrue("The actual calendar day must be visible before its pointer tap", revealed)
+        day.assertIsEnabled()
+        val node = day.fetchSemanticsNode(); val point = node.boundsInRoot.center
+        val root = compose.onNode(isRoot() and hasAnyDescendant(calendar), useUnmergedTree = true)
+        val origin = root.fetchSemanticsNode().boundsInRoot.topLeft
+        record.put("calendar_day_pointer", JSONObject().put("label", label).put("point", JSONArray(listOf(point.x, point.y)))
+            .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom))))
+        root.performTouchInput { click(point - origin) }; compose.waitForIdle()
+        // Material 3 exposes the selected Day Surface as a checked control.
+        // A scroll request or successful event injection alone proves neither.
+        day.assertIsOn(); record.put("calendar_checked_after_pointer", true)
+    }
+
     @Test fun dateOnlySelectsACalendarDayWithInclusiveDayBounds() {
         launch("typed-date-day"); touch("extension-date-date")
-        val day = compose.onNode(hasText("Thursday, February 29, 2024") and hasAnyAncestor(hasTestTag("extension-date-calendar-date")))
-        day.assertIsEnabled().performScrollTo().performTouchInput { click(center) }
+        touchTypedCalendarDay("Thursday, February 29, 2024")
         capture("date-calendar-day-selected")
         val before = typedPublication()
         touch("extension-date-confirm-date"); awaitTypedPublication(before, "calendar day accepted")
@@ -1820,9 +1850,10 @@ class ExtensionFormDeviceTest {
         compose.onNodeWithText("Preferences", useUnmergedTree = true).performScrollTo().performTouchInput { click(center) }
         compose.onNodeWithTag("preference-checkbox-popRootAfterSubmit").performScrollTo().assertIsOn().performTouchInput { click(center) }
         compose.onNodeWithTag("preference-checkbox-popRootAfterSubmit").assertIsOff(); capture("checksum-preferences-edited")
-        touch("run-extension-setup")
-        compose.waitUntil(20000) { catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
-        assertFalse(context.getSharedPreferences("extension-${extension.listing.id}", Context.MODE_PRIVATE).getBoolean("popRootAfterSubmit", true))
+        val configuredEpoch = catalog.launchEpoch; touch("run-extension-setup")
+        compose.waitUntil(20000) { catalog.launchEpoch > configuredEpoch && catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        val preferences = context.getSharedPreferences("extension-${extension.listing.id}", Context.MODE_PRIVATE)
+        assertFalse(JSONObject(preferences.getString("preferences", "{}")!!).getBoolean("popRootAfterSubmit"))
         val device = openOwnedDocuments(id = "file"); clickDocumentText(device, "café 日本.txt")
         val imported = awaitImportedFiles(1, id = "file").single()
         val bytes = "Owned file café 日本 🌱\n".toByteArray(); assertArrayEquals(bytes, File(imported).readBytes())
