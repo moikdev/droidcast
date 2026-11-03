@@ -8,7 +8,7 @@ Native argument/preference setup uses the same readable labels, feedback, checkb
 
 Password editors now request Android's password keyboard type with autocorrection disabled, in addition to masking. A focused-editor metadata probe on the preceding runtime found ordinary text variation before any password was entered. The probe records only numeric input flags; the native preference fixture leaves its optional password empty and does not include it in destination output. The identical-instrumentation comparison passes on the repaired runtime for both editors. Android's [keyboard options](https://developer.android.com/develop/ui/compose/text/user-input) describe the requested input behavior; this does not certify third-party keyboards.
 
-Raycast documents [controlled/uncontrolled fields and blur-driven validation](https://developers.raycast.com/api-reference/user-interface/form). This slice demonstrates an extension setting an error on blur and clearing it on change. It does **not** establish Raycast's separate rule that Form errors prevent `Action.SubmitForm` submission; [#84](https://github.com/moikdev/droidcast/issues/84) tracks that follow-up with explicit negative controls and acceptance criteria. DatePicker, TagPicker, FilePicker, drafts, full imperative focus and complete Form parity remain open under #6. Native error semantics and checkbox label/role/state checks are not a full TalkBack certification.
+Raycast documents [controlled/uncontrolled fields and blur-driven validation](https://developers.raycast.com/api-reference/user-interface/form). This slice demonstrates an extension setting an error on blur and clearing it on change. It does **not** establish Raycast's separate rule that Form errors prevent `Action.SubmitForm` submission; [#84](https://github.com/moikdev/droidcast/issues/84) tracks that follow-up with explicit negative controls and acceptance criteria; its later implementation and evidence are recorded separately in [validated native submission](EXTENSION-FORM-SUBMISSION.md). DatePicker, TagPicker, FilePicker, drafts, full imperative focus and complete Form parity remain open under #6. Native error semantics and checkbox label/role/state checks are not a full TalkBack certification.
 
 ## Verification and binary boundaries
 
@@ -48,7 +48,7 @@ The current pointer helper reveals targets through both scroll owners, uses the 
 | Python | 63 normal / 63 optimized cases; unchanged runner sources |
 | Builds and lint | Debug and benchmark app/test builds; zero errors / 51 warnings per variant |
 | Published XML | All87 reports/captures parse; both lint reports preserve0errors/51warnings |
-| Hosted CI and independent audits | Separate exact-head PR merge gates; pending |
+| Hosted CI and independent audits | Both fresh sol/high audits cleared `b768e0f`; actual [Android run 41534493006](https://github.com/moikdev/droidcast/actions/runs/41534493006) succeeded; PR #85 merged as `17b1a31` |
 
 The five profile workflows check long labels/errors/help with actual IME open/closed transitions and full-line pointer witnesses; native required-field editing, Cancel and Run; the five supported fields with Unicode, selection, controlled composition and masked input; a frozen JSON command; and extension-driven blur validation. The composition check uses a controlled Android InputConnection across an asynchronous JavaScript round trip with Gboard hidden. It does not simulate phonetic typing gestures in a live OEM keyboard. Password assertions and public captures exclude the ephemeral plaintext password.
 

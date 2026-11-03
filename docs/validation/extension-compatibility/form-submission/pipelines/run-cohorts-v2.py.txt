@@ -1,0 +1,63 @@
+from pathlib import Path
+import json, subprocess, sys, os, hashlib
+
+base = Path('artifacts/form-validation')
+plan_path = Path(sys.argv[1])
+plan = json.loads(plan_path.read_text())
+state = base / (plan['name'] + '-state.json')
+assert not state.exists(), 'Inspect the existing run before resuming; never repeat a mutation blindly'
+sha = lambda path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+frozen = {path: sha(path) for path in plan['frozen_inputs']}
+record = {'completed': False, 'pid': os.getpid(), 'plan_sha256': sha(plan_path), 'orchestrator_sha256': sha(__file__), 'frozen_inputs': frozen, 'cohorts': []}
+def save():
+    state.write_text(json.dumps(record, indent=2) + '\n')
+save()
+try:
+    for cohort in plan['cohorts']:
+        assert all(sha(path) == value for path, value in frozen.items()), 'Frozen cohort inputs changed'
+        out = base / cohort['name']
+        assert not out.exists(), 'Retain the earlier output and use a new explicitly named cohort'
+        command = ['python3', 'scripts/test-reviewed-text-input.py', '--serial', 'emulator-5580', '--avd', 'Tinycast_Tablet_API_36',
+                   '--layout', cohort['layout'], '--font-scale', str(cohort.get('font', 1)), '--output', str(out),
+                   '--apk', cohort['apk'], '--test-apk', cohort['test_apk'], '--json-archive', plan['json_archive'],
+                   '--classes', cohort['classes'], '--expected', str(cohort['expected'])]
+        current = {**cohort, 'command': command, 'completed': False}
+        record['cohorts'].append(current); save()
+        with (base / (cohort['name'] + '-host.log')).open('w') as log:
+            code = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT).returncode
+        data = json.loads((out / 'record.json').read_text())
+        log = (out / 'tests.log').read_text() if (out / 'tests.log').exists() else ''
+        cleanup = bool(data.get('cleanup')) and all(value['passed'] for value in data['cleanup'].values())
+        current.update(exit_code=code, completed=data['completed'], passes=data.get('passes'), cleanup_checks=len(data.get('cleanup', {})),
+                       cleanup_all_passed=cleanup, record_sha256=sha(out / 'record.json'))
+        if all(item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in cohort['classes'].split(',')):
+            cases = sorted((out / 'captures').glob('form-*-record.json'))
+            assert len(cases) == cohort['expected'], 'Missing native case/restoration receipt'
+            for path in cases:
+                native = json.loads(path.read_text())
+                assert abs(native['font_scale'] - cohort.get('font', 1)) < .01, 'Native font differs from requested profile'
+                assert native['owned_data_removed'] and native['preexisting_installations_and_data_preserved']
+                width, height = native['width_dp'], native['height_dp']
+                if cohort['layout'] == 'tablet': assert width >= 600 and height >= 600
+                elif cohort['layout'] == 'phone': assert width < 600 and height > width
+                else: assert width > height and height < 600
+            frames = sorted((out / 'captures').glob('*-frame.json'))
+            assert frames and all(abs(json.loads(path.read_text())['font_scale'] - cohort.get('font', 1)) < .01 for path in frames)
+            current['native_profile_and_case_restoration_confirmed'] = True
+        save(); print(json.dumps({k: current[k] for k in ['name', 'exit_code', 'passes', 'completed', 'cleanup_all_passed']}), flush=True)
+        assert cleanup, 'Stop until restoration and ownership are resolved'
+        if cohort.get('diagnostic_any_outcome'):
+            assert cohort['expected'] == 1 and data.get('passes') in [0, 1]
+            if data.get('passes') == 1: assert code == 0 and data['completed']
+            else:
+                assert code != 0 and not data['completed'] and 'INSTRUMENTATION_STATUS_CODE: -2' in log
+                assert all(marker in log for marker in cohort.get('failure_markers', []))
+        elif cohort.get('expected_failure'):
+            assert code != 0 and not data['completed'] and data.get('passes') == 0
+            assert 'INSTRUMENTATION_STATUS_CODE: -2' in log
+            assert all(marker in log for marker in cohort.get('failure_markers', []))
+        else:
+            assert code == 0 and data['completed'] and data['passes'] == cohort['expected']
+    record['completed'] = True; save()
+except BaseException as failure:
+    record['failure_type'] = type(failure).__name__; save(); raise

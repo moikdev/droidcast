@@ -1,0 +1,14 @@
+PASS typed aliases and default API share identity; ordinary statics stay intact
+PASS a fresh committed error prevents the callback
+PASS blank or absent errors allow exact Unicode values and callback results
+PASS the post-publication callback sees accepted current values
+PASS duplicate pending invocations execute one callback
+PASS a changed rootId cannot inherit a pending request
+PASS a changed session cannot inherit a pending request
+PASS a changed actionId cannot inherit a pending request
+PASS a changed title cannot inherit a pending request
+PASS unmount resolves a queued request without invoking its callback
+PASS surface failure cancels pending submission
+PASS synchronous and asynchronous callback failures remain rejected Promises
+PASS typed actions outside a Form retain their callback behavior
+13 submit adapter cases passed

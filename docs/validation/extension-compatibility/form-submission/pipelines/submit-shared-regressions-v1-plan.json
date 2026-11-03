@@ -1,0 +1,49 @@
+{
+  "name": "submit-shared-regressions-v1",
+  "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "test_source_commit": "b54243f53e0f383c102eb42d10e4343c10daf33d",
+  "json_archive": "<frozen-catalog-checkout>/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+  "frozen_inputs": [
+    "artifacts/form-validation/harness-1318591-submit-baseline-v2/app.apk",
+    "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+    "artifacts/form-validation/harness-b54243f-submit-acceptance-v5/test.apk",
+    "scripts/test-reviewed-text-input.py",
+    "scripts/android_test_cleanup.py",
+    "scripts/android_clipboard_recovery.py",
+    "artifacts/form-validation/run-cohorts-v1.py"
+  ],
+  "cohorts": [
+    {
+      "name": "submit-shared-regression-tablet-v1",
+      "layout": "tablet",
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-b54243f-submit-acceptance-v5/test.apk",
+      "classes": "dev.tinycast.android.InlinePaletteDeviceTest,dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "expected": 19
+    },
+    {
+      "name": "submit-shared-regression-phone-v1",
+      "layout": "phone",
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-b54243f-submit-acceptance-v5/test.apk",
+      "classes": "dev.tinycast.android.InlinePaletteDeviceTest,dev.tinycast.android.ReadinessRegressionDeviceTest",
+      "expected": 19
+    },
+    {
+      "name": "submit-reviewed-input-tablet-v1",
+      "layout": "tablet",
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-b54243f-submit-acceptance-v5/test.apk",
+      "classes": "dev.tinycast.android.ReviewedTextDeviceTest,dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "expected": 21
+    },
+    {
+      "name": "submit-reviewed-input-phone-v1",
+      "layout": "phone",
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-b54243f-submit-acceptance-v5/test.apk",
+      "classes": "dev.tinycast.android.ReviewedTextDeviceTest,dev.tinycast.android.ReviewedTextLifecycleDeviceTest",
+      "expected": 21
+    }
+  ]
+}

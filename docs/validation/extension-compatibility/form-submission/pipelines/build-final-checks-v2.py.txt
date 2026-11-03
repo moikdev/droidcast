@@ -1,0 +1,53 @@
+from pathlib import Path
+import os, subprocess, hashlib, json, shutil, sys
+import xml.etree.ElementTree as ET
+
+base = Path('artifacts/form-validation')
+label = sys.argv[1]
+head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+assert not subprocess.check_output(['git', 'status', '--porcelain']).strip()
+state = base / (label + '-state.json')
+assert not state.exists()
+paths = sorted(set(subprocess.check_output(['git', 'ls-files', 'app/src', 'app/build.gradle.kts', 'build.gradle.kts', 'settings.gradle.kts', 'gradle.properties', 'gradle', 'scripts/*.py'], text=True).splitlines()))
+sha = lambda b: hashlib.sha256(b).hexdigest()
+hashes = {p: sha(Path(p).read_bytes()) for p in paths}
+env = dict(os.environ)
+env['JAVA_HOME'] = '<java-home>'
+env['ANDROID_HOME'] = '<android-sdk>'
+env['PATH'] = env['JAVA_HOME'] + '/bin:' + env['PATH']
+tasks = [':app:assembleDebug', ':app:assembleDebugAndroidTest', ':app:testDebugUnitTest', ':app:lintDebug']
+command = ['./gradlew', '--no-daemon', '-PdroidcastBuildCommit=a0fca0e9118621453a40f73204f83a9a9274b446', *tasks]
+record = {'completed': False, 'pid': os.getpid(), 'source_commit': head, 'production_source_commit': 'a0fca0e9118621453a40f73204f83a9a9274b446', 'command': command, 'source_hashes': hashes, 'log': label + '.log'}
+def save():
+    state.write_text(json.dumps(record, indent=2) + '\n')
+save()
+benchmark = ['./gradlew', '--no-daemon', '-PdroidcastBuildCommit=a0fca0e9118621453a40f73204f83a9a9274b446', '-PdroidcastTestBuildType=benchmark', ':app:assembleBenchmark', ':app:assembleBenchmarkAndroidTest', ':app:lintBenchmark']
+record['commands'] = [command, benchmark]
+record['exit_codes'] = []
+with (base / record['log']).open('w') as log:
+    for current in record['commands']:
+        code = subprocess.run(current, env=env, stdout=log, stderr=subprocess.STDOUT).returncode
+        record['exit_codes'].append(code); save()
+        if code: break
+record['exit_code'] = code
+record['sources_unchanged'] = hashes == {p: sha(Path(p).read_bytes()) for p in paths} and subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip() == head and not subprocess.check_output(['git', 'status', '--porcelain']).strip()
+if code == 0 and record['sources_unchanged']:
+    out = base / ('candidate-' + head[:7] + '-' + label)
+    out.mkdir(exist_ok=False)
+    for name, source in [('app.apk', 'app/build/outputs/apk/debug/app-debug.apk'), ('test.apk', 'app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk')]:
+        shutil.copyfile(source, out / name)
+    aapt = sorted(Path(env['ANDROID_HOME']).glob('build-tools/*/aapt2'))[-1]
+    manifest = subprocess.check_output([str(aapt), 'dump', 'xmltree', str(out / 'app.apk'), '--file', 'AndroidManifest.xml'], text=True)
+    assert 'a0fca0e9118621453a40f73204f83a9a9274b446' in manifest
+    (out / 'manifest.txt').write_text(manifest)
+    ids = []
+    for path in sorted(Path('app/build/test-results/testDebugUnitTest').glob('TEST-*.xml')):
+        root = ET.parse(path).getroot()
+        assert not int(root.get('failures', '0')) and not int(root.get('errors', '0'))
+        ids += [case.get('classname') + '#' + case.get('name') for case in root.findall('testcase')]
+    identity = {'source_commit': head, 'production_source_commit': 'a0fca0e9118621453a40f73204f83a9a9274b446', 'app_sha256': sha((out / 'app.apk').read_bytes()), 'test_apk_sha256': sha((out / 'test.apk').read_bytes()), 'source_hashes': hashes, 'build_log_sha256': sha((base / record['log']).read_bytes()), 'jvm_case_ids': ids, 'manifest_sha256': sha(manifest.encode())}
+    (out / 'identity.json').write_text(json.dumps(identity, indent=2) + '\n')
+    record.update(completed=True, candidate_directory=str(out), app_sha256=identity['app_sha256'], test_apk_sha256=identity['test_apk_sha256'], jvm_cases=len(ids))
+save()
+print(json.dumps({k: v for k, v in record.items() if k != 'source_hashes'}, indent=2), flush=True)
+assert record['completed']

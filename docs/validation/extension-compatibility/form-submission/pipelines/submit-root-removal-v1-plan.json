@@ -1,0 +1,44 @@
+{
+  "name": "submit-root-removal-v1",
+  "production_source_commit": "a0fca0e9118621453a40f73204f83a9a9274b446",
+  "test_source_commit": "ca788c5ece328a069e1b9bab2a8755eb3209a6b6",
+  "json_archive": "<frozen-catalog-checkout>/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip",
+  "frozen_inputs": [
+    "artifacts/form-validation/harness-1318591-submit-baseline-v2/app.apk",
+    "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+    "artifacts/form-validation/harness-ca788c5-submit-acceptance-v4/test.apk",
+    "scripts/test-reviewed-text-input.py",
+    "scripts/android_test_cleanup.py",
+    "scripts/android_clipboard_recovery.py",
+    "artifacts/form-validation/run-cohorts-v1.py"
+  ],
+  "cohorts": [
+    {
+      "name": "submit-root-removal-phone-v1",
+      "layout": "phone",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-ca788c5-submit-acceptance-v4/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot",
+      "expected": 1
+    },
+    {
+      "name": "submit-root-removal-tablet-v1",
+      "layout": "tablet",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-ca788c5-submit-acceptance-v4/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot",
+      "expected": 1
+    },
+    {
+      "name": "submit-root-removal-landscape-v1",
+      "layout": "landscape",
+      "font": 1,
+      "apk": "artifacts/form-validation/candidate-a0fca0e-submit-gate-build-v1/app.apk",
+      "test_apk": "artifacts/form-validation/harness-ca788c5-submit-acceptance-v4/test.apk",
+      "classes": "dev.tinycast.android.ExtensionFormDeviceTest#queuedSubmitCannotRunWithoutItsRoot",
+      "expected": 1
+    }
+  ]
+}

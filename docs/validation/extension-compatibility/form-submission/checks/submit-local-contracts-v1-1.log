@@ -1,0 +1,8 @@
+PASS API aliases, original members and field statics retain identity
+PASS field props, callbacks and absent focus handlers are preserved
+PASS controlled acceptance, rejection and exceptions publish without changing callback results
+PASS matching focus and blur receive the native Unicode or boolean value
+PASS a different field or callback kind cannot inherit the override
+PASS throwing and nested dispatch restore their caller context
+PASS malformed payload cannot retain a previous event value
+7 adapter cases passed

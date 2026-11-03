@@ -1,0 +1,257 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=defaultApiSubmitStillBlocksCurrentErrors
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: A current Form error must block the SubmitForm callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertErroredSubmitBlocked(ExtensionFormDeviceTest.kt:1192)
+	at dev.tinycast.android.ExtensionFormDeviceTest.defaultApiSubmitStillBlocksCurrentErrors(ExtensionFormDeviceTest.kt:1260)
+
+INSTRUMENTATION_STATUS: stream=
+Error in defaultApiSubmitStillBlocksCurrentErrors(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: A current Form error must block the SubmitForm callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertErroredSubmitBlocked(ExtensionFormDeviceTest.kt:1192)
+	at dev.tinycast.android.ExtensionFormDeviceTest.defaultApiSubmitStillBlocksCurrentErrors(ExtensionFormDeviceTest.kt:1260)
+
+INSTRUMENTATION_STATUS: test=defaultApiSubmitStillBlocksCurrentErrors
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedNativeSubmitRejectsReplacementAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsReplacementAction(ExtensionFormDeviceTest.kt:1262)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedNativeSubmitRejectsReplacementAction(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsReplacementAction(ExtensionFormDeviceTest.kt:1262)
+
+INSTRUMENTATION_STATUS: test=queuedNativeSubmitRejectsReplacementAction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=submitBlursCurrentEmptyFieldBeforeCheckingErrors
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Submit must allow current blur validation before invoking the callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.submitBlursCurrentEmptyFieldBeforeCheckingErrors(ExtensionFormDeviceTest.kt:1222)
+
+INSTRUMENTATION_STATUS: stream=
+Error in submitBlursCurrentEmptyFieldBeforeCheckingErrors(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Submit must allow current blur validation before invoking the callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.submitBlursCurrentEmptyFieldBeforeCheckingErrors(ExtensionFormDeviceTest.kt:1222)
+
+INSTRUMENTATION_STATUS: test=submitBlursCurrentEmptyFieldBeforeCheckingErrors
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedNativeSubmitRejectsNewError
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsNewError(ExtensionFormDeviceTest.kt:1261)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedNativeSubmitRejectsNewError(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsNewError(ExtensionFormDeviceTest.kt:1261)
+
+INSTRUMENTATION_STATUS: test=queuedNativeSubmitRejectsNewError
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedJsSubmitRechecksPublishedErrors
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The JavaScript Submit gate must recheck current errors expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedJsSubmitRechecksPublishedErrors(ExtensionFormDeviceTest.kt:1298)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedJsSubmitRechecksPublishedErrors(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: The JavaScript Submit gate must recheck current errors expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedJsSubmitRechecksPublishedErrors(ExtensionFormDeviceTest.kt:1298)
+
+INSTRUMENTATION_STATUS: test=queuedJsSubmitRechecksPublishedErrors
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=legacySubmitAliasStillBlocksCurrentErrors
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: A current Form error must block the SubmitForm callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertErroredSubmitBlocked(ExtensionFormDeviceTest.kt:1192)
+	at dev.tinycast.android.ExtensionFormDeviceTest.legacySubmitAliasStillBlocksCurrentErrors(ExtensionFormDeviceTest.kt:1259)
+
+INSTRUMENTATION_STATUS: stream=
+Error in legacySubmitAliasStillBlocksCurrentErrors(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: A current Form error must block the SubmitForm callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertErroredSubmitBlocked(ExtensionFormDeviceTest.kt:1192)
+	at dev.tinycast.android.ExtensionFormDeviceTest.legacySubmitAliasStillBlocksCurrentErrors(ExtensionFormDeviceTest.kt:1259)
+
+INSTRUMENTATION_STATUS: test=legacySubmitAliasStillBlocksCurrentErrors
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=queuedNativeSubmitRejectsChangedTitle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsChangedTitle(ExtensionFormDeviceTest.kt:1263)
+
+INSTRUMENTATION_STATUS: stream=
+Error in queuedNativeSubmitRejectsChangedTitle(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsChangedTitle(ExtensionFormDeviceTest.kt:1263)
+
+INSTRUMENTATION_STATUS: test=queuedNativeSubmitRejectsChangedTitle
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 36.272
+There were 7 failures:
+1) defaultApiSubmitStillBlocksCurrentErrors(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: A current Form error must block the SubmitForm callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertErroredSubmitBlocked(ExtensionFormDeviceTest.kt:1192)
+	at dev.tinycast.android.ExtensionFormDeviceTest.defaultApiSubmitStillBlocksCurrentErrors(ExtensionFormDeviceTest.kt:1260)
+2) queuedNativeSubmitRejectsReplacementAction(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsReplacementAction(ExtensionFormDeviceTest.kt:1262)
+3) submitBlursCurrentEmptyFieldBeforeCheckingErrors(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Submit must allow current blur validation before invoking the callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.submitBlursCurrentEmptyFieldBeforeCheckingErrors(ExtensionFormDeviceTest.kt:1222)
+4) queuedNativeSubmitRejectsNewError(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsNewError(ExtensionFormDeviceTest.kt:1261)
+5) queuedJsSubmitRechecksPublishedErrors(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: The JavaScript Submit gate must recheck current errors expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedJsSubmitRechecksPublishedErrors(ExtensionFormDeviceTest.kt:1298)
+6) legacySubmitAliasStillBlocksCurrentErrors(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: A current Form error must block the SubmitForm callback expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertErroredSubmitBlocked(ExtensionFormDeviceTest.kt:1192)
+	at dev.tinycast.android.ExtensionFormDeviceTest.legacySubmitAliasStillBlocksCurrentErrors(ExtensionFormDeviceTest.kt:1259)
+7) queuedNativeSubmitRejectsChangedTitle(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Queued Submit must not adopt a changed action or new error state expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionFormDeviceTest.assertQueuedNativeSubmitBlocked(ExtensionFormDeviceTest.kt:1285)
+	at dev.tinycast.android.ExtensionFormDeviceTest.queuedNativeSubmitRejectsChangedTitle(ExtensionFormDeviceTest.kt:1263)
+
+FAILURES!!!
+Tests run: 7,  Failures: 7
+
+
+INSTRUMENTATION_CODE: -1

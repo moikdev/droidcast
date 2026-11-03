@@ -1,0 +1,107 @@
+{
+  "completed": false,
+  "pid": 54857,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "tablet",
+  "font_scale": 1.0,
+  "classes": "dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockPrimarySubmit,dev.tinycast.android.ExtensionFormDeviceTest#formsWithErrorsBlockActionsMenuKeyboardSubmit",
+  "expected": 2,
+  "owner_nonce": "0f70a939115e43d886dda669f162bea8",
+  "runner_sha256": "d9d1bc019c396d974f65884f9d1aec3c4e9fa3f0156e6ef8ff3c7af9587934eb",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "cleanup_helper_sha256": "c22e9d8dbe59a022391b3d64bc574891a682aa681109b59afc76c203e638bfe1",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "settings_before": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "show_ime_with_hard_keyboard": "0"
+  },
+  "recovery_lease": "files/reviewed-text-fixture-lease",
+  "evidence_directories": [
+    "reviewed-text-evidence"
+  ],
+  "shared_regression_cohort": false,
+  "apk_sha256": "3424f3abc6ba7606e64a13f375f20b16303044ab532ee20a36fa7502ff6b5c15",
+  "test_apk_sha256": "7e341e7ccc3cb459ada9e523ed5ace829cd636c64832d28f00b94c6c2221dbbc",
+  "installed_apks_match": true,
+  "clipboard_recovery": {
+    "schema_version": 1,
+    "owner_nonce": "0f70a939115e43d886dda669f162bea8",
+    "request_id": "3f89226b75ba407a9d8d8313c8991dad",
+    "phase": "snapshot-ready",
+    "private_backup_saved": true,
+    "identities_retained_privately": true
+  },
+  "clipboard_mutation_permitted": true,
+  "instrumentation_exit_code": 0,
+  "passes": 0,
+  "tests_completed": false,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  },
+  "clipboard_restoration": {
+    "schema_version": 1,
+    "owner_nonce": "0f70a939115e43d886dda669f162bea8",
+    "request_id": "fd2f64e7c5664fd3bfee703e5de03b9f",
+    "phase": "restored",
+    "identities_retained_privately": true
+  },
+  "owned_extension_count": 2
+}
