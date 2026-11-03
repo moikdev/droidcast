@@ -21,8 +21,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
-import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiSelector
+import androidx.test.uiautomator.UiScrollable
 import dev.tinycast.android.extensions.*
 import org.json.JSONObject
 import org.json.JSONArray
@@ -1423,25 +1423,19 @@ class ExtensionFormDeviceTest {
         assertTrue(pickerPackage.endsWith("documentsui"))
         // Always choose the leased root, even if DocumentsUI remembers a prior
         // folder. No app-side URI injection or ActivityMonitor supplies results.
-        val drawer = device.wait(Until.findObject(By.desc("Show roots")), 5000)
-        if (drawer != null) drawer.click()
-        device.waitForIdle(1500)
-        // The toolbar and breadcrumb repeat the provider title. Only the
-        // native drawer row can choose its root; never tap a matching header.
-        val rootSelector = By.res("android", "title").text("Droidcast owned files")
-        var root = device.wait(Until.findObject(rootSelector), 5000)
-        repeat(5) {
-            if (root == null) {
-                device.findObject(By.res(pickerPackage, "roots_list"))?.scroll(Direction.DOWN, .7f)
-                root = device.findObject(rootSelector)
-            }
+        val listSelector = UiSelector().packageName(pickerPackage).resourceId(pickerPackage + ":id/roots_list")
+        val roots = device.findObject(listSelector)
+        if (!roots.exists()) {
+            val drawer = device.findObject(UiSelector().packageName(pickerPackage).description("Show roots"))
+            assertTrue(drawer.waitForExists(5000)); assertTrue(drawer.click())
         }
-        assertNotNull("The leased provider root must be available", root)
-        // UiObject resolves the node again for each gesture. UiObject2 retains
-        // a node that this asynchronous root drawer can replace before click.
-        val rootRow = device.findObject(UiSelector().packageName(pickerPackage).resourceId("android:id/title").text("Droidcast owned files"))
-        assertTrue(rootRow.waitForExists(5000)); assertTrue(rootRow.isEnabled); assertTrue(rootRow.click())
-        assertTrue("The root drawer must finish closing", device.wait(Until.gone(rootSelector), 5000))
+        assertTrue("The actual location drawer must open", roots.waitForExists(5000))
+        // Recent also has an android:id/title app shortcut with this text.
+        // Resolve only descendants of the drawer's roots_list for the gesture.
+        val rootRow = UiScrollable(listSelector).getChildByText(UiSelector().className("android.widget.TextView")
+            .resourceId("android:id/title"), "Droidcast owned files", true)
+        assertTrue(rootRow.isEnabled); assertTrue(rootRow.click())
+        assertTrue("The root drawer must finish closing", device.wait(Until.gone(By.res(pickerPackage, "roots_list")), 5000))
         assertNotNull(device.wait(Until.findObject(By.text("café 日本.txt")), 10000))
         record.put("system_picker_package", pickerPackage).put("system_picker_root", "Droidcast owned files")
             .put("system_picker_path", "Real DocumentsUI pointer selection and URI grant; no ActivityMonitor")
