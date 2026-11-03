@@ -198,6 +198,8 @@ class ExtensionDetailDeviceTest {
             .put("longUrl", "https://example.invalid/owned/" + "LongUnbrokenReference日本".repeat(18))
             .put("longInformation", "Owned bounded ![Owned long information image](owned.svg \"Owned long image information café 日本. " +
                 "A persistent description stays readable while the user scrolls to Close. ".repeat(8) + "\") preview.")
+            .put("imageScroll", "![Owned scrolling image](owned.svg)\n\n" +
+                "Owned scroll-away tail café 日本. ".repeat(100) + "\n\nOwned scroll-away destination.")
         val script = "globalThis.__ownedDetailConfiguration = " + configuration + ";\n" +
             InstrumentationRegistry.getInstrumentation().context.assets.open("owned-detail-fixture.js").bufferedReader().use { it.readText() }
         File(directory, "detail.js").writeText(script)
@@ -413,10 +415,12 @@ class ExtensionDetailDeviceTest {
         fun observe(phase: String) {
             val node = image(label).fetchSemanticsNode()
             val observations = record.optJSONArray("image_readiness") ?: JSONArray().also { record.put("image_readiness", it) }
-            val geometry = compose.runOnUiThread { node.positionInRoot to compose.activity.lifecycle.currentState.name }
+            val debug = node.config.firstOrNull { it.key.name == "DetailImageLoadState" }?.value
+            val geometry = compose.runOnUiThread { Triple(node.positionInRoot, compose.activity.lifecycle.currentState.name, debug?.toString() ?: "not available") }
             val svg = ownedId?.let { File(context.cacheDir, "$it/assets/owned.svg") }
             observations.put(JSONObject().put("alternative", label).put("phase", phase)
                 .put("state", node.config.getOrNull(SemanticsProperties.StateDescription)).put("activity_lifecycle", geometry.second)
+                .put("debug_load_state", geometry.third)
                 .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
                 .put("unclipped_origin", JSONArray(listOf(geometry.first.x, geometry.first.y)))
                 .put("size", JSONArray(listOf(node.size.width, node.size.height)))
@@ -847,5 +851,22 @@ class ExtensionDetailDeviceTest {
         pointerEveryTextLine("Owned long image information café", "image-information")
         touch(show("Close")); compose.onNodeWithTag("extension-image-information").assertDoesNotExist()
         record.put("long_metadata_url_and_image_information_pointer_reachability", true).put("passed", true)
+    }
+    @Test fun offscreenBlockImageRetainsGeometryAndReloadsOnReturn() {
+        launch("image-scroll"); imagePixel("Owned scrolling image", 0xff228833.toInt())
+        val initialHeight = image("Owned scrolling image").fetchSemanticsNode().size.height
+        capture("block-ready-before-scroll")
+        show("Owned scroll-away destination.")
+        compose.waitUntil(5000) { image("Owned scrolling image").fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription) == "Image loading" }
+        val offscreen = image("Owned scrolling image").fetchSemanticsNode()
+        assertEquals("The fixture must put the block completely offscreen", 0f, offscreen.boundsInRoot.height)
+        record.put("offscreen_block_initial_height_px", initialHeight).put("offscreen_block_height_px", offscreen.size.height)
+            .put("offscreen_bitmap_released", true).put("offscreen_geometry_contract_started", true)
+        capture("block-offscreen-geometry")
+        assertEquals("Offscreen block images must retain their layout height", initialHeight, offscreen.size.height)
+        imagePixel("Owned scrolling image", 0xff228833.toInt())
+        assertEquals(initialHeight, image("Owned scrolling image").fetchSemanticsNode().size.height)
+        capture("block-returned-pixels")
+        record.put("offscreen_geometry_and_returned_pixels_verified", true).put("passed", true)
     }
 }

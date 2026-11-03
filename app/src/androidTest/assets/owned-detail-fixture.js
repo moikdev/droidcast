@@ -38,10 +38,11 @@ module.exports.default = function OwnedDetail() {
     if (state.contentMode === "gallery") markdown = configuration.gallery + "\n\n" + marker;
     if (state.contentMode === "image-information") markdown = configuration.imageInformation.split("__DOCUMENT__").join(state.document) + "\n\n" + marker;
     if (state.contentMode === "long-information") markdown = configuration.longInformation + "\n\n" + marker;
+    if (state.contentMode === "image-scroll") markdown = configuration.imageScroll + "\n\n" + marker;
     if (state.contentMode === "links") markdown += "\n\n[Owned paragraph link](javascript:owned-unused)";
     if (state.contentMode === "entity-lines") markdown = "Owned entity foo&#10;&#10;bar\n\nOwned hard first  \nOwned hard second\n\n```text\nOwned code first\n\nOwned code third\n```\n\n" + marker;
     if (["metadata-only", "empty", "loading", "empty-metadata", "long-metadata"].includes(state.contentMode)) markdown = "";
-    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines", "gallery", "image-information", "long-information"].includes(state.contentMode);
+    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines", "gallery", "image-information", "long-information", "image-scroll"].includes(state.contentMode);
     return h(Type, { key: state.detailKey, navigationTitle: marker, markdown, metadata: noMetadata ? undefined : metadata,
       isLoading: state.loading, actions: actions(row) });
   }
