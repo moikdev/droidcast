@@ -28,6 +28,15 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def frozen_form_archive(path, expected):
+    limit = 32 * 1024 * 1024
+    require(path.stat().st_size <= limit, 'Frozen Form archive exceeds the size bound')
+    with path.open('rb') as stream:
+        data = stream.read(limit + 1)
+    require(len(data) <= limit and sha(data) == expected, 'Frozen Form archive changed')
+    return data
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--serial', required=True)
@@ -37,6 +46,8 @@ def main():
     parser.add_argument('--apk', type=Path, required=True)
     parser.add_argument('--test-apk', type=Path, required=True)
     parser.add_argument('--json-archive', type=Path, required=True)
+    parser.add_argument('--mood-archive', type=Path, help='Optional hash-pinned Mood Tracker bundle for the owned real-Form workflow')
+    parser.add_argument('--checksum-archive', type=Path, help='Optional hash-pinned Checksum bundle for the owned real-picker workflow')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
@@ -62,8 +73,15 @@ def main():
     require(not args.inject_clipboard_restore_failure or args.classes == 'dev.tinycast.android.ReviewedTextClipboardCrashDeviceTest',
             'Restoration failure is limited to the deliberate process-death control')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
-    archive = args.json_archive.read_bytes()
-    require(sha(archive) == 'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58', 'Frozen JSON archive changed')
+    archive = frozen_form_archive(args.json_archive, 'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
+    typed_archives = {}
+    require(not (args.mood_archive or args.checksum_archive) or all(
+        item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),
+        'Typed Store bundles belong only to the owned Form cohort')
+    for name, path, expected in [('mood', args.mood_archive, '46bd1d6f6598b3ecab43d6eac9778a8b4aba7e3d609859f90feceaf391b9b221'),
+                                 ('checksum', args.checksum_archive, '8528552825c393464aaea7be81b88dfe54d0e51ce87d1c5cd4530adaa674203d')]:
+        if path is not None:
+            typed_archives[name] = frozen_form_archive(path, expected)
     sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
     if not sdk:
         sdk = next(line.removeprefix('sdk.dir=') for line in Path('local.properties').read_text().splitlines() if line.startswith('sdk.dir='))
@@ -108,6 +126,7 @@ def main():
     record = {'completed': False, 'pid': os.getpid(), 'serial': args.serial, 'avd': args.avd, 'layout': args.layout,
               'font_scale': args.font_scale, 'classes': args.classes, 'expected': args.expected, 'owner_nonce': owner,
               'runner_sha256': sha(Path(__file__).read_bytes()), 'archive_sha256': sha(archive),
+              'typed_workflow_archive_sha256': {name: sha(data) for name, data in typed_archives.items()},
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'document_helper_sha256': sha(document_helper.read_bytes()),
@@ -144,6 +163,8 @@ def main():
         if args.document_fixtures:
             document_fixture.setup()
         raw('shell', 'run-as', app, 'tee', root + '/json-format.zip', data=archive)
+        for name, data in typed_archives.items():
+            raw('shell', 'run-as', app, 'tee', root + '/' + name + '.zip', data=data)
         if args.layout in ['phone', 'landscape']:
             raw('shell', 'wm', 'size', '1080x2340' if args.layout == 'phone' else '2340x1080')
             raw('shell', 'wm', 'density', '420')
