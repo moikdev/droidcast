@@ -146,25 +146,39 @@ class ExtensionFormDeviceTest {
               return {is_date:date,is_null:value===null,is_array:array,array_strings:array&&value.every(item=>typeof item==='string'),
                 valid_date:valid,date_iso:valid?value.toISOString():null};
             }
-            function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe.focus;p[id]=(p[id]||0)+1},
-              onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0}}}
+            function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe;p.focus[id]=(p.focus[id]||0)+1;(p.focusFacts??={})[id]=typedFacts(e.target.value)},
+              onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0;
+                (p.blurFacts??={})[id]=typedFacts(e.target.value);(p.blurValues??={})[id]=e.target.value}}}
             module.exports.default=function(props){
               if(mode==='configuration'){
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
               }
               if(mode.startsWith('typed-')){
-                const [date,setDate]=React.useState(new Date('2024-02-29T12:34:00.000Z'));
-                const [tags,setTags]=React.useState(['internal-two']),[files,setFiles]=React.useState([]);
+                const initialDate=mode==='typed-date-dst-gap'?'2024-03-10T06:30:00.000Z':mode==='typed-date-dst-overlap'?'2024-11-03T06:30:12.345Z':'2024-02-29T12:34:00.000Z';
+                const [date,setDate]=React.useState(mode==='typed-date-day'?new Date(2024,1,28,12,34):new Date(initialDate));
+                const [tags,setTags]=React.useState(mode==='typed-tags-empty'?['missing-owned-value']:['internal-two']),[files,setFiles]=React.useState([]);
+                const [revision,bump]=React.useReducer(value=>value+1,0),[dateKey,setDateKey]=React.useState('date');
+                const [defaultDate,setDefaultDate]=React.useState('2024-02-29T12:34:00.000Z'),[defaultTags,setDefaultTags]=React.useState(['internal-two']);
+                const [options,setOptions]=React.useState(mode==='typed-tags-empty'?[]:[
+                  {value:'internal-one',title:mode==='typed-tags-long'?${JSONObject.quote(longTitle)}:'Readable first category'},
+                  {value:'internal-two',title:'Readable second category'}]);
                 const fileWorkflow=mode.startsWith('typed-file-'),{push}=api.useNavigation();
                 const [fileEnabled,setFileEnabled]=React.useState(true);
                 globalThis.__ownedTypedFiles={setFileEnabled};
+                globalThis.__ownedTyped={setDate,setTags,setOptions,setDateKey,setDefaultDate,setDefaultTags,bump};
                 const errorId=mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null;
                 globalThis.__formProbe.submits ??= 0;
                 const change=(id,setter)=>value=>{
-                  const probe=globalThis.__formProbe;probe.changes++;(probe.typedChanges??={})[id]=typedFacts(value);setter(value);
+                  const probe=globalThis.__formProbe;probe.changes++;(probe.typedChanges??={})[id]=typedFacts(value);
+                  if(mode!=='typed-'+id+'-reject')setter(mode==='typed-date-transform'&&id==='date'&&value?new Date(value.getTime()+30000):value);
+                  bump();
                 };
                 const error=id=>errorId===id?'Owned typed field must be corrected before submitting.':undefined;
+                const dateKind=mode==='typed-date-day'?api.Form.DatePicker.Type.Date:api.Form.DatePicker.Type.DateTime;
+                const bounds=mode==='typed-date-day'?{min:new Date(2024,1,29,23,59),max:new Date(2024,1,29,0,0)}:
+                  mode==='typed-date-bounds'?{min:new Date('2024-02-29T12:34:00.000Z'),max:new Date('2024-02-29T12:35:00.000Z')}:
+                  mode==='typed-date-inconsistent'?{min:new Date('2024-03-01T00:00:00.000Z'),max:new Date('2024-02-28T00:00:00.000Z')}:{};
                 return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
                   React.createElement(api.Action.SubmitForm,{title:'Inspect owned typed values',onSubmit:values=>{
                     globalThis.__formProbe.submits++;globalThis.__formProbe.submittedValues=values;
@@ -181,17 +195,17 @@ class ExtensionFormDeviceTest {
                       push(React.createElement(api.Detail,{markdown:JSON.stringify({outcome:'Owned imported documents',reads})}));
                     }
                   }}))},
-                  React.createElement(api.Form.DatePicker,{key:'date',id:'date',title:'Owned appointment date and time',
-                    type:api.Form.DatePicker.Type.DateTime,value:date,onChange:change('date',setDate),error:error('date'),
+                  React.createElement(api.Form.DatePicker,{key:dateKey,id:'date',title:'Owned appointment date and time',
+                    type:dateKind,...bounds,...(mode==='typed-defaults'?{defaultValue:new Date(defaultDate)}:{value:date}),onChange:change('date',setDate),error:error('date'),
                     info:'Choose an owned calendar date and time by touch.',...fieldEvents('date')}),
                   React.createElement(api.Form.TagPicker,{key:'tags',id:'tags',title:'Owned output categories',
-                    value:tags,onChange:change('tags',setTags),error:error('tags'),...fieldEvents('tags')},
-                    React.createElement(api.Form.TagPicker.Item,{key:'one',value:'internal-one',title:'Readable first category'}),
-                    React.createElement(api.Form.TagPicker.Item,{key:'two',value:'internal-two',title:'Readable second category'})),
+                    ...(mode==='typed-defaults'?{defaultValue:defaultTags}:{value:tags}),onChange:change('tags',setTags),error:error('tags'),...fieldEvents('tags')},
+                    ...options.map(option=>React.createElement(api.Form.TagPicker.Item,{key:option.value,...option}))),
                   React.createElement(api.Form.FilePicker,{key:'files',id:'files',title:'Owned input documents',
                     ...(fileWorkflow?{canChooseFiles:fileEnabled&&!mode.includes('folder'),canChooseDirectories:mode.includes('folder'),allowMultipleSelection:mode.includes('multiple')}:{}),
                     value:files,onChange:change('files',setFiles),error:error('files'),...fieldEvents('files')}),
-                  React.createElement(api.Form.Description,{key:'scope',text:fileWorkflow?'Owned documents through Android picker, private copies and exact byte inspection. No Store or arbitrary-provider certification.':'Owned typed controls; no Store or provider workflow is certified by this fixture.'}));
+                  React.createElement(api.Form.Description,{key:'scope',text:fileWorkflow?'Owned documents through Android picker, private copies and exact byte inspection. No Store or arbitrary-provider certification.':'Owned typed controls; no Store or provider workflow is certified by this fixture.'}),
+                  React.createElement(api.Form.Description,{key:'typed-publication',text:'Typed publication '+revision}));
               }
               if(mode.startsWith('submit-')){
                 const [name,setName]=React.useState(mode==='submit-reject'?'OWNED FIXED':'Owned invalid 日本');
@@ -1017,7 +1031,7 @@ class ExtensionFormDeviceTest {
     }
 
     private fun imeVisible() = ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
-    private fun awaitImeGeometry(shown: Boolean? = null) {
+    private fun awaitImeGeometry(shown: Boolean? = null, window: android.view.Window? = null) {
         val done = CountDownLatch(1)
         val deadline = android.os.SystemClock.uptimeMillis() + 10000
         var previous: List<Int>? = null
@@ -1027,7 +1041,7 @@ class ExtensionFormDeviceTest {
         lateinit var observer: Runnable
         lateinit var view: android.view.View
         compose.activityRule.scenario.onActivity {
-            view = it.window.decorView
+            view = window?.decorView ?: it.window.decorView
             observer = object : Runnable {
                 override fun run() {
                     val insets = ViewCompat.getRootWindowInsets(view)
@@ -1044,7 +1058,8 @@ class ExtensionFormDeviceTest {
         val completed = done.await(10, TimeUnit.SECONDS)
         compose.activityRule.scenario.onActivity { view.removeCallbacks(observer) }
         val samples = record.optJSONArray("settled_ime_geometry") ?: JSONArray().also { record.put("settled_ime_geometry", it) }
-        samples.put(JSONObject().put("requested_visibility", shown ?: JSONObject.NULL).put("native_frames", frames).put("geometry", JSONArray(previous.orEmpty()))
+        samples.put(JSONObject().put("requested_visibility", shown ?: JSONObject.NULL).put("window_scope", if (window == null) "activity" else "owned picker dialog")
+            .put("native_frames", frames).put("geometry", JSONArray(previous.orEmpty()))
             .put("stable_for_at_least_ms", 100).put("settled", completed && settled))
         assertTrue("Native IME visibility/insets and window geometry must settle before choosing pointer coordinates", completed && settled)
         compose.waitForIdle()
@@ -1177,7 +1192,7 @@ class ExtensionFormDeviceTest {
             }
         }
         val lineHeight = layouts.maxOf { text -> (0 until text.lineCount).maxOf { text.getLineBottom(it) - text.getLineTop(it) } }
-        if (viewport != "inline-menu-choices") revealViewport(viewport, lineHeight)
+        if (viewport in setOf("extension-form", "extension-configuration")) revealViewport(viewport, lineHeight)
         val body = compose.onNodeWithTag(viewport)
         var reset = 0
         while (reset++ < 120) {
@@ -1188,7 +1203,7 @@ class ExtensionFormDeviceTest {
         // Resetting the inner view at its leading edge can also scroll its
         // parent back to the header. Reveal the bounded body again before
         // measuring lines or starting short inner-view gestures.
-        if (viewport != "inline-menu-choices") revealViewport(viewport, lineHeight)
+        if (viewport in setOf("extension-form", "extension-configuration")) revealViewport(viewport, lineHeight)
         val witnessed = layouts.map { BooleanArray(it.lineCount) }; val steps = JSONArray()
         capture("$phase-top")
         var attempts = 0
@@ -1351,7 +1366,7 @@ class ExtensionFormDeviceTest {
         compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals(minute.toString().padStart(2, '0'))
         return java.time.format.DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(before.withMinute(minute).toInstant())
     }
-    private fun submittedTypedDate(expected: String?) {
+    private fun submittedTypedDate(expected: String?, expectedChange: String? = expected) {
         touch("extension-primary")
         compose.waitUntil(5000) { probe().getInt("submits") == 1 }
         val values = probe().getJSONObject("submittedValues")
@@ -1361,10 +1376,10 @@ class ExtensionFormDeviceTest {
         val changed = current.getJSONObject("typedChanges").getJSONObject("date")
         val submitted = current.getJSONObject("typedSubmitted").getJSONObject("date")
         assertTrue(submitted.getBoolean("present"))
-        for (facts in listOf(changed, submitted)) {
-            assertEquals(expected == null, facts.getBoolean("is_null"))
-            assertEquals(expected != null, facts.getBoolean("is_date"))
-            if (expected != null) { assertTrue(facts.getBoolean("valid_date")); assertEquals(expected, facts.getString("date_iso")) }
+        for ((facts, value) in listOf(changed to expectedChange, submitted to expected)) {
+            assertEquals(value == null, facts.getBoolean("is_null"))
+            assertEquals(value != null, facts.getBoolean("is_date"))
+            if (value != null) { assertTrue(facts.getBoolean("valid_date")); assertEquals(value, facts.getString("date_iso")) }
         }
         record.put("date_change_runtime_type", changed).put("date_submit_runtime_type", submitted)
         assertEquals("[\"internal-two\"]", values.getJSONArray("tags").toString())
@@ -1449,6 +1464,257 @@ class ExtensionFormDeviceTest {
         compose.onNodeWithTag("extension-tags-done-tags").performTouchInput { click(center) }
         compose.onNodeWithTag("extension-tags-dialog-tags").assertDoesNotExist()
         capture("tags-cleared"); submittedTypedTags(emptyList()); record.put("passed", true)
+    }
+
+    private fun typedPublication(): Pair<String, Int> {
+        val root = requireNotNull(activeRoot(catalog.runtimeTree))
+        val counter = root.nodes("Form.Description").mapNotNull {
+            Regex("Typed publication ([0-9]+)").matchEntire(it.props().optString("text"))?.groupValues?.get(1)?.toIntOrNull()
+        }.single()
+        return root.optString("id") to counter
+    }
+    private fun awaitTypedPublication(before: Pair<String, Int>, phase: String) {
+        val expected = before.first to before.second + 1
+        compose.waitUntil(5000) { typedPublication() == expected }
+        compose.waitForIdle()
+        val marker = "Typed publication ${expected.second}"
+        val composed = compose.onNodeWithText(marker, useUnmergedTree = true).fetchSemanticsNode()
+        assertEquals(marker, composed.config[SemanticsProperties.Text].joinToString("") { it.text })
+        assertEquals(expected, typedPublication())
+        val witnesses = record.optJSONArray("typed_publications") ?: JSONArray().also { record.put("typed_publications", it) }
+        witnesses.put(JSONObject().put("phase", phase).put("root_id", expected.first).put("before", before.second)
+            .put("native_counter", expected.second).put("composed_marker", marker).put("composed_semantics_id", composed.id))
+    }
+    private fun mutateTyped(script: String, phase: String) {
+        val before = typedPublication()
+        evaluateOwned("(()=>{$script;globalThis.__ownedTyped.bump();return true})()")
+        awaitTypedPublication(before, phase)
+    }
+    private fun dateIso(instant: java.time.Instant): String = java.time.format.DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(instant)
+
+    @Test fun dateOnlySelectsACalendarDayWithInclusiveDayBounds() {
+        launch("typed-date-day"); touch("extension-date-date")
+        val day = compose.onNode(hasText("29") and hasAnyAncestor(hasTestTag("extension-date-calendar-date")))
+        day.assertIsEnabled().performScrollTo().performTouchInput { click(center) }
+        capture("date-calendar-day-selected")
+        val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "calendar day accepted")
+        val zone = java.time.ZoneId.systemDefault()
+        val expected = dateIso(java.time.LocalDate.of(2024, 2, 29).atStartOfDay(zone).toInstant())
+        assertEquals(expected, typedDateIso()); submittedTypedDate(expected)
+        capture("date-calendar-day-submitted")
+        record.put("zone", zone.id).put("calendar_day", "2024-02-29")
+            .put("bounds_contract", "Same local day accepted despite min 23:59 and max 00:00; exact time components ignored for Date kind")
+            .put("passed", true)
+    }
+    @Test fun dateTimeBoundsRejectOutsideThenAcceptTheInclusiveMaximum() {
+        launch("typed-date-bounds"); touch("extension-date-date")
+        repeat(2) { touch("extension-date-time-plus-date-minute") }
+        touch("extension-date-confirm-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        compose.onNodeWithTag("extension-date-picker-error-date").performScrollTo().assertTextEquals("Choose a date and time within the allowed range.")
+        assertEquals(0, probe().getInt("changes")); assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        capture("date-outside-instant-bound")
+        touch("extension-date-time-minus-date-minute")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "inclusive maximum")
+        assertEquals("2024-02-29T12:35:00.000Z", typedDateIso())
+        submittedTypedDate("2024-02-29T12:35:00.000Z"); capture("date-inclusive-maximum")
+        record.put("outside_value_did_not_dispatch", true).put("inclusive_maximum_accepted", true).put("passed", true)
+    }
+    @Test fun dateTimeCanConfirmTheInclusiveMinimum() {
+        launch("typed-date-bounds"); touch("extension-date-date")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "inclusive minimum")
+        submittedTypedDate("2024-02-29T12:34:00.000Z"); capture("date-inclusive-minimum")
+        record.put("inclusive_minimum_accepted", true).put("passed", true)
+    }
+    @Test fun datePickerExplainsInconsistentBoundsWithoutOpening() {
+        launch("typed-date-inconsistent")
+        compose.onNodeWithTag("extension-date-date").assertIsNotEnabled()
+        compose.onNodeWithTag("extension-date-unavailable-date").performScrollTo().assertTextEquals("No dates are available for this field.")
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        assertEquals(0, probe().getInt("changes")); capture("date-inconsistent-bounds")
+        record.put("invalid_bounds_have_disabled_control_and_explanation", true).put("passed", true)
+    }
+    private fun inOwnedNativeTimeZone(zone: String, body: () -> Unit) {
+        val original = java.util.TimeZone.getDefault()
+        try {
+            compose.activityRule.scenario.onActivity { java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(zone)) }
+            assertEquals(zone, java.time.ZoneId.systemDefault().id)
+            record.put("native_process_time_zone", zone).put("time_zone_boundary", "Owned JVM default override for native picker; Android system setting and WebView timezone unchanged")
+            body()
+        } finally {
+            compose.activityRule.scenario.onActivity { java.util.TimeZone.setDefault(original) }
+            assertEquals(original.id, java.util.TimeZone.getDefault().id)
+            record.put("native_process_time_zone_restored", true)
+        }
+    }
+    @Test fun nativeDateTimeRejectsADstGapThenAcceptsAValidWallTime() = inOwnedNativeTimeZone("America/New_York") {
+        launch("typed-date-dst-gap"); touch("extension-date-date")
+        touch("extension-date-time-plus-date-hour"); touch("extension-date-confirm-date")
+        compose.onNodeWithTag("extension-date-picker-error-date").performScrollTo().assertTextContains("This local time may not exist")
+        assertEquals(0, probe().getInt("changes")); assertEquals("2024-03-10T06:30:00.000Z", typedDateIso())
+        capture("date-dst-gap-rejected")
+        touch("extension-date-time-plus-date-hour")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "valid DST wall time")
+        submittedTypedDate("2024-03-10T07:30:00.000Z"); capture("date-dst-valid-wall-time")
+        record.put("nonexistent_wall_time_did_not_shift_or_dispatch", true).put("passed", true)
+    }
+    @Test fun nativeDateTimeKeepsTheExistingDstOccurrenceAndMilliseconds() = inOwnedNativeTimeZone("America/New_York") {
+        launch("typed-date-dst-overlap"); touch("extension-date-date")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "same DST occurrence")
+        submittedTypedDate("2024-11-03T06:30:12.345Z"); capture("date-dst-existing-offset")
+        record.put("existing_repeated_hour_and_fractional_seconds_preserved", true).put("passed", true)
+    }
+    @Test fun datePickerExplainsMalformedNativeBounds() {
+        launch("typed-controls")
+        val saved = catalog.runtimeTree
+        try {
+            val replacement = JSONObject(requireNotNull(saved).toString())
+            requireNotNull(activeRoot(replacement)).nodes("Form.DatePicker").single().props()
+                .put("min", JSONObject().put("\$date", "invalid-owned-date"))
+            compose.activityRule.scenario.onActivity { catalog.runtimeTree = replacement }
+            compose.waitForIdle(); compose.onNodeWithTag("extension-date-date").assertIsNotEnabled()
+            compose.onNodeWithTag("extension-date-unavailable-date").performScrollTo().assertIsDisplayed()
+            capture("date-malformed-native-bound")
+            assertEquals(0, probe().getInt("changes"))
+            record.put("test_boundary", "Controlled malformed native date envelope, not a successful JS Invalid Date serialization workflow").put("passed", true)
+        } finally { compose.activityRule.scenario.onActivity { catalog.runtimeTree = saved }; compose.waitForIdle() }
+    }
+    @Test fun datePickerControlledRejectionWaitsForItsPublication() {
+        launch("typed-date-reject"); touch("extension-date-date")
+        val edited = increaseTypedDateMinute(); val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "controlled date rejection")
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        submittedTypedDate("2024-02-29T12:34:00.000Z", edited); capture("date-controlled-rejection")
+        record.put("controlled_rejection_is_authoritative", true).put("passed", true)
+    }
+    @Test fun datePickerControlledTransformationWaitsForItsPublication() {
+        launch("typed-date-transform"); touch("extension-date-date")
+        val edited = increaseTypedDateMinute(); val before = typedPublication()
+        touch("extension-date-confirm-date"); awaitTypedPublication(before, "controlled date transformation")
+        val expected = dateIso(java.time.Instant.parse(edited).plusSeconds(30))
+        assertEquals(expected, typedDateIso()); submittedTypedDate(expected, edited); capture("date-controlled-transformation")
+        record.put("controlled_transformation_is_authoritative", true).put("passed", true)
+    }
+    @Test fun typedDefaultsDoNotResetEditsOnALaterPublication() {
+        launch("typed-defaults"); touch("extension-date-clear-date")
+        compose.waitUntil(5000) { typedDateIso() == null }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags")
+        mutateTyped("globalThis.__ownedTyped.setDefaultDate('2030-01-01T00:00:00.000Z');globalThis.__ownedTyped.setDefaultTags([])", "later default props")
+        assertNull(typedDateIso()); assertEquals("[\"internal-two\",\"internal-one\"]", typedTagValues())
+        touch("extension-primary"); compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val observed = probe(); val submitted = observed.getJSONObject("submittedValues")
+        assertTrue(submitted.has("date") && submitted.isNull("date")); assertEquals(typedTagValues(), submitted.getJSONArray("tags").toString())
+        val types = observed.getJSONObject("typedSubmitted")
+        assertTrue(types.getJSONObject("date").getBoolean("is_null")); assertTrue(types.getJSONObject("tags").getBoolean("array_strings"))
+        capture("typed-defaults-preserved"); record.put("submitted_values", submitted).put("default_props_do_not_reset_edits", true).put("passed", true)
+    }
+    @Test fun typedFocusAndBlurDeliverCurrentDateNullAndArrays() {
+        launch("typed-controls"); touch("extension-date-date")
+        val edited = increaseTypedDateMinute(); touch("extension-date-confirm-date")
+        compose.waitUntil(5000) { typedDateIso() == edited }
+        touch("extension-tags-tags"); typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); touch("extension-files-files"); touch("extension-files-done-files")
+        touch("extension-primary"); compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        var observed = probe(); var blur = observed.getJSONObject("blurFacts")
+        assertTrue(blur.getJSONObject("date").getBoolean("is_date")); assertEquals(edited, blur.getJSONObject("date").getString("date_iso"))
+        for (id in listOf("tags", "files")) { assertTrue(blur.getJSONObject(id).getBoolean("is_array")); assertTrue(blur.getJSONObject(id).getBoolean("array_strings")) }
+        assertEquals("[\"internal-two\",\"internal-one\"]", observed.getJSONObject("blurValues").getJSONArray("tags").toString())
+        assertEquals(0, observed.getJSONObject("blurValues").getJSONArray("files").length())
+        touch("extension-date-clear-date"); compose.waitUntil(5000) { typedDateIso() == null }
+        touch("extension-tags-tags"); touch("extension-tags-done-tags")
+        compose.waitUntil(5000) { probe().getJSONObject("blurFacts").getJSONObject("date").getBoolean("is_null") }
+        observed = probe(); blur = observed.getJSONObject("blurFacts")
+        assertTrue(blur.getJSONObject("date").getBoolean("is_null"))
+        record.put("typed_focus_facts", observed.getJSONObject("focusFacts")).put("typed_blur_facts", blur)
+            .put("test_boundary", "Owned Date/null and current tag/file array focus/blur; file array is empty, provider import is a separate workflow")
+        capture("typed-current-focus-values"); record.put("passed", true)
+    }
+    private fun typedDialogWindow(): android.view.Window {
+        var result: android.view.Window? = null
+        compose.activityRule.scenario.onActivity {
+            fun visit(view: android.view.View) {
+                if (view is androidx.compose.ui.window.DialogWindowProvider) { assertNull(result); result = view.window }
+                if (view is android.view.ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+            }
+            android.view.inspector.WindowInspector.getGlobalWindowViews().forEach(::visit)
+        }
+        return requireNotNull(result)
+    }
+    @Test fun dateTimeEditorKeepsConfirmationReachableWithItsOwnIme() {
+        launch("typed-controls"); touch("extension-date-date"); touch("extension-date-time-date-minute")
+        val window = typedDialogWindow()
+        compose.waitUntil(10000) {
+            var ready = false
+            compose.activityRule.scenario.onActivity {
+                val editor = window.decorView.findFocus()
+                ready = editor != null && editor.hasWindowFocus() && it.getSystemService(android.view.inputmethod.InputMethodManager::class.java).isActive(editor)
+            }
+            ready
+        }
+        compose.activityRule.scenario.onActivity { androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).show(WindowInsetsCompat.Type.ime()) }
+        awaitImeGeometry(true, window)
+        compose.onNodeWithTag("extension-date-time-date-minute").performTextReplacement("35")
+        compose.onNodeWithTag("extension-date-time-date-minute").assertTextEquals("35")
+        capture("date-time-editor-ime")
+        val before = typedPublication(); touch("extension-date-confirm-date"); awaitTypedPublication(before, "date confirmed with dialog IME")
+        assertEquals("2024-02-29T12:35:00.000Z", typedDateIso())
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        submittedTypedDate("2024-02-29T12:35:00.000Z"); capture("date-time-ime-submitted")
+        record.put("ime_observation", "Insets observed on actual owned Dialog window, not Activity; pointer focus/confirm with controlled SetText entry")
+            .put("passed", true)
+    }
+    @Test fun tagPickerCanRemoveAnUnavailableValueAndShowItsEmptyState() {
+        launch("typed-tags-empty"); touch("extension-tags-tags")
+        compose.onNodeWithTag("extension-tags-unavailable-tags-0").assertIsDisplayed(); capture("tags-unavailable-value")
+        val before = typedPublication(); touch("extension-tags-unavailable-tags-0"); awaitTypedPublication(before, "unavailable tag removed")
+        compose.onNodeWithText("No categories available", useUnmergedTree = true).assertIsDisplayed()
+        capture("tags-no-choices"); touch("extension-tags-done-tags"); submittedTypedTags(emptyList())
+        record.put("unavailable_value_removable_without_inventing_an_option", true).put("passed", true)
+    }
+    @Test fun tagPickerLongOptionKeepsEveryLineReachable() {
+        launch("typed-tags-long"); touch("extension-tags-tags"); typedTagRow(0)
+        inspectTextLines("extension-tags-options-tags", listOf(compose.onNodeWithText(longTitle, useUnmergedTree = true)), "long-tag-option")
+        typedTagRow(0).performTouchInput { click(center) }
+        compose.waitUntil(5000) { typedTagValues() == "[\"internal-two\",\"internal-one\"]" }
+        touch("extension-tags-done-tags"); submittedTypedTags(listOf("internal-two", "internal-one"))
+        record.put("passed", true)
+    }
+    @Test fun tagPickerQueuedOptionCannotSelectAReplacedChoice() {
+        launch("typed-controls"); touch("extension-tags-tags")
+        val queued = requireNotNull(typedTagRow(0).fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        mutateTyped("globalThis.__ownedTyped.setOptions([{value:'replacement-choice',title:'Readable replacement category'}])", "tag option replaced")
+        compose.onNodeWithText("Readable replacement category", useUnmergedTree = true).assertIsDisplayed()
+        val before = probe().toString()
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        assertEquals(before, probe().toString()); assertEquals("[\"internal-two\"]", typedTagValues())
+        capture("tags-queued-option-rejected"); touch("extension-tags-done-tags")
+        record.put("queued_callback", "Captured native row callback invoked after actual replacement publication and composition; not a pointer to a still-visible old row")
+            .put("passed", true)
+    }
+    @Test fun tagPickerControlledRejectionWaitsForItsPublication() {
+        launch("typed-tags-reject"); touch("extension-tags-tags")
+        val before = typedPublication(); typedTagRow(0).performTouchInput { click(center) }
+        awaitTypedPublication(before, "controlled tag rejection")
+        assertEquals("[\"internal-two\"]", typedTagValues()); typedTagRow(0).assertIsOff(); typedTagRow(1).assertIsOn()
+        capture("tags-controlled-rejection"); touch("extension-tags-done-tags"); submittedTypedTags(listOf("internal-two"))
+        record.put("controlled_rejection_is_authoritative", true).put("passed", true)
+    }
+    @Test fun datePickerQueuedConfirmationCannotEnterAReplacementField() {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val oldId = field("Form.DatePicker", "date").optString("id")
+        mutateTyped("globalThis.__ownedTyped.setDateKey('replacement-date')", "date field replaced")
+        assertNotEquals(oldId, field("Form.DatePicker", "date").optString("id"))
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        val before = probe().toString(); compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        assertEquals(before, probe().toString()); assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        capture("date-replacement-field-rejected")
+        record.put("queued_callback", "Old confirm invoked after actual replacement field publication; no successor value or dispatch change").put("passed", true)
     }
 
     private fun typedFileValues(): List<String> {
