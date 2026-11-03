@@ -743,9 +743,17 @@ class ExtensionDetailDeviceTest {
         readyImage("Owned inline image"); image("Owned inline image").performTouchInput { longClick(center) }
         compose.onNodeWithTag("extension-image-information").assertIsDisplayed()
         val focusedDocumentParents = generateSequence(image("Owned inline image").fetchSemanticsNode().parent) { it.parent }
-            .count { it.config.getOrNull(SemanticsProperties.Focused) == true }
-        record.put("information_document_focused_ancestors", focusedDocumentParents)
-        assertEquals("Image information must release document selection focus", 0, focusedDocumentParents)
+            .filter { it.config.getOrNull(SemanticsProperties.Focused) == true }.map {
+                JSONObject().put("id", it.id).put("test_tag", it.config.getOrNull(SemanticsProperties.TestTag) ?: JSONObject.NULL)
+            }.toList()
+        record.put("information_focused_ancestor_witnesses", JSONArray(focusedDocumentParents))
+        // Pinned Compose 1.7.6 exposes this semantic key on its actual handle
+        // Popups. Palette-frame focus may legitimately be restored underneath.
+        val selectionHandles = compose.onAllNodes(SemanticsMatcher("Native text selection handle") { node ->
+            node.config.any { it.key.name == "SelectionHandleInfo" }
+        }, useUnmergedTree = true).fetchSemanticsNodes().size
+        record.put("information_selection_handles", selectionHandles)
+        assertEquals("Image information must release document selection handles", 0, selectionHandles)
         compose.onNodeWithText("Owned inline description A café 日本").assertIsDisplayed(); capture("inline-information-long-press")
         val oldClose = requireNotNull(compose.onNodeWithTag("extension-image-information-close").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
         patch("image-information-new-document", JSONObject().put("document", "B"))
