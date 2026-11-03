@@ -141,6 +141,11 @@ class ExtensionFormDeviceTest {
             globalThis.__formProbe={changes:0,focus:{},blur:{},blurLengths:{},dispatches:0};
             const dispatch=globalThis.__tinycast.dispatch;
             globalThis.__tinycast.dispatch=function(...args){globalThis.__ownedFormSession=args[0];globalThis.__formProbe.dispatches++;return dispatch.apply(this,args)};
+            function typedFacts(value){
+              const date=value instanceof Date,array=Array.isArray(value),valid=date&&!Number.isNaN(value.getTime());
+              return {is_date:date,is_null:value===null,is_array:array,array_strings:array&&value.every(item=>typeof item==='string'),
+                valid_date:valid,date_iso:valid?value.toISOString():null};
+            }
             function fieldEvents(id){return {onFocus:e=>{const p=globalThis.__formProbe.focus;p[id]=(p[id]||0)+1},
               onBlur:e=>{const p=globalThis.__formProbe;p.blur[id]=(p.blur[id]||0)+1;p.blurLengths[id]=typeof e.target.value==='string'?e.target.value.length:0}}}
             module.exports.default=function(props){
@@ -156,11 +161,16 @@ class ExtensionFormDeviceTest {
                 globalThis.__ownedTypedFiles={setFileEnabled};
                 const errorId=mode.startsWith('typed-error-')?mode.slice('typed-error-'.length):null;
                 globalThis.__formProbe.submits ??= 0;
-                const change=(id,setter)=>value=>{globalThis.__formProbe.changes++;setter(value)};
+                const change=(id,setter)=>value=>{
+                  const probe=globalThis.__formProbe;probe.changes++;(probe.typedChanges??={})[id]=typedFacts(value);setter(value);
+                };
                 const error=id=>errorId===id?'Owned typed field must be corrected before submitting.':undefined;
                 return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
                   React.createElement(api.Action.SubmitForm,{title:'Inspect owned typed values',onSubmit:values=>{
                     globalThis.__formProbe.submits++;globalThis.__formProbe.submittedValues=values;
+                    const types={};
+                    for(const id of ['date','tags','files'])types[id]={...typedFacts(values[id]),present:Object.prototype.hasOwnProperty.call(values,id)};
+                    globalThis.__formProbe.typedSubmitted=types;
                     if(fileWorkflow){
                       const fs=require('fs');
                       const reads=values.files.map(path=>{
@@ -1327,7 +1337,18 @@ class ExtensionFormDeviceTest {
         touch("extension-primary")
         compose.waitUntil(5000) { probe().getInt("submits") == 1 }
         val values = probe().getJSONObject("submittedValues")
+        assertTrue("Explicit null must not be confused with an absent date key", values.has("date"))
         if (expected == null) assertTrue(values.isNull("date")) else assertEquals(expected, values.getString("date"))
+        val current = probe()
+        val changed = current.getJSONObject("typedChanges").getJSONObject("date")
+        val submitted = current.getJSONObject("typedSubmitted").getJSONObject("date")
+        assertTrue(submitted.getBoolean("present"))
+        for (facts in listOf(changed, submitted)) {
+            assertEquals(expected == null, facts.getBoolean("is_null"))
+            assertEquals(expected != null, facts.getBoolean("is_date"))
+            if (expected != null) { assertTrue(facts.getBoolean("valid_date")); assertEquals(expected, facts.getString("date_iso")) }
+        }
+        record.put("date_change_runtime_type", changed).put("date_submit_runtime_type", submitted)
         assertEquals("[\"internal-two\"]", values.getJSONArray("tags").toString())
         assertEquals(0, values.getJSONArray("files").length())
         record.put("submitted_date", expected ?: JSONObject.NULL).put("submit_count", probe().getInt("submits"))
@@ -1376,6 +1397,11 @@ class ExtensionFormDeviceTest {
         compose.waitUntil(5000) { probe().getInt("submits") == 1 }
         val values = probe().getJSONObject("submittedValues")
         assertEquals(JSONArray(expected).toString(), values.getJSONArray("tags").toString())
+        val changed = probe().getJSONObject("typedChanges").getJSONObject("tags")
+        val submitted = probe().getJSONObject("typedSubmitted").getJSONObject("tags")
+        assertTrue(submitted.getBoolean("present"))
+        for (facts in listOf(changed, submitted)) { assertTrue(facts.getBoolean("is_array")); assertTrue(facts.getBoolean("array_strings")) }
+        record.put("tag_change_runtime_type", changed).put("tag_submit_runtime_type", submitted)
         assertEquals("2024-02-29T12:34:00.000Z", values.getString("date"))
         assertEquals(0, values.getJSONArray("files").length())
         record.put("submitted_tags", JSONArray(expected)).put("submit_count", probe().getInt("submits"))
@@ -1531,6 +1557,9 @@ class ExtensionFormDeviceTest {
         assertEquals(submits + 1, probe().getInt("submits"))
         val submitted = probe().getJSONObject("submittedValues").getJSONArray("files")
         assertEquals(JSONArray(paths).toString(), submitted.toString())
+        val facts = probe().getJSONObject("typedSubmitted").getJSONObject("files")
+        assertTrue(facts.getBoolean("present")); assertTrue(facts.getBoolean("is_array")); assertTrue(facts.getBoolean("array_strings"))
+        record.put("file_submit_runtime_type", facts)
         val reads = probe().getJSONArray("fileReads")
         assertEquals(expected.size, reads.length())
         val observed = (0 until reads.length()).map { reads.getJSONObject(it) }.associateBy { it.getString("name") }
