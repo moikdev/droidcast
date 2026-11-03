@@ -164,7 +164,32 @@ class ExtensionDetailDeviceTest {
 
             Owned final paragraph café é 日本 🌱.
         """.trimIndent()
+        val gallery = """
+            # Owned gallery heading
+
+            Escaped \*literal\* and **bold _nested_** with ~~removed~~.
+
+            3. Owned ordered item
+            4. Owned next item
+               - Owned nested item
+
+            > Owned quote café 日本
+            >
+            > Owned second quotation
+
+            ## Owned secondary heading
+
+            Owned gallery final paragraph.
+        """.trimIndent()
+        val information = """
+            ![Owned block image](owned.svg "Owned block description __DOCUMENT__ café 日本")
+
+            Owned inline ![Owned inline image](owned.svg "Owned inline description __DOCUMENT__ café 日本") preview.
+
+            Owned linked [![Owned linked image](owned.svg "Owned linked description __DOCUMENT__")](javascript:owned-image-information).
+        """.trimIndent()
         val configuration = JSONObject().put("mode", mode).put("images", images).put("typography", typography)
+            .put("gallery", gallery).put("imageInformation", information)
         val script = "globalThis.__ownedDetailConfiguration = " + configuration + ";\n" +
             InstrumentationRegistry.getInstrumentation().context.assets.open("owned-detail-fixture.js").bufferedReader().use { it.readText() }
         File(directory, "detail.js").writeText(script)
@@ -658,5 +683,50 @@ class ExtensionDetailDeviceTest {
             .put("overall_command", "partial").put("remaining_scope", "List dropdown/accessory modes, other colors/actions and complete command parity are untested")
             .put("passed", true)
         capture("html-colors-caller-return")
+    }
+    @Test fun emptyMetadataHasReadableValuesAndAnUnavailableLink() {
+        launch("empty-metadata"); capture("empty-metadata-before-contract")
+        record.put("contract_assertions_started", true)
+        assertTrue("Empty metadata value needs a readable alternative", compose.onAllNodesWithText("Not provided").fetchSemanticsNodes().isNotEmpty())
+        show("Not provided"); show("Link unavailable").assertIsNotEnabled(); show("No tags")
+        capture("empty-metadata-alternatives"); record.put("passed", true)
+    }
+    @Test fun galleryRendersNativeListsQuotesEscapesAndCombinedMarks() {
+        launch("gallery")
+        show("Owned gallery heading").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
+        val text = show("Escaped *literal*", substring = true).fetchSemanticsNode().config[SemanticsProperties.Text].single()
+        assertEquals("Escaped *literal* and bold nested with removed.", text.text)
+        assertTrue(text.spanStyles.any { it.item.fontStyle == androidx.compose.ui.text.font.FontStyle.Italic &&
+            (it.item.fontWeight?.weight ?: 0) >= 600 && text.text.substring(it.start, it.end) == "nested" })
+        assertTrue(text.spanStyles.any { it.item.textDecoration == androidx.compose.ui.text.style.TextDecoration.LineThrough &&
+            text.text.substring(it.start, it.end) == "removed" })
+        show("3."); show("Owned ordered item"); show("Owned nested item"); capture("native-lists")
+        show("Owned quote café 日本"); show("Owned second quotation"); capture("native-quotations")
+        show("Owned secondary heading").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
+        show("Owned gallery final paragraph"); capture("native-gallery-destination")
+        record.put("native_lists_quotes_escapes_marks_verified", true).put("passed", true)
+    }
+    @Test fun imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument() {
+        launch("image-information"); readyImage("Owned block image"); capture("image-information-before-contract")
+        record.put("contract_assertions_started", true)
+        assertTrue("Markdown image title needs a touch-readable equivalent",
+            compose.onAllNodesWithText("Owned block description A café 日本").fetchSemanticsNodes().isNotEmpty())
+        show("Owned block description A café 日本"); capture("image-block-description")
+        readyImage("Owned inline image"); image("Owned inline image").performTouchInput { longClick(center) }
+        compose.onNodeWithTag("extension-image-information").assertIsDisplayed()
+        compose.onNodeWithText("Owned inline description A café 日本").assertIsDisplayed(); capture("inline-information-long-press")
+        val oldClose = requireNotNull(compose.onNodeWithTag("extension-image-information-close").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        patch("image-information-new-document", JSONObject().put("document", "B"))
+        compose.onNodeWithTag("extension-image-information").assertDoesNotExist()
+        readyImage("Owned inline image"); image("Owned inline image").performTouchInput { longClick(center) }
+        compose.onNodeWithText("Owned inline description B café 日本").assertIsDisplayed()
+        compose.runOnUiThread { assertTrue(oldClose()) }
+        compose.onNodeWithTag("extension-image-information").assertIsDisplayed(); capture("new-information-owner")
+        touchTag("extension-image-information-close"); compose.onNodeWithTag("extension-image-information").assertDoesNotExist()
+        readyImage("Owned linked image"); image("Owned linked image").performTouchInput { click(center) }
+        compose.waitUntil(5000) { catalog.runtimeStatus == "This link is unavailable on Android" }
+        capture("linked-image-explicit-activation")
+        record.put("long_press_opens_information", true).put("old_close_cannot_dismiss_successor", true)
+            .put("linked_inline_image_pointer_activation_preserved", true).put("passed", true)
     }
 }

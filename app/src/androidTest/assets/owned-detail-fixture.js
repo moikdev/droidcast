@@ -16,20 +16,26 @@ module.exports.default = function OwnedDetail() {
     h(api.Action.CopyToClipboard, { title: "Copy owned " + name, content: "Owned exact copy " + name + " café é 日本 🌱" }));
   function detail(Type, row) {
     const M = Type.Metadata;
-    const metadata = h(M, null,
+    const regularMetadata = h(M, null,
       h(M.Label, { title: "Owned label", text: { value: "Owned value " + row + " " + state.document, color: "#22aa66" }, icon: state.icon }),
       h(M.Link, { title: "Owned reference", text: "Owned link " + row, target: state.target }),
       h(M.TagList, { title: "Owned tags" }, h(M.TagList.Item, { text: "Owned tag " + row, icon: api.Icon.Star, color: "#228833",
         onAction: () => { state.tagCalls++; publish(value => value + 1); } })),
       h(M.Separator), h(M.Label, { title: "Owned activation", text: "Owned tag count " + state.tagCalls }),
       h(M.Label, { title: "Owned publication", text: marker }));
+    const metadata = state.contentMode === "empty-metadata" ? h(M, null,
+      h(M.Label, { title: "Owned missing value", text: null }),
+      h(M.Link, { title: "Owned missing link", text: "", target: "" }),
+      h(M.TagList, { title: "Owned empty tags" })) : regularMetadata;
     let markdown = "# Owned document " + row + " " + state.document + "\n\nOwned content café é 日本 🌱.\n\n" + marker;
     if (state.contentMode === "images") markdown = configuration.images + "\n\n" + marker;
     if (state.contentMode === "typography") markdown = configuration.typography + "\n\n" + marker;
+    if (state.contentMode === "gallery") markdown = configuration.gallery + "\n\n" + marker;
+    if (state.contentMode === "image-information") markdown = configuration.imageInformation.split("__DOCUMENT__").join(state.document) + "\n\n" + marker;
     if (state.contentMode === "links") markdown += "\n\n[Owned paragraph link](javascript:owned-unused)";
     if (state.contentMode === "entity-lines") markdown = "Owned entity foo&#10;&#10;bar\n\nOwned hard first  \nOwned hard second\n\n```text\nOwned code first\n\nOwned code third\n```\n\n" + marker;
-    if (["metadata-only", "empty", "loading"].includes(state.contentMode)) markdown = "";
-    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines"].includes(state.contentMode);
+    if (["metadata-only", "empty", "loading", "empty-metadata"].includes(state.contentMode)) markdown = "";
+    const noMetadata = ["empty", "loading", "images", "typography", "entity-lines", "gallery", "image-information"].includes(state.contentMode);
     return h(Type, { key: state.detailKey, navigationTitle: marker, markdown, metadata: noMetadata ? undefined : metadata,
       isLoading: state.loading, actions: actions(row) });
   }
