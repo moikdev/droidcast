@@ -1,0 +1,38 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionDetailDeviceTest:
+INSTRUMENTATION_STATUS: test=focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: Focused metadata must handle Enter without activating the primary action expected:<Owned [Markdown clipboard sentinel]> but was:<Owned [exact copy standalone café é 日本 🌱]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction(ExtensionDetailDeviceTest.kt:747)
+
+INSTRUMENTATION_STATUS: stream=
+Error in focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction(dev.tinycast.android.ExtensionDetailDeviceTest):
+org.junit.ComparisonFailure: Focused metadata must handle Enter without activating the primary action expected:<Owned [Markdown clipboard sentinel]> but was:<Owned [exact copy standalone café é 日本 🌱]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction(ExtensionDetailDeviceTest.kt:747)
+
+INSTRUMENTATION_STATUS: test=focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.981
+There was 1 failure:
+1) focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction(dev.tinycast.android.ExtensionDetailDeviceTest)
+org.junit.ComparisonFailure: Focused metadata must handle Enter without activating the primary action expected:<Owned [Markdown clipboard sentinel]> but was:<Owned [exact copy standalone café é 日本 🌱]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction(ExtensionDetailDeviceTest.kt:747)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

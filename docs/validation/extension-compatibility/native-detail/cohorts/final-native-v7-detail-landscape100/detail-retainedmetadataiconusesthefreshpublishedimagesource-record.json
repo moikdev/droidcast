@@ -1,0 +1,154 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "4bb10aa67571f456c3943d6357374c55ab06e4c1",
+  "fixture_mode": "metadata-only",
+  "fixture_command_sha256": "7272d0621fb56e2baf91983001b8c14c46276839e1b077941d34bc45c9901262",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_png_sha256": "9d6eb0bb52ca2b690f4d60646c909d3f54e18e7ce4ea7181a774c898e56ef5f0",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 1961
+    },
+    {
+      "phase": "first-metadata-image",
+      "counter": 1,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 1",
+      "semantics_id": 1961
+    },
+    {
+      "phase": "replacement-metadata-image",
+      "counter": 2,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 2",
+      "semantics_id": 1961
+    }
+  ],
+  "axis_aware_scrolls": [],
+  "image_readiness": [
+    {
+      "alternative": "Metadata icon",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=3;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=3;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    }
+  ],
+  "image_pixels": [
+    {
+      "alternative": "Metadata icon",
+      "expected_argb": -14514125,
+      "red": 0.13333334028720856,
+      "green": 0.5333333611488342,
+      "blue": 0.20000000298023224,
+      "width_px": 63,
+      "height_px": 63
+    },
+    {
+      "alternative": "Metadata icon",
+      "expected_argb": -65536,
+      "red": 1,
+      "green": 0,
+      "blue": 0,
+      "width_px": 63,
+      "height_px": 63
+    }
+  ],
+  "same_root_and_empty_markdown_preserved": true,
+  "image_transition_scope": "Fresh output pixels after witnessed publication and ready state; not a claim about every transient display frame",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

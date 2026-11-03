@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 279, in <module>
+    main()
+    ~~~~^^
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 125, in main
+    require(absent('files/' + folder), 'Retain or archive an earlier evidence directory before continuing')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 24, in require
+    raise ValueError(message)
+ValueError: Retain or archive an earlier evidence directory before continuing

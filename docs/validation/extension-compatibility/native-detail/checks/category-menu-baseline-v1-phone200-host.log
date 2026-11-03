@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 279, in <module>
+    main()
+    ~~~~^^
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 273, in main
+    save(); cleanup.finish()
+            ~~~~~~~~~~~~~~^^
+  File "<checkout>/scripts/android_test_cleanup.py", line 81, in finish
+    raise CleanupError('Restoration failed: ' + ', '.join(self.errors))
+android_test_cleanup.CleanupError: Restoration failed: legacy-fixtures-completed, release-lease

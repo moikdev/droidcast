@@ -1,0 +1,2220 @@
+{
+  "root_keys_kept": [
+    "active_scheme_not_executed",
+    "actual_tab_focus_and_enter",
+    "archive_sha256",
+    "axis_aware_scrolls",
+    "caller_query_restored",
+    "clipboard_unchanged_until_copy",
+    "closed_before_compose_disposal_rejected",
+    "code_exact_text",
+    "code_scroll_after",
+    "code_scroll_before",
+    "code_table_setup",
+    "command_sha256",
+    "contract_assertions_started",
+    "exact_copy",
+    "exact_input_sha256",
+    "exact_output_sha256",
+    "exact_unicode_output_copied",
+    "external_caller_uses_separate_package_and_uid",
+    "failure_capture_error_type",
+    "fixture_command_sha256",
+    "fixture_manifest_sha256",
+    "fixture_mode",
+    "font_scale",
+    "frozen_command_sha256",
+    "hard_line_exact_text",
+    "height_dp",
+    "hidden_detail_absent",
+    "hidden_ime_window_absence_confirmed",
+    "html_metadata_lines",
+    "image_pixels",
+    "image_readiness",
+    "image_transition_scope",
+    "ime_toggle_contract_started",
+    "information_document_focused_ancestors",
+    "information_focused_ancestor_witnesses",
+    "information_selection_handles",
+    "input_boundary",
+    "installed_build_commit",
+    "intent_boundary",
+    "keyboard_tab_count",
+    "last_native_text_wait",
+    "link_line_safe_area",
+    "linked_inline_image_pointer_activation_preserved",
+    "list_search_actual_ime_open",
+    "long_metadata_url_and_image_information_pointer_reachability",
+    "long_press_opens_information",
+    "markdown_link_pointer",
+    "mood_detail_modes",
+    "native_code_exact_output_sha256",
+    "native_code_monospace",
+    "native_detail_false_true_false_true_verified",
+    "native_format_contract_started",
+    "native_heading_emphasis_code_and_unicode_verified",
+    "native_lists_quotes_escapes_marks_verified",
+    "offscreen_block_height_px",
+    "offscreen_block_initial_height_px",
+    "offscreen_geometry_and_returned_pixels_verified",
+    "offscreen_geometry_contract_started",
+    "offscreen_view_bitmap_cleared",
+    "old_close_cannot_dismiss_successor",
+    "overall_command",
+    "owned_data_removed",
+    "owned_png_sha256",
+    "owned_svg_sha256",
+    "paragraph_exact_text",
+    "paragraph_line_witnesses",
+    "paragraph_natural_line_count",
+    "paragraph_reveal_method",
+    "passed",
+    "phase_outcomes",
+    "pointer_tag_activation_count",
+    "pointer_tag_calls",
+    "pointer_taps",
+    "preexisting_installations_and_data_preserved",
+    "preview_no_execution_and_clipboard_unchanged",
+    "primary_copy_not_invoked",
+    "primary_ime_geometry",
+    "probe_command_sha256",
+    "publication_witnesses",
+    "query_selection_and_caller_preserved",
+    "queued_callbacks",
+    "record_and_search_use_same_persisted_owned_data",
+    "remaining_scope",
+    "returned_to_external_caller",
+    "root_type",
+    "runtime_start_error",
+    "same_root_and_empty_markdown_preserved",
+    "saved_data_sha256",
+    "saved_owned_record",
+    "scope",
+    "serialized_detail_flag_present",
+    "settled_ime_geometry",
+    "source_text_and_selection_unchanged",
+    "stale_link_callbacks",
+    "supported_intents",
+    "table_overflowed",
+    "test_boundary",
+    "viewport_reveal_gestures",
+    "width_dp",
+    "window_soft_input_mode",
+    "window_soft_input_state"
+  ],
+  "root_keys_omitted": {
+    "before-controls-v1-landscape200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-landscape200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-landscape200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-landscape200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-phone200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-phone200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-phone200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-phone200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-tablet100/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-tablet100/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-tablet100/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "before-controls-v1-tablet100/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v1-after-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v1-after-tablet100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v1-after-tablet100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v1-before-landscape200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v1-before-phone200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v1-before-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-landscape200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-landscape200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-landscape200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-phone200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-phone200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-phone200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-tablet100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-after-tablet100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-before-landscape200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-before-phone200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "extended-native-v2-before-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v1-critical-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v1-critical-landscape200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v1-critical-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v1-critical-phone200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v1-critical-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v1-critical-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-critical-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-critical-landscape200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-critical-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-critical-phone200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-critical-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-critical-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet100/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v3-detail-tablet200/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-critical-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-critical-landscape200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-critical-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-critical-phone200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-critical-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-critical-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v4-detail-tablet100/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-critical-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-critical-landscape200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-critical-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-critical-phone200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-critical-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-critical-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v5-detail-tablet100/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-critical-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-critical-landscape200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-critical-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-critical-phone200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-critical-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-critical-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape100/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-landscape200/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone100/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-phone200/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet100/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-detail-tablet200/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-json-landscape200/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "owned_extension_ids"
+    ],
+    "final-native-v7-json-phone200/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "owned_extension_ids"
+    ],
+    "final-native-v7-json-tablet100/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "owned_extension_ids"
+    ],
+    "final-native-v7-markdown-landscape100/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-landscape100/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-landscape100/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-landscape100/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-landscape200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-landscape200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-landscape200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-landscape200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone100/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone100/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone100/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone100/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-phone200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet100/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet100/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet100/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet100/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-markdown-tablet200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "final-native-v7-mood-landscape200/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json": [
+      "owned_extension_id"
+    ],
+    "final-native-v7-mood-phone200/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json": [
+      "owned_extension_id"
+    ],
+    "final-native-v7-mood-tablet100/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json": [
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-landscape200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-landscape200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-landscape200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-landscape200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-phone200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-phone200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-phone200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-phone200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-tablet100/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-tablet100/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-tablet100/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "first-positive-controls-v1-tablet100/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-after-v1-phone200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-after-v1-tablet100/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-before-v1-landscape200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-before-v1-phone200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-before-v1-tablet100/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-matched-v2-after-landscape200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-matched-v2-after-phone200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-matched-v2-after-tablet100/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-matched-v2-before-landscape200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-matched-v2-before-phone200/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-geometry-matched-v2-before-tablet100/detail-offscreenblockimageretainsgeometryandreloadsonreturn-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-readiness-diagnostic-v1-detail-tablet200/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-entityreferenceskeepparagraphflowwithoutchanginghardbreaksorcode-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-galleryrendersnativelistsquotesescapesandcombinedmarks-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-longmetadataurlstagsandimageinformationremainreachablebytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-markdownandmetadatalinksrejectreplacedhiddenandclosedowners-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-metadataonlyloadingandemptypublicationshavereachablestates-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-queuedtagcannotadopthiddenotherchangedorreplaceddocuments-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-recreationstartsanewownerandrejectsthepriornativecallback-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-retainedmetadataiconusesthefreshpublishedimagesource-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "image-visibility-control-after-v1-detail-tablet200/detail-sharedlinkpolicynormalizessupportedintentsandreportshandlerfailure-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "link-safe-after-v1-landscape200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "link-safe-after-v1-phone200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "link-safe-after-v1-tablet100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "link-safe-before-v1-landscape200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "link-safe-before-v1-phone200/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "link-safe-before-v1-tablet100/detail-metadatalinktextkeepsnaturallinesinsideroundedtouchtarget-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-landscape200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-landscape200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-landscape200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-landscape200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-phone200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-phone200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-phone200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-phone200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-tablet100/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-tablet100/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-tablet100/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-after-tablet100/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-landscape200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-landscape200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-landscape200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-landscape200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-phone200/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-phone200/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-phone200/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-phone200/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-tablet100/markdown-commonmarkheadingemphasisandcoderenderasnativetext-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-tablet100/markdown-listdetailishiddenwhentheparentflagisfalse-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-tablet100/markdown-listdetailishiddenwhentheparentflagisomitted-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "matched-controls-v2-before-tablet100/markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "real-workflows-v1-after-html-colors-landscape200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "real-workflows-v1-after-html-colors-phone200/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "real-workflows-v1-after-html-colors-tablet100/detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-html-colors-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "real-workflows-v1-after-json-landscape200/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "owned_extension_ids"
+    ],
+    "real-workflows-v1-after-json-phone200/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "owned_extension_ids"
+    ],
+    "real-workflows-v1-after-json-tablet100/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "owned_extension_ids"
+    ],
+    "real-workflows-v1-after-mood-landscape200/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json": [
+      "owned_extension_id"
+    ],
+    "real-workflows-v1-after-mood-phone200/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json": [
+      "owned_extension_id"
+    ],
+    "real-workflows-v1-after-mood-tablet100/form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-record.json": [
+      "owned_extension_id"
+    ],
+    "real-workflows-v1-before-json-landscape200/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "failure_route",
+      "failure_runtime_error",
+      "failure_runtime_status",
+      "failure_runtime_tree",
+      "owned_extension_ids"
+    ],
+    "real-workflows-v1-before-json-phone200/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "failure_route",
+      "failure_runtime_error",
+      "failure_runtime_status",
+      "failure_runtime_tree",
+      "owned_extension_ids"
+    ],
+    "real-workflows-v1-before-json-tablet100/text-selectedjsonrunsonlyafterreviewthencopiesandreturns-record.json": [
+      "failure_route",
+      "failure_runtime_error",
+      "failure_runtime_status",
+      "failure_runtime_tree",
+      "owned_extension_ids"
+    ],
+    "renderer-finishing-after-v1-finishing-tablet100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v1-finishing-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-finishing-landscape200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-finishing-landscape200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-finishing-phone200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-finishing-phone200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-finishing-tablet100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-finishing-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-keyboard-landscape200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-keyboard-phone200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-after-v2-keyboard-tablet100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-before-v1-landscape200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-before-v1-landscape200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-before-v1-phone200/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-before-v1-phone200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-before-v1-tablet100/detail-emptymetadatahasreadablevaluesandanunavailablelink-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-finishing-before-v1-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-keyboard-before-v1-landscape200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-keyboard-before-v1-phone200/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "renderer-keyboard-before-v1-tablet100/detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-after-v1-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-after-v1-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-before-v1-landscape200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-before-v1-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-before-v1-phone200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-before-v1-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-before-v1-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-before-v1-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-after-landscape200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-after-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-after-phone200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-after-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-after-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-after-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-exact-copy",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-before-landscape200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-before-landscape200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-before-phone200/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-before-phone200/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-before-tablet100/detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ],
+    "touch-finish-matched-v2-before-tablet100/detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-record.json": [
+      "clipboard-before-owned-sentinel",
+      "clipboard-owned-sentinel",
+      "owned_extension_id"
+    ]
+  },
+  "clipboard_originals_and_fingerprints": "Excluded; private backups/recovery snapshots are never read or hashed by publication."
+}

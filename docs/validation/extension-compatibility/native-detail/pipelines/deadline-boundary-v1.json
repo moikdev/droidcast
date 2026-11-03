@@ -1,0 +1,13 @@
+{
+  "completed": true,
+  "reason": "Stop owned native orchestration after its in-flight host runner finishes cleanup; add whole image-job deadline before final verification.",
+  "output": "artifacts/markdown-detail/final-native-v4-detail-tablet100",
+  "controller_state": "final-native-v4-state.json",
+  "device_runner_signaled": false,
+  "controller_stopped": true,
+  "host_completed": true,
+  "host_junit_passes": 18,
+  "host_cleanup_checks": 18,
+  "host_cleanup_all_passed": true,
+  "controller_termination_reason": "Native host runner fully finished and restored; no device process was signaled."
+}

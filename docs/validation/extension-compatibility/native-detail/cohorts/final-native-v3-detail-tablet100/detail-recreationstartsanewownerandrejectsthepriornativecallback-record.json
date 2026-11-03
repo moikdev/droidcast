@@ -1,0 +1,61 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "df0464a3d41f79796d69998a43c039a110130d05",
+  "fixture_mode": "detail",
+  "fixture_command_sha256": "2ee704c6d3ce44c5084736714005f4af39b24020e09c8808d8ee2da2b1bfa3f9",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_png_sha256": "9d6eb0bb52ca2b690f4d60646c909d3f54e18e7ce4ea7181a774c898e56ef5f0",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 3822
+    },
+    {
+      "phase": "recreated",
+      "counter": 0,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 3910
+    },
+    {
+      "phase": "fresh-owner-activation",
+      "counter": 1,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 1",
+      "semantics_id": 3910
+    }
+  ],
+  "last_native_text_wait": "Owned tag standalone",
+  "axis_aware_scrolls": [],
+  "queued_callbacks": [
+    {
+      "phase": "activity-recreation",
+      "before": {
+        "revision": 0,
+        "tagCalls": 0,
+        "selected": null,
+        "unexpectedLink": false
+      },
+      "after": {
+        "revision": 0,
+        "tagCalls": 0,
+        "selected": null,
+        "unexpectedLink": false
+      },
+      "dispatch_rejected": true
+    }
+  ],
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

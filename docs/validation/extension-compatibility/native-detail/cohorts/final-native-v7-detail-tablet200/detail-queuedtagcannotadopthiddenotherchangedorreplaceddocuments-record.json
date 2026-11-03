@@ -1,0 +1,149 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "font_scale": 2,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "4bb10aa67571f456c3943d6357374c55ab06e4c1",
+  "fixture_mode": "detail",
+  "fixture_command_sha256": "b8c4a821fc0ab6cbc7fc05c2f0516d1d2d26fc56df78ed5e228f8af50944ff73",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_png_sha256": "9d6eb0bb52ca2b690f4d60646c909d3f54e18e7ce4ea7181a774c898e56ef5f0",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "31",
+      "root_type": "List",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 302
+    },
+    {
+      "phase": "detail-hidden",
+      "counter": 1,
+      "root_id": "31",
+      "root_type": "List",
+      "composed_marker_text": "Detail publication 1",
+      "semantics_id": 373
+    },
+    {
+      "phase": "detail-visible",
+      "counter": 2,
+      "root_id": "31",
+      "root_type": "List",
+      "composed_marker_text": "Detail publication 2",
+      "semantics_id": 373
+    },
+    {
+      "phase": "changed-document",
+      "counter": 3,
+      "root_id": "31",
+      "root_type": "List",
+      "composed_marker_text": "Detail publication 3",
+      "semantics_id": 526
+    },
+    {
+      "phase": "replacement-root",
+      "counter": 4,
+      "root_id": "63",
+      "root_type": "List",
+      "composed_marker_text": "Detail publication 4",
+      "semantics_id": 549
+    },
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 611
+    }
+  ],
+  "axis_aware_scrolls": [],
+  "last_native_text_wait": "Owned tag alpha",
+  "queued_callbacks": [
+    {
+      "phase": "hidden-detail",
+      "before": {
+        "revision": 1,
+        "tagCalls": 0,
+        "selected": "alpha",
+        "unexpectedLink": false
+      },
+      "after": {
+        "revision": 1,
+        "tagCalls": 0,
+        "selected": "alpha",
+        "unexpectedLink": false
+      },
+      "dispatch_rejected": true
+    },
+    {
+      "phase": "other-selected-row",
+      "before": {
+        "revision": 2,
+        "tagCalls": 0,
+        "selected": "beta",
+        "unexpectedLink": false
+      },
+      "after": {
+        "revision": 2,
+        "tagCalls": 0,
+        "selected": "beta",
+        "unexpectedLink": false
+      },
+      "dispatch_rejected": true
+    },
+    {
+      "phase": "same-row-new-document",
+      "before": {
+        "revision": 3,
+        "tagCalls": 0,
+        "selected": "beta",
+        "unexpectedLink": false
+      },
+      "after": {
+        "revision": 3,
+        "tagCalls": 0,
+        "selected": "beta",
+        "unexpectedLink": false
+      },
+      "dispatch_rejected": true
+    },
+    {
+      "phase": "replacement-root",
+      "before": {
+        "revision": 4,
+        "tagCalls": 0,
+        "selected": "alpha",
+        "unexpectedLink": false
+      },
+      "after": {
+        "revision": 4,
+        "tagCalls": 0,
+        "selected": "alpha",
+        "unexpectedLink": false
+      },
+      "dispatch_rejected": true
+    },
+    {
+      "phase": "successor-session",
+      "before": {
+        "revision": 0,
+        "tagCalls": 0,
+        "selected": null,
+        "unexpectedLink": false
+      },
+      "after": {
+        "revision": 0,
+        "tagCalls": 0,
+        "selected": null,
+        "unexpectedLink": false
+      },
+      "dispatch_rejected": true
+    }
+  ],
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

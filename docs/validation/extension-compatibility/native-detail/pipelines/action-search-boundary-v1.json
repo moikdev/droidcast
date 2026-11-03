@@ -1,0 +1,34 @@
+{
+  "completed": true,
+  "scope": "Read-only source/receipt comparison; not a geometry diagnosis or repair.",
+  "baseline_production_source_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "candidate_production_source_commit": "4bb10aa67571f456c3943d6357374c55ab06e4c1",
+  "test_source_commit": "d022f3188b65eda4350a0b72f2feba41970d4ee6",
+  "unchanged_root_source_hashes": {
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt": "4e7eb794545c066df34e1a2446efa91a943c1d9b1172470811bf82a56e15315b",
+    "app/src/main/java/dev/tinycast/android/PaletteMenus.kt": "a3c78359529847e63da649221fae6fce95fecf8378526527e33d584534fed9e9"
+  },
+  "baseline_app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+  "candidate_app_sha256": "7e99368a80208eb065eed0daf55f174d5fffbe0f72331b918901675de6f07640",
+  "common_test_apk_sha256": "e14e449bdf09711a1b25f3276aa3f5ced078b9abf49f2e4e01e67d01d428f2aa",
+  "baseline": {
+    "junit_passes": 0,
+    "cases": 1,
+    "output": "action-search-baseline-v1-landscape100"
+  },
+  "candidate": {
+    "junit_passes": 3,
+    "cases": 4,
+    "output": "final-native-v9-keys-landscape100"
+  },
+  "layout": "landscape",
+  "font_scale": 1,
+  "common_failing_assertion": "InlinePaletteDeviceTest.kt:370 action-Copy content assertIsDisplayed",
+  "cause_unisolated": true,
+  "current_execution_credit": 0,
+  "remaining_issue": 71,
+  "independent_recovery_receipts": [
+    "recovery/landscape-baseline-legacy-recovery.json",
+    "recovery/landscape-candidate-legacy-recovery.json"
+  ]
+}

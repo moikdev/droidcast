@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionDetailDeviceTest:
+INSTRUMENTATION_STATUS: test=offscreenBlockImageRetainsGeometryAndReloadsOnReturn
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Offscreen block images must retain their layout height expected:<710> but was:<90>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.offscreenBlockImageRetainsGeometryAndReloadsOnReturn(ExtensionDetailDeviceTest.kt:869)
+
+INSTRUMENTATION_STATUS: stream=
+Error in offscreenBlockImageRetainsGeometryAndReloadsOnReturn(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: Offscreen block images must retain their layout height expected:<710> but was:<90>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.offscreenBlockImageRetainsGeometryAndReloadsOnReturn(ExtensionDetailDeviceTest.kt:869)
+
+INSTRUMENTATION_STATUS: test=offscreenBlockImageRetainsGeometryAndReloadsOnReturn
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.844
+There was 1 failure:
+1) offscreenBlockImageRetainsGeometryAndReloadsOnReturn(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: Offscreen block images must retain their layout height expected:<710> but was:<90>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.offscreenBlockImageRetainsGeometryAndReloadsOnReturn(ExtensionDetailDeviceTest.kt:869)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

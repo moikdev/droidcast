@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionDetailDeviceTest:
+INSTRUMENTATION_STATUS: test=imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Image information must release document selection handles expected:<0> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(ExtensionDetailDeviceTest.kt:756)
+
+INSTRUMENTATION_STATUS: stream=
+Error in imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: Image information must release document selection handles expected:<0> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(ExtensionDetailDeviceTest.kt:756)
+
+INSTRUMENTATION_STATUS: test=imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=listTouchDetailPreservesQuerySelectionExactCopyAndCaller
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: An open search keyboard needs a reachable Hide keyboard control
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.listTouchDetailPreservesQuerySelectionExactCopyAndCaller(ExtensionDetailDeviceTest.kt:367)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listTouchDetailPreservesQuerySelectionExactCopyAndCaller(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: An open search keyboard needs a reachable Hide keyboard control
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.listTouchDetailPreservesQuerySelectionExactCopyAndCaller(ExtensionDetailDeviceTest.kt:367)
+
+INSTRUMENTATION_STATUS: test=listTouchDetailPreservesQuerySelectionExactCopyAndCaller
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.657
+There were 2 failures:
+1) imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: Image information must release document selection handles expected:<0> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument(ExtensionDetailDeviceTest.kt:756)
+2) listTouchDetailPreservesQuerySelectionExactCopyAndCaller(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: An open search keyboard needs a reachable Hide keyboard control
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.listTouchDetailPreservesQuerySelectionExactCopyAndCaller(ExtensionDetailDeviceTest.kt:367)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

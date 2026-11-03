@@ -1,0 +1,60 @@
+{
+  "completed": true,
+  "scope": "Dependency research only; no app build/device checks or renderer implementation.",
+  "advertised_version": "0.32.0",
+  "maven_release": "0.32.0",
+  "core_parser_class_major": 55,
+  "receipts": [
+    {
+      "artifact": "commonmark",
+      "url": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark/0.32.0/commonmark-0.32.0.jar",
+      "file": "commonmark-0.32.0.jar",
+      "bytes": 221729,
+      "sha256": "a7075291a1ff852df6e185963a0016d24913abf689f4f913d017d9ff19a14ac2",
+      "published_sha1_verified": true
+    },
+    {
+      "artifact": "commonmark",
+      "url": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark/0.32.0/commonmark-0.32.0.pom",
+      "file": "commonmark-0.32.0.pom",
+      "bytes": 2440,
+      "sha256": "835a9f06e1b082a2d1d293529a1f24cfcfc7f1ae58485812ec3bbbaddc508ad9",
+      "published_sha1_verified": true
+    },
+    {
+      "artifact": "commonmark",
+      "url": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark/0.32.0/commonmark-0.32.0-sources.jar",
+      "file": "commonmark-0.32.0-sources.jar",
+      "bytes": 148255,
+      "sha256": "064dcdef29a6c627d699c08e2bb1275fbf73af707d0ce6c9e95d56497b505412",
+      "published_sha1_verified": true
+    },
+    {
+      "artifact": "commonmark-ext-gfm-tables",
+      "url": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark-ext-gfm-tables/0.32.0/commonmark-ext-gfm-tables-0.32.0.jar",
+      "file": "commonmark-ext-gfm-tables-0.32.0.jar",
+      "bytes": 24631,
+      "sha256": "511b9a282c991560acab6ab087a7f25e4ce94747aa3bfa6e08be32d9adc77be0",
+      "published_sha1_verified": true
+    },
+    {
+      "artifact": "commonmark-ext-gfm-tables",
+      "url": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark-ext-gfm-tables/0.32.0/commonmark-ext-gfm-tables-0.32.0-sources.jar",
+      "file": "commonmark-ext-gfm-tables-0.32.0-sources.jar",
+      "bytes": 13110,
+      "sha256": "41176869c286187ca5d5e04bae35bebaa8cbe405ba4733d97c4af21c861d368c",
+      "published_sha1_verified": true
+    },
+    {
+      "artifact": "commonmark-ext-gfm-strikethrough",
+      "url": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark-ext-gfm-strikethrough/0.32.0/commonmark-ext-gfm-strikethrough-0.32.0.jar",
+      "file": "commonmark-ext-gfm-strikethrough-0.32.0.jar",
+      "bytes": 13299,
+      "sha256": "77aafc2c0b4d11db6f8a38d01d20f78ec9095b39379e768fe2007708a71f8303",
+      "published_sha1_verified": true
+    }
+  ],
+  "license_entries": [
+    "META-INF/LICENSE.txt"
+  ]
+}

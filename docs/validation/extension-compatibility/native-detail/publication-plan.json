@@ -1,0 +1,287 @@
+{
+  "issue": 89,
+  "report": "docs/EXTENSION-MARKDOWN-DETAIL.md",
+  "public_images": "docs/screenshots/extension-compatibility/native-detail",
+  "public_validation": "docs/validation/extension-compatibility/native-detail",
+  "frames": [
+    {
+      "name": "raw-markdown-before-phone200",
+      "origin_cohort": "before-controls-v1-phone200",
+      "basename": "markdown-commonmarkheadingemphasisandcoderenderasnativetext-before-contract-assertions",
+      "caption": "Old app: literal heading/emphasis/fences, owned fixture."
+    },
+    {
+      "name": "native-markdown-after-phone200",
+      "origin_cohort": "final-native-v7-markdown-phone200",
+      "basename": "markdown-commonmarkheadingemphasisandcoderenderasnativetext-formatted-content",
+      "caption": "Current app: native heading, emphasis, exact selectable code and Unicode."
+    },
+    {
+      "name": "missing-metadata-before-phone200",
+      "origin_cohort": "before-controls-v1-phone200",
+      "basename": "markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-before-contract-assertions",
+      "caption": "Old app does not render the supplied owned metadata."
+    },
+    {
+      "name": "metadata-action-after-phone200",
+      "origin_cohort": "final-native-v7-markdown-phone200",
+      "basename": "markdown-metadatalabellinkandtagrenderandtagactivatesbytouch-metadata-tag-activated",
+      "caption": "Current app: native metadata and actual pointer tag activation."
+    },
+    {
+      "name": "hidden-detail-before-phone200",
+      "origin_cohort": "before-controls-v1-phone200",
+      "basename": "markdown-listdetailishiddenwhentheparentflagisfalse-hidden-detail-contract",
+      "caption": "Parent isShowingDetail false; old violation."
+    },
+    {
+      "name": "hidden-detail-after-phone200",
+      "origin_cohort": "final-native-v7-markdown-phone200",
+      "basename": "markdown-listdetailishiddenwhentheparentflagisfalse-hidden-detail-contract",
+      "caption": "Parent isShowingDetail false; current hidden-detail behavior."
+    },
+    {
+      "name": "selected-detail-tablet100",
+      "origin_cohort": "final-native-v7-detail-tablet100",
+      "basename": "detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-selected-detail",
+      "caption": "Query-filtered beta selection with the current wide/narrow touch layout."
+    },
+    {
+      "name": "selected-detail-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-selected-detail",
+      "caption": "Query-filtered beta selection with the current wide/narrow touch layout."
+    },
+    {
+      "name": "keyboard-hide-before-landscape200",
+      "origin_cohort": "touch-finish-matched-v2-before-landscape200",
+      "basename": "detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-list-search-ime-open",
+      "caption": "Prior app: actual short-landscape IME; no explicit Hide keyboard button. Existing outer route scroll fallback remains available."
+    },
+    {
+      "name": "keyboard-hide-after-landscape200",
+      "origin_cohort": "final-native-v7-detail-landscape200",
+      "basename": "detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-list-search-ime-closed",
+      "caption": "Current app after actual Hide keyboard pointer tap; primary action reachable."
+    },
+    {
+      "name": "list-ime-open-tablet100",
+      "origin_cohort": "final-native-v7-detail-tablet100",
+      "basename": "detail-listtouchdetailpreservesqueryselectionexactcopyandcaller-list-search-ime-open",
+      "caption": "Real tablet IME open; selected Detail and action above it."
+    },
+    {
+      "name": "long-information-tablet100",
+      "origin_cohort": "final-native-v7-detail-tablet100",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-image-information-last-lines",
+      "caption": "Current profile: persistent long image description; every natural line and Close reached by pointer scrolling."
+    },
+    {
+      "name": "long-information-tablet200",
+      "origin_cohort": "final-native-v7-detail-tablet200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-image-information-last-lines",
+      "caption": "Current profile: persistent long image description; every natural line and Close reached by pointer scrolling."
+    },
+    {
+      "name": "long-information-phone100",
+      "origin_cohort": "final-native-v7-detail-phone100",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-image-information-last-lines",
+      "caption": "Current profile: persistent long image description; every natural line and Close reached by pointer scrolling."
+    },
+    {
+      "name": "long-information-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-image-information-last-lines",
+      "caption": "Current profile: persistent long image description; every natural line and Close reached by pointer scrolling."
+    },
+    {
+      "name": "long-information-landscape100",
+      "origin_cohort": "final-native-v7-detail-landscape100",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-image-information-last-lines",
+      "caption": "Current profile: persistent long image description; every natural line and Close reached by pointer scrolling."
+    },
+    {
+      "name": "long-information-landscape200",
+      "origin_cohort": "final-native-v7-detail-landscape200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-image-information-last-lines",
+      "caption": "Current profile: persistent long image description; every natural line and Close reached by pointer scrolling."
+    },
+    {
+      "name": "long-url-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Long unbroken URL rendered without shrinking; complete natural-line pointer witnesses in the receipt."
+    },
+    {
+      "name": "long-url-landscape200",
+      "origin_cohort": "final-native-v7-detail-landscape200",
+      "basename": "detail-longmetadataurlstagsandimageinformationremainreachablebytouch-metadata-url-last-lines",
+      "caption": "Long unbroken URL rendered without shrinking; complete natural-line pointer witnesses in the receipt."
+    },
+    {
+      "name": "empty-metadata-after-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-emptymetadatahasreadablevaluesandanunavailablelink-empty-metadata-alternatives",
+      "caption": "Not provided, disabled Link unavailable and No tags."
+    },
+    {
+      "name": "image-title-before-phone200",
+      "origin_cohort": "renderer-finishing-before-v1-phone200",
+      "basename": "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-image-information-before-contract",
+      "caption": "Intermediate981 renderer: image title has no touch-readable equivalent."
+    },
+    {
+      "name": "image-title-after-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-image-block-description",
+      "caption": "Current native block image caption."
+    },
+    {
+      "name": "inline-information-after-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-inline-information-long-press",
+      "caption": "Actual inline-image long press; readable persistent information and explicit Close."
+    },
+    {
+      "name": "selection-handles-before-tablet100",
+      "origin_cohort": "touch-finish-matched-v2-before-tablet100",
+      "basename": "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-failure",
+      "caption": "Prior5e95 app: actual selection-handle UI remains while image information is open."
+    },
+    {
+      "name": "selection-handles-after-tablet100",
+      "origin_cohort": "final-native-v7-detail-tablet100",
+      "basename": "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-inline-information-long-press",
+      "caption": "Current image information with no document selection handles; palette-frame focus is allowed."
+    },
+    {
+      "name": "detail-loading-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-metadataonlyloadingandemptypublicationshavereachablestates-loading",
+      "caption": "Current owned loading publication."
+    },
+    {
+      "name": "detail-empty-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-metadataonlyloadingandemptypublicationshavereachablestates-empty",
+      "caption": "Current owned empty publication."
+    },
+    {
+      "name": "image-error-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-packagesvgtintandfailureimagesrenderwithboundedalternatives-image-error-alternative",
+      "caption": "Rejected image path with readable alternative and Image unavailable."
+    },
+    {
+      "name": "unsupported-link-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-metadatatagactivatesbypointerandunsupportedlinkshowsanoutcome-unsupported-link-outcome",
+      "caption": "Explicit unsupported-scheme activation reports an outcome; no script execution."
+    },
+    {
+      "name": "table-image-tablet200",
+      "origin_cohort": "final-native-v7-detail-tablet200",
+      "basename": "detail-galleryrendersnativelistsquotesescapesandcombinedmarks-native-table-image",
+      "caption": "Native image-only table cell and neighboring text."
+    },
+    {
+      "name": "code-pointer-landscape200",
+      "origin_cohort": "final-native-v7-detail-landscape200",
+      "basename": "detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-code-pointer-scroll",
+      "caption": "Actual horizontal pointer scrolling of exact native code."
+    },
+    {
+      "name": "table-final-column-landscape200",
+      "origin_cohort": "final-native-v7-detail-landscape200",
+      "basename": "detail-longparagraphcodeandtablesremainreachablebypointeratnaturaltextsize-table-final-column",
+      "caption": "Final GFM table column; pointer overflow probe and explicit semantic final-column reveal are separately recorded."
+    },
+    {
+      "name": "keyboard-metadata-after-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-focusedmetadatareceivesenterwithoutactivatingtheprimaryaction-metadata-keyboard-activation",
+      "caption": "Actual Tab focus/Enter activates the metadata action, preserving the clipboard sentinel."
+    },
+    {
+      "name": "html-colors-svg-tablet100",
+      "origin_cohort": "final-native-v7-detail-tablet100",
+      "basename": "detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-html-colors-blue-svg",
+      "caption": "Frozen HTML Colors default Blue SVG; owned namespace, unmodified bundle."
+    },
+    {
+      "name": "html-colors-metadata-phone200",
+      "origin_cohort": "final-native-v7-detail-phone200",
+      "basename": "detail-frozenhtmlcolorsrenderssvgmetadatacopiesandreturns-html-colors-rgb-metadata",
+      "caption": "Frozen Blue RGB metadata; exact HEX Copy/return recorded separately."
+    },
+    {
+      "name": "json-native-code-phone200",
+      "origin_cohort": "final-native-v7-json-phone200",
+      "basename": "text-selectedjsonrunsonlyafterreviewthencopiesandreturns-formatted",
+      "caption": "Frozen formatter after reviewed explicit Run: exact native code, no raw fences."
+    },
+    {
+      "name": "json-copy-source-return-phone200",
+      "origin_cohort": "final-native-v7-json-phone200",
+      "basename": "text-selectedjsonrunsonlyafterreviewthencopiesandreturns-return",
+      "caption": "Fresh exact Copy and return to unchanged owned external source selection."
+    },
+    {
+      "name": "mood-hidden-phone200",
+      "origin_cohort": "final-native-v7-mood-phone200",
+      "basename": "form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-reloaded-search-destination",
+      "caption": "Fresh frozen Mood Search session starts with detail false and no note body."
+    },
+    {
+      "name": "mood-native-detail-phone200",
+      "origin_cohort": "final-native-v7-mood-phone200",
+      "basename": "form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-native-detail-visible",
+      "caption": "Actual Show Details action renders the exact persisted owned notes; bytes remain unchanged."
+    },
+    {
+      "name": "mood-hidden-again-phone200",
+      "origin_cohort": "final-native-v7-mood-phone200",
+      "basename": "form-frozenmoodstoresexacttypedvaluesandreloadstheminsearch-mood-detail-hidden-again",
+      "caption": "Actual Hide Details action removes the detail; later reopen/return are asserted."
+    },
+    {
+      "name": "json-raw-before-phone200",
+      "origin_cohort": "real-workflows-v1-before-json-phone200",
+      "basename": "text-selectedjsonrunsonlyafterreviewthencopiesandreturns-failure",
+      "caption": "Old app: frozen formatter output still contains literal Markdown fences; exact owned input."
+    },
+    {
+      "name": "block-geometry-before-landscape200",
+      "origin_cohort": "image-geometry-matched-v2-before-landscape200",
+      "basename": "detail-offscreenblockimageretainsgeometryandreloadsonreturn-block-offscreen-geometry",
+      "caption": "Old offscreen view intentionally absent: native receipt measures the shrunken placeholder. Semantic scroll setup, not a pointer-only claim."
+    },
+    {
+      "name": "block-return-after-landscape200",
+      "origin_cohort": "final-native-v7-detail-landscape200",
+      "basename": "detail-offscreenblockimageretainsgeometryandreloadsonreturn-block-returned-pixels",
+      "caption": "Repaired block view returns with its original layout footprint and exact green output pixels; bounded global image cache may retain bytes."
+    }
+  ],
+  "final_candidate": "final-native-harness-v7-state.json",
+  "final_native": "final-native-v10-state.json",
+  "status": "Published only after final checkpoint completion",
+  "remaining_limits": [
+    "Math rendering and link-hover titles",
+    "Restricted static SVG subset; no SVG text/fonts/external resources/animation; GIF first-frame rendering only",
+    "Remote HTTPS loading/source limits implemented; full network/OEM behavior not certified",
+    "Near-cap individual text/code/table stress not device-certified",
+    "Full TalkBack, arbitrary devices/API/OEM/WebView versions",
+    "Whole Store/source parity; static3491 directories/11153 declarations remain untested",
+    "Complete note preview/import/export under #10 and production signing/migration stay separate",
+    "Legacy category-menu geometry assertion fails on both base/current at phone200%; cause unisolated under #71; shared-key cohorts are100% only.",
+    "Legacy action-search Copy-content visibility assertion fails on both base/current at landscape100%; cause unisolated under #71; excluded from the three-case landscape keyboard cohort."
+  ],
+  "publication_rules": [
+    "No original clipboard content/fingerprints or recovery snapshots",
+    "No private preference backups, host paths, signed Store URLs or signing material",
+    "Copy selected raw PNG/XML/frame triplets byte-for-byte and preserve XML CRLF",
+    "Publish head/source/APK hashes and all cohort pass/skip/cleanup identities; do not add historical failed cohorts to final credit"
+  ],
+  "additional_excluded_diagnostic": "bb251f3 optional asset-file witness used a non-assets path; its false values earn no asset-integrity credit. Current helper names/checks the owned fixture assets file explicitly."
+}

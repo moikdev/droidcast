@@ -1,0 +1,137 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionMarkdownDeviceTest:
+INSTRUMENTATION_STATUS: test=listDetailIsHiddenWhenTheParentFlagIsFalse
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Hidden List.Detail content must be absent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.hiddenDetail(ExtensionMarkdownDeviceTest.kt:259)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.listDetailIsHiddenWhenTheParentFlagIsFalse(ExtensionMarkdownDeviceTest.kt:264)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listDetailIsHiddenWhenTheParentFlagIsFalse(dev.tinycast.android.ExtensionMarkdownDeviceTest):
+java.lang.AssertionError: Hidden List.Detail content must be absent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.hiddenDetail(ExtensionMarkdownDeviceTest.kt:259)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.listDetailIsHiddenWhenTheParentFlagIsFalse(ExtensionMarkdownDeviceTest.kt:264)
+
+INSTRUMENTATION_STATUS: test=listDetailIsHiddenWhenTheParentFlagIsFalse
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=metadataLabelLinkAndTagRenderAndTagActivatesByTouch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Detail metadata must expose its owned label
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.metadataLabelLinkAndTagRenderAndTagActivatesByTouch(ExtensionMarkdownDeviceTest.kt:241)
+
+INSTRUMENTATION_STATUS: stream=
+Error in metadataLabelLinkAndTagRenderAndTagActivatesByTouch(dev.tinycast.android.ExtensionMarkdownDeviceTest):
+java.lang.AssertionError: Detail metadata must expose its owned label
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.metadataLabelLinkAndTagRenderAndTagActivatesByTouch(ExtensionMarkdownDeviceTest.kt:241)
+
+INSTRUMENTATION_STATUS: test=metadataLabelLinkAndTagRenderAndTagActivatesByTouch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=commonMarkHeadingEmphasisAndCodeRenderAsNativeText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: CommonMark must expose a native heading without raw syntax
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.commonMarkHeadingEmphasisAndCodeRenderAsNativeText(ExtensionMarkdownDeviceTest.kt:229)
+
+INSTRUMENTATION_STATUS: stream=
+Error in commonMarkHeadingEmphasisAndCodeRenderAsNativeText(dev.tinycast.android.ExtensionMarkdownDeviceTest):
+java.lang.AssertionError: CommonMark must expose a native heading without raw syntax
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.commonMarkHeadingEmphasisAndCodeRenderAsNativeText(ExtensionMarkdownDeviceTest.kt:229)
+
+INSTRUMENTATION_STATUS: test=commonMarkHeadingEmphasisAndCodeRenderAsNativeText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=listDetailIsHiddenWhenTheParentFlagIsOmitted
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionMarkdownDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Hidden List.Detail content must be absent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.hiddenDetail(ExtensionMarkdownDeviceTest.kt:259)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.listDetailIsHiddenWhenTheParentFlagIsOmitted(ExtensionMarkdownDeviceTest.kt:265)
+
+INSTRUMENTATION_STATUS: stream=
+Error in listDetailIsHiddenWhenTheParentFlagIsOmitted(dev.tinycast.android.ExtensionMarkdownDeviceTest):
+java.lang.AssertionError: Hidden List.Detail content must be absent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.hiddenDetail(ExtensionMarkdownDeviceTest.kt:259)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.listDetailIsHiddenWhenTheParentFlagIsOmitted(ExtensionMarkdownDeviceTest.kt:265)
+
+INSTRUMENTATION_STATUS: test=listDetailIsHiddenWhenTheParentFlagIsOmitted
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 29.251
+There were 4 failures:
+1) listDetailIsHiddenWhenTheParentFlagIsFalse(dev.tinycast.android.ExtensionMarkdownDeviceTest)
+java.lang.AssertionError: Hidden List.Detail content must be absent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.hiddenDetail(ExtensionMarkdownDeviceTest.kt:259)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.listDetailIsHiddenWhenTheParentFlagIsFalse(ExtensionMarkdownDeviceTest.kt:264)
+2) metadataLabelLinkAndTagRenderAndTagActivatesByTouch(dev.tinycast.android.ExtensionMarkdownDeviceTest)
+java.lang.AssertionError: Detail metadata must expose its owned label
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.metadataLabelLinkAndTagRenderAndTagActivatesByTouch(ExtensionMarkdownDeviceTest.kt:241)
+3) commonMarkHeadingEmphasisAndCodeRenderAsNativeText(dev.tinycast.android.ExtensionMarkdownDeviceTest)
+java.lang.AssertionError: CommonMark must expose a native heading without raw syntax
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.commonMarkHeadingEmphasisAndCodeRenderAsNativeText(ExtensionMarkdownDeviceTest.kt:229)
+4) listDetailIsHiddenWhenTheParentFlagIsOmitted(dev.tinycast.android.ExtensionMarkdownDeviceTest)
+java.lang.AssertionError: Hidden List.Detail content must be absent
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.hiddenDetail(ExtensionMarkdownDeviceTest.kt:259)
+	at dev.tinycast.android.ExtensionMarkdownDeviceTest.listDetailIsHiddenWhenTheParentFlagIsOmitted(ExtensionMarkdownDeviceTest.kt:265)
+
+FAILURES!!!
+Tests run: 4,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1
