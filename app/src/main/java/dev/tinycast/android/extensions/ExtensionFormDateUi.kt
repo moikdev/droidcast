@@ -8,12 +8,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -59,6 +62,31 @@ private fun dateLabel(value: FormDateValue, kind: FormDateKind?, zone: ZoneId): 
     }.getOrDefault("Choose another date")
 }
 
+/** Compose 1.7 measures custom-width Dialogs against the full display even
+ * when Android has reduced their visible frame for the IME. Bound this Dialog
+ * by the parent's actual visible frame instead of padding its full-screen
+ * measurement. The observer belongs only to the open picker.
+ */
+@Composable
+private fun pickerVisibleHeight(parent: android.view.View, parentIme: WindowInsets): Dp {
+    val density = LocalDensity.current
+    val configuration = LocalConfiguration.current
+    fun visibleHeight(): Int = android.graphics.Rect().also(parent::getWindowVisibleDisplayFrame).height()
+    var observedHeight by remember(parent) { mutableIntStateOf(visibleHeight()) }
+    DisposableEffect(parent) {
+        val observer = parent.viewTreeObserver
+        val listener = android.view.ViewTreeObserver.OnGlobalLayoutListener { observedHeight = visibleHeight() }
+        observer.addOnGlobalLayoutListener(listener)
+        onDispose { if (observer.isAlive) observer.removeOnGlobalLayoutListener(listener) }
+    }
+    // Insets invalidate composition even on edge-to-edge windows whose root
+    // keeps the same dimensions while the keyboard opens or closes.
+    val imeBottom = parentIme.getBottom(density)
+    val height = remember(parent, observedHeight, imeBottom, configuration) { visibleHeight() }
+    return if (height > 0) minOf(with(density) { height.toDp() }, configuration.screenHeightDp.dp)
+        else configuration.screenHeightDp.dp
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liveRoot: () -> JSONObject?,
@@ -66,8 +94,8 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
     val id = field.props().optString("id")
     val title = (field.props().opt("title") as? String).orEmpty().ifBlank { "Choose date" }
     val zone = ZoneId.systemDefault()
-    // Floating Dialogs can report IME visibility with a zero bottom inset.
-    // Capture the parent window's holder before entering the Dialog composition.
+    // Capture the parent before entering the Dialog's separate composition.
+    val parentView = LocalView.current
     val parentIme = WindowInsets.ime
     val parameters = dateParameters(field)
     val label = dateLabel(parameters.value, parameters.kind, zone)
@@ -127,9 +155,8 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
             Dialog(onDismissRequest = { if (opening === token) opening = null },
                 properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
                 FormPickerBackdrop(resizeForIme = true)
-                Surface(Modifier.safeDrawingPadding().windowInsetsPadding(parentIme)
+                Surface(Modifier.heightIn(max = pickerVisibleHeight(parentView, parentIme))
                     .padding(horizontal = 12.dp, vertical = 6.dp).widthIn(max = 560.dp).fillMaxWidth()
-                    .heightIn(max = (LocalConfiguration.current.screenHeightDp - 48).coerceAtLeast(160).dp)
                     .testTag("extension-date-dialog-$id"), shape = MaterialTheme.shapes.extraLarge, color = PaletteTheme.surface) {
                     Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
