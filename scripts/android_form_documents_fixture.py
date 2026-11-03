@@ -44,6 +44,11 @@ class FormDocumentsFixture:
 
     def setup(self):
         require(not self.exists(), 'An earlier document fixture exists; inspect it before continuing')
+        # A standalone test APK may only have no_backup after clipboard setup.
+        # Create its ordinary files parent, then refuse a linked replacement.
+        self.raw('shell', 'run-as', self.package, 'mkdir', '-p', 'files')
+        self.raw('shell', 'run-as', self.package, 'test', '-d', 'files')
+        self.raw('shell', 'run-as', self.package, 'test', '!', '-L', 'files')
         self.raw('shell', 'run-as', self.package, 'mkdir', ROOT)
         self.claimed = True
         owner = {'schema_version': 1, 'fixture_kind': 'form-document-provider-v1', 'owner_nonce': self.owner}

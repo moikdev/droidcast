@@ -77,6 +77,16 @@ class FormDocumentOwnershipTest(unittest.TestCase):
         with self.assertRaises(ValueError): fixture.setup()
         self.assertEqual([], events)
 
+    def test_setup_validates_the_standard_parent_before_the_atomic_fixture_claim(self):
+        fixture, events = self.fixture()
+        fixture.verify = Mock()
+        fixture.setup()
+        parent = ('shell', 'run-as', self.package, 'test', '!', '-L', 'files')
+        claim = ('shell', 'run-as', self.package, 'mkdir', ROOT)
+        self.assertLess(events.index(parent), events.index(claim))
+        self.assertTrue(fixture.ready)
+        fixture.verify.assert_called_once()
+
 
 if __name__ == '__main__':
     unittest.main()
