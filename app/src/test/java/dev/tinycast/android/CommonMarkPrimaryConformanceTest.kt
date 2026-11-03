@@ -37,7 +37,8 @@ class CommonMarkPrimaryConformanceTest {
         println("Primary CommonMark0.31.2 HTML comparisons:652; no Android/display certification")
     }
     @Test fun nativeModelMatchesPrimaryTextStylesLinksAndBlocksOutsideLiteralHtmlAndGfm() {
-        val literalHtml = mutableListOf<Int>(); val extended = mutableListOf<Int>(); var matched = 0
+        val literalHtml = mutableListOf<Int>(); val extended = mutableListOf<Int>(); var compared = 0
+        val mismatches = mutableListOf<String>()
         examples.forEach { example ->
             val document = ExtensionMarkdown.parse(example.markdown); assertNull("Native limit at ${example.id}", document.problem)
             val pending = ArrayDeque<org.commonmark.node.Node>(); pending.addLast(parser.parse(example.markdown)); var html = false
@@ -54,13 +55,15 @@ class CommonMarkPrimaryConformanceTest {
                     setFeature("http://xml.org/sax/features/external-parameter-entities", false)
                 }
                 val root = factory.newDocumentBuilder().parse(InputSource(StringReader("<root>${example.html}</root>"))).documentElement
-                assertEquals("Native primary projection ${example.id}: ${example.section}", canonical(blocks(children(root))), canonical(document.blocks))
-                matched++
+                val expected = canonical(blocks(children(root))); val actual = canonical(document.blocks)
+                if (expected != actual) mismatches += "Example ${example.id}: ${example.section}\nExpected:$expected\nActual:$actual"
+                compared++
             }
         }
-        assertTrue("Primary native projection must cover the core grammar broadly", matched >= 500)
-        assertEquals(652, matched + literalHtml.size + extended.size)
-        println("Native primary semantic projections:$matched; literal-HTML cases=${literalHtml.joinToString(",")}; GFM-different cases=${extended.joinToString(",")}")
+        assertTrue("Primary native projection must cover the core grammar broadly", compared >= 500)
+        assertEquals(652, compared + literalHtml.size + extended.size)
+        println("Native primary semantic comparisons:$compared; mismatches=${mismatches.size}; literal-HTML cases=${literalHtml.joinToString(",")}; GFM-different cases=${extended.joinToString(",")}")
+        assertTrue(mismatches.joinToString("\n\n"), mismatches.isEmpty())
     }
     private fun children(node: HtmlNode) = (0 until node.childNodes.length).map { node.childNodes.item(it) }
     private fun blocks(nodes: List<HtmlNode>): List<MarkdownBlock> = buildList {

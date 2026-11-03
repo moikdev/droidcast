@@ -94,7 +94,9 @@ internal object ExtensionMarkdown {
         for (node in children(parent)) {
             check()
             when (node) {
-                is Text -> add(MarkdownInline.Words(node.literal, marks, link))
+                // Decoded character references stay ordinary paragraph text.
+                // Only an explicit CommonMark HardLineBreak creates a hard break.
+                is Text -> add(MarkdownInline.Words(node.literal.replace('\r', ' ').replace('\n', ' '), marks, link))
                 is Code -> add(MarkdownInline.Words(node.literal, marks.copy(code = true), link))
                 is SoftLineBreak -> add(MarkdownInline.Words(" ", marks, link))
                 is HardLineBreak -> add(MarkdownInline.Words("\n", marks, link))

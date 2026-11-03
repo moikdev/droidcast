@@ -22,6 +22,13 @@ class ExtensionMarkdownModelTest {
         assertEquals("*literal* & first second\nthird\nfourth", text(content))
         assertTrue(content.filterIsInstance<MarkdownInline.Words>().none { it.marks.italic })
     }
+    @Test fun numericLineFeedsStayTextWhileExplicitBreaksAndCodeKeepTheirLines() {
+        assertEquals("foo  bar", text(paragraph("foo&#10;&#10;bar\n")))
+        assertEquals("foo\nbar", text(paragraph("foo  \nbar\n")))
+        val emphasized = paragraph("**foo&#10;bar**").filterIsInstance<MarkdownInline.Words>().single()
+        assertEquals("foo bar", emphasized.value); assertTrue(emphasized.marks.bold)
+        assertEquals(MarkdownBlock.Code("foo\n\nbar\n", "text"), ExtensionMarkdown.parse("```text\nfoo\n\nbar\n```\n").blocks.single())
+    }
     @Test fun fencedAndIndentedCodeKeepSpacesTabsAndBlankLines() {
         val blocks = ExtensionMarkdown.parse("```kotlin\r\n  val x = \"日本\"\r\n\tline\r\n\r\n```\r\n\n    a\n      b\n").blocks
         assertEquals(MarkdownBlock.Code("  val x = \"日本\"\n\tline\n\n", "kotlin"), blocks[0])
