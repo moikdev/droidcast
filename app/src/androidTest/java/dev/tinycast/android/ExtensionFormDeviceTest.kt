@@ -166,6 +166,27 @@ class ExtensionFormDeviceTest {
                 const prefs=api.getPreferenceValues();
                 return React.createElement(api.Detail,{markdown:JSON.stringify({argument:props.arguments.input,account:prefs.account,enabled:prefs.enabled,layout:prefs.layout})});
               }
+              if(mode==='date-clear-focus'){
+                const [name,setName]=React.useState('Owned starting text'),[date,setDate]=React.useState(new Date('2024-02-29T12:34:00.000Z'));
+                const [revision,bump]=React.useReducer(value=>value+1,0);
+                const probe=globalThis.__formProbe;probe.submits??=0;probe.events??=[];
+                globalThis.__ownedTyped={bump};
+                const events=id=>{
+                  const base=fieldEvents(id);
+                  return {onFocus:e=>{base.onFocus(e);probe.events.push({id,event:'focus',value:e.target.value,facts:typedFacts(e.target.value)})},
+                    onBlur:e=>{base.onBlur(e);probe.events.push({id,event:'blur',value:e.target.value,facts:typedFacts(e.target.value)})}};
+                };
+                return React.createElement(api.Form,{actions:React.createElement(api.ActionPanel,null,
+                  React.createElement(api.Action.SubmitForm,{title:'Submit owned focus values',onSubmit:values=>{
+                    probe.submits++;probe.submittedValues=values;probe.typedSubmitted={date:typedFacts(values.date)};
+                    probe.events.push({id:'form',event:'submit'});
+                  }}))},
+                  React.createElement(api.Form.TextField,{key:'name',id:'name',title:'Owned focus-return text',value:name,
+                    onChange:value=>{setName(value);probe.changes++;bump()},...events('name')}),
+                  React.createElement(api.Form.DatePicker,{key:'date',id:'date',title:'Owned focus-return date',value:date,
+                    onChange:value=>{setDate(value);probe.changes++;probe.dateChangeFacts=typedFacts(value);bump()},...events('date')}),
+                  React.createElement(api.Form.Description,{key:'typed-publication',text:'Typed publication '+revision}));
+              }
               if(mode.startsWith('typed-')){
                 const initialDate=mode==='typed-date-dst-gap'?'2024-03-10T06:30:00.000Z':mode==='typed-date-dst-overlap'?'2024-11-03T06:30:12.345Z':
                   mode==='typed-date-full-day'?'2024-02-29T00:00:00.001Z':'2024-02-29T12:34:00.000Z';
@@ -1734,6 +1755,52 @@ class ExtensionFormDeviceTest {
             .put("test_boundary", "Owned Date/null and current tag/file array focus/blur; file array is empty, provider import is a separate workflow")
         capture("typed-current-focus-values"); record.put("passed", true)
     }
+    @Test fun clearingDateLetsTheSameTextFieldRefocusAndSubmit() {
+        launch("date-clear-focus")
+        touch("extension-field-name")
+        val value = "Owned same-editor return café é 日本 🌱"
+        val beforeText = typedPublication()
+        compose.onNodeWithTag("extension-field-name").performTextReplacement(value)
+        awaitTypedPublication(beforeText, "owned text entered before Clear date")
+        capture("text-before-date-clear")
+        val beforeClear = typedPublication()
+        touch("extension-date-clear-date")
+        awaitTypedPublication(beforeClear, "date cleared while a text editor was focused")
+        assertNull(typedDateIso())
+        val nativeFocusedAfterClear = compose.onNodeWithTag("extension-field-name").fetchSemanticsNode().config[SemanticsProperties.Focused]
+        record.put("native_editor_focused_after_date_clear", nativeFocusedAfterClear)
+            .put("probe_after_date_clear", probe())
+        capture("date-cleared-native-focus")
+        touch("extension-field-name")
+        compose.onNodeWithTag("extension-field-name").assertIsFocused().assertTextEquals(value)
+        record.put("probe_after_same_editor_return", probe())
+        capture("same-text-editor-returned")
+        touch("extension-primary")
+        evaluateOwned("globalThis.__ownedDateFocusBarrier=true;true")
+        compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+        val observed = probe()
+        val events = observed.getJSONArray("events")
+        val sequence = (0 until events.length()).map { events.getJSONObject(it).let { event ->
+            event.getString("id") + ":" + event.getString("event")
+        } }
+        record.put("focus_probe", observed).put("observed_focus_sequence", JSONArray(sequence))
+            .put("input_boundary", "Pointer text -> Clear date -> same text -> submit; owned Unicode text uses SetText semantics. No forced IME request.")
+        capture("date-clear-focus-submitted")
+        assertFalse("Clear date must release the previous native editor focus", nativeFocusedAfterClear)
+        assertEquals(listOf("name:focus", "name:blur", "date:focus", "date:blur", "name:focus", "name:blur", "form:submit"), sequence)
+        assertEquals(2, observed.getJSONObject("focus").getInt("name"))
+        assertEquals(2, observed.getJSONObject("blur").getInt("name"))
+        assertEquals(1, observed.getJSONObject("focus").getInt("date"))
+        assertEquals(1, observed.getJSONObject("blur").getInt("date"))
+        assertEquals(value, observed.getJSONObject("submittedValues").getString("name"))
+        assertTrue(observed.getJSONObject("submittedValues").has("date") && observed.getJSONObject("submittedValues").isNull("date"))
+        assertTrue(observed.getJSONObject("typedSubmitted").getJSONObject("date").getBoolean("is_null"))
+        assertTrue(observed.getJSONObject("dateChangeFacts").getBoolean("is_null"))
+        assertEquals(value, observed.getJSONObject("blurValues").getString("name"))
+        assertTrue(observed.getJSONObject("blurFacts").getJSONObject("date").getBoolean("is_null"))
+        record.put("passed", true)
+    }
+
     private fun typedDialogWindow(): android.view.Window {
         var result: android.view.Window? = null
         compose.activityRule.scenario.onActivity {
@@ -1832,6 +1899,88 @@ class ExtensionFormDeviceTest {
         capture("tags-controlled-rejection"); touch("extension-tags-done-tags"); submittedTypedTags(listOf("internal-two"))
         record.put("controlled_rejection_is_authoritative", true).put("passed", true)
     }
+    private fun dateDraftCannotOverwritePublishedValue(expected: String?) {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val nativeId = field("Form.DatePicker", "date").optString("id")
+        val expression = if (expected == null) "null" else "new Date(" + JSONObject.quote(expected) + ")"
+        mutateTyped("globalThis.__ownedTyped.setDate(" + expression + ")", "same-field authoritative date changed with an open draft")
+        assertEquals(nativeId, field("Form.DatePicker", "date").optString("id"))
+        assertEquals(expected, typedDateIso())
+        val dialogAfterPublication = compose.onAllNodesWithTag("extension-date-dialog-date").fetchSemanticsNodes().isNotEmpty()
+        val before = probe()
+        val publication = typedPublication()
+        record.put("authoritative_date", expected ?: JSONObject.NULL)
+            .put("same_native_field_id_preserved", true).put("dialog_present_after_authoritative_publication", dialogAfterPublication)
+            .put("probe_before_original_confirmation", before)
+        capture("authoritative-value-published")
+        compose.activityRule.scenario.onActivity { assertTrue(queued()) }
+        evaluateOwned("globalThis.__ownedDateConfirmationBarrier=true;true")
+        val observed = probe()
+        // Preserve the old-app failure's actual React publication before taking
+        // its frame. The repaired path must enqueue no callback/publication.
+        if (observed.getInt("changes") != before.getInt("changes")) {
+            awaitTypedPublication(publication, "unexpected stale date callback publication")
+        }
+        record.put("probe_after_original_confirmation", observed)
+            .put("date_after_original_confirmation", typedDateIso() ?: JSONObject.NULL)
+            .put("queued_callback_boundary", "Original native confirm invoked after same-field actual React/native/composed value publication; separate WebView execution barrier follows dispatch.")
+        capture("original-confirmation-result")
+        assertEquals("A stale draft must not call onChange", before.toString(), observed.toString())
+        assertEquals("A stale draft must not replace the authoritative value", expected, typedDateIso())
+        assertFalse("An authoritative value change must invalidate the open draft", dialogAfterPublication)
+        compose.onNodeWithTag("extension-date-dialog-date").assertDoesNotExist()
+        touch("extension-date-date")
+        compose.onNodeWithTag("extension-date-dialog-date").assertIsDisplayed()
+        if (expected != null) {
+            val next = increaseTypedDateMinute()
+            val beforeFresh = typedPublication()
+            touch("extension-date-confirm-date")
+            awaitTypedPublication(beforeFresh, "fresh draft confirms from the newer authoritative date")
+            submittedTypedDate(next)
+            record.put("fresh_confirmed_date", next)
+        } else {
+            touch("extension-date-cancel-date"); touch("extension-primary")
+            compose.waitUntil(5000) { probe().getInt("submits") == 1 }
+            val current = probe()
+            assertTrue(current.getJSONObject("submittedValues").has("date") && current.getJSONObject("submittedValues").isNull("date"))
+            assertTrue(current.getJSONObject("typedSubmitted").getJSONObject("date").getBoolean("is_null"))
+            assertEquals(0, current.getInt("changes"))
+        }
+        capture("fresh-current-value-operation"); record.put("passed", true)
+    }
+    @Test fun datePickerQueuedConfirmationCannotOverwriteANewerValue() =
+        dateDraftCannotOverwritePublishedValue("2025-09-17T05:18:00.000Z")
+    @Test fun datePickerQueuedConfirmationCannotOverwriteAResetValue() =
+        dateDraftCannotOverwritePublishedValue(null)
+
+    @Test fun datePickerConfirmationRechecksValueBeforeComposition() {
+        launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
+        val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val original = requireNotNull(catalog.runtimeTree)
+        val replacement = JSONObject(original.toString())
+        requireNotNull(activeRoot(replacement)).nodes("Form.DatePicker").single().props()
+            .put("value", JSONObject().put("\$date", "2025-09-17T05:18:00.000Z"))
+        val before = probe()
+        val publication = typedPublication()
+        compose.activityRule.scenario.onActivity {
+            try { catalog.runtimeTree = replacement; assertTrue(queued()) }
+            finally { catalog.runtimeTree = original }
+        }
+        evaluateOwned("globalThis.__ownedDateBeforeFrameBarrier=true;true")
+        val observed = probe()
+        if (observed.getInt("changes") != before.getInt("changes")) {
+            awaitTypedPublication(publication, "unexpected pre-frame stale date callback publication")
+        }
+        record.put("probe_before", before).put("probe_after", observed)
+            .put("controlled_native_transition", "Same field native value changed before captured confirm in one UI turn, then original tree restored before a Compose frame. JS authoritative value was not replaced by this fixture.")
+            .put("date_after_original_confirmation", typedDateIso() ?: JSONObject.NULL)
+        capture("native-value-model-restored")
+        assertEquals("Acceptance must recheck the value before composition can invalidate the dialog", before.toString(), observed.toString())
+        assertEquals("2024-02-29T12:34:00.000Z", typedDateIso())
+        record.put("passed", true)
+    }
+
     @Test fun datePickerQueuedConfirmationCannotEnterAReplacementField() {
         launch("typed-controls"); touch("extension-date-date"); increaseTypedDateMinute()
         val queued = requireNotNull(compose.onNodeWithTag("extension-date-confirm-date").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
