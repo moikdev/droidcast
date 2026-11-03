@@ -1451,8 +1451,26 @@ class ExtensionFormDeviceTest {
             .put("synchronization", "Bounded DocumentsUI idle observation; native hierarchy before screenshot; no Compose frame claim")
         File(evidence, "$name-frame.json").writeText(frame.toString(2))
     }
-    private fun awaitImportedFiles(expected: Int): List<String> {
-        compose.waitUntil(15000) { typedFileValues().size == expected }
+    private fun awaitImportedFiles(expected: Int, diagnosticDocument: String? = null): List<String> {
+        compose.waitUntil(15000) { typedFileValues().size == expected ||
+            compose.onAllNodesWithTag("extension-field-error-files-import-files").fetchSemanticsNodes().isNotEmpty() }
+        if (typedFileValues().size != expected) {
+            if (diagnosticDocument != null) {
+                // Failure-only diagnostic, after a real picker grant. It never
+                // supplies a result to the UI or earns workflow pass credit.
+                val uri = "content://dev.tinycast.android.test.formdocuments/document/$diagnosticDocument"
+                val request = FormDocumentImportRequest(FormFileStorage(context.filesDir, requireNotNull(ownedId)), listOf(uri), true, false) {
+                    AndroidFormDocuments(context.contentResolver, it)
+                }
+                try { runBlocking { withTimeout(5000) { request.prepare() } } }
+                catch (failure: Exception) {
+                    record.put("post_failure_diagnostic", "Independent bounded import of the actually selected owned document")
+                        .put("diagnostic_failure_type", failure.javaClass.simpleName)
+                    throw AssertionError("Owned selected-document diagnostic failed", failure)
+                } finally { request.cancel() }
+            }
+            fail("The real picker selection was rejected by the native import")
+        }
         compose.waitForIdle()
         val paths = typedFileValues()
         val root = File(context.filesDir, "extension-data/${requireNotNull(ownedId)}").canonicalFile
@@ -1498,7 +1516,7 @@ class ExtensionFormDeviceTest {
         launch("typed-file-single-workflow")
         val device = openOwnedDocuments()
         requireNotNull(device.findObject(By.text("café 日本.txt"))).click()
-        val paths = awaitImportedFiles(1)
+        val paths = awaitImportedFiles(1, "text")
         assertEquals("café 日本.txt", File(paths.single()).name)
         assertArrayEquals("Owned file café 日本 🌱\n".toByteArray(), File(paths.single()).readBytes())
         capture("file-imported-unicode")
