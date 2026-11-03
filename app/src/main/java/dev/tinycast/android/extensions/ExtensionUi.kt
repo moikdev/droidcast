@@ -496,7 +496,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     LaunchedEffect(root?.optString("id"), item?.props()?.optString("id"), root?.handle("onSelectionChange"), failed) {
         if (!failed) notifyCurrentSelection()
     }
-    ExtensionWindow(command.title,extension.listing.title,close,Modifier.onPreviewKeyEvent{
+    ExtensionWindow((root?.props()?.opt("navigationTitle") as? String)?.takeIf { it.isNotBlank() } ?: command.title,extension.listing.title,close,Modifier.onPreviewKeyEvent{
         if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || it.type!=KeyEventType.KeyDown)false else {
         val eventRows=if(it.key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
         when{
@@ -543,10 +543,13 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                         val subtitle=row.props().optString("subtitle");if(subtitle.isNotBlank())Text(subtitle,color=muted,fontSize=11.sp,lineHeight=17.sp)
                         row.props().optJSONArray("accessories").objects().forEach{Text(it.optString("text"),color=muted,fontSize=10.sp)}
                     }}
-                    item?.props()?.optJSONObject("detail")?.let{detail->item{Text(detail.props().optString("markdown"),color=muted,fontSize=12.sp)}}
+                    if (root.props().opt("isShowingDetail") == true) item?.props()?.optJSONObject("detail")?.let{detail->item{Text(detail.props().optString("markdown"),color=muted,fontSize=12.sp)}}
                 }
             }
-            "Detail"->SelectionContainerCompat(root.props().optString("markdown"),Modifier.weight(1f).fillMaxWidth().padding(20.dp),detailStates.getOrPut(root.optString("id")){ScrollState(0)})
+            "Detail"->NativeExtensionDetail(root,
+                { liveRoot()?.takeIf { it.optString("type") == "Detail" && it.optString("id") == root.optString("id") } },
+                { handle, args -> runtime.dispatch(handle, args) }, { catalog.runtimeStatus = it },
+                detailStates.getOrPut(root.optString("id")) { ScrollState(0) }, Modifier.weight(1f).fillMaxWidth())
             "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },
                 { handle, args -> runtime.dispatch(handle, args) },
                 { handle, id, focused, value -> runtime.dispatchFormFocus(handle, id, focused, value) }, formSubmission,
@@ -587,14 +590,3 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
 }
 
-@Composable
-private fun SelectionContainerCompat(text:String,modifier:Modifier,scroll:ScrollState){
-    // In pinned Compose 1.7.6, Android's selection context-menu wrapper sits
-    // above the supplied modifier. Keep Column's weight on our outer layout
-    // so long selectable text cannot consume the footer's allocation.
-    Box(modifier.testTag("extension-detail")) {
-        androidx.compose.foundation.text.selection.SelectionContainer(Modifier.fillMaxSize().verticalScroll(scroll)) {
-            Text(text,fontSize=14.sp,lineHeight=23.sp)
-        }
-    }
-}
