@@ -51,9 +51,11 @@ private fun dateLabel(value: FormDateValue, kind: FormDateKind?, zone: ZoneId): 
     FormDateValue.Empty -> if (kind == FormDateKind.DATE) "Choose date" else "Choose date and time"
     FormDateValue.Invalid -> "Choose another date"
     is FormDateValue.Selected -> runCatching {
-        val formatter = if (kind == FormDateKind.DATE) DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        val fullDay = formDateIsFullDay(value.instant)
+        val formatter = if (kind == FormDateKind.DATE || fullDay) DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
         else DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-        formatter.withLocale(Locale.getDefault()).format(value.instant.atZone(zone))
+        val text = formatter.withLocale(Locale.getDefault()).format(value.instant.atZone(zone))
+        if (kind == FormDateKind.DATE_TIME && fullDay) "$text · All day" else text
     }.getOrDefault("Choose another date")
 }
 
@@ -101,19 +103,23 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
             val state = rememberDatePickerState(initialSelectedDateMillis = initialValue?.toLocalDate()?.takeIf { it.year in 1..9999 }?.let(::formPickerMillis),
                 yearRange = 1..9999, selectableDates = selectable)
             val time = initialValue?.toLocalTime() ?: LocalTime.now(zone).withNano(0)
+            val initiallyFullDay = initialValue?.toInstant()?.let(::formDateIsFullDay) == true
+            var allDay by remember { mutableStateOf(initial.kind == FormDateKind.DATE || initiallyFullDay) }
             var hour by remember { mutableStateOf(time.hour.toString().padStart(2, '0')) }
             var minute by remember { mutableStateOf(time.minute.toString().padStart(2, '0')) }
             var second by remember { mutableStateOf(time.second.toString().padStart(2, '0')) }
             var message by remember { mutableStateOf<String?>(null) }
             fun selected(): Instant? {
                 val day = state.selectedDateMillis?.let(::formPickerDay) ?: return null
-                val clock = if (initial.kind == FormDateKind.DATE) LocalTime.MIDNIGHT else {
+                val clock = if (allDay) LocalTime.MIDNIGHT else {
                     val h = hour.toIntOrNull()?.takeIf { it in 0..23 } ?: return null
                     val m = minute.toIntOrNull()?.takeIf { it in 0..59 } ?: return null
                     val s = second.toIntOrNull()?.takeIf { it in 0..59 } ?: return null
-                    LocalTime.of(h, m, s, time.nano)
+                    // A specific time must not keep the reserved all-day
+                    // marker. Ordinary fractional seconds remain unchanged.
+                    LocalTime.of(h, m, s, if (initiallyFullDay) 0 else time.nano)
                 }
-                return formDateFromLocal(day, clock, requireNotNull(initial.kind), zone, initialValue?.offset)
+                return formDateFromLocal(day, clock, if (allDay) FormDateKind.DATE else FormDateKind.DATE_TIME, zone, initialValue?.offset)
             }
             Dialog(onDismissRequest = { if (opening === token) opening = null }, properties = DialogProperties(usePlatformDefaultWidth = false)) {
                 FormPickerBackdrop()
@@ -125,6 +131,10 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
                         Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             DatePicker(state, title = null, headline = null, modifier = Modifier.fillMaxWidth().testTag("extension-date-calendar-$id"))
                             if (initial.kind == FormDateKind.DATE_TIME) {
+                                ExtensionCheckboxRow("All day", allDay, { allDay = it; message = null },
+                                    Modifier.testTag("extension-date-all-day-$id"))
+                            }
+                            if (initial.kind == FormDateKind.DATE_TIME && !allDay) {
                                 Text("Time (${zone.id})", color = PaletteTheme.secondary, fontSize = 13.sp, lineHeight = 20.sp)
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     DateTimeNumber("Hour", hour, 24, { hour = it }, Modifier.weight(1f), "$id-hour")

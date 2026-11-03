@@ -26,6 +26,9 @@ internal fun formDateValue(iso: String?): FormDateValue = if (iso == null) FormD
     FormDateValue.Selected(Instant.parse(iso))
 } catch (_: DateTimeException) { FormDateValue.Invalid }
 
+/** Raycast reserves millisecond component one for a Date without a time. */
+internal fun formDateIsFullDay(value: Instant): Boolean = value.nano / 1_000_000 == 1
+
 /** Calendar bounds compare local days; time bounds compare exact instants. */
 internal fun formDateWithinBounds(value: Instant, kind: FormDateKind, minimum: Instant?, maximum: Instant?, zone: ZoneId): Boolean = try {
     if (kind == FormDateKind.DATE) {
