@@ -751,7 +751,7 @@ class ExtensionFormDeviceTest {
     private fun ownedPublication(): OwnedPublication? {
         val root = activeRoot(catalog.runtimeTree)?.takeIf { it.optString("type") == "Form" } ?: return null
         val counters = root.nodes("Form.Description").mapNotNull {
-            Regex("Owned render (\d+)").matchEntire(it.props().optString("text"))?.groupValues?.get(1)?.toIntOrNull()
+            Regex("Owned render ([0-9]+)").matchEntire(it.props().optString("text"))?.groupValues?.get(1)?.toIntOrNull()
         }
         return counters.singleOrNull()?.let { OwnedPublication(root.optString("id"), it) }
     }
