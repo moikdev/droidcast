@@ -109,11 +109,12 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
     val context = LocalContext.current
     val runtime = remember { ExtensionRuntime(context, store.extensions, extension, command) }
     val images = remember { ExtensionGridImages(extension.directory) }
+    val detailImages = remember { ExtensionDetailImages(extension.directory) }
     val grids = remember { mutableMapOf<String, ExtensionGridState>() }
     val lists = remember { mutableMapOf<String, ExtensionListState>() }
     val details = remember { mutableMapOf<String, ScrollState>() }
     var started by remember { mutableStateOf(false) }
-    DisposableEffect(runtime) { onDispose { runtime.close(); images.close() } }
+    DisposableEffect(runtime) { onDispose { runtime.close(); images.close(); detailImages.close() } }
     LaunchedEffect(store.dialog) {
         if(store.dialog == "extension-run" && !started) { started = true; runtime.start() }
     }
@@ -125,7 +126,7 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
             else close()
         }
     }
-    else CommandRunner(store, extension, command, runtime, images, grids, lists, details, close)
+    else CommandRunner(store, extension, command, runtime, images, detailImages, grids, lists, details, close)
 }
 
 @Composable
@@ -418,7 +419,7 @@ internal fun activeRoot(tree:JSONObject?):JSONObject? {
 
 @Composable
 private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,command:ExtensionCommand,
-                          runtime:ExtensionRuntime,gridImages:ExtensionGridImages,gridStates:MutableMap<String,ExtensionGridState>,
+                          runtime:ExtensionRuntime,gridImages:ExtensionGridImages,detailImages:ExtensionDetailImages,gridStates:MutableMap<String,ExtensionGridState>,
                           listStates:MutableMap<String,ExtensionListState>,detailStates:MutableMap<String,ScrollState>,close:()->Unit){
     if(command.mode !in listOf("view","no-view")){
         ExtensionWindow(command.title,extension.listing.title,close){Text("This command needs a desktop menu bar. It can be installed, but cannot run on Android.",color=muted,fontSize=15.sp,modifier=Modifier.padding(24.dp))}
@@ -545,7 +546,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 NativeExtensionGrid(state, { liveRoot()?.takeIf { it.optString("type")=="Grid" } }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, { handle,args -> if(liveRoot()?.optString("type")=="Grid")runtime.dispatch(handle,args) }, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
             }
             "List"->{
-                NativeExtensionList(root, rows, listState, runtime, ::liveRoot, ::liveRows,
+                NativeExtensionList(root, rows, listState, runtime, detailImages, ::liveRoot, ::liveRows,
                     select = { expected ->
                         val current = liveRows().indexOfFirst { it.optString("id") == expected.optString("id") &&
                             it.props().opt("title") == expected.props().opt("title") }
@@ -564,7 +565,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
             }
             "Detail"->NativeExtensionDetail(root,
                 { liveRoot()?.takeIf { it.optString("type") == "Detail" && it.optString("id") == root.optString("id") } },
-                runtime,
+                runtime, detailImages,
                 { handle, args -> runtime.dispatch(handle, args) }, { catalog.runtimeStatus = it },
                 detailStates.getOrPut(root.optString("id")) { ScrollState(0) }, Modifier.weight(1f).fillMaxWidth())
             "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },

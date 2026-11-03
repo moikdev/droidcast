@@ -26,7 +26,7 @@ import org.json.JSONObject
 
 /** Detail mode uses two useful panes or an explicit, reversible touch destination. */
 @Composable
-internal fun NativeExtensionList(root: JSONObject, rows: List<JSONObject>, state: ExtensionListState, ownerKey: Any,
+internal fun NativeExtensionList(root: JSONObject, rows: List<JSONObject>, state: ExtensionListState, ownerKey: Any, images: ExtensionDetailImages,
     liveRoot: () -> JSONObject?, liveRows: () -> List<JSONObject>, select: (JSONObject) -> Boolean,
     dispatch: (String, JSONArray) -> Unit, status: (String) -> Unit,
     empty: @Composable (Modifier) -> Unit, searchHeader: @Composable () -> Unit, modifier: Modifier = Modifier) {
@@ -55,7 +55,7 @@ internal fun NativeExtensionList(root: JSONObject, rows: List<JSONObject>, state
                 Text("No detail content", color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp,
                     modifier = Modifier.testTag("extension-detail-empty"))
             } else key(selected?.optString("id")) {
-                NativeExtensionDetail(source, currentDetail, ownerKey, dispatch, status,
+                NativeExtensionDetail(source, currentDetail, ownerKey, images, dispatch, status,
                     state.details.getOrPut(selected?.optString("id").orEmpty()) { ScrollState(0) }, detailModifier)
             }
         }
