@@ -103,6 +103,7 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
         trace?.sample = {
             val bounds = coordinates?.takeIf { it.isAttached }?.boundsInWindow()
             "visible=$visible;started=$started;request=${request != null};source_matches=${observed.source == source};" +
+                "observed_ready=${observed.bitmap != null};composed_ready=${result.bitmap != null};" +
                 "attached=${coordinates?.isAttached == true};window_bounds=$bounds;lifecycle=${lifecycle.currentState}"
         }
     }
