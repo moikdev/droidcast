@@ -729,4 +729,24 @@ class ExtensionDetailDeviceTest {
         record.put("long_press_opens_information", true).put("old_close_cannot_dismiss_successor", true)
             .put("linked_inline_image_pointer_activation_preserved", true).put("passed", true)
     }
+    @Test fun focusedMetadataReceivesEnterWithoutActivatingThePrimaryAction() {
+        launch("detail"); val tag = show("Owned tag standalone")
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        var tabs = 0
+        while (tag.fetchSemanticsNode().config.getOrNull(SemanticsProperties.Focused) != true && tabs < 30) {
+            instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_TAB); compose.waitForIdle(); tabs++
+        }
+        assertTrue("The metadata tag must own actual keyboard focus", tag.fetchSemanticsNode().config.getOrNull(SemanticsProperties.Focused) == true)
+        record.put("keyboard_tab_count", tabs).put("contract_assertions_started", true)
+        capture("metadata-keyboard-focus")
+        val before = probe(); assertEquals("Owned Markdown clipboard sentinel", clipboard())
+        instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER); compose.waitForIdle()
+        val after = probe()
+        val message = "Focused metadata must handle Enter without activating the primary action"
+        assertEquals(message, before.getInt("tagCalls") + 1, after.getInt("tagCalls"))
+        assertEquals(message, "Owned Markdown clipboard sentinel", clipboard())
+        witness("metadata-keyboard-enter", before.getInt("revision") + 1)
+        show("Owned tag count 1"); capture("metadata-keyboard-activation")
+        record.put("actual_tab_focus_and_enter", true).put("primary_copy_not_invoked", true).put("passed", true)
+    }
 }
