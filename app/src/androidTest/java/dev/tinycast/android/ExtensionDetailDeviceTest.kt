@@ -824,7 +824,7 @@ class ExtensionDetailDeviceTest {
         try {
             // Paint the actual resolved paragraph without ancestor clipping. This
             // is a reference alpha mask, not an implementation screenshot.
-            compose.runOnUiThread { layout.multiParagraph.paint(androidx.compose.ui.graphics.Canvas(reference),
+            compose.runOnUiThread { layout.multiParagraph.paint(androidx.compose.ui.graphics.Canvas(android.graphics.Canvas(reference)),
                 color = androidx.compose.ui.graphics.Color.White, decoration = layout.layoutInput.style.textDecoration) }
             val start = layout.getLineStart(line); val end = layout.getLineEnd(line, visibleEnd = true)
             val offsets = listOf(start, end - 1).filter { it in start until end && !layout.layoutInput.text[it].isWhitespace() }.distinct()
