@@ -1840,7 +1840,7 @@ class ExtensionFormDeviceTest {
         assertNotSame(previousActivity, compose.activity)
         assertNotSame(previousEngine, engine())
         compose.waitForIdle()
-        record.put("recreation_boundary", "Same-process ActivityScenario recreation; fresh Activity and actual runtime WebView, not process-death restoration")
+        record.put("recreation_boundary", "Same-process Activity recreation; fresh Activity and actual runtime WebView, not process-death restoration")
             .put("recreated_activity_and_webview_verified", true)
     }
 
@@ -2314,7 +2314,22 @@ class ExtensionFormDeviceTest {
         launch("typed-file-single-workflow")
         val previousActivity = compose.activity; val previousEngine = engine()
         val device = openOwnedDocuments()
-        compose.activityRule.scenario.recreate()
+        // ActivityScenario.recreate() first forces RESUMED, which cannot be
+        // reached while the real DocumentsUI owns the foreground. Request the
+        // normal platform recreation at the Activity's actual stopped state.
+        compose.activityRule.scenario.onActivity { it.recreate() }
+        compose.waitUntil(15000) {
+            var replaced = false
+            InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                val monitor = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                replaced = previousActivity.isDestroyed && listOf(
+                    androidx.test.runner.lifecycle.Stage.CREATED, androidx.test.runner.lifecycle.Stage.STARTED,
+                    androidx.test.runner.lifecycle.Stage.RESUMED, androidx.test.runner.lifecycle.Stage.STOPPED
+                ).any { stage -> monitor.getActivitiesInStage(stage).any { it is MainActivity && it !== previousActivity && !it.isDestroyed } }
+            }
+            replaced
+        }
+        record.put("file_recreation_request", "Platform Activity.recreate while stopped behind real DocumentsUI; old destruction and replacement creation witnessed before document selection")
         clickDocumentText(device, "café 日本.txt")
         awaitRecreatedTypedRuntime(previousActivity, previousEngine)
         mutateTyped("void 0", "old real document result after activity recreation")
