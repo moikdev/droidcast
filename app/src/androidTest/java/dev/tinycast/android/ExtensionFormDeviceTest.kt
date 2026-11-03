@@ -1913,6 +1913,11 @@ class ExtensionFormDeviceTest {
         compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected[selected])) }
         dismissClipboardForEvidence(); capture("checksum-real-hash-destination")
         val sha256Row = rows.indexOfFirst { it.props().optString("title") == "SHA256" }; assertTrue(sha256Row >= 0)
+        val resultsList = compose.onNodeWithTag("extension-list")
+        for (attempt in 0 until 40) {
+            if (compose.onAllNodesWithTag("extension-row-$sha256Row").fetchSemanticsNodes().isNotEmpty()) break
+            drag(resultsList, -1)
+        }
         touch("extension-row-$sha256Row"); touch("extension-primary")
         compose.waitUntil(5000) { clipboardEquals(requireNotNull(expected["sha256"])) }
         dismissClipboardForEvidence(); capture("checksum-sha256-copied")
