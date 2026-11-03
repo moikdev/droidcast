@@ -180,6 +180,7 @@ internal fun NativeFormFilePicker(root: JSONObject, field: JSONObject, owner: Fo
     val token = opening
     if (token != null) Dialog(onDismissRequest = { if (opening === token) { stop(); opening = null } },
         properties = DialogProperties(usePlatformDefaultWidth = false)) {
+        FormPickerBackdrop()
         Surface(Modifier.padding(12.dp).widthIn(max = 560.dp).fillMaxWidth()
             .heightIn(max = (LocalConfiguration.current.screenHeightDp - 48).coerceAtLeast(160).dp)
             .testTag("extension-files-dialog-$id"), shape = MaterialTheme.shapes.extraLarge, color = PaletteTheme.surface) {

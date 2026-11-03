@@ -116,6 +116,7 @@ internal fun NativeFormDatePicker(field: JSONObject, owner: FormFieldOwner?, liv
                 return formDateFromLocal(day, clock, requireNotNull(initial.kind), zone, initialValue?.offset)
             }
             Dialog(onDismissRequest = { if (opening === token) opening = null }, properties = DialogProperties(usePlatformDefaultWidth = false)) {
+                FormPickerBackdrop()
                 Surface(Modifier.padding(12.dp).widthIn(max = 560.dp).fillMaxWidth()
                     .heightIn(max = (LocalConfiguration.current.screenHeightDp - 48).coerceAtLeast(160).dp)
                     .testTag("extension-date-dialog-$id"), shape = MaterialTheme.shapes.extraLarge, color = PaletteTheme.surface) {
