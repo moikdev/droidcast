@@ -1835,13 +1835,35 @@ class ExtensionFormDeviceTest {
     }
     private fun awaitRecreatedTypedRuntime(previousActivity: MainActivity, previousEngine: WebView) {
         compose.waitForIdle()
-        compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
-        assertNull(catalog.runtimeError)
         assertNotSame(previousActivity, compose.activity)
-        assertNotSame(previousEngine, engine())
+        val recreatedEngine = engine(); assertNotSame(previousEngine, recreatedEngine)
+        val token = "owned-recreated-" + UUID.randomUUID().toString()
+        val acknowledged = AtomicBoolean(false)
+        val script = """(()=>{
+            const owned=globalThis.__ownedTyped;
+            if(!owned||typeof owned.bump!=='function')return false;
+            if(globalThis.__ownedRecreationWitness===undefined){
+              globalThis.__ownedRecreationWitness=${JSONObject.quote(token)};owned.bump();
+            }
+            return globalThis.__ownedRecreationWitness===${JSONObject.quote(token)};
+        })()""".trimIndent()
+        compose.waitUntil(25000) {
+            if (!acknowledged.get()) compose.activityRule.scenario.onActivity {
+                recreatedEngine.evaluateJavascript(script) { if (it == "true") acknowledged.set(true) }
+            }
+            catalog.runtimeError != null || acknowledged.get() && runCatching { typedPublication().second == 1 }.getOrDefault(false)
+        }
+        assertNull(catalog.runtimeError); assertTrue(acknowledged.get())
         compose.waitForIdle()
+        val marker = "Typed publication 1"
+        val composed = compose.onNodeWithText(marker, useUnmergedTree = true).fetchSemanticsNode()
+        assertEquals(marker, composed.config[SemanticsProperties.Text].joinToString("") { it.text })
+        assertEquals(1, typedPublication().second)
         record.put("recreation_boundary", "Same-process Activity recreation; fresh Activity and actual runtime WebView, not process-death restoration")
             .put("recreated_activity_and_webview_verified", true)
+            .put("recreation_readiness", JSONObject().put("new_page_token", token).put("new_webview_acknowledged", true)
+                .put("native_root_id", typedPublication().first).put("native_counter", 1)
+                .put("composed_marker", marker).put("composed_semantics_id", composed.id))
     }
 
     @Test fun datePickerQueuedConfirmationCannotSurviveActivityRecreation() {
