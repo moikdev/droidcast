@@ -174,6 +174,9 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             val calculatorKey = if (event.action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) calculatorKeys.handle(event.asShortcutInput(), CalculatorAccelerators.bindings,
                 configured.consumed || store.dialog != null || store.paletteMenuOpen || store.backupBusy || ShortcutRuntime.recordingOwner != null || currentSelected?.kind != Kind.CALC)
                 else ShortcutEngine.Result(false)
+            // An unmatched repeat (for example after focus loss) still belongs
+            // to this accelerator. It must not fall through to plain Enter.
+            val calculatorEnter = currentSelected?.kind == Kind.CALC && store.dialog == null && event.asChord() in CalculatorAccelerators.bindings
             val ctrl = (event.isCtrlPressed xor event.isMetaPressed) && !event.isShiftPressed && !event.isAltPressed
             val preferencesKey = event.keyCode == KeyEvent.KEYCODE_COMMA && (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && store.dialog == null
             if (event.action == KeyEvent.ACTION_DOWN && preferencesKey) {
@@ -181,7 +184,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 run(if (event.isShiftPressed && target != null) Command("configure-command", "Configure command", "", payload = target.id) else Command("app-settings", "Settings", "")); true
             }
             else if (configured.consumed) true
-            else if (calculatorKey.consumed) {
+            else if (calculatorKey.consumed || (calculatorEnter && event.action == KeyEvent.ACTION_DOWN)) {
                 calculatorKey.target?.let { action ->
                     CalculatorActionSnapshot.capture(store.calculatorSelection(currentSelected))?.let {
                         performCalculatorAction(it, CalculatorAction.valueOf(action), explicit=false)

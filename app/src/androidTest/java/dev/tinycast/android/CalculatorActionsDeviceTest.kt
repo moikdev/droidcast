@@ -49,6 +49,9 @@ class CalculatorActionsDeviceTest {
     private lateinit var record: JSONObject
     private val pointers = JSONArray()
     private val textWitnesses = JSONArray()
+    private val scrollSteps = JSONArray()
+    private val nativeKeys = JSONArray()
+    private var windowCallback: android.view.Window.Callback? = null
 
     @get:Rule val rules: TestRule = RuleChain.outerRule(TestRule { base, description ->
         object : Statement() {
@@ -60,7 +63,7 @@ class CalculatorActionsDeviceTest {
                 record = JSONObject().put("case", description.methodName).put("passed", false)
                     .put("input_setup", "Compose editor test actions; pointer and native input-connection steps are recorded separately")
                 try { base.evaluate() } finally {
-                    record.put("pointers", pointers).put("text_line_witnesses", textWitnesses)
+                    record.put("pointers", pointers).put("text_line_witnesses", textWitnesses).put("scroll_steps",scrollSteps).put("native_keys",nativeKeys)
                     File(evidence, "calc-$method-case.json").writeText(record.toString(2))
                 }
             }
@@ -73,6 +76,17 @@ class CalculatorActionsDeviceTest {
         prepared = true
         compose.waitUntil(10000) { !store.loading && !store.folderSearch.loading }
         compose.runOnUiThread {
+            val previous=compose.activity.window.callback
+            windowCallback=previous
+            compose.activity.window.callback=object : android.view.Window.Callback by previous {
+                override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+                    val result=previous.dispatchKeyEvent(event)
+                    if(event.keyCode in listOf(KeyEvent.KEYCODE_ENTER,KeyEvent.KEYCODE_NUMPAD_ENTER) && nativeKeys.length()<64)
+                        nativeKeys.put(JSONObject().put("key_code",event.keyCode).put("action",event.action).put("meta",event.metaState)
+                            .put("repeat",event.repeatCount).put("consumed",result).put("window_focused",compose.activity.window.decorView.hasWindowFocus()))
+                    return result
+                }
+            }
             store.reset(); store.resetShortcuts()
             clipboard().setPrimaryClip(ClipData.newPlainText("Owned calculator fixture", sentinel))
         }
@@ -84,7 +98,7 @@ class CalculatorActionsDeviceTest {
             if (!record.getBoolean("passed")) capture("failure")
         } finally {
             restorePalettePreferences(context, original)
-            compose.runOnUiThread { clipboard().resetClipboardForTest() }
+            compose.runOnUiThread { clipboard().resetClipboardForTest(); windowCallback?.let { compose.activity.window.callback=it } }
             record.put("native_preferences_restored", context.getSharedPreferences("palette", Context.MODE_PRIVATE).all == original)
         }
     }
@@ -118,14 +132,44 @@ class CalculatorActionsDeviceTest {
     }
     private fun rootIme(visible: Boolean) {
         compose.onNodeWithTag("search").performClick()
-        if (visible && compose.onAllNodesWithContentDescription("Show on-screen keyboard").fetchSemanticsNodes().isNotEmpty()) {
+        device.waitForIdle(2000)
+        compose.waitUntil(10000) { compose.runOnUiThread {
+            val view=compose.activity.window.decorView.findFocus()
+            val manager=compose.activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+            view != null && view.hasWindowFocus() && view.onCheckIsTextEditor() && manager.isActive(view) && manager.isAcceptingText
+        } }
+        if (compose.onAllNodesWithContentDescription("Show on-screen keyboard").fetchSemanticsNodes().isNotEmpty()) {
             compose.onNodeWithContentDescription("Show on-screen keyboard").performClick()
         } else compose.runOnUiThread {
             val controller = ViewCompat.getWindowInsetsController(compose.activity.window.decorView)
-            if (visible) controller?.show(WindowInsetsCompat.Type.ime()) else controller?.hide(WindowInsetsCompat.Type.ime())
+            if(!imeVisible()) controller?.show(WindowInsetsCompat.Type.ime())
         }
-        compose.waitUntil(10000) { imeVisible() == visible }
+        awaitIme(true)
+        if(!visible) {
+            compose.runOnUiThread { ViewCompat.getWindowInsetsController(compose.activity.window.decorView)?.hide(WindowInsetsCompat.Type.ime()) }
+            awaitIme(false)
+        }
         compose.waitForIdle()
+    }
+    private fun awaitIme(visible: Boolean) {
+        val latch=java.util.concurrent.CountDownLatch(1);val view=compose.activity.window.decorView
+        var last=emptyList<Int>();var since=0L;var settled=false;val deadline=SystemClock.uptimeMillis()+10000
+        val observer=object : Runnable {
+            override fun run() {
+                val insets=ViewCompat.getRootWindowInsets(view);val now=SystemClock.uptimeMillis()
+                val geometry=listOf(if(insets?.isVisible(WindowInsetsCompat.Type.ime())==true) 1 else 0,
+                    insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: -1,view.width,view.height)
+                if(geometry!=last){last=geometry;since=now}
+                settled=(geometry[0]==if(visible) 1 else 0) && now-since>=100
+                if(settled || now>=deadline)latch.countDown() else view.postOnAnimation(this)
+            }
+        }
+        compose.runOnUiThread { view.postOnAnimation(observer) }
+        val completed=latch.await(11,java.util.concurrent.TimeUnit.SECONDS)
+        compose.runOnUiThread { view.removeCallbacks(observer) }
+        record.append("ime_starting_states",JSONObject().put("requested_visible",visible).put("settled",completed&&settled)
+            .put("geometry",JSONArray(last)).put("stable_ms",100))
+        assertTrue("Observed stable IME geometry before starting fixture",completed&&settled)
     }
     private fun rect(tag: String): Rect = compose.onNodeWithTag(tag).fetchSemanticsNode().boundsInWindow
     private fun fullLines(tag: String) {
@@ -149,6 +193,7 @@ class CalculatorActionsDeviceTest {
     private fun pointer(tag: String, scroll: String? = null) {
         val minimum = 48 * context.resources.displayMetrics.density
         var target: androidx.compose.ui.semantics.SemanticsNode? = null
+        var direction=1;var seen=false
         for (attempt in 0..18) {
             val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()
             if (node != null && node.layoutInfo.isPlaced && node.size.width+1 >= minimum && node.size.height+1 >= minimum &&
@@ -158,13 +203,24 @@ class CalculatorActionsDeviceTest {
             if (scroll == null || attempt == 18) break
             val viewport = compose.onNodeWithTag(scroll).fetchSemanticsNode().boundsInRoot
             assertTrue("Placed pointer-scroll viewport", viewport.height > 0)
-            val reverse = node != null && node.boundsInRoot.top < viewport.top+1 && node.boundsInRoot.bottom < viewport.bottom-1
-            val delta = minOf(60*context.resources.displayMetrics.density, viewport.height*.35f) * if(reverse) -1 else 1
+            val clipped=node?.takeIf { it.layoutInfo.isPlaced }?.boundsInRoot?.takeIf { it.height>0 }
+            if(clipped!=null) { direction=if(clipped.top<=viewport.top+1 && clipped.bottom<viewport.bottom-1) -1 else 1;seen=true }
+            else if(seen) direction=-direction
+            val distance=minOf(viewport.height*.3f,if(clipped!=null)
+                (requireNotNull(node).size.height-clipped.height+8*context.resources.displayMetrics.density).coerceAtLeast(20f)
+                else 60*context.resources.displayMetrics.density)
+            val delta=distance*direction
+            val axis=compose.onNodeWithTag(scroll).fetchSemanticsNode().config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)
+            val step=JSONObject().put("target",tag).put("attempt",attempt).put("viewport",viewport.toString())
+                .put("target_size",node?.size.toString()).put("target_visible",node?.boundsInRoot.toString()).put("distance",delta)
+                .put("axis_before",axis?.value?.invoke()).put("max_before",axis?.maxValue?.invoke())
             val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(scroll)), useUnmergedTree=true)
             val root = owner.fetchSemanticsNode().boundsInRoot
             owner.performTouchInput { swipe(viewport.center + Offset(0f,delta/2)-root.topLeft,
                 viewport.center - Offset(0f,delta/2)-root.topLeft, durationMillis=500) }
             compose.waitForIdle()
+            step.put("axis_after",compose.onNodeWithTag(scroll).fetchSemanticsNode().config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)?.value?.invoke())
+            scrollSteps.put(step)
         }
         val node = requireNotNull(target) { "Complete 48dp pointer target required: $tag" }
         val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree=true)
@@ -188,7 +244,7 @@ class CalculatorActionsDeviceTest {
         File(evidence,"$name-frame.json").writeText(JSONObject().put("phase",phase).put("query",store.query)
             .put("route",store.dialog).put("category",store.category).put("selected",store.selected)
             .put("build_commit",BuildConfig.BUILD_COMMIT).put("font_scale",context.resources.configuration.fontScale)
-            .put("ime_visible",imeVisible()).put("pointers",pointers).put("text_line_witnesses",textWitnesses)
+            .put("ime_visible",imeVisible()).put("pointers",pointers).put("text_line_witnesses",textWitnesses).put("scroll_steps",scrollSteps).put("native_keys",nativeKeys)
             .put("capture_order","Compose idle, native XML, then PNG; sequential observations").toString(2))
     }
 
@@ -267,6 +323,19 @@ class CalculatorActionsDeviceTest {
         }
         compose.waitForIdle(); key(KeyEvent.KEYCODE_ENTER,KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
         assertClip("6 × 7 = 42"); record.put("atomic_native_composition_protocol",true); done()
+    }
+    @Test fun anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer() {
+        search("6x7","42");rootIme(false)
+        val usage=store.usage["result"] ?: 0
+        for (code in listOf(KeyEvent.KEYCODE_ENTER,KeyEvent.KEYCODE_NUMPAD_ENTER)) {
+            for (meta in listOf(KeyEvent.META_CTRL_ON,KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)) {
+                val time=SystemClock.uptimeMillis()
+                assertTrue(testAutomation().injectInputEvent(KeyEvent(time,time,KeyEvent.ACTION_DOWN,code,3,meta),true))
+                assertTrue(testAutomation().injectInputEvent(KeyEvent(time,SystemClock.uptimeMillis(),KeyEvent.ACTION_UP,code,0,0),true))
+                compose.waitForIdle();assertClip(sentinel);assertEquals("6x7",store.query);assertEquals(usage,store.usage["result"] ?: 0)
+            }
+        }
+        record.put("unmatched_repeat_variants",4);done()
     }
     @Test fun menuCompositionBlocksAcceleratorsAndImeUntilCommitted() {
         search("6x7","42"); actions()

@@ -12,6 +12,7 @@ import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -158,6 +159,7 @@ internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -
                          calculatorAction: (CalculatorActionSnapshot, CalculatorAction) -> Unit) {
     // Keep the opening's exact query/selection even if its shared result ID is reused.
     val calculator = remember(command) { CalculatorActionSnapshot.capture(store.calculatorSelection(command)) }
+    val ownerView = LocalView.current
     data class Action(val label: String, val key: String, val enabled: Boolean = true, val perform: () -> Unit)
     val actions = buildList {
         if (calculator != null) {
@@ -195,7 +197,8 @@ internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -
             icon=when { action.label.startsWith("Copy")->"clipboard"; action.label.startsWith("Delete")->"trash"; action.label.startsWith("Edit")->"note";
                 action.label.contains("shortcut")->"keyboard"; action.label.contains("Pin")||action.label.startsWith("Unpin")->"star"; action.label.startsWith("Configure")->"settings"; else->"command" },
             separator=index==1,chord=chord,enabled=action.enabled,activateBeforeDismiss=calculator!=null,
-            isCurrent={ calculator == null || (calculator.isCurrent(store.currentCalculatorSelection()) && store.actionCommand == calculator.selection.command) }) { action.perform() }
+            isCurrent={ calculator == null || (!store.backupBusy && store.textReview == null && ShortcutRuntime.recordingOwner == null && ownerView.hasWindowFocus() &&
+                calculator.isCurrent(store.currentCalculatorSelection()) && store.actionCommand == calculator.selection.command) }) { action.perform() }
     }, title = command.title, searchable = true)
 }
 
