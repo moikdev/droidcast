@@ -81,7 +81,7 @@ class InlinePaletteDeviceTest {
     }
     /** All geometry in one sample is read in one UI callback, without an inset delivery between nodes. */
     private fun menuBoundarySnapshot(cachedPalette: Rect? = null): JSONObject {
-        val root = compose.onRoot(useUnmergedTree = true).fetchSemanticsNode()
+        val root = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag("palette")), useUnmergedTree = true).fetchSemanticsNode()
         return compose.runOnUiThread {
             fun rect(value: Rect) = JSONArray(listOf(value.left, value.top, value.right, value.bottom))
             val nodes = JSONArray()
@@ -133,6 +133,7 @@ class InlinePaletteDeviceTest {
             val visibleFrame = android.graphics.Rect().also(view::getWindowVisibleDisplayFrame)
             val location = IntArray(2).also(view::getLocationOnScreen)
             JSONObject().put("uptime_ms", android.os.SystemClock.uptimeMillis())
+                .put("owner_root_semantics_id", root.id)
                 .put("nodes", nodes).put("nodes_visited", visited).put("tree_limit_reached", visited >= 1024)
                 .put("density", context.resources.displayMetrics.density).put("font_scale", context.resources.configuration.fontScale)
                 .put("ime_visible", insets?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()))
@@ -194,14 +195,17 @@ class InlinePaletteDeviceTest {
             compose.onNodeWithTag(scrollTag).performTouchInput { swipeUp() }
         }
         val node = requireNotNull(target) { "A complete placed 48dp $tag target must be reachable by pointer scrolling" }
-        val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+        val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
+        val rootNode = owner.fetchSemanticsNode()
+        val root = rootNode.boundsInRoot
         val point = node.boundsInRoot.center
         assertTrue("Pointer target belongs to the existing root", root.contains(point))
         touchEvidence.put(JSONObject().put("tag", tag).put("node_id", node.id)
+            .put("owner_root_semantics_id", rootNode.id)
             .put("control_size", JSONArray(listOf(node.size.width, node.size.height)))
             .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
             .put("point_root", JSONArray(listOf(point.x, point.y))).put("ime_visible", imeVisible()))
-        compose.onRoot().performTouchInput { click(point - root.topLeft) }
+        owner.performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
     }
     private fun setMenuKeyboard(visible: Boolean) {
