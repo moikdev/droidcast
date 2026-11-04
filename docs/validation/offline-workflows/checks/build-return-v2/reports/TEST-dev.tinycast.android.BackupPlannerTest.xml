@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.BackupPlannerTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-11-04T13:02:02.399Z" hostname="MacBook-Pro-2.local" time="0.033">
+  <properties/>
+  <testcase name="conflictingEffectiveAliasesRejectTheWholePlan" classname="dev.tinycast.android.BackupPlannerTest" time="0.009"/>
+  <testcase name="clipMergeCannotSilentlyTrimExistingData" classname="dev.tinycast.android.BackupPlannerTest" time="0.003"/>
+  <testcase name="preferencesMergeKeepsExistingOverridesAndRank" classname="dev.tinycast.android.BackupPlannerTest" time="0.012"/>
+  <testcase name="noOrUnavailableCategoryCannotBeApplied" classname="dev.tinycast.android.BackupPlannerTest" time="0.001"/>
+  <testcase name="deduplicatedContentRemapsItsKeyboardBinding" classname="dev.tinycast.android.BackupPlannerTest" time="0.0"/>
+  <testcase name="remappedAliasesCannotSilentlyDiscardConflictingValues" classname="dev.tinycast.android.BackupPlannerTest" time="0.001"/>
+  <testcase name="remappedRankingUsesMaximumRatherThanInputOrder" classname="dev.tinycast.android.BackupPlannerTest" time="0.001"/>
+  <testcase name="contentDuplicatesRemapPinsAliasesAndLearning" classname="dev.tinycast.android.BackupPlannerTest" time="0.0"/>
+  <testcase name="oldBackupOrUnselectedShortcutCategoryKeepsCurrentBindings" classname="dev.tinycast.android.BackupPlannerTest" time="0.0"/>
+  <testcase name="remappingCannotDiscardDistinctKeyboardBindings" classname="dev.tinycast.android.BackupPlannerTest" time="0.0"/>
+  <testcase name="preservedDocumentBindingsBlockCollisionsForMergeAndReplace" classname="dev.tinycast.android.BackupPlannerTest" time="0.001"/>
+  <testcase name="replacementTouchesOnlySelectedCategories" classname="dev.tinycast.android.BackupPlannerTest" time="0.0"/>
+  <testcase name="identityWinsWhenAnEarlierItemAlsoMatchesIncomingContent" classname="dev.tinycast.android.BackupPlannerTest" time="0.0"/>
+  <testcase name="mergeIsIdempotentAndKeepsConflictingIdentity" classname="dev.tinycast.android.BackupPlannerTest" time="0.001"/>
+  <testcase name="preservedDocumentModifierSidesBlockOverlapsButAllowDistinctSides" classname="dev.tinycast.android.BackupPlannerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

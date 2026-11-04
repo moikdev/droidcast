@@ -1,0 +1,216 @@
+{
+  "completed": true,
+  "steps": [
+    [
+      "typeid-pack",
+      "tablet"
+    ],
+    [
+      "uuid-format",
+      "tablet"
+    ],
+    [
+      "uuid-v7",
+      "tablet"
+    ],
+    [
+      "uuid-ulid",
+      "tablet"
+    ],
+    [
+      "uuid-typeid",
+      "tablet"
+    ],
+    [
+      "lorem-paragraphs",
+      "tablet"
+    ],
+    [
+      "lorem-sentences",
+      "tablet"
+    ],
+    [
+      "json-lines",
+      "tablet"
+    ],
+    [
+      "json-value",
+      "tablet"
+    ],
+    [
+      "json-selection",
+      "tablet"
+    ],
+    [
+      "typeid-parse",
+      "phone"
+    ],
+    [
+      "typeid-pack",
+      "phone"
+    ],
+    [
+      "uuid-format",
+      "phone"
+    ],
+    [
+      "uuid-v7",
+      "phone"
+    ],
+    [
+      "uuid-ulid",
+      "phone"
+    ],
+    [
+      "uuid-typeid",
+      "phone"
+    ],
+    [
+      "lorem-paragraphs",
+      "phone"
+    ],
+    [
+      "lorem-sentences",
+      "phone"
+    ],
+    [
+      "json-lines",
+      "phone"
+    ],
+    [
+      "json-value",
+      "phone"
+    ],
+    [
+      "json-selection",
+      "phone"
+    ],
+    [
+      "legacy-review",
+      "tablet"
+    ],
+    [
+      "legacy-review",
+      "phone"
+    ]
+  ],
+  "results": [
+    {
+      "index": 0,
+      "name": "native-typeid-pack-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 1,
+      "name": "native-uuid-format-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 2,
+      "name": "native-uuid-v7-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 3,
+      "name": "native-uuid-ulid-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 4,
+      "name": "native-uuid-typeid-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 5,
+      "name": "native-lorem-paragraphs-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 6,
+      "name": "native-lorem-sentences-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 7,
+      "name": "native-json-lines-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 8,
+      "name": "native-json-value-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 9,
+      "name": "native-json-selection-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 10,
+      "name": "native-typeid-parse-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 11,
+      "name": "native-typeid-pack-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 12,
+      "name": "native-uuid-format-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 13,
+      "name": "native-uuid-v7-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 14,
+      "name": "native-uuid-ulid-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 15,
+      "name": "native-uuid-typeid-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 16,
+      "name": "native-lorem-paragraphs-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 17,
+      "name": "native-lorem-sentences-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 18,
+      "name": "native-json-lines-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 19,
+      "name": "native-json-value-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 20,
+      "name": "native-json-selection-phone-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 21,
+      "name": "native-legacy-review-tablet-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 22,
+      "name": "native-legacy-review-phone-v1",
+      "exit_code": 0
+    }
+  ],
+  "prior_completed_complement": "native-typeid-parse-tablet-v1",
+  "active_step": "native-legacy-review-phone-v1"
+}

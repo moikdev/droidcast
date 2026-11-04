@@ -1,0 +1,92 @@
+{
+  "completed": true,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "phone",
+  "font_scale": 2.0,
+  "classes": "dev.tinycast.android.ExtensionFormDeviceTest#frozenUuidPacksTheIndependentTypeIdVector,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines,dev.tinycast.android.ExtensionFormDeviceTest#frozenJsonValueEscapesUnicodeAndReloadsItsOwnedInput",
+  "expected": 3,
+  "runner_sha256": "0389e104667706a767a92e0c236e84c196af6725ac7ca8f20eba456a5b57c31b",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "typed_workflow_archive_sha256": {
+    "uuid-generator": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+    "lorem-ipsum": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b"
+  },
+  "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+  "instrumentation_excluded_tests": [
+    "dev.tinycast.android.ReviewedTextDeviceTest#selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure"
+  ],
+  "reviewed_json_command": "formatSelectionAndShow",
+  "expect_completion_return": true,
+  "apk_sha256": "de99960d7658740d8377877fe19287e9a34c3fce46394367f5ac5426c1d5e18d",
+  "test_apk_sha256": "886ff231812d716393598bfd0021d199e75e6d2f06dae174004a2d64e71d0fc6",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 3,
+  "tests_completed": true,
+  "owned_extension_count": 3,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  }
+}

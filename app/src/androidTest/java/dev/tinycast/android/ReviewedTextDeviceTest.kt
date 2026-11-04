@@ -325,6 +325,50 @@ class ReviewedTextDeviceTest {
         }
         node.assertIsDisplayed().performTouchInput { click(center) }
     }
+    private fun touchCompletionReturn() {
+        val tag = "extension-completion-return"
+        assertTrue("A completed no-view command must expose its touch Return action",
+            compose.onAllNodesWithTag(tag).fetchSemanticsNodes().size == 1)
+        val node = compose.onNodeWithTag(tag); val minimum = 48f * context.resources.displayMetrics.density
+        val initial = node.fetchSemanticsNode().boundsInRoot
+        assertTrue("Return needs a complete initial 48dp visible target", initial.height + 1 >= minimum && initial.width + 1 >= minimum)
+        record.put("completion_return_initially_complete", true)
+        // Both the palette and completed body may scroll at enlarged text.
+        // Reveal the current target with real gestures before injecting its center.
+        for (attempt in 0 until 60) {
+            val target = node.fetchSemanticsNode()
+            if (target.boundsInRoot.height + 1 >= minimum) break
+            val body = compose.onNodeWithTag("extension-completion")
+            if (body.fetchSemanticsNode().boundsInRoot.height >= minimum) {
+                body.performTouchInput { swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300) }
+            } else compose.onNodeWithTag("palette-content-scroll").performTouchInput {
+                swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
+            }
+            compose.waitForIdle()
+        }
+        node.assertIsDisplayed().assertIsEnabled()
+        val target = node.fetchSemanticsNode(); val bounds = target.boundsInRoot
+        assertTrue("Return needs a complete 48dp visible target", bounds.height + 1 >= minimum && bounds.width + 1 >= minimum)
+        val label = compose.onNodeWithText("Return", useUnmergedTree = true).fetchSemanticsNode()
+        val layouts = mutableListOf<TextLayoutResult>()
+        instrumentation.runOnMainSync { assertTrue(requireNotNull(label.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        val layout = layouts.single(); val origin = compose.runOnUiThread { label.positionInRoot }; val visible = label.boundsInRoot
+        assertTrue(label.size.height + 1 >= layout.multiParagraph.height)
+        val lines = JSONArray()
+        for (line in 0 until layout.lineCount) {
+            assertFalse(layout.isLineEllipsized(line))
+            val left = origin.x + layout.getLineLeft(line); val right = origin.x + layout.getLineRight(line)
+            val top = origin.y + layout.getLineTop(line); val bottom = origin.y + layout.getLineBottom(line)
+            assertTrue(left >= visible.left - 1 && right <= visible.right + 1 && top >= visible.top - 1 && bottom <= visible.bottom + 1)
+            lines.put(JSONArray(listOf(left, top, right, bottom)))
+        }
+        record.put("completion_return_visible_target", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("completion_return_line_bounds", lines).put("completion_return_activation", "Actual pointer on exact completed Return tag")
+        capture("completion-return-visible")
+        val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
+        val root = owner.fetchSemanticsNode().boundsInRoot; assertTrue(root.contains(bounds.center))
+        owner.performTouchInput { click(bounds.center - root.topLeft) }
+    }
     private fun choose(id: String, name: String) {
         touch("text-input-choose")
         val extension = foregroundActivity().store.extensions.installed.single { it.listing.id == id }
@@ -344,32 +388,50 @@ class ReviewedTextDeviceTest {
     }
     private fun jsonWorkflow(share: Boolean, readOnly: Boolean) {
         caller(readOnly = readOnly); capture("caller", true); send(share); assertReview()
-        choose(formatterId, "formatSelectionAndShow"); capture("chosen")
-        touch("text-input-run")
+        val commandName = InstrumentationRegistry.getArguments().getString("reviewedJsonCommand") ?: "formatSelectionAndShow"
+        assertTrue(commandName in setOf("formatSelectionAndShow", "formatSelection"))
+        if (commandName == "formatSelection") { assertFalse(share); assertTrue(readOnly) }
+        val extension = foregroundActivity().store.extensions.installed.single { it.listing.id == formatterId }
+        val commandHash = hash(File(extension.directory, "$commandName.js").readBytes())
+        assertEquals(if (commandName == "formatSelection") "b445fd841a7a81d29fa1db2b6f6107ed332edc3174cd3ce788267270f771ccdb"
+            else "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92", commandHash)
+        record.put("executed_command", commandName).put("command_sha256", commandHash)
+        choose(formatterId, commandName); capture("chosen"); touch("text-input-run")
         val catalog = foregroundActivity().store.extensions
-        compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.isNotEmpty() == true }
-        assertNull(catalog.runtimeError, catalog.runtimeError)
-        val markdown = activeRoot(catalog.runtimeTree)!!.props().getString("markdown")
-        assertEquals("```json\n$output\n```", markdown)
-        assertEquals(sentinel, clipboardText())
-        compose.onNodeWithTag("extension-primary").assertTextContains("Copy Full JSON", substring = true)
-        compose.waitForIdle()
-        compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-markdown-loading").fetchSemanticsNodes().isEmpty() }
-        record.put("native_format_contract_started", true)
-        assertEquals("Frozen JSON must expose exact selectable native code without Markdown fences", 1,
-            compose.onAllNodesWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNodes().size)
-        val code = compose.onNodeWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNode()
-        val rendered = code.config[SemanticsProperties.Text].single().text
-        assertEquals(output + "\n", rendered)
-        val layouts = mutableListOf<TextLayoutResult>()
-        instrumentation.runOnMainSync { assertTrue(requireNotNull(code.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
-        assertEquals(FontFamily.Monospace, layouts.single().layoutInput.style.fontFamily)
-        record.put("native_code_exact_output_sha256", hash(rendered.toByteArray())).put("native_code_monospace", true)
-        capture("formatted")
-        touch("extension-primary")
+        if (commandName == "formatSelection") {
+            compose.waitUntil(30000) { catalog.runtimeError != null || catalog.runtimeReady && clipboardText() == output }
+            assertNull(catalog.runtimeError, catalog.runtimeError); assertEquals(output, clipboardText())
+            assertEquals("no-view", extension.commands.single { it.name == commandName }.mode)
+            record.put("scope", "Unmodified frozen formatSelection after explicit owned review/Run; exact Copy and unchanged external source return; desktop auto-close is not certified")
+                .put("copy_trigger", "Explicit reviewed Run executes the no-view command's own Copy")
+            capture("formatted-no-view-status")
+        } else {
+            compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.isNotEmpty() == true }
+            assertNull(catalog.runtimeError, catalog.runtimeError)
+            val markdown = activeRoot(catalog.runtimeTree)!!.props().getString("markdown")
+            assertEquals("```json\n$output\n```", markdown)
+            assertEquals(sentinel, clipboardText())
+            compose.onNodeWithTag("extension-primary").assertTextContains("Copy Full JSON", substring = true)
+            compose.waitForIdle()
+            compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-markdown-loading").fetchSemanticsNodes().isEmpty() }
+            record.put("native_format_contract_started", true)
+            assertEquals("Frozen JSON must expose exact selectable native code without Markdown fences", 1,
+                compose.onAllNodesWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNodes().size)
+            val code = compose.onNodeWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNode()
+            val rendered = code.config[SemanticsProperties.Text].single().text
+            assertEquals(output + "\n", rendered)
+            val layouts = mutableListOf<TextLayoutResult>()
+            instrumentation.runOnMainSync { assertTrue(requireNotNull(code.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+            assertEquals(FontFamily.Monospace, layouts.single().layoutInput.style.fontFamily)
+            record.put("native_code_exact_output_sha256", hash(rendered.toByteArray())).put("native_code_monospace", true)
+            capture("formatted")
+            touch("extension-primary")
+        }
         compose.waitUntil(10000) { clipboardText() == output }
         dismissClipboardForEvidence(); capture("copied")
-        touch("extension-back")
+        if (commandName == "formatSelection" && InstrumentationRegistry.getArguments().getString("expectCompletionReturn") == "true")
+            touchCompletionReturn()
+        else touch("extension-back")
         awaitCaller()
         assertEquals(prefix + input + suffix, device.findObject(By.res("android:id/edit")).text)
         assertEquals("Selection ${prefix.length} to ${prefix.length + input.length}", device.findObject(By.res("android:id/text2")).text)

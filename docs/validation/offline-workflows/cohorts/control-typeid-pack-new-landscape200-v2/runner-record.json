@@ -1,0 +1,91 @@
+{
+  "completed": true,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "landscape",
+  "font_scale": 2.0,
+  "classes": "dev.tinycast.android.ExtensionFormDeviceTest#frozenUuidPacksTheIndependentTypeIdVector",
+  "expected": 1,
+  "runner_sha256": "0389e104667706a767a92e0c236e84c196af6725ac7ca8f20eba456a5b57c31b",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "typed_workflow_archive_sha256": {
+    "uuid-generator": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0"
+  },
+  "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+  "instrumentation_excluded_tests": [
+    "dev.tinycast.android.ReviewedTextDeviceTest#selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure"
+  ],
+  "reviewed_json_command": "formatSelectionAndShow",
+  "expect_completion_return": true,
+  "apk_sha256": "575febb3719f521b1e9702ddb2c32e9a6287eb6aef36aa757ad8378b4be1e5b1",
+  "test_apk_sha256": "e3929056d4648f8d66aae4bb95dfb1dd560fa9bff4854ef9c3f110436e12de63",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 1,
+  "tests_completed": true,
+  "owned_extension_count": 1,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  }
+}

@@ -66,6 +66,27 @@ private val muted = PaletteTheme.secondary
 private val line = PaletteTheme.separator
 private val card = PaletteTheme.control
 
+private class CompletionReturnSlot {
+    var active = true
+    var consumed = false
+}
+
+@Composable
+private fun CompletionReturn(isCurrent: () -> Boolean, close: () -> Unit) {
+    val slot = remember { CompletionReturnSlot() }
+    val windowInfo = LocalWindowInfo.current
+    DisposableEffect(slot) { onDispose { slot.active = false } }
+    Button(onClick = {
+        if (slot.active && !slot.consumed && windowInfo.isWindowFocused && isCurrent()) {
+            slot.consumed = true
+            close()
+        }
+    }, enabled = isCurrent() && windowInfo.isWindowFocused,
+        modifier = Modifier.heightIn(min = 48.dp).widthIn(min = 112.dp).testTag("extension-completion-return")) {
+        Text("Return")
+    }
+}
+
 private class StoreBrowserState {
     val search = mutableStateOf(TextFieldValue(""))
     val installedTab = mutableStateOf(false)
@@ -435,6 +456,12 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
     val catalog=store.extensions
     val launchEpoch=remember(runtime){catalog.launchEpoch}
+    fun canReturnCompletedCommand(): Boolean {
+        val running = catalog.running
+        return command.mode == "no-view" && store.dialog == "extension-run" &&
+            catalog.launchEpoch == launchEpoch && running != null && running.first === extension && running.second === command &&
+            catalog.runtimeReady && catalog.runtimeError == null && activeRoot(catalog.runtimeTree) == null && runtime.isCurrentInvocation()
+    }
     fun liveRoot():JSONObject? {
         val running=catalog.running
         if(catalog.launchEpoch!=launchEpoch || running?.first!==extension || running?.second!==command || catalog.runtimeError!=null) return null
@@ -550,10 +577,18 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if(catalog.runtimeError!=null){
             Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
-            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
-                if(!catalog.runtimeReady)CircularProgressIndicator(Modifier.size(30.dp))else Glyph("extension",ink,36)
-                Text(catalog.runtimeStatus,fontSize=16.sp,color=ink,modifier=Modifier.padding(top=20.dp).testTag("extension-status"))
-                if(catalog.runtimeReady)Text("Escape to return to the palette",color=muted,fontSize=12.sp,modifier=Modifier.padding(top=10.dp))
+            Column(Modifier.weight(1f).fillMaxWidth().testTag("extension-completion")) {
+                Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
+                    if(!catalog.runtimeReady)CircularProgressIndicator(Modifier.size(30.dp))else Glyph("extension",ink,36)
+                    Text(catalog.runtimeStatus,fontSize=16.sp,color=ink,modifier=Modifier.padding(top=20.dp).testTag("extension-status"))
+                    if(catalog.runtimeReady && command.mode != "no-view")
+                        Text("Escape to return to the palette",color=muted,fontSize=12.sp,modifier=Modifier.padding(top=10.dp))
+                }
+                if(catalog.runtimeReady && command.mode == "no-view") {
+                    Row(Modifier.fillMaxWidth().padding(horizontal=24.dp,vertical=12.dp),horizontalArrangement=Arrangement.Center) {
+                        CompletionReturn(::canReturnCompletedCommand, close)
+                    }
+                }
             }
         }else when(root.optString("type")){
             "Grid" -> Box(Modifier.weight(1f).fillMaxWidth()) {

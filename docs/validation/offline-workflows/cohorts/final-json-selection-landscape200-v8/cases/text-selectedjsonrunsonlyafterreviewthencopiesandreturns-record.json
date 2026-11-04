@@ -1,0 +1,43 @@
+{
+  "scope": "Unmodified frozen formatSelection after explicit owned review\/Run; exact Copy and unchanged external source return; desktop auto-close is not certified",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "command_sha256": "b445fd841a7a81d29fa1db2b6f6107ed332edc3174cd3ce788267270f771ccdb",
+  "probe_command_sha256": "8bc7c98a835bf72824ae0f061d6cc0272052c58a8c4a665c8a4157192246ff93",
+  "owned_extension_ids": [
+    "reviewed-text-1226ab7bbcf04644aa6c5d1a6635983d",
+    "reviewed-text-b1e63b735b8e4a1682413e6a349f1f72"
+  ],
+  "external_caller_uses_separate_package_and_uid": true,
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "ed3831303a8319a194f0ae137830acba1f3580d5",
+  "preview_no_execution_and_clipboard_unchanged": true,
+  "executed_command": "formatSelection",
+  "copy_trigger": "Explicit reviewed Run executes the no-view command's own Copy",
+  "completion_return_initially_complete": true,
+  "completion_return_visible_target": [
+    1005,
+    626,
+    1337,
+    766
+  ],
+  "completion_return_line_bounds": [
+    [
+      1068,
+      647,
+      1272.6154,
+      745
+    ]
+  ],
+  "completion_return_activation": "Actual pointer on exact completed Return tag",
+  "exact_input_sha256": "875cb6f6b27c42e85b02505c4938305fdd0603b7a76d3ff5bf2e8d2b2316209b",
+  "exact_output_sha256": "328d7f3c82072c2fbe0565257f692e9a25d828b02ea4287544237f3b4bd79a51",
+  "clipboard_unchanged_until_copy": true,
+  "exact_unicode_output_copied": true,
+  "source_text_and_selection_unchanged": true,
+  "returned_to_external_caller": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

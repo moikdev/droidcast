@@ -1,0 +1,228 @@
+{
+  "scope": "Unmodified frozen lorem-ipsum\/sentences in an owned namespace; listed offline input\/output path only",
+  "clipboard-owned-sentinel": {
+    "fixture_ready": true,
+    "fixture_wait_ms": 839,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "20d7ca40672270c36a3cacd28f4ba2173fdcead5",
+  "archive_sha256": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+  "command_sha256": "759ff8c89086caf88af24609e0a7096179053cfb455a0e7fe630a4ccedcfd2aa",
+  "command": "sentences",
+  "command_mode": "no-view",
+  "owned_extension_id": "reviewed-text-73ae120302c34f8f9f575f9d69ea44a9",
+  "seeded_preferences": {
+    "action": "clipboard"
+  },
+  "configuration_method": "Seeded nonsecret preferences; native editing is not exercised",
+  "owned_arguments": {
+    "numberOfSentences": "3"
+  },
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "argument-numberOfSentences",
+      "viewport": "extension-configuration",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1011,
+      "visible_bounds": [
+        428,
+        392,
+        1493,
+        476
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        434
+      ]
+    },
+    {
+      "tag": "run-extension-setup",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1011,
+      "visible_bounds": [
+        428,
+        848,
+        1493,
+        920
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        884
+      ]
+    },
+    {
+      "tag": "extension-completion-return",
+      "viewport": "extension-completion",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1011,
+      "visible_bounds": [
+        877,
+        631,
+        1045,
+        703
+      ],
+      "control_size": [
+        168,
+        72
+      ],
+      "point": [
+        961,
+        667
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "generation_started_at_ms": 1793798166246,
+  "generation_completed_at_ms": 1793798166551,
+  "clipboard-copied-output": {
+    "fixture_ready": true,
+    "fixture_wait_ms": 1044,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "owned_output": "Mollit ullamco consectetur sunt ex. Fugiat pariatur Lorem tempor ea non. Minim excepteur ad voluptate laborum labore ea excepteur consectetur ipsum.",
+  "owned_output_sha256": "40e01abf2f91e74a5865c1647720205547c078f17441acfa928bebd94b705451",
+  "output_characters": 148,
+  "independent_sentence_and_word_counts_verified": true,
+  "completion_return_line_bounds": [
+    [
+      929,
+      652,
+      991.75,
+      682
+    ]
+  ],
+  "completion_return_visible_target": [
+    877,
+    631,
+    1045,
+    703
+  ],
+  "launcher_query_preserved": true,
+  "fresh_copy_verified": true,
+  "return_route": "Completed no-view Return button; actual pointer",
+  "overall": "working-for-listed-workflow",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

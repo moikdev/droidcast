@@ -1,0 +1,29 @@
+{
+  "completed": true,
+  "layout": "tablet",
+  "font": 1.0,
+  "case": "json-selection",
+  "methods": [
+    "selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns"
+  ],
+  "app_sha256": "575febb3719f521b1e9702ddb2c32e9a6287eb6aef36aa757ad8378b4be1e5b1",
+  "app_cohort": "new",
+  "completion_return_expected": true,
+  "intended_missing_return_control": false,
+  "test_apk_sha256": "1b70bd0dd477cb1232aaf7b64c19b098b3b6a6af9f5fe65950c427ce89ed4037",
+  "test_source_commit": "0bb4dbbb958815a32415f4d545b85beb27e55af5",
+  "runtime_source_commit": "20d7ca40672270c36a3cacd28f4ba2173fdcead5",
+  "collector_sha256": "309a7bc73036c3eaa780e3041679222d8855b7acd35bd2b794f1917444f8bd0b",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 0,
+  "passes": 1,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "native_completed": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "case_receipts_passed": true,
+  "native_positive_completed": true
+}

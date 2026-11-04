@@ -35,6 +35,7 @@ import java.nio.file.Files
 import java.nio.file.LinkOption
 import java.security.MessageDigest
 import java.util.UUID
+import java.math.BigInteger
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
@@ -109,7 +110,9 @@ class ExtensionFormDeviceTest {
             it.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Owned Form fixture", "Owned Form clipboard sentinel"))
             it.store.reset(); it.store.search(caller)
         }
-        dismissClipboardForEvidence()
+        if (listOf("frozenUuid", "frozenLorem", "frozenJsonLines", "frozenJsonValue", "ownedNoView").any { testName.methodName.startsWith(it) }) {
+            dismissFrozenClipboard("owned-sentinel")
+        } else dismissClipboardForEvidence()
         record.put("font_scale", context.resources.configuration.fontScale)
             .put("width_dp", context.resources.configuration.screenWidthDp).put("height_dp", context.resources.configuration.screenHeightDp)
             .put("window_soft_input_mode", compose.activity.window.attributes.softInputMode)
@@ -431,6 +434,9 @@ class ExtensionFormDeviceTest {
             compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
             restorePalettePreferences(context, palette)
             ownedId?.let { id ->
+                assertTrue(ownedLease().getJSONArray("owned_extension_ids").let { ids ->
+                    (0 until ids.length()).any { ids.getString(it) == id }
+                })
                 listOf(File(context.cacheDir, id), File(context.filesDir, "extension-data/$id")).forEach { it.deleteRecursively(); assertFalse(it.exists()) }
                 listOf(".xml", ".xml.bak").forEach { suffix ->
                     val file = File(context.applicationInfo.dataDir, "shared_prefs/extension-$id$suffix"); file.delete(); assertFalse(file.exists())
@@ -615,7 +621,7 @@ class ExtensionFormDeviceTest {
         // may change visibility; its previous screen's state is not a request.
         awaitImeGeometry()
         val node = compose.onNodeWithTag(tag)
-        val viewport = listOf("extension-form", "extension-configuration").firstOrNull {
+        val viewport = listOf("extension-form", "extension-configuration", "extension-completion").firstOrNull {
             compose.onAllNodes(hasTestTag(tag) and hasAnyAncestor(hasTestTag(it))).fetchSemanticsNodes().isNotEmpty()
         }
         // isDisplayed accepts a sliver. At 200% in short landscape, the full
@@ -661,6 +667,7 @@ class ExtensionFormDeviceTest {
             .put("point", JSONArray(listOf(point.x, point.y))))
         assertTrue("A pointer target needs a useful visible hit region", visible.width > 1 &&
             visible.height + 1 >= minOf(target.size.height.toFloat(), minimumHitHeight) && root.contains(point))
+        if (tag == "extension-completion-return") assertCompletionReturnText()
         targetRoot.performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
         if (target.config.contains(SemanticsProperties.EditableText)) {
@@ -1382,6 +1389,458 @@ class ExtensionFormDeviceTest {
         capture("json-launcher-return")
         record.put("native_preferences_edited_not_seeded", true).put("exact_unicode_form_copy", true).put("form_state_preserved_on_back", true)
             .put("launcher_query_preserved", true).put("passed", true)
+    }
+    private fun dismissFrozenClipboard(phase: String) {
+        val started = android.os.SystemClock.uptimeMillis()
+        val actions = JSONArray()
+        val observations = ArrayDeque<String>()
+        val receipt = JSONObject().put("fixture_ready", false).put("actions", actions)
+            .put("readiness_protocol", "Same bounded discovery/action/absence path; no preceding UiDevice idle query")
+        record.put("clipboard-$phase", receipt)
+        try {
+            dismissClipboardForEvidence(onObservation = {
+                observations.addLast(it); if (observations.size > 16) observations.removeFirst()
+            }, requireAction = true, onNodeAction = { id, accepted ->
+                actions.put(JSONObject().put("id", id).put("accepted", accepted))
+                if (accepted && !receipt.optBoolean("fixture_ready")) receipt.put("fixture_ready", true)
+                    .put("fixture_wait_ms", android.os.SystemClock.uptimeMillis() - started)
+            })
+            assertTrue("Known owned clipboard fixture requires an accepted node action", receipt.getBoolean("fixture_ready"))
+        } finally {
+            receipt.put("observations", JSONArray(observations.toList()))
+                .put("cleanup_elapsed_ms", android.os.SystemClock.uptimeMillis() - started)
+        }
+    }
+    private fun frozenClipboard(): String {
+        var text = ""
+        compose.activityRule.scenario.onActivity { text = it.getSystemService(ClipboardManager::class.java)
+            .primaryClip?.getItemAt(0)?.coerceToText(it)?.toString().orEmpty() }
+        return text
+    }
+    private fun openFrozenOffline(bundle: String, commandName: String, arguments: Map<String, String> = emptyMap()): InstalledExtension {
+        val archiveHash = when (bundle) {
+            "uuid-generator" -> "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0"
+            "lorem-ipsum" -> "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b"
+            "json-format" -> "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58"
+            else -> error("Unknown frozen offline archive")
+        }
+        val commandHashes = mapOf(
+            "generateV7" to "4b9a760aea9de7f1cf720224050844b09ae842e88aaca9aec5969c69115b499a",
+            "generateUlid" to "b77ea4ed9a3cf13da20193cae737a3b0a62dea50ab5fbeaaa05de5c6e0769e8d",
+            "generateTypeID" to "71dbb01590489e51b50e1fb7ba5161075d6417fde1345759832471901b032be2",
+            "parseTypeID" to "bb3ef0b5708548df44d13ecb95d2e21d538d15bd492c5d5de731d6933ce828cf",
+            "formatUuid" to "29e73d55a4d9616e9493a8c64bbaa2019d76d00c81752eccb765532bb77b821f",
+            "packTypeID" to "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac",
+            "paragraphs" to "8a03c4d22efefd777fd4de6df805811f01be880ecf745aed1557087981656aac",
+            "sentences" to "759ff8c89086caf88af24609e0a7096179053cfb455a0e7fe630a4ccedcfd2aa",
+            "formatJsonLines" to "690c15e7c0f1f52ea1b2315e8d1a75a5bdd15b8f25abe5a741337da5f8ba9a98",
+            "formatToJsonValue" to "1367d9a2247ea560b69c9b84496d3424b41647f037d303e0ea4e3c99e71bfa1d")
+        val archive = File(context.filesDir, "reviewed-text-fixture-lease/$bundle.zip").readBytes()
+        assertEquals(archiveHash, hash(archive)); val directory = fixtureDirectory()
+        val extracted = ExtensionArchive.extract(archive, directory)
+        assertEquals(requireNotNull(commandHashes[commandName]), hash(File(extracted, "$commandName.js").readBytes()))
+        val extension = InstalledExtension(StoreExtension(directory.name, bundle, "$bundle (owned frozen copy)", "", "Droidcast tests", "test", "", "", "", 1),
+            extracted, JSONObject(File(extracted, "package.json").readText()))
+        ownedExtension = extension
+        val command = extension.commands.single { it.name == commandName }
+        val seeds = mapOf<String, Any>("defaultAction" to "copy", "upperCaseLetters" to false, "base32Encoding" to false,
+            "action" to "clipboard", "autopaste" to false, "indent" to "2", "maxInitialLines" to "10000")
+        val values = JSONObject()
+        extension.fields(command).forEach { field ->
+            val key = field.getString("name"); val seed = seeds[key] ?: return@forEach; val options = field.optJSONArray("data")
+            assertTrue(field.optString("type") != "dropdown" || options != null &&
+                (0 until options.length()).any { options.getJSONObject(it).optString("value") == seed.toString() })
+            values.put(key, seed)
+        }
+        record.put("scope", "Unmodified frozen $bundle/$commandName in an owned namespace; listed offline input/output path only")
+            .put("archive_sha256", archiveHash).put("command_sha256", commandHashes.getValue(commandName))
+            .put("command", commandName).put("command_mode", command.mode).put("owned_extension_id", directory.name)
+            .put("seeded_preferences", values).put("configuration_method", "Seeded nonsecret preferences; native editing is not exercised")
+            .put("owned_arguments", JSONObject(arguments))
+        compose.activityRule.scenario.onActivity { catalog.savePreferences(extension, values); it.store.openExtension(extension, command) }
+        if (arguments.isNotEmpty()) {
+            assertEquals("extension-setup", compose.activity.store.dialog)
+            for ((name, value) in arguments) {
+                val tag = "argument-$name"; touch(tag); compose.onNodeWithTag(tag).performTextReplacement(value)
+                compose.onNodeWithTag(tag).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)))
+            }
+            assertEquals("Owned Form clipboard sentinel", frozenClipboard()); assertFalse(catalog.runtimeReady)
+            capture("offline-arguments-ime"); ime(false); capture("offline-arguments")
+            record.put("generation_started_at_ms", System.currentTimeMillis()); touch("run-extension-setup")
+            assertEquals(arguments, catalog.arguments)
+        } else {
+            compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady }
+            assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle()
+        }
+        return extension
+    }
+    private fun copiedFrozenOffline(): String {
+        compose.waitUntil(25000) { catalog.runtimeError != null || frozenClipboard() != "Owned Form clipboard sentinel" }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        compose.waitUntil(10000) { catalog.runtimeError != null || catalog.runtimeReady }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        record.put("generation_completed_at_ms", System.currentTimeMillis())
+        val output = frozenClipboard(); assertTrue(output.isNotBlank()); assertNotEquals("Owned Form clipboard sentinel", output)
+        assertTrue("Owned output must stay bounded", output.length <= 32768)
+        dismissFrozenClipboard("copied-output"); capture("offline-copied-output")
+        record.put("owned_output", output).put("owned_output_sha256", hash(output.toByteArray(Charsets.UTF_8))).put("output_characters", output.length)
+        return output
+    }
+    private fun finishFrozenOffline() {
+        val completionReturn = InstrumentationRegistry.getArguments().getString("expectCompletionReturn") == "true" &&
+            record.optString("command_mode") == "no-view"
+        if (completionReturn) {
+            requireCompletionReturn()
+            // Completion owns a reserved action area. Do not credit a full
+            // target that becomes available only after status-body scrolling.
+            assertCompletionReturnText(); record.put("completion_return_initially_complete", true)
+            touch("extension-completion-return")
+        }
+        else touch("extension-back")
+        assertNull(compose.activity.store.dialog); assertNull(catalog.running)
+        assertEquals(caller, compose.activity.store.query)
+        record.put("launcher_query_preserved", true).put("fresh_copy_verified", true)
+            .put("return_route", if (completionReturn) "Completed no-view Return button; actual pointer" else "Header Back; actual pointer")
+            .put("overall", "working-for-listed-workflow").put("passed", true)
+        capture("offline-caller-return")
+    }
+
+    private fun requireCompletionReturn() {
+        assertTrue("A completed no-view command must expose its touch Return action",
+            compose.onAllNodesWithTag("extension-completion-return").fetchSemanticsNodes().size == 1)
+        compose.onNodeWithTag("extension-completion-return").assertIsEnabled().assertHasClickAction()
+    }
+    private fun assertCompletionReturnText() {
+        val button = compose.onNodeWithTag("extension-completion-return").fetchSemanticsNode()
+        val label = compose.onNodeWithText("Return", useUnmergedTree = true).fetchSemanticsNode()
+        val layouts = mutableListOf<TextLayoutResult>()
+        compose.runOnUiThread { assertTrue(requireNotNull(label.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        val layout = layouts.single(); val origin = compose.runOnUiThread { label.positionInRoot }
+        val visible = label.boundsInRoot; val target = button.boundsInRoot
+        val minimum = 48f * context.resources.displayMetrics.density
+        assertTrue("Return needs a complete 48dp visible target", target.height + 1 >= minimum && target.width + 1 >= minimum)
+        assertTrue("Return must retain natural text height", label.size.height + 1 >= layout.multiParagraph.height)
+        val lines = JSONArray()
+        for (line in 0 until layout.lineCount) {
+            assertFalse(layout.isLineEllipsized(line))
+            val bounds = Rect(origin.x + layout.getLineLeft(line), origin.y + layout.getLineTop(line),
+                origin.x + layout.getLineRight(line), origin.y + layout.getLineBottom(line))
+            assertTrue("Return label must fit its visible text region", bounds.left >= visible.left - 1 && bounds.right <= visible.right + 1 &&
+                bounds.top >= visible.top - 1 && bounds.bottom <= visible.bottom + 1)
+            lines.put(JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+        }
+        record.put("completion_return_line_bounds", lines).put("completion_return_visible_target",
+            JSONArray(listOf(target.left, target.top, target.right, target.bottom)))
+    }
+    private fun touchUnfilteredFrozenAction(index: Int, title: String) {
+        val tag = "extension-action-$index"
+        val search = compose.onNodeWithTag("inline-menu-search")
+        search.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+        val viewport = compose.onNodeWithTag("inline-menu-choices")
+        val observations = JSONArray()
+        val minimum = 48f * context.resources.displayMetrics.density
+        for (attempt in 0 until 40) {
+            compose.waitForIdle()
+            val row = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()
+            val body = viewport.fetchSemanticsNode()
+            val scroll = body.config[SemanticsProperties.VerticalScrollAxisRange]
+            observations.put(JSONObject().put("attempt", attempt).put("target_semantics_id", row?.id ?: JSONObject.NULL)
+                .put("target_visible_height", row?.boundsInRoot?.height ?: 0f)
+                .put("viewport_bounds", JSONArray(listOf(body.boundsInRoot.left, body.boundsInRoot.top, body.boundsInRoot.right, body.boundsInRoot.bottom)))
+                .put("scroll_value", scroll.value().toString()).put("scroll_maximum", scroll.maxValue().toString()))
+            if (row != null && row.layoutInfo.isPlaced && row.boundsInRoot.width > 1 && row.boundsInRoot.height + 1 >= minimum) break
+            assertTrue("The Actions viewport must admit a real pointer gesture", body.boundsInRoot.height >= minimum / 3)
+            drag(viewport, -1)
+        }
+        search.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+        compose.onNodeWithTag(tag).assertTextContains(title, substring = true).assertIsDisplayed()
+        record.put("unfiltered_action_pointer_reveal", observations).put("action_menu_query_remained_empty", true)
+        capture("json-lines-unfiltered-action-visible")
+        // The exact row is already revealed. Inject directly in its owning
+        // root; do not let performScrollTo reselect a different scroll owner.
+        val row = compose.onNodeWithTag(tag).fetchSemanticsNode(); val bounds = row.boundsInRoot
+        assertTrue("View Result requires its complete 48dp visible target", bounds.height + 1 >= minimum)
+        val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
+        val root = owner.fetchSemanticsNode().boundsInRoot; assertTrue(root.contains(bounds.center))
+        record.put("unfiltered_action_pointer_tap", JSONObject().put("tag", tag).put("title", title)
+            .put("visible_bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("point", JSONArray(listOf(bounds.center.x, bounds.center.y))))
+        owner.performTouchInput { click(bounds.center - root.topLeft) }; compose.waitForIdle()
+    }
+    private val ownedCompletionOutput = "Owned completed output 日本 🌱"
+    private fun launchOwnedNoView(pending: Boolean = false) {
+        val directory = fixtureDirectory(); val id = directory.name
+        val script = """
+            const api=require('@raycast/api');
+            globalThis.__formProbe={started:false};
+            module.exports.default=async function(){
+              const runs=Number(await api.LocalStorage.getItem('owned-runs')||0)+1;
+              await api.LocalStorage.setItem('owned-runs',String(runs));
+              globalThis.__formProbe={started:true,runs};
+              if(${pending})return new Promise(()=>{});
+              await api.Clipboard.copy(${JSONObject.quote(ownedCompletionOutput)});
+              await api.showHUD('Owned command completed');
+            };
+        """.trimIndent()
+        File(directory, "complete.js").writeText(script)
+        val manifest = JSONObject("""{"commands":[{"name":"complete","title":"Owned completion return","mode":"no-view","preferences":[{"name":"label","title":"Owned optional label","type":"textfield","required":false}]}]}""")
+        ownedExtension = InstalledExtension(StoreExtension(id, "completion-fixture", "Owned completion probe", "", "Droidcast tests", "test", "", "", "", 1), directory, manifest)
+        record.put("scope", "Owned no-view completion/cancellation and native callback lifetime; no Store certification")
+            .put("owned_extension_id", id).put("fixture_pending", pending)
+            .put("fixture_command_sha256", hash(script.toByteArray())).put("fixture_manifest_sha256", hash(manifest.toString().toByteArray()))
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        compose.waitUntil(15000) { compose.onAllNodesWithTag("extension-status").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10000) { ownedNoViewRuns() == 1 }
+        compose.waitUntil(10000) { probe().optBoolean("started") }
+        if (!pending) awaitOwnedNoView(1)
+    }
+    private fun ownedNoViewRuns(): Int {
+        val local = context.getSharedPreferences("extension-${requireNotNull(ownedId)}", Context.MODE_PRIVATE).getString("local", "{}")!!
+        return JSONObject(local).optString("owned-runs", "0").toInt()
+    }
+    private fun awaitOwnedNoView(expectedRuns: Int) {
+        compose.waitUntil(15000) { catalog.runtimeError != null || catalog.runtimeReady && frozenClipboard() == ownedCompletionOutput }
+        assertNull(catalog.runtimeError, catalog.runtimeError); assertNull(activeRoot(catalog.runtimeTree))
+        assertEquals(expectedRuns, ownedNoViewRuns()); assertEquals(ownedCompletionOutput, frozenClipboard())
+        dismissFrozenClipboard("owned-completion"); compose.waitForIdle(); requireCompletionReturn()
+    }
+    private fun assertOwnedNoViewReturned(expectedRuns: Int) {
+        compose.waitUntil(5000) { compose.activity.store.dialog == null }
+        assertNull(catalog.running); assertEquals(caller, compose.activity.store.query)
+        assertEquals(ownedCompletionOutput, frozenClipboard()); assertEquals(expectedRuns, ownedNoViewRuns())
+    }
+    @Test fun ownedNoViewReturnRejectsDisposedAndReplacedCallbacks() {
+        launchOwnedNoView()
+        val button = compose.onNodeWithTag("extension-completion-return")
+        val beforePreferences = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        capture("completion-ready")
+        compose.onNodeWithText("Preferences").assertIsDisplayed().performTouchInput { click(center) }
+        compose.waitUntil(5000) { compose.activity.store.dialog == "extension-setup" }
+        compose.waitForIdle(); button.assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { beforePreferences(); assertEquals("extension-setup", it.store.dialog) }
+        touch("extension-back"); requireCompletionReturn()
+        compose.activityRule.scenario.onActivity { beforePreferences(); assertEquals("extension-run", it.store.dialog) }
+        assertEquals(1, ownedNoViewRuns())
+        val beforeRoot = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        // Controlled native publication tests disposal; it is not a React
+        // command workflow or an explanation of a historical failure.
+        compose.activityRule.scenario.onActivity { catalog.runtimeTree = JSONObject("""{"type":"List","id":"owned-temporary-root","props":{},"children":[]}""") }
+        compose.waitForIdle(); button.assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { catalog.runtimeTree = null }
+        compose.waitForIdle(); requireCompletionReturn()
+        compose.activityRule.scenario.onActivity { beforeRoot(); assertEquals("extension-run", it.store.dialog) }
+        val beforeReplacement = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.activityRule.scenario.onActivity {
+            val previousEpoch = catalog.launchEpoch
+            catalog.launch(ownedExtension, ownedExtension.commands.single())
+            val replacement = catalog.running
+            beforeReplacement()
+            assertEquals(previousEpoch + 1, catalog.launchEpoch); assertSame(replacement, catalog.running)
+            assertEquals("extension-run", it.store.dialog)
+        }
+        awaitOwnedNoView(2)
+        compose.activityRule.scenario.onActivity { beforeReplacement(); assertEquals("extension-run", it.store.dialog) }
+        val beforeClose = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.activityRule.scenario.onActivity {
+            catalog.close(); beforeClose()
+            assertNull(catalog.running); assertEquals("extension-run", it.store.dialog)
+            catalog.launch(ownedExtension, ownedExtension.commands.single())
+        }
+        awaitOwnedNoView(3)
+        compose.activityRule.scenario.onActivity { beforeClose(); assertEquals("extension-run", it.store.dialog) }
+        val once = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        capture("completion-replacement-ready"); touch("extension-completion-return"); assertOwnedNoViewReturned(3)
+        compose.activityRule.scenario.onActivity { once(); assertNull(it.store.dialog); assertNull(catalog.running) }
+        record.put("queued_callback_guards", JSONArray(listOf("Preferences hidden", "Preferences reopened", "native root ABA", "same-command replacement before disposal", "replacement composed", "closed before disposal", "closed invocation replaced", "duplicate after pointer return")))
+            .put("guard_observation", "Route, epoch, live owner, exact clipboard and owned invocation counter; callback Boolean is not an execution receipt")
+            .put("owned_runs", 3).put("passed", true)
+        capture("completion-caller-return")
+    }
+    @Test fun ownedNoViewReturnAcceptsFocusedEnterAndPreservesEscape() {
+        launchOwnedNoView(); val node = compose.onNodeWithTag("extension-completion-return")
+        node.performScrollTo(); assertCompletionReturnText()
+        record.put("focus_setup_touch_mode_before_tab", compose.runOnUiThread { compose.activity.window.decorView.isInTouchMode })
+        // Clipboard dismissal is a touch operation. Enter keyboard mode with
+        // a real Tab before requesting focus on a keyboard-focusable Button.
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_TAB)
+        compose.waitUntil(5000) { !compose.runOnUiThread { compose.activity.window.decorView.isInTouchMode } }
+        record.put("focus_setup_touch_mode_after_tab", false)
+        node.performSemanticsAction(SemanticsActions.RequestFocus) { assertTrue(it()) }; node.assertIsFocused()
+        capture("completion-focused-return")
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER)
+        assertOwnedNoViewReturned(1)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        awaitOwnedNoView(2); capture("completion-before-escape")
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ESCAPE)
+        assertOwnedNoViewReturned(2)
+        record.put("focus_setup", "Instrumentation Tab enters keyboard mode, then native RequestFocus semantics; no pointer-focus claim")
+            .put("input_execution", "Instrumentation key down/up: Enter on focused Return; Escape on fresh invocation")
+            .put("enter_and_escape_preserved_copy_query", true).put("owned_runs", 2).put("passed", true)
+        capture("completion-keyboard-caller-return")
+    }
+    @Test fun ownedNoViewPendingCommandKeepsHeaderCancellation() {
+        launchOwnedNoView(pending = true)
+        assertFalse(catalog.runtimeReady); assertNull(catalog.runtimeError)
+        compose.onNodeWithTag("extension-completion-return").assertDoesNotExist()
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard()); assertEquals(1, ownedNoViewRuns())
+        capture("pending-without-return"); touch("extension-back")
+        assertNull(compose.activity.store.dialog); assertNull(catalog.running); assertEquals(caller, compose.activity.store.query)
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard()); assertEquals(1, ownedNoViewRuns())
+        record.put("pending_started_witness", true).put("pending_return_absent", true)
+            .put("header_back_cancelled_without_copy", true).put("passed", true)
+        capture("pending-cancelled")
+    }
+    private fun generatedHistory(output: List<String>, type: String) {
+        val local = JSONObject(context.getSharedPreferences("extension-${requireNotNull(ownedId)}", Context.MODE_PRIVATE).getString("local", "{}")!!)
+        val history = JSONArray(local.getString("uuidHistory")); assertEquals(output.size, history.length())
+        for (index in output.indices) {
+            assertEquals(output[index], history.getJSONObject(index).getString("uuid"))
+            assertEquals(type, history.getJSONObject(index).getString("type"))
+        }
+        record.put("owned_history_exact_values_and_type", true).put("owned_history_count", history.length())
+    }
+    private fun withinGenerationWindow(timestamp: Long) {
+        assertTrue("Generated timestamp must be in the recorded device wall-clock window",
+            timestamp in record.getLong("generation_started_at_ms")..record.getLong("generation_completed_at_ms"))
+    }
+    private fun base32Value(text: String): BigInteger {
+        val alphabet = "0123456789abcdefghjkmnpqrstvwxyz"
+        assertEquals(26, text.length); assertTrue(text.first() in '0'..'7')
+        return text.fold(BigInteger.ZERO) { value, character ->
+            val digit = alphabet.indexOf(character.lowercaseChar()); assertTrue(digit >= 0)
+            value.shiftLeft(5).or(BigInteger.valueOf(digit.toLong()))
+        }.also { assertTrue(it.bitLength() <= 128) }
+    }
+    @Test fun frozenUuidV7GeneratesThreeFreshIdsAndOwnedHistory() {
+        openFrozenOffline("uuid-generator", "generateV7", mapOf("numberOfUUIDsToGenerate" to "3"))
+        val output = copiedFrozenOffline().split("\r\n"); assertEquals(3, output.size); assertEquals(3, output.toSet().size)
+        for (value in output) {
+            assertTrue(value.matches(Regex("[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}")))
+            val uuid = UUID.fromString(value); assertEquals(7, uuid.version()); assertEquals(2, uuid.variant())
+            withinGenerationWindow(value.replace("-", "").take(12).toLong(16))
+        }
+        generatedHistory(output, "uuidV7"); record.put("independent_uuid_bits_and_timestamps_verified", true); finishFrozenOffline()
+    }
+    @Test fun frozenUuidUlidsHaveBoundedTimestampsMonotonicOrderAndOwnedHistory() {
+        openFrozenOffline("uuid-generator", "generateUlid", mapOf("numberOfULIDsToGenerate" to "3"))
+        val output = copiedFrozenOffline().split("\r\n"); assertEquals(3, output.size); assertEquals(3, output.toSet().size)
+        output.forEach { withinGenerationWindow(base32Value(it).shiftRight(80).toLong()) }
+        assertTrue(output.zipWithNext().all { (first, second) -> first < second })
+        generatedHistory(output, "ulid"); record.put("independent_ulid_range_timestamp_and_order_verified", true); finishFrozenOffline()
+    }
+    @Test fun frozenUuidTypeIdsHaveOwnedPrefixesAndVersionSevenSuffixes() {
+        openFrozenOffline("uuid-generator", "generateTypeID", mapOf("prefix" to "owned", "numberOfUUIDsToGenerate" to "3"))
+        val output = copiedFrozenOffline().split("\r\n"); assertEquals(3, output.size); assertEquals(3, output.toSet().size)
+        for (value in output) {
+            assertTrue(value.startsWith("owned_")); assertEquals(value.lowercase(java.util.Locale.ROOT), value)
+            val integer = base32Value(value.removePrefix("owned_"))
+            val hex = integer.toString(16).padStart(32, '0')
+            assertEquals('7', hex[12]); assertTrue(hex[16] in "89ab"); withinGenerationWindow(integer.shiftRight(80).toLong())
+        }
+        generatedHistory(output, "typeid"); record.put("independent_typeid_prefix_uuid_bits_and_timestamp_verified", true); finishFrozenOffline()
+    }
+    @Test fun frozenUuidParsesTheIndependentTypeIdVector() {
+        openFrozenOffline("uuid-generator", "parseTypeID", mapOf("typeID" to "owned_01h2xcejqtf2nbrexx3vqjhp41"))
+        assertEquals("0188bac7-4afa-78aa-bc3b-bd1eef28d881", copiedFrozenOffline()); finishFrozenOffline()
+    }
+    @Test fun frozenUuidFormatsTheIndependentCanonicalVector() {
+        openFrozenOffline("uuid-generator", "formatUuid", mapOf("uuid" to "0188bac74afa78aabc3bbd1eef28d881"))
+        assertEquals("0188bac7-4afa-78aa-bc3b-bd1eef28d881", copiedFrozenOffline()); finishFrozenOffline()
+    }
+    @Test fun frozenUuidPacksTheIndependentTypeIdVector() {
+        openFrozenOffline("uuid-generator", "packTypeID", mapOf("suffix" to "owned", "uuid" to "0188bac7-4afa-78aa-bc3b-bd1eef28d881"))
+        assertEquals("owned_01h2xcejqtf2nbrexx3vqjhp41", copiedFrozenOffline()); finishFrozenOffline()
+    }
+    private fun loremSentences(text: String): List<String> {
+        assertTrue(text.endsWith('.'))
+        return text.split(Regex("(?<=[.!?])\\s+")).also { sentences ->
+            assertTrue(sentences.none { it.isBlank() })
+            sentences.forEach { assertTrue(it.trim().split(Regex("\\s+")).size in 4..16) }
+        }
+    }
+    @Test fun frozenLoremProducesExactlyTwoBoundedParagraphs() {
+        openFrozenOffline("lorem-ipsum", "paragraphs", mapOf("numberOfParagraphs" to "2"))
+        val paragraphs = copiedFrozenOffline().split("\r\n\r\n"); assertEquals(2, paragraphs.size)
+        paragraphs.forEach { assertTrue(loremSentences(it).size in 4..8) }
+        record.put("independent_paragraph_sentence_and_word_counts_verified", true); finishFrozenOffline()
+    }
+    @Test fun frozenLoremProducesExactlyThreeBoundedSentences() {
+        openFrozenOffline("lorem-ipsum", "sentences", mapOf("numberOfSentences" to "3"))
+        assertEquals(3, loremSentences(copiedFrozenOffline()).size)
+        record.put("independent_sentence_and_word_counts_verified", true); finishFrozenOffline()
+    }
+    private fun assertFrozenStatusReadable(text: String) {
+        compose.waitUntil(10000) { catalog.runtimeStatus == text }
+        compose.waitForIdle()
+        val target = compose.onNodeWithText(text, useUnmergedTree = true); target.performScrollTo(); target.assertIsDisplayed()
+        val node = target.fetchSemanticsNode(); val layouts = mutableListOf<TextLayoutResult>()
+        compose.runOnUiThread { assertTrue(requireNotNull(node.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        val layout = layouts.single(); val origin = compose.runOnUiThread { node.positionInRoot }; val viewport = node.boundsInRoot
+        assertTrue(node.size.height + 1 >= layout.multiParagraph.height)
+        val receipts = JSONArray()
+        for (line in 0 until layout.lineCount) {
+            assertFalse("Frozen command error must not be ellipsized", layout.isLineEllipsized(line))
+            val bounds = Rect(origin.x + layout.getLineLeft(line), origin.y + layout.getLineTop(line),
+                origin.x + layout.getLineRight(line), origin.y + layout.getLineBottom(line))
+            assertTrue("Each error line must fit its actually visible text region", bounds.left >= viewport.left - 1f && bounds.right <= viewport.right + 1f &&
+                bounds.top >= viewport.top - 1f && bounds.bottom <= viewport.bottom + 1f)
+            receipts.put(JSONObject().put("line", line).put("bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom))))
+        }
+        record.put("frozen_error_line_witnesses", receipts).put("frozen_error_text", text)
+    }
+    @Test fun frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines() {
+        openFrozenOffline("json-format", "formatJsonLines")
+        val invalid = "Owned invalid JSON 日本"
+        touch("extension-field-input"); compose.onNodeWithTag("extension-field-input").performTextReplacement(invalid)
+        compose.waitUntil(5000) { field("Form.TextArea", "input").props().optString("value") == invalid }
+        ime(false); touch("extension-primary")
+        assertFrozenStatusReadable("Please enter a valid JSON/JS Array Object")
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard()); capture("json-lines-invalid-input")
+        val input = "[{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]},{\"empty\":null,\"ok\":true}]"
+        val output = "{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]}\n{\"empty\":null,\"ok\":true}"
+        touch("extension-field-input"); compose.onNodeWithTag("extension-field-input").performTextReplacement(input)
+        compose.waitUntil(5000) { field("Form.TextArea", "input").props().optString("value") == input }
+        capture("json-lines-input-ime"); ime(false)
+        val actions = requireNotNull(activeRoot(catalog.runtimeTree)).actions()
+        val index = actions.indexOfFirst { it.props().optString("title") == "View Result" }; assertTrue(index >= 0)
+        touch("extension-actions"); touchUnfilteredFrozenAction(index, "View Result")
+        compose.waitUntil(15000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
+        val expectedMarkdown = output.split('\n').joinToString("\n\n") { "```json\n$it\n```" }
+        assertEquals(expectedMarkdown, requireNotNull(activeRoot(catalog.runtimeTree)).props().getString("markdown"))
+        compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-markdown-loading").fetchSemanticsNodes().isEmpty() }
+        val blocks = compose.onAllNodesWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNodes()
+        assertEquals(2, blocks.size)
+        output.split('\n').forEachIndexed { position, line -> assertEquals(line + "\n", blocks[position].config[SemanticsProperties.Text].single().text) }
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard()); capture("json-lines-detail")
+        touch("extension-primary"); assertEquals(output, copiedFrozenOffline())
+        touch("extension-back"); compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Form" }
+        assertEquals(input, field("Form.TextArea", "input").props().optString("value"))
+        record.put("invalid_input_preserved_clipboard", true).put("exact_native_code_blocks_and_jsonlines_copy", true)
+            .put("form_input_preserved_on_back", true).put("output_scope", "Exact code/Copy values; complete horizontal code navigation is not certified")
+        finishFrozenOffline()
+    }
+    @Test fun frozenJsonValueEscapesUnicodeAndReloadsItsOwnedInput() {
+        val extension = openFrozenOffline("json-format", "formatToJsonValue")
+        compose.waitUntil(15000) { activeRoot(catalog.runtimeTree)?.props()?.optBoolean("isLoading") == false }
+        val input = "Owned \"quote\" café é 日本 🌱\nline\tend"
+        val output = "\"Owned \\\"quote\\\" café é 日本 🌱\\nline\\tend\""
+        touch("extension-field-input"); compose.onNodeWithTag("extension-field-input").performTextReplacement(input)
+        compose.waitUntil(10000) { field("Form.TextArea", "input").props().optString("value") == input &&
+            activeRoot(catalog.runtimeTree)?.nodes("Form.Description")?.any { it.props().optString("text") == output } == true }
+        compose.onNodeWithTag("extension-field-input").assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(input)))
+        capture("json-value-input-ime"); ime(false)
+        inspectTextLines("extension-form", listOf(compose.onNodeWithText(output, useUnmergedTree = true)), "json-value-escaped-output")
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard()); touch("extension-primary")
+        assertEquals(output, copiedFrozenOffline()); assertEquals(input, JSONArray("[$output]").getString(0))
+        touch("extension-back"); assertNull(compose.activity.store.dialog)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single { it.name == "formatToJsonValue" }) }
+        compose.waitUntil(15000) { activeRoot(catalog.runtimeTree)?.let { root -> root.optString("type") == "Form" &&
+            !root.props().optBoolean("isLoading") && root.nodes("Form.TextArea").any { it.props().optString("id") == "input" && it.props().optString("value") == input } } == true }
+        compose.onNodeWithTag("extension-field-input").assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(input)))
+        assertEquals(output, activeRoot(catalog.runtimeTree)!!.nodes("Form.Description").single().props().getString("text"))
+        record.put("exact_escaped_unicode_value_copied", true).put("owned_input_survived_command_reopen", true)
+            .put("persistence_scope", "Same owned ID and foreground app process; no process-death claim")
+        capture("json-value-reopened"); finishFrozenOffline()
     }
     private fun typedTouchControl(type: String, id: String, tag: String) {
         launch("typed-controls")

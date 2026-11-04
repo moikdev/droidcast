@@ -1,0 +1,56 @@
+{
+  "scope": "Owned no-view completion\/cancellation and native callback lifetime; no Store certification",
+  "clipboard-owned-sentinel": {
+    "fixture_ready": true,
+    "fixture_wait_ms": 771,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "20d7ca40672270c36a3cacd28f4ba2173fdcead5",
+  "owned_extension_id": "reviewed-text-a8c4d3057f37401c9373ab868bf3ef5b",
+  "fixture_pending": false,
+  "fixture_command_sha256": "caa437a0c2690326903b1c2a010484d12ff5b16b186a488937a0243d94f56ecc",
+  "fixture_manifest_sha256": "5f0791158ea7dac3bf8aebb5b286df6d3465c1dfbcfa3a0caf50367d79221f7b",
+  "clipboard-owned-completion": {
+    "fixture_ready": true,
+    "fixture_wait_ms": 1236,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "completion_return_line_bounds": [
+    [
+      485,
+      822,
+      593.2857,
+      875
+    ]
+  ],
+  "completion_return_visible_target": [
+    393,
+    785,
+    687,
+    911
+  ],
+  "focus_setup_touch_mode_before_tab": false,
+  "focus_setup_touch_mode_after_tab": false,
+  "focus_setup": "Instrumentation Tab enters keyboard mode, then native RequestFocus semantics; no pointer-focus claim",
+  "input_execution": "Instrumentation key down\/up: Enter on focused Return; Escape on fresh invocation",
+  "enter_and_escape_preserved_copy_query": true,
+  "owned_runs": 2,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

@@ -1,0 +1,28 @@
+{
+  "completed": false,
+  "layout": "tablet",
+  "font": 1.0,
+  "case": "uuid-v7",
+  "methods": [
+    "frozenUuidV7GeneratesThreeFreshIdsAndOwnedHistory"
+  ],
+  "app_sha256": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e",
+  "app_cohort": "old",
+  "completion_return_expected": true,
+  "intended_missing_return_control": true,
+  "test_apk_sha256": "39b9cc8d6ea0e5fc8c13009bcab4723d0e4310b1ab03ca9eefadfd2435a98f3a",
+  "test_source_commit": "ed3831303a8319a194f0ae137830acba1f3580d5",
+  "runtime_source_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "collector_sha256": "056b20d60ae44cd6026a60466bc0c9153d1c944798613976ed60fb7a40d18f94",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 1,
+  "passes": 0,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "native_completed": false,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "intended_initial_target_control": false
+}

@@ -16,3 +16,6 @@ app/src/main/assets/RaycastRuntime.generated.js linguist-generated
 
 # Preserve original transport evidence bytes, including CRLF captures.
 docs/validation/extension-compatibility/fetch/** -text -whitespace
+
+# Preserve offline workflow evidence bytes.
+docs/validation/offline-workflows/** -text -whitespace

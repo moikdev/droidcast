@@ -63,6 +63,10 @@ def main():
     parser.add_argument('--html-colors-archive', type=Path, help='Optional hash-pinned HTML Colors bundle for the owned native Detail workflow')
     parser.add_argument('--translate-archive', type=Path, help='Optional hash-pinned Translate bundle for owned network observations')
     parser.add_argument('--weather-archive', type=Path, help='Optional hash-pinned Weather bundle for owned network observations')
+    parser.add_argument('--uuid-archive', type=Path, help='Optional hash-pinned UUID bundle for owned offline workflows')
+    parser.add_argument('--lorem-archive', type=Path, help='Optional hash-pinned Lorem bundle for owned offline workflows')
+    parser.add_argument('--reviewed-json-command', choices=['formatSelectionAndShow', 'formatSelection'], default='formatSelectionAndShow')
+    parser.add_argument('--expect-completion-return', action='store_true', help='Require the completed no-view touch Return in owned Form or the single reviewed no-view JSON workflow')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
@@ -106,11 +110,26 @@ def main():
         ['dev.tinycast.android.ExtensionDetailDeviceTest', 'dev.tinycast.android.ReviewedTextDeviceTest'] for item in args.classes.split(',')),
         'Network bundle is not authorized for this test class')
     network_filter = translation_test_filter(args.classes, args.translate_archive is not None)
+    require(not (args.uuid_archive or args.lorem_archive) or all(
+        item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),
+        'Offline bundles belong only to the owned Form cohort')
+    require(args.reviewed_json_command == 'formatSelectionAndShow' or
+        args.classes == 'dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns',
+        'The no-view formatter requires the single reviewed selection workflow')
+    require(not args.expect_completion_return or all(
+        item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')) or
+        (args.classes == 'dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns' and
+         args.reviewed_json_command == 'formatSelection'),
+        'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
         'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
     typed_archives = {}
+    for name, path, expected in [('uuid-generator', args.uuid_archive, 'bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0'),
+                                 ('lorem-ipsum', args.lorem_archive, 'a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b')]:
+        if path is not None:
+            typed_archives[name] = frozen_form_archive(path, expected)
     require(not (args.mood_archive or args.checksum_archive) or all(
         item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),
         'Typed Store bundles belong only to the owned Form cohort')
@@ -174,6 +193,8 @@ def main():
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'document_helper_sha256': sha(document_helper.read_bytes()),
               'instrumentation_excluded_tests': [] if not network_filter else [SELECTED_TRANSLATION_CASE],
+              'reviewed_json_command': args.reviewed_json_command,
+              'expect_completion_return': args.expect_completion_return,
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
 
@@ -223,6 +244,8 @@ def main():
         save()
         command = adb + ['shell', 'am', 'instrument', '-w', '-r', '-e', 'dedicatedAvd', args.avd,
                          '-e', 'reviewedTextFixture', 'true', '-e', 'expectedTextInputLeaseOwner', owner,
+                         '-e', 'reviewedJsonCommand', args.reviewed_json_command,
+                         '-e', 'expectCompletionReturn', str(args.expect_completion_return).lower(),
                          '-e', 'expectedClipboardRecoveryOwner', owner,
                          '-e', 'expectedFormDocumentOwner', owner if args.document_fixtures else 'none',
                          '-e', 'class', args.classes, *network_filter, app + '.test/androidx.test.runner.AndroidJUnitRunner']
