@@ -82,8 +82,8 @@ class InlinePaletteDeviceTest {
         return compose.runOnUiThread { save.boundsInWindow to frame.boundsInWindow }
     }
     /** All geometry in one sample is read in one UI callback, without an inset delivery between nodes. */
-    private fun menuBoundarySnapshot(cachedPalette: Rect? = null): JSONObject {
-        val root = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag("palette")), useUnmergedTree = true).fetchSemanticsNode()
+    private fun menuBoundarySnapshot(cachedPalette: Rect? = null, rootTag: String = "palette"): JSONObject {
+        val root = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(rootTag)), useUnmergedTree = true).fetchSemanticsNode()
         return compose.runOnUiThread {
             fun rect(value: Rect) = JSONArray(listOf(value.left, value.top, value.right, value.bottom))
             val nodes = JSONArray()
@@ -94,7 +94,7 @@ class InlinePaletteDeviceTest {
                 if (visited >= 1024) return
                 visited++
                 val tag = node.config.getOrNull(SemanticsProperties.TestTag)
-                val menu = insideMenu || tag == "inline-menu"
+                val menu = insideMenu || tag == "inline-menu" || rootTag != "palette"
                 if (menu || tag in tags) {
                     val coordinates = node.layoutInfo.coordinates
                     val item = JSONObject().put("id", node.id).put("tag", tag)
@@ -156,10 +156,12 @@ class InlinePaletteDeviceTest {
         return bounds("palette") to bounds("inline-menu")
     }
     /** Captures even clipped/absent markers; it must run before the original failing assertion. */
-    private fun captureMenuBoundary(name: String, cachedPalette: Rect? = null, legacyMenu: Rect? = null) {
+    private fun captureMenuBoundary(name: String, cachedPalette: Rect? = null, legacyMenu: Rect? = null,
+                                    rootTag: String = "palette", callerOperands: JSONObject? = null) {
         compose.waitForIdle()
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         val record = JSONObject().put("schema_version", 1).put("name", name)
+            .put("root_tag", rootTag).put("caller_operands", callerOperands)
             .put("scope", "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction")
             .put("pointer_taps", touchEvidence)
             .put("pointer_scrolls", scrollEvidence)
@@ -167,7 +169,7 @@ class InlinePaletteDeviceTest {
             .put("legacy_menu_operand", legacyMenu?.let { JSONArray(listOf(it.left, it.top, it.right, it.bottom)) })
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
                 android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
-            .put("before_native_capture", menuBoundarySnapshot(cachedPalette))
+            .put("before_native_capture", menuBoundarySnapshot(cachedPalette, rootTag))
         testAutomation().clearCacheForTest()
         device.dumpWindowHierarchy(File(folder, "$name.xml"))
         val rendered = java.util.concurrent.CountDownLatch(1)
@@ -176,9 +178,9 @@ class InlinePaletteDeviceTest {
             it.window.decorView.postInvalidateOnAnimation()
         }
         record.put("frame_commit_observed", rendered.await(5, java.util.concurrent.TimeUnit.SECONDS))
-            .put("before_png", menuBoundarySnapshot(cachedPalette))
+            .put("before_png", menuBoundarySnapshot(cachedPalette, rootTag))
             .put("png_captured", device.takeScreenshot(File(folder, "$name.png")))
-            .put("after_png", menuBoundarySnapshot(cachedPalette))
+            .put("after_png", menuBoundarySnapshot(cachedPalette, rootTag))
         File(folder, "$name-frame.json").writeText(record.toString(2))
     }
     private fun imeVisible(): Boolean = compose.runOnUiThread {
@@ -495,6 +497,7 @@ class InlinePaletteDeviceTest {
         assertEquals(frame.left, editor.left, 1f); assertEquals(frame.top, editor.top, 1f); assertEquals(frame.width, editor.width, 1f)
         compose.onNodeWithTag("editor-title").performTextReplacement("Inline draft")
         compose.onNodeWithTag("editor-body").performTextReplacement("This draft stays inside the palette.")
+        captureMenuBoundary("caller-editor-save-before-display-assert", rootTag = "editor-body")
         compose.onNodeWithTag("save-editor").assertIsDisplayed()
         val (save,typingFrame)=editorBounds()
         val diagnostics=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
@@ -588,6 +591,9 @@ class InlinePaletteDeviceTest {
             val splitReadWouldFail=hiddenSave.bottom>frame.bottom
             File(diagnostics,"editor-resize-measurement.json").writeText(org.json.JSONObject().put("before_save",hiddenSave.toString()).put("before_frame",hiddenFrame.toString()).put("after_save",save.toString()).put("after_frame",frame.toString()).put("cross_frame_comparison_would_fail",splitReadWouldFail).toString(2))
             if(context.resources.configuration.smallestScreenWidthDp>=600) assertTrue("Controlled mixed-frame comparison fails on tablet resize",splitReadWouldFail)
+            captureMenuBoundary("caller-editor-ime-before-containment-assert", rootTag = "editor-body", callerOperands = JSONObject()
+                .put("hidden_save", hiddenSave.toString()).put("hidden_frame", hiddenFrame.toString())
+                .put("save", save.toString()).put("frame", frame.toString()))
             assertTrue(frame.contains(save.topLeft) && frame.contains(save.bottomRight))
             val keyboard=device.wait(Until.findObject(By.pkg("com.google.android.inputmethod.latin")),5000)
             assertNotNull("Real Gboard is present",keyboard)
@@ -656,6 +662,7 @@ class InlinePaletteDeviceTest {
         }
         compose.onNodeWithTag("alias-field").performTextReplacement("prefs")
         compose.onNodeWithTag("save-alias").performScrollTo().performClick()
+        captureMenuBoundary("caller-alias-error-before-display-assert", rootTag = "alias-field")
         compose.onNodeWithText("That alias is already in use").assertIsDisplayed()
         capture("inline-alias-conflict","That alias is already in use")
         compose.onNodeWithTag("alias-field").performTextReplacement("inlinetest")
