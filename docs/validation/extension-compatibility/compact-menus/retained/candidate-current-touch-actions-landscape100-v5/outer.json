@@ -1,0 +1,20 @@
+{
+  "completed": false,
+  "candidate": "current",
+  "case": "touch-actions",
+  "source_commit": "59ec25c2bd9bd5de46cb1063ff589e33580437ef",
+  "production_source_commit": "fd79b900acec98768190833eda4dee11af2cf308",
+  "test_source_commit": "59ec25c2bd9bd5de46cb1063ff589e33580437ef",
+  "app_sha256": "b152b4396810205d209186d82cf78045e579c9da3e1d43fac43874746c05f626",
+  "test_apk_sha256": "84dfe9cdf944782ebb54076248fef74030d7cac9127566979f755249db5d3213",
+  "junit_passes": 0,
+  "failed_cleanup_checks": [
+    "legacy-fixtures-completed",
+    "release-lease"
+  ],
+  "restoration_pending": true,
+  "restoration_failure_type": "RuntimeError",
+  "original_evidence_restored_and_verified": true,
+  "preservation_owner_released": true,
+  "scope": "Current pointer/IME and revised legacy menu contracts. Original v1 failures remain historical. Failures retain ownership and need separate verified recovery."
+}

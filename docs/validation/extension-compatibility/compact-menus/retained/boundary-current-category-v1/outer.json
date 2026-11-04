@@ -1,0 +1,18 @@
+{
+  "completed": false,
+  "candidate": "current",
+  "case": "category",
+  "source_commit": "01c03f872312f9636b9ffcf85b5b8c75f79cbe31",
+  "app_sha256": "8329ea7454c12825984772418787fb18586cbc1afaeea29f385d973ad44d78b0",
+  "test_apk_sha256": "80ad82fd5b18b815da256e3a8ffb365bbfac83d2cbc5eea98ad4bce91da79d4a",
+  "junit_passes": 0,
+  "failed_cleanup_checks": [
+    "legacy-fixtures-completed",
+    "release-lease"
+  ],
+  "restoration_pending": true,
+  "restoration_failure_type": "RuntimeError",
+  "original_evidence_restored_and_verified": true,
+  "preservation_owner_released": true,
+  "scope": "Original legacy assertions with pre-assertion diagnostics; failures remain failures and require separate verified recovery."
+}

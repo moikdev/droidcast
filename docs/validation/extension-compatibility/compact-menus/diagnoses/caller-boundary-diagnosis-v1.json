@@ -1,0 +1,521 @@
+{
+  "scope": "Identical diagnostic-only instrumentation reproduces the two pre-existing editor limits on both apps. Alias case passes only after extra capture observations on both; this establishes neither the cause nor a repair of the original uncaptured assertion failure. Existing pointer reachability must be verified separately.",
+  "observations": [
+    {
+      "candidate": "current",
+      "source_id": "candidate-current-caller-diagnostics-landscape100-current-v16",
+      "app_sha256": "9b69c279f241e4b2ca69e7634afe1472f128b46221e6f3bb1205bef996dcda8f",
+      "test_apk_sha256": "cd31d26074e1e417ef9422207d0aa6829d6f738dcbddc27331e27628d1c99cf4",
+      "passes": 1,
+      "failed_cases": 2,
+      "observations": [
+        {
+          "stage": "caller-editor-ime-before-containment-assert",
+          "frame_sha256": "2b4b6735c15b0fa1b6cc988b49f898cf601c373a175b27180b8aa4a3024ae925",
+          "ime_visible": true,
+          "ime_insets_px": [
+            0,
+            0,
+            0,
+            736
+          ],
+          "nodes": [
+            {
+              "tag": "palette-screen",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": null
+            },
+            {
+              "tag": "palette-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": {
+                "value": 215,
+                "max": 330
+              }
+            },
+            {
+              "tag": "shell-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                277
+              ],
+              "layout_size": [
+                1969,
+                246
+              ],
+              "vertical_scroll": {
+                "value": 368,
+                "max": 568
+              }
+            },
+            {
+              "tag": "save-editor",
+              "text": null,
+              "bounds_root": [
+                1836,
+                291,
+                2123,
+                313
+              ],
+              "layout_size": [
+                287,
+                126
+              ],
+              "vertical_scroll": null
+            }
+          ],
+          "original_caller_operands": {
+            "hidden_save": "Rect.fromLTRB(1836.0, 849.0, 2123.0, 975.0)",
+            "hidden_frame": "Rect.fromLTRB(186.0, 95.0, 2155.0, 986.0)",
+            "save": "Rect.fromLTRB(1836.0, 291.0, 2123.0, 313.0)",
+            "frame": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)"
+          }
+        },
+        {
+          "stage": "caller-editor-save-before-display-assert",
+          "frame_sha256": "f3cc088a371b0165a18761977c34aa2f77c32855ec8954027df16d80369f6ec7",
+          "ime_visible": true,
+          "ime_insets_px": [
+            0,
+            0,
+            0,
+            736
+          ],
+          "nodes": [
+            {
+              "tag": "palette-screen",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": null
+            },
+            {
+              "tag": "palette-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": {
+                "value": 192,
+                "max": 330
+              }
+            },
+            {
+              "tag": "shell-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                300
+              ],
+              "layout_size": [
+                1969,
+                246
+              ],
+              "vertical_scroll": {
+                "value": 368,
+                "max": 568
+              }
+            },
+            {
+              "tag": "save-editor",
+              "text": null,
+              "bounds_root": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "layout_size": [
+                287,
+                126
+              ],
+              "vertical_scroll": null
+            }
+          ],
+          "original_caller_operands": null
+        },
+        {
+          "stage": "caller-alias-error-before-display-assert",
+          "frame_sha256": "e5fd253b29e0cbc019011a4c1ce67ff26061ed1d449b79250d4ff6d937619c76",
+          "ime_visible": true,
+          "ime_insets_px": [
+            0,
+            0,
+            0,
+            736
+          ],
+          "nodes": [
+            {
+              "tag": "palette-screen",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": null
+            },
+            {
+              "tag": "palette-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": {
+                "value": 182,
+                "max": 182
+              }
+            },
+            {
+              "tag": "shell-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                249
+              ],
+              "vertical_scroll": {
+                "value": 308,
+                "max": 428
+              }
+            },
+            {
+              "tag": null,
+              "text": "That alias is already in use",
+              "bounds_root": [
+                233,
+                150,
+                637,
+                213
+              ],
+              "layout_size": [
+                404,
+                63
+              ],
+              "vertical_scroll": null
+            }
+          ],
+          "original_caller_operands": null
+        }
+      ]
+    },
+    {
+      "candidate": "baseline",
+      "source_id": "candidate-baseline-caller-diagnostics-landscape100-current-v16",
+      "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+      "test_apk_sha256": "cd31d26074e1e417ef9422207d0aa6829d6f738dcbddc27331e27628d1c99cf4",
+      "passes": 1,
+      "failed_cases": 2,
+      "observations": [
+        {
+          "stage": "caller-editor-ime-before-containment-assert",
+          "frame_sha256": "2758f765b05fc14d808458f29f570778975f8e8363480785e55b98d8cc5e4f9d",
+          "ime_visible": true,
+          "ime_insets_px": [
+            0,
+            0,
+            0,
+            736
+          ],
+          "nodes": [
+            {
+              "tag": "palette-screen",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": null
+            },
+            {
+              "tag": "palette-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": {
+                "value": 215,
+                "max": 330
+              }
+            },
+            {
+              "tag": "shell-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                277
+              ],
+              "layout_size": [
+                1969,
+                246
+              ],
+              "vertical_scroll": {
+                "value": 368,
+                "max": 568
+              }
+            },
+            {
+              "tag": "save-editor",
+              "text": null,
+              "bounds_root": [
+                1836,
+                291,
+                2123,
+                313
+              ],
+              "layout_size": [
+                287,
+                126
+              ],
+              "vertical_scroll": null
+            }
+          ],
+          "original_caller_operands": {
+            "hidden_save": "Rect.fromLTRB(1836.0, 849.0, 2123.0, 975.0)",
+            "hidden_frame": "Rect.fromLTRB(186.0, 95.0, 2155.0, 986.0)",
+            "save": "Rect.fromLTRB(1836.0, 291.0, 2123.0, 313.0)",
+            "frame": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)"
+          }
+        },
+        {
+          "stage": "caller-editor-save-before-display-assert",
+          "frame_sha256": "77b3f39dfc14a927fed6805a51b2f9b39c312514cf21d2774caf67009a5c8f94",
+          "ime_visible": true,
+          "ime_insets_px": [
+            0,
+            0,
+            0,
+            736
+          ],
+          "nodes": [
+            {
+              "tag": "palette-screen",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": null
+            },
+            {
+              "tag": "palette-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": {
+                "value": 192,
+                "max": 330
+              }
+            },
+            {
+              "tag": "shell-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                300
+              ],
+              "layout_size": [
+                1969,
+                246
+              ],
+              "vertical_scroll": {
+                "value": 368,
+                "max": 568
+              }
+            },
+            {
+              "tag": "save-editor",
+              "text": null,
+              "bounds_root": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "layout_size": [
+                287,
+                126
+              ],
+              "vertical_scroll": null
+            }
+          ],
+          "original_caller_operands": null
+        },
+        {
+          "stage": "caller-alias-error-before-display-assert",
+          "frame_sha256": "b2cac842acce3937cf9732473c2e18ebc3327b8dc46644ba353e26fa942f7126",
+          "ime_visible": true,
+          "ime_insets_px": [
+            0,
+            0,
+            0,
+            736
+          ],
+          "nodes": [
+            {
+              "tag": "palette-screen",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": null
+            },
+            {
+              "tag": "palette-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                218
+              ],
+              "vertical_scroll": {
+                "value": 182,
+                "max": 182
+              }
+            },
+            {
+              "tag": "shell-content-scroll",
+              "text": null,
+              "bounds_root": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "layout_size": [
+                1969,
+                249
+              ],
+              "vertical_scroll": {
+                "value": 308,
+                "max": 428
+              }
+            },
+            {
+              "tag": null,
+              "text": "That alias is already in use",
+              "bounds_root": [
+                233,
+                150,
+                637,
+                213
+              ],
+              "layout_size": [
+                404,
+                63
+              ],
+              "vertical_scroll": null
+            }
+          ],
+          "original_caller_operands": null
+        }
+      ]
+    }
+  ],
+  "original_landscape_broad": {
+    "source_id": "candidate-current-inline-landscape100-current-v14",
+    "passes": 10,
+    "failed_cases": 3,
+    "original_failed_result_retained": true
+  }
+}

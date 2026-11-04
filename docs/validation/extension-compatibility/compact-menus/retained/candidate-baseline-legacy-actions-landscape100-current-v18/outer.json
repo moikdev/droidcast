@@ -1,0 +1,20 @@
+{
+  "completed": false,
+  "candidate": "baseline",
+  "case": "legacy-actions",
+  "source_commit": "14b8bd832b5e6bedfaa97b77de99cee02c897a6f",
+  "production_source_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "test_source_commit": "14b8bd832b5e6bedfaa97b77de99cee02c897a6f",
+  "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+  "test_apk_sha256": "880e0ae3971d7bf7744aa068928a5f3510ff9fa7986b871623cf7642ca1e209d",
+  "junit_passes": 0,
+  "failed_cleanup_checks": [
+    "legacy-fixtures-completed",
+    "release-lease"
+  ],
+  "restoration_pending": true,
+  "restoration_failure_type": "RuntimeError",
+  "original_evidence_restored_and_verified": true,
+  "preservation_owner_released": true,
+  "scope": "Current pointer/IME and revised legacy menu contracts. Original v1 failures remain historical. Failures retain ownership and need separate verified recovery."
+}

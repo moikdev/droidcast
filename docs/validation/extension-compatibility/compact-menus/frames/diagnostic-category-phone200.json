@@ -1,0 +1,2909 @@
+{
+  "schema_version": 1,
+  "name": "menu-category-legacy",
+  "scope": "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction",
+  "legacy_menu_operand": [
+    53,
+    243,
+    893,
+    1695
+  ],
+  "installed_build_commit": "01c03f872312f9636b9ffcf85b5b8c75f79cbe31",
+  "before_native_capture": {
+    "uptime_ms": 10729031,
+    "nodes": [
+      {
+        "id": 6,
+        "tag": "palette",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          32,
+          95,
+          1048,
+          1965
+        ],
+        "bounds_root": [
+          32,
+          95,
+          1048,
+          1965
+        ],
+        "layout_size": [
+          1016,
+          1870
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 9,
+        "tag": "palette-header",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          74,
+          106,
+          1006,
+          232
+        ],
+        "bounds_root": [
+          74,
+          106,
+          1006,
+          232
+        ],
+        "layout_size": [
+          932,
+          126
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 19,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          32,
+          1695,
+          1048,
+          1965
+        ],
+        "bounds_root": [
+          32,
+          1695,
+          1048,
+          1965
+        ],
+        "layout_size": [
+          1016,
+          270
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 24,
+        "tag": "palette-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          53,
+          1767,
+          179,
+          1893
+        ],
+        "bounds_root": [
+          53,
+          1767,
+          179,
+          1893
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 33,
+        "tag": "primary-action",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          179,
+          1706,
+          713,
+          1954
+        ],
+        "bounds_root": [
+          179,
+          1706,
+          713,
+          1954
+        ],
+        "layout_size": [
+          534,
+          248
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 36,
+        "tag": "actions-button",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          716,
+          1706,
+          1027,
+          1954
+        ],
+        "bounds_root": [
+          716,
+          1706,
+          1027,
+          1954
+        ],
+        "layout_size": [
+          311,
+          248
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 110,
+        "tag": "inline-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          53,
+          243,
+          893,
+          1695
+        ],
+        "bounds_root": [
+          53,
+          243,
+          893,
+          1695
+        ],
+        "layout_size": [
+          840,
+          1452
+        ],
+        "focused": true,
+        "text_layouts": []
+      },
+      {
+        "id": 112,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          90,
+          280,
+          856,
+          364
+        ],
+        "bounds_root": [
+          90,
+          280,
+          856,
+          364
+        ],
+        "layout_size": [
+          766,
+          84
+        ],
+        "text": "Droidcast",
+        "text_layouts": [
+          {
+            "size": [
+              766,
+              84
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 264.1726,
+                "top": 0,
+                "bottom": 84,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 113,
+        "tag": "inline-menu-choices",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          385,
+          877,
+          1679
+        ],
+        "bounds_root": [
+          69,
+          385,
+          877,
+          1679
+        ],
+        "layout_size": [
+          808,
+          1294
+        ],
+        "vertical_scroll": {
+          "value": 571,
+          "max": 571
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 147,
+        "tag": "filter-Pinned",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          385,
+          877,
+          447
+        ],
+        "bounds_root": [
+          69,
+          385,
+          877,
+          447
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 148,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          385,
+          851,
+          426
+        ],
+        "bounds_root": [
+          95,
+          385,
+          851,
+          426
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Favorites",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 284.7688,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 121,
+        "tag": "filter-Apps",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          447,
+          877,
+          615
+        ],
+        "bounds_root": [
+          69,
+          447,
+          877,
+          615
+        ],
+        "layout_size": [
+          808,
+          168
+        ],
+        "focused": false,
+        "selected": true,
+        "text_layouts": []
+      },
+      {
+        "id": 122,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          486,
+          798,
+          577
+        ],
+        "bounds_root": [
+          95,
+          486,
+          798,
+          577
+        ],
+        "layout_size": [
+          703,
+          91
+        ],
+        "text": "Apps",
+        "text_layouts": [
+          {
+            "size": [
+              703,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 157.79999,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 123,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          798,
+          468,
+          851,
+          594
+        ],
+        "bounds_root": [
+          798,
+          468,
+          851,
+          594
+        ],
+        "layout_size": [
+          53,
+          126
+        ],
+        "text": "✓",
+        "text_layouts": [
+          {
+            "size": [
+              53,
+              126
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 52,
+                "top": 0,
+                "bottom": 126,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 125,
+        "tag": "filter-Notes",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          615,
+          877,
+          748
+        ],
+        "bounds_root": [
+          69,
+          615,
+          877,
+          748
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 126,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          636,
+          851,
+          727
+        ],
+        "bounds_root": [
+          95,
+          636,
+          851,
+          727
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Notes",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 182.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 128,
+        "tag": "filter-Quicklinks",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          748,
+          877,
+          881
+        ],
+        "bounds_root": [
+          69,
+          748,
+          877,
+          881
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 129,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          769,
+          851,
+          860
+        ],
+        "bounds_root": [
+          95,
+          769,
+          851,
+          860
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Quicklinks",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 322.40005,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 131,
+        "tag": "filter-Clips",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          881,
+          877,
+          1014
+        ],
+        "bounds_root": [
+          69,
+          881,
+          877,
+          1014
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 132,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          902,
+          851,
+          993
+        ],
+        "bounds_root": [
+          95,
+          902,
+          851,
+          993
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Clips",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 155.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 134,
+        "tag": "filter-Files",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1014,
+          877,
+          1147
+        ],
+        "bounds_root": [
+          69,
+          1014,
+          877,
+          1147
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 135,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1035,
+          851,
+          1126
+        ],
+        "bounds_root": [
+          95,
+          1035,
+          851,
+          1126
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Files",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 146.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 136,
+        "tag": "filter-Extensions",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1147,
+          877,
+          1280
+        ],
+        "bounds_root": [
+          69,
+          1147,
+          877,
+          1280
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 137,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1168,
+          851,
+          1259
+        ],
+        "bounds_root": [
+          95,
+          1168,
+          851,
+          1259
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Extensions",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 340.40002,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 138,
+        "tag": "menu-preferences",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1280,
+          877,
+          1413
+        ],
+        "bounds_root": [
+          69,
+          1280,
+          877,
+          1413
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 139,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1301,
+          851,
+          1392
+        ],
+        "bounds_root": [
+          95,
+          1301,
+          851,
+          1392
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Preferences…",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 417.6352,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 141,
+        "tag": "menu-shortcuts",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1413,
+          877,
+          1546
+        ],
+        "bounds_root": [
+          69,
+          1413,
+          877,
+          1546
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 142,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1434,
+          851,
+          1525
+        ],
+        "bounds_root": [
+          95,
+          1434,
+          851,
+          1525
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Keyboard shortcuts",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 608.9461,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 144,
+        "tag": "menu-dismiss",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1546,
+          877,
+          1679
+        ],
+        "bounds_root": [
+          69,
+          1546,
+          877,
+          1679
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 145,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1567,
+          851,
+          1658
+        ],
+        "bounds_root": [
+          95,
+          1567,
+          851,
+          1658
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Dismiss Droidcast",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 569.9672,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nodes_visited": 45,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 2,
+    "ime_visible": false,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "decor_size": [
+      1080,
+      2340
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][1080,2277]",
+    "cached_palette": [
+      32,
+      95,
+      1048,
+      1343
+    ]
+  },
+  "frame_commit_observed": true,
+  "before_png": {
+    "uptime_ms": 10729525,
+    "nodes": [
+      {
+        "id": 6,
+        "tag": "palette",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          32,
+          95,
+          1048,
+          1965
+        ],
+        "bounds_root": [
+          32,
+          95,
+          1048,
+          1965
+        ],
+        "layout_size": [
+          1016,
+          1870
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 9,
+        "tag": "palette-header",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          74,
+          106,
+          1006,
+          232
+        ],
+        "bounds_root": [
+          74,
+          106,
+          1006,
+          232
+        ],
+        "layout_size": [
+          932,
+          126
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 19,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          32,
+          1695,
+          1048,
+          1965
+        ],
+        "bounds_root": [
+          32,
+          1695,
+          1048,
+          1965
+        ],
+        "layout_size": [
+          1016,
+          270
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 24,
+        "tag": "palette-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          53,
+          1767,
+          179,
+          1893
+        ],
+        "bounds_root": [
+          53,
+          1767,
+          179,
+          1893
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 33,
+        "tag": "primary-action",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          179,
+          1706,
+          713,
+          1954
+        ],
+        "bounds_root": [
+          179,
+          1706,
+          713,
+          1954
+        ],
+        "layout_size": [
+          534,
+          248
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 36,
+        "tag": "actions-button",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          716,
+          1706,
+          1027,
+          1954
+        ],
+        "bounds_root": [
+          716,
+          1706,
+          1027,
+          1954
+        ],
+        "layout_size": [
+          311,
+          248
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 110,
+        "tag": "inline-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          53,
+          243,
+          893,
+          1695
+        ],
+        "bounds_root": [
+          53,
+          243,
+          893,
+          1695
+        ],
+        "layout_size": [
+          840,
+          1452
+        ],
+        "focused": true,
+        "text_layouts": []
+      },
+      {
+        "id": 112,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          90,
+          280,
+          856,
+          364
+        ],
+        "bounds_root": [
+          90,
+          280,
+          856,
+          364
+        ],
+        "layout_size": [
+          766,
+          84
+        ],
+        "text": "Droidcast",
+        "text_layouts": [
+          {
+            "size": [
+              766,
+              84
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 264.1726,
+                "top": 0,
+                "bottom": 84,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 113,
+        "tag": "inline-menu-choices",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          385,
+          877,
+          1679
+        ],
+        "bounds_root": [
+          69,
+          385,
+          877,
+          1679
+        ],
+        "layout_size": [
+          808,
+          1294
+        ],
+        "vertical_scroll": {
+          "value": 571,
+          "max": 571
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 147,
+        "tag": "filter-Pinned",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          385,
+          877,
+          447
+        ],
+        "bounds_root": [
+          69,
+          385,
+          877,
+          447
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 148,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          385,
+          851,
+          426
+        ],
+        "bounds_root": [
+          95,
+          385,
+          851,
+          426
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Favorites",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 284.7688,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 121,
+        "tag": "filter-Apps",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          447,
+          877,
+          615
+        ],
+        "bounds_root": [
+          69,
+          447,
+          877,
+          615
+        ],
+        "layout_size": [
+          808,
+          168
+        ],
+        "focused": false,
+        "selected": true,
+        "text_layouts": []
+      },
+      {
+        "id": 122,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          486,
+          798,
+          577
+        ],
+        "bounds_root": [
+          95,
+          486,
+          798,
+          577
+        ],
+        "layout_size": [
+          703,
+          91
+        ],
+        "text": "Apps",
+        "text_layouts": [
+          {
+            "size": [
+              703,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 157.79999,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 123,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          798,
+          468,
+          851,
+          594
+        ],
+        "bounds_root": [
+          798,
+          468,
+          851,
+          594
+        ],
+        "layout_size": [
+          53,
+          126
+        ],
+        "text": "✓",
+        "text_layouts": [
+          {
+            "size": [
+              53,
+              126
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 52,
+                "top": 0,
+                "bottom": 126,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 125,
+        "tag": "filter-Notes",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          615,
+          877,
+          748
+        ],
+        "bounds_root": [
+          69,
+          615,
+          877,
+          748
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 126,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          636,
+          851,
+          727
+        ],
+        "bounds_root": [
+          95,
+          636,
+          851,
+          727
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Notes",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 182.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 128,
+        "tag": "filter-Quicklinks",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          748,
+          877,
+          881
+        ],
+        "bounds_root": [
+          69,
+          748,
+          877,
+          881
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 129,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          769,
+          851,
+          860
+        ],
+        "bounds_root": [
+          95,
+          769,
+          851,
+          860
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Quicklinks",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 322.40005,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 131,
+        "tag": "filter-Clips",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          881,
+          877,
+          1014
+        ],
+        "bounds_root": [
+          69,
+          881,
+          877,
+          1014
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 132,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          902,
+          851,
+          993
+        ],
+        "bounds_root": [
+          95,
+          902,
+          851,
+          993
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Clips",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 155.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 134,
+        "tag": "filter-Files",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1014,
+          877,
+          1147
+        ],
+        "bounds_root": [
+          69,
+          1014,
+          877,
+          1147
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 135,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1035,
+          851,
+          1126
+        ],
+        "bounds_root": [
+          95,
+          1035,
+          851,
+          1126
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Files",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 146.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 136,
+        "tag": "filter-Extensions",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1147,
+          877,
+          1280
+        ],
+        "bounds_root": [
+          69,
+          1147,
+          877,
+          1280
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 137,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1168,
+          851,
+          1259
+        ],
+        "bounds_root": [
+          95,
+          1168,
+          851,
+          1259
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Extensions",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 340.40002,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 138,
+        "tag": "menu-preferences",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1280,
+          877,
+          1413
+        ],
+        "bounds_root": [
+          69,
+          1280,
+          877,
+          1413
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 139,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1301,
+          851,
+          1392
+        ],
+        "bounds_root": [
+          95,
+          1301,
+          851,
+          1392
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Preferences…",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 417.6352,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 141,
+        "tag": "menu-shortcuts",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1413,
+          877,
+          1546
+        ],
+        "bounds_root": [
+          69,
+          1413,
+          877,
+          1546
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 142,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1434,
+          851,
+          1525
+        ],
+        "bounds_root": [
+          95,
+          1434,
+          851,
+          1525
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Keyboard shortcuts",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 608.9461,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 144,
+        "tag": "menu-dismiss",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1546,
+          877,
+          1679
+        ],
+        "bounds_root": [
+          69,
+          1546,
+          877,
+          1679
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 145,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1567,
+          851,
+          1658
+        ],
+        "bounds_root": [
+          95,
+          1567,
+          851,
+          1658
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Dismiss Droidcast",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 569.9672,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nodes_visited": 45,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 2,
+    "ime_visible": false,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "decor_size": [
+      1080,
+      2340
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][1080,2277]",
+    "cached_palette": [
+      32,
+      95,
+      1048,
+      1343
+    ]
+  },
+  "png_captured": true,
+  "after_png": {
+    "uptime_ms": 10729787,
+    "nodes": [
+      {
+        "id": 6,
+        "tag": "palette",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          32,
+          95,
+          1048,
+          1965
+        ],
+        "bounds_root": [
+          32,
+          95,
+          1048,
+          1965
+        ],
+        "layout_size": [
+          1016,
+          1870
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 9,
+        "tag": "palette-header",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          74,
+          106,
+          1006,
+          232
+        ],
+        "bounds_root": [
+          74,
+          106,
+          1006,
+          232
+        ],
+        "layout_size": [
+          932,
+          126
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 19,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          32,
+          1695,
+          1048,
+          1965
+        ],
+        "bounds_root": [
+          32,
+          1695,
+          1048,
+          1965
+        ],
+        "layout_size": [
+          1016,
+          270
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 24,
+        "tag": "palette-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          53,
+          1767,
+          179,
+          1893
+        ],
+        "bounds_root": [
+          53,
+          1767,
+          179,
+          1893
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 33,
+        "tag": "primary-action",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          179,
+          1706,
+          713,
+          1954
+        ],
+        "bounds_root": [
+          179,
+          1706,
+          713,
+          1954
+        ],
+        "layout_size": [
+          534,
+          248
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 36,
+        "tag": "actions-button",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          716,
+          1706,
+          1027,
+          1954
+        ],
+        "bounds_root": [
+          716,
+          1706,
+          1027,
+          1954
+        ],
+        "layout_size": [
+          311,
+          248
+        ],
+        "focused": false,
+        "text_layouts": []
+      },
+      {
+        "id": 110,
+        "tag": "inline-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          53,
+          243,
+          893,
+          1695
+        ],
+        "bounds_root": [
+          53,
+          243,
+          893,
+          1695
+        ],
+        "layout_size": [
+          840,
+          1452
+        ],
+        "focused": true,
+        "text_layouts": []
+      },
+      {
+        "id": 112,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          90,
+          280,
+          856,
+          364
+        ],
+        "bounds_root": [
+          90,
+          280,
+          856,
+          364
+        ],
+        "layout_size": [
+          766,
+          84
+        ],
+        "text": "Droidcast",
+        "text_layouts": [
+          {
+            "size": [
+              766,
+              84
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 264.1726,
+                "top": 0,
+                "bottom": 84,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 113,
+        "tag": "inline-menu-choices",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          385,
+          877,
+          1679
+        ],
+        "bounds_root": [
+          69,
+          385,
+          877,
+          1679
+        ],
+        "layout_size": [
+          808,
+          1294
+        ],
+        "vertical_scroll": {
+          "value": 571,
+          "max": 571
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 147,
+        "tag": "filter-Pinned",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          385,
+          877,
+          447
+        ],
+        "bounds_root": [
+          69,
+          385,
+          877,
+          447
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 148,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          385,
+          851,
+          426
+        ],
+        "bounds_root": [
+          95,
+          385,
+          851,
+          426
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Favorites",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 284.7688,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 121,
+        "tag": "filter-Apps",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          447,
+          877,
+          615
+        ],
+        "bounds_root": [
+          69,
+          447,
+          877,
+          615
+        ],
+        "layout_size": [
+          808,
+          168
+        ],
+        "focused": false,
+        "selected": true,
+        "text_layouts": []
+      },
+      {
+        "id": 122,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          486,
+          798,
+          577
+        ],
+        "bounds_root": [
+          95,
+          486,
+          798,
+          577
+        ],
+        "layout_size": [
+          703,
+          91
+        ],
+        "text": "Apps",
+        "text_layouts": [
+          {
+            "size": [
+              703,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 157.79999,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 123,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          798,
+          468,
+          851,
+          594
+        ],
+        "bounds_root": [
+          798,
+          468,
+          851,
+          594
+        ],
+        "layout_size": [
+          53,
+          126
+        ],
+        "text": "✓",
+        "text_layouts": [
+          {
+            "size": [
+              53,
+              126
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 52,
+                "top": 0,
+                "bottom": 126,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 125,
+        "tag": "filter-Notes",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          615,
+          877,
+          748
+        ],
+        "bounds_root": [
+          69,
+          615,
+          877,
+          748
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 126,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          636,
+          851,
+          727
+        ],
+        "bounds_root": [
+          95,
+          636,
+          851,
+          727
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Notes",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 182.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 128,
+        "tag": "filter-Quicklinks",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          748,
+          877,
+          881
+        ],
+        "bounds_root": [
+          69,
+          748,
+          877,
+          881
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 129,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          769,
+          851,
+          860
+        ],
+        "bounds_root": [
+          95,
+          769,
+          851,
+          860
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Quicklinks",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 322.40005,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 131,
+        "tag": "filter-Clips",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          881,
+          877,
+          1014
+        ],
+        "bounds_root": [
+          69,
+          881,
+          877,
+          1014
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 132,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          902,
+          851,
+          993
+        ],
+        "bounds_root": [
+          95,
+          902,
+          851,
+          993
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Clips",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 155.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 134,
+        "tag": "filter-Files",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1014,
+          877,
+          1147
+        ],
+        "bounds_root": [
+          69,
+          1014,
+          877,
+          1147
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 135,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1035,
+          851,
+          1126
+        ],
+        "bounds_root": [
+          95,
+          1035,
+          851,
+          1126
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Files",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 146.4,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 136,
+        "tag": "filter-Extensions",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1147,
+          877,
+          1280
+        ],
+        "bounds_root": [
+          69,
+          1147,
+          877,
+          1280
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 137,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1168,
+          851,
+          1259
+        ],
+        "bounds_root": [
+          95,
+          1168,
+          851,
+          1259
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Extensions",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 340.40002,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 138,
+        "tag": "menu-preferences",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1280,
+          877,
+          1413
+        ],
+        "bounds_root": [
+          69,
+          1280,
+          877,
+          1413
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 139,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1301,
+          851,
+          1392
+        ],
+        "bounds_root": [
+          95,
+          1301,
+          851,
+          1392
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Preferences…",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 417.6352,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 141,
+        "tag": "menu-shortcuts",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1413,
+          877,
+          1546
+        ],
+        "bounds_root": [
+          69,
+          1413,
+          877,
+          1546
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 142,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1434,
+          851,
+          1525
+        ],
+        "bounds_root": [
+          95,
+          1434,
+          851,
+          1525
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Keyboard shortcuts",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 608.9461,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 144,
+        "tag": "menu-dismiss",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          69,
+          1546,
+          877,
+          1679
+        ],
+        "bounds_root": [
+          69,
+          1546,
+          877,
+          1679
+        ],
+        "layout_size": [
+          808,
+          133
+        ],
+        "focused": false,
+        "selected": false,
+        "text_layouts": []
+      },
+      {
+        "id": 145,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          95,
+          1567,
+          851,
+          1658
+        ],
+        "bounds_root": [
+          95,
+          1567,
+          851,
+          1658
+        ],
+        "layout_size": [
+          756,
+          91
+        ],
+        "text": "Dismiss Droidcast",
+        "text_layouts": [
+          {
+            "size": [
+              756,
+              91
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 569.9672,
+                "top": 0,
+                "bottom": 91,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nodes_visited": 45,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 2,
+    "ime_visible": false,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "decor_size": [
+      1080,
+      2340
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][1080,2277]",
+    "cached_palette": [
+      32,
+      95,
+      1048,
+      1343
+    ]
+  }
+}

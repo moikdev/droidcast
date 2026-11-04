@@ -1,0 +1,1937 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store/service certification",
+  "passed": true,
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "pointer_taps": [
+    {
+      "tag": "extension-field-name",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 159,
+      "visible_bounds": [
+        85,
+        826,
+        995,
+        1021
+      ],
+      "control_size": [
+        910,
+        195
+      ],
+      "point": [
+        540,
+        923.5
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 159,
+      "visible_bounds": [
+        53,
+        1701,
+        713,
+        1949
+      ],
+      "control_size": [
+        660,
+        248
+      ],
+      "point": [
+        383,
+        1825
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 159,
+      "visible_bounds": [
+        53,
+        1095,
+        713,
+        1343
+      ],
+      "control_size": [
+        660,
+        248
+      ],
+      "point": [
+        383,
+        1219
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 159,
+      "visible_bounds": [
+        53,
+        1701,
+        713,
+        1949
+      ],
+      "control_size": [
+        660,
+        248
+      ],
+      "point": [
+        383,
+        1825
+      ]
+    },
+    {
+      "tag": "extension-actions",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 159,
+      "visible_bounds": [
+        716,
+        1701,
+        1027,
+        1949
+      ],
+      "control_size": [
+        311,
+        248
+      ],
+      "point": [
+        871.5,
+        1825
+      ]
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        373.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        373.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        373.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        373.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        373.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        373.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        373.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        765
+      ],
+      "start": [
+        21,
+        249
+      ],
+      "end": [
+        21,
+        124.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        784.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "extension-form",
+      "gutter": true,
+      "visible_bounds": [
+        32,
+        267,
+        1048,
+        1313
+      ],
+      "start": [
+        21,
+        523
+      ],
+      "end": [
+        21,
+        261.5
+      ]
+    },
+    {
+      "viewport": "inline-menu-choices",
+      "gutter": false,
+      "visible_bounds": [
+        203,
+        280,
+        1011,
+        623
+      ],
+      "start": [
+        404,
+        171.5
+      ],
+      "end": [
+        404,
+        257.25
+      ]
+    },
+    {
+      "viewport": "inline-menu-choices",
+      "gutter": false,
+      "visible_bounds": [
+        203,
+        280,
+        1011,
+        623
+      ],
+      "start": [
+        404,
+        171.5
+      ],
+      "end": [
+        404,
+        257.25
+      ]
+    },
+    {
+      "viewport": "inline-menu-choices",
+      "gutter": false,
+      "visible_bounds": [
+        203,
+        280,
+        1011,
+        623
+      ],
+      "start": [
+        404,
+        171.5
+      ],
+      "end": [
+        404,
+        257.25
+      ]
+    },
+    {
+      "viewport": "inline-menu-choices",
+      "gutter": false,
+      "visible_bounds": [
+        203,
+        280,
+        1011,
+        623
+      ],
+      "start": [
+        404,
+        171.5
+      ],
+      "end": [
+        404,
+        85.75
+      ]
+    },
+    {
+      "viewport": "inline-menu-choices",
+      "gutter": false,
+      "visible_bounds": [
+        203,
+        280,
+        1011,
+        623
+      ],
+      "start": [
+        404,
+        171.5
+      ],
+      "end": [
+        404,
+        85.75
+      ]
+    }
+  ],
+  "fixture_mode": "submit-long",
+  "fixture_command_sha256": "ec5f74074f6ef9c3c891c200b5603f2eb68a2ae161714338217ec5ed25987ef9",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        1374
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": true,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        1374
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        1374
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "blocked-submit-option_line_probe": {
+    "ime_visible": true,
+    "line_counts": [
+      3
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          203,
+          280,
+          1011,
+          623
+        ],
+        "text_0": [
+          300,
+          427,
+          985,
+          700
+        ],
+        "text_0_lines_seen": 2
+      },
+      {
+        "viewport": [
+          203,
+          280,
+          1011,
+          623
+        ],
+        "text_0": [
+          300,
+          362,
+          985,
+          635
+        ],
+        "text_0_lines_seen": 2
+      },
+      {
+        "viewport": [
+          203,
+          280,
+          1011,
+          623
+        ],
+        "text_0": [
+          300,
+          329,
+          985,
+          602
+        ],
+        "text_0_lines_seen": 3
+      }
+    ]
+  },
+  "submit-long-0_line_probe": {
+    "ime_visible": false,
+    "line_counts": [
+      5,
+      6,
+      6
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          320,
+          995,
+          810
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          1037,
+          995,
+          1643
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          85,
+          1659,
+          995,
+          2265
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          79,
+          995,
+          569
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          796,
+          995,
+          1402
+        ],
+        "text_1_lines_seen": 5,
+        "text_2": [
+          85,
+          1418,
+          995,
+          2024
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          -161,
+          995,
+          329
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          556,
+          995,
+          1162
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          1178,
+          995,
+          1784
+        ],
+        "text_2_lines_seen": 1
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          -402,
+          995,
+          88
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          315,
+          995,
+          921
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          937,
+          995,
+          1543
+        ],
+        "text_2_lines_seen": 3
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          -642,
+          995,
+          -152
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          75,
+          995,
+          681
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          697,
+          995,
+          1303
+        ],
+        "text_2_lines_seen": 6
+      }
+    ]
+  },
+  "submit-long-1_line_probe": {
+    "ime_visible": true,
+    "line_counts": [
+      5,
+      6,
+      6
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          320,
+          995,
+          810
+        ],
+        "text_0_lines_seen": 4,
+        "text_1": [
+          85,
+          1037,
+          995,
+          1643
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          85,
+          1659,
+          995,
+          2265
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          216,
+          995,
+          706
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          933,
+          995,
+          1539
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          85,
+          1555,
+          995,
+          2161
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          113,
+          995,
+          603
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          830,
+          995,
+          1436
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          85,
+          1452,
+          995,
+          2058
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          9,
+          995,
+          499
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          726,
+          995,
+          1332
+        ],
+        "text_1_lines_seen": 0,
+        "text_2": [
+          85,
+          1348,
+          995,
+          1954
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -94,
+          995,
+          396
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          623,
+          995,
+          1229
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          85,
+          1245,
+          995,
+          1851
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -198,
+          995,
+          292
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          519,
+          995,
+          1125
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          85,
+          1141,
+          995,
+          1747
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -301,
+          995,
+          189
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          416,
+          995,
+          1022
+        ],
+        "text_1_lines_seen": 3,
+        "text_2": [
+          85,
+          1038,
+          995,
+          1644
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -405,
+          995,
+          85
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          312,
+          995,
+          918
+        ],
+        "text_1_lines_seen": 4,
+        "text_2": [
+          85,
+          934,
+          995,
+          1540
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -508,
+          995,
+          -18
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          209,
+          995,
+          815
+        ],
+        "text_1_lines_seen": 5,
+        "text_2": [
+          85,
+          831,
+          995,
+          1437
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -612,
+          995,
+          -122
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          105,
+          995,
+          711
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          727,
+          995,
+          1333
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -715,
+          995,
+          -225
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          2,
+          995,
+          608
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          624,
+          995,
+          1230
+        ],
+        "text_2_lines_seen": 1
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -819,
+          995,
+          -329
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          -102,
+          995,
+          504
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          520,
+          995,
+          1126
+        ],
+        "text_2_lines_seen": 2
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -922,
+          995,
+          -432
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          -205,
+          995,
+          401
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          417,
+          995,
+          1023
+        ],
+        "text_2_lines_seen": 3
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -1026,
+          995,
+          -536
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          -309,
+          995,
+          297
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          313,
+          995,
+          919
+        ],
+        "text_2_lines_seen": 4
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -1129,
+          995,
+          -639
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          -412,
+          995,
+          194
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          210,
+          995,
+          816
+        ],
+        "text_2_lines_seen": 5
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          765
+        ],
+        "text_0": [
+          85,
+          -1233,
+          995,
+          -743
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          -516,
+          995,
+          90
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          106,
+          995,
+          712
+        ],
+        "text_2_lines_seen": 6
+      }
+    ]
+  },
+  "submit-long-2_line_probe": {
+    "ime_visible": false,
+    "line_counts": [
+      5,
+      6,
+      6
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          320,
+          995,
+          810
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          1037,
+          995,
+          1643
+        ],
+        "text_1_lines_seen": 2,
+        "text_2": [
+          85,
+          1659,
+          995,
+          2265
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          79,
+          995,
+          569
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          796,
+          995,
+          1402
+        ],
+        "text_1_lines_seen": 5,
+        "text_2": [
+          85,
+          1418,
+          995,
+          2024
+        ],
+        "text_2_lines_seen": 0
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          -161,
+          995,
+          329
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          556,
+          995,
+          1162
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          1178,
+          995,
+          1784
+        ],
+        "text_2_lines_seen": 1
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          -402,
+          995,
+          88
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          315,
+          995,
+          921
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          937,
+          995,
+          1543
+        ],
+        "text_2_lines_seen": 3
+      },
+      {
+        "viewport": [
+          32,
+          267,
+          1048,
+          1313
+        ],
+        "text_0": [
+          85,
+          -642,
+          995,
+          -152
+        ],
+        "text_0_lines_seen": 5,
+        "text_1": [
+          85,
+          75,
+          995,
+          681
+        ],
+        "text_1_lines_seen": 6,
+        "text_2": [
+          85,
+          697,
+          995,
+          1303
+        ],
+        "text_2_lines_seen": 6
+      }
+    ]
+  }
+}

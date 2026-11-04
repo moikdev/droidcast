@@ -1,0 +1,569 @@
+{
+  "launcher_keyboard_setup": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "native_frames": 17,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "request_route": "Native hide after the observed shown state",
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "native_frames": 7,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "native_frames": 8,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "request_route": "Native hide after the observed shown state",
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "native_frames": 7,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "native_frames": 8,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "native_frames": 6,
+      "stable_for_at_least_ms": 100
+    }
+  ],
+  "scope": "Owned menu workflows; host cleanup independently restores original clipboard/preferences/settings/evidence",
+  "passed": true,
+  "font_scale": 1.5,
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "observations": [
+    {
+      "initial_ime_visible": false,
+      "category": "Notes",
+      "exact_owned_destination_id": "notes:39c5b8e3-ef8f-46c7-9294-d1d1e31678ac",
+      "escape_query_and_range_restored": true,
+      "caller_query_after_escape": "Settings"
+    },
+    {
+      "initial_ime_visible": true,
+      "category": "Notes",
+      "exact_owned_destination_id": "notes:39c5b8e3-ef8f-46c7-9294-d1d1e31678ac",
+      "escape_query_and_range_restored": true,
+      "caller_query_after_escape": "Settings"
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "palette-menu",
+      "node_id": 248,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        207,
+        845,
+        333,
+        971
+      ],
+      "point_root": [
+        270,
+        908
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 248,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        207,
+        845,
+        333,
+        971
+      ],
+      "point_root": [
+        270,
+        908
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "filter-Notes",
+      "node_id": 339,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        808,
+        126
+      ],
+      "visible_bounds": [
+        223,
+        684,
+        1031,
+        810
+      ],
+      "point_root": [
+        627,
+        747
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 248,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        207,
+        186,
+        333,
+        312
+      ],
+      "point_root": [
+        270,
+        249
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 248,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        207,
+        185,
+        333,
+        311
+      ],
+      "point_root": [
+        270,
+        248
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "filter-Notes",
+      "node_id": 418,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        808,
+        126
+      ],
+      "visible_bounds": [
+        223,
+        396,
+        1031,
+        522
+      ],
+      "point_root": [
+        627,
+        459
+      ],
+      "ime_visible": false
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "target": "filter-Notes",
+      "viewport_tag": "inline-menu-choices",
+      "direction": "up",
+      "start_root": [
+        627,
+        579.5
+      ],
+      "end_root": [
+        627,
+        492.5
+      ],
+      "duration_ms": 600,
+      "target_visible_height_before": 60,
+      "accessibility_axis_before": 0,
+      "accessibility_axis_after": 69
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 0,
+      "accessibility_axis_after": 46
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 46,
+      "accessibility_axis_after": 93
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 93,
+      "accessibility_axis_after": 139
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 139,
+      "accessibility_axis_after": 186
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 186,
+      "accessibility_axis_after": 232
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 232,
+      "accessibility_axis_after": 279
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 279,
+      "accessibility_axis_after": 325
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "target_visible_height_before": 1,
+      "accessibility_axis_before": 325,
+      "accessibility_axis_after": 371
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "target_visible_height_before": 47,
+      "accessibility_axis_before": 371,
+      "accessibility_axis_after": 418
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        230.5
+      ],
+      "end_root": [
+        1170.5,
+        177.5
+      ],
+      "duration_ms": 600,
+      "target_visible_height_before": 94,
+      "accessibility_axis_before": 418,
+      "accessibility_axis_after": 451
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 0,
+      "accessibility_axis_after": 47
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 47,
+      "accessibility_axis_after": 93
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 93,
+      "accessibility_axis_after": 140
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 140,
+      "accessibility_axis_after": 186
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 186,
+      "accessibility_axis_after": 233
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 233,
+      "accessibility_axis_after": 279
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 279,
+      "accessibility_axis_after": 325
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "target_visible_height_before": 1,
+      "accessibility_axis_before": 325,
+      "accessibility_axis_after": 372
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "target_visible_height_before": 48,
+      "accessibility_axis_before": 372,
+      "accessibility_axis_after": 418
+    },
+    {
+      "target": "palette-menu",
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        230.5
+      ],
+      "end_root": [
+        1170.5,
+        177.5
+      ],
+      "duration_ms": 600,
+      "target_visible_height_before": 94,
+      "accessibility_axis_before": 418,
+      "accessibility_axis_after": 452
+    }
+  ]
+}

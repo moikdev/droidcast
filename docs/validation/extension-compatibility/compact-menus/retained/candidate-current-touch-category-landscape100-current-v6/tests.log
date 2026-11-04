@@ -1,0 +1,80 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.InlinePaletteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.InlinePaletteDeviceTest:
+INSTRUMENTATION_STATUS: test=categoryPointerChoiceAndReturnWorkFromBothKeyboardStates
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.InlinePaletteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)
+Nodes found:
+1) Node #1 at (l=0.0, t=0.0, r=2340.0, b=1080.0)px
+Has 3 children
+2) Node #98 at (l=0.0, t=0.0, r=54.0, b=66.0)px
+Has 1 child
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.InlinePaletteDeviceTest.pointer(InlinePaletteDeviceTest.kt:197)
+	at dev.tinycast.android.InlinePaletteDeviceTest.categoryPointerChoiceAndReturnWorkFromBothKeyboardStates$lambda$39(InlinePaletteDeviceTest.kt:285)
+	at dev.tinycast.android.InlinePaletteDeviceTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.InlinePaletteDeviceTest.withTouchKeyboard(InlinePaletteDeviceTest.kt:251)
+	at dev.tinycast.android.InlinePaletteDeviceTest.categoryPointerChoiceAndReturnWorkFromBothKeyboardStates(InlinePaletteDeviceTest.kt:266)
+
+INSTRUMENTATION_STATUS: stream=
+Error in categoryPointerChoiceAndReturnWorkFromBothKeyboardStates(dev.tinycast.android.InlinePaletteDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)
+Nodes found:
+1) Node #1 at (l=0.0, t=0.0, r=2340.0, b=1080.0)px
+Has 3 children
+2) Node #98 at (l=0.0, t=0.0, r=54.0, b=66.0)px
+Has 1 child
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.InlinePaletteDeviceTest.pointer(InlinePaletteDeviceTest.kt:197)
+	at dev.tinycast.android.InlinePaletteDeviceTest.categoryPointerChoiceAndReturnWorkFromBothKeyboardStates$lambda$39(InlinePaletteDeviceTest.kt:285)
+	at dev.tinycast.android.InlinePaletteDeviceTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.InlinePaletteDeviceTest.withTouchKeyboard(InlinePaletteDeviceTest.kt:251)
+	at dev.tinycast.android.InlinePaletteDeviceTest.categoryPointerChoiceAndReturnWorkFromBothKeyboardStates(InlinePaletteDeviceTest.kt:266)
+
+INSTRUMENTATION_STATUS: test=categoryPointerChoiceAndReturnWorkFromBothKeyboardStates
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.153
+There was 1 failure:
+1) categoryPointerChoiceAndReturnWorkFromBothKeyboardStates(dev.tinycast.android.InlinePaletteDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)
+Nodes found:
+1) Node #1 at (l=0.0, t=0.0, r=2340.0, b=1080.0)px
+Has 3 children
+2) Node #98 at (l=0.0, t=0.0, r=54.0, b=66.0)px
+Has 1 child
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.InlinePaletteDeviceTest.pointer(InlinePaletteDeviceTest.kt:197)
+	at dev.tinycast.android.InlinePaletteDeviceTest.categoryPointerChoiceAndReturnWorkFromBothKeyboardStates$lambda$39(InlinePaletteDeviceTest.kt:285)
+	at dev.tinycast.android.InlinePaletteDeviceTest$$ExternalSyntheticLambda32.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.InlinePaletteDeviceTest.withTouchKeyboard(InlinePaletteDeviceTest.kt:251)
+	at dev.tinycast.android.InlinePaletteDeviceTest.categoryPointerChoiceAndReturnWorkFromBothKeyboardStates(InlinePaletteDeviceTest.kt:266)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

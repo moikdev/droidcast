@@ -1,0 +1,57 @@
+{
+  "scope": "Same instrumentation and matched after-open stage; negative later fails caller-range assertion, positive completes two Copy/return cycles. Source inspection alone does not prove a platform-wide caret fix.",
+  "common_test_apk_sha256": "84dfe9cdf944782ebb54076248fef74030d7cac9127566979f755249db5d3213",
+  "observations": [
+    {
+      "role": "negative",
+      "source_id": "candidate-current-touch-actions-landscape100-v5",
+      "app_sha256": "b152b4396810205d209186d82cf78045e579c9da3e1d43fac43874746c05f626",
+      "test_apk_sha256": "84dfe9cdf944782ebb54076248fef74030d7cac9127566979f755249db5d3213",
+      "junit_passes": 0,
+      "completed": false,
+      "points": [
+        {
+          "stage": "before-open",
+          "selection": "TextRange(2, 6)",
+          "focused": true,
+          "actual_ime_visible": false,
+          "source_frame_sha256": "0490aa3c912bd8c63cc89af2dbcc2de5b4b3d33c8876f9ed32a67eb1bef89fc8"
+        },
+        {
+          "stage": "after-open",
+          "selection": "TextRange(6, 6)",
+          "focused": false,
+          "actual_ime_visible": false,
+          "source_frame_sha256": "d18f8bf0ad18b26d010b2a2c87d9cc7780d32ce17fd27124a5758c75cbf78395"
+        }
+      ]
+    },
+    {
+      "role": "positive",
+      "source_id": "candidate-current-touch-actions-landscape100-common-v6",
+      "app_sha256": "9b69c279f241e4b2ca69e7634afe1472f128b46221e6f3bb1205bef996dcda8f",
+      "test_apk_sha256": "84dfe9cdf944782ebb54076248fef74030d7cac9127566979f755249db5d3213",
+      "junit_passes": 1,
+      "completed": true,
+      "points": [
+        {
+          "stage": "before-open",
+          "selection": "TextRange(2, 6)",
+          "focused": true,
+          "actual_ime_visible": false,
+          "source_frame_sha256": "d24fbd90b63cc10f39bf737a2bc1535a6dbf302e66655bf8462f24b40bf572d0"
+        },
+        {
+          "stage": "after-open",
+          "selection": "TextRange(2, 6)",
+          "focused": false,
+          "actual_ime_visible": false,
+          "source_frame_sha256": "2e576b91f1600b091458ca64671dee6c1afe258f8b307bcaa382f5601fbbbe28"
+        }
+      ]
+    }
+  ],
+  "changed_production_files_between_control_apps": [
+    "app/src/main/java/dev/tinycast/android/PaletteUi.kt"
+  ]
+}

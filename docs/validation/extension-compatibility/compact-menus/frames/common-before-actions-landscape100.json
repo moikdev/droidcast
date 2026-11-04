@@ -1,0 +1,1578 @@
+{
+  "schema_version": 1,
+  "name": "menu-actions-no-match-legacy",
+  "root_tag": "palette",
+  "scope": "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction",
+  "pointer_taps": [],
+  "pointer_scrolls": [],
+  "launcher_keyboard_setup": [],
+  "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "before_native_capture": {
+    "uptime_ms": 23382592,
+    "owner_root_semantics_id": 1,
+    "nodes": [
+      {
+        "id": 6,
+        "tag": "palette",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 7,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "vertical_scroll": {
+          "value": 0,
+          "max": 330
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 9,
+        "tag": "palette-header",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          228,
+          106,
+          2113,
+          232
+        ],
+        "bounds_root": [
+          228,
+          106,
+          2113,
+          232
+        ],
+        "layout_size": [
+          1885,
+          126
+        ],
+        "layout_origin_root": [
+          228,
+          106
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 12,
+        "tag": "search",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          318,
+          106,
+          1987,
+          232
+        ],
+        "bounds_root": [
+          318,
+          106,
+          1987,
+          232
+        ],
+        "layout_size": [
+          1669,
+          126
+        ],
+        "focused": false,
+        "editable_text": "Action search note",
+        "selection": "TextRange(18, 18)",
+        "layout_origin_root": [
+          318,
+          106
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              437,
+              62
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 436.51953,
+                "top": 0,
+                "bottom": 62,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1969,
+          148
+        ],
+        "layout_origin_root": [
+          186,
+          495
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 26,
+        "tag": "palette-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          207,
+          506
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 35,
+        "tag": "primary-action",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          308,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1534,
+          532
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 40,
+        "tag": "actions-button",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          326,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1845,
+          532
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 93,
+        "tag": "inline-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          207,
+          116,
+          1047,
+          292
+        ],
+        "bounds_root": [
+          207,
+          116,
+          1047,
+          292
+        ],
+        "layout_size": [
+          840,
+          176
+        ],
+        "layout_origin_root": [
+          207,
+          116
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 95,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          153,
+          1010,
+          195
+        ],
+        "bounds_root": [
+          244,
+          153,
+          1010,
+          195
+        ],
+        "layout_size": [
+          766,
+          42
+        ],
+        "text": "Action search note",
+        "layout_origin_root": [
+          244,
+          153
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              766,
+              42
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 253.37856,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 96,
+        "tag": "inline-menu-choices",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          808,
+          0
+        ],
+        "layout_origin_root": [
+          223,
+          216
+        ],
+        "vertical_scroll": {
+          "value": 0,
+          "max": 100
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 149,
+        "tag": "inline-menu-empty",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          312,
+          63
+        ],
+        "text": "No matching actions",
+        "layout_origin_root": [
+          249,
+          242
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              312,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 310.24997,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 99,
+        "tag": "inline-menu-search",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          219,
+          884,
+          276
+        ],
+        "bounds_root": [
+          244,
+          219,
+          884,
+          276
+        ],
+        "layout_size": [
+          640,
+          57
+        ],
+        "focused": true,
+        "editable_text": "no such action",
+        "selection": "TextRange(14, 14)",
+        "layout_origin_root": [
+          244,
+          219
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              240,
+              40
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 222,
+                "top": 0,
+                "bottom": 40,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          228,
+          484,
+          268
+        ],
+        "bounds_root": [
+          244,
+          228,
+          484,
+          268
+        ],
+        "layout_size": [
+          240,
+          40
+        ],
+        "layout_origin_root": [
+          244,
+          228
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 105,
+        "tag": "inline-menu-keyboard",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          884,
+          220,
+          1010,
+          277
+        ],
+        "bounds_root": [
+          884,
+          220,
+          1010,
+          277
+        ],
+        "layout_size": [
+          126,
+          57
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          884,
+          220
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 35,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "actions"
+  },
+  "frame_commit_observed": true,
+  "before_png": {
+    "uptime_ms": 23383487,
+    "owner_root_semantics_id": 1,
+    "nodes": [
+      {
+        "id": 6,
+        "tag": "palette",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 7,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "vertical_scroll": {
+          "value": 0,
+          "max": 330
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 9,
+        "tag": "palette-header",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          228,
+          106,
+          2113,
+          232
+        ],
+        "bounds_root": [
+          228,
+          106,
+          2113,
+          232
+        ],
+        "layout_size": [
+          1885,
+          126
+        ],
+        "layout_origin_root": [
+          228,
+          106
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 12,
+        "tag": "search",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          318,
+          106,
+          1987,
+          232
+        ],
+        "bounds_root": [
+          318,
+          106,
+          1987,
+          232
+        ],
+        "layout_size": [
+          1669,
+          126
+        ],
+        "focused": false,
+        "editable_text": "Action search note",
+        "selection": "TextRange(18, 18)",
+        "layout_origin_root": [
+          318,
+          106
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              437,
+              62
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 436.51953,
+                "top": 0,
+                "bottom": 62,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1969,
+          148
+        ],
+        "layout_origin_root": [
+          186,
+          495
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 26,
+        "tag": "palette-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          207,
+          506
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 35,
+        "tag": "primary-action",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          308,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1534,
+          532
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 40,
+        "tag": "actions-button",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          326,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1845,
+          532
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 93,
+        "tag": "inline-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          207,
+          116,
+          1047,
+          292
+        ],
+        "bounds_root": [
+          207,
+          116,
+          1047,
+          292
+        ],
+        "layout_size": [
+          840,
+          176
+        ],
+        "layout_origin_root": [
+          207,
+          116
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 95,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          153,
+          1010,
+          195
+        ],
+        "bounds_root": [
+          244,
+          153,
+          1010,
+          195
+        ],
+        "layout_size": [
+          766,
+          42
+        ],
+        "text": "Action search note",
+        "layout_origin_root": [
+          244,
+          153
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              766,
+              42
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 253.37856,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 96,
+        "tag": "inline-menu-choices",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          808,
+          0
+        ],
+        "layout_origin_root": [
+          223,
+          216
+        ],
+        "vertical_scroll": {
+          "value": 0,
+          "max": 100
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 149,
+        "tag": "inline-menu-empty",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          312,
+          63
+        ],
+        "text": "No matching actions",
+        "layout_origin_root": [
+          249,
+          242
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              312,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 310.24997,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 99,
+        "tag": "inline-menu-search",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          219,
+          884,
+          276
+        ],
+        "bounds_root": [
+          244,
+          219,
+          884,
+          276
+        ],
+        "layout_size": [
+          640,
+          57
+        ],
+        "focused": true,
+        "editable_text": "no such action",
+        "selection": "TextRange(14, 14)",
+        "layout_origin_root": [
+          244,
+          219
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              240,
+              40
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 222,
+                "top": 0,
+                "bottom": 40,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          228,
+          484,
+          268
+        ],
+        "bounds_root": [
+          244,
+          228,
+          484,
+          268
+        ],
+        "layout_size": [
+          240,
+          40
+        ],
+        "layout_origin_root": [
+          244,
+          228
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 105,
+        "tag": "inline-menu-keyboard",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          884,
+          220,
+          1010,
+          277
+        ],
+        "bounds_root": [
+          884,
+          220,
+          1010,
+          277
+        ],
+        "layout_size": [
+          126,
+          57
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          884,
+          220
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 35,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "actions"
+  },
+  "png_captured": true,
+  "after_png": {
+    "uptime_ms": 23383856,
+    "owner_root_semantics_id": 1,
+    "nodes": [
+      {
+        "id": 6,
+        "tag": "palette",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 7,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "vertical_scroll": {
+          "value": 0,
+          "max": 330
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 9,
+        "tag": "palette-header",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          228,
+          106,
+          2113,
+          232
+        ],
+        "bounds_root": [
+          228,
+          106,
+          2113,
+          232
+        ],
+        "layout_size": [
+          1885,
+          126
+        ],
+        "layout_origin_root": [
+          228,
+          106
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 12,
+        "tag": "search",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          318,
+          106,
+          1987,
+          232
+        ],
+        "bounds_root": [
+          318,
+          106,
+          1987,
+          232
+        ],
+        "layout_size": [
+          1669,
+          126
+        ],
+        "focused": false,
+        "editable_text": "Action search note",
+        "selection": "TextRange(18, 18)",
+        "layout_origin_root": [
+          318,
+          106
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              437,
+              62
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 436.51953,
+                "top": 0,
+                "bottom": 62,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1969,
+          148
+        ],
+        "layout_origin_root": [
+          186,
+          495
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 26,
+        "tag": "palette-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          207,
+          506
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 35,
+        "tag": "primary-action",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          308,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1534,
+          532
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 40,
+        "tag": "actions-button",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          326,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1845,
+          532
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 93,
+        "tag": "inline-menu",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          207,
+          116,
+          1047,
+          292
+        ],
+        "bounds_root": [
+          207,
+          116,
+          1047,
+          292
+        ],
+        "layout_size": [
+          840,
+          176
+        ],
+        "layout_origin_root": [
+          207,
+          116
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 95,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          153,
+          1010,
+          195
+        ],
+        "bounds_root": [
+          244,
+          153,
+          1010,
+          195
+        ],
+        "layout_size": [
+          766,
+          42
+        ],
+        "text": "Action search note",
+        "layout_origin_root": [
+          244,
+          153
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              766,
+              42
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 253.37856,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 96,
+        "tag": "inline-menu-choices",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          808,
+          0
+        ],
+        "layout_origin_root": [
+          223,
+          216
+        ],
+        "vertical_scroll": {
+          "value": 0,
+          "max": 100
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 149,
+        "tag": "inline-menu-empty",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          312,
+          63
+        ],
+        "text": "No matching actions",
+        "layout_origin_root": [
+          249,
+          242
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              312,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 310.24997,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 99,
+        "tag": "inline-menu-search",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          219,
+          884,
+          276
+        ],
+        "bounds_root": [
+          244,
+          219,
+          884,
+          276
+        ],
+        "layout_size": [
+          640,
+          57
+        ],
+        "focused": true,
+        "editable_text": "no such action",
+        "selection": "TextRange(14, 14)",
+        "layout_origin_root": [
+          244,
+          219
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              240,
+              40
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 222,
+                "top": 0,
+                "bottom": 40,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          244,
+          228,
+          484,
+          268
+        ],
+        "bounds_root": [
+          244,
+          228,
+          484,
+          268
+        ],
+        "layout_size": [
+          240,
+          40
+        ],
+        "layout_origin_root": [
+          244,
+          228
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 105,
+        "tag": "inline-menu-keyboard",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          884,
+          220,
+          1010,
+          277
+        ],
+        "bounds_root": [
+          884,
+          220,
+          1010,
+          277
+        ],
+        "layout_size": [
+          126,
+          57
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          884,
+          220
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 35,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "actions"
+  }
+}

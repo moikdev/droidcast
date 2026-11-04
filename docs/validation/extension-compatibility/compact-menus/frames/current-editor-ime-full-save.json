@@ -1,0 +1,2437 @@
+{
+  "schema_version": 1,
+  "name": "caller-editor-ime-save-revealed",
+  "root_tag": "editor-body",
+  "scope": "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction",
+  "pointer_taps": [],
+  "pointer_scrolls": [
+    {
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 215,
+      "accessibility_axis_after": 215
+    },
+    {
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 215,
+      "accessibility_axis_after": 215
+    },
+    {
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 215,
+      "accessibility_axis_after": 215
+    },
+    {
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 215,
+      "accessibility_axis_after": 215
+    },
+    {
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 215,
+      "accessibility_axis_after": 247
+    },
+    {
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 247,
+      "accessibility_axis_after": 293
+    },
+    {
+      "viewport_tag": "palette-content-scroll",
+      "direction": "up",
+      "start_root": [
+        1170.5,
+        236.7
+      ],
+      "end_root": [
+        1170.5,
+        171.3
+      ],
+      "duration_ms": 600,
+      "accessibility_axis_before": 293,
+      "accessibility_axis_after": 330
+    }
+  ],
+  "launcher_keyboard_setup": [],
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "before_native_capture": {
+    "uptime_ms": 21728150,
+    "owner_root_semantics_id": 1178,
+    "nodes": [
+      {
+        "id": 1178,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "bounds_root": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "layout_size": [
+          2340,
+          1080
+        ],
+        "layout_origin_root": [
+          0,
+          0
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1250,
+        "tag": "inline-backdrop",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "bounds_root": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "layout_size": [
+          2340,
+          954
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          0,
+          63
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1251,
+        "tag": "palette-screen",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1252,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          -235
+        ],
+        "vertical_scroll": {
+          "value": 330,
+          "max": 330
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 1255,
+        "tag": "inline-back",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          -224
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1258,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1817,
+          63
+        ],
+        "text": "Create a note",
+        "layout_origin_root": [
+          317,
+          -192
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1817,
+              63
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 326.11957,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1260,
+        "tag": "shell-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          162
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          162
+        ],
+        "layout_size": [
+          1969,
+          246
+        ],
+        "layout_origin_root": [
+          233,
+          -605
+        ],
+        "vertical_scroll": {
+          "value": 568,
+          "max": 568
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 1261,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          692,
+          48
+        ],
+        "text": "A place for the thought you don't want to lose.",
+        "layout_origin_root": [
+          233,
+          -605
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              692,
+              48
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 690.3151,
+                "top": 0,
+                "bottom": 48,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1262,
+        "tag": "editor-title",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1875,
+          168
+        ],
+        "focused": false,
+        "editable_text": "Keyboard draft",
+        "selection": "TextRange(14, 14)",
+        "layout_origin_root": [
+          233,
+          -494
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 237,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1271,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          67,
+          42
+        ],
+        "text": "Title",
+        "layout_origin_root": [
+          275,
+          -515
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              67,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 65.13332,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1273,
+        "tag": "editor-body",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          95,
+          2108,
+          115
+        ],
+        "bounds_root": [
+          233,
+          95,
+          2108,
+          115
+        ],
+        "layout_size": [
+          1875,
+          420
+        ],
+        "focused": true,
+        "editable_text": "Save stays above the real keyboard.",
+        "selection": "TextRange(35, 35)",
+        "layout_origin_root": [
+          233,
+          -284
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 571.51953,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1282,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          71,
+          42
+        ],
+        "text": "Note",
+        "layout_origin_root": [
+          275,
+          -305
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              71,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 69.1,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1279,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1791,
+          43
+        ],
+        "layout_origin_root": [
+          275,
+          -232
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1284,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          165,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          165,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          148
+        ],
+        "layout_origin_root": [
+          218,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1285,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          218,
+          208,
+          318,
+          271
+        ],
+        "bounds_root": [
+          218,
+          208,
+          318,
+          271
+        ],
+        "layout_size": [
+          100,
+          63
+        ],
+        "text": "Ctrl + S",
+        "layout_origin_root": [
+          218,
+          208
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              100,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 98.9091,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1287,
+        "tag": "cancel-editor",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1638,
+          176,
+          1815,
+          302
+        ],
+        "bounds_root": [
+          1638,
+          176,
+          1815,
+          302
+        ],
+        "layout_size": [
+          177,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1638,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1289,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1670,
+          213,
+          1783,
+          266
+        ],
+        "bounds_root": [
+          1670,
+          213,
+          1783,
+          266
+        ],
+        "layout_size": [
+          113,
+          53
+        ],
+        "text": "Cancel",
+        "layout_origin_root": [
+          1670,
+          213
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              113,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 111.285706,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1291,
+        "tag": "save-editor",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1836,
+          176,
+          2123,
+          302
+        ],
+        "bounds_root": [
+          1836,
+          176,
+          2123,
+          302
+        ],
+        "layout_size": [
+          287,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1836,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1293,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1899,
+          213,
+          2060,
+          266
+        ],
+        "bounds_root": [
+          1899,
+          213,
+          2060,
+          266
+        ],
+        "layout_size": [
+          161,
+          53
+        ],
+        "text": "Save note",
+        "layout_origin_root": [
+          1899,
+          213
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              161,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 159.56885,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1246,
+        "tag": "palette-feedback",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          133
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1247,
+        "tag": "palette-feedback-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          133
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 21,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "note"
+  },
+  "frame_commit_observed": true,
+  "before_png": {
+    "uptime_ms": 21728360,
+    "owner_root_semantics_id": 1178,
+    "nodes": [
+      {
+        "id": 1178,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "bounds_root": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "layout_size": [
+          2340,
+          1080
+        ],
+        "layout_origin_root": [
+          0,
+          0
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1250,
+        "tag": "inline-backdrop",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "bounds_root": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "layout_size": [
+          2340,
+          954
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          0,
+          63
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1251,
+        "tag": "palette-screen",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1252,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          -235
+        ],
+        "vertical_scroll": {
+          "value": 330,
+          "max": 330
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 1255,
+        "tag": "inline-back",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          -224
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1258,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1817,
+          63
+        ],
+        "text": "Create a note",
+        "layout_origin_root": [
+          317,
+          -192
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1817,
+              63
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 326.11957,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1260,
+        "tag": "shell-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          162
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          162
+        ],
+        "layout_size": [
+          1969,
+          246
+        ],
+        "layout_origin_root": [
+          233,
+          -605
+        ],
+        "vertical_scroll": {
+          "value": 568,
+          "max": 568
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 1261,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          692,
+          48
+        ],
+        "text": "A place for the thought you don't want to lose.",
+        "layout_origin_root": [
+          233,
+          -605
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              692,
+              48
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 690.3151,
+                "top": 0,
+                "bottom": 48,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1262,
+        "tag": "editor-title",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1875,
+          168
+        ],
+        "focused": false,
+        "editable_text": "Keyboard draft",
+        "selection": "TextRange(14, 14)",
+        "layout_origin_root": [
+          233,
+          -494
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 237,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1271,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          67,
+          42
+        ],
+        "text": "Title",
+        "layout_origin_root": [
+          275,
+          -515
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              67,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 65.13332,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1273,
+        "tag": "editor-body",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          95,
+          2108,
+          115
+        ],
+        "bounds_root": [
+          233,
+          95,
+          2108,
+          115
+        ],
+        "layout_size": [
+          1875,
+          420
+        ],
+        "focused": true,
+        "editable_text": "Save stays above the real keyboard.",
+        "selection": "TextRange(35, 35)",
+        "layout_origin_root": [
+          233,
+          -284
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 571.51953,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1282,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          71,
+          42
+        ],
+        "text": "Note",
+        "layout_origin_root": [
+          275,
+          -305
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              71,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 69.1,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1279,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1791,
+          43
+        ],
+        "layout_origin_root": [
+          275,
+          -232
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1284,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          165,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          165,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          148
+        ],
+        "layout_origin_root": [
+          218,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1285,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          218,
+          208,
+          318,
+          271
+        ],
+        "bounds_root": [
+          218,
+          208,
+          318,
+          271
+        ],
+        "layout_size": [
+          100,
+          63
+        ],
+        "text": "Ctrl + S",
+        "layout_origin_root": [
+          218,
+          208
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              100,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 98.9091,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1287,
+        "tag": "cancel-editor",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1638,
+          176,
+          1815,
+          302
+        ],
+        "bounds_root": [
+          1638,
+          176,
+          1815,
+          302
+        ],
+        "layout_size": [
+          177,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1638,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1289,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1670,
+          213,
+          1783,
+          266
+        ],
+        "bounds_root": [
+          1670,
+          213,
+          1783,
+          266
+        ],
+        "layout_size": [
+          113,
+          53
+        ],
+        "text": "Cancel",
+        "layout_origin_root": [
+          1670,
+          213
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              113,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 111.285706,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1291,
+        "tag": "save-editor",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1836,
+          176,
+          2123,
+          302
+        ],
+        "bounds_root": [
+          1836,
+          176,
+          2123,
+          302
+        ],
+        "layout_size": [
+          287,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1836,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1293,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1899,
+          213,
+          2060,
+          266
+        ],
+        "bounds_root": [
+          1899,
+          213,
+          2060,
+          266
+        ],
+        "layout_size": [
+          161,
+          53
+        ],
+        "text": "Save note",
+        "layout_origin_root": [
+          1899,
+          213
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              161,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 159.56885,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1246,
+        "tag": "palette-feedback",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          133
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1247,
+        "tag": "palette-feedback-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          133
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 21,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "note"
+  },
+  "png_captured": true,
+  "after_png": {
+    "uptime_ms": 21728663,
+    "owner_root_semantics_id": 1178,
+    "nodes": [
+      {
+        "id": 1178,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "bounds_root": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "layout_size": [
+          2340,
+          1080
+        ],
+        "layout_origin_root": [
+          0,
+          0
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1250,
+        "tag": "inline-backdrop",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "bounds_root": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "layout_size": [
+          2340,
+          954
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          0,
+          63
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1251,
+        "tag": "palette-screen",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1252,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          -235
+        ],
+        "vertical_scroll": {
+          "value": 330,
+          "max": 330
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 1255,
+        "tag": "inline-back",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          -224
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1258,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1817,
+          63
+        ],
+        "text": "Create a note",
+        "layout_origin_root": [
+          317,
+          -192
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1817,
+              63
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 326.11957,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1260,
+        "tag": "shell-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          162
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          162
+        ],
+        "layout_size": [
+          1969,
+          246
+        ],
+        "layout_origin_root": [
+          233,
+          -605
+        ],
+        "vertical_scroll": {
+          "value": 568,
+          "max": 568
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 1261,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          692,
+          48
+        ],
+        "text": "A place for the thought you don't want to lose.",
+        "layout_origin_root": [
+          233,
+          -605
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              692,
+              48
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 690.3151,
+                "top": 0,
+                "bottom": 48,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1262,
+        "tag": "editor-title",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1875,
+          168
+        ],
+        "focused": false,
+        "editable_text": "Keyboard draft",
+        "selection": "TextRange(14, 14)",
+        "layout_origin_root": [
+          233,
+          -494
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 237,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1271,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          67,
+          42
+        ],
+        "text": "Title",
+        "layout_origin_root": [
+          275,
+          -515
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              67,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 65.13332,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1273,
+        "tag": "editor-body",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          95,
+          2108,
+          115
+        ],
+        "bounds_root": [
+          233,
+          95,
+          2108,
+          115
+        ],
+        "layout_size": [
+          1875,
+          420
+        ],
+        "focused": true,
+        "editable_text": "Save stays above the real keyboard.",
+        "selection": "TextRange(35, 35)",
+        "layout_origin_root": [
+          233,
+          -284
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 571.51953,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1282,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          71,
+          42
+        ],
+        "text": "Note",
+        "layout_origin_root": [
+          275,
+          -305
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              71,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 69.1,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1279,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1791,
+          43
+        ],
+        "layout_origin_root": [
+          275,
+          -232
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1284,
+        "tag": "palette-footer",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          165,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          165,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          148
+        ],
+        "layout_origin_root": [
+          218,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1285,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          218,
+          208,
+          318,
+          271
+        ],
+        "bounds_root": [
+          218,
+          208,
+          318,
+          271
+        ],
+        "layout_size": [
+          100,
+          63
+        ],
+        "text": "Ctrl + S",
+        "layout_origin_root": [
+          218,
+          208
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              100,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 98.9091,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1287,
+        "tag": "cancel-editor",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1638,
+          176,
+          1815,
+          302
+        ],
+        "bounds_root": [
+          1638,
+          176,
+          1815,
+          302
+        ],
+        "layout_size": [
+          177,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1638,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1289,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1670,
+          213,
+          1783,
+          266
+        ],
+        "bounds_root": [
+          1670,
+          213,
+          1783,
+          266
+        ],
+        "layout_size": [
+          113,
+          53
+        ],
+        "text": "Cancel",
+        "layout_origin_root": [
+          1670,
+          213
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              113,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 111.285706,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1291,
+        "tag": "save-editor",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1836,
+          176,
+          2123,
+          302
+        ],
+        "bounds_root": [
+          1836,
+          176,
+          2123,
+          302
+        ],
+        "layout_size": [
+          287,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          1836,
+          176
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1293,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1899,
+          213,
+          2060,
+          266
+        ],
+        "bounds_root": [
+          1899,
+          213,
+          2060,
+          266
+        ],
+        "layout_size": [
+          161,
+          53
+        ],
+        "text": "Save note",
+        "layout_origin_root": [
+          1899,
+          213
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              161,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 159.56885,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1246,
+        "tag": "palette-feedback",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          133
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 1247,
+        "tag": "palette-feedback-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          133
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 21,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "note"
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionHttpTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-04T02:33:56.835Z" hostname="redacted-host" time="0.255">
+  <properties/>
+  <testcase name="plaintextIsRejectedBeforeCreatingATransport" classname="dev.tinycast.android.ExtensionHttpTest" time="0.005"/>
+  <testcase name="boundedBodyAlwaysClosesTheConnection" classname="dev.tinycast.android.ExtensionHttpTest" time="0.002"/>
+  <testcase name="cancellationDisconnectsAReadThatIgnoresThreadInterruption" classname="dev.tinycast.android.ExtensionHttpTest" time="0.009"/>
+  <testcase name="credentialRedirectCannotChangePorts" classname="dev.tinycast.android.ExtensionHttpTest" time="0.004"/>
+  <testcase name="absoluteDeadlineStopsAStreamThatKeepsDeliveringBytes" classname="dev.tinycast.android.ExtensionHttpTest" time="0.214"/>
+  <testcase name="repeatedCommandScopeCancellationReleasesEveryTransport" classname="dev.tinycast.android.ExtensionHttpTest" time="0.019"/>
+  <testcase name="completedResponseContainsNoLiveConnection" classname="dev.tinycast.android.ExtensionHttpTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

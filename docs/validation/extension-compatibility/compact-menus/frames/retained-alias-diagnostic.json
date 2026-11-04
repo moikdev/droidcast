@@ -1,0 +1,1887 @@
+{
+  "schema_version": 1,
+  "name": "caller-alias-error-before-display-assert",
+  "root_tag": "alias-field",
+  "scope": "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction",
+  "pointer_taps": [],
+  "pointer_scrolls": [],
+  "launcher_keyboard_setup": [],
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "before_native_capture": {
+    "uptime_ms": 21083466,
+    "owner_root_semantics_id": 1,
+    "nodes": [
+      {
+        "id": 1,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "bounds_root": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "layout_size": [
+          2340,
+          1080
+        ],
+        "layout_origin_root": [
+          0,
+          0
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 73,
+        "tag": "inline-backdrop",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "bounds_root": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "layout_size": [
+          2340,
+          954
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          0,
+          63
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 74,
+        "tag": "palette-screen",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 75,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          -87
+        ],
+        "vertical_scroll": {
+          "value": 182,
+          "max": 182
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 78,
+        "tag": "inline-back",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          -76
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 81,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1817,
+          63
+        ],
+        "text": "Set an alias",
+        "layout_origin_root": [
+          317,
+          -44
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1817,
+              63
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 282.3,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 83,
+        "tag": "shell-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          249
+        ],
+        "layout_origin_root": [
+          233,
+          -197
+        ],
+        "vertical_scroll": {
+          "value": 308,
+          "max": 428
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 84,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          664,
+          48
+        ],
+        "text": "Inline recovery note · a shorter way to find it",
+        "layout_origin_root": [
+          233,
+          -197
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              664,
+              48
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 662.2096,
+                "top": 0,
+                "bottom": 48,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 85,
+        "tag": "alias-field",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1875,
+          168
+        ],
+        "focused": true,
+        "editable_text": "prefs",
+        "selection": "TextRange(5, 5)",
+        "layout_origin_root": [
+          233,
+          -86
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 83,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 94,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          75,
+          42
+        ],
+        "text": "Alias",
+        "layout_origin_root": [
+          275,
+          -107
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              75,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 73.13332,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 91,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1791,
+          43
+        ],
+        "layout_origin_root": [
+          275,
+          -34
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 95,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          95,
+          1111,
+          150
+        ],
+        "bounds_root": [
+          233,
+          95,
+          1111,
+          150
+        ],
+        "layout_size": [
+          878,
+          63
+        ],
+        "text": "Use one lowercase word. Leave empty to remove the alias.",
+        "layout_origin_root": [
+          233,
+          87
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              878,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 876.03,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          150,
+          637,
+          213
+        ],
+        "bounds_root": [
+          233,
+          150,
+          637,
+          213
+        ],
+        "layout_size": [
+          404,
+          63
+        ],
+        "text": "That alias is already in use",
+        "layout_origin_root": [
+          233,
+          150
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              404,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 402.5859,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 96,
+        "tag": "save-alias",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          271,
+          2108,
+          313
+        ],
+        "bounds_root": [
+          233,
+          271,
+          2108,
+          313
+        ],
+        "layout_size": [
+          1875,
+          105
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          233,
+          271
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 98,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1088,
+          297,
+          1253,
+          313
+        ],
+        "bounds_root": [
+          1088,
+          297,
+          1253,
+          313
+        ],
+        "layout_size": [
+          165,
+          53
+        ],
+        "text": "Save alias",
+        "layout_origin_root": [
+          1088,
+          297
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              165,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 163.82599,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 69,
+        "tag": "palette-feedback",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          145
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 70,
+        "tag": "palette-feedback-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          145
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 17,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "alias"
+  },
+  "frame_commit_observed": true,
+  "before_png": {
+    "uptime_ms": 21084095,
+    "owner_root_semantics_id": 1,
+    "nodes": [
+      {
+        "id": 1,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "bounds_root": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "layout_size": [
+          2340,
+          1080
+        ],
+        "layout_origin_root": [
+          0,
+          0
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 73,
+        "tag": "inline-backdrop",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "bounds_root": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "layout_size": [
+          2340,
+          954
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          0,
+          63
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 74,
+        "tag": "palette-screen",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 75,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          -87
+        ],
+        "vertical_scroll": {
+          "value": 182,
+          "max": 182
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 78,
+        "tag": "inline-back",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          -76
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 81,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1817,
+          63
+        ],
+        "text": "Set an alias",
+        "layout_origin_root": [
+          317,
+          -44
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1817,
+              63
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 282.3,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 83,
+        "tag": "shell-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          249
+        ],
+        "layout_origin_root": [
+          233,
+          -197
+        ],
+        "vertical_scroll": {
+          "value": 308,
+          "max": 428
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 84,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          664,
+          48
+        ],
+        "text": "Inline recovery note · a shorter way to find it",
+        "layout_origin_root": [
+          233,
+          -197
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              664,
+              48
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 662.2096,
+                "top": 0,
+                "bottom": 48,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 85,
+        "tag": "alias-field",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1875,
+          168
+        ],
+        "focused": true,
+        "editable_text": "prefs",
+        "selection": "TextRange(5, 5)",
+        "layout_origin_root": [
+          233,
+          -86
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 83,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 94,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          75,
+          42
+        ],
+        "text": "Alias",
+        "layout_origin_root": [
+          275,
+          -107
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              75,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 73.13332,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 91,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1791,
+          43
+        ],
+        "layout_origin_root": [
+          275,
+          -34
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 95,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          95,
+          1111,
+          150
+        ],
+        "bounds_root": [
+          233,
+          95,
+          1111,
+          150
+        ],
+        "layout_size": [
+          878,
+          63
+        ],
+        "text": "Use one lowercase word. Leave empty to remove the alias.",
+        "layout_origin_root": [
+          233,
+          87
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              878,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 876.03,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          150,
+          637,
+          213
+        ],
+        "bounds_root": [
+          233,
+          150,
+          637,
+          213
+        ],
+        "layout_size": [
+          404,
+          63
+        ],
+        "text": "That alias is already in use",
+        "layout_origin_root": [
+          233,
+          150
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              404,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 402.5859,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 96,
+        "tag": "save-alias",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          271,
+          2108,
+          313
+        ],
+        "bounds_root": [
+          233,
+          271,
+          2108,
+          313
+        ],
+        "layout_size": [
+          1875,
+          105
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          233,
+          271
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 98,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1088,
+          297,
+          1253,
+          313
+        ],
+        "bounds_root": [
+          1088,
+          297,
+          1253,
+          313
+        ],
+        "layout_size": [
+          165,
+          53
+        ],
+        "text": "Save alias",
+        "layout_origin_root": [
+          1088,
+          297
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              165,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 163.82599,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 69,
+        "tag": "palette-feedback",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          145
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 70,
+        "tag": "palette-feedback-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          145
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 17,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "alias"
+  },
+  "png_captured": true,
+  "after_png": {
+    "uptime_ms": 21084301,
+    "owner_root_semantics_id": 1,
+    "nodes": [
+      {
+        "id": 1,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "bounds_root": [
+          0,
+          0,
+          2340,
+          1080
+        ],
+        "layout_size": [
+          2340,
+          1080
+        ],
+        "layout_origin_root": [
+          0,
+          0
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 73,
+        "tag": "inline-backdrop",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "bounds_root": [
+          0,
+          63,
+          2340,
+          1017
+        ],
+        "layout_size": [
+          2340,
+          954
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          0,
+          63
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 74,
+        "tag": "palette-screen",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          95
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 75,
+        "tag": "palette-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          218
+        ],
+        "layout_origin_root": [
+          186,
+          -87
+        ],
+        "vertical_scroll": {
+          "value": 182,
+          "max": 182
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 78,
+        "tag": "inline-back",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          126,
+          126
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          186,
+          -76
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 81,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1817,
+          63
+        ],
+        "text": "Set an alias",
+        "layout_origin_root": [
+          317,
+          -44
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1817,
+              63
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 282.3,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 83,
+        "tag": "shell-content-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "bounds_root": [
+          186,
+          95,
+          2155,
+          313
+        ],
+        "layout_size": [
+          1969,
+          249
+        ],
+        "layout_origin_root": [
+          233,
+          -197
+        ],
+        "vertical_scroll": {
+          "value": 308,
+          "max": 428
+        },
+        "text_layouts": []
+      },
+      {
+        "id": 84,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          664,
+          48
+        ],
+        "text": "Inline recovery note · a shorter way to find it",
+        "layout_origin_root": [
+          233,
+          -197
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              664,
+              48
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 662.2096,
+                "top": 0,
+                "bottom": 48,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 85,
+        "tag": "alias-field",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1875,
+          168
+        ],
+        "focused": true,
+        "editable_text": "prefs",
+        "selection": "TextRange(5, 5)",
+        "layout_origin_root": [
+          233,
+          -86
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              1791,
+              43
+            ],
+            "overflow_width": false,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 83,
+                "top": 0,
+                "bottom": 43,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 94,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          75,
+          42
+        ],
+        "text": "Alias",
+        "layout_origin_root": [
+          275,
+          -107
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              75,
+              42
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 73.13332,
+                "top": 0,
+                "bottom": 42,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 91,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          1791,
+          43
+        ],
+        "layout_origin_root": [
+          275,
+          -34
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 95,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          95,
+          1111,
+          150
+        ],
+        "bounds_root": [
+          233,
+          95,
+          1111,
+          150
+        ],
+        "layout_size": [
+          878,
+          63
+        ],
+        "text": "Use one lowercase word. Leave empty to remove the alias.",
+        "layout_origin_root": [
+          233,
+          87
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              878,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 876.03,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          150,
+          637,
+          213
+        ],
+        "bounds_root": [
+          233,
+          150,
+          637,
+          213
+        ],
+        "layout_size": [
+          404,
+          63
+        ],
+        "text": "That alias is already in use",
+        "layout_origin_root": [
+          233,
+          150
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              404,
+              63
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 402.5859,
+                "top": 0,
+                "bottom": 63,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 96,
+        "tag": "save-alias",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          233,
+          271,
+          2108,
+          313
+        ],
+        "bounds_root": [
+          233,
+          271,
+          2108,
+          313
+        ],
+        "layout_size": [
+          1875,
+          105
+        ],
+        "focused": false,
+        "layout_origin_root": [
+          233,
+          271
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 98,
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          1088,
+          297,
+          1253,
+          313
+        ],
+        "bounds_root": [
+          1088,
+          297,
+          1253,
+          313
+        ],
+        "layout_size": [
+          165,
+          53
+        ],
+        "text": "Save alias",
+        "layout_origin_root": [
+          1088,
+          297
+        ],
+        "text_layouts": [
+          {
+            "size": [
+              165,
+              53
+            ],
+            "overflow_width": true,
+            "overflow_height": false,
+            "lines": [
+              {
+                "left": 0,
+                "right": 163.82599,
+                "top": 0,
+                "bottom": 53,
+                "ellipsized": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 69,
+        "tag": "palette-feedback",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          145
+        ],
+        "text_layouts": []
+      },
+      {
+        "id": 70,
+        "tag": "palette-feedback-scroll",
+        "placed": true,
+        "attached": true,
+        "bounds_window": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bounds_root": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "layout_size": [
+          0,
+          0
+        ],
+        "layout_origin_root": [
+          1171,
+          145
+        ],
+        "text_layouts": []
+      }
+    ],
+    "nodes_visited": 17,
+    "tree_limit_reached": false,
+    "density": 2.625,
+    "font_scale": 1,
+    "ime_visible": true,
+    "ime_insets_px": [
+      0,
+      0,
+      0,
+      736
+    ],
+    "decor_size": [
+      2340,
+      1080
+    ],
+    "decor_screen_origin": [
+      0,
+      0
+    ],
+    "window_visible_frame": "[0,63][2340,344]",
+    "route": "alias"
+  }
+}

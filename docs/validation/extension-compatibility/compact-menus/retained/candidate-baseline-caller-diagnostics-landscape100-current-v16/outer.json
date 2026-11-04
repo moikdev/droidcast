@@ -1,0 +1,20 @@
+{
+  "completed": false,
+  "candidate": "baseline",
+  "case": "caller-diagnostics",
+  "source_commit": "974d992a570f214f1e60b72c3996028fc254275a",
+  "production_source_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+  "test_source_commit": "974d992a570f214f1e60b72c3996028fc254275a",
+  "app_sha256": "088f8f521add723e08f5f906d8b443be8b120dcafe5de0dc9128582c7cef3e25",
+  "test_apk_sha256": "cd31d26074e1e417ef9422207d0aa6829d6f738dcbddc27331e27628d1c99cf4",
+  "junit_passes": 1,
+  "failed_cleanup_checks": [
+    "legacy-fixtures-completed",
+    "release-lease"
+  ],
+  "restoration_pending": true,
+  "restoration_failure_type": "RuntimeError",
+  "original_evidence_restored_and_verified": true,
+  "preservation_owner_released": true,
+  "scope": "Current pointer/IME and revised legacy menu contracts. Original v1 failures remain historical. Failures retain ownership and need separate verified recovery."
+}

@@ -1,0 +1,86 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.InlinePaletteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.InlinePaletteDeviceTest:
+INSTRUMENTATION_STATUS: test=touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.InlinePaletteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (TextSelectionRange = 'TextRange(2, 6)')
+Semantics of the node:
+Node #12 at (l=318.0, t=106.0, r=1987.0, b=232.0)px, Tag: 'search'
+EditableText = 'Menu action fixture 5041'
+TextSelectionRange = 'TextRange(6, 6)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.InlinePaletteDeviceTest.touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy$lambda$57(InlinePaletteDeviceTest.kt:496)
+	at dev.tinycast.android.InlinePaletteDeviceTest$$ExternalSyntheticLambda45.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.InlinePaletteDeviceTest.withTouchKeyboard(InlinePaletteDeviceTest.kt:383)
+	at dev.tinycast.android.InlinePaletteDeviceTest.touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy(InlinePaletteDeviceTest.kt:440)
+
+INSTRUMENTATION_STATUS: stream=
+Error in touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy(dev.tinycast.android.InlinePaletteDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (TextSelectionRange = 'TextRange(2, 6)')
+Semantics of the node:
+Node #12 at (l=318.0, t=106.0, r=1987.0, b=232.0)px, Tag: 'search'
+EditableText = 'Menu action fixture 5041'
+TextSelectionRange = 'TextRange(6, 6)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.InlinePaletteDeviceTest.touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy$lambda$57(InlinePaletteDeviceTest.kt:496)
+	at dev.tinycast.android.InlinePaletteDeviceTest$$ExternalSyntheticLambda45.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.InlinePaletteDeviceTest.withTouchKeyboard(InlinePaletteDeviceTest.kt:383)
+	at dev.tinycast.android.InlinePaletteDeviceTest.touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy(InlinePaletteDeviceTest.kt:440)
+
+INSTRUMENTATION_STATUS: test=touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 19.973
+There was 1 failure:
+1) touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy(dev.tinycast.android.InlinePaletteDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (TextSelectionRange = 'TextRange(2, 6)')
+Semantics of the node:
+Node #12 at (l=318.0, t=106.0, r=1987.0, b=232.0)px, Tag: 'search'
+EditableText = 'Menu action fixture 5041'
+TextSelectionRange = 'TextRange(6, 6)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (TestTag = 'search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.InlinePaletteDeviceTest.touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy$lambda$57(InlinePaletteDeviceTest.kt:496)
+	at dev.tinycast.android.InlinePaletteDeviceTest$$ExternalSyntheticLambda45.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.InlinePaletteDeviceTest.withTouchKeyboard(InlinePaletteDeviceTest.kt:383)
+	at dev.tinycast.android.InlinePaletteDeviceTest.touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy(InlinePaletteDeviceTest.kt:440)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

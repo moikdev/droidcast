@@ -1,0 +1,13 @@
+{
+  "scope": "Retained collector failure, not an additional app failure. Original source was edited near collector startup, so executed private Python source identity is not asserted. Generic native runner/APK sources and original native outcomes remain bound by their own receipts.",
+  "original_collector_record_sha256": "f501ac981f086bb0101abbd04aa465bcb4d72542946689d29aa0d0fa045313b4",
+  "expected_native_failure_line": 816,
+  "expected_zero_height_viewport_observed": true,
+  "native_passes": 0,
+  "failed_cleanup_checks_retained": [
+    "legacy-fixtures-completed",
+    "release-lease"
+  ],
+  "new_collector": "run-final-common-controls-v19.py",
+  "repeat_native_action": false
+}

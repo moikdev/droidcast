@@ -1,0 +1,63 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store/service certification",
+  "passed": true,
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "pointer_taps": [
+    {
+      "tag": "extension-actions",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        1808,
+        847,
+        2134,
+        973
+      ],
+      "control_size": [
+        326,
+        126
+      ],
+      "point": [
+        1971,
+        910
+      ]
+    }
+  ],
+  "fixture_mode": "submit-validation",
+  "fixture_command_sha256": "1061be9daf9e9410263d56cad887e5d72ae9115f804e4499c26423312fa7b0dd",
+  "fixture_manifest_sha256": "fbf51abc5c67fe0ed96200fe6b60c2313965a3e18052688af83f784bfb29b4a0",
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "submit_route": "Actions menu / native Enter",
+  "submit_native_action_type": "Action",
+  "initial_submit_count": 0,
+  "submit_menu_query": "Submit owned values",
+  "observed_submit_count": 0,
+  "observed_non_submit_actions": 0,
+  "observed_dispatch_count": 0,
+  "result_root_type": "Form",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ]
+}

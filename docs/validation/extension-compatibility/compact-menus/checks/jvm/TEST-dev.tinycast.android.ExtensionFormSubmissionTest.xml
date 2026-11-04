@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionFormSubmissionTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-04T02:33:56.789Z" hostname="redacted-host" time="0.004">
+  <properties/>
+  <testcase name="submitBlurUsesTheLatestEditExactlyOnceAndAllowsRefocus" classname="dev.tinycast.android.ExtensionFormSubmissionTest" time="0.001"/>
+  <testcase name="aMissingOrDisposedFormCannotPrepareSubmission" classname="dev.tinycast.android.ExtensionFormSubmissionTest" time="0.0"/>
+  <testcase name="disposalDuringBlurInvalidatesTheOutgoingSubmit" classname="dev.tinycast.android.ExtensionFormSubmissionTest" time="0.001"/>
+  <testcase name="aReentrantSuccessorCannotInheritTheOutgoingRequest" classname="dev.tinycast.android.ExtensionFormSubmissionTest" time="0.0"/>
+  <testcase name="changingTheCallbackForTheSameOwnerAlsoInvalidatesPreparation" classname="dev.tinycast.android.ExtensionFormSubmissionTest" time="0.0"/>
+  <testcase name="oldDisposalCannotRemoveTheCurrentFormCallback" classname="dev.tinycast.android.ExtensionFormSubmissionTest" time="0.0"/>
+  <testcase name="aRemovedFieldCannotReceiveSubmitBlur" classname="dev.tinycast.android.ExtensionFormSubmissionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

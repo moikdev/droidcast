@@ -1,0 +1,267 @@
+{
+  "scope": "Owned menu workflows; host cleanup independently restores original clipboard/preferences/settings/evidence",
+  "passed": true,
+  "font_scale": 2,
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "observations": [
+    {
+      "cycle": 0,
+      "empty_readable_with_ime": true,
+      "empty_natural_lines_reachable_after_hide": true,
+      "query_and_caret_preserved": true,
+      "empty_enter_left_sentinel_unchanged": true,
+      "exact_fresh_copy_and_caller_range": true
+    },
+    {
+      "cycle": 1,
+      "empty_readable_with_ime": true,
+      "empty_natural_lines_reachable_after_hide": true,
+      "query_and_caret_preserved": true,
+      "empty_enter_left_sentinel_unchanged": true,
+      "exact_fresh_copy_and_caller_range": true
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "actions-button",
+      "node_id": 38,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        176,
+        88
+      ],
+      "visible_bounds": [
+        1335,
+        1040,
+        1511,
+        1128
+      ],
+      "point_root": [
+        1423,
+        1084
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 97,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        953,
+        1490,
+        1025
+      ],
+      "point_root": [
+        1454,
+        989
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 97,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        528,
+        1490,
+        600
+      ],
+      "point_root": [
+        1454,
+        564
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 97,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        953,
+        1490,
+        1025
+      ],
+      "point_root": [
+        1454,
+        989
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 97,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        528,
+        1490,
+        600
+      ],
+      "point_root": [
+        1454,
+        564
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "action-Copy content",
+      "node_id": 145,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        462,
+        76
+      ],
+      "visible_bounds": [
+        1040,
+        875,
+        1502,
+        951
+      ],
+      "point_root": [
+        1271,
+        913
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "actions-button",
+      "node_id": 38,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        176,
+        88
+      ],
+      "visible_bounds": [
+        1335,
+        1040,
+        1511,
+        1128
+      ],
+      "point_root": [
+        1423,
+        1084
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 169,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        953,
+        1490,
+        1025
+      ],
+      "point_root": [
+        1454,
+        989
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 169,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        528,
+        1490,
+        600
+      ],
+      "point_root": [
+        1454,
+        564
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 169,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        953,
+        1490,
+        1025
+      ],
+      "point_root": [
+        1454,
+        989
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "node_id": 169,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        1418,
+        528,
+        1490,
+        600
+      ],
+      "point_root": [
+        1454,
+        564
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "action-Copy content",
+      "node_id": 212,
+      "owner_root_semantics_id": 1,
+      "control_size": [
+        462,
+        76
+      ],
+      "visible_bounds": [
+        1040,
+        875,
+        1502,
+        951
+      ],
+      "point_root": [
+        1271,
+        913
+      ],
+      "ime_visible": false
+    }
+  ],
+  "pointer_scrolls": []
+}

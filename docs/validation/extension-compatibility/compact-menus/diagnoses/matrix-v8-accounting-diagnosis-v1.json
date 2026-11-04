@@ -1,0 +1,40 @@
+{
+  "original_matrix_state_sha256": "36a1908e9c41a9942fd3bafeffae66d3f50baa50e4e55b545706eab6e105e79d",
+  "original_matrix_remains_incomplete": true,
+  "observed_issue": "Collector expected21 checks on tablet; guarded runner intentionally omits size/density mutations there.",
+  "cohorts": [
+    {
+      "layout": "landscape",
+      "font_scale": 1,
+      "underlying_whole_cohort_passes": 2,
+      "successful_host_checks": 21,
+      "evidence_restored": true
+    },
+    {
+      "layout": "landscape",
+      "font_scale": 2,
+      "underlying_whole_cohort_passes": 2,
+      "successful_host_checks": 21,
+      "evidence_restored": true
+    },
+    {
+      "layout": "phone",
+      "font_scale": 2,
+      "underlying_whole_cohort_passes": 2,
+      "successful_host_checks": 21,
+      "evidence_restored": true
+    },
+    {
+      "layout": "tablet",
+      "font_scale": 2,
+      "underlying_whole_cohort_passes": 2,
+      "successful_host_checks": 19,
+      "evidence_restored": true
+    }
+  ],
+  "underlying_whole_native_passes": 8,
+  "successful_host_checks": 82,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "final_current_matrix_credit": 0
+}
