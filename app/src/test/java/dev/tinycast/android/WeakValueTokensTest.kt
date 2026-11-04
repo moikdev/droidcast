@@ -15,6 +15,7 @@ class WeakValueTokensTest {
         val replacement = original.copy()
         val token = tokens.token(original)
         assertEquals(token, tokens.token(replacement))
+        assertSame(original, references.first().get())
         // Simulate retirement of the older wrapper without relying on GC timing.
         references.first().clear()
         assertEquals(token, tokens.token(replacement))
