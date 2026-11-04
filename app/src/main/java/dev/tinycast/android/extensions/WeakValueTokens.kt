@@ -13,8 +13,10 @@ internal class WeakValueTokens<T : Any>(private val capacity: Int = 128,
 
     @Synchronized fun token(value: T): Int {
         values.removeAll { it.first.get() == null }
-        values.firstOrNull { it.first.get() == value }?.let { return it.second }
-        val token = ++next
+        values.firstOrNull { it.first.get() === value }?.let { return it.second }
+        val token = values.firstOrNull { it.first.get() == value }?.second ?: ++next
+        // Register each live equal wrapper. Retiring an older wrapper must
+        // not discard the replacement's label while it is being drawn.
         values += reference(value) to token
         if (values.size > capacity) { values.removeAt(0); evictions++ }
         return token

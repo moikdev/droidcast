@@ -488,6 +488,8 @@ class ExtensionDetailDeviceTest {
             .put("green", actual.green.toDouble()).put("blue", actual.blue.toDouble()).put("width_px", pixels.width).put("height_px", pixels.height))
         val observation = observeImage(label, "pixels-captured")
         observation.optJSONObject("load_snapshot")?.let { snapshot ->
+            if (snapshot.has("token_evictions")) assertEquals("Diagnostic token capacity exhausted; no value-agreement claim is possible",
+                0, snapshot.getInt("token_evictions"))
             val events = snapshot.getJSONArray("events")
             fun last(stage: String) = (0 until events.length()).map { events.getJSONObject(it) }.lastOrNull { it.getString("stage") == stage }
             val written = requireNotNull(last("state-ready")) { "Ready pixels need an actual state-publication witness" }
