@@ -1,0 +1,23 @@
+{
+  "completed": false,
+  "scope": "Owned Unicode, capability and lifecycle protocols; injected native owner case is not a JavaScript producer workflow",
+  "runtime_source_commit": "08210fa24674be924a6ebc93ce09b4fd170dfbc5",
+  "test_source_commit": "3501a79f9ce2d87d9abccd6504ce6f04b565dfe1",
+  "app_sha256": "a5b1ccb154033800634f4f382759fcab74b606780dd6d8f3936de01991a0045b",
+  "test_apk_sha256": "69bdc18400ec48bd09278a45bd7b2660252eeff637e93bec4c661049b03a054a",
+  "collector_sha256": "e071b0e8e361696e818e71ea9292db836818b4143b03b42441921d05aa576bdb",
+  "layout": "tablet",
+  "font": 1,
+  "method": "pointerCopyIsExactOnceAndReturns",
+  "expected": 1,
+  "passes": 0,
+  "runner_exit_code": 1,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "durable_file_count": 12,
+  "evidence_file_count": 528,
+  "case_records": 1
+}

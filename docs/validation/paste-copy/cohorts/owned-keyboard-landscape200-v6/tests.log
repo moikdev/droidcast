@@ -1,0 +1,86 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionPasteCopyDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionPasteCopyDeviceTest:
+INSTRUMENTATION_STATUS: test=keyboardCopyHidesImeAndEscapeReturns
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionPasteCopyDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #171 at (l=1031.0, t=647.0, r=1820.0, b=800.0)px, Tag: 'extension-primary'
+ContentDescription = '[Try owned paste]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Try owned paste]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Original selector: TestTag = 'extension-primary'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.tap(ExtensionPasteCopyDeviceTest.kt:258)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.pending(ExtensionPasteCopyDeviceTest.kt:227)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.keyboardCopyHidesImeAndEscapeReturns(ExtensionPasteCopyDeviceTest.kt:436)
+
+INSTRUMENTATION_STATUS: stream=
+Error in keyboardCopyHidesImeAndEscapeReturns(dev.tinycast.android.ExtensionPasteCopyDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #171 at (l=1031.0, t=647.0, r=1820.0, b=800.0)px, Tag: 'extension-primary'
+ContentDescription = '[Try owned paste]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Try owned paste]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Original selector: TestTag = 'extension-primary'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.tap(ExtensionPasteCopyDeviceTest.kt:258)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.pending(ExtensionPasteCopyDeviceTest.kt:227)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.keyboardCopyHidesImeAndEscapeReturns(ExtensionPasteCopyDeviceTest.kt:436)
+
+INSTRUMENTATION_STATUS: test=keyboardCopyHidesImeAndEscapeReturns
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.865
+There was 1 failure:
+1) keyboardCopyHidesImeAndEscapeReturns(dev.tinycast.android.ExtensionPasteCopyDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+The node is no longer in the tree, last known semantics:
+Node #171 at (l=1031.0, t=647.0, r=1820.0, b=800.0)px, Tag: 'extension-primary'
+ContentDescription = '[Try owned paste]'
+Role = 'Button'
+Focused = 'false'
+Text = '[Try owned paste]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+Has 1 sibling
+Original selector: TestTag = 'extension-primary'
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.tap(ExtensionPasteCopyDeviceTest.kt:258)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.pending(ExtensionPasteCopyDeviceTest.kt:227)
+	at dev.tinycast.android.ExtensionPasteCopyDeviceTest.keyboardCopyHidesImeAndEscapeReturns(ExtensionPasteCopyDeviceTest.kt:436)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

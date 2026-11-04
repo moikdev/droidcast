@@ -1,0 +1,28 @@
+{
+  "completed": true,
+  "collector_sha256": "680787a89f4906efa9d9be74577b317068898046c2a0a06a8133bd15fd33fa29",
+  "cohorts": [
+    {
+      "name": "owned-keyboard-landscape200-v7",
+      "exit_code": 0
+    },
+    {
+      "name": "regression-callers-tablet100-v7",
+      "exit_code": 0
+    },
+    {
+      "name": "regression-handoff-tablet100-v7",
+      "exit_code": 0
+    },
+    {
+      "name": "regression-callers-phone100-v7",
+      "exit_code": 0
+    },
+    {
+      "name": "regression-handoff-phone100-v7",
+      "exit_code": 0
+    }
+  ],
+  "prior_pipeline": "final-matrix-v6 remains failed; four later planned cohorts were unrun",
+  "current": null
+}

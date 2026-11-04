@@ -1,0 +1,38 @@
+{
+  "scope": "Owned JavaScript\/native paste\/Copy protocols; no service, physical-typing or broad parity credit",
+  "owned_extension_id": "reviewed-text-ed0a5ec5ba084f988275392a7699755e",
+  "fixture_parent_sha256": "c769353e6e4da8cbe4d9c1927f81a5a97f531b5c73415ce87c92f2e1a0f61847",
+  "fixture_crash_sha256": "993152e72f9fcbe602713ebf5e157406d8b3b9c67d2bb52f0811bf45d73702f8",
+  "fixture_manifest_sha256": "31eaca8f22c4b4072b6070709585431958fe125d322eeec1dab3c4c6d7d06ab2",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "pointer_taps": [
+    {
+      "tag": "extension-primary",
+      "bounds": [
+        1084,
+        872,
+        1322,
+        944
+      ],
+      "minimum_px": 72,
+      "reveal_gestures": 0
+    },
+    {
+      "tag": "extension-paste-copy",
+      "bounds": [
+        428,
+        848,
+        951,
+        920
+      ],
+      "minimum_px": 72,
+      "reveal_gestures": 0
+    }
+  ],
+  "clipboard_writes": 2,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_restoration_scope": "Independent host\/test-UID durable recovery; this class does not retain or publish the original clipboard"
+}

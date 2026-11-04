@@ -1,0 +1,22 @@
+{
+  "completed": true,
+  "scope": "Explicit native Copy fallback; actual insertion remains unsupported/partial",
+  "runtime_source_commit": "08210fa24674be924a6ebc93ce09b4fd170dfbc5",
+  "test_source_commit": "08210fa24674be924a6ebc93ce09b4fd170dfbc5",
+  "app_sha256": "a5b1ccb154033800634f4f382759fcab74b606780dd6d8f3936de01991a0045b",
+  "test_apk_sha256": "6bd62608478c96e6d150e17514d89c13f2202f626208632ace6734c95cadce86",
+  "collector_sha256": "31efd580acd7b5c0efbe840063543705bf2e2f93b5b2985fc35f5f01808ab40a",
+  "layout": "tablet",
+  "font": 2.0,
+  "passes": 1,
+  "runner_exit_code": 0,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "durable_file_count": 12,
+  "evidence_file_count": 528,
+  "workflow_outcome": "partial-paste-explicit-copy-fallback",
+  "app": "new"
+}

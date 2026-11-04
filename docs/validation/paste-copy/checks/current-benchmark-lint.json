@@ -1,0 +1,23 @@
+{
+  "completed": true,
+  "source_commit": "51de2cab70d14afb980d396288ca889685587421",
+  "hashes": {
+    "benchmark-app.apk": "20ae1e5a84c8229fc920b49572aadb04f21b851fffb44a3f9a761733af08959c",
+    "benchmark-test.apk": "3e493f52247d212265f5ad1103ab9ce0c7b07498fa2b0fb8e41cdc64eb74a56c",
+    "lint-results-debug.xml": "cfc9f573ae5677bde9f73dd5f2664ec6f8a178f51749334c9d1098ff40045c92",
+    "lint-results-benchmark.xml": "cfc9f573ae5677bde9f73dd5f2664ec6f8a178f51749334c9d1098ff40045c92"
+  },
+  "checks": {
+    "lint-results-debug.xml": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 55
+    },
+    "lint-results-benchmark.xml": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 55
+    }
+  },
+  "log_sha256": "234492620faff19cc33f0a9cb5a9505626c8c47269fe85e9ceda3be1c2df33f1"
+}

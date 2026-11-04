@@ -1,0 +1,21 @@
+{
+  "completed": true,
+  "runtime_source_commit": "08210fa24674be924a6ebc93ce09b4fd170dfbc5",
+  "test_source_commit": "51de2cab70d14afb980d396288ca889685587421",
+  "app_sha256": "a5b1ccb154033800634f4f382759fcab74b606780dd6d8f3936de01991a0045b",
+  "test_apk_sha256": "0dc614d419c4429277f70a1ab6f6d460f8846d4d411d10953b7db8dfbdb6361f",
+  "collector_sha256": "830c55ba75a0074f73c0001e845c798a7d098b3ce27b1daac1eb70617b51348c",
+  "layout": "tablet",
+  "group": "callers",
+  "classes": "dev.tinycast.android.ExtensionFormDeviceTest#nativeConfigurationEditsValidateCancelAndRun,dev.tinycast.android.ExtensionFormDeviceTest#ownedNoViewReturnRejectsDisposedAndReplacedCallbacks,dev.tinycast.android.ExtensionFormDeviceTest#ownedNoViewReturnAcceptsFocusedEnterAndPreservesEscape,dev.tinycast.android.ExtensionFormDeviceTest#correctingAnErrorSubmitsExactUnicodeOnce,dev.tinycast.android.ExtensionDetailDeviceTest#listTouchDetailPreservesQuerySelectionExactCopyAndCaller,dev.tinycast.android.ExtensionDetailDeviceTest#recreationStartsAnewOwnerAndRejectsThePriorNativeCallback,dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns,dev.tinycast.android.ReviewedTextDeviceTest#ordinaryCommandDoesNotReceiveClipboardAsSelectedText,dev.tinycast.android.ReviewedTextLifecycleDeviceTest#resetCloseErrorAndOrdinaryLaunchRevokeInput,dev.tinycast.android.ReviewedTextLifecycleDeviceTest#staleRuntimeCannotPublishOrWriteAfterReplacement,dev.tinycast.android.ReviewedTextLifecycleDeviceTest#runtimeCancellationRegistrationCannotBeDetachedByAnOldRuntime,dev.tinycast.android.ReviewedTextLifecycleDeviceTest#rejectedAsyncAndSyncHostCallsReleaseApprovedInput",
+  "expected": 12,
+  "passes": 12,
+  "runner_exit_code": 0,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "durable_file_count": 12,
+  "evidence_file_count": 528
+}

@@ -1,0 +1,181 @@
+{
+  "scope": "Owned JavaScript\/native paste\/Copy protocols; no service, physical-typing or broad parity credit",
+  "owned_extension_id": "reviewed-text-2b36225dc35c4f3f839a9fb836b131e0",
+  "fixture_parent_sha256": "9017ee80e4139cbbe46890b1f1bd1292b3b1c9bf3bce4512151f8898337293b8",
+  "fixture_crash_sha256": "993152e72f9fcbe602713ebf5e157406d8b3b9c67d2bb52f0811bf45d73702f8",
+  "fixture_manifest_sha256": "31eaca8f22c4b4072b6070709585431958fe125d322eeec1dab3c4c6d7d06ab2",
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "pointer_taps": [
+    {
+      "tag": "extension-field-owned-input",
+      "bounds": [
+        239,
+        434,
+        2102,
+        629
+      ],
+      "minimum_px": 126,
+      "reveal_gestures": 0
+    },
+    {
+      "tag": "extension-primary",
+      "bounds": [
+        1031,
+        144,
+        1820,
+        297
+      ],
+      "minimum_px": 126,
+      "reveal_gestures": 4
+    }
+  ],
+  "actual_ime_open_before_paste": true,
+  "reveal_paths": [
+    {
+      "tag": "extension-primary",
+      "step": 1,
+      "legacy_four_pixel_gutter": false,
+      "panel_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "scroll_origin": [
+        186,
+        95
+      ],
+      "scroll_size": [
+        1969,
+        218
+      ],
+      "start_in_root": [
+        312,
+        269.40002
+      ],
+      "end_in_root": [
+        312,
+        138.6
+      ],
+      "rounded_panel_radius_px": 68.25,
+      "start_inside_rounded_panel": true,
+      "legacy_start_inside_rounded_panel": false,
+      "dialog_before": "extension-run",
+      "command_before": "editor",
+      "dialog_after": "extension-run",
+      "command_after": "editor"
+    },
+    {
+      "tag": "extension-primary",
+      "step": 2,
+      "legacy_four_pixel_gutter": false,
+      "panel_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "scroll_origin": [
+        186,
+        95
+      ],
+      "scroll_size": [
+        1969,
+        218
+      ],
+      "start_in_root": [
+        312,
+        269.40002
+      ],
+      "end_in_root": [
+        312,
+        138.6
+      ],
+      "rounded_panel_radius_px": 68.25,
+      "start_inside_rounded_panel": true,
+      "legacy_start_inside_rounded_panel": false,
+      "dialog_before": "extension-run",
+      "command_before": "editor",
+      "dialog_after": "extension-run",
+      "command_after": "editor"
+    },
+    {
+      "tag": "extension-primary",
+      "step": 3,
+      "legacy_four_pixel_gutter": false,
+      "panel_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "scroll_origin": [
+        186,
+        95
+      ],
+      "scroll_size": [
+        1969,
+        218
+      ],
+      "start_in_root": [
+        312,
+        269.40002
+      ],
+      "end_in_root": [
+        312,
+        138.6
+      ],
+      "rounded_panel_radius_px": 68.25,
+      "start_inside_rounded_panel": true,
+      "legacy_start_inside_rounded_panel": false,
+      "dialog_before": "extension-run",
+      "command_before": "editor",
+      "dialog_after": "extension-run",
+      "command_after": "editor"
+    },
+    {
+      "tag": "extension-primary",
+      "step": 4,
+      "legacy_four_pixel_gutter": false,
+      "panel_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "scroll_origin": [
+        186,
+        95
+      ],
+      "scroll_size": [
+        1969,
+        218
+      ],
+      "start_in_root": [
+        312,
+        269.40002
+      ],
+      "end_in_root": [
+        312,
+        138.6
+      ],
+      "rounded_panel_radius_px": 68.25,
+      "start_inside_rounded_panel": true,
+      "legacy_start_inside_rounded_panel": false,
+      "dialog_before": "extension-run",
+      "command_before": "editor",
+      "dialog_after": "extension-run",
+      "command_after": "editor"
+    }
+  ],
+  "actual_ime_hidden_for_fallback": true,
+  "focused_enter_copied_exactly": true,
+  "focus_setup": "Instrumentation Tab enters keyboard mode, then RequestFocus semantics; Enter\/Escape are actual injected key pairs, not physical typing",
+  "passed": true,
+  "clipboard_notifications": 2,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_restoration_scope": "Independent host\/test-UID durable recovery; this class does not retain or publish the original clipboard"
+}

@@ -1,0 +1,55 @@
+{
+  "scope": "Owned JavaScript\/native paste\/Copy protocols; no service, physical-typing or broad parity credit",
+  "owned_extension_id": "reviewed-text-f9b4a1a6b47c4cde9d8a5559f932fc4c",
+  "fixture_parent_sha256": "9017ee80e4139cbbe46890b1f1bd1292b3b1c9bf3bce4512151f8898337293b8",
+  "fixture_crash_sha256": "993152e72f9fcbe602713ebf5e157406d8b3b9c67d2bb52f0811bf45d73702f8",
+  "fixture_manifest_sha256": "31eaca8f22c4b4072b6070709585431958fe125d322eeec1dab3c4c6d7d06ab2",
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "pointer_taps": [
+    {
+      "tag": "extension-primary",
+      "bounds": [
+        53,
+        1796,
+        713,
+        1949
+      ],
+      "minimum_px": 126,
+      "reveal_gestures": 0
+    },
+    {
+      "tag": "extension-paste-copy",
+      "bounds": [
+        85,
+        1600,
+        995,
+        1740
+      ],
+      "minimum_px": 126,
+      "reveal_gestures": 0
+    },
+    {
+      "tag": "extension-paste-return",
+      "bounds": [
+        85,
+        1772,
+        995,
+        1912
+      ],
+      "minimum_px": 126,
+      "reveal_gestures": 0
+    }
+  ],
+  "copy_exact": true,
+  "owned_output_sha256": "e79de81ff75f01cb25c057e7760b32e44d1d54e74d404a045a488959aa1d075f",
+  "clipboard_notifications": 4,
+  "duplicate_after_copy_rejected": true,
+  "duplicate_probe_setup": "After the real exact Copy, a separate owned sentinel is written; retained callbacks must leave it unchanged. Listener notifications are diagnostics, not native write counts.",
+  "passed": true,
+  "launcher_query_preserved": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_restoration_scope": "Independent host\/test-UID durable recovery; this class does not retain or publish the original clipboard"
+}
