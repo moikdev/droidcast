@@ -48,6 +48,8 @@ private class DetailImageLoadTrace(val historyEnabled: Boolean) {
     @Volatile var sample: (() -> String)? = null
     private val tokens = if (historyEnabled) WeakValueTokens<Any>() else null
     private val events = if (historyEnabled) ArrayDeque<JSONObject>() else null
+    private val latest = if (historyEnabled) mutableMapOf<String, JSONObject>() else null
+    private var droppedEvents = 0
     private var previousEvent = ""
 
     // Match produceState's rendered-value equality: a fresh equal wrapper
@@ -64,20 +66,28 @@ private class DetailImageLoadTrace(val historyEnabled: Boolean) {
             val signature = "$stage:$producer:$valueToken:$ready"
             if (previousEvent == signature) return
             previousEvent = signature
-            history.addLast(JSONObject().put("stage", stage).put("producer_generation", producer)
+            val event = JSONObject().put("stage", stage).put("producer_generation", producer)
                 .put("value_token", valueToken).put("bitmap_ready", ready)
-                .put("uptime_ms", android.os.SystemClock.uptimeMillis()))
-            while (history.size > 64) history.removeFirst()
+                .put("uptime_ms", android.os.SystemClock.uptimeMillis())
+            history.addLast(event)
+            // Preserve five fixed stage summaries when the recent timeline
+            // rolls over; a stable image need not publish another value.
+            when (stage) {
+                "state-reset", "state-ready", "state-unavailable", "composed", "draw-recorded" -> latest?.set(stage, event)
+            }
+            while (history.size > 64) { history.removeFirst(); droppedEvents++ }
         }
     }
     fun snapshot(): String {
         val history = events ?: return JSONObject().put("history_enabled", false).toString()
         val live = runCatching { sample?.invoke() ?: "detached" }.getOrDefault("detached")
         return synchronized(this) {
+            val stages = JSONObject().also { result -> latest?.forEach { (stage, event) -> result.put(stage, event) } }
             JSONObject().put("schema_version", 1).put("trace_owner", owner)
                 .put("generation", generation).put("phase", phase).put("cancellations", cancellations)
                 .put("token_evictions", tokens?.evictions ?: 0)
-                .put("live_state", live).put("events", JSONArray(history.map { JSONObject(it.toString()) })).toString()
+                .put("events_dropped", droppedEvents).put("latest", stages)
+                .put("live_state", live).put("events", JSONArray(history.toList())).toString()
         }
     }
     override fun toString() = "generation=$generation;phase=$phase;cancellations=$cancellations;" +

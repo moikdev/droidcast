@@ -427,11 +427,14 @@ class ExtensionDetailDeviceTest {
         record.put("passed", true)
     }
     private fun image(label: String) = compose.onNodeWithContentDescription(label, useUnmergedTree = true)
-    private fun imageStatePublishedAndComposed(snapshot: JSONObject): Boolean {
+    private fun imageStage(snapshot: JSONObject, stage: String): JSONObject? {
+        snapshot.optJSONObject("latest")?.optJSONObject(stage)?.let { return it }
         val events = snapshot.getJSONArray("events")
-        fun last(stage: String) = (0 until events.length()).map { events.getJSONObject(it) }.lastOrNull { it.getString("stage") == stage }
-        val written = last("state-ready") ?: return false
-        val composed = last("composed") ?: return false
+        return (0 until events.length()).map { events.getJSONObject(it) }.lastOrNull { it.getString("stage") == stage }
+    }
+    private fun imageStatePublishedAndComposed(snapshot: JSONObject): Boolean {
+        val written = imageStage(snapshot, "state-ready") ?: return false
+        val composed = imageStage(snapshot, "composed") ?: return false
         return written.getBoolean("bitmap_ready") && composed.getBoolean("bitmap_ready") &&
             written.getInt("producer_generation") == snapshot.getInt("generation") &&
             written.getInt("value_token") == composed.getInt("value_token")
@@ -490,11 +493,9 @@ class ExtensionDetailDeviceTest {
         observation.optJSONObject("load_snapshot")?.let { snapshot ->
             if (snapshot.has("token_evictions")) assertEquals("Diagnostic token capacity exhausted; no value-agreement claim is possible",
                 0, snapshot.getInt("token_evictions"))
-            val events = snapshot.getJSONArray("events")
-            fun last(stage: String) = (0 until events.length()).map { events.getJSONObject(it) }.lastOrNull { it.getString("stage") == stage }
-            val written = requireNotNull(last("state-ready")) { "Ready pixels need an actual state-publication witness" }
-            val composed = requireNotNull(last("composed")) { "Ready pixels need an applied-composition witness" }
-            val drawn = requireNotNull(last("draw-recorded")) { "Ready pixels need a draw-command witness" }
+            val written = requireNotNull(imageStage(snapshot, "state-ready")) { "Ready pixels need an actual state-publication witness" }
+            val composed = requireNotNull(imageStage(snapshot, "composed")) { "Ready pixels need an applied-composition witness" }
+            val drawn = requireNotNull(imageStage(snapshot, "draw-recorded")) { "Ready pixels need a draw-command witness" }
             assertTrue(written.getBoolean("bitmap_ready")); assertTrue(composed.getBoolean("bitmap_ready")); assertTrue(drawn.getBoolean("bitmap_ready"))
             assertEquals("Composition must consume the published value", written.getInt("value_token"), composed.getInt("value_token"))
             assertEquals("Draw must use the composed value", composed.getInt("value_token"), drawn.getInt("value_token"))
@@ -992,7 +993,7 @@ class ExtensionDetailDeviceTest {
         launch("image-scroll-information"); imagePixel("Owned scrolling image", 0xff228833.toInt())
         val height = image("Owned scrolling image").fetchSemanticsNode().size.height
         val cycles = JSONArray(); record.put("cached_image_visibility_cycles", cycles)
-        repeat(6) { cycle ->
+        repeat(8) { cycle ->
             show("Owned scroll-away destination.")
             compose.waitUntil(5000) {
                 val node = image("Owned scrolling image").fetchSemanticsNode()
@@ -1010,8 +1011,16 @@ class ExtensionDetailDeviceTest {
                 .put("returned_state", returned.config.getOrNull(SemanticsProperties.StateDescription))
             assertEquals(height, returned.size.height)
         }
-        capture("cached-image-sixth-return")
-        record.put("cached_image_visibility_scope", "Six observed offscreen bitmap releases and visible green-pixel returns with unchanged document/source; semantic scroll positioning is setup")
+        observeImage("Owned scrolling image", "history-rollover").optJSONObject("load_snapshot")?.let { snapshot ->
+            if (snapshot.has("events_dropped")) {
+                assertTrue("The bounded recent timeline must actually roll over", snapshot.getInt("events_dropped") > 0)
+                assertTrue(snapshot.getJSONArray("events").length() <= 64)
+                assertNotNull(snapshot.getJSONObject("latest").optJSONObject("state-ready"))
+                record.put("bounded_image_trace_rollover_verified", true)
+            }
+        }
+        capture("cached-image-eighth-return")
+        record.put("cached_image_visibility_scope", "Eight observed offscreen bitmap releases and visible green-pixel returns with unchanged document/source; semantic scroll positioning is setup")
             .put("passed", true)
     }
     @Test fun compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks() {
