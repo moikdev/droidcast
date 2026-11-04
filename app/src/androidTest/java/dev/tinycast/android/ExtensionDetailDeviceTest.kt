@@ -113,7 +113,8 @@ class ExtensionDetailDeviceTest {
             it.store.reset(); it.store.search(caller)
         }
         val fetchProbe = testName.methodName in setOf("globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess",
-            "globalHttpsFetchPublishesTheResponseCopiesExactTextAndReturnsToTheCaller")
+            "globalHttpsFetchPublishesTheResponseCopiesExactTextAndReturnsToTheCaller",
+            "frozenTranslateFormReportsOwnedInputNetworkAndCopyOutcome", "frozenWeatherReportsTheOwnedTokyoWorkflowOutcome")
         if (fetchProbe) {
             // Start this transport fixture's cleanup budget after its known
             // clipboard window appears. Cold helper coverage is separate.
@@ -526,6 +527,161 @@ class ExtensionDetailDeviceTest {
         capture("https-copy")
         touchTag("extension-back"); assertNull(catalog.running); assertEquals(caller, compose.activity.store.query)
         record.put("caller_returned", true).put("passed", true)
+    }
+    private fun openFrozenNetworkBundle(name: String, archiveHash: String, command: String, commandHash: String,
+                                        seeds: Map<String, Any>, rootType: String) {
+        val archive = File(context.filesDir, "reviewed-text-fixture-lease/$name.zip")
+        assertTrue("Use the guarded frozen network archive", archive.isFile)
+        val bytes = archive.readBytes(); assertEquals(archiveHash, hash(bytes))
+        val directory = fixtureDirectory(); val extracted = ExtensionArchive.extract(bytes, directory)
+        assertEquals(commandHash, hash(File(extracted, "$command.js").readBytes()))
+        val extension = InstalledExtension(StoreExtension(directory.name, name, "$name (owned frozen copy)", "", "Droidcast tests", "test", "", "", "", 1),
+            extracted, JSONObject(File(extracted, "package.json").readText()))
+        val selected = extension.commands.single { it.name == command }; val values = JSONObject()
+        extension.fields(selected).forEach { field ->
+            val key = field.getString("name"); val seed = seeds[key] ?: return@forEach
+            val options = field.optJSONArray("data")
+            assertTrue("Owned preference must be a declared option", field.optString("type") != "dropdown" ||
+                options != null && (0 until options.length()).any { options.getJSONObject(it).optString("value") == seed.toString() })
+            values.put(key, seed)
+        }
+        record.put("scope", "Unmodified hash-pinned $name command with owned input and nonsecret isolated preferences; an observation pass is not a service/compatibility pass")
+            .put("archive_sha256", archiveHash).put("frozen_command_sha256", commandHash).put("command", command)
+            .put("owned_extension_id", directory.name).put("seeded_preferences", values)
+            .put("configuration_method", "Seeded in owned storage; preference editing is not exercised")
+        compose.activityRule.scenario.onActivity {
+            catalog.savePreferences(extension, values); it.store.openExtension(extension, selected)
+        }
+        compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == rootType }
+        assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle(); ime(false)
+        assertEquals(rootType, activeRoot(catalog.runtimeTree)?.optString("type"))
+    }
+    private fun installNetworkObserver() {
+        // Observes only subsequent requests. Never stores queries, headers,
+        // bodies, response contents, credentials, or unrelated endpoint names.
+        val script = """
+            (() => {
+              if (globalThis.__ownedNetworkRead) throw new Error("Observer already installed");
+              const host = globalThis.__tinycastHost, bridge = globalThis.__tinycast;
+              const invoke = host.invoke, settle = bridge.settle, pending = new Map(), rows = [];
+              let overflow = 0, observerErrors = 0;
+              host.invoke = function(id, api, method, encoded) {
+                try {
+                if (api === "fetch" && method === "request") {
+                  if (rows.length >= 32) overflow++;
+                  else {
+                    const request = JSON.parse(encoded)[0], url = new URL(request.url);
+                    const endpoint = url.origin === "https://translate.google.com" && url.pathname === "/" ? "google-home" :
+                      url.origin === "https://translate.google.com" && url.pathname === "/translate_a/single" ? "google-translate" :
+                      url.origin === "https://wttr.in" && url.pathname === "/Tokyo" ? "wttr-owned-Tokyo" : "other-redacted";
+                    const row = {sequence:rows.length + 1, endpoint, method:request.method || "GET", completed:false};
+                    rows.push(row); pending.set(String(id), row);
+                  }
+                }
+                } catch (_) { observerErrors++; }
+                return Reflect.apply(invoke, this, arguments);
+              };
+              bridge.settle = function(id, ok, encoded) {
+                try {
+                const row = pending.get(String(id));
+                if (row) {
+                  row.completed = true; row.transportSucceeded = Boolean(ok); pending.delete(String(id));
+                  if (ok && typeof encoded === "string" && encoded.length <= 12 * 1024 * 1024) {
+                    const response = JSON.parse(encoded);
+                    row.status = response.status; row.responseBase64Length = typeof response.bodyBase64 === "string" ? response.bodyBase64.length : 0;
+                  }
+                }
+                } catch (_) { observerErrors++; }
+                return Reflect.apply(settle, this, arguments);
+              };
+              globalThis.__ownedNetworkRead = () => ({overflow, observerErrors, requests:rows.map(row => ({...row}))});
+              return true;
+            })()
+        """.trimIndent()
+        assertEquals("true", evaluate(script))
+        record.put("network_observer_scope", "Forwarding test-only observer installed after initial native root; only subsequent requests, bounded metadata and no query/header/body capture")
+    }
+    private fun networkObservation() = JSONObject(JSONArray("[${evaluate("JSON.stringify(globalThis.__ownedNetworkRead())")}]").getString(0))
+    private fun awaitNetworkObservation(): JSONObject {
+        val deadline = android.os.SystemClock.uptimeMillis() + 105000
+        var observed = networkObservation()
+        while (android.os.SystemClock.uptimeMillis() < deadline) {
+            val requests = observed.getJSONArray("requests")
+            if (catalog.runtimeError != null || requests.length() > 0 && (0 until requests.length()).all { requests.getJSONObject(it).getBoolean("completed") } &&
+                activeRoot(catalog.runtimeTree)?.props()?.optBoolean("isLoading") == false) break
+            android.os.SystemClock.sleep(100); observed = networkObservation()
+        }
+        record.put("network_observation", observed).put("runtime_failed", catalog.runtimeError != null)
+            .put("observation_deadline_reached", android.os.SystemClock.uptimeMillis() >= deadline)
+        assertEquals("No observation may be silently dropped", 0, observed.getInt("overflow"))
+        assertEquals("Observer must not lose metadata", 0, observed.getInt("observerErrors"))
+        assertTrue("Owned input must produce an observed native fetch", observed.getJSONArray("requests").length() > 0)
+        compose.waitForIdle(); return observed
+    }
+    private fun finishFrozenObservation() {
+        touchTag("extension-back"); assertNull(catalog.running); assertNull(compose.activity.store.dialog)
+        assertEquals(caller, compose.activity.store.query)
+        record.put("caller_returned", true).put("observation_collector_passed", true).put("passed", true)
+        capture("frozen-caller-return")
+    }
+    @Test fun frozenTranslateFormReportsOwnedInputNetworkAndCopyOutcome() {
+        openFrozenNetworkBundle("translate", "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+            "translate-form", "f961d5328c882cdb0e3a3861584b17408a509ebd3453ea96f389922236ab0665",
+            mapOf("langFrom" to "en", "lang1" to "ja", "lang2" to "en", "autoInput" to false,
+                "defaultAction" to "copy", "prioritizeCrossLanguage" to false, "proxy" to ""), "Form")
+        capture("translate-empty-form"); installNetworkObserver()
+        val input = compose.onNodeWithTag("extension-field-text")
+        touch(input); input.performTextReplacement("hello")
+        compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.nodes("Form.TextArea")?.any {
+            it.props().optString("id") == "text" && it.props().optString("value") == "hello" } == true }
+        input.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("hello")))
+        val observed = awaitNetworkObservation(); ime(false)
+        val root = activeRoot(catalog.runtimeTree)
+        val output = root?.nodes("Form.TextArea")?.singleOrNull { it.props().optString("id") == "result" }?.props()?.optString("value").orEmpty()
+        record.put("owned_input", "hello").put("translated_output_characters", output.length)
+            .put("native_root_type", root?.optString("type") ?: JSONObject.NULL)
+            .put("service_request_count", observed.getJSONArray("requests").length())
+        val phases = JSONObject().put("startup", "native Form").put("input", "hello in runtime tree and composed editor")
+        if (output.isNotBlank() && catalog.runtimeError == null) {
+            val result = compose.onNodeWithTag("extension-field-result")
+            reveal(result).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(output)))
+            capture("translate-output"); assertEquals("Owned Markdown clipboard sentinel", clipboard())
+            val actions = extensionActionScope(requireNotNull(root), null, 0, "").nodes
+            val index = actions.indexOfFirst { it.props().optString("title") == "Copy Translated" }; assertTrue(index >= 0)
+            touchTag("extension-actions"); compose.onNodeWithTag("inline-menu-search").performTextReplacement("Copy Translated")
+            touchTag("extension-action-$index"); compose.waitUntil(10000) { clipboard() == output }; assertEquals(output, clipboard())
+            dismissClipboard("translate-copy", requireAction = true); capture("translate-copied-output")
+            phases.put("service", "nonempty composed output observed; translation quality unassessed").put("destination", "fresh exact Copy Translated")
+            record.put("copy_exact", true).put("workflow_outcome", "working-observed-path")
+        } else {
+            assertEquals("Owned Markdown clipboard sentinel", clipboard()); capture("translate-no-output")
+            phases.put("service", if (record.getBoolean("observation_deadline_reached")) "pending at bounded deadline" else "no translated output observed")
+                .put("destination", "unexercised; no successful output to copy")
+            record.put("copy_exact", false).put("workflow_outcome", "partial-no-output")
+        }
+        record.put("phase_outcomes", phases); finishFrozenObservation()
+    }
+    @Test fun frozenWeatherReportsTheOwnedTokyoWorkflowOutcome() {
+        openFrozenNetworkBundle("weather", "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+            "index", "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af",
+            mapOf("defaultquery" to "Kyoto", "unitsystem" to "metric", "clockformat" to "12h"), "List")
+        installNetworkObserver(); val search = compose.onNodeWithTag("extension-search")
+        touch(search); search.performTextReplacement("Tokyo")
+        search.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("Tokyo")))
+        val observed = awaitNetworkObservation(); ime(false)
+        val root = activeRoot(catalog.runtimeTree); val rows = root?.nodes("List.Item").orEmpty()
+        val empty = root?.nodes("List.EmptyView").orEmpty()
+        record.put("owned_query", "Tokyo").put("native_root_type", root?.optString("type") ?: JSONObject.NULL)
+            .put("native_row_count", rows.size).put("native_empty_view_count", empty.size)
+            .put("rendering_scope", "Rows can retain prior-city data; no city-specific forecast credit")
+            .put("workflow_outcome", if (rows.isNotEmpty() && catalog.runtimeError == null && !root!!.props().optBoolean("isLoading")) "partial-rendered-rows" else "observed-failed")
+            .put("phase_outcomes", JSONObject().put("startup", "native List").put("input", "Tokyo in composed search")
+                .put("service", "Recorded native transport metadata; request before observer attachment is excluded")
+                .put("destination", "forecast detail/actions unexercised"))
+        assertTrue("The owned city request must be witnessed", (0 until observed.getJSONArray("requests").length()).any {
+            observed.getJSONArray("requests").getJSONObject(it).getString("endpoint") == "wttr-owned-Tokyo" })
+        assertEquals("Owned Markdown clipboard sentinel", clipboard()); capture("weather-tokyo-outcome")
+        finishFrozenObservation()
     }
     @Test fun listTouchDetailPreservesQuerySelectionExactCopyAndCaller() {
         launch("list"); capture("list-entry")

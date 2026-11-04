@@ -44,6 +44,20 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
                 self.assertFalse(marker.exists(), 'Rejected options must not reach even a read-only adb query')
                 self.assertFalse(output.exists(), 'Rejected options must not claim output or a recovery owner')
 
+    def test_frozen_network_archives_are_limited_to_the_owned_detail_cohort(self):
+        for flag in ['--translate-archive', '--weather-archive']:
+            for selected in [MARKDOWN, CALCULATOR, CLIPBOARD,
+                             ACTIVATION + '#explicitLauncherPrimaryCommitsComposedQueryAndActivates',
+                             'dev.tinycast.android.ExtensionFormDeviceTest', 'dev.tinycast.android.ReviewedTextDeviceTest']:
+                with self.subTest(flag=flag, selected=selected):
+                    self.refused_without_device_access(selected, [flag, 'not-read-network.zip'],
+                                                       'Network bundles belong only to the owned Detail cohort')
+
+    def test_network_archives_do_not_borrow_the_calculator_archive_exemption(self):
+        for flag in ['--translate-archive', '--weather-archive']:
+            self.refused_without_device_access(CALCULATOR, [flag, 'not-read-network.zip'],
+                                               'Network bundles belong only to the owned Detail cohort', without_archive=True)
+
     def test_markdown_cannot_mix_with_shared_legacy_fixtures(self):
         self.refused_without_device_access(MARKDOWN + ',dev.tinycast.android.InlinePaletteDeviceTest', [],
                                            'Keep the shared menu/keyboard regression cohort separate')

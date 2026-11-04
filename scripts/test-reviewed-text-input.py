@@ -49,6 +49,8 @@ def main():
     parser.add_argument('--mood-archive', type=Path, help='Optional hash-pinned Mood Tracker bundle for the owned real-Form workflow')
     parser.add_argument('--checksum-archive', type=Path, help='Optional hash-pinned Checksum bundle for the owned real-picker workflow')
     parser.add_argument('--html-colors-archive', type=Path, help='Optional hash-pinned HTML Colors bundle for the owned native Detail workflow')
+    parser.add_argument('--translate-archive', type=Path, help='Optional hash-pinned Translate bundle for owned network observations')
+    parser.add_argument('--weather-archive', type=Path, help='Optional hash-pinned Weather bundle for owned network observations')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
@@ -86,6 +88,9 @@ def main():
             'Restoration failure is limited to the deliberate process-death control')
     require(not args.html_colors_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
         for item in args.classes.split(',')), 'HTML Colors belongs only to the owned Detail cohort')
+    require(not (args.translate_archive or args.weather_archive) or all(
+        item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest' for item in args.classes.split(',')),
+        'Network bundles belong only to the owned Detail cohort')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
@@ -101,6 +106,10 @@ def main():
     if args.html_colors_archive is not None:
         typed_archives['html-colors'] = frozen_form_archive(args.html_colors_archive,
             '8a346fd2bd4ed01ceeacdeb71462b458014faa539a1f2b563638983843bdf0fb')
+    for name, path, expected in [('translate', args.translate_archive, '9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2'),
+                                 ('weather', args.weather_archive, '20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c')]:
+        if path is not None:
+            typed_archives[name] = frozen_form_archive(path, expected)
     sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
     if not sdk:
         sdk = next(line.removeprefix('sdk.dir=') for line in Path('local.properties').read_text().splitlines() if line.startswith('sdk.dir='))
