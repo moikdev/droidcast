@@ -1392,15 +1392,24 @@ class ExtensionFormDeviceTest {
     }
     private fun dismissFrozenClipboard(phase: String) {
         val started = android.os.SystemClock.uptimeMillis()
-        val ready = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-            .wait(Until.hasObject(By.res("com.android.systemui", "clipboard_ui")), 7000)
         val actions = JSONArray()
-        record.put("clipboard-$phase", JSONObject().put("fixture_ready", ready)
-            .put("fixture_wait_ms", android.os.SystemClock.uptimeMillis() - started).put("actions", actions))
-        assertTrue("Known owned clipboard fixture must appear before cleanup", ready)
-        dismissClipboardForEvidence(requireAction = true, onNodeAction = { id, accepted ->
-            actions.put(JSONObject().put("id", id).put("accepted", accepted))
-        })
+        val observations = ArrayDeque<String>()
+        val receipt = JSONObject().put("fixture_ready", false).put("actions", actions)
+            .put("readiness_protocol", "Same bounded discovery/action/absence path; no preceding UiDevice idle query")
+        record.put("clipboard-$phase", receipt)
+        try {
+            dismissClipboardForEvidence(onObservation = {
+                observations.addLast(it); if (observations.size > 16) observations.removeFirst()
+            }, requireAction = true, onNodeAction = { id, accepted ->
+                actions.put(JSONObject().put("id", id).put("accepted", accepted))
+                if (accepted && !receipt.optBoolean("fixture_ready")) receipt.put("fixture_ready", true)
+                    .put("fixture_wait_ms", android.os.SystemClock.uptimeMillis() - started)
+            })
+            assertTrue("Known owned clipboard fixture requires an accepted node action", receipt.getBoolean("fixture_ready"))
+        } finally {
+            receipt.put("observations", JSONArray(observations.toList()))
+                .put("cleanup_elapsed_ms", android.os.SystemClock.uptimeMillis() - started)
+        }
     }
     private fun frozenClipboard(): String {
         var text = ""
