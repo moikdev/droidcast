@@ -251,7 +251,7 @@ class InlinePaletteDeviceTest {
         val manager = compose.activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
         view != null && view.hasWindowFocus() && view.onCheckIsTextEditor() && manager.isActive(view) && manager.isAcceptingText
     }
-    private fun awaitLauncherIme(visible: Boolean) {
+    private fun awaitLauncherIme(visible: Boolean, requestRoute: String) {
         val done = java.util.concurrent.CountDownLatch(1)
         val view = compose.activity.window.decorView
         val deadline = android.os.SystemClock.uptimeMillis() + 10000
@@ -273,6 +273,7 @@ class InlinePaletteDeviceTest {
         val completed = done.await(11, java.util.concurrent.TimeUnit.SECONDS)
         compose.activityRule.scenario.onActivity { view.removeCallbacks(observer) }
         keyboardSetupEvidence.put(JSONObject().put("requested_visible", visible).put("settled", completed && settled)
+            .put("request_route", requestRoute)
             .put("geometry", JSONArray(previous)).put("native_frames", frames).put("stable_for_at_least_ms", 100))
         assertTrue("Launcher IME visibility and geometry must settle before the starting-state assertion", completed && settled)
         compose.waitForIdle()
@@ -284,14 +285,23 @@ class InlinePaletteDeviceTest {
         // A focus tap may enqueue a native show after Compose becomes idle.
         // Establish an observed shown state before requesting the closed fixture;
         // a passing replay does not explain the retained earlier hide timeout.
-        if(!imeVisible()) {
+        val show = compose.onAllNodesWithContentDescription("Show on-screen keyboard").fetchSemanticsNodes()
+        val route = if(show.isNotEmpty()) {
+            // This also sets the launcher's wide-screen keyboard request. A
+            // direct Insets show would otherwise conflict with its hide policy.
+            compose.onNodeWithContentDescription("Show on-screen keyboard").performClick()
+            "Existing launcher Show on-screen keyboard callback"
+        } else {
+            if(!imeVisible()) {
             compose.activityRule.scenario.onActivity {
                 androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView)
                     .show(androidx.core.view.WindowInsetsCompat.Type.ime())
             }
+            }
+            "Focused narrow launcher; native show if needed"
         }
-        awaitLauncherIme(true)
-        if(!visible) { hideKeyboard(); awaitLauncherIme(false) }
+        awaitLauncherIme(true, route)
+        if(!visible) { hideKeyboard(); awaitLauncherIme(false, "Native hide after the observed shown state") }
         assertTrue("The launcher editor remains active across fixture keyboard setup", launcherInputReady())
     }
     private fun menuTextHasCompleteNaturalLines(label: String? = null): Boolean {
