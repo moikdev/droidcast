@@ -25,7 +25,7 @@ import dev.tinycast.android.TextInputRejected
 @SuppressLint("SetJavaScriptEnabled")
 class ExtensionRuntime(private val context: Context, private val catalog: ExtensionCatalog,
     private val extension: InstalledExtension, private val command: ExtensionCommand,
-    private val canLaunchCommand: () -> Boolean) {
+    private val canUseForegroundActions: () -> Boolean) {
     constructor(context: Context, catalog: ExtensionCatalog, extension: InstalledExtension, command: ExtensionCommand) :
         this(context, catalog, extension, command, { false })
     private val textContext = catalog.captureText(extension,command)
@@ -125,6 +125,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private fun destroyEngine() {
         if (engineDestroyed) return
         engineDestroyed = true
+        runtimeRegistration?.let { catalog.clearPasteCopy(producer = it) }
         acknowledgementTimeout?.let(cleanupHandler::removeCallbacks); acknowledgementTimeout = null; pendingLaunchAcknowledgement = null
         webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost")
         (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy()
@@ -136,12 +137,12 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         if (destroyed) destroyEngine()
     }
     private fun launchCommand(id: String, raw: String) {
-        check(canLaunchCommand() && webView.isAttachedToWindow && webView.hasWindowFocus()) {
+        check(canUseForegroundActions() && webView.isAttachedToWindow && webView.hasWindowFocus()) {
             "Command handoff needs the current command screen in the foreground"
         }
         val request = ExtensionCommandLaunch.parse(raw)
         val prepared = catalog.prepareCommandLaunch(textContext.owner, extension, command, request)
-        check(canLaunchCommand() && webView.hasWindowFocus()) { "This command screen is no longer current" }
+        check(canUseForegroundActions() && webView.hasWindowFocus()) { "This command screen is no longer current" }
         val token = Any()
         check(pendingLaunchAcknowledgement == null) { "A command handoff is already pending" }
         pendingLaunchAcknowledgement = token
@@ -162,6 +163,16 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         } catch (_: RuntimeException) { acknowledgeCommandLaunch(token) }
     }
     private fun ready() { catalog.runtimeReady = true; watchdog?.cancel() }
+    private fun rejectPasteWithCopyOffer(raw: String): Nothing {
+        check(canUseForegroundActions() && webView.isAttachedToWindow && webView.hasWindowFocus()) {
+            "Clipboard paste needs the current command screen in the foreground"
+        }
+        val registration = checkNotNull(runtimeRegistration) { "This command session has ended" }
+        catalog.clearPasteCopy(producer = registration)
+        val output = ExtensionPasteCopy.parse(raw)
+        check(catalog.offerPasteCopy(registration, textContext.owner, extension, command, output)) { "This command session has ended" }
+        error("Clipboard paste into another app is unavailable on Android. Use Copy result instead in Droidcast.")
+    }
     private fun quote(s: String) = JSONObject.quote(s)
     private fun post(block: () -> Unit) { if (active()) scope.launch { if (active()) block() } }
     inner class Bridge {
@@ -178,6 +189,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
                         launchCommand(id, raw)
                         return@launch
                     }
+                    if (api == "clipboard" && method == "paste") rejectPasteWithCopyOffer(raw)
                     val result = asyncCall(api, method, JSONArray(raw))
                     if(!active())return@launch
                     val encoded = JSONArray().put(result ?: JSONObject.NULL).toString().drop(1).dropLast(1)

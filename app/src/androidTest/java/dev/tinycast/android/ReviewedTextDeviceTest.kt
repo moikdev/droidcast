@@ -534,8 +534,40 @@ class ReviewedTextDeviceTest {
     }
     private fun contextObservation(web: WebView): JSONObject = JSONObject(JSONArray("[${contextEvaluate(web,
         "JSON.stringify(globalThis.__ownedContextTranslationRead())")}]").getString(0))
+    private fun touchPasteFallback(tag: String, expectedLabel: String) {
+        val target = compose.onNodeWithTag(tag)
+        var attempts = 0
+        while (target.fetchSemanticsNode().boundsInRoot.let { visible ->
+                val full = fullBounds(target)
+                visible.height + 1 < full.height || visible.width + 1 < full.width
+            } && attempts++ < 30) {
+            compose.onNodeWithTag("palette-content-scroll").performTouchInput {
+                swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
+            }
+        }
+        val label = compose.onNodeWithText(expectedLabel, useUnmergedTree = true).fetchSemanticsNode()
+        val layouts = mutableListOf<TextLayoutResult>()
+        instrumentation.runOnMainSync { assertTrue(requireNotNull(label.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        val layout = layouts.single(); assertEquals(expectedLabel, layout.layoutInput.text.text)
+        assertTrue(label.size.height + 1 >= layout.multiParagraph.height)
+        val origin = compose.runOnUiThread { label.positionInRoot }; val visible = label.boundsInRoot
+        val lines = JSONArray()
+        for (line in 0 until layout.lineCount) {
+            assertFalse(layout.isLineEllipsized(line))
+            val left = origin.x + layout.getLineLeft(line); val right = origin.x + layout.getLineRight(line)
+            val top = origin.y + layout.getLineTop(line); val bottom = origin.y + layout.getLineBottom(line)
+            assertTrue(left >= visible.left - 1 && right <= visible.right + 1 && top >= visible.top - 1 && bottom <= visible.bottom + 1)
+            lines.put(JSONArray(listOf(left, top, right, bottom)))
+        }
+        val witnesses = record.optJSONArray("paste_fallback_label_witnesses") ?: JSONArray().also { record.put("paste_fallback_label_witnesses", it) }
+        witnesses.put(JSONObject().put("tag", tag).put("label", expectedLabel).put("line_bounds", lines).put("reveal_gestures", attempts))
+        touchContextAction(tag)
+    }
     private fun observeContextTranslation(commandName: String) {
         val catalog = foregroundActivity().store.extensions
+        val expectPasteCopy = InstrumentationRegistry.getArguments().getString("expectPasteCopyFallback") == "true"
+        assertTrue("Explicit Copy expectation belongs only to the paste variant", !expectPasteCopy || commandName == "instant-translate-paste")
+        var usedPasteReturn = false
         val view = commandName in setOf("translate", "quick-translate", "quick-translate-view")
         compose.waitUntil(30000) { catalog.runtimeError != null ||
             (if (view) activeRoot(catalog.runtimeTree)?.optString("type") == "List" else contextEngine() != null) }
@@ -626,6 +658,22 @@ class ReviewedTextDeviceTest {
             } else if (commandName == "instant-translate-paste" && expected.isNotBlank() && paste == expected && observed.getBoolean("pasteRejected")) {
                 assertEquals(sentinel, clipboardText()); capture("translation-paste-unavailable")
                 record.put("copy_exact", false).put("observed_phase_outcome", "partial-paste-unsupported").put("owned_service_output_matched_paste_attempt", true)
+                if (expectPasteCopy) {
+                    val deadline = android.os.SystemClock.uptimeMillis() + 10000
+                    while (compose.onAllNodesWithTag("extension-paste-copy").fetchSemanticsNodes().isEmpty() &&
+                        android.os.SystemClock.uptimeMillis() < deadline) { compose.waitForIdle(); android.os.SystemClock.sleep(50) }
+                    assertEquals("A rejected paste with owned output must offer Copy result instead", 1,
+                        compose.onAllNodesWithTag("extension-paste-copy").fetchSemanticsNodes().size)
+                    assertEquals(sentinel, clipboardText()); capture("paste-fallback-before-copy")
+                    touchPasteFallback("extension-paste-copy", "Copy result instead")
+                    compose.waitUntil(10000) { clipboardText() == expected }
+                    compose.onNodeWithTag("extension-paste-title").assertTextEquals("Result copied")
+                    compose.onNodeWithTag("extension-paste-copy").assertDoesNotExist()
+                    dismissClipboardForEvidence(requireAction = true); capture("paste-fallback-exact-copy")
+                    record.put("copy_exact", true).put("native_copy_was_explicit", true)
+                        .put("observed_phase_outcome", "partial-paste-explicit-copy-fallback")
+                    touchPasteFallback("extension-paste-return", "Return"); usedPasteReturn = true
+                }
             } else if (commandName == "instant-translate-view" && expected.isNotBlank() && catalog.runtimeReady && catalog.runtimeStatus == expected) {
                 assertEquals(sentinel, clipboardText()); capture("translation-visible-feedback")
                 record.put("copy_exact", false).put("observed_phase_outcome", "working-display-observed-path")
@@ -642,7 +690,9 @@ class ReviewedTextDeviceTest {
             record.put("native_detail_returned_to_results", true).put("edited_query_preserved_on_native_back", true)
             capture("translation-results-return")
         }
-        touchContextAction("extension-back"); awaitCaller()
+        if (expectPasteCopy) assertTrue("A witnessed explicit native Copy fallback is required", usedPasteReturn)
+        if (!usedPasteReturn) touchContextAction("extension-back")
+        awaitCaller()
         assertEquals("hello", device.findObject(By.res("android:id/edit")).text)
         assertEquals("Selection 0 to 5", device.findObject(By.res("android:id/text2")).text)
         record.put("workflow_outcome", record.getString("observed_phase_outcome"))

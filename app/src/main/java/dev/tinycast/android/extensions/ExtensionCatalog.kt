@@ -84,7 +84,7 @@ class ExtensionCatalog(private val context: Context) {
     var runtimeError: String?
         get() = runtimeErrorState
         set(value) {
-            if (value != null) revokeReviewedText()
+            if (value != null) revokeReviewedText(preservePasteCopy = true)
             runtimeErrorState = value
         }
     var runtimeStatus by mutableStateOf("")
@@ -100,6 +100,12 @@ class ExtensionCatalog(private val context: Context) {
     private var invocationLaunchProperties = ordinaryLaunchProperties(emptyMap())
     private var commandHandoffDepth = 0
     private var preparedCommandLaunch: PreparedCommandLaunch? = null
+    internal enum class PasteCopyStatus { READY, COPIED, FAILED }
+    internal class PasteCopyOffer(
+        val producer: Any, val epoch: Int, val extension: InstalledExtension, val command: ExtensionCommand,
+        val output: ExtensionPasteCopy?, val status: PasteCopyStatus = PasteCopyStatus.READY,
+    )
+    internal var pasteCopyOffer by mutableStateOf<PasteCopyOffer?>(null); private set
     private class PreparedText(val preview: TextInputPreview, val target: TextInputTarget, val epoch: Int)
     private var preparedText: PreparedText? = null
     internal class RuntimeText(val owner: Any, val target: TextInputTarget, val input: CommandTextInput?, val launchProperties: String)
@@ -177,6 +183,7 @@ class ExtensionCatalog(private val context: Context) {
     private fun ordinaryLaunchProperties(args: Map<String, String>) = JSONObject().put("arguments", JSONObject(args)).put("launchType", "userInitiated").toString()
     private fun begin(extension: InstalledExtension, command: ExtensionCommand, args: Map<String,String>, owner: Any, input: CommandTextInput?,
                       launchProperties: String = ordinaryLaunchProperties(args), handoffDepth: Int = 0) {
+        clearPasteCopy()
         stopRuntime(owner)
         preparedCommandLaunch = null
         commandText?.let(reviewedText::release)
@@ -276,12 +283,42 @@ class ExtensionCatalog(private val context: Context) {
         invocationOwner === owner && running?.first === extension && running?.second === command
     internal fun attachRuntime(owner: Any, extension: InstalledExtension, command: ExtensionCommand, stop: () -> Unit): Any? {
         if (!ownsRuntime(owner, extension, command)) return null
+        clearPasteCopy()
         runtimeStop?.second?.invoke()
         val registration = Any()
         runtimeStop = registration to stop
         return registration
     }
-    internal fun detachRuntime(registration: Any?) { if (registration != null && runtimeStop?.first === registration) runtimeStop = null }
+    internal fun detachRuntime(registration: Any?) {
+        if (registration == null) return
+        clearPasteCopy(producer = registration)
+        if (runtimeStop?.first === registration) runtimeStop = null
+    }
+    internal fun clearPasteCopy(expected: PasteCopyOffer? = null, producer: Any? = null) {
+        val current = pasteCopyOffer ?: return
+        if (expected != null && current !== expected || producer != null && current.producer !== producer) return
+        current.output?.clear(); pasteCopyOffer = null
+    }
+    internal fun offerPasteCopy(registration: Any, owner: Any, extension: InstalledExtension,
+                                command: ExtensionCommand, output: ExtensionPasteCopy): Boolean {
+        if (runtimeStop?.first !== registration || !ownsRuntime(owner, extension, command) || runtimeError != null) {
+            output.clear(); return false
+        }
+        clearPasteCopy()
+        pasteCopyOffer = PasteCopyOffer(registration, launchEpoch, extension, command, output)
+        return true
+    }
+    internal fun isCurrentPasteCopy(offer: PasteCopyOffer): Boolean = pasteCopyOffer === offer &&
+        launchEpoch == offer.epoch && running?.first === offer.extension && running?.second === offer.command
+    internal fun copyPasteResult(offer: PasteCopyOffer, copy: (String) -> Unit): Boolean {
+        if (!isCurrentPasteCopy(offer) || offer.status != PasteCopyStatus.READY) return false
+        val text = offer.output?.take() ?: return false
+        val status = try { copy(text); PasteCopyStatus.COPIED } catch (_: RuntimeException) { PasteCopyStatus.FAILED }
+        if (isCurrentPasteCopy(offer)) {
+            pasteCopyOffer = PasteCopyOffer(offer.producer, offer.epoch, offer.extension, offer.command, null, status)
+        }
+        return status == PasteCopyStatus.COPIED
+    }
     private fun stopRuntime(nextOwner: Any) {
         invocationOwner = nextOwner
         val stop = runtimeStop?.second
@@ -291,7 +328,8 @@ class ExtensionCatalog(private val context: Context) {
     internal fun releaseText(owner: Any) {
         if (invocationOwner === owner) { commandText?.let(reviewedText::release); commandText = null }
     }
-    private fun revokeReviewedText() {
+    private fun revokeReviewedText(preservePasteCopy: Boolean = false) {
+        if (!preservePasteCopy) clearPasteCopy()
         stopRuntime(Any())
         reviewedText.invalidate(); commandText = null; preparedText = null
         preparedCommandLaunch = null; invocationLaunchProperties = ordinaryLaunchProperties(emptyMap()); commandHandoffDepth = 0

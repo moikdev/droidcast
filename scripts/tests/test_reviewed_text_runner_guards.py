@@ -15,9 +15,37 @@ CALCULATOR = 'dev.tinycast.android.CalculatorActionsDeviceTest'
 CLIPBOARD = 'dev.tinycast.android.ClipboardEvidenceDeviceTest'
 ACTIVATION = 'dev.tinycast.android.ActivationDeviceTest'
 HANDOFF = 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest'
+PASTE_COPY = 'dev.tinycast.android.ExtensionPasteCopyDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
+    def test_legacy_paste_reveal_is_limited_to_the_exact_diagnostic(self):
+        case = PASTE_COPY + '#keyboardCopyHidesImeAndEscapeReturns'
+        for classes, options in [(PASTE_COPY, ['--layout', 'landscape', '--font-scale', '2', '--expected', '1']),
+                                 (case, []),
+                                 (case, ['--layout', 'landscape', '--font-scale', '1', '--expected', '1']),
+                                 (case, ['--layout', 'landscape', '--font-scale', '2', '--expected', '2'])]:
+            self.refused_without_device_access(classes, ['--paste-copy-legacy-reveal', *options],
+                'Legacy reveal is limited to the single enlarged-landscape owned keyboard diagnostic')
+
+    def test_owned_paste_copy_cannot_mix_with_other_fixtures(self):
+        for selected in [DETAIL, HANDOFF, CALCULATOR, 'dev.tinycast.android.ReviewedTextDeviceTest']:
+            self.refused_without_device_access(PASTE_COPY + ',' + selected, [],
+                'Keep the owned paste Copy cohort separate from other fixtures')
+
+    def test_owned_paste_copy_cannot_claim_network_or_recovery_controls(self):
+        self.refused_without_device_access(PASTE_COPY, ['--translate-archive', 'not-read.zip'], 'Network bundle is not authorized')
+        self.refused_without_device_access(PASTE_COPY, ['--document-fixtures'], 'Document fixtures belong only')
+        self.refused_without_device_access(PASTE_COPY, ['--inject-clipboard-restore-failure'], 'Restoration failure is limited')
+
+    def test_paste_copy_expectation_cannot_broaden_other_fixtures(self):
+        selected = 'dev.tinycast.android.ReviewedTextDeviceTest#selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure'
+        for classes, options in [(DETAIL, []), (selected, []),
+                                 (selected, ['--reviewed-translation-command', 'instant-translate-paste']),
+                                 ('dev.tinycast.android.ReviewedTextDeviceTest', ['--reviewed-translation-command', 'instant-translate-paste', '--translate-archive', 'not-read.zip'])]:
+            self.refused_without_device_access(classes, ['--expect-paste-copy-fallback', *options],
+                'Paste Copy fallback requires the single frozen paste observation')
+
     def test_handoff_cannot_mix_with_other_fixtures(self):
         for selected in [DETAIL, CALCULATOR, 'dev.tinycast.android.ReviewedTextDeviceTest', CLIPBOARD]:
             self.refused_without_device_access(HANDOFF + ',' + selected, [],
