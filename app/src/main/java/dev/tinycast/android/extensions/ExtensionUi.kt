@@ -31,6 +31,8 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
@@ -450,6 +452,74 @@ internal fun activeRoot(tree:JSONObject?):JSONObject? {
 
 private class CommandChromeLifetime { var active = true }
 
+private class PasteCopyLifetime { var active = true; var consumed = false }
+
+@Composable
+private fun ColumnScope.PasteCopyFallback(catalog: ExtensionCatalog, offer: ExtensionCatalog.PasteCopyOffer,
+                                          isCurrent: () -> Boolean, close: () -> Unit) {
+    val lifetime = remember(offer) { PasteCopyLifetime() }
+    val context = LocalContext.current
+    val window = LocalWindowInfo.current
+    val view = LocalView.current
+    val focus = LocalFocusManager.current
+    val keyboard = LocalSoftwareKeyboardController.current
+    DisposableEffect(offer) { onDispose { lifetime.active = false; catalog.clearPasteCopy(expected = offer) } }
+    LaunchedEffect(offer) {
+        if (window.isWindowFocused && isCurrent()) { focus.clearFocus(force = true); keyboard?.hide() }
+    }
+    fun current(): Boolean = lifetime.active && !lifetime.consumed && window.isWindowFocused &&
+        view.isAttachedToWindow && view.hasWindowFocus() &&
+        isCurrent() && catalog.isCurrentPasteCopy(offer)
+    val title = when (offer.status) {
+        ExtensionCatalog.PasteCopyStatus.READY -> "Paste is unavailable"
+        ExtensionCatalog.PasteCopyStatus.COPIED -> "Result copied"
+        ExtensionCatalog.PasteCopyStatus.FAILED -> "Couldn’t copy this result"
+    }
+    val message = when (offer.status) {
+        ExtensionCatalog.PasteCopyStatus.READY -> "Copy the result, then return to your app and paste it yourself."
+        ExtensionCatalog.PasteCopyStatus.COPIED -> "Return to your app and paste it yourself."
+        ExtensionCatalog.PasteCopyStatus.FAILED -> "Return to your app. You can run the command again to try another copy."
+    }
+    Column(Modifier.weight(1f).fillMaxWidth().testTag("extension-paste-fallback")) {
+        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            Text(title, fontSize = 18.sp, lineHeight = 26.sp, color = ink, modifier = Modifier.testTag("extension-paste-title"))
+            Text(message, fontSize = 14.sp, lineHeight = 22.sp, color = muted, modifier = Modifier.testTag("extension-paste-message"))
+        }
+        val copyButton: @Composable (Modifier) -> Unit = { modifier ->
+            Button(onClick = {
+                if (current()) {
+                    lifetime.consumed = true
+                    catalog.copyPasteResult(offer) { text ->
+                        context.getSystemService(android.content.ClipboardManager::class.java)
+                            .setPrimaryClip(android.content.ClipData.newPlainText(offer.extension.listing.title, text))
+                    }
+                }
+            }, enabled = current(), modifier = modifier.heightIn(min = 48.dp).testTag("extension-paste-copy")) {
+                Text("Copy result instead", fontSize = 14.sp, lineHeight = 20.sp)
+            }
+        }
+        val returnButton: @Composable (Modifier) -> Unit = { modifier ->
+            OutlinedButton(onClick = { if (current()) { lifetime.consumed = true; close() } }, enabled = current(),
+                modifier = modifier.heightIn(min = 48.dp).testTag("extension-paste-return")) {
+                Text("Return", fontSize = 14.sp, lineHeight = 20.sp)
+            }
+        }
+        val ready = offer.status == ExtensionCatalog.PasteCopyStatus.READY
+        if (dev.tinycast.android.LocalPaletteWide.current) {
+            Row(Modifier.fillMaxWidth().paletteFooterSurface().padding(20.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                if (ready) copyButton(Modifier.weight(1f))
+                returnButton(Modifier.weight(1f))
+            }
+        } else {
+            Column(Modifier.fillMaxWidth().paletteFooterSurface().padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                if (ready) copyButton(Modifier.fillMaxWidth())
+                returnButton(Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
 @Composable
 private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,command:ExtensionCommand,
                           runtime:ExtensionRuntime,gridImages:ExtensionGridImages,detailImages:ExtensionDetailImages,gridStates:MutableMap<String,ExtensionGridState>,
@@ -462,7 +532,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         catalog.launchEpoch == launchEpoch && catalog.running?.first === extension && catalog.running?.second === command
     val close: () -> Unit = { if (currentChrome()) closeRoute() }
     fun configure() {
-        if (currentChrome() && runtime.isCurrentInvocation()) {
+        if (currentChrome() && catalog.pasteCopyOffer == null && runtime.isCurrentInvocation()) {
             store.extensionSetupFromRun=true;store.dialog="extension-setup"
         }
     }
@@ -472,17 +542,18 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
     fun canReturnCompletedCommand(): Boolean {
         val running = catalog.running
-        return command.mode == "no-view" && currentChrome() &&
+        return command.mode == "no-view" && currentChrome() && catalog.pasteCopyOffer == null &&
             catalog.launchEpoch == launchEpoch && running != null && running.first === extension && running.second === command &&
             catalog.runtimeReady && catalog.runtimeError == null && activeRoot(catalog.runtimeTree) == null && runtime.isCurrentInvocation()
     }
     fun liveRoot():JSONObject? {
         val running=catalog.running
-        if(!currentChrome() || running?.first!==extension || running?.second!==command || catalog.runtimeError!=null) return null
+        if(!currentChrome() || catalog.pasteCopyOffer != null || running?.first!==extension || running?.second!==command || catalog.runtimeError!=null) return null
         return activeRoot(catalog.runtimeTree)
     }
     val context=LocalContext.current
     val root=activeRoot(catalog.runtimeTree)
+    val pasteCopy = catalog.pasteCopyOffer?.takeIf { catalog.isCurrentPasteCopy(it) }
     val failed=catalog.runtimeError!=null
     val formSubmission = remember(runtime, root?.optString("id")) { FormSubmitPreparation() }
     val listState = listStates.getOrPut(root?.optString("id").orEmpty()) { ExtensionListState() }
@@ -555,6 +626,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     }
     fun back() {
         if (!currentChrome()) return
+        if (catalog.pasteCopyOffer != null) { close(); return }
         if (root?.optString("type") == "List" && listState.detailOnly) {
             listState.detailRowId = null
             listState.detailOnly = false
@@ -565,7 +637,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if (!failed) notifyCurrentSelection()
     }
     fun defaultKeys(event: KeyEvent): Boolean = with(event) {
-        if(!currentChrome() || catalog.runtimeError!=null || root?.optString("type")=="Grid" || type!=KeyEventType.KeyDown)false else {
+        if(!currentChrome() || catalog.pasteCopyOffer!=null || catalog.runtimeError!=null || root?.optString("type")=="Grid" || type!=KeyEventType.KeyDown)false else {
         val eventRows=if(key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
         when{
             key==Key.K&&isCtrlPressed->{menu=true;true}
@@ -576,20 +648,22 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }
         }
     }
-    ExtensionWindow((root?.props()?.opt("navigationTitle") as? String)?.takeIf { it.isNotBlank() } ?: command.title,extension.listing.title,close,
-        compact=true,onEscape=::back,headerless=!failed && root?.optString("type") in listOf("Grid","List"),
+    ExtensionWindow((if(pasteCopy==null)root?.props()?.opt("navigationTitle") as? String else null)?.takeIf { it.isNotBlank() } ?: command.title,extension.listing.title,close,
+        compact=true,onEscape=::back,headerless=pasteCopy==null && !failed && root?.optString("type") in listOf("Grid","List"),
         keys={ event, frameFocused ->
             // Descendant buttons and links own their normal Enter/arrow keys.
             // Search receives the same list navigation explicitly below.
             if (frameFocused || (event.key == Key.K && event.isCtrlPressed)) defaultKeys(event) else false
         },headerActions={
-        if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
+        if(failed || pasteCopy!=null)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
         else {
             if(catalog.navigationDepth>1)TextButton(onClick={if(currentChrome())runtime.back()}){Text("Back",fontSize=11.sp)}
             TextButton(onClick=::configure, modifier=Modifier.testTag("extension-preferences")){Text("Preferences",fontSize=11.sp)}
         }
     }){
-        if(catalog.runtimeError!=null){
+        if(pasteCopy!=null){
+            PasteCopyFallback(catalog,pasteCopy,::currentChrome,close)
+        }else if(catalog.runtimeError!=null){
             Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
             Column(Modifier.weight(1f).fillMaxWidth().testTag("extension-completion")) {
@@ -639,7 +713,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                 { runtime.formFileStorage() }, Modifier.weight(1f))
             else->Text("Unsupported extension view",modifier=Modifier.weight(1f).padding(20.dp))
         }
-        if (!failed && root?.optString("type") != "Grid") {
+        if (pasteCopy==null && !failed && root?.optString("type") != "Grid") {
         HorizontalDivider(color=line)
         dev.tinycast.android.PaletteFooter(metadata={ modifier ->
             Column(modifier) {
