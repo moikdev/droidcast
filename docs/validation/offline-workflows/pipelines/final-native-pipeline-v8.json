@@ -1,0 +1,144 @@
+{
+  "completed": true,
+  "collector_sha256": "11c3e58992700b8a46b996ab335f6763fd28cb9e7b78ab394882aabf3569f664",
+  "runs": [
+    {
+      "name": "control-uuid-v7-old-tablet100-v8",
+      "app": "old",
+      "exit_code": 0
+    },
+    {
+      "name": "control-typeid-pack-old-landscape200-v8",
+      "app": "old",
+      "exit_code": 0
+    },
+    {
+      "name": "control-json-selection-old-phone100-v8",
+      "app": "old",
+      "exit_code": 0
+    },
+    {
+      "name": "control-typeid-pack-previous-landscape200-v8",
+      "app": "previous",
+      "exit_code": 0
+    },
+    {
+      "name": "control-uuid-v7-new-tablet100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "control-typeid-pack-new-landscape200-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "control-json-selection-new-phone100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "return-regressions-tablet100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-return-regressions-phone100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-offline-form-tablet-tablet100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-offline-form-phone-phone100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-tablet100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-critical-offline-form-tablet200-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-critical-offline-form-phone200-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-critical-offline-form-landscape200-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-tablet200-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-phone200-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-landscape200-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-typeid-pack-landscape100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-legacy-review-tablet100-v8",
+      "app": "new",
+      "exit_code": 0
+    },
+    {
+      "name": "final-legacy-review-phone100-v8",
+      "app": "new",
+      "exit_code": 0
+    }
+  ],
+  "cohorts": [
+    "control-uuid-v7-new-tablet100-v8",
+    "control-typeid-pack-new-landscape200-v8",
+    "control-json-selection-new-phone100-v8",
+    "return-regressions-tablet100-v8",
+    "final-return-regressions-phone100-v8",
+    "final-offline-form-tablet-tablet100-v8",
+    "final-offline-form-phone-phone100-v8",
+    "final-json-selection-tablet100-v8",
+    "final-critical-offline-form-tablet200-v8",
+    "final-critical-offline-form-phone200-v8",
+    "final-critical-offline-form-landscape200-v8",
+    "final-json-selection-tablet200-v8",
+    "final-json-selection-phone200-v8",
+    "final-json-selection-landscape200-v8",
+    "final-typeid-pack-landscape100-v8",
+    "final-legacy-review-tablet100-v8",
+    "final-legacy-review-phone100-v8"
+  ],
+  "negative_controls": [
+    "control-uuid-v7-old-tablet100-v8",
+    "control-typeid-pack-old-landscape200-v8",
+    "control-json-selection-old-phone100-v8",
+    "control-typeid-pack-previous-landscape200-v8"
+  ],
+  "executions": 48,
+  "cleanup_checks": 326,
+  "production_apk_sha256": [
+    "de99960d7658740d8377877fe19287e9a34c3fce46394367f5ac5426c1d5e18d"
+  ],
+  "instrumentation_apk_sha256": [
+    "886ff231812d716393598bfd0021d199e75e6d2f06dae174004a2d64e71d0fc6"
+  ]
+}

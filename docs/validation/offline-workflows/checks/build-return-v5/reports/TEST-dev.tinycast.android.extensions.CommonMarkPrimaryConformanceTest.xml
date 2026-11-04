@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.extensions.CommonMarkPrimaryConformanceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-04T13:32:01.310Z" hostname="MacBook-Pro-2.local" time="2.371">
+  <properties/>
+  <testcase name="nativeModelMatchesPrimaryTextStylesLinksAndBlocksOutsideLiteralHtmlAndGfm" classname="dev.tinycast.android.extensions.CommonMarkPrimaryConformanceTest" time="2.14"/>
+  <testcase name="coreGrammarMatchesAll652PrimaryExamples" classname="dev.tinycast.android.extensions.CommonMarkPrimaryConformanceTest" time="0.231"/>
+  <system-out><![CDATA[Native primary semantic comparisons:580; mismatches=0; literal-HTML cases=21,31,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,201,308,309,344,475,476,477,491,494,524,536,613,614,615,616,617,623,625,626,627,628,629,630,631,642,643; GFM-different cases=
+Primary CommonMark0.31.2 HTML comparisons:652; no Android/display certification
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

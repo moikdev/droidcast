@@ -1,0 +1,307 @@
+{
+  "scope": "Unmodified frozen uuid-generator\/packTypeID in an owned namespace; listed offline input\/output path only",
+  "clipboard-owned-sentinel": {
+    "fixture_ready": true,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ],
+    "readiness_protocol": "Same bounded discovery\/action\/absence path; no preceding UiDevice idle query",
+    "fixture_wait_ms": 1597,
+    "observations": [
+      "1267ms query_ms=1204 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+      "1469ms query_ms=143 mode=0 flags=65618 windows=[(5722, 3), (5717, 3)] systemui_roots=[5722] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+      "1778ms query_ms=120 mode=0 flags=65618 windows=[(5722, 3), (5717, 3)] systemui_roots=[5717] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+      "1987ms query_ms=159 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "2114ms query_ms=76 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "2178ms query_ms=9 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "2268ms query_ms=37 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+    ],
+    "cleanup_elapsed_ms": 2318
+  },
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "20d7ca40672270c36a3cacd28f4ba2173fdcead5",
+  "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+  "command_sha256": "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac",
+  "command": "packTypeID",
+  "command_mode": "no-view",
+  "owned_extension_id": "reviewed-text-dc979769c64f4dd6bf3fb50425b1dcc0",
+  "seeded_preferences": {
+    "upperCaseLetters": false,
+    "defaultAction": "copy"
+  },
+  "configuration_method": "Seeded nonsecret preferences; native editing is not exercised",
+  "owned_arguments": {
+    "suffix": "owned",
+    "uuid": "0188bac7-4afa-78aa-bc3b-bd1eef28d881"
+  },
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        344
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080,
+        0,
+        0,
+        0,
+        63,
+        2340,
+        1017
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "argument-suffix",
+      "viewport": "extension-configuration",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        413,
+        2102,
+        608
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        510.5
+      ]
+    },
+    {
+      "tag": "argument-uuid",
+      "viewport": "extension-configuration",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        156,
+        2102,
+        313
+      ],
+      "control_size": [
+        1863,
+        195
+      ],
+      "point": [
+        1170.5,
+        234.5
+      ]
+    },
+    {
+      "tag": "run-extension-setup",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        239,
+        793,
+        2102,
+        933
+      ],
+      "control_size": [
+        1863,
+        140
+      ],
+      "point": [
+        1170.5,
+        863
+      ]
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "start": [
+        21,
+        109
+      ],
+      "end": [
+        21,
+        54.5
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "generation_started_at_ms": 1793800196227,
+  "generation_completed_at_ms": 1793800199878,
+  "clipboard-copied-output": {
+    "fixture_ready": true,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ],
+    "readiness_protocol": "Same bounded discovery\/action\/absence path; no preceding UiDevice idle query",
+    "fixture_wait_ms": 1166,
+    "observations": [
+      "941ms query_ms=940 mode=0 flags=65618 windows=[(5723, 3), (5717, 3)] systemui_roots=[5723] queries=10 roots=1 children=9 walked=8 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+      "1405ms query_ms=182 mode=0 flags=65618 windows=[(5723, 3), (5717, 3)] systemui_roots=[5717] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+      "1505ms query_ms=45 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "1569ms query_ms=13 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "1632ms query_ms=9 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "1708ms query_ms=25 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "1785ms query_ms=18 mode=0 flags=65618 windows=[(5717, 3)] systemui_roots=[5717] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+    ],
+    "cleanup_elapsed_ms": 1799
+  },
+  "owned_output": "owned_01h2xcejqtf2nbrexx3vqjhp41",
+  "owned_output_sha256": "8171fd89c8a9a64df74ec6e4ae98b148c2601643a2d03bcfc184c98253aeac7e",
+  "output_characters": 32,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

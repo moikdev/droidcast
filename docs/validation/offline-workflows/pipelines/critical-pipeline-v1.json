@@ -1,0 +1,78 @@
+{
+  "completed": false,
+  "steps": [
+    [
+      "typeid-pack",
+      "phone"
+    ],
+    [
+      "json-lines",
+      "phone"
+    ],
+    [
+      "json-value",
+      "phone"
+    ],
+    [
+      "typeid-pack",
+      "landscape"
+    ],
+    [
+      "json-lines",
+      "landscape"
+    ],
+    [
+      "json-value",
+      "landscape"
+    ],
+    [
+      "typeid-pack",
+      "tablet"
+    ],
+    [
+      "json-lines",
+      "tablet"
+    ],
+    [
+      "json-value",
+      "tablet"
+    ],
+    [
+      "json-selection",
+      "phone"
+    ],
+    [
+      "json-selection",
+      "landscape"
+    ]
+  ],
+  "results": [
+    {
+      "index": 0,
+      "name": "critical-typeid-pack-phone200-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 1,
+      "name": "critical-json-lines-phone200-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 2,
+      "name": "critical-json-value-phone200-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 3,
+      "name": "critical-typeid-pack-landscape200-v1",
+      "exit_code": 0
+    },
+    {
+      "index": 4,
+      "name": "critical-json-lines-landscape200-v1",
+      "exit_code": 1
+    }
+  ],
+  "font_scale": 2,
+  "active_step": "critical-json-lines-landscape200-v1"
+}

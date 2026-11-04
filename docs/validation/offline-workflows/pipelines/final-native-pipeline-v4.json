@@ -1,0 +1,92 @@
+{
+  "completed": true,
+  "collector_sha256": "309a7bc73036c3eaa780e3041679222d8855b7acd35bd2b794f1917444f8bd0b",
+  "already_completed_cohorts": [
+    "control-uuid-v7-new-tablet100-v2",
+    "control-typeid-pack-new-landscape200-v2",
+    "control-json-selection-new-phone100-v2",
+    "return-regressions-tablet100-v4"
+  ],
+  "runs": [
+    {
+      "name": "final-return-regressions-phone100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-offline-form-tablet-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-offline-form-phone-phone100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-critical-offline-form-tablet200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-critical-offline-form-phone200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-critical-offline-form-landscape200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-tablet200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-phone200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-json-selection-landscape200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-typeid-pack-landscape100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-legacy-review-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "final-legacy-review-phone100-v4",
+      "exit_code": 0
+    }
+  ],
+  "cohorts": [
+    "control-uuid-v7-new-tablet100-v2",
+    "control-typeid-pack-new-landscape200-v2",
+    "control-json-selection-new-phone100-v2",
+    "return-regressions-tablet100-v4",
+    "final-return-regressions-phone100-v4",
+    "final-offline-form-tablet-tablet100-v4",
+    "final-offline-form-phone-phone100-v4",
+    "final-json-selection-tablet100-v4",
+    "final-critical-offline-form-tablet200-v4",
+    "final-critical-offline-form-phone200-v4",
+    "final-critical-offline-form-landscape200-v4",
+    "final-json-selection-tablet200-v4",
+    "final-json-selection-phone200-v4",
+    "final-json-selection-landscape200-v4",
+    "final-typeid-pack-landscape100-v4",
+    "final-legacy-review-tablet100-v4",
+    "final-legacy-review-phone100-v4"
+  ],
+  "executions": 48,
+  "cleanup_checks": 326,
+  "production_apk_sha256": [
+    "575febb3719f521b1e9702ddb2c32e9a6287eb6aef36aa757ad8378b4be1e5b1"
+  ],
+  "instrumentation_apk_sha256": [
+    "1b70bd0dd477cb1232aaf7b64c19b098b3b6a6af9f5fe65950c427ce89ed4037",
+    "e3929056d4648f8d66aae4bb95dfb1dd560fa9bff4854ef9c3f110436e12de63"
+  ]
+}

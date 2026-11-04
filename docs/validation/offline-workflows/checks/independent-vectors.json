@@ -1,0 +1,51 @@
+{
+  "scope": "Independent expected-value preparation only. No frozen command, API, network service or Android test executed; no compatibility credit.",
+  "sources": {
+    "uuid7": "https://www.rfc-editor.org/rfc/rfc9562.html#section-5.7",
+    "ulid": "https://github.com/ulid/spec",
+    "typeid-vector": "https://github.com/jetify-com/typeid#command-line-tool"
+  },
+  "checks": [
+    {
+      "name": "typeid-official-readme-vector",
+      "passed": true,
+      "uuid": "0188bac7-4afa-78aa-bc3b-bd1eef28d881",
+      "typeid": "owned_01h2xcejqtf2nbrexx3vqjhp41"
+    },
+    {
+      "name": "base32-zero-and-max-128-bit-boundaries",
+      "passed": true
+    },
+    {
+      "name": "json-pretty-independent-expected",
+      "passed": true
+    },
+    {
+      "name": "jsonl-independent-values",
+      "passed": true
+    },
+    {
+      "name": "json-string-independent-escaping",
+      "passed": true
+    }
+  ],
+  "inputs": {
+    "formatSelection": "{\"message\":\"こんにちは 🌱 café é\",\"count\":2}",
+    "formatJsonLines": "[{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]},{\"empty\":null,\"ok\":true}]",
+    "formatToJsonValue": "Owned \"quote\" café é 日本 🌱\nline\tend",
+    "parseTypeID": "owned_01h2xcejqtf2nbrexx3vqjhp41",
+    "packTypeID": {
+      "suffix": "owned",
+      "uuid": "0188bac7-4afa-78aa-bc3b-bd1eef28d881"
+    },
+    "formatUuid": "0188bac74afa78aabc3bbd1eef28d881"
+  },
+  "expected": {
+    "formatSelection": "{\n  \"message\": \"こんにちは 🌱 café é\",\n  \"count\": 2\n}",
+    "formatJsonLines": "{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]}\n{\"empty\":null,\"ok\":true}",
+    "formatToJsonValue": "\"Owned \\\"quote\\\" café é 日本 🌱\\nline\\tend\"",
+    "parseTypeID": "0188bac7-4afa-78aa-bc3b-bd1eef28d881",
+    "packTypeID": "owned_01h2xcejqtf2nbrexx3vqjhp41",
+    "formatUuid": "0188bac7-4afa-78aa-bc3b-bd1eef28d881"
+  }
+}

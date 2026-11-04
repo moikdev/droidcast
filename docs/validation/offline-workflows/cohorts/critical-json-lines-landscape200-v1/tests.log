@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionFormDeviceTest:
+INSTRUMENTATION_STATUS: test=frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionFormDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:652)
+	at dev.tinycast.android.ExtensionFormDeviceTest.frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines(ExtensionFormDeviceTest.kt:1599)
+
+INSTRUMENTATION_STATUS: stream=
+Error in frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines(dev.tinycast.android.ExtensionFormDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:652)
+	at dev.tinycast.android.ExtensionFormDeviceTest.frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines(ExtensionFormDeviceTest.kt:1599)
+
+INSTRUMENTATION_STATUS: test=frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.428
+There was 1 failure:
+1) frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines(dev.tinycast.android.ExtensionFormDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ExtensionFormDeviceTest.touch(ExtensionFormDeviceTest.kt:652)
+	at dev.tinycast.android.ExtensionFormDeviceTest.frozenJsonLinesRejectsInvalidInputThenCopiesExactUnicodeLines(ExtensionFormDeviceTest.kt:1599)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

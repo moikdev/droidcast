@@ -1,0 +1,115 @@
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preBenchmarkBuild UP-TO-DATE
+> Task :app:mergeBenchmarkJniLibFolders UP-TO-DATE
+> Task :app:mergeBenchmarkNativeLibs UP-TO-DATE
+> Task :app:stripBenchmarkDebugSymbols UP-TO-DATE
+> Task :app:extractBenchmarkNativeSymbolTables UP-TO-DATE
+> Task :app:mergeBenchmarkNativeDebugMetadata NO-SOURCE
+> Task :app:mergeBenchmarkArtProfile UP-TO-DATE
+> Task :app:desugarBenchmarkFileDependencies UP-TO-DATE
+> Task :app:generateBenchmarkBuildConfig
+> Task :app:generateBenchmarkResources UP-TO-DATE
+> Task :app:packageBenchmarkResources UP-TO-DATE
+> Task :app:processBenchmarkNavigationResources
+> Task :app:parseBenchmarkLocalResources UP-TO-DATE
+> Task :app:generateBenchmarkRFile UP-TO-DATE
+> Task :app:javaPreCompileBenchmark UP-TO-DATE
+> Task :app:checkBenchmarkAarMetadata UP-TO-DATE
+> Task :app:mapBenchmarkSourceSetPaths UP-TO-DATE
+> Task :app:compileBenchmarkNavigationResources UP-TO-DATE
+> Task :app:mergeBenchmarkResources UP-TO-DATE
+> Task :app:createBenchmarkCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksBenchmark
+> Task :app:processBenchmarkMainManifest
+> Task :app:processBenchmarkManifest
+> Task :app:checkBenchmarkDuplicateClasses UP-TO-DATE
+> Task :app:mergeBenchmarkStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexBenchmark UP-TO-DATE
+> Task :app:generateBenchmarkAssets UP-TO-DATE
+> Task :app:mergeBenchmarkAssets UP-TO-DATE
+> Task :app:compressBenchmarkAssets UP-TO-DATE
+> Task :app:extractBenchmarkVersionControlInfo UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:collectBenchmarkDependencies UP-TO-DATE
+> Task :app:sdkBenchmarkDependencyData UP-TO-DATE
+> Task :app:validateSigningBenchmark UP-TO-DATE
+> Task :app:writeBenchmarkAppMetadata UP-TO-DATE
+> Task :app:writeBenchmarkSigningConfigVersions UP-TO-DATE
+> Task :app:preBenchmarkAndroidTestBuild SKIPPED
+> Task :app:processBenchmarkAndroidTestManifest
+> Task :app:generateBenchmarkAndroidTestBuildConfig
+> Task :app:generateBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:packageBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:processBenchmarkAndroidTestNavigationResources
+> Task :app:parseBenchmarkAndroidTestLocalResources UP-TO-DATE
+> Task :app:generateBenchmarkAndroidTestRFile UP-TO-DATE
+> Task :app:javaPreCompileBenchmarkAndroidTest UP-TO-DATE
+> Task :app:generateBenchmarkAndroidTestAssets UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestAssets UP-TO-DATE
+> Task :app:compressBenchmarkAndroidTestAssets UP-TO-DATE
+> Task :app:desugarBenchmarkAndroidTestFileDependencies UP-TO-DATE
+> Task :app:checkBenchmarkAndroidTestAarMetadata UP-TO-DATE
+> Task :app:mapBenchmarkAndroidTestSourceSetPaths UP-TO-DATE
+> Task :app:compileBenchmarkAndroidTestNavigationResources UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:processBenchmarkAndroidTestResources UP-TO-DATE
+> Task :app:checkBenchmarkAndroidTestDuplicateClasses UP-TO-DATE
+> Task :app:mergeExtDexBenchmarkAndroidTest UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestJniLibFolders UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripBenchmarkAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningBenchmarkAndroidTest UP-TO-DATE
+> Task :app:writeBenchmarkAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :app:preBenchmarkUnitTestBuild UP-TO-DATE
+> Task :app:processBenchmarkManifestForPackage
+> Task :app:processBenchmarkResources
+> Task :app:optimizeBenchmarkResources
+
+> Task :app:compileBenchmarkKotlin
+w: file://<user>/.t3/scratch/droidcast-offline-workflows-27caf3/app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt:208:43 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+w: file://<user>/.t3/scratch/droidcast-offline-workflows-27caf3/app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt:222:47 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+
+> Task :app:compileBenchmarkJavaWithJavac
+> Task :app:dexBuilderBenchmark
+> Task :app:mergeBenchmarkGlobalSynthetics UP-TO-DATE
+> Task :app:generateBenchmarkLintVitalReportModel
+> Task :app:processBenchmarkJavaRes UP-TO-DATE
+> Task :app:mergeBenchmarkJavaResource UP-TO-DATE
+> Task :app:generateBenchmarkLintReportModel
+> Task :app:bundleBenchmarkClassesToCompileJar
+> Task :app:generateBenchmarkAndroidTestLintModel
+> Task :app:generateBenchmarkUnitTestLintModel
+
+> Task :app:compileBenchmarkAndroidTestKotlin
+w: file://<user>/.t3/scratch/droidcast-offline-workflows-27caf3/app/src/androidTest/java/dev/tinycast/android/CalculatorActionsDeviceTest.kt:171:41 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+w: file://<user>/.t3/scratch/droidcast-offline-workflows-27caf3/app/src/androidTest/java/dev/tinycast/android/CalculatorActionsDeviceTest.kt:176:48 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+
+> Task :app:compileBenchmarkAndroidTestJavaWithJavac
+> Task :app:lintAnalyzeBenchmarkUnitTest
+> Task :app:dexBuilderBenchmarkAndroidTest
+> Task :app:mergeBenchmarkAndroidTestGlobalSynthetics UP-TO-DATE
+> Task :app:processBenchmarkAndroidTestJavaRes UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestJavaResource UP-TO-DATE
+> Task :app:mergeDexBenchmark
+> Task :app:lintVitalAnalyzeBenchmark
+> Task :app:lintAnalyzeBenchmark
+> Task :app:lintVitalReportBenchmark SKIPPED
+> Task :app:lintVitalBenchmark SKIPPED
+> Task :app:lintAnalyzeBenchmarkAndroidTest
+> Task :app:mergeDexBenchmarkAndroidTest
+> Task :app:packageBenchmarkAndroidTest
+> Task :app:createBenchmarkAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleBenchmarkAndroidTest
+> Task :app:compileBenchmarkArtProfile
+> Task :app:packageBenchmark
+> Task :app:createBenchmarkApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleBenchmark
+
+> Task :app:lintReportBenchmark
+Wrote HTML report to file://<user>/.t3/scratch/droidcast-offline-workflows-27caf3/app/build/reports/lint-results-benchmark.html
+
+> Task :app:lintBenchmark
+
+BUILD SUCCESSFUL in 1m 47s
+87 actionable tasks: 33 executed, 54 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.4.1/userguide/configuration_cache_enabling.html

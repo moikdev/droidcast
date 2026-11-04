@@ -1,0 +1,144 @@
+{
+  "scope": "Owned no-view completion\/cancellation and native callback lifetime; no Store certification",
+  "clipboard-owned-sentinel": {
+    "fixture_ready": true,
+    "fixture_wait_ms": 973,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "20d7ca40672270c36a3cacd28f4ba2173fdcead5",
+  "owned_extension_id": "reviewed-text-e78c30fb2595449fa205964bc7657165",
+  "fixture_pending": false,
+  "fixture_command_sha256": "caa437a0c2690326903b1c2a010484d12ff5b16b186a488937a0243d94f56ecc",
+  "fixture_manifest_sha256": "5f0791158ea7dac3bf8aebb5b286df6d3465c1dfbcfa3a0caf50367d79221f7b",
+  "clipboard-owned-completion": {
+    "fixture_ready": true,
+    "fixture_wait_ms": 1089,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "extension-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        398,
+        243,
+        470,
+        315
+      ],
+      "control_size": [
+        72,
+        72
+      ],
+      "point": [
+        434,
+        279
+      ]
+    },
+    {
+      "tag": "extension-completion-return",
+      "viewport": "extension-completion",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        877,
+        631,
+        1045,
+        703
+      ],
+      "control_size": [
+        168,
+        72
+      ],
+      "point": [
+        961,
+        667
+      ]
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "completion_return_line_bounds": [
+    [
+      929,
+      652,
+      991.75,
+      682
+    ]
+  ],
+  "completion_return_visible_target": [
+    877,
+    631,
+    1045,
+    703
+  ],
+  "queued_callback_guards": [
+    "Preferences hidden",
+    "Preferences reopened",
+    "native root ABA",
+    "same-command replacement before disposal",
+    "replacement composed",
+    "closed before disposal",
+    "closed invocation replaced",
+    "duplicate after pointer return"
+  ],
+  "guard_observation": "Route, epoch, live owner, exact clipboard and owned invocation counter; callback Boolean is not an execution receipt",
+  "owned_runs": 3,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

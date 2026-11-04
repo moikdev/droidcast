@@ -1,0 +1,31 @@
+{
+  "completed": false,
+  "layout": "tablet",
+  "font": 1.0,
+  "case": "return-regressions",
+  "methods": [
+    "ownedNoViewReturnRejectsDisposedAndReplacedCallbacks",
+    "ownedNoViewReturnAcceptsFocusedEnterAndPreservesEscape",
+    "ownedNoViewPendingCommandKeepsHeaderCancellation"
+  ],
+  "app_sha256": "575febb3719f521b1e9702ddb2c32e9a6287eb6aef36aa757ad8378b4be1e5b1",
+  "app_cohort": "new",
+  "completion_return_expected": true,
+  "intended_missing_return_control": false,
+  "test_apk_sha256": "e3929056d4648f8d66aae4bb95dfb1dd560fa9bff4854ef9c3f110436e12de63",
+  "test_source_commit": "20d7ca40672270c36a3cacd28f4ba2173fdcead5",
+  "runtime_source_commit": "20d7ca40672270c36a3cacd28f4ba2173fdcead5",
+  "collector_sha256": "5974de5cc1a67b17b9f577cd38215e39927ec35921c34bc6582b3269c802b983",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 1,
+  "passes": 2,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "native_completed": false,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "case_receipts_passed": false,
+  "native_positive_completed": false
+}

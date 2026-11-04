@@ -2,6 +2,18 @@
 
 This is the execution portion of [#72](https://github.com/moikdev/droidcast/issues/72), under [#7](https://github.com/moikdev/droidcast/issues/7). [Command discovery](EXTENSION-CATALOG.md) records declarations from a pinned open-source repository. A workflow batch executes specific prebuilt Store bundles on Android. These are different versioned populations; a Store result does not change the pinned source inventory's untested declarations.
 
+## Offline commands and completed touch Return
+
+The [offline report](OFFLINE-COMMANDS-AND-RETURN.md) and [checkpoint](validation/offline-workflows/checkpoint.json) bind eleven newly exercised commands in three frozen bundles. All listed workflows complete on tablet and phone with the `ed38313` app / `5c06415` harness. The final set has **48 executions / 17 whole cohorts / 326 restoration checks**, including Return ownership, keyboard/pending behavior, representative enlarged-font workflows on all layouts, and existing reviewed-input regressions. Four matched controls have zero JUnit passes at their intended missing-control/initial-target assertions, followed by repaired positives. Historical app/harness identities and failures remain distinct.
+
+| Frozen bundle | Newly completed listed workflows | Scope |
+| --- | --- | --- |
+| UUID Generator | `generateV7`, `generateUlid`, `generateTypeID`, `parseTypeID`, `formatUuid`, `packTypeID` | Independent vectors or timestamp/version/variant checks, exact fresh Copy, owned history where applicable, touch return. |
+| Lorem Ipsum | `paragraphs`, `sentences` | Exact requested counts, bounded output, fresh Copy and touch return. |
+| JSON Format | `formatSelection`, `formatJsonLines`, `formatToJsonValue` | Explicit reviewed Run/source return, readable invalid input, exact native code/Unicode Copy and same-process owned input retention, as detailed per command. |
+
+Seven #95 declarations remain unattempted. Preference seeding/editor setup, 200% samples, private restoration, physical/OEM/accessibility and whole-Store limits remain explicit in the report. This does not reclassify the pinned source inventory or older workflow populations.
+
 ## Native Detail audit repair
 
 The [repair checkpoint](EXTENSION-MARKDOWN-DETAIL-REPAIR.md) records four commands in three frozen bundles on the `8e75546` app/test pair. Its twelve workflow executions are part of the 185 positive same-APK executions: six Blue cases retain their completed v2 receipts; JSON three and the two-command Mood scenario three execute in v3 after transport recovery with the bounded runner. The failed transport cohort and separate recovery earn no workflow credit. Actual output/Copy/source return, owned persistence/detail toggles and SVG/metadata retain their listed scope. The initial `4bb10aa` observations below remain historical. The blank-image observation is still unexplained; later passes establish no repair. Static inventory remains untested.

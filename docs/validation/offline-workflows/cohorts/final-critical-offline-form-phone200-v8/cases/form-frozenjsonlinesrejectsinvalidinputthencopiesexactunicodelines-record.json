@@ -1,0 +1,483 @@
+{
+  "scope": "Unmodified frozen json-format\/formatJsonLines in an owned namespace; listed offline input\/output path only",
+  "clipboard-owned-sentinel": {
+    "fixture_ready": true,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ],
+    "readiness_protocol": "Same bounded discovery\/action\/absence path; no preceding UiDevice idle query",
+    "fixture_wait_ms": 290,
+    "observations": [
+      "215ms query_ms=211 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+      "273ms query_ms=5 mode=0 flags=65618 windows=[(6006, 3), (5991, 3)] systemui_roots=[6006] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+      "360ms query_ms=16 mode=0 flags=65618 windows=[(6006, 3), (5991, 3)] systemui_roots=[5991] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+      "415ms query_ms=5 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "472ms query_ms=7 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "527ms query_ms=4 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "586ms query_ms=5 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "643ms query_ms=5 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "698ms query_ms=5 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "757ms query_ms=8 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+    ],
+    "cleanup_elapsed_ms": 765
+  },
+  "font_scale": 2,
+  "width_dp": 411,
+  "height_dp": 891,
+  "window_soft_input_mode": 16,
+  "window_soft_input_state": 0,
+  "installed_build_commit": "ed3831303a8319a194f0ae137830acba1f3580d5",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "command_sha256": "690c15e7c0f1f52ea1b2315e8d1a75a5bdd15b8f25abe5a741337da5f8ba9a98",
+  "command": "formatJsonLines",
+  "command_mode": "view",
+  "owned_extension_id": "reviewed-text-fe58549e440e409bb8b23931cddc7867",
+  "seeded_preferences": {
+    "autopaste": false,
+    "indent": "2",
+    "maxInitialLines": "10000"
+  },
+  "configuration_method": "Seeded nonsecret preferences; native editing is not exercised",
+  "owned_arguments": {},
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 4,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        1374
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340,
+        0,
+        0,
+        0,
+        63,
+        1080,
+        2277
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "extension-field-input",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 469,
+      "visible_bounds": [
+        85,
+        434,
+        995,
+        740
+      ],
+      "control_size": [
+        910,
+        306
+      ],
+      "point": [
+        540,
+        587
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 469,
+      "visible_bounds": [
+        53,
+        1796,
+        713,
+        1949
+      ],
+      "control_size": [
+        660,
+        153
+      ],
+      "point": [
+        383,
+        1872.5
+      ]
+    },
+    {
+      "tag": "extension-field-input",
+      "viewport": "extension-form",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 469,
+      "visible_bounds": [
+        85,
+        434,
+        995,
+        740
+      ],
+      "control_size": [
+        910,
+        306
+      ],
+      "point": [
+        540,
+        587
+      ]
+    },
+    {
+      "tag": "extension-actions",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 469,
+      "visible_bounds": [
+        716,
+        1796,
+        1027,
+        1949
+      ],
+      "control_size": [
+        311,
+        153
+      ],
+      "point": [
+        871.5,
+        1872.5
+      ]
+    },
+    {
+      "tag": "extension-primary",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 469,
+      "visible_bounds": [
+        53,
+        1796,
+        713,
+        1949
+      ],
+      "control_size": [
+        660,
+        153
+      ],
+      "point": [
+        383,
+        1872.5
+      ]
+    },
+    {
+      "tag": "extension-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 469,
+      "visible_bounds": [
+        32,
+        117,
+        158,
+        243
+      ],
+      "control_size": [
+        126,
+        126
+      ],
+      "point": [
+        95,
+        180
+      ]
+    },
+    {
+      "tag": "extension-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 469,
+      "visible_bounds": [
+        32,
+        117,
+        158,
+        243
+      ],
+      "control_size": [
+        126,
+        126
+      ],
+      "point": [
+        95,
+        180
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "frozen_error_line_witnesses": [
+    {
+      "line": 0,
+      "bounds": [
+        69,
+        1622,
+        877.5366,
+        1701
+      ]
+    },
+    {
+      "line": 1,
+      "bounds": [
+        69,
+        1701,
+        406.9688,
+        1780
+      ]
+    }
+  ],
+  "frozen_error_text": "Please enter a valid JSON\/JS Array Object",
+  "unfiltered_action_pointer_reveal": [
+    {
+      "attempt": 0,
+      "target_semantics_id": 618,
+      "target_visible_height": 133,
+      "viewport_bounds": [
+        203,
+        896,
+        1011,
+        1372
+      ],
+      "scroll_value": "0.0",
+      "scroll_maximum": "0.0"
+    }
+  ],
+  "action_menu_query_remained_empty": true,
+  "unfiltered_action_pointer_tap": {
+    "tag": "extension-action-1",
+    "title": "View Result",
+    "visible_bounds": [
+      203,
+      623,
+      1011,
+      750
+    ],
+    "point": [
+      607,
+      686.5
+    ]
+  },
+  "generation_completed_at_ms": 1793801215546,
+  "clipboard-copied-output": {
+    "fixture_ready": true,
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ],
+    "readiness_protocol": "Same bounded discovery\/action\/absence path; no preceding UiDevice idle query",
+    "fixture_wait_ms": 706,
+    "observations": [
+      "295ms query_ms=294 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+      "522ms query_ms=171 mode=0 flags=65618 windows=[(6008, 3), (5991, 3)] systemui_roots=[6008] queries=10 roots=1 children=9 walked=8 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+      "819ms query_ms=59 mode=0 flags=65618 windows=[(6008, 3), (5991, 3)] systemui_roots=[5991] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+      "906ms query_ms=36 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "974ms query_ms=7 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "1033ms query_ms=8 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "1104ms query_ms=20 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "1169ms query_ms=11 mode=0 flags=65618 windows=[(5991, 3)] systemui_roots=[5991] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+    ],
+    "cleanup_elapsed_ms": 1170
+  },
+  "owned_output": "{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]}\n{\"empty\":null,\"ok\":true}",
+  "owned_output_sha256": "08031b2275a4d7d00fa31127760183b817a35e707a313d3032d24296b94c38c8",
+  "output_characters": 69,
+  "invalid_input_preserved_clipboard": true,
+  "exact_native_code_blocks_and_jsonlines_copy": true,
+  "form_input_preserved_on_back": true,
+  "output_scope": "Exact code\/Copy values; complete horizontal code navigation is not certified",
+  "launcher_query_preserved": true,
+  "fresh_copy_verified": true,
+  "return_route": "Header Back; actual pointer",
+  "overall": "working-for-listed-workflow",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}
