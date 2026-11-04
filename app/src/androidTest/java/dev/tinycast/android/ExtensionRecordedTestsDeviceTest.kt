@@ -170,7 +170,15 @@ class ExtensionRecordedTestsDeviceTest {
         // First new-API assertion: the old-app common control fails here.
         compose.onNodeWithTag("recorded-tests-json-format").assertExists()
         tap("recorded-tests-json-format","store-results")
-        compose.waitUntil(20000) { compose.onAllNodesWithTag("recorded-tests-match").fetchSemanticsNodes().isNotEmpty() || compose.onAllNodesWithTag("recorded-tests-error").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(20000) {
+            try {
+                // Readiness can be below a tall intro. Realize its lazy item;
+                // this is positioning setup, not a second entry tap.
+                compose.onNodeWithTag("recorded-tests-list").performScrollToNode(
+                    hasTestTag("recorded-tests-match") or hasTestTag("recorded-tests-error"))
+                true
+            } catch (_: AssertionError) { false }
+        }
         assertNull(catalog.running);assertNull(catalog.runtimeTree)
     }
     private fun geometry(wanted:Boolean?=null):Boolean {
