@@ -1480,7 +1480,13 @@ class ExtensionFormDeviceTest {
     private fun finishFrozenOffline() {
         val completionReturn = InstrumentationRegistry.getArguments().getString("expectCompletionReturn") == "true" &&
             record.optString("command_mode") == "no-view"
-        if (completionReturn) { requireCompletionReturn(); touch("extension-completion-return") }
+        if (completionReturn) {
+            requireCompletionReturn()
+            // Completion owns a reserved action area. Do not credit a full
+            // target that becomes available only after status-body scrolling.
+            assertCompletionReturnText(); record.put("completion_return_initially_complete", true)
+            touch("extension-completion-return")
+        }
         else touch("extension-back")
         assertNull(compose.activity.store.dialog); assertNull(catalog.running)
         assertEquals(caller, compose.activity.store.query)

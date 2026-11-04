@@ -330,6 +330,9 @@ class ReviewedTextDeviceTest {
         assertTrue("A completed no-view command must expose its touch Return action",
             compose.onAllNodesWithTag(tag).fetchSemanticsNodes().size == 1)
         val node = compose.onNodeWithTag(tag); val minimum = 48f * context.resources.displayMetrics.density
+        val initial = node.fetchSemanticsNode().boundsInRoot
+        assertTrue("Return needs a complete initial 48dp visible target", initial.height + 1 >= minimum && initial.width + 1 >= minimum)
+        record.put("completion_return_initially_complete", true)
         // Both the palette and completed body may scroll at enlarged text.
         // Reveal the current target with real gestures before injecting its center.
         for (attempt in 0 until 60) {

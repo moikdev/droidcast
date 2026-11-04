@@ -76,7 +76,6 @@ private fun CompletionReturn(isCurrent: () -> Boolean, close: () -> Unit) {
     val slot = remember { CompletionReturnSlot() }
     val windowInfo = LocalWindowInfo.current
     DisposableEffect(slot) { onDispose { slot.active = false } }
-    Spacer(Modifier.height(14.dp))
     Button(onClick = {
         if (slot.active && !slot.consumed && windowInfo.isWindowFocused && isCurrent()) {
             slot.consumed = true
@@ -578,12 +577,17 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if(catalog.runtimeError!=null){
             Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
-            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp).testTag("extension-completion"),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
-                if(!catalog.runtimeReady)CircularProgressIndicator(Modifier.size(30.dp))else Glyph("extension",ink,36)
-                Text(catalog.runtimeStatus,fontSize=16.sp,color=ink,modifier=Modifier.padding(top=20.dp).testTag("extension-status"))
-                if(catalog.runtimeReady) {
-                    if(command.mode == "no-view") CompletionReturn(::canReturnCompletedCommand, close)
-                    else Text("Escape to return to the palette",color=muted,fontSize=12.sp,modifier=Modifier.padding(top=10.dp))
+            Column(Modifier.weight(1f).fillMaxWidth().testTag("extension-completion")) {
+                Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
+                    if(!catalog.runtimeReady)CircularProgressIndicator(Modifier.size(30.dp))else Glyph("extension",ink,36)
+                    Text(catalog.runtimeStatus,fontSize=16.sp,color=ink,modifier=Modifier.padding(top=20.dp).testTag("extension-status"))
+                    if(catalog.runtimeReady && command.mode != "no-view")
+                        Text("Escape to return to the palette",color=muted,fontSize=12.sp,modifier=Modifier.padding(top=10.dp))
+                }
+                if(catalog.runtimeReady && command.mode == "no-view") {
+                    Row(Modifier.fillMaxWidth().padding(horizontal=24.dp,vertical=12.dp),horizontalArrangement=Arrangement.Center) {
+                        CompletionReturn(::canReturnCompletedCommand, close)
+                    }
                 }
             }
         }else when(root.optString("type")){
