@@ -181,6 +181,12 @@ class ExtensionCommandHandoffDeviceTest {
     }
     private fun launch(value: String) {
         instrumentation.runOnMainSync { activity().store.openExtension(extension(), command(value)) }
+        compose.waitUntil(10000) { activity().store.dialog in listOf("extension-run", "extension-setup") }
+        if (activity().store.dialog == "extension-setup") {
+            compose.onNodeWithTag("run-extension-setup").assertExists()
+            tap("run-extension-setup")
+            record.put("ordinary_launch_configuration_explicitly_run", true)
+        }
         compose.waitUntil(25000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains(if (value == "parent") "Owned parent ready" else "Grant unavailable") == true }
         assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle()
     }
