@@ -311,7 +311,7 @@ class InlinePaletteDeviceTest {
             pointer("actions-button", "palette-content-scroll")
             setMenuKeyboard(true)
             compose.onNodeWithTag("inline-menu-search").performTextReplacement("no such action")
-                .performTextInputSelection(TextRange(3, 7))
+            compose.onNodeWithTag("inline-menu-search").performTextInputSelection(TextRange(3, 7))
             key(KeyEvent.KEYCODE_ENTER)
             compose.onNodeWithTag("inline-menu-search").assertIsFocused()
             compose.activityRule.scenario.onActivity {
