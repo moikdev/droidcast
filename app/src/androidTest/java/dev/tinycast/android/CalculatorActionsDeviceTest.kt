@@ -115,6 +115,14 @@ class CalculatorActionsDeviceTest {
             assertEquals(answer, store.results().first { it.kind == Kind.CALC }.payload)
             assertEquals(0, store.selected)
         }
+        val visible = compose.onAllNodesWithTag("result-result").fetchSemanticsNodes().singleOrNull()
+            ?.let { it.layoutInfo.isPlaced && it.boundsInRoot.height>0 } == true
+        if(!visible) {
+            // Chaining explicitly reopens the IME. A subsequent short-landscape
+            // starting fixture must hide it before asserting the result card.
+            rootIme(false)
+            record.append("explicit_search_result_setup_hide",query)
+        }
         compose.onNodeWithTag("result-result").assertIsDisplayed().assertIsSelected()
     }
     private fun key(code: Int, modifiers: Int = 0) {
@@ -131,7 +139,7 @@ class CalculatorActionsDeviceTest {
         ViewCompat.getRootWindowInsets(compose.activity.window.decorView)?.isVisible(WindowInsetsCompat.Type.ime()) == true
     }
     private fun rootIme(visible: Boolean) {
-        compose.onNodeWithTag("search").performClick()
+        compose.onNodeWithTag("search").performScrollTo().performClick()
         device.waitForIdle(2000)
         compose.waitUntil(10000) { compose.runOnUiThread {
             val view=compose.activity.window.decorView.findFocus()
@@ -241,7 +249,7 @@ class CalculatorActionsDeviceTest {
         compose.waitForIdle()
     }
     private fun actions() {
-        pointer("actions-button")
+        pointer("actions-button","palette-content-scroll")
         compose.onNodeWithTag("inline-menu-search").assertIsFocused()
     }
     private fun capture(phase: String) {
