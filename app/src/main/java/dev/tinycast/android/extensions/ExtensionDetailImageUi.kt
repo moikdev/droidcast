@@ -37,7 +37,6 @@ import dev.tinycast.android.PaletteTheme
 import kotlinx.coroutines.CancellationException
 import org.json.JSONArray
 import org.json.JSONObject
-import java.lang.ref.WeakReference
 
 private data class DetailImageResult(val source: String, val bitmap: Bitmap? = null, val failed: Boolean = false)
 private class DetailImageLoadTrace(val historyEnabled: Boolean) {
@@ -47,8 +46,7 @@ private class DetailImageLoadTrace(val historyEnabled: Boolean) {
     @Volatile var cancellations = 0
     @Volatile var phase = "new"
     @Volatile var sample: (() -> String)? = null
-    private var nextToken = 0
-    private val tokens = if (historyEnabled) mutableListOf<Pair<WeakReference<Any>, Int>>() else null
+    private val tokens = if (historyEnabled) WeakValueTokens<Any>() else null
     private val events = if (historyEnabled) ArrayDeque<JSONObject>() else null
     private var previousEvent = ""
 
@@ -57,14 +55,7 @@ private class DetailImageLoadTrace(val historyEnabled: Boolean) {
     fun token(value: Any?): Int {
         val remembered = tokens ?: return 0
         if (value == null) return 0
-        return synchronized(this) {
-            remembered.removeAll { it.first.get() == null }
-            remembered.firstOrNull { it.first.get() == value }?.let { return it.second }
-            val token = ++nextToken
-            remembered += WeakReference(value) to token
-            if (remembered.size > 128) remembered.removeAt(0)
-            token
-        }
+        return remembered.token(value)
     }
     fun event(stage: String, producer: Int = generation, value: Any? = null, ready: Boolean = false) {
         val history = events ?: return
@@ -85,6 +76,7 @@ private class DetailImageLoadTrace(val historyEnabled: Boolean) {
         return synchronized(this) {
             JSONObject().put("schema_version", 1).put("trace_owner", owner)
                 .put("generation", generation).put("phase", phase).put("cancellations", cancellations)
+                .put("token_evictions", tokens?.evictions ?: 0)
                 .put("live_state", live).put("events", JSONArray(history.map { JSONObject(it.toString()) })).toString()
         }
     }
