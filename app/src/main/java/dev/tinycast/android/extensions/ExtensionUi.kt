@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.LocalFocusManager
@@ -100,9 +101,11 @@ private class StoreBrowserState {
     val page = mutableIntStateOf(1)
     val retry = mutableIntStateOf(0)
     val installTarget = mutableStateOf<String?>(null)
+    val recorded = mutableStateOf<InstalledExtension?>(null)
     val scroll = androidx.compose.foundation.lazy.LazyListState()
     var lastRequest: Triple<String, Int, Int>? = null
 }
+private class StoreSurfaceLifetime { var active = true }
 
 internal class ExtensionListState {
     var search by mutableStateOf(TextFieldValue(""))
@@ -155,7 +158,7 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
 }
 
 @Composable
-private fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier,
+internal fun ExtensionWindow(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier,
                             compact: Boolean = false, onEscape: () -> Unit = close, headerless: Boolean = false,
                             headerActions: (@Composable RowScope.() -> Unit)? = null,
                             keys: ((KeyEvent, Boolean) -> Boolean)? = null,
@@ -232,6 +235,7 @@ private fun ExtensionSearchHeader(value: TextFieldValue, change: (TextFieldValue
 }
 
 @Composable
+@OptIn(ExperimentalLayoutApi::class)
 private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: () -> Unit) {
     val catalog=store.extensions
     var storeSearch by state.search
@@ -246,6 +250,9 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
     var page by state.page
     var retry by state.retry
     var installTarget by state.installTarget
+    var recorded by state.recorded
+    val window = LocalWindowInfo.current
+    val view = LocalView.current
     LaunchedEffect(catalog.installed,catalog.busy){if(installTarget!=null&&catalog.busy==null&&catalog.error==null&&catalog.installed.any{it.listing.id==installTarget}){installedTab=true;installTarget=null}}
     LaunchedEffect(query,page,retry,installedTab){
         if(!installedTab){
@@ -256,11 +263,23 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
             catch(e:CancellationException){throw e}catch(e:Throwable){error=e.message ?: "Could not reach Raycast Store"}finally{loading=false}
         }
     }
+    if (recorded != null) {
+        val target = recorded!!
+        ExtensionRecordedTests(store, target, { state.recorded.value === target }, {
+            if (state.recorded.value === target) state.recorded.value = null
+        })
+        return
+    }
     if (pending != null || removing != null) {
         val installing = pending
         val uninstalling = removing
         val title = if (installing != null) "Install ${installing.title}?" else "Uninstall ${uninstalling!!.listing.title}?"
-        fun cancelReview() { pending = null; removing = null }
+        val review = remember(installing, uninstalling) { StoreSurfaceLifetime() }
+        DisposableEffect(review) { onDispose { review.active = false } }
+        fun currentReview() = review.active && store.dialog == "extensions" && recorded == null &&
+            window.isWindowFocused && view.isAttachedToWindow && view.hasWindowFocus() &&
+            pending === installing && removing === uninstalling
+        fun cancelReview() { if (currentReview()) { pending = null; removing = null } }
         ExtensionWindow(title, "Review extension access", ::cancelReview) {
             Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(18.dp).testTag("extension-review")) {
                 Text(if (installing != null) "This installs third-party JavaScript from Raycast Store. When you run its commands it can use HTTPS, access the foreground clipboard and save its own data. Desktop-specific commands may not work on Android."
@@ -269,21 +288,28 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
             Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.End) {
                 TextButton(onClick = ::cancelReview) { Text("Cancel") }
                 Button(onClick = {
+                    if (!currentReview() || catalog.busy != null || store.backupBusy) return@Button
                     if (installing != null) { pending = null; installTarget = installing.id; store.installExtension(installing) }
                     else uninstalling?.let { removing = null; store.uninstallExtension(it) }
-                }, enabled = catalog.busy == null, modifier = Modifier.testTag(if(installing!=null) "confirm-install" else "confirm-uninstall")) { Text(if(installing!=null) "Install extension" else "Uninstall") }
+                }, enabled = catalog.busy == null && !store.backupBusy, modifier = Modifier.testTag(if(installing!=null) "confirm-install" else "confirm-uninstall")) { Text(if(installing!=null) "Install extension" else "Uninstall") }
             }
         }
         return
     }
-    ExtensionWindow("Raycast Store","Install real Store bundles. Android compatibility varies by command.",close,headerless=true){
-        ExtensionSearchHeader(storeSearch, { next -> if(next.text != query) page=1; storeSearch=next }, if(installedTab) "Search installed extensions…" else "Search Raycast Store…", "store-search", close) {
+    val surface = remember { StoreSurfaceLifetime() }
+    DisposableEffect(surface) { onDispose { surface.active = false } }
+    fun listCurrent() = surface.active && store.dialog == "extensions" && recorded == null && pending == null && removing == null &&
+        window.isWindowFocused && view.isAttachedToWindow && view.hasWindowFocus()
+    fun extensionCurrent(extension: InstalledExtension) = listCurrent() && catalog.busy == null && !store.backupBusy && catalog.installed.any { it === extension }
+    fun closeList() { if (listCurrent()) close() }
+    ExtensionWindow("Raycast Store","Install real Store bundles. Android compatibility varies by command.",::closeList,headerless=true){
+        ExtensionSearchHeader(storeSearch, { next -> if(listCurrent()) { if(next.text != query) page=1; storeSearch=next } }, if(installedTab) "Search installed extensions…" else "Search Raycast Store…", "store-search", ::closeList) {
             if(loading) CircularProgressIndicator(Modifier.size(16.dp),strokeWidth=2.dp)
-            TextButton(onClick={installedTab=false},modifier=Modifier.testTag("store-browse")){Text("Store",fontSize=11.sp,color=if(!installedTab)ink else muted)}
-            TextButton(onClick={installedTab=true},modifier=Modifier.testTag("store-installed")){Text("Installed",fontSize=11.sp,color=if(installedTab)ink else muted)}
+            TextButton(onClick={if(listCurrent())installedTab=false},modifier=Modifier.heightIn(min=48.dp).testTag("store-browse")){Text("Store",fontSize=11.sp,color=if(!installedTab)ink else muted)}
+            TextButton(onClick={if(listCurrent())installedTab=true},modifier=Modifier.heightIn(min=48.dp).testTag("store-installed")){Text("Installed",fontSize=11.sp,color=if(installedTab)ink else muted)}
         }
         val visibleError=error ?: catalog.error
-        if(visibleError!=null) Row(Modifier.fillMaxWidth().padding(18.dp),verticalAlignment=Alignment.CenterVertically){Text(visibleError,color=MaterialTheme.colorScheme.error,fontSize=12.sp,modifier=Modifier.weight(1f));TextButton(onClick={retry++}){Text("Retry")}}
+        if(visibleError!=null) Row(Modifier.fillMaxWidth().padding(18.dp),verticalAlignment=Alignment.CenterVertically){Text(visibleError,color=MaterialTheme.colorScheme.error,fontSize=12.sp,modifier=Modifier.weight(1f));TextButton(onClick={if(listCurrent())retry++}){Text("Retry")}}
         LazyColumn(state=storeScroll,modifier=Modifier.weight(1f).fillMaxWidth().testTag("store-results"),contentPadding=PaddingValues(18.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){
             if(installedTab){
                 if(catalog.installed.isEmpty())item{Text("Installed extensions will appear here. Browse the Store to add your first one.",color=muted,modifier=Modifier.padding(16.dp))}
@@ -291,12 +317,16 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
                     Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(card).padding(16.dp)){
                         Text(ext.listing.title,fontSize=17.sp,fontWeight=FontWeight.Medium)
                         Text("${ext.listing.author} · ${ext.commands.size} commands",color=muted,fontSize=11.sp)
-                        Row{ TextButton(onClick={pending=ext.listing},enabled=catalog.busy==null){Text("Update from Store")}
-                            TextButton(onClick={removing=ext},enabled=catalog.busy==null,modifier=Modifier.testTag("uninstall-${ext.listing.name}")){Text("Uninstall",color=muted)} }
+                        FlowRow(horizontalArrangement=Arrangement.spacedBy(8.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
+                            TextButton(onClick={if(extensionCurrent(ext))pending=ext.listing},enabled=extensionCurrent(ext),modifier=Modifier.heightIn(min=48.dp)){Text("Update from Store",fontSize=14.sp,lineHeight=20.sp)}
+                            TextButton(onClick={if(extensionCurrent(ext))removing=ext},enabled=extensionCurrent(ext),modifier=Modifier.heightIn(min=48.dp).testTag("uninstall-${ext.listing.name}")){Text("Uninstall",color=muted,fontSize=14.sp,lineHeight=20.sp)}
+                            OutlinedButton(onClick={if(extensionCurrent(ext)){storeSearch=storeSearch.copy(composition=null);recorded=ext}},enabled=extensionCurrent(ext),
+                                shape=RoundedCornerShape(10.dp),modifier=Modifier.heightIn(min=48.dp).testTag("recorded-tests-${ext.listing.name}")){Text("Recorded tests",fontSize=14.sp,lineHeight=20.sp)}
+                        }
                         ext.commands.forEach{command->
-                            Row(Modifier.fillMaxWidth().clickable{store.openExtension(ext,command)}.padding(vertical=9.dp).testTag("extension-command-${command.name}"),verticalAlignment=Alignment.CenterVertically){
-                                Glyph("terminal",ink,17);Spacer(Modifier.width(10.dp));Text(command.title,fontSize=13.sp,modifier=Modifier.weight(1f))
-                                Text(if(command.mode=="menu-bar")"Desktop only" else "Run ↵",fontSize=10.sp,color=muted)
+                            Row(Modifier.fillMaxWidth().heightIn(min=48.dp).clickable(enabled=extensionCurrent(ext),role=Role.Button){if(extensionCurrent(ext))store.openExtension(ext,command)}.padding(vertical=10.dp).testTag("extension-command-${command.name}"),verticalAlignment=Alignment.CenterVertically){
+                                Glyph("terminal",ink,17);Spacer(Modifier.width(10.dp));Text(command.title,fontSize=14.sp,lineHeight=22.sp,modifier=Modifier.weight(1f))
+                                Spacer(Modifier.width(8.dp));Text(if(command.mode=="menu-bar")"Desktop only" else if(dev.tinycast.android.LocalPaletteWide.current)"Run ↵" else "Run",fontSize=12.sp,lineHeight=18.sp,color=muted)
                             }
                         }
                     }
@@ -311,14 +341,14 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
                                 Text(ext.title,fontSize=16.sp,fontWeight=FontWeight.Medium)
                                 Text("${ext.author} · ${ext.commandCount} commands",color=muted,fontSize=11.sp,lineHeight=17.sp)
                             }
-                            Button(onClick={pending=ext},enabled=catalog.busy==null,modifier=Modifier.testTag("install-${ext.name}")){
+                            Button(onClick={if(listCurrent()&&catalog.busy==null&&!store.backupBusy)pending=ext},enabled=catalog.busy==null&&!store.backupBusy,modifier=Modifier.testTag("install-${ext.name}")){
                                 Text(if(catalog.busy==ext.id)"Installing…" else if(installed)"Update" else "Install",fontSize=12.sp)
                             }
                         }
                         Text(ext.description,color=muted,fontSize=12.sp,lineHeight=18.sp,maxLines=3,overflow=TextOverflow.Ellipsis,modifier=Modifier.padding(top=10.dp))
                     }
                 }
-                if(found.isNotEmpty())item{TextButton(onClick={page++},enabled=!loading){Text("Load more")}}
+                if(found.isNotEmpty())item{TextButton(onClick={if(listCurrent())page++},enabled=!loading){Text("Load more")}}
                 if(!loading&&found.isEmpty()&&error==null)item{Text("No extensions found. Try another search.",color=muted)}
             }
         }
