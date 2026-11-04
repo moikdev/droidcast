@@ -202,13 +202,15 @@ class CalculatorActionsDeviceTest {
         val minimum = 48 * context.resources.displayMetrics.density
         var target: androidx.compose.ui.semantics.SemanticsNode? = null
         var direction=1;var seen=false
-        for (attempt in 0..18) {
+        val caller=scroll=="palette-content-scroll"
+        val attempts=if(caller) 40 else 18
+        for (attempt in 0..attempts) {
             val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()
             if (node != null && node.layoutInfo.isPlaced && node.size.width+1 >= minimum && node.size.height+1 >= minimum &&
                 node.boundsInRoot.width+1 >= node.size.width && node.boundsInRoot.height+1 >= node.size.height) {
                 target=node; break
             }
-            if (scroll == null || attempt == 18) break
+            if (scroll == null || attempt == attempts) break
             val viewport = compose.onNodeWithTag(scroll).fetchSemanticsNode().boundsInRoot
             assertTrue("Placed pointer-scroll viewport", viewport.height > 0)
             // A short landscape viewport can be smaller than a natural-height
@@ -221,11 +223,15 @@ class CalculatorActionsDeviceTest {
                 continue
             }
             val clipped=node?.takeIf { it.layoutInfo.isPlaced }?.boundsInRoot?.takeIf { it.height>0 }
-            if(clipped!=null) { direction=if(clipped.top<=viewport.top+1 && clipped.bottom<viewport.bottom-1) -1 else 1;seen=true }
+            if(caller && node?.layoutInfo?.coordinates?.isAttached == true) {
+                val origin=compose.runOnUiThread { node.layoutInfo.coordinates.localToRoot(Offset.Zero).y }
+                direction=if(origin<viewport.top) -1 else 1
+            }
+            else if(clipped!=null) { direction=if(clipped.top<=viewport.top+1 && clipped.bottom<viewport.bottom-1) -1 else 1;seen=true }
             else if(seen) direction=-direction
-            val distance=minOf(viewport.height*.3f,if(clipped!=null)
+            val distance=minOf(viewport.height*(if(caller) .6f else .3f),if(clipped!=null)
                 (requireNotNull(node).size.height-clipped.height+8*context.resources.displayMetrics.density).coerceAtLeast(20f)
-                else 60*context.resources.displayMetrics.density)
+                else (if(caller) 150 else 60)*context.resources.displayMetrics.density)
             val delta=distance*direction
             val axis=compose.onNodeWithTag(scroll).fetchSemanticsNode().config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)
             val step=JSONObject().put("target",tag).put("attempt",attempt).put("viewport",viewport.toString())
