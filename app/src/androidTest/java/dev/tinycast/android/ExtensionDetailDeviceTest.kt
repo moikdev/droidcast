@@ -49,6 +49,7 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalTestApi::class)
 class ExtensionDetailDeviceTest {
+    private companion object { const val IMAGE_HISTORY_PROPERTY = "dev.droidcast.detailImageHistory" }
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @get:Rule val testName = org.junit.rules.TestName()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -57,6 +58,8 @@ class ExtensionDetailDeviceTest {
     private val evidence get() = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
     private val record = JSONObject().put("scope", "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification")
     private var prepared = false
+    private var originalImageHistoryProperty: String? = null
+    private var imageHistoryPropertyOwned = false
     private var owner = ""
     private var ownedId: String? = null
     private val ownedIds = mutableListOf<String>()
@@ -99,6 +102,8 @@ class ExtensionDetailDeviceTest {
         preserved = catalog.installed.flatMap { listOf(it.directory, File(context.filesDir, "extension-data/${it.listing.id}"),
             File(context.applicationInfo.dataDir, "shared_prefs/extension-${it.listing.id}.xml")) }
         fingerprints = preserved.map(::fingerprint); prepared = true
+        originalImageHistoryProperty = System.getProperty(IMAGE_HISTORY_PROPERTY)
+        System.setProperty(IMAGE_HISTORY_PROPERTY, "true"); imageHistoryPropertyOwned = true
         dismissClipboard("before-owned-sentinel")
         compose.activityRule.scenario.onActivity {
             // Original clipboard recovery is durable in the foreground test-APK UID before this mutation.
@@ -247,7 +252,17 @@ class ExtensionDetailDeviceTest {
                 assertEquals(fingerprints, preserved.map(::fingerprint))
                 record.put("owned_data_removed", true).put("preexisting_installations_and_data_preserved", true)
             } finally {
-                File(evidence, "detail-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json").writeText(record.toString(2))
+                try {
+                    if (imageHistoryPropertyOwned) {
+                        originalImageHistoryProperty?.let { System.setProperty(IMAGE_HISTORY_PROPERTY, it) }
+                            ?: System.clearProperty(IMAGE_HISTORY_PROPERTY)
+                        assertEquals(originalImageHistoryProperty, System.getProperty(IMAGE_HISTORY_PROPERTY))
+                        imageHistoryPropertyOwned = false
+                        record.put("image_history_process_property_restored", true)
+                    }
+                } finally {
+                    File(evidence, "detail-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json").writeText(record.toString(2))
+                }
             }
         }
     }
@@ -796,6 +811,19 @@ class ExtensionDetailDeviceTest {
         imagePixel("Owned table image", 0xff228833.toInt()); show("Owned table image neighbor"); capture("native-table-image")
         show("Owned gallery final paragraph."); capture("native-gallery-destination")
         record.put("native_lists_quotes_escapes_marks_verified", true).put("passed", true)
+    }
+    @Test fun defaultImagesPaintWithoutExtendedHistory() {
+        val requested = System.getProperty(IMAGE_HISTORY_PROPERTY)
+        try {
+            System.clearProperty(IMAGE_HISTORY_PROPERTY)
+            launch("image-information"); imagePixel("Owned block image", 0xff228833.toInt())
+            assertTrue("Ordinary images expose no extended history probe",
+                image("Owned block image").fetchSemanticsNode().config.none { it.key.name == "DetailImageLoadSnapshot" })
+            capture("default-image-smoke")
+            record.put("default_image_pixels_verified_without_extended_history", true).put("passed", true)
+        } finally {
+            requested?.let { System.setProperty(IMAGE_HISTORY_PROPERTY, it) } ?: System.clearProperty(IMAGE_HISTORY_PROPERTY)
+        }
     }
     @Test fun imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument() {
         launch("image-information"); imagePixel("Owned block image", 0xff228833.toInt()); capture("image-information-before-contract")

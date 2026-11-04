@@ -40,45 +40,52 @@ import org.json.JSONObject
 import java.lang.ref.WeakReference
 
 private data class DetailImageResult(val source: String, val bitmap: Bitmap? = null, val failed: Boolean = false)
-private class DetailImageLoadTrace {
+private class DetailImageLoadTrace(val historyEnabled: Boolean) {
     companion object { private val owners = java.util.concurrent.atomic.AtomicLong() }
-    private val owner = owners.incrementAndGet()
+    private val owner = if (historyEnabled) owners.incrementAndGet() else 0L
     @Volatile var generation = 0
     @Volatile var cancellations = 0
     @Volatile var phase = "new"
     @Volatile var sample: (() -> String)? = null
     private var nextToken = 0
-    private val tokens = mutableListOf<Pair<WeakReference<Any>, Int>>()
-    private val events = ArrayDeque<JSONObject>()
+    private val tokens = if (historyEnabled) mutableListOf<Pair<WeakReference<Any>, Int>>() else null
+    private val events = if (historyEnabled) ArrayDeque<JSONObject>() else null
     private var previousEvent = ""
 
     // Match produceState's rendered-value equality: a fresh equal wrapper
     // need not recompose. Weak references never retain a decoded bitmap.
-    @Synchronized fun token(value: Any?): Int {
+    fun token(value: Any?): Int {
+        val remembered = tokens ?: return 0
         if (value == null) return 0
-        tokens.removeAll { it.first.get() == null }
-        tokens.firstOrNull { it.first.get() == value }?.let { return it.second }
-        val token = ++nextToken
-        tokens += WeakReference(value) to token
-        if (tokens.size > 128) tokens.removeAt(0)
-        return token
+        return synchronized(this) {
+            remembered.removeAll { it.first.get() == null }
+            remembered.firstOrNull { it.first.get() == value }?.let { return it.second }
+            val token = ++nextToken
+            remembered += WeakReference(value) to token
+            if (remembered.size > 128) remembered.removeAt(0)
+            token
+        }
     }
-    @Synchronized fun event(stage: String, producer: Int = generation, value: Any? = null, ready: Boolean = false) {
-        val valueToken = token(value)
-        val signature = "$stage:$producer:$valueToken:$ready"
-        if (previousEvent == signature) return
-        previousEvent = signature
-        events.addLast(JSONObject().put("stage", stage).put("producer_generation", producer)
-            .put("value_token", valueToken).put("bitmap_ready", ready)
-            .put("uptime_ms", android.os.SystemClock.uptimeMillis()))
-        while (events.size > 64) events.removeFirst()
+    fun event(stage: String, producer: Int = generation, value: Any? = null, ready: Boolean = false) {
+        val history = events ?: return
+        synchronized(this) {
+            val valueToken = token(value)
+            val signature = "$stage:$producer:$valueToken:$ready"
+            if (previousEvent == signature) return
+            previousEvent = signature
+            history.addLast(JSONObject().put("stage", stage).put("producer_generation", producer)
+                .put("value_token", valueToken).put("bitmap_ready", ready)
+                .put("uptime_ms", android.os.SystemClock.uptimeMillis()))
+            while (history.size > 64) history.removeFirst()
+        }
     }
     fun snapshot(): String {
+        val history = events ?: return JSONObject().put("history_enabled", false).toString()
         val live = runCatching { sample?.invoke() ?: "detached" }.getOrDefault("detached")
         return synchronized(this) {
             JSONObject().put("schema_version", 1).put("trace_owner", owner)
                 .put("generation", generation).put("phase", phase).put("cancellations", cancellations)
-                .put("live_state", live).put("events", JSONArray(events.map { JSONObject(it.toString()) })).toString()
+                .put("live_state", live).put("events", JSONArray(history.map { JSONObject(it.toString()) })).toString()
         }
     }
     override fun toString() = "generation=$generation;phase=$phase;cancellations=$cancellations;" +
@@ -103,7 +110,8 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     var visible by remember { mutableStateOf(false) }
     var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
     val view = LocalView.current
-    val trace = remember { if (BuildConfig.DEBUG) DetailImageLoadTrace() else null }
+    val trace = remember { if (BuildConfig.DEBUG) DetailImageLoadTrace(
+        System.getProperty("dev.droidcast.detailImageHistory") == "true") else null }
     if (trace != null) DisposableEffect(trace) { onDispose { trace.sample = null; trace.event("disposed") } }
     fun updateVisibility(bounds: LayoutCoordinates?) {
         val clipped = bounds?.takeIf { it.isAttached }?.boundsInWindow()
@@ -156,9 +164,10 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
             // Plain trace fields deliberately cause no recomposition of their own.
             trace.sample = {
                 val bounds = coordinates?.takeIf { it.isAttached }?.boundsInWindow()
+                val tokens = if (trace.historyEnabled) "observed_value_token=${trace.token(observed)};composed_value_token=${trace.token(result)};" else ""
                 "visible=$visible;started=$started;request=${request != null};source_matches=${observed.source == source};" +
                     "observed_ready=${observed.bitmap != null};composed_ready=${result.bitmap != null};" +
-                    "observed_value_token=${trace.token(observed)};composed_value_token=${trace.token(result)};" +
+                    tokens +
                     "attached=${coordinates?.isAttached == true};window_bounds=$bounds;lifecycle=${lifecycle.currentState}"
             }
         }
@@ -168,17 +177,17 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     val content: @Composable (Modifier) -> Unit = { imageModifier ->
     BoxWithConstraints(imageModifier.onGloballyPositioned { bounds ->
         coordinates = bounds; updateVisibility(bounds); refreshAfterPlacement()
-    }.then(if (trace == null) Modifier else Modifier.drawWithContent {
+    }.then(if (trace != null && trace.historyEnabled) Modifier.drawWithContent {
         drawContent()
         // This records a Compose draw command, not display scanout. Tests must
         // separately inspect the committed pixels before crediting rendering.
         trace.event("draw-recorded", value = result, ready = result.bitmap != null)
-    }).testTag("extension-detail-image").semantics {
+    } else Modifier).testTag("extension-detail-image").semantics {
         contentDescription = label
         stateDescription = when { result.failed -> "Image unavailable"; result.bitmap != null -> "Image ready"; else -> "Image loading" }
         if (trace != null) {
             this[imageLoadTraceKey] = trace
-            this[imageLoadSnapshotKey] = trace::snapshot
+            if (trace.historyEnabled) this[imageLoadSnapshotKey] = trace::snapshot
         }
     }) {
         val width = (request?.width?.dp ?: maxWidth).coerceAtMost(maxWidth)
