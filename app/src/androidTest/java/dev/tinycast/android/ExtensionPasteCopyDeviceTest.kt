@@ -128,6 +128,27 @@ class ExtensionPasteCopyDeviceTest {
             globalThis.__ownedPasteProbe={attempted:0,rejected:0,resolved:0};
             module.exports.default=function(){
               const [count,setCount]=React.useState(0);
+              if(!globalThis.__ownedRawInstalled){
+                globalThis.__ownedRawInstalled=true;
+                const bridge=globalThis.__tinycast,host=globalThis.__tinycastHost,settle=bridge.settle,invoke=host.invoke;
+                const waiting=new Set();let next=0;
+                globalThis.__ownedPasteProbe.nativeInputs=[];
+                host.invoke=function(id,kind,method,raw){
+                  if(kind==='clipboard'&&method==='paste'){
+                    const value=JSON.parse(raw)[0],rows=globalThis.__ownedPasteProbe.nativeInputs;
+                    if(rows.length<32)rows.push({kind:value===null?'null':Array.isArray(value)?'array':typeof value,
+                      textType:typeof value?.text,textLength:typeof value?.text==='string'?value.text.length:null});
+                  }
+                  return Reflect.apply(invoke,this,arguments);
+                };
+                bridge.settle=function(id,ok,encoded){
+                  if(waiting.delete(String(id))){const probe=globalThis.__ownedPasteProbe;
+                    if(ok)probe.resolved++;else{probe.rejected++;probe.lastError=String(encoded);setCount(probe.rejected)}return;}
+                  return Reflect.apply(settle,this,arguments);
+                };
+                globalThis.__ownedTryRawPaste=value=>{const id='owned-paste-raw-'+(++next);waiting.add(id);
+                  globalThis.__ownedPasteProbe.attempted++;host.invoke(id,'clipboard','paste',JSON.stringify([value]));};
+              }
               globalThis.__ownedTryPaste=(value=output,options)=>{
                 const probe=globalThis.__ownedPasteProbe;probe.attempted++;
                 api.Clipboard.paste(value,options).then(()=>probe.resolved++,error=>{
@@ -349,14 +370,15 @@ class ExtensionPasteCopyDeviceTest {
             JSONObject().put("html","<b>owned without plain alternative</b>"),"x".repeat(65537),"界".repeat(45000))
         for((index,value) in values.withIndex()) {
             val encoded=JSONArray().put(value).toString().drop(1).dropLast(1)
-            evaluate("globalThis.__ownedTryPaste($encoded);true");rejected(index+2)
+            evaluate("globalThis.__ownedTryRawPaste($encoded);true");rejected(index+2)
             compose.onNodeWithText("Owned rejection ${index+2}",substring=true,useUnmergedTree=true).assertIsDisplayed()
             compose.onNodeWithTag("extension-paste-copy").assertDoesNotExist()
             instrumentation.runOnMainSync { obsolete() }
             assertEquals(sentinel,clipboard());assertFalse(requireNotNull(held.output).available)
         }
         assertEquals(0,probe().getInt("resolved"));assertNull(catalog.pasteCopyOffer)
-        record.put("invalid_request_count",values.size).put("old_capability_cleared",true);capture("rejections-without-copy")
+        record.put("invalid_request_count",values.size).put("old_capability_cleared",true)
+            .put("negative_input_scope","Owned direct host-boundary requests bypass portable Clipboard argument normalization; actual bridge/React/native publication follows");capture("rejections-without-copy")
         tap("extension-back");assertNull(catalog.running);record.put("passed",true);capture("cancelled-caller")
     }
     @Test fun preferencesDisposalAndHiddenRequestsCannotCopy() {
@@ -378,8 +400,8 @@ class ExtensionPasteCopyDeviceTest {
     }
     @Test fun losingWindowFocusRejectsRetainedCopy() {
         pending();val obsolete=oldCopy();val previous=activity()
-        val dialog=Dialog(previous);dialogs+=dialog
-        instrumentation.runOnMainSync { dialog.setContentView(TextView(previous).apply{text="Owned focus boundary"});dialog.show() }
+        lateinit var dialog:Dialog
+        instrumentation.runOnMainSync { dialog=Dialog(previous);dialogs+=dialog;dialog.setContentView(TextView(previous).apply{text="Owned focus boundary"});dialog.show() }
         compose.waitUntil(10000){!previous.window.decorView.hasWindowFocus()}
         instrumentation.runOnMainSync { obsolete() };instrumentation.waitForIdleSync()
         instrumentation.runOnMainSync { dialog.dismiss() }
@@ -444,5 +466,30 @@ class ExtensionPasteCopyDeviceTest {
         record.put("foreign_and_unregistered_engine_disposal_rejected",true)
             .put("publication_scope","Controlled native owner/offer publication with an owned buffer; not a JavaScript producer workflow")
         capture("current-native-owner-copy");finish()
+    }
+
+    @Test fun sourceReplacementClearsOutputBeforeAnyQueuedCopy() {
+        val held=pending();val obsolete=oldCopy()
+        context.startActivity(Intent(Intent.ACTION_SEND).setComponent(ComponentName(context.packageName,MainActivity::class.java.name))
+            .setType("text/plain").putExtra(Intent.EXTRA_TEXT,"Owned replacement share")
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+        compose.waitUntil(15000){activity().store.dialog=="text-input"}
+        assertNull(catalog.running);assertNull(catalog.pasteCopyOffer);assertFalse(requireNotNull(held.output).available)
+        instrumentation.runOnMainSync { obsolete() };assertEquals(sentinel,clipboard())
+        compose.onNodeWithTag("text-input-content").assertTextContains("Owned replacement share")
+        record.put("new_source_cleared_old_buffer",true);capture("new-source-without-old-output")
+        compose.onNodeWithTag("text-input-cancel").performTouchInput { click(center) }
+        record.put("passed",true)
+    }
+    @Test fun portableNullNormalizationIsNotARawNullRequest() {
+        pending();evaluate("globalThis.__ownedTryPaste(null);true")
+        compose.waitUntil(10000){probe().optInt("rejected")==2}
+        val input=probe().getJSONArray("nativeInputs").getJSONObject(1)
+        assertEquals("object",input.getString("kind"));assertEquals("string",input.getString("textType"));assertEquals(0,input.getInt("textLength"))
+        assertNotNull(catalog.pasteCopyOffer);assertEquals(sentinel,clipboard())
+        record.put("portable_null_native_metadata",input)
+            .put("normalization_scope","Untouched portable API normalizes null to an empty plain text object before native validation; no Copy is selected and no full API conformance is certified")
+        capture("normalized-empty-offer-without-copy");tap("extension-paste-return")
+        assertNull(catalog.running);assertEquals(sentinel,clipboard());record.put("passed",true)
     }
 }
