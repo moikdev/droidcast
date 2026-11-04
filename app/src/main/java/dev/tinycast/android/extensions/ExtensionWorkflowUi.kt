@@ -93,27 +93,25 @@ internal fun ExtensionRecordedTests(store: PaletteStore, extension: InstalledExt
         catch (_: SecurityException) { linkError = true }
     }
     ExtensionWindow("Recorded tests", extension.listing.title, ::close, onEscape = ::close) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp).background(PaletteTheme.control, RoundedCornerShape(10.dp)).padding(start = 12.dp, end = 4.dp)) {
+            BasicTextField(query, { if (routeCurrent()) query = it }, singleLine = true,
+                textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 16.sp, lineHeight = 24.sp),
+                cursorBrush = SolidColor(PaletteTheme.accent),
+                modifier = Modifier.weight(1f).heightIn(min = 48.dp).padding(vertical = 12.dp).focusRequester(focusRequester).testTag("recorded-tests-search"),
+                decorationBox = { inner -> Box { if (query.text.isEmpty()) Text("Search recorded commands…", color = PaletteTheme.secondary,
+                    fontSize = 16.sp, lineHeight = 24.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
+            if (query.text.isNotEmpty()) IconButton(onClick = { if (actionCurrent()) query = TextFieldValue("") }, modifier = Modifier.size(48.dp).semantics { contentDescription = "Clear recorded-test search" }.testTag("recorded-tests-clear")) {
+                Glyph("close", PaletteTheme.secondary, 18)
+            }
+            IconButton(onClick = { if (actionCurrent()) { if (imeVisible.value) keyboard?.hide() else { focusRequester.requestFocus(); keyboard?.show() } } },
+                modifier = Modifier.size(48.dp).semantics { contentDescription = if (imeVisible.value) "Hide on-screen keyboard" else "Show on-screen keyboard" }.testTag("recorded-tests-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 18) }
+        }
         LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("recorded-tests-list"),
             contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             item {
                 Text(extension.listing.title, color = PaletteTheme.ink, fontSize = 18.sp, lineHeight = 26.sp)
                 Text("These are earlier observations of specific workflows. Matching source files does not verify your current app or device.",
                     color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp, modifier = Modifier.padding(top = 10.dp).testTag("recorded-tests-scope"))
-            }
-            item {
-                Row(Modifier.fillMaxWidth().background(PaletteTheme.control, RoundedCornerShape(10.dp)).padding(start = 12.dp, end = 4.dp)) {
-                    BasicTextField(query, { if (routeCurrent()) query = it }, singleLine = true,
-                        textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 16.sp, lineHeight = 24.sp),
-                        cursorBrush = SolidColor(PaletteTheme.accent),
-                        modifier = Modifier.weight(1f).heightIn(min = 48.dp).padding(vertical = 12.dp).focusRequester(focusRequester).testTag("recorded-tests-search"),
-                        decorationBox = { inner -> Box { if (query.text.isEmpty()) Text("Search recorded commands…", color = PaletteTheme.secondary,
-                            fontSize = 16.sp, lineHeight = 24.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner() } })
-                    if (query.text.isNotEmpty()) IconButton(onClick = { if (actionCurrent()) query = TextFieldValue("") }, modifier = Modifier.size(48.dp).semantics { contentDescription = "Clear recorded-test search" }.testTag("recorded-tests-clear")) {
-                        Glyph("close", PaletteTheme.secondary, 18)
-                    }
-                    IconButton(onClick = { if (actionCurrent()) { if (imeVisible.value) keyboard?.hide() else { focusRequester.requestFocus(); keyboard?.show() } } },
-                        modifier = Modifier.size(48.dp).semantics { contentDescription = if (imeVisible.value) "Hide on-screen keyboard" else "Show on-screen keyboard" }.testTag("recorded-tests-keyboard")) { Glyph("keyboard", PaletteTheme.secondary, 18) }
-                }
             }
             if (linkError) item { Text("Couldn’t open the report. You can try again or return to installed extensions.", color = MaterialTheme.colorScheme.error,
                 fontSize = 14.sp, lineHeight = 22.sp, modifier = Modifier.testTag("recorded-tests-link-error")) }

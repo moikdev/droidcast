@@ -167,7 +167,31 @@ class ExtensionRecordedTestsDeviceTest {
         compose.waitUntil(20000) { compose.onAllNodesWithTag("recorded-tests-match").fetchSemanticsNodes().isNotEmpty() || compose.onAllNodesWithTag("recorded-tests-error").fetchSemanticsNodes().isNotEmpty() }
         assertNull(catalog.running);assertNull(catalog.runtimeTree)
     }
-    private fun filtered(text:String) { compose.onNodeWithTag("recorded-tests-search").performTextReplacement(text);compose.waitForIdle() }
+    private fun geometry(wanted:Boolean?=null):Boolean {
+        val view=activity().window.decorView
+        val done=java.util.concurrent.CountDownLatch(1)
+        var stable=false;var visible=false;var last=emptyList<Int>();var since=0L
+        val deadline=android.os.SystemClock.uptimeMillis()+11000
+        val observer=object:Runnable { override fun run() {
+            val insets=androidx.core.view.ViewCompat.getRootWindowInsets(view)
+            visible=insets?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true
+            val values=listOf(view.width,view.height,insets?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())?.bottom?:0,if(visible)1 else 0)
+            val now=android.os.SystemClock.uptimeMillis()
+            if(values!=last) { last=values;since=now }
+            if(now-since>=200&&(wanted==null||visible==wanted)) { stable=true;done.countDown() }
+            else if(now>=deadline)done.countDown() else view.postOnAnimation(this)
+        } }
+        instrumentation.runOnMainSync { view.postOnAnimation(observer) }
+        val completed=done.await(12,java.util.concurrent.TimeUnit.SECONDS)
+        instrumentation.runOnMainSync { view.removeCallbacks(observer) }
+        assertTrue("Observed stable actual IME/window geometry",completed&&stable)
+        record.append("geometry",JSONObject().put("wanted",wanted?:JSONObject.NULL).put("visible",visible).put("values",JSONArray(last)).put("stable_ms",200))
+        return visible
+    }
+    private fun filtered(text:String) {
+        compose.onNodeWithTag("recorded-tests-search").performTextReplacement(text);compose.waitForIdle()
+        if(geometry()) { tap("recorded-tests-keyboard");geometry(false) }
+    }
     private fun passed() { record.put("passed",true).put("inspection_did_not_start_runtime",catalog.running==null&&catalog.runtimeTree==null) }
     private fun checkNatural(text:String) {
         val interaction=compose.onNodeWithText(text,useUnmergedTree=true)
@@ -198,7 +222,7 @@ class ExtensionRecordedTestsDeviceTest {
         capture("matched-source")
         filtered("clipboard")
         val id="batch001-json-format-formatclipboard"
-        tap("recorded-details-$id");capture("workflow-details")
+        tap("recorded-details-$id");compose.waitUntil(10000) { compose.onAllNodesWithText("Sample inputs and configured preferences from the published workflow report.",useUnmergedTree=true).fetchSemanticsNodes().isNotEmpty() };capture("workflow-details")
         tap("extension-back")
         compose.onNodeWithTag("store-search").assertTextEquals("Owned JSON Format source")
         compose.onNodeWithTag("recorded-tests-json-format").assertExists()
@@ -224,6 +248,7 @@ class ExtensionRecordedTestsDeviceTest {
         capture("asset-change-unknown")
         tap("recorded-tests-other-versions")
         filtered("manual JSON")
+        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasTestTag("recorded-test-batch001-json-format-index"))
         compose.onNodeWithTag("recorded-test-batch001-json-format-index").assertExists();capture("other-source-historical")
         record.put("asset_only_change_not_promoted",true);passed()
     }
@@ -237,7 +262,7 @@ class ExtensionRecordedTestsDeviceTest {
         Files.createSymbolicLink(index.toPath(),File(directory,"formatClipboard.js").toPath())
         enter();compose.onNodeWithTag("recorded-tests-error").assertTextContains("Installed files could not",substring=true)
         capture("linked-source-error")
-        tap("recorded-tests-retry");compose.onNodeWithTag("recorded-tests-error").assertExists();passed()
+        tap("recorded-tests-retry");compose.waitUntil(20000) { compose.onAllNodesWithTag("recorded-tests-error").fetchSemanticsNodes().isNotEmpty() };passed()
     }
     private fun replaceInstalled(next:InstalledExtension) {
         val field=catalog.javaClass.getDeclaredField("installed\$delegate").apply { isAccessible=true }
@@ -259,6 +284,8 @@ class ExtensionRecordedTestsDeviceTest {
         compose.mainClock.autoAdvance=false
         try { instrumentation.runOnMainSync { queryAction(androidx.compose.ui.text.AnnotatedString("owned-no-match"));details();reportAction() } }
         finally { compose.mainClock.autoAdvance=true }
+        compose.waitForIdle();compose.onNodeWithTag("recorded-tests-search").assertTextEquals("owned-no-match")
+        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasText("No commands match this search."))
         compose.onNodeWithText("No commands match this search.").assertExists()
         filtered("manual JSON");reveal("recorded-details-$id")
         val replacementDetails=requireNotNull(compose.onNodeWithTag("recorded-details-$id").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
@@ -308,9 +335,23 @@ class ExtensionRecordedTestsDeviceTest {
         val id="batch001-json-format-index"
         checkNatural("Worked in recorded test")
         checkNatural("Use the manual JSON formatter and verify its clipboard output.")
-        tap("recorded-details-$id");checkNatural("Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.")
+        tap("recorded-details-$id");compose.waitUntil(10000) { compose.onAllNodesWithText("Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",useUnmergedTree=true).fetchSemanticsNodes().isNotEmpty() }
+        checkNatural("Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.")
         capture("enlarged-historical-details")
         tap("extension-back");record.put("natural_text_and_full_targets",true);passed()
+    }
+    @Test fun searchAndKeyboardRemainReachableAfterScrolling() {
+        File(extension().directory,"owned-extra.txt").writeText("Owned mismatched source fixture")
+        enter();tap("recorded-tests-other-versions")
+        capture("scrolled-before-search-assertion")
+        compose.onNodeWithTag("recorded-tests-search").assertIsDisplayed()
+        tap("recorded-tests-keyboard");geometry(true)
+        val view=activity().window.decorView
+        val bottom=compose.runOnUiThread { requireNotNull(androidx.core.view.ViewCompat.getRootWindowInsets(view)).getInsets(androidx.core.view.WindowInsetsCompat.Type.ime()).bottom }
+        val button=compose.onNodeWithTag("recorded-tests-keyboard").fetchSemanticsNode().boundsInWindow
+        assertTrue("Fixed keyboard target stays above the actual IME",button.bottom<=view.height-bottom+1)
+        capture("fixed-search-ime-open");tap("recorded-tests-keyboard");geometry(false)
+        record.put("fixed_search_and_keyboard_reachable",true);passed()
     }
     @After fun restore() {
         if(!prepared)return
