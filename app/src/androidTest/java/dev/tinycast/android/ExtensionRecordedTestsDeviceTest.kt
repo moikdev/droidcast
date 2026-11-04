@@ -123,7 +123,7 @@ class ExtensionRecordedTestsDeviceTest {
         compose.onNodeWithTag("store-search").performTextReplacement("Owned JSON Format source")
         instrumentation.runOnMainSync { androidx.core.view.WindowCompat.getInsetsController(activity().window,activity().window.decorView)
             .hide(androidx.core.view.WindowInsetsCompat.Type.ime()) }
-        compose.waitForIdle()
+        compose.waitForIdle();geometry(false)
         record.put("font_scale",context.resources.configuration.fontScale).put("width_dp",context.resources.configuration.screenWidthDp)
             .put("height_dp",context.resources.configuration.screenHeightDp).put("extension_bytecode_executed",false)
     }
@@ -140,10 +140,16 @@ class ExtensionRecordedTestsDeviceTest {
             val node=compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()
             if(node!=null&&node.layoutInfo.isPlaced&&node.boundsInRoot.width+1>=node.size.width&&node.boundsInRoot.height+1>=node.size.height&&node.size.height+1>=minimum&&node.size.width+1>=minimum) return
             assertTrue("Complete 48dp target: $tag",attempt<45)
-            val viewport=compose.onNodeWithTag(scroll).fetchSemanticsNode().boundsInRoot
+            val fixed=tag in setOf("recorded-tests-keyboard","recorded-tests-clear","recorded-tests-search","extension-back")
+            val inner=compose.onNodeWithTag(scroll).fetchSemanticsNode().boundsInRoot
+            val surface=if(fixed||inner.height<minimum) "palette-content-scroll" else scroll
+            val viewport=compose.onNodeWithTag(surface).fetchSemanticsNode().boundsInRoot
+            assertTrue("Positive pointer-scroll viewport",viewport.height>0)
             val y=node?.takeIf { it.layoutInfo.isPlaced }?.let { compose.runOnUiThread { it.layoutInfo.coordinates.localToRoot(Offset.Zero).y } }
             val distance=viewport.height*.55f*(if(y!=null&&y<viewport.top) -1 else 1)
-            swipe(scroll,distance)
+            record.append("reveal_scrolls",JSONObject().put("target",tag).put("surface",surface).put("viewport",viewport.toString())
+                .put("raw_target_y",y?:JSONObject.NULL).put("distance",distance))
+            swipe(surface,distance)
         }
     }
     private fun swipe(scroll:String,distance:Float) {
@@ -194,6 +200,7 @@ class ExtensionRecordedTestsDeviceTest {
     }
     private fun passed() { record.put("passed",true).put("inspection_did_not_start_runtime",catalog.running==null&&catalog.runtimeTree==null) }
     private fun checkNatural(text:String) {
+        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasText(text))
         val interaction=compose.onNodeWithText(text,useUnmergedTree=true)
         interaction.performScrollTo();compose.waitForIdle()
         val node=interaction.fetchSemanticsNode();val layouts=mutableListOf<TextLayoutResult>()
