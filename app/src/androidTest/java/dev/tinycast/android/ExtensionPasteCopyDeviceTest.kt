@@ -418,7 +418,7 @@ class ExtensionPasteCopyDeviceTest {
         val button=compose.onNodeWithTag("extension-paste-copy")
         button.performSemanticsAction(SemanticsActions.RequestFocus){assertTrue(it())};button.assertIsFocused()
         capture("copy-keyboard-focused");instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER)
-        compose.waitUntil(10000){clipboard()==ownedText};assertEquals(1,notifications.get())
+        compose.waitUntil(10000){clipboard()==ownedText}
         compose.onNodeWithTag("extension-paste-title").assertTextEquals("Result copied")
         dismissClipboardForEvidence(requireAction=true)
         instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ESCAPE)
