@@ -131,7 +131,7 @@ class ExtensionCommandHandoffDeviceTest {
                   probe.copiesAttempted++;
                   api.showHUD('Owned obsolete parent status');probe.statusesAttempted++;
                   globalThis.__tinycastHost.render('owned-retired',JSON.stringify({id:999,type:'Detail',props:{markdown:'Owned obsolete parent publication'},children:[]}));
-                  globalThis.__tinycastHost.finished();globalThis.__tinycastHost.failed('Owned obsolete parent failure');probe.publicationsAttempted++;
+                  globalThis.__tinycastHost.finished();globalThis.__tinycastHost.failed('owned-retired','Owned obsolete parent failure');probe.publicationsAttempted++;
                 },error=>{probe.rejections.push(String(error.message));setCount(n=>n+1)});
                 if(duplicate){probe.attempted++;api.launchCommand({...options,context:{text:'Owned second request must not win'}}).then(()=>probe.acks++,()=>{})}
               };
