@@ -34,6 +34,7 @@ class InlinePaletteDeviceTest {
     private var hostClipboardRecovery = false
     private val touchEvidence = JSONArray()
     private val scrollEvidence = JSONArray()
+    private val keyboardSetupEvidence = JSONArray()
     @Before fun prepare() {
         val avd = InstrumentationRegistry.getArguments().getString("dedicatedAvd")
         assertFalse("Explicit owned AVD required", avd.isNullOrBlank())
@@ -162,6 +163,7 @@ class InlinePaletteDeviceTest {
             .put("scope", "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction")
             .put("pointer_taps", touchEvidence)
             .put("pointer_scrolls", scrollEvidence)
+            .put("launcher_keyboard_setup", keyboardSetupEvidence)
             .put("legacy_menu_operand", legacyMenu?.let { JSONArray(listOf(it.left, it.top, it.right, it.bottom)) })
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
                 android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
@@ -244,17 +246,53 @@ class InlinePaletteDeviceTest {
         compose.waitUntil(10000) { imeVisible() == visible }
         compose.onNodeWithTag("inline-menu-search").assertIsFocused()
     }
+    private fun launcherInputReady(): Boolean = compose.runOnUiThread {
+        val view = compose.activity.window.decorView.findFocus()
+        val manager = compose.activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
+        view != null && view.hasWindowFocus() && view.onCheckIsTextEditor() && manager.isActive(view) && manager.isAcceptingText
+    }
+    private fun awaitLauncherIme(visible: Boolean) {
+        val done = java.util.concurrent.CountDownLatch(1)
+        val view = compose.activity.window.decorView
+        val deadline = android.os.SystemClock.uptimeMillis() + 10000
+        var previous = emptyList<Int>(); var stableSince = 0L; var frames = 0; var settled = false
+        val observer = object : Runnable {
+            override fun run() {
+                frames++
+                val insets = androidx.core.view.ViewCompat.getRootWindowInsets(view)
+                val actual = insets?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())
+                val bottom = insets?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())?.bottom ?: -1
+                val geometry = listOf(if(actual == true) 1 else 0, bottom, view.width, view.height)
+                val now = android.os.SystemClock.uptimeMillis()
+                if(geometry != previous) { previous = geometry; stableSince = now }
+                settled = actual == visible && now - stableSince >= 100
+                if(settled || now >= deadline) done.countDown() else view.postOnAnimation(this)
+            }
+        }
+        compose.activityRule.scenario.onActivity { view.postOnAnimation(observer) }
+        val completed = done.await(11, java.util.concurrent.TimeUnit.SECONDS)
+        compose.activityRule.scenario.onActivity { view.removeCallbacks(observer) }
+        keyboardSetupEvidence.put(JSONObject().put("requested_visible", visible).put("settled", completed && settled)
+            .put("geometry", JSONArray(previous)).put("native_frames", frames).put("stable_for_at_least_ms", 100))
+        assertTrue("Launcher IME visibility and geometry must settle before the starting-state assertion", completed && settled)
+        compose.waitForIdle()
+    }
     private fun setLauncherKeyboard(visible: Boolean) {
         compose.onNodeWithTag("search").performScrollTo().performClick()
-        if(visible) {
-            val show = compose.onAllNodesWithContentDescription("Show on-screen keyboard").fetchSemanticsNodes()
-            if(show.isNotEmpty()) compose.onNodeWithContentDescription("Show on-screen keyboard").performClick()
-            else compose.activityRule.scenario.onActivity {
+        device.waitForIdle(2000)
+        compose.waitUntil(10000) { launcherInputReady() }
+        // A focus tap may enqueue a native show after Compose becomes idle.
+        // Establish an observed shown state before requesting the closed fixture;
+        // a passing replay does not explain the retained earlier hide timeout.
+        if(!imeVisible()) {
+            compose.activityRule.scenario.onActivity {
                 androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView)
                     .show(androidx.core.view.WindowInsetsCompat.Type.ime())
             }
-            compose.waitUntil(10000) { imeVisible() }
-        } else hideKeyboard()
+        }
+        awaitLauncherIme(true)
+        if(!visible) { hideKeyboard(); awaitLauncherIme(false) }
+        assertTrue("The launcher editor remains active across fixture keyboard setup", launcherInputReady())
     }
     private fun menuTextHasCompleteNaturalLines(label: String? = null): Boolean {
         val nodes = menuBoundarySnapshot().getJSONArray("nodes")
@@ -291,6 +329,7 @@ class InlinePaletteDeviceTest {
     private fun touchReceipt(name: String, observations: JSONArray) {
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         File(folder, "$name-record.json").writeText(JSONObject().put("passed", true).put("pointer_taps", touchEvidence).put("pointer_scrolls", scrollEvidence)
+            .put("launcher_keyboard_setup", keyboardSetupEvidence)
             .put("observations", observations).put("font_scale", context.resources.configuration.fontScale)
             .put("scope", "Owned menu workflows; host cleanup independently restores original clipboard/preferences/settings/evidence")
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
@@ -349,7 +388,7 @@ class InlinePaletteDeviceTest {
                 it.getSystemService(ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Owned menu fixture", sentinel))
             }
             dismissClipboardForEvidence()
-            hideKeyboard()
+            setLauncherKeyboard(false)
             compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 6))
             compose.onNodeWithTag("search").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 6)))
             captureMenuBoundary("menu-action-caller-before-open-$cycle")
