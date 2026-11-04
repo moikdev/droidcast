@@ -72,9 +72,9 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             // Queued Back/Cancel callbacks from an older surface cannot dismiss
             // a newer incoming review or a replacement command.
             if (store.dialog != route) return
+            if (route in setOf("extension-run", "extension-setup") && store.extensions.launchEpoch != extensionEpoch) return
             if (reviewOwner != null) {
                 if (store.textReview !== reviewOwner) return
-                if (route in setOf("extension-run", "extension-setup") && store.extensions.launchEpoch != extensionEpoch) return
                 if (store.returnTextReview(reviewOwner)) dismiss()
                 return
             }

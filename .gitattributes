@@ -22,3 +22,6 @@ docs/validation/offline-workflows/** -text -whitespace
 
 # Preserve context workflow receipts and native XML bytes.
 docs/validation/context-workflows/** -text -whitespace
+
+# Preserve command handoff evidence and native capture bytes.
+docs/validation/command-handoff/** -text -whitespace

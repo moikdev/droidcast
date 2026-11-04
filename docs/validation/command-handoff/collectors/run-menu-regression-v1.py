@@ -1,0 +1,97 @@
+from pathlib import Path,PurePosixPath
+import argparse,hashlib,io,json,os,subprocess,sys,tarfile,uuid
+
+p=argparse.ArgumentParser();p.add_argument('--layout',choices=['tablet','phone','landscape'],required=True);p.add_argument('--restore-only',action='store_true');args=p.parse_args()
+base=Path('artifacts/command-handoff');out=base/('regression-menus-'+args.layout+'100-v3');state_path=out/'state.json'
+adb=['<user>/Library/Android/sdk/platform-tools/adb','-s','emulator-5580'];app='dev.tinycast.android'
+owner_root='files/command-handoff-regression-preservation-v1';folders=['extension-grid-evidence','readiness-evidence']
+def require(value,message):
+ if not value:raise RuntimeError(message)
+def sha(data):return hashlib.sha256(data).hexdigest()
+def raw(*values,data=None):return subprocess.check_output(adb+list(values),input=data,stderr=subprocess.STDOUT,timeout=60)
+def text(*values):return raw(*values).decode().strip()
+def absent(path):
+ result=subprocess.run(adb+['shell','run-as',app,'test','-e',path],capture_output=True,timeout=20)
+ require(result.returncode in [0,1] and not result.stdout and not result.stderr,'Cannot establish path absence')
+ return result.returncode==1
+def idle():
+ require(text('shell','getprop','ro.boot.qemu.avd_name')=='Tinycast_Tablet_API_36','Wrong dedicated emulator')
+ require(text('shell','id').startswith('uid=2000('),'adbd is privileged')
+ require('ActiveInstrumentation{' not in text('shell','dumpsys','activity','processes'),'Instrumentation remains active')
+def snapshot(roots):
+ data=raw('exec-out','run-as',app,'tar','-cf','-',*roots.values());hashes={}
+ with tarfile.open(fileobj=io.BytesIO(data)) as archive:
+  for member in archive:
+   path=PurePosixPath(member.name);require(not path.is_absolute() and '..' not in path.parts,'Unsafe archive member')
+   if member.isdir():continue
+   require(member.isfile(),'Nonregular archive member')
+   matching=[(name,root) for name,root in roots.items() if member.name.startswith(root+'/')]
+   require(len(matching)==1,'Unexpected archive namespace')
+   name,root=matching[0];key=name+'/'+member.name.removeprefix(root+'/');require(key not in hashes,'Duplicate member')
+   hashes[key]=sha(archive.extractfile(member).read())
+ return data,hashes
+def save():state_path.write_text(json.dumps(state,indent=2)+'\n')
+def original_owner():return dict(schema_version=1,nonce=state['nonce'],folders=folders,origin='command-handoff-menu-regression-v1')
+def verify_originals():
+ for name in ['private-evidence-before-v1.json','private-durable-before-v1.json']:
+  value=json.loads((base/name).read_text());roots={root:root for root in value['roots']};_,hashes=snapshot(roots)
+  require(hashes==value['hashes'],'Pre-existing data/evidence differs')
+ require(text('shell','cat','/proc/sys/kernel/random/boot_id')==json.loads((base/'private-durable-before-v1.json').read_text())['boot_id'],'Boot identity changed')
+def restore():
+ idle()
+ for path in ['files/reviewed-text-fixture-lease','files/empty-view-fixture-lease','files/compatibility-batch-fixtures','files/reviewed-text-evidence']:
+  require(absent(path),'A failed native cohort retains ownership; inspect and recover it first')
+ require(json.loads(raw('exec-out','run-as',app,'cat',owner_root+'/owner.json'))==original_owner(),'Preservation owner changed')
+ for folder in folders:
+  saved=owner_root+'/'+folder;target='files/'+folder
+  if not absent(saved):
+   require(absent(target),'New evidence remains; retain it before restoring')
+   _,hashes=snapshot({folder:saved});require(hashes=={k:v for k,v in json.loads((out/'private-original-hashes.json').read_text()).items() if k.startswith(folder+'/')},'Saved evidence differs')
+   raw('shell','run-as',app,'mv',saved,target)
+  else:require(not absent(target),'Original directory absent at both locations')
+  state['restored_folders']=list(dict.fromkeys(state.get('restored_folders',[])+[folder]));save()
+ _,hashes=snapshot({folder:'files/'+folder for folder in folders});require(hashes==json.loads((out/'private-original-hashes.json').read_text()),'Restored evidence differs')
+ state['original_evidence_restored']=True;save();verify_originals()
+ state['pre_existing_evidence_unchanged']=True;state['durable_data_unchanged']=True;state['same_boot']=True;save()
+ require(text('shell','run-as',app,'ls',owner_root).splitlines()==['owner.json'],'Unexpected preservation contents remain')
+ require(json.loads(raw('exec-out','run-as',app,'cat',owner_root+'/owner.json'))==original_owner(),'Ownership changed before release')
+ raw('shell','run-as',app,'rm','-rf',owner_root) # Final device operation, only after all verification.
+ state['preservation_owner_released']=True;save()
+
+if args.restore_only:
+ state=json.loads(state_path.read_text());require(not state.get('preservation_owner_released'),'Already restored')
+ restore();print(json.dumps({'restored':True,'original_outcome_unchanged':True}));raise SystemExit(0)
+require(not out.exists(),'Prior execution exists; do not repeat mutations')
+build=json.loads((base/'build-candidate-v2/state.json').read_text());require(build['completed'],'Frozen build incomplete')
+harness=json.loads((base/'owned-harness-v2/identity.json').read_text())
+apk=base/'build-candidate-v2/candidate/app-debug.apk';test=base/'owned-harness-v2/app-debug-androidTest.apk'
+require(sha(apk.read_bytes())==build['apk_hashes'][apk.name] and sha(test.read_bytes())==harness['test_apk_sha256'],'Frozen APK changed')
+require(all(sha(Path(p).read_bytes())==v for p,v in harness['source_hashes'].items() if p.endswith('.py')),'Executed Python sources changed')
+idle();verify_originals()
+for path in [owner_root,'files/reviewed-text-fixture-lease','files/empty-view-fixture-lease','files/compatibility-batch-fixtures','files/reviewed-text-evidence','files/compact-menu-evidence-preservation-v1']:
+ require(absent(path),'Prior evidence/recovery ownership remains')
+backup,hashes=snapshot({f:'files/'+f for f in folders});require(hashes,'Expected pre-existing regression evidence')
+out.mkdir(mode=0o700);private=out/'private-original-evidence.tar';private.write_bytes(backup);private.chmod(0o600)
+classes=['dev.tinycast.android.ReadinessRegressionDeviceTest#rapidExtensionListDownThenEnterRunsTheCurrentAction']
+private_hashes=out/'private-original-hashes.json';private_hashes.write_text(json.dumps(hashes,indent=2)+'\n');private_hashes.chmod(0o600)
+state=dict(completed=False,pid=os.getpid(),nonce=uuid.uuid4().hex,layout=args.layout,methods=classes,font=1,method='menus',durable_file_count=12,evidence_file_count=528,
+ collector_sha256=sha(Path(__file__).read_bytes()),app_sha256=build['apk_hashes'][apk.name],test_apk_sha256=harness['test_apk_sha256'],test_source_commit=harness['test_source_commit'],runtime_source_commit=build['runtime_source_commit'])
+save();raw('shell','run-as',app,'mkdir',owner_root)
+raw('shell','run-as',app,'tee',owner_root+'/owner.json',data=(json.dumps(original_owner())+'\n').encode())
+try:
+ for folder in folders:raw('shell','run-as',app,'mv','files/'+folder,owner_root+'/'+folder)
+ _,saved=snapshot({folder:owner_root+'/'+folder for folder in folders});require(saved==hashes,'Moved evidence differs')
+ archive='<user>/.t3/scratch/droidcast-command-catalog-27caf3/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip'
+ command=[sys.executable,'scripts/test-reviewed-text-input.py','--serial','emulator-5580','--avd','Tinycast_Tablet_API_36','--layout',args.layout,'--font-scale','1','--output',str(out/'cohort'),
+  '--apk',str(apk),'--test-apk',str(test),'--json-archive',archive,'--classes',','.join(classes),'--expected',str(len(classes))]
+ with (out/'host.log').open('wb') as log:result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,env=dict(os.environ,ANDROID_HOME='<user>/Library/Android/sdk'))
+ state['runner_exit_code']=result.returncode
+ receipt=json.loads((out/'cohort/record.json').read_text());state['passes']=receipt.get('passes');state['cleanup_checks']=len(receipt.get('cleanup',{}))
+ state['cleanup_passed']=bool(receipt.get('cleanup')) and all(row.get('passed') for row in receipt.get('cleanup',{}).values());state['native_completed']=receipt.get('completed');save()
+ require(sha(Path(__file__).read_bytes())==state['collector_sha256'],'Collector changed during execution')
+finally:
+ try:restore()
+ except BaseException as error:state['restoration_pending']=True;state['restoration_error_type']=type(error).__name__;save();raise
+state['completed']=state['runner_exit_code']==0 and state['native_completed'] and state['preservation_owner_released'];save()
+print(json.dumps({k:state.get(k) for k in ['completed','layout','passes','cleanup_checks','cleanup_passed','pre_existing_evidence_unchanged','durable_data_unchanged']},indent=2))
+require(state['completed'],'Regression assertions failed; retain the failure')

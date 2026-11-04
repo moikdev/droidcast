@@ -6,6 +6,8 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
 import android.webkit.*
 import androidx.compose.runtime.*
@@ -22,7 +24,10 @@ import dev.tinycast.android.TextInputRejected
 
 @SuppressLint("SetJavaScriptEnabled")
 class ExtensionRuntime(private val context: Context, private val catalog: ExtensionCatalog,
-    private val extension: InstalledExtension, private val command: ExtensionCommand) {
+    private val extension: InstalledExtension, private val command: ExtensionCommand,
+    private val canLaunchCommand: () -> Boolean) {
+    constructor(context: Context, catalog: ExtensionCatalog, extension: InstalledExtension, command: ExtensionCommand) :
+        this(context, catalog, extension, command, { false })
     private val textContext = catalog.captureText(extension,command)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate + CoroutineExceptionHandler { _, error ->
         fail(error.message ?: "Could not start this extension")
@@ -33,6 +38,10 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     @Volatile private var destroyed = false
     private var started = false
     private var watchdog: Job? = null
+    private val cleanupHandler = Handler(Looper.getMainLooper())
+    private var pendingLaunchAcknowledgement: Any? = null
+    private var acknowledgementTimeout: Runnable? = null
+    private var engineDestroyed = false
     val webView = WebView(context).apply {
         // This is a headless JavaScript engine; visible native controls own input.
         isFocusable = false; isFocusableInTouchMode = false
@@ -54,12 +63,14 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
             override fun onPageFinished(view: WebView?, url: String?) { if(started && active())boot() }
             override fun onRenderProcessGone(view: WebView?, detail: RenderProcessGoneDetail?): Boolean {
                 fail("The JavaScript engine stopped. Close this command and try again.")
-                (view?.parent as? android.view.ViewGroup)?.removeView(view)
-                view?.destroy(); return true
+                destroyEngine(); return true
             }
         }
     }
-    private val runtimeRegistration = catalog.attachRuntime(textContext.owner, extension, command) { scope.cancel(); webView.stopLoading() }
+    private val runtimeRegistration = catalog.attachRuntime(textContext.owner, extension, command) {
+        scope.cancel()
+        if (pendingLaunchAcknowledgement == null) webView.stopLoading()
+    }
     init { if (runtimeRegistration == null) scope.cancel() }
     private fun active() = !destroyed && scope.isActive && catalog.ownsRuntime(textContext.owner,extension,command) && catalog.runtimeError == null
     internal fun isCurrentInvocation(): Boolean = active()
@@ -90,7 +101,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
                 val env = JSONObject().put("extensionName", extension.listing.name).put("commandName", command.name).put("commandMode", command.mode)
                     .put("assetsPath", File(extension.directory, "assets").path).put("supportPath", support.path).put("raycastVersion", "2.0.3").put("appearance", "dark").put("textSize", "medium").put("isDevelopment", false)
                 val configuration = JSONObject().put("node", node).put("environment", env).put("preferences", catalog.preferences(extension, command))
-                    .put("caches", JSONObject(storage.getString("caches", "{}")!!)).put("launchProps", JSONObject().put("arguments", JSONObject(catalog.arguments)).put("launchType", "userInitiated"))
+                    .put("caches", JSONObject(storage.getString("caches", "{}")!!)).put("launchProps", JSONObject(textContext.launchProperties))
                 evaluate("try { __tinycast.boot(${quote(configuration.toString())}); if(globalThis.process) process.platform='android'; __tinycast.start(${quote(session)},${quote(bundle)},${quote(File(extension.directory,"${command.name}.js").path)},${quote(extension.directory.path)},${quote(command.mode)},${quote(configuration.toString())}); } catch(e) { AndroidHost.failed(String(e.stack || e)); }")
             } }
         }
@@ -102,7 +113,54 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         if (active() && !handle.isNullOrBlank()) evaluate("__androidDispatchFormFocus(${quote(session)},${quote(handle)},${quote(fieldId)},${quote(if (focused) "focus" else "blur")},${quote(JSONArray().put(value).toString())})")
     }
     fun back() { evaluate("__tinycast.popNavigation(${quote(session)})") }
-    fun close() { if (destroyed) return; destroyed = true; catalog.detachRuntime(runtimeRegistration); textContext.input?.let(catalog.reviewedText::release); scope.cancel(); webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost"); (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy() }
+    fun close() {
+        if (destroyed) return
+        destroyed = true; catalog.detachRuntime(runtimeRegistration); textContext.input?.let(catalog.reviewedText::release); scope.cancel()
+        (webView.parent as? android.view.ViewGroup)?.removeView(webView)
+        // Only the acknowledgement may finish in this retired, detached engine.
+        // Its authority was revoked before settlement; the timeout is independent
+        // of the cancelled invocation scope and bounds retention after disposal.
+        if (pendingLaunchAcknowledgement == null) destroyEngine()
+    }
+    private fun destroyEngine() {
+        if (engineDestroyed) return
+        engineDestroyed = true
+        acknowledgementTimeout?.let(cleanupHandler::removeCallbacks); acknowledgementTimeout = null; pendingLaunchAcknowledgement = null
+        webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost")
+        (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy()
+    }
+    private fun acknowledgeCommandLaunch(token: Any) {
+        if (pendingLaunchAcknowledgement !== token) return
+        pendingLaunchAcknowledgement = null
+        acknowledgementTimeout?.let(cleanupHandler::removeCallbacks); acknowledgementTimeout = null
+        if (destroyed) destroyEngine()
+    }
+    private fun launchCommand(id: String, raw: String) {
+        check(canLaunchCommand() && webView.isAttachedToWindow && webView.hasWindowFocus()) {
+            "Command handoff needs the current command screen in the foreground"
+        }
+        val request = ExtensionCommandLaunch.parse(raw)
+        val prepared = catalog.prepareCommandLaunch(textContext.owner, extension, command, request)
+        check(canLaunchCommand() && webView.hasWindowFocus()) { "This command screen is no longer current" }
+        val token = Any()
+        check(pendingLaunchAcknowledgement == null) { "A command handoff is already pending" }
+        pendingLaunchAcknowledgement = token
+        val timeout = Runnable { acknowledgeCommandLaunch(token) }
+        acknowledgementTimeout = timeout
+        try {
+            check(cleanupHandler.postDelayed(timeout, 1000)) { "Could not schedule command handoff" }
+            check(catalog.commitCommandLaunch(prepared)) { "This command launch is no longer current" }
+        } catch (failure: Throwable) {
+            acknowledgeCommandLaunch(token)
+            throw failure
+        }
+        // The target is selected and the parent scope/lease is already revoked.
+        // Bypass active() solely for its final launch acknowledgement. Old host
+        // calls, renders and completion notifications cannot affect the child.
+        try {
+            webView.evaluateJavascript("__tinycast.settle(${quote(id)},true,${quote("null")})") { acknowledgeCommandLaunch(token) }
+        } catch (_: RuntimeException) { acknowledgeCommandLaunch(token) }
+    }
     private fun ready() { catalog.runtimeReady = true; watchdog?.cancel() }
     private fun quote(s: String) = JSONObject.quote(s)
     private fun post(block: () -> Unit) { if (active()) scope.launch { if (active()) block() } }
@@ -116,6 +174,10 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
             scope.launch {
                 if(!active())return@launch
                 try {
+                    if (api == "system" && method == "launchCommand") {
+                        launchCommand(id, raw)
+                        return@launch
+                    }
                     val result = asyncCall(api, method, JSONArray(raw))
                     if(!active())return@launch
                     val encoded = JSONArray().put(result ?: JSONObject.NULL).toString().drop(1).dropLast(1)

@@ -14,9 +14,24 @@ DETAIL = 'dev.tinycast.android.ExtensionDetailDeviceTest'
 CALCULATOR = 'dev.tinycast.android.CalculatorActionsDeviceTest'
 CLIPBOARD = 'dev.tinycast.android.ClipboardEvidenceDeviceTest'
 ACTIVATION = 'dev.tinycast.android.ActivationDeviceTest'
+HANDOFF = 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
+    def test_handoff_cannot_mix_with_other_fixtures(self):
+        for selected in [DETAIL, CALCULATOR, 'dev.tinycast.android.ReviewedTextDeviceTest', CLIPBOARD]:
+            self.refused_without_device_access(HANDOFF + ',' + selected, [],
+                'Keep the owned command handoff cohort separate from other fixtures')
+
+    def test_handoff_cannot_claim_unrelated_archives_or_recovery_controls(self):
+        for flag, error in [('--translate-archive', 'Network bundle is not authorized'),
+                            ('--weather-archive', 'Network bundle is not authorized'),
+                            ('--html-colors-archive', 'HTML Colors belongs only'),
+                            ('--uuid-archive', 'Offline bundles belong only')]:
+            self.refused_without_device_access(HANDOFF, [flag, 'not-read.zip'], error)
+        self.refused_without_device_access(HANDOFF, ['--document-fixtures'], 'Document fixtures belong only')
+        self.refused_without_device_access(HANDOFF, ['--inject-clipboard-restore-failure'], 'Restoration failure is limited')
+
     def refused_without_device_access(self, classes, options, error, without_archive=False):
         for optimized in [False, True]:
             with self.subTest(optimized=optimized), tempfile.TemporaryDirectory() as directory:

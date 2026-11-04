@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionCommandHandoffDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionCommandHandoffDeviceTest:
+INSTRUMENTATION_STATUS: test=recreatedChildRejectsDisposedBackCallback
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionCommandHandoffDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Disposed Back must not close the recreated child expected:<child> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionCommandHandoffDeviceTest.recreatedChildRejectsDisposedBackCallback(ExtensionCommandHandoffDeviceTest.kt:381)
+
+INSTRUMENTATION_STATUS: stream=
+Error in recreatedChildRejectsDisposedBackCallback(dev.tinycast.android.ExtensionCommandHandoffDeviceTest):
+java.lang.AssertionError: Disposed Back must not close the recreated child expected:<child> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionCommandHandoffDeviceTest.recreatedChildRejectsDisposedBackCallback(ExtensionCommandHandoffDeviceTest.kt:381)
+
+INSTRUMENTATION_STATUS: test=recreatedChildRejectsDisposedBackCallback
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.586
+There was 1 failure:
+1) recreatedChildRejectsDisposedBackCallback(dev.tinycast.android.ExtensionCommandHandoffDeviceTest)
+java.lang.AssertionError: Disposed Back must not close the recreated child expected:<child> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionCommandHandoffDeviceTest.recreatedChildRejectsDisposedBackCallback(ExtensionCommandHandoffDeviceTest.kt:381)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,13 @@
+{
+  "source_changes": [
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionCommandHandoffDeviceTest.kt",
+    "app/src/main/java/dev/tinycast/android/extensions/ExtensionUi.kt"
+  ],
+  "apk_payload_changes": [
+    "classes3.dex",
+    "classes4.dex"
+  ],
+  "initial_test_sha256": "ed33517dbe006117620fe63519a2822fd0c39821b00821ce88fcddbda33421cf",
+  "current_test_sha256": "05435e170651863fd4e1e734eda2ffb16c1c2d69629d4f7bd57dc674e6529e2a",
+  "scope": "The helper follows the existing ordinary argument setup. Production sources differ here only because the independently built repaired app includes its prior chrome fix."
+}

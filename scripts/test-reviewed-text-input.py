@@ -99,6 +99,7 @@ def main():
                               'dev.tinycast.android.ExtensionFormDeviceTest',
                               'dev.tinycast.android.ExtensionMarkdownDeviceTest',
                               'dev.tinycast.android.ExtensionDetailDeviceTest',
+                              'dev.tinycast.android.ExtensionCommandHandoffDeviceTest',
                               'dev.tinycast.android.CalculatorActionsDeviceTest',
                               'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
@@ -109,6 +110,9 @@ def main():
     regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest',
                           'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
+    handoff = any(item.split('#')[0] == 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest' for item in args.classes.split(','))
+    require(not handoff or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest' for item in args.classes.split(',')),
+            'Keep the owned command handoff cohort separate from other fixtures')
     calculator = any(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(','))
     require(not calculator or all(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(',')),
             'Keep the owned calculator cohort separate from extension and legacy fixtures')

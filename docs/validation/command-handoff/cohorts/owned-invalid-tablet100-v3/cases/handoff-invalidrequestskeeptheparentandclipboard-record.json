@@ -1,0 +1,80 @@
+{
+  "scope": "Owned JavaScript\/native handoff probes; no Store, service, physical-typing or broad parity credit",
+  "owned_extension_id": "reviewed-text-612010d76b614c9485edbaedea8622f8",
+  "fixture_parent_sha256": "5f5ff4ecbcff73d4e63f2a8f059502752fb1018d0283f2f56c1b1705b12da324",
+  "fixture_child_sha256": "e618f4c555f58360598d3b7488ae470025b8669b852964ed9533d3879c9dc0e4",
+  "fixture_manifest_sha256": "0c7b899f9ffed2d79361adb85f077ffb86074b6b957bd122dcca4a6995bd5806",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "rejection_receipts": [
+    {
+      "index": 0,
+      "message": "Only foreground user-initiated command launches are supported on Android",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 1,
+      "message": "Launching another extension is unavailable on Android",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 2,
+      "message": "The requested command is unavailable in this extension",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 3,
+      "message": "The target command is disabled",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 4,
+      "message": "The target command requires an unsupported desktop mode",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 5,
+      "message": "The target command is unavailable; reinstall the extension before launching it",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 6,
+      "message": "Configure the target command from the launcher before launching it here",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 7,
+      "message": "Complete the target command's required arguments before launching it",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 8,
+      "message": "The launch contains an undeclared command argument",
+      "same_epoch_and_parent": true
+    },
+    {
+      "index": 9,
+      "message": "The command launch data exceeds the Android size limit",
+      "same_epoch_and_parent": true
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "extension-back",
+      "bounds": [
+        398,
+        243,
+        470,
+        315
+      ],
+      "minimum_px": 72,
+      "reveal_gestures": 0
+    }
+  ],
+  "launcher_query_preserved": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_restoration_scope": "Independent host\/test-UID durable recovery; this class does not retain or publish the original clipboard"
+}
