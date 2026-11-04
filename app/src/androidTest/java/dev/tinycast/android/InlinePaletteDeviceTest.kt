@@ -86,7 +86,7 @@ class InlinePaletteDeviceTest {
             fun rect(value: Rect) = JSONArray(listOf(value.left, value.top, value.right, value.bottom))
             val nodes = JSONArray()
             var visited = 0
-            val tags = setOf("palette", "palette-screen", "palette-header", "palette-footer", "palette-menu",
+            val tags = setOf("palette", "palette-screen", "palette-header", "palette-footer", "palette-menu", "search", "palette-content-scroll",
                 "actions-button", "primary-action", "inline-menu", "inline-menu-choices", "inline-menu-search", "inline-menu-empty", "inline-menu-keyboard")
             fun visit(node: androidx.compose.ui.semantics.SemanticsNode, insideMenu: Boolean = false) {
                 if (visited >= 1024) return
@@ -244,11 +244,14 @@ class InlinePaletteDeviceTest {
                 origin.getDouble(1) + line.getDouble("top") >= top - 1 && origin.getDouble(1) + line.getDouble("bottom") <= bottom + 1
         }
     }
-    private fun withTouchKeyboard(block: () -> Unit) {
+    private fun withTouchKeyboard(label: String, block: () -> Unit) {
         val previous = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
         require(previous in setOf("null", "0", "1")) { "Unexpected dedicated-emulator keyboard setting" }
         device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
-        try { block() } finally {
+        try { block() } catch(failure: Throwable) {
+            runCatching { captureMenuBoundary("menu-touch-$label-failed") }
+            throw failure
+        } finally {
             device.executeShellCommand(if(previous == "null") "settings delete secure show_ime_with_hard_keyboard" else "settings put secure show_ime_with_hard_keyboard $previous")
         }
     }
@@ -260,7 +263,7 @@ class InlinePaletteDeviceTest {
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
                 android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT")).toString(2))
     }
-    @Test fun categoryPointerChoiceAndReturnWorkFromBothKeyboardStates() = withTouchKeyboard {
+    @Test fun categoryPointerChoiceAndReturnWorkFromBothKeyboardStates() = withTouchKeyboard("category") {
         val title = "Menu category fixture 5041"
         var id = ""
         compose.activityRule.scenario.onActivity { id = it.store.save("notes", title, "Owned category destination") }
@@ -297,7 +300,7 @@ class InlinePaletteDeviceTest {
         }
         touchReceipt("menu-category-touch", observations)
     }
-    @Test fun touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy() = withTouchKeyboard {
+    @Test fun touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy() = withTouchKeyboard("actions") {
         val title = "Menu action fixture 5041"; val payload = "Exact pointer menu payload 5041"
         var id = ""
         compose.activityRule.scenario.onActivity { id = it.store.save("notes", title, payload) }
@@ -311,11 +314,15 @@ class InlinePaletteDeviceTest {
             dismissClipboardForEvidence()
             hideKeyboard()
             compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 6))
+            compose.onNodeWithTag("search").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 6)))
+            captureMenuBoundary("menu-action-caller-before-open-$cycle")
+            compose.onNodeWithTag("search").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 6)))
             compose.runOnUiThread {
                 assertEquals("Actions belong to the live selected owned note", id,
                     compose.activity.store.results().getOrNull(compose.activity.store.selected)?.id)
             }
             pointer("actions-button", "palette-content-scroll")
+            captureMenuBoundary("menu-action-caller-after-open-$cycle")
             setMenuKeyboard(true)
             compose.onNodeWithTag("inline-menu-search").performTextReplacement("no such action")
             compose.onNodeWithTag("inline-menu-search").performTextInputSelection(TextRange(3, 7))
@@ -336,6 +343,7 @@ class InlinePaletteDeviceTest {
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3, 7)))
             compose.onNodeWithTag("inline-menu-search").performTextReplacement("content copy")
             compose.onNodeWithTag("action-Copy content").assertIsSelected()
+            captureMenuBoundary("menu-action-caller-before-copy-$cycle")
             pointer("action-Copy content", "inline-menu-choices")
             compose.onNodeWithTag("inline-menu").assertDoesNotExist()
             compose.onNodeWithTag("search").assertIsFocused().assertTextContains(title)
