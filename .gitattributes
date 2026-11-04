@@ -28,3 +28,6 @@ docs/validation/command-handoff/** -text -whitespace
 
 # Preserve paste-copy evidence and native capture bytes.
 docs/validation/paste-copy/** -text -whitespace
+
+# Preserve recorded-test receipts and native capture bytes.
+docs/validation/recorded-tests/** -text -whitespace

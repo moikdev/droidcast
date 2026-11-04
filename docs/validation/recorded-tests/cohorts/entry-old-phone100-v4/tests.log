@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionRecordedTestsDeviceTest:
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-json-format')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:165)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.matchingRecordsSearchDetailsAndReturn(ExtensionRecordedTestsDeviceTest.kt:220)
+
+INSTRUMENTATION_STATUS: stream=
+Error in matchingRecordsSearchDetailsAndReturn(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-json-format')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:165)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.matchingRecordsSearchDetailsAndReturn(ExtensionRecordedTestsDeviceTest.kt:220)
+
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.379
+There was 1 failure:
+1) matchingRecordsSearchDetailsAndReturn(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-json-format')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:165)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.matchingRecordsSearchDetailsAndReturn(ExtensionRecordedTestsDeviceTest.kt:220)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

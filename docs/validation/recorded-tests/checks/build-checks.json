@@ -1,0 +1,25 @@
+{
+  "source_commit": "7902c2a65e27c78eaf977df6dd5f20070244c15e",
+  "jvm": {
+    "tests": 335,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    },
+    "benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    }
+  },
+  "benchmark_apk_hashes": {
+    "app-benchmark.apk": "ac2711e7a1bcbcd76490b5f1548a9fea9bc43abfafdb9464cc24ed4396d6f58f",
+    "app-benchmark-androidTest.apk": "db31db9267fc08c0c1b2214096a4dafbcf86ecb24094d083b27cfdabdc350ef3"
+  }
+}

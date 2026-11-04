@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionRecordedTestsDeviceTest:
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + EditableText contains 'Installed files match' (ignoreCase: false))
+Semantics of the node:
+Node #205 at (l=425.0, t=584.0, r=1424.0, b=617.0)px, Tag: 'recorded-tests-match'
+Text = '[Installed files match a recorded source version. The workflow observations below remain historical.]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 7 siblings
+Selector used: (TestTag = 'recorded-tests-match')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:209)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.matchingRecordsSearchDetailsAndReturn(ExtensionRecordedTestsDeviceTest.kt:196)
+
+INSTRUMENTATION_STATUS: stream=
+Error in matchingRecordsSearchDetailsAndReturn(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText contains 'Installed files match' (ignoreCase: false))
+Semantics of the node:
+Node #205 at (l=425.0, t=584.0, r=1424.0, b=617.0)px, Tag: 'recorded-tests-match'
+Text = '[Installed files match a recorded source version. The workflow observations below remain historical.]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 7 siblings
+Selector used: (TestTag = 'recorded-tests-match')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:209)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.matchingRecordsSearchDetailsAndReturn(ExtensionRecordedTestsDeviceTest.kt:196)
+
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.409
+There was 1 failure:
+1) matchingRecordsSearchDetailsAndReturn(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText contains 'Installed files match' (ignoreCase: false))
+Semantics of the node:
+Node #205 at (l=425.0, t=584.0, r=1424.0, b=617.0)px, Tag: 'recorded-tests-match'
+Text = '[Installed files match a recorded source version. The workflow observations below remain historical.]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 7 siblings
+Selector used: (TestTag = 'recorded-tests-match')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:209)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.matchingRecordsSearchDetailsAndReturn(ExtensionRecordedTestsDeviceTest.kt:196)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

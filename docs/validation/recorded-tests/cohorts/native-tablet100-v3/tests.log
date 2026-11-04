@@ -1,0 +1,261 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionRecordedTestsDeviceTest:
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=allNineCompleteSourceCopiesMatchWithoutExecution
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=allNineCompleteSourceCopiesMatchWithoutExecution
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unknownListingIdentityCannotBorrowThePayloadMatch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unknownListingIdentityCannotBorrowThePayloadMatch
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingCommandDoesNotBorrowRecords
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingCommandDoesNotBorrowRecords
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replacementAndQueryChangeRejectQueuedActions
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + EditableText contains 'No commands match this search.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.replacementAndQueryChangeRejectQueuedActions(ExtensionRecordedTestsDeviceTest.kt:262)
+
+INSTRUMENTATION_STATUS: stream=
+Error in replacementAndQueryChangeRejectQueuedActions(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + EditableText contains 'No commands match this search.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.replacementAndQueryChangeRejectQueuedActions(ExtensionRecordedTestsDeviceTest.kt:262)
+
+INSTRUMENTATION_STATUS: test=replacementAndQueryChangeRejectQueuedActions
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=criticalTextAndTouchTargetsAreReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + EditableText contains 'Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:76)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.checkNatural(ExtensionRecordedTestsDeviceTest.kt:174)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.criticalTextAndTouchTargetsAreReachable(ExtensionRecordedTestsDeviceTest.kt:311)
+
+INSTRUMENTATION_STATUS: stream=
+Error in criticalTextAndTouchTargetsAreReachable(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + EditableText contains 'Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:76)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.checkNatural(ExtensionRecordedTestsDeviceTest.kt:174)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.criticalTextAndTouchTargetsAreReachable(ExtensionRecordedTestsDeviceTest.kt:311)
+
+INSTRUMENTATION_STATUS: test=criticalTextAndTouchTargetsAreReachable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=assetOnlyEditStaysUnknownAndOtherVersionsStayHistorical
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-search')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:114)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:108)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:73)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.filtered(ExtensionRecordedTestsDeviceTest.kt:170)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.assetOnlyEditStaysUnknownAndOtherVersionsStayHistorical(ExtensionRecordedTestsDeviceTest.kt:226)
+
+INSTRUMENTATION_STATUS: stream=
+Error in assetOnlyEditStaysUnknownAndOtherVersionsStayHistorical(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-search')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:114)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:108)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:73)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.filtered(ExtensionRecordedTestsDeviceTest.kt:170)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.assetOnlyEditStaysUnknownAndOtherVersionsStayHistorical(ExtensionRecordedTestsDeviceTest.kt:226)
+
+INSTRUMENTATION_STATUS: test=assetOnlyEditStaysUnknownAndOtherVersionsStayHistorical
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableCatalogAndReportErrorsRemainExplicit
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableCatalogAndReportErrorsRemainExplicit
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=linkedPayloadShowsRetryError
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-error')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.linkedPayloadShowsRetryError(ExtensionRecordedTestsDeviceTest.kt:240)
+
+INSTRUMENTATION_STATUS: stream=
+Error in linkedPayloadShowsRetryError(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-error')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.linkedPayloadShowsRetryError(ExtensionRecordedTestsDeviceTest.kt:240)
+
+INSTRUMENTATION_STATUS: test=linkedPayloadShowsRetryError
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 71.57
+There were 4 failures:
+1) replacementAndQueryChangeRejectQueuedActions(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + EditableText contains 'No commands match this search.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.replacementAndQueryChangeRejectQueuedActions(ExtensionRecordedTestsDeviceTest.kt:262)
+2) criticalTextAndTouchTargetsAreReachable(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + EditableText contains 'Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:76)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.checkNatural(ExtensionRecordedTestsDeviceTest.kt:174)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.criticalTextAndTouchTargetsAreReachable(ExtensionRecordedTestsDeviceTest.kt:311)
+3) assetOnlyEditStaysUnknownAndOtherVersionsStayHistorical(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-search')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:114)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:108)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:73)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.filtered(ExtensionRecordedTestsDeviceTest.kt:170)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.assetOnlyEditStaysUnknownAndOtherVersionsStayHistorical(ExtensionRecordedTestsDeviceTest.kt:226)
+4) linkedPayloadShowsRetryError(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'recorded-tests-error')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.linkedPayloadShowsRetryError(ExtensionRecordedTestsDeviceTest.kt:240)
+
+FAILURES!!!
+Tests run: 9,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionRecordedTestsDeviceTest:
+INSTRUMENTATION_STATUS: test=searchAndKeyboardRemainReachableAfterScrolling
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:173)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter$default(ExtensionRecordedTestsDeviceTest.kt:168)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.searchAndKeyboardRemainReachableAfterScrolling(ExtensionRecordedTestsDeviceTest.kt:352)
+
+INSTRUMENTATION_STATUS: stream=
+Error in searchAndKeyboardRemainReachableAfterScrolling(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:173)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter$default(ExtensionRecordedTestsDeviceTest.kt:168)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.searchAndKeyboardRemainReachableAfterScrolling(ExtensionRecordedTestsDeviceTest.kt:352)
+
+INSTRUMENTATION_STATUS: test=searchAndKeyboardRemainReachableAfterScrolling
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=criticalTextAndTouchTargetsAreReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:173)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter$default(ExtensionRecordedTestsDeviceTest.kt:168)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.criticalTextAndTouchTargetsAreReachable(ExtensionRecordedTestsDeviceTest.kt:340)
+
+INSTRUMENTATION_STATUS: stream=
+Error in criticalTextAndTouchTargetsAreReachable(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:173)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter$default(ExtensionRecordedTestsDeviceTest.kt:168)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.criticalTextAndTouchTargetsAreReachable(ExtensionRecordedTestsDeviceTest.kt:340)
+
+INSTRUMENTATION_STATUS: test=criticalTextAndTouchTargetsAreReachable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 48.22
+There were 2 failures:
+1) searchAndKeyboardRemainReachableAfterScrolling(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:173)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter$default(ExtensionRecordedTestsDeviceTest.kt:168)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.searchAndKeyboardRemainReachableAfterScrolling(ExtensionRecordedTestsDeviceTest.kt:352)
+2) criticalTextAndTouchTargetsAreReachable(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter(ExtensionRecordedTestsDeviceTest.kt:173)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.enter$default(ExtensionRecordedTestsDeviceTest.kt:168)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.criticalTextAndTouchTargetsAreReachable(ExtensionRecordedTestsDeviceTest.kt:340)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

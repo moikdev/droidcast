@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionRecordedTestsDeviceTest:
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No uncaptured ACTION_VIEW request expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.restore(ExtensionRecordedTestsDeviceTest.kt:318)
+
+INSTRUMENTATION_STATUS: stream=
+Error in matchingRecordsSearchDetailsAndReturn(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+java.lang.AssertionError: No uncaptured ACTION_VIEW request expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.restore(ExtensionRecordedTestsDeviceTest.kt:318)
+
+INSTRUMENTATION_STATUS: test=matchingRecordsSearchDetailsAndReturn
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.929
+There were 2 failures:
+1) matchingRecordsSearchDetailsAndReturn(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.prepare(ExtensionRecordedTestsDeviceTest.kt:117)
+2) matchingRecordsSearchDetailsAndReturn(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+java.lang.AssertionError: No uncaptured ACTION_VIEW request expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.restore(ExtensionRecordedTestsDeviceTest.kt:318)
+
+FAILURES!!!
+Tests run: 1,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
