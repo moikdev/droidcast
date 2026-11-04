@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.CalculatorActionsDeviceTest:
+INSTRUMENTATION_STATUS: test=touchChainingReturnsToFocusedSearchAndKeepsLauncherState
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Complete 48dp pointer target required: actions-button
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer(CalculatorActionsDeviceTest.kt:242)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.actions(CalculatorActionsDeviceTest.kt:253)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.touchChainingReturnsToFocusedSearchAndKeepsLauncherState(CalculatorActionsDeviceTest.kt:273)
+
+INSTRUMENTATION_STATUS: stream=
+Error in touchChainingReturnsToFocusedSearchAndKeepsLauncherState(dev.tinycast.android.CalculatorActionsDeviceTest):
+java.lang.IllegalArgumentException: Complete 48dp pointer target required: actions-button
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer(CalculatorActionsDeviceTest.kt:242)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.actions(CalculatorActionsDeviceTest.kt:253)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.touchChainingReturnsToFocusedSearchAndKeepsLauncherState(CalculatorActionsDeviceTest.kt:273)
+
+INSTRUMENTATION_STATUS: test=touchChainingReturnsToFocusedSearchAndKeepsLauncherState
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=menuSearchCopiesTheFullCalculationThroughNativeIme
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=menuSearchCopiesTheFullCalculationThroughNativeIme
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unitAnswerChainsWithItsUnitAndCanBeConvertedAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unitAnswerChainsWithItsUnitAndCanBeConvertedAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 55.79
+There was 1 failure:
+1) touchChainingReturnsToFocusedSearchAndKeepsLauncherState(dev.tinycast.android.CalculatorActionsDeviceTest)
+java.lang.IllegalArgumentException: Complete 48dp pointer target required: actions-button
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer(CalculatorActionsDeviceTest.kt:242)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.actions(CalculatorActionsDeviceTest.kt:253)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.touchChainingReturnsToFocusedSearchAndKeepsLauncherState(CalculatorActionsDeviceTest.kt:273)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

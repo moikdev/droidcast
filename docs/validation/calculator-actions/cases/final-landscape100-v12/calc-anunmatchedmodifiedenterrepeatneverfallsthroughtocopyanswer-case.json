@@ -1,0 +1,122 @@
+{
+  "case": "anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer",
+  "passed": true,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "owned_clipboard_dismissals": [
+    {
+      "actions": [
+        {
+          "node": "com.android.systemui:id\/dismiss_button",
+          "success": true
+        }
+      ],
+      "observations": [
+        "176ms query_ms=175 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+        "250ms query_ms=23 mode=0 flags=65618 windows=[(3729, 3), (3700, 3)] systemui_roots=[3729] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+        "338ms query_ms=30 mode=0 flags=65618 windows=[(3729, 3), (3700, 3)] systemui_roots=[3700] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+        "416ms query_ms=14 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "472ms query_ms=6 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "528ms query_ms=4 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "585ms query_ms=5 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "647ms query_ms=9 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "702ms query_ms=5 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "757ms query_ms=4 mode=0 flags=65618 windows=[(3700, 3)] systemui_roots=[3700] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+      ]
+    }
+  ],
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "unmatched_repeat_variants": 4,
+  "native_preferences_restored": true,
+  "pointers": [],
+  "text_line_witnesses": [],
+  "scroll_steps": [],
+  "native_keys": [
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    }
+  ]
+}

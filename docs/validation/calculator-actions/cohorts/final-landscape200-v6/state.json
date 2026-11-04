@@ -1,0 +1,27 @@
+{
+  "completed": true,
+  "variant": "current",
+  "layout": "landscape",
+  "font": 2.0,
+  "methods": [
+    "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+    "menuSearchCopiesTheFullCalculationThroughNativeIme",
+    "unitAnswerChainsWithItsUnitAndCanBeConvertedAgain",
+    "oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer"
+  ],
+  "app_sha256": "652d939a82fe85fcf518e744a7763066a20dc44212d2deef2fb4a844ddfe6109",
+  "test_apk_sha256": "ffd6abd2618b5f9a65f81f17e21bf8fa2440d9c9227b35f732959fd29c093a9c",
+  "app_source_commit": "4eb32eb419a958f7e0e79bba96dc90da4476130c",
+  "test_source_commit": "d2677627a84d89ad9278529ee0c6438a492ee79a",
+  "junit_passes": 4,
+  "runner_exit_code": 0,
+  "cleanup_checks": 20,
+  "native_completed": true,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "pre_existing_evidence_count": 528,
+  "durable_file_count": 12,
+  "collector_sha256": "3837224c0f63b0182ca5f845710191d34ef8b98604b75afe07c56d006d90fbe0"
+}

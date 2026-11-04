@@ -1,0 +1,29 @@
+{
+  "completed": true,
+  "variant": "intermediate",
+  "layout": "tablet",
+  "font": 1.0,
+  "methods": [
+    "anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer"
+  ],
+  "app_sha256": "6a3b38223cac69f77be3e3889da2ed138bb753137472e03c154712f44f40eabf",
+  "test_apk_sha256": "161c55e5f3daf030fbced12af720d16a3ca137782b8b9b12ebb8a3c77d05c612",
+  "app_source_commit": "4576271d811d343a2bf4de4ecdb7606300b3a244",
+  "test_source_commit": "54ab2e61d0b80b6070232bd2c93485d8b4f99d03",
+  "test_compile_target_commit": "b99a65ec3e96ea27cbeec5759f6083ef56d3c4ff",
+  "junit_passes": 0,
+  "runner_exit_code": 1,
+  "cleanup_checks": 18,
+  "native_completed": false,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "pre_existing_evidence_count": 528,
+  "durable_file_count": 12,
+  "collector_sha256": "30323fc84b46c29b138cf37c9740a7f7cad7fe8690f01b595c57e6f2017d918c",
+  "negative_control_witnesses": {
+    "anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer": true
+  },
+  "without_extension_archive": true
+}

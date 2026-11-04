@@ -1,0 +1,58 @@
+{
+  "phase": "unit-converted",
+  "query": "= 100 cm to m",
+  "category": "All",
+  "selected": 0,
+  "build_commit": "b99a65ec3e96ea27cbeec5759f6083ef56d3c4ff",
+  "font_scale": 1,
+  "ime_visible": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        198,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(829.0, 1205.0, 1027.0, 1331.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "size": [
+        808,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(203.0, 797.0, 1011.0, 923.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": [
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "lines": 1,
+      "non_ellipsized": true,
+      "natural_height": 48,
+      "visible_height": 48
+    }
+  ],
+  "scroll_steps": [],
+  "native_keys": [
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    }
+  ],
+  "capture_order": "Compose idle, native XML, then PNG; sequential observations"
+}

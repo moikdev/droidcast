@@ -1,0 +1,78 @@
+from pathlib import Path,PurePosixPath
+import argparse,hashlib,io,json,re,subprocess,tarfile,xml.etree.ElementTree as ET
+p=argparse.ArgumentParser();p.add_argument('--git-ref');args=p.parse_args()
+base=Path('artifacts/calculator-actions');public=Path('docs/validation/calculator-actions')
+def require(value,message):
+    if not value:raise RuntimeError(message)
+def read(path):return json.loads(path.read_text())
+def sha(data):return hashlib.sha256(data).hexdigest()
+def git_files(commit,paths):
+    result={}
+    data=subprocess.check_output(['git','archive','--format=tar',commit,'--',*paths])
+    with tarfile.open(fileobj=io.BytesIO(data)) as archive:
+        for member in archive:
+            if member.isfile():result[member.name]=archive.extractfile(member).read()
+    return result
+checkpoint=read(public/'checkpoint.json');files=checkpoint['files']
+for path,h in files.items():require(sha(Path(path).read_bytes())==h,'Public checkpoint mismatch: '+path)
+actual={str(f) for root in [public,Path('docs/screenshots/calculator-actions')] for f in root.rglob('*') if f.is_file()}
+require(actual==set(files)|{str(public/'checkpoint.json')},'Unlisted public files')
+prefixes=[(str(Path.cwd()),'<checkout>'),('<android-sdk>','<android-sdk>'),('<gradle-cache>','<gradle-cache>'),('<user-home>','<user-home>')]
+for row in read(public/'bindings.json'):
+    original=base/row['original_relative'];data=original.read_bytes()
+    require(sha(data)==row['original_sha256'],'Original binding changed')
+    method=row['transform'];require(method in ['raw bytes','host-prefix redaction','XML-safe host-prefix/hostname redaction'],'Unknown transform')
+    if method!='raw bytes':
+        for source,target in prefixes:
+            if method.startswith('XML-safe'):target=target.replace('<','&lt;').replace('>','&gt;')
+            data=data.replace(source.encode(),target.encode())
+        if method.startswith('XML-safe'):data=re.sub(rb'hostname="[^"]*"',b'hostname="redacted-host"',data)
+    require(data==Path(row['public']).read_bytes() and sha(data)==row['public_sha256'],'Publication transform differs')
+for row in read(public/'projections.json'):
+    original=base/row['original_relative'];require(sha(original.read_bytes())==row['original_sha256'],'Projected original changed')
+    value=read(original);require({k:value[k] for k in row['keys']}==read(Path(row['public'])),'Allowlisted projection differs')
+identity=read(public/'identity.json')
+for name,value in identity['cohorts'].items():
+    sources=value['source_hashes'];frozen=git_files(value['implementation_commit'],list(sources))
+    require(set(frozen)==set(sources),'Frozen source inventory differs')
+    require(all(sha(frozen[path])==h for path,h in sources.items()),'Frozen source bytes differ')
+    for apk,h in value['apk_hashes'].items():require(sha((base/name/'candidate'/apk).read_bytes())==h,'Frozen APK differs')
+require(all(sha(Path(path).read_bytes())==h for path,h in identity['current']['source_hashes'].items()),'Current source differs')
+rows=read(public/'cohorts.json');supplement=read(public/'supplement.json')
+for row in rows:
+    name=row['name'];receipt=read(public/'cohorts'/name/'record.json')
+    require(row['completed'] and row['cleanup_passed'] and row['same_boot'] and row['durable_data_unchanged'] and row['pre_existing_evidence_unchanged'],'Credited cohort incomplete')
+    require(all(v['passed'] for v in receipt['cleanup'].values()),'Credited cleanup failed')
+    require(row['cleanup_checks']==len(receipt['cleanup']) and row['junit_passes']==receipt['passes'],'Cohort accounting differs')
+    if row['variant']=='current':require(receipt['completed'] and receipt['passes']==receipt['expected']==len(row['methods']),'Current native result incomplete')
+    else:require(receipt['passes']==0 and all(row['negative_control_witnesses'].values()) and len(row['negative_control_witnesses'])==len(row['methods']),'Intended negative witness missing')
+for row in supplement:
+    receipt=read(public/'supplement'/row['name']/'record.json')
+    require(row['completed'] and row['preservation_owner_released'] and row['native_completed'] and row['pre_existing_evidence_unchanged'] and row['durable_data_unchanged'],'Supplement incomplete')
+    require(row['passes']==receipt['passes']==receipt['expected'] and row['cleanup_checks']==len(receipt['cleanup']) and all(v['passed'] for v in receipt['cleanup'].values()),'Supplement accounting differs')
+frames=read(public/'frames.json')
+for row in frames:
+    for kind in ['png','xml','frame']:require(sha(Path(row[kind]).read_bytes())==row[kind+'_sha256'],'Frame hash differs')
+    data=read(Path(row['frame']));require(data['build_commit']==row['compiled_build_commit'],'Compile stamp mislabeled')
+    raw=Path(row['xml']).read_bytes();require(b'\r\n' in raw and b'\n' not in raw.replace(b'\r\n',b''),'Raw XML line endings changed')
+for relative,h in read(public/'retained-capture-hashes.json').items():
+    path=PurePosixPath(relative);require(not path.is_absolute() and '..' not in path.parts,'Unsafe retained path')
+    require(sha((base/relative).read_bytes())==h,'Retained capture changed')
+for path in public.rglob('*.xml'):ET.parse(path)
+jvm=dict(tests=0,failures=0,errors=0,skipped=0)
+for path in (public/'checks/jvm').glob('TEST-*.xml'):
+    root=ET.parse(path).getroot()
+    for k in jvm:jvm[k]+=int(root.get(k,'0'))
+require(jvm==dict(tests=278,failures=0,errors=0,skipped=0),'JVM accounting differs')
+for kind in ['debug','benchmark']:
+    issues=ET.parse(public/'checks'/('lint-'+kind+'.xml')).getroot().findall('issue')
+    require(not any(i.get('severity') in ['Fatal','Error'] for i in issues) and sum(i.get('severity')=='Warning' for i in issues)==55,'Lint outcome differs')
+summary=dict(current_calculator_executions=sum(r['junit_passes'] for r in rows if r['variant']=='current'),current_calculator_cohorts=sum(r['variant']=='current' for r in rows),expected_negative_executions=sum(len(r['methods']) for r in rows if r['variant']!='current'),calculator_cleanup_checks=sum(r['cleanup_checks'] for r in rows),regression_executions=sum(r['passes'] for r in supplement if r['name'].startswith('regression-')),helper_executions=sum(r['passes'] for r in supplement if r['name'].startswith('helper-')),supplement_cleanup_checks=sum(r['cleanup_checks'] for r in supplement),published_frames=len(frames),published_xmls=len(list(public.rglob('*.xml'))),retained_capture_hashes=len(read(public/'retained-capture-hashes.json')))
+require(summary==checkpoint['summary'],'Checkpoint summary differs')
+if args.git_ref:
+    paths=list(files)+[str(public/'checkpoint.json')]
+    committed=git_files(args.git_ref,paths)
+    require(set(committed)==set(paths) and all(data==Path(name).read_bytes() for name,data in committed.items()),'Committed evidence differs')
+    current=git_files(args.git_ref,list(identity['current']['source_hashes']))
+    require(all(sha(current[path])==h for path,h in identity['current']['source_hashes'].items()),'Committed current source differs')
+print(json.dumps(dict(verified=True,public_files=len(files),source_hashes=len(identity['current']['source_hashes']),git_verified=bool(args.git_ref),jvm=jvm,summary=summary),indent=2))

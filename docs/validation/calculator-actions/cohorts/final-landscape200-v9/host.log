@@ -1,0 +1,11 @@
+{"completed": false, "passes": 3, "cleanup_checks": 20}
+Traceback (most recent call last):
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 286, in <module>
+    main()
+    ~~~~^^
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 282, in main
+    require(record['completed'], 'Workflow assertions failed; inspect the retained tests.log')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>/scripts/test-reviewed-text-input.py", line 24, in require
+    raise ValueError(message)
+ValueError: Workflow assertions failed; inspect the retained tests.log

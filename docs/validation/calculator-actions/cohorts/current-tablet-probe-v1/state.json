@@ -1,0 +1,33 @@
+{
+  "completed": false,
+  "variant": "current",
+  "layout": "tablet",
+  "font": 1,
+  "methods": [
+    "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+    "menuSearchCopiesTheFullCalculationThroughNativeIme",
+    "unitAnswerChainsWithItsUnitAndCanBeConvertedAgain",
+    "rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction",
+    "rootCompositionBlocksBothAcceleratorsAndImeSubmission",
+    "menuCompositionBlocksAcceleratorsAndImeUntilCommitted",
+    "stalePointerCallbacksRejectQueryCategorySelectionAndReplacementRoutes",
+    "oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer",
+    "aConfiguredCtrlShiftEnterBindingKeepsPrecedenceAtTheLauncher",
+    "copyAnswerAndBareNumberSearchKeepTheirExistingBehavior",
+    "menuAcceleratorsSelectTheirNamedActionRatherThanTheHighlightedRow",
+    "obsoleteMenuOpeningsAndDisabledChordsHaveNoFallbackAction"
+  ],
+  "app_sha256": "6a3b38223cac69f77be3e3889da2ed138bb753137472e03c154712f44f40eabf",
+  "test_apk_sha256": "70d036433c3d7392bb9ec871cb3687aa3e7ab4e6f4fd9009daf4d528a2c8d909",
+  "junit_passes": 9,
+  "runner_exit_code": 1,
+  "cleanup_checks": 18,
+  "native_completed": false,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "pre_existing_evidence_count": 528,
+  "durable_file_count": 12,
+  "collector_sha256": "52713b637d42df423582bd8b5900c54b10657d7da8f75f3994358ae0cc01c83b"
+}

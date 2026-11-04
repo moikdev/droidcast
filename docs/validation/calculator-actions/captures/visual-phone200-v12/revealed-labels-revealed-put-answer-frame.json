@@ -1,0 +1,42 @@
+{
+  "phase": "revealed-put-answer",
+  "query": "= sqrt(81)+12x3",
+  "route": "actions",
+  "category": "All",
+  "selected": 0,
+  "build_commit": "b99a65ec3e96ea27cbeec5759f6083ef56d3c4ff",
+  "font_scale": 2,
+  "ime_visible": false,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        311,
+        153
+      ],
+      "bounds": "Rect.fromLTRB(716.0, 1179.0, 1027.0, 1332.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "size": [
+        126,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(864.0, 1026.0, 990.0, 1152.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": [
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "lines": 2,
+      "non_ellipsized": true,
+      "natural_height": 182,
+      "visible_height": 182
+    }
+  ],
+  "scroll_steps": [],
+  "native_keys": [],
+  "capture_order": "Compose idle, native XML, then PNG; sequential observations"
+}

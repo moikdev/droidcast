@@ -1,0 +1,46 @@
+from pathlib import Path
+import hashlib,json,os,subprocess,sys
+base=Path('artifacts/calculator-actions');out=base/'matrix-v5';out.mkdir(exist_ok=False)
+def require(value,message):
+ if not value:raise RuntimeError(message)
+def read(path):return json.loads(path.read_text())
+require(read(base/'build-harness-v12/state.json')['completed'],'Runtime build is incomplete')
+positive=read(base/'ime-common-landscape100-v9/state.json')
+require(positive['completed'] and positive['junit_passes']==13 and positive['cleanup_passed'] and positive['test_apk_sha256']=='d14d8a924058dbac36fa1883d3e50b685caea8f05524b5f22ad3304bacd28dd2','Common keyboard positive changed')
+old=read(base/'final-landscape100-v7/state.json')
+require(not old['completed'] and old['junit_passes']==12 and old['cleanup_passed'] and old['test_apk_sha256']=='d14d8a924058dbac36fa1883d3e50b685caea8f05524b5f22ad3304bacd28dd2','Original keyboard failure identity changed')
+common='touchChainingReturnsToFocusedSearchAndKeepsLauncherState,menuSearchCopiesTheFullCalculationThroughNativeIme'
+critical=common+',unitAnswerChainsWithItsUnitAndCanBeConvertedAgain,oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer'
+witness='revealedLargeTextCalculatorActionsHaveCompleteVisibleLabels'
+jobs=[
+ ('final-tablet100-v12','current','tablet',1,'main',None),
+ ('final-phone100-v12','current','phone',1,'main',None),
+ ('final-landscape100-v12','current','landscape',1,'main',None),
+ ('final-landscape200-v12','current','landscape',2,critical,None),
+ ('final-tablet200-v12','current','tablet',2,critical,None),
+ ('final-phone200-v12','current','phone',2,critical,None),
+ ('final-phone130-v12','current','phone',1.3,critical,None),
+ ('final-phone150-v12','current','phone',1.5,critical,None),
+ ('final-old-tablet-v12','baseline','tablet',1,common,None),
+ ('final-old-phone-v12','baseline','phone',1,common,None),
+ ('final-repeat-control-v12','intermediate','tablet',1,'anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer',None),
+ ('visual-tablet200-v12','current','tablet',2,witness,None),
+ ('visual-phone200-v12','current','phone',2,witness,None),
+ ('visual-landscape200-v12','current','landscape',2,witness,None)]
+state=dict(completed=False,pid=os.getpid(),collector_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),jobs=[],current=None,
+ common_control_failed_cohort='final-landscape100-v7',retained_common_positive_cohort='ime-common-landscape100-v9',scope='One repaired runtime; common instrumentation proves the keyboard transition separately from final-compiled instrumentation')
+def save():(out/'state.json').write_text(json.dumps(state,indent=2)+'\n')
+save()
+for name,variant,layout,font,methods,test_build in jobs:
+ state['current']=name;save();print('Starting '+name,flush=True)
+ command=[sys.executable,'artifacts/calculator-actions/run-cohort-v7.py','--name',name,'--variant',variant,'--layout',layout,'--font',str(font),
+  '--build','build-harness-v12','--methods',methods,'--no-json-archive']
+ if test_build:command.extend(['--test-build',test_build])
+ with (out/(name+'.log')).open('wb') as log:result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
+ row=read(base/name/'state.json') if (base/name/'state.json').exists() else {}
+ state['jobs'].append(dict(name=name,exit_code=result.returncode,completed=row.get('completed',False),variant=variant,
+  role='rendering' if name.startswith('visual-') else ('main' if variant=='current' else 'negative'),passes=row.get('junit_passes'),cleanup_checks=row.get('cleanup_checks')));save()
+ print('Finished '+name+' '+json.dumps(state['jobs'][-1]),flush=True)
+ if result.returncode:raise SystemExit(result.returncode)
+require(hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==state['collector_sha256'],'Matrix collector changed during execution')
+state['completed']=True;state['current']=None;save();print('Repaired-runtime matrix completed',flush=True)

@@ -1,0 +1,254 @@
+{
+  "case": "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+  "passed": false,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "owned_clipboard_dismissals": [
+    {
+      "actions": [
+        {
+          "node": "com.android.systemui:id\/dismiss_button",
+          "success": true
+        }
+      ],
+      "observations": [
+        "156ms query_ms=155 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+        "218ms query_ms=9 mode=0 flags=65618 windows=[(3936, 3), (3927, 3)] systemui_roots=[3936] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+        "314ms query_ms=29 mode=0 flags=65618 windows=[(3936, 3), (3927, 3)] systemui_roots=[3927] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+        "394ms query_ms=27 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "468ms query_ms=24 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "535ms query_ms=15 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "592ms query_ms=5 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "675ms query_ms=33 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "732ms query_ms=5 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "788ms query_ms=6 mode=0 flags=65618 windows=[(3927, 3)] systemui_roots=[3927] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+      ]
+    }
+  ],
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "native_preferences_restored": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        187,
+        72
+      ],
+      "bounds": "Rect.fromLTRB(1324.0, 552.0, 1511.0, 624.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": [],
+  "scroll_steps": [
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 0,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 1,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 2,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 3,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 4,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 5,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 6,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 7,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 8,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 9,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 10,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 11,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 12,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 13,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 14,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 15,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 16,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 17,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    }
+  ],
+  "native_keys": []
+}

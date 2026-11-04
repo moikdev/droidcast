@@ -1,0 +1,18 @@
+{
+  "case": "menuSearchCopiesTheFullCalculationThroughNativeIme",
+  "passed": false,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "native_preferences_restored": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        198,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(829.0, 1205.0, 1027.0, 1331.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": []
+}

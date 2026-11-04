@@ -1,0 +1,20 @@
+{
+  "observations_before_hierarchy": [
+    "366ms query_ms=360 mode=0 flags=65618 windows=[(3360, 3)] systemui_roots=[3360] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+    "437ms query_ms=17 mode=0 flags=65618 windows=[(3364, 3), (3360, 3)] systemui_roots=[3364] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+    "520ms query_ms=23 mode=0 flags=65618 windows=[(3364, 3), (3360, 3)] systemui_roots=[3360] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+    "596ms query_ms=26 mode=0 flags=65618 windows=[(3360, 3)] systemui_roots=[3360] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "674ms query_ms=25 mode=0 flags=65618 windows=[(3360, 3)] systemui_roots=[3360] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "741ms query_ms=17 mode=0 flags=65618 windows=[(3360, 3)] systemui_roots=[3360] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "798ms query_ms=7 mode=0 flags=65618 windows=[(3360, 3)] systemui_roots=[3360] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "855ms query_ms=7 mode=0 flags=65618 windows=[(3360, 3)] systemui_roots=[3360] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+  ],
+  "actions": [
+    {
+      "node": "com.android.systemui:id\/dismiss_button",
+      "success": true
+    }
+  ],
+  "service_flags_before": 65552,
+  "service_flags_after": 65552
+}

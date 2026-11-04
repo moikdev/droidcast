@@ -1,0 +1,78 @@
+{
+  "completed": false,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "landscape",
+  "font_scale": 2.0,
+  "classes": "dev.tinycast.android.CalculatorActionsDeviceTest#touchChainingReturnsToFocusedSearchAndKeepsLauncherState,dev.tinycast.android.CalculatorActionsDeviceTest#menuSearchCopiesTheFullCalculationThroughNativeIme,dev.tinycast.android.CalculatorActionsDeviceTest#unitAnswerChainsWithItsUnitAndCanBeConvertedAgain,dev.tinycast.android.CalculatorActionsDeviceTest#oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer",
+  "expected": 4,
+  "apk_sha256": "652d939a82fe85fcf518e744a7763066a20dc44212d2deef2fb4a844ddfe6109",
+  "test_apk_sha256": "ac06f7934e160ca3ff3cbb71cdc8f5ba7951b0d51cfb586383a88a9a28b6d4ac",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 3,
+  "tests_completed": false,
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  }
+}

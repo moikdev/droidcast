@@ -1,0 +1,72 @@
+{
+  "completed": true,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "tablet",
+  "font_scale": 1.0,
+  "classes": "dev.tinycast.android.CalculatorActionsDeviceTest#touchChainingReturnsToFocusedSearchAndKeepsLauncherState,dev.tinycast.android.CalculatorActionsDeviceTest#rootCompositionBlocksBothAcceleratorsAndImeSubmission,dev.tinycast.android.CalculatorActionsDeviceTest#rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction",
+  "expected": 3,
+  "apk_sha256": "6a3b38223cac69f77be3e3889da2ed138bb753137472e03c154712f44f40eabf",
+  "test_apk_sha256": "734bc04093a67370809389e919b868c07acd405d3764152be21803a20d06c6f6",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 3,
+  "tests_completed": true,
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  }
+}
