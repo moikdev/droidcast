@@ -107,6 +107,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val displayedSearch = if (searchValue.text == store.query) searchValue else TextFieldValue(store.query, TextRange(store.query.length))
         SideEffect { if (searchValue != displayedSearch) searchValue = displayedSearch }
         val keyboard = LocalSoftwareKeyboardController.current
+        val paletteMenus = LocalPaletteMenus.current
         val view = LocalView.current
         val windowFocused = LocalWindowInfo.current.isWindowFocused
         var searchFocused by remember { mutableStateOf(false) }
@@ -208,7 +209,15 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 .pointerInput(Unit) { detectTapGestures {} }.testTag("palette").paletteMenuSurface()) {
                 Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(horizontal=16.dp,vertical=4.dp).testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
                     Glyph("search",PaletteTheme.secondary,22);Spacer(Modifier.width(12.dp))
-                    BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
+                    BasicTextField(value=displayedSearch,onValueChange={ next ->
+                        // A menu borrows focus. CoreTextField's blur collapse
+                        // must not overwrite the unchanged caller's selection.
+                        val current = searchValue
+                        val keepMenuRange = paletteMenus.current != null && current.text == store.query && next.text == current.text &&
+                            !current.selection.collapsed && next.selection == TextRange(current.selection.max)
+                        searchValue = if(keepMenuRange) next.copy(selection=current.selection) else next
+                        if (next.text != store.query) store.search(next.text)
+                    },modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),
                         keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=!wide || keyboardRequested),keyboardActions=KeyboardActions(onSearch={activateCurrent()}),
                         decorationBox={inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(store.query.isEmpty())Text("Search for apps and commands…",color=PaletteTheme.secondary,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
