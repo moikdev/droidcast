@@ -310,8 +310,10 @@ class InlinePaletteDeviceTest {
             assertTrue(frame.contains(menu.topLeft) && frame.contains(menu.bottomRight))
             captureMenuBoundary("menu-category-touch-${if(initialKeyboard) "open" else "closed"}")
             key(KeyEvent.KEYCODE_ESCAPE)
-            compose.onNodeWithTag("search").assertIsFocused().assertTextContains("Settings")
+            compose.onNodeWithTag("search").assertIsFocused().assert(SemanticsMatcher.expectValue(
+                SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("Settings")))
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(1, 5)))
+            val escapedQuery = compose.onNodeWithTag("search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text
             setLauncherKeyboard(initialKeyboard)
             pointer("palette-menu", "palette-content-scroll")
             pointer("filter-Notes", "inline-menu-choices")
@@ -319,6 +321,8 @@ class InlinePaletteDeviceTest {
             assertEquals("Notes", compose.activity.store.category)
             compose.onNodeWithTag("search").assertIsFocused().assert(SemanticsMatcher.expectValue(
                 SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString(""))).performTextReplacement(title)
+            compose.onNodeWithTag("search").assert(SemanticsMatcher.expectValue(
+                SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString(title)))
             compose.runOnUiThread {
                 assertEquals("The owned note remains selected", id,
                     compose.activity.store.results().getOrNull(compose.activity.store.selected)?.id)
@@ -327,7 +331,7 @@ class InlinePaletteDeviceTest {
             compose.onNodeWithTag("result-$id").assertIsDisplayed()
             captureMenuBoundary("menu-category-destination-${if(initialKeyboard) "open" else "closed"}")
             observations.put(JSONObject().put("initial_ime_visible", initialKeyboard).put("category", "Notes")
-                .put("exact_owned_destination_id", id).put("escape_query_and_range_restored", true))
+                .put("exact_owned_destination_id", id).put("escape_query_and_range_restored", true).put("caller_query_after_escape", escapedQuery))
         }
         touchReceipt("menu-category-touch", observations)
     }
@@ -365,26 +369,30 @@ class InlinePaletteDeviceTest {
             val readableWithIme = emptyMessageHasCompleteNaturalLines()
             if(cycle == 0) captureMenuBoundary("menu-empty-touch-ime")
             setMenuKeyboard(false)
-            compose.onNodeWithTag("inline-menu-search").assertTextContains("no such action")
+            compose.onNodeWithTag("inline-menu-search").assert(SemanticsMatcher.expectValue(
+                SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("no such action")))
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3, 7)))
             compose.waitUntil(10000) { emptyMessageHasCompleteNaturalLines() }
             if(cycle == 0) captureMenuBoundary("menu-empty-touch-revealed")
             setMenuKeyboard(true); setMenuKeyboard(false)
-            compose.onNodeWithTag("inline-menu-search").assertIsFocused().assertTextContains("no such action")
+            compose.onNodeWithTag("inline-menu-search").assertIsFocused().assert(SemanticsMatcher.expectValue(
+                SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("no such action")))
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3, 7)))
             compose.onNodeWithTag("inline-menu-search").performTextReplacement("content copy")
             compose.onNodeWithTag("action-Copy content").assertIsSelected()
             captureMenuBoundary("menu-action-caller-before-copy-$cycle")
             pointer("action-Copy content", "inline-menu-choices")
             compose.onNodeWithTag("inline-menu").assertDoesNotExist()
-            compose.onNodeWithTag("search").assertIsFocused().assertTextContains(title)
+            compose.onNodeWithTag("search").assertIsFocused().assert(SemanticsMatcher.expectValue(
+                SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString(title)))
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 6)))
+            val returnedQuery = compose.onNodeWithTag("search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text
             compose.activityRule.scenario.onActivity {
                 assertEquals(payload, it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
             }
             observations.put(JSONObject().put("cycle", cycle).put("empty_readable_with_ime", readableWithIme)
                 .put("empty_natural_lines_reachable_after_hide", true).put("query_and_caret_preserved", true)
-                .put("empty_enter_left_sentinel_unchanged", true).put("exact_fresh_copy_and_caller_range", true))
+                .put("empty_enter_left_sentinel_unchanged", true).put("exact_fresh_copy_and_caller_range", true).put("caller_query_after_return", returnedQuery))
         }
         touchReceipt("menu-actions-touch", observations)
     }
