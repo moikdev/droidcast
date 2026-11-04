@@ -1,0 +1,51 @@
+{
+  "completed": false,
+  "collector_sha256": "042b22209d353600bcb080974982f7ba25794f52690251738643e7f6c8aa369d",
+  "runs": [
+    {
+      "name": "critical-lorem-ai-tablet200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-quick-translate-tablet200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-translate-tablet200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-menu-bar-tablet200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-lorem-ai-phone200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-quick-translate-phone200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-translate-phone200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-menu-bar-phone200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-lorem-ai-landscape200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-quick-translate-landscape200-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-translate-landscape200-v4",
+      "exit_code": 1
+    }
+  ],
+  "scope": "Functional enlarged-text/viewport smoke for selected boundary and result paths; recorded pointer actions require complete 48dp targets. Only AI denial/Return has complete natural-line probes. This is not broad typography or accessibility certification."
+}

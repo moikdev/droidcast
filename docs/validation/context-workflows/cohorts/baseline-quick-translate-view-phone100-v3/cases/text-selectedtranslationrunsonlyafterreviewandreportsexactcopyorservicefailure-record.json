@@ -1,0 +1,2740 @@
+{
+  "scope": "Unmodified frozen quick-translate-view after explicit review\/Run from a separate owned Android caller; collector success is separate from service success",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "command_sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92",
+  "probe_command_sha256": "8bc7c98a835bf72824ae0f061d6cc0272052c58a8c4a665c8a4157192246ff93",
+  "owned_extension_ids": [
+    "reviewed-text-3281bd60872f42ab908bbe7d57e1b63c",
+    "reviewed-text-871cf997b75b494eb5120ac49b4f5311",
+    "reviewed-text-cfe2e67035f34be59519e513e419cb55"
+  ],
+  "executed_command": "quick-translate-view",
+  "translation_archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+  "translation_command_sha256": "456de7764bc2012c92883700260f5044ce169205b00bb9daf110e81a2c54cfec",
+  "translation_preferences": {
+    "langFrom": "en",
+    "lang1": "ja",
+    "lang2": "en",
+    "autoInput": true,
+    "defaultAction": "copy",
+    "prioritizeCrossLanguage": false,
+    "proxy": ""
+  },
+  "external_caller_uses_separate_package_and_uid": true,
+  "owned_sentinel_dismiss_actions": [
+    {
+      "id": "com.android.systemui:id\/dismiss_button",
+      "accepted": true
+    }
+  ],
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "installed_build_commit": "ed3831303a8319a194f0ae137830acba1f3580d5",
+  "preview_no_execution_and_clipboard_unchanged": true,
+  "startup_gate": "Compose-driven wait for native List, JavaScript engine or runtime error",
+  "reviewed_input_initially_consumed": true,
+  "input_setup": "Native editor test replacement after actual pointer focus; no physical-typing claim",
+  "owned_edited_query": "good morning",
+  "network_observation": {
+    "errors": 0,
+    "overflow": 0,
+    "decodeErrors": 0,
+    "requests": [
+      {
+        "sequence": 1,
+        "endpoint": "other-redacted",
+        "ownedInputQuery": false,
+        "ownedJapaneseTarget": false,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      },
+      {
+        "sequence": 2,
+        "endpoint": "other-redacted",
+        "ownedInputQuery": false,
+        "ownedJapaneseTarget": false,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      },
+      {
+        "sequence": 3,
+        "endpoint": "google-translate",
+        "ownedInputQuery": true,
+        "ownedJapaneseTarget": false,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      },
+      {
+        "sequence": 4,
+        "endpoint": "google-translate",
+        "ownedInputQuery": true,
+        "ownedJapaneseTarget": true,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      }
+    ],
+    "pasteRejected": false
+  },
+  "network_observer_scope": "Only subsequent requests; known owned response translation decoded for native output\/Copy equality; unrelated payloads, queries, headers and bodies are not retained",
+  "observation_deadline_reached": false,
+  "runtime_status": "",
+  "selected_owned_response_row": 0,
+  "copy_exact": true,
+  "workflow_outcome": "working-observed-path",
+  "owned_provider_output_sha256": "4314662c3426676a1dd586be6a6f1bddf8dae143c7e8514c50af525f9dc6cec8",
+  "owned_provider_output_characters": 4,
+  "failure_route": "extension-run",
+  "failure_runtime_tree": {
+    "children": [
+      {
+        "id": 255,
+        "type": "__screen",
+        "props": {
+          "active": true
+        },
+        "children": [
+          {
+            "id": 254,
+            "type": "List",
+            "props": {
+              "searchBarPlaceholder": "Enter text to translate",
+              "searchText": "good morning",
+              "onSearchTextChange": {
+                "$fn": "254:onSearchTextChange"
+              },
+              "isLoading": false,
+              "isShowingDetail": true,
+              "filtering": false,
+              "searchBarAccessory": {
+                "id": 252,
+                "type": "List.Dropdown",
+                "props": {
+                  "value": "auto",
+                  "tooltip": "Language",
+                  "onChange": {
+                    "$fn": "252:onChange"
+                  }
+                },
+                "children": [
+                  {
+                    "id": 1,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "icon": "pencil-16",
+                      "title": "Translate to  ->  Japanese English",
+                      "value": "manageTargetLanguages"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 2,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Auto-Detect",
+                      "value": "auto"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 3,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Abkhaz",
+                      "value": "ab"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 4,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Acehnese",
+                      "value": "ace"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 5,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Acholi",
+                      "value": "ach"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 6,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Afar",
+                      "value": "aa"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 7,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Afrikaans",
+                      "value": "af"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 8,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Albanian",
+                      "value": "sq"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 9,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Alur",
+                      "value": "alz"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 10,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Amharic",
+                      "value": "am"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 11,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Arabic",
+                      "value": "ar"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 12,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Armenian",
+                      "value": "hy"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 13,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Assamese",
+                      "value": "as"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 14,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Avar",
+                      "value": "av"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 15,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Awadhi",
+                      "value": "awa"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 16,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Aymara",
+                      "value": "ay"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 17,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Azerbaijani",
+                      "value": "az"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 18,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Balinese",
+                      "value": "ban"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 19,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Baluchi",
+                      "value": "bal"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 20,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bambara",
+                      "value": "bm"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 21,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Baoulé",
+                      "value": "bci"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 22,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bashkir",
+                      "value": "ba"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 23,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Basque",
+                      "value": "eu"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 24,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Batak Karo",
+                      "value": "btx"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 25,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Batak Simalungun",
+                      "value": "bts"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 26,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Batak Toba",
+                      "value": "bbc"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 27,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Belarusian",
+                      "value": "be"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 28,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bemba",
+                      "value": "bem"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 29,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bengali",
+                      "value": "bn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 30,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Betawi",
+                      "value": "bew"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 31,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bhojpuri",
+                      "value": "bho"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 32,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bikol",
+                      "value": "bik"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 33,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bosnian",
+                      "value": "bs"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 34,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Breton",
+                      "value": "br"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 35,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Bulgarian",
+                      "value": "bg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 36,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Buryat",
+                      "value": "bua"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 37,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Cantonese",
+                      "value": "yue"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 38,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Catalan",
+                      "value": "ca"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 39,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Cebuano",
+                      "value": "ceb"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 40,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Chamorro",
+                      "value": "ch"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 41,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Chechen",
+                      "value": "ce"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 42,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Chichewa",
+                      "value": "ny"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 43,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Chinese (Simplified)",
+                      "value": "zh-CN"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 44,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Chinese (Traditional)",
+                      "value": "zh-TW"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 45,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Chuukese",
+                      "value": "chk"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 46,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Chuvash",
+                      "value": "cv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 47,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Corsican",
+                      "value": "co"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 48,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Crimean Tatar (Cyrillic)",
+                      "value": "crh"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 49,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Crimean Tatar (Latin)",
+                      "value": "crh-Latn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 50,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Croatian",
+                      "value": "hr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 51,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Czech",
+                      "value": "cs"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 52,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Danish",
+                      "value": "da"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 53,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dari",
+                      "value": "fa-AF"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 54,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dhivehi",
+                      "value": "dv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 55,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dinka",
+                      "value": "din"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 56,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dogri",
+                      "value": "doi"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 57,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dombe",
+                      "value": "dov"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 58,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dutch",
+                      "value": "nl"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 59,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dyula",
+                      "value": "dyu"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 60,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Dzongkha",
+                      "value": "dz"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 61,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "English",
+                      "value": "en"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 62,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Esperanto",
+                      "value": "eo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 63,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Estonian",
+                      "value": "et"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 64,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ewe",
+                      "value": "ee"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 65,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Faroese",
+                      "value": "fo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 66,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Fijian",
+                      "value": "fj"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 67,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Filipino",
+                      "value": "tl"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 68,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Finnish",
+                      "value": "fi"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 69,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Fon",
+                      "value": "fon"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 70,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "French",
+                      "value": "fr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 71,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "French (Canada)",
+                      "value": "fr-CA"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 72,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Frisian",
+                      "value": "fy"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 73,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Friulian",
+                      "value": "fur"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 74,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Fulani",
+                      "value": "ff"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 75,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ga",
+                      "value": "gaa"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 76,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Galician",
+                      "value": "gl"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 77,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Georgian",
+                      "value": "ka"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 78,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "German",
+                      "value": "de"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 79,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Greek",
+                      "value": "el"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 80,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Guarani",
+                      "value": "gn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 81,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Gujarati",
+                      "value": "gu"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 82,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Haitian Creole",
+                      "value": "ht"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 83,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hakha Chin",
+                      "value": "cnh"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 84,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hausa",
+                      "value": "ha"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 85,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hawaiian",
+                      "value": "haw"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 86,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hebrew",
+                      "value": "iw"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 87,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hiligaynon",
+                      "value": "hil"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 88,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hindi",
+                      "value": "hi"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 89,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hmong",
+                      "value": "hmn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 90,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hungarian",
+                      "value": "hu"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 91,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Hunsrik",
+                      "value": "hrx"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 92,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Iban",
+                      "value": "iba"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 93,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Icelandic",
+                      "value": "is"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 94,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Igbo",
+                      "value": "ig"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 95,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ilocano",
+                      "value": "ilo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 96,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Indonesian",
+                      "value": "id"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 97,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Inuktut (Latin)",
+                      "value": "iu-Latn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 98,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Inuktut (Syllabics)",
+                      "value": "iu"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 99,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Irish",
+                      "value": "ga"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 100,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Italian",
+                      "value": "it"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 101,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Jamaican Patois",
+                      "value": "jam"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 102,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Japanese",
+                      "value": "ja"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 103,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Javanese",
+                      "value": "jv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 104,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Jingpo",
+                      "value": "kac"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 105,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kalaallisut",
+                      "value": "kl"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 106,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kannada",
+                      "value": "kn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 107,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kanuri",
+                      "value": "kr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 108,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kapampangan",
+                      "value": "pam"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 109,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kazakh",
+                      "value": "kk"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 110,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Khasi",
+                      "value": "kha"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 111,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Khmer",
+                      "value": "km"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 112,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kiga",
+                      "value": "cgg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 113,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kikongo",
+                      "value": "kg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 114,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kinyarwanda",
+                      "value": "rw"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 115,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kituba",
+                      "value": "ktu"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 116,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kokborok",
+                      "value": "trp"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 117,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Komi",
+                      "value": "kv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 118,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Konkani",
+                      "value": "gom"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 119,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Korean",
+                      "value": "ko"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 120,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Krio",
+                      "value": "kri"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 121,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kurdish (Kurmanji)",
+                      "value": "ku"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 122,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kurdish (Sorani)",
+                      "value": "ckb"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 123,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Kyrgyz",
+                      "value": "ky"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 124,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Lao",
+                      "value": "lo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 125,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Latgalian",
+                      "value": "ltg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 126,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Latin",
+                      "value": "la"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 127,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Latvian",
+                      "value": "lv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 128,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ligurian",
+                      "value": "lij"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 129,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Limburgish",
+                      "value": "li"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 130,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Lingala",
+                      "value": "ln"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 131,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Lithuanian",
+                      "value": "lt"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 132,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Lombard",
+                      "value": "lmo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 133,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Luganda",
+                      "value": "lg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 134,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Luo",
+                      "value": "luo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 135,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Luxembourgish",
+                      "value": "lb"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 136,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Macedonian",
+                      "value": "mk"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 137,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Madurese",
+                      "value": "mad"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 138,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Maithili",
+                      "value": "mai"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 139,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Makassar",
+                      "value": "mak"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 140,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Malagasy",
+                      "value": "mg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 141,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Malay",
+                      "value": "ms"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 142,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Malay (Jawi)",
+                      "value": "ms-Arab"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 143,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Malayalam",
+                      "value": "ml"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 144,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Maltese",
+                      "value": "mt"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 145,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Mam",
+                      "value": "mam"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 146,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Manx",
+                      "value": "gv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 147,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Maori",
+                      "value": "mi"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 148,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Marathi",
+                      "value": "mr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 149,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Marshallese",
+                      "value": "mh"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 150,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Marwadi",
+                      "value": "mwr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 151,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Mauritian Creole",
+                      "value": "mfe"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 152,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Meadow Mari",
+                      "value": "chm"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 153,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Meiteilon (Manipuri)",
+                      "value": "mni-Mtei"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 154,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Minang",
+                      "value": "min"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 155,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Mizo",
+                      "value": "lus"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 156,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Mongolian",
+                      "value": "mn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 157,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Myanmar (Burmese)",
+                      "value": "my"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 158,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "NKo",
+                      "value": "bm-Nkoo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 159,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Nahuatl (Eastern Huasteca)",
+                      "value": "nhe"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 160,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ndau",
+                      "value": "ndc-ZW"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 161,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ndebele (South)",
+                      "value": "nr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 162,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Nepalbhasa (Newari)",
+                      "value": "new"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 163,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Nepali",
+                      "value": "ne"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 164,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Norwegian",
+                      "value": "no"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 165,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Nuer",
+                      "value": "nus"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 166,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Occitan",
+                      "value": "oc"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 167,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Odia (Oriya)",
+                      "value": "or"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 168,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Oromo",
+                      "value": "om"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 169,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ossetian",
+                      "value": "os"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 170,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Pangasinan",
+                      "value": "pag"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 171,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Papiamento",
+                      "value": "pap"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 172,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Pashto",
+                      "value": "ps"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 173,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Persian",
+                      "value": "fa"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 174,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Polish",
+                      "value": "pl"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 175,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Portuguese (Brazil)",
+                      "value": "pt"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 176,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Portuguese (Portugal)",
+                      "value": "pt-PT"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 177,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Punjabi (Gurmukhi)",
+                      "value": "pa"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 178,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Punjabi (Shahmukhi)",
+                      "value": "pa-Arab"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 179,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Quechua",
+                      "value": "qu"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 180,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Qʼeqchiʼ",
+                      "value": "kek"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 181,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Romani",
+                      "value": "rom"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 182,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Romanian",
+                      "value": "ro"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 183,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Rundi",
+                      "value": "rn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 184,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Russian",
+                      "value": "ru"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 185,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sami (North)",
+                      "value": "se"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 186,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Samoan",
+                      "value": "sm"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 187,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sango",
+                      "value": "sg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 188,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sanskrit",
+                      "value": "sa"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 189,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Santali (Latin)",
+                      "value": "sat-Latn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 190,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Santali (Ol Chiki)",
+                      "value": "sat"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 191,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Scots Gaelic",
+                      "value": "gd"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 192,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sepedi",
+                      "value": "nso"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 193,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Serbian",
+                      "value": "sr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 194,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sesotho",
+                      "value": "st"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 195,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Seychellois Creole",
+                      "value": "crs"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 196,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Shan",
+                      "value": "shn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 197,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Shona",
+                      "value": "sn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 198,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sicilian",
+                      "value": "scn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 199,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Silesian",
+                      "value": "szl"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 200,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sindhi",
+                      "value": "sd"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 201,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sinhala",
+                      "value": "si"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 202,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Slovak",
+                      "value": "sk"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 203,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Slovenian",
+                      "value": "sl"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 204,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Somali",
+                      "value": "so"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 205,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Spanish",
+                      "value": "es"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 206,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Sundanese",
+                      "value": "su"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 207,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Susu",
+                      "value": "sus"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 208,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Swahili",
+                      "value": "sw"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 209,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Swati",
+                      "value": "ss"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 210,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Swedish",
+                      "value": "sv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 211,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tahitian",
+                      "value": "ty"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 212,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tajik",
+                      "value": "tg"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 213,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tamazight",
+                      "value": "ber-Latn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 214,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tamazight (Tifinagh)",
+                      "value": "ber"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 215,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tamil",
+                      "value": "ta"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 216,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tatar",
+                      "value": "tt"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 217,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Telugu",
+                      "value": "te"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 218,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tetum",
+                      "value": "tet"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 219,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Thai",
+                      "value": "th"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 220,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tibetan",
+                      "value": "bo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 221,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tigrinya",
+                      "value": "ti"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 222,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tiv",
+                      "value": "tiv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 223,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tok Pisin",
+                      "value": "tpi"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 224,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tongan",
+                      "value": "to"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 225,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tshiluba",
+                      "value": "lua"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 226,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tsonga",
+                      "value": "ts"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 227,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tswana",
+                      "value": "tn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 228,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tulu",
+                      "value": "tcy"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 229,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tumbuka",
+                      "value": "tum"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 230,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Turkish",
+                      "value": "tr"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 231,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Turkmen",
+                      "value": "tk"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 232,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Tuvan",
+                      "value": "tyv"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 233,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Twi",
+                      "value": "ak"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 234,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Udmurt",
+                      "value": "udm"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 235,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Ukrainian",
+                      "value": "uk"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 236,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Urdu",
+                      "value": "ur"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 237,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Uyghur",
+                      "value": "ug"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 238,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Uzbek",
+                      "value": "uz"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 239,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Venda",
+                      "value": "ve"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 240,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Venetian",
+                      "value": "vec"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 241,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Vietnamese",
+                      "value": "vi"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 242,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Waray",
+                      "value": "war"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 243,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Welsh",
+                      "value": "cy"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 244,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Wolof",
+                      "value": "wo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 245,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Xhosa",
+                      "value": "xh"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 246,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Yakut",
+                      "value": "sah"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 247,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Yiddish",
+                      "value": "yi"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 248,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Yoruba",
+                      "value": "yo"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 249,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Yucatec Maya",
+                      "value": "yua"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 250,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Zapotec",
+                      "value": "zap"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": 251,
+                    "type": "List.Dropdown.Item",
+                    "props": {
+                      "title": "Zulu",
+                      "value": "zu"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            },
+            "children": [
+              {
+                "id": 272,
+                "type": "List.Item",
+                "props": {
+                  "title": "おはよう",
+                  "accessories": [
+                    {
+                      "text": "Japanese",
+                      "tooltip": "English -> Japanese"
+                    }
+                  ],
+                  "actions": {
+                    "id": 261,
+                    "type": "ActionPanel",
+                    "props": {},
+                    "children": [
+                      {
+                        "id": 260,
+                        "type": "ActionPanel.Section",
+                        "props": {},
+                        "children": [
+                          {
+                            "id": 256,
+                            "type": "Action",
+                            "props": {
+                              "title": "Copy Translation",
+                              "icon": "copy-clipboard-16",
+                              "shortcut": {
+                                "modifiers": [
+                                  "cmd",
+                                  "shift"
+                                ],
+                                "key": "c"
+                              },
+                              "onAction": {
+                                "$fn": "256:onAction"
+                              }
+                            },
+                            "children": []
+                          },
+                          {
+                            "id": 257,
+                            "type": "Action",
+                            "props": {
+                              "title": "Paste Translation",
+                              "icon": "copy-clipboard-16",
+                              "onAction": {
+                                "$fn": "257:onAction"
+                              }
+                            },
+                            "children": []
+                          },
+                          {
+                            "id": 258,
+                            "type": "Action",
+                            "props": {
+                              "title": "Toggle Full Text",
+                              "icon": "text-16",
+                              "onAction": {
+                                "$fn": "258:onAction"
+                              },
+                              "shortcut": {
+                                "macOS": {
+                                  "modifiers": [
+                                    "cmd"
+                                  ],
+                                  "key": "f"
+                                },
+                                "Windows": {
+                                  "modifiers": [
+                                    "ctrl"
+                                  ],
+                                  "key": "f"
+                                }
+                              }
+                            },
+                            "children": []
+                          },
+                          {
+                            "id": 259,
+                            "type": "Action",
+                            "props": {
+                              "title": "Open in Google Translate",
+                              "icon": "globe-01-16",
+                              "shortcut": {
+                                "macOS": {
+                                  "modifiers": [
+                                    "opt"
+                                  ],
+                                  "key": "enter"
+                                },
+                                "Windows": {
+                                  "modifiers": [
+                                    "alt"
+                                  ],
+                                  "key": "enter"
+                                }
+                              },
+                              "onAction": {
+                                "$fn": "259:onAction"
+                              }
+                            },
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "detail": {
+                    "id": 270,
+                    "type": "List.Item.Detail",
+                    "props": {
+                      "markdown": "おはよう\n\n\n```\nOhayō\n```\n\n",
+                      "metadata": {
+                        "id": 268,
+                        "type": "Detail.Metadata",
+                        "props": {},
+                        "children": [
+                          {
+                            "id": 265,
+                            "type": "Detail.Metadata.TagList",
+                            "props": {
+                              "title": "Source Language"
+                            },
+                            "children": [
+                              {
+                                "id": 263,
+                                "type": "Detail.Metadata.TagList.Item",
+                                "props": {
+                                  "text": "Auto-Detect",
+                                  "color": "#FECD57"
+                                },
+                                "children": []
+                              },
+                              {
+                                "id": 264,
+                                "type": "Detail.Metadata.TagList.Item",
+                                "props": {
+                                  "text": "English",
+                                  "color": "#A0D468"
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": 267,
+                            "type": "Detail.Metadata.TagList",
+                            "props": {
+                              "title": "Target Language"
+                            },
+                            "children": [
+                              {
+                                "id": 266,
+                                "type": "Detail.Metadata.TagList.Item",
+                                "props": {
+                                  "text": "Japanese",
+                                  "color": "#B3A5EF"
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "children": []
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": 289,
+                "type": "List.Item",
+                "props": {
+                  "title": "good morning",
+                  "accessories": [
+                    {
+                      "text": "English",
+                      "tooltip": "English -> English"
+                    }
+                  ],
+                  "actions": {
+                    "id": 278,
+                    "type": "ActionPanel",
+                    "props": {},
+                    "children": [
+                      {
+                        "id": 277,
+                        "type": "ActionPanel.Section",
+                        "props": {},
+                        "children": [
+                          {
+                            "id": 273,
+                            "type": "Action",
+                            "props": {
+                              "title": "Copy Translation",
+                              "icon": "copy-clipboard-16",
+                              "shortcut": {
+                                "modifiers": [
+                                  "cmd",
+                                  "shift"
+                                ],
+                                "key": "c"
+                              },
+                              "onAction": {
+                                "$fn": "273:onAction"
+                              }
+                            },
+                            "children": []
+                          },
+                          {
+                            "id": 274,
+                            "type": "Action",
+                            "props": {
+                              "title": "Paste Translation",
+                              "icon": "copy-clipboard-16",
+                              "onAction": {
+                                "$fn": "274:onAction"
+                              }
+                            },
+                            "children": []
+                          },
+                          {
+                            "id": 275,
+                            "type": "Action",
+                            "props": {
+                              "title": "Toggle Full Text",
+                              "icon": "text-16",
+                              "onAction": {
+                                "$fn": "275:onAction"
+                              },
+                              "shortcut": {
+                                "macOS": {
+                                  "modifiers": [
+                                    "cmd"
+                                  ],
+                                  "key": "f"
+                                },
+                                "Windows": {
+                                  "modifiers": [
+                                    "ctrl"
+                                  ],
+                                  "key": "f"
+                                }
+                              }
+                            },
+                            "children": []
+                          },
+                          {
+                            "id": 276,
+                            "type": "Action",
+                            "props": {
+                              "title": "Open in Google Translate",
+                              "icon": "globe-01-16",
+                              "shortcut": {
+                                "macOS": {
+                                  "modifiers": [
+                                    "opt"
+                                  ],
+                                  "key": "enter"
+                                },
+                                "Windows": {
+                                  "modifiers": [
+                                    "alt"
+                                  ],
+                                  "key": "enter"
+                                }
+                              },
+                              "onAction": {
+                                "$fn": "276:onAction"
+                              }
+                            },
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "detail": {
+                    "id": 287,
+                    "type": "List.Item.Detail",
+                    "props": {
+                      "markdown": "good morning\n\n\n",
+                      "metadata": {
+                        "id": 285,
+                        "type": "Detail.Metadata",
+                        "props": {},
+                        "children": [
+                          {
+                            "id": 282,
+                            "type": "Detail.Metadata.TagList",
+                            "props": {
+                              "title": "Source Language"
+                            },
+                            "children": [
+                              {
+                                "id": 280,
+                                "type": "Detail.Metadata.TagList.Item",
+                                "props": {
+                                  "text": "Auto-Detect",
+                                  "color": "#FECD57"
+                                },
+                                "children": []
+                              },
+                              {
+                                "id": 281,
+                                "type": "Detail.Metadata.TagList.Item",
+                                "props": {
+                                  "text": "English",
+                                  "color": "#A0D468"
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": 284,
+                            "type": "Detail.Metadata.TagList",
+                            "props": {
+                              "title": "Target Language"
+                            },
+                            "children": [
+                              {
+                                "id": 283,
+                                "type": "Detail.Metadata.TagList.Item",
+                                "props": {
+                                  "text": "English",
+                                  "color": "#B3A5EF"
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "children": []
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "failure_runtime_error": null,
+  "failure_runtime_status": "Copied to Clipboard",
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

@@ -1,0 +1,74 @@
+{
+  "completed": true,
+  "source_commit": "10aab499056c236ddf1994da80229c6c27af634d",
+  "source_hashes": {
+    "scripts/android_clipboard_recovery.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "scripts/android_form_documents_fixture.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "scripts/android_test_cleanup.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "scripts/extension_bundle_snapshot.py": "08ae0408a22e4f4c3c8a8b22af31b6a6a16d304dc0d14d5e489596dd9731a950",
+    "scripts/extension_manifest_catalog.py": "18c6048a0690e68dba3da1e8d11c5abccac16c3c26aa8803ff80abfd1dabe7e4",
+    "scripts/generate-emoji.py": "98f43c9a5941b4e65533e31ff7d7eaa4e697d8fecd4c7424297e6957e07abd53",
+    "scripts/generate-tinycast-grid-oracle.py": "bd53975673883b624d2553cd47687c5a3a760b17181a8c0621715ed1599b3118",
+    "scripts/package-nightly-update.py": "2a650baee0c7c76eadd360171e19686aad7b960fe34ebc780638c6b231032420",
+    "scripts/summarize-readiness.py": "e63d9d2ec435d2c369ae0be126bafb0b0507e903b03674f11a77ee10b428fe64",
+    "scripts/test-api-compatibility.py": "1ba4bf24535130bfd59a5f1d9d4830ca075e7158fc2cbe316696fcadb6108065",
+    "scripts/test-assistant-touch.py": "fd5a4acfdd19ddc60eb467fea3c7d2e8ab7ac717bea35c76d007577c23235a54",
+    "scripts/test-calculator-intent.py": "93ef5653c4d0c153d8f216c9fd74557089a964eaab80c84c85ab5460ec58f1a1",
+    "scripts/test-configurable-shortcuts.py": "56f4581f78265ec2c28faa1da115ae10a8349cf47e10db60bfba3e88f0cc3e73",
+    "scripts/test-extension-grid.py": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "scripts/test-extension-workflows.py": "c6cce4d533b45655a7763305379107840a93a1a953be0322a869c7505ffc0997",
+    "scripts/test-global-shortcut.py": "4a0f57d16dfccbd0c7b33d6b78a841ccad030c4bad6fb108ac80f15dc89f6d6a",
+    "scripts/test-modifier-taps-hardware.py": "b0d2da7fd2410095d65ef20e25cd9b8e90f9b480849dfd5e497f75d4d713139c",
+    "scripts/test-modifier-taps.py": "8cb08d228371c90f995ae2246ef0a92daf6c81724c11a1ac67374ed0dd347dab",
+    "scripts/test-readiness-benchmark.py": "1f92dc1989f1ff36c82433d6eaab1e2c896abf7541a24a9b215c109e49d1a7d9",
+    "scripts/test-restart-files.py": "65f1c311df77634f746cb155d831acf1fa4d8cf05d0e1dabc9d372bf1e842065",
+    "scripts/test-reviewed-text-input.py": "0d19429376081de7f4f7b5ebe0d954a2b3aa82bc15d9c03af10184412f33e9a1",
+    "scripts/test-reviewed-text-process-recreation.py": "eecd547c48ad2bbce2d8bae62bbed26a2484e0b5d97ebb7cb989ba98d4de2a23",
+    "scripts/test-search-header.py": "772cb70442bbf28086beb8087ebce94d02ba6cc10e6acf8c2cf91a0d8d5b39d0",
+    "scripts/test-self-updates.py": "4ff148ea90c3a148a1eacf74116db288e5e9c282f69e0c331caa6f22b1a40889",
+    "scripts/test-startup-performance.py": "9ac605bf3347fde625d279767bb8fc4de76ae82f099e7d8351416fa5bc9250ae",
+    "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6",
+    "scripts/tests/test_android_clipboard_recovery.py": "b260d3adcfa33e2641affebee9bebb1676097b4a24bbdbeb89cef7f3fc889176",
+    "scripts/tests/test_android_form_documents_fixture.py": "c2b573793d6c5d48fe9dc8e75ffc554e11818e319507080a4b96aa4e24e1fc03",
+    "scripts/tests/test_android_test_cleanup.py": "49c8831c517f0777f46952376f5d3b783322eeb25f063d69a9b1bc2f8cde01cf",
+    "scripts/tests/test_extension_bundle_snapshot.py": "382561907129ac58b7e20b963c1afcbc9bc1a03b7e18da64e7d61927a8b15783",
+    "scripts/tests/test_extension_manifest_catalog.py": "57af21edf39e3e4084453830eed62d3c052ba8d8a4f942d3d69807e2cd4b69a6",
+    "scripts/tests/test_extension_workflow_guards.py": "1cea982b85cf759e691471cad72b8e2cbdccdf3c2ccc6c483b1ef01b49002a3f",
+    "scripts/tests/test_private_path_observation.py": "3c0fff3062ac9b43aab67ed4ab2d53b92fa39f9af9e0ada9d197856a1df94e95",
+    "scripts/tests/test_reviewed_text_archives.py": "0308a50c148c97ed50381e894eabd43ec6e374878f99b810244c24e25f1a626e",
+    "scripts/tests/test_reviewed_text_runner_guards.py": "2fbdaff64c1e8660025bf12bf3361713caa8175b4c9313139d6bc141fa93f726"
+  },
+  "runs": [
+    {
+      "mode": "normal",
+      "log": "python-guards-working-v1.log",
+      "log_sha256": "1831dc5336b4642fb405f2b9c6c3c3212f82311bf7a19c427e7a06b1414c518e",
+      "cases": 109,
+      "invocation": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/tests"
+      ],
+      "passed": true
+    },
+    {
+      "mode": "optimized",
+      "log": "python-guards-optimized-v1.log",
+      "log_sha256": "1be6b3e115ab3111feba5cb88991c026b2c00bf7d49350765ee4de8c6e49e7c3",
+      "cases": 109,
+      "invocation": [
+        "python3",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/tests"
+      ],
+      "passed": true
+    }
+  ]
+}

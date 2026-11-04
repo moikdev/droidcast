@@ -1,0 +1,328 @@
+{
+  "completed": true,
+  "collector_sha256": "217a2eba0da318137cc52f07283e4c8b06d44cbd61bf21d9709eea7f83b6a24b",
+  "retained_v4_cohorts": [
+    "baseline-quick-translate-tablet100-v4",
+    "baseline-lorem-ai-tablet100-v4",
+    "baseline-menu-bar-tablet100-v4",
+    "baseline-translate-tablet100-v4",
+    "baseline-quick-translate-view-tablet100-v4",
+    "baseline-instant-translate-paste-tablet100-v4",
+    "baseline-instant-translate-view-tablet100-v4",
+    "baseline-quick-translate-phone100-v4",
+    "baseline-lorem-ai-phone100-v4",
+    "baseline-menu-bar-phone100-v4",
+    "baseline-translate-phone100-v4",
+    "baseline-quick-translate-view-phone100-v4",
+    "baseline-instant-translate-paste-phone100-v4",
+    "baseline-instant-translate-view-phone100-v4",
+    "critical-lorem-ai-tablet200-v4",
+    "critical-quick-translate-tablet200-v4",
+    "critical-translate-tablet200-v4",
+    "critical-menu-bar-tablet200-v4",
+    "critical-lorem-ai-phone200-v4",
+    "critical-quick-translate-phone200-v4",
+    "critical-translate-phone200-v4",
+    "critical-menu-bar-phone200-v4",
+    "critical-lorem-ai-landscape200-v4",
+    "critical-quick-translate-landscape200-v4"
+  ],
+  "runs": [
+    {
+      "name": "critical-translate-landscape200-v5",
+      "exit_code": 0
+    },
+    {
+      "name": "critical-menu-bar-landscape200-v5",
+      "exit_code": 0
+    },
+    {
+      "name": "regression-quick-translate-view-phone100-v5",
+      "exit_code": 0
+    }
+  ],
+  "excluded_v4_failure": "critical-translate-landscape200-v4",
+  "unrun_in_failed_v4_pipeline": "critical-menu-bar-landscape200-v4",
+  "scope": "Retained v4 same-app positives plus separately identified v5 pointer-protocol continuation; no production repair or same-test-APK equivalence inferred",
+  "discovery_exit_code": 0,
+  "verified_positive_cohorts": [
+    "baseline-quick-translate-tablet100-v4",
+    "baseline-lorem-ai-tablet100-v4",
+    "baseline-menu-bar-tablet100-v4",
+    "baseline-translate-tablet100-v4",
+    "baseline-quick-translate-view-tablet100-v4",
+    "baseline-instant-translate-paste-tablet100-v4",
+    "baseline-instant-translate-view-tablet100-v4",
+    "baseline-quick-translate-phone100-v4",
+    "baseline-lorem-ai-phone100-v4",
+    "baseline-menu-bar-phone100-v4",
+    "baseline-translate-phone100-v4",
+    "baseline-quick-translate-view-phone100-v4",
+    "baseline-instant-translate-paste-phone100-v4",
+    "baseline-instant-translate-view-phone100-v4",
+    "critical-lorem-ai-tablet200-v4",
+    "critical-quick-translate-tablet200-v4",
+    "critical-translate-tablet200-v4",
+    "critical-menu-bar-tablet200-v4",
+    "critical-lorem-ai-phone200-v4",
+    "critical-quick-translate-phone200-v4",
+    "critical-translate-phone200-v4",
+    "critical-menu-bar-phone200-v4",
+    "critical-lorem-ai-landscape200-v4",
+    "critical-quick-translate-landscape200-v4",
+    "critical-translate-landscape200-v5",
+    "critical-menu-bar-landscape200-v5",
+    "regression-quick-translate-view-phone100-v5"
+  ],
+  "matrix_cohorts": [
+    "baseline-quick-translate-tablet100-v4",
+    "baseline-lorem-ai-tablet100-v4",
+    "baseline-menu-bar-tablet100-v4",
+    "baseline-translate-tablet100-v4",
+    "baseline-quick-translate-view-tablet100-v4",
+    "baseline-instant-translate-paste-tablet100-v4",
+    "baseline-instant-translate-view-tablet100-v4",
+    "baseline-quick-translate-phone100-v4",
+    "baseline-lorem-ai-phone100-v4",
+    "baseline-menu-bar-phone100-v4",
+    "baseline-translate-phone100-v4",
+    "baseline-quick-translate-view-phone100-v4",
+    "baseline-instant-translate-paste-phone100-v4",
+    "baseline-instant-translate-view-phone100-v4",
+    "critical-lorem-ai-tablet200-v4",
+    "critical-quick-translate-tablet200-v4",
+    "critical-translate-tablet200-v4",
+    "critical-menu-bar-tablet200-v4",
+    "critical-lorem-ai-phone200-v4",
+    "critical-quick-translate-phone200-v4",
+    "critical-translate-phone200-v4",
+    "critical-menu-bar-phone200-v4",
+    "critical-lorem-ai-landscape200-v4",
+    "critical-quick-translate-landscape200-v4",
+    "critical-translate-landscape200-v5",
+    "critical-menu-bar-landscape200-v5"
+  ],
+  "regression_cohorts": [
+    "regression-quick-translate-view-phone100-v5"
+  ],
+  "executions": 27,
+  "cleanup_checks": 518,
+  "outcomes": [
+    {
+      "cohort": "baseline-quick-translate-tablet100-v4",
+      "command": "quick-translate",
+      "layout": "tablet",
+      "font": 1,
+      "outcome": "blocked-command-handoff",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-lorem-ai-tablet100-v4",
+      "command": "lorem-ai",
+      "layout": "tablet",
+      "font": 1,
+      "outcome": "blocked-ai-capability",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-menu-bar-tablet100-v4",
+      "command": "menu-bar",
+      "layout": "tablet",
+      "font": 1,
+      "outcome": "blocked-menu-bar-reviewed-entry",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-translate-tablet100-v4",
+      "command": "translate",
+      "layout": "tablet",
+      "font": 1,
+      "outcome": "working-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-quick-translate-view-tablet100-v4",
+      "command": "quick-translate-view",
+      "layout": "tablet",
+      "font": 1,
+      "outcome": "working-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-instant-translate-paste-tablet100-v4",
+      "command": "instant-translate-paste",
+      "layout": "tablet",
+      "font": 1,
+      "outcome": "partial-paste-unsupported",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-instant-translate-view-tablet100-v4",
+      "command": "instant-translate-view",
+      "layout": "tablet",
+      "font": 1,
+      "outcome": "working-display-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-quick-translate-phone100-v4",
+      "command": "quick-translate",
+      "layout": "phone",
+      "font": 1,
+      "outcome": "blocked-command-handoff",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-lorem-ai-phone100-v4",
+      "command": "lorem-ai",
+      "layout": "phone",
+      "font": 1,
+      "outcome": "blocked-ai-capability",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-menu-bar-phone100-v4",
+      "command": "menu-bar",
+      "layout": "phone",
+      "font": 1,
+      "outcome": "blocked-menu-bar-reviewed-entry",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-translate-phone100-v4",
+      "command": "translate",
+      "layout": "phone",
+      "font": 1,
+      "outcome": "working-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-quick-translate-view-phone100-v4",
+      "command": "quick-translate-view",
+      "layout": "phone",
+      "font": 1,
+      "outcome": "working-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-instant-translate-paste-phone100-v4",
+      "command": "instant-translate-paste",
+      "layout": "phone",
+      "font": 1,
+      "outcome": "partial-paste-unsupported",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "baseline-instant-translate-view-phone100-v4",
+      "command": "instant-translate-view",
+      "layout": "phone",
+      "font": 1,
+      "outcome": "working-display-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-lorem-ai-tablet200-v4",
+      "command": "lorem-ai",
+      "layout": "tablet",
+      "font": 2.0,
+      "outcome": "blocked-ai-capability",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-quick-translate-tablet200-v4",
+      "command": "quick-translate",
+      "layout": "tablet",
+      "font": 2.0,
+      "outcome": "blocked-command-handoff",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-translate-tablet200-v4",
+      "command": "translate",
+      "layout": "tablet",
+      "font": 2.0,
+      "outcome": "working-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-menu-bar-tablet200-v4",
+      "command": "menu-bar",
+      "layout": "tablet",
+      "font": 2.0,
+      "outcome": "blocked-menu-bar-reviewed-entry",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-lorem-ai-phone200-v4",
+      "command": "lorem-ai",
+      "layout": "phone",
+      "font": 2.0,
+      "outcome": "blocked-ai-capability",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-quick-translate-phone200-v4",
+      "command": "quick-translate",
+      "layout": "phone",
+      "font": 2.0,
+      "outcome": "blocked-command-handoff",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-translate-phone200-v4",
+      "command": "translate",
+      "layout": "phone",
+      "font": 2.0,
+      "outcome": "working-observed-path",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-menu-bar-phone200-v4",
+      "command": "menu-bar",
+      "layout": "phone",
+      "font": 2.0,
+      "outcome": "blocked-menu-bar-reviewed-entry",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-lorem-ai-landscape200-v4",
+      "command": "lorem-ai",
+      "layout": "landscape",
+      "font": 2.0,
+      "outcome": "blocked-ai-capability",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-quick-translate-landscape200-v4",
+      "command": "quick-translate",
+      "layout": "landscape",
+      "font": 2.0,
+      "outcome": "blocked-command-handoff",
+      "test_source_commit": "c262fdf3adb7eb4ab7f249007aa72142190a283f"
+    },
+    {
+      "cohort": "critical-translate-landscape200-v5",
+      "command": "translate",
+      "layout": "landscape",
+      "font": 2.0,
+      "outcome": "working-observed-path",
+      "test_source_commit": "77bec8fcfcc501c58707db2d939236943a14f479"
+    },
+    {
+      "cohort": "critical-menu-bar-landscape200-v5",
+      "command": "menu-bar",
+      "layout": "landscape",
+      "font": 2.0,
+      "outcome": "blocked-menu-bar-reviewed-entry",
+      "test_source_commit": "77bec8fcfcc501c58707db2d939236943a14f479"
+    },
+    {
+      "cohort": "regression-quick-translate-view-phone100-v5",
+      "command": "quick-translate-view",
+      "layout": "phone",
+      "font": 1.0,
+      "outcome": "working-observed-path",
+      "test_source_commit": "77bec8fcfcc501c58707db2d939236943a14f479"
+    }
+  ]
+}

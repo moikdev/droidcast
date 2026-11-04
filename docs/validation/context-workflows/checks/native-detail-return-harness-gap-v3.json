@@ -1,0 +1,8 @@
+{
+  "scope": "Historical failed whole workflow; exact native Copy succeeded before source-return failure",
+  "case": "baseline-quick-translate-view-phone100-v3",
+  "passes": 0,
+  "cleanup_checks": 20,
+  "failure": "The collector looked for extension-back while the current phone pane exposes extension-detail-back. The failing capture shows the existing Back to results control. No production navigation repair is claimed.",
+  "repair_scope": "Test-only: pointer Back to results, assert retained edited query, then pointer source Back. Require complete 48dp targets and defer workflow classification until source return. Response decoding is restricted to the identified Google endpoint."
+}
