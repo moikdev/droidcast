@@ -33,6 +33,7 @@ class InlinePaletteDeviceTest {
     private var originalClip: android.content.ClipData? = null
     private var hostClipboardRecovery = false
     private val touchEvidence = JSONArray()
+    private val scrollEvidence = JSONArray()
     @Before fun prepare() {
         val avd = InstrumentationRegistry.getArguments().getString("dedicatedAvd")
         assertFalse("Explicit owned AVD required", avd.isNullOrBlank())
@@ -160,6 +161,7 @@ class InlinePaletteDeviceTest {
         val record = JSONObject().put("schema_version", 1).put("name", name)
             .put("scope", "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction")
             .put("pointer_taps", touchEvidence)
+            .put("pointer_scrolls", scrollEvidence)
             .put("legacy_menu_operand", legacyMenu?.let { JSONArray(listOf(it.left, it.top, it.right, it.bottom)) })
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
                 android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
@@ -184,15 +186,40 @@ class InlinePaletteDeviceTest {
     private fun pointer(tag: String, scrollTag: String? = null) {
         val minimum = 48 * context.resources.displayMetrics.density
         var target: androidx.compose.ui.semantics.SemanticsNode? = null
-        for(attempt in 0..10) {
+        var direction = 1
+        var seenTarget = false
+        for(attempt in 0..20) {
             val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()
             if(node != null && node.layoutInfo.isPlaced && node.layoutInfo.coordinates.isAttached &&
                 node.size.width + 1 >= minimum && node.size.height + 1 >= minimum &&
                 node.boundsInRoot.width + 1 >= node.size.width && node.boundsInRoot.height + 1 >= node.size.height) {
                 target = node; break
             }
-            if(scrollTag == null || attempt == 10) break
-            compose.onNodeWithTag(scrollTag).performTouchInput { swipeUp() }
+            if(scrollTag == null || attempt == 20) break
+            val scrollNode = compose.onNodeWithTag(scrollTag).fetchSemanticsNode()
+            val viewport = scrollNode.boundsInRoot
+            assertTrue("A pointer scroll needs a placed viewport", scrollNode.layoutInfo.isPlaced && viewport.height > 0)
+            val visible = node?.takeIf { it.layoutInfo.isPlaced }?.boundsInRoot?.takeIf { it.height > 0 }
+            if(visible != null) {
+                direction = if(visible.top <= viewport.top + 1 && visible.bottom < viewport.bottom - 1) -1 else 1
+                seenTarget = true
+            } else if(seenTarget) direction = -direction
+            val distance = minOf(viewport.height * .3f, if(visible != null)
+                (requireNotNull(node).size.height - visible.height + 8 * context.resources.displayMetrics.density).coerceAtLeast(20f)
+                else 60 * context.resources.displayMetrics.density)
+            val start = viewport.center + androidx.compose.ui.geometry.Offset(0f, direction * distance / 2)
+            val end = viewport.center - androidx.compose.ui.geometry.Offset(0f, direction * distance / 2)
+            val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(scrollTag)), useUnmergedTree = true)
+            val root = owner.fetchSemanticsNode().boundsInRoot
+            val observation = JSONObject().put("target", tag).put("viewport_tag", scrollTag).put("direction", if(direction > 0) "up" else "down")
+                .put("start_root", JSONArray(listOf(start.x, start.y))).put("end_root", JSONArray(listOf(end.x, end.y)))
+                .put("duration_ms", 600).put("target_visible_height_before", visible?.height)
+                .put("accessibility_axis_before", scrollNode.config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)?.value?.invoke())
+            owner.performTouchInput { swipe(start - root.topLeft, end - root.topLeft, durationMillis = 600) }
+            compose.waitForIdle()
+            observation.put("accessibility_axis_after", compose.onNodeWithTag(scrollTag).fetchSemanticsNode()
+                .config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)?.value?.invoke())
+            scrollEvidence.put(observation)
         }
         val node = requireNotNull(target) { "A complete placed 48dp $tag target must be reachable by pointer scrolling" }
         val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
@@ -261,7 +288,7 @@ class InlinePaletteDeviceTest {
     }
     private fun touchReceipt(name: String, observations: JSONArray) {
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
-        File(folder, "$name-record.json").writeText(JSONObject().put("passed", true).put("pointer_taps", touchEvidence)
+        File(folder, "$name-record.json").writeText(JSONObject().put("passed", true).put("pointer_taps", touchEvidence).put("pointer_scrolls", scrollEvidence)
             .put("observations", observations).put("font_scale", context.resources.configuration.fontScale)
             .put("scope", "Owned menu workflows; host cleanup independently restores original clipboard/preferences/settings/evidence")
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
