@@ -1,5 +1,12 @@
 // Android host adapter. The upstream generated Tinycast runtime is loaded separately, unchanged.
 (function () {
+  // WebView supplies browser fetch, but this headless page restricts browser
+  // networking. Let the unchanged portable runtime install its native-host
+  // transport and matching body/stream types as one coherent implementation.
+  for (const name of ["fetch", "Headers", "Request", "Response", "Blob", "File", "FormData",
+                      "ReadableStream", "WritableStream", "TransformStream"]) {
+    Object.defineProperty(globalThis, name, {value: undefined, writable: true, configurable: true, enumerable: true});
+  }
   const timers = new Map();
   const later = window.setTimeout.bind(window), cancel = window.clearTimeout.bind(window);
   const every = window.setInterval.bind(window), cancelEvery = window.clearInterval.bind(window);

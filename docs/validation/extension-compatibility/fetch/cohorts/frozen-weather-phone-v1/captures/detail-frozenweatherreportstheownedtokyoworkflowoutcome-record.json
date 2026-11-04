@@ -1,0 +1,88 @@
+{
+  "scope": "Unmodified hash-pinned weather command with owned input and nonsecret isolated preferences; an observation pass is not a service\/compatibility pass",
+  "clipboard-before-owned-sentinel": {
+    "observations": [
+      "169ms query_ms=135 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "314ms query_ms=91 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "414ms query_ms=50 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "493ms query_ms=29 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "590ms query_ms=46 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "662ms query_ms=14 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "739ms query_ms=27 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "801ms query_ms=12 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]"
+    ],
+    "actions": []
+  },
+  "fetch_clipboard_fixture_ready": true,
+  "fetch_clipboard_fixture_wait_ms": 1891,
+  "clipboard-owned-sentinel": {
+    "observations": [
+      "36ms query_ms=32 mode=0 flags=65618 windows=[(4433, 3), (4426, 3)] systemui_roots=[4433] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+      "192ms query_ms=84 mode=0 flags=65618 windows=[(4433, 3), (4426, 3)] systemui_roots=[4426] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+      "280ms query_ms=33 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "348ms query_ms=17 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "440ms query_ms=41 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "502ms query_ms=12 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "580ms query_ms=24 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "665ms query_ms=26 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+      "774ms query_ms=49 mode=0 flags=65618 windows=[(4426, 3)] systemui_roots=[4426] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+    ],
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "font_scale": 1,
+  "width_dp": 411,
+  "height_dp": 891,
+  "installed_build_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+  "frozen_command_sha256": "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af",
+  "command": "index",
+  "owned_extension_id": "reviewed-text-92ef50092fc0474db301919ea43dd6a7",
+  "seeded_preferences": {
+    "unitsystem": "metric",
+    "defaultquery": "Kyoto",
+    "clockformat": "12h"
+  },
+  "configuration_method": "Seeded in owned storage; preference editing is not exercised",
+  "network_observer_scope": "Forwarding test-only observer installed after initial native root; only subsequent requests, bounded metadata and no query\/header\/body capture",
+  "axis_aware_scrolls": [],
+  "network_observation": {
+    "overflow": 0,
+    "observerErrors": 0,
+    "requests": [
+      {
+        "sequence": 1,
+        "endpoint": "wttr-owned-Tokyo",
+        "method": "GET",
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200,
+        "responseBase64Length": 53004
+      }
+    ]
+  },
+  "runtime_failed": false,
+  "observation_deadline_reached": false,
+  "owned_query": "Tokyo",
+  "native_root_type": "List",
+  "native_row_count": 11,
+  "native_empty_view_count": 0,
+  "rendering_scope": "Rows can retain prior-city data; no city-specific forecast credit",
+  "workflow_outcome": "partial-rendered-rows",
+  "phase_outcomes": {
+    "startup": "native List",
+    "input": "Tokyo in composed search",
+    "service": "Recorded native transport metadata; request before observer attachment is excluded",
+    "destination": "forecast detail\/actions unexercised"
+  },
+  "caller_returned": true,
+  "observation_collector_passed": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "image_history_process_property_restored": true
+}

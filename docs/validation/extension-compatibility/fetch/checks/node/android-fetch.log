@@ -1,0 +1,9 @@
+PASS fetch_routes_to_host_with_browser_globals
+PASS request_preserves_unicode_method_and_headers
+PASS typed_array_body_preserves_binary_bytes
+PASS blob_and_file_bodies_preserve_bytes_and_mime
+PASS multipart_fields_and_file_content_match_the_boundary
+PASS response_stream_and_blob_use_the_global_portable_types
+PASS transport_errors_and_preaborted_requests_keep_their_boundary
+PASS missing_browser_globals_keep_the_existing_host_transport
+{"tests":8,"passed":8,"failed":0}

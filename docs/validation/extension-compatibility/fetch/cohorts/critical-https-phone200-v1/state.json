@@ -1,0 +1,32 @@
+{
+  "completed": true,
+  "layout": "phone",
+  "font": 2.0,
+  "variant": "current",
+  "case": "https",
+  "app_sha256": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e",
+  "test_apk_sha256": "e26b3fe6b97575edbbc2fda121b6615d65316264db48b87dd5d87614ea16969d",
+  "test_source_commit": "d806004eb4d65a43e08c3966fff16ebd79d9affb",
+  "test_compile_target_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "runtime_source_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "collector_sha256": "acedd09b07f3092003401cb2bfde6f69acc85c675bf7284a1761689821aab919",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 0,
+  "passes": 1,
+  "cleanup_checks": 20,
+  "cleanup_passed": true,
+  "native_completed": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "routing": {
+    "phase": "settled",
+    "calls": 1,
+    "status": 200,
+    "ok": true,
+    "exampleDomain": true,
+    "bodyLength": 577
+  },
+  "positive_witness": true
+}

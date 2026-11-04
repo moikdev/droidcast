@@ -1,0 +1,69 @@
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preBenchmarkBuild UP-TO-DATE
+> Task :app:generateBenchmarkBuildConfig UP-TO-DATE
+> Task :app:generateBenchmarkResources UP-TO-DATE
+> Task :app:packageBenchmarkResources UP-TO-DATE
+> Task :app:processBenchmarkNavigationResources UP-TO-DATE
+> Task :app:parseBenchmarkLocalResources UP-TO-DATE
+> Task :app:generateBenchmarkRFile UP-TO-DATE
+> Task :app:compileBenchmarkKotlin UP-TO-DATE
+> Task :app:javaPreCompileBenchmark UP-TO-DATE
+> Task :app:compileBenchmarkJavaWithJavac UP-TO-DATE
+> Task :app:checkBenchmarkAarMetadata UP-TO-DATE
+> Task :app:mapBenchmarkSourceSetPaths UP-TO-DATE
+> Task :app:compileBenchmarkNavigationResources UP-TO-DATE
+> Task :app:mergeBenchmarkResources UP-TO-DATE
+> Task :app:createBenchmarkCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksBenchmark UP-TO-DATE
+> Task :app:processBenchmarkMainManifest UP-TO-DATE
+> Task :app:processBenchmarkManifest UP-TO-DATE
+> Task :app:processBenchmarkManifestForPackage UP-TO-DATE
+> Task :app:processBenchmarkResources UP-TO-DATE
+> Task :app:preBenchmarkAndroidTestBuild SKIPPED
+> Task :app:processBenchmarkAndroidTestManifest
+> Task :app:generateBenchmarkAndroidTestBuildConfig
+> Task :app:generateBenchmarkAndroidTestResources
+> Task :app:packageBenchmarkAndroidTestResources
+> Task :app:processBenchmarkAndroidTestNavigationResources
+> Task :app:generateBenchmarkAndroidTestAssets UP-TO-DATE
+> Task :app:javaPreCompileBenchmarkAndroidTest
+> Task :app:parseBenchmarkAndroidTestLocalResources
+> Task :app:mergeBenchmarkAndroidTestAssets
+> Task :app:compressBenchmarkAndroidTestAssets
+> Task :app:desugarBenchmarkAndroidTestFileDependencies
+> Task :app:generateBenchmarkAndroidTestRFile
+> Task :app:bundleBenchmarkClassesToCompileJar
+> Task :app:checkBenchmarkAndroidTestAarMetadata
+> Task :app:mapBenchmarkAndroidTestSourceSetPaths
+> Task :app:compileBenchmarkAndroidTestNavigationResources
+> Task :app:checkBenchmarkAndroidTestDuplicateClasses
+> Task :app:mergeBenchmarkAndroidTestJniLibFolders
+> Task :app:mergeBenchmarkJniLibFolders UP-TO-DATE
+> Task :app:mergeBenchmarkNativeLibs UP-TO-DATE
+> Task :app:mergeBenchmarkAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripBenchmarkAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningBenchmarkAndroidTest
+> Task :app:writeBenchmarkAndroidTestSigningConfigVersions
+> Task :app:mergeBenchmarkAndroidTestResources
+> Task :app:processBenchmarkAndroidTestResources
+> Task :app:mergeExtDexBenchmarkAndroidTest
+
+> Task :app:compileBenchmarkAndroidTestKotlin
+w: file://<user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/androidTest/java/dev/tinycast/android/CalculatorActionsDeviceTest.kt:171:41 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+w: file://<user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/androidTest/java/dev/tinycast/android/CalculatorActionsDeviceTest.kt:176:48 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+w: file://<user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/androidTest/java/dev/tinycast/android/ExtensionGridDeviceTest.kt:544:47 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+w: file://<user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/androidTest/java/dev/tinycast/android/FrozenBundleWorkflowDeviceTest.kt:261:47 'static fun getWindowInsetsController(p0: View): WindowInsetsControllerCompat?' is deprecated. Deprecated in Java.
+
+> Task :app:compileBenchmarkAndroidTestJavaWithJavac
+> Task :app:dexBuilderBenchmarkAndroidTest
+> Task :app:mergeBenchmarkAndroidTestGlobalSynthetics
+> Task :app:processBenchmarkAndroidTestJavaRes
+> Task :app:mergeBenchmarkAndroidTestJavaResource
+> Task :app:mergeDexBenchmarkAndroidTest
+> Task :app:packageBenchmarkAndroidTest
+> Task :app:createBenchmarkAndroidTestApkListingFileRedirect
+> Task :app:assembleBenchmarkAndroidTest
+
+BUILD SUCCESSFUL in 16s
+52 actionable tasks: 31 executed, 21 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.4.1/userguide/configuration_cache_enabling.html

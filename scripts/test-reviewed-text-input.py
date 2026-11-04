@@ -28,6 +28,18 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+SELECTED_TRANSLATION_CASE = ('dev.tinycast.android.ReviewedTextDeviceTest#'
+                             'selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure')
+
+
+def translation_test_filter(classes, has_archive):
+    # Preserve the default nine-case suite. The network-dependent observation
+    # runs only when its frozen archive is explicitly supplied.
+    require(has_archive or SELECTED_TRANSLATION_CASE not in classes.split(','),
+            'The selected translation observation requires --translate-archive')
+    return [] if has_archive else ['-e', 'notClass', SELECTED_TRANSLATION_CASE]
+
+
 def frozen_form_archive(path, expected):
     limit = 32 * 1024 * 1024
     require(path.stat().st_size <= limit, 'Frozen Form archive exceeds the size bound')
@@ -49,6 +61,8 @@ def main():
     parser.add_argument('--mood-archive', type=Path, help='Optional hash-pinned Mood Tracker bundle for the owned real-Form workflow')
     parser.add_argument('--checksum-archive', type=Path, help='Optional hash-pinned Checksum bundle for the owned real-picker workflow')
     parser.add_argument('--html-colors-archive', type=Path, help='Optional hash-pinned HTML Colors bundle for the owned native Detail workflow')
+    parser.add_argument('--translate-archive', type=Path, help='Optional hash-pinned Translate bundle for owned network observations')
+    parser.add_argument('--weather-archive', type=Path, help='Optional hash-pinned Weather bundle for owned network observations')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
@@ -86,6 +100,12 @@ def main():
             'Restoration failure is limited to the deliberate process-death control')
     require(not args.html_colors_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
         for item in args.classes.split(',')), 'HTML Colors belongs only to the owned Detail cohort')
+    require(not args.weather_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
+        for item in args.classes.split(',')), 'Network bundle is not authorized for this test class')
+    require(not args.translate_archive or all(item.split('#')[0] in
+        ['dev.tinycast.android.ExtensionDetailDeviceTest', 'dev.tinycast.android.ReviewedTextDeviceTest'] for item in args.classes.split(',')),
+        'Network bundle is not authorized for this test class')
+    network_filter = translation_test_filter(args.classes, args.translate_archive is not None)
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
@@ -101,6 +121,10 @@ def main():
     if args.html_colors_archive is not None:
         typed_archives['html-colors'] = frozen_form_archive(args.html_colors_archive,
             '8a346fd2bd4ed01ceeacdeb71462b458014faa539a1f2b563638983843bdf0fb')
+    for name, path, expected in [('translate', args.translate_archive, '9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2'),
+                                 ('weather', args.weather_archive, '20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c')]:
+        if path is not None:
+            typed_archives[name] = frozen_form_archive(path, expected)
     sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
     if not sdk:
         sdk = next(line.removeprefix('sdk.dir=') for line in Path('local.properties').read_text().splitlines() if line.startswith('sdk.dir='))
@@ -149,6 +173,7 @@ def main():
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'document_helper_sha256': sha(document_helper.read_bytes()),
+              'instrumentation_excluded_tests': [] if not network_filter else [SELECTED_TRANSLATION_CASE],
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
 
@@ -200,7 +225,7 @@ def main():
                          '-e', 'reviewedTextFixture', 'true', '-e', 'expectedTextInputLeaseOwner', owner,
                          '-e', 'expectedClipboardRecoveryOwner', owner,
                          '-e', 'expectedFormDocumentOwner', owner if args.document_fixtures else 'none',
-                         '-e', 'class', args.classes, app + '.test/androidx.test.runner.AndroidJUnitRunner']
+                         '-e', 'class', args.classes, *network_filter, app + '.test/androidx.test.runner.AndroidJUnitRunner']
         with (args.output / 'tests.log').open('wb') as log:
             process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=max(600, args.expected * 90))
         record['instrumentation_exit_code'] = process.returncode

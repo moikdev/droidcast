@@ -1,0 +1,49 @@
+{
+  "completed": true,
+  "layout": "tablet",
+  "font": 1,
+  "variant": "current",
+  "case": "translate",
+  "app_sha256": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e",
+  "test_apk_sha256": "e26b3fe6b97575edbbc2fda121b6615d65316264db48b87dd5d87614ea16969d",
+  "test_source_commit": "d806004eb4d65a43e08c3966fff16ebd79d9affb",
+  "test_compile_target_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "runtime_source_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "collector_sha256": "6d7058ca35256aa90a019f3ec646e81bbcda40cd2ae62d42df25ca9360199f39",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 0,
+  "passes": 1,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "native_completed": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "network_observation": {
+    "overflow": 0,
+    "observerErrors": 0,
+    "requests": [
+      {
+        "sequence": 1,
+        "endpoint": "google-home",
+        "method": "GET",
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200,
+        "responseBase64Length": 4216796
+      },
+      {
+        "sequence": 2,
+        "endpoint": "google-translate",
+        "method": "GET",
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200,
+        "responseBase64Length": 1140
+      }
+    ]
+  },
+  "workflow_outcome": "working-observed-path",
+  "observation_collector_witness": true
+}

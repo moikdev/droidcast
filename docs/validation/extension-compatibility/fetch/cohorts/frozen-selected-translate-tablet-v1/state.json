@@ -1,0 +1,47 @@
+{
+  "completed": true,
+  "layout": "tablet",
+  "font": 1,
+  "variant": "current",
+  "case": "selected-translate",
+  "app_sha256": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e",
+  "test_apk_sha256": "79115291a3ddf5b24675c98ff29018c0298071aadfd3d8565675bd0d00eff699",
+  "test_source_commit": "74da77a4d2ea4a7e5178a77ef2035e927d328444",
+  "test_compile_target_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "runtime_source_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "collector_sha256": "701441c901fdf50c84980d38a55a5104bda0f7a4fba380e851044b0597154e07",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 0,
+  "passes": 1,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "native_completed": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "network_observation": {
+    "errors": 0,
+    "overflow": 0,
+    "requests": [
+      {
+        "sequence": 1,
+        "endpoint": "other-redacted",
+        "ownedInputQuery": false,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      },
+      {
+        "sequence": 2,
+        "endpoint": "google-translate",
+        "ownedInputQuery": true,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      }
+    ]
+  },
+  "workflow_outcome": "working-observed-path",
+  "observation_collector_witness": true
+}

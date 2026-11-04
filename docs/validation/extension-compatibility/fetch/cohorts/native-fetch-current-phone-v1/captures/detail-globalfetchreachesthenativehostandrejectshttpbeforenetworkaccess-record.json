@@ -1,0 +1,22 @@
+{
+  "scope": "Owned React Markdown\/metadata through the real runtime and native UI; not Store or service certification",
+  "clipboard-before-owned-sentinel": {
+    "observations": [
+      "138ms query_ms=1 mode=0 flags=65618 windows=[] systemui_roots=[] queries=0 roots=0 children=0 walked=0 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "371ms query_ms=163 mode=0 flags=65618 windows=[(4281, 3)] systemui_roots=[4281] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "548ms query_ms=105 mode=0 flags=65618 windows=[(4281, 3)] systemui_roots=[4281] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "957ms query_ms=358 mode=0 flags=65618 windows=[(4281, 3)] systemui_roots=[4281] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]"
+    ],
+    "actions": []
+  },
+  "clipboard-owned-sentinel": {
+    "observations": [
+      "4796ms query_ms=4603 mode=0 flags=65618 windows=[(4281, 3)] systemui_roots=[4281] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "5292ms query_ms=387 mode=0 flags=65618 windows=[(4288, 3), (4281, 3)] systemui_roots=[4288] queries=2 roots=1 children=1 walked=1 prefetch=36 complete=false require_action=false actions=0 nodes=[]"
+    ],
+    "actions": []
+  },
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "image_history_process_property_restored": true
+}

@@ -1,0 +1,12 @@
+FAIL fetch_routes_to_host_with_browser_globals: Error: Owned browser fetch sentinel
+    at Object.browserFetch [as fetch] (<user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/test/js/android-fetch.test.cjs:17:76)
+    at <user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/test/js/android-fetch.test.cjs:52:36
+    at use (<user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/test/js/android-fetch.test.cjs:47:15)
+    at <user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/test/js/android-fetch.test.cjs:51:57
+    at <user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/test/js/android-fetch.test.cjs:116:17
+    at Object.<anonymous> (<user>/.t3/scratch/droidcast-workflow-expansion-27caf3/app/src/test/js/android-fetch.test.cjs:121:3)
+    at Module._compile (node:internal/modules/cjs/loader:1956:14)
+    at Object..js (node:internal/modules/cjs/loader:2096:10)
+    at Module.load (node:internal/modules/cjs/loader:1678:32)
+    at Module._load (node:internal/modules/cjs/loader:1470:12)
+{"tests":1,"passed":0,"failed":1}

@@ -1,0 +1,27 @@
+{
+  "completed": true,
+  "layout": "tablet",
+  "app_sha256": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e",
+  "test_apk_sha256": "26a877ac8b032df1eaec521696a307c05005af6006dc5de468ab069fe4f06ddc",
+  "test_source_commit": "a910078debaaa1f8b236a1bb7ac60ad8970b4177",
+  "test_compile_target_commit": "b99a65ec3e96ea27cbeec5759f6083ef56d3c4ff",
+  "runtime_source_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "collector_sha256": "421d87767248309c4012c6e4be597dd78e1d92f8467fb3682e0d7520a8d073b7",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 0,
+  "passes": 1,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "native_completed": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "routing": {
+    "phase": "settled",
+    "calls": 1,
+    "nativeFetchAtEntry": false,
+    "error": "Only HTTPS requests are supported",
+    "errorName": "Error"
+  }
+}
