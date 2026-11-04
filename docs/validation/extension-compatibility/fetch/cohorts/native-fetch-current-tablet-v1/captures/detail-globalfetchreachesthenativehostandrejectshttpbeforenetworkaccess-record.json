@@ -1,0 +1,49 @@
+{
+  "scope": "Owned real-WebView global fetch routing and native HTTPS-only rejection; no service\/Store success",
+  "clipboard-before-owned-sentinel": {
+    "observations": [
+      "493ms query_ms=456 mode=0 flags=65618 windows=[(4267, 3)] systemui_roots=[4267] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "778ms query_ms=175 mode=0 flags=65618 windows=[(4267, 3)] systemui_roots=[4267] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]"
+    ],
+    "actions": []
+  },
+  "clipboard-owned-sentinel": {
+    "observations": [
+      "1600ms query_ms=1587 mode=0 flags=65618 windows=[(4267, 3)] systemui_roots=[4267] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[]",
+      "2373ms query_ms=539 mode=0 flags=65618 windows=[(4274, 3), (4267, 3)] systemui_roots=[4274] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=false actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+      "2651ms query_ms=215 mode=0 flags=65618 windows=[(4274, 3), (4267, 3)] systemui_roots=[4267] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=false actions=1 nodes=[]",
+      "2734ms query_ms=31 mode=0 flags=65618 windows=[(4274, 3), (4267, 3)] systemui_roots=[4267] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=false actions=1 nodes=[]",
+      "2803ms query_ms=11 mode=0 flags=65618 windows=[(4267, 3)] systemui_roots=[4267] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=1 nodes=[]",
+      "2877ms query_ms=15 mode=0 flags=65618 windows=[(4267, 3)] systemui_roots=[4267] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=1 nodes=[]",
+      "2948ms query_ms=18 mode=0 flags=65618 windows=[(4267, 3)] systemui_roots=[4267] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=1 nodes=[]",
+      "3083ms query_ms=83 mode=0 flags=65618 windows=[(4267, 3)] systemui_roots=[4267] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=1 nodes=[]"
+    ],
+    "actions": [
+      {
+        "id": "com.android.systemui:id\/dismiss_button",
+        "accepted": true
+      }
+    ]
+  },
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "fixture_command_sha256": "724b01e641c411652018ca95dbde67f2dab02ccdab44333882e698c5c41cd7c9",
+  "fixture_manifest_sha256": "dcd3ff34f7718d156d8c2e09ccee79d05ce700e313ec7b4a1b2d01881766fe80",
+  "owned_extension_id": "reviewed-text-9efac1ee9142412cb5cf67aa6aac4ebb",
+  "axis_aware_scrolls": [],
+  "last_native_text_wait": "Native bridge calls: 1",
+  "global_fetch_routing": {
+    "phase": "settled",
+    "calls": 1,
+    "nativeFetchAtEntry": false,
+    "error": "Only HTTPS requests are supported",
+    "errorName": "Error"
+  },
+  "caller_returned": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "image_history_process_property_restored": true
+}

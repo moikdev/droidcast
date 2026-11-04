@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.UpdatePolicyTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-04T10:56:33.515Z" hostname="MacBook-Pro-2.local" time="0.01">
+  <properties/>
+  <testcase name="onlyExplicitApprovedHttpsRedirectHostsAreAccepted" classname="dev.tinycast.android.UpdatePolicyTest" time="0.001"/>
+  <testcase name="candidateRequiresOneBoundedMatchingAsset" classname="dev.tinycast.android.UpdatePolicyTest" time="0.001"/>
+  <testcase name="checksumMustMatchExactlyOneFilename" classname="dev.tinycast.android.UpdatePolicyTest" time="0.007"/>
+  <testcase name="releaseCannotRedirectDiscoveryToAnotherRepoOrPrivateHost" classname="dev.tinycast.android.UpdatePolicyTest" time="0.0"/>
+  <testcase name="exactSignerAndStrictlyNewerArchiveAreRequired" classname="dev.tinycast.android.UpdatePolicyTest" time="0.001"/>
+  <testcase name="manifestRejectsWrongPackageSchemaOrInvalidIdentity" classname="dev.tinycast.android.UpdatePolicyTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

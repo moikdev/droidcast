@@ -1,0 +1,78 @@
+{
+  "completed": true,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "tablet",
+  "font_scale": 1,
+  "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess",
+  "expected": 1,
+  "runner_sha256": "490395fd6667468ab0529793feb1aba788e90685516d429be5b1aae785e0173b",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "typed_workflow_archive_sha256": {},
+  "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+  "apk_sha256": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e",
+  "test_apk_sha256": "26a877ac8b032df1eaec521696a307c05005af6006dc5de468ab069fe4f06ddc",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 1,
+  "tests_completed": true,
+  "owned_extension_count": 1,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  }
+}

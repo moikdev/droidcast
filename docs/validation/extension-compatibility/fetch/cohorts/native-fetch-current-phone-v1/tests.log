@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionDetailDeviceTest:
+INSTRUMENTATION_STATUS: test=globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Interactive windows must establish settled clipboard dismissal: [4796ms query_ms=4603 mode=0 flags=65618 windows=[(4281, 3)] systemui_roots=[4281] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[], 5292ms query_ms=387 mode=0 flags=65618 windows=[(4288, 3), (4281, 3)] systemui_roots=[4288] queries=2 roots=1 children=1 walked=1 prefetch=36 complete=false require_action=false actions=0 nodes=[]]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence(ClipboardEvidence.kt:112)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence$default(ClipboardEvidence.kt:13)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.dismissClipboard(ExtensionDetailDeviceTest.kt:88)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.prepare(ExtensionDetailDeviceTest.kt:113)
+
+INSTRUMENTATION_STATUS: stream=
+Error in globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: Interactive windows must establish settled clipboard dismissal: [4796ms query_ms=4603 mode=0 flags=65618 windows=[(4281, 3)] systemui_roots=[4281] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[], 5292ms query_ms=387 mode=0 flags=65618 windows=[(4288, 3), (4281, 3)] systemui_roots=[4288] queries=2 roots=1 children=1 walked=1 prefetch=36 complete=false require_action=false actions=0 nodes=[]]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence(ClipboardEvidence.kt:112)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence$default(ClipboardEvidence.kt:13)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.dismissClipboard(ExtensionDetailDeviceTest.kt:88)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.prepare(ExtensionDetailDeviceTest.kt:113)
+
+INSTRUMENTATION_STATUS: test=globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.88
+There was 1 failure:
+1) globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: Interactive windows must establish settled clipboard dismissal: [4796ms query_ms=4603 mode=0 flags=65618 windows=[(4281, 3)] systemui_roots=[4281] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=false actions=0 nodes=[], 5292ms query_ms=387 mode=0 flags=65618 windows=[(4288, 3), (4281, 3)] systemui_roots=[4288] queries=2 roots=1 children=1 walked=1 prefetch=36 complete=false require_action=false actions=0 nodes=[]]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence(ClipboardEvidence.kt:112)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence$default(ClipboardEvidence.kt:13)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.dismissClipboard(ExtensionDetailDeviceTest.kt:88)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.prepare(ExtensionDetailDeviceTest.kt:113)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

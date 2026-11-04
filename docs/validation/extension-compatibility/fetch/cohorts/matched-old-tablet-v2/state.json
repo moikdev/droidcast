@@ -1,0 +1,31 @@
+{
+  "completed": true,
+  "layout": "tablet",
+  "font": 1,
+  "variant": "baseline",
+  "case": "policy",
+  "app_sha256": "31ad1cfdac4632bf54f32aae67f11fa0b642a1f8f67079b15030f89295ec0f4b",
+  "test_apk_sha256": "c7ba85735886ee4c7bf936dd03e7b7d2fa47da9c1e79049ca4d8d8daf3bc6fdb",
+  "test_source_commit": "6f141302ab5e5e43e1c3b546a2aba796af882308",
+  "test_compile_target_commit": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+  "runtime_source_commit": "b99a65ec3e96ea27cbeec5759f6083ef56d3c4ff",
+  "collector_sha256": "909977a7235eea90ac193731496b50d3ffda820dc905387a250ab1eda56b2973",
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "runner_exit_code": 1,
+  "passes": 0,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "native_completed": false,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true,
+  "routing": {
+    "phase": "settled",
+    "calls": 0,
+    "nativeFetchAtEntry": true,
+    "error": "Failed to fetch",
+    "errorName": "TypeError"
+  },
+  "intended_negative_witness": true
+}

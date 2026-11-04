@@ -13,3 +13,6 @@ docs/validation/extension-compatibility/**/*.log -text -whitespace
 docs/validation/calculator-actions/** -text -whitespace
 third_party/** linguist-vendored
 app/src/main/assets/RaycastRuntime.generated.js linguist-generated
+
+# Preserve original transport evidence bytes, including CRLF captures.
+docs/validation/extension-compatibility/fetch/** -text -whitespace

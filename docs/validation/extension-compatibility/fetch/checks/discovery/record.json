@@ -1,0 +1,49 @@
+{
+  "completed": true,
+  "scope": "AndroidJUnitRunner log-only discovery; no fixture setup, clipboard mutation, or test-method executions; JUnit execution credit is zero",
+  "executed_cases": 0,
+  "apk_hashes": {
+    "app-debug-androidTest.apk": "79115291a3ddf5b24675c98ff29018c0298071aadfd3d8565675bd0d00eff699",
+    "app-debug.apk": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e"
+  },
+  "results": [
+    {
+      "mode": "default",
+      "discovered_methods": [
+        "aNewExternalShareEndsThePriorSelectionCommand",
+        "cancelBeforeRunReturnsWithoutExecutingOrSaving",
+        "explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+        "longPreviewAndCommandSearchRemainReachableByTouch",
+        "malformedAndOversizedInputCannotRunOrChangeClipboard",
+        "ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+        "selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "writableSelectionStillUsesCopyWithoutReplacingSource"
+      ],
+      "count": 9,
+      "executed_cases": 0
+    },
+    {
+      "mode": "opt-in",
+      "discovered_methods": [
+        "aNewExternalShareEndsThePriorSelectionCommand",
+        "cancelBeforeRunReturnsWithoutExecutingOrSaving",
+        "explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+        "longPreviewAndCommandSearchRemainReachableByTouch",
+        "malformedAndOversizedInputCannotRunOrChangeClipboard",
+        "ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+        "selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure",
+        "sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "writableSelectionStillUsesCopyWithoutReplacingSource"
+      ],
+      "count": 10,
+      "executed_cases": 0
+    }
+  ],
+  "durable_file_count": 12,
+  "pre_existing_evidence_count": 528,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "same_boot": true
+}
