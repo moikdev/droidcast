@@ -6,7 +6,7 @@ Issue [#96](https://github.com/moikdev/droidcast/issues/96), part of [#95](https
 
 The headless Android WebView already supplies browser `fetch`. The unchanged portable runtime installs its host transport only when that global is absent. Consequently an extension's global fetch remained browser-owned, bypassed the Android bridge, and failed under the headless page's networking restrictions. Matched real-WebView controls record native browser fetch, zero bridge calls and `Failed to fetch` on both layouts.
 
-The Android adapter now clears fetch and its related body/stream constructors before the portable runtime initializes. That runtime installs one coherent implementation which reaches the existing native transport. The same owned HTTP request now reaches the bridge exactly once and receives `Only HTTPS requests are supported`. A separate explicit HTTPS request renders a real public response, copies the exact response and returns to its caller. Native HTTPS, redirect, response-size, deadline and session limits remain unchanged. The generated runtime and the other nine packaged assets remain byte-identical.
+The Android adapter now clears fetch and its related body/stream constructors before the portable runtime initializes. That runtime installs one coherent implementation which reaches the existing native transport. The same owned HTTP request now reaches the bridge exactly once and receives `Only HTTPS requests are supported`. A separate explicit HTTPS request renders a real public response, copies the exact response and returns to its caller. Native HTTPS, redirect, response-size, deadline and session limits remain unchanged. The nine packaged assets other than `android-runtime.js` remain byte-identical.
 
 ## Actual frozen workflows
 
