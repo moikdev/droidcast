@@ -515,9 +515,9 @@ class ReviewedTextDeviceTest {
     private fun observeContextTranslation(commandName: String) {
         val catalog = foregroundActivity().store.extensions
         val view = commandName in setOf("translate", "quick-translate", "quick-translate-view")
-        val firstDeadline = android.os.SystemClock.uptimeMillis() + 30000
-        while (android.os.SystemClock.uptimeMillis() < firstDeadline && catalog.runtimeError == null &&
-            (if (view) activeRoot(catalog.runtimeTree)?.optString("type") != "List" else contextEngine() == null)) android.os.SystemClock.sleep(50)
+        compose.waitUntil(30000) { catalog.runtimeError != null ||
+            (if (view) activeRoot(catalog.runtimeTree)?.optString("type") == "List" else contextEngine() != null) }
+        record.put("startup_gate", "Compose-driven wait for native List, JavaScript engine or runtime error")
         if (catalog.runtimeError != null) {
             val error = requireNotNull(catalog.runtimeError)
             record.put("observed_runtime_error", error).put("workflow_outcome",
