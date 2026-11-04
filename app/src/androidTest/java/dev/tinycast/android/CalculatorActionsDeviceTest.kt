@@ -75,6 +75,7 @@ class CalculatorActionsDeviceTest {
         original = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         prepared = true
         compose.waitUntil(10000) { !store.loading && !store.folderSearch.loading }
+        dismissClipboardForEvidence() // Settle earlier overlays before producing the owned sentinel.
         compose.runOnUiThread {
             val previous=compose.activity.window.callback
             windowCallback=previous
@@ -90,7 +91,7 @@ class CalculatorActionsDeviceTest {
             store.reset(); store.resetShortcuts()
             clipboard().setPrimaryClip(ClipData.newPlainText("Owned calculator fixture", sentinel))
         }
-        dismissClipboardForEvidence()
+        dismissOwnedClipboard()
     }
     @After fun restore() {
         if (!prepared) return
@@ -103,6 +104,17 @@ class CalculatorActionsDeviceTest {
         }
     }
     private fun clipboard() = context.getSystemService(ClipboardManager::class.java)
+    private fun dismissOwnedClipboard() {
+        val observations=ArrayDeque<String>();val actions=JSONArray()
+        try {
+            dismissClipboardForEvidence(onObservation={
+                if(observations.size==16)observations.removeFirst()
+                observations.addLast(it)
+            },requireAction=true,onNodeAction={ id,success -> actions.put(JSONObject().put("node",id).put("success",success)) })
+        } finally {
+            record.append("owned_clipboard_dismissals",JSONObject().put("actions",actions).put("observations",JSONArray(observations.toList())))
+        }
+    }
     private fun assertClip(expected: String) = compose.runOnUiThread {
         assertEquals(expected, clipboard().primaryClip?.getItemAt(0)?.text?.toString())
     }
@@ -292,7 +304,7 @@ class CalculatorActionsDeviceTest {
         connection { assertTrue(it.commitText("*4",1)) }
         compose.waitForIdle(); assertEquals("144",store.results().first().payload)
         connection { assertTrue(it.performEditorAction(EditorInfo.IME_ACTION_SEARCH)) }
-        compose.waitForIdle(); assertClip("144"); dismissClipboardForEvidence(); capture("next-calculation")
+        compose.waitForIdle(); assertClip("144"); dismissOwnedClipboard(); capture("next-calculation")
         record.put("unrelated_launcher_state_unchanged",true).put("caret_after_answer",true).put("native_ime_next_result_copy",true)
         done()
     }
@@ -305,7 +317,7 @@ class CalculatorActionsDeviceTest {
         compose.waitForIdle(); assertClip("sqrt(81)+12 × 3 = 45")
         assertEquals("= sqrt(81)+12x3",store.query)
         compose.onNodeWithTag("search").assertIsFocused()
-        dismissClipboardForEvidence(); capture("full-copy-destination"); done()
+        dismissOwnedClipboard(); capture("full-copy-destination"); done()
     }
     @Test fun unitAnswerChainsWithItsUnitAndCanBeConvertedAgain() {
         search("1 m to cm","100 cm"); actions(); capture("unit-actions")
@@ -315,7 +327,7 @@ class CalculatorActionsDeviceTest {
         connection { assertTrue(it.commitText(" to m",1)) }
         compose.waitForIdle(); assertEquals("1 m",store.results().first().payload)
         key(KeyEvent.KEYCODE_ENTER,KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
-        assertClip("100 cm to m = 1 m"); dismissClipboardForEvidence(); capture("unit-converted"); done()
+        assertClip("100 cm to m = 1 m"); dismissOwnedClipboard(); capture("unit-converted"); done()
     }
     @Test fun rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction() {
         for (code in listOf(KeyEvent.KEYCODE_ENTER,KeyEvent.KEYCODE_NUMPAD_ENTER)) {
@@ -332,7 +344,7 @@ class CalculatorActionsDeviceTest {
             assertEquals("6x7",store.query); assertClip("6 × 7 = 42")
             if(code==KeyEvent.KEYCODE_ENTER) {
                 compose.runOnUiThread { clipboard().setPrimaryClip(ClipData.newPlainText("Owned calculator fixture",sentinel)) }
-                dismissClipboardForEvidence()
+                dismissOwnedClipboard()
             }
         }
         record.put("enter_variants",2).put("held_repeats_per_variant",8); done()
@@ -427,7 +439,7 @@ class CalculatorActionsDeviceTest {
     }
     @Test fun copyAnswerAndBareNumberSearchKeepTheirExistingBehavior() {
         search("12x3","36"); actions();pointer("action-Copy Answer","inline-menu-choices")
-        assertClip("36");assertEquals("12x3",store.query);dismissClipboardForEvidence();capture("copy-answer")
+        assertClip("36");assertEquals("12x3",store.query);dismissOwnedClipboard();capture("copy-answer")
         compose.onNodeWithTag("search").performTextReplacement("36")
         assertTrue(store.results().none { it.kind == Kind.CALC });compose.onNodeWithTag("result-result").assertDoesNotExist()
         capture("bare-number-search");done()
@@ -436,7 +448,7 @@ class CalculatorActionsDeviceTest {
         search("6x7","42");actions()
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("Copy Answer")
         key(KeyEvent.KEYCODE_NUMPAD_ENTER,KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
-        assertClip("6 × 7 = 42");assertEquals("6x7",store.query);dismissClipboardForEvidence()
+        assertClip("6 × 7 = 42");assertEquals("6x7",store.query);dismissOwnedClipboard()
         actions();key(KeyEvent.KEYCODE_ENTER,KeyEvent.META_CTRL_ON)
         assertEquals("= 42",store.query);compose.onNodeWithTag("search").assertIsFocused();done()
     }
@@ -473,7 +485,7 @@ class CalculatorActionsDeviceTest {
         }
         pointer("action-Copy Calculation","inline-menu-choices")
         assertClip("sqrt(81)+12 × 3 = 45");assertEquals("= sqrt(81)+12x3",store.query)
-        dismissClipboardForEvidence();capture("revealed-copy-destination")
+        dismissOwnedClipboard();capture("revealed-copy-destination")
         record.put("scope","Supplementary filtered-menu rendering witnesses; editor test actions position the labels, separate matrix receipts establish pointer reachability")
         done()
     }

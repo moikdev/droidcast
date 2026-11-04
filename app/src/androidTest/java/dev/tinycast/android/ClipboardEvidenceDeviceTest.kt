@@ -1,7 +1,6 @@
 package dev.tinycast.android
 
 import android.app.UiAutomation
-import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.ui.test.*
@@ -28,21 +27,23 @@ class ClipboardEvidenceDeviceTest {
     private val device get()=UiDevice.getInstance(instrumentation)
     private var originalFlags=0
     private var original=emptyMap<String,Any?>()
-    private var clipboard:ClipData?=null
+    private var preserved=false
     @Before fun preserve() {
+        Assume.assumeTrue("Guarded dedicated emulator and independent clipboard restoration required",hostRestoresTestClipboard())
         originalFlags=Configurator.getInstance().uiAutomationFlags
         original=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap()
+        preserved=true
         compose.waitUntil(15_000) { !compose.activity.store.loading }
         compose.activityRule.scenario.onActivity {
-            clipboard=it.getSystemService(ClipboardManager::class.java).primaryClip
             it.store.resetShortcuts();it.store.reset();it.store.search("clipboard controlled fixture")
         }
     }
     @After fun restore() {
+        if(!preserved)return
         try {
             compose.activityRule.scenario.onActivity {
                 val manager=it.getSystemService(ClipboardManager::class.java)
-                clipboard?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+                manager.resetClipboardForTest()
             }
             restorePalettePreferences(context,original)
         } finally { Configurator.getInstance().uiAutomationFlags=originalFlags }
@@ -62,8 +63,10 @@ class ClipboardEvidenceDeviceTest {
         val folder=File(context.filesDir,"readiness-evidence").apply { mkdirs() }
         var failure:Throwable?=null
         val observations=org.json.JSONArray()
+        val actions=org.json.JSONArray()
         try {
-            dismissClipboardForEvidence(onObservation={ observations.put(it) })
+            dismissClipboardForEvidence(onObservation={ observations.put(it) },requireAction=true,
+                onNodeAction={id,success->actions.put(JSONObject().put("node",id).put("success",success))})
             assertEquals(mode,Configurator.getInstance().uiAutomationFlags)
             assertNull(compose.activity.store.dialog);assertEquals(epoch,compose.activity.store.focusEpoch)
         } catch(error:Throwable) { failure=error }
@@ -74,6 +77,7 @@ class ClipboardEvidenceDeviceTest {
         File(folder,"clipboard-$label.json").writeText(JSONObject()
             .put("configured_mode",mode).put("service_flags_before",beforeServiceFlags)
             .put("service_flags_after",afterServiceFlags).put("observations_before_uidevice",observations)
+            .put("actions",actions)
             .put("overlay_after",device.hasObject(By.res("com.android.systemui","clipboard_ui")))
             .put("route_preserved",compose.activity.store.dialog==null && compose.activity.store.focusEpoch==epoch)
             .put("failure",failure?.message ?: JSONObject.NULL).toString(2))
@@ -87,6 +91,34 @@ class ClipboardEvidenceDeviceTest {
         exercise(0,"include-unimportant",true)
     }
     @Test fun defaultModeClipboardCleanupRetainsThePalette() { exercise(0,"default") }
+    @Test fun coldClipboardCleanupRequiresAnActualNodeActionBeforeAnyHierarchyQuery() {
+        Configurator.getInstance().uiAutomationFlags=0
+        val automation=instrumentation.getUiAutomation(0)
+        val previous=automation.serviceInfo.flags
+        automation.serviceInfo=automation.serviceInfo.apply {
+            flags=flags and android.accessibilityservice.AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS.inv()
+        }
+        val before=automation.serviceInfo.flags
+        val observations=org.json.JSONArray();val actions=org.json.JSONArray()
+        compose.activityRule.scenario.onActivity { it.copyText("Droidcast cold owned clipboard fixture 314159") }
+        try {
+            // No UiDevice query/dump precedes the helper in this case.
+            dismissClipboardForEvidence(onObservation={observations.put(it)},requireAction=true,
+                onNodeAction={id,ok->actions.put(JSONObject().put("node",id).put("success",ok))})
+            assertEquals(0,Configurator.getInstance().uiAutomationFlags)
+            assertEquals(before,automation.serviceInfo.flags)
+            assertTrue((0 until actions.length()).any { actions.getJSONObject(it).getBoolean("success") })
+        } finally {
+            val after=automation.serviceInfo.flags
+            automation.serviceInfo=automation.serviceInfo.apply { flags=previous }
+            val folder=File(context.filesDir,"readiness-evidence").apply{mkdirs()}
+            File(folder,"clipboard-cold-owned.json").writeText(JSONObject().put("observations_before_hierarchy",observations)
+                .put("actions",actions).put("service_flags_before",before).put("service_flags_after",after).toString(2))
+        }
+        val folder=File(context.filesDir,"readiness-evidence")
+        device.dumpWindowHierarchy(File(folder,"clipboard-cold-owned.xml"))
+        assertTrue(device.takeScreenshot(File(folder,"clipboard-cold-owned.png")))
+    }
     @Test fun nonSuppressingModeClipboardCleanupRetainsThePalette() {
         exercise(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES,"nonsuppressing")
     }

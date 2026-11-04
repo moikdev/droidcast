@@ -65,9 +65,14 @@ def main():
                               'dev.tinycast.android.ExtensionMarkdownDeviceTest',
                               'dev.tinycast.android.ExtensionDetailDeviceTest',
                               'dev.tinycast.android.CalculatorActionsDeviceTest',
+                              'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
         for item in args.classes.split(',')), 'Only owned input/Form/Markdown or shared menu/keyboard regression tests are allowed')
-    regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest'}
+    require(all(not item.startswith('dev.tinycast.android.ActivationDeviceTest') or
+                item == 'dev.tinycast.android.ActivationDeviceTest#explicitLauncherPrimaryCommitsComposedQueryAndActivates'
+                for item in args.classes.split(',')), 'Only the preference-backed launcher Activation case is authorized')
+    regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest',
+                          'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
     calculator = any(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(','))
     require(not calculator or all(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(',')),

@@ -12,6 +12,8 @@ RUNNER = Path(__file__).resolve().parents[1] / 'test-reviewed-text-input.py'
 MARKDOWN = 'dev.tinycast.android.ExtensionMarkdownDeviceTest'
 DETAIL = 'dev.tinycast.android.ExtensionDetailDeviceTest'
 CALCULATOR = 'dev.tinycast.android.CalculatorActionsDeviceTest'
+CLIPBOARD = 'dev.tinycast.android.ClipboardEvidenceDeviceTest'
+ACTIVATION = 'dev.tinycast.android.ActivationDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
@@ -60,6 +62,18 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
     def test_extensions_still_require_the_frozen_archive_before_any_device_query(self):
         self.refused_without_device_access(DETAIL, [], 'A frozen JSON archive is required outside the owned calculator cohort',
                                            without_archive=True)
+
+    def test_only_the_preference_backed_activation_case_is_authorized(self):
+        for selected in [ACTIVATION, ACTIVATION + '#explicitListPrimaryCommitsComposedQueryAndActivates']:
+            self.refused_without_device_access(selected, [], 'Only the preference-backed launcher Activation case is authorized')
+
+    def test_clipboard_cannot_borrow_calculator_archive_or_document_exceptions(self):
+        self.refused_without_device_access(CLIPBOARD, [], 'A frozen JSON archive is required outside the owned calculator cohort',
+                                           without_archive=True)
+        self.refused_without_device_access(CLIPBOARD, ['--document-fixtures'], 'Document fixtures belong only to the owned Form cohort')
+
+    def test_clipboard_and_owned_extension_cohorts_remain_separate(self):
+        self.refused_without_device_access(CLIPBOARD + ',' + DETAIL, [], 'Keep the shared menu/keyboard regression cohort separate')
 
     def test_calculator_without_an_archive_reaches_only_read_only_avd_preflight(self):
         for optimized in [False, True]:
