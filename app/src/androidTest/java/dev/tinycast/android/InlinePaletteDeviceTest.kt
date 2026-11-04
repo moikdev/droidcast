@@ -32,6 +32,7 @@ class InlinePaletteDeviceTest {
     private var prepared = false
     private var originalClip: android.content.ClipData? = null
     private var hostClipboardRecovery = false
+    private val touchEvidence = JSONArray()
     @Before fun prepare() {
         val avd = InstrumentationRegistry.getArguments().getString("dedicatedAvd")
         assertFalse("Explicit owned AVD required", avd.isNullOrBlank())
@@ -103,6 +104,10 @@ class InlinePaletteDeviceTest {
                         .put("text", node.config.getOrNull(SemanticsProperties.Text)?.joinToString("\n")?.take(512))
                         .put("editable_text", node.config.getOrNull(SemanticsProperties.EditableText)?.text?.take(512))
                         .put("selection", node.config.getOrNull(SemanticsProperties.TextSelectionRange)?.toString())
+                    if(coordinates.isAttached) {
+                        val origin = coordinates.localToRoot(androidx.compose.ui.geometry.Offset.Zero)
+                        item.put("layout_origin_root", JSONArray(listOf(origin.x, origin.y)))
+                    }
                     node.config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)?.let {
                         item.put("vertical_scroll", JSONObject().put("value", it.value()).put("max", it.maxValue()))
                     }
@@ -137,12 +142,23 @@ class InlinePaletteDeviceTest {
                 .put("cached_palette", cachedPalette?.let(::rect)).put("route", compose.activity.store.dialog)
         }
     }
+    private fun currentMenuBounds(): Pair<Rect, Rect> {
+        val nodes = menuBoundarySnapshot().getJSONArray("nodes")
+        fun bounds(tag: String): Rect {
+            val node = (0 until nodes.length()).map(nodes::getJSONObject).single { it.optString("tag") == tag }
+            assertTrue("The current $tag must be placed and attached", node.getBoolean("placed") && node.getBoolean("attached"))
+            val value = node.getJSONArray("bounds_window")
+            return Rect(value.getDouble(0).toFloat(), value.getDouble(1).toFloat(), value.getDouble(2).toFloat(), value.getDouble(3).toFloat())
+        }
+        return bounds("palette") to bounds("inline-menu")
+    }
     /** Captures even clipped/absent markers; it must run before the original failing assertion. */
     private fun captureMenuBoundary(name: String, cachedPalette: Rect? = null, legacyMenu: Rect? = null) {
         compose.waitForIdle()
         val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
         val record = JSONObject().put("schema_version", 1).put("name", name)
             .put("scope", "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction")
+            .put("pointer_taps", touchEvidence)
             .put("legacy_menu_operand", legacyMenu?.let { JSONArray(listOf(it.left, it.top, it.right, it.bottom)) })
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
                 android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
@@ -159,6 +175,172 @@ class InlinePaletteDeviceTest {
             .put("png_captured", device.takeScreenshot(File(folder, "$name.png")))
             .put("after_png", menuBoundarySnapshot(cachedPalette))
         File(folder, "$name-frame.json").writeText(record.toString(2))
+    }
+    private fun imeVisible(): Boolean = compose.runOnUiThread {
+        androidx.core.view.ViewCompat.getRootWindowInsets(compose.activity.window.decorView)
+            ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true
+    }
+    private fun pointer(tag: String, scrollTag: String? = null) {
+        val minimum = 48 * context.resources.displayMetrics.density
+        var target: androidx.compose.ui.semantics.SemanticsNode? = null
+        for(attempt in 0..10) {
+            val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()
+            if(node != null && node.layoutInfo.isPlaced && node.layoutInfo.coordinates.isAttached &&
+                node.size.width + 1 >= minimum && node.size.height + 1 >= minimum &&
+                node.boundsInRoot.width + 1 >= node.size.width && node.boundsInRoot.height + 1 >= node.size.height) {
+                target = node; break
+            }
+            if(scrollTag == null || attempt == 10) break
+            compose.onNodeWithTag(scrollTag).performTouchInput { swipeUp() }
+        }
+        val node = requireNotNull(target) { "A complete placed 48dp $tag target must be reachable by pointer scrolling" }
+        val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+        val point = node.boundsInRoot.center
+        assertTrue("Pointer target belongs to the existing root", root.contains(point))
+        touchEvidence.put(JSONObject().put("tag", tag).put("node_id", node.id)
+            .put("control_size", JSONArray(listOf(node.size.width, node.size.height)))
+            .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
+            .put("point_root", JSONArray(listOf(point.x, point.y))).put("ime_visible", imeVisible()))
+        compose.onRoot().performTouchInput { click(point - root.topLeft) }
+        compose.waitForIdle()
+    }
+    private fun setMenuKeyboard(visible: Boolean) {
+        if(imeVisible() != visible) {
+            compose.onNodeWithTag("inline-menu-keyboard").assertContentDescriptionEquals(
+                if(visible) "Show action search keyboard" else "Hide action search keyboard")
+            pointer("inline-menu-keyboard")
+        }
+        compose.waitUntil(10000) { imeVisible() == visible }
+        compose.onNodeWithTag("inline-menu-search").assertIsFocused()
+    }
+    private fun setLauncherKeyboard(visible: Boolean) {
+        compose.onNodeWithTag("search").performScrollTo().performClick()
+        if(visible) {
+            val show = compose.onAllNodesWithContentDescription("Show on-screen keyboard").fetchSemanticsNodes()
+            if(show.isNotEmpty()) compose.onNodeWithContentDescription("Show on-screen keyboard").performClick()
+            else compose.activityRule.scenario.onActivity {
+                androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView)
+                    .show(androidx.core.view.WindowInsetsCompat.Type.ime())
+            }
+            compose.waitUntil(10000) { imeVisible() }
+        } else hideKeyboard()
+    }
+    private fun emptyMessageHasCompleteNaturalLines(): Boolean {
+        val nodes = menuBoundarySnapshot().getJSONArray("nodes")
+        fun find(tag: String) = (0 until nodes.length()).map(nodes::getJSONObject).singleOrNull { it.optString("tag") == tag }
+        val text = find("inline-menu-empty") ?: return false
+        val body = find("inline-menu-choices") ?: return false
+        val origin = text.optJSONArray("layout_origin_root") ?: return false
+        val bounds = text.getJSONArray("bounds_root"); val viewport = body.getJSONArray("bounds_root")
+        val left = maxOf(bounds.getDouble(0), viewport.getDouble(0)); val top = maxOf(bounds.getDouble(1), viewport.getDouble(1))
+        val right = minOf(bounds.getDouble(2), viewport.getDouble(2)); val bottom = minOf(bounds.getDouble(3), viewport.getDouble(3))
+        val layouts = text.getJSONArray("text_layouts")
+        if(layouts.length() != 1 || right <= left || bottom <= top) return false
+        val lines = layouts.getJSONObject(0).getJSONArray("lines")
+        return lines.length() > 0 && (0 until lines.length()).all { index ->
+            val line = lines.getJSONObject(index)
+            !line.getBoolean("ellipsized") && origin.getDouble(0) + line.getDouble("left") >= left - 1 &&
+                origin.getDouble(0) + line.getDouble("right") <= right + 1 &&
+                origin.getDouble(1) + line.getDouble("top") >= top - 1 && origin.getDouble(1) + line.getDouble("bottom") <= bottom + 1
+        }
+    }
+    private fun withTouchKeyboard(block: () -> Unit) {
+        val previous = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
+        device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
+        try { block() } finally {
+            device.executeShellCommand(if(previous == "null") "settings delete secure show_ime_with_hard_keyboard" else "settings put secure show_ime_with_hard_keyboard $previous")
+        }
+    }
+    private fun touchReceipt(name: String, observations: JSONArray) {
+        val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+        File(folder, "$name-record.json").writeText(JSONObject().put("passed", true).put("pointer_taps", touchEvidence)
+            .put("observations", observations).put("font_scale", context.resources.configuration.fontScale)
+            .put("scope", "Owned menu workflows; host cleanup independently restores original clipboard/preferences/settings/evidence")
+            .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
+                android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT")).toString(2))
+    }
+    @Test fun categoryPointerChoiceAndReturnWorkFromBothKeyboardStates() = withTouchKeyboard {
+        val title = "Menu category fixture 5041"
+        var id = ""
+        compose.activityRule.scenario.onActivity { id = it.store.save("notes", title, "Owned category destination") }
+        val observations = JSONArray()
+        for(initialKeyboard in listOf(false, true)) {
+            compose.activityRule.scenario.onActivity { it.store.filter("Apps"); it.store.search("Settings") }
+            setLauncherKeyboard(initialKeyboard)
+            compose.onNodeWithTag("search").performTextInputSelection(TextRange(1, 5))
+            assertEquals(initialKeyboard, imeVisible())
+            pointer("palette-menu", "palette-content-scroll")
+            compose.onNodeWithTag("inline-menu").assertIsDisplayed()
+            val (frame, menu) = currentMenuBounds()
+            assertTrue(frame.contains(menu.topLeft) && frame.contains(menu.bottomRight))
+            captureMenuBoundary("menu-category-touch-${if(initialKeyboard) "open" else "closed"}")
+            key(KeyEvent.KEYCODE_ESCAPE)
+            compose.onNodeWithTag("search").assertIsFocused().assertTextContains("Settings")
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(1, 5)))
+            setLauncherKeyboard(initialKeyboard)
+            pointer("palette-menu", "palette-content-scroll")
+            pointer("filter-Notes", "inline-menu-choices")
+            compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+            assertEquals("Notes", compose.activity.store.category)
+            compose.onNodeWithTag("search").assertIsFocused().assert(SemanticsMatcher.expectValue(
+                SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString(""))).performTextReplacement(title)
+            assertEquals(id, compose.activity.store.results().single().id)
+            hideKeyboard()
+            compose.onNodeWithTag("result-$id").assertIsDisplayed()
+            captureMenuBoundary("menu-category-destination-${if(initialKeyboard) "open" else "closed"}")
+            observations.put(JSONObject().put("initial_ime_visible", initialKeyboard).put("category", "Notes")
+                .put("exact_owned_destination_id", id).put("escape_query_and_range_restored", true))
+        }
+        touchReceipt("menu-category-touch", observations)
+    }
+    @Test fun touchActionSearchPreservesEmptyTextCaretKeyboardAndFreshCopy() = withTouchKeyboard {
+        val title = "Menu action fixture 5041"; val payload = "Exact pointer menu payload 5041"
+        var id = ""
+        compose.activityRule.scenario.onActivity { id = it.store.save("notes", title, payload) }
+        val observations = JSONArray()
+        repeat(2) { cycle ->
+            val sentinel = "Owned menu clipboard sentinel $cycle"
+            compose.activityRule.scenario.onActivity {
+                it.store.filter("All"); it.store.search(title)
+                it.getSystemService(ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Owned menu fixture", sentinel))
+            }
+            dismissClipboardForEvidence()
+            hideKeyboard()
+            compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 6))
+            assertEquals(id, compose.activity.store.results().single().id)
+            pointer("actions-button", "palette-content-scroll")
+            setMenuKeyboard(true)
+            compose.onNodeWithTag("inline-menu-search").performTextReplacement("no such action")
+                .performTextInputSelection(TextRange(3, 7))
+            key(KeyEvent.KEYCODE_ENTER)
+            compose.onNodeWithTag("inline-menu-search").assertIsFocused()
+            compose.activityRule.scenario.onActivity {
+                assertEquals(sentinel, it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
+            }
+            val readableWithIme = emptyMessageHasCompleteNaturalLines()
+            if(cycle == 0) captureMenuBoundary("menu-empty-touch-ime")
+            setMenuKeyboard(false)
+            compose.onNodeWithTag("inline-menu-search").assertTextContains("no such action")
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3, 7)))
+            compose.waitUntil(10000) { emptyMessageHasCompleteNaturalLines() }
+            if(cycle == 0) captureMenuBoundary("menu-empty-touch-revealed")
+            setMenuKeyboard(true); setMenuKeyboard(false)
+            compose.onNodeWithTag("inline-menu-search").assertIsFocused().assertTextContains("no such action")
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3, 7)))
+            compose.onNodeWithTag("inline-menu-search").performTextReplacement("content copy")
+            compose.onNodeWithTag("action-Copy content").assertIsSelected()
+            pointer("action-Copy content", "inline-menu-choices")
+            compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+            compose.onNodeWithTag("search").assertIsFocused().assertTextContains(title)
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 6)))
+            compose.activityRule.scenario.onActivity {
+                assertEquals(payload, it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
+            }
+            observations.put(JSONObject().put("cycle", cycle).put("empty_readable_with_ime", readableWithIme)
+                .put("empty_natural_lines_reachable_after_hide", true).put("query_and_caret_preserved", true)
+                .put("empty_enter_left_sentinel_unchanged", true).put("exact_fresh_copy_and_caller_range", true))
+        }
+        touchReceipt("menu-actions-touch", observations)
     }
     private fun capture(name: String, marker: String, secondMarker: String? = null) {
         compose.waitForIdle(); sameWindow()
@@ -224,8 +406,10 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("palette-menu").performClick()
         compose.onNodeWithTag("inline-menu").assertIsDisplayed()
         val menu = compose.onNodeWithTag("inline-menu").fetchSemanticsNode().boundsInWindow
-        captureMenuBoundary("menu-category-legacy", frame, menu)
-        assertTrue(frame.contains(menu.topLeft) && frame.contains(menu.bottomRight))
+        captureMenuBoundary("menu-category-current", frame, menu)
+        val (currentFrame, currentMenu) = currentMenuBounds()
+        assertTrue("The menu must fit the current palette after inset/focus changes",
+            currentFrame.contains(currentMenu.topLeft) && currentFrame.contains(currentMenu.bottomRight))
         capture("inline-command-menu", "Apps")
         key(KeyEvent.KEYCODE_ESCAPE)
         compose.onNodeWithTag("search").assertIsFocused().assertTextContains("Settings")
@@ -439,15 +623,14 @@ class InlinePaletteDeviceTest {
         hideKeyboard()
         compose.onNodeWithTag("actions-button").assertIsDisplayed().performClick()
         capture("inline-command-actions","Action search note")
-        if(compose.onAllNodesWithTag("inline-menu-keyboard").fetchSemanticsNodes().isNotEmpty()) {
+        if(compose.onAllNodes(hasTestTag("inline-menu-keyboard") and hasContentDescription("Show action search keyboard")).fetchSemanticsNodes().isNotEmpty()) {
             val before=compose.onNodeWithTag("inline-menu").fetchSemanticsNode().boundsInWindow.height
             val originalSetting=device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
             device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
             try {
                 compose.onNodeWithTag("inline-menu-keyboard").performClick()
                 compose.waitUntil(10000) {
-                    val frame=compose.onNodeWithTag("palette").fetchSemanticsNode().boundsInWindow
-                    val menu=compose.onNodeWithTag("inline-menu").fetchSemanticsNode().boundsInWindow
+                    val (frame, menu) = currentMenuBounds()
                     menu.height < before-20 && frame.contains(menu.topLeft) && frame.contains(menu.bottomRight)
                 }
                 compose.onNodeWithTag("inline-menu-search").assertIsFocused()

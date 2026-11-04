@@ -31,6 +31,7 @@ import androidx.compose.ui.input.key.onPreInterceptKeyBeforeSoftKeyboard
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.LocalDensity
@@ -300,20 +301,35 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
     SideEffect { menus.normalizeSelection() }
     val focus = remember(request.owner) { FocusRequester() }
     val scroll = rememberLazyListState()
-    val wide=surface.width/LocalDensity.current.density >= 600
-    val showHints=wide && LocalDensity.current.fontScale <= 1.3f
+    val density = LocalDensity.current
+    val wide=surface.width/density.density >= 600
+    val showHints=wide && density.fontScale <= 1.3f
+    val compact = with(density) { surface.height < 180.dp.toPx() }
+    val padding = if(compact) 2.dp else 6.dp
+    val heading = request.title.value
+    val headingItems = if(heading == null) 0 else 1
+    var bodyHeight by remember { mutableIntStateOf(0) }
     val imeVisible=WindowInsets.isImeVisible
     val keyboard=LocalSoftwareKeyboardController.current
     val view=LocalView.current
     var keyboardRequested by remember(request.owner) { mutableStateOf(!wide || imeVisible) }
     LaunchedEffect(request.owner) { focus.requestFocus() }
-    LaunchedEffect(request.owner,wide,keyboardRequested,imeVisible) {
-        if(request.searchable && wide && !keyboardRequested) {
+    LaunchedEffect(request.owner,wide,keyboardRequested) {
+        if(request.searchable && !keyboardRequested) {
             withFrameNanos { }; keyboard?.hide()
             androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
         }
     }
-    LaunchedEffect(request.owner, menus.selectedId, choices.map { it.id }) { scroll.requestScrollToItem(menus.index()) }
+    LaunchedEffect(request.owner, menus.selectedId, choices.map { it.id }, headingItems, bodyHeight) {
+        if(bodyHeight > 0) {
+            withFrameNanos { }
+            val index = headingItems + menus.index()
+            val layout = scroll.layoutInfo
+            val item = layout.visibleItemsInfo.firstOrNull { it.index == index }
+            if(item == null || item.offset < layout.viewportStartOffset || item.offset + item.size > layout.viewportEndOffset)
+                scroll.requestScrollToItem(index)
+        }
+    }
     val opening = menus.activation
     Box(Modifier.fillMaxSize()) {
         Box(Modifier.matchParentSize().clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { menus.dismiss() })
@@ -322,11 +338,18 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                 shadowElevation = 12.dp, modifier = (if(request.searchable) Modifier else Modifier.focusRequester(focus).focusable())
                     .pointerInput(Unit) { detectTapGestures {} }
                     .semantics { testTagsAsResourceId = true }.testTag("inline-menu")) {
-                Column(Modifier.fillMaxWidth().padding(6.dp)) {
-                    request.title.value?.let { Text(it, color = PaletteTheme.secondary, fontSize = 11.sp, lineHeight=16.sp,
-                        maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.fillMaxWidth().heightIn(min=32.dp).padding(8.dp)) }
-                    LazyColumn(state = scroll, modifier = Modifier.fillMaxWidth().weight(1f,fill=false).testTag("inline-menu-choices")) {
-                        if(choices.isEmpty()) item { Text("No matching actions",color=PaletteTheme.secondary,fontSize=12.sp,modifier=Modifier.padding(10.dp).testTag("inline-menu-empty")) }
+                Column(Modifier.fillMaxWidth().padding(padding)) {
+                    // The heading shares the bounded scroll area. Search and its
+                    // keyboard toggle retain their touch height in a short IME viewport.
+                    LazyColumn(state = scroll, modifier = Modifier.fillMaxWidth().weight(1f,fill=false)
+                        .onSizeChanged { bodyHeight = it.height }.testTag("inline-menu-choices")) {
+                        heading?.let { title -> item {
+                            Text(title, color = PaletteTheme.secondary, fontSize = 11.sp, lineHeight=16.sp,
+                                maxLines = 2, overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.fillMaxWidth().heightIn(min=32.dp).padding(8.dp).testTag("inline-menu-heading"))
+                        } }
+                        if(choices.isEmpty()) item { Text("No matching actions",color=PaletteTheme.secondary,fontSize=12.sp,lineHeight=18.sp,
+                            modifier=Modifier.fillMaxWidth().padding(horizontal=10.dp,vertical=4.dp).testTag("inline-menu-empty")) }
                         items(choices, key = { it.id }) { choice ->
                             if(choice.separator && menus.query.text.isBlank()) HorizontalDivider(color=PaletteTheme.separator,modifier=Modifier.padding(vertical=5.dp))
                             Row(Modifier.fillMaxWidth().heightIn(min=48.dp).background(if (choice.id == menus.selectedId) PaletteTheme.selection else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(8.dp))
@@ -352,21 +375,32 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                             decorationBox={ inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart) {
                                 if(menus.query.text.isEmpty()) Text("Search for actions…",color=PaletteTheme.secondary,fontSize=13.sp,maxLines=1,overflow=TextOverflow.Ellipsis); inner()
                             } })
-                        if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show action search keyboard"}.testTag("inline-menu-keyboard")) { Glyph("keyboard",PaletteTheme.secondary,16) }
+                        IconButton(onClick={
+                            keyboardRequested = !imeVisible
+                            focus.requestFocus()
+                            if(keyboardRequested) keyboard?.show()
+                            else {
+                                keyboard?.hide()
+                                androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
+                            }
+                        }, modifier=Modifier.size(48.dp).semantics {
+                            contentDescription=if(imeVisible) "Hide action search keyboard" else "Show action search keyboard"
+                        }.testTag("inline-menu-keyboard")) {
+                            Glyph(if(imeVisible) "keyboard-hide" else "keyboard",PaletteTheme.secondary,20)
+                        }
                         }
                     }
                 }
             }
         }) { measurables, constraints ->
-            val margin = 8.dp.roundToPx()
+            val margin = (if(compact) 2.dp else 8.dp).roundToPx()
             val left = surface.left.roundToInt() + margin
             val right = (surface.right.roundToInt() - margin).coerceAtLeast(left + 1)
             val headerBottom=(menus.header?.bottom ?: (surface.top+PaletteTheme.header.toPx())).coerceIn(surface.top,surface.bottom)
             val footerTop=(menus.footer?.top ?: (surface.bottom-PaletteTheme.footer.toPx())).coerceIn(surface.top,surface.bottom)
-            val titleHeight=if(request.title.value!=null)16.sp.toPx()*2+16.dp.toPx() else 0f
             val searchHeight=if(request.searchable)maxOf(48.dp.toPx(),18.sp.toPx())+1.dp.toPx() else 0f
             val choiceHeight=maxOf(48.dp.toPx(),18.sp.toPx()*3+16.dp.toPx())
-            val minimumMenuHeight=12.dp.toPx()+titleHeight+searchHeight+choiceHeight
+            val minimumMenuHeight=padding.toPx()*2+searchHeight+choiceHeight
             // The anchored gap must accommodate the scaled menu chrome and
             // one complete wrapped action. Otherwise use the palette bounds.
             val contentFits=footerTop-headerBottom >= minimumMenuHeight
