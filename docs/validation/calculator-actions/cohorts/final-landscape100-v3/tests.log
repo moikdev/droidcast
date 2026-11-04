@@ -1,0 +1,228 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.CalculatorActionsDeviceTest:
+INSTRUMENTATION_STATUS: test=touchChainingReturnsToFocusedSearchAndKeepsLauncherState
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Complete 48dp pointer target required: actions-button
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer(CalculatorActionsDeviceTest.kt:234)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer$default(CalculatorActionsDeviceTest.kt:193)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.actions(CalculatorActionsDeviceTest.kt:244)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.touchChainingReturnsToFocusedSearchAndKeepsLauncherState(CalculatorActionsDeviceTest.kt:264)
+
+INSTRUMENTATION_STATUS: stream=
+Error in touchChainingReturnsToFocusedSearchAndKeepsLauncherState(dev.tinycast.android.CalculatorActionsDeviceTest):
+java.lang.IllegalArgumentException: Complete 48dp pointer target required: actions-button
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer(CalculatorActionsDeviceTest.kt:234)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer$default(CalculatorActionsDeviceTest.kt:193)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.actions(CalculatorActionsDeviceTest.kt:244)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.touchChainingReturnsToFocusedSearchAndKeepsLauncherState(CalculatorActionsDeviceTest.kt:264)
+
+INSTRUMENTATION_STATUS: test=touchChainingReturnsToFocusedSearchAndKeepsLauncherState
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aConfiguredCtrlShiftEnterBindingKeepsPrecedenceAtTheLauncher
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aConfiguredCtrlShiftEnterBindingKeepsPrecedenceAtTheLauncher
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stalePointerCallbacksRejectQueryCategorySelectionAndReplacementRoutes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=stalePointerCallbacksRejectQueryCategorySelectionAndReplacementRoutes
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rootCompositionBlocksBothAcceleratorsAndImeSubmission
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rootCompositionBlocksBothAcceleratorsAndImeSubmission
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=menuSearchCopiesTheFullCalculationThroughNativeIme
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=menuSearchCopiesTheFullCalculationThroughNativeIme
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unitAnswerChainsWithItsUnitAndCanBeConvertedAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unitAnswerChainsWithItsUnitAndCanBeConvertedAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=copyAnswerAndBareNumberSearchKeepTheirExistingBehavior
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=copyAnswerAndBareNumberSearchKeepTheirExistingBehavior
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=menuAcceleratorsSelectTheirNamedActionRatherThanTheHighlightedRow
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=menuAcceleratorsSelectTheirNamedActionRatherThanTheHighlightedRow
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=obsoleteMenuOpeningsAndDisabledChordsHaveNoFallbackAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=obsoleteMenuOpeningsAndDisabledChordsHaveNoFallbackAction
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=menuCompositionBlocksAcceleratorsAndImeUntilCommitted
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=menuCompositionBlocksAcceleratorsAndImeUntilCommitted
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.search(CalculatorActionsDeviceTest.kt:118)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction(CalculatorActionsDeviceTest.kt:313)
+
+INSTRUMENTATION_STATUS: stream=
+Error in rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction(dev.tinycast.android.CalculatorActionsDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.search(CalculatorActionsDeviceTest.kt:118)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction(CalculatorActionsDeviceTest.kt:313)
+
+INSTRUMENTATION_STATUS: test=rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 46.964
+There were 2 failures:
+1) touchChainingReturnsToFocusedSearchAndKeepsLauncherState(dev.tinycast.android.CalculatorActionsDeviceTest)
+java.lang.IllegalArgumentException: Complete 48dp pointer target required: actions-button
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer(CalculatorActionsDeviceTest.kt:234)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.pointer$default(CalculatorActionsDeviceTest.kt:193)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.actions(CalculatorActionsDeviceTest.kt:244)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.touchChainingReturnsToFocusedSearchAndKeepsLauncherState(CalculatorActionsDeviceTest.kt:264)
+2) rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction(dev.tinycast.android.CalculatorActionsDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.search(CalculatorActionsDeviceTest.kt:118)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction(CalculatorActionsDeviceTest.kt:313)
+
+FAILURES!!!
+Tests run: 13,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

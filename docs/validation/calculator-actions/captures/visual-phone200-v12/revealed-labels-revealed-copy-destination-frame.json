@@ -1,0 +1,64 @@
+{
+  "phase": "revealed-copy-destination",
+  "query": "= sqrt(81)+12x3",
+  "category": "All",
+  "selected": 0,
+  "build_commit": "b99a65ec3e96ea27cbeec5759f6083ef56d3c4ff",
+  "font_scale": 2,
+  "ime_visible": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        311,
+        153
+      ],
+      "bounds": "Rect.fromLTRB(716.0, 1179.0, 1027.0, 1332.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "size": [
+        126,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(864.0, 1026.0, 990.0, 1152.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "action-Copy Calculation",
+      "size": [
+        808,
+        133
+      ],
+      "bounds": "Rect.fromLTRB(203.0, 1512.0, 1011.0, 1645.0)",
+      "ime_visible": false
+    }
+  ],
+  "text_line_witnesses": [
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "lines": 2,
+      "non_ellipsized": true,
+      "natural_height": 182,
+      "visible_height": 182
+    },
+    {
+      "tag": "action-Copy Calculation",
+      "lines": 1,
+      "non_ellipsized": true,
+      "natural_height": 91,
+      "visible_height": 91
+    },
+    {
+      "tag": "action-Copy Calculation",
+      "lines": 1,
+      "non_ellipsized": true,
+      "natural_height": 91,
+      "visible_height": 91
+    }
+  ],
+  "scroll_steps": [],
+  "native_keys": [],
+  "capture_order": "Compose idle, native XML, then PNG; sequential observations"
+}

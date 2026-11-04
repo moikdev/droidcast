@@ -10,5 +10,6 @@ docs/validation/touch-readability/*.xml -text -whitespace
 docs/validation/extension-compatibility/*.xml -text -whitespace
 docs/validation/extension-compatibility/**/*.xml -text -whitespace
 docs/validation/extension-compatibility/**/*.log -text -whitespace
+docs/validation/calculator-actions/** -text -whitespace
 third_party/** linguist-vendored
 app/src/main/assets/RaycastRuntime.generated.js linguist-generated

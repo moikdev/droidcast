@@ -1,0 +1,78 @@
+{
+  "completed": true,
+  "serial": "emulator-5580",
+  "avd": "Tinycast_Tablet_API_36",
+  "layout": "phone",
+  "font_scale": 1.3,
+  "classes": "dev.tinycast.android.CalculatorActionsDeviceTest#touchChainingReturnsToFocusedSearchAndKeepsLauncherState,dev.tinycast.android.CalculatorActionsDeviceTest#menuSearchCopiesTheFullCalculationThroughNativeIme,dev.tinycast.android.CalculatorActionsDeviceTest#unitAnswerChainsWithItsUnitAndCanBeConvertedAgain,dev.tinycast.android.CalculatorActionsDeviceTest#oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer",
+  "expected": 4,
+  "apk_sha256": "31ad1cfdac4632bf54f32aae67f11fa0b642a1f8f67079b15030f89295ec0f4b",
+  "test_apk_sha256": "161c55e5f3daf030fbced12af720d16a3ca137782b8b9b12ebb8a3c77d05c612",
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "passes": 4,
+  "tests_completed": true,
+  "archive_sha256": null,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  }
+}

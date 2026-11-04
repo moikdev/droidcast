@@ -1,0 +1,65 @@
+{
+  "case": "rootCompositionBlocksBothAcceleratorsAndImeSubmission",
+  "passed": true,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "owned_clipboard_dismissals": [
+    {
+      "actions": [
+        {
+          "node": "com.android.systemui:id\/dismiss_button",
+          "success": true
+        }
+      ],
+      "observations": [
+        "104ms query_ms=103 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+        "166ms query_ms=4 mode=0 flags=65618 windows=[(3646, 3), (3620, 3)] systemui_roots=[3646] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+        "274ms query_ms=54 mode=0 flags=65618 windows=[(3646, 3), (3620, 3)] systemui_roots=[3620] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+        "350ms query_ms=25 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "406ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "463ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "521ms query_ms=4 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "578ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "638ms query_ms=4 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "693ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "748ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "804ms query_ms=4 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+      ]
+    }
+  ],
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "atomic_native_composition_protocol": true,
+  "native_preferences_restored": true,
+  "pointers": [],
+  "text_line_witnesses": [],
+  "scroll_steps": [],
+  "native_keys": [
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    }
+  ]
+}

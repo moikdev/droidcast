@@ -1,0 +1,34 @@
+from pathlib import Path
+import hashlib,json,os,shutil,subprocess,xml.etree.ElementTree as ET
+out=Path('artifacts/calculator-actions/build-harness-v12');out.mkdir(exist_ok=False)
+def require(value,message):
+ if not value:raise RuntimeError(message)
+def sha(data):return hashlib.sha256(data).hexdigest()
+def git(*args):return subprocess.check_output(['git',*args]).decode().strip()
+base=Path('artifacts/calculator-actions/build-runtime-v9');old=json.loads((base/'state.json').read_text())
+head=git('rev-parse','HEAD');require(not git('status','--porcelain'),'Checkout is dirty')
+current={p:sha(Path(p).read_bytes()) for p in old['source_hashes']}
+changed=[p for p,h in old['source_hashes'].items() if current[p]!=h]
+require(set(changed)=={'app/src/androidTest/java/dev/tinycast/android/CalculatorActionsDeviceTest.kt','app/src/androidTest/java/dev/tinycast/android/ActivationDeviceTest.kt','app/src/androidTest/java/dev/tinycast/android/ClipboardEvidence.kt','app/src/androidTest/java/dev/tinycast/android/ClipboardEvidenceDeviceTest.kt','scripts/test-reviewed-text-input.py','scripts/tests/test_reviewed_text_runner_guards.py'},'Unexpected source change')
+state=dict(completed=False,pid=os.getpid(),implementation_commit=head,test_source_commit=head,runtime_source_commit=old['implementation_commit'],source_hashes=current,
+ production_sources_equal=True,host_jvm_sources_equal=True,changed_sources_since_runtime_build=changed,jvm=old['jvm'],lint=old['lint'],retained_checks_origin='build-runtime-v9',steps=[])
+def save():(out/'state.json').write_text(json.dumps(state,indent=2)+'\n')
+save();env=dict(os.environ,JAVA_HOME='<user-home>/Library/Java/JavaVirtualMachines/jdk-21.0.12.1+1/Contents/Home',ANDROID_HOME='<android-sdk>')
+for kind in ['debug','benchmark']:
+ with (out/(kind+'.log')).open('wb') as log:
+  cmd=['./gradlew',':app:assemble'+kind.title()+'AndroidTest',':app:lint'+kind.title(),'-PdroidcastBuildCommit='+old['implementation_commit'],'-PdroidcastTestBuildType='+kind,'--console=plain']
+  result=subprocess.run(cmd,stdout=log,stderr=subprocess.STDOUT,env=env)
+ state['steps'].append(dict(variant=kind,exit_code=result.returncode));save();require(result.returncode==0,'Harness compile failed')
+pair=out/'candidate';pair.mkdir()
+for kind in ['debug','benchmark']:
+ app='app-'+kind+'.apk';test='app-'+kind+'-androidTest.apk'
+ source=base/'candidate'/app;require(sha(source.read_bytes())==old['apk_hashes'][app],'Frozen production APK changed')
+ shutil.copyfile(source,pair/app)
+ shutil.copyfile('app/build/outputs/apk/androidTest/'+kind+'/'+test,pair/test)
+state['apk_hashes']={p.name:sha(p.read_bytes()) for p in pair.iterdir()}
+for kind in ['debug','benchmark']:shutil.copyfile('app/build/reports/lint-results-'+kind+'.xml',out/('lint-'+kind+'.xml'))
+state['lint']={kind:{level:sum(n.get('severity')==level for n in ET.parse(out/('lint-'+kind+'.xml')).getroot()) for level in ['Error','Fatal','Warning']} for kind in ['debug','benchmark']}
+require(not any(v[level] for v in state['lint'].values() for level in ['Error','Fatal']),'Lint failed')
+require(current=={p:sha(Path(p).read_bytes()) for p in current},'Sources changed during compile')
+require(head==git('rev-parse','HEAD') and not git('status','--porcelain'),'Checkout changed during compile')
+state['completed']=True;save();print(json.dumps({k:state[k] for k in ['completed','test_source_commit','runtime_source_commit','apk_hashes']},indent=2))

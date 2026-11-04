@@ -1,0 +1,41 @@
+{
+  "phase": "chained-search",
+  "query": "= 36",
+  "category": "All",
+  "selected": 0,
+  "build_commit": "b99a65ec3e96ea27cbeec5759f6083ef56d3c4ff",
+  "font_scale": 1.3,
+  "ime_visible": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        239,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(788.0, 1206.0, 1027.0, 1332.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "size": [
+        808,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(203.0, 798.0, 1011.0, 924.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": [
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "lines": 1,
+      "non_ellipsized": true,
+      "natural_height": 63,
+      "visible_height": 63
+    }
+  ],
+  "scroll_steps": [],
+  "native_keys": [],
+  "capture_order": "Compose idle, native XML, then PNG; sequential observations"
+}

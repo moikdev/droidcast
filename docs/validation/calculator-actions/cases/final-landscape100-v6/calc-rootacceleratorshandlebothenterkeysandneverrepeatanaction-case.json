@@ -1,0 +1,297 @@
+{
+  "case": "rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction",
+  "passed": false,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        736,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "geometry": [
+        0,
+        0,
+        2340,
+        1080
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "explicit_search_result_setup_hide": [
+    "6x7",
+    "6x7"
+  ],
+  "native_preferences_restored": true,
+  "pointers": [],
+  "text_line_witnesses": [],
+  "scroll_steps": [],
+  "native_keys": [
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 1,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 2,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 4,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 5,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 6,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 7,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 8,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 1,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 2,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 4,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 5,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 6,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 7,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 8,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    }
+  ]
+}

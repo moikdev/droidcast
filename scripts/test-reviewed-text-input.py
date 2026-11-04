@@ -45,7 +45,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--apk', type=Path, required=True)
     parser.add_argument('--test-apk', type=Path, required=True)
-    parser.add_argument('--json-archive', type=Path, required=True)
+    parser.add_argument('--json-archive', type=Path, help='Required frozen formatter for extension and shared regression cohorts')
     parser.add_argument('--mood-archive', type=Path, help='Optional hash-pinned Mood Tracker bundle for the owned real-Form workflow')
     parser.add_argument('--checksum-archive', type=Path, help='Optional hash-pinned Checksum bundle for the owned real-picker workflow')
     parser.add_argument('--html-colors-archive', type=Path, help='Optional hash-pinned HTML Colors bundle for the owned native Detail workflow')
@@ -64,10 +64,19 @@ def main():
                               'dev.tinycast.android.ExtensionFormDeviceTest',
                               'dev.tinycast.android.ExtensionMarkdownDeviceTest',
                               'dev.tinycast.android.ExtensionDetailDeviceTest',
+                              'dev.tinycast.android.CalculatorActionsDeviceTest',
+                              'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
         for item in args.classes.split(',')), 'Only owned input/Form/Markdown or shared menu/keyboard regression tests are allowed')
-    regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest'}
+    require(all(not item.startswith('dev.tinycast.android.ActivationDeviceTest') or
+                item == 'dev.tinycast.android.ActivationDeviceTest#explicitLauncherPrimaryCommitsComposedQueryAndActivates'
+                for item in args.classes.split(',')), 'Only the preference-backed launcher Activation case is authorized')
+    regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest',
+                          'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
+    calculator = any(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(','))
+    require(not calculator or all(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(',')),
+            'Keep the owned calculator cohort separate from extension and legacy fixtures')
     require(not regression or all(item.split('#')[0] in regression_classes for item in args.classes.split(',')),
             'Keep the shared menu/keyboard regression cohort separate from owned extension fixtures')
     require(not args.document_fixtures or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),
@@ -78,7 +87,9 @@ def main():
     require(not args.html_colors_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
         for item in args.classes.split(',')), 'HTML Colors belongs only to the owned Detail cohort')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
-    archive = frozen_form_archive(args.json_archive, 'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
+    require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
+    archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
+        'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
     typed_archives = {}
     require(not (args.mood_archive or args.checksum_archive) or all(
         item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),
@@ -133,7 +144,7 @@ def main():
     shutil.copyfile(document_helper, args.output / 'document-helper.py')
     record = {'completed': False, 'pid': os.getpid(), 'serial': args.serial, 'avd': args.avd, 'layout': args.layout,
               'font_scale': args.font_scale, 'classes': args.classes, 'expected': args.expected, 'owner_nonce': owner,
-              'runner_sha256': sha(Path(__file__).read_bytes()), 'archive_sha256': sha(archive),
+              'runner_sha256': sha(Path(__file__).read_bytes()), 'archive_sha256': sha(archive) if archive is not None else None,
               'typed_workflow_archive_sha256': {name: sha(data) for name, data in typed_archives.items()},
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
@@ -170,7 +181,8 @@ def main():
         clipboard_recovery.snapshot()  # Durable before any test clipboard writes.
         if args.document_fixtures:
             document_fixture.setup()
-        raw('shell', 'run-as', app, 'tee', root + '/json-format.zip', data=archive)
+        if archive is not None:
+            raw('shell', 'run-as', app, 'tee', root + '/json-format.zip', data=archive)
         for name, data in typed_archives.items():
             raw('shell', 'run-as', app, 'tee', root + '/' + name + '.zip', data=data)
         if args.layout in ['phone', 'landscape']:

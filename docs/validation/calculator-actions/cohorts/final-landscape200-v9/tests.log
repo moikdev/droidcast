@@ -1,0 +1,89 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.CalculatorActionsDeviceTest:
+INSTRUMENTATION_STATUS: test=touchChainingReturnsToFocusedSearchAndKeepsLauncherState
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Interactive windows must establish settled clipboard dismissal: [3278ms query_ms=3196 mode=0 flags=65618 windows=[(3318, 3), (3322, 1)] systemui_roots=[3318] queries=3 complete=true nodes=[], 5261ms query_ms=1930 mode=0 flags=65618 windows=[(3323, 3), (3318, 3), (3322, 1)] systemui_roots=[3323, 3318] queries=1 complete=true nodes=[com.android.systemui:id/dismiss_button visible=true enabled=true clickable=true]]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence(ClipboardEvidence.kt:89)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence$default(ClipboardEvidence.kt:13)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.prepare(CalculatorActionsDeviceTest.kt:93)
+
+INSTRUMENTATION_STATUS: stream=
+Error in touchChainingReturnsToFocusedSearchAndKeepsLauncherState(dev.tinycast.android.CalculatorActionsDeviceTest):
+java.lang.AssertionError: Interactive windows must establish settled clipboard dismissal: [3278ms query_ms=3196 mode=0 flags=65618 windows=[(3318, 3), (3322, 1)] systemui_roots=[3318] queries=3 complete=true nodes=[], 5261ms query_ms=1930 mode=0 flags=65618 windows=[(3323, 3), (3318, 3), (3322, 1)] systemui_roots=[3323, 3318] queries=1 complete=true nodes=[com.android.systemui:id/dismiss_button visible=true enabled=true clickable=true]]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence(ClipboardEvidence.kt:89)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence$default(ClipboardEvidence.kt:13)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.prepare(CalculatorActionsDeviceTest.kt:93)
+
+INSTRUMENTATION_STATUS: test=touchChainingReturnsToFocusedSearchAndKeepsLauncherState
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=menuSearchCopiesTheFullCalculationThroughNativeIme
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=menuSearchCopiesTheFullCalculationThroughNativeIme
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unitAnswerChainsWithItsUnitAndCanBeConvertedAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.CalculatorActionsDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unitAnswerChainsWithItsUnitAndCanBeConvertedAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 59.913
+There was 1 failure:
+1) touchChainingReturnsToFocusedSearchAndKeepsLauncherState(dev.tinycast.android.CalculatorActionsDeviceTest)
+java.lang.AssertionError: Interactive windows must establish settled clipboard dismissal: [3278ms query_ms=3196 mode=0 flags=65618 windows=[(3318, 3), (3322, 1)] systemui_roots=[3318] queries=3 complete=true nodes=[], 5261ms query_ms=1930 mode=0 flags=65618 windows=[(3323, 3), (3318, 3), (3322, 1)] systemui_roots=[3323, 3318] queries=1 complete=true nodes=[com.android.systemui:id/dismiss_button visible=true enabled=true clickable=true]]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence(ClipboardEvidence.kt:89)
+	at dev.tinycast.android.ClipboardEvidenceKt.dismissClipboardForEvidence$default(ClipboardEvidence.kt:13)
+	at dev.tinycast.android.CalculatorActionsDeviceTest.prepare(CalculatorActionsDeviceTest.kt:93)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,179 @@
+from pathlib import Path
+import hashlib,json,re,xml.etree.ElementTree as ET
+
+base=Path('artifacts/calculator-actions')
+public=Path('docs/validation/calculator-actions')
+screens=Path('docs/screenshots/calculator-actions')
+def require(value,message):
+    if not value:raise RuntimeError(message)
+def read(path):return json.loads(path.read_text())
+def sha(data):return hashlib.sha256(data).hexdigest()
+matrix=read(base/'matrix-v5/state.json')
+require(matrix['completed'],'Native matrix incomplete')
+build=read(base/'build-harness-v12/state.json')
+require(build['completed'] and build['production_sources_equal'] and build['host_jvm_sources_equal'],'Frozen source boundary changed')
+require(all(sha(Path(p).read_bytes())==h for p,h in build['source_hashes'].items()),'Current implementation differs from frozen sources')
+regressions=[base/('regression-'+layout+'-v4') for layout in ['tablet','phone','landscape']]
+helpers=[base/('helper-'+case+'-'+layout+'-v11') for case in ['cold','full'] for layout in ['tablet','phone']]
+for root in regressions+helpers:
+    state=read(root/'state.json')
+    require(state['completed'] and state['preservation_owner_released'],'Regression/helper restoration incomplete')
+require(not public.exists() and not screens.exists(),'Publication exists; inspect before replacing')
+bindings=[];frames=[];projections=[]
+prefixes=[(str(Path.cwd()),'<checkout>'),('<android-sdk>','<android-sdk>'),('<gradle-cache>','<gradle-cache>'),('<user-home>','<user-home>')]
+def emit(path,data,original=None,transform=None):
+    require(not path.exists(),'Duplicate publication destination')
+    path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(data)
+    if original is not None:
+        bindings.append(dict(public=str(path),original_relative=str(original.relative_to(base)),original_sha256=sha(original.read_bytes()),public_sha256=sha(data),transform=transform))
+def copy(original,path,xml=False,raw=False):
+    data=original.read_bytes()
+    if raw:transform='raw bytes'
+    else:
+        for source,target in prefixes:
+            if xml:target=target.replace('<','&lt;').replace('>','&gt;')
+            data=data.replace(source.encode(),target.encode())
+        if xml:data=re.sub(rb'hostname="[^"]*"',b'hostname="redacted-host"',data)
+        transform='XML-safe host-prefix/hostname redaction' if xml else 'host-prefix redaction'
+    emit(path,data,original,transform)
+def json_file(path,value):emit(path,(json.dumps(value,indent=2)+'\n').encode())
+def project(original,path,keys):
+    data=read(original);value={k:data[k] for k in keys if k in data};json_file(path,value)
+    projections.append(dict(public=str(path),original_relative=str(original.relative_to(base)),original_sha256=sha(original.read_bytes()),keys=list(value)))
+    return value
+
+identities={}
+for name in ['build-runtime-v9','build-harness-v7','build-harness-v11','build-harness-v12']:
+    value=read(base/name/'state.json')
+    identities[name]={k:value[k] for k in ['implementation_commit','test_source_commit','runtime_source_commit','source_hashes','apk_hashes','jvm','lint','changed_sources_since_runtime_build','production_sources_equal','host_jvm_sources_equal'] if k in value}
+    for apk,h in value['apk_hashes'].items():require(sha((base/name/'candidate'/apk).read_bytes())==h,'Frozen APK changed')
+identity=dict(current=identities['build-harness-v12'],cohorts=identities,
+    jvm_origin='build-runtime-v9: freshly executed 278 cases; all current production/JVM sources unchanged',
+    lint_origin='build-harness-v12: fresh lint for debug and benchmark',
+    frame_build_commit='Raw frame build_commit is the instrumentation compile target. Installed APK hashes and cohort app_source_commit identify the runtime, including common-harness and old-app controls.',
+    scope='One current production runtime; Calculator v12, helper v11, and common IME v7 instrumentation remain separately identified. No benchmark device execution.')
+import zipfile
+with zipfile.ZipFile(base/'baseline-debug.apk') as old,zipfile.ZipFile(base/'build-harness-v12/candidate/app-debug.apk') as current:
+    assets={p:sha(old.read(p)) for p in old.namelist() if p.startswith('assets/')}
+    require(assets=={p:sha(current.read(p)) for p in current.namelist() if p.startswith('assets/')},'Packaged upstream assets changed')
+    identity['unchanged_packaged_assets']=assets
+json_file(public/'identity.json',identity)
+for kind in ['debug','benchmark']:
+    copy(base/'build-runtime-v9'/(kind+'.log'),public/'checks'/(kind+'-runtime-build.log'))
+    copy(base/'build-harness-v12'/(kind+'.log'),public/'checks'/(kind+'-harness-build.log'))
+    copy(base/'build-harness-v12'/('lint-'+kind+'.xml'),public/'checks'/('lint-'+kind+'.xml'),xml=True)
+for path in sorted((base/'build-runtime-v9/jvm').glob('TEST-*.xml')):
+    copy(path,public/'checks/jvm'/path.name,xml=True)
+for name in ['python-final-helper-v10.log','python-optimized-final-helper-v10.log']:
+    copy(base/name,public/'checks'/name)
+for name in ['run-cohort-v7.py','run-matrix-v5.py','run-regressions-v4.py','run-final-regressions-v1.py','run-helper-probe-v1.py','build-runtime-v9.py','build-harness-v12.py','publish-v4.py','verify-public-v1.py']:
+    copy(base/name,public/'collectors'/(name+'.txt'))
+json_file(public/'matrix.json',matrix)
+
+slugs={
+ 'touchchainingreturnstofocusedsearchandkeepslauncherstate':'touch-chain',
+ 'menusearchcopiesthefullcalculationthroughnativeime':'full-copy',
+ 'unitanswerchainswithitsunitandcanbeconvertedagain':'unit-chain',
+ 'oversizedanswerdisableschainingwithoutfallingthroughtocopyanswer':'disabled-chain',
+ 'copyanswerandbarenumbersearchkeeptheirexistingbehavior':'copy-answer',
+ 'revealedlargetextcalculatoractionshavecompletevisiblelabels':'revealed-labels'}
+def captures(root,cohort,phases):
+    observed=read(root/'state.json')
+    for original in sorted((root/'cohort/captures').glob('*-frame.json')):
+        data=read(original);phase=data['phase']
+        if phase not in phases:continue
+        stem=original.name.removesuffix('-frame.json')
+        method=next((m for m in slugs if stem.startswith('calc-'+m+'-')),None)
+        require(method is not None,'Unmapped selected frame')
+        name=slugs[method]+'-'+phase
+        png=screens/cohort/(name+'.png');xml=public/'captures'/cohort/(name+'.xml');frame=public/'captures'/cohort/(name+'-frame.json')
+        copy(original.with_name(stem+'.png'),png,raw=True)
+        copy(original.with_name(stem+'.xml'),xml,raw=True)
+        copy(original,frame,raw=True)
+        frames.append(dict(cohort=cohort,method=method,phase=phase,png=str(png),xml=str(xml),frame=str(frame),app_sha256=observed['app_sha256'],test_apk_sha256=observed['test_apk_sha256'],
+            compiled_build_commit=data.get('build_commit'),runtime_source_commit=observed.get('app_source_commit'),
+            png_sha256=sha(png.read_bytes()),xml_sha256=sha(xml.read_bytes()),frame_sha256=sha(frame.read_bytes())))
+
+state_keys=['completed','variant','layout','font','methods','app_sha256','test_apk_sha256','app_source_commit','test_source_commit','test_compile_target_commit','junit_passes','runner_exit_code','cleanup_checks','native_completed','cleanup_passed','same_boot','durable_data_unchanged','pre_existing_evidence_unchanged','pre_existing_evidence_count','durable_file_count','collector_sha256','negative_control_witnesses','without_extension_archive']
+receipt_keys=['completed','serial','avd','layout','font_scale','classes','expected','apk_sha256','test_apk_sha256','installed_apks_match','instrumentation_exit_code','passes','tests_completed','archive_sha256','cleanup']
+def native(root,name):
+    state=project(root/'state.json',public/'cohorts'/name/'state.json',state_keys)
+    receipt=project(root/'cohort/record.json',public/'cohorts'/name/'record.json',receipt_keys)
+    copy(root/'cohort/tests.log',public/'cohorts'/name/'tests.log')
+    copy(root/'host.log',public/'cohorts'/name/'host.log')
+    for case in sorted((root/'cohort/captures').glob('*-case.json')):
+        copy(case,public/'cases'/name/case.name,raw=True)
+    return dict(name=name,**state)
+
+rows=[]
+for job in matrix['jobs']:
+    name=job['name'];root=base/name
+    row=native(root,name)
+    require(row['completed'] and row['cleanup_passed'] and row['same_boot'] and row['durable_data_unchanged'] and row['pre_existing_evidence_unchanged'],'Matrix cohort incomplete')
+    row['role']=job['role'];rows.append(row)
+    if row['variant']=='baseline':phases={'actions','full-copy-menu'}
+    elif row['variant']!='current':phases=set()
+    elif name.startswith('visual-'):phases={'revealed-put-answer','revealed-copy-calculation','revealed-copy-destination'}
+    elif name in ['final-tablet100-v12','final-phone100-v12']:
+        phases={'actions','chained-search','next-calculation','full-copy-menu','full-copy-destination','unit-actions','unit-chained','unit-converted','disabled-chain','copy-answer'}
+    elif name=='final-landscape100-v12':phases={'chained-search','full-copy-destination'}
+    else:phases={'chained-search','unit-converted','disabled-chain'}
+    captures(root,name,phases)
+common=native(base/'ime-common-landscape100-v9','ime-common-landscape100-v9')
+require(common['completed'] and common['junit_passes']==13,'Matched keyboard positive incomplete')
+common['role']='separate common-instrumentation keyboard positive';rows.append(common)
+captures(base/'ime-common-landscape100-v9','ime-common-landscape100-v9',{'chained-search'})
+json_file(public/'cohorts.json',rows)
+
+regression_keys=['completed','layout','methods','passes','cleanup_checks','cleanup_passed','native_completed','original_evidence_restored','pre_existing_evidence_unchanged','durable_data_unchanged','preservation_owner_released','app_sha256','test_apk_sha256','source_commit','runtime_source_commit','collector_sha256','runner_exit_code']
+supplement=[]
+for root in regressions+helpers:
+    name=root.name
+    row=project(root/'state.json',public/'supplement'/name/'state.json',regression_keys)
+    project(root/'cohort/record.json',public/'supplement'/name/'record.json',receipt_keys)
+    copy(root/'cohort/tests.log',public/'supplement'/name/'tests.log')
+    for f in sorted((root/'cohort/readiness-evidence').glob('*.json')):
+        if f.name.startswith(('clipboard-','activation-setup-')):
+            copy(f,public/'supplement'/name/f.name,raw=True)
+    supplement.append(dict(name=name,**row))
+json_file(public/'supplement.json',supplement)
+
+history_names=['old-tablet-controls-v1','old-phone-controls-v1','current-tablet-probe-v1','intermediate-repeat-control-v2','current-focused-tablet-v2','previous-app-fixture-controls-v3','landscape-focused-v4','landscape200-focused-v5']
+for version in [1,2,3,4]:
+    value=read(base/('matrix-v'+str(version))/'state.json')
+    history_names.extend(j['name'] for j in value['jobs'] if j['name']!='ime-common-landscape100-v9')
+history=[]
+for name in dict.fromkeys(history_names):history.append(native(base/name,name))
+captures(base/'final-landscape100-v7','historical-keyboard-failure',{'failure'})
+json_file(public/'historical.json',history)
+for name in ['build-frozen-v1','build-debug-probe-v2','build-frozen-v3','build-harness-v4','build-harness-v5','build-harness-v6','build-harness-v7','build-runtime-v9','build-harness-v11']:
+    value=read(base/name/'state.json')
+    json_file(public/'historical'/name/'identity.json',{k:value[k] for k in ['implementation_commit','runtime_source_commit','source_hashes','apk_hashes'] if k in value})
+copy(base/'first-build-v1/build.log',public/'historical/first-jvm-failure/build.log')
+copy(base/'first-build-v1/CalculatorActionsTest.kt',public/'historical/first-jvm-failure/CalculatorActionsTest.kt.txt')
+copy(base/'first-build-v1/jvm/TEST-dev.tinycast.android.CalculatorActionsTest.xml',public/'historical/first-jvm-failure/CalculatorActionsTest.xml',xml=True)
+
+# Only owned calculator captures are indexed. The failed pre-query SystemUI
+# cohort and unrelated original evidence/private recovery material are excluded.
+retained={}
+for name in dict.fromkeys([j['name'] for j in matrix['jobs']]+['ime-common-landscape100-v9']+history_names):
+    if name=='final-landscape200-v9':continue
+    for f in sorted((base/name/'cohort/captures').glob('*')):
+        if f.is_file() and 'bare-number-search' not in f.name:retained[str(f.relative_to(base))]=sha(f.read_bytes())
+json_file(public/'retained-capture-hashes.json',retained)
+json_file(public/'frames.json',frames)
+json_file(public/'bindings.json',bindings)
+json_file(public/'projections.json',projections)
+for path in public.rglob('*.xml'):ET.parse(path)
+files={str(p):sha(p.read_bytes()) for p in sorted([*public.rglob('*'),*screens.rglob('*')]) if p.is_file()}
+for name in files:require((b'/' + b'Users/') not in Path(name).read_bytes(),'Host prefix remains in publication')
+summary=dict(current_calculator_executions=sum(r['junit_passes'] for r in rows if r.get('variant')=='current'),
+    current_calculator_cohorts=sum(r.get('variant')=='current' for r in rows),
+    expected_negative_executions=sum(len(r['methods']) for r in rows if r.get('variant') in ['baseline','intermediate']),
+    calculator_cleanup_checks=sum(r['cleanup_checks'] for r in rows),
+    regression_executions=sum(r['passes'] for r in supplement if r['name'].startswith('regression-')),
+    helper_executions=sum(r['passes'] for r in supplement if r['name'].startswith('helper-')),
+    supplement_cleanup_checks=sum(r['cleanup_checks'] for r in supplement),
+    published_frames=len(frames),published_xmls=len(list(public.rglob('*.xml'))),retained_capture_hashes=len(retained))
+json_file(public/'checkpoint.json',dict(schema_version=1,summary=summary,files=files))
+print(json.dumps(summary,indent=2))

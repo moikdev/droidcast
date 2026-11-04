@@ -1,0 +1,64 @@
+{
+  "case": "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+  "passed": true,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "unrelated_launcher_state_unchanged": true,
+  "caret_after_answer": true,
+  "native_ime_next_result_copy": true,
+  "native_preferences_restored": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        198,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(829.0, 1205.0, 1027.0, 1331.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "size": [
+        808,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(203.0, 797.0, 1011.0, 923.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": [
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "lines": 1,
+      "non_ellipsized": true,
+      "natural_height": 48,
+      "visible_height": 48
+    }
+  ],
+  "scroll_steps": [],
+  "native_keys": []
+}

@@ -1,0 +1,25 @@
+{
+  "completed": true,
+  "variant": "baseline",
+  "layout": "phone",
+  "font": 1.0,
+  "methods": [
+    "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+    "menuSearchCopiesTheFullCalculationThroughNativeIme"
+  ],
+  "app_sha256": "9b69c279f241e4b2ca69e7634afe1472f128b46221e6f3bb1205bef996dcda8f",
+  "test_apk_sha256": "ffd6abd2618b5f9a65f81f17e21bf8fa2440d9c9227b35f732959fd29c093a9c",
+  "app_source_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "test_source_commit": "d2677627a84d89ad9278529ee0c6438a492ee79a",
+  "junit_passes": 0,
+  "runner_exit_code": 1,
+  "cleanup_checks": 20,
+  "native_completed": false,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "pre_existing_evidence_count": 528,
+  "durable_file_count": 12,
+  "collector_sha256": "3837224c0f63b0182ca5f845710191d34ef8b98604b75afe07c56d006d90fbe0"
+}

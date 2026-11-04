@@ -1,0 +1,20 @@
+{
+  "case": "menuCompositionBlocksAcceleratorsAndImeUntilCommitted",
+  "passed": true,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "native_preferences_restored": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        326,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(1808.0, 849.0, 2134.0, 975.0)",
+      "ime_visible": false
+    }
+  ],
+  "text_line_witnesses": [],
+  "scroll_steps": [],
+  "native_keys": []
+}

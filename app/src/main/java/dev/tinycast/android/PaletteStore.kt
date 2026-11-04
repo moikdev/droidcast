@@ -38,9 +38,19 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     var pins by mutableStateOf(prefs.getStringSet("pins", setOf("calculator", "new-note", "browse-files", "new-link"))!!.toSet()); private set
     var usage by mutableStateOf(readMap("usage")); private set
     var aliases by mutableStateOf(readAliases()); private set
-    var query by mutableStateOf("")
-    var category by mutableStateOf("All")
-    var selected by mutableIntStateOf(0)
+    private var queryValue by mutableStateOf("")
+    private var categoryValue by mutableStateOf("All")
+    private var selectedValue by mutableIntStateOf(0)
+    private var calculatorSelectionRevision = 0L
+    var query: String
+        get() = queryValue
+        set(value) { if (value != queryValue) { calculatorSelectionRevision++; queryValue = value } }
+    var category: String
+        get() = categoryValue
+        set(value) { if (value != categoryValue) { calculatorSelectionRevision++; categoryValue = value } }
+    var selected: Int
+        get() = selectedValue
+        set(value) { if (value != selectedValue) { calculatorSelectionRevision++; selectedValue = value } }
     var focusEpoch by mutableIntStateOf(0)
     var extensionReturnTo: String? = null
     var extensionSetupFromRun = false
@@ -294,6 +304,12 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     }
 
     fun search(value: String) { query = value; selected = 0; syncFileSearch() }
+    internal fun calculatorSelection(command: Command?) = CalculatorSelection(query, category, selected,
+        calculatorSelectionRevision, focusEpoch, dialog, command)
+    internal fun currentCalculatorSelection(): CalculatorSelection {
+        val current = results()
+        return calculatorSelection(current.getOrNull(selected.coerceIn(0, current.lastIndex.coerceAtLeast(0))))
+    }
     fun syncFileSearch() { folderSearch.search(query, category == "Files" || (folderSearch.includeInLauncher && query.isNotBlank() && category in setOf("All", "Pinned"))) }
     fun openExtension(extension: InstalledExtension, command: ExtensionCommand) {
         TextReviewOwnership.revoke()

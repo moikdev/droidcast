@@ -1,0 +1,25 @@
+{
+  "completed": true,
+  "variant": "baseline",
+  "layout": "tablet",
+  "font": 1.0,
+  "methods": [
+    "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+    "menuSearchCopiesTheFullCalculationThroughNativeIme"
+  ],
+  "app_sha256": "9b69c279f241e4b2ca69e7634afe1472f128b46221e6f3bb1205bef996dcda8f",
+  "test_apk_sha256": "95735f9f04c6b392b96e4d384a99e5d5c5182113928ef62568c4fcd0c341a36a",
+  "app_source_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "test_source_commit": "4eb32eb419a958f7e0e79bba96dc90da4476130c",
+  "junit_passes": 0,
+  "runner_exit_code": 1,
+  "cleanup_checks": 18,
+  "native_completed": false,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "pre_existing_evidence_count": 528,
+  "durable_file_count": 12,
+  "collector_sha256": "2088dc26f7458a230c309ebb39f26058cd6e0367a80ffaf1e6e478d8c067a2bd"
+}

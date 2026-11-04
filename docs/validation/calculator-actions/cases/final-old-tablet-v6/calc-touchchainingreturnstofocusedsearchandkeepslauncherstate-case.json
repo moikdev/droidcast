@@ -1,0 +1,232 @@
+{
+  "case": "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+  "passed": false,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "native_preferences_restored": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        187,
+        72
+      ],
+      "bounds": "Rect.fromLTRB(1324.0, 552.0, 1511.0, 624.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": [],
+  "scroll_steps": [
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 0,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 1,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 2,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 3,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 4,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 5,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 6,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 7,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 8,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 9,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 10,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 11,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 12,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 13,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 14,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 15,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 16,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 17,
+      "viewport": "Rect.fromLTRB(1040.0, 343.0, 1502.0, 463.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 36,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    }
+  ],
+  "native_keys": []
+}

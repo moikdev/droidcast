@@ -1,0 +1,24 @@
+from pathlib import Path
+import hashlib,json,os,subprocess,sys
+base=Path('artifacts/calculator-actions');out=base/'final-regressions-v1'
+def require(value,message):
+    if not value:raise RuntimeError(message)
+def read(p):return json.loads(p.read_text())
+require(read(base/'matrix-v5/state.json')['completed'],'Calculator matrix incomplete')
+for case in ['cold','full']:
+    for layout in ['tablet','phone']:
+        require(read(base/('helper-'+case+'-'+layout+'-v11')/'state.json')['completed'],'Helper verification incomplete')
+require(not out.exists(),'Prior regression pipeline exists')
+out.mkdir();state=dict(completed=False,pid=os.getpid(),collector_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),jobs=[])
+def save():(out/'state.json').write_text(json.dumps(state,indent=2)+'\n')
+save()
+for layout in ['tablet','phone','landscape']:
+    state['current']=layout;save();print('Starting shared regression '+layout,flush=True)
+    with (out/(layout+'.log')).open('wb') as log:
+        result=subprocess.run([sys.executable,str(base/'run-regressions-v4.py'),'--layout',layout],stdout=log,stderr=subprocess.STDOUT)
+    receipt=read(base/('regression-'+layout+'-v4')/'state.json')
+    row=dict(layout=layout,completed=receipt['completed'],passes=receipt.get('passes'),cleanup_checks=receipt.get('cleanup_checks'),exit_code=result.returncode)
+    state['jobs'].append(row);save();print(json.dumps(row),flush=True)
+    require(result.returncode==0 and receipt['completed'],'Retain and inspect failed native regression before continuing')
+require(hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==state['collector_sha256'],'Regression pipeline changed')
+state['completed']=True;state['current']=None;save();print('Shared regressions completed',flush=True)

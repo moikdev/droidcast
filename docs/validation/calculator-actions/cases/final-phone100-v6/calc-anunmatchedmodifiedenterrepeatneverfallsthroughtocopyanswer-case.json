@@ -1,0 +1,100 @@
+{
+  "case": "anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer",
+  "passed": true,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "unmatched_repeat_variants": 4,
+  "native_preferences_restored": true,
+  "pointers": [],
+  "text_line_witnesses": [],
+  "scroll_steps": [],
+  "native_keys": [
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    }
+  ]
+}

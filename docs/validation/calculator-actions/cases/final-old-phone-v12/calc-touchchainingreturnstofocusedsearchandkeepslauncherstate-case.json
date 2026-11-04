@@ -1,0 +1,256 @@
+{
+  "case": "touchChainingReturnsToFocusedSearchAndKeepsLauncherState",
+  "passed": false,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "owned_clipboard_dismissals": [
+    {
+      "actions": [
+        {
+          "node": "com.android.systemui:id\/dismiss_button",
+          "success": true
+        }
+      ],
+      "observations": [
+        "125ms query_ms=122 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+        "204ms query_ms=21 mode=0 flags=65618 windows=[(3955, 3), (3948, 3)] systemui_roots=[3955] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+        "288ms query_ms=22 mode=0 flags=65618 windows=[(3955, 3), (3948, 3)] systemui_roots=[3948] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+        "350ms query_ms=12 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "405ms query_ms=4 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "461ms query_ms=5 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "516ms query_ms=4 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "572ms query_ms=5 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "627ms query_ms=4 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "685ms query_ms=5 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "739ms query_ms=3 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "798ms query_ms=5 mode=0 flags=65618 windows=[(3948, 3)] systemui_roots=[3948] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+      ]
+    }
+  ],
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "native_preferences_restored": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        198,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(829.0, 1205.0, 1027.0, 1331.0)",
+      "ime_visible": true
+    }
+  ],
+  "text_line_witnesses": [],
+  "scroll_steps": [
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 0,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 1,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 2,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 3,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 4,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 5,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 6,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 7,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 8,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 9,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 10,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 11,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 12,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 13,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 14,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 15,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 16,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    },
+    {
+      "target": "action-Put Answer in Search Bar",
+      "attempt": 17,
+      "viewport": "Rect.fromLTRB(203.0, 839.0, 1011.0, 1049.0)",
+      "target_size": "null",
+      "target_visible": "null",
+      "distance": 63.000004,
+      "axis_before": 0,
+      "max_before": 0,
+      "axis_after": 0
+    }
+  ],
+  "native_keys": []
+}

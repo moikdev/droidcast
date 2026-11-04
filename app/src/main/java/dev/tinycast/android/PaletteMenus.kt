@@ -51,6 +51,7 @@ internal data class PaletteChoice(val id: String, val label: String, val checked
                                   val shortcut: List<String> = emptyList(), val icon: String? = null,
                                   val separator: Boolean = false, val chord: KeyChord? = null,
                                   val labelLines: Int = 3, val activateBeforeDismiss: Boolean = false,
+                                  val isCurrent: () -> Boolean = { true },
                                   val activate: () -> Unit)
 
 /** One menu owned by this activity's existing palette surface, never a new window. */
@@ -121,6 +122,7 @@ internal class PaletteMenus {
         if (current !== request || opening == null || activation !== opening) return
         val currentChoice = request.choices.value.firstOrNull { it.id == expected.id && it.enabled } ?: return
         if (currentChoice.label != expected.label) return
+        if (!expected.isCurrent() || !currentChoice.isCurrent()) return
         // Invoke the captured choice: its own live-target guard must assess the
         // item the user saw, rather than adopting a replacement's callback.
         if (expected.activateBeforeDismiss) {
@@ -148,10 +150,13 @@ internal class PaletteMenus {
             return true
         }
         val request = current ?: return false
-        val shortcut=request.choices.value.firstOrNull { it.enabled && it.chord!=null && it.chord==event.asChord() }
+        val chord = event.asChord().let { if(it.keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) it.copy(keyCode=KeyEvent.KEYCODE_ENTER) else it }
+        // A disabled accelerator still owns its chord. Falling through to Enter
+        // would activate a different selected row (for example Copy Answer).
+        val shortcut=request.choices.value.firstOrNull { it.chord!=null && it.chord==chord }
         if(shortcut!=null && event.action==KeyEvent.ACTION_DOWN && query.composition==null) {
             presses[id]=event.downTime
-            if(event.repeatCount==0) choose(shortcut.id)
+            if(shortcut.enabled && event.repeatCount==0) choose(shortcut.id)
             return true
         }
         if(request.searchable) {

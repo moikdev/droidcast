@@ -1,0 +1,41 @@
+from pathlib import Path
+import hashlib,json,os,shutil,subprocess,sys,xml.etree.ElementTree as ET
+
+out=Path('artifacts/calculator-actions/build-runtime-v9');out.mkdir(exist_ok=False)
+def sha(data):return hashlib.sha256(data).hexdigest()
+def git(*args):return subprocess.check_output(['git',*args]).decode().strip()
+head=git('rev-parse','HEAD')
+assert not git('status','--porcelain')
+paths=[p for p in git('ls-files').splitlines() if (p.startswith('app/src/') and p.endswith(('.kt','.java','.xml'))) or p.endswith('.gradle.kts') or p=='gradle.properties' or (p.startswith('scripts/') and p.endswith('.py'))]
+sources={p:sha(Path(p).read_bytes()) for p in paths}
+state=dict(completed=False,implementation_commit=head,source_hashes=sources,pid=os.getpid(),steps=[])
+def save(): (out/'state.json').write_text(json.dumps(state,indent=2)+'\n')
+save()
+env=dict(os.environ,JAVA_HOME='<user-home>/Library/Java/JavaVirtualMachines/jdk-21.0.12.1+1/Contents/Home',ANDROID_HOME='<android-sdk>')
+for name, tasks, props in [
+ ('debug',[':app:cleanTestDebugUnitTest',':app:testDebugUnitTest',':app:assembleDebug',':app:assembleDebugAndroidTest',':app:lintDebug'],[]),
+ ('benchmark',[':app:assembleBenchmark',':app:assembleBenchmarkAndroidTest',':app:lintBenchmark'],['-PdroidcastTestBuildType=benchmark'])]:
+ with (out/(name+'.log')).open('wb') as log:
+  command=['./gradlew',*tasks,*props,'-PdroidcastBuildCommit='+head,'--console=plain']
+  result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,env=env)
+ state['steps'].append(dict(name=name,exit_code=result.returncode,log_sha256=sha((out/(name+'.log')).read_bytes())));save()
+ if result.returncode:raise SystemExit(result.returncode)
+candidate=out/'candidate';candidate.mkdir()
+for name,path in [
+ ('app-debug.apk','app/build/outputs/apk/debug/app-debug.apk'),
+ ('app-debug-androidTest.apk','app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'),
+ ('app-benchmark.apk','app/build/outputs/apk/benchmark/app-benchmark.apk'),
+ ('app-benchmark-androidTest.apk','app/build/outputs/apk/androidTest/benchmark/app-benchmark-androidTest.apk')]:
+ shutil.copyfile(path,candidate/name)
+state['apk_hashes']={p.name:sha(p.read_bytes()) for p in candidate.iterdir()}
+shutil.copytree('app/build/test-results/testDebugUnitTest',out/'jvm')
+for kind in ['debug','benchmark']:
+ shutil.copyfile('app/build/reports/lint-results-'+kind+'.xml',out/('lint-'+kind+'.xml'))
+state['jvm']={key:sum(int(ET.parse(p).getroot().get(key,'0')) for p in (out/'jvm').glob('TEST-*.xml')) for key in ['tests','failures','errors','skipped']}
+state['lint']={kind:{level:sum(n.get('severity')==level for n in ET.parse(out/('lint-'+kind+'.xml')).getroot()) for level in ['Error','Fatal','Warning']} for kind in ['debug','benchmark']}
+assert git('rev-parse','HEAD')==head and not git('status','--porcelain')
+assert sources=={p:sha(Path(p).read_bytes()) for p in sources}
+assert state['jvm']['tests']==278 and not any(state['jvm'][k] for k in ['failures','errors','skipped'])
+assert not any(row[k] for row in state['lint'].values() for k in ['Error','Fatal'])
+state['sources_unchanged']=True;state['completed']=True;save()
+print(json.dumps({k:state[k] for k in ['completed','implementation_commit','jvm','lint','apk_hashes']},indent=2))

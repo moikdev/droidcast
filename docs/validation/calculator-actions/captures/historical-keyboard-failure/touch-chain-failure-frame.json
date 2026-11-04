@@ -1,0 +1,106 @@
+{
+  "phase": "failure",
+  "query": "= 36",
+  "category": "All",
+  "selected": 0,
+  "build_commit": "4eb32eb419a958f7e0e79bba96dc90da4476130c",
+  "font_scale": 1,
+  "ime_visible": false,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        326,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(1808.0, 185.0, 2134.0, 311.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "inline-menu-keyboard",
+      "size": [
+        126,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(1982.0, 177.0, 2108.0, 303.0)",
+      "ime_visible": true
+    },
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "size": [
+        808,
+        126
+      ],
+      "bounds": "Rect.fromLTRB(1310.0, 498.0, 2118.0, 624.0)",
+      "ime_visible": false
+    }
+  ],
+  "text_line_witnesses": [
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "lines": 1,
+      "non_ellipsized": true,
+      "natural_height": 48,
+      "visible_height": 48
+    }
+  ],
+  "scroll_steps": [
+    {
+      "target": "actions-button",
+      "attempt": 0,
+      "viewport": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)",
+      "target_size": "326 x 126",
+      "target_visible": "Rect.fromLTRB(0.0, 0.0, 0.0, 0.0)",
+      "distance": 130.8,
+      "axis_before": 0,
+      "max_before": 330,
+      "axis_after": 0
+    },
+    {
+      "target": "actions-button",
+      "attempt": 1,
+      "viewport": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)",
+      "target_size": "326 x 126",
+      "target_visible": "Rect.fromLTRB(0.0, 0.0, 0.0, 0.0)",
+      "distance": 130.8,
+      "axis_before": 0,
+      "max_before": 330,
+      "axis_after": 62
+    },
+    {
+      "target": "actions-button",
+      "attempt": 2,
+      "viewport": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)",
+      "target_size": "326 x 126",
+      "target_visible": "Rect.fromLTRB(0.0, 0.0, 0.0, 0.0)",
+      "distance": 130.8,
+      "axis_before": 62,
+      "max_before": 330,
+      "axis_after": 181
+    },
+    {
+      "target": "actions-button",
+      "attempt": 3,
+      "viewport": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)",
+      "target_size": "326 x 126",
+      "target_visible": "Rect.fromLTRB(0.0, 0.0, 0.0, 0.0)",
+      "distance": 130.8,
+      "axis_before": 181,
+      "max_before": 330,
+      "axis_after": 300
+    },
+    {
+      "target": "actions-button",
+      "attempt": 4,
+      "viewport": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)",
+      "target_size": "326 x 126",
+      "target_visible": "Rect.fromLTRB(1808.0, 206.0, 2134.0, 313.0)",
+      "distance": 40,
+      "axis_before": 300,
+      "max_before": 330,
+      "axis_after": 321
+    }
+  ],
+  "native_keys": [],
+  "capture_order": "Compose idle, native XML, then PNG; sequential observations"
+}

@@ -1,0 +1,30 @@
+{
+  "configured_mode": 1,
+  "service_flags_before": 65618,
+  "service_flags_after": 65618,
+  "observations_before_uidevice": [
+    "6ms query_ms=4 mode=1 flags=65618 windows=[(3535, 3), (3526, 3)] systemui_roots=[3535] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+    "64ms query_ms=4 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "122ms query_ms=5 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "178ms query_ms=4 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "235ms query_ms=6 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "293ms query_ms=5 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "351ms query_ms=5 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "408ms query_ms=5 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "464ms query_ms=5 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "522ms query_ms=6 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "578ms query_ms=4 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "648ms query_ms=11 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "705ms query_ms=5 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+    "760ms query_ms=5 mode=1 flags=65618 windows=[(3526, 3)] systemui_roots=[3526] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+  ],
+  "actions": [
+    {
+      "node": "com.android.systemui:id\/dismiss_button",
+      "success": true
+    }
+  ],
+  "overlay_after": false,
+  "route_preserved": true,
+  "failure": null
+}

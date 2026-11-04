@@ -1,0 +1,97 @@
+{
+  "case": "unitAnswerChainsWithItsUnitAndCanBeConvertedAgain",
+  "passed": true,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "owned_clipboard_dismissals": [
+    {
+      "actions": [
+        {
+          "node": "com.android.systemui:id\/dismiss_button",
+          "success": true
+        }
+      ],
+      "observations": [
+        "197ms query_ms=196 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+        "274ms query_ms=5 mode=0 flags=65618 windows=[(3585, 3), (3540, 3)] systemui_roots=[3585] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+        "419ms query_ms=87 mode=0 flags=65618 windows=[(3585, 3), (3540, 3)] systemui_roots=[3540] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+        "494ms query_ms=18 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "548ms query_ms=4 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "610ms query_ms=5 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "666ms query_ms=5 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "722ms query_ms=5 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "777ms query_ms=5 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+      ]
+    },
+    {
+      "actions": [
+        {
+          "node": "com.android.systemui:id\/dismiss_button",
+          "success": true
+        }
+      ],
+      "observations": [
+        "35ms query_ms=15 mode=0 flags=65618 windows=[(3586, 3), (3540, 3)] systemui_roots=[3586] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+        "146ms query_ms=56 mode=0 flags=65618 windows=[(3586, 3), (3540, 3)] systemui_roots=[3540] queries=30 roots=2 children=28 walked=29 prefetch=36 complete=false require_action=true actions=1 nodes=[]",
+        "218ms query_ms=21 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "293ms query_ms=7 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "359ms query_ms=13 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "414ms query_ms=5 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "470ms query_ms=5 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "525ms query_ms=4 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "579ms query_ms=4 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "636ms query_ms=5 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "690ms query_ms=4 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "753ms query_ms=9 mode=0 flags=65618 windows=[(3540, 3)] systemui_roots=[3540] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+      ]
+    }
+  ],
+  "native_preferences_restored": true,
+  "pointers": [
+    {
+      "tag": "actions-button",
+      "size": [
+        187,
+        72
+      ],
+      "bounds": "Rect.fromLTRB(1324.0, 872.0, 1511.0, 944.0)",
+      "ime_visible": false
+    },
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "size": [
+        462,
+        72
+      ],
+      "bounds": "Rect.fromLTRB(1040.0, 639.0, 1502.0, 711.0)",
+      "ime_visible": false
+    }
+  ],
+  "text_line_witnesses": [
+    {
+      "tag": "action-Put Answer in Search Bar",
+      "lines": 1,
+      "non_ellipsized": true,
+      "natural_height": 27,
+      "visible_height": 27
+    }
+  ],
+  "scroll_steps": [],
+  "native_keys": [
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 4097,
+      "repeat": 0,
+      "consumed": true,
+      "window_focused": true
+    }
+  ]
+}

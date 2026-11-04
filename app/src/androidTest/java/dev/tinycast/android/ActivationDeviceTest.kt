@@ -30,12 +30,17 @@ class ActivationDeviceTest {
     private val device get()=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     private var original=emptyMap<String,Any?>()
     private var clip:ClipData?=null
+    private var hostClipboardRecovery=false
+    private var prepared=false
+    private var capturedClipboard=false
     private var fixture:File?=null
     private var support:File?=null
     @Before fun ready() {
+        hostClipboardRecovery=hostRestoresTestClipboard()
         original=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap()
+        prepared=true
         compose.waitUntil(15000){!compose.activity.store.loading && !compose.activity.store.folderSearch.loading}
-        compose.activityRule.scenario.onActivity { clip=it.getSystemService(ClipboardManager::class.java).primaryClip }
+        if(!hostClipboardRecovery)compose.activityRule.scenario.onActivity { clip=it.getSystemService(ClipboardManager::class.java).primaryClip;capturedClipboard=true }
         // Establish accessibility readiness before creating the known overlay;
         // this runs without a preceding UiDevice query or hierarchy dump.
         dismissClipboardForEvidence()
@@ -49,7 +54,7 @@ class ActivationDeviceTest {
         val start=android.os.SystemClock.uptimeMillis()
         val focusBefore=compose.activity.window.decorView.hasWindowFocus()
         try {
-            dismissClipboardForEvidence(onObservation={ observations.put(it) }) { node,ok -> actions.put(JSONObject().put("node",node).put("ok",ok).put("after_ms",android.os.SystemClock.uptimeMillis()-start)) }
+            dismissClipboardForEvidence(onObservation={ observations.put(it) },requireAction=true) { node,ok -> actions.put(JSONObject().put("node",node).put("ok",ok).put("after_ms",android.os.SystemClock.uptimeMillis()-start)) }
             File(context.filesDir,"readiness-evidence").apply{mkdirs()}.resolve("activation-setup-${testName.methodName.lowercase()}.json")
                 .writeText(JSONObject().put("test",testName.methodName).put("settled",true).put("window_focus_before_cleanup",focusBefore).put("actions",actions).put("observations",observations).toString(2))
         } catch(failure:Throwable) {
@@ -66,10 +71,12 @@ class ActivationDeviceTest {
         }
     }
     @After fun restore() {
+        if(!prepared)return
         compose.activityRule.scenario.onActivity {
             it.store.extensions.close()
             val manager=it.getSystemService(ClipboardManager::class.java)
-            clip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
+            if(hostClipboardRecovery)manager.resetClipboardForTest()
+            else if(capturedClipboard)clip?.let(manager::setPrimaryClip) ?: manager.resetClipboardForTest()
         }
         restorePalettePreferences(context,original);fixture?.deleteRecursively();support?.deleteRecursively()
     }

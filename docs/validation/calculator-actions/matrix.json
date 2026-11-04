@@ -1,0 +1,137 @@
+{
+  "completed": true,
+  "pid": 21809,
+  "collector_sha256": "f3e9e710db1c58d408a4d051effbf75af86c84256be0da7842e0be5665fa3820",
+  "jobs": [
+    {
+      "name": "final-tablet100-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 13,
+      "cleanup_checks": 18
+    },
+    {
+      "name": "final-phone100-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 13,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "final-landscape100-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 13,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "final-landscape200-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 4,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "final-tablet200-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 4,
+      "cleanup_checks": 18
+    },
+    {
+      "name": "final-phone200-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 4,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "final-phone130-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 4,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "final-phone150-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "main",
+      "passes": 4,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "final-old-tablet-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "baseline",
+      "role": "negative",
+      "passes": 0,
+      "cleanup_checks": 18
+    },
+    {
+      "name": "final-old-phone-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "baseline",
+      "role": "negative",
+      "passes": 0,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "final-repeat-control-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "intermediate",
+      "role": "negative",
+      "passes": 0,
+      "cleanup_checks": 18
+    },
+    {
+      "name": "visual-tablet200-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "rendering",
+      "passes": 1,
+      "cleanup_checks": 18
+    },
+    {
+      "name": "visual-phone200-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "rendering",
+      "passes": 1,
+      "cleanup_checks": 20
+    },
+    {
+      "name": "visual-landscape200-v12",
+      "exit_code": 0,
+      "completed": true,
+      "variant": "current",
+      "role": "rendering",
+      "passes": 1,
+      "cleanup_checks": 20
+    }
+  ],
+  "current": null,
+  "common_control_failed_cohort": "final-landscape100-v7",
+  "retained_common_positive_cohort": "ime-common-landscape100-v9",
+  "scope": "One repaired runtime; common instrumentation proves the keyboard transition separately from final-compiled instrumentation"
+}

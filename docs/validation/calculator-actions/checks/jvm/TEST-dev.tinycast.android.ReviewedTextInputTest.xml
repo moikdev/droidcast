@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ReviewedTextInputTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-11-04T07:26:57.860Z" hostname="redacted-host" time="0.004">
+  <properties/>
+  <testcase name="authority_is_bound_to_both_the_original_owner_and_target" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="a_char_sequence_cannot_bypass_the_limit_by_lying_about_its_length" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.001"/>
+  <testcase name="invalid_replacements_revoke_an_already_approved_input" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="diagnostics_and_errors_do_not_echo_input_content" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.001"/>
+  <testcase name="receiving_copies_mutable_text_without_normalizing_unicode_or_whitespace" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="cancellation_clears_only_the_current_review" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="a_changed_command_rejects_a_retained_run_callback_without_consuming_the_review" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="releasing_an_outgoing_input_does_not_clear_a_new_review_or_invocation" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="a_queued_cancel_from_the_review_cannot_revoke_the_approved_invocation" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="whitespace_is_valid_selection_text_and_share_has_no_writable_source" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="wrong_types_are_rejected_without_calling_their_to_string" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.001"/>
+  <testcase name="an_outgoing_review_cannot_approve_or_change_its_replacement" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="approval_requires_a_chosen_command_and_consumes_the_current_review_once" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.0"/>
+  <testcase name="size_limit_counts_utf16_units_and_accepts_the_exact_boundary" classname="dev.tinycast.android.ReviewedTextInputTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

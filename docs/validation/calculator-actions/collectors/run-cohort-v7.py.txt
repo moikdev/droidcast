@@ -1,0 +1,153 @@
+from pathlib import Path
+import argparse, hashlib, io, json, os, re, subprocess, sys, tarfile
+p = argparse.ArgumentParser()
+p.add_argument('--name', required=True)
+p.add_argument('--variant', choices=['baseline', 'current', 'intermediate', 'previous'], required=True)
+p.add_argument('--layout', choices=['tablet', 'phone', 'landscape'], required=True)
+p.add_argument('--font', type=float, default=1)
+p.add_argument('--methods', default='all')
+p.add_argument('--build', default='build-frozen-v1')
+p.add_argument('--no-json-archive', action='store_true')
+p.add_argument('--test-build')
+args = p.parse_args()
+if not (args.name.replace('-', '').isalnum() and args.name.isascii()):
+    raise RuntimeError('Cohort precondition or verification failed')
+base = Path('artifacts/calculator-actions')
+out = base / args.name
+if not not out.exists():
+    raise RuntimeError('Cohort precondition or verification failed')
+build = json.loads((base / args.build / 'state.json').read_text())
+if not build['completed']:
+    raise RuntimeError('Cohort precondition or verification failed')
+candidate = base / args.build / 'candidate'
+test_build = json.loads((base / (args.test_build or args.build) / 'state.json').read_text())
+if not test_build['completed']:raise RuntimeError('Test build is incomplete')
+test_candidate = base / (args.test_build or args.build) / 'candidate'
+apk = base / 'baseline-debug.apk' if args.variant == 'baseline' else base / 'build-frozen-v1/candidate/app-debug.apk' if args.variant in ['intermediate', 'previous'] else candidate / 'app-debug.apk'
+test = test_candidate / 'app-debug-androidTest.apk'
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+if not sha(test.read_bytes()) == test_build['apk_hashes'][test.name]:
+    raise RuntimeError('Cohort precondition or verification failed')
+if not sha(apk.read_bytes()) == ('9b69c279f241e4b2ca69e7634afe1472f128b46221e6f3bb1205bef996dcda8f' if args.variant == 'baseline' else '6a3b38223cac69f77be3e3889da2ed138bb753137472e03c154712f44f40eabf' if args.variant in ['intermediate', 'previous'] else build['apk_hashes'][apk.name]):
+    raise RuntimeError('Cohort precondition or verification failed')
+methods = [line.strip().split('fun ')[1].split('(')[0] for line in Path('app/src/androidTest/java/dev/tinycast/android/CalculatorActionsDeviceTest.kt').read_text().splitlines() if line.strip().startswith('@Test fun ')]
+if args.methods == 'main':
+    args.methods = ','.join(m for m in methods if m != 'revealedLargeTextCalculatorActionsHaveCompleteVisibleLabels')
+if args.methods != 'all':
+    requested = args.methods.split(',')
+    if not all((m in methods for m in requested)):
+        raise RuntimeError('Cohort precondition or verification failed')
+    methods = requested
+if not (args.variant in ['current', 'previous'] or len(methods) <= 2):
+    raise RuntimeError('Cohort precondition or verification failed')
+if args.variant == 'intermediate':
+    if not methods == ['anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer']:
+        raise RuntimeError('Cohort precondition or verification failed')
+if args.variant == 'previous':
+    if not methods == ['touchChainingReturnsToFocusedSearchAndKeepsLauncherState', 'rootCompositionBlocksBothAcceleratorsAndImeSubmission', 'rootAcceleratorsHandleBothEnterKeysAndNeverRepeatAnAction']:
+        raise RuntimeError('Cohort precondition or verification failed')
+adb = ['<android-sdk>/platform-tools/adb', '-s', 'emulator-5580']
+app = 'dev.tinycast.android'
+
+def raw(*values):
+    return subprocess.check_output(adb + list(values), timeout=60)
+
+def text(*values):
+    return raw(*values).decode().strip()
+
+def absent(path):
+    r = subprocess.run(adb + ['shell', 'run-as', app, 'test', '-e', path], capture_output=True, timeout=20)
+    if not (r.returncode in [0, 1] and (not r.stdout) and (not r.stderr)):
+        raise RuntimeError('Cohort precondition or verification failed')
+    return r.returncode == 1
+
+def verify_snapshot(name):
+    expected = json.loads((base / name).read_text())
+    roots = expected['roots']
+    data = raw('exec-out', 'run-as', app, 'tar', '-cf', '-', *roots)
+    hashes = {}
+    with tarfile.open(fileobj=io.BytesIO(data)) as archive:
+        for member in archive:
+            if member.isdir():
+                continue
+            if not (member.isfile() and any((member.name.startswith(root + '/') for root in roots)) and (member.name not in hashes)):
+                raise RuntimeError('Cohort precondition or verification failed')
+            hashes[member.name] = sha(archive.extractfile(member).read())
+    if not hashes == expected['hashes']:
+        raise RuntimeError('Existing bytes changed')
+    return len(hashes)
+if not text('shell', 'getprop', 'ro.boot.qemu.avd_name') == 'Tinycast_Tablet_API_36':
+    raise RuntimeError('Cohort precondition or verification failed')
+if not text('shell', 'id').startswith('uid=2000('):
+    raise RuntimeError('Cohort precondition or verification failed')
+if not 'ActiveInstrumentation{' not in text('shell', 'dumpsys', 'activity', 'processes'):
+    raise RuntimeError('Cohort precondition or verification failed')
+for path in ['files/reviewed-text-fixture-lease', 'files/empty-view-fixture-lease', 'files/compatibility-batch-fixtures', 'files/compact-menu-evidence-preservation-v1', 'files/reviewed-text-evidence']:
+    if not absent(path):
+        raise RuntimeError('Prior ownership or uncopied evidence remains')
+private = json.loads((base / 'private-durable-before-v1.json').read_text())
+if not text('shell', 'cat', '/proc/sys/kernel/random/boot_id') == private['boot_id']:
+    raise RuntimeError('Cohort precondition or verification failed')
+durable = verify_snapshot('private-durable-before-v1.json')
+evidence = verify_snapshot('private-evidence-before-v1.json')
+out.mkdir(mode=448)
+state = dict(completed=False, pid=os.getpid(), variant=args.variant, layout=args.layout, font=args.font, methods=methods, app_sha256=sha(apk.read_bytes()), test_apk_sha256=sha(test.read_bytes()), test_source_commit=test_build['implementation_commit'], test_compile_target_commit=test_build.get('runtime_source_commit',test_build['implementation_commit']), app_source_commit='bdbfc569b222eaa85e157838cb36ed0a8911d6eb' if args.variant == 'baseline' else '4576271d811d343a2bf4de4ecdb7606300b3a244' if args.variant in ['intermediate', 'previous'] else build.get('runtime_source_commit', build['implementation_commit']), collector_sha256=sha(Path(__file__).read_bytes()), durable_file_count=durable, pre_existing_evidence_count=evidence)
+
+def save():
+    (out / 'state.json').write_text(json.dumps(state, indent=2) + '\n')
+save()
+archive = '<user-home>/.t3/scratch/droidcast-command-catalog-27caf3/artifacts/extension-catalog/representative-001-bundles-v1/archives/223987eaca2c894e37ada9e087669f260cda79d6a3b88ff11463f429cc952e6a.zip'
+command = [sys.executable, 'scripts/test-reviewed-text-input.py', '--serial', 'emulator-5580', '--avd', 'Tinycast_Tablet_API_36', '--layout', args.layout, '--font-scale', str(args.font), '--output', str(out / 'cohort'), '--apk', str(apk), '--test-apk', str(test), '--json-archive', archive, '--classes', ','.join(('dev.tinycast.android.CalculatorActionsDeviceTest#' + m for m in methods)), '--expected', str(len(methods))]
+if args.no_json_archive:
+    at = command.index('--json-archive')
+    del command[at:at + 2]
+    state['without_extension_archive'] = True
+    save()
+with (out / 'host.log').open('wb') as log:
+    result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, env=dict(os.environ, ANDROID_HOME='<android-sdk>'))
+state['runner_exit_code'] = result.returncode
+save()
+receipt = json.loads((out / 'cohort/record.json').read_text())
+state['junit_passes'] = receipt.get('passes', 0)
+state['native_completed'] = receipt.get('completed', False)
+state['cleanup_checks'] = len(receipt['cleanup'])
+state['cleanup_passed'] = all((row.get('passed') for row in receipt['cleanup'].values()))
+if not (state['cleanup_passed'] and absent('files/reviewed-text-fixture-lease')):
+    raise RuntimeError('Cleanup ownership remains')
+if not sha(Path(__file__).read_bytes()) == state['collector_sha256']:
+    raise RuntimeError('Collector changed during execution')
+state['same_boot'] = text('shell', 'cat', '/proc/sys/kernel/random/boot_id') == private['boot_id']
+if not state['same_boot']:
+    raise RuntimeError('Cohort precondition or verification failed')
+verify_snapshot('private-durable-before-v1.json')
+verify_snapshot('private-evidence-before-v1.json')
+state['durable_data_unchanged'] = True
+state['pre_existing_evidence_unchanged'] = True
+log = (out / 'cohort/tests.log').read_text()
+if args.variant in ['baseline', 'intermediate']:
+    expected = {
+        'touchChainingReturnsToFocusedSearchAndKeepsLauncherState': 'java.lang.IllegalArgumentException: Complete 48dp pointer target required: action-Put Answer in Search Bar',
+        'menuSearchCopiesTheFullCalculationThroughNativeIme': 'org.junit.ComparisonFailure: expected:<[sqrt(81)+12 × 3 = 45]> but was:<[Owned calculator clipboard sentinel 6704]>',
+    } if args.variant == 'baseline' else {
+        'anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer': 'org.junit.ComparisonFailure: expected:<[Owned calculator clipboard sentinel 6704]> but was:<[42]>',
+    }
+    if set(methods) != set(expected):raise RuntimeError('Unexpected negative-control methods')
+    observed = {}
+    for block, code in re.findall(r'(.*?)INSTRUMENTATION_STATUS_CODE:\s*(-?\d+)', log, re.S):
+        if int(code) != -2:continue
+        names = re.findall(r'^INSTRUMENTATION_STATUS: test=(.+)$',block,re.M)
+        if len(names) != 1:raise RuntimeError('Unbound negative-control failure')
+        method = names[0]
+        if method in observed or method not in expected:raise RuntimeError('Unexpected negative-control failure')
+        observed[method] = expected[method] in block
+    state['negative_control_witnesses'] = observed
+    save()
+    if observed != {method:True for method in expected}:
+        raise RuntimeError('Negative control did not fail its intended behavior assertion')
+state['completed'] = receipt['completed'] if args.variant in ['current', 'previous'] else result.returncode != 0 and receipt.get('passes', 0) == 0
+save()
+print(json.dumps(state, indent=2), flush=True)
+if not state['completed']:
+    raise RuntimeError('Inspect the retained failure; do not credit this cohort')

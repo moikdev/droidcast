@@ -1,0 +1,124 @@
+{
+  "case": "anUnmatchedModifiedEnterRepeatNeverFallsThroughToCopyAnswer",
+  "passed": true,
+  "input_setup": "Compose editor test actions; pointer and native input-connection steps are recorded separately",
+  "owned_clipboard_dismissals": [
+    {
+      "actions": [
+        {
+          "node": "com.android.systemui:id\/dismiss_button",
+          "success": true
+        }
+      ],
+      "observations": [
+        "102ms query_ms=101 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=0 nodes=[]",
+        "157ms query_ms=4 mode=0 flags=65618 windows=[(3652, 3), (3620, 3)] systemui_roots=[3652] queries=9 roots=1 children=8 walked=7 prefetch=36 complete=false require_action=true actions=0 nodes=[com.android.systemui:id\/clipboard_ui visible=true enabled=true clickable=false, com.android.systemui:id\/minimized_preview visible=true enabled=true clickable=true, com.android.systemui:id\/dismiss_button visible=true enabled=true clickable=true]",
+        "227ms query_ms=18 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "301ms query_ms=17 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "356ms query_ms=4 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "413ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "472ms query_ms=9 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "528ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "583ms query_ms=4 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "638ms query_ms=4 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "695ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]",
+        "750ms query_ms=5 mode=0 flags=65618 windows=[(3620, 3)] systemui_roots=[3620] queries=29 roots=1 children=28 walked=29 prefetch=36 complete=true require_action=true actions=1 nodes=[]"
+      ]
+    }
+  ],
+  "ime_starting_states": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "geometry": [
+        1,
+        966,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "geometry": [
+        0,
+        0,
+        1080,
+        2340
+      ],
+      "stable_ms": 100
+    }
+  ],
+  "unmatched_repeat_variants": 4,
+  "native_preferences_restored": true,
+  "pointers": [],
+  "text_line_witnesses": [],
+  "scroll_steps": [],
+  "native_keys": [
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 66,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4096,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 0,
+      "meta": 4097,
+      "repeat": 3,
+      "consumed": true,
+      "window_focused": true
+    },
+    {
+      "key_code": 160,
+      "action": 1,
+      "meta": 0,
+      "repeat": 0,
+      "consumed": false,
+      "window_focused": true
+    }
+  ]
+}
