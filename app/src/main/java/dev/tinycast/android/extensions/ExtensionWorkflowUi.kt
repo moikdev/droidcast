@@ -144,7 +144,14 @@ internal fun ExtensionRecordedTests(store: PaletteStore, extension: InstalledExt
                     // An unreadable cached manifest must not become an empty-success state.
                     val commands = if (inspection.matches.isNotEmpty()) inspection.matches.first().commands.map {
                         it.name to it.title
-                    } else try { extension.commands.map { it.name to it.title } } catch (_: org.json.JSONException) { null }
+                    } else try {
+                        val count = extension.manifest.optJSONArray("commands")?.length()
+                        require(count != null && count in 1..256)
+                        extension.commands.map {
+                            require(it.name.length in 1..96 && it.title.length in 1..256)
+                            it.name to it.title
+                        }
+                    } catch (_: org.json.JSONException) { null } catch (_: IllegalArgumentException) { null }
                     if (commands == null) item { Text("The installed command list could not be read. No command result has been determined.",
                         color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp, modifier = Modifier.testTag("recorded-tests-command-error")) }
                     var shown = 0

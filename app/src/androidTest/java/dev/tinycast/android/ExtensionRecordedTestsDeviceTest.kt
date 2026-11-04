@@ -113,7 +113,7 @@ class ExtensionRecordedTestsDeviceTest {
         // entry control to reach the intended missing-button assertion first.
         payloads=JSONObject(File(leaseRoot,"recorded-catalog.json").readText())
         primary=seed("json-format").first
-        context.startActivity(Intent().setComponent(ComponentName(context.packageName,MainActivity::class.java.name)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        context.startActivity(Intent(Intent.ACTION_MAIN).setComponent(ComponentName(context.packageName,MainActivity::class.java.name)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).depth(0)),10000))
         compose.waitUntil(15000) { activityOrNull()?.store?.loading==false }
         assertTrue(catalog.installed.any { it.listing.id==primary })
@@ -280,7 +280,10 @@ class ExtensionRecordedTestsDeviceTest {
             calls.incrementAndGet();record.put("requested_report_url",intent.dataString)
             if(reportFailure)throw android.content.ActivityNotFoundException("Owned no-handler fixture")
         } }
-        instrumentation.runOnMainSync { current.setContent { MaterialTheme { CompositionLocalProvider(LocalContext provides wrapped) {
+        instrumentation.runOnMainSync { current.setContent { MaterialTheme(colorScheme=androidx.compose.material3.darkColorScheme(
+            primary=PaletteTheme.ink,onPrimary=PaletteTheme.background,surface=PaletteTheme.surface,background=PaletteTheme.background,
+            onSurface=PaletteTheme.ink,onBackground=PaletteTheme.ink,outline=PaletteTheme.border,secondary=PaletteTheme.secondary,
+            surfaceContainer=PaletteTheme.surface)) { CompositionLocalProvider(LocalContext provides wrapped) {
             PaletteMenuHost(current.store) { ExtensionRecordedTests(current.store,ext,{true},{current.store.dialog=null},source?.let(::ExtensionWorkflowSource)) }
         } } } }
         compose.waitForIdle();return calls
@@ -315,7 +318,7 @@ class ExtensionRecordedTestsDeviceTest {
         catch(failure:Throwable) { record.put("failure_capture_error_type",failure.javaClass.simpleName) }
         finally {
             compose.mainClock.autoAdvance=true
-            viewMonitor?.let { monitor -> instrumentation.removeMonitor(monitor);assertEquals("No uncaptured ACTION_VIEW request",0,monitor.hits) };viewMonitor=null
+            val viewRequests=viewMonitor?.let { monitor -> instrumentation.removeMonitor(monitor);monitor.hits } ?: 0;viewMonitor=null
             instrumentation.runOnMainSync {
                 listOf(Stage.CREATED,Stage.STARTED,Stage.RESUMED,Stage.PAUSED,Stage.STOPPED)
                     .flatMap { ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(it) }.filterIsInstance<MainActivity>().distinct()
@@ -341,6 +344,7 @@ class ExtensionRecordedTestsDeviceTest {
             record.put("owned_source_copies_removed",true).put("preexisting_installations_and_data_preserved",true)
                 .put("clipboard_scope","No clipboard reads or writes in this class; host independently restores/verifies its durable recovery snapshot")
             File(evidence,"recorded-${name.methodName.lowercase(java.util.Locale.ROOT)}-record.json").writeText(record.toString(2))
+            assertEquals("No uncaptured ACTION_VIEW request",0,viewRequests)
         }
     }
 }
