@@ -240,6 +240,7 @@ class CalculatorActionsDeviceTest {
             scrollSteps.put(step)
         }
         val node = requireNotNull(target) { "Complete 48dp pointer target required: $tag" }
+        compose.onNodeWithTag(tag).assertIsEnabled()
         val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree=true)
         val point = node.boundsInRoot.center-owner.fetchSemanticsNode().boundsInRoot.topLeft
         pointers.put(JSONObject().put("tag",tag).put("size",JSONArray(listOf(node.size.width,node.size.height)))
@@ -270,13 +271,13 @@ class CalculatorActionsDeviceTest {
         val before = rect("palette")
         val unrelated = compose.runOnUiThread { listOf(store.notes,store.links,store.clips,store.files,store.pins,store.aliases,store.shortcutConfiguration) }
         actions(); capture("actions") // Same harness retains the old app's one-action state before failing.
-        compose.onNodeWithTag("action-Put Answer in Search Bar").assertIsEnabled()
         pointer("action-Put Answer in Search Bar","inline-menu-choices")
         compose.onNodeWithTag("search").assertIsFocused().assertTextEquals("= 36")
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange,TextRange(4)))
         assertEquals("= 36",store.query); assertEquals("All",store.category); assertEquals(0,store.selected)
         assertEquals(unrelated,compose.runOnUiThread { listOf(store.notes,store.links,store.clips,store.files,store.pins,store.aliases,store.shortcutConfiguration) })
         awaitIme(true)
+        compose.onNodeWithTag("search").assertIsDisplayed()
         val after=rect("palette")
         assertEquals(before.left,after.left,1f); assertEquals(before.top,after.top,1f); assertEquals(before.width,after.width,1f)
         assertClip(sentinel); capture("chained-search")
