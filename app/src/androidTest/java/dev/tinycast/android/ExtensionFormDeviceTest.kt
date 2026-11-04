@@ -110,7 +110,7 @@ class ExtensionFormDeviceTest {
             it.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Owned Form fixture", "Owned Form clipboard sentinel"))
             it.store.reset(); it.store.search(caller)
         }
-        if (listOf("frozenUuid", "frozenLorem", "frozenJsonLines", "frozenJsonValue").any { testName.methodName.startsWith(it) }) {
+        if (listOf("frozenUuid", "frozenLorem", "frozenJsonLines", "frozenJsonValue", "ownedNoView").any { testName.methodName.startsWith(it) }) {
             dismissFrozenClipboard("owned-sentinel")
         } else dismissClipboardForEvidence()
         record.put("font_scale", context.resources.configuration.fontScale)
@@ -621,7 +621,7 @@ class ExtensionFormDeviceTest {
         // may change visibility; its previous screen's state is not a request.
         awaitImeGeometry()
         val node = compose.onNodeWithTag(tag)
-        val viewport = listOf("extension-form", "extension-configuration").firstOrNull {
+        val viewport = listOf("extension-form", "extension-configuration", "extension-completion").firstOrNull {
             compose.onAllNodes(hasTestTag(tag) and hasAnyAncestor(hasTestTag(it))).fetchSemanticsNodes().isNotEmpty()
         }
         // isDisplayed accepts a sliver. At 200% in short landscape, the full
@@ -667,6 +667,7 @@ class ExtensionFormDeviceTest {
             .put("point", JSONArray(listOf(point.x, point.y))))
         assertTrue("A pointer target needs a useful visible hit region", visible.width > 1 &&
             visible.height + 1 >= minOf(target.size.height.toFloat(), minimumHitHeight) && root.contains(point))
+        if (tag == "extension-completion-return") assertCompletionReturnText()
         targetRoot.performTouchInput { click(point - root.topLeft) }
         compose.waitForIdle()
         if (target.config.contains(SemanticsProperties.EditableText)) {
@@ -1477,11 +1478,196 @@ class ExtensionFormDeviceTest {
         return output
     }
     private fun finishFrozenOffline() {
-        touch("extension-back"); assertNull(compose.activity.store.dialog); assertNull(catalog.running)
+        val completionReturn = InstrumentationRegistry.getArguments().getString("expectCompletionReturn") == "true" &&
+            record.optString("command_mode") == "no-view"
+        if (completionReturn) { requireCompletionReturn(); touch("extension-completion-return") }
+        else touch("extension-back")
+        assertNull(compose.activity.store.dialog); assertNull(catalog.running)
         assertEquals(caller, compose.activity.store.query)
         record.put("launcher_query_preserved", true).put("fresh_copy_verified", true)
+            .put("return_route", if (completionReturn) "Completed no-view Return button; actual pointer" else "Header Back; actual pointer")
             .put("overall", "working-for-listed-workflow").put("passed", true)
         capture("offline-caller-return")
+    }
+
+    private fun requireCompletionReturn() {
+        assertTrue("A completed no-view command must expose its touch Return action",
+            compose.onAllNodesWithTag("extension-completion-return").fetchSemanticsNodes().size == 1)
+        compose.onNodeWithTag("extension-completion-return").assertIsEnabled().assertHasClickAction()
+    }
+    private fun assertCompletionReturnText() {
+        val button = compose.onNodeWithTag("extension-completion-return").fetchSemanticsNode()
+        val label = compose.onNodeWithText("Return", useUnmergedTree = true).fetchSemanticsNode()
+        val layouts = mutableListOf<TextLayoutResult>()
+        compose.runOnUiThread { assertTrue(requireNotNull(label.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        val layout = layouts.single(); val origin = compose.runOnUiThread { label.positionInRoot }
+        val visible = label.boundsInRoot; val target = button.boundsInRoot
+        val minimum = 48f * context.resources.displayMetrics.density
+        assertTrue("Return needs a complete 48dp visible target", target.height + 1 >= minimum && target.width + 1 >= minimum)
+        assertTrue("Return must retain natural text height", label.size.height + 1 >= layout.multiParagraph.height)
+        val lines = JSONArray()
+        for (line in 0 until layout.lineCount) {
+            assertFalse(layout.isLineEllipsized(line))
+            val bounds = Rect(origin.x + layout.getLineLeft(line), origin.y + layout.getLineTop(line),
+                origin.x + layout.getLineRight(line), origin.y + layout.getLineBottom(line))
+            assertTrue("Return label must fit its visible text region", bounds.left >= visible.left - 1 && bounds.right <= visible.right + 1 &&
+                bounds.top >= visible.top - 1 && bounds.bottom <= visible.bottom + 1)
+            lines.put(JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+        }
+        record.put("completion_return_line_bounds", lines).put("completion_return_visible_target",
+            JSONArray(listOf(target.left, target.top, target.right, target.bottom)))
+    }
+    private fun touchUnfilteredFrozenAction(index: Int, title: String) {
+        val tag = "extension-action-$index"
+        val search = compose.onNodeWithTag("inline-menu-search")
+        search.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+        val viewport = compose.onNodeWithTag("inline-menu-choices")
+        val observations = JSONArray()
+        val minimum = 48f * context.resources.displayMetrics.density
+        for (attempt in 0 until 40) {
+            compose.waitForIdle()
+            val row = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().singleOrNull()
+            val body = viewport.fetchSemanticsNode()
+            val scroll = body.config[SemanticsProperties.VerticalScrollAxisRange]
+            observations.put(JSONObject().put("attempt", attempt).put("target_semantics_id", row?.id ?: JSONObject.NULL)
+                .put("target_visible_height", row?.boundsInRoot?.height ?: 0f)
+                .put("viewport_bounds", JSONArray(listOf(body.boundsInRoot.left, body.boundsInRoot.top, body.boundsInRoot.right, body.boundsInRoot.bottom)))
+                .put("scroll_value", scroll.value().toString()).put("scroll_maximum", scroll.maxValue().toString()))
+            if (row != null && row.layoutInfo.isPlaced && row.boundsInRoot.width > 1 && row.boundsInRoot.height + 1 >= minimum) break
+            assertTrue("The Actions viewport must admit a real pointer gesture", body.boundsInRoot.height >= minimum / 3)
+            drag(viewport, -1)
+        }
+        search.assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+        compose.onNodeWithTag(tag).assertTextContains(title, substring = true).assertIsDisplayed()
+        record.put("unfiltered_action_pointer_reveal", observations).put("action_menu_query_remained_empty", true)
+        capture("json-lines-unfiltered-action-visible")
+        // The exact row is already revealed. Inject directly in its owning
+        // root; do not let performScrollTo reselect a different scroll owner.
+        val row = compose.onNodeWithTag(tag).fetchSemanticsNode(); val bounds = row.boundsInRoot
+        assertTrue("View Result requires its complete 48dp visible target", bounds.height + 1 >= minimum)
+        val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
+        val root = owner.fetchSemanticsNode().boundsInRoot; assertTrue(root.contains(bounds.center))
+        record.put("unfiltered_action_pointer_tap", JSONObject().put("tag", tag).put("title", title)
+            .put("visible_bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("point", JSONArray(listOf(bounds.center.x, bounds.center.y))))
+        owner.performTouchInput { click(bounds.center - root.topLeft) }; compose.waitForIdle()
+    }
+    private val ownedCompletionOutput = "Owned completed output 日本 🌱"
+    private fun launchOwnedNoView(pending: Boolean = false) {
+        val directory = fixtureDirectory(); val id = directory.name
+        val script = """
+            const api=require('@raycast/api');
+            globalThis.__formProbe={started:false};
+            module.exports.default=async function(){
+              const runs=Number(await api.LocalStorage.getItem('owned-runs')||0)+1;
+              await api.LocalStorage.setItem('owned-runs',String(runs));
+              globalThis.__formProbe={started:true,runs};
+              if(${pending})return new Promise(()=>{});
+              await api.Clipboard.copy(${JSONObject.quote(ownedCompletionOutput)});
+              await api.showHUD('Owned command completed');
+            };
+        """.trimIndent()
+        File(directory, "complete.js").writeText(script)
+        val manifest = JSONObject("""{"commands":[{"name":"complete","title":"Owned completion return","mode":"no-view","preferences":[{"name":"label","title":"Owned optional label","type":"textfield","required":false}]}]}""")
+        ownedExtension = InstalledExtension(StoreExtension(id, "completion-fixture", "Owned completion probe", "", "Droidcast tests", "test", "", "", "", 1), directory, manifest)
+        record.put("scope", "Owned no-view completion/cancellation and native callback lifetime; no Store certification")
+            .put("owned_extension_id", id).put("fixture_pending", pending)
+            .put("fixture_command_sha256", hash(script.toByteArray())).put("fixture_manifest_sha256", hash(manifest.toString().toByteArray()))
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        compose.waitUntil(15000) { compose.onAllNodesWithTag("extension-status").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10000) { ownedNoViewRuns() == 1 }
+        compose.waitUntil(10000) { probe().optBoolean("started") }
+        if (!pending) awaitOwnedNoView(1)
+    }
+    private fun ownedNoViewRuns(): Int {
+        val local = context.getSharedPreferences("extension-${requireNotNull(ownedId)}", Context.MODE_PRIVATE).getString("local", "{}")!!
+        return JSONObject(local).optString("owned-runs", "0").toInt()
+    }
+    private fun awaitOwnedNoView(expectedRuns: Int) {
+        compose.waitUntil(15000) { catalog.runtimeError != null || catalog.runtimeReady && frozenClipboard() == ownedCompletionOutput }
+        assertNull(catalog.runtimeError, catalog.runtimeError); assertNull(activeRoot(catalog.runtimeTree))
+        assertEquals(expectedRuns, ownedNoViewRuns()); assertEquals(ownedCompletionOutput, frozenClipboard())
+        dismissFrozenClipboard("owned-completion"); compose.waitForIdle(); requireCompletionReturn()
+    }
+    private fun assertOwnedNoViewReturned(expectedRuns: Int) {
+        compose.waitUntil(5000) { compose.activity.store.dialog == null }
+        assertNull(catalog.running); assertEquals(caller, compose.activity.store.query)
+        assertEquals(ownedCompletionOutput, frozenClipboard()); assertEquals(expectedRuns, ownedNoViewRuns())
+    }
+    @Test fun ownedNoViewReturnRejectsDisposedAndReplacedCallbacks() {
+        launchOwnedNoView()
+        val button = compose.onNodeWithTag("extension-completion-return")
+        val beforePreferences = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        capture("completion-ready")
+        compose.onNodeWithText("Preferences").assertIsDisplayed().performTouchInput { click(center) }
+        compose.waitUntil(5000) { compose.activity.store.dialog == "extension-setup" }
+        compose.waitForIdle(); button.assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { beforePreferences(); assertEquals("extension-setup", it.store.dialog) }
+        touch("extension-back"); requireCompletionReturn()
+        compose.activityRule.scenario.onActivity { beforePreferences(); assertEquals("extension-run", it.store.dialog) }
+        assertEquals(1, ownedNoViewRuns())
+        val beforeRoot = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        // Controlled native publication tests disposal; it is not a React
+        // command workflow or an explanation of a historical failure.
+        compose.activityRule.scenario.onActivity { catalog.runtimeTree = JSONObject("""{"type":"List","id":"owned-temporary-root","props":{},"children":[]}""") }
+        compose.waitForIdle(); button.assertDoesNotExist()
+        compose.activityRule.scenario.onActivity { catalog.runtimeTree = null }
+        compose.waitForIdle(); requireCompletionReturn()
+        compose.activityRule.scenario.onActivity { beforeRoot(); assertEquals("extension-run", it.store.dialog) }
+        val beforeReplacement = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.activityRule.scenario.onActivity {
+            val previousEpoch = catalog.launchEpoch
+            catalog.launch(ownedExtension, ownedExtension.commands.single())
+            val replacement = catalog.running
+            beforeReplacement()
+            assertEquals(previousEpoch + 1, catalog.launchEpoch); assertSame(replacement, catalog.running)
+            assertEquals("extension-run", it.store.dialog)
+        }
+        awaitOwnedNoView(2)
+        compose.activityRule.scenario.onActivity { beforeReplacement(); assertEquals("extension-run", it.store.dialog) }
+        val beforeClose = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.activityRule.scenario.onActivity {
+            catalog.close(); beforeClose()
+            assertNull(catalog.running); assertEquals("extension-run", it.store.dialog)
+            catalog.launch(ownedExtension, ownedExtension.commands.single())
+        }
+        awaitOwnedNoView(3)
+        compose.activityRule.scenario.onActivity { beforeClose(); assertEquals("extension-run", it.store.dialog) }
+        val once = requireNotNull(button.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        capture("completion-replacement-ready"); touch("extension-completion-return"); assertOwnedNoViewReturned(3)
+        compose.activityRule.scenario.onActivity { once(); assertNull(it.store.dialog); assertNull(catalog.running) }
+        record.put("queued_callback_guards", JSONArray(listOf("Preferences hidden", "Preferences reopened", "native root ABA", "same-command replacement before disposal", "replacement composed", "closed before disposal", "closed invocation replaced", "duplicate after pointer return")))
+            .put("guard_observation", "Route, epoch, live owner, exact clipboard and owned invocation counter; callback Boolean is not an execution receipt")
+            .put("owned_runs", 3).put("passed", true)
+        capture("completion-caller-return")
+    }
+    @Test fun ownedNoViewReturnAcceptsFocusedEnterAndPreservesEscape() {
+        launchOwnedNoView(); val node = compose.onNodeWithTag("extension-completion-return")
+        node.performScrollTo(); assertCompletionReturnText()
+        node.performSemanticsAction(SemanticsActions.RequestFocus) { assertTrue(it()) }; node.assertIsFocused()
+        capture("completion-focused-return")
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER)
+        assertOwnedNoViewReturned(1)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(ownedExtension, ownedExtension.commands.single()) }
+        awaitOwnedNoView(2); capture("completion-before-escape")
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ESCAPE)
+        assertOwnedNoViewReturned(2)
+        record.put("focus_setup", "Native RequestFocus semantics; no pointer-focus claim")
+            .put("input_execution", "Instrumentation key down/up: Enter on focused Return; Escape on fresh invocation")
+            .put("enter_and_escape_preserved_copy_query", true).put("owned_runs", 2).put("passed", true)
+        capture("completion-keyboard-caller-return")
+    }
+    @Test fun ownedNoViewPendingCommandKeepsHeaderCancellation() {
+        launchOwnedNoView(pending = true)
+        assertFalse(catalog.runtimeReady); assertNull(catalog.runtimeError)
+        compose.onNodeWithTag("extension-completion-return").assertDoesNotExist()
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard()); assertEquals(1, ownedNoViewRuns())
+        capture("pending-without-return"); touch("extension-back")
+        assertNull(compose.activity.store.dialog); assertNull(catalog.running); assertEquals(caller, compose.activity.store.query)
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard()); assertEquals(1, ownedNoViewRuns())
+        record.put("pending_started_witness", true).put("pending_return_absent", true)
+            .put("header_back_cancelled_without_copy", true).put("passed", true)
+        capture("pending-cancelled")
     }
     private fun generatedHistory(output: List<String>, type: String) {
         val local = JSONObject(context.getSharedPreferences("extension-${requireNotNull(ownedId)}", Context.MODE_PRIVATE).getString("local", "{}")!!)
@@ -1596,7 +1782,7 @@ class ExtensionFormDeviceTest {
         capture("json-lines-input-ime"); ime(false)
         val actions = requireNotNull(activeRoot(catalog.runtimeTree)).actions()
         val index = actions.indexOfFirst { it.props().optString("title") == "View Result" }; assertTrue(index >= 0)
-        touch("extension-actions"); touch("extension-action-$index")
+        touch("extension-actions"); touchUnfilteredFrozenAction(index, "View Result")
         compose.waitUntil(15000) { activeRoot(catalog.runtimeTree)?.optString("type") == "Detail" }
         val expectedMarkdown = output.split('\n').joinToString("\n\n") { "```json\n$it\n```" }
         assertEquals(expectedMarkdown, requireNotNull(activeRoot(catalog.runtimeTree)).props().getString("markdown"))

@@ -325,6 +325,47 @@ class ReviewedTextDeviceTest {
         }
         node.assertIsDisplayed().performTouchInput { click(center) }
     }
+    private fun touchCompletionReturn() {
+        val tag = "extension-completion-return"
+        assertTrue("A completed no-view command must expose its touch Return action",
+            compose.onAllNodesWithTag(tag).fetchSemanticsNodes().size == 1)
+        val node = compose.onNodeWithTag(tag); val minimum = 48f * context.resources.displayMetrics.density
+        // Both the palette and completed body may scroll at enlarged text.
+        // Reveal the current target with real gestures before injecting its center.
+        for (attempt in 0 until 60) {
+            val target = node.fetchSemanticsNode()
+            if (target.boundsInRoot.height + 1 >= minimum) break
+            val body = compose.onNodeWithTag("extension-completion")
+            if (body.fetchSemanticsNode().boundsInRoot.height >= minimum) {
+                body.performTouchInput { swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300) }
+            } else compose.onNodeWithTag("palette-content-scroll").performTouchInput {
+                swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
+            }
+            compose.waitForIdle()
+        }
+        node.assertIsDisplayed().assertIsEnabled()
+        val target = node.fetchSemanticsNode(); val bounds = target.boundsInRoot
+        assertTrue("Return needs a complete 48dp visible target", bounds.height + 1 >= minimum && bounds.width + 1 >= minimum)
+        val label = compose.onNodeWithText("Return", useUnmergedTree = true).fetchSemanticsNode()
+        val layouts = mutableListOf<TextLayoutResult>()
+        instrumentation.runOnMainSync { assertTrue(requireNotNull(label.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+        val layout = layouts.single(); val origin = compose.runOnUiThread { label.positionInRoot }; val visible = label.boundsInRoot
+        assertTrue(label.size.height + 1 >= layout.multiParagraph.height)
+        val lines = JSONArray()
+        for (line in 0 until layout.lineCount) {
+            assertFalse(layout.isLineEllipsized(line))
+            val left = origin.x + layout.getLineLeft(line); val right = origin.x + layout.getLineRight(line)
+            val top = origin.y + layout.getLineTop(line); val bottom = origin.y + layout.getLineBottom(line)
+            assertTrue(left >= visible.left - 1 && right <= visible.right + 1 && top >= visible.top - 1 && bottom <= visible.bottom + 1)
+            lines.put(JSONArray(listOf(left, top, right, bottom)))
+        }
+        record.put("completion_return_visible_target", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("completion_return_line_bounds", lines).put("completion_return_activation", "Actual pointer on exact completed Return tag")
+        capture("completion-return-visible")
+        val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(tag)), useUnmergedTree = true)
+        val root = owner.fetchSemanticsNode().boundsInRoot; assertTrue(root.contains(bounds.center))
+        owner.performTouchInput { click(bounds.center - root.topLeft) }
+    }
     private fun choose(id: String, name: String) {
         touch("text-input-choose")
         val extension = foregroundActivity().store.extensions.installed.single { it.listing.id == id }
@@ -385,7 +426,9 @@ class ReviewedTextDeviceTest {
         }
         compose.waitUntil(10000) { clipboardText() == output }
         dismissClipboardForEvidence(); capture("copied")
-        touch("extension-back")
+        if (commandName == "formatSelection" && InstrumentationRegistry.getArguments().getString("expectCompletionReturn") == "true")
+            touchCompletionReturn()
+        else touch("extension-back")
         awaitCaller()
         assertEquals(prefix + input + suffix, device.findObject(By.res("android:id/edit")).text)
         assertEquals("Selection ${prefix.length} to ${prefix.length + input.length}", device.findObject(By.res("android:id/text2")).text)

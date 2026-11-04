@@ -71,6 +71,14 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
                 self.refused_without_device_access(selected, ['--reviewed-json-command', 'formatSelection'],
                     'The no-view formatter requires the single reviewed selection workflow')
 
+    def test_completion_return_cannot_broaden_the_authorized_workflow(self):
+        for selected in [MARKDOWN, DETAIL, CALCULATOR, CLIPBOARD,
+                         'dev.tinycast.android.ReviewedTextDeviceTest',
+                         'dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns']:
+            with self.subTest(selected=selected):
+                self.refused_without_device_access(selected, ['--expect-completion-return'],
+                    'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
+
     def test_network_archives_do_not_borrow_the_calculator_archive_exemption(self):
         for flag in ['--translate-archive', '--weather-archive']:
             self.refused_without_device_access(CALCULATOR, [flag, 'not-read-network.zip'],

@@ -66,6 +66,7 @@ def main():
     parser.add_argument('--uuid-archive', type=Path, help='Optional hash-pinned UUID bundle for owned offline workflows')
     parser.add_argument('--lorem-archive', type=Path, help='Optional hash-pinned Lorem bundle for owned offline workflows')
     parser.add_argument('--reviewed-json-command', choices=['formatSelectionAndShow', 'formatSelection'], default='formatSelectionAndShow')
+    parser.add_argument('--expect-completion-return', action='store_true', help='Require the completed no-view touch Return in owned Form or the single reviewed no-view JSON workflow')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
@@ -115,6 +116,11 @@ def main():
     require(args.reviewed_json_command == 'formatSelectionAndShow' or
         args.classes == 'dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns',
         'The no-view formatter requires the single reviewed selection workflow')
+    require(not args.expect_completion_return or all(
+        item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')) or
+        (args.classes == 'dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns' and
+         args.reviewed_json_command == 'formatSelection'),
+        'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
@@ -188,6 +194,7 @@ def main():
               'document_helper_sha256': sha(document_helper.read_bytes()),
               'instrumentation_excluded_tests': [] if not network_filter else [SELECTED_TRANSLATION_CASE],
               'reviewed_json_command': args.reviewed_json_command,
+              'expect_completion_return': args.expect_completion_return,
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
 
@@ -238,6 +245,7 @@ def main():
         command = adb + ['shell', 'am', 'instrument', '-w', '-r', '-e', 'dedicatedAvd', args.avd,
                          '-e', 'reviewedTextFixture', 'true', '-e', 'expectedTextInputLeaseOwner', owner,
                          '-e', 'reviewedJsonCommand', args.reviewed_json_command,
+                         '-e', 'expectCompletionReturn', str(args.expect_completion_return).lower(),
                          '-e', 'expectedClipboardRecoveryOwner', owner,
                          '-e', 'expectedFormDocumentOwner', owner if args.document_fixtures else 'none',
                          '-e', 'class', args.classes, *network_filter, app + '.test/androidx.test.runner.AndroidJUnitRunner']
