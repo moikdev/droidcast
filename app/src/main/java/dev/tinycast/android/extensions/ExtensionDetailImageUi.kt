@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -34,18 +35,66 @@ import dev.tinycast.android.Glyph
 import dev.tinycast.android.BuildConfig
 import dev.tinycast.android.PaletteTheme
 import kotlinx.coroutines.CancellationException
+import org.json.JSONArray
 import org.json.JSONObject
 
 private data class DetailImageResult(val source: String, val bitmap: Bitmap? = null, val failed: Boolean = false)
-private class DetailImageLoadTrace {
+private class DetailImageLoadTrace(val historyEnabled: Boolean) {
+    companion object { private val owners = java.util.concurrent.atomic.AtomicLong() }
+    private val owner = if (historyEnabled) owners.incrementAndGet() else 0L
     @Volatile var generation = 0
     @Volatile var cancellations = 0
     @Volatile var phase = "new"
     @Volatile var sample: (() -> String)? = null
+    private val tokens = if (historyEnabled) WeakValueTokens<Any>() else null
+    private val events = if (historyEnabled) ArrayDeque<JSONObject>() else null
+    private val latest = if (historyEnabled) mutableMapOf<String, JSONObject>() else null
+    private var droppedEvents = 0
+    private var previousEvent = ""
+
+    // Match produceState's rendered-value equality: a fresh equal wrapper
+    // need not recompose. Weak references never retain a decoded bitmap.
+    fun token(value: Any?): Int {
+        val remembered = tokens ?: return 0
+        if (value == null) return 0
+        return remembered.token(value)
+    }
+    fun event(stage: String, producer: Int = generation, value: Any? = null, ready: Boolean = false) {
+        val history = events ?: return
+        synchronized(this) {
+            val valueToken = token(value)
+            val signature = "$stage:$producer:$valueToken:$ready"
+            if (previousEvent == signature) return
+            previousEvent = signature
+            val event = JSONObject().put("stage", stage).put("producer_generation", producer)
+                .put("value_token", valueToken).put("bitmap_ready", ready)
+                .put("uptime_ms", android.os.SystemClock.uptimeMillis())
+            history.addLast(event)
+            // Preserve five fixed stage summaries when the recent timeline
+            // rolls over; a stable image need not publish another value.
+            when (stage) {
+                "state-reset", "state-ready", "state-unavailable", "composed", "draw-recorded" -> latest?.set(stage, event)
+            }
+            while (history.size > 64) { history.removeFirst(); droppedEvents++ }
+        }
+    }
+    fun snapshot(): String {
+        val history = events ?: return JSONObject().put("history_enabled", false).toString()
+        val live = runCatching { sample?.invoke() ?: "detached" }.getOrDefault("detached")
+        return synchronized(this) {
+            val stages = JSONObject().also { result -> latest?.forEach { (stage, event) -> result.put(stage, event) } }
+            JSONObject().put("schema_version", 1).put("trace_owner", owner)
+                .put("generation", generation).put("phase", phase).put("cancellations", cancellations)
+                .put("token_evictions", tokens?.evictions ?: 0)
+                .put("events_dropped", droppedEvents).put("latest", stages)
+                .put("live_state", live).put("events", JSONArray(history.toList())).toString()
+        }
+    }
     override fun toString() = "generation=$generation;phase=$phase;cancellations=$cancellations;" +
         runCatching { sample?.invoke().orEmpty() }.getOrDefault("detached")
 }
 private val imageLoadTraceKey = SemanticsPropertyKey<DetailImageLoadTrace>("DetailImageLoadState")
+private val imageLoadSnapshotKey = SemanticsPropertyKey<() -> String>("DetailImageLoadSnapshot")
 
 /** Offscreen/stopped views retain their aspect ratio, not decoded bitmap references or jobs. */
 @Composable
@@ -63,7 +112,9 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     var visible by remember { mutableStateOf(false) }
     var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
     val view = LocalView.current
-    val trace = remember { if (BuildConfig.DEBUG) DetailImageLoadTrace() else null }
+    val trace = remember { if (BuildConfig.DEBUG) DetailImageLoadTrace(
+        System.getProperty("dev.droidcast.detailImageHistory") == "true") else null }
+    if (trace != null) DisposableEffect(trace) { onDispose { trace.sample = null; trace.event("disposed") } }
     fun updateVisibility(bounds: LayoutCoordinates?) {
         val clipped = bounds?.takeIf { it.isAttached }?.boundsInWindow()
         visible = clipped != null && clipped.width > 0f && clipped.height > 0f
@@ -80,31 +131,47 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     var aspect by remember(source) { mutableFloatStateOf(1.6f) }
     val observed by produceState(DetailImageResult(source), source, images, visible, started, inline) {
         val generation = trace?.let { ++it.generation } ?: 0
-        fun phase(value: String) { if (trace != null && trace.generation == generation) trace.phase = value }
+        fun phase(value: String) {
+            if (trace != null && trace.generation == generation) trace.phase = value
+            trace?.event("producer-$value", generation)
+        }
         value = DetailImageResult(source)
-        if (request == null) { phase("invalid-request"); value = DetailImageResult(source, failed = true) }
+        trace?.event("state-reset", generation, value, value.bitmap != null)
+        if (request == null) {
+            phase("invalid-request"); value = DetailImageResult(source, failed = true)
+            trace?.event("state-unavailable", generation, value)
+        }
         else if (visible && started) try {
             phase("loading")
             val bitmap = images.load(request.source, if (inline) 128 else ExtensionDetailImages.MAX_EDGE)
             aspect = bitmap.width.toFloat() / bitmap.height
             phase("ready")
             value = DetailImageResult(source, bitmap)
+            trace?.event("state-ready", generation, value, value.bitmap != null)
         } catch (cancelled: CancellationException) {
             trace?.let { it.cancellations++ }; phase("cancelled"); throw cancelled
-        } catch (failure: Exception) { phase("failed:${failure.javaClass.simpleName}"); value = DetailImageResult(source, failed = true) }
+        } catch (failure: Exception) {
+            phase("failed:${failure.javaClass.simpleName}"); value = DetailImageResult(source, failed = true)
+            trace?.event("state-unavailable", generation, value)
+        }
         else phase(if (started) "waiting-visibility" else "waiting-lifecycle")
     }
     // A retained metadata icon can receive a new source before its producer's
     // restart executes. Never paint the preceding source during that interval.
     val result = observed.takeIf { it.source == source } ?: DetailImageResult(source)
     SideEffect {
-        // A read-only DEBUG semantic probe carries no URL, content or bitmap.
-        // Plain trace fields deliberately cause no recomposition of their own.
-        trace?.sample = {
-            val bounds = coordinates?.takeIf { it.isAttached }?.boundsInWindow()
-            "visible=$visible;started=$started;request=${request != null};source_matches=${observed.source == source};" +
-                "observed_ready=${observed.bitmap != null};composed_ready=${result.bitmap != null};" +
-                "attached=${coordinates?.isAttached == true};window_bounds=$bounds;lifecycle=${lifecycle.currentState}"
+        if (trace != null) {
+            trace.event("composed", value = result, ready = result.bitmap != null)
+            // A read-only DEBUG semantic probe carries no URL, content or bitmap.
+            // Plain trace fields deliberately cause no recomposition of their own.
+            trace.sample = {
+                val bounds = coordinates?.takeIf { it.isAttached }?.boundsInWindow()
+                val tokens = if (trace.historyEnabled) "observed_value_token=${trace.token(observed)};composed_value_token=${trace.token(result)};" else ""
+                "visible=$visible;started=$started;request=${request != null};source_matches=${observed.source == source};" +
+                    "observed_ready=${observed.bitmap != null};composed_ready=${result.bitmap != null};" +
+                    tokens +
+                    "attached=${coordinates?.isAttached == true};window_bounds=$bounds;lifecycle=${lifecycle.currentState}"
+            }
         }
     }
     val label = alternative.ifBlank { "Image" }
@@ -112,10 +179,18 @@ internal fun NativeDetailImage(source: String, alternative: String, images: Exte
     val content: @Composable (Modifier) -> Unit = { imageModifier ->
     BoxWithConstraints(imageModifier.onGloballyPositioned { bounds ->
         coordinates = bounds; updateVisibility(bounds); refreshAfterPlacement()
-    }.testTag("extension-detail-image").semantics {
+    }.then(if (trace != null && trace.historyEnabled) Modifier.drawWithContent {
+        drawContent()
+        // This records a Compose draw command, not display scanout. Tests must
+        // separately inspect the committed pixels before crediting rendering.
+        trace.event("draw-recorded", value = result, ready = result.bitmap != null)
+    } else Modifier).testTag("extension-detail-image").semantics {
         contentDescription = label
         stateDescription = when { result.failed -> "Image unavailable"; result.bitmap != null -> "Image ready"; else -> "Image loading" }
-        if (trace != null) this[imageLoadTraceKey] = trace
+        if (trace != null) {
+            this[imageLoadTraceKey] = trace
+            if (trace.historyEnabled) this[imageLoadSnapshotKey] = trace::snapshot
+        }
     }) {
         val width = (request?.width?.dp ?: maxWidth).coerceAtMost(maxWidth)
         val height = (request?.height?.dp ?: (width / aspect.coerceIn(1f / 1024, 1024f))).coerceIn(1.dp, 2048.dp)

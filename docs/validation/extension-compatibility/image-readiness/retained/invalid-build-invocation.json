@@ -1,0 +1,20 @@
+{
+  "completed": false,
+  "source_commit": "4db0b51237f399471214803f485e09998756691d",
+  "command": [
+    "./gradlew",
+    "--no-daemon",
+    "-PdroidcastBuildCommit=4db0b51237f399471214803f485e09998756691d",
+    ":app:testDebugUnitTest",
+    ":app:assembleDebug",
+    ":app:assembleDebugAndroidTest",
+    ":app:assembleBenchmark",
+    ":app:assembleBenchmarkAndroidTest",
+    ":app:lintDebug",
+    ":app:lintBenchmark"
+  ],
+  "exit_code": 1,
+  "sources_unchanged": true,
+  "failure_type": "RuntimeError",
+  "scope": "Diagnostic DEBUG stage history and stronger pixel/publication observation; not a production repair or cause of the retained blank-image failure."
+}

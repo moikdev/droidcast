@@ -49,6 +49,7 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalTestApi::class)
 class ExtensionDetailDeviceTest {
+    private companion object { const val IMAGE_HISTORY_PROPERTY = "dev.droidcast.detailImageHistory" }
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @get:Rule val testName = org.junit.rules.TestName()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -57,6 +58,8 @@ class ExtensionDetailDeviceTest {
     private val evidence get() = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
     private val record = JSONObject().put("scope", "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification")
     private var prepared = false
+    private var originalImageHistoryProperty: String? = null
+    private var imageHistoryPropertyOwned = false
     private var owner = ""
     private var ownedId: String? = null
     private val ownedIds = mutableListOf<String>()
@@ -99,6 +102,8 @@ class ExtensionDetailDeviceTest {
         preserved = catalog.installed.flatMap { listOf(it.directory, File(context.filesDir, "extension-data/${it.listing.id}"),
             File(context.applicationInfo.dataDir, "shared_prefs/extension-${it.listing.id}.xml")) }
         fingerprints = preserved.map(::fingerprint); prepared = true
+        originalImageHistoryProperty = System.getProperty(IMAGE_HISTORY_PROPERTY)
+        System.setProperty(IMAGE_HISTORY_PROPERTY, "true"); imageHistoryPropertyOwned = true
         dismissClipboard("before-owned-sentinel")
         compose.activityRule.scenario.onActivity {
             // Original clipboard recovery is durable in the foreground test-APK UID before this mutation.
@@ -247,7 +252,17 @@ class ExtensionDetailDeviceTest {
                 assertEquals(fingerprints, preserved.map(::fingerprint))
                 record.put("owned_data_removed", true).put("preexisting_installations_and_data_preserved", true)
             } finally {
-                File(evidence, "detail-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json").writeText(record.toString(2))
+                try {
+                    if (imageHistoryPropertyOwned) {
+                        originalImageHistoryProperty?.let { System.setProperty(IMAGE_HISTORY_PROPERTY, it) }
+                            ?: System.clearProperty(IMAGE_HISTORY_PROPERTY)
+                        assertEquals(originalImageHistoryProperty, System.getProperty(IMAGE_HISTORY_PROPERTY))
+                        imageHistoryPropertyOwned = false
+                        record.put("image_history_process_property_restored", true)
+                    }
+                } finally {
+                    File(evidence, "detail-${testName.methodName.lowercase(java.util.Locale.ROOT)}-record.json").writeText(record.toString(2))
+                }
             }
         }
     }
@@ -412,28 +427,58 @@ class ExtensionDetailDeviceTest {
         record.put("passed", true)
     }
     private fun image(label: String) = compose.onNodeWithContentDescription(label, useUnmergedTree = true)
+    private fun imageStage(snapshot: JSONObject, stage: String): JSONObject? {
+        snapshot.optJSONObject("latest")?.optJSONObject(stage)?.let { return it }
+        val events = snapshot.getJSONArray("events")
+        return (0 until events.length()).map { events.getJSONObject(it) }.lastOrNull { it.getString("stage") == stage }
+    }
+    private fun imageStatePublishedAndComposed(snapshot: JSONObject): Boolean {
+        val written = imageStage(snapshot, "state-ready") ?: return false
+        val composed = imageStage(snapshot, "composed") ?: return false
+        return written.getBoolean("bitmap_ready") && composed.getBoolean("bitmap_ready") &&
+            written.getInt("producer_generation") == snapshot.getInt("generation") &&
+            written.getInt("value_token") == composed.getInt("value_token")
+    }
+    private fun observeImage(label: String, phase: String): JSONObject {
+        val node = image(label).fetchSemanticsNode()
+        val observations = record.optJSONArray("image_readiness") ?: JSONArray().also { record.put("image_readiness", it) }
+        val debug = node.config.firstOrNull { it.key.name == "DetailImageLoadState" }?.value
+        val snapshot = node.config.firstOrNull { it.key.name == "DetailImageLoadSnapshot" }?.value as? Function0<*>
+        var loadSnapshot: String? = null
+        val geometry = compose.runOnUiThread {
+            loadSnapshot = snapshot?.invoke() as? String
+            Triple(node.positionInRoot, compose.activity.lifecycle.currentState.name, debug?.toString() ?: "not available")
+        }
+        val svg = ownedId?.let { File(context.cacheDir, "$it/assets/owned.svg") }
+        val observation = JSONObject().put("alternative", label).put("phase", phase)
+            .put("state", node.config.getOrNull(SemanticsProperties.StateDescription)).put("activity_lifecycle", geometry.second)
+            .put("debug_load_state", geometry.third)
+            .put("load_snapshot", loadSnapshot?.let(::JSONObject) ?: JSONObject.NULL)
+            .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
+            .put("unclipped_origin", JSONArray(listOf(geometry.first.x, geometry.first.y)))
+            .put("size", JSONArray(listOf(node.size.width, node.size.height)))
+            .put("owned_fixture_svg_assets_file_unchanged", svg?.isFile == true && hash(svg.readBytes()) == record.optString("owned_svg_sha256"))
+        observations.put(observation)
+        return observation
+    }
     private fun readyImage(label: String) {
         // A root publication can precede the off-Main Markdown parse. Wait
         // for its actual image node before attempting any scroll action.
         compose.waitUntil(10000) { compose.onAllNodesWithContentDescription(label, useUnmergedTree = true).fetchSemanticsNodes().size == 1 }
-        fun observe(phase: String) {
+        reveal(image(label)); observeImage(label, "before-wait")
+        try { compose.waitUntil(10000) {
             val node = image(label).fetchSemanticsNode()
-            val observations = record.optJSONArray("image_readiness") ?: JSONArray().also { record.put("image_readiness", it) }
-            val debug = node.config.firstOrNull { it.key.name == "DetailImageLoadState" }?.value
-            val geometry = compose.runOnUiThread { Triple(node.positionInRoot, compose.activity.lifecycle.currentState.name, debug?.toString() ?: "not available") }
-            val svg = ownedId?.let { File(context.cacheDir, "$it/assets/owned.svg") }
-            observations.put(JSONObject().put("alternative", label).put("phase", phase)
-                .put("state", node.config.getOrNull(SemanticsProperties.StateDescription)).put("activity_lifecycle", geometry.second)
-                .put("debug_load_state", geometry.third)
-                .put("visible_bounds", JSONArray(listOf(node.boundsInRoot.left, node.boundsInRoot.top, node.boundsInRoot.right, node.boundsInRoot.bottom)))
-                .put("unclipped_origin", JSONArray(listOf(geometry.first.x, geometry.first.y)))
-                .put("size", JSONArray(listOf(node.size.width, node.size.height)))
-                .put("owned_fixture_svg_assets_file_unchanged", svg?.isFile == true && hash(svg.readBytes()) == record.optString("owned_svg_sha256")))
-        }
-        reveal(image(label)); observe("before-wait")
-        try { compose.waitUntil(10000) { image(label).fetchSemanticsNode().config.getOrNull(SemanticsProperties.StateDescription) == "Image ready" } }
-        catch (failure: Throwable) { observe("wait-failed"); throw failure }
-        observe("ready")
+            if (node.config.getOrNull(SemanticsProperties.StateDescription) != "Image ready") false
+            else {
+                val snapshot = node.config.firstOrNull { it.key.name == "DetailImageLoadSnapshot" }?.value as? Function0<*>
+                val encoded = compose.runOnUiThread { snapshot?.invoke() as? String }
+                // Earlier frozen apps expose only native semantics. Preserve
+                // that boundary rather than inventing a publication witness.
+                encoded == null || imageStatePublishedAndComposed(JSONObject(encoded))
+            }
+        } }
+        catch (failure: Throwable) { observeImage(label, "wait-failed"); throw failure }
+        observeImage(label, "ready")
     }
     private fun imagePixel(label: String, expected: Int) {
         readyImage(label)
@@ -444,6 +489,19 @@ class ExtensionDetailDeviceTest {
         val receipts = record.optJSONArray("image_pixels") ?: JSONArray().also { record.put("image_pixels", it) }
         receipts.put(JSONObject().put("alternative", label).put("expected_argb", expected.toLong()).put("red", actual.red.toDouble())
             .put("green", actual.green.toDouble()).put("blue", actual.blue.toDouble()).put("width_px", pixels.width).put("height_px", pixels.height))
+        val observation = observeImage(label, "pixels-captured")
+        observation.optJSONObject("load_snapshot")?.let { snapshot ->
+            if (snapshot.has("token_evictions")) assertEquals("Diagnostic token capacity exhausted; no value-agreement claim is possible",
+                0, snapshot.getInt("token_evictions"))
+            val written = requireNotNull(imageStage(snapshot, "state-ready")) { "Ready pixels need an actual state-publication witness" }
+            val composed = requireNotNull(imageStage(snapshot, "composed")) { "Ready pixels need an applied-composition witness" }
+            val drawn = requireNotNull(imageStage(snapshot, "draw-recorded")) { "Ready pixels need a draw-command witness" }
+            assertTrue(written.getBoolean("bitmap_ready")); assertTrue(composed.getBoolean("bitmap_ready")); assertTrue(drawn.getBoolean("bitmap_ready"))
+            assertEquals("Composition must consume the published value", written.getInt("value_token"), composed.getInt("value_token"))
+            assertEquals("Draw must use the composed value", composed.getInt("value_token"), drawn.getInt("value_token"))
+            assertEquals("The publication must belong to the current producer", snapshot.getInt("generation"), written.getInt("producer_generation"))
+            observation.put("published_composed_drawn_value_and_pixels_agree", true)
+        }
     }
     @Test fun packageSvgTintAndFailureImagesRenderWithBoundedAlternatives() {
         launch("images")
@@ -757,8 +815,21 @@ class ExtensionDetailDeviceTest {
         show("Owned gallery final paragraph."); capture("native-gallery-destination")
         record.put("native_lists_quotes_escapes_marks_verified", true).put("passed", true)
     }
+    @Test fun defaultImagesPaintWithoutExtendedHistory() {
+        val requested = System.getProperty(IMAGE_HISTORY_PROPERTY)
+        try {
+            System.clearProperty(IMAGE_HISTORY_PROPERTY)
+            launch("image-information"); imagePixel("Owned block image", 0xff228833.toInt())
+            assertTrue("Ordinary images expose no extended history probe",
+                image("Owned block image").fetchSemanticsNode().config.none { it.key.name == "DetailImageLoadSnapshot" })
+            capture("default-image-smoke")
+            record.put("default_image_pixels_verified_without_extended_history", true).put("passed", true)
+        } finally {
+            requested?.let { System.setProperty(IMAGE_HISTORY_PROPERTY, it) } ?: System.clearProperty(IMAGE_HISTORY_PROPERTY)
+        }
+    }
     @Test fun imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument() {
-        launch("image-information"); readyImage("Owned block image"); capture("image-information-before-contract")
+        launch("image-information"); imagePixel("Owned block image", 0xff228833.toInt()); capture("image-information-before-contract")
         record.put("contract_assertions_started", true)
         assertTrue("Markdown image title needs a touch-readable equivalent",
             compose.onAllNodesWithText("Owned block description A café 日本").fetchSemanticsNodes().isNotEmpty())
@@ -922,7 +993,7 @@ class ExtensionDetailDeviceTest {
         launch("image-scroll-information"); imagePixel("Owned scrolling image", 0xff228833.toInt())
         val height = image("Owned scrolling image").fetchSemanticsNode().size.height
         val cycles = JSONArray(); record.put("cached_image_visibility_cycles", cycles)
-        repeat(6) { cycle ->
+        repeat(8) { cycle ->
             show("Owned scroll-away destination.")
             compose.waitUntil(5000) {
                 val node = image("Owned scrolling image").fetchSemanticsNode()
@@ -940,8 +1011,16 @@ class ExtensionDetailDeviceTest {
                 .put("returned_state", returned.config.getOrNull(SemanticsProperties.StateDescription))
             assertEquals(height, returned.size.height)
         }
-        capture("cached-image-sixth-return")
-        record.put("cached_image_visibility_scope", "Six observed offscreen bitmap releases and visible green-pixel returns with unchanged document/source; semantic scroll positioning is setup")
+        observeImage("Owned scrolling image", "history-rollover").optJSONObject("load_snapshot")?.let { snapshot ->
+            if (snapshot.has("events_dropped")) {
+                assertTrue("The bounded recent timeline must actually roll over", snapshot.getInt("events_dropped") > 0)
+                assertTrue(snapshot.getJSONArray("events").length() <= 64)
+                assertNotNull(snapshot.getJSONObject("latest").optJSONObject("state-ready"))
+                record.put("bounded_image_trace_rollover_verified", true)
+            }
+        }
+        capture("cached-image-eighth-return")
+        record.put("cached_image_visibility_scope", "Eight observed offscreen bitmap releases and visible green-pixel returns with unchanged document/source; semantic scroll positioning is setup")
             .put("passed", true)
     }
     @Test fun compactPaddedTableBecomesUnavailableAndTheNextDocumentStillWorks() {
