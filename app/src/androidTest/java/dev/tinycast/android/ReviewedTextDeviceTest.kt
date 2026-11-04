@@ -503,7 +503,8 @@ class ReviewedTextDeviceTest {
         while (target.fetchSemanticsNode().boundsInRoot.let { it.height + 1 < minimum || it.width + 1 < minimum } && attempts++ < 30) {
             val scroll = if (foregroundActivity().store.dialog == "text-input") "shell-content-scroll" else "palette-content-scroll"
             compose.onNodeWithTag(scroll).performTouchInput {
-                swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
+                if (tag.endsWith("-back")) swipe(Offset(4f, height * .2f), Offset(4f, height * .8f), 300)
+                else swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
             }
             compose.waitForIdle()
         }
