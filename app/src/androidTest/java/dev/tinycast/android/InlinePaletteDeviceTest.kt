@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.KeyEvent
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -17,6 +19,8 @@ import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
 import java.io.File
+import org.json.JSONArray
+import org.json.JSONObject
 
 @OptIn(ExperimentalTestApi::class)
 @RunWith(AndroidJUnit4::class)
@@ -73,6 +77,88 @@ class InlinePaletteDeviceTest {
         val frame=compose.onNodeWithTag("palette-screen").fetchSemanticsNode()
         // Native inset delivery cannot split these two geometry reads.
         return compose.runOnUiThread { save.boundsInWindow to frame.boundsInWindow }
+    }
+    /** All geometry in one sample is read in one UI callback, without an inset delivery between nodes. */
+    private fun menuBoundarySnapshot(cachedPalette: Rect? = null): JSONObject {
+        val root = compose.onRoot(useUnmergedTree = true).fetchSemanticsNode()
+        return compose.runOnUiThread {
+            fun rect(value: Rect) = JSONArray(listOf(value.left, value.top, value.right, value.bottom))
+            val nodes = JSONArray()
+            var visited = 0
+            val tags = setOf("palette", "palette-screen", "palette-header", "palette-footer", "palette-menu",
+                "actions-button", "primary-action", "inline-menu", "inline-menu-choices", "inline-menu-search", "inline-menu-empty", "inline-menu-keyboard")
+            fun visit(node: androidx.compose.ui.semantics.SemanticsNode, insideMenu: Boolean = false) {
+                if (visited >= 1024) return
+                visited++
+                val tag = node.config.getOrNull(SemanticsProperties.TestTag)
+                val menu = insideMenu || tag == "inline-menu"
+                if (menu || tag in tags) {
+                    val coordinates = node.layoutInfo.coordinates
+                    val item = JSONObject().put("id", node.id).put("tag", tag)
+                        .put("placed", node.layoutInfo.isPlaced).put("attached", coordinates.isAttached)
+                        .put("bounds_window", rect(node.boundsInWindow)).put("bounds_root", rect(node.boundsInRoot))
+                        .put("layout_size", JSONArray(listOf(node.size.width, node.size.height)))
+                        .put("focused", node.config.getOrNull(SemanticsProperties.Focused))
+                        .put("selected", node.config.getOrNull(SemanticsProperties.Selected))
+                        .put("text", node.config.getOrNull(SemanticsProperties.Text)?.joinToString("\n")?.take(512))
+                        .put("editable_text", node.config.getOrNull(SemanticsProperties.EditableText)?.text?.take(512))
+                        .put("selection", node.config.getOrNull(SemanticsProperties.TextSelectionRange)?.toString())
+                    node.config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)?.let {
+                        item.put("vertical_scroll", JSONObject().put("value", it.value()).put("max", it.maxValue()))
+                    }
+                    val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                    node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(layouts)
+                    item.put("text_layouts", JSONArray(layouts.map { layout ->
+                        JSONObject().put("size", JSONArray(listOf(layout.size.width, layout.size.height)))
+                            .put("overflow_width", layout.didOverflowWidth).put("overflow_height", layout.didOverflowHeight)
+                            .put("lines", JSONArray((0 until layout.lineCount).map { line ->
+                                JSONObject().put("left", layout.getLineLeft(line)).put("right", layout.getLineRight(line))
+                                    .put("top", layout.getLineTop(line)).put("bottom", layout.getLineBottom(line))
+                                    .put("ellipsized", layout.isLineEllipsized(line))
+                            }))
+                    }))
+                    nodes.put(item)
+                }
+                node.children.forEach { visit(it, menu) }
+            }
+            visit(root)
+            val view = compose.activity.window.decorView
+            val insets = androidx.core.view.ViewCompat.getRootWindowInsets(view)
+            val ime = insets?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())
+            val visibleFrame = android.graphics.Rect().also(view::getWindowVisibleDisplayFrame)
+            val location = IntArray(2).also(view::getLocationOnScreen)
+            JSONObject().put("uptime_ms", android.os.SystemClock.uptimeMillis())
+                .put("nodes", nodes).put("nodes_visited", visited).put("tree_limit_reached", visited >= 1024)
+                .put("density", context.resources.displayMetrics.density).put("font_scale", context.resources.configuration.fontScale)
+                .put("ime_visible", insets?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()))
+                .put("ime_insets_px", ime?.let { JSONArray(listOf(it.left, it.top, it.right, it.bottom)) })
+                .put("decor_size", JSONArray(listOf(view.width, view.height)))
+                .put("decor_screen_origin", JSONArray(location.toList())).put("window_visible_frame", visibleFrame.toShortString())
+                .put("cached_palette", cachedPalette?.let(::rect)).put("route", compose.activity.store.dialog)
+        }
+    }
+    /** Captures even clipped/absent markers; it must run before the original failing assertion. */
+    private fun captureMenuBoundary(name: String, cachedPalette: Rect? = null, legacyMenu: Rect? = null) {
+        compose.waitForIdle()
+        val folder = File(context.filesDir, "extension-grid-evidence").apply { mkdirs() }
+        val record = JSONObject().put("schema_version", 1).put("name", name)
+            .put("scope", "Same-UI-callback geometry; native XML and PNG are subsequent observations, not an atomic pixel transaction")
+            .put("legacy_menu_operand", legacyMenu?.let { JSONArray(listOf(it.left, it.top, it.right, it.bottom)) })
+            .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName,
+                android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
+            .put("before_native_capture", menuBoundarySnapshot(cachedPalette))
+        testAutomation().clearCacheForTest()
+        device.dumpWindowHierarchy(File(folder, "$name.xml"))
+        val rendered = java.util.concurrent.CountDownLatch(1)
+        compose.activityRule.scenario.onActivity {
+            it.window.decorView.viewTreeObserver.registerFrameCommitCallback { rendered.countDown() }
+            it.window.decorView.postInvalidateOnAnimation()
+        }
+        record.put("frame_commit_observed", rendered.await(5, java.util.concurrent.TimeUnit.SECONDS))
+            .put("before_png", menuBoundarySnapshot(cachedPalette))
+            .put("png_captured", device.takeScreenshot(File(folder, "$name.png")))
+            .put("after_png", menuBoundarySnapshot(cachedPalette))
+        File(folder, "$name-frame.json").writeText(record.toString(2))
     }
     private fun capture(name: String, marker: String, secondMarker: String? = null) {
         compose.waitForIdle(); sameWindow()
@@ -138,6 +224,7 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("palette-menu").performClick()
         compose.onNodeWithTag("inline-menu").assertIsDisplayed()
         val menu = compose.onNodeWithTag("inline-menu").fetchSemanticsNode().boundsInWindow
+        captureMenuBoundary("menu-category-legacy", frame, menu)
         assertTrue(frame.contains(menu.topLeft) && frame.contains(menu.bottomRight))
         capture("inline-command-menu", "Apps")
         key(KeyEvent.KEYCODE_ESCAPE)
@@ -367,6 +454,7 @@ class InlinePaletteDeviceTest {
             } finally { device.executeShellCommand(if(originalSetting=="null") "settings delete secure show_ime_with_hard_keyboard" else "settings put secure show_ime_with_hard_keyboard $originalSetting") }
         }
         compose.onNodeWithTag("inline-menu-search").assertIsFocused().performTextInput("no such action")
+        captureMenuBoundary("menu-actions-no-match-legacy")
         compose.onNodeWithTag("inline-menu-empty").assertIsDisplayed()
         key(KeyEvent.KEYCODE_ENTER)
         compose.onNodeWithTag("inline-menu-search").assertIsFocused()
