@@ -448,25 +448,37 @@ internal fun activeRoot(tree:JSONObject?):JSONObject? {
     return find(start)
 }
 
+private class CommandChromeLifetime { var active = true }
+
 @Composable
 private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,command:ExtensionCommand,
                           runtime:ExtensionRuntime,gridImages:ExtensionGridImages,detailImages:ExtensionDetailImages,gridStates:MutableMap<String,ExtensionGridState>,
-                          listStates:MutableMap<String,ExtensionListState>,detailStates:MutableMap<String,ScrollState>,close:()->Unit){
+                          listStates:MutableMap<String,ExtensionListState>,detailStates:MutableMap<String,ScrollState>,closeRoute:()->Unit){
+    val catalog=store.extensions
+    val launchEpoch=remember(runtime){catalog.launchEpoch}
+    val chrome=remember(runtime){CommandChromeLifetime()}
+    DisposableEffect(chrome) { onDispose { chrome.active = false } }
+    fun currentChrome(): Boolean = chrome.active && store.dialog == "extension-run" &&
+        catalog.launchEpoch == launchEpoch && catalog.running?.first === extension && catalog.running?.second === command
+    val close: () -> Unit = { if (currentChrome()) closeRoute() }
+    fun configure() {
+        if (currentChrome() && runtime.isCurrentInvocation()) {
+            store.extensionSetupFromRun=true;store.dialog="extension-setup"
+        }
+    }
     if(command.mode !in listOf("view","no-view")){
         ExtensionWindow(command.title,extension.listing.title,close){Text("This command needs a desktop menu bar. It can be installed, but cannot run on Android.",color=muted,fontSize=15.sp,modifier=Modifier.padding(24.dp))}
         return
     }
-    val catalog=store.extensions
-    val launchEpoch=remember(runtime){catalog.launchEpoch}
     fun canReturnCompletedCommand(): Boolean {
         val running = catalog.running
-        return command.mode == "no-view" && store.dialog == "extension-run" &&
+        return command.mode == "no-view" && currentChrome() &&
             catalog.launchEpoch == launchEpoch && running != null && running.first === extension && running.second === command &&
             catalog.runtimeReady && catalog.runtimeError == null && activeRoot(catalog.runtimeTree) == null && runtime.isCurrentInvocation()
     }
     fun liveRoot():JSONObject? {
         val running=catalog.running
-        if(catalog.launchEpoch!=launchEpoch || running?.first!==extension || running?.second!==command || catalog.runtimeError!=null) return null
+        if(!currentChrome() || running?.first!==extension || running?.second!==command || catalog.runtimeError!=null) return null
         return activeRoot(catalog.runtimeTree)
     }
     val context=LocalContext.current
@@ -542,6 +554,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         notifyCurrentSelection()
     }
     fun back() {
+        if (!currentChrome()) return
         if (root?.optString("type") == "List" && listState.detailOnly) {
             listState.detailRowId = null
             listState.detailOnly = false
@@ -552,7 +565,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if (!failed) notifyCurrentSelection()
     }
     fun defaultKeys(event: KeyEvent): Boolean = with(event) {
-        if(catalog.runtimeError!=null || root?.optString("type")=="Grid" || type!=KeyEventType.KeyDown)false else {
+        if(!currentChrome() || catalog.runtimeError!=null || root?.optString("type")=="Grid" || type!=KeyEventType.KeyDown)false else {
         val eventRows=if(key in listOf(Key.DirectionDown,Key.DirectionUp)) liveRows() else emptyList()
         when{
             key==Key.K&&isCtrlPressed->{menu=true;true}
@@ -572,13 +585,8 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         },headerActions={
         if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
         else {
-            if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
-            TextButton(onClick={
-                if (store.dialog == "extension-run" && catalog.launchEpoch == launchEpoch &&
-                    catalog.running?.first === extension && catalog.running?.second === command && runtime.isCurrentInvocation()) {
-                    store.extensionSetupFromRun=true;store.dialog="extension-setup"
-                }
-            }, modifier=Modifier.testTag("extension-preferences")){Text("Preferences",fontSize=11.sp)}
+            if(catalog.navigationDepth>1)TextButton(onClick={if(currentChrome())runtime.back()}){Text("Back",fontSize=11.sp)}
+            TextButton(onClick=::configure, modifier=Modifier.testTag("extension-preferences")){Text("Preferences",fontSize=11.sp)}
         }
     }){
         if(catalog.runtimeError!=null){
@@ -600,7 +608,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }else when(root.optString("type")){
             "Grid" -> Box(Modifier.weight(1f).fillMaxWidth()) {
                 val state = gridStates.getOrPut(root.optString("id")) { ExtensionGridState() }
-                NativeExtensionGrid(state, { liveRoot()?.takeIf { it.optString("type")=="Grid" } }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, { handle,args -> if(liveRoot()?.optString("type")=="Grid")runtime.dispatch(handle,args) }, back={ if(catalog.navigationDepth>1)runtime.back() else close() }, configure={store.extensionSetupFromRun=true;store.dialog="extension-setup"})
+                NativeExtensionGrid(state, { liveRoot()?.takeIf { it.optString("type")=="Grid" } }, gridImages, extension.listing.title, catalog.runtimeStatus, context.getSharedPreferences("extension-${extension.listing.id}", android.content.Context.MODE_PRIVATE), command.name, { handle,args -> if(liveRoot()?.optString("type")=="Grid")runtime.dispatch(handle,args) }, back=::back, configure=::configure)
             }
             "List"->{
                 NativeExtensionList(root, rows, listState, runtime, detailImages, ::liveRoot, ::liveRows,
@@ -608,7 +616,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                         val current = liveRows().indexOfFirst { it.optString("id") == expected.optString("id") &&
                             it.props().opt("title") == expected.props().opt("title") }
                         if (current < 0) false else { selected = current; notifyCurrentSelection(); true }
-                    }, dispatch = { handle, args -> runtime.dispatch(handle, args) }, status = { catalog.runtimeStatus = it },
+                    }, dispatch = { handle, args -> runtime.dispatch(handle, args) }, status = { if(currentChrome())catalog.runtimeStatus = it },
                     empty = { modifier -> NativeExtensionEmptyView(extensionEmptyView(root,0,query),root.props().optBoolean("isLoading") && query.isEmpty(),gridImages,
                         "extension-list-empty", modifier) }, modifier = Modifier.weight(1f).fillMaxWidth(), searchHeader = {
                 ExtensionSearchHeader(listSearch,{next->
@@ -616,14 +624,14 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                     if(current != null && next.text != query){selected=0;listState.detailRowId=null;runtime.dispatch(current.handle("onSearchTextChange"),JSONArray().put(next.text))}
                     listSearch=next
                 },root.props().optString("searchBarPlaceholder","Search extension…"),"extension-search",::back,keys=::defaultKeys) {
-                    IconButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"},modifier=Modifier.size(48.dp).semantics{contentDescription="Extension preferences"}){Glyph("settings",muted,16)}
+                    IconButton(onClick=::configure,modifier=Modifier.size(48.dp).semantics{contentDescription="Extension preferences"}){Glyph("settings",muted,16)}
                 }
                 })
             }
             "Detail"->NativeExtensionDetail(root,
                 { liveRoot()?.takeIf { it.optString("type") == "Detail" && it.optString("id") == root.optString("id") } },
                 runtime, detailImages,
-                { handle, args -> runtime.dispatch(handle, args) }, { catalog.runtimeStatus = it },
+                { handle, args -> runtime.dispatch(handle, args) }, { if(currentChrome())catalog.runtimeStatus = it },
                 detailStates.getOrPut(root.optString("id")) { ScrollState(0) }, Modifier.weight(1f).fillMaxWidth())
             "Form"->NativeExtensionForm(root, { liveRoot()?.takeIf { it.optString("type") == "Form" } },
                 { handle, args -> runtime.dispatch(handle, args) },
