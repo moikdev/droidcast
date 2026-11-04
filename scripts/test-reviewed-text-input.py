@@ -88,9 +88,11 @@ def main():
             'Restoration failure is limited to the deliberate process-death control')
     require(not args.html_colors_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
         for item in args.classes.split(',')), 'HTML Colors belongs only to the owned Detail cohort')
-    require(not (args.translate_archive or args.weather_archive) or all(
-        item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest' for item in args.classes.split(',')),
-        'Network bundles belong only to the owned Detail cohort')
+    require(not args.weather_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
+        for item in args.classes.split(',')), 'Network bundle is not authorized for this test class')
+    require(not args.translate_archive or all(item.split('#')[0] in
+        ['dev.tinycast.android.ExtensionDetailDeviceTest', 'dev.tinycast.android.ReviewedTextDeviceTest'] for item in args.classes.split(',')),
+        'Network bundle is not authorized for this test class')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,

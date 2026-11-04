@@ -68,6 +68,7 @@ class ReviewedTextDeviceTest {
     private val ids = mutableListOf<String>()
     private lateinit var formatterId: String
     private lateinit var probeId: String
+    private lateinit var translatorId: String
     private lateinit var record: JSONObject
     private val sentinel = "Owned reviewed-text clipboard sentinel"
     private val input = " \n\t{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]}  \n"
@@ -158,6 +159,29 @@ class ReviewedTextDeviceTest {
         listOf("inspect", "configure").forEach { File(probe, "$it.js").writeText(script) }
         record.put("archive_sha256", hash(bytes)).put("command_sha256", hash(File(destination, "formatSelectionAndShow.js").readBytes()))
             .put("probe_command_sha256", hash(script.toByteArray())).put("owned_extension_ids", JSONArray(ids))
+        if (method == "selectedtranslationrunsonlyafterreviewandreportsexactcopyorservicefailure") {
+            val translation = File(root, "translate.zip").readBytes()
+            assertEquals("9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2", hash(translation))
+            translatorId = newId()
+            val extractedTranslation = ExtensionArchive.extract(translation, File(context.cacheDir, translatorId))
+            val commandHash = "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610"
+            assertEquals(commandHash, hash(File(extractedTranslation, "instant-translate-copy.js").readBytes()))
+            val target = File(context.filesDir, "extensions/$translatorId"); assertTrue(extractedTranslation.renameTo(target))
+            val item = listing(translatorId, "translate", "Translate (owned frozen copy)")
+            File(target, ".tinycast-store.json").writeText(item.json().toString())
+            val extension = InstalledExtension(item, target, JSONObject(File(target, "package.json").readText()))
+            val seeds = JSONObject("""{"langFrom":"en","lang1":"ja","lang2":"en","autoInput":false,"defaultAction":"copy","prioritizeCrossLanguage":false,"proxy":""}""")
+            extension.fields(extension.commands.single { it.name == "instant-translate-copy" }).forEach { field ->
+                val key = field.getString("name"); if (!seeds.has(key)) return@forEach
+                val options = field.optJSONArray("data")
+                assertTrue(field.optString("type") != "dropdown" || options != null &&
+                    (0 until options.length()).any { options.getJSONObject(it).optString("value") == seeds.get(key).toString() })
+            }
+            assertTrue(context.getSharedPreferences("extension-$translatorId", Context.MODE_PRIVATE).edit().putString("preferences", seeds.toString()).commit())
+            record.put("scope", "Unmodified frozen Instant Translate Copy after explicit review/Run from a separate owned Android caller; collector success is separate from service success")
+                .put("translation_archive_sha256", hash(translation)).put("translation_command_sha256", commandHash)
+                .put("translation_preferences", seeds).put("owned_extension_ids", JSONArray(ids))
+        }
     }
     @Before fun ready() {
         context.startActivity(Intent(Intent.ACTION_MAIN).setComponent(ComponentName(context.packageName, MainActivity::class.java.name)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -173,7 +197,10 @@ class ReviewedTextDeviceTest {
             manager.setPrimaryClip(ClipData.newPlainText("Owned text fixture", sentinel))
             activity.store.reset(); activity.store.search(callerQuery)
         }
-        dismissClipboardForEvidence()
+        val translationFixture = method == "selectedtranslationrunsonlyafterreviewandreportsexactcopyorservicefailure"
+        if (translationFixture) assertTrue("Owned translation clipboard fixture must appear before cleanup",
+            device.wait(Until.hasObject(By.res("com.android.systemui", "clipboard_ui")), 7000))
+        dismissClipboardForEvidence(requireAction = translationFixture)
         record.put("font_scale", context.resources.configuration.fontScale).put("width_dp", context.resources.configuration.screenWidthDp)
             .put("height_dp", context.resources.configuration.screenHeightDp)
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName, android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
@@ -355,6 +382,92 @@ class ReviewedTextDeviceTest {
     @Test fun selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns() = jsonWorkflow(false, true)
     @Test fun sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns() = jsonWorkflow(true, true)
     @Test fun writableSelectionStillUsesCopyWithoutReplacingSource() = jsonWorkflow(false, false)
+
+    @Test fun selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure() {
+        caller(source = "hello"); capture("translation-caller", true); send(); assertReview("hello")
+        choose(translatorId, "instant-translate-copy"); capture("translation-chosen"); touch("text-input-run")
+        val catalog = foregroundActivity().store.extensions
+        fun engine(): WebView? {
+            var found: WebView? = null
+            instrumentation.runOnMainSync {
+                fun visit(view: View) {
+                    if (view is WebView) { assertNull(found); found = view }
+                    if (view is ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+                }
+                WindowInspector.getGlobalWindowViews().forEach(::visit)
+            }; return found
+        }
+        compose.waitUntil(15000) { engine() != null || catalog.runtimeError != null }; assertNull(catalog.runtimeError, catalog.runtimeError)
+        val web = requireNotNull(engine())
+        fun evaluate(script: String): String {
+            var answer: String? = null; val done = CountDownLatch(1)
+            instrumentation.runOnMainSync { web.evaluateJavascript(script) { answer = it; done.countDown() } }
+            assertTrue(done.await(5, TimeUnit.SECONDS)); return requireNotNull(answer)
+        }
+        compose.waitUntil(10000) { evaluate("Boolean(globalThis.__tinycastHost && globalThis.__tinycast)") == "true" }
+        assertEquals("true", evaluate("""
+            (() => {
+              const host=globalThis.__tinycastHost, bridge=globalThis.__tinycast;
+              const invoke=host.invoke, settle=bridge.settle, rows=[], pending=new Map();
+              let copied="", errors=0, overflow=0;
+              host.invoke=function(id,api,method,encoded) {
+                try {
+                  if(api==="fetch" && method==="request") {
+                    if(rows.length>=32) overflow++;
+                    else {
+                      const request=JSON.parse(encoded)[0], url=new URL(request.url);
+                      const row={sequence:rows.length+1,endpoint:url.origin==="https://translate.google.com" && url.pathname==="/translate_a/single" ? "google-translate" : "other-redacted",
+                        ownedInputQuery:url.searchParams.get("q")==="hello",completed:false};
+                      rows.push(row);pending.set(String(id),row);
+                    }
+                  }
+                  if(api==="clipboard" && method==="copy") {
+                    const value=JSON.parse(encoded)[0];copied=typeof value==="string" ? value : value?.text || "";
+                  }
+                } catch(_) {errors++;}
+                return Reflect.apply(invoke,this,arguments);
+              };
+              bridge.settle=function(id,ok,encoded) {
+                try {
+                  const row=pending.get(String(id));
+                  if(row) {row.completed=true;row.transportSucceeded=Boolean(ok);pending.delete(String(id));
+                    if(ok && typeof encoded==="string" && encoded.length<=12*1024*1024) row.status=JSON.parse(encoded).status;}
+                } catch(_) {errors++;}
+                return Reflect.apply(settle,this,arguments);
+              };
+              globalThis.__ownedSelectedTranslationRead=()=>({errors,overflow,requests:rows.map(row=>({...row})),copied});
+              return true;
+            })()
+        """.trimIndent()))
+        val deadline = android.os.SystemClock.uptimeMillis() + 105000
+        while (android.os.SystemClock.uptimeMillis() < deadline && catalog.runtimeError == null &&
+            !catalog.runtimeStatus.contains("Copied To Clipboard") && !catalog.runtimeStatus.contains("Translation failed")) android.os.SystemClock.sleep(100)
+        val observed = JSONObject(JSONArray("[${evaluate("JSON.stringify(globalThis.__ownedSelectedTranslationRead())")}]").getString(0))
+        val copied = observed.getString("copied"); observed.remove("copied")
+        record.put("network_observation", observed).put("network_observer_scope", "Only requests after observer attachment; initial requests can be excluded; no query/header/body capture")
+            .put("owned_selected_input", "hello").put("runtime_status", catalog.runtimeStatus)
+            .put("observation_deadline_reached", android.os.SystemClock.uptimeMillis() >= deadline)
+        assertEquals(0, observed.getInt("errors")); assertEquals(0, observed.getInt("overflow"))
+        val requests = observed.getJSONArray("requests")
+        val inputWitness = (0 until requests.length()).any { requests.getJSONObject(it).optBoolean("ownedInputQuery") }
+        record.put("selected_input_in_observed_request", inputWitness)
+        if (copied.isNotBlank() && catalog.runtimeStatus.contains("Copied To Clipboard")) {
+            assertTrue("The selected input must reach an observed service request", inputWitness)
+            assertEquals(copied, clipboardText()); assertNotEquals(sentinel, copied)
+            dismissClipboardForEvidence(requireAction = true); capture("translation-copied")
+            record.put("copy_exact", true).put("owned_translated_output_sha256", hash(copied.toByteArray()))
+                .put("translated_output_characters", copied.length).put("workflow_outcome", "working-observed-path")
+        } else {
+            assertEquals(sentinel, clipboardText()); capture("translation-no-copy")
+            record.put("copy_exact", false).put("workflow_outcome", "partial-no-copy")
+        }
+        touch("extension-back"); awaitCaller()
+        assertEquals("hello", device.findObject(By.res("android:id/edit")).text)
+        assertEquals("Selection 0 to 5", device.findObject(By.res("android:id/text2")).text)
+        record.put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true)
+            .put("observation_collector_passed", true).put("passed", true)
+        capture("translation-return", true)
+    }
 
     @Test fun malformedAndOversizedInputCannotRunOrChangeClipboard() {
         for ((kind, mime, expected) in listOf(Triple("missing", "text/plain", "No text was provided"), Triple("integer", "text/plain", "needs plain text"),

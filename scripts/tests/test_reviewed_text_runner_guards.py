@@ -46,17 +46,25 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
 
     def test_frozen_network_archives_are_limited_to_the_owned_detail_cohort(self):
         for flag in ['--translate-archive', '--weather-archive']:
-            for selected in [MARKDOWN, CALCULATOR, CLIPBOARD,
+            denied = [MARKDOWN, CALCULATOR, CLIPBOARD,
                              ACTIVATION + '#explicitLauncherPrimaryCommitsComposedQueryAndActivates',
-                             'dev.tinycast.android.ExtensionFormDeviceTest', 'dev.tinycast.android.ReviewedTextDeviceTest']:
+                             'dev.tinycast.android.ExtensionFormDeviceTest']
+            if flag == '--weather-archive':
+                denied.append('dev.tinycast.android.ReviewedTextDeviceTest')
+            for selected in denied:
                 with self.subTest(flag=flag, selected=selected):
                     self.refused_without_device_access(selected, [flag, 'not-read-network.zip'],
-                                                       'Network bundles belong only to the owned Detail cohort')
+                                                       'Network bundle is not authorized for this test class')
 
     def test_network_archives_do_not_borrow_the_calculator_archive_exemption(self):
         for flag in ['--translate-archive', '--weather-archive']:
             self.refused_without_device_access(CALCULATOR, [flag, 'not-read-network.zip'],
-                                               'Network bundles belong only to the owned Detail cohort', without_archive=True)
+                                               'Network bundle is not authorized for this test class', without_archive=True)
+
+    def test_reviewed_translate_still_requires_the_frozen_json_archive_before_device_access(self):
+        self.refused_without_device_access('dev.tinycast.android.ReviewedTextDeviceTest',
+            ['--translate-archive', 'not-read-network.zip'],
+            'A frozen JSON archive is required outside the owned calculator cohort', without_archive=True)
 
     def test_markdown_cannot_mix_with_shared_legacy_fixtures(self):
         self.refused_without_device_access(MARKDOWN + ',dev.tinycast.android.InlinePaletteDeviceTest', [],
