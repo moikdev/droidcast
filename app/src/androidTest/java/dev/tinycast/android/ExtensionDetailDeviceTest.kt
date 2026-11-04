@@ -219,6 +219,56 @@ class ExtensionDetailDeviceTest {
         assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle(); ime(false)
         witness("initial", 0)
     }
+    private fun launchOwnedFetchProbe() {
+        val directory = fixtureDirectory(); val id = directory.name
+        val script = """
+            const React = require("react"), {Detail, ActionPanel, Action} = require("@raycast/api");
+            const target = "http://example.invalid/owned-fetch-routing-probe";
+            const host = globalThis.__tinycastHost, original = host.invoke;
+            let calls = 0;
+            const nativeFetchAtEntry = /\[native code\]/.test(Function.prototype.toString.call(globalThis.fetch));
+            host.invoke = function(id, api, method, encoded) {
+              if (api === "fetch" && method === "request") {
+                const request = JSON.parse(encoded)[0];
+                if (request.url !== target) throw new Error("Unexpected owned fetch target");
+                calls++;
+              }
+              return Reflect.apply(original, this, arguments);
+            };
+            let observation = {phase:"ready", calls:0, nativeFetchAtEntry};
+            globalThis.__ownedFetchRead = () => ({...observation});
+            module.exports.default = function OwnedFetchProbe() {
+              const [state, publish] = React.useState(observation);
+              observation = state;
+              async function run() {
+                if (state.phase !== "ready") return;
+                publish({phase:"pending", calls, nativeFetchAtEntry});
+                let error = "Request unexpectedly succeeded", errorName = "";
+                try { await fetch(target); }
+                catch (failure) { error = String(failure.message || failure); errorName = String(failure.name || "Error"); }
+                publish({phase:"settled", calls, nativeFetchAtEntry, error, errorName});
+              }
+              const markdown = state.phase === "ready"
+                ? "# Owned fetch routing\n\nRun the owned HTTP request. The native host must reject it before network access."
+                : state.phase === "pending" ? "# Owned fetch pending"
+                : "# Owned fetch settled\n\nNative bridge calls: " + state.calls + "\n\nError: " + state.error;
+              return React.createElement(Detail, {navigationTitle:"Owned fetch routing", markdown,
+                actions:React.createElement(ActionPanel, null,
+                  React.createElement(Action, {title:"Run owned HTTP probe", onAction:run}))});
+            };
+        """.trimIndent()
+        File(directory, "fetch.js").writeText(script)
+        val manifest = JSONObject("""{"commands":[{"name":"fetch","title":"Owned fetch routing","mode":"view"}]}""")
+        val extension = InstalledExtension(StoreExtension(id, "fetch-fixture", "Owned fetch routing", "", "Droidcast tests", "test", "", "", "", 1), directory, manifest)
+        record.put("scope", "Owned real-WebView global fetch routing and native HTTPS-only rejection; no service/Store success")
+            .put("fixture_command_sha256", hash(script.toByteArray(Charsets.UTF_8)))
+            .put("fixture_manifest_sha256", hash(manifest.toString().toByteArray(Charsets.UTF_8)))
+            .put("owned_extension_id", id)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single()) }
+        compose.waitUntil(25000) { catalog.runtimeError != null || (catalog.runtimeReady &&
+            activeRoot(catalog.runtimeTree)?.props()?.optString("navigationTitle") == "Owned fetch routing") }
+        assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle(); ime(false)
+    }
     private fun capture(phase: String) {
         compose.waitForIdle(); val tree = catalog.runtimeTree?.toString(); val epoch = catalog.launchEpoch
         val frames = CountDownLatch(1)
@@ -365,6 +415,26 @@ class ExtensionDetailDeviceTest {
         var text = ""; compose.activityRule.scenario.onActivity {
             text = it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.coerceToText(it)?.toString().orEmpty()
         }; return text
+    }
+    @Test fun globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess() {
+        launchOwnedFetchProbe(); capture("fetch-ready")
+        touchTag("extension-primary")
+        compose.waitUntil(15000) { activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains("# Owned fetch settled") == true }
+        compose.waitForIdle()
+        show("Owned fetch settled").assertIsDisplayed()
+        val observed = JSONObject(JSONArray("[${evaluate("JSON.stringify(globalThis.__ownedFetchRead())")}]").getString(0))
+        record.put("global_fetch_routing", observed)
+        val markdown = activeRoot(catalog.runtimeTree)?.props()?.optString("markdown").orEmpty()
+        assertTrue(markdown.contains("Native bridge calls: ${observed.getInt("calls")}"))
+        assertTrue(markdown.contains(observed.getString("error")))
+        show("Native bridge calls: ${observed.getInt("calls")}", substring = true).assertIsDisplayed()
+        capture("fetch-settled")
+        assertEquals("Global fetch must enter the native host once", 1, observed.getInt("calls"))
+        assertEquals("Only HTTPS requests are supported", observed.getString("error"))
+        assertEquals("Owned Markdown clipboard sentinel", clipboard())
+        touchTag("extension-back"); assertNull(catalog.running)
+        assertEquals(caller, compose.activity.store.query)
+        record.put("caller_returned", true).put("passed", true)
     }
     @Test fun listTouchDetailPreservesQuerySelectionExactCopyAndCaller() {
         launch("list"); capture("list-entry")
