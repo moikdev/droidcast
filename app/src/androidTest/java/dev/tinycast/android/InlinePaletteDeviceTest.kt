@@ -256,10 +256,12 @@ class InlinePaletteDeviceTest {
             compose.waitUntil(10000) { imeVisible() }
         } else hideKeyboard()
     }
-    private fun emptyMessageHasCompleteNaturalLines(): Boolean {
+    private fun menuTextHasCompleteNaturalLines(label: String? = null): Boolean {
         val nodes = menuBoundarySnapshot().getJSONArray("nodes")
         fun find(tag: String) = (0 until nodes.length()).map(nodes::getJSONObject).singleOrNull { it.optString("tag") == tag }
-        val text = find("inline-menu-empty") ?: return false
+        val text = if(label == null) find("inline-menu-empty") else (0 until nodes.length()).map(nodes::getJSONObject)
+            .singleOrNull { it.optString("text") == label && it.getJSONArray("text_layouts").length() == 1 }
+        if(text == null) return false
         val body = find("inline-menu-choices") ?: return false
         val origin = text.optJSONArray("layout_origin_root") ?: return false
         val bounds = text.getJSONArray("bounds_root"); val viewport = body.getJSONArray("bounds_root")
@@ -366,18 +368,24 @@ class InlinePaletteDeviceTest {
             compose.activityRule.scenario.onActivity {
                 assertEquals(sentinel, it.getSystemService(ClipboardManager::class.java).primaryClip?.getItemAt(0)?.text.toString())
             }
-            val readableWithIme = emptyMessageHasCompleteNaturalLines()
+            val readableWithIme = menuTextHasCompleteNaturalLines()
             if(cycle == 0) captureMenuBoundary("menu-empty-touch-ime")
             setMenuKeyboard(false)
             compose.onNodeWithTag("inline-menu-search").assert(SemanticsMatcher.expectValue(
                 SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("no such action")))
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3, 7)))
-            compose.waitUntil(10000) { emptyMessageHasCompleteNaturalLines() }
+            compose.waitUntil(10000) { menuTextHasCompleteNaturalLines() }
             if(cycle == 0) captureMenuBoundary("menu-empty-touch-revealed")
             setMenuKeyboard(true); setMenuKeyboard(false)
             compose.onNodeWithTag("inline-menu-search").assertIsFocused().assert(SemanticsMatcher.expectValue(
                 SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("no such action")))
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3, 7)))
+            val longLabel = "Set keyboard shortcut"
+            compose.onNodeWithTag("inline-menu-search").performTextReplacement("keyboard shortcut")
+            compose.onNodeWithTag("action-$longLabel").assertIsEnabled().assertIsSelected()
+                .assertContentDescriptionEquals(longLabel)
+            compose.waitUntil(10000) { menuTextHasCompleteNaturalLines(longLabel) }
+            if(cycle == 0) captureMenuBoundary("menu-long-action-touch")
             compose.onNodeWithTag("inline-menu-search").performTextReplacement("content copy")
             compose.onNodeWithTag("action-Copy content").assertIsSelected()
             captureMenuBoundary("menu-action-caller-before-copy-$cycle")
@@ -392,6 +400,7 @@ class InlinePaletteDeviceTest {
             }
             observations.put(JSONObject().put("cycle", cycle).put("empty_readable_with_ime", readableWithIme)
                 .put("empty_natural_lines_reachable_after_hide", true).put("query_and_caret_preserved", true)
+                .put("long_action_natural_lines_and_complete_semantics", true).put("long_action_label", longLabel)
                 .put("empty_enter_left_sentinel_unchanged", true).put("exact_fresh_copy_and_caller_range", true).put("caller_query_after_return", returnedQuery))
         }
         touchReceipt("menu-actions-touch", observations)
