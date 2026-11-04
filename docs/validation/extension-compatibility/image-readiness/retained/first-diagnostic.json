@@ -1,0 +1,34 @@
+{
+  "completed": true,
+  "app_sha256": "3e4d391fd301008d7d243bb7ec0b632d55aa6d2a5db109eae67f779d7651dfe4",
+  "test_apk_sha256": "780d4d726d307cf7716ebccd4c6e2a0d4db96d9553d092b910bff7489aa39520",
+  "android_source_commit": "2e93b22d7ae8284091433d8951a82e3f5b70dbd3",
+  "runner_source_commit": "a2cab95b780ed175dbe744adc560fcfed38fd1ae",
+  "cleanup_checks": 40,
+  "native_executions": 24,
+  "preexisting_evidence_files": 136,
+  "preexisting_evidence_unchanged": true,
+  "scope": "Two focused paths followed by the original22-method landscape100 set, with diagnostic publication/composition/draw history and actual image pixels. No cause or production repair is established by a passing repeat.",
+  "source_record_sha256": "9876cd0291bb19a767711963a9643925807dd9e143b69a8755b690ce3059497e",
+  "cohorts": [
+    {
+      "group": "focused",
+      "expected": 2,
+      "completed": true,
+      "exit_code": 0,
+      "passes": 2,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    },
+    {
+      "group": "original-method-set",
+      "expected": 22,
+      "completed": true,
+      "exit_code": 0,
+      "passes": 22,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true,
+      "original_method_order_matches": true
+    }
+  ]
+}

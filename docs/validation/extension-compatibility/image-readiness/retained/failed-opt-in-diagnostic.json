@@ -1,0 +1,22 @@
+{
+  "completed": false,
+  "app_sha256": "134f70b858d078a815fcc35f90716eb227a71c052249c2cd410ba37118bf5150",
+  "test_apk_sha256": "e47d0b49e6aa221422e4fda8f457376f1f149e991049291b6b0b97ad08fd144f",
+  "android_source_commit": "4db0b51237f399471214803f485e09998756691d",
+  "runner_source_commit": "a2cab95b780ed175dbe744adc560fcfed38fd1ae",
+  "preexisting_evidence_files": 136,
+  "preexisting_evidence_unchanged": true,
+  "scope": "Opt-in stage diagnostics: four image paths at landscape100/phone200 and the original22-method landscape100 set, with process-setting restoration and actual image pixels. No cause or production repair is established by a passing repeat.",
+  "source_record_sha256": "9d0959dd3937abd16819ef19a9c6f172da296d81d6106dc7cf4b150993f245a7",
+  "cohorts": [
+    {
+      "group": "focused-landscape100",
+      "expected": 4,
+      "completed": false,
+      "exit_code": 1,
+      "passes": 3,
+      "cleanup_checks": 20,
+      "cleanup_all_passed": true
+    }
+  ]
+}

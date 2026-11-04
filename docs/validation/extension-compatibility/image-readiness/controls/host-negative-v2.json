@@ -1,0 +1,19 @@
+{
+  "recorded": true,
+  "source_commit": "af505dd957a947e12fcb86df9fdad31fde43de33",
+  "source_hashes": {
+    "app/src/main/java/dev/tinycast/android/extensions/WeakValueTokens.kt": "354385b8f77b2a07c3dcae6d990bfaf19f92dcdca74c6b84f2907c0feeecbccd",
+    "app/src/test/java/dev/tinycast/android/WeakValueTokensTest.kt": "ced7bf72628d5dc18fc5fdd30a81e58bb4b4b7f40e4e8c7eb0e77500f7c73566"
+  },
+  "expected_negative": true,
+  "scope": "Host contract control for the new diagnostic token bug; not the original image-readiness failure or an Android execution.",
+  "gradle_exit_code": 1,
+  "junit": {
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "expected_assertion_observed": true,
+  "sources_unchanged": true
+}

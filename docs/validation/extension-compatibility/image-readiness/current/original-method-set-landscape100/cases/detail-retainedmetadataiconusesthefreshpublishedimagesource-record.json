@@ -1,0 +1,1142 @@
+{
+  "scope": "Owned React Markdown/metadata through the real runtime and native UI; not Store or service certification",
+  "passed": true,
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "installed_build_commit": "a324c12b4fb903eb35524fff8fc5425b18e6e53a",
+  "fixture_mode": "metadata-only",
+  "fixture_command_sha256": "015a281a2c15a2fd528444c045b4adf33729a05e9d932f2776c9901d99cf9b4e",
+  "fixture_manifest_sha256": "f8f5c5f83969cb94f57edd76779ac5ad976d465f06acdb607befefac885d10e6",
+  "owned_svg_sha256": "3995c224db43ff143e50bf2b81db937d947678d54a7650a5e02b7c86c4301489",
+  "image_readiness": [
+    {
+      "alternative": "Metadata icon",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "load_snapshot": {
+        "schema_version": 1,
+        "trace_owner": 9,
+        "generation": 2,
+        "phase": "ready",
+        "cancellations": 1,
+        "token_evictions": 0,
+        "events_dropped": 0,
+        "latest": {
+          "composed": {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          "state-reset": {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          "state-ready": {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          "draw-recorded": {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          }
+        },
+        "live_state": "visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+        "events": [
+          {
+            "stage": "composed",
+            "producer_generation": 0,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018941
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-cancelled",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018949
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          }
+        ]
+      },
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "load_snapshot": {
+        "schema_version": 1,
+        "trace_owner": 9,
+        "generation": 2,
+        "phase": "ready",
+        "cancellations": 1,
+        "token_evictions": 0,
+        "events_dropped": 0,
+        "latest": {
+          "composed": {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          "state-reset": {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          "state-ready": {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          "draw-recorded": {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          }
+        },
+        "live_state": "visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+        "events": [
+          {
+            "stage": "composed",
+            "producer_generation": 0,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018941
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-cancelled",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018949
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          }
+        ]
+      },
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "pixels-captured",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "load_snapshot": {
+        "schema_version": 1,
+        "trace_owner": 9,
+        "generation": 2,
+        "phase": "ready",
+        "cancellations": 1,
+        "token_evictions": 0,
+        "events_dropped": 0,
+        "latest": {
+          "composed": {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          "state-reset": {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          "state-ready": {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          "draw-recorded": {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          }
+        },
+        "live_state": "visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+        "events": [
+          {
+            "stage": "composed",
+            "producer_generation": 0,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018941
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-cancelled",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018949
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          }
+        ]
+      },
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true,
+      "published_composed_drawn_value_and_pixels_agree": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "before-wait",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=3;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=4;composed_value_token=4;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "load_snapshot": {
+        "schema_version": 1,
+        "trace_owner": 9,
+        "generation": 3,
+        "phase": "ready",
+        "cancellations": 1,
+        "token_evictions": 0,
+        "events_dropped": 0,
+        "latest": {
+          "composed": {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019498
+          },
+          "state-reset": {
+            "stage": "state-reset",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          "state-ready": {
+            "stage": "state-ready",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019457
+          },
+          "draw-recorded": {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019515
+          }
+        },
+        "live_state": "visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=4;composed_value_token=4;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+        "events": [
+          {
+            "stage": "composed",
+            "producer_generation": 0,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018941
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-cancelled",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018949
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019452
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 3,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019456
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 3,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8019457
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019457
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019465
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019498
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019515
+          }
+        ]
+      },
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "ready",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=3;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=4;composed_value_token=4;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "load_snapshot": {
+        "schema_version": 1,
+        "trace_owner": 9,
+        "generation": 3,
+        "phase": "ready",
+        "cancellations": 1,
+        "token_evictions": 0,
+        "events_dropped": 0,
+        "latest": {
+          "composed": {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019498
+          },
+          "state-reset": {
+            "stage": "state-reset",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          "state-ready": {
+            "stage": "state-ready",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019457
+          },
+          "draw-recorded": {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019515
+          }
+        },
+        "live_state": "visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=4;composed_value_token=4;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+        "events": [
+          {
+            "stage": "composed",
+            "producer_generation": 0,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018941
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-cancelled",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018949
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019452
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 3,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019456
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 3,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8019457
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019457
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019465
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019498
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019515
+          }
+        ]
+      },
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true
+    },
+    {
+      "alternative": "Metadata icon",
+      "phase": "pixels-captured",
+      "state": "Image ready",
+      "activity_lifecycle": "RESUMED",
+      "debug_load_state": "generation=3;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=4;composed_value_token=4;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+      "load_snapshot": {
+        "schema_version": 1,
+        "trace_owner": 9,
+        "generation": 3,
+        "phase": "ready",
+        "cancellations": 1,
+        "token_evictions": 0,
+        "events_dropped": 0,
+        "latest": {
+          "composed": {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019498
+          },
+          "state-reset": {
+            "stage": "state-reset",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          "state-ready": {
+            "stage": "state-ready",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019457
+          },
+          "draw-recorded": {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019515
+          }
+        },
+        "live_state": "visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=4;composed_value_token=4;attached=true;window_bounds=Rect.fromLTRB(239.0, 358.0, 302.0, 421.0);lifecycle=RESUMED",
+        "events": [
+          {
+            "stage": "composed",
+            "producer_generation": 0,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018941
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018944
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 1,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-cancelled",
+            "producer_generation": 1,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018945
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 2,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018948
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 1,
+            "bitmap_ready": false,
+            "uptime_ms": 8018949
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018967
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 2,
+            "value_token": 2,
+            "bitmap_ready": true,
+            "uptime_ms": 8018984
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 2,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019452
+          },
+          {
+            "stage": "state-reset",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          {
+            "stage": "producer-loading",
+            "producer_generation": 3,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8019455
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019456
+          },
+          {
+            "stage": "producer-ready",
+            "producer_generation": 3,
+            "value_token": 0,
+            "bitmap_ready": false,
+            "uptime_ms": 8019457
+          },
+          {
+            "stage": "state-ready",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019457
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 3,
+            "bitmap_ready": false,
+            "uptime_ms": 8019465
+          },
+          {
+            "stage": "composed",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019498
+          },
+          {
+            "stage": "draw-recorded",
+            "producer_generation": 3,
+            "value_token": 4,
+            "bitmap_ready": true,
+            "uptime_ms": 8019515
+          }
+        ]
+      },
+      "visible_bounds": [
+        239,
+        358,
+        302,
+        421
+      ],
+      "unclipped_origin": [
+        239,
+        358
+      ],
+      "size": [
+        63,
+        63
+      ],
+      "owned_fixture_svg_assets_file_unchanged": true,
+      "published_composed_drawn_value_and_pixels_agree": true
+    }
+  ],
+  "image_pixels": [
+    {
+      "alternative": "Metadata icon",
+      "expected_argb": -14514125,
+      "red": 0.13333334028720856,
+      "green": 0.5333333611488342,
+      "blue": 0.20000000298023224,
+      "width_px": 63,
+      "height_px": 63
+    },
+    {
+      "alternative": "Metadata icon",
+      "expected_argb": -65536,
+      "red": 1,
+      "green": 0,
+      "blue": 0,
+      "width_px": 63,
+      "height_px": 63
+    }
+  ],
+  "image_history_process_property_restored": true,
+  "publication_witnesses": [
+    {
+      "phase": "initial",
+      "counter": 0,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 0",
+      "semantics_id": 2136
+    },
+    {
+      "phase": "first-metadata-image",
+      "counter": 1,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 1",
+      "semantics_id": 2136
+    },
+    {
+      "phase": "replacement-metadata-image",
+      "counter": 2,
+      "root_id": "13",
+      "root_type": "Detail",
+      "composed_marker_text": "Detail publication 2",
+      "semantics_id": 2136
+    }
+  ],
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}
