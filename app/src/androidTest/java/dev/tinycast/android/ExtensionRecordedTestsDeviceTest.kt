@@ -131,7 +131,9 @@ class ExtensionRecordedTestsDeviceTest {
         compose.waitForIdle()
         val stem="recorded-"+name.methodName.lowercase(java.util.Locale.ROOT)+"-"+phase
         device.dumpWindowHierarchy(File(evidence,"$stem.xml"));assertTrue(device.takeScreenshot(File(evidence,"$stem.png")))
-        File(evidence,"$stem-frame.json").writeText(JSONObject().put("phase",phase).put("font_scale",context.resources.configuration.fontScale)
+        val actualIme=compose.runOnUiThread { androidx.core.view.ViewCompat.getRootWindowInsets(activity().window.decorView)
+            ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true }
+        File(evidence,"$stem-frame.json").writeText(JSONObject().put("phase",phase).put("font_scale",context.resources.configuration.fontScale).put("observed_ime_visible",actualIme)
             .put("scope",record.getString("scope")).put("synchronization","Compose idle; XML written before PNG").toString(2))
     }
     private fun reveal(tag:String,scroll:String="recorded-tests-list") {
@@ -204,7 +206,14 @@ class ExtensionRecordedTestsDeviceTest {
     }
     private fun filtered(text:String) {
         compose.onNodeWithTag("recorded-tests-search").performTextReplacement(text);compose.waitForIdle()
-        if(geometry()) { tap("recorded-tests-keyboard");geometry(false) }
+        // Editor setup must not leave a delayed IME request racing the text
+        // witnesses. Actual pointer show/hide is a separate protocol below.
+        compose.onNodeWithTag("extension-palette").performSemanticsAction(SemanticsActions.RequestFocus) { assertTrue(it()) }
+        compose.waitForIdle()
+        instrumentation.runOnMainSync { androidx.core.view.WindowCompat.getInsetsController(activity().window,activity().window.decorView)
+            .hide(androidx.core.view.WindowInsetsCompat.Type.ime()) }
+        geometry(false)
+        record.put("filter_setup","Semantic text replacement; palette focus; native IME hide; stable actual closed-IME geometry. This is not physical typing or a pointer-hide claim.")
     }
     private fun passed() { record.put("passed",true).put("inspection_did_not_start_runtime",catalog.running==null&&catalog.runtimeTree==null) }
     private fun checkNatural(text:String) {
