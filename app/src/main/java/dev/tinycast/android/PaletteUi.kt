@@ -118,6 +118,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val selected = if (store.dialog in setOf("actions", "alias", "delete")) store.actionCommand ?: resultSelected else resultSelected
         val shortcutEngine = remember { ShortcutEngine() }
         val calculatorKeys = remember { ShortcutEngine() }
+        var calculatorTypingRequest by remember { mutableStateOf<CalculatorSelection?>(null) }
         DisposableEffect(windowFocused) {
             if (!windowFocused) calculatorKeys.clear()
             onDispose { calculatorKeys.clear() }
@@ -161,10 +162,25 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                     searchValue = TextFieldValue(query, TextRange(query.length))
                     keyboardRequested = true
                     store.focusEpoch++
-                    focus.requestFocus()
-                    keyboard?.show()
+                    calculatorTypingRequest = store.calculatorSelection(currentSelection())
                 }
             }
+        }
+        LaunchedEffect(calculatorTypingRequest) {
+            val request = calculatorTypingRequest ?: return@LaunchedEffect
+            fun current() = request == store.calculatorSelection(currentSelection()) && store.dialog == null &&
+                store.textReview == null && !store.backupBusy && ShortcutRuntime.recordingOwner == null && view.hasWindowFocus()
+            if (current()) {
+                focus.requestFocus()
+                // Let the old menu's input session finish before asking Android
+                // to show the newly focused launcher editor's keyboard.
+                withFrameNanos { }
+                if (current()) {
+                    keyboard?.show()
+                    androidx.core.view.ViewCompat.getWindowInsetsController(view)?.show(androidx.core.view.WindowInsetsCompat.Type.ime())
+                }
+            }
+            if (calculatorTypingRequest === request) calculatorTypingRequest = null
         }
         val handleKey: (KeyEvent) -> Boolean = { event ->
             val currentResults = results
