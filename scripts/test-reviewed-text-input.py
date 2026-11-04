@@ -104,6 +104,7 @@ def main():
                               'dev.tinycast.android.ExtensionMarkdownDeviceTest',
                               'dev.tinycast.android.ExtensionDetailDeviceTest',
                               'dev.tinycast.android.ExtensionCommandHandoffDeviceTest',
+                              'dev.tinycast.android.ExtensionPasteCopyDeviceTest',
                               'dev.tinycast.android.CalculatorActionsDeviceTest',
                               'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
@@ -114,6 +115,9 @@ def main():
     regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest',
                           'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
+    paste_copy = any(item.split('#')[0] == 'dev.tinycast.android.ExtensionPasteCopyDeviceTest' for item in args.classes.split(','))
+    require(not paste_copy or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionPasteCopyDeviceTest' for item in args.classes.split(',')),
+            'Keep the owned paste Copy cohort separate from other fixtures')
     handoff = any(item.split('#')[0] == 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest' for item in args.classes.split(','))
     require(not handoff or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest' for item in args.classes.split(',')),
             'Keep the owned command handoff cohort separate from other fixtures')

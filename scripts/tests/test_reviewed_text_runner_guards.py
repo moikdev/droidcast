@@ -15,9 +15,20 @@ CALCULATOR = 'dev.tinycast.android.CalculatorActionsDeviceTest'
 CLIPBOARD = 'dev.tinycast.android.ClipboardEvidenceDeviceTest'
 ACTIVATION = 'dev.tinycast.android.ActivationDeviceTest'
 HANDOFF = 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest'
+PASTE_COPY = 'dev.tinycast.android.ExtensionPasteCopyDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
+    def test_owned_paste_copy_cannot_mix_with_other_fixtures(self):
+        for selected in [DETAIL, HANDOFF, CALCULATOR, 'dev.tinycast.android.ReviewedTextDeviceTest']:
+            self.refused_without_device_access(PASTE_COPY + ',' + selected, [],
+                'Keep the owned paste Copy cohort separate from other fixtures')
+
+    def test_owned_paste_copy_cannot_claim_network_or_recovery_controls(self):
+        self.refused_without_device_access(PASTE_COPY, ['--translate-archive', 'not-read.zip'], 'Network bundle is not authorized')
+        self.refused_without_device_access(PASTE_COPY, ['--document-fixtures'], 'Document fixtures belong only')
+        self.refused_without_device_access(PASTE_COPY, ['--inject-clipboard-restore-failure'], 'Restoration failure is limited')
+
     def test_paste_copy_expectation_cannot_broaden_other_fixtures(self):
         selected = 'dev.tinycast.android.ReviewedTextDeviceTest#selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure'
         for classes, options in [(DETAIL, []), (selected, []),
