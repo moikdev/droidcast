@@ -306,13 +306,14 @@ class InlinePaletteDeviceTest {
         if(!visible) { hideKeyboard(); awaitLauncherIme(false, "Native hide after the observed shown state") }
         assertTrue("The launcher editor remains active across fixture keyboard setup", launcherInputReady())
     }
-    private fun menuTextHasCompleteNaturalLines(label: String? = null): Boolean {
-        val nodes = menuBoundarySnapshot().getJSONArray("nodes")
+    private fun menuTextHasCompleteNaturalLines(label: String? = null, rootTag: String = "palette",
+                                                viewportTag: String = "inline-menu-choices"): Boolean {
+        val nodes = menuBoundarySnapshot(rootTag = rootTag).getJSONArray("nodes")
         fun find(tag: String) = (0 until nodes.length()).map(nodes::getJSONObject).singleOrNull { it.optString("tag") == tag }
         val text = if(label == null) find("inline-menu-empty") else (0 until nodes.length()).map(nodes::getJSONObject)
             .singleOrNull { it.optString("text") == label && it.getJSONArray("text_layouts").length() == 1 }
         if(text == null) return false
-        val body = find("inline-menu-choices") ?: return false
+        val body = find(viewportTag) ?: return false
         val origin = text.optJSONArray("layout_origin_root") ?: return false
         val bounds = text.getJSONArray("bounds_root"); val viewport = body.getJSONArray("bounds_root")
         val left = maxOf(bounds.getDouble(0), viewport.getDouble(0)); val top = maxOf(bounds.getDouble(1), viewport.getDouble(1))
@@ -326,6 +327,54 @@ class InlinePaletteDeviceTest {
                 origin.getDouble(0) + line.getDouble("right") <= right + 1 &&
                 origin.getDouble(1) + line.getDouble("top") >= top - 1 && origin.getDouble(1) + line.getDouble("bottom") <= bottom + 1
         }
+    }
+    /** Existing compact routes scroll their chrome as well as the inner form.
+     * Reveal a complete control by measured pointer drags before testing it. */
+    private fun revealCallerNode(node: SemanticsNodeInteraction, rootTag: String, viewportTag: String,
+                                 proofName: String, minimumTouchDp: Int = 0) {
+        val minimum = minimumTouchDp * context.resources.displayMetrics.density
+        val gestures = JSONArray()
+        for(attempt in 0..40) {
+            compose.waitForIdle()
+            val target = node.fetchSemanticsNode()
+            val scroller = compose.onNodeWithTag(viewportTag).fetchSemanticsNode()
+            val bounds = target.boundsInRoot; val viewport = scroller.boundsInRoot
+            val full = target.layoutInfo.isPlaced && target.layoutInfo.coordinates.isAttached &&
+                target.size.width > 0 && target.size.height > 0 && target.size.width + 1 >= minimum && target.size.height + 1 >= minimum &&
+                bounds.width + 1 >= target.size.width && bounds.height + 1 >= target.size.height
+            if(full) {
+                captureMenuBoundary("$proofName-revealed", rootTag = rootTag)
+                File(context.filesDir, "extension-grid-evidence/$proofName-proof.json").writeText(JSONObject()
+                    .put("scope", "Existing route reachability after bounded pointer reveal; no production layout repair claim")
+                    .put("full_target_verified", true).put("minimum_touch_dp", minimumTouchDp).put("pointer_drags", gestures)
+                    .put("visible_bounds_root", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+                    .put("layout_size", JSONArray(listOf(target.size.width, target.size.height)))
+                    .put("ime_visible", imeVisible()).toString(2))
+                return
+            }
+            if(attempt == 40) break
+            assertTrue("Caller scroll viewport must be placed", scroller.layoutInfo.isPlaced && viewport.height > 0)
+            val origin = compose.runOnUiThread {
+                if(target.layoutInfo.coordinates.isAttached) target.layoutInfo.coordinates.localToRoot(androidx.compose.ui.geometry.Offset.Zero).y
+                else Float.POSITIVE_INFINITY
+            }
+            val direction = if(origin < viewport.top) -1 else 1
+            val distance = minOf(viewport.height * .3f, 60 * context.resources.displayMetrics.density)
+            val start = viewport.center + androidx.compose.ui.geometry.Offset(0f, direction * distance / 2)
+            val end = viewport.center - androidx.compose.ui.geometry.Offset(0f, direction * distance / 2)
+            val owner = compose.onNode(isRoot() and hasAnyDescendant(hasTestTag(rootTag)), useUnmergedTree = true)
+            val root = owner.fetchSemanticsNode().boundsInRoot
+            val step = JSONObject().put("viewport_tag", viewportTag).put("direction", if(direction > 0) "up" else "down")
+                .put("start_root", JSONArray(listOf(start.x, start.y))).put("end_root", JSONArray(listOf(end.x, end.y))).put("duration_ms", 600)
+                .put("accessibility_axis_before", scroller.config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)?.value?.invoke())
+            owner.performTouchInput { swipe(start - root.topLeft, end - root.topLeft, durationMillis = 600) }
+            compose.waitForIdle()
+            step.put("accessibility_axis_after", compose.onNodeWithTag(viewportTag).fetchSemanticsNode()
+                .config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)?.value?.invoke())
+            gestures.put(step); scrollEvidence.put(step)
+        }
+        captureMenuBoundary("$proofName-reveal-failed", rootTag = rootTag)
+        fail("A complete caller target must remain reachable by bounded pointer scrolling")
     }
     private fun withTouchKeyboard(label: String, block: () -> Unit) {
         val previous = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
@@ -498,6 +547,7 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("editor-title").performTextReplacement("Inline draft")
         compose.onNodeWithTag("editor-body").performTextReplacement("This draft stays inside the palette.")
         captureMenuBoundary("caller-editor-save-before-display-assert", rootTag = "editor-body")
+        revealCallerNode(compose.onNodeWithTag("save-editor"), "editor-body", "palette-content-scroll", "caller-editor-save", 48)
         compose.onNodeWithTag("save-editor").assertIsDisplayed()
         val (save,typingFrame)=editorBounds()
         val diagnostics=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
@@ -585,6 +635,8 @@ class InlinePaletteDeviceTest {
             }
             compose.waitUntil(10000) { android.view.inspector.WindowInspector.getGlobalWindowViews().filter{it.hasWindowFocus()}.any {
                 androidx.core.view.ViewCompat.getRootWindowInsets(it)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true } }
+            revealCallerNode(compose.onNodeWithTag("save-editor"), "editor-body", "palette-content-scroll", "caller-editor-ime-save", 48)
+            assertTrue("The real IME remains visible during the pointer reveal", imeVisible())
             compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled()
             val (save,frame)=editorBounds()
             val diagnostics=File(context.filesDir,"extension-grid-evidence").apply{mkdirs()}
@@ -599,7 +651,7 @@ class InlinePaletteDeviceTest {
             assertNotNull("Real Gboard is present",keyboard)
             assertTrue("Save stays above Gboard",save.bottom <= keyboard.visibleBounds.top)
             capture("inline-editor-ime","Save stays above the real keyboard.")
-            compose.onNodeWithTag("save-editor").performClick()
+            pointer("save-editor", "palette-content-scroll")
             compose.onNodeWithTag("palette-screen").assertDoesNotExist()
             assertTrue(compose.activity.store.notes.any{it.title=="Keyboard draft" && it.body=="Save stays above the real keyboard."})
         } finally {
@@ -663,6 +715,10 @@ class InlinePaletteDeviceTest {
         compose.onNodeWithTag("alias-field").performTextReplacement("prefs")
         compose.onNodeWithTag("save-alias").performScrollTo().performClick()
         captureMenuBoundary("caller-alias-error-before-display-assert", rootTag = "alias-field")
+        revealCallerNode(compose.onNodeWithText("That alias is already in use", useUnmergedTree = true),
+            "alias-field", "shell-content-scroll", "caller-alias-error")
+        assertTrue("Every natural error line must be fully visible", menuTextHasCompleteNaturalLines(
+            "That alias is already in use", "alias-field", "shell-content-scroll"))
         compose.onNodeWithText("That alias is already in use").assertIsDisplayed()
         capture("inline-alias-conflict","That alias is already in use")
         compose.onNodeWithTag("alias-field").performTextReplacement("inlinetest")
