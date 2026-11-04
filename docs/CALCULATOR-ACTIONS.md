@@ -85,7 +85,7 @@ All images are native Android captures; the complete 52-frame inventory is linke
 | Evidence | Capture |
 | --- | --- |
 | Phone before / after, 100% | [One action](screenshots/calculator-actions/final-old-phone-v12/touch-chain-actions.png) / [three actions](screenshots/calculator-actions/final-phone100-v12/touch-chain-actions.png) |
-| Tablet before / after, 100% | [One action](screenshots/calculator-actions/final-old-tablet-v12/touch-chain-actions.png) / [three actions](screenshots/calculator-actions/final-tablet100-v12/touch-chain-actions.png) |
+| Tablet before / after, 100%, IME hidden | [One action](screenshots/calculator-actions/final-old-tablet-v12/full-copy-full-copy-menu.png) / [three actions](screenshots/calculator-actions/final-tablet100-v12/full-copy-full-copy-menu.png); same `= sqrt(81)+12x3` query |
 | Chained Search and next result | [Focused `= 36`](screenshots/calculator-actions/final-phone100-v12/touch-chain-chained-search.png) / [next result copied](screenshots/calculator-actions/final-phone100-v12/touch-chain-next-calculation.png) |
 | Full expression and units | [Function/× copy](screenshots/calculator-actions/final-phone100-v12/full-copy-full-copy-destination.png) / [unit conversion copy](screenshots/calculator-actions/final-phone100-v12/unit-chain-unit-converted.png) |
 | 200% complete rows | [Phone Put Answer](screenshots/calculator-actions/visual-phone200-v12/revealed-labels-revealed-put-answer.png) / [landscape Copy Calculation](screenshots/calculator-actions/visual-landscape200-v12/revealed-labels-revealed-copy-calculation.png); filtered editor setup, IME hidden |
