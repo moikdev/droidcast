@@ -44,7 +44,7 @@ All completed cohorts verify independent durable clipboard restoration, owned fi
 
 ## Real Android captures
 
-Device: dedicated `Tinycast_Tablet_API_36`, API 36. Tablet: 1920×1200 at 240 dpi; phone: 1080×2340 at 420 dpi; short landscape: 2340×1080 at 420 dpi. Main comparisons use 100% text. Critical transport smoke cases also run at 200%; these establish activation/response/copy/return, not comprehensive typography or physical-device certification. Captures wait for committed semantics, two display frames and a stable runtime tree; native XML precedes PNG.
+Device: dedicated `Tinycast_Tablet_API_36`, API 36. Tablet: 1920×1200 at 240 dpi; phone: 1080×2340 at 420 dpi; short landscape: 2340×1080 at 420 dpi. Main comparisons use 100% text. Critical transport smoke cases also run at 200%; these establish activation/response/copy/return, not comprehensive typography or physical-device certification. The 93 Detail/Form captures wait for committed semantics, two display frames and a stable runtime tree. The 22 reviewed-input captures wait for Compose idle, or UiAutomator idle for the external caller. Every capture writes native XML before PNG.
 
 ![Before: native browser fetch, zero bridge calls, controlled request fails](screenshots/extension-compatibility/fetch/matched-old-phone-v2/detail-globalfetchreachesthenativehostandrejectshttpbeforenetworkaccess-fetch-settled.png)
 Before: native browser fetch, zero bridge calls, controlled request fails.
