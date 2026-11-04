@@ -29,7 +29,9 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
 import dev.tinycast.android.extensions.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -82,10 +84,10 @@ class ExtensionDetailDeviceTest {
         assertEquals(owner, value.getString("owner_nonce"))
         return value
     }
-    private fun dismissClipboard(phase: String) {
+    private fun dismissClipboard(phase: String, requireAction: Boolean = false) {
         val observations = JSONArray(); val actions = JSONArray()
         record.put("clipboard-$phase", JSONObject().put("observations", observations).put("actions", actions))
-        dismissClipboardForEvidence(onObservation = { observations.put(it) }, onNodeAction = { id, accepted ->
+        dismissClipboardForEvidence(onObservation = { observations.put(it) }, requireAction = requireAction, onNodeAction = { id, accepted ->
             actions.put(JSONObject().put("id", id).put("accepted", accepted))
         })
     }
@@ -110,7 +112,19 @@ class ExtensionDetailDeviceTest {
             it.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Owned Markdown fixture", "Owned Markdown clipboard sentinel"))
             it.store.reset(); it.store.search(caller)
         }
-        dismissClipboard("owned-sentinel")
+        val fetchProbe = testName.methodName in setOf("globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess",
+            "globalHttpsFetchPublishesTheResponseCopiesExactTextAndReturnsToTheCaller")
+        if (fetchProbe) {
+            // Start this transport fixture's cleanup budget after its known
+            // clipboard window appears. Cold helper coverage is separate.
+            val started = android.os.SystemClock.uptimeMillis()
+            val ready = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+                .wait(Until.hasObject(By.res("com.android.systemui", "clipboard_ui")), 7000)
+            record.put("fetch_clipboard_fixture_ready", ready)
+                .put("fetch_clipboard_fixture_wait_ms", android.os.SystemClock.uptimeMillis() - started)
+            assertTrue("Owned fetch clipboard fixture must appear before cleanup", ready)
+        }
+        dismissClipboard("owned-sentinel", requireAction = fetchProbe)
         record.put("font_scale", context.resources.configuration.fontScale)
             .put("width_dp", context.resources.configuration.screenWidthDp).put("height_dp", context.resources.configuration.screenHeightDp)
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
@@ -267,6 +281,57 @@ class ExtensionDetailDeviceTest {
         compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single()) }
         compose.waitUntil(25000) { catalog.runtimeError != null || (catalog.runtimeReady &&
             activeRoot(catalog.runtimeTree)?.props()?.optString("navigationTitle") == "Owned fetch routing") }
+        assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle(); ime(false)
+    }
+    private fun launchOwnedHttpsProbe() {
+        val directory = fixtureDirectory(); val id = directory.name
+        val script = """
+            const React = require("react"), {Detail, ActionPanel, Action} = require("@raycast/api");
+            const target = "https://example.com/", host = globalThis.__tinycastHost, original = host.invoke;
+            let calls = 0, observation = {phase:"ready"}, responseBody = "";
+            host.invoke = function(id, api, method, encoded) {
+              if (api === "fetch" && method === "request") {
+                if (JSON.parse(encoded)[0].url !== target) throw new Error("Unexpected owned HTTPS target");
+                calls++;
+              }
+              return Reflect.apply(original, this, arguments);
+            };
+            globalThis.__ownedHttpsRead = () => ({...observation});
+            globalThis.__ownedHttpsBody = () => responseBody;
+            module.exports.default = function OwnedHttpsProbe() {
+              const [state, publish] = React.useState(observation); observation = state;
+              async function run() {
+                if (state.phase !== "ready") return;
+                publish({phase:"pending", calls});
+                try {
+                  const response = await fetch(target), body = await response.text();
+                  if (body.length > 65536) throw new Error("Owned HTTPS observation exceeds the body limit");
+                  responseBody = body;
+                  publish({phase:"settled", calls, status:response.status, ok:response.ok,
+                    exampleDomain:body.includes("Example Domain"), bodyLength:body.length});
+                } catch (failure) { publish({phase:"settled", calls, error:String(failure.message || failure)}); }
+              }
+              const settled = state.phase === "settled";
+              const markdown = settled ? "# Owned HTTPS settled\n\nNative bridge calls: " + state.calls +
+                "\n\n" + (state.error ? "Error: " + state.error : "HTTP status: " + state.status +
+                "\n\nExample Domain present: " + state.exampleDomain + "\n\nResponse characters: " + state.bodyLength)
+                : "# Owned HTTPS request\n\nAn explicit request to the public example.com page. No account or private input.";
+              const action = settled && !state.error
+                ? React.createElement(Action.CopyToClipboard, {title:"Copy HTTPS response", content:responseBody})
+                : React.createElement(Action, {title:"Run owned HTTPS request", onAction:run});
+              return React.createElement(Detail, {navigationTitle:"Owned HTTPS response", markdown,
+                isLoading:state.phase === "pending", actions:React.createElement(ActionPanel, null, action)});
+            };
+        """.trimIndent()
+        File(directory, "https.js").writeText(script)
+        val manifest = JSONObject("""{"commands":[{"name":"https","title":"Owned HTTPS response","mode":"view"}]}""")
+        val extension = InstalledExtension(StoreExtension(id, "https-fixture", "Owned HTTPS response", "", "Droidcast tests", "test", "", "", "", 1), directory, manifest)
+        record.put("scope", "Owned real-WebView HTTPS request/public response, fresh exact Copy and caller return; not translation/Store certification")
+            .put("fixture_command_sha256", hash(script.toByteArray(Charsets.UTF_8)))
+            .put("fixture_manifest_sha256", hash(manifest.toString().toByteArray(Charsets.UTF_8))).put("owned_extension_id", id)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single()) }
+        compose.waitUntil(25000) { catalog.runtimeError != null || (catalog.runtimeReady &&
+            activeRoot(catalog.runtimeTree)?.props()?.optString("navigationTitle") == "Owned HTTPS response") }
         assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle(); ime(false)
     }
     private fun capture(phase: String) {
@@ -434,6 +499,32 @@ class ExtensionDetailDeviceTest {
         assertEquals("Owned Markdown clipboard sentinel", clipboard())
         touchTag("extension-back"); assertNull(catalog.running)
         assertEquals(caller, compose.activity.store.query)
+        record.put("caller_returned", true).put("passed", true)
+    }
+    @Test fun globalHttpsFetchPublishesTheResponseCopiesExactTextAndReturnsToTheCaller() {
+        launchOwnedHttpsProbe(); capture("https-ready")
+        touchTag("extension-primary")
+        compose.waitUntil(55000) { activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains("# Owned HTTPS settled") == true }
+        compose.waitForIdle(); show("Owned HTTPS settled").assertIsDisplayed()
+        val observed = JSONObject(JSONArray("[${evaluate("JSON.stringify(globalThis.__ownedHttpsRead())")}]").getString(0))
+        record.put("https_observation", observed)
+        show("Native bridge calls: ${observed.getInt("calls")}", substring = true).assertIsDisplayed()
+        capture("https-settled")
+        assertEquals(1, observed.getInt("calls")); assertFalse(observed.has("error"))
+        assertEquals(200, observed.getInt("status")); assertTrue(observed.getBoolean("ok"))
+        assertTrue(observed.getBoolean("exampleDomain"))
+        show("HTTP status: 200", substring = true).assertIsDisplayed()
+        val body = JSONArray("[${evaluate("globalThis.__ownedHttpsBody()")}]").getString(0)
+        assertEquals(observed.getInt("bodyLength"), body.length); assertTrue(body.contains("Example Domain"))
+        assertEquals("Owned Markdown clipboard sentinel", clipboard())
+        touchTag("extension-primary"); compose.waitUntil(10000) { clipboard() == body }; assertEquals(body, clipboard())
+        val actions = JSONArray(); record.put("https_copy_dismiss_actions", actions)
+        dismissClipboardForEvidence(requireAction = true, onNodeAction = { id, accepted ->
+            actions.put(JSONObject().put("id", id).put("accepted", accepted))
+        })
+        record.put("copied_response_sha256", hash(body.toByteArray(Charsets.UTF_8))).put("copy_exact", true)
+        capture("https-copy")
+        touchTag("extension-back"); assertNull(catalog.running); assertEquals(caller, compose.activity.store.query)
         record.put("caller_returned", true).put("passed", true)
     }
     @Test fun listTouchDetailPreservesQuerySelectionExactCopyAndCaller() {
