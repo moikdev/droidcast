@@ -97,9 +97,17 @@ class ExtensionCatalog(private val context: Context) {
     @Volatile private var invocationOwner: Any = Any()
     private var runtimeStop: Pair<Any, () -> Unit>? = null
     private var commandText: CommandTextInput? = null
+    private var invocationLaunchProperties = ordinaryLaunchProperties(emptyMap())
+    private var commandHandoffDepth = 0
+    private var preparedCommandLaunch: PreparedCommandLaunch? = null
     private class PreparedText(val preview: TextInputPreview, val target: TextInputTarget, val epoch: Int)
     private var preparedText: PreparedText? = null
-    internal class RuntimeText(val owner: Any, val target: TextInputTarget, val input: CommandTextInput?)
+    internal class RuntimeText(val owner: Any, val target: TextInputTarget, val input: CommandTextInput?, val launchProperties: String)
+    internal class PreparedCommandLaunch internal constructor(
+        val owner: Any, val extension: InstalledExtension, val source: ExtensionCommand, val target: ExtensionCommand,
+        val epoch: Int, val preferenceEpoch: Int, val sourceDefinition: String, val targetDefinition: String,
+        val launchProperties: String, val depth: Int,
+    )
 
     suspend fun search(query: String, page: Int = 1): List<StoreExtension> = withContext(Dispatchers.IO) {
         val q = URLEncoder.encode(query, "UTF-8")
@@ -166,11 +174,15 @@ class ExtensionCatalog(private val context: Context) {
         reviewedText.invalidate(); preparedText = null
         begin(extension,command,args,Any(),null)
     }
-    private fun begin(extension: InstalledExtension, command: ExtensionCommand, args: Map<String,String>, owner: Any, input: CommandTextInput?) {
+    private fun ordinaryLaunchProperties(args: Map<String, String>) = JSONObject().put("arguments", JSONObject(args)).put("launchType", "userInitiated").toString()
+    private fun begin(extension: InstalledExtension, command: ExtensionCommand, args: Map<String,String>, owner: Any, input: CommandTextInput?,
+                      launchProperties: String = ordinaryLaunchProperties(args), handoffDepth: Int = 0) {
         stopRuntime(owner)
+        preparedCommandLaunch = null
         commandText?.let(reviewedText::release)
         commandText = input
-        running = extension to command; arguments = args; runtimeTree = null; runtimeError = null; runtimeStatus = "Starting extension…"; runtimeReady = false; navigationDepth = 1; launchEpoch++
+        invocationLaunchProperties = launchProperties; commandHandoffDepth = handoffDepth
+        running = extension to command; arguments = args.toMap(); runtimeTree = null; runtimeError = null; runtimeStatus = "Starting extension…"; runtimeReady = false; navigationDepth = 1; launchEpoch++
     }
     internal fun launchReviewed(extension: InstalledExtension, command: ExtensionCommand, preview: TextInputPreview, needsSetup: Boolean) {
         val target = TextInputTarget(extension.listing.id,command.name)
@@ -210,8 +222,55 @@ class ExtensionCatalog(private val context: Context) {
         return true
     }
     internal fun captureText(extension: InstalledExtension, command: ExtensionCommand): RuntimeText {
-        val input = if (running?.first === extension && running?.second === command) commandText else null
-        return RuntimeText(invocationOwner,TextInputTarget(extension.listing.id,command.name),input)
+        val current = running?.first === extension && running?.second === command
+        return RuntimeText(invocationOwner,TextInputTarget(extension.listing.id,command.name),if (current) commandText else null,
+            if (current) invocationLaunchProperties else ordinaryLaunchProperties(emptyMap()))
+    }
+    private fun requireLaunchFile(extension: InstalledExtension, command: ExtensionCommand) {
+        val directory = extension.directory.canonicalFile
+        require(directory.parentFile == root.canonicalFile && directory.name == extension.listing.id) { "The target extension is no longer installed" }
+        val script = File(directory, "${command.name}.js")
+        require(script.canonicalFile == script.absoluteFile && script.isFile && script.canRead() && script.length() <= 16L * 1024 * 1024) {
+            "The target command is unavailable; reinstall the extension before launching it"
+        }
+    }
+    internal fun prepareCommandLaunch(owner: Any, extension: InstalledExtension, source: ExtensionCommand,
+                                      request: ExtensionCommandLaunch): PreparedCommandLaunch {
+        check(ownsRuntime(owner, extension, source) && runtimeError == null) { "This command session has ended" }
+        preparedCommandLaunch = null
+        check(busy == null && installed.any { it === extension }) { "Wait for extension installation to finish before launching a command" }
+        check(extension.commands.any { it.name == source.name && it.definition === source.definition }) { "The source command has changed" }
+        val target = extension.commands.filter { it.name == request.name }.singleOrNull()
+            ?: error("The requested command is unavailable in this extension")
+        require(target.mode in listOf("view", "no-view")) { "The target command requires an unsupported desktop mode" }
+        require(!target.definition.optBoolean("disabled") && target.definition.opt("enabled") != false) { "The target command is disabled" }
+        require(commandHandoffDepth < 16) { "The command launch chain reached its Android limit" }
+        requireLaunchFile(extension, target)
+        ExtensionCommandLaunch.requireConfigured(extension.fields(target), preferences(extension, target))
+        val prepared = PreparedCommandLaunch(owner, extension, source, target, launchEpoch, preferencesEpoch,
+            source.definition.toString(), target.definition.toString(), request.launchProperties(target.definition), commandHandoffDepth + 1)
+        preparedCommandLaunch = prepared
+        return prepared
+    }
+    internal fun commitCommandLaunch(prepared: PreparedCommandLaunch): Boolean {
+        if (preparedCommandLaunch !== prepared) return false
+        preparedCommandLaunch = null // Every commit attempt consumes its reservation.
+        if (!ownsRuntime(prepared.owner, prepared.extension, prepared.source) || runtimeError != null || busy != null ||
+            launchEpoch != prepared.epoch || preferencesEpoch != prepared.preferenceEpoch || commandHandoffDepth + 1 != prepared.depth ||
+            installed.none { it === prepared.extension }) return false
+        if (prepared.extension.commands.none { it.name == prepared.source.name && it.definition === prepared.source.definition &&
+                it.definition.toString() == prepared.sourceDefinition }) return false
+        val target = prepared.extension.commands.filter { it.name == prepared.target.name }.singleOrNull() ?: return false
+        if (target.definition !== prepared.target.definition || target.definition.toString() != prepared.targetDefinition) return false
+        requireLaunchFile(prepared.extension, target)
+        ExtensionCommandLaunch.requireConfigured(prepared.extension.fields(target), preferences(prepared.extension, target))
+        // Context is explicit output of the approved parent. Its raw input lease
+        // and pending approval are never inherited by the new invocation.
+        val arguments = JSONObject(prepared.launchProperties).getJSONObject("arguments")
+        val values = arguments.keys().asSequence().associateWith { arguments.getString(it) }
+        reviewedText.invalidate(); preparedText = null
+        begin(prepared.extension, prepared.target, values, Any(), null, prepared.launchProperties, prepared.depth)
+        return true
     }
     internal fun ownsRuntime(owner: Any, extension: InstalledExtension, command: ExtensionCommand): Boolean =
         invocationOwner === owner && running?.first === extension && running?.second === command
@@ -235,6 +294,7 @@ class ExtensionCatalog(private val context: Context) {
     private fun revokeReviewedText() {
         stopRuntime(Any())
         reviewedText.invalidate(); commandText = null; preparedText = null
+        preparedCommandLaunch = null; invocationLaunchProperties = ordinaryLaunchProperties(emptyMap()); commandHandoffDepth = 0
     }
     fun close() { revokeReviewedText(); running = null; runtimeTree = null; runtimeError = null; runtimeStatus = ""; runtimeReady = false }
 }

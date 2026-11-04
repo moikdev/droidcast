@@ -128,7 +128,9 @@ private fun ExtensionSession(store: PaletteStore, extension: InstalledExtension,
         return
     }
     val context = LocalContext.current
-    val runtime = remember { ExtensionRuntime(context, store.extensions, extension, command) }
+    val runtime = remember { ExtensionRuntime(context, store.extensions, extension, command) {
+        store.dialog == "extension-run" && !store.backupBusy
+    } }
     val images = remember { ExtensionGridImages(extension.directory) }
     val detailImages = remember { ExtensionDetailImages(extension.directory) }
     val grids = remember { mutableMapOf<String, ExtensionGridState>() }
@@ -571,7 +573,12 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if(failed)TextButton(onClick=close,modifier=Modifier.testTag("extension-error-close")){Text("Close",fontSize=11.sp)}
         else {
             if(catalog.navigationDepth>1)TextButton(onClick=runtime::back){Text("Back",fontSize=11.sp)}
-            TextButton(onClick={store.extensionSetupFromRun=true;store.dialog="extension-setup"}){Text("Preferences",fontSize=11.sp)}
+            TextButton(onClick={
+                if (store.dialog == "extension-run" && catalog.launchEpoch == launchEpoch &&
+                    catalog.running?.first === extension && catalog.running?.second === command && runtime.isCurrentInvocation()) {
+                    store.extensionSetupFromRun=true;store.dialog="extension-setup"
+                }
+            }, modifier=Modifier.testTag("extension-preferences")){Text("Preferences",fontSize=11.sp)}
         }
     }){
         if(catalog.runtimeError!=null){
