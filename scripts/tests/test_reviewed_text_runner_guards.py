@@ -66,6 +66,11 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
             ['--translate-archive', 'not-read-network.zip'],
             'A frozen JSON archive is required outside the owned calculator cohort', without_archive=True)
 
+    def test_selected_translation_requires_its_archive_before_any_device_access(self):
+        self.refused_without_device_access('dev.tinycast.android.ReviewedTextDeviceTest#'
+            'selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure', [],
+            'The selected translation observation requires --translate-archive')
+
     def test_markdown_cannot_mix_with_shared_legacy_fixtures(self):
         self.refused_without_device_access(MARKDOWN + ',dev.tinycast.android.InlinePaletteDeviceTest', [],
                                            'Keep the shared menu/keyboard regression cohort separate')

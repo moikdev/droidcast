@@ -28,6 +28,18 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+SELECTED_TRANSLATION_CASE = ('dev.tinycast.android.ReviewedTextDeviceTest#'
+                             'selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure')
+
+
+def translation_test_filter(classes, has_archive):
+    # Preserve the default nine-case suite. The network-dependent observation
+    # runs only when its frozen archive is explicitly supplied.
+    require(has_archive or SELECTED_TRANSLATION_CASE not in classes.split(','),
+            'The selected translation observation requires --translate-archive')
+    return [] if has_archive else ['-e', 'notClass', SELECTED_TRANSLATION_CASE]
+
+
 def frozen_form_archive(path, expected):
     limit = 32 * 1024 * 1024
     require(path.stat().st_size <= limit, 'Frozen Form archive exceeds the size bound')
@@ -93,6 +105,7 @@ def main():
     require(not args.translate_archive or all(item.split('#')[0] in
         ['dev.tinycast.android.ExtensionDetailDeviceTest', 'dev.tinycast.android.ReviewedTextDeviceTest'] for item in args.classes.split(',')),
         'Network bundle is not authorized for this test class')
+    network_filter = translation_test_filter(args.classes, args.translate_archive is not None)
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
@@ -160,6 +173,7 @@ def main():
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'document_helper_sha256': sha(document_helper.read_bytes()),
+              'instrumentation_excluded_tests': [] if not network_filter else [SELECTED_TRANSLATION_CASE],
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
 
@@ -211,7 +225,7 @@ def main():
                          '-e', 'reviewedTextFixture', 'true', '-e', 'expectedTextInputLeaseOwner', owner,
                          '-e', 'expectedClipboardRecoveryOwner', owner,
                          '-e', 'expectedFormDocumentOwner', owner if args.document_fixtures else 'none',
-                         '-e', 'class', args.classes, app + '.test/androidx.test.runner.AndroidJUnitRunner']
+                         '-e', 'class', args.classes, *network_filter, app + '.test/androidx.test.runner.AndroidJUnitRunner']
         with (args.output / 'tests.log').open('wb') as log:
             process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=max(600, args.expected * 90))
         record['instrumentation_exit_code'] = process.returncode

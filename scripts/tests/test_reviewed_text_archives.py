@@ -11,6 +11,13 @@ spec.loader.exec_module(runner)
 
 
 class FrozenFormArchiveTest(unittest.TestCase):
+    def test_optional_translation_is_excluded_only_without_its_archive(self):
+        classes = 'dev.tinycast.android.ReviewedTextDeviceTest'
+        self.assertEqual(['-e', 'notClass', runner.SELECTED_TRANSLATION_CASE],
+                         runner.translation_test_filter(classes, False))
+        self.assertEqual([], runner.translation_test_filter(classes, True))
+        self.assertEqual([], runner.translation_test_filter(runner.SELECTED_TRANSLATION_CASE, True))
+
     def test_exact_binary_archive_bytes_survive(self):
         with tempfile.TemporaryDirectory() as root:
             path = Path(root) / 'owned.zip'
