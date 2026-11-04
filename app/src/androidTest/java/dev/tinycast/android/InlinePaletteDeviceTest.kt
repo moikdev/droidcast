@@ -246,6 +246,7 @@ class InlinePaletteDeviceTest {
     }
     private fun withTouchKeyboard(block: () -> Unit) {
         val previous = device.executeShellCommand("settings get secure show_ime_with_hard_keyboard").trim()
+        require(previous in setOf("null", "0", "1")) { "Unexpected dedicated-emulator keyboard setting" }
         device.executeShellCommand("settings put secure show_ime_with_hard_keyboard 1")
         try { block() } finally {
             device.executeShellCommand(if(previous == "null") "settings delete secure show_ime_with_hard_keyboard" else "settings put secure show_ime_with_hard_keyboard $previous")
@@ -284,7 +285,10 @@ class InlinePaletteDeviceTest {
             assertEquals("Notes", compose.activity.store.category)
             compose.onNodeWithTag("search").assertIsFocused().assert(SemanticsMatcher.expectValue(
                 SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString(""))).performTextReplacement(title)
-            assertEquals(id, compose.activity.store.results().single().id)
+            compose.runOnUiThread {
+                assertEquals("The owned note remains selected", id,
+                    compose.activity.store.results().getOrNull(compose.activity.store.selected)?.id)
+            }
             hideKeyboard()
             compose.onNodeWithTag("result-$id").assertIsDisplayed()
             captureMenuBoundary("menu-category-destination-${if(initialKeyboard) "open" else "closed"}")
@@ -307,7 +311,10 @@ class InlinePaletteDeviceTest {
             dismissClipboardForEvidence()
             hideKeyboard()
             compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 6))
-            assertEquals(id, compose.activity.store.results().single().id)
+            compose.runOnUiThread {
+                assertEquals("Actions belong to the live selected owned note", id,
+                    compose.activity.store.results().getOrNull(compose.activity.store.selected)?.id)
+            }
             pointer("actions-button", "palette-content-scroll")
             setMenuKeyboard(true)
             compose.onNodeWithTag("inline-menu-search").performTextReplacement("no such action")
