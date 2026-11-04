@@ -1644,6 +1644,12 @@ class ExtensionFormDeviceTest {
     @Test fun ownedNoViewReturnAcceptsFocusedEnterAndPreservesEscape() {
         launchOwnedNoView(); val node = compose.onNodeWithTag("extension-completion-return")
         node.performScrollTo(); assertCompletionReturnText()
+        record.put("focus_setup_touch_mode_before_tab", compose.runOnUiThread { compose.activity.window.decorView.isInTouchMode })
+        // Clipboard dismissal is a touch operation. Enter keyboard mode with
+        // a real Tab before requesting focus on a keyboard-focusable Button.
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_TAB)
+        compose.waitUntil(5000) { !compose.runOnUiThread { compose.activity.window.decorView.isInTouchMode } }
+        record.put("focus_setup_touch_mode_after_tab", false)
         node.performSemanticsAction(SemanticsActions.RequestFocus) { assertTrue(it()) }; node.assertIsFocused()
         capture("completion-focused-return")
         InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ENTER)
@@ -1652,7 +1658,7 @@ class ExtensionFormDeviceTest {
         awaitOwnedNoView(2); capture("completion-before-escape")
         InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ESCAPE)
         assertOwnedNoViewReturned(2)
-        record.put("focus_setup", "Native RequestFocus semantics; no pointer-focus claim")
+        record.put("focus_setup", "Instrumentation Tab enters keyboard mode, then native RequestFocus semantics; no pointer-focus claim")
             .put("input_execution", "Instrumentation key down/up: Enter on focused Return; Escape on fresh invocation")
             .put("enter_and_escape_preserved_copy_query", true).put("owned_runs", 2).put("passed", true)
         capture("completion-keyboard-caller-return")
