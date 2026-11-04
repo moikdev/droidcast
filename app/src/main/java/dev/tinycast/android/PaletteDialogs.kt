@@ -154,10 +154,19 @@ private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
 
 @Composable
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
-internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -> Unit, copy: (String) -> Unit, close: () -> Unit) {
-    data class Action(val label: String, val key: String, val perform: () -> Unit)
+internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -> Unit, copy: (String) -> Unit, close: () -> Unit,
+                         calculatorAction: (CalculatorActionSnapshot, CalculatorAction) -> Unit) {
+    // Keep the opening's exact query/selection even if its shared result ID is reused.
+    val calculator = remember(command) { CalculatorActionSnapshot.capture(store.calculatorSelection(command)) }
+    data class Action(val label: String, val key: String, val enabled: Boolean = true, val perform: () -> Unit)
     val actions = buildList {
-        add(Action(primaryActionTitle(command), "Enter") { close(); run(command) })
+        if (calculator != null) {
+            add(Action("Copy Answer", "Enter") { calculatorAction(calculator, CalculatorAction.COPY_ANSWER) })
+            add(Action("Put Answer in Search Bar", "Ctrl Enter", calculator.chainQuery != null) {
+                calculatorAction(calculator, CalculatorAction.PUT_ANSWER)
+            })
+            add(Action("Copy Calculation", "Ctrl Shift Enter") { calculatorAction(calculator, CalculatorAction.COPY_CALCULATION) })
+        } else add(Action(primaryActionTitle(command), "Enter") { close(); run(command) })
         if (command.id !in listOf("result", "web")) {
             add(Action(if (command.id in store.pins) "Unpin command" else "Pin command", "Ctrl D") { store.togglePin(command.id); close() })
             add(Action("Configure command", "Ctrl Shift ,") { close(); run(Command("configure-command", "Configure command", "", payload = command.id)) })
@@ -178,12 +187,15 @@ internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -
         val chord=when(action.key) {
             "Ctrl D" -> KeyChord(android.view.KeyEvent.KEYCODE_D,ShortcutRules.CTRL)
             "Ctrl Shift ," -> KeyChord(android.view.KeyEvent.KEYCODE_COMMA,ShortcutRules.CTRL or ShortcutRules.SHIFT)
+            "Ctrl Enter" -> KeyChord(android.view.KeyEvent.KEYCODE_ENTER,ShortcutRules.CTRL)
+            "Ctrl Shift Enter" -> KeyChord(android.view.KeyEvent.KEYCODE_ENTER,ShortcutRules.CTRL or ShortcutRules.SHIFT)
             else -> null
         }
         PaletteChoice("action-${action.label}", action.label, shortcut=if(action.key.isBlank()) emptyList() else action.key.replace("Enter","↵").split(' '),
             icon=when { action.label.startsWith("Copy")->"clipboard"; action.label.startsWith("Delete")->"trash"; action.label.startsWith("Edit")->"note";
                 action.label.contains("shortcut")->"keyboard"; action.label.contains("Pin")||action.label.startsWith("Unpin")->"star"; action.label.startsWith("Configure")->"settings"; else->"command" },
-            separator=index==1,chord=chord) { action.perform() }
+            separator=index==1,chord=chord,enabled=action.enabled,activateBeforeDismiss=calculator!=null,
+            isCurrent={ calculator == null || (calculator.isCurrent(store.currentCalculatorSelection()) && store.actionCommand == calculator.selection.command) }) { action.perform() }
     }, title = command.title, searchable = true)
 }
 

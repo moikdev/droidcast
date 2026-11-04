@@ -10,6 +10,7 @@ import unittest
 RUNNER = Path(__file__).resolve().parents[1] / 'test-reviewed-text-input.py'
 MARKDOWN = 'dev.tinycast.android.ExtensionMarkdownDeviceTest'
 DETAIL = 'dev.tinycast.android.ExtensionDetailDeviceTest'
+CALCULATOR = 'dev.tinycast.android.CalculatorActionsDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
@@ -40,6 +41,17 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
     def test_markdown_cannot_mix_with_shared_legacy_fixtures(self):
         self.refused_without_device_access(MARKDOWN + ',dev.tinycast.android.InlinePaletteDeviceTest', [],
                                            'Keep the shared menu/keyboard regression cohort separate')
+
+    def test_calculator_cannot_mix_with_extension_fixtures(self):
+        self.refused_without_device_access(CALCULATOR + ',' + DETAIL, [], 'Keep the owned calculator cohort separate')
+
+    def test_calculator_cannot_claim_documents_or_inject_recovery_failure(self):
+        self.refused_without_device_access(CALCULATOR, ['--document-fixtures'], 'Document fixtures belong only to the owned Form cohort')
+        self.refused_without_device_access(CALCULATOR, ['--inject-clipboard-restore-failure'],
+                                           'Restoration failure is limited to the deliberate process-death control')
+
+    def test_similarly_named_calculator_class_is_not_authorized(self):
+        self.refused_without_device_access(CALCULATOR + 'Extra', [], 'Only owned input/Form/Markdown')
 
     def test_markdown_cannot_claim_document_fixtures(self):
         self.refused_without_device_access(MARKDOWN, ['--document-fixtures'],

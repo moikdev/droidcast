@@ -94,6 +94,14 @@ object Calculator {
             }
             require(converted.isFinite())
             Calculation(input, "${format(converted)} $to", "Unit conversion · computed on device")
+        } else if (source.startsWith('=') && Regex("^(-?\\d+(?:\\.\\d+)?)\\s+([a-z]+)$").matches(text)) {
+            // Chaining a converted answer keeps its unit. Only explicit
+            // Calculator mode accepts a quantity literal; ordinary search is unchanged.
+            val parts = text.split(Regex("\\s+"))
+            val amount = parts[0].toDouble()
+            val unit = parts[1]
+            require(amount.isFinite() && (unit in units || unit in listOf("c", "f", "k")))
+            Calculation(source, "${format(amount)} $unit", "Quantity · computed on device")
         } else {
             val parser = Parser(text.replace('÷', '/').replace('−', '-'))
             val value = parser.parse()

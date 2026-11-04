@@ -64,10 +64,14 @@ def main():
                               'dev.tinycast.android.ExtensionFormDeviceTest',
                               'dev.tinycast.android.ExtensionMarkdownDeviceTest',
                               'dev.tinycast.android.ExtensionDetailDeviceTest',
+                              'dev.tinycast.android.CalculatorActionsDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
         for item in args.classes.split(',')), 'Only owned input/Form/Markdown or shared menu/keyboard regression tests are allowed')
     regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
+    calculator = any(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(','))
+    require(not calculator or all(item.split('#')[0] == 'dev.tinycast.android.CalculatorActionsDeviceTest' for item in args.classes.split(',')),
+            'Keep the owned calculator cohort separate from extension and legacy fixtures')
     require(not regression or all(item.split('#')[0] in regression_classes for item in args.classes.split(',')),
             'Keep the shared menu/keyboard regression cohort separate from owned extension fixtures')
     require(not args.document_fixtures or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),

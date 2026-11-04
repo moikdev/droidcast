@@ -117,6 +117,11 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val resultSelected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
         val selected = if (store.dialog in setOf("actions", "alias", "delete")) store.actionCommand ?: resultSelected else resultSelected
         val shortcutEngine = remember { ShortcutEngine() }
+        val calculatorKeys = remember { ShortcutEngine() }
+        DisposableEffect(windowFocused) {
+            if (!windowFocused) calculatorKeys.clear()
+            onDispose { calculatorKeys.clear() }
+        }
         var menu by remember { mutableStateOf(false) }
         fun close() = closeRoute()
         fun escape() {
@@ -139,11 +144,36 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             searchValue = searchValue.copy(composition = null)
             currentSelection()?.let(run)
         }
+        fun performCalculatorAction(expected: CalculatorActionSnapshot, action: CalculatorAction, explicit: Boolean) {
+            if (!view.hasWindowFocus() || store.backupBusy || store.textReview != null || ShortcutRuntime.recordingOwner != null) return
+            if (!expected.isCurrent(store.calculatorSelection(currentSelection()))) return
+            if (store.dialog !in listOf(null, "actions") || (store.dialog == "actions" && store.actionCommand != expected.selection.command)) return
+            if (!explicit && (searchValue.text != store.query || searchValue.composition != null)) return
+            if (action == CalculatorAction.PUT_ANSWER && expected.chainQuery == null) return
+            if (store.dialog == "actions") close()
+            store.used("result")
+            when (action) {
+                CalculatorAction.COPY_ANSWER -> copy(expected.answer)
+                CalculatorAction.COPY_CALCULATION -> copy(expected.calculation)
+                CalculatorAction.PUT_ANSWER -> {
+                    val query = expected.chainQuery!!
+                    store.search(query)
+                    searchValue = TextFieldValue(query, TextRange(query.length))
+                    keyboardRequested = true
+                    store.focusEpoch++
+                    focus.requestFocus()
+                    keyboard?.show()
+                }
+            }
+        }
         val handleKey: (KeyEvent) -> Boolean = { event ->
             val currentResults = results
             val currentSelected = currentSelection()
             val configured = if (event.action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) shortcutEngine.handle(event.asShortcutInput(), store.shortcutConfiguration.byChord, store.dialog != null || store.paletteMenuOpen || store.backupBusy || ShortcutRuntime.recordingOwner != null) else ShortcutEngine.Result(false)
             if (configured.target != null && !ShortcutRuntime.passesSettingsNavigation(event)) shortcut(configured.target, configured.chord!!)
+            val calculatorKey = if (event.action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) calculatorKeys.handle(event.asShortcutInput(), CalculatorAccelerators.bindings,
+                configured.consumed || store.dialog != null || store.paletteMenuOpen || store.backupBusy || ShortcutRuntime.recordingOwner != null || currentSelected?.kind != Kind.CALC)
+                else ShortcutEngine.Result(false)
             val ctrl = (event.isCtrlPressed xor event.isMetaPressed) && !event.isShiftPressed && !event.isAltPressed
             val preferencesKey = event.keyCode == KeyEvent.KEYCODE_COMMA && (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && store.dialog == null
             if (event.action == KeyEvent.ACTION_DOWN && preferencesKey) {
@@ -151,6 +181,14 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 run(if (event.isShiftPressed && target != null) Command("configure-command", "Configure command", "", payload = target.id) else Command("app-settings", "Settings", "")); true
             }
             else if (configured.consumed) true
+            else if (calculatorKey.consumed) {
+                calculatorKey.target?.let { action ->
+                    CalculatorActionSnapshot.capture(store.calculatorSelection(currentSelected))?.let {
+                        performCalculatorAction(it, CalculatorAction.valueOf(action), explicit=false)
+                    }
+                }
+                true
+            }
             else if (event.action != KeyEvent.ACTION_DOWN) false
             else if (event.keyCode == KeyEvent.KEYCODE_ESCAPE) { escape(); true }
             else if (store.dialog != null) false
@@ -256,7 +294,9 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                     if(selected!=null) Box {
                         PaletteActionCapsule(primaryActionTitle(selected), {activateExplicitly()}, {currentSelection()?.let { store.actionCommand=it;store.dialog="actions" }},
                             "primary-action", "actions-button", compact=!wide)
-                        if(store.dialog=="actions") ActionsMenu(store,store.actionCommand ?: selected,run,copy,::close)
+                        if(store.dialog=="actions") ActionsMenu(store,store.actionCommand ?: selected,run,copy,::close) { owner, action ->
+                            performCalculatorAction(owner, action, explicit=true)
+                        }
                     }
                 }
             }
