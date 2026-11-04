@@ -4,7 +4,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.view.KeyEvent
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
@@ -50,6 +49,7 @@ class ExtensionRecordedTestsDeviceTest {
     private val catalog get() = activity().store.extensions
     private val ids = mutableListOf<String>()
     private var primary: String? = null
+    private var viewMonitor: android.app.Instrumentation.ActivityMonitor? = null
     private var prepared = false
     private var palette = emptyMap<String, Any?>()
     private var preserved = emptyList<File>()
@@ -105,6 +105,7 @@ class ExtensionRecordedTestsDeviceTest {
         val args=InstrumentationRegistry.getArguments()
         assumeTrue("Use the guarded source-inspection runner",args.getString("reviewedTextFixture")=="true")
         assertEquals("Tinycast_Tablet_API_36",args.getString("dedicatedAvd"));lease()
+        viewMonitor=instrumentation.addMonitor(android.content.IntentFilter(Intent.ACTION_VIEW),android.app.Instrumentation.ActivityResult(0,null),true)
         originalDirectories=root.listFiles().orEmpty().map { it.name }.toSet()
         preserved=root.listFiles().orEmpty().flatMap { listOf(it,File(context.filesDir,"extension-data/${it.name}"),File(context.applicationInfo.dataDir,"shared_prefs/extension-${it.name}.xml")) }
         fingerprints=preserved.map(::fingerprint);palette=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap();prepared=true
@@ -193,7 +194,7 @@ class ExtensionRecordedTestsDeviceTest {
     }
     @Test fun matchingRecordsSearchDetailsAndReturn() {
         enter(true)
-        compose.onNodeWithTag("recorded-tests-match").assertTextContains("Installed files match")
+        compose.onNodeWithTag("recorded-tests-match").assertTextContains("Installed files match",substring=true)
         capture("matched-source")
         filtered("clipboard")
         val id="batch001-json-format-formatclipboard"
@@ -219,22 +220,22 @@ class ExtensionRecordedTestsDeviceTest {
         val directory=extension().directory
         val candidate=directory.walkTopDown().first { it.isFile&&it.relativeTo(directory).path.startsWith("assets/") }
         candidate.appendText("\nOwned inspection-only asset modification")
-        enter();compose.onNodeWithTag("recorded-tests-match").assertTextContains("do not match")
+        enter();compose.onNodeWithTag("recorded-tests-match").assertTextContains("do not match",substring=true)
         capture("asset-change-unknown")
         tap("recorded-tests-other-versions")
         filtered("manual JSON")
         compose.onNodeWithTag("recorded-test-batch001-json-format-index").assertExists();capture("other-source-historical")
         record.put("asset_only_change_not_promoted",true);passed()
     }
-    @Test fun missingCommandAndUnknownIdentityDoNotBorrowRecords() {
+    @Test fun missingCommandDoesNotBorrowRecords() {
         assertTrue(File(extension().directory,"index.js").delete())
-        enter();compose.onNodeWithTag("recorded-tests-match").assertTextContains("do not match")
+        enter();compose.onNodeWithTag("recorded-tests-match").assertTextContains("do not match",substring=true)
         capture("missing-command-unknown");passed()
     }
     @Test fun linkedPayloadShowsRetryError() {
         val directory=extension().directory;val index=File(directory,"index.js");assertTrue(index.delete())
         Files.createSymbolicLink(index.toPath(),File(directory,"formatClipboard.js").toPath())
-        enter();compose.onNodeWithTag("recorded-tests-error").assertTextContains("Installed files could not")
+        enter();compose.onNodeWithTag("recorded-tests-error").assertTextContains("Installed files could not",substring=true)
         capture("linked-source-error")
         tap("recorded-tests-retry");compose.onNodeWithTag("recorded-tests-error").assertExists();passed()
     }
@@ -246,7 +247,7 @@ class ExtensionRecordedTestsDeviceTest {
     @Test fun unknownListingIdentityCannotBorrowThePayloadMatch() {
         val old=extension();val next=old.copy(listing=old.listing.copy(handle="owned-unknown-author"))
         instrumentation.runOnMainSync { replaceInstalled(next) }
-        enter();compose.onNodeWithTag("recorded-tests-match").assertTextContains("No source version")
+        enter();compose.onNodeWithTag("recorded-tests-match").assertTextContains("No source version",substring=true)
         capture("unknown-listing");passed()
     }
     @Test fun replacementAndQueryChangeRejectQueuedActions() {
@@ -266,13 +267,13 @@ class ExtensionRecordedTestsDeviceTest {
         compose.onNodeWithText("Sample inputs and configured preferences from the published workflow report.",useUnmergedTree=true).assertExists()
         instrumentation.runOnMainSync { replacementDetails() };compose.waitForIdle()
         compose.mainClock.autoAdvance=false
-        try { instrumentation.runOnMainSync { replaceInstalled(extension().copy());replacementDetails();replacementReport() } }
+        try { instrumentation.runOnMainSync { replaceInstalled(extension().copy(manifest=JSONObject(extension().manifest.toString())));replacementDetails();replacementReport() } }
         finally { compose.mainClock.autoAdvance=true }
         compose.onNodeWithTag("recorded-tests-changed").assertExists();capture("replacement-rejected")
         tap("extension-back");compose.onNodeWithTag("store-search").assertTextEquals("Owned JSON Format source")
         record.put("queued_old_actions_rejected",true);passed()
     }
-    private fun injected(source:ExtensionWorkflowSource?, reportFailure:Boolean):java.util.concurrent.atomic.AtomicInteger {
+    private fun injected(source:(() -> java.io.InputStream)?, reportFailure:Boolean):java.util.concurrent.atomic.AtomicInteger {
         val calls=java.util.concurrent.atomic.AtomicInteger(0);val current=activity();val ext=extension()
         val wrapped=object:ContextWrapper(current) { override fun startActivity(intent:Intent) {
             assertEquals(Intent.ACTION_VIEW,intent.action);assertTrue(requireNotNull(intent.dataString).startsWith("https://github.com/moikdev/droidcast/blob/"))
@@ -280,14 +281,14 @@ class ExtensionRecordedTestsDeviceTest {
             if(reportFailure)throw android.content.ActivityNotFoundException("Owned no-handler fixture")
         } }
         instrumentation.runOnMainSync { current.setContent { MaterialTheme { CompositionLocalProvider(LocalContext provides wrapped) {
-            PaletteMenuHost(current.store) { ExtensionRecordedTests(current.store,ext,{true},{current.store.dialog=null},source) }
+            PaletteMenuHost(current.store) { ExtensionRecordedTests(current.store,ext,{true},{current.store.dialog=null},source?.let(::ExtensionWorkflowSource)) }
         } } } }
         compose.waitForIdle();return calls
     }
     @Test fun unavailableCatalogAndReportErrorsRemainExplicit() {
-        injected(ExtensionWorkflowSource { throw IOException("Owned unavailable catalog") },false)
+        injected({ throw IOException("Owned unavailable catalog") },false)
         compose.waitUntil(10000) { compose.onAllNodesWithTag("recorded-tests-error").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithTag("recorded-tests-error").assertTextContains("No compatibility result has been determined")
+        compose.onNodeWithTag("recorded-tests-error").assertTextContains("No compatibility result has been determined",substring=true)
         capture("injected-catalog-error");tap("recorded-tests-retry")
         compose.onNodeWithTag("recorded-tests-error").assertExists()
         val calls=injected(null,true)
@@ -314,6 +315,7 @@ class ExtensionRecordedTestsDeviceTest {
         catch(failure:Throwable) { record.put("failure_capture_error_type",failure.javaClass.simpleName) }
         finally {
             compose.mainClock.autoAdvance=true
+            viewMonitor?.let { monitor -> instrumentation.removeMonitor(monitor);assertEquals("No uncaptured ACTION_VIEW request",0,monitor.hits) };viewMonitor=null
             instrumentation.runOnMainSync {
                 listOf(Stage.CREATED,Stage.STARTED,Stage.RESUMED,Stage.PAUSED,Stage.STOPPED)
                     .flatMap { ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(it) }.filterIsInstance<MainActivity>().distinct()
