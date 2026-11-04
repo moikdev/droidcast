@@ -344,29 +344,45 @@ class ReviewedTextDeviceTest {
     }
     private fun jsonWorkflow(share: Boolean, readOnly: Boolean) {
         caller(readOnly = readOnly); capture("caller", true); send(share); assertReview()
-        choose(formatterId, "formatSelectionAndShow"); capture("chosen")
-        touch("text-input-run")
+        val commandName = InstrumentationRegistry.getArguments().getString("reviewedJsonCommand") ?: "formatSelectionAndShow"
+        assertTrue(commandName in setOf("formatSelectionAndShow", "formatSelection"))
+        if (commandName == "formatSelection") { assertFalse(share); assertTrue(readOnly) }
+        val extension = foregroundActivity().store.extensions.installed.single { it.listing.id == formatterId }
+        val commandHash = hash(File(extension.directory, "$commandName.js").readBytes())
+        assertEquals(if (commandName == "formatSelection") "b445fd841a7a81d29fa1db2b6f6107ed332edc3174cd3ce788267270f771ccdb"
+            else "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92", commandHash)
+        record.put("executed_command", commandName).put("command_sha256", commandHash)
+        choose(formatterId, commandName); capture("chosen"); touch("text-input-run")
         val catalog = foregroundActivity().store.extensions
-        compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.isNotEmpty() == true }
-        assertNull(catalog.runtimeError, catalog.runtimeError)
-        val markdown = activeRoot(catalog.runtimeTree)!!.props().getString("markdown")
-        assertEquals("```json\n$output\n```", markdown)
-        assertEquals(sentinel, clipboardText())
-        compose.onNodeWithTag("extension-primary").assertTextContains("Copy Full JSON", substring = true)
-        compose.waitForIdle()
-        compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-markdown-loading").fetchSemanticsNodes().isEmpty() }
-        record.put("native_format_contract_started", true)
-        assertEquals("Frozen JSON must expose exact selectable native code without Markdown fences", 1,
-            compose.onAllNodesWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNodes().size)
-        val code = compose.onNodeWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNode()
-        val rendered = code.config[SemanticsProperties.Text].single().text
-        assertEquals(output + "\n", rendered)
-        val layouts = mutableListOf<TextLayoutResult>()
-        instrumentation.runOnMainSync { assertTrue(requireNotNull(code.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
-        assertEquals(FontFamily.Monospace, layouts.single().layoutInput.style.fontFamily)
-        record.put("native_code_exact_output_sha256", hash(rendered.toByteArray())).put("native_code_monospace", true)
-        capture("formatted")
-        touch("extension-primary")
+        if (commandName == "formatSelection") {
+            compose.waitUntil(30000) { catalog.runtimeError != null || catalog.runtimeReady && clipboardText() == output }
+            assertNull(catalog.runtimeError, catalog.runtimeError); assertEquals(output, clipboardText())
+            assertEquals("no-view", extension.commands.single { it.name == commandName }.mode)
+            record.put("scope", "Unmodified frozen formatSelection after explicit owned review/Run; exact Copy and unchanged external source return; desktop auto-close is not certified")
+                .put("copy_trigger", "Explicit reviewed Run executes the no-view command's own Copy")
+            capture("formatted-no-view-status")
+        } else {
+            compose.waitUntil(30000) { catalog.runtimeError != null || activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.isNotEmpty() == true }
+            assertNull(catalog.runtimeError, catalog.runtimeError)
+            val markdown = activeRoot(catalog.runtimeTree)!!.props().getString("markdown")
+            assertEquals("```json\n$output\n```", markdown)
+            assertEquals(sentinel, clipboardText())
+            compose.onNodeWithTag("extension-primary").assertTextContains("Copy Full JSON", substring = true)
+            compose.waitForIdle()
+            compose.waitUntil(10000) { compose.onAllNodesWithTag("extension-markdown-loading").fetchSemanticsNodes().isEmpty() }
+            record.put("native_format_contract_started", true)
+            assertEquals("Frozen JSON must expose exact selectable native code without Markdown fences", 1,
+                compose.onAllNodesWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNodes().size)
+            val code = compose.onNodeWithTag("extension-markdown-code", useUnmergedTree = true).fetchSemanticsNode()
+            val rendered = code.config[SemanticsProperties.Text].single().text
+            assertEquals(output + "\n", rendered)
+            val layouts = mutableListOf<TextLayoutResult>()
+            instrumentation.runOnMainSync { assertTrue(requireNotNull(code.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
+            assertEquals(FontFamily.Monospace, layouts.single().layoutInput.style.fontFamily)
+            record.put("native_code_exact_output_sha256", hash(rendered.toByteArray())).put("native_code_monospace", true)
+            capture("formatted")
+            touch("extension-primary")
+        }
         compose.waitUntil(10000) { clipboardText() == output }
         dismissClipboardForEvidence(); capture("copied")
         touch("extension-back")

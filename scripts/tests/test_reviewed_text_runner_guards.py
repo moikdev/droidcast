@@ -56,6 +56,21 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
                     self.refused_without_device_access(selected, [flag, 'not-read-network.zip'],
                                                        'Network bundle is not authorized for this test class')
 
+    def test_offline_archives_are_limited_to_the_owned_form_cohort(self):
+        for flag in ['--uuid-archive', '--lorem-archive']:
+            for selected in [MARKDOWN, DETAIL, CALCULATOR, CLIPBOARD, 'dev.tinycast.android.ReviewedTextDeviceTest']:
+                with self.subTest(flag=flag, selected=selected):
+                    self.refused_without_device_access(selected, [flag, 'not-read-offline.zip'],
+                        'Offline bundles belong only to the owned Form cohort')
+
+    def test_no_view_json_cannot_change_other_review_or_runtime_cases(self):
+        for selected in ['dev.tinycast.android.ReviewedTextDeviceTest',
+                         'dev.tinycast.android.ReviewedTextDeviceTest#sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns',
+                         DETAIL, CALCULATOR, 'dev.tinycast.android.ExtensionFormDeviceTest']:
+            with self.subTest(selected=selected):
+                self.refused_without_device_access(selected, ['--reviewed-json-command', 'formatSelection'],
+                    'The no-view formatter requires the single reviewed selection workflow')
+
     def test_network_archives_do_not_borrow_the_calculator_archive_exemption(self):
         for flag in ['--translate-archive', '--weather-archive']:
             self.refused_without_device_access(CALCULATOR, [flag, 'not-read-network.zip'],
