@@ -19,6 +19,15 @@ PASTE_COPY = 'dev.tinycast.android.ExtensionPasteCopyDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
+    def test_legacy_paste_reveal_is_limited_to_the_exact_diagnostic(self):
+        case = PASTE_COPY + '#keyboardCopyHidesImeAndEscapeReturns'
+        for classes, options in [(PASTE_COPY, ['--layout', 'landscape', '--font-scale', '2', '--expected', '1']),
+                                 (case, []),
+                                 (case, ['--layout', 'landscape', '--font-scale', '1', '--expected', '1']),
+                                 (case, ['--layout', 'landscape', '--font-scale', '2', '--expected', '2'])]:
+            self.refused_without_device_access(classes, ['--paste-copy-legacy-reveal', *options],
+                'Legacy reveal is limited to the single enlarged-landscape owned keyboard diagnostic')
+
     def test_owned_paste_copy_cannot_mix_with_other_fixtures(self):
         for selected in [DETAIL, HANDOFF, CALCULATOR, 'dev.tinycast.android.ReviewedTextDeviceTest']:
             self.refused_without_device_access(PASTE_COPY + ',' + selected, [],

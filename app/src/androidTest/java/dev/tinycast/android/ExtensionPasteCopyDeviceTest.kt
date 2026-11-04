@@ -254,12 +254,43 @@ class ExtensionPasteCopyDeviceTest {
     }
     private fun tap(tag: String) {
         val node = compose.onNodeWithTag(tag); val minimum = context.resources.displayMetrics.density * 48f
+        val legacy = InstrumentationRegistry.getArguments().getString("pasteCopyLegacyReveal") == "true"
         var steps = 0
         while (node.fetchSemanticsNode().boundsInRoot.let { it.width + 1 < minimum || it.height + 1 < minimum } && steps++ < 30) {
-            compose.onNodeWithTag("palette-content-scroll").performTouchInput {
-                if (tag.endsWith("back")) swipe(Offset(4f, height * .2f), Offset(4f, height * .8f), 300)
-                else swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
+            val surface = compose.onNodeWithTag("palette-content-scroll").fetchSemanticsNode()
+            val panel = compose.onNodeWithTag("extension-palette").fetchSemanticsNode().boundsInRoot
+            val origin = compose.runOnUiThread { surface.positionInRoot }
+            // The old four-pixel gutter may lie outside the rounded palette
+            // when the IME leaves only a short viewport. Use its interior.
+            val x = if (legacy) 4f else minOf(surface.size.width / 2f, minimum)
+            val start = Offset(x, surface.size.height * if (tag.endsWith("back")) .2f else .8f)
+            val end = Offset(x, surface.size.height * if (tag.endsWith("back")) .8f else .2f)
+            val radius = minOf(PaletteTheme.radius.value * context.resources.displayMetrics.density, panel.width / 2f, panel.height / 2f)
+            fun insideRoundedPanel(point: Offset): Boolean {
+                if (point.x < panel.left || point.x > panel.right || point.y < panel.top || point.y > panel.bottom) return false
+                val dx = maxOf(panel.left + radius - point.x, 0f, point.x - (panel.right - radius))
+                val dy = maxOf(panel.top + radius - point.y, 0f, point.y - (panel.bottom - radius))
+                return dx * dx + dy * dy <= radius * radius
             }
+            val paths = record.optJSONArray("reveal_paths") ?: JSONArray().also { record.put("reveal_paths", it) }
+            val path = JSONObject().put("tag", tag).put("step", steps).put("legacy_four_pixel_gutter", legacy)
+                .put("panel_bounds", JSONArray(listOf(panel.left, panel.top, panel.right, panel.bottom)))
+                .put("scroll_origin", JSONArray(listOf(origin.x, origin.y)))
+                .put("scroll_size", JSONArray(listOf(surface.size.width, surface.size.height)))
+                .put("start_in_root", JSONArray(listOf(origin.x + start.x, origin.y + start.y)))
+                .put("end_in_root", JSONArray(listOf(origin.x + end.x, origin.y + end.y)))
+                .put("rounded_panel_radius_px", radius)
+                .put("start_inside_rounded_panel", insideRoundedPanel(origin + start))
+                .put("legacy_start_inside_rounded_panel", insideRoundedPanel(origin + Offset(4f, start.y)))
+                .put("dialog_before", activity().store.dialog).put("command_before", catalog.running?.second?.name)
+            paths.put(path)
+            if (name.methodName == "keyboardCopyHidesImeAndEscapeReturns") capture("reveal-$steps-before")
+            compose.onNodeWithTag("palette-content-scroll").performTouchInput {
+                swipe(start, end, 300)
+            }
+            path.put("dialog_after", activity().store.dialog ?: JSONObject.NULL)
+                .put("command_after", catalog.running?.second?.name ?: JSONObject.NULL)
+            if (name.methodName == "keyboardCopyHidesImeAndEscapeReturns") capture("reveal-$steps-after")
         }
         val bounds = node.fetchSemanticsNode().boundsInRoot
         assertTrue("$tag requires a complete 48dp target", bounds.width + 1 >= minimum && bounds.height + 1 >= minimum)

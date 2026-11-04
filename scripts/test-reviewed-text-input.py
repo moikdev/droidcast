@@ -85,6 +85,7 @@ def main():
                         'quick-translate-view', 'instant-translate-paste', 'instant-translate-view'], default='instant-translate-copy')
     parser.add_argument('--expect-completion-return', action='store_true', help='Require the completed no-view touch Return in owned Form or the single reviewed no-view JSON workflow')
     parser.add_argument('--expect-paste-copy-fallback', action='store_true', help='Require explicit native Copy and source return in the single frozen paste observation')
+    parser.add_argument('--paste-copy-legacy-reveal', action='store_true', help='Diagnostic control only: replay the old edge reveal in the single enlarged-landscape owned keyboard case')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
     parser.add_argument('--font-scale', type=float, default=1)
@@ -92,6 +93,10 @@ def main():
     parser.add_argument('--inject-clipboard-restore-failure', action='store_true',
                         help='Negative control only: retain the lease after an intentional process-death probe')
     args = parser.parse_args()
+    require(not args.paste_copy_legacy_reveal or
+            args.classes == 'dev.tinycast.android.ExtensionPasteCopyDeviceTest#keyboardCopyHidesImeAndEscapeReturns' and
+            args.layout == 'landscape' and args.font_scale == 2 and args.expected == 1,
+            'Legacy reveal is limited to the single enlarged-landscape owned keyboard diagnostic')
     require(not args.expect_paste_copy_fallback or
             args.classes == SELECTED_TRANSLATION_CASE and args.reviewed_translation_command == 'instant-translate-paste' and args.translate_archive is not None,
             'Paste Copy fallback requires the single frozen paste observation and its Translate archive')
@@ -229,6 +234,7 @@ def main():
               'reviewed_translation_command': args.reviewed_translation_command,
               'expect_completion_return': args.expect_completion_return,
               'expect_paste_copy_fallback': args.expect_paste_copy_fallback,
+              'paste_copy_legacy_reveal': args.paste_copy_legacy_reveal,
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
 
@@ -282,6 +288,7 @@ def main():
                          '-e', 'reviewedTranslationCommand', args.reviewed_translation_command,
                          '-e', 'expectCompletionReturn', str(args.expect_completion_return).lower(),
                          '-e', 'expectPasteCopyFallback', str(args.expect_paste_copy_fallback).lower(),
+                         '-e', 'pasteCopyLegacyReveal', str(args.paste_copy_legacy_reveal).lower(),
                          '-e', 'expectedClipboardRecoveryOwner', owner,
                          '-e', 'expectedFormDocumentOwner', owner if args.document_fixtures else 'none',
                          '-e', 'class', args.classes, *network_filter, app + '.test/androidx.test.runner.AndroidJUnitRunner']
