@@ -10,6 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -112,7 +113,7 @@ class ExtensionRecordedTestsDeviceTest {
         // Host-staged immutable metadata allows the common harness's old-app
         // entry control to reach the intended missing-button assertion first.
         payloads=JSONObject(File(leaseRoot,"recorded-catalog.json").readText())
-        primary=seed("json-format").first
+        primary=seed(if(name.methodName=="weatherHistoricalIdentityMatchesTheRecordedApk") "weather" else "json-format").first
         context.startActivity(Intent(Intent.ACTION_MAIN).setComponent(ComponentName(context.packageName,MainActivity::class.java.name)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).depth(0)),10000))
         compose.waitUntil(15000) { activityOrNull()?.store?.loading==false }
@@ -120,7 +121,7 @@ class ExtensionRecordedTestsDeviceTest {
         dismissClipboardForEvidence()
         instrumentation.runOnMainSync { activity().store.reset();activity().store.search("owned-recorded-tests-caller");activity().store.dialog="extensions" }
         compose.onNodeWithTag("store-installed").performClick()
-        compose.onNodeWithTag("store-search").performTextReplacement("Owned JSON Format source")
+        compose.onNodeWithTag("store-search").performTextReplacement(extension().listing.title)
         instrumentation.runOnMainSync { androidx.core.view.WindowCompat.getInsetsController(activity().window,activity().window.decorView)
             .hide(androidx.core.view.WindowInsetsCompat.Type.ime()) }
         compose.waitForIdle();geometry(false)
@@ -170,8 +171,9 @@ class ExtensionRecordedTestsDeviceTest {
     private fun enter(captureBefore:Boolean=false) {
         if(captureBefore)capture("installed-before-entry")
         // First new-API assertion: the old-app common control fails here.
-        compose.onNodeWithTag("recorded-tests-json-format").assertExists()
-        tap("recorded-tests-json-format","store-results")
+        val entry="recorded-tests-"+extension().listing.name
+        compose.onNodeWithTag(entry).assertExists()
+        tap(entry,"store-results")
         compose.waitUntil(20000) {
             try {
                 // Readiness can be below a tall intro. Realize its lazy item;
@@ -376,6 +378,44 @@ class ExtensionRecordedTestsDeviceTest {
         assertTrue("Fixed keyboard target stays above the actual IME",button.bottom<=view.height-bottom+1)
         capture("fixed-search-ime-open");tap("recorded-tests-keyboard");geometry(false)
         record.put("fixed_search_and_keyboard_reachable",true);passed()
+    }
+    @Test fun weatherHistoricalIdentityMatchesTheRecordedApk() {
+        enter();filtered("Tokyo")
+        tap("recorded-details-weather-tokyo-observation")
+        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasText("Test source:",substring=true))
+        val textNode=compose.onAllNodes(hasText("Test source:",substring=true),useUnmergedTree=true).fetchSemanticsNodes()
+            .single { it.config.contains(SemanticsActions.GetTextLayoutResult) }
+        val text=textNode.config[SemanticsProperties.Text].joinToString("\n") { it.text }
+        val observedSource=requireNotNull(Regex("Test source: ([0-9a-f]{40})").find(text)).groupValues[1]
+        val observedApk=requireNotNull(Regex("Test APK: ([0-9a-f]{64})").find(text)).groupValues[1]
+        val layouts=mutableListOf<TextLayoutResult>()
+        assertTrue(requireNotNull(textNode.config[SemanticsActions.GetTextLayoutResult].action).invoke(layouts))
+        val layout=layouts.single()
+        for((label,value) in listOf("Test source: " to observedSource,"Test APK: " to observedApk)) {
+            val start=text.indexOf(label);val end=start+label.length+value.length-1
+            for(line in layout.getLineForOffset(start)..layout.getLineForOffset(end)) {
+                assertFalse(layout.isLineEllipsized(line))
+                assertTrue(layout.getLineLeft(line)>=-1&&layout.getLineRight(line)<=textNode.size.width+1)
+                var reached=false
+                for(attempt in 0..40) {
+                    val now=compose.onNodeWithText(text,useUnmergedTree=true).fetchSemanticsNode()
+                    val viewport=compose.onNodeWithTag("recorded-tests-list").fetchSemanticsNode().boundsInRoot
+                    val origin=compose.runOnUiThread { now.layoutInfo.coordinates.localToRoot(Offset.Zero) }
+                    val top=origin.y+layout.getLineTop(line);val bottom=origin.y+layout.getLineBottom(line)
+                    if(top>=viewport.top-1&&bottom<=viewport.bottom+1) { reached=true;break }
+                    val raw=if(top<viewport.top) top-viewport.top else bottom-viewport.bottom
+                    val magnitude=maxOf(kotlin.math.abs(raw)+4,24*context.resources.displayMetrics.density).coerceAtMost(viewport.height*.5f)
+                    swipe("recorded-tests-list",if(raw<0)-magnitude else magnitude)
+                }
+                assertTrue("Complete recorded identity line $line",reached)
+            }
+            capture(if(label.startsWith("Test source"))"weather-test-source" else "weather-test-apk")
+        }
+        record.put("observed_historical_test_source",observedSource).put("observed_historical_test_apk",observedApk)
+            .put("identity_setup","Semantic text positioning; native pointer scrolling for complete identity lines; no Weather code or service is executed")
+        assertEquals("Weather historical source must match its recorded test APK","d806004eb4d65a43e08c3966fff16ebd79d9affb",observedSource)
+        assertEquals("e26b3fe6b97575edbbc2fda121b6615d65316264db48b87dd5d87614ea16969d",observedApk)
+        passed()
     }
     @After fun restore() {
         if(!prepared)return

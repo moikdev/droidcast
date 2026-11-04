@@ -9,6 +9,16 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ExtensionWorkflowEvidenceTest {
+    @Test fun weatherHistoricalSourceAndBothApksMatchTheCohortIdentity() {
+        val identity = JSONObject(java.io.File("../docs/validation/extension-compatibility/fetch/identities/build-harness-v3.json").readText())
+        val catalog = ExtensionWorkflowEvidence.parse(java.io.File("src/main/assets/extension-workflow-evidence-v1.json").readBytes())
+        val observed = catalog.observations.single { it.id == "weather-tokyo-observation" }.environment
+        val apks = identity.getJSONObject("apk_hashes")
+        assertEquals(apks.getString("app-debug-androidTest.apk"), observed.testSha256)
+        assertEquals(identity.getString("test_source_commit"), observed.testSource)
+        assertEquals(apks.getString("app-debug.apk"), observed.appSha256)
+        assertEquals(identity.getString("runtime_source_commit"), observed.appSource)
+    }
     @Test fun shippedCatalogParsesAndKeepsUntestedCommandsSeparateFromHistoricalOutcomes() {
         val bytes = java.io.File("src/main/assets/extension-workflow-evidence-v1.json").readBytes()
         val catalog = ExtensionWorkflowEvidence.parse(bytes)

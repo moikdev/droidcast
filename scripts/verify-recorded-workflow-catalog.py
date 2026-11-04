@@ -58,8 +58,11 @@ add('http-status-codes','index','http-before-root-repair','observed_failure','Ea
  phases(startup=('failed','The command reported an owned-root filesystem error before its search/Copy workflow.'),interaction=('not_exercised','Search and Copy were not completed.'),destination=('not_exercised','No successful action output was verified.')),
  legacy_env,old,cp_path,'docs/EXTENSION-WORKFLOWS.md')
 weather_case='docs/validation/extension-compatibility/fetch/cohorts/frozen-weather-tablet-v1/captures/detail-frozenweatherreportstheownedtokyoworkflowoutcome-record.json';w=read(fetch,weather_case)
-wr=read(fetch,'docs/validation/extension-compatibility/fetch/cohorts/frozen-weather-tablet-v1/runner-record.json');wh=read(fetch,'docs/validation/extension-compatibility/fetch/identities/build-harness-v4.json')
+wr=read(fetch,'docs/validation/extension-compatibility/fetch/cohorts/frozen-weather-tablet-v1/runner-record.json');wh=read(fetch,'docs/validation/extension-compatibility/fetch/identities/build-harness-v3.json')
 require(w['archive_sha256']==by_name['weather']['archive_sha256'] and w['workflow_outcome']=='partial-rendered-rows' and w['caller_returned'], 'Pinned historical record invariant differs')
+require(wh['apk_hashes']['app-debug-androidTest.apk']==wr['test_apk_sha256'] and wh['apk_hashes']['app-debug.apk']==wr['apk_sha256'] and wh['runtime_source_commit']==w['installed_build_commit'], 'Weather source identity does not match the cohort APKs')
+weather_phone=read(fetch,'docs/validation/extension-compatibility/fetch/cohorts/frozen-weather-phone-v1/runner-record.json')
+require(weather_phone['completed'] and weather_phone['test_apk_sha256']==wr['test_apk_sha256'] and weather_phone['apk_sha256']==wr['apk_sha256'], 'Weather phone/tablet APK identities differ')
 add('weather','index','weather-tokyo-observation','partial','The Tokyo search reached the service and rendered rows; forecast actions and city identity were not verified.','Tokyo was entered into the composed search using the recorded test setup.',
  ['Weather remains partial. This does not certify the city identity, forecast values or action destinations.','Requests before observer attachment are outside the recorded network scope.'],
  phases(interaction=('passed','The owned Tokyo request and subsequent native rows were observed.'),destination=('not_exercised','Forecast detail/actions and exact city identity were not exercised.'),lifecycle=('passed','The workflow returned to its owned caller.')),
@@ -79,6 +82,7 @@ add('translate','instant-translate-paste','translate-paste-explicit-copy','parti
 mp='docs/validation/context-workflows/cohorts/baseline-menu-bar-tablet100-v4/cases/text-desktopmenubarisunavailableinreviewedchooserandreturnstosource-record.json';m=read(context_commit,mp)
 mi=read(context_commit,'docs/validation/context-workflows/identities/build-observations-v4.json');mc=read(context_commit,'docs/validation/context-workflows/checkpoint.json');mr=next(x for x in mc['cohorts'] if x['name']=='baseline-menu-bar-tablet100-v4')
 require(m['weather_archive_sha256']==by_name['weather']['archive_sha256'] and m['extension_bytecode_executed'] is False and m['workflow_outcome']=='blocked-menu-bar-reviewed-entry', 'Pinned historical record invariant differs')
+require(mi['apk_hashes']['app-debug-androidTest.apk']==mr['test_apk_sha256'] and mi['apk_hashes']['app-debug.apk']==mr['app_sha256'] and mi['runtime_source_commit']==m['installed_build_commit'], 'Menu-bar source identity does not match the cohort APKs')
 add('weather','menubar','weather-menu-bar-entry','entry_unavailable','The menu-bar command was unavailable in the reviewed-input chooser. It was not executed.','Reviewed sample input and the declared menu-bar command.',
  ['This records the entry boundary only; it does not certify a desktop-menu equivalent or forecast execution.'],
  phases(startup=('blocked','The reviewed chooser did not offer the menu-bar command.'),interaction=('not_exercised','Extension bytecode was not executed.'),destination=('not_exercised','No Weather command action was performed.'),lifecycle=('passed','The source text/selection were unchanged after returning.')),
