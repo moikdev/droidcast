@@ -27,3 +27,18 @@ Every calculation shares the ID `result`. Calculator Actions therefore bind to t
 Root accelerators block actions during IME composition. The Actions search retains its separate composition guard and native IME action. Held repeats and releases remain consumed after a successful accelerator; an unmatched modified Enter repeat cannot become a plain Enter copy. Pointer activation is an explicit choice of the displayed action.
 
 Validation and the final review gates are still in progress. The original failed probe and all historical APK/test identities are retained separately; they do not earn final-runtime pass credit. Physical/OEM keyboards, TalkBack, whole-Store parity and production signing/migration remain unverified.
+
+## Reproducing the owned calculator cohort
+
+Build debug application and instrumentation APKs, then use the existing initialized, idle `Tinycast_Tablet_API_36` emulator. With `ANDROID_HOME` set, the guarded runner can execute Calculator Actions without an extension archive:
+
+```sh
+python3 scripts/test-reviewed-text-input.py \
+  --serial emulator-5580 --avd Tinycast_Tablet_API_36 --layout phone \
+  --apk app/build/outputs/apk/debug/app-debug.apk \
+  --test-apk app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+  --classes dev.tinycast.android.CalculatorActionsDeviceTest --expected 14 \
+  --output artifacts/calculator-actions-owned
+```
+
+Use a fresh output directory and retain any recovery ownership after failure. The runner restores and independently verifies the original clipboard and preferences; private recovery snapshots stay outside published evidence. Extension and shared regression cohorts still require their frozen formatter archive. Short viewports use existing palette scrolling and, when needed, the action-search keyboard toggle; these paths are verified separately from the production calculator changes.

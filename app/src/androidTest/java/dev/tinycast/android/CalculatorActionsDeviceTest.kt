@@ -281,7 +281,9 @@ class CalculatorActionsDeviceTest {
         compose.onNodeWithTag("search").assertIsFocused().assertTextEquals("= 36")
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange,TextRange(4)))
         assertEquals("= 36",store.query); assertEquals("All",store.category); assertEquals(0,store.selected)
-        assertEquals(unrelated,compose.runOnUiThread { listOf(store.notes,store.links,store.clips,store.files,store.pins,store.aliases,store.shortcutConfiguration) })
+        assertTrue("Unrelated launcher state must remain unchanged",unrelated==compose.runOnUiThread {
+            listOf(store.notes,store.links,store.clips,store.files,store.pins,store.aliases,store.shortcutConfiguration)
+        })
         awaitIme(true)
         compose.onNodeWithTag("search").assertIsDisplayed()
         val after=rect("palette")
@@ -328,8 +330,10 @@ class CalculatorActionsDeviceTest {
             search("6x7","42")
             key(code,KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
             assertEquals("6x7",store.query); assertClip("6 × 7 = 42")
-            compose.runOnUiThread { clipboard().setPrimaryClip(ClipData.newPlainText("Owned calculator fixture",sentinel)) }
-            dismissClipboardForEvidence()
+            if(code==KeyEvent.KEYCODE_ENTER) {
+                compose.runOnUiThread { clipboard().setPrimaryClip(ClipData.newPlainText("Owned calculator fixture",sentinel)) }
+                dismissClipboardForEvidence()
+            }
         }
         record.put("enter_variants",2).put("held_repeats_per_variant",8); done()
     }
@@ -393,7 +397,7 @@ class CalculatorActionsDeviceTest {
                 }
                 val route=store.dialog; val query=store.query; val used=store.usage
                 click.invoke()
-                assertEquals(route,store.dialog);assertEquals(query,store.query);assertEquals(used,store.usage)
+                assertEquals(route,store.dialog);assertEquals(query,store.query);assertTrue("Usage must remain unchanged",used==store.usage)
                 assertEquals(sentinel,clipboard().primaryClip?.getItemAt(0)?.text?.toString())
                 store.dialog=null;store.actionCommand=null;store.focusEpoch++
             }
@@ -450,6 +454,27 @@ class CalculatorActionsDeviceTest {
             for(action in listOf(KeyEvent.ACTION_DOWN,KeyEvent.ACTION_UP)) assertTrue(menus.key(KeyEvent(time,time,action,KeyEvent.KEYCODE_ENTER,0,KeyEvent.META_CTRL_ON)))
             assertEquals(0,copies);assertEquals(0,dismissals);assertSame(replacement,menus.current)
         }
+        done()
+    }
+    @Test fun revealedLargeTextCalculatorActionsHaveCompleteVisibleLabels() {
+        search("= sqrt(81)+12x3","45");actions()
+        if(!imeVisible()) pointer("inline-menu-keyboard")
+        awaitIme(true)
+        pointer("inline-menu-keyboard");awaitIme(false)
+        for((label,phase) in listOf("Put Answer in Search Bar" to "revealed-put-answer", "Copy Calculation" to "revealed-copy-calculation")) {
+            compose.onNodeWithTag("inline-menu-search").performTextReplacement(label)
+            compose.waitForIdle()
+            val tag="action-$label";val node=compose.onNodeWithTag(tag).fetchSemanticsNode()
+            val bounds=node.boundsInRoot;val minimum=48*context.resources.displayMetrics.density
+            assertTrue(node.size.width+1>=minimum && node.size.height+1>=minimum)
+            assertTrue(bounds.width+1>=node.size.width && bounds.height+1>=node.size.height)
+            compose.onNodeWithTag(tag).assertIsDisplayed().assertIsEnabled()
+            fullLines(tag);capture(phase)
+        }
+        pointer("action-Copy Calculation","inline-menu-choices")
+        assertClip("sqrt(81)+12 × 3 = 45");assertEquals("= sqrt(81)+12x3",store.query)
+        dismissClipboardForEvidence();capture("revealed-copy-destination")
+        record.put("scope","Supplementary filtered-menu rendering witnesses; editor test actions position the labels, separate matrix receipts establish pointer reachability")
         done()
     }
 }

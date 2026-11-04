@@ -1,6 +1,7 @@
 """Markdown's new runner entry must not broaden device/fixture authorization."""
 from pathlib import Path
 import os
+import json
 import subprocess
 import sys
 import tempfile
@@ -14,7 +15,7 @@ CALCULATOR = 'dev.tinycast.android.CalculatorActionsDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
-    def refused_without_device_access(self, classes, options, error):
+    def refused_without_device_access(self, classes, options, error, without_archive=False):
         for optimized in [False, True]:
             with self.subTest(optimized=optimized), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
@@ -31,6 +32,9 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
                     '--apk', str(root / 'app.apk'), '--test-apk', str(root / 'test.apk'),
                     '--json-archive', str(root / 'not-read.zip'), '--output', str(output),
                     '--classes', classes, *options]
+                if without_archive:
+                    at = command.index('--json-archive')
+                    del command[at:at + 2]
                 result = subprocess.run(command, capture_output=True, text=True, timeout=15,
                                         env=dict(os.environ, ANDROID_HOME=str(sdk)))
                 self.assertNotEqual(0, result.returncode)
@@ -52,6 +56,33 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
 
     def test_similarly_named_calculator_class_is_not_authorized(self):
         self.refused_without_device_access(CALCULATOR + 'Extra', [], 'Only owned input/Form/Markdown')
+
+    def test_extensions_still_require_the_frozen_archive_before_any_device_query(self):
+        self.refused_without_device_access(DETAIL, [], 'A frozen JSON archive is required outside the owned calculator cohort',
+                                           without_archive=True)
+
+    def test_calculator_without_an_archive_reaches_only_read_only_avd_preflight(self):
+        for optimized in [False, True]:
+            with self.subTest(optimized=optimized), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                sdk = root / 'sdk'
+                adb = sdk / 'platform-tools/adb'
+                adb.parent.mkdir(parents=True)
+                marker = root / 'preflight-arguments.json'
+                adb.write_text('#!' + sys.executable + '\nimport json,sys\nfrom pathlib import Path\n'
+                               'Path(' + repr(str(marker)) + ').write_text(json.dumps(sys.argv[1:]))\nraise SystemExit(97)\n')
+                adb.chmod(0o700)
+                output = root / 'output'
+                command = [sys.executable] + (['-O'] if optimized else []) + [str(RUNNER),
+                    '--serial', 'emulator-5580', '--avd', 'Tinycast_Tablet_API_36', '--layout', 'tablet',
+                    '--apk', str(root / 'not-read.apk'), '--test-apk', str(root / 'not-read-test.apk'),
+                    '--output', str(output), '--classes', CALCULATOR]
+                result = subprocess.run(command, capture_output=True, text=True, timeout=15,
+                                        env=dict(os.environ, ANDROID_HOME=str(sdk)))
+                self.assertNotEqual(0, result.returncode)
+                self.assertIn('CalledProcessError', result.stderr)
+                self.assertEqual(['-s', 'emulator-5580', 'shell', 'getprop', 'ro.kernel.qemu'], json.loads(marker.read_text()))
+                self.assertFalse(output.exists(), 'Read-only preflight failure must not claim output or ownership')
 
     def test_markdown_cannot_claim_document_fixtures(self):
         self.refused_without_device_access(MARKDOWN, ['--document-fixtures'],
