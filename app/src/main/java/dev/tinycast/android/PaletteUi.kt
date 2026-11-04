@@ -168,7 +168,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         }
         LaunchedEffect(calculatorTypingRequest) {
             val request = calculatorTypingRequest ?: return@LaunchedEffect
-            fun current() = request == store.calculatorSelection(currentSelection()) && store.dialog == null &&
+            fun current() = request == store.calculatorSelection(currentSelection()) && store.dialog == null && !menu && paletteMenus.current == null &&
                 store.textReview == null && !store.backupBusy && ShortcutRuntime.recordingOwner == null && view.hasWindowFocus()
             if (current()) {
                 focus.requestFocus()
