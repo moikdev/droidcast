@@ -1,0 +1,114 @@
+{
+  "completed": true,
+  "execution_credit": 0,
+  "source_commit": "77bec8fcfcc501c58707db2d939236943a14f479",
+  "runs": [
+    {
+      "name": "default",
+      "invocation": [
+        "<user>/Library/Android/sdk/platform-tools/adb",
+        "-s",
+        "emulator-5580",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "log",
+        "true",
+        "-e",
+        "class",
+        "dev.tinycast.android.ReviewedTextDeviceTest",
+        "-e",
+        "notClass",
+        "dev.tinycast.android.ReviewedTextDeviceTest#selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure,dev.tinycast.android.ReviewedTextDeviceTest#desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource",
+        "dev.tinycast.android.test/androidx.test.runner.AndroidJUnitRunner"
+      ],
+      "exit_code": 0,
+      "discovered_methods": [
+        "aNewExternalShareEndsThePriorSelectionCommand",
+        "cancelBeforeRunReturnsWithoutExecutingOrSaving",
+        "explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+        "longPreviewAndCommandSearchRemainReachableByTouch",
+        "malformedAndOversizedInputCannotRunOrChangeClipboard",
+        "ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+        "selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "writableSelectionStillUsesCopyWithoutReplacingSource"
+      ],
+      "method_count": 9,
+      "execution_credit": 0
+    },
+    {
+      "name": "translation-opt-in",
+      "invocation": [
+        "<user>/Library/Android/sdk/platform-tools/adb",
+        "-s",
+        "emulator-5580",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "log",
+        "true",
+        "-e",
+        "class",
+        "dev.tinycast.android.ReviewedTextDeviceTest",
+        "-e",
+        "notClass",
+        "dev.tinycast.android.ReviewedTextDeviceTest#desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource",
+        "dev.tinycast.android.test/androidx.test.runner.AndroidJUnitRunner"
+      ],
+      "exit_code": 0,
+      "discovered_methods": [
+        "aNewExternalShareEndsThePriorSelectionCommand",
+        "cancelBeforeRunReturnsWithoutExecutingOrSaving",
+        "explicitSaveAsClipOpensADraftWithoutRunningOrSavingIt",
+        "longPreviewAndCommandSearchRemainReachableByTouch",
+        "malformedAndOversizedInputCannotRunOrChangeClipboard",
+        "ordinaryCommandDoesNotReceiveClipboardAsSelectedText",
+        "selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure",
+        "sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns",
+        "writableSelectionStillUsesCopyWithoutReplacingSource"
+      ],
+      "method_count": 10,
+      "execution_credit": 0
+    },
+    {
+      "name": "explicit-menu",
+      "invocation": [
+        "<user>/Library/Android/sdk/platform-tools/adb",
+        "-s",
+        "emulator-5580",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "log",
+        "true",
+        "-e",
+        "class",
+        "dev.tinycast.android.ReviewedTextDeviceTest#desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource",
+        "-e",
+        "notClass",
+        "dev.tinycast.android.ReviewedTextDeviceTest#selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure",
+        "dev.tinycast.android.test/androidx.test.runner.AndroidJUnitRunner"
+      ],
+      "exit_code": 0,
+      "discovered_methods": [
+        "desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource"
+      ],
+      "method_count": 1,
+      "execution_credit": 0
+    }
+  ],
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "scope": "AndroidJUnitRunner log-only discovery; no test bodies or service requests credited"
+}

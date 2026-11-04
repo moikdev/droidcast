@@ -1,0 +1,151 @@
+{
+  "completed": true,
+  "collector_sha256": "042b22209d353600bcb080974982f7ba25794f52690251738643e7f6c8aa369d",
+  "runs": [
+    {
+      "name": "baseline-quick-translate-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-lorem-ai-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-menu-bar-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-translate-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-quick-translate-view-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-instant-translate-paste-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-instant-translate-view-tablet100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-quick-translate-phone100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-lorem-ai-phone100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-menu-bar-phone100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-translate-phone100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-quick-translate-view-phone100-v4",
+      "exit_code": 0,
+      "retained_focused_run": true
+    },
+    {
+      "name": "baseline-instant-translate-paste-phone100-v4",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-instant-translate-view-phone100-v4",
+      "exit_code": 0
+    }
+  ],
+  "executions": 14,
+  "cleanup_checks": 266,
+  "outcomes": [
+    {
+      "command": "quick-translate",
+      "layout": "tablet",
+      "outcome": "blocked-command-handoff",
+      "bytecode_executed": true
+    },
+    {
+      "command": "lorem-ai",
+      "layout": "tablet",
+      "outcome": "blocked-ai-capability",
+      "bytecode_executed": true
+    },
+    {
+      "command": "menu-bar",
+      "layout": "tablet",
+      "outcome": "blocked-menu-bar-reviewed-entry",
+      "bytecode_executed": false
+    },
+    {
+      "command": "translate",
+      "layout": "tablet",
+      "outcome": "working-observed-path",
+      "bytecode_executed": true
+    },
+    {
+      "command": "quick-translate-view",
+      "layout": "tablet",
+      "outcome": "working-observed-path",
+      "bytecode_executed": true
+    },
+    {
+      "command": "instant-translate-paste",
+      "layout": "tablet",
+      "outcome": "partial-paste-unsupported",
+      "bytecode_executed": true
+    },
+    {
+      "command": "instant-translate-view",
+      "layout": "tablet",
+      "outcome": "working-display-observed-path",
+      "bytecode_executed": true
+    },
+    {
+      "command": "quick-translate",
+      "layout": "phone",
+      "outcome": "blocked-command-handoff",
+      "bytecode_executed": true
+    },
+    {
+      "command": "lorem-ai",
+      "layout": "phone",
+      "outcome": "blocked-ai-capability",
+      "bytecode_executed": true
+    },
+    {
+      "command": "menu-bar",
+      "layout": "phone",
+      "outcome": "blocked-menu-bar-reviewed-entry",
+      "bytecode_executed": false
+    },
+    {
+      "command": "translate",
+      "layout": "phone",
+      "outcome": "working-observed-path",
+      "bytecode_executed": true
+    },
+    {
+      "command": "quick-translate-view",
+      "layout": "phone",
+      "outcome": "working-observed-path",
+      "bytecode_executed": true
+    },
+    {
+      "command": "instant-translate-paste",
+      "layout": "phone",
+      "outcome": "partial-paste-unsupported",
+      "bytecode_executed": true
+    },
+    {
+      "command": "instant-translate-view",
+      "layout": "phone",
+      "outcome": "working-display-observed-path",
+      "bytecode_executed": true
+    }
+  ]
+}

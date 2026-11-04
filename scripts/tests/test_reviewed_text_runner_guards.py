@@ -94,6 +94,17 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
             'selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure', [],
             'The selected translation observation requires --translate-archive')
 
+    def test_translation_variants_cannot_change_other_review_or_runtime_cohorts(self):
+        for selected in ['dev.tinycast.android.ReviewedTextDeviceTest', DETAIL, CALCULATOR,
+                         'dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns']:
+            self.refused_without_device_access(selected, ['--reviewed-translation-command', 'quick-translate'],
+                'Translation variants require the single reviewed translation workflow')
+
+    def test_menu_bar_observation_requires_its_archive_before_any_device_access(self):
+        self.refused_without_device_access('dev.tinycast.android.ReviewedTextDeviceTest#'
+            'desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource', [],
+            'The menu-bar observation requires --weather-archive')
+
     def test_markdown_cannot_mix_with_shared_legacy_fixtures(self):
         self.refused_without_device_access(MARKDOWN + ',dev.tinycast.android.InlinePaletteDeviceTest', [],
                                            'Keep the shared menu/keyboard regression cohort separate')

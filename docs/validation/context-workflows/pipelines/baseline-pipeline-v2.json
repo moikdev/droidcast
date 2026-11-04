@@ -1,0 +1,19 @@
+{
+  "completed": false,
+  "collector_sha256": "6dcb7b0eefb559d437c11bfe680161231d52bfda75f06ca3b8438f892c758191",
+  "runs": [
+    {
+      "name": "baseline-quick-tablet100-v2",
+      "exit_code": 0,
+      "retained_initial_run": true
+    },
+    {
+      "name": "baseline-lorem-ai-tablet100-v2",
+      "exit_code": 0
+    },
+    {
+      "name": "baseline-menu-bar-tablet100-v2",
+      "exit_code": 1
+    }
+  ]
+}

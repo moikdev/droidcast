@@ -1433,6 +1433,7 @@ class ExtensionFormDeviceTest {
             "packTypeID" to "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac",
             "paragraphs" to "8a03c4d22efefd777fd4de6df805811f01be880ecf745aed1557087981656aac",
             "sentences" to "759ff8c89086caf88af24609e0a7096179053cfb455a0e7fe630a4ccedcfd2aa",
+            "ai-generate" to "b1877fee4876cdc15685eba1fea423ab669821be85ad62a55fd1985a954a90b5",
             "formatJsonLines" to "690c15e7c0f1f52ea1b2315e8d1a75a5bdd15b8f25abe5a741337da5f8ba9a98",
             "formatToJsonValue" to "1367d9a2247ea560b69c9b84496d3424b41647f037d303e0ea4e3c99e71bfa1d")
         val archive = File(context.filesDir, "reviewed-text-fixture-lease/$bundle.zip").readBytes()
@@ -1769,10 +1770,11 @@ class ExtensionFormDeviceTest {
         assertEquals(3, loremSentences(copiedFrozenOffline()).size)
         record.put("independent_sentence_and_word_counts_verified", true); finishFrozenOffline()
     }
-    private fun assertFrozenStatusReadable(text: String) {
+    private fun assertFrozenStatusReadable(text: String, tag: String? = null) {
         compose.waitUntil(10000) { catalog.runtimeStatus == text }
         compose.waitForIdle()
-        val target = compose.onNodeWithText(text, useUnmergedTree = true); target.performScrollTo(); target.assertIsDisplayed()
+        val target = if (tag == null) compose.onNodeWithText(text, useUnmergedTree = true) else compose.onNodeWithTag(tag)
+        target.assertTextEquals(text); target.performScrollTo(); target.assertIsDisplayed()
         val node = target.fetchSemanticsNode(); val layouts = mutableListOf<TextLayoutResult>()
         compose.runOnUiThread { assertTrue(requireNotNull(node.config[SemanticsActions.GetTextLayoutResult].action)(layouts)) }
         val layout = layouts.single(); val origin = compose.runOnUiThread { node.positionInRoot }; val viewport = node.boundsInRoot
@@ -1818,6 +1820,24 @@ class ExtensionFormDeviceTest {
         record.put("invalid_input_preserved_clipboard", true).put("exact_native_code_blocks_and_jsonlines_copy", true)
             .put("form_input_preserved_on_back", true).put("output_scope", "Exact code/Copy values; complete horizontal code navigation is not certified")
         finishFrozenOffline()
+    }
+
+    @Test fun frozenLoremAiCapabilityDenialKeepsClipboardAndReturns() {
+        openFrozenOffline("lorem-ipsum", "ai-generate", mapOf("topic" to "Owned capability-denial observation"))
+        compose.waitUntil(25000) { catalog.runtimeError != null || catalog.runtimeReady }
+        assertNull(catalog.runtimeError, catalog.runtimeError)
+        assertEquals("You don't have access to AI.", catalog.runtimeStatus)
+        assertEquals("Owned Form clipboard sentinel", frozenClipboard())
+        assertFrozenStatusReadable(catalog.runtimeStatus, "extension-status")
+        requireCompletionReturn(); assertCompletionReturnText(); capture("ai-capability-denied")
+        touch("extension-completion-return")
+        assertNull(compose.activity.store.dialog); assertNull(catalog.running)
+        assertEquals(caller, compose.activity.store.query); assertEquals("Owned Form clipboard sentinel", frozenClipboard())
+        record.put("workflow_outcome", "blocked-ai-capability").put("capability_denial_feedback", "You don't have access to AI.")
+            .put("copy_not_performed", true).put("launcher_query_preserved", true)
+            .put("observation_scope", "Actual frozen entry and denial/return only; no AI output, provider request or quality certification")
+            .put("observation_collector_passed", true).put("passed", true)
+        capture("ai-denial-caller-return")
     }
     @Test fun frozenJsonValueEscapesUnicodeAndReloadsItsOwnedInput() {
         val extension = openFrozenOffline("json-format", "formatToJsonValue")

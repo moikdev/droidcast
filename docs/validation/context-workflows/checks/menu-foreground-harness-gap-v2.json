@@ -1,0 +1,8 @@
+{
+  "scope": "Historical failed collector, not clipboard-loss evidence",
+  "case": "baseline-menu-bar-tablet100-v2",
+  "passes": 0,
+  "cleanup_checks": 18,
+  "failure": "After source return, the target UID is background and its clipboard read is null. The failed assertion does not establish clipboard loss. The native empty chooser capture remains an earlier observation, not a complete workflow pass.",
+  "repair_scope": "Test-only: exact clipboard assertion immediately before Return while target is foreground; preserve external text/range assertions after Return. No production fix claimed."
+}

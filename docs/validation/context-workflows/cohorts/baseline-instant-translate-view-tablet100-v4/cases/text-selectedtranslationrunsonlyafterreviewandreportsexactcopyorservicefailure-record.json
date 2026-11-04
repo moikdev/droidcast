@@ -1,0 +1,89 @@
+{
+  "scope": "Unmodified frozen instant-translate-view after explicit review\/Run from a separate owned Android caller; collector success is separate from service success",
+  "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+  "command_sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92",
+  "probe_command_sha256": "8bc7c98a835bf72824ae0f061d6cc0272052c58a8c4a665c8a4157192246ff93",
+  "owned_extension_ids": [
+    "reviewed-text-20d669e0ccf648448f674682516a9a68",
+    "reviewed-text-cae51425664a4880838ca86f1846b196",
+    "reviewed-text-8c40e7f68fcb4328b46997fe8ffebfeb"
+  ],
+  "executed_command": "instant-translate-view",
+  "translation_archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+  "translation_command_sha256": "6c8da836ed165e4469aed98710b82bbdca28834cc0f30fbc34cac30e94c7e4ce",
+  "translation_preferences": {
+    "langFrom": "en",
+    "lang1": "ja",
+    "lang2": "en",
+    "autoInput": false,
+    "defaultAction": "copy",
+    "prioritizeCrossLanguage": false,
+    "proxy": ""
+  },
+  "external_caller_uses_separate_package_and_uid": true,
+  "owned_sentinel_dismiss_actions": [
+    {
+      "id": "com.android.systemui:id\/dismiss_button",
+      "accepted": true
+    }
+  ],
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "installed_build_commit": "ed3831303a8319a194f0ae137830acba1f3580d5",
+  "preview_no_execution_and_clipboard_unchanged": true,
+  "startup_gate": "Compose-driven wait for native List, JavaScript engine or runtime error",
+  "network_observation": {
+    "errors": 0,
+    "overflow": 0,
+    "decodeErrors": 0,
+    "requests": [
+      {
+        "sequence": 1,
+        "endpoint": "other-redacted",
+        "ownedInputQuery": false,
+        "ownedJapaneseTarget": false,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      },
+      {
+        "sequence": 2,
+        "endpoint": "google-translate",
+        "ownedInputQuery": true,
+        "ownedJapaneseTarget": true,
+        "completed": true,
+        "transportSucceeded": true,
+        "status": 200
+      }
+    ],
+    "pasteRejected": false
+  },
+  "network_observer_scope": "Only subsequent requests; known owned response translation decoded for native output\/Copy equality; unrelated payloads, queries, headers and bodies are not retained",
+  "observation_deadline_reached": false,
+  "runtime_status": "こんにちは",
+  "copy_exact": false,
+  "observed_phase_outcome": "working-display-observed-path",
+  "owned_provider_output_sha256": "125aeadf27b0459b8760c13a3d80912dfa8a81a68261906f60d87f4a0268646c",
+  "owned_provider_output_characters": 5,
+  "context_pointer_targets": [
+    {
+      "tag": "extension-back",
+      "bounds": [
+        398,
+        243,
+        470,
+        315
+      ],
+      "minimum_px": 72,
+      "pointer_reveal_gestures": 0
+    }
+  ],
+  "workflow_outcome": "working-display-observed-path",
+  "source_text_and_selection_unchanged": true,
+  "returned_to_external_caller": true,
+  "observation_collector_passed": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

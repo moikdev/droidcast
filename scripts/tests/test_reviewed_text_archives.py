@@ -18,6 +18,19 @@ class FrozenFormArchiveTest(unittest.TestCase):
         self.assertEqual([], runner.translation_test_filter(classes, True))
         self.assertEqual([], runner.translation_test_filter(runner.SELECTED_TRANSLATION_CASE, True))
 
+    def test_new_menu_case_does_not_expand_existing_default_or_translation_suites(self):
+        classes = 'dev.tinycast.android.ReviewedTextDeviceTest'
+        self.assertEqual(['-e', 'notClass', runner.SELECTED_TRANSLATION_CASE + ',' + runner.MENU_BAR_OBSERVATION_CASE],
+                         runner.context_test_filter(classes, False, False))
+        self.assertEqual(['-e', 'notClass', runner.MENU_BAR_OBSERVATION_CASE],
+                         runner.context_test_filter(classes, True, False))
+
+    def test_explicit_menu_case_keeps_translation_opt_out_and_requires_its_archive(self):
+        with self.assertRaisesRegex(ValueError, 'requires --weather-archive'):
+            runner.context_test_filter(runner.MENU_BAR_OBSERVATION_CASE, False, False)
+        self.assertEqual(['-e', 'notClass', runner.SELECTED_TRANSLATION_CASE],
+                         runner.context_test_filter(runner.MENU_BAR_OBSERVATION_CASE, False, True))
+
     def test_exact_binary_archive_bytes_survive(self):
         with tempfile.TemporaryDirectory() as root:
             path = Path(root) / 'owned.zip'

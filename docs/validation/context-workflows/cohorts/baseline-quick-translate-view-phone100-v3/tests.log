@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ReviewedTextDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ReviewedTextDeviceTest:
+INSTRUMENTATION_STATUS: test=selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ReviewedTextDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ReviewedTextDeviceTest.touch(ReviewedTextDeviceTest.kt:350)
+	at dev.tinycast.android.ReviewedTextDeviceTest.observeContextTranslation(ReviewedTextDeviceTest.kt:618)
+	at dev.tinycast.android.ReviewedTextDeviceTest.selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure(ReviewedTextDeviceTest.kt:629)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure(dev.tinycast.android.ReviewedTextDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ReviewedTextDeviceTest.touch(ReviewedTextDeviceTest.kt:350)
+	at dev.tinycast.android.ReviewedTextDeviceTest.observeContextTranslation(ReviewedTextDeviceTest.kt:618)
+	at dev.tinycast.android.ReviewedTextDeviceTest.selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure(ReviewedTextDeviceTest.kt:629)
+
+INSTRUMENTATION_STATUS: test=selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.355
+There was 1 failure:
+1) selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure(dev.tinycast.android.ReviewedTextDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.ReviewedTextDeviceTest.touch(ReviewedTextDeviceTest.kt:350)
+	at dev.tinycast.android.ReviewedTextDeviceTest.observeContextTranslation(ReviewedTextDeviceTest.kt:618)
+	at dev.tinycast.android.ReviewedTextDeviceTest.selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure(ReviewedTextDeviceTest.kt:629)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

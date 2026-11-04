@@ -1,0 +1,9 @@
+{
+  "scope": "Historical failed harness attempt, not a command-boundary observation",
+  "case": "baseline-quick-tablet100-v1",
+  "passes": 0,
+  "cleanup_checks": 18,
+  "production_changes": false,
+  "source_traced_harness_gap": "Instrumentation-thread sleep did not advance the Compose frame clock after Run; failure state retained Starting extension and no native root/error. Revised harness uses compose.waitUntil before observing startup. No production cause or repair is established.",
+  "command_execution_credit": 0
+}

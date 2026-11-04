@@ -69,6 +69,8 @@ class ReviewedTextDeviceTest {
     private lateinit var formatterId: String
     private lateinit var probeId: String
     private lateinit var translatorId: String
+    private lateinit var weatherId: String
+    private val translationCommand get() = InstrumentationRegistry.getArguments().getString("reviewedTranslationCommand") ?: "instant-translate-copy"
     private lateinit var record: JSONObject
     private val sentinel = "Owned reviewed-text clipboard sentinel"
     private val input = " \n\t{\"message\":\"こんにちは 🌱 café é\",\"items\":[1,2]}  \n"
@@ -164,23 +166,43 @@ class ReviewedTextDeviceTest {
             assertEquals("9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2", hash(translation))
             translatorId = newId()
             val extractedTranslation = ExtensionArchive.extract(translation, File(context.cacheDir, translatorId))
-            val commandHash = "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610"
-            assertEquals(commandHash, hash(File(extractedTranslation, "instant-translate-copy.js").readBytes()))
+            val commandHash = mapOf(
+                "instant-translate-copy" to "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610",
+                "translate" to "54c37e972a14f280ddbe953285a9cda50c3ccf0563e4ea5d54bcaef2a7d84d64",
+                "quick-translate" to "597e079da9f40604482472c94e3810d6654415aaf04477371441c9c7fbfdf521",
+                "quick-translate-view" to "456de7764bc2012c92883700260f5044ce169205b00bb9daf110e81a2c54cfec",
+                "instant-translate-paste" to "0ff7fcfdd0c6d1adb8b229b038ffe9fc9b26b47fb4b30543a6b4cf48892688dd",
+                "instant-translate-view" to "6c8da836ed165e4469aed98710b82bbdca28834cc0f30fbc34cac30e94c7e4ce").getValue(translationCommand)
+            assertEquals(commandHash, hash(File(extractedTranslation, "$translationCommand.js").readBytes()))
             val target = File(context.filesDir, "extensions/$translatorId"); assertTrue(extractedTranslation.renameTo(target))
             val item = listing(translatorId, "translate", "Translate (owned frozen copy)")
             File(target, ".tinycast-store.json").writeText(item.json().toString())
             val extension = InstalledExtension(item, target, JSONObject(File(target, "package.json").readText()))
             val seeds = JSONObject("""{"langFrom":"en","lang1":"ja","lang2":"en","autoInput":false,"defaultAction":"copy","prioritizeCrossLanguage":false,"proxy":""}""")
-            extension.fields(extension.commands.single { it.name == "instant-translate-copy" }).forEach { field ->
+            seeds.put("autoInput", translationCommand in setOf("translate", "quick-translate", "quick-translate-view"))
+            extension.fields(extension.commands.single { it.name == translationCommand }).forEach { field ->
                 val key = field.getString("name"); if (!seeds.has(key)) return@forEach
                 val options = field.optJSONArray("data")
                 assertTrue(field.optString("type") != "dropdown" || options != null &&
                     (0 until options.length()).any { options.getJSONObject(it).optString("value") == seeds.get(key).toString() })
             }
             assertTrue(context.getSharedPreferences("extension-$translatorId", Context.MODE_PRIVATE).edit().putString("preferences", seeds.toString()).commit())
-            record.put("scope", "Unmodified frozen Instant Translate Copy after explicit review/Run from a separate owned Android caller; collector success is separate from service success")
+            record.put("scope", "Unmodified frozen $translationCommand after explicit review/Run from a separate owned Android caller; collector success is separate from service success")
+                .put("executed_command", translationCommand)
                 .put("translation_archive_sha256", hash(translation)).put("translation_command_sha256", commandHash)
                 .put("translation_preferences", seeds).put("owned_extension_ids", JSONArray(ids))
+        }
+        if (method == "desktopmenubarisunavailableinreviewedchooserandreturnstosource") {
+            val bytes = File(root, "weather.zip").readBytes()
+            assertEquals("20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c", hash(bytes))
+            weatherId = newId()
+            val extracted = ExtensionArchive.extract(bytes, File(context.cacheDir, weatherId))
+            assertEquals("750f3914568354a8b7358a267e830ddaac896fa1935567269919a9a4d1a9933f", hash(File(extracted, "menubar.js").readBytes()))
+            val destination = File(context.filesDir, "extensions/$weatherId"); assertTrue(extracted.renameTo(destination))
+            File(destination, ".tinycast-store.json").writeText(listing(weatherId, "weather", "Owned unavailable weather $weatherId").json().toString())
+            record.put("scope", "Frozen Weather menu-bar reviewed-entry availability only; no forced launch, bytecode execution or forecast certification")
+                .put("weather_archive_sha256", hash(bytes)).put("weather_command_sha256", hash(File(destination, "menubar.js").readBytes()))
+                .put("observed_declaration", "weather/menubar").put("owned_extension_ids", JSONArray(ids))
         }
     }
     @Before fun ready() {
@@ -198,9 +220,11 @@ class ReviewedTextDeviceTest {
             activity.store.reset(); activity.store.search(callerQuery)
         }
         val translationFixture = method == "selectedtranslationrunsonlyafterreviewandreportsexactcopyorservicefailure"
-        if (translationFixture) assertTrue("Owned translation clipboard fixture must appear before cleanup",
-            device.wait(Until.hasObject(By.res("com.android.systemui", "clipboard_ui")), 7000))
-        dismissClipboardForEvidence(requireAction = translationFixture)
+        val actions = JSONArray()
+        dismissClipboardForEvidence(requireAction = translationFixture, onNodeAction = { id, accepted ->
+            actions.put(JSONObject().put("id", id).put("accepted", accepted))
+        })
+        record.put("owned_sentinel_dismiss_actions", actions)
         record.put("font_scale", context.resources.configuration.fontScale).put("width_dp", context.resources.configuration.screenWidthDp)
             .put("height_dp", context.resources.configuration.screenHeightDp)
             .put("installed_build_commit", context.packageManager.getApplicationInfo(context.packageName, android.content.pm.PackageManager.GET_META_DATA).metaData.getString("dev.droidcast.BUILD_COMMIT"))
@@ -445,10 +469,192 @@ class ReviewedTextDeviceTest {
     @Test fun sharedJsonRunsOnlyAfterReviewThenCopiesAndReturns() = jsonWorkflow(true, true)
     @Test fun writableSelectionStillUsesCopyWithoutReplacingSource() = jsonWorkflow(false, false)
 
+    @Test fun desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource() {
+        caller(source = "hello"); send(); assertReview("hello")
+        val catalog = foregroundActivity().store.extensions
+        val extension = catalog.installed.single { it.listing.id == weatherId }
+        val command = extension.commands.single { it.name == "menubar" }; assertEquals("menu-bar", command.mode)
+        touch("text-input-choose")
+        val query = extension.listing.title + " · " + command.title
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement(query)
+        compose.waitForIdle()
+        compose.onNodeWithTag("text-command-$weatherId/menubar").assertDoesNotExist()
+        compose.onNodeWithTag("inline-menu-empty").assertIsDisplayed()
+        assertNull(catalog.running); assertEquals(sentinel, clipboardText()); capture("menu-bar-unavailable")
+        instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_ESCAPE)
+        compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+        assertEquals("text-input", foregroundActivity().store.dialog)
+        assertEquals(sentinel, clipboardText())
+        record.put("clipboard_unchanged_before_source_return", true)
+            .put("clipboard_observation_scope", "Read while target is foreground, immediately before Return; no background-app clipboard-read claim")
+        touchContextAction("text-input-cancel"); awaitCaller()
+        assertEquals("hello", device.findObject(By.res("android:id/edit")).text)
+        assertEquals("Selection 0 to 5", device.findObject(By.res("android:id/text2")).text)
+        record.put("workflow_outcome", "blocked-menu-bar-reviewed-entry").put("extension_bytecode_executed", false)
+            .put("native_entry_scope", "Actual reviewed-command chooser excludes the declared desktop-only mode; no forced execution")
+            .put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true)
+            .put("observation_collector_passed", true).put("passed", true)
+        capture("menu-bar-source-return", true)
+    }
+    private fun touchContextAction(tag: String) {
+        val target = compose.onNodeWithTag(tag)
+        val minimum = 48f * context.resources.displayMetrics.density
+        var attempts = 0
+        while (target.fetchSemanticsNode().boundsInRoot.let { it.height + 1 < minimum || it.width + 1 < minimum } && attempts++ < 30) {
+            val scroll = if (foregroundActivity().store.dialog == "text-input") "shell-content-scroll" else "palette-content-scroll"
+            compose.onNodeWithTag(scroll).performTouchInput {
+                if (tag.endsWith("-back")) swipe(Offset(4f, height * .2f), Offset(4f, height * .8f), 300)
+                else swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
+            }
+            compose.waitForIdle()
+        }
+        target.assertIsDisplayed().assertIsEnabled()
+        val bounds = target.fetchSemanticsNode().boundsInRoot
+        assertTrue("$tag needs a complete visible 48dp target", bounds.height + 1 >= minimum && bounds.width + 1 >= minimum)
+        val targets = record.optJSONArray("context_pointer_targets") ?: JSONArray().also { record.put("context_pointer_targets", it) }
+        targets.put(JSONObject().put("tag", tag).put("bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("minimum_px", minimum).put("pointer_reveal_gestures", attempts))
+        target.performTouchInput { click(center) }
+    }
+    private fun contextEngine(): WebView? {
+        var engine: WebView? = null
+        instrumentation.runOnMainSync {
+            fun visit(view: View) {
+                if (view is WebView) { assertNull(engine); engine = view }
+                if (view is ViewGroup) repeat(view.childCount) { visit(view.getChildAt(it)) }
+            }
+            WindowInspector.getGlobalWindowViews().forEach(::visit)
+        }
+        return engine
+    }
+    private fun contextEvaluate(web: WebView, script: String): String {
+        var result: String? = null; val done = CountDownLatch(1)
+        instrumentation.runOnMainSync { web.evaluateJavascript(script) { result = it; done.countDown() } }
+        assertTrue(done.await(5, TimeUnit.SECONDS)); return requireNotNull(result)
+    }
+    private fun contextObservation(web: WebView): JSONObject = JSONObject(JSONArray("[${contextEvaluate(web,
+        "JSON.stringify(globalThis.__ownedContextTranslationRead())")}]").getString(0))
+    private fun observeContextTranslation(commandName: String) {
+        val catalog = foregroundActivity().store.extensions
+        val view = commandName in setOf("translate", "quick-translate", "quick-translate-view")
+        compose.waitUntil(30000) { catalog.runtimeError != null ||
+            (if (view) activeRoot(catalog.runtimeTree)?.optString("type") == "List" else contextEngine() != null) }
+        record.put("startup_gate", "Compose-driven wait for native List, JavaScript engine or runtime error")
+        if (catalog.runtimeError != null) {
+            val error = requireNotNull(catalog.runtimeError)
+            record.put("observed_runtime_error", error).put("observed_phase_outcome",
+                if (commandName == "quick-translate" && error.contains("launchCommand is not supported on Android")) "blocked-command-handoff" else "observed-runtime-failure")
+            assertEquals(sentinel, clipboardText()); capture("translation-runtime-boundary")
+        } else {
+            if (commandName == "quick-translate") {
+                assertEquals("quick-translate-view", catalog.running?.second?.name)
+                val current = requireNotNull(catalog.running)
+                instrumentation.runOnMainSync { assertNull("A handoff must not forward the raw reviewed-input grant", catalog.captureText(current.first, current.second).input) }
+                record.put("handoff_target", "quick-translate-view").put("child_raw_input_grant_absent", true)
+            }
+            if (view) {
+                assertEquals("List", activeRoot(catalog.runtimeTree)?.optString("type"))
+                compose.waitUntil(10000) { activeRoot(catalog.runtimeTree)?.props()?.optString("searchText") == "hello" }
+                record.put("reviewed_input_initially_consumed", true)
+            }
+            val web = requireNotNull(contextEngine()); val query = if (view) "good morning" else "hello"
+            compose.waitUntil(10000) { contextEvaluate(web, "Boolean(globalThis.__tinycastHost && globalThis.__tinycast)") == "true" }
+            assertEquals("true", contextEvaluate(web, """
+                (()=>{
+                  if(globalThis.__ownedContextTranslationRead)throw new Error('Observer already installed');
+                  const host=globalThis.__tinycastHost,bridge=globalThis.__tinycast,invoke=host.invoke,settle=bridge.settle;
+                  const requests=[],pending=new Map(),wanted=${JSONObject.quote(query)};let errors=0,overflow=0,decodeErrors=0,expected='',copied='',paste='',pasteRejected=false;
+                  host.invoke=function(id,api,method,encoded){try{
+                    if(api==='fetch'&&method==='request'){
+                      if(requests.length>=32)overflow++;else{const request=JSON.parse(encoded)[0],url=new URL(request.url);
+                        const row={sequence:requests.length+1,endpoint:url.origin==='https://translate.google.com'&&url.pathname==='/translate_a/single'?'google-translate':'other-redacted',
+                          ownedInputQuery:url.searchParams.get('q')===wanted,ownedJapaneseTarget:url.searchParams.get('tl')==='ja',completed:false};requests.push(row);pending.set(String(id),row);}
+                    }
+                    if(api==='clipboard'&&['copy','paste'].includes(method)){const value=JSON.parse(encoded)[0],text=typeof value==='string'?value:value?.text||'';
+                      if(text.length>4096)throw new Error('Owned output bound');if(method==='copy')copied=text;else{paste=text;pending.set(String(id),{kind:'paste'});}}
+                  }catch(_){errors++;}return Reflect.apply(invoke,this,arguments)};
+                  bridge.settle=function(id,ok,encoded){try{
+                    const row=pending.get(String(id));if(row){pending.delete(String(id));
+                      if(row.kind==='paste')pasteRejected=!ok&&String(encoded).includes('Clipboard paste into another app is unavailable');
+                      else{row.completed=true;row.transportSucceeded=Boolean(ok);if(ok&&typeof encoded==='string'&&encoded.length<=12*1024*1024){
+                        const response=JSON.parse(encoded);row.status=response.status;
+                        if(row.endpoint==='google-translate'&&row.ownedInputQuery&&row.ownedJapaneseTarget&&response.status>=200&&response.status<300)try{
+                          if(typeof response.bodyBase64!=='string'||response.bodyBase64.length>1024*1024)throw new Error('Owned response bound');
+                          const raw=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(response.bodyBase64),c=>c.charCodeAt(0))));
+                          if(!Array.isArray(raw[0]))throw new Error('Owned response shape');
+                          const text=raw[0].filter(Array.isArray).map(cell=>typeof cell[0]==='string'?cell[0]:'').join('');
+                          if(!text||text.length>4096)throw new Error('Owned translation bound');expected=text;
+                        }catch(_){decodeErrors++;}
+                      }}
+                    }
+                  }catch(_){errors++;}return Reflect.apply(settle,this,arguments)};
+                  globalThis.__ownedContextTranslationRead=()=>({errors,overflow,decodeErrors,requests:requests.map(row=>({...row})),_expected:expected,_copied:copied,_paste:paste,pasteRejected});return true;
+                })()
+            """.trimIndent()))
+            if (view) {
+                touch("extension-search"); compose.onNodeWithTag("extension-search").performTextReplacement(query)
+                val activity = foregroundActivity()
+                instrumentation.runOnMainSync { ViewCompat.getWindowInsetsController(activity.window.decorView)?.hide(WindowInsetsCompat.Type.ime()) }
+                compose.waitUntil(10000) { !imeVisible() }
+                record.put("input_setup", "Native editor test replacement after actual pointer focus; no physical-typing claim").put("owned_edited_query", query)
+            }
+            val deadline = android.os.SystemClock.uptimeMillis() + 45000
+            var observed = contextObservation(web)
+            while (android.os.SystemClock.uptimeMillis() < deadline && catalog.runtimeError == null) {
+                observed = contextObservation(web)
+                val expected = observed.optString("_expected")
+                val content = activeRoot(catalog.runtimeTree)?.takeUnless { it.props().optBoolean("isLoading") }?.nodes("List.Item")
+                    ?.any { it.props().optString("title") == expected && expected.isNotBlank() } == true
+                if (view && content || !view && catalog.runtimeReady) break
+                android.os.SystemClock.sleep(100)
+            }
+            assertEquals(0, observed.getInt("errors")); assertEquals(0, observed.getInt("overflow"))
+            val expected = observed.getString("_expected"); val copied = observed.getString("_copied"); val paste = observed.getString("_paste")
+            listOf("_expected", "_copied", "_paste").forEach(observed::remove)
+            record.put("network_observation", observed).put("network_observer_scope", "Only subsequent requests; known owned response translation decoded for native output/Copy equality; unrelated payloads, queries, headers and bodies are not retained")
+                .put("observation_deadline_reached", android.os.SystemClock.uptimeMillis() >= deadline).put("runtime_status", catalog.runtimeStatus)
+            if (expected.isNotBlank() && view && catalog.runtimeError == null) {
+                val rows = activeRoot(catalog.runtimeTree)!!.nodes("List.Item")
+                val index = rows.indexOfFirst { it.props().optString("title") == expected }; assertTrue(index >= 0)
+                assertEquals(sentinel, clipboardText()); touchContextAction("extension-row-$index")
+                assertEquals(sentinel, clipboardText()); record.put("selected_owned_response_row", index)
+                capture("translation-native-result"); touchContextAction("extension-primary")
+                compose.waitUntil(10000) { clipboardText() == expected }
+                assertEquals(expected, contextObservation(web).getString("_copied"))
+                dismissClipboardForEvidence(requireAction = true); capture("translation-exact-copy")
+                record.put("copy_exact", true).put("observed_phase_outcome", "working-observed-path")
+            } else if (commandName == "instant-translate-paste" && expected.isNotBlank() && paste == expected && observed.getBoolean("pasteRejected")) {
+                assertEquals(sentinel, clipboardText()); capture("translation-paste-unavailable")
+                record.put("copy_exact", false).put("observed_phase_outcome", "partial-paste-unsupported").put("owned_service_output_matched_paste_attempt", true)
+            } else if (commandName == "instant-translate-view" && expected.isNotBlank() && catalog.runtimeReady && catalog.runtimeStatus == expected) {
+                assertEquals(sentinel, clipboardText()); capture("translation-visible-feedback")
+                record.put("copy_exact", false).put("observed_phase_outcome", "working-display-observed-path")
+            } else {
+                assertEquals(sentinel, clipboardText()); capture("translation-uncompleted-observation")
+                record.put("copy_exact", false).put("observed_phase_outcome", "partial-no-witnessed-output")
+            }
+            if (expected.isNotBlank()) record.put("owned_provider_output_sha256", hash(expected.toByteArray())).put("owned_provider_output_characters", expected.length)
+        }
+        if (view && compose.onAllNodesWithTag("extension-detail-back").fetchSemanticsNodes().isNotEmpty()) {
+            touchContextAction("extension-detail-back")
+            compose.onNodeWithTag("extension-search").assertIsDisplayed().assertTextEquals("good morning")
+            assertEquals("good morning", activeRoot(catalog.runtimeTree)!!.props().getString("searchText"))
+            record.put("native_detail_returned_to_results", true).put("edited_query_preserved_on_native_back", true)
+            capture("translation-results-return")
+        }
+        touchContextAction("extension-back"); awaitCaller()
+        assertEquals("hello", device.findObject(By.res("android:id/edit")).text)
+        assertEquals("Selection 0 to 5", device.findObject(By.res("android:id/text2")).text)
+        record.put("workflow_outcome", record.getString("observed_phase_outcome"))
+            .put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true)
+            .put("observation_collector_passed", true).put("passed", true)
+        capture("translation-context-return", true)
+    }
     @Test fun selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure() {
         caller(source = "hello"); capture("translation-caller", true); send(); assertReview("hello")
-        choose(translatorId, "instant-translate-copy"); capture("translation-chosen"); touch("text-input-run")
+        choose(translatorId, translationCommand); capture("translation-chosen"); touch("text-input-run")
         val catalog = foregroundActivity().store.extensions
+        if (translationCommand != "instant-translate-copy") { observeContextTranslation(translationCommand); return }
         fun engine(): WebView? {
             var found: WebView? = null
             instrumentation.runOnMainSync {

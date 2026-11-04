@@ -1,0 +1,41 @@
+{
+  "scope": "Actual ZIP payload comparison; no stamp-only source equivalence inferred",
+  "rows": [
+    {
+      "old_artifact": "build-observations-v1/candidate/app-debug-androidTest.apk",
+      "new_artifact": "build-observations-v2/candidate/app-debug-androidTest.apk",
+      "old_sha256": "199d0df5496b92e09f653bcf821a5c446fd1bc4ad78cd41fabbe65c47e486502",
+      "new_sha256": "52c16477d41566410657d81aaf9b858dfbb164b386347999b5b521be7ac1971a",
+      "changed_zip_payloads": [
+        "classes3.dex"
+      ]
+    },
+    {
+      "old_artifact": "build-observations-v2/candidate/app-debug-androidTest.apk",
+      "new_artifact": "build-observations-v3/candidate/app-debug-androidTest.apk",
+      "old_sha256": "52c16477d41566410657d81aaf9b858dfbb164b386347999b5b521be7ac1971a",
+      "new_sha256": "62d5c3bebf58201d134cbe11c25f434226c303e487aaed3e381a1107dec9c432",
+      "changed_zip_payloads": [
+        "classes3.dex"
+      ]
+    },
+    {
+      "old_artifact": "build-observations-v3/candidate/app-debug-androidTest.apk",
+      "new_artifact": "build-observations-v4/candidate/app-debug-androidTest.apk",
+      "old_sha256": "62d5c3bebf58201d134cbe11c25f434226c303e487aaed3e381a1107dec9c432",
+      "new_sha256": "f0acef65d29ab8b4829fc01427956a1a98223210dffcfec879d15ef4e50f7ffd",
+      "changed_zip_payloads": [
+        "classes3.dex"
+      ]
+    },
+    {
+      "old_artifact": "build-observations-v4/candidate/app-debug-androidTest.apk",
+      "new_artifact": "build-observations-v5/candidate/app-debug-androidTest.apk",
+      "old_sha256": "f0acef65d29ab8b4829fc01427956a1a98223210dffcfec879d15ef4e50f7ffd",
+      "new_sha256": "7379458fa7785309cf8184c5865801d77345b491fb7c333041677fc4638a127f",
+      "changed_zip_payloads": [
+        "classes3.dex"
+      ]
+    }
+  ]
+}
