@@ -30,6 +30,8 @@ def sha(data):
 
 SELECTED_TRANSLATION_CASE = ('dev.tinycast.android.ReviewedTextDeviceTest#'
                              'selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure')
+MENU_BAR_OBSERVATION_CASE = ('dev.tinycast.android.ReviewedTextDeviceTest#'
+                             'desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource')
 
 
 def translation_test_filter(classes, has_archive):
@@ -38,6 +40,19 @@ def translation_test_filter(classes, has_archive):
     require(has_archive or SELECTED_TRANSLATION_CASE not in classes.split(','),
             'The selected translation observation requires --translate-archive')
     return [] if has_archive else ['-e', 'notClass', SELECTED_TRANSLATION_CASE]
+
+
+def context_test_filter(classes, has_translation, has_weather):
+    # Keep the existing nine/default and ten/translation-opt-in suites. The
+    # desktop-only observation is an explicit single-case entry, never a new
+    # implicit network/platform test in an existing cohort.
+    translated = translation_test_filter(classes, has_translation)
+    require(has_weather or MENU_BAR_OBSERVATION_CASE not in classes.split(','),
+            'The menu-bar observation requires --weather-archive')
+    excluded = [] if not translated else translated[-1].split(',')
+    if classes != MENU_BAR_OBSERVATION_CASE:
+        excluded.append(MENU_BAR_OBSERVATION_CASE)
+    return ['-e', 'notClass', ','.join(excluded)] if excluded else []
 
 
 def frozen_form_archive(path, expected):
@@ -66,6 +81,8 @@ def main():
     parser.add_argument('--uuid-archive', type=Path, help='Optional hash-pinned UUID bundle for owned offline workflows')
     parser.add_argument('--lorem-archive', type=Path, help='Optional hash-pinned Lorem bundle for owned offline workflows')
     parser.add_argument('--reviewed-json-command', choices=['formatSelectionAndShow', 'formatSelection'], default='formatSelectionAndShow')
+    parser.add_argument('--reviewed-translation-command', choices=['instant-translate-copy', 'translate', 'quick-translate',
+                        'quick-translate-view', 'instant-translate-paste', 'instant-translate-view'], default='instant-translate-copy')
     parser.add_argument('--expect-completion-return', action='store_true', help='Require the completed no-view touch Return in owned Form or the single reviewed no-view JSON workflow')
     parser.add_argument('--classes', default='dev.tinycast.android.ReviewedTextDeviceTest')
     parser.add_argument('--expected', type=int, default=9)
@@ -104,12 +121,15 @@ def main():
             'Restoration failure is limited to the deliberate process-death control')
     require(not args.html_colors_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
         for item in args.classes.split(',')), 'HTML Colors belongs only to the owned Detail cohort')
-    require(not args.weather_archive or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest'
-        for item in args.classes.split(',')), 'Network bundle is not authorized for this test class')
+    require(not args.weather_archive or args.classes == MENU_BAR_OBSERVATION_CASE or all(
+        item.split('#')[0] == 'dev.tinycast.android.ExtensionDetailDeviceTest' for item in args.classes.split(',')),
+        'Network bundle is not authorized for this test class')
     require(not args.translate_archive or all(item.split('#')[0] in
         ['dev.tinycast.android.ExtensionDetailDeviceTest', 'dev.tinycast.android.ReviewedTextDeviceTest'] for item in args.classes.split(',')),
         'Network bundle is not authorized for this test class')
-    network_filter = translation_test_filter(args.classes, args.translate_archive is not None)
+    require(args.reviewed_translation_command == 'instant-translate-copy' or args.classes == SELECTED_TRANSLATION_CASE,
+        'Translation variants require the single reviewed translation workflow')
+    network_filter = context_test_filter(args.classes, args.translate_archive is not None, args.weather_archive is not None)
     require(not (args.uuid_archive or args.lorem_archive) or all(
         item.split('#')[0] == 'dev.tinycast.android.ExtensionFormDeviceTest' for item in args.classes.split(',')),
         'Offline bundles belong only to the owned Form cohort')
@@ -192,8 +212,9 @@ def main():
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'document_helper_sha256': sha(document_helper.read_bytes()),
-              'instrumentation_excluded_tests': [] if not network_filter else [SELECTED_TRANSLATION_CASE],
+              'instrumentation_excluded_tests': [] if not network_filter else network_filter[-1].split(','),
               'reviewed_json_command': args.reviewed_json_command,
+              'reviewed_translation_command': args.reviewed_translation_command,
               'expect_completion_return': args.expect_completion_return,
               'original_size': size, 'original_density': density, 'original_font_scale': font, 'settings_before': secure,
               'recovery_lease': root, 'evidence_directories': evidence_dirs, 'shared_regression_cohort': regression}
@@ -245,6 +266,7 @@ def main():
         command = adb + ['shell', 'am', 'instrument', '-w', '-r', '-e', 'dedicatedAvd', args.avd,
                          '-e', 'reviewedTextFixture', 'true', '-e', 'expectedTextInputLeaseOwner', owner,
                          '-e', 'reviewedJsonCommand', args.reviewed_json_command,
+                         '-e', 'reviewedTranslationCommand', args.reviewed_translation_command,
                          '-e', 'expectCompletionReturn', str(args.expect_completion_return).lower(),
                          '-e', 'expectedClipboardRecoveryOwner', owner,
                          '-e', 'expectedFormDocumentOwner', owner if args.document_fixtures else 'none',
