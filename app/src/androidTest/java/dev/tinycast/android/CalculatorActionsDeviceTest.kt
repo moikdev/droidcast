@@ -45,6 +45,7 @@ class CalculatorActionsDeviceTest {
     private val sentinel = "Owned calculator clipboard sentinel 6704"
     private var method = ""
     private var prepared = false
+    private var ownedClipboardWritten = false
     private var original = emptyMap<String, Any?>()
     private lateinit var record: JSONObject
     private val pointers = JSONArray()
@@ -90,13 +91,15 @@ class CalculatorActionsDeviceTest {
             }
             store.reset(); store.resetShortcuts()
             clipboard().setPrimaryClip(ClipData.newPlainText("Owned calculator fixture", sentinel))
+            ownedClipboardWritten=true
         }
         dismissOwnedClipboard()
     }
     @After fun restore() {
         if (!prepared) return
         try {
-            if (!record.getBoolean("passed")) capture("failure")
+            if (!record.getBoolean("passed") && ownedClipboardWritten) capture("failure")
+            else if(!ownedClipboardWritten)record.put("failure_before_owned_clipboard_no_capture",true)
         } finally {
             restorePalettePreferences(context, original)
             compose.runOnUiThread { clipboard().resetClipboardForTest(); windowCallback?.let { compose.activity.window.callback=it } }
