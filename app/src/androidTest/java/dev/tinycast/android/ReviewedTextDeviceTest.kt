@@ -487,7 +487,7 @@ class ReviewedTextDeviceTest {
         assertEquals(sentinel, clipboardText())
         record.put("clipboard_unchanged_before_source_return", true)
             .put("clipboard_observation_scope", "Read while target is foreground, immediately before Return; no background-app clipboard-read claim")
-        touch("text-input-cancel"); awaitCaller()
+        touchContextAction("text-input-cancel"); awaitCaller()
         assertEquals("hello", device.findObject(By.res("android:id/edit")).text)
         assertEquals("Selection 0 to 5", device.findObject(By.res("android:id/text2")).text)
         record.put("workflow_outcome", "blocked-menu-bar-reviewed-entry").put("extension_bytecode_executed", false)
@@ -495,6 +495,25 @@ class ReviewedTextDeviceTest {
             .put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true)
             .put("observation_collector_passed", true).put("passed", true)
         capture("menu-bar-source-return", true)
+    }
+    private fun touchContextAction(tag: String) {
+        val target = compose.onNodeWithTag(tag)
+        val minimum = 48f * context.resources.displayMetrics.density
+        var attempts = 0
+        while (target.fetchSemanticsNode().boundsInRoot.let { it.height + 1 < minimum || it.width + 1 < minimum } && attempts++ < 30) {
+            val scroll = if (foregroundActivity().store.dialog == "text-input") "shell-content-scroll" else "palette-content-scroll"
+            compose.onNodeWithTag(scroll).performTouchInput {
+                swipe(Offset(4f, height * .8f), Offset(4f, height * .2f), 300)
+            }
+            compose.waitForIdle()
+        }
+        target.assertIsDisplayed().assertIsEnabled()
+        val bounds = target.fetchSemanticsNode().boundsInRoot
+        assertTrue("$tag needs a complete visible 48dp target", bounds.height + 1 >= minimum && bounds.width + 1 >= minimum)
+        val targets = record.optJSONArray("context_pointer_targets") ?: JSONArray().also { record.put("context_pointer_targets", it) }
+        targets.put(JSONObject().put("tag", tag).put("bounds", JSONArray(listOf(bounds.left, bounds.top, bounds.right, bounds.bottom)))
+            .put("minimum_px", minimum).put("pointer_reveal_gestures", attempts))
+        target.performTouchInput { click(center) }
     }
     private fun contextEngine(): WebView? {
         var engine: WebView? = null
@@ -522,7 +541,7 @@ class ReviewedTextDeviceTest {
         record.put("startup_gate", "Compose-driven wait for native List, JavaScript engine or runtime error")
         if (catalog.runtimeError != null) {
             val error = requireNotNull(catalog.runtimeError)
-            record.put("observed_runtime_error", error).put("workflow_outcome",
+            record.put("observed_runtime_error", error).put("observed_phase_outcome",
                 if (commandName == "quick-translate" && error.contains("launchCommand is not supported on Android")) "blocked-command-handoff" else "observed-runtime-failure")
             assertEquals(sentinel, clipboardText()); capture("translation-runtime-boundary")
         } else {
@@ -558,7 +577,7 @@ class ReviewedTextDeviceTest {
                       if(row.kind==='paste')pasteRejected=!ok&&String(encoded).includes('Clipboard paste into another app is unavailable');
                       else{row.completed=true;row.transportSucceeded=Boolean(ok);if(ok&&typeof encoded==='string'&&encoded.length<=12*1024*1024){
                         const response=JSON.parse(encoded);row.status=response.status;
-                        if(row.ownedInputQuery&&row.ownedJapaneseTarget&&response.status>=200&&response.status<300)try{
+                        if(row.endpoint==='google-translate'&&row.ownedInputQuery&&row.ownedJapaneseTarget&&response.status>=200&&response.status<300)try{
                           if(typeof response.bodyBase64!=='string'||response.bodyBase64.length>1024*1024)throw new Error('Owned response bound');
                           const raw=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(response.bodyBase64),c=>c.charCodeAt(0))));
                           if(!Array.isArray(raw[0]))throw new Error('Owned response shape');
@@ -596,29 +615,37 @@ class ReviewedTextDeviceTest {
             if (expected.isNotBlank() && view && catalog.runtimeError == null) {
                 val rows = activeRoot(catalog.runtimeTree)!!.nodes("List.Item")
                 val index = rows.indexOfFirst { it.props().optString("title") == expected }; assertTrue(index >= 0)
-                assertEquals(sentinel, clipboardText()); touch("extension-row-$index")
+                assertEquals(sentinel, clipboardText()); touchContextAction("extension-row-$index")
                 assertEquals(sentinel, clipboardText()); record.put("selected_owned_response_row", index)
-                capture("translation-native-result"); touch("extension-primary")
+                capture("translation-native-result"); touchContextAction("extension-primary")
                 compose.waitUntil(10000) { clipboardText() == expected }
                 assertEquals(expected, contextObservation(web).getString("_copied"))
                 dismissClipboardForEvidence(requireAction = true); capture("translation-exact-copy")
-                record.put("copy_exact", true).put("workflow_outcome", "working-observed-path")
+                record.put("copy_exact", true).put("observed_phase_outcome", "working-observed-path")
             } else if (commandName == "instant-translate-paste" && expected.isNotBlank() && paste == expected && observed.getBoolean("pasteRejected")) {
                 assertEquals(sentinel, clipboardText()); capture("translation-paste-unavailable")
-                record.put("copy_exact", false).put("workflow_outcome", "partial-paste-unsupported").put("owned_service_output_matched_paste_attempt", true)
+                record.put("copy_exact", false).put("observed_phase_outcome", "partial-paste-unsupported").put("owned_service_output_matched_paste_attempt", true)
             } else if (commandName == "instant-translate-view" && expected.isNotBlank() && catalog.runtimeReady && catalog.runtimeStatus == expected) {
                 assertEquals(sentinel, clipboardText()); capture("translation-visible-feedback")
-                record.put("copy_exact", false).put("workflow_outcome", "working-display-observed-path")
+                record.put("copy_exact", false).put("observed_phase_outcome", "working-display-observed-path")
             } else {
                 assertEquals(sentinel, clipboardText()); capture("translation-uncompleted-observation")
-                record.put("copy_exact", false).put("workflow_outcome", "partial-no-witnessed-output")
+                record.put("copy_exact", false).put("observed_phase_outcome", "partial-no-witnessed-output")
             }
             if (expected.isNotBlank()) record.put("owned_provider_output_sha256", hash(expected.toByteArray())).put("owned_provider_output_characters", expected.length)
         }
-        touch("extension-back"); awaitCaller()
+        if (view && compose.onAllNodesWithTag("extension-detail-back").fetchSemanticsNodes().isNotEmpty()) {
+            touchContextAction("extension-detail-back")
+            compose.onNodeWithTag("extension-search").assertIsDisplayed().assertTextEquals("good morning")
+            assertEquals("good morning", activeRoot(catalog.runtimeTree)!!.props().getString("searchText"))
+            record.put("native_detail_returned_to_results", true).put("edited_query_preserved_on_native_back", true)
+            capture("translation-results-return")
+        }
+        touchContextAction("extension-back"); awaitCaller()
         assertEquals("hello", device.findObject(By.res("android:id/edit")).text)
         assertEquals("Selection 0 to 5", device.findObject(By.res("android:id/text2")).text)
-        record.put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true)
+        record.put("workflow_outcome", record.getString("observed_phase_outcome"))
+            .put("source_text_and_selection_unchanged", true).put("returned_to_external_caller", true)
             .put("observation_collector_passed", true).put("passed", true)
         capture("translation-context-return", true)
     }
