@@ -31,6 +31,8 @@ class ExtensionPasteCopyTest {
     }
     @Test fun numericTextAndEmptyTextHaveExplicitSupportedRepresentations() {
         assertEquals("7", request(7).take()); assertEquals("1.25", request(1.25).take())
+        assertEquals("1e-7", ExtensionPasteCopy.parse("[1e-7]").take())
+        assertEquals("1e+21", ExtensionPasteCopy.parse("[1e+21]").take())
         assertEquals("", request("").take())
         rejected { request(JSONObject.NULL) }; rejected { request(true) }; rejected { request(JSONArray().put("not text")) }
     }
@@ -50,7 +52,8 @@ class ExtensionPasteCopyTest {
         rejected { ExtensionPasteCopy.parse("[".repeat(10000) + "]".repeat(10000)) }
     }
     @Test fun malformedParametersDoNotLeakRawValuesIntoErrors() {
-        for (raw in listOf("[{", "[/* private marker */true]", "['private marker']", "[]", "[] []")) {
+        for (raw in listOf("[{", "[/* private marker */true]", "['private marker']", "[]", "[] []",
+            "[unquoted]", "[{text:\"owned\"}]", "[NaN]", "[1e999]", "[01]", "[1,]")) {
             val error = assertThrows(IllegalArgumentException::class.java) { ExtensionPasteCopy.parse(raw) }
             assertFalse(error.message.orEmpty().contains("private marker"))
         }

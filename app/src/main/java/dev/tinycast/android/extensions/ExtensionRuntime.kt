@@ -125,6 +125,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private fun destroyEngine() {
         if (engineDestroyed) return
         engineDestroyed = true
+        runtimeRegistration?.let { catalog.clearPasteCopy(producer = it) }
         acknowledgementTimeout?.let(cleanupHandler::removeCallbacks); acknowledgementTimeout = null; pendingLaunchAcknowledgement = null
         webView.stopLoading(); webView.removeJavascriptInterface("AndroidHost")
         (webView.parent as? android.view.ViewGroup)?.removeView(webView); webView.destroy()

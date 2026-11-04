@@ -18,6 +18,14 @@ HANDOFF = 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
+    def test_paste_copy_expectation_cannot_broaden_other_fixtures(self):
+        selected = 'dev.tinycast.android.ReviewedTextDeviceTest#selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure'
+        for classes, options in [(DETAIL, []), (selected, []),
+                                 (selected, ['--reviewed-translation-command', 'instant-translate-paste']),
+                                 ('dev.tinycast.android.ReviewedTextDeviceTest', ['--reviewed-translation-command', 'instant-translate-paste', '--translate-archive', 'not-read.zip'])]:
+            self.refused_without_device_access(classes, ['--expect-paste-copy-fallback', *options],
+                'Paste Copy fallback requires the single frozen paste observation')
+
     def test_handoff_cannot_mix_with_other_fixtures(self):
         for selected in [DETAIL, CALCULATOR, 'dev.tinycast.android.ReviewedTextDeviceTest', CLIPBOARD]:
             self.refused_without_device_access(HANDOFF + ',' + selected, [],

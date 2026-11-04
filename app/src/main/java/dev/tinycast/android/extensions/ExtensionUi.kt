@@ -495,12 +495,13 @@ private fun ColumnScope.PasteCopyFallback(catalog: ExtensionCatalog, offer: Exte
                             .setPrimaryClip(android.content.ClipData.newPlainText(offer.extension.listing.title, text))
                     }
                 }
-            }, enabled = current(), modifier = modifier.heightIn(min = 48.dp).testTag("extension-paste-copy")) {
+            }, enabled = current(), shape = RoundedCornerShape(10.dp),
+                modifier = modifier.heightIn(min = 48.dp).testTag("extension-paste-copy")) {
                 Text("Copy result instead", fontSize = 14.sp, lineHeight = 20.sp)
             }
         }
         val returnButton: @Composable (Modifier) -> Unit = { modifier ->
-            OutlinedButton(onClick = { if (current()) { lifetime.consumed = true; close() } }, enabled = current(),
+            OutlinedButton(onClick = { if (current()) { lifetime.consumed = true; close() } }, enabled = current(), shape = RoundedCornerShape(10.dp),
                 modifier = modifier.heightIn(min = 48.dp).testTag("extension-paste-return")) {
                 Text("Return", fontSize = 14.sp, lineHeight = 20.sp)
             }
@@ -662,7 +663,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         }
     }){
         if(pasteCopy!=null){
-            PasteCopyFallback(catalog,pasteCopy,::currentChrome,close)
+            PasteCopyFallback(catalog,pasteCopy,{ currentChrome() && !store.backupBusy },close)
         }else if(catalog.runtimeError!=null){
             Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){

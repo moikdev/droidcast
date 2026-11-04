@@ -38,7 +38,9 @@ internal class ExtensionPasteCopy private constructor(text: String) {
                 is String -> content
                 is Number -> {
                     require(content.toDouble().isFinite()) { "Paste requires finite text content" }
-                    JSONObject.numberToString(content)
+                    // The portable API serializes numbers with JSON.stringify. Keep
+                    // that exact representation, including small/large exponents.
+                    raw.substringAfter('[').trimStart().substringBefore(',').substringBefore(']').trim()
                 }
                 is JSONObject -> {
                     require(content.keys().asSequence().all { it in setOf("text", "html") } &&
@@ -62,36 +64,80 @@ internal class ExtensionPasteCopy private constructor(text: String) {
         }
 
         private fun boundedNesting(raw: String) {
-            var depth = 0
-            var quoted = false
-            var escaped = false
-            var started = false
-            var ended = false
-            for (character in raw) {
-                if (quoted) {
-                    require(character >= ' ') { "Paste requires valid content parameters" }
-                    if (escaped) escaped = false
-                    else if (character == '\\') escaped = true
-                    else if (character == '"') quoted = false
-                    continue
-                }
-                if (character in " \t\r\n") continue
-                require(!ended) { "Paste requires one content parameter array" }
-                if (!started) {
-                    require(character == '[') { "Paste requires a content parameter array" }
-                    started = true
-                }
-                when (character) {
-                    '"' -> quoted = true
-                    '[', '{' -> require(++depth <= 4) { "Paste content is too deeply nested" }
-                    ']', '}' -> {
-                        require(--depth >= 0) { "Paste requires valid content parameters" }
-                        if (depth == 0) ended = true
+            var at = 0
+            fun invalid(): Nothing = throw IllegalArgumentException("Paste requires valid JSON content parameters")
+            fun space() { while (at < raw.length && raw[at] in " \t\r\n") at++ }
+            fun token(character: Char) { space(); if (at >= raw.length || raw[at++] != character) invalid() }
+            fun string() {
+                token('"')
+                while (at < raw.length) {
+                    val character = raw[at++]
+                    if (character == '"') return
+                    if (character < ' ') invalid()
+                    if (character == '\\') {
+                        if (at >= raw.length) invalid()
+                        when (raw[at++]) {
+                            '"', '\\', '/', 'b', 'f', 'n', 'r', 't' -> Unit
+                            'u' -> repeat(4) {
+                                if (at >= raw.length || raw[at++] !in "0123456789abcdefABCDEF") invalid()
+                            }
+                            else -> invalid()
+                        }
                     }
-                    '\'', '/', '#' -> throw IllegalArgumentException("Paste requires JSON without comments or single-quoted strings")
+                }
+                invalid()
+            }
+            fun number() {
+                val start = at
+                if (raw[at] == '-') at++
+                if (at >= raw.length) invalid()
+                if (raw[at] == '0') at++ else {
+                    if (raw[at] !in '1'..'9') invalid()
+                    while (at < raw.length && raw[at] in '0'..'9') at++
+                }
+                if (at < raw.length && raw[at] == '.') {
+                    at++; val digits = at
+                    while (at < raw.length && raw[at] in '0'..'9') at++
+                    if (at == digits) invalid()
+                }
+                if (at < raw.length && raw[at] in "eE") {
+                    at++; if (at < raw.length && raw[at] in "+-") at++
+                    val digits = at
+                    while (at < raw.length && raw[at] in '0'..'9') at++
+                    if (at == digits) invalid()
+                }
+                if (raw.substring(start, at).toDoubleOrNull()?.isFinite() != true) invalid()
+            }
+            fun value(depth: Int) {
+                require(depth <= 4) { "Paste content is too deeply nested" }
+                space(); if (at >= raw.length) invalid()
+                when (raw[at]) {
+                    '"' -> string()
+                    '[' -> {
+                        at++; space()
+                        if (at < raw.length && raw[at] == ']') { at++; return }
+                        while (true) {
+                            value(depth + 1); space(); if (at >= raw.length) invalid()
+                            when (raw[at++]) { ']' -> return; ',' -> Unit; else -> invalid() }
+                        }
+                    }
+                    '{' -> {
+                        at++; space()
+                        if (at < raw.length && raw[at] == '}') { at++; return }
+                        while (true) {
+                            string(); token(':'); value(depth + 1); space(); if (at >= raw.length) invalid()
+                            when (raw[at++]) { '}' -> return; ',' -> Unit; else -> invalid() }
+                        }
+                    }
+                    '-', in '0'..'9' -> number()
+                    else -> {
+                        val literal = listOf("true", "false", "null").firstOrNull { raw.startsWith(it, at) } ?: invalid()
+                        at += literal.length
+                    }
                 }
             }
-            require(started && ended && !quoted && depth == 0) { "Paste requires complete content parameters" }
+            space(); if (at >= raw.length || raw[at] != '[') invalid()
+            value(0); space(); if (at != raw.length) invalid()
         }
     }
 }
