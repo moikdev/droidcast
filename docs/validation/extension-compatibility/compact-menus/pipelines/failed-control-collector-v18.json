@@ -1,0 +1,35 @@
+{
+  "completed": false,
+  "common_test_apk_sha256": "880e0ae3971d7bf7744aa068928a5f3510ff9fa7986b871623cf7642ca1e209d",
+  "cohorts": [
+    {
+      "candidate": "baseline",
+      "case": "legacy-category",
+      "layout": "phone",
+      "font_scale": 2,
+      "expected_passes": 1,
+      "completed": true,
+      "exit_code": 0,
+      "junit_passes": 1,
+      "failed_cleanup": [],
+      "cleanup_checks": 21,
+      "original_evidence_restored": true
+    },
+    {
+      "candidate": "baseline",
+      "case": "legacy-actions",
+      "layout": "landscape",
+      "font_scale": 1,
+      "expected_passes": 0,
+      "completed": false,
+      "exit_code": 1,
+      "junit_passes": 0,
+      "failed_cleanup": [
+        "legacy-fixtures-completed",
+        "release-lease"
+      ],
+      "cleanup_checks": 21
+    }
+  ],
+  "scope": "Three common final-harness controls. Revised simultaneous category containment should pass old runtime; old Actions empty and intermediate caller-range loss should fail. Failed native/cleanup receipts remain failed; recovery is recorded separately. A separate guarded current-app smoke provides the matched positive and final redeployment."
+}

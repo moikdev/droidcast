@@ -1,0 +1,94 @@
+{
+  "completed": true,
+  "cohorts": [
+    {
+      "candidate": "baseline",
+      "case": "legacy-category",
+      "layout": "phone",
+      "font_scale": 2,
+      "expected_passes": 1,
+      "completed": true,
+      "exit_code": 0,
+      "reused_completed_native_execution": true,
+      "junit_passes": 1,
+      "failed_cleanup": [],
+      "cleanup_checks": 21,
+      "original_evidence_restored": true
+    },
+    {
+      "candidate": "baseline",
+      "case": "legacy-actions",
+      "layout": "landscape",
+      "font_scale": 1,
+      "expected_passes": 0,
+      "completed": true,
+      "exit_code": 1,
+      "reused_completed_native_execution": true,
+      "junit_passes": 0,
+      "failed_cleanup": [
+        "legacy-fixtures-completed",
+        "release-lease"
+      ],
+      "cleanup_checks": 21,
+      "expected_zero_height_empty_viewport_failure_observed": true,
+      "separate_recovery_verified": true,
+      "original_evidence_restored": true
+    },
+    {
+      "candidate": "pre-repair",
+      "case": "touch-actions",
+      "layout": "landscape",
+      "font_scale": 1,
+      "expected_passes": 0,
+      "completed": true,
+      "exit_code": 1,
+      "junit_passes": 0,
+      "failed_cleanup": [
+        "legacy-fixtures-completed",
+        "release-lease"
+      ],
+      "cleanup_checks": 21,
+      "separate_recovery_verified": true,
+      "original_evidence_restored": true
+    },
+    {
+      "candidate": "baseline",
+      "case": "caller-diagnostics",
+      "layout": "landscape",
+      "font_scale": 1,
+      "expected_passes": 3,
+      "completed": true,
+      "exit_code": 0,
+      "junit_passes": 3,
+      "failed_cleanup": [],
+      "cleanup_checks": 21,
+      "original_evidence_restored": true
+    },
+    {
+      "candidate": "current",
+      "case": "legacy-actions",
+      "layout": "landscape",
+      "font_scale": 1,
+      "expected_passes": 1,
+      "completed": true,
+      "exit_code": 0,
+      "junit_passes": 1,
+      "failed_cleanup": [],
+      "cleanup_checks": 21,
+      "original_evidence_restored": true
+    }
+  ],
+  "scope": "Three common final-harness controls. Revised simultaneous category containment should pass old runtime; old Actions empty and intermediate caller-range loss should fail. Failed native/cleanup receipts remain failed; recovery is recorded separately. A separate guarded current-app smoke provides the matched positive and final redeployment.",
+  "common_test_apk_sha256": "880e0ae3971d7bf7744aa068928a5f3510ff9fa7986b871623cf7642ca1e209d",
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "durable_file_count": 12,
+  "final_current_app_installed_and_verified": true,
+  "final_current_app_sha256": "9b69c279f241e4b2ca69e7634afe1472f128b46221e6f3bb1205bef996dcda8f",
+  "final_current_smoke_passes": 1,
+  "old_caller_reveal_passes": 3,
+  "collector_sha256": "e912663f70afbca3330088f0f1847b800300188e2f27c919105b6613da70dca7",
+  "collector_source_unchanged": true,
+  "retained_prior_collector_sha256": "f501ac981f086bb0101abbd04aa465bcb4d72542946689d29aa0d0fa045313b4",
+  "retained_prior_collector_scope": "Earlier classifier stopped after the intended zero-height failure; known two completed native executions are validated and reused, not repeated. The v18 source was edited near process startup, so no exact executed private-collector source identity is claimed for that failed classification."
+}

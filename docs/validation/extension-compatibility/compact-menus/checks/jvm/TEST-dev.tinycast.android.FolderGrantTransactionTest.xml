@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.FolderGrantTransactionTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-04T02:33:57.251Z" hostname="redacted-host" time="0.021">
+  <properties/>
+  <testcase name="cancellationDuringThePostCommitReadKeepsTheSavedFoldersGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.006"/>
+  <testcase name="failedConfigurationWriteRollsBackTheNewGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.002"/>
+  <testcase name="cancellationCannotReleaseAPreexistingReadGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.001"/>
+  <testcase name="failedRemovalWriteRetainsTheGrantForTheExistingConfiguration" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.002"/>
+  <testcase name="cancellationWhenCommitReturnsKeepsTheSavedFoldersGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.001"/>
+  <testcase name="cancellationWhenRemovalReturnsCannotSkipItsGrantRelease" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.001"/>
+  <testcase name="cancellationWhenAcquisitionReturnsRollsBackTheNewGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.0"/>
+  <testcase name="successfulCommitTransfersOwnershipToTheConfiguration" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.001"/>
+  <testcase name="cancellationBeforeTakingDoesNotAcquireOrReleaseAGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.001"/>
+  <testcase name="cancelledRemovalBeforeTheWriteRetainsTheExistingGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.001"/>
+  <testcase name="replacementReaderCannotSeeTheGrantBeforeValidationRollback" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.002"/>
+  <testcase name="failedValidationRollsBackOnlyTheNewGrant" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.002"/>
+  <testcase name="unknownPostRenameResultRetainsTheGrantBeforeReplacementReads" classname="dev.tinycast.android.FolderGrantTransactionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

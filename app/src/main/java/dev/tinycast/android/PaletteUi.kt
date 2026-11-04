@@ -107,6 +107,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val displayedSearch = if (searchValue.text == store.query) searchValue else TextFieldValue(store.query, TextRange(store.query.length))
         SideEffect { if (searchValue != displayedSearch) searchValue = displayedSearch }
         val keyboard = LocalSoftwareKeyboardController.current
+        val paletteMenus = LocalPaletteMenus.current
         val view = LocalView.current
         val windowFocused = LocalWindowInfo.current.isWindowFocused
         var searchFocused by remember { mutableStateOf(false) }
@@ -208,7 +209,15 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 .pointerInput(Unit) { detectTapGestures {} }.testTag("palette").paletteMenuSurface()) {
                 Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(horizontal=16.dp,vertical=4.dp).testTag("palette-header"),verticalAlignment=Alignment.CenterVertically) {
                     Glyph("search",PaletteTheme.secondary,22);Spacer(Modifier.width(12.dp))
-                    BasicTextField(value=displayedSearch,onValueChange={ searchValue = it; if (it.text != store.query) store.search(it.text) },modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
+                    BasicTextField(value=displayedSearch,onValueChange={ next ->
+                        // A menu borrows focus. CoreTextField's blur collapse
+                        // must not overwrite the unchanged caller's selection.
+                        val current = searchValue
+                        val keepMenuRange = paletteMenus.current != null && current.text == store.query && next.text == current.text &&
+                            !current.selection.collapsed && next.selection == TextRange(current.selection.max)
+                        searchValue = if(keepMenuRange) next.copy(selection=current.selection) else next
+                        if (next.text != store.query) store.search(next.text)
+                    },modifier=Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(focus).onFocusChanged { searchFocused = it.isFocused }.testTag("search"),
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),
                         keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=!wide || keyboardRequested),keyboardActions=KeyboardActions(onSearch={activateCurrent()}),
                         decorationBox={inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(store.query.isEmpty())Text("Search for apps and commands…",color=PaletteTheme.secondary,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
@@ -389,6 +398,7 @@ fun Glyph(name: String, tint: Color = PaletteTheme.secondary, size: Int = 20) {
             "trash" -> { line(5f,6f,19f,6f); line(9f,3f,15f,3f); line(7f,6f,8f,21f); line(8f,21f,16f,21f); line(16f,21f,17f,6f); line(10f,10f,10f,17f); line(14f,10f,14f,17f) }
             "star", "star-filled" -> { val p=Path(); for(i in 0 until 10) { val angle=-Math.PI/2+i*Math.PI/5; val radius=if(i%2==0)9f else 4f; val x=(12f+kotlin.math.cos(angle)*radius).toFloat()*scale; val y=(12f+kotlin.math.sin(angle)*radius).toFloat()*scale; if(i==0)p.moveTo(x,y)else p.lineTo(x,y) }; p.close(); drawPath(p,tint,style=if(name=="star-filled")androidx.compose.ui.graphics.drawscope.Fill else Stroke(1.6f*scale)) }
             "keyboard" -> { rect(2f, 5f, 20f, 14f); for (y in listOf(9f,12f)) for (x in listOf(6f,10f,14f,18f)) line(x,y,x+.4f,y); line(7f,16f,17f,16f) }
+            "keyboard-hide" -> { rect(2f, 2f, 20f, 13f); for (y in listOf(6f,9f)) for (x in listOf(6f,10f,14f,18f)) line(x,y,x+.4f,y); line(7f,12f,17f,12f); line(8f,19f,12f,22f); line(12f,22f,16f,19f) }
             "app" -> { for (y in listOf(3f,14f)) for (x in listOf(3f,14f)) rect(x,y,7f,7f,1f) }
             "pin" -> { line(8f,3f,16f,3f); line(9f,3f,9f,10f); line(15f,3f,15f,10f); line(9f,10f,6f,14f); line(15f,10f,18f,14f); line(6f,14f,18f,14f); line(12f,14f,12f,22f) }
             "link" -> { line(8f,16f,16f,8f); val p=Path().apply { moveTo(7f*scale,12f*scale); cubicTo(-1f*scale,16f*scale,8f*scale,25f*scale,13f*scale,17f*scale); moveTo(11f*scale,7f*scale); cubicTo(16f*scale,-1f*scale,25f*scale,8f*scale,17f*scale,12f*scale) }; drawPath(p,tint,style=Stroke(1.7f*scale,cap=StrokeCap.Round)) }

@@ -1,0 +1,225 @@
+{
+  "launcher_keyboard_setup": [
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200
+      ],
+      "native_frames": 7,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "request_route": "Native hide after the observed shown state",
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200
+      ],
+      "native_frames": 7,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200
+      ],
+      "native_frames": 8,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": false,
+      "settled": true,
+      "request_route": "Native hide after the observed shown state",
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200
+      ],
+      "native_frames": 8,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200
+      ],
+      "native_frames": 7,
+      "stable_for_at_least_ms": 100
+    },
+    {
+      "requested_visible": true,
+      "settled": true,
+      "request_route": "Existing launcher Show on-screen keyboard callback",
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200
+      ],
+      "native_frames": 7,
+      "stable_for_at_least_ms": 100
+    }
+  ],
+  "scope": "Owned menu workflows; host cleanup independently restores original clipboard/preferences/settings/evidence",
+  "passed": true,
+  "font_scale": 1.5,
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "observations": [
+    {
+      "initial_ime_visible": false,
+      "category": "Notes",
+      "exact_owned_destination_id": "notes:8b1bc2e9-04d2-4e7e-ab06-556904f9fb9a",
+      "escape_query_and_range_restored": true,
+      "caller_query_after_escape": "Settings"
+    },
+    {
+      "initial_ime_visible": true,
+      "category": "Notes",
+      "exact_owned_destination_id": "notes:8b1bc2e9-04d2-4e7e-ab06-556904f9fb9a",
+      "escape_query_and_range_restored": true,
+      "caller_query_after_escape": "Settings"
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "palette-menu",
+      "node_id": 258,
+      "owner_root_semantics_id": 233,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        410,
+        1053,
+        482,
+        1125
+      ],
+      "point_root": [
+        446,
+        1089
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 258,
+      "owner_root_semantics_id": 233,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        410,
+        1053,
+        482,
+        1125
+      ],
+      "point_root": [
+        446,
+        1089
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "filter-Notes",
+      "node_id": 360,
+      "owner_root_semantics_id": 233,
+      "control_size": [
+        462,
+        72
+      ],
+      "visible_bounds": [
+        419,
+        612,
+        881,
+        684
+      ],
+      "point_root": [
+        650,
+        648
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 258,
+      "owner_root_semantics_id": 233,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        410,
+        549,
+        482,
+        621
+      ],
+      "point_root": [
+        446,
+        585
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 258,
+      "owner_root_semantics_id": 233,
+      "control_size": [
+        72,
+        72
+      ],
+      "visible_bounds": [
+        410,
+        549,
+        482,
+        621
+      ],
+      "point_root": [
+        446,
+        585
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "filter-Notes",
+      "node_id": 465,
+      "owner_root_semantics_id": 233,
+      "control_size": [
+        462,
+        72
+      ],
+      "visible_bounds": [
+        419,
+        459,
+        881,
+        531
+      ],
+      "point_root": [
+        650,
+        495
+      ],
+      "ime_visible": false
+    }
+  ],
+  "pointer_scrolls": []
+}

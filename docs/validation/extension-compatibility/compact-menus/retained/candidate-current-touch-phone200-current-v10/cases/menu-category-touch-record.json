@@ -1,0 +1,145 @@
+{
+  "scope": "Owned menu workflows; host cleanup independently restores original clipboard/preferences/settings/evidence",
+  "passed": true,
+  "font_scale": 2,
+  "installed_build_commit": "bdbfc569b222eaa85e157838cb36ed0a8911d6eb",
+  "observations": [
+    {
+      "initial_ime_visible": false,
+      "category": "Notes",
+      "exact_owned_destination_id": "notes:90219d85-8dee-442c-9b58-922bfa9f7836",
+      "escape_query_and_range_restored": true,
+      "caller_query_after_escape": "Settings"
+    },
+    {
+      "initial_ime_visible": true,
+      "category": "Notes",
+      "exact_owned_destination_id": "notes:90219d85-8dee-442c-9b58-922bfa9f7836",
+      "escape_query_and_range_restored": true,
+      "caller_query_after_escape": "Settings"
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "palette-menu",
+      "node_id": 246,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        53,
+        1767,
+        179,
+        1893
+      ],
+      "point_root": [
+        116,
+        1830
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 246,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        53,
+        1767,
+        179,
+        1893
+      ],
+      "point_root": [
+        116,
+        1830
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "filter-Notes",
+      "node_id": 351,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        808,
+        133
+      ],
+      "visible_bounds": [
+        69,
+        819,
+        877,
+        952
+      ],
+      "point_root": [
+        473,
+        885.5
+      ],
+      "ime_visible": false
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 246,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        53,
+        1145,
+        179,
+        1271
+      ],
+      "point_root": [
+        116,
+        1208
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "palette-menu",
+      "node_id": 246,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        126,
+        126
+      ],
+      "visible_bounds": [
+        53,
+        1145,
+        179,
+        1271
+      ],
+      "point_root": [
+        116,
+        1208
+      ],
+      "ime_visible": true
+    },
+    {
+      "tag": "filter-Notes",
+      "node_id": 456,
+      "owner_root_semantics_id": 223,
+      "control_size": [
+        808,
+        133
+      ],
+      "visible_bounds": [
+        69,
+        819,
+        877,
+        952
+      ],
+      "point_root": [
+        473,
+        885.5
+      ],
+      "ime_visible": false
+    }
+  ],
+  "pointer_scrolls": []
+}

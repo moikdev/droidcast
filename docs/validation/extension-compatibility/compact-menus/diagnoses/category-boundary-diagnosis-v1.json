@@ -1,0 +1,82 @@
+{
+  "scope": "Original assertion operands versus simultaneous live bounds. This demonstrates a stale cached-frame assertion in these two reproductions, not a production containment repair.",
+  "common_test_sha256": "80ad82fd5b18b815da256e3a8ffb365bbfac83d2cbc5eea98ad4bce91da79d4a",
+  "observations": [
+    {
+      "runtime": "current",
+      "installed_build_commit": "01c03f872312f9636b9ffcf85b5b8c75f79cbe31",
+      "cached_palette": [
+        32,
+        95,
+        1048,
+        1343
+      ],
+      "legacy_menu_operand": [
+        53,
+        243,
+        893,
+        1695
+      ],
+      "live_palette": [
+        32,
+        95,
+        1048,
+        1965
+      ],
+      "live_menu": [
+        53,
+        243,
+        893,
+        1695
+      ],
+      "native_bounds": [
+        {
+          "resource_id": "inline-menu",
+          "bounds": "[53,243][893,1695]"
+        }
+      ],
+      "ime_visible_at_capture": false,
+      "font_scale": 2,
+      "frame_commit_observed": true,
+      "native_frame_sha256": "da7eb55d780c779a819af0f992a232fae41057e8446e98bfe29776a0fcbf322c"
+    },
+    {
+      "runtime": "baseline",
+      "installed_build_commit": "350c2fe775ecdac2094538c977aeca7ac0737bfc",
+      "cached_palette": [
+        32,
+        95,
+        1048,
+        1343
+      ],
+      "legacy_menu_operand": [
+        53,
+        243,
+        893,
+        1695
+      ],
+      "live_palette": [
+        32,
+        95,
+        1048,
+        1965
+      ],
+      "live_menu": [
+        53,
+        243,
+        893,
+        1695
+      ],
+      "native_bounds": [
+        {
+          "resource_id": "inline-menu",
+          "bounds": "[53,243][893,1695]"
+        }
+      ],
+      "ime_visible_at_capture": false,
+      "font_scale": 2,
+      "frame_commit_observed": true,
+      "native_frame_sha256": "5411e5c4cc80bf835d7fcbc9a50101d339694db7515be49eaaa0be07d9f10855"
+    }
+  ]
+}
