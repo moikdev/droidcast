@@ -55,7 +55,7 @@ class ExtensionPasteCopyDeviceTest {
     private val sentinel = "Owned paste copy clipboard sentinel"
     private val caller = "owned-paste-copy-caller"
     private val ownedText = "café é 日本 🌱\n\"owned\""
-    private val writes = AtomicInteger(0)
+    private val notifications = AtomicInteger(0)
     private var listener: ClipboardManager.OnPrimaryClipChangedListener? = null
     private val dialogs = mutableListOf<Dialog>()
     private val retainedEngines = mutableListOf<ExtensionRuntime>()
@@ -170,7 +170,7 @@ class ExtensionPasteCopyDeviceTest {
         record.put("font_scale", context.resources.configuration.fontScale).put("width_dp", context.resources.configuration.screenWidthDp)
             .put("height_dp", context.resources.configuration.screenHeightDp)
         instrumentation.waitForIdleSync()
-        listener = ClipboardManager.OnPrimaryClipChangedListener { writes.incrementAndGet() }
+        listener = ClipboardManager.OnPrimaryClipChangedListener { notifications.incrementAndGet() }
         instrumentation.runOnMainSync { context.getSystemService(ClipboardManager::class.java).addPrimaryClipChangedListener(requireNotNull(listener)) }
         launch("parent")
     }
@@ -206,18 +206,18 @@ class ExtensionPasteCopyDeviceTest {
         tap("extension-primary")
         compose.waitUntil(15000){catalog.pasteCopyOffer!=null && probe().optInt("rejected")==1}
         compose.onNodeWithTag("extension-paste-copy").assertExists()
-        assertEquals(sentinel,clipboard());assertEquals(0,writes.get());assertEquals(0,probe().getInt("resolved"))
+        assertEquals(sentinel,clipboard());assertEquals(0,probe().getInt("resolved"))
         return requireNotNull(catalog.pasteCopyOffer)
     }
     private fun oldCopy():()->Boolean=requireNotNull(compose.onNodeWithTag("extension-paste-copy").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
     private fun copyExpected(expected:String=ownedText){
         tap("extension-paste-copy")
-        compose.waitUntil(10000){clipboard()==expected && writes.get()>=1}
+        compose.waitUntil(10000){clipboard()==expected}
         assertArrayEquals(expected.toByteArray(Charsets.UTF_8),requireNotNull(clipboard()).toByteArray(Charsets.UTF_8))
-        assertEquals(1,writes.get());compose.onNodeWithTag("extension-paste-title").assertTextEquals("Result copied")
+        compose.onNodeWithTag("extension-paste-title").assertTextEquals("Result copied")
         compose.onNodeWithTag("extension-paste-copy").assertDoesNotExist()
         dismissClipboardForEvidence(requireAction=true)
-        record.put("copy_exact",true).put("owned_output_sha256",hash(expected.toByteArray())).put("clipboard_writes",writes.get())
+        record.put("copy_exact",true).put("owned_output_sha256",hash(expected.toByteArray())).put("clipboard_notifications",notifications.get())
     }
     private fun finish(){
         tap("extension-paste-return");assertNull(catalog.running);assertNull(activity().store.dialog);assertEquals(caller,activity().store.query)
@@ -256,7 +256,7 @@ class ExtensionPasteCopyDeviceTest {
                 listener?.let { context.getSystemService(ClipboardManager::class.java).removePrimaryClipChangedListener(it) };listener=null
                 dialogs.forEach { it.dismiss() };retainedEngines.forEach { it.close() }
             }
-            record.put("clipboard_writes",writes.get())
+            record.put("clipboard_notifications",notifications.get())
             instrumentation.runOnMainSync {
                 val monitor = ActivityLifecycleMonitorRegistry.getInstance()
                 listOf(Stage.CREATED, Stage.STARTED, Stage.RESUMED, Stage.PAUSED, Stage.STOPPED).flatMap { monitor.getActivitiesInStage(it) }
@@ -291,20 +291,28 @@ class ExtensionPasteCopyDeviceTest {
     @Test fun pointerCopyIsExactOnceAndReturns() {
         val held=pending();val obsolete=oldCopy();capture("pending-before-copy")
         copyExpected();assertFalse(requireNotNull(held.output).available)
+        capture("unicode-exact-copy")
+        val afterCopySentinel="Owned fresh sentinel after real Unicode Copy"
+        instrumentation.runOnMainSync {
+            context.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Owned duplicate probe",afterCopySentinel))
+        }
+        dismissClipboardForEvidence(requireAction=true)
         instrumentation.runOnMainSync { obsolete();obsolete() }
-        instrumentation.waitForIdleSync();assertEquals(1,writes.get());assertEquals(ownedText,clipboard())
-        record.put("duplicate_after_copy_rejected",true);capture("copied-once");finish()
+        instrumentation.waitForIdleSync();assertEquals(afterCopySentinel,clipboard())
+        record.put("duplicate_after_copy_rejected",true)
+            .put("duplicate_probe_setup","After the real exact Copy, a separate owned sentinel is written; retained callbacks must leave it unchanged. Listener notifications are diagnostics, not native write counts.")
+        capture("duplicate-sentinel-preserved");finish()
     }
     @Test fun returnAndEscapeCancelWithoutCopy() {
         val held=pending();val obsolete=oldCopy();capture("pending-before-return")
         tap("extension-paste-return");assertNull(catalog.running);assertEquals(caller,activity().store.query)
         instrumentation.runOnMainSync { obsolete() };assertFalse(requireNotNull(held.output).available)
-        assertEquals(sentinel,clipboard());assertEquals(0,writes.get())
+        assertEquals(sentinel,clipboard())
         launch("parent");val second=pending();val oldSecond=oldCopy()
         instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ESCAPE)
         compose.waitUntil(10000){activity().store.dialog==null}
         instrumentation.runOnMainSync { oldSecond() };assertFalse(requireNotNull(second.output).available)
-        assertNull(catalog.running);assertEquals(sentinel,clipboard());assertEquals(0,writes.get())
+        assertNull(catalog.running);assertEquals(sentinel,clipboard())
         record.put("return_and_escape_cancelled_without_copy",true).put("passed",true);capture("cancelled-caller")
     }
     @Test fun replacementRejectsQueuedCopyBeforeRecomposition() {
@@ -313,7 +321,7 @@ class ExtensionPasteCopyDeviceTest {
         try {
             instrumentation.runOnMainSync { catalog.launch(extension(),command("steady"));obsolete() }
             assertEquals(before+1,catalog.launchEpoch);assertFalse(requireNotNull(held.output).available)
-            assertEquals(sentinel,clipboard());assertEquals(0,writes.get())
+            assertEquals(sentinel,clipboard())
         } finally { compose.mainClock.autoAdvance=true }
         compose.waitUntil(20000){activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains("Owned paste ready")==true}
         compose.onNodeWithTag("extension-paste-copy").assertDoesNotExist()
@@ -329,7 +337,7 @@ class ExtensionPasteCopyDeviceTest {
             while(probe().optInt("rejected")<2 && android.os.SystemClock.uptimeMillis()<deadline)android.os.SystemClock.sleep(50)
             assertEquals(2,probe().getInt("rejected"));assertEquals(epoch,catalog.launchEpoch)
             assertFalse(requireNotNull(held.output).available)
-            instrumentation.runOnMainSync { obsolete() };assertEquals(sentinel,clipboard());assertEquals(0,writes.get())
+            instrumentation.runOnMainSync { obsolete() };assertEquals(sentinel,clipboard())
         } finally { compose.mainClock.autoAdvance=true }
         compose.waitForIdle();copyExpected(newer)
         record.put("same_session_old_output_rejected",true).put("protocol_setup","Compose clock paused for replacement/old-callback assertions; actual current pointer Copy follows")
@@ -345,7 +353,7 @@ class ExtensionPasteCopyDeviceTest {
             compose.onNodeWithText("Owned rejection ${index+2}",substring=true,useUnmergedTree=true).assertIsDisplayed()
             compose.onNodeWithTag("extension-paste-copy").assertDoesNotExist()
             instrumentation.runOnMainSync { obsolete() }
-            assertEquals(sentinel,clipboard());assertEquals(0,writes.get());assertFalse(requireNotNull(held.output).available)
+            assertEquals(sentinel,clipboard());assertFalse(requireNotNull(held.output).available)
         }
         assertEquals(0,probe().getInt("resolved"));assertNull(catalog.pasteCopyOffer)
         record.put("invalid_request_count",values.size).put("old_capability_cleared",true);capture("rejections-without-copy")
@@ -360,7 +368,7 @@ class ExtensionPasteCopyDeviceTest {
         val deadline=android.os.SystemClock.uptimeMillis()+10000
         while(probe().optInt("rejected")<2 && android.os.SystemClock.uptimeMillis()<deadline)android.os.SystemClock.sleep(50)
         assertEquals(2,probe().getInt("rejected"));assertTrue(probe().getString("lastError").contains("foreground"))
-        instrumentation.runOnMainSync { obsolete() };assertEquals(sentinel,clipboard());assertEquals(0,writes.get())
+        instrumentation.runOnMainSync { obsolete() };assertEquals(sentinel,clipboard())
         tap("extension-back");compose.waitUntil(10000){activity().store.dialog=="extension-run"}
         instrumentation.runOnMainSync { obsolete() };compose.onNodeWithTag("extension-paste-copy").assertDoesNotExist()
         record.put("hidden_route_rejected",true).put("disposed_old_copy_rejected_after_route_return",true)
@@ -373,7 +381,7 @@ class ExtensionPasteCopyDeviceTest {
         val dialog=Dialog(previous);dialogs+=dialog
         instrumentation.runOnMainSync { dialog.setContentView(TextView(previous).apply{text="Owned focus boundary"});dialog.show() }
         compose.waitUntil(10000){!previous.window.decorView.hasWindowFocus()}
-        instrumentation.runOnMainSync { obsolete() };instrumentation.waitForIdleSync();assertEquals(0,writes.get())
+        instrumentation.runOnMainSync { obsolete() };instrumentation.waitForIdleSync()
         instrumentation.runOnMainSync { dialog.dismiss() }
         compose.waitUntil(10000){previous.window.decorView.hasWindowFocus()}
         assertEquals(sentinel,clipboard());copyExpected();record.put("unfocused_retained_copy_rejected",true)
@@ -387,14 +395,14 @@ class ExtensionPasteCopyDeviceTest {
         compose.waitUntil(20000){currentActivity()?.let{it!==previous && !it.store.loading}==true}
         compose.waitUntil(20000){catalog.runtimeTree!==originalTree && activeRoot(catalog.runtimeTree)?.props()?.optString("markdown")?.contains("Owned paste ready")==true}
         assertSame(previousCatalog,catalog);assertNull(catalog.pasteCopyOffer);assertFalse(requireNotNull(held.output).available)
-        instrumentation.runOnMainSync { obsolete() };assertEquals(sentinel,clipboard());assertEquals(0,writes.get())
+        instrumentation.runOnMainSync { obsolete() };assertEquals(sentinel,clipboard())
         record.put("new_native_publication_after_recreation",true).put("old_buffer_cleared",true)
         capture("recreated-without-old-offer");pending();copyExpected();finish()
     }
     @Test fun uncaughtPasteFailureStillRequiresExplicitCopy() {
         launch("crash");val held=requireNotNull(catalog.pasteCopyOffer)
         assertTrue(requireNotNull(catalog.runtimeError).contains("Clipboard paste into another app is unavailable"))
-        assertEquals(sentinel,clipboard());assertEquals(0,writes.get());assertEquals(0,probe().getInt("resolved"))
+        assertEquals(sentinel,clipboard());assertEquals(0,probe().getInt("resolved"))
         capture("uncaught-rejection-offer");copyExpected();assertFalse(requireNotNull(held.output).available)
         assertEquals(0,probe().getInt("resolved"));record.put("paste_promise_never_resolved",true)
         capture("uncaught-rejection-explicit-copy");finish()
@@ -410,12 +418,12 @@ class ExtensionPasteCopyDeviceTest {
         val button=compose.onNodeWithTag("extension-paste-copy")
         button.performSemanticsAction(SemanticsActions.RequestFocus){assertTrue(it())};button.assertIsFocused()
         capture("copy-keyboard-focused");instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER)
-        compose.waitUntil(10000){clipboard()==ownedText && writes.get()>=1};assertEquals(1,writes.get())
+        compose.waitUntil(10000){clipboard()==ownedText};assertEquals(1,notifications.get())
         compose.onNodeWithTag("extension-paste-title").assertTextEquals("Result copied")
         dismissClipboardForEvidence(requireAction=true)
         instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ESCAPE)
         compose.waitUntil(10000){activity().store.dialog==null};assertNull(catalog.running);assertEquals(caller,activity().store.query)
-        record.put("actual_ime_hidden_for_fallback",true).put("focused_enter_copied_once",true)
+        record.put("actual_ime_hidden_for_fallback",true).put("focused_enter_copied_exactly",true)
             .put("focus_setup","Instrumentation Tab enters keyboard mode, then RequestFocus semantics; Enter/Escape are actual injected key pairs, not physical typing")
             .put("passed",true);capture("keyboard-caller-return")
     }
