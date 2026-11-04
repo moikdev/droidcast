@@ -1,0 +1,54 @@
+{
+  "scope": "Owned JavaScript\/native handoff probes; no Store, service, physical-typing or broad parity credit",
+  "owned_extension_id": "reviewed-text-3bcc638ae3d04cf89ffd7a864cca3b4a",
+  "fixture_parent_sha256": "5f5ff4ecbcff73d4e63f2a8f059502752fb1018d0283f2f56c1b1705b12da324",
+  "fixture_child_sha256": "e618f4c555f58360598d3b7488ae470025b8669b852964ed9533d3879c9dc0e4",
+  "fixture_manifest_sha256": "0c7b899f9ffed2d79361adb85f077ffb86074b6b957bd122dcca4a6995bd5806",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "pointer_taps": [
+    {
+      "tag": "extension-primary",
+      "bounds": [
+        1049,
+        872,
+        1322,
+        944
+      ],
+      "minimum_px": 72,
+      "reveal_gestures": 0
+    },
+    {
+      "tag": "extension-primary",
+      "bounds": [
+        1044,
+        872,
+        1322,
+        944
+      ],
+      "minimum_px": 72,
+      "reveal_gestures": 0
+    },
+    {
+      "tag": "extension-back",
+      "bounds": [
+        398,
+        243,
+        470,
+        315
+      ],
+      "minimum_px": 72,
+      "reveal_gestures": 0
+    }
+  ],
+  "child_raw_grant_absent": true,
+  "context_argument_fallback_values_verified": true,
+  "copy_exact": true,
+  "owned_payload_sha256": "2e7bb2f77bbbd2595f18bc40df44ebe7f0bd1712594337a89f6d9b5d34600d38",
+  "launcher_query_preserved": true,
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_restoration_scope": "Independent host\/test-UID durable recovery; this class does not retain or publish the original clipboard"
+}

@@ -1,0 +1,691 @@
+{
+  "scope": "Owned React Form through the real runtime and Android controls; not Store\/service certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "window_soft_input_mode": 19,
+  "window_soft_input_state": 3,
+  "installed_build_commit": "56134f31f74211d7ec4d8faaf18ef5f84658242e",
+  "fixture_mode": "configuration",
+  "fixture_command_sha256": "e08bae2f6447a8b88fbf631a2e5e6dabb9b546fff529839fd5ed450f419667d0",
+  "fixture_manifest_sha256": "ff2d7e3a9e7cd92c0afc8bd1b3bc30081085347d57852267be44529ae5e89c6d",
+  "owned_extension_id": "reviewed-text-b2ab32375607408f883528ad47bcc9ca",
+  "settled_ime_geometry": [
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": false,
+      "window_scope": "activity",
+      "native_frames": 4,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 8,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 6,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        1,
+        552,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        648
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    },
+    {
+      "requested_visibility": null,
+      "window_scope": "activity",
+      "native_frames": 7,
+      "geometry": [
+        0,
+        0,
+        1920,
+        1200,
+        0,
+        0,
+        0,
+        36,
+        1920,
+        1152
+      ],
+      "stable_for_at_least_ms": 100,
+      "settled": true
+    }
+  ],
+  "viewport_reveal_gestures": [],
+  "pointer_taps": [
+    {
+      "tag": "preference-secret",
+      "viewport": "extension-configuration",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        428,
+        725,
+        1493,
+        809
+      ],
+      "control_size": [
+        1065,
+        84
+      ],
+      "point": [
+        960.5,
+        767
+      ]
+    },
+    {
+      "tag": "run-extension-setup",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        428,
+        848,
+        1493,
+        920
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        884
+      ]
+    },
+    {
+      "tag": "extension-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        398,
+        243,
+        470,
+        315
+      ],
+      "control_size": [
+        72,
+        72
+      ],
+      "point": [
+        434,
+        279
+      ]
+    },
+    {
+      "tag": "preference-choice-layout",
+      "viewport": "extension-configuration",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        428,
+        426,
+        1493,
+        498
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        462
+      ]
+    },
+    {
+      "tag": "run-extension-setup",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        428,
+        528,
+        1493,
+        600
+      ],
+      "control_size": [
+        1065,
+        72
+      ],
+      "point": [
+        960.5,
+        564
+      ]
+    },
+    {
+      "tag": "extension-back",
+      "injection_owner": "Compose root containing the exact target tag",
+      "owner_root_semantics_id": 1,
+      "visible_bounds": [
+        398,
+        243,
+        470,
+        315
+      ],
+      "control_size": [
+        72,
+        72
+      ],
+      "point": [
+        434,
+        279
+      ]
+    }
+  ],
+  "hidden_ime_window_absence_confirmed": true,
+  "password_editor_metadata": [
+    {
+      "tag": "preference-secret",
+      "input_type": 129,
+      "ime_options": 33554438,
+      "scope": "Actual focused editor InputConnection metadata before any password is entered"
+    }
+  ],
+  "pointer_scrolls": [
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        398,
+        323,
+        1523,
+        818
+      ],
+      "start": [
+        12,
+        247.5
+      ],
+      "end": [
+        12,
+        371.25
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        398,
+        323,
+        1523,
+        818
+      ],
+      "start": [
+        12,
+        247.5
+      ],
+      "end": [
+        12,
+        371.25
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        398,
+        323,
+        1523,
+        818
+      ],
+      "start": [
+        12,
+        247.5
+      ],
+      "end": [
+        12,
+        371.25
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        398,
+        323,
+        1523,
+        818
+      ],
+      "start": [
+        12,
+        247.5
+      ],
+      "end": [
+        12,
+        123.75
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        398,
+        323,
+        1523,
+        818
+      ],
+      "start": [
+        12,
+        247.5
+      ],
+      "end": [
+        12,
+        123.75
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        398,
+        323,
+        1523,
+        818
+      ],
+      "start": [
+        12,
+        247.5
+      ],
+      "end": [
+        12,
+        123.75
+      ]
+    },
+    {
+      "viewport": "extension-configuration",
+      "gutter": true,
+      "visible_bounds": [
+        398,
+        323,
+        1523,
+        818
+      ],
+      "start": [
+        12,
+        247.5
+      ],
+      "end": [
+        12,
+        123.75
+      ]
+    }
+  ],
+  "configuration-required_line_probe": {
+    "ime_visible": false,
+    "line_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "all_lines_reached": true,
+    "pointer_steps": [
+      {
+        "viewport": [
+          398,
+          323,
+          1523,
+          818
+        ],
+        "text_0": [
+          428,
+          353,
+          1493,
+          383
+        ],
+        "text_0_lines_seen": 1,
+        "text_1": [
+          428,
+          539,
+          1493,
+          569
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          428,
+          485,
+          1493,
+          515
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          428,
+          671,
+          1493,
+          701
+        ],
+        "text_3_lines_seen": 1,
+        "text_4": [
+          428,
+          710,
+          1493,
+          740
+        ],
+        "text_4_lines_seen": 1,
+        "text_5": [
+          428,
+          1181,
+          894,
+          1211
+        ],
+        "text_5_lines_seen": 0
+      },
+      {
+        "viewport": [
+          398,
+          323,
+          1523,
+          818
+        ],
+        "text_0": [
+          428,
+          241,
+          1493,
+          271
+        ],
+        "text_0_lines_seen": 1,
+        "text_1": [
+          428,
+          427,
+          1493,
+          457
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          428,
+          373,
+          1493,
+          403
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          428,
+          559,
+          1493,
+          589
+        ],
+        "text_3_lines_seen": 1,
+        "text_4": [
+          428,
+          598,
+          1493,
+          628
+        ],
+        "text_4_lines_seen": 1,
+        "text_5": [
+          428,
+          1069,
+          894,
+          1099
+        ],
+        "text_5_lines_seen": 0
+      },
+      {
+        "viewport": [
+          398,
+          323,
+          1523,
+          818
+        ],
+        "text_0": [
+          428,
+          129,
+          1493,
+          159
+        ],
+        "text_0_lines_seen": 1,
+        "text_1": [
+          428,
+          315,
+          1493,
+          345
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          428,
+          261,
+          1493,
+          291
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          428,
+          447,
+          1493,
+          477
+        ],
+        "text_3_lines_seen": 1,
+        "text_4": [
+          428,
+          486,
+          1493,
+          516
+        ],
+        "text_4_lines_seen": 1,
+        "text_5": [
+          428,
+          957,
+          894,
+          987
+        ],
+        "text_5_lines_seen": 0
+      },
+      {
+        "viewport": [
+          398,
+          323,
+          1523,
+          818
+        ],
+        "text_0": [
+          428,
+          18,
+          1493,
+          48
+        ],
+        "text_0_lines_seen": 1,
+        "text_1": [
+          428,
+          204,
+          1493,
+          234
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          428,
+          150,
+          1493,
+          180
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          428,
+          336,
+          1493,
+          366
+        ],
+        "text_3_lines_seen": 1,
+        "text_4": [
+          428,
+          375,
+          1493,
+          405
+        ],
+        "text_4_lines_seen": 1,
+        "text_5": [
+          428,
+          846,
+          894,
+          876
+        ],
+        "text_5_lines_seen": 0
+      },
+      {
+        "viewport": [
+          398,
+          323,
+          1523,
+          818
+        ],
+        "text_0": [
+          428,
+          -70,
+          1493,
+          -40
+        ],
+        "text_0_lines_seen": 1,
+        "text_1": [
+          428,
+          116,
+          1493,
+          146
+        ],
+        "text_1_lines_seen": 1,
+        "text_2": [
+          428,
+          62,
+          1493,
+          92
+        ],
+        "text_2_lines_seen": 1,
+        "text_3": [
+          428,
+          248,
+          1493,
+          278
+        ],
+        "text_3_lines_seen": 1,
+        "text_4": [
+          428,
+          287,
+          1493,
+          317
+        ],
+        "text_4_lines_seen": 1,
+        "text_5": [
+          428,
+          758,
+          894,
+          788
+        ],
+        "text_5_lines_seen": 1
+      }
+    ]
+  },
+  "configuration_method": "Native required errors, actual argument\/preference edits, label tap and menu choice; Cancel discards, explicit Run persists and starts the exact owned values",
+  "passed": true,
+  "owned_data_removed": true,
+  "preexisting_installations_and_data_preserved": true
+}

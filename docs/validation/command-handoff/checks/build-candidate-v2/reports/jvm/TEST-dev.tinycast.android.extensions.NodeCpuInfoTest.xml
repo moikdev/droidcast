@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.extensions.NodeCpuInfoTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-11-04T18:11:45.213Z" hostname="MacBook-Pro-2.local" time="0.008">
+  <properties/>
+  <testcase name="readsOnlyModelFieldsAndNeverReturnsSerialOrHardwareIdentifiers" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.003"/>
+  <testcase name="convertsEachCoreAndKeepsSparseIdsWithoutInventingCores" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="convertsNonHundredTickClocksAndTruncatesFractionalMilliseconds" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="refusesOverflowAndUnsafeJavascriptIntegers" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="aSourceThatStopsMakingProgressDoesNotSpin" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.001"/>
+  <testcase name="rejectsOversizedAndExcessiveCoreData" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.002"/>
+  <testcase name="boundedStreamsAcceptTheExactLimitAndRejectOneMoreByte" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.001"/>
+  <testcase name="absentOptionalMetadataUsesNodeUnknownAndZeroConventions" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="securityDenialAndInvalidClocksReturnUnavailable" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="invalidCoreRowsRejectTheSnapshotInsteadOfChangingItsDenominator" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="readersReceiveOnlyFixedPathsAndValidatedCoreIndices" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="modelsAreBoundedAndControlCharactersAreExcluded" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.001"/>
+  <testcase name="missingOrDeniedStatisticsReturnAnEmptyArrayWithoutOtherReads" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <testcase name="optionalFrequencyErrorsDoNotFabricateAReportedFrequency" classname="dev.tinycast.android.extensions.NodeCpuInfoTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

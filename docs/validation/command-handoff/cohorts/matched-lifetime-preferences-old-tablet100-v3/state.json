@@ -1,0 +1,22 @@
+{
+  "completed": true,
+  "runtime_source_commit": "10d8798e92dc0334f17f0eded4ab6fc5493326c6",
+  "test_source_commit": "fa7f39430a5259a5549dfeaa58b8a9954b228a3f",
+  "app_sha256": "ac8144e49a9652320f00dc59cba17655a750b3e3d8252c3abbe8576cbe62d254",
+  "test_apk_sha256": "05435e170651863fd4e1e734eda2ffb16c1c2d69629d4f7bd57dc674e6529e2a",
+  "layout": "tablet",
+  "font": 1,
+  "method": "returnedCommandRejectsDisposedPreferencesCallback",
+  "expected_failure": true,
+  "collector_sha256": "7ae4796f5ce78a6adead709ab872b66c54f45cb726c817483d625a77d12beb0c",
+  "durable_file_count": 12,
+  "evidence_file_count": 528,
+  "runner_exit_code": 1,
+  "passes": 0,
+  "cleanup_checks": 18,
+  "cleanup_passed": true,
+  "same_boot": true,
+  "durable_data_unchanged": true,
+  "pre_existing_evidence_unchanged": true,
+  "native_case_records": 1
+}
