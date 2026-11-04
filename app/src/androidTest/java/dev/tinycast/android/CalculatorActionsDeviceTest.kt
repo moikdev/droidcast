@@ -203,6 +203,15 @@ class CalculatorActionsDeviceTest {
             if (scroll == null || attempt == 18) break
             val viewport = compose.onNodeWithTag(scroll).fetchSemanticsNode().boundsInRoot
             assertTrue("Placed pointer-scroll viewport", viewport.height > 0)
+            // A short landscape viewport can be smaller than a natural-height
+            // enlarged row. Use the existing, fully reachable keyboard control.
+            if (tag != "inline-menu-keyboard" && scroll == "inline-menu-choices" &&
+                viewport.height+1 < (node?.size?.height?.toFloat() ?: minimum) && imeVisible()) {
+                pointer("inline-menu-keyboard")
+                awaitIme(false)
+                record.append("explicit_menu_keyboard_hide_for_full_target",tag)
+                continue
+            }
             val clipped=node?.takeIf { it.layoutInfo.isPlaced }?.boundsInRoot?.takeIf { it.height>0 }
             if(clipped!=null) { direction=if(clipped.top<=viewport.top+1 && clipped.bottom<viewport.bottom-1) -1 else 1;seen=true }
             else if(seen) direction=-direction
@@ -259,9 +268,10 @@ class CalculatorActionsDeviceTest {
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange,TextRange(4)))
         assertEquals("= 36",store.query); assertEquals("All",store.category); assertEquals(0,store.selected)
         assertEquals(unrelated,compose.runOnUiThread { listOf(store.notes,store.links,store.clips,store.files,store.pins,store.aliases,store.shortcutConfiguration) })
+        awaitIme(true)
         val after=rect("palette")
         assertEquals(before.left,after.left,1f); assertEquals(before.top,after.top,1f); assertEquals(before.width,after.width,1f)
-        compose.waitUntil(10000) { imeVisible() }; assertClip(sentinel); capture("chained-search")
+        assertClip(sentinel); capture("chained-search")
         connection { assertTrue(it.commitText("*4",1)) }
         compose.waitForIdle(); assertEquals("144",store.results().first().payload)
         connection { assertTrue(it.performEditorAction(EditorInfo.IME_ACTION_SEARCH)) }
