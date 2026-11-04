@@ -46,6 +46,7 @@ class CalculatorActionsDeviceTest {
     private var method = ""
     private var prepared = false
     private var ownedClipboardWritten = false
+    private var fixtureUiReady = false
     private var original = emptyMap<String, Any?>()
     private lateinit var record: JSONObject
     private val pointers = JSONArray()
@@ -98,8 +99,10 @@ class CalculatorActionsDeviceTest {
     @After fun restore() {
         if (!prepared) return
         try {
-            if (!record.getBoolean("passed") && ownedClipboardWritten) capture("failure")
-            else if(!ownedClipboardWritten)record.put("failure_before_owned_clipboard_no_capture",true)
+            if (!record.getBoolean("passed")) {
+                if(ownedClipboardWritten && fixtureUiReady)capture("failure")
+                else record.put("failure_before_owned_fixture_no_capture",true)
+            }
         } finally {
             restorePalettePreferences(context, original)
             compose.runOnUiThread { clipboard().resetClipboardForTest(); windowCallback?.let { compose.activity.window.callback=it } }
@@ -130,6 +133,7 @@ class CalculatorActionsDeviceTest {
             assertEquals(answer, store.results().first { it.kind == Kind.CALC }.payload)
             assertEquals(0, store.selected)
         }
+        fixtureUiReady=true
         val visible = compose.onAllNodesWithTag("result-result").fetchSemanticsNodes().singleOrNull()
             ?.let { it.layoutInfo.isPlaced && it.boundsInRoot.height>0 } == true
         if(!visible) {
