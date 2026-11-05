@@ -567,13 +567,15 @@ class TouchSearchDeviceTest {
     private fun rejectedKeyboardCallback(
         action: () -> Boolean, expectedVisible: Boolean, search: String, surface: String, phase: String
     ) {
-        ui { action() }
+        var accepted = true
+        ui { accepted = action() }
         compose.waitForIdle(); instrumentation.waitForIdleSync()
         settledFeedbackViewport(surface)
         capture(phase, search)
         assertEquals("Obsolete or obstructed keyboard callback must not change visibility: $phase", expectedVisible, ime())
+        assertFalse("The published action must report rejection", accepted)
         events.put(JSONObject().put("kind", "keyboard-callback-rejected").put("phase", phase)
-            .put("visible", expectedVisible))
+            .put("visible", expectedVisible).put("accepted", accepted))
     }
 
     private fun keyboardCallbackFlow(emojiRoute: Boolean) {
@@ -592,11 +594,13 @@ class TouchSearchDeviceTest {
 
         // Change the epoch and invoke before Compose can dispose the old owner.
         val beforeEpoch = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
-        ui { it.store.focusEpoch++; beforeEpoch() }
+        var epochAccepted = true
+        ui { it.store.focusEpoch++; epochAccepted = beforeEpoch() }
         settledFeedbackViewport(surface)
         assertTrue("Changed search epoch rejects Hide before disposal", ime())
+        assertFalse("Changed epoch reports rejection before disposal", epochAccepted)
         capture("keyboard-guard-epoch", search)
-        events.put(JSONObject().put("kind", "keyboard-callback-rejected").put("phase", "changed-epoch-before-disposal").put("visible", true))
+        events.put(JSONObject().put("kind", "keyboard-callback-rejected").put("phase", "changed-epoch-before-disposal").put("visible", true).put("accepted", epochAccepted))
 
         pointerKeyboard(false, search, surface, "keyboard-guard-before-menu")
         val obstructedShow = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)

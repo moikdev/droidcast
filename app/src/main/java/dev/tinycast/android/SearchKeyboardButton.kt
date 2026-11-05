@@ -11,7 +11,10 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -34,7 +37,7 @@ internal fun SearchKeyboardButton(
     // returns to its former value within the same search owner.
     val lifetime = remember(owner, imeVisible) { SearchKeyboardLifetime() }
     DisposableEffect(lifetime) { onDispose { lifetime.active = false } }
-    IconButton(onClick = {
+    val activate: () -> Boolean = {
         val insets = ViewCompat.getRootWindowInsets(view)
         if (lifetime.active && view.hasWindowFocus() && current() &&
             insets != null && insets.isVisible(WindowInsetsCompat.Type.ime()) == imeVisible) {
@@ -49,10 +52,17 @@ internal fun SearchKeyboardButton(
                 keyboard?.hide()
                 controller?.hide(WindowInsetsCompat.Type.ime())
             }
-        }
-    }, modifier = Modifier.size(48.dp).semantics {
+            true
+        } else false
+    }
+    // Publish the same owned action for accessibility. Foundation's default
+    // click semantics forwards through a mutable node to its latest callback;
+    // a retained action must instead keep this visibility/owner snapshot.
+    IconButton(onClick = { activate() }, modifier = Modifier.size(48.dp).testTag(tag).clearAndSetSemantics {
+        role = Role.Button
         contentDescription = if (imeVisible) "Hide on-screen keyboard" else "Show on-screen keyboard"
-    }.testTag(tag)) {
+        onClick { activate() }
+    }) {
         Glyph(if (imeVisible) "keyboard-hide" else "keyboard", PaletteTheme.tertiary, 20)
     }
 }
