@@ -1,0 +1,43 @@
+{
+  "completed": true,
+  "source_commit": "c0d9a06848cd32b1d9df5e2f9827224a0c0e4016",
+  "source_count": 256,
+  "jvm": {
+    "tests": 343,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "jvm_task": "> Task :app:testDebugUnitTest",
+  "lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    },
+    "benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    }
+  },
+  "python": {
+    "normal": {
+      "exit_code": 0,
+      "cases": 135,
+      "seconds": 22.589,
+      "source_commit": "c0d9a06848cd32b1d9df5e2f9827224a0c0e4016",
+      "passed": true
+    },
+    "optimized": {
+      "exit_code": 0,
+      "cases": 135,
+      "seconds": 20.666,
+      "source_commit": "c0d9a06848cd32b1d9df5e2f9827224a0c0e4016",
+      "passed": true
+    }
+  },
+  "build_successes": 2,
+  "cached_debug_apks_equal_frozen": true,
+  "scope": "Fresh source-bound JVM/Python/build/lint receipts. Cached debug APK byte equality, not clean-runner reproducibility. No benchmark device execution."
+}
