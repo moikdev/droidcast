@@ -250,12 +250,16 @@ internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit
         Box(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { menus.key(it.nativeKeyEvent, "pre-ime") }
             .onPreviewKeyEvent { menus.key(it.nativeKeyEvent, "preview") }) {
             content()
-            BackHandler(enabled = menus.current != null) {
-                PaletteBackTrace.handler("menu-dispatcher-before", menus.current != null,
-                    if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
-                menus.dismiss()
-                PaletteBackTrace.handler("menu-dispatcher-after", menus.current != null,
-                    if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
+            // Routes can register callbacks after this host first composes.
+            // Register each menu opening last, so its caller stays underneath.
+            key(menus.activation) {
+                BackHandler(enabled = menus.current != null) {
+                    PaletteBackTrace.handler("menu-dispatcher-before", menus.current != null,
+                        if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
+                    menus.dismiss()
+                    PaletteBackTrace.handler("menu-dispatcher-after", menus.current != null,
+                        if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
+                }
             }
             if(feedback) menus.surface?.let { bounds -> PaletteFeedback(bounds, menus, snackbar) }
             menus.current?.let { request -> PaletteMenuOverlay(menus, request) }

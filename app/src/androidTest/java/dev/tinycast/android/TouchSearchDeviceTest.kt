@@ -210,6 +210,8 @@ class TouchSearchDeviceTest {
                     })
                     events.put(JSONObject().put("kind", "back-stage-trace").put("enabled", trace.enabled)
                         .put("dropped", trace.dropped).put("samples", samples))
+                    assertTrue("The owned debug trace must be enabled", trace.enabled)
+                    assertEquals("No Back stage witness may be evicted", 0, trace.dropped)
                 } finally {
                     try {
                         assertTrue("Restore only the owned window observer", activity.window.callback === observer || activity.window.callback === original)
@@ -786,6 +788,16 @@ class TouchSearchDeviceTest {
             .put("popup", json(popup)).put("palette", json(palette)).put("root", json(root)))
     }
 
+    private fun ownedRange(phase: String, search: String, query: String): TextRange {
+        val semantics = node(search).fetchSemanticsNode().config
+        assertTrue("Owned query retained at $phase", semantics[SemanticsProperties.EditableText].text == query)
+        val range = semantics[SemanticsProperties.TextSelectionRange]
+        events.put(JSONObject().put("kind", "owned-caller-range").put("phase", phase).put("query", query)
+            .put("selection", JSONArray(listOf(range.start, range.end)))
+            .put("focused", semantics[SemanticsProperties.Focused]).put("ime_visible", ime()))
+        return range
+    }
+
     @OptIn(ExperimentalTestApi::class)
     private fun menuDismissals(emojiRoute: Boolean) {
         val search = if (emojiRoute) "emoji-search" else "search"
@@ -798,12 +810,13 @@ class TouchSearchDeviceTest {
         observeBackWindow(query) {
             if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
             node(search).performTextReplacement(query)
-            node(search).performTextInputSelection(range)
             var selected = ""
             ui { selected = if (emojiRoute) it.store.emoji.results()[it.store.emoji.selected].id else it.store.results()[it.store.selected].id }
             for (action in listOf("back", "escape", "backdrop")) {
                 feedbackTop(surface)
                 keyboard(emojiRoute, search)
+                node(search).performTextInputSelection(range)
+                assertEquals(range, ownedRange("$action-before-menu", search, query))
                 capture("dismiss-$action-before", search)
                 if (!emojiRoute) feedbackReveal(node(button), surface)
                 completeFeedbackTarget(node(button), "Menu opener", surface)
@@ -829,6 +842,9 @@ class TouchSearchDeviceTest {
                 val expectedIme = emojiRoute || !wide
                 compose.waitUntil(10000) { ime() == expectedIme }
                 feedbackTop(surface)
+                text(search, query)
+                node(search).assertIsFocused()
+                assertEquals(range, ownedRange("$action-return", search, query))
                 capture("dismiss-$action-return", search)
                 events.put(JSONObject().put("kind", "menu-caller-preserved").put("dismissal", action)
                     .put("query", query).put("selection", JSONArray(listOf(range.start, range.end)))
@@ -848,8 +864,9 @@ class TouchSearchDeviceTest {
         observeBackWindow {
             emoji(); ui { it.store.emoji.chooseFilter("All") }
             node("emoji-search").performTextReplacement("face")
-            node("emoji-search").performTextInputSelection(TextRange(1, 3))
             keyboard(false, "emoji-search")
+            node("emoji-search").performTextInputSelection(TextRange(1, 3))
+            assertEquals(TextRange(1, 3), ownedRange("cancel-before-menu", "emoji-search", "face"))
             node("emoji-filter").performTouchInput { click(center) }
             node("inline-menu").assertIsDisplayed()
             capture("cancel-menu-before", "emoji-search")
@@ -936,6 +953,38 @@ class TouchSearchDeviceTest {
             assertEquals(1, routeBacks)
             assertEquals(1, menuDismissals)
             capture("priority-second-back-home", "back-fixture-home", "fixture_route")
+            record.put("completed", true)
+        }
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test fun diagnoseRangePlacementBeforeAndAfterImeSetup() {
+        record.put("scope", "Diagnostic range setup comparison on the same app. Earlier ordering is observed without preservation credit; later ordering must establish the actual range before opening. No keyboard-typing or app-repair claim.")
+        observeBackWindow {
+            emoji(); ui { it.store.emoji.chooseFilter("All") }
+            node("emoji-search").performTextReplacement("face")
+            val range = TextRange(1, 3)
+            for (after in listOf(false, true)) {
+                keyboard(false, "emoji-search")
+                if (!after) node("emoji-search").performTextInputSelection(range)
+                keyboard(true, "emoji-search")
+                if (after) node("emoji-search").performTextInputSelection(range)
+                val before = ownedRange("range-order-$after-before-menu", "emoji-search", "face")
+                capture("range-order-$after-before-menu", "emoji-search")
+                node("emoji-filter").performTouchInput { click(center) }
+                node("inline-menu").assertIsDisplayed()
+                ownedRange("range-order-$after-menu", "emoji-search", "face")
+                menuBackdrop("emoji-palette")
+                node("emoji-search").assertIsFocused()
+                val returned = ownedRange("range-order-$after-return", "emoji-search", "face")
+                capture("range-order-$after-return", "emoji-search")
+                events.put(JSONObject().put("kind", "range-order-observation").put("selection_after_ime_setup", after)
+                    .put("before", JSONArray(listOf(before.start, before.end))).put("returned", JSONArray(listOf(returned.start, returned.end))))
+                if (after) {
+                    assertEquals("Corrected setup must establish the range before menu opening", range, before)
+                    assertEquals("Corrected setup must retain the witnessed range", range, returned)
+                }
+            }
             record.put("completed", true)
         }
     }
