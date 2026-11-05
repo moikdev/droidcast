@@ -26,6 +26,127 @@
   "round1_last_modern_cohort_record_written_utc": "2026-11-05T21:17:55.308959+00:00",
   "round1_preservation_written_utc": "2026-11-05T21:51:03.682667+00:00",
   "first_v5_cohort_owner_written_utc": "2026-11-05T22:19:44.075063+00:00",
-  "facts": "The marker is a 24-byte AndroidX ProfileInstaller record; bytes 8-16 hold a millisecond timestamp. The baseline value predates this slice. The first v5 cohort snapshot already holds the later value, which falls 3 s before the last round-1 modern cohort finished its restoration (which reinstalls the original APK). Every v5/v6 cohort restored to that later value.",
-  "inference": "The original app process started between the round-1 preservation pass and the first v5 cohort (not observed), and ProfileInstaller rewrote the marker to match the reinstall time. An install timestamp cannot be restored."
+  "facts": "The marker is a 24-byte AndroidX ProfileInstaller record; bytes 8-15 hold a millisecond timestamp. The baseline value predates this slice. The new timestamp (21:17:52.957 UTC) is 2.35 s before the last round-1 modern cohort wrote its record after restoration, which reinstalls the original APK (21:17:55.309 UTC). All 30 v5/v6 modern cohorts captured the later value before running (per_cohort_marker_sha256). Legacy API 26 cohorts install a fresh app and have no marker baseline.",
+  "inference": "The original app process started between the round-1 preservation pass and the first v5 cohort (not observed), and ProfileInstaller rewrote the marker to match the reinstall time. An install timestamp cannot be restored.",
+  "per_cohort_marker_sha256": {
+    "v5-control-double-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-control-priority-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-control-range-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-control-emoji-actions-phone100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-control-launcher-actions-phone100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-tablet100a": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-tablet100b": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-phone100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-phone200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-tablet200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-landscape100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v5-landscape200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-control-double-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-control-priority-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-control-range-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-control-emoji-actions-phone100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-control-launcher-actions-phone100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-tablet100a": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-tablet100b": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-phone100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-phone200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-tablet200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-landscape100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-landscape200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-regression-toggle-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-regression-empty-landscape200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-regression-clear-phone200": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-regression-core-tablet100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-regression-input-phone100": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    },
+    "v6-regression-empty-landscape200-r2": {
+      "before": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+      "after": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8"
+    }
+  }
 }
