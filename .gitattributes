@@ -31,3 +31,6 @@ docs/validation/paste-copy/** -text -whitespace
 
 # Preserve recorded-test receipts and native capture bytes.
 docs/validation/recorded-tests/** -text -whitespace
+
+# Preserve WebView engine evidence bytes, including native XML CRLF.
+docs/validation/webview-engine/** -text -whitespace

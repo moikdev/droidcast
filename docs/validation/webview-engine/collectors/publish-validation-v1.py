@@ -69,6 +69,8 @@ for root in attempt_roots:
  row={'attempt':str(root.relative_to(B)),'completed':r.get('completed',False),'junit_passes':len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M)),'junit_failures':len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: -2$',log,re.M)),'initialization_failure':init,'native_cases_reaching_execution':0 if init else len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: (?:0|-2)$',log,re.M)),'record_sha256':sha(p.read_bytes()),'test_log_sha256':sha((root/'tests.log').read_bytes()) if log else None,'apk_sha256':r.get('apk_sha256'),'test_apk_sha256':r.get('test_apk_sha256'),'cleanup':r.get('cleanup',{}),'final_credit':False}
  history.append(row);put(root/'tests.log',D/'history'/root.relative_to(B)/'tests.log',redact=True) if log else None
  for recovery in root.glob('*recovery.json'):
+  if recovery.name.startswith('private'):
+   continue
   safe=read(recovery)
   (D/'history'/root.relative_to(B)).mkdir(parents=True,exist_ok=True)
   project(recovery,D/'history'/root.relative_to(B)/recovery.name,set('completed original_outer_run_still_failed original_junit_passes original_passes original_failures original_run_record_sha256 checks preserved_files native_executions reason'.split()))
