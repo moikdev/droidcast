@@ -13,6 +13,14 @@ spec.loader.exec_module(runner)
 
 
 class WebViewRunnerTests(unittest.TestCase):
+    def test_package_absence_uses_exact_successful_inventory(self):
+        self.assertFalse(runner.listed_package_presence('', 'dev.tinycast.android'))
+        self.assertFalse(runner.listed_package_presence('package:dev.tinycast.android.test\n', 'dev.tinycast.android'))
+        self.assertTrue(runner.listed_package_presence('package:dev.tinycast.android\n', 'dev.tinycast.android'))
+        for error in ('Error: transport failed', 'package:/not/a/package'):
+            with self.assertRaises(ValueError):
+                runner.listed_package_presence(error, 'dev.tinycast.android')
+
     def archive(self, entries):
         data = io.BytesIO()
         with tarfile.open(fileobj=data, mode='w') as archive:

@@ -34,6 +34,12 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def listed_package_presence(output, package):
+    lines = output.splitlines()
+    require(all(re.fullmatch(r'package:[A-Za-z0-9_.]+', line) for line in lines), 'Invalid PackageManager inventory')
+    return 'package:' + package in lines
+
+
 def archive_files(data):
     files = {}
     with tarfile.open(fileobj=io.BytesIO(data)) as archive:
@@ -102,11 +108,16 @@ def main():
         command = 'run-as ' + shlex.quote(APP) + ' /system/bin/sh -c ' + shlex.quote('test -e "$1"') + ' x ' + shlex.quote(path)
         return private_path_absent(subprocess.run(adb + ['shell', command], capture_output=True, timeout=30))
 
+    def package_path(pkg):
+        # Old PackageManager returns exit 1 from `path` for an absent package.
+        # Establish absence from its successful exact inventory first.
+        return text('shell', 'pm', 'path', pkg) if listed_package_presence(text('shell', 'pm', 'list', 'packages', pkg), pkg) else ''
+
     require(text('emu', 'avd', 'name').splitlines()[0] == a.avd and text('shell', 'getprop', 'ro.kernel.qemu') == '1', 'AVD identity changed')
     require(text('shell', 'getprop', 'ro.build.version.sdk') == ('26' if legacy else '36'), 'Unexpected Android API')
     require(text('shell', 'id').startswith('uid=2000('), 'adbd must remain unprivileged')
     require('ActiveInstrumentation{' not in text('shell', 'dumpsys', 'activity', 'processes'), 'Another instrumentation is active')
-    initial_packages = {pkg: text('shell', 'pm', 'path', pkg) for pkg in (APP, TEST)}
+    initial_packages = {pkg: package_path(pkg) for pkg in (APP, TEST)}
     require(all(not value for value in initial_packages.values()) if legacy else all(initial_packages.values()), 'Inspect existing packages before repeating an install')
     size = text('shell', 'wm', 'size'); density = text('shell', 'wm', 'density')
     require('Override' not in size + density, 'An existing geometry override has an owner')
@@ -231,7 +242,7 @@ def main():
                         # the entire owned app. Host journal stays for verification.
                         for pkg in (TEST, APP):
                             c.attempt('restore-absence-' + pkg, lambda pkg=pkg: raw('uninstall', pkg))
-                        c.attempt('verify-initial-package-absence', lambda: require(all(not text('shell', 'pm', 'path', pkg) for pkg in (APP, TEST)), 'A package remains'))
+                        c.attempt('verify-initial-package-absence', lambda: require(all(not package_path(pkg) for pkg in (APP, TEST)), 'A package remains'))
                     else:
                         for pkg, (path, expected) in originals.items():
                             c.attempt('restore-binary-' + pkg, lambda path=path: raw('install', '-r', '-t', str(path), timeout=120))
