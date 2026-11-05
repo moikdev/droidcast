@@ -150,6 +150,10 @@ internal class PaletteMenus {
         return handled
     }
     private fun handleKey(event: KeyEvent): Boolean {
+        // System Back also reaches the activity's Back dispatcher. Dismissing
+        // here on DOWN lets that same press act on the caller again on UP.
+        // Leave the complete sequence to the dispatcher on every API level.
+        if (event.keyCode == KeyEvent.KEYCODE_BACK) return false
         val id = event.deviceId to event.keyCode
         if (presses[id] == event.downTime) {
             if (event.action == KeyEvent.ACTION_UP) presses.remove(id)
@@ -167,10 +171,10 @@ internal class PaletteMenus {
         }
         if(request.searchable) {
             val navigation=event.keyCode in setOf(KeyEvent.KEYCODE_DPAD_UP,KeyEvent.KEYCODE_DPAD_DOWN,KeyEvent.KEYCODE_TAB,
-                KeyEvent.KEYCODE_ENTER,KeyEvent.KEYCODE_NUMPAD_ENTER,KeyEvent.KEYCODE_DPAD_CENTER,KeyEvent.KEYCODE_ESCAPE,KeyEvent.KEYCODE_BACK)
+                KeyEvent.KEYCODE_ENTER,KeyEvent.KEYCODE_NUMPAD_ENTER,KeyEvent.KEYCODE_DPAD_CENTER,KeyEvent.KEYCODE_ESCAPE)
             val toggle=(event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && !event.isShiftPressed && event.keyCode==KeyEvent.KEYCODE_K
             if(!navigation && !toggle) return false
-            if(query.composition!=null && event.keyCode !in setOf(KeyEvent.KEYCODE_ESCAPE,KeyEvent.KEYCODE_BACK)) return false
+            if(query.composition!=null && event.keyCode != KeyEvent.KEYCODE_ESCAPE) return false
             if(toggle && event.action==KeyEvent.ACTION_DOWN) { presses[id]=event.downTime; if(event.repeatCount==0) dismiss(); return true }
         }
         if (event.action != KeyEvent.ACTION_DOWN) return !request.searchable
@@ -179,7 +183,7 @@ internal class PaletteMenus {
         val enabled = choices().filter { it.enabled }
         val index = enabled.indexOfFirst { it.id == selectedId }.coerceAtLeast(0)
         when (event.keyCode) {
-            KeyEvent.KEYCODE_ESCAPE, KeyEvent.KEYCODE_BACK -> dismiss()
+            KeyEvent.KEYCODE_ESCAPE -> dismiss()
             KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> activateSelected(request)
             KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_TAB -> if (enabled.isNotEmpty()) {
                 val delta = if (event.keyCode == KeyEvent.KEYCODE_TAB && event.isShiftPressed) -1 else 1
