@@ -1,0 +1,283 @@
+{
+  "all_completed": true,
+  "controls": [
+    {
+      "cohort": "control-proxy-final-tablet100",
+      "kind": "published-action-proxy",
+      "passes": 0,
+      "intended_failures": 2,
+      "expected_assertion": "Obsolete or obstructed keyboard callback must not change visibility: keyboard-guard-obsolete-mode",
+      "test_apk_sha256": "dc22049a5a03de863a783228cff53072e01484b1ccc3eed12222e9e832ccdf3d",
+      "app_sha256": "32e2726d35d1c01fe488aa0781a3a0d67d99498699f7121ab4ad2f1be95e5286",
+      "restoration_checks": 15,
+      "witnesses": [
+        {
+          "method": "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+          "observed_pointer_actions": [
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-guard-first-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-guard-live-hide",
+              "label_before": "Hide on-screen keyboard",
+              "ime_before": true,
+              "expected_visible": false,
+              "ime_after": false,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-guard-live-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            }
+          ],
+          "case_sha256": "b97217edde8e460e0573ede2faa0e5cbd937f43026fcf3a282dd445dddea032f"
+        },
+        {
+          "method": "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+          "observed_pointer_actions": [
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-guard-first-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-guard-live-hide",
+              "label_before": "Hide on-screen keyboard",
+              "ime_before": true,
+              "expected_visible": false,
+              "ime_after": false,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-guard-live-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            }
+          ],
+          "case_sha256": "b338c38dab75f6c1d2f124d5078945bd66bf9d22890a9ad86f7f1ebef50faf68"
+        }
+      ]
+    },
+    {
+      "cohort": "control-old-final-landscape200",
+      "kind": "show-only-button",
+      "passes": 0,
+      "intended_failures": 2,
+      "expected_assertion": "Header keyboard action must hide the visible IME",
+      "test_apk_sha256": "dc22049a5a03de863a783228cff53072e01484b1ccc3eed12222e9e832ccdf3d",
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "restoration_checks": 17,
+      "witnesses": [
+        {
+          "method": "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+          "observed_pointer_actions": [
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-initial-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-after-hide",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": true,
+              "expected_visible": false,
+              "ime_after": true,
+              "reached_expected_state": false
+            }
+          ],
+          "case_sha256": "55b861597acea563d4881dcf94294c13f7aee4f759f181473e355bd113029545"
+        },
+        {
+          "method": "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+          "observed_pointer_actions": [
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-initial-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-after-hide",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": true,
+              "expected_visible": false,
+              "ime_after": true,
+              "reached_expected_state": false
+            }
+          ],
+          "case_sha256": "3fb46039ec47f89270b1c0972ec95b4b1c5f8252aea186f34b515872318c529c"
+        }
+      ]
+    },
+    {
+      "cohort": "control-old-final-landscape100",
+      "kind": "show-only-button",
+      "passes": 0,
+      "intended_failures": 2,
+      "expected_assertion": "Header keyboard action must hide the visible IME",
+      "test_apk_sha256": "dc22049a5a03de863a783228cff53072e01484b1ccc3eed12222e9e832ccdf3d",
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "restoration_checks": 17,
+      "witnesses": [
+        {
+          "method": "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+          "observed_pointer_actions": [
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-initial-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-after-hide",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": true,
+              "expected_visible": false,
+              "ime_after": true,
+              "reached_expected_state": false
+            }
+          ],
+          "case_sha256": "cd8e6159eaa739cf0c6973350d36b4479016d94d390007626af0385fd679a42f"
+        },
+        {
+          "method": "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+          "observed_pointer_actions": [
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-initial-show",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": false,
+              "expected_visible": true,
+              "ime_after": true,
+              "reached_expected_state": true
+            },
+            {
+              "kind": "keyboard-pointer-action",
+              "phase": "keyboard-0-after-hide",
+              "label_before": "Show on-screen keyboard",
+              "ime_before": true,
+              "expected_visible": false,
+              "ime_after": true,
+              "reached_expected_state": false
+            }
+          ],
+          "case_sha256": "2cad14379782102b85a376eef0f3112f13c780eefd10ad4dcd15fca4c24c4cad"
+        }
+      ]
+    }
+  ],
+  "current_protocol_counts": [
+    {
+      "cohort": "final-guards-tablet100",
+      "method": "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+      "pointer_transitions": 9,
+      "rejected_owned_actions": 5,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-guards-tablet100",
+      "method": "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+      "pointer_transitions": 9,
+      "rejected_owned_actions": 5,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-guards-tablet100",
+      "method": "currentKeyboardAccessibilityActionsApplyTheirPublishedVisibility",
+      "pointer_transitions": 0,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 6
+    },
+    {
+      "cohort": "final-landscape100",
+      "method": "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-landscape100",
+      "method": "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-landscape200",
+      "method": "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-landscape200",
+      "method": "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-tablet100",
+      "method": "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-tablet100",
+      "method": "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-tablet200",
+      "method": "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    },
+    {
+      "cohort": "final-tablet200",
+      "method": "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+      "pointer_transitions": 6,
+      "rejected_owned_actions": 0,
+      "accepted_current_accessibility_actions": 0
+    }
+  ],
+  "scope": "Matched final instrumentation, exact functional assertions and actual IME states. Failed positive-only runner receipts remain failed. Accepted current semantics actions separately establish support; no app error banner, TalkBack gesture or physical queued-input claim."
+}

@@ -1,0 +1,72 @@
+{
+  "completed": false,
+  "source": "411b7f73ffea57b15ffa1c5ff01a468506495467",
+  "apk_sha256": {
+    "app-debug.apk": "1291d0619b6f70ae90c4d25f759a444fbf32827ffa3ee36233f91006fdf8b2ac",
+    "app-debug-androidTest.apk": "f4925b8c25e900ed336a48f9bfdabd0358bf158818938fd4cdbd47b57b58e1a9"
+  },
+  "cohorts": [
+    {
+      "name": "candidate-v2-guards-tablet100",
+      "methods": [
+        "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+        "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus"
+      ],
+      "expected_control": false,
+      "state": "finished",
+      "started": 1793904068.679979,
+      "finished": 1793904166.323256,
+      "exit_code": 1,
+      "passes": 1,
+      "failures": 1,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    }
+  ]
+}

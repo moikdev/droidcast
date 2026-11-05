@@ -1,0 +1,134 @@
+{
+  "completed": false,
+  "test_source": "dfd1b38ce62cf5b029884d33071c830daed39923",
+  "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+  "test_apk_sha256": "ba781590ada744782b7ccfa9d055db96bd3810a303e50f6e18bb2672c5305062",
+  "cohorts": [
+    {
+      "name": "baseline-old-landscape100",
+      "state": "finished",
+      "started": 1793902594.417164,
+      "exit_code": 1,
+      "finished": 1793902643.618537,
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "restore-size": {
+          "passed": true
+        },
+        "restore-density": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "name": "baseline-old-landscape200",
+      "state": "finished",
+      "started": 1793902643.619644,
+      "exit_code": 1,
+      "finished": 1793902693.426913,
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "restore-size": {
+          "passed": true
+        },
+        "restore-density": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    }
+  ]
+}

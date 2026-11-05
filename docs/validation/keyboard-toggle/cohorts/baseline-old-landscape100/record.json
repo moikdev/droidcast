@@ -1,0 +1,99 @@
+{
+  "completed": false,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "e02a804be8040b5d6ec5b00c09eaa1492b4f702fbbfbcd491099bd5226c4edea",
+  "apk_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+  "test_apk_sha256": "ba781590ada744782b7ccfa9d055db96bd3810a303e50f6e18bb2672c5305062",
+  "methods": [
+    "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+    "emojiKeyboardToggleRevealsResultsAndPreservesSearch"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "landscape",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "restore-size": {
+      "passed": true
+    },
+    "restore-density": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 0,
+  "failures": 2,
+  "native_expected_outcome": false,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.xml": "6d2eff290e3fa5412bffe578efd48be3b35f51f21e3a0c5eb52f734814a56fec",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.png": "58e10391cc2948bb77ecea86d2a91e8eff218badb932cf35bf5fea885d830c63",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide-frame.json": "5b9bafd96f811b0cb4b83df751ae0aed3a948cd5b453da1fef483c8610236b86",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.xml": "6d2eff290e3fa5412bffe578efd48be3b35f51f21e3a0c5eb52f734814a56fec",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.png": "cc04994989f6967a4974aa70d06db2f74139022b4426656b55726084c28ac497",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide-frame.json": "1813955009e7148a125948107b5b471d1cd9fe7ff2334928922aaf9c465b8f39",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-case.json": "b9a115f99dde7ae29b313b655c4ce490f4544ebdca23f1d1119c3ba8f963b55c",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.xml": "efcb49e90f78cc62002e06615da8ae1058a88faca61f7be8945234516360d58e",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.png": "380ff17c463dffe3fa10faef493c4030ccdbeb085a22a625d08f7b0456e6889c",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide-frame.json": "30324492b9b32081f8dbe3393aa8580263fd77079f7fa28dfc5fbbf79271d478",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.xml": "05fe6f2353e267903463362f06b3c463e712c81fd4b4df849f6913e0990dc61c",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.png": "d9bf0468c115576e4c655634c7d4993648cebb4a17852b037d76f0c54b7873ae",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide-frame.json": "b2050027d7e41ce99f99b847788d96978c631fa132d7c2746ca0de8050e50ca4",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-case.json": "573b25cbc8263dccaf1962f3945cd197d59f0d330e6fd028a9ec297f92773049"
+  },
+  "preserved_file_count": 573
+}

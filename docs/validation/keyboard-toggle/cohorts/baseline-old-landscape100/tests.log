@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: test=emojiKeyboardToggleRevealsResultsAndPreservesSearch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Header keyboard action must hide the visible IME
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.pointerKeyboard(TouchSearchDeviceTest.kt:490)
+	at dev.tinycast.android.TouchSearchDeviceTest.keyboardToggleFlow(TouchSearchDeviceTest.kt:534)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiKeyboardToggleRevealsResultsAndPreservesSearch(TouchSearchDeviceTest.kt:562)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emojiKeyboardToggleRevealsResultsAndPreservesSearch(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Header keyboard action must hide the visible IME
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.pointerKeyboard(TouchSearchDeviceTest.kt:490)
+	at dev.tinycast.android.TouchSearchDeviceTest.keyboardToggleFlow(TouchSearchDeviceTest.kt:534)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiKeyboardToggleRevealsResultsAndPreservesSearch(TouchSearchDeviceTest.kt:562)
+
+INSTRUMENTATION_STATUS: test=emojiKeyboardToggleRevealsResultsAndPreservesSearch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=launcherKeyboardToggleRevealsResultsAndPreservesSearch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Header keyboard action must hide the visible IME
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.pointerKeyboard(TouchSearchDeviceTest.kt:490)
+	at dev.tinycast.android.TouchSearchDeviceTest.keyboardToggleFlow(TouchSearchDeviceTest.kt:534)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherKeyboardToggleRevealsResultsAndPreservesSearch(TouchSearchDeviceTest.kt:561)
+
+INSTRUMENTATION_STATUS: stream=
+Error in launcherKeyboardToggleRevealsResultsAndPreservesSearch(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Header keyboard action must hide the visible IME
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.pointerKeyboard(TouchSearchDeviceTest.kt:490)
+	at dev.tinycast.android.TouchSearchDeviceTest.keyboardToggleFlow(TouchSearchDeviceTest.kt:534)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherKeyboardToggleRevealsResultsAndPreservesSearch(TouchSearchDeviceTest.kt:561)
+
+INSTRUMENTATION_STATUS: test=launcherKeyboardToggleRevealsResultsAndPreservesSearch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.709
+There were 2 failures:
+1) emojiKeyboardToggleRevealsResultsAndPreservesSearch(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Header keyboard action must hide the visible IME
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.pointerKeyboard(TouchSearchDeviceTest.kt:490)
+	at dev.tinycast.android.TouchSearchDeviceTest.keyboardToggleFlow(TouchSearchDeviceTest.kt:534)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiKeyboardToggleRevealsResultsAndPreservesSearch(TouchSearchDeviceTest.kt:562)
+2) launcherKeyboardToggleRevealsResultsAndPreservesSearch(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Header keyboard action must hide the visible IME
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.pointerKeyboard(TouchSearchDeviceTest.kt:490)
+	at dev.tinycast.android.TouchSearchDeviceTest.keyboardToggleFlow(TouchSearchDeviceTest.kt:534)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherKeyboardToggleRevealsResultsAndPreservesSearch(TouchSearchDeviceTest.kt:561)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

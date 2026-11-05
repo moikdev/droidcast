@@ -1,0 +1,105 @@
+{
+  "completed": false,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "775233d14eb064bf6636071d89ade59f8a596c518beeb5f6844ea788c613cb7a",
+  "apk_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+  "test_apk_sha256": "dc22049a5a03de863a783228cff53072e01484b1ccc3eed12222e9e832ccdf3d",
+  "methods": [
+    "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+    "emojiKeyboardToggleRevealsResultsAndPreservesSearch"
+  ],
+  "api": 36,
+  "font_scale": 2.0,
+  "layout": "landscape",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "restore-size": {
+      "passed": true
+    },
+    "restore-density": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 0,
+  "failures": 2,
+  "native_expected_outcome": false,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-initial-show.xml": "c2c64f964511341713c8b406f1c40ffeff913a6210e4e8a68ccd785945a60d26",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-initial-show.png": "2ef9ba827cb23824f522b2369c490092082bf48cae3ee48b0cc67f9fd46d9327",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-initial-show-frame.json": "fd010edfb5b7df9e4c92988af191a61b1e047821d894459fb6f1b4beaba0e03c",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.xml": "c2c64f964511341713c8b406f1c40ffeff913a6210e4e8a68ccd785945a60d26",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.png": "d882e73a6c77477701c7d76d61edf6f7c95bfdb51c8d73b311ad3f6a3dda7ce8",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide-frame.json": "36af18583a084fae09c1c554508c3d1828aa761d6875890b05031c68d36eef28",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.xml": "4d26ee304113c9890bb4c9b6ebe420b4ed618d821d73a9b147a56ed3f6b40896",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.png": "2fb233cb5617bf98d8c53c51f721488b62c3f72690ca363096a5131dc627195d",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide-frame.json": "03e206efabc8c009a17acc85d24b4d16faa74934e967dd92d18094ab3fb4f772",
+    "emojikeyboardtogglerevealsresultsandpreservessearch-case.json": "3fb46039ec47f89270b1c0972ec95b4b1c5f8252aea186f34b515872318c529c",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-initial-show.xml": "5ee44ec8ea72d2ebacd2f5a1f367fe2a5ff717c89c34647d44663e448aba89a6",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-initial-show.png": "3224910d03d45d454dc26b0fc2bcc4fea9f33a9ec2a74b2696875a53f47df8f5",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-initial-show-frame.json": "e5b6554c76db6c95fff540693e774594a8179427e385d3d7a9a469044652a567",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.xml": "073f6019c06060b876ef8ef4e7b61c328a6da11bbe239c01c05cf5148ab6eee9",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide.png": "b26148a1251055f94693962e43a865fd73cecd37ee53c7bef90726c3cc61ee73",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-before-hide-frame.json": "3aee75b3c779520e9185f1b51a1c081d1d434e38c15856f3d87264cb2be4699e",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.xml": "0d99d917d664286dbb7cb448e9e4e55335e44080f8cb00159e30bd6c5132375d",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide.png": "5d4a82154e16eab024e91f37af42d0d1ead7d5d608e213a0717d58630f9070e5",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-keyboard-0-after-hide-frame.json": "ece83da11ff1e600cfe5f07186c5251a1060df6f741c839e0c6e9716a3929fc3",
+    "launcherkeyboardtogglerevealsresultsandpreservessearch-case.json": "55b861597acea563d4881dcf94294c13f7aee4f759f181473e355bd113029545"
+  },
+  "preserved_file_count": 573
+}

@@ -41,3 +41,6 @@ docs/validation/touch-search/** -text -whitespace
 
 # Preserve empty-feedback evidence and raw Android hierarchy CRLF.
 docs/validation/empty-feedback/** -text -whitespace
+
+# Preserve keyboard visibility receipts and native XML CRLF.
+docs/validation/keyboard-toggle/** -text -whitespace

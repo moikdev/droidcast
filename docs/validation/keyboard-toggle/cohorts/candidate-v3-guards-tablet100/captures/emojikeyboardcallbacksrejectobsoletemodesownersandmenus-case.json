@@ -1,0 +1,350 @@
+{
+  "scope": "Controlled retained native callbacks; visibility and menu-backdrop dismissal use actual pointers. Physical Back failure remains #115; no queued-input or cross-window certification.",
+  "case": "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+  "api": 36,
+  "font_scale": 1,
+  "rejected_callbacks": 5,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-first-show",
+      "label_before": "Show on-screen keyboard",
+      "ime_before": false,
+      "expected_visible": true,
+      "ime_after": true,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-live-hide",
+      "label_before": "Hide on-screen keyboard",
+      "ime_before": true,
+      "expected_visible": false,
+      "ime_after": false,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-live-show",
+      "label_before": "Show on-screen keyboard",
+      "ime_before": false,
+      "expected_visible": true,
+      "ime_after": true,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "keyboard-callback-rejected",
+      "phase": "keyboard-guard-obsolete-mode",
+      "visible": true,
+      "accepted": false
+    },
+    {
+      "kind": "keyboard-callback-rejected",
+      "phase": "changed-epoch-before-disposal",
+      "visible": true,
+      "accepted": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-before-menu",
+      "label_before": "Hide on-screen keyboard",
+      "ime_before": true,
+      "expected_visible": false,
+      "ime_after": false,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "keyboard-callback-rejected",
+      "phase": "keyboard-guard-open-menu",
+      "visible": false,
+      "accepted": false
+    },
+    {
+      "kind": "keyboard-menu-pointer-dismissal",
+      "point": [
+        491,
+        279
+      ],
+      "menu": [
+        1031,
+        321,
+        1511,
+        866
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-after-menu",
+      "label_before": "Show on-screen keyboard",
+      "ime_before": false,
+      "expected_visible": true,
+      "ime_after": true,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-before-replacement",
+      "label_before": "Hide on-screen keyboard",
+      "ime_before": true,
+      "expected_visible": false,
+      "ime_after": false,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "keyboard-callback-rejected",
+      "phase": "keyboard-guard-replaced-route",
+      "visible": false,
+      "accepted": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-current-replacement-show",
+      "label_before": "Show on-screen keyboard",
+      "ime_before": false,
+      "expected_visible": true,
+      "ime_after": true,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-before-recreation",
+      "label_before": "Hide on-screen keyboard",
+      "ime_before": true,
+      "expected_visible": false,
+      "ime_after": false,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "keyboard-callback-rejected",
+      "phase": "keyboard-guard-recreated-owner",
+      "visible": false,
+      "accepted": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "visible": [
+        1352,
+        243,
+        1424,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-current-recreated-show",
+      "label_before": "Show on-screen keyboard",
+      "ime_before": false,
+      "expected_visible": true,
+      "ime_after": true,
+      "reached_expected_state": true
+    }
+  ]
+}

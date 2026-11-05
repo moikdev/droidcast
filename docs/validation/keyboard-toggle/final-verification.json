@@ -1,0 +1,52 @@
+{
+  "current_source_commit": "69bd578d528c42296ef4a10fa24d675a8f635408",
+  "source_hash_count": 255,
+  "executed_app_source": "f30bebd6c414307a5b5fe690d80dfffe5fc58ccc",
+  "executed_app_sha256": "98da1466e9fe6e3a5e1fbd5b27251e11ebb88e1a6c96599548c20bc4f7aa5de3",
+  "test_source": "69bd578d528c42296ef4a10fa24d675a8f635408",
+  "test_apk_sha256": "dc22049a5a03de863a783228cff53072e01484b1ccc3eed12222e9e832ccdf3d",
+  "app_bytes_equal_frozen_f30": true,
+  "only_changed_inputs": [
+    "app/src/androidTest/java/dev/tinycast/android/TouchSearchDeviceTest.kt",
+    "scripts/test-webview-engine.py"
+  ],
+  "jvm_reuse": {
+    "tests": 343,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "task_line": "> Task :app:testDebugUnitTest",
+    "report_files": 37
+  },
+  "fresh_fixture_build_successes": 2,
+  "fresh_lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    },
+    "benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    }
+  },
+  "fresh_python": {
+    "normal": {
+      "cases": 135,
+      "seconds": 21.679,
+      "log_sha256": "d88a3984fec5a5d0bdcbc71f7a3ddd26cc76b057f42309616922115dac276fb5",
+      "source_commit": "69bd578d528c42296ef4a10fa24d675a8f635408"
+    },
+    "optimized": {
+      "cases": 135,
+      "seconds": 21.441,
+      "log_sha256": "1fc320d835261db23adae5bcbf4f7f5bfc3e2c32b20bf48bb7dba064fabeee0d",
+      "source_commit": "69bd578d528c42296ef4a10fa24d675a8f635408"
+    }
+  },
+  "test_payload_changes": [
+    "classes3.dex"
+  ],
+  "scope": "Current code/input hashes and final APKs verified. App is the exact archived f30 binary; only the fixture/controller change afterward. JVM343 is retained with production/build/JVM inputs unchanged, not rerun by this fixture-only build. No stamp-only equivalence is assumed."
+}

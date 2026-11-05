@@ -1,0 +1,107 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "native-input",
+  "input_mode": "owned",
+  "runner_sha256": "775233d14eb064bf6636071d89ade59f8a596c518beeb5f6844ea788c613cb7a",
+  "apk_sha256": "98da1466e9fe6e3a5e1fbd5b27251e11ebb88e1a6c96599548c20bc4f7aa5de3",
+  "test_apk_sha256": "dc22049a5a03de863a783228cff53072e01484b1ccc3eed12222e9e832ccdf3d",
+  "methods": [
+    "committedEmojiNavigationAndCaretAreExact",
+    "activeMultilingualCompositionKeepsResultSelection"
+  ],
+  "api": 26,
+  "font_scale": 1.0,
+  "layout": "phone",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "restore-input-method-before-test-apk-stop": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-input-method-after-test-apk-removal": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-initial-package-absence": {
+      "passed": true
+    }
+  },
+  "passes": 2,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 58.0.3029.125)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  },
+  "original_font_scale": "null",
+  "captures": {
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.xml": "b088d531f024799177b42c5529795f4d4fe0f31e8eadcec7ff7640a2ac31684b",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.png": "78c3ae3b9d8596572e74afe17000e46954053e721ac3e46fa993f2cb2fb8ac06",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation-frame.json": "c89fda5acb65f03ec6fae122d1ec0270fb5d70fca467d361bdcc039cdaebc11a",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.xml": "b088d531f024799177b42c5529795f4d4fe0f31e8eadcec7ff7640a2ac31684b",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.png": "61862cb75e011b0370e4b0caf9692440a878fba167bf2c9bc6fc503dddcfc2d1",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range-frame.json": "90fb582ae52bd82daa7dc747e0bd4cf17c64024807d8ef632f303464e1f2fade",
+    "case-committedemojinavigationandcaretareexact.json": "e7bf2b217918d84f3c71ad3d8c97664f3d45f5faf7cae2085b3fa1f4a559aa6d",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.xml": "dd0eff05b382486b3a99600ca15892ea179f975d7ce13247fe07bd9c60262c6b",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.png": "48201726e6c03772eb03571fa12ac9eb76dc5ad4e9f10275a473928c124e99c5",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition-frame.json": "386677aeb164b77096876bdad86dffc22a44a3cc7fe72b674be113e87e5280b3",
+    "case-activemultilingualcompositionkeepsresultselection.json": "5a4261a3bad2e3fbf68f14e10e255fd28334d8af95ae080e0c6e4cdd5b79b165"
+  },
+  "ime_restoration_scope": "Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement",
+  "ime_restore_observations": [
+    {
+      "query_ms": 62,
+      "all_raw_fields_equal": false
+    },
+    {
+      "query_ms": 56,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 51,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 52,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 50,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 51,
+      "all_raw_fields_equal": true
+    }
+  ]
+}

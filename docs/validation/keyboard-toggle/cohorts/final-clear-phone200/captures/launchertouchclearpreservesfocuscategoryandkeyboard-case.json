@@ -1,0 +1,91 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+  "api": 36,
+  "font_scale": 2,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "empty-state-before-clear",
+      "search": "search",
+      "ime_visible": false,
+      "expected_query_matches": true,
+      "result_count": 0
+    },
+    {
+      "kind": "empty-feedback-visibility",
+      "palette_height_px": 1870,
+      "constrained_by_ime": false,
+      "displayed": true,
+      "known_layout_gap": null
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        880,
+        106,
+        1006,
+        232
+      ],
+      "search": [
+        164,
+        106,
+        880,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1965
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "empty-state-before-clear",
+      "search": "search",
+      "ime_visible": true,
+      "expected_query_matches": true,
+      "result_count": 0
+    },
+    {
+      "kind": "empty-feedback-visibility",
+      "palette_height_px": 1248,
+      "constrained_by_ime": false,
+      "displayed": true,
+      "known_layout_gap": null
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        880,
+        106,
+        1006,
+        232
+      ],
+      "search": [
+        164,
+        106,
+        880,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1343
+      ],
+      "density": 2.625
+    }
+  ]
+}
