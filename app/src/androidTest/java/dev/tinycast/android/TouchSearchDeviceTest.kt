@@ -563,4 +563,70 @@ class TouchSearchDeviceTest {
 
     @Test fun launcherKeyboardToggleRevealsResultsAndPreservesSearch() = keyboardToggleFlow(false)
     @Test fun emojiKeyboardToggleRevealsResultsAndPreservesSearch() = keyboardToggleFlow(true)
+
+    private fun rejectedKeyboardCallback(
+        action: () -> Boolean, expectedVisible: Boolean, search: String, surface: String, phase: String
+    ) {
+        ui { action() }
+        compose.waitForIdle(); instrumentation.waitForIdleSync()
+        settledFeedbackViewport(surface)
+        capture(phase, search)
+        assertEquals("Obsolete or obstructed keyboard callback must not change visibility: $phase", expectedVisible, ime())
+        events.put(JSONObject().put("kind", "keyboard-callback-rejected").put("phase", phase)
+            .put("visible", expectedVisible))
+    }
+
+    private fun keyboardCallbackFlow(emojiRoute: Boolean) {
+        assumeTrue("Owned wide-screen callback contract", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Controlled retained native callbacks; live visibility transitions use actual pointer actions. No physical queued-input or cross-window certification.")
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        val query = if (emojiRoute) "face" else "settings"
+        keyboard(false, search); node(search).performTextReplacement(query); settledFeedbackViewport(surface)
+        pointerKeyboard(true, search, surface, "keyboard-guard-first-show")
+        val oldHide = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        pointerKeyboard(false, search, surface, "keyboard-guard-live-hide")
+        pointerKeyboard(true, search, surface, "keyboard-guard-live-show")
+        rejectedKeyboardCallback(oldHide, true, search, surface, "keyboard-guard-obsolete-mode")
+
+        // Change the epoch and invoke before Compose can dispose the old owner.
+        val beforeEpoch = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        ui { it.store.focusEpoch++; beforeEpoch() }
+        settledFeedbackViewport(surface)
+        assertTrue("Changed search epoch rejects Hide before disposal", ime())
+        capture("keyboard-guard-epoch", search)
+        events.put(JSONObject().put("kind", "keyboard-callback-rejected").put("phase", "changed-epoch-before-disposal").put("visible", true))
+
+        pointerKeyboard(false, search, surface, "keyboard-guard-before-menu")
+        val obstructedShow = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        // Semantics is deliberate menu setup, not pointer-navigation evidence.
+        node(if (emojiRoute) "emoji-filter" else "palette-menu").performClick()
+        node("inline-menu").assertIsDisplayed()
+        rejectedKeyboardCallback(obstructedShow, false, search, surface, "keyboard-guard-open-menu")
+        node("inline-menu").assertIsDisplayed()
+        device.pressBack(); compose.waitForIdle()
+        node(search).assertIsFocused()
+        text(search, query)
+        pointerKeyboard(true, search, surface, "keyboard-guard-after-menu")
+        pointerKeyboard(false, search, surface, "keyboard-guard-before-replacement")
+
+        val replacedShow = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        ui { it.store.dialog = "updates"; replacedShow(); assertEquals("updates", it.store.dialog) }
+        node("inline-back").assertIsDisplayed().performTouchInput { click(center) }
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        node(search).performTextReplacement(query); keyboard(false, search); settledFeedbackViewport(surface)
+        rejectedKeyboardCallback(replacedShow, false, search, surface, "keyboard-guard-replaced-route")
+        pointerKeyboard(true, search, surface, "keyboard-guard-current-replacement-show")
+        pointerKeyboard(false, search, surface, "keyboard-guard-before-recreation")
+        val recreatedShow = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.activityRule.scenario.recreate()
+        node(search).performTextReplacement(query); keyboard(false, search); settledFeedbackViewport(surface)
+        rejectedKeyboardCallback(recreatedShow, false, search, surface, "keyboard-guard-recreated-owner")
+        pointerKeyboard(true, search, surface, "keyboard-guard-current-recreated-show")
+        record.put("rejected_callbacks", 5).put("completed", true)
+    }
+
+    @Test fun launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus() = keyboardCallbackFlow(false)
+    @Test fun emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus() = keyboardCallbackFlow(true)
 }

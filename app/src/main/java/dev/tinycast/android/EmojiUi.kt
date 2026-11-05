@@ -201,9 +201,9 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     copiedName = null
                     queryEditing = false
                 }
-                if (wide) IconButton(onClick = { keyboardRequested = true; searchFocus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(48.dp).semantics { contentDescription = "Show on-screen keyboard" }) {
-                    Glyph("keyboard", PaletteTheme.tertiary, 16)
-                }
+                if (wide) SearchKeyboardButton(imeVisible, Triple(store, searchEpoch, windowFocused), "emoji-keyboard", searchFocus,
+                    current = { actionCurrent() && !menu && !actionsMenu && paletteMenus.current == null },
+                    requested = { keyboardRequested = it })
                 Box {
                     // Retain natural scaled text and a 48 dp target without extra
                     // vertical padding shifting this editor below the launcher.

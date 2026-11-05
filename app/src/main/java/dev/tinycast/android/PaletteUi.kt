@@ -291,7 +291,10 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                         searchValue = TextFieldValue("")
                         store.search("")
                     }
-                    if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",PaletteTheme.tertiary,16)}
+                    if (wide) SearchKeyboardButton(imeVisible, Triple(store, searchEpoch, windowFocused), "search-keyboard", focus,
+                        current = { store.focusEpoch == searchEpoch && store.dialog == null && store.textReview == null &&
+                            !store.backupBusy && ShortcutRuntime.recordingOwner == null && !menu && paletteMenus.current == null },
+                        requested = { keyboardRequested = it })
                 }
                 if (store.category == "Files") FileSearchToolbar(store, run)
                 LaunchedEffect(store.folderSearch.includeInLauncher) { store.syncFileSearch() }

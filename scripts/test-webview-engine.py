@@ -47,7 +47,9 @@ TOUCH_CASES = ['launcherTouchClearPreservesFocusCategoryAndKeyboard',
                'launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable',
                'emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable',
                'launcherKeyboardToggleRevealsResultsAndPreservesSearch',
-               'emojiKeyboardToggleRevealsResultsAndPreservesSearch']
+               'emojiKeyboardToggleRevealsResultsAndPreservesSearch',
+               'launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus',
+               'emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus']
 OWNED_IME = TEST + '/dev.tinycast.android.NativeInputTestIme'
 IME_SETTING_KEYS = ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype',
                     'input_methods_subtype_history')
