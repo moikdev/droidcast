@@ -210,6 +210,13 @@ def main():
             result = subprocess.run(adb + command, stdout=log, stderr=subprocess.STDOUT, timeout=90 * len(methods))
         r['instrumentation_exit_code'] = result.returncode
         require('ActiveInstrumentation{' not in text('shell', 'dumpsys', 'activity', 'processes'), 'Instrumentation still active; retain recovery owner')
+        log = (a.output / 'tests.log').read_text()
+        r['passes'] = len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: 0$', log, re.M))
+        r['failures'] = len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: -2$', log, re.M))
+        r['initialization_error'] = 'INSTRUMENTATION_STATUS: test=initializationError' in log
+        r['native_expected_outcome'] = (r['passes'] == 0 and r['failures'] == 1 and 'extension-engine-problem' in log and 'NoClassDefFoundError' not in log
+            if a.expected_negative else r['passes'] == len(methods) and r['failures'] == 0 and f'OK ({len(methods)} test' in log)
+        save()  # Keep the native outcome even when evidence collection fails.
         data = raw('exec-out', 'run-as', APP, 'tar', '-cf', '-', evidence)
         frames = archive_files(data)
         captures = a.output / 'captures'; captures.mkdir()
@@ -218,11 +225,6 @@ def main():
             require(PurePosixPath(path).parent == PurePosixPath(evidence) and re.fullmatch(r'[a-z0-9-]+\.(png|xml|json)', name), 'Unexpected evidence path')
             (captures / name).write_bytes(value)
         r['captures'] = {PurePosixPath(path).name: sha(value) for path, value in frames.items()}
-        log = (a.output / 'tests.log').read_text()
-        r['passes'] = len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: 0$', log, re.M))
-        r['failures'] = len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: -2$', log, re.M))
-        r['native_expected_outcome'] = (r['passes'] == 0 and r['failures'] == 1 and 'extension-engine-problem' in log and 'NoClassDefFoundError' not in log
-            if a.expected_negative else r['passes'] == len(methods) and r['failures'] == 0 and f'OK ({len(methods)} test' in log)
         save()
     finally:
         c = Cleanup(r)

@@ -290,7 +290,9 @@ class WebViewRecoveryDeviceTest {
         assumeTrue(Build.VERSION.SDK_INT == 26)
         compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single { c -> c.name == "index" }) }
         compose.waitUntil(15000) { compose.activity.store.extensions.runtimeEngineProblem != null }
-        val first = requireNotNull(compose.activity.store.extensions.runtimeEngineProblem)
+        // Keep newer application types out of reflected synthetic method
+        // signatures so the common old-app case can initialize under JUnit.
+        val first: Any = requireNotNull(compose.activity.store.extensions.runtimeEngineProblem)
         compose.onNodeWithTag("extension-engine-settings").performTouchInput { click(center) }
         assertTrue(device.wait(androidx.test.uiautomator.Until.hasObject(androidx.test.uiautomator.By.pkg("com.android.settings")), 10000))
         device.pressBack(); compose.waitUntil(10000) { compose.activity.hasWindowFocus() }
@@ -302,8 +304,9 @@ class WebViewRecoveryDeviceTest {
             val current = requireNotNull(catalog.running).second
             assertEquals("index", current.name)
             val owner = catalog.captureText(extension, current).owner
+            val previous = first as ExtensionEngineProblem
             assertTrue(catalog.reportEngineProblem(owner, extension, current,
-                ExtensionEngineProblem(first.engine, first.failure, first.missingApis)))
+                ExtensionEngineProblem(previous.engine, previous.failure, previous.missingApis)))
         }
         compose.waitForIdle()
         compose.onNodeWithTag("extension-engine-settings").assertIsEnabled()
