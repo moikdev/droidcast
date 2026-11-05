@@ -199,7 +199,7 @@ def main():
         (a.output / 'record.json').write_text(json.dumps(r, indent=2) + '\n')
     save()
     before = {}; originals = {}; palette = None; original_profile = None
-    lease_claimed = False; installed = []
+    lease_claimed = False; installed = []; ime_activation_attempted = False
     def claim():
         # A never-launched fresh installation has no files directory yet.
         raw('shell', 'run-as', APP, 'mkdir', '-p', 'files')
@@ -230,6 +230,7 @@ def main():
         if legacy:
             claim(); lease_claimed = True
         if ime_settings:
+            ime_activation_attempted = True
             raw('shell', 'ime', 'enable', OWNED_IME)
             raw('shell', 'ime', 'set', OWNED_IME)
             require(text('shell', 'settings', 'get', 'secure', 'default_input_method') == OWNED_IME, 'Owned IME was not selected')
@@ -273,7 +274,7 @@ def main():
                 require('ActiveInstrumentation{' not in text('shell', 'dumpsys', 'activity', 'processes'), 'Do not restore under active instrumentation')
                 verify_owner()
             c.attempt('idle-owned-instrumentation', idle_owner)
-            if not c.errors and ime_settings:
+            if not c.errors and ime_activation_attempted:
                 def restore_input_method():
                     verify_owner()
                     raw('shell', 'ime', 'set', shlex.quote(ime_settings['default_input_method']))
