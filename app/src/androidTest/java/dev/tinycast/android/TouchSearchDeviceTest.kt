@@ -413,6 +413,11 @@ class TouchSearchDeviceTest {
             ui { if(emojiRoute)assertTrue(it.store.emoji.results().isEmpty())else assertTrue(it.store.results().isEmpty()) }
             geometry(search, clear, surface, if(emojiRoute)listOf("emoji-back", "emoji-filter")else emptyList())
             naturalFeedback(message, if(emojiRoute)13f else 14f, surface, "initial-${if(visible)"shown"else"hidden"}")
+            if(rect(surface).height < 180 * context.resources.displayMetrics.density) {
+                if(emojiRoute) node("emoji-count").assertDoesNotExist()
+                else compose.onNodeWithText("Try another name or category.").assertDoesNotExist()
+                events.put(JSONObject().put("kind", "compact-primary-status-only").put("route", if(emojiRoute)"emoji"else"launcher"))
+            }
             if (emojiRoute) {
                 completeFeedbackTarget(node("emoji-back"), "Emoji Back", surface)
                 completeFeedbackTarget(node("emoji-filter"), "Emoji category", surface)
