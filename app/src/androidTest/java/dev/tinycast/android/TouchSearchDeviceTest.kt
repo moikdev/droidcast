@@ -2,6 +2,7 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.os.Build
+import android.os.SystemClock
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
@@ -294,4 +295,148 @@ class TouchSearchDeviceTest {
         cleared("emoji-search", "emoji-search-clear")
         record.put("live_query_clears", 2).put("rejected_callbacks", 2).put("completed", true)
     }
+
+    private fun settledFeedbackViewport(paletteTag: String) {
+        var last: Pair<Rect, Boolean>? = null
+        var since = 0L
+        compose.waitUntil(5000) {
+            val sample = rect(paletteTag) to ime()
+            val now = SystemClock.elapsedRealtime()
+            if (sample != last) { last = sample; since = now; false } else now - since >= 300
+        }
+    }
+
+    private fun foregroundFeedback() {
+        ui { assertTrue("Feedback actions require the app's foreground window", it.window.decorView.hasWindowFocus()) }
+    }
+
+    private fun completeFeedbackTarget(target: SemanticsNodeInteraction, label: String, paletteTag: String) {
+        val semantics = target.fetchSemanticsNode()
+        val surface = node(paletteTag).fetchSemanticsNode().boundsInRoot
+        val sample = compose.runOnUiThread {
+            val origin = semantics.positionInRoot
+            Rect(origin.x, origin.y, origin.x + semantics.size.width, origin.y + semantics.size.height) to semantics.boundsInRoot
+        }
+        val full = sample.first; val visible = sample.second
+        val dp = context.resources.displayMetrics.density
+        events.put(JSONObject().put("kind", "feedback-control").put("label", label)
+            .put("full", json(full)).put("visible", json(visible)).put("palette", json(surface)))
+        assertTrue("$label retains 48 dp", full.width >= 48 * dp - 1 && full.height >= 48 * dp - 1)
+        assertTrue("$label is complete in its palette", full.left >= surface.left - 1 && full.right <= surface.right + 1 &&
+            full.top >= surface.top - 1 && full.bottom <= surface.bottom + 1 &&
+            visible.width >= full.width - 1 && visible.height >= full.height - 1)
+    }
+
+    private fun naturalFeedback(text: String, fontSp: Float, paletteTag: String, phase: String) {
+        val target = compose.onNodeWithText(text)
+        val layouts = mutableListOf<TextLayoutResult>()
+        target.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(layouts)) }
+        val layout = layouts.single()
+        val semantics = target.fetchSemanticsNode()
+        val surface = node(paletteTag).fetchSemanticsNode().boundsInRoot
+        val sample = compose.runOnUiThread { semantics.positionInRoot to semantics.boundsInRoot }
+        assertEquals(text, layout.layoutInput.text.text)
+        assertEquals("Keep the original status font", fontSp, layout.layoutInput.style.fontSize.value, .01f)
+        assertTrue(layout.lineCount > 0)
+        for (line in 0 until layout.lineCount) {
+            val bounds = Rect(sample.first.x + layout.getLineLeft(line), sample.first.y + layout.getLineTop(line),
+                sample.first.x + layout.getLineRight(line), sample.first.y + layout.getLineBottom(line))
+            val visible = sample.second
+            val complete = bounds.left >= visible.left - 1 && bounds.right <= visible.right + 1 &&
+                bounds.top >= visible.top - 1 && bounds.bottom <= visible.bottom + 1 &&
+                bounds.left >= surface.left - 1 && bounds.right <= surface.right + 1 &&
+                bounds.top >= surface.top - 1 && bounds.bottom <= surface.bottom + 1 &&
+                visible.width > 0 && visible.height > 0
+            events.put(JSONObject().put("kind", "natural-feedback-line").put("phase", phase).put("text", text)
+                .put("line", line).put("font_sp", fontSp).put("line_bounds", json(bounds))
+                .put("visible", json(visible)).put("palette", json(surface)).put("complete", complete)
+                .put("ellipsized", layout.isLineEllipsized(line)))
+            assertFalse("Primary empty feedback must not ellipsize", layout.isLineEllipsized(line))
+            assertTrue("Primary empty feedback line $line is fully visible", complete)
+        }
+    }
+
+    private fun panFeedback(up: Boolean, paletteTag: String) {
+        foregroundFeedback()
+        val route = node("palette-content-scroll")
+        val before = route.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange].value()
+        route.performTouchInput {
+            val x = width * .65f
+            swipeWithVelocity(androidx.compose.ui.geometry.Offset(x, height * if (up) .85f else .15f),
+                androidx.compose.ui.geometry.Offset(x, height * if (up) .15f else .85f), endVelocity = 0f, durationMillis = 400)
+        }
+        settledFeedbackViewport(paletteTag)
+        val after = route.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange].value()
+        events.put(JSONObject().put("kind", "feedback-pointer-pan").put("up", up).put("before", before).put("after", after))
+    }
+
+    private fun feedbackTop(paletteTag: String) {
+        repeat(16) {
+            val range = node("palette-content-scroll").fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange]
+            if (range.value() <= 1) return
+            panFeedback(false, paletteTag)
+        }
+        fail("Pointer panning must return the header to its original scroll origin")
+    }
+
+    private fun feedbackReveal(target: SemanticsNodeInteraction, paletteTag: String) {
+        repeat(16) {
+            val semantics = target.fetchSemanticsNode()
+            val surface = node(paletteTag).fetchSemanticsNode().boundsInRoot
+            val full = compose.runOnUiThread {
+                val origin = semantics.positionInRoot
+                Rect(origin.x, origin.y, origin.x + semantics.size.width, origin.y + semantics.size.height)
+            }
+            if (full.top >= surface.top - 1 && full.bottom <= surface.bottom + 1) return
+            panFeedback(full.bottom > surface.bottom, paletteTag)
+        }
+        fail("A pointer scroll must expose the complete control")
+    }
+
+    private fun feedbackFlow(emojiRoute: Boolean) {
+        if (emojiRoute) emoji()
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val clear = if (emojiRoute) "emoji-search-clear" else "search-clear"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        val absent = if (emojiRoute) "zzownedemptyfeedbackemoji" else "zzownedemptyfeedbackapp"
+        val message = if (emojiRoute) "No matching emoji or symbols" else "No matching commands"
+        var origin: Rect? = null
+        for (visible in listOf(false, true)) {
+            feedbackTop(surface)
+            node(search).performTextReplacement(absent)
+            keyboard(visible, search); settledFeedbackViewport(surface)
+            capture("feedback-${if(visible)"shown"else"hidden"}-empty", search)
+            foregroundFeedback()
+            if (origin == null) origin = rect(search) else assertEquals("Opening the IME retains the search origin", origin, rect(search))
+            text(search, absent); node(search).assertIsFocused()
+            ui { if(emojiRoute)assertTrue(it.store.emoji.results().isEmpty())else assertTrue(it.store.results().isEmpty()) }
+            geometry(search, clear, surface, if(emojiRoute)listOf("emoji-back", "emoji-filter")else emptyList())
+            naturalFeedback(message, if(emojiRoute)13f else 14f, surface, "initial-${if(visible)"shown"else"hidden"}")
+            if (emojiRoute) {
+                completeFeedbackTarget(node("emoji-back"), "Emoji Back", surface)
+                completeFeedbackTarget(node("emoji-filter"), "Emoji category", surface)
+            }
+            if (compose.activity.resources.configuration.screenWidthDp >= 700)
+                completeFeedbackTarget(compose.onNodeWithContentDescription("Show on-screen keyboard"), "Keyboard", surface)
+            val footer = if(emojiRoute)node("emoji-favorite")else node("palette-menu")
+            feedbackReveal(footer, surface)
+            completeFeedbackTarget(footer, if(emojiRoute)"Emoji favorite"else"Droidcast menu", surface)
+            capture("feedback-${if(visible)"shown"else"hidden"}-footer", search)
+            feedbackTop(surface)
+            node(search).assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(absent.length)))
+            assertEquals(visible, ime()); assertEquals(origin, rect(search))
+            node(search).performTextReplacement(if(emojiRoute)"face"else"settings")
+            compose.onNodeWithText(message).assertDoesNotExist()
+            ui { if(emojiRoute)assertTrue(it.store.emoji.results().isNotEmpty())else assertTrue(it.store.results().isNotEmpty()) }
+            capture("feedback-${if(visible)"shown"else"hidden"}-matching", search)
+            foregroundFeedback(); node(clear).performTouchInput { click(center) }
+            cleared(search, clear); assertEquals(origin, rect(search)); assertEquals(visible, ime())
+            ui { if(emojiRoute)assertEquals(0,it.store.emoji.selected)else { assertEquals("Apps",it.store.category);assertEquals(0,it.store.selected) } }
+            capture("feedback-${if(visible)"shown"else"hidden"}-cleared", search)
+        }
+        record.put("completed", true)
+    }
+
+    @Test fun launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable() = feedbackFlow(false)
+    @Test fun emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable() = feedbackFlow(true)
 }

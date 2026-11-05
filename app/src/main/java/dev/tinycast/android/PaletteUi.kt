@@ -253,6 +253,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             }
         }
         PaletteViewport(Modifier.onPreviewKeyEvent { handleKey(it.nativeKeyEvent) }) { wide, top, paletteHeight ->
+            val compactEmpty = paletteHeight < 180.dp
             LaunchedEffect(store.focusEpoch) { focus.requestFocus() }
             val imeVisible = WindowInsets.isImeVisible
             LaunchedEffect(wide, imeVisible, keyboardRequested, windowFocused, searchFocused) {
@@ -294,8 +295,14 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 }
                 if (store.category == "Files") FileSearchToolbar(store, run)
                 LaunchedEffect(store.folderSearch.includeInLauncher) { store.syncFileSearch() }
-                if(results.isEmpty()) Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
-                    Glyph("search",PaletteTheme.tertiary,28);Spacer(Modifier.height(12.dp))
+                if(results.isEmpty()) Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())
+                    .padding(horizontal=24.dp,vertical=if(compactEmpty)0.dp else 24.dp),
+                    verticalArrangement=if(compactEmpty)Arrangement.Top else Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){
+                    // A short IME viewport can show the header and one natural
+                    // text line. Keep the status first; decoration must not
+                    // push it below that strip. The route still scrolls to help
+                    // text and full-size footer controls.
+                    if(!compactEmpty) { Glyph("search",PaletteTheme.tertiary,28);Spacer(Modifier.height(12.dp)) }
                     Text("No matching commands",fontSize=14.sp);Text("Try another name or category.",fontSize=12.sp,color=PaletteTheme.secondary)
                     if(store.category=="Files") TextButton(onClick={run(Command("search-folders","Search folders",""))}){Text("Choose search folders")}
                     if(store.category=="Extensions") TextButton(onClick={store.dialog="extensions"}){Text("Browse Raycast Store")}
