@@ -325,7 +325,7 @@ class ExtensionRecordedTestsDeviceTest {
             val diagonal=listOf(ink(-3f,-3f),ink(3f,-3f),ink(-3f,3f),ink(3f,3f))
             val axes=listOf(ink(0f,-3f),ink(0f,3f),ink(-3f,0f),ink(3f,0f))
             record.put("clear_glyph_pixels",JSONObject().put("diagonal_ink",JSONArray(diagonal)).put("axis_ink",JSONArray(axes))
-                .put("pixel_probe_scope","Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison")
+                .put("pixel_probe_scope","Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"))
             assertTrue("Clear search must draw a close glyph rather than the fallback plus",diagonal.all { it>0 }&&axes.all { it==0 })
         } finally { bitmap.recycle() }
         tap("recorded-tests-clear");compose.onNodeWithTag("recorded-tests-search").assertTextEquals("")
