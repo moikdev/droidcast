@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.AnnotatedString
@@ -29,6 +30,7 @@ import org.junit.runner.RunWith
 
 /** Observations only: completion does not certify a functional compatibility fix. */
 @RunWith(AndroidJUnit4::class)
+@OptIn(ExperimentalTestApi::class)
 class NativeInputCompatibilityDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @get:Rule val name = org.junit.rules.TestName()
@@ -185,17 +187,17 @@ class NativeInputCompatibilityDeviceTest {
     }
 
     @Test fun recordLargeDraftTextAndAnnotationsAfterRecreation() {
-        val title = "Owned large draft 日本"
-        val body = "Owned draft line café 日本 🌱 314159.\n".repeat(15000)
-        ui { it.execute(Command("new-note", "New note", "")); it.store.editorDraft("note").apply { this.title = title; this.body = body } }
+        val ownedTitle = "Owned large draft 日本"
+        val ownedBody = "Owned draft line café 日本 🌱 314159.\n".repeat(15000)
+        ui { it.execute(Command("new-note", "New note", "")); it.store.editorDraft("note").apply { title = ownedTitle; body = ownedBody } }
         compose.waitForIdle(); compose.activityRule.scenario.recreate(); compose.waitForIdle()
         ui { hook(it) }
         observe("recreated-title", "editor-title"); observe("recreated-body", "editor-body")
         val actualTitle = compose.onNodeWithTag("editor-title").fetchSemanticsNode().config[SemanticsProperties.EditableText]
         val actualBody = compose.onNodeWithTag("editor-body").fetchSemanticsNode().config[SemanticsProperties.EditableText]
-        record.put("title_plain_exact", actualTitle.text == title).put("title_annotated_exact", actualTitle == AnnotatedString(title))
-            .put("body_plain_exact", actualBody.text == body).put("body_annotated_exact", actualBody == AnnotatedString(body))
-            .put("expected_body_length", body.length).put("expected_body_sha256", digest(body)).put("diagnostic_completed", true)
+        record.put("title_plain_exact", actualTitle.text == ownedTitle).put("title_annotated_exact", actualTitle == AnnotatedString(ownedTitle))
+            .put("body_plain_exact", actualBody.text == ownedBody).put("body_annotated_exact", actualBody == AnnotatedString(ownedBody))
+            .put("expected_body_length", ownedBody.length).put("expected_body_sha256", digest(ownedBody)).put("diagnostic_completed", true)
         capture("large-draft-recreated")
     }
 
