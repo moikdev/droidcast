@@ -1,0 +1,307 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+  "api": 36,
+  "font_scale": 2,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        717,
+        107,
+        843,
+        233
+      ],
+      "search": [
+        163,
+        107,
+        717,
+        233
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1965
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-hidden",
+      "text": "No matching emoji or symbols",
+      "line": 0,
+      "font_sp": 13,
+      "line_bounds": [
+        85,
+        834,
+        756.4,
+        956
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        85,
+        834,
+        995,
+        1078
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1965
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-hidden",
+      "text": "No matching emoji or symbols",
+      "line": 1,
+      "font_sp": 13,
+      "line_bounds": [
+        85,
+        956,
+        346.60004,
+        1078
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        85,
+        834,
+        995,
+        1078
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1965
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji Back",
+      "full": [
+        32,
+        107,
+        158,
+        233
+      ],
+      "visible": [
+        32,
+        107,
+        158,
+        233
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1965
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji category",
+      "full": [
+        843,
+        106,
+        1027,
+        233
+      ],
+      "visible": [
+        843,
+        106,
+        1027,
+        233
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1965
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji favorite",
+      "full": [
+        53,
+        1762,
+        179,
+        1888
+      ],
+      "visible": [
+        53,
+        1762,
+        179,
+        1888
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1965
+      ]
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        717,
+        107,
+        843,
+        233
+      ],
+      "search": [
+        163,
+        107,
+        717,
+        233
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1343
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-shown",
+      "text": "No matching emoji or symbols",
+      "line": 0,
+      "font_sp": 13,
+      "line_bounds": [
+        85,
+        523,
+        756.4,
+        645
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        85,
+        523,
+        995,
+        767
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1343
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-shown",
+      "text": "No matching emoji or symbols",
+      "line": 1,
+      "font_sp": 13,
+      "line_bounds": [
+        85,
+        645,
+        346.60004,
+        767
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        85,
+        523,
+        995,
+        767
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1343
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji Back",
+      "full": [
+        32,
+        107,
+        158,
+        233
+      ],
+      "visible": [
+        32,
+        107,
+        158,
+        233
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1343
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji category",
+      "full": [
+        843,
+        106,
+        1027,
+        233
+      ],
+      "visible": [
+        843,
+        106,
+        1027,
+        233
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1343
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji favorite",
+      "full": [
+        53,
+        1140,
+        179,
+        1266
+      ],
+      "visible": [
+        53,
+        1140,
+        179,
+        1266
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1343
+      ]
+    }
+  ]
+}

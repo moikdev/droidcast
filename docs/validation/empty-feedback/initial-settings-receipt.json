@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "emulator-5580-owned-avd": true,
+    "emulator-5580-api": true,
+    "emulator-5580-unprivileged": true,
+    "emulator-5580-idle": true,
+    "emulator-5598-owned-avd": true,
+    "emulator-5598-api": true,
+    "emulator-5598-unprivileged": true,
+    "emulator-5598-idle": true
+  },
+  "current_four_field_baseline_saved_privately": true,
+  "scope": "Read-only current baseline after PR112; older original pre-probe IME-history identity remains uncertified. The first read-only preflight used an unavailable API26 boot property and wrote no snapshot; the emulator console verifies exact AVD identity here. No device mutation."
+}

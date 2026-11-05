@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: test=emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Primary empty feedback line 0 is fully visible
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.naturalFeedback(TouchSearchDeviceTest.kt:356)
+	at dev.tinycast.android.TouchSearchDeviceTest.feedbackFlow(TouchSearchDeviceTest.kt:415)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(TouchSearchDeviceTest.kt:442)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Primary empty feedback line 0 is fully visible
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.naturalFeedback(TouchSearchDeviceTest.kt:356)
+	at dev.tinycast.android.TouchSearchDeviceTest.feedbackFlow(TouchSearchDeviceTest.kt:415)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(TouchSearchDeviceTest.kt:442)
+
+INSTRUMENTATION_STATUS: test=emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Primary empty feedback line 0 is fully visible
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.naturalFeedback(TouchSearchDeviceTest.kt:356)
+	at dev.tinycast.android.TouchSearchDeviceTest.feedbackFlow(TouchSearchDeviceTest.kt:415)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(TouchSearchDeviceTest.kt:441)
+
+INSTRUMENTATION_STATUS: stream=
+Error in launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Primary empty feedback line 0 is fully visible
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.naturalFeedback(TouchSearchDeviceTest.kt:356)
+	at dev.tinycast.android.TouchSearchDeviceTest.feedbackFlow(TouchSearchDeviceTest.kt:415)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(TouchSearchDeviceTest.kt:441)
+
+INSTRUMENTATION_STATUS: test=launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 15.515
+There were 2 failures:
+1) emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Primary empty feedback line 0 is fully visible
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.naturalFeedback(TouchSearchDeviceTest.kt:356)
+	at dev.tinycast.android.TouchSearchDeviceTest.feedbackFlow(TouchSearchDeviceTest.kt:415)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(TouchSearchDeviceTest.kt:442)
+2) launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Primary empty feedback line 0 is fully visible
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.TouchSearchDeviceTest.naturalFeedback(TouchSearchDeviceTest.kt:356)
+	at dev.tinycast.android.TouchSearchDeviceTest.feedbackFlow(TouchSearchDeviceTest.kt:415)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable(TouchSearchDeviceTest.kt:441)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

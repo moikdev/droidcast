@@ -86,7 +86,8 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     }
     fun back() { if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
     BackHandler(onBack = ::back)
-    PaletteViewport { wide, top, height ->
+    PaletteViewport(emptyFeedback=results.isEmpty()) { wide, top, height ->
+        val compactEmpty = results.isEmpty() && height < 180.dp
         val columns = ((minOf(maxWidth - 24.dp, PaletteTheme.width).value - 24) / 64).toInt().coerceIn(3, 10)
         LaunchedEffect(Unit) { searchFocus.requestFocus() }
         val imeVisible = WindowInsets.isImeVisible
@@ -221,12 +222,16 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 }
             }
             HorizontalDivider(color = PaletteTheme.separator)
-            Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 7.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("${results.size} ${if (results.size == 1) "result" else "results"} · offline", color = PaletteTheme.secondary, fontSize = 11.sp, modifier = Modifier.testTag("emoji-count"))
-                if (wide) Text(if (queryEditing) "Editing query · ↓ browse results" else "Type to search · arrows select · Ctrl L edit", color = PaletteTheme.secondary, fontSize = 11.sp)
-            }
-            if (results.isEmpty()) Box(Modifier.fillMaxWidth().weight(1f).testTag("emoji-empty"), contentAlignment = Alignment.Center) {
-                Text(when { store.loading -> "Loading catalog…"; store.error != null -> store.error!!; store.query.isNotBlank() -> "No matching emoji or symbols"; store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"; store.filter == "Recent" -> "Symbols you copy will appear here"; else -> "No symbols in this category" }, color = PaletteTheme.secondary, fontSize = 13.sp, modifier = Modifier.verticalScroll(rememberScrollState()).padding(20.dp))
+            if (!compactEmpty) EmojiResultCount(results.size, wide, queryEditing)
+            if (results.isEmpty()) Box(Modifier.fillMaxWidth().weight(1f).testTag("emoji-empty"), contentAlignment = if(compactEmpty)Alignment.TopCenter else Alignment.Center) {
+                Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),horizontalAlignment=Alignment.CenterHorizontally) {
+                    // Use one primary status when only a small band remains
+                    // above the keyboard. Keep duplicate counts/hints in the
+                    // normal viewport, not as a clipped extra compact line.
+                    Text(when { store.loading -> "Loading catalog…"; store.error != null -> store.error!!; store.query.isNotBlank() -> "No matching emoji or symbols"; store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"; store.filter == "Recent" -> "Symbols you copy will appear here"; else -> "No symbols in this category" }, color = PaletteTheme.secondary, fontSize = 13.sp,
+                        lineHeight=if(compactEmpty)16.sp else TextUnit.Unspecified,
+                        modifier = Modifier.padding(horizontal=20.dp,vertical=if(compactEmpty)0.dp else 20.dp))
+                }
             } else LazyVerticalGrid(GridCells.Fixed(columns), state = grid,
                 modifier = Modifier.weight(1f).fillMaxWidth().padding(horizontal = 12.dp).onFocusChanged { gridFocused = it.hasFocus }.focusable().testTag("emoji-grid"),
                 contentPadding = PaddingValues(bottom = 8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -273,5 +278,13 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun EmojiResultCount(count: Int, wide: Boolean, queryEditing: Boolean) {
+    Row(Modifier.fillMaxWidth().padding(horizontal=18.dp,vertical=7.dp),horizontalArrangement=Arrangement.SpaceBetween) {
+        Text("$count ${if(count==1)"result"else"results"} · offline",color=PaletteTheme.secondary,fontSize=11.sp,modifier=Modifier.testTag("emoji-count"))
+        if(wide) Text(if(queryEditing)"Editing query · ↓ browse results"else"Type to search · arrows select · Ctrl L edit",color=PaletteTheme.secondary,fontSize=11.sp)
     }
 }

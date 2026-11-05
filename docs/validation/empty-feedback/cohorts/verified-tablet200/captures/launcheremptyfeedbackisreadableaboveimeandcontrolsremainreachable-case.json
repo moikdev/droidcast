@@ -1,0 +1,219 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+  "api": 36,
+  "font_scale": 2,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        1355,
+        243,
+        1427,
+        315
+      ],
+      "search": [
+        473,
+        243,
+        1355,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        1134
+      ],
+      "density": 1.5
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-hidden",
+      "text": "No matching commands",
+      "line": 0,
+      "font_sp": 14,
+      "line_bounds": [
+        732,
+        646,
+        1187.5,
+        713
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        732,
+        646,
+        1189,
+        713
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        1134
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "visible": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        1134
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Droidcast menu",
+      "full": [
+        410,
+        1056,
+        482,
+        1128
+      ],
+      "visible": [
+        410,
+        1056,
+        482,
+        1128
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        1134
+      ]
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        1355,
+        243,
+        1427,
+        315
+      ],
+      "search": [
+        473,
+        243,
+        1355,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ],
+      "density": 1.5
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-shown",
+      "text": "No matching commands",
+      "line": 0,
+      "font_sp": 14,
+      "line_bounds": [
+        732,
+        426,
+        1187.5,
+        493
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        732,
+        426,
+        1189,
+        493
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "visible": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 0,
+      "after": 63
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Droidcast menu",
+      "full": [
+        410,
+        552,
+        482,
+        624
+      ],
+      "visible": [
+        410,
+        552,
+        482,
+        624
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 63,
+      "after": 0
+    }
+  ]
+}

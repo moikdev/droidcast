@@ -1,0 +1,101 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "609b3caaadd2bceecc31124d4068b9b71201cb9cd217ac1f42e0aeec3295037b",
+  "apk_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+  "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2",
+  "methods": [
+    "pointerClearRemovesControlledCompositionAndWhitespace",
+    "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+    "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "tablet",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 3,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "pointerclearremovescontrolledcompositionandwhitespace-launcher-composition.xml": "9efd1eb1caecd171cfd7b6fcf43c23817181469e19534d3ddea43f56bb0b35f5",
+    "pointerclearremovescontrolledcompositionandwhitespace-launcher-composition.png": "440fd286ec61bc949e3f6750dc126d1a23c4b9c476d73c227e512856d4d26898",
+    "pointerclearremovescontrolledcompositionandwhitespace-launcher-composition-frame.json": "808e5c4701e5e9ccc34d462e7d6b61395bd94eeabfd442d679624e59b6f8a8e5",
+    "pointerclearremovescontrolledcompositionandwhitespace-launcher-cleared.xml": "3190ef7c9e2f9ef24d4736a75e1e99dba73d4c9e62aacf9ffab7dae8d7869281",
+    "pointerclearremovescontrolledcompositionandwhitespace-launcher-cleared.png": "c66fc8774fd5199215fe611b07233378667c6b0f9a2979bec780af64b24295b8",
+    "pointerclearremovescontrolledcompositionandwhitespace-launcher-cleared-frame.json": "06b599673f1ca5a9dfa5c5fc3629ea051f09873b4a24bcea0fd8e99fbbb47c41",
+    "pointerclearremovescontrolledcompositionandwhitespace-emoji-composition.xml": "0cc297ff62697c300d7968d62deabf60fe076f4abf7295fd334668526b8b7a3a",
+    "pointerclearremovescontrolledcompositionandwhitespace-emoji-composition.png": "f1713fd208591de9cdf0852cce5646fcb07f3c157f05efdb86c84f1af401e68e",
+    "pointerclearremovescontrolledcompositionandwhitespace-emoji-composition-frame.json": "3c40f84c15e13d33285ecd1f3398f392ee3fc05c3c25397d62aa3f3ce3302f6f",
+    "pointerclearremovescontrolledcompositionandwhitespace-emoji-cleared.xml": "4ef8d6b6fa6ba524aaa5617c550eb69b1499ce32f15b7ca1a214e012ab668d82",
+    "pointerclearremovescontrolledcompositionandwhitespace-emoji-cleared.png": "c9648b35f7413e64eda3a95500d8ba105a3f5d33508db01e2b95ab9712f08d45",
+    "pointerclearremovescontrolledcompositionandwhitespace-emoji-cleared-frame.json": "86dbc28407cf78d55b5eb919da9e93125b4da909503fa866f730470797c2310a",
+    "pointerclearremovescontrolledcompositionandwhitespace-case.json": "9ea55a2780a25f6593038d4c25539b377199d0ec5736dfa1599f474fd2515234",
+    "currentclearuseslivequeryandrecreationrejectsoldcallback-case.json": "1117ca08c1e7c33028d9e680b86a3396458be049a15bb489571954e7b98dcab1",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-covered-by-menu.xml": "3f32430c3a3b0b79ff19a4629129799c2eaeb9095806057ee35a882592e17ef1",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-covered-by-menu.png": "4443d43a4db4565d9d71ff69d23f7c1d933f991a826e8519f1b52b141d8fd383",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-covered-by-menu-frame.json": "2048c3531f99b1b6bf46acd04e58c4e66db38f0c621c6262a0606eeb0f818e35",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-replacement-emoji.xml": "8dcc35ace72ecf34bf1d3c3e69fe7a60609ef02969bec20acb8cfe25b9754e76",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-replacement-emoji.png": "0a01ed01a534cc6cf75ddc170311ca8ec120977c0e364d0d549e0091ba74ded6",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-replacement-emoji-frame.json": "2a660eb8464caf6d138b70234b18280ddf4c139c7b027660d11b78777eb718ce",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-case.json": "7ed88a37502269347c7d2f198849d4d0f65f61461ae277e0f1f406b8cb3e3c8d"
+  },
+  "preserved_file_count": 573
+}

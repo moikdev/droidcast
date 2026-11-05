@@ -1,0 +1,383 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+  "api": 36,
+  "font_scale": 2,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        1698,
+        107,
+        1824,
+        233
+      ],
+      "search": [
+        317,
+        107,
+        1698,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-hidden",
+      "text": "No matching emoji or symbols",
+      "line": 0,
+      "font_sp": 13,
+      "line_bounds": [
+        693,
+        516,
+        1647.2,
+        638
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        693,
+        516,
+        1649,
+        638
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji Back",
+      "full": [
+        186,
+        107,
+        312,
+        233
+      ],
+      "visible": [
+        186,
+        107,
+        312,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji category",
+      "full": [
+        1950,
+        106,
+        2134,
+        233
+      ],
+      "visible": [
+        1950,
+        106,
+        2134,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1824,
+        107,
+        1950,
+        233
+      ],
+      "visible": [
+        1824,
+        107,
+        1950,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 0,
+      "after": 126
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji favorite",
+      "full": [
+        207,
+        831,
+        333,
+        957
+      ],
+      "visible": [
+        207,
+        831,
+        333,
+        957
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 126,
+      "after": 0
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        1698,
+        107,
+        1824,
+        233
+      ],
+      "search": [
+        317,
+        107,
+        1698,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-shown",
+      "text": "No matching emoji or symbols",
+      "line": 0,
+      "font_sp": 13,
+      "line_bounds": [
+        693,
+        247,
+        1647.2,
+        328
+      ],
+      "declared_line_height": "16.0.sp",
+      "visible": [
+        693,
+        247,
+        1649,
+        328
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "compact-primary-status-only",
+      "route": "emoji"
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji Back",
+      "full": [
+        186,
+        107,
+        312,
+        233
+      ],
+      "visible": [
+        186,
+        107,
+        312,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji category",
+      "full": [
+        1950,
+        106,
+        2134,
+        233
+      ],
+      "visible": [
+        1950,
+        106,
+        2134,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1824,
+        107,
+        1950,
+        233
+      ],
+      "visible": [
+        1824,
+        107,
+        1950,
+        233
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 0,
+      "after": 146
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 146,
+      "after": 293
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 293,
+      "after": 439
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 439,
+      "after": 585
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 585,
+      "after": 732
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 732,
+      "after": 778
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji favorite",
+      "full": [
+        207,
+        179,
+        333,
+        305
+      ],
+      "visible": [
+        207,
+        179,
+        333,
+        305
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 778,
+      "after": 632
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 632,
+      "after": 485
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 485,
+      "after": 339
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 339,
+      "after": 193
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 193,
+      "after": 46
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 46,
+      "after": 0
+    }
+  ]
+}
