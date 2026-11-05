@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Owned API26 rejection or API36 execution probes; retain recovery ownership on any restoration failure."""
+"""Owned API26/API36 engine or native-input probes; retain ownership on restoration failure."""
 from pathlib import Path, PurePosixPath
 import argparse
 import hashlib
@@ -27,6 +27,9 @@ CASES = {
                'closingBeforePreflightFinishesRejectsLatePublication',
                'bridgeCannotPublishOrReadHostApisBeforeApproval'],
 }
+INPUT_CASES = ['recordDefaultImeAndControlledCompositionNavigation',
+               'recordCallerSelectionAcrossNativeRoutes',
+               'recordLargeDraftTextAndAnnotationsAfterRecreation']
 
 
 def require(value, message):
@@ -84,17 +87,21 @@ def main():
     p.add_argument('--apk', type=Path, required=True)
     p.add_argument('--test-apk', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--cases', required=True, help='Comma-separated exact WebViewRecoveryDeviceTest methods')
+    p.add_argument('--cases', required=True, help='Comma-separated allowlisted methods from the selected suite')
+    p.add_argument('--suite', choices=['engine', 'native-input'], default='engine',
+                   help='Native-input reuses the same emulator ownership/restoration protocol without executing an extension')
     p.add_argument('--font-scale', type=float, choices=[1, 2], default=1)
     p.add_argument('--layout', choices=['tablet', 'phone', 'landscape'], default='phone')
     p.add_argument('--expected-negative', action='store_true', help='Only the missing recovery assertion on the old app')
     a = p.parse_args()
     legacy = a.avd == 'Droidcast_WebView_API26_27caf3'
+    native_input = a.suite == 'native-input'
+    suite_class = 'dev.tinycast.android.NativeInputCompatibilityDeviceTest' if native_input else CLASS
     require(a.serial.startswith('emulator-') and a.avd in ('Droidcast_WebView_API26_27caf3', 'Tinycast_Tablet_API_36'), 'Use an explicitly owned AVD')
     methods = a.cases.split(',')
     require(len(methods) == len(set(methods)) and 1 <= len(methods) <= 7 and all(
-        name in CASES['shared'] + CASES['legacy' if legacy else 'modern'] for name in methods), 'Unsupported native cases')
-    require(not a.expected_negative or legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
+        name in (INPUT_CASES if native_input else CASES['shared'] + CASES['legacy' if legacy else 'modern']) for name in methods), 'Unsupported native cases')
+    require(not a.expected_negative or not native_input and legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
     require(not legacy or a.layout == 'phone', 'Keep the actual API26 geometry unchanged')
     require(a.apk.is_file() and a.test_apk.is_file(), 'Both frozen APKs are required')
     sdk = os.environ.get('ANDROID_HOME') or next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
@@ -145,15 +152,16 @@ def main():
     size = text('shell', 'wm', 'size'); density = text('shell', 'wm', 'density')
     require('Override' not in size + density, 'An existing geometry override has an owner')
     font = text('shell', 'settings', 'get', 'system', 'font_scale')
-    nonce = uuid.uuid4().hex; id = 'webview-engine-' + nonce
-    lease = 'files/webview-compatibility-lease'; evidence = 'files/webview-compatibility-evidence'
+    nonce = uuid.uuid4().hex; id = ('native-input-' if native_input else 'webview-engine-') + nonce
+    lease = 'files/native-input-lease' if native_input else 'files/webview-compatibility-lease'
+    evidence = 'files/native-input-evidence' if native_input else 'files/webview-compatibility-evidence'
     root = 'files/extensions/' + id
-    owner = {'kind': 'webview-compatibility-v1', 'nonce': nonce, 'extension_id': id, 'fresh_disposable_avd': legacy}
+    owner = {'kind': 'native-input-v1' if native_input else 'webview-compatibility-v1', 'nonce': nonce, 'extension_id': id, 'fresh_disposable_avd': legacy}
     owned = [root, 'cache/' + id, 'files/extension-data/' + id, 'shared_prefs/extension-' + id + '.xml',
              'shared_prefs/extension-' + id + '.xml.bak', evidence]
     if not legacy:
         require(not text('shell', 'run-as', APP, 'id').startswith(('uid=0(', 'uid=1000(', 'uid=2000(')), 'The app must remain unprivileged')
-        for path in [lease, evidence, 'files/reviewed-text-fixture-lease', 'files/empty-view-fixture-lease'] + owned[:5]:
+        for path in [lease, evidence, 'files/webview-compatibility-lease', 'files/native-input-lease', 'files/reviewed-text-fixture-lease', 'files/empty-view-fixture-lease'] + owned[:5]:
             require(absent(path), 'A prior recovery owner/path remains: ' + path)
     a.output.mkdir(parents=True, exist_ok=False, mode=0o700)
     (a.output / 'private-owner.json').write_text(json.dumps(owner)); (a.output / 'private-owner.json').chmod(0o600)
@@ -162,6 +170,7 @@ def main():
          'api': 26 if legacy else 36, 'font_scale': a.font_scale, 'layout': a.layout, 'cleanup': {},
          'provider_before': [line.strip() for line in text('shell', 'dumpsys', 'webviewupdate').splitlines() if 'Current WebView package' in line],
          'original_geometry': {'size': size, 'density': density}, 'original_font_scale': font}
+    r['suite'] = a.suite
     def save():
         (a.output / 'record.json').write_text(json.dumps(r, indent=2) + '\n')
     save()
@@ -196,16 +205,18 @@ def main():
             require(sha(raw('exec-out', 'cat', text('shell', 'pm', 'path', pkg).removeprefix('package:'))) == sha(apk.read_bytes()), 'Installed APK differs')
         if legacy:
             claim(); lease_claimed = True
-        raw('shell', 'run-as', APP, 'mkdir', '-p', root)
+        if not native_input:
+            raw('shell', 'run-as', APP, 'mkdir', '-p', root)
         r['fixture_sha256'] = {}
-        for name, data in fixture(id).items():
+        for name, data in ({} if native_input else fixture(id)).items():
             raw('shell', 'run-as', APP, 'tee', root + '/' + name, data=data); r['fixture_sha256'][name] = sha(data)
         if not legacy and a.layout != 'tablet':
             raw('shell', 'wm', 'size', '1080x2340' if a.layout == 'phone' else '2340x1080'); raw('shell', 'wm', 'density', '420')
         raw('shell', 'settings', 'put', 'system', 'font_scale', str(a.font_scale))
         save()
-        command = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'webViewFixture', 'true', '-e', 'webViewOwner', nonce,
-                   '-e', 'class', ','.join(CLASS + '#' + name for name in methods), TEST + '/androidx.test.runner.AndroidJUnitRunner']
+        command = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'nativeInputFixture' if native_input else 'webViewFixture', 'true',
+                   '-e', 'nativeInputOwner' if native_input else 'webViewOwner', nonce,
+                   '-e', 'class', ','.join(suite_class + '#' + name for name in methods), TEST + '/androidx.test.runner.AndroidJUnitRunner']
         with (a.output / 'tests.log').open('xb') as log:
             result = subprocess.run(adb + command, stdout=log, stderr=subprocess.STDOUT, timeout=90 * len(methods))
         r['instrumentation_exit_code'] = result.returncode
