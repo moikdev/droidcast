@@ -145,6 +145,8 @@ def main():
     before = {}; originals = {}; palette = None
     lease_claimed = False; installed = []
     def claim():
+        # A never-launched fresh installation has no files directory yet.
+        raw('shell', 'run-as', APP, 'mkdir', '-p', 'files')
         raw('shell', 'run-as', APP, 'mkdir', lease)
         raw('shell', 'run-as', APP, 'tee', lease + '/owner.json', data=json.dumps(owner).encode())
     def verify_owner():
