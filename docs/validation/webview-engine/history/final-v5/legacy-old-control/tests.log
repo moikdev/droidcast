@@ -1,0 +1,122 @@
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.WebViewRecoveryDeviceTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=initializationError
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+Error in initializationError(dev.tinycast.android.WebViewRecoveryDeviceTest):
+java.lang.RuntimeException: Failed to instantiate test runner class androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+
+
+	at androidx.test.ext.junit.runners.AndroidJUnit4.throwInitializationError(AndroidJUnit4.java:129)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:121)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:82)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.<init>(AndroidJUnit4.java:56)
+	... 14 trimmed
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance0(Native Method)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:334)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:112)
+	... 17 more
+Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Ldev/tinycast/android/extensions/ExtensionEngineProblem;
+	at java.lang.reflect.Executable.getParameterTypesInternal(Native Method)
+	at java.lang.reflect.Method.getParameterTypes(Method.java:179)
+	at java.lang.Class.getDeclaredMethods(Class.java:1881)
+	at org.junit.internal.MethodSorter.getDeclaredMethods(MethodSorter.java:54)
+	at org.junit.runners.model.TestClass.scanAnnotatedMembers(TestClass.java:65)
+	at org.junit.runners.model.TestClass.<init>(TestClass.java:57)
+	at org.junit.runners.ParentRunner.createTestClass(ParentRunner.java:111)
+	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:91)
+	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:74)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:50)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:55)
+	... 20 more
+Caused by: java.lang.ClassNotFoundException: Didn't find class "dev.tinycast.android.extensions.ExtensionEngineProblem" on path: DexPathList[[zip file "/data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/base.apk", zip file "/data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/base.apk"],nativeLibraryDirectories=[/data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/lib/arm64, /data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/lib/arm64, /data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/base.apk!/lib/arm64-v8a, /data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/base.apk!/lib/arm64-v8a, /system/lib64, /vendor/lib64]]
+	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:93)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:379)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+	... 31 more
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=initializationError
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: stack=java.lang.RuntimeException: Failed to instantiate test runner class androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+
+
+	at androidx.test.ext.junit.runners.AndroidJUnit4.throwInitializationError(AndroidJUnit4.java:129)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:121)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:82)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.<init>(AndroidJUnit4.java:56)
+	... 14 trimmed
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance0(Native Method)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:334)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:112)
+	... 17 more
+Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Ldev/tinycast/android/extensions/ExtensionEngineProblem;
+	at java.lang.reflect.Executable.getParameterTypesInternal(Native Method)
+	at java.lang.reflect.Method.getParameterTypes(Method.java:179)
+	at java.lang.Class.getDeclaredMethods(Class.java:1881)
+	at org.junit.internal.MethodSorter.getDeclaredMethods(MethodSorter.java:54)
+	at org.junit.runners.model.TestClass.scanAnnotatedMembers(TestClass.java:65)
+	at org.junit.runners.model.TestClass.<init>(TestClass.java:57)
+	at org.junit.runners.ParentRunner.createTestClass(ParentRunner.java:111)
+	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:91)
+	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:74)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:50)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:55)
+	... 20 more
+Caused by: java.lang.ClassNotFoundException: Didn't find class "dev.tinycast.android.extensions.ExtensionEngineProblem" on path: DexPathList[[zip file "/data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/base.apk", zip file "/data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/base.apk"],nativeLibraryDirectories=[/data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/lib/arm64, /data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/lib/arm64, /data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/base.apk!/lib/arm64-v8a, /data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/base.apk!/lib/arm64-v8a, /system/lib64, /vendor/lib64]]
+	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:93)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:379)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+	... 31 more
+
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.007
+There was 1 failure:
+1) initializationError(dev.tinycast.android.WebViewRecoveryDeviceTest)
+java.lang.RuntimeException: Failed to instantiate test runner class androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+
+
+	at androidx.test.ext.junit.runners.AndroidJUnit4.throwInitializationError(AndroidJUnit4.java:129)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:121)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:82)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.<init>(AndroidJUnit4.java:56)
+	... 14 trimmed
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance0(Native Method)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:334)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:112)
+	... 17 more
+Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Ldev/tinycast/android/extensions/ExtensionEngineProblem;
+	at java.lang.reflect.Executable.getParameterTypesInternal(Native Method)
+	at java.lang.reflect.Method.getParameterTypes(Method.java:179)
+	at java.lang.Class.getDeclaredMethods(Class.java:1881)
+	at org.junit.internal.MethodSorter.getDeclaredMethods(MethodSorter.java:54)
+	at org.junit.runners.model.TestClass.scanAnnotatedMembers(TestClass.java:65)
+	at org.junit.runners.model.TestClass.<init>(TestClass.java:57)
+	at org.junit.runners.ParentRunner.createTestClass(ParentRunner.java:111)
+	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:91)
+	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:74)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:50)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:55)
+	... 20 more
+Caused by: java.lang.ClassNotFoundException: Didn't find class "dev.tinycast.android.extensions.ExtensionEngineProblem" on path: DexPathList[[zip file "/data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/base.apk", zip file "/data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/base.apk"],nativeLibraryDirectories=[/data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/lib/arm64, /data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/lib/arm64, /data/app/dev.tinycast.android.test-68TQfs_9ePLpB-eCxlh-3Q==/base.apk!/lib/arm64-v8a, /data/app/dev.tinycast.android-LwWDcfe1kUr-zYvRc4cjiA==/base.apk!/lib/arm64-v8a, /system/lib64, /vendor/lib64]]
+	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:93)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:379)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+	... 31 more
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

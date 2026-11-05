@@ -1,0 +1,92 @@
+[
+  {
+    "cohort": "legacy100",
+    "passes": 7,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 10,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "40edc44f917313720e71f92ccf2540397f68ee3c06d0a9b61634a24a8c583747"
+  },
+  {
+    "cohort": "legacy200",
+    "passes": 2,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 10,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "40edc44f917313720e71f92ccf2540397f68ee3c06d0a9b61634a24a8c583747"
+  },
+  {
+    "cohort": "modern-tablet100",
+    "passes": 5,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 15,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c"
+  },
+  {
+    "cohort": "modern-phone200",
+    "passes": 2,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 17,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c"
+  },
+  {
+    "cohort": "modern-landscape200",
+    "passes": 2,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 17,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c"
+  },
+  {
+    "cohort": "review-lifecycle",
+    "passes": 5,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 18,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c"
+  },
+  {
+    "cohort": "handoff",
+    "passes": 2,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 18,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c"
+  },
+  {
+    "cohort": "paste",
+    "passes": 2,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 18,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c"
+  },
+  {
+    "cohort": "legacy-common-positive",
+    "passes": 2,
+    "junit_failures": 0,
+    "expected_negative": false,
+    "cleanup_checks": 10,
+    "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "29f7f69d61ab3038e64de4efc74e99facfcd98430d89172f870375c2675d163e"
+  },
+  {
+    "cohort": "legacy-common-negative",
+    "passes": 0,
+    "junit_failures": 1,
+    "expected_negative": true,
+    "cleanup_checks": 10,
+    "app_sha256": "b0fa0e302a63320b6e5ed163856756961b4480a1ce476f4cb6167be799535e54",
+    "test_apk_sha256": "29f7f69d61ab3038e64de4efc74e99facfcd98430d89172f870375c2675d163e"
+  }
+]

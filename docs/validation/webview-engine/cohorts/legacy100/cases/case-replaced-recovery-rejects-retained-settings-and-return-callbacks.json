@@ -1,0 +1,14 @@
+{
+  "android_api": 26,
+  "case": "replacedRecoveryRejectsRetainedSettingsAndReturnCallbacks",
+  "fixture_bytecode_scope": "ES5 owned List/Grid; local React-state action only; no preferences, storage, clipboard or networking",
+  "fixture_cleanup_owner": "Host retains ownership until evidence is pulled and registered paths are removed",
+  "font_scale": 1,
+  "palette_preferences_restored": true,
+  "passed": true,
+  "provider": "com.google.android.webview",
+  "provider_version": "58.0.3029.125",
+  "replacement_not_closed": true,
+  "scope": "Owned parser/engine boundary and native recovery; no Store, service, clipboard or Android8 execution-parity credit",
+  "stale_settings_launches": 0
+}

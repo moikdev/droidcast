@@ -1,0 +1,71 @@
+{
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "classes": "dev.tinycast.android.ReviewedTextDeviceTest#selectedJsonRunsOnlyAfterReviewThenCopiesAndReturns,dev.tinycast.android.ReviewedTextDeviceTest#cancelBeforeRunReturnsWithoutExecutingOrSaving,dev.tinycast.android.ReviewedTextLifecycleDeviceTest#staleRuntimeCannotPublishOrWriteAfterReplacement,dev.tinycast.android.ReviewedTextLifecycleDeviceTest#rejectedAsyncAndSyncHostCallsReleaseApprovedInput,dev.tinycast.android.ReviewedTextLifecycleDeviceTest#noViewCompletionReleasesItsApprovedInput",
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  },
+  "completed": true,
+  "expected": 5,
+  "font_scale": 1.0,
+  "installed_apks_match": true,
+  "instrumentation_exit_code": 0,
+  "layout": "tablet",
+  "original_font_scale": "1.0",
+  "passes": 5,
+  "runner_sha256": "4e9ab25f0b1bce00277d0dde5a37a29ab8cbbdb9900699c5bdfd9cfa4b9bb248",
+  "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c",
+  "tests_completed": true
+}
