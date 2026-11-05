@@ -170,7 +170,7 @@ internal fun ExtensionRecordedTests(store: PaletteStore, extension: InstalledExt
                                 { (result as? RecordedViewResult.Ready)?.inspection === inspection && matches(commandTitle, record) }, { open(record, commandTitle) }) }
                         } }
                     }
-                    if (commands != null && shown == 0) item { Text("No commands match this search.", color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp) }
+                    if (commands != null && shown == 0) item { Text("No installed commands match this search.", color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp) }
                     if (inspection.matches.isEmpty() && inspection.candidates.isNotEmpty()) {
                         item { OutlinedButton(onClick = { if (actionCurrent()) showOtherVersions = !showOtherVersions }, shape = RoundedCornerShape(10.dp),
                             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("recorded-tests-other-versions")) {

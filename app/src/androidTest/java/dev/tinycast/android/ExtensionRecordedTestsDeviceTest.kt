@@ -9,7 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
@@ -29,6 +31,7 @@ import java.nio.file.Files
 import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.security.MessageDigest
 import java.util.UUID
+import kotlin.math.roundToInt
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.*
@@ -128,14 +131,57 @@ class ExtensionRecordedTestsDeviceTest {
         record.put("font_scale",context.resources.configuration.fontScale).put("width_dp",context.resources.configuration.screenWidthDp)
             .put("height_dp",context.resources.configuration.screenHeightDp).put("extension_bytecode_executed",false)
     }
-    private fun capture(phase:String) {
+    private fun screenBounds(node:SemanticsNode):List<Float> {
+        val bounds=node.boundsInWindow
+        val offset=compose.runOnUiThread {
+            val view=activity().window.decorView
+            val screen=IntArray(2);val window=IntArray(2)
+            view.getLocationOnScreen(screen);view.getLocationInWindow(window)
+            Offset((screen[0]-window[0]).toFloat(),(screen[1]-window[1]).toFloat())
+        }
+        return listOf(bounds.left+offset.x,bounds.top+offset.y,bounds.right+offset.x,bounds.bottom+offset.y)
+    }
+    private fun capture(phase:String,anchorText:String?=null):File {
         compose.waitForIdle()
+        val frames=java.util.concurrent.CountDownLatch(1)
+        instrumentation.runOnMainSync { val view=activity().window.decorView
+            view.postOnAnimation { view.postOnAnimation { frames.countDown() } } }
+        assertTrue("Two committed display frames",frames.await(5,java.util.concurrent.TimeUnit.SECONDS));compose.waitForIdle()
+        val before=anchorText?.let { screenBounds(compose.onNodeWithText(it,useUnmergedTree=true).fetchSemanticsNode()) }
         val stem="recorded-"+name.methodName.lowercase(java.util.Locale.ROOT)+"-"+phase
-        device.dumpWindowHierarchy(File(evidence,"$stem.xml"));assertTrue(device.takeScreenshot(File(evidence,"$stem.png")))
+        val ui=device // Connect with UiDevice's flags before clearing its node cache.
+        testAutomation().clearCacheForTest()
+        val xml=File(evidence,"$stem.xml");ui.dumpWindowHierarchy(xml)
+        val geometry=anchorText?.let { text ->
+            val matches=mutableListOf<List<Int>>()
+            xml.inputStream().use { input ->
+                val parser=android.util.Xml.newPullParser();parser.setInput(input,"UTF-8")
+                while(parser.eventType!=org.xmlpull.v1.XmlPullParser.END_DOCUMENT) {
+                    if(parser.eventType==org.xmlpull.v1.XmlPullParser.START_TAG&&parser.name=="node"&&parser.getAttributeValue(null,"text")==text) {
+                        val bounds=requireNotNull(Regex("\\[(-?\\d+),(-?\\d+)\\]\\[(-?\\d+),(-?\\d+)\\]").matchEntire(parser.getAttributeValue(null,"bounds")))
+                        matches+=bounds.groupValues.drop(1).map(String::toInt)
+                    }
+                    parser.next()
+                }
+            }
+            val actual=matches.single()
+            val after=screenBounds(compose.onNodeWithText(text,useUnmergedTree=true).fetchSemanticsNode())
+            assertTrue("Visible identity bounds",after[2]>after[0]&&after[3]>after[1])
+            for(index in 0..3) {
+                assertEquals("Stable composed identity bounds",requireNotNull(before)[index],after[index],1f)
+                assertEquals("Fresh accessibility identity bounds",after[index],actual[index].toFloat(),2f)
+            }
+            JSONObject().put("anchor_text_sha256",hash(text.toByteArray(Charsets.UTF_8)))
+                .put("compose_screen_bounds_before",JSONArray(before)).put("compose_screen_bounds_after",JSONArray(after))
+                .put("xml_screen_bounds",JSONArray(actual)).put("bounds_agree_within_pixels",2)
+        }
+        val image=File(evidence,"$stem.png");assertTrue(ui.takeScreenshot(image))
         val actualIme=compose.runOnUiThread { androidx.core.view.ViewCompat.getRootWindowInsets(activity().window.decorView)
             ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true }
         File(evidence,"$stem-frame.json").writeText(JSONObject().put("phase",phase).put("font_scale",context.resources.configuration.fontScale).put("observed_ime_visible",actualIme)
-            .put("scope",record.getString("scope")).put("synchronization","Compose idle; XML written before PNG").toString(2))
+            .put("scope",record.getString("scope")).put("synchronization","Compose idle and two display frames; accessibility cache reset before XML; XML written before PNG")
+            .put("accessibility_cache_reset",android.os.Build.VERSION.SDK_INT>=34).put("accessibility_geometry",geometry?:JSONObject.NULL).toString(2))
+        return image
     }
     private fun reveal(tag:String,scroll:String="recorded-tests-list") {
         val minimum=48*context.resources.displayMetrics.density
@@ -254,6 +300,39 @@ class ExtensionRecordedTestsDeviceTest {
         compose.onNodeWithTag("recorded-tests-json-format").assertExists()
         passed();record.put("installed_search_preserved",true);capture("installed-return")
     }
+    @Test fun clearSearchShowsCloseAndRestoresResults() {
+        enter();filtered("manual JSON");reveal("recorded-tests-clear")
+        val bounds=screenBounds(compose.onNodeWithTag("recorded-tests-clear").fetchSemanticsNode())
+        val image=capture("clear-search-control")
+        val bitmap=requireNotNull(android.graphics.BitmapFactory.decodeFile(image.absolutePath))
+        try {
+            val density=context.resources.displayMetrics.density
+            val tint=PaletteTheme.secondary.toArgb()
+            fun ink(dx:Float,dy:Float):Int {
+                val x=((bounds[0]+bounds[2])/2+dx*density).roundToInt()
+                val y=((bounds[1]+bounds[3])/2+dy*density).roundToInt()
+                val radius=maxOf(1,(density*.8f).roundToInt())
+                var count=0
+                for(py in y-radius..y+radius)for(px in x-radius..x+radius) {
+                    assertTrue(px in 0 until bitmap.width&&py in 0 until bitmap.height)
+                    val pixel=bitmap.getPixel(px,py)
+                    if(kotlin.math.abs(android.graphics.Color.red(pixel)-android.graphics.Color.red(tint))<=24&&
+                       kotlin.math.abs(android.graphics.Color.green(pixel)-android.graphics.Color.green(tint))<=24&&
+                       kotlin.math.abs(android.graphics.Color.blue(pixel)-android.graphics.Color.blue(tint))<=24)count++
+                }
+                return count
+            }
+            val diagonal=listOf(ink(-3f,-3f),ink(3f,-3f),ink(-3f,3f),ink(3f,3f))
+            val axes=listOf(ink(0f,-3f),ink(0f,3f),ink(-3f,0f),ink(3f,0f))
+            record.put("clear_glyph_pixels",JSONObject().put("diagonal_ink",JSONArray(diagonal)).put("axis_ink",JSONArray(axes))
+                .put("pixel_probe_scope","Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison")
+            assertTrue("Clear search must draw a close glyph rather than the fallback plus",diagonal.all { it>0 }&&axes.all { it==0 })
+        } finally { bitmap.recycle() }
+        tap("recorded-tests-clear");compose.onNodeWithTag("recorded-tests-search").assertTextEquals("")
+        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasTestTag("recorded-test-batch001-json-format-index"))
+        compose.onNodeWithTag("recorded-test-batch001-json-format-index").assertExists();capture("clear-search-restored-results")
+        record.put("clear_search_pointer_restores_results",true);passed()
+    }
     @Test fun allNineCompleteSourceCopiesMatchWithoutExecution() {
         val source=ExtensionWorkflowSource { context.assets.open("extension-workflow-evidence-v1.json") }
         val snapshots=ExtensionWorkflowEvidence.parse(context.assets.open("extension-workflow-evidence-v1.json").use { it.readBytes() }).snapshots
@@ -274,6 +353,11 @@ class ExtensionRecordedTestsDeviceTest {
         capture("asset-change-unknown")
         tap("recorded-tests-other-versions")
         filtered("manual JSON")
+        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(
+            hasText("No commands match this search.") or hasText("No installed commands match this search."))
+        capture("other-source-empty-message")
+        compose.onNodeWithText("No installed commands match this search.").assertExists()
+        checkNatural("No installed commands match this search.")
         compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasTestTag("recorded-test-batch001-json-format-index"))
         compose.onNodeWithTag("recorded-test-batch001-json-format-index").assertExists();capture("other-source-historical")
         record.put("asset_only_change_not_promoted",true);passed()
@@ -311,8 +395,8 @@ class ExtensionRecordedTestsDeviceTest {
         try { instrumentation.runOnMainSync { queryAction(androidx.compose.ui.text.AnnotatedString("owned-no-match"));details();reportAction() } }
         finally { compose.mainClock.autoAdvance=true }
         compose.waitForIdle();compose.onNodeWithTag("recorded-tests-search").assertTextEquals("owned-no-match")
-        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasText("No commands match this search."))
-        compose.onNodeWithText("No commands match this search.").assertExists()
+        compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasText("No installed commands match this search."))
+        compose.onNodeWithText("No installed commands match this search.").assertExists()
         filtered("manual JSON");reveal("recorded-details-$id")
         val replacementDetails=requireNotNull(compose.onNodeWithTag("recorded-details-$id").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
         val replacementReport=requireNotNull(compose.onNodeWithTag("recorded-report-$id").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
@@ -409,7 +493,7 @@ class ExtensionRecordedTestsDeviceTest {
                 }
                 assertTrue("Complete recorded identity line $line",reached)
             }
-            capture(if(label.startsWith("Test source"))"weather-test-source" else "weather-test-apk")
+            capture(if(label.startsWith("Test source"))"weather-test-source" else "weather-test-apk",text)
         }
         record.put("observed_historical_test_source",observedSource).put("observed_historical_test_apk",observedApk)
             .put("identity_setup","Semantic text positioning; native pointer scrolling for complete identity lines; no Weather code or service is executed")
