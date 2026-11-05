@@ -651,4 +651,34 @@ class TouchSearchDeviceTest {
 
     @Test fun launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus() = keyboardCallbackFlow(false)
     @Test fun emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus() = keyboardCallbackFlow(true)
+
+    @Test fun currentKeyboardAccessibilityActionsApplyTheirPublishedVisibility() {
+        assumeTrue("Owned wide-screen accessibility action contract", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Explicit native accessibility action invocation with accepted return and actual IME transition; editor setup is controlled. No TalkBack gesture or physical-typing certification.")
+        for (emojiRoute in listOf(false, true)) {
+            if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+            val search = if (emojiRoute) "emoji-search" else "search"
+            val surface = if (emojiRoute) "emoji-palette" else "palette"
+            val query = if (emojiRoute) "face" else "settings"
+            keyboard(false, search); node(search).performTextReplacement(query); settledFeedbackViewport(surface)
+            val origin = rect(search)
+            for ((index, visible) in listOf(true, false, true).withIndex()) {
+                val semantics = keyboardControl().fetchSemanticsNode()
+                assertEquals(androidx.compose.ui.semantics.Role.Button, semantics.config[SemanticsProperties.Role])
+                val action = requireNotNull(semantics.config[SemanticsActions.OnClick].action)
+                var accepted = false
+                ui { accepted = action() }
+                assertTrue("The current published keyboard action is supported and accepted", accepted)
+                compose.waitUntil(6000) { ime() == visible }
+                settledFeedbackViewport(surface)
+                keyboardState(search, query, TextRange(query.length), emojiRoute, "accessibility-$emojiRoute-$index")
+                assertEquals(origin, rect(search))
+                keyboardControl().assertContentDescriptionEquals(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard")
+                events.put(JSONObject().put("kind", "current-keyboard-accessibility-action").put("route", if (emojiRoute) "emoji" else "launcher")
+                    .put("expected_visible", visible).put("actual_visible", ime()).put("accepted", accepted))
+                capture("keyboard-accessibility-${if (emojiRoute) "emoji" else "launcher"}-$index", search)
+            }
+        }
+        record.put("completed", true)
+    }
 }
