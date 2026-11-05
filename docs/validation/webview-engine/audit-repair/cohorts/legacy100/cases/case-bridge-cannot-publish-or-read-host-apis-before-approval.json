@@ -1,0 +1,18 @@
+{
+  "android_api": 26,
+  "approved_control_scope": "The paired approved control runs on API36; this actual API26 engine cannot pass preflight",
+  "case": "bridgeCannotPublishOrReadHostApisBeforeApproval",
+  "fixture_bytecode_scope": "ES5 owned List/Grid; local React-state action only; no preferences, storage, clipboard or networking",
+  "fixture_cleanup_owner": "Host retains ownership until evidence is pulled and registered paths are removed",
+  "font_scale": 1,
+  "owned_probe_file_exists": true,
+  "palette_preferences_restored": true,
+  "passed": true,
+  "preflight_bridge_render_rejected": true,
+  "preflight_host_api_rejected": true,
+  "preflight_response_ok": false,
+  "provider": "com.google.android.webview",
+  "provider_version": "58.0.3029.125",
+  "scope": "Owned parser/engine boundary and native recovery; no Store, service, clipboard or Android8 execution-parity credit",
+  "supported_probe_operation": "fs.exists"
+}

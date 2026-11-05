@@ -1,0 +1,32 @@
+{
+  "completed": true,
+  "scope": "Counterfactual sync-guard regression only; no candidate/runtime passing credit",
+  "app_sha256": "3ca7729b9bce2a2594ce513b087fb43661eaffe9db3632b45540a8acf794a147",
+  "collector_sha256": "c185408d7bc789e9701450c6676f812f1c410750ec86c400e416b387b99bdc36",
+  "cohorts": {
+    "old-insensitive": {
+      "runner_exit_code": 0,
+      "runner_completed": true,
+      "passes": 1,
+      "failures": 0,
+      "cleanup_checks": 15,
+      "cleanup_passed": true,
+      "test_apk_sha256": "29f7f69d61ab3038e64de4efc74e99facfcd98430d89172f870375c2675d163e",
+      "initialization_error": false,
+      "preserved_files": 573,
+      "insensitive_pass_on_regressed_guard": true
+    },
+    "new-sensitive": {
+      "runner_exit_code": 1,
+      "runner_completed": false,
+      "passes": 0,
+      "failures": 1,
+      "cleanup_checks": 15,
+      "cleanup_passed": true,
+      "test_apk_sha256": "1e450e764acb313da8250430653c3b2ab9f90492e4a8abefb58f39a4b5966f13",
+      "initialization_error": false,
+      "preserved_files": 573,
+      "intended_supported_probe_assertion_failed": true
+    }
+  }
+}

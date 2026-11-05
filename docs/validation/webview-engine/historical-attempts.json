@@ -1,0 +1,845 @@
+[
+  {
+    "attempt": "legacy-before",
+    "completed": false,
+    "junit_passes": 0,
+    "junit_failures": 1,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 1,
+    "record_sha256": "a613ef441aaada35345f63e9b4863d10e72416d5800d1da4011f2b263ad0c13f",
+    "test_log_sha256": "cd835ee3f8e475e49cd0530fb2a1a971bb75650e9b103510df7fd5580e8806da",
+    "apk_sha256": "b0fa0e302a63320b6e5ed163856756961b4480a1ce476f4cb6167be799535e54",
+    "test_apk_sha256": "37b1e384bb40e3cf64f49fc81a667482b6eb8e7cddcfc81710a73a713eb4cfaa",
+    "cleanup": {},
+    "final_credit": false
+  },
+  {
+    "attempt": "legacy-candidate-v1",
+    "completed": false,
+    "junit_passes": 0,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 0,
+    "record_sha256": "377e7f2eba79b2aeaf3889c51211a05c84c6681b0ec262a23a41018dd489d936",
+    "test_log_sha256": null,
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "c2ff5ee34018ae91e69eeea905bf0fbb6b613ca8d2eb9a3453b137b43b764905",
+    "cleanup": {},
+    "final_credit": false
+  },
+  {
+    "attempt": "legacy-candidate-v2",
+    "completed": false,
+    "junit_passes": 3,
+    "junit_failures": 1,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 4,
+    "record_sha256": "9e27badbae87053df4ae5fef9aeabc6b8eb11203d5fc1927a979ec7ca5a9c2fc",
+    "test_log_sha256": "805cc85f7ef90f4b201b93bd58f44e77dc2ef62884f3dc98740c3285cee83256",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "c2ff5ee34018ae91e69eeea905bf0fbb6b613ca8d2eb9a3453b137b43b764905",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-initial-package-absence": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "modern-tablet-v1",
+    "completed": false,
+    "junit_passes": 2,
+    "junit_failures": 2,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 4,
+    "record_sha256": "17868a056c4f9c285939ab01cd5efaae134c43cf440cde269769b13d94a7808a",
+    "test_log_sha256": "01e6ef4d2fc100e317f86f23b4a4666596f4ec6383ff94bb97808a1909ddb0b1",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "c2ff5ee34018ae91e69eeea905bf0fbb6b613ca8d2eb9a3453b137b43b764905",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "palette-bytes": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "installed-data-and-evidence": {
+        "passed": false,
+        "error_type": "ValueError"
+      },
+      "verify-unprivileged": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "legacy-final100-v1",
+    "completed": true,
+    "junit_passes": 6,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 6,
+    "record_sha256": "e5561c8fcbf247e7478e276d773a951daa2eb6beae25820e9d8aaaaf95ec29c6",
+    "test_log_sha256": "d7f6f7bb956025693c6706449ecc40effee450d0abd98149caf29a813632000d",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "b8fd10cdb574c718ba4378462899a0e76f64cd288531cda89efc40a2fe28185d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-initial-package-absence": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "modern-tablet-final100-v1",
+    "completed": true,
+    "junit_passes": 5,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 5,
+    "record_sha256": "86b7b70cf0756cc7182cb140e2933da79c033fbfdd4ec1242f20467fd70663ae",
+    "test_log_sha256": "f515d36772e2f0437ae8a9ee79f81bb26cfec803f1365c783ade19aae0fb28d3",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "b8fd10cdb574c718ba4378462899a0e76f64cd288531cda89efc40a2fe28185d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "palette-bytes": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "profile-installer-marker": {
+        "passed": true
+      },
+      "installed-data-and-evidence": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "release-owner-last": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "legacy-final200-v1",
+    "completed": false,
+    "junit_passes": 2,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 2,
+    "record_sha256": "9cbb150099fc11c556ca1dd8416185defb75e7ba01bf593511a2f1a4e304be21",
+    "test_log_sha256": "c26e6f1cfce05baf7f03d5efdd57071e02bcda3d915afe00e1494ceef21698fd",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "b8fd10cdb574c718ba4378462899a0e76f64cd288531cda89efc40a2fe28185d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": false,
+        "error_type": "ValueError"
+      },
+      "verify-unprivileged": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "modern-phone-final200-v1",
+    "completed": false,
+    "junit_passes": 0,
+    "junit_failures": 2,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 2,
+    "record_sha256": "9650f7e36e8370ffd1da91d91579d134b0d031ca4dd7b6ec81194be18dd1c3c7",
+    "test_log_sha256": "12cee1e2f4cbac5d2dc19c276103f4504ec22289ff4565e6297501f43f50a788",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "b8fd10cdb574c718ba4378462899a0e76f64cd288531cda89efc40a2fe28185d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "palette-bytes": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "restore-size": {
+        "passed": true
+      },
+      "restore-density": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "profile-installer-marker": {
+        "passed": true
+      },
+      "installed-data-and-evidence": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "release-owner-last": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "legacy-final200-v2",
+    "completed": true,
+    "junit_passes": 2,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 2,
+    "record_sha256": "bb5d315854695981a3608994f4ee8712882b337f6714c8b9cbaf84fd62fc8b5a",
+    "test_log_sha256": "be67c01975660eb862fa6fd48813afb15a8d1d46f8145b81baa06b9784705369",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "77a9e271c93253d701340cab188cf269ac0a0f5cc2375b1e9a88dfa72f338e4d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-initial-package-absence": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "modern-phone-final200-v2",
+    "completed": true,
+    "junit_passes": 2,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 2,
+    "record_sha256": "9c6b85a16462e2e14423be2321cd505ac3c17b232e5f72c90e31024600edde63",
+    "test_log_sha256": "9f99658440778d8b94156649f52621aa53c576448db8c9641fbdc899425ef487",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "77a9e271c93253d701340cab188cf269ac0a0f5cc2375b1e9a88dfa72f338e4d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "palette-bytes": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "restore-size": {
+        "passed": true
+      },
+      "restore-density": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "profile-installer-marker": {
+        "passed": true
+      },
+      "installed-data-and-evidence": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "release-owner-last": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "legacy-old-control-v3",
+    "completed": true,
+    "junit_passes": 0,
+    "junit_failures": 1,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 1,
+    "record_sha256": "84f59de5499ce3577f344fc84858fd3873c15618faccf8f462a099ace4a30076",
+    "test_log_sha256": "b8bb6b9631e4961e44eb98235563e75920bebf1a1ca8083ceb3efa14f8d87ca8",
+    "apk_sha256": "b0fa0e302a63320b6e5ed163856756961b4480a1ce476f4cb6167be799535e54",
+    "test_apk_sha256": "77a9e271c93253d701340cab188cf269ac0a0f5cc2375b1e9a88dfa72f338e4d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-initial-package-absence": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "modern-landscape-final200-v1",
+    "completed": true,
+    "junit_passes": 2,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 2,
+    "record_sha256": "a611eb8662bc3b409a2ed8dab0e200eb5e8f74f485e39f3ccee1c4e8f5e811d1",
+    "test_log_sha256": "eab955a84f74010576ade922fe9d30bbe6c6c9236c5eae13d1f4fb9e02b00c64",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "77a9e271c93253d701340cab188cf269ac0a0f5cc2375b1e9a88dfa72f338e4d",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "palette-bytes": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "restore-size": {
+        "passed": true
+      },
+      "restore-density": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "profile-installer-marker": {
+        "passed": true
+      },
+      "installed-data-and-evidence": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android": {
+        "passed": true
+      },
+      "restore-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "verify-binary-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "release-owner-last": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "final-v4/legacy100",
+    "completed": false,
+    "junit_passes": 6,
+    "junit_failures": 1,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 7,
+    "record_sha256": "fb20edb22d33607d126778476b7576f7826fec4c1f52e3b4d946b902d8095f19",
+    "test_log_sha256": "9f31b8c07f2c59d9afd1c54e854e69fd1edaa2a0629c47d5acdd4e7cd5e4386d",
+    "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+    "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-initial-package-absence": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "final-v5/legacy-old-control",
+    "completed": false,
+    "junit_passes": 0,
+    "junit_failures": 1,
+    "initialization_failure": true,
+    "native_cases_reaching_execution": 0,
+    "record_sha256": "75bdedc063c4897b3808dbcc49ce640502f43a58f3e506781de338a9b8854e08",
+    "test_log_sha256": "c58fcd34a4c9e36e6601d4b9a9428869f0d1f65666a0a4e2e58c07d4e8da25d9",
+    "apk_sha256": "b0fa0e302a63320b6e5ed163856756961b4480a1ce476f4cb6167be799535e54",
+    "test_apk_sha256": "40edc44f917313720e71f92ccf2540397f68ee3c06d0a9b61634a24a8c583747",
+    "cleanup": {
+      "idle-owned-instrumentation": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "stop-dev.tinycast.android": {
+        "passed": true
+      },
+      "owned-paths": {
+        "passed": true
+      },
+      "restore-font": {
+        "passed": true
+      },
+      "verify-settings": {
+        "passed": true
+      },
+      "verify-unprivileged": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android.test": {
+        "passed": true
+      },
+      "restore-absence-dev.tinycast.android": {
+        "passed": true
+      },
+      "verify-initial-package-absence": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "shared-regressions-v1/review-lifecycle",
+    "completed": true,
+    "junit_passes": 5,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 5,
+    "record_sha256": "bd43fead888dde74a77e3047aa93d8acac8ebbf45c83c7fb2d606dddec2bf9c0",
+    "test_log_sha256": "0864f7f88b26a0df0fcee7cf7fa6dfc560f1cc1559641cac1b2c73e1681c5119",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "77a9e271c93253d701340cab188cf269ac0a0f5cc2375b1e9a88dfa72f338e4d",
+    "cleanup": {
+      "stop-app": {
+        "passed": true
+      },
+      "stop-owned-caller": {
+        "passed": true
+      },
+      "clipboard-restored-and-verified-independently": {
+        "passed": true
+      },
+      "stop-clipboard-recovery-activity": {
+        "passed": true
+      },
+      "owned-fixture-data": {
+        "passed": true
+      },
+      "copied-evidence": {
+        "passed": true
+      },
+      "palette-backup": {
+        "passed": true
+      },
+      "palette-preferences": {
+        "passed": true
+      },
+      "palette-verified": {
+        "passed": true
+      },
+      "emoji-backup": {
+        "passed": true
+      },
+      "emoji-preferences": {
+        "passed": true
+      },
+      "emoji-verified": {
+        "passed": true
+      },
+      "font-scale": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "verify-state-and-unprivileged-identity": {
+        "passed": true
+      },
+      "release-lease": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "shared-regressions-v1/handoff",
+    "completed": true,
+    "junit_passes": 2,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 2,
+    "record_sha256": "7a54aca692cf2a893345c35506e96d5511e22d14d5bb26a3493fe8fb318b9236",
+    "test_log_sha256": "e049471f9c078147d38583e18ffe94ee539bf8aff4dc79bf7f50fa739edec318",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "77a9e271c93253d701340cab188cf269ac0a0f5cc2375b1e9a88dfa72f338e4d",
+    "cleanup": {
+      "stop-app": {
+        "passed": true
+      },
+      "stop-owned-caller": {
+        "passed": true
+      },
+      "clipboard-restored-and-verified-independently": {
+        "passed": true
+      },
+      "stop-clipboard-recovery-activity": {
+        "passed": true
+      },
+      "owned-fixture-data": {
+        "passed": true
+      },
+      "copied-evidence": {
+        "passed": true
+      },
+      "palette-backup": {
+        "passed": true
+      },
+      "palette-preferences": {
+        "passed": true
+      },
+      "palette-verified": {
+        "passed": true
+      },
+      "emoji-backup": {
+        "passed": true
+      },
+      "emoji-preferences": {
+        "passed": true
+      },
+      "emoji-verified": {
+        "passed": true
+      },
+      "font-scale": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "verify-state-and-unprivileged-identity": {
+        "passed": true
+      },
+      "release-lease": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  },
+  {
+    "attempt": "shared-regressions-v1/paste",
+    "completed": true,
+    "junit_passes": 2,
+    "junit_failures": 0,
+    "initialization_failure": false,
+    "native_cases_reaching_execution": 2,
+    "record_sha256": "28965e9a8642905f9c0205d6073383e0b9d6ce0b87e986eda6999a10da9fb6d4",
+    "test_log_sha256": "f82383da38f5ee1d63771ba1690996b19292b953cead7ae765116ea62bd10c68",
+    "apk_sha256": "7b5306e9029c4c431a2d3c79c744c14d8c6f30218f841dfba28bd732170e0b9d",
+    "test_apk_sha256": "77a9e271c93253d701340cab188cf269ac0a0f5cc2375b1e9a88dfa72f338e4d",
+    "cleanup": {
+      "stop-app": {
+        "passed": true
+      },
+      "stop-owned-caller": {
+        "passed": true
+      },
+      "clipboard-restored-and-verified-independently": {
+        "passed": true
+      },
+      "stop-clipboard-recovery-activity": {
+        "passed": true
+      },
+      "owned-fixture-data": {
+        "passed": true
+      },
+      "copied-evidence": {
+        "passed": true
+      },
+      "palette-backup": {
+        "passed": true
+      },
+      "palette-preferences": {
+        "passed": true
+      },
+      "palette-verified": {
+        "passed": true
+      },
+      "emoji-backup": {
+        "passed": true
+      },
+      "emoji-preferences": {
+        "passed": true
+      },
+      "emoji-verified": {
+        "passed": true
+      },
+      "font-scale": {
+        "passed": true
+      },
+      "secure-enabled_accessibility_services": {
+        "passed": true
+      },
+      "secure-accessibility_enabled": {
+        "passed": true
+      },
+      "secure-show_ime_with_hard_keyboard": {
+        "passed": true
+      },
+      "verify-state-and-unprivileged-identity": {
+        "passed": true
+      },
+      "release-lease": {
+        "passed": true
+      }
+    },
+    "final_credit": false
+  }
+]

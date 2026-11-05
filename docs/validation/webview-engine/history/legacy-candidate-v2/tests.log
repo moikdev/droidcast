@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.WebViewRecoveryDeviceTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=closingBeforePreflightFinishesRejectsLatePublication
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=closingBeforePreflightFinishesRejectsLatePublication
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+Error in actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(dev.tinycast.android.WebViewRecoveryDeviceTest):
+java.lang.RuntimeException: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {13863c3} called on null, FYI main Looper is Looper (main, tid 2) {13863c3})
+	at android.webkit.WebView.checkThread(WebView.java:2486)
+	at android.webkit.WebView.getProgress(WebView.java:1481)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax$lambda$20(WebViewRecoveryDeviceTest.kt:129)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(WebViewRecoveryDeviceTest.kt:129)
+	... 56 trimmed
+Caused by: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {13863c3} called on null, FYI main Looper is Looper (main, tid 2) {13863c3})
+	at android.webkit.WebView.checkThread(WebView.java:2476)
+	... 63 more
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: stack=java.lang.RuntimeException: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {13863c3} called on null, FYI main Looper is Looper (main, tid 2) {13863c3})
+	at android.webkit.WebView.checkThread(WebView.java:2486)
+	at android.webkit.WebView.getProgress(WebView.java:1481)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax$lambda$20(WebViewRecoveryDeviceTest.kt:129)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(WebViewRecoveryDeviceTest.kt:129)
+	... 56 trimmed
+Caused by: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {13863c3} called on null, FYI main Looper is Looper (main, tid 2) {13863c3})
+	at android.webkit.WebView.checkThread(WebView.java:2476)
+	... 63 more
+
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=incompatibleEngineOpensOnlyActualProviderSettingsAndReturns
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=incompatibleEngineOpensOnlyActualProviderSettingsAndReturns
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=incompatibleEngineShowsNativeRecoveryWithoutDispatch
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=incompatibleEngineShowsNativeRecoveryWithoutDispatch
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.838
+There was 1 failure:
+1) actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(dev.tinycast.android.WebViewRecoveryDeviceTest)
+java.lang.RuntimeException: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {13863c3} called on null, FYI main Looper is Looper (main, tid 2) {13863c3})
+	at android.webkit.WebView.checkThread(WebView.java:2486)
+	at android.webkit.WebView.getProgress(WebView.java:1481)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax$lambda$20(WebViewRecoveryDeviceTest.kt:129)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(WebViewRecoveryDeviceTest.kt:129)
+	... 56 trimmed
+Caused by: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {13863c3} called on null, FYI main Looper is Looper (main, tid 2) {13863c3})
+	at android.webkit.WebView.checkThread(WebView.java:2476)
+	... 63 more
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

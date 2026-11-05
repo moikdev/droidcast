@@ -81,9 +81,11 @@ class ExtensionCatalog(private val context: Context) {
     var running by mutableStateOf<Pair<InstalledExtension, ExtensionCommand>?>(null)
     var runtimeTree by mutableStateOf<JSONObject?>(null)
     private var runtimeErrorState by mutableStateOf<String?>(null)
+    internal var runtimeEngineProblem by mutableStateOf<ExtensionEngineProblem?>(null); private set
     var runtimeError: String?
         get() = runtimeErrorState
         set(value) {
+            runtimeEngineProblem = null
             if (value != null) revokeReviewedText(preservePasteCopy = true)
             runtimeErrorState = value
         }
@@ -333,6 +335,18 @@ class ExtensionCatalog(private val context: Context) {
         stopRuntime(Any())
         reviewedText.invalidate(); commandText = null; preparedText = null
         preparedCommandLaunch = null; invocationLaunchProperties = ordinaryLaunchProperties(emptyMap()); commandHandoffDepth = 0
+    }
+    internal fun reportEngineProblem(owner: Any, extension: InstalledExtension, command: ExtensionCommand,
+                                     problem: ExtensionEngineProblem): Boolean {
+        if (!ownsRuntime(owner, extension, command) || runtimeError != null) return false
+        val epoch = launchEpoch
+        // Setting the error revokes input and stops the runtime. The native
+        // recovery belongs to this failed screen, not to the revoked JS owner.
+        runtimeError = "The JavaScript engine could not pass the startup check."
+        if (launchEpoch != epoch || running?.first !== extension || running?.second !== command) return false
+        runtimeTree = null
+        runtimeEngineProblem = problem
+        return true
     }
     fun close() { revokeReviewedText(); running = null; runtimeTree = null; runtimeError = null; runtimeStatus = ""; runtimeReady = false }
 }

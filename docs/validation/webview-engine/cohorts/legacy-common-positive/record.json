@@ -1,0 +1,65 @@
+{
+  "api": 26,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-initial-package-absence": {
+      "passed": true
+    }
+  },
+  "completed": true,
+  "expected_negative": false,
+  "failures": 0,
+  "fixture_sha256": {
+    "index.js": "7aaeebc691bfeb4f05ee8635a933371e0fb56560543990b8764e58a831304d88",
+    "grid.js": "599e2e7f5c9f881cd225fe486bb839d06c5bccb4544c1a6ecf2e2b922edd3460",
+    "package.json": "a9b64efc0931622cf70e289cf1f28d126db05570b7a70ae179e219bede863219",
+    ".tinycast-store.json": "edf583bb9c5b15259871a38f8cb8f262b84a2809d9d8aa76f3c7272300b415c3"
+  },
+  "font_scale": 1.0,
+  "initialization_error": false,
+  "instrumentation_exit_code": 0,
+  "layout": "phone",
+  "methods": [
+    "incompatibleEngineShowsNativeRecoveryWithoutDispatch",
+    "equivalentFailureGetsFreshRecoveryActionsBeforeRecomposition"
+  ],
+  "native_expected_outcome": true,
+  "original_font_scale": "null",
+  "original_geometry": {
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  },
+  "passes": 2,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 58.0.3029.125)"
+  ],
+  "runner_sha256": "b9047681411e1d3e4272ce401357f47a551b67df4a970d44ca34a9500f6ac863",
+  "test_apk_sha256": "29f7f69d61ab3038e64de4efc74e99facfcd98430d89172f870375c2675d163e"
+}

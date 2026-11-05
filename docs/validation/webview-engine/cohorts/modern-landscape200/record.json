@@ -1,0 +1,86 @@
+{
+  "api": 36,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "restore-size": {
+      "passed": true
+    },
+    "restore-density": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "completed": true,
+  "expected_negative": false,
+  "failures": 0,
+  "fixture_sha256": {
+    "index.js": "7aaeebc691bfeb4f05ee8635a933371e0fb56560543990b8764e58a831304d88",
+    "grid.js": "599e2e7f5c9f881cd225fe486bb839d06c5bccb4544c1a6ecf2e2b922edd3460",
+    "package.json": "a9b64efc0931622cf70e289cf1f28d126db05570b7a70ae179e219bede863219",
+    ".tinycast-store.json": "f984e662bbe20c137ec6cb029ad9e3f7740e3e55ffc057273ff081fab0021168"
+  },
+  "font_scale": 2.0,
+  "instrumentation_exit_code": 0,
+  "layout": "landscape",
+  "methods": [
+    "modernEnginePublishesListAndRunsLiveAction",
+    "modernEnginePublishesGridAndRunsLiveAction"
+  ],
+  "native_expected_outcome": true,
+  "original_font_scale": "1.0",
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "passes": 2,
+  "preserved_file_count": 573,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "runner_sha256": "fe8ca2d04ac69d36e63a619385dabac4ba3c82c638d5c4cfb0e725feb5235a95",
+  "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c"
+}

@@ -1,0 +1,478 @@
+[
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/tests.log",
+    "original_sha256": "8d95f81a833339d18d8583f8eca6842f4ded218314788e4377792a0a0512b9bc",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/tests.log",
+    "public_sha256": "8d95f81a833339d18d8583f8eca6842f4ded218314788e4377792a0a0512b9bc",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/cancelled-caller.xml",
+    "original_sha256": "221e06797fc398c8335a39e2dd2ba8675db581c3965ef8f81a194aef467fd966",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/cancelled-caller.xml",
+    "public_sha256": "221e06797fc398c8335a39e2dd2ba8675db581c3965ef8f81a194aef467fd966",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/cancelled-caller.png",
+    "original_sha256": "930e0bfcf2b787e2ff0592140ceb41e8fd645218ab4cf01bd56721161306ecfe",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/cancelled-caller.png",
+    "public_sha256": "930e0bfcf2b787e2ff0592140ceb41e8fd645218ab4cf01bd56721161306ecfe",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-destination-frame.json",
+    "original_sha256": "575e68b8379dd5b8951b4cb9c1b818b8b6e117c3daf8139f808469f37565a8d7",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/settings-destination-frame.json",
+    "public_sha256": "575e68b8379dd5b8951b4cb9c1b818b8b6e117c3daf8139f808469f37565a8d7",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-destination.xml",
+    "original_sha256": "0b8d9220e23fd2f9cbb81ac9f65806efa157fd4902d522fef30b8c5ae00be803",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/settings-destination.xml",
+    "public_sha256": "0b8d9220e23fd2f9cbb81ac9f65806efa157fd4902d522fef30b8c5ae00be803",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-destination.png",
+    "original_sha256": "8673ebb15291182db47edcad30181ad0e4c167a93ccdf00168d38f3c7efd552c",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/settings-destination.png",
+    "public_sha256": "8673ebb15291182db47edcad30181ad0e4c167a93ccdf00168d38f3c7efd552c",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/engine-content-end-frame.json",
+    "original_sha256": "43243221b1ec2f99b1aaf60f5bd59bd6a619bf5f74745809e5b10e3f574cc6d1",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/engine-content-end-frame.json",
+    "public_sha256": "43243221b1ec2f99b1aaf60f5bd59bd6a619bf5f74745809e5b10e3f574cc6d1",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-before.xml",
+    "original_sha256": "3117439ddace740b6a95aa1e477ac516639834ca1ac85d738ace27acb72268a5",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/settings-before.xml",
+    "public_sha256": "3117439ddace740b6a95aa1e477ac516639834ca1ac85d738ace27acb72268a5",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-before.png",
+    "original_sha256": "16bf2a17952c6d188af0cd6033d5e3bae20e72e140b93760f649096440fa04bf",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/settings-before.png",
+    "public_sha256": "16bf2a17952c6d188af0cd6033d5e3bae20e72e140b93760f649096440fa04bf",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/cancelled-caller-frame.json",
+    "original_sha256": "02b7ad80ba3d98ac3e67cb3a3653fae456b872f52d32e648a0095fe9fdb19bdb",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/cancelled-caller-frame.json",
+    "public_sha256": "02b7ad80ba3d98ac3e67cb3a3653fae456b872f52d32e648a0095fe9fdb19bdb",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/returned-caller.xml",
+    "original_sha256": "f0af399e72c86482ab5a59d790110016a7ee68b31bcf0bff6678525bc6200e09",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/returned-caller.xml",
+    "public_sha256": "f0af399e72c86482ab5a59d790110016a7ee68b31bcf0bff6678525bc6200e09",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/returned-caller.png",
+    "original_sha256": "c215489be8c9d68ed46de224092428f15bd986d941c6ac792b6c738c9489a64b",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/returned-caller.png",
+    "public_sha256": "c215489be8c9d68ed46de224092428f15bd986d941c6ac792b6c738c9489a64b",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/engine-result-frame.json",
+    "original_sha256": "4e4e1de577cfcd64917ea34f9bb5e78997b38ef94f6cd88480af804841e27c17",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/engine-result-frame.json",
+    "public_sha256": "4e4e1de577cfcd64917ea34f9bb5e78997b38ef94f6cd88480af804841e27c17",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/equivalent-failure-ready.png",
+    "original_sha256": "0399f15f75d93f31d579ab5193b0dd3bbf30ec0ceb35018c4c460eaecaad5ba1",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/equivalent-failure-ready.png",
+    "public_sha256": "0399f15f75d93f31d579ab5193b0dd3bbf30ec0ceb35018c4c460eaecaad5ba1",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/equivalent-failure-ready.xml",
+    "original_sha256": "813fe43a6c97df6a273313c4b6873df4a26d2fe965da959c93f426ea66fbfd61",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/equivalent-failure-ready.xml",
+    "public_sha256": "813fe43a6c97df6a273313c4b6873df4a26d2fe965da959c93f426ea66fbfd61",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/engine-result.png",
+    "original_sha256": "16bf2a17952c6d188af0cd6033d5e3bae20e72e140b93760f649096440fa04bf",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/engine-result.png",
+    "public_sha256": "16bf2a17952c6d188af0cd6033d5e3bae20e72e140b93760f649096440fa04bf",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/engine-result.xml",
+    "original_sha256": "73e606d4da6d3a5cc086685e1faf2db0e9bc02bdb68788e1ba7b26db7264ded6",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/engine-result.xml",
+    "public_sha256": "73e606d4da6d3a5cc086685e1faf2db0e9bc02bdb68788e1ba7b26db7264ded6",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/returned-caller-frame.json",
+    "original_sha256": "6b264382a67809164bb10a3b468082d678347461f18345239b4b145b379c4f20",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/returned-caller-frame.json",
+    "public_sha256": "6b264382a67809164bb10a3b468082d678347461f18345239b4b145b379c4f20",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-returned-frame.json",
+    "original_sha256": "4997c1d31636d842966cdc7a3d9d80f27b72ba4cc36dde67c1dfd8c89950ac84",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/settings-returned-frame.json",
+    "public_sha256": "4997c1d31636d842966cdc7a3d9d80f27b72ba4cc36dde67c1dfd8c89950ac84",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-returned.xml",
+    "original_sha256": "d96ba9f517f29bb6bbc7aa07119fd529ee694aafaf62a08bc7cfc6caf3bf14b9",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/settings-returned.xml",
+    "public_sha256": "d96ba9f517f29bb6bbc7aa07119fd529ee694aafaf62a08bc7cfc6caf3bf14b9",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-returned.png",
+    "original_sha256": "acab6a2e572d65d9cd0d9f5e3f97ce29427f0cea6881e48edbc5995b59958b6a",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/settings-returned.png",
+    "public_sha256": "acab6a2e572d65d9cd0d9f5e3f97ce29427f0cea6881e48edbc5995b59958b6a",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/engine-content-end.xml",
+    "original_sha256": "73e606d4da6d3a5cc086685e1faf2db0e9bc02bdb68788e1ba7b26db7264ded6",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/engine-content-end.xml",
+    "public_sha256": "73e606d4da6d3a5cc086685e1faf2db0e9bc02bdb68788e1ba7b26db7264ded6",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/engine-content-end.png",
+    "original_sha256": "16bf2a17952c6d188af0cd6033d5e3bae20e72e140b93760f649096440fa04bf",
+    "public": "docs/screenshots/webview-engine/audit-repair/legacy100/engine-content-end.png",
+    "public_sha256": "16bf2a17952c6d188af0cd6033d5e3bae20e72e140b93760f649096440fa04bf",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/equivalent-failure-ready-frame.json",
+    "original_sha256": "dde57b9d4d4a88377d9fba4d60551f87d078d8bedd0121b1562ed1e245b67c8f",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/equivalent-failure-ready-frame.json",
+    "public_sha256": "dde57b9d4d4a88377d9fba4d60551f87d078d8bedd0121b1562ed1e245b67c8f",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/legacy100/captures/settings-before-frame.json",
+    "original_sha256": "dc7aa4aeb6d5af9944ba9384efc4f840a936519205d2a4917d93f009e42da2ed",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/legacy100/captures/settings-before-frame.json",
+    "public_sha256": "dc7aa4aeb6d5af9944ba9384efc4f840a936519205d2a4917d93f009e42da2ed",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/tests.log",
+    "original_sha256": "889eaab97a77a88b5b6ab2ddbdf9894f40d3cc2855be052405c027febf8b12e7",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/tests.log",
+    "public_sha256": "889eaab97a77a88b5b6ab2ddbdf9894f40d3cc2855be052405c027febf8b12e7",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-ready-frame.json",
+    "original_sha256": "fedc62799b63465e16ed416d10c954e59e4f815f9bcfb50077dc314f050f825c",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/index-ready-frame.json",
+    "public_sha256": "fedc62799b63465e16ed416d10c954e59e4f815f9bcfb50077dc314f050f825c",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-action-frame.json",
+    "original_sha256": "334aac636c74a998d78a8bb68aa0ce97fa62fc722b549a1b56ce1a6eafb071d5",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/grid-action-frame.json",
+    "public_sha256": "334aac636c74a998d78a8bb68aa0ce97fa62fc722b549a1b56ce1a6eafb071d5",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-ready.png",
+    "original_sha256": "877894ca539806e02eafef3deeefdee4aa33c9011ae88e4ef4d7d25708497d2d",
+    "public": "docs/screenshots/webview-engine/audit-repair/modern-tablet100/grid-ready.png",
+    "public_sha256": "877894ca539806e02eafef3deeefdee4aa33c9011ae88e4ef4d7d25708497d2d",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-ready.xml",
+    "original_sha256": "c613e1da17091c71c5ba11eb1bbb871203222c0d467433a062673c1bda3a52cf",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/grid-ready.xml",
+    "public_sha256": "c613e1da17091c71c5ba11eb1bbb871203222c0d467433a062673c1bda3a52cf",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/cancelled-caller.xml",
+    "original_sha256": "5a75a8e0651faa6b3f47f8ef2edca1aacbfbb920c6b226126d33b8755d1d6f1f",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/cancelled-caller.xml",
+    "public_sha256": "5a75a8e0651faa6b3f47f8ef2edca1aacbfbb920c6b226126d33b8755d1d6f1f",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-ready-frame.json",
+    "original_sha256": "a8894301507f18f7308c2832bcb5e3daabc01f979ceff5f3f7bdc9d7b2937393",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/grid-ready-frame.json",
+    "public_sha256": "a8894301507f18f7308c2832bcb5e3daabc01f979ceff5f3f7bdc9d7b2937393",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/cancelled-caller.png",
+    "original_sha256": "f642bcf09c0df11602197bd21e02f3456b978227d3c2adf2189d2289758bdee2",
+    "public": "docs/screenshots/webview-engine/audit-repair/modern-tablet100/cancelled-caller.png",
+    "public_sha256": "f642bcf09c0df11602197bd21e02f3456b978227d3c2adf2189d2289758bdee2",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-returned-frame.json",
+    "original_sha256": "cd526654bf15e85756d24def5392bbef5ee7e33feba53cf1dbc21809696eab14",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/index-returned-frame.json",
+    "public_sha256": "cd526654bf15e85756d24def5392bbef5ee7e33feba53cf1dbc21809696eab14",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-returned.png",
+    "original_sha256": "8ed14b384e58cc17c54a43a416db8a4d6ae3f8f5ef4bcb6f05adfa58dc850496",
+    "public": "docs/screenshots/webview-engine/audit-repair/modern-tablet100/grid-returned.png",
+    "public_sha256": "8ed14b384e58cc17c54a43a416db8a4d6ae3f8f5ef4bcb6f05adfa58dc850496",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-returned.xml",
+    "original_sha256": "0b905c278fda5e275514d05457bad92d3efaa34b4de09f7caec5d6fc779ae6be",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/grid-returned.xml",
+    "public_sha256": "0b905c278fda5e275514d05457bad92d3efaa34b4de09f7caec5d6fc779ae6be",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/cancelled-caller-frame.json",
+    "original_sha256": "0e20a9e56f6a3eb5d9e56c9f3ef6a523e975e11d0a037aa2fa43b851263146c7",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/cancelled-caller-frame.json",
+    "public_sha256": "0e20a9e56f6a3eb5d9e56c9f3ef6a523e975e11d0a037aa2fa43b851263146c7",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-ready.png",
+    "original_sha256": "5841376b1df371d1f0531cd63cc77e3a1bcffa8f95f7dc4780a811c89b2b5fa3",
+    "public": "docs/screenshots/webview-engine/audit-repair/modern-tablet100/index-ready.png",
+    "public_sha256": "5841376b1df371d1f0531cd63cc77e3a1bcffa8f95f7dc4780a811c89b2b5fa3",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-ready.xml",
+    "original_sha256": "6974023eba9a3f9423f00ea795c49702b74452b479f4db58dd3b6e88b7154df0",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/index-ready.xml",
+    "public_sha256": "6974023eba9a3f9423f00ea795c49702b74452b479f4db58dd3b6e88b7154df0",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-returned-frame.json",
+    "original_sha256": "90ca0702e3a340ab61eec629eec492930bbe74833220d05b7cb38612ec1ee7a6",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/grid-returned-frame.json",
+    "public_sha256": "90ca0702e3a340ab61eec629eec492930bbe74833220d05b7cb38612ec1ee7a6",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-action.png",
+    "original_sha256": "46b1038ebdc45c159ac2e9c10c8047cdaa2911405c7ef2bbf69fa398529dbe50",
+    "public": "docs/screenshots/webview-engine/audit-repair/modern-tablet100/index-action.png",
+    "public_sha256": "46b1038ebdc45c159ac2e9c10c8047cdaa2911405c7ef2bbf69fa398529dbe50",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-action.xml",
+    "original_sha256": "6c3ce2b6a12760b08fa7c138ce78bd903ee1e154d4d856834c016ec96cdc29d0",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/index-action.xml",
+    "public_sha256": "6c3ce2b6a12760b08fa7c138ce78bd903ee1e154d4d856834c016ec96cdc29d0",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-returned.png",
+    "original_sha256": "8c5899c415121fdc6b5c8940a07f15a1ac8a15bcdce55c4d57b81bccc9d83192",
+    "public": "docs/screenshots/webview-engine/audit-repair/modern-tablet100/index-returned.png",
+    "public_sha256": "8c5899c415121fdc6b5c8940a07f15a1ac8a15bcdce55c4d57b81bccc9d83192",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-returned.xml",
+    "original_sha256": "ceb206787c78cc7e3ae0046dac2b77e206e65d132b4aa4f51ea2b4b5247778d7",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/index-returned.xml",
+    "public_sha256": "ceb206787c78cc7e3ae0046dac2b77e206e65d132b4aa4f51ea2b4b5247778d7",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-action.png",
+    "original_sha256": "7e2added54bdc0366d5529c5600ab87c6923ec6c1ee4ba3fc5d8c05a5a9460a4",
+    "public": "docs/screenshots/webview-engine/audit-repair/modern-tablet100/grid-action.png",
+    "public_sha256": "7e2added54bdc0366d5529c5600ab87c6923ec6c1ee4ba3fc5d8c05a5a9460a4",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/grid-action.xml",
+    "original_sha256": "e2d49648d9ba357dce8a2065e4d1fdd018d9552ce43775901bef048e5380fdf1",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/grid-action.xml",
+    "public_sha256": "e2d49648d9ba357dce8a2065e4d1fdd018d9552ce43775901bef048e5380fdf1",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/modern-tablet100/captures/index-action-frame.json",
+    "original_sha256": "7ba813fa124c79aa676d36d65b169081c5b752c6944605ed76cdafb427b94e31",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/modern-tablet100/captures/index-action-frame.json",
+    "public_sha256": "7ba813fa124c79aa676d36d65b169081c5b752c6944605ed76cdafb427b94e31",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-control/old-insensitive/tests.log",
+    "original_sha256": "a27ba80c1e89f5f672d3e3428b064529e6281ac4fca4ba68627451d0f72f3be8",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/mutant-old-insensitive/tests.log",
+    "public_sha256": "a27ba80c1e89f5f672d3e3428b064529e6281ac4fca4ba68627451d0f72f3be8",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-control/new-sensitive/tests.log",
+    "original_sha256": "46df32d3adfcad75b4fa64550ad88a7df9d791160f2895a1f02c32a06d744e40",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/mutant-new-sensitive/tests.log",
+    "public_sha256": "46df32d3adfcad75b4fa64550ad88a7df9d791160f2895a1f02c32a06d744e40",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-control/new-sensitive/captures/failure-frame.json",
+    "original_sha256": "be31e49a79aa75fc5adc6cb8b9b752e8d18821b5f7d3a0e134cd3b3720386bde",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/mutant-new-sensitive/captures/failure-frame.json",
+    "public_sha256": "be31e49a79aa75fc5adc6cb8b9b752e8d18821b5f7d3a0e134cd3b3720386bde",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-control/new-sensitive/captures/failure.xml",
+    "original_sha256": "6555f4f888c34cb2c8b045161af020d9f0547249003b4d3607d118e34d6e4f03",
+    "public": "docs/validation/webview-engine/audit-repair/cohorts/mutant-new-sensitive/captures/failure.xml",
+    "public_sha256": "6555f4f888c34cb2c8b045161af020d9f0547249003b4d3607d118e34d6e4f03",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-control/new-sensitive/captures/failure.png",
+    "original_sha256": "ba620e23b5b5909cfb23511cad3c8046d324eefb62568bb6ed0a6a7e208881e4",
+    "public": "docs/screenshots/webview-engine/audit-repair/mutant-new-sensitive/failure.png",
+    "public_sha256": "ba620e23b5b5909cfb23511cad3c8046d324eefb62568bb6ed0a6a7e208881e4",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/identity.json",
+    "original_sha256": "1112290a8d49ed4d11a3e35f99cdb4c2e19317c7552b53ba869104b89c6255cb",
+    "public": "docs/validation/webview-engine/audit-repair/identity.json",
+    "public_sha256": "1112290a8d49ed4d11a3e35f99cdb4c2e19317c7552b53ba869104b89c6255cb",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-control/identity.json",
+    "original_sha256": "2ad09da08a5f4d13376eab7b1cd553aee362fb0c57e668e378dc5de447523555",
+    "public": "docs/validation/webview-engine/audit-repair/mutation-identity.json",
+    "public_sha256": "2ad09da08a5f4d13376eab7b1cd553aee362fb0c57e668e378dc5de447523555",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-controls.json",
+    "original_sha256": "af45348a4c842c140367c1ff7f895836bebaf47abd7527d014d9359aa8cc3001",
+    "public": "docs/validation/webview-engine/audit-repair/mutation-calibration.json",
+    "public_sha256": "af45348a4c842c140367c1ff7f895836bebaf47abd7527d014d9359aa8cc3001",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/post-control-binary-verification.json",
+    "original_sha256": "ce719645245b8207e5b0c1df071e0b421a3d06064e548f81ee7d9e42243002c4",
+    "public": "docs/validation/webview-engine/audit-repair/post-control-binary-verification.json",
+    "public_sha256": "ce719645245b8207e5b0c1df071e0b421a3d06064e548f81ee7d9e42243002c4",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/post-control-apk-payload-comparison.json",
+    "original_sha256": "11bae15a0eaf89a384aef313ce15ecf38cd966e35e87e8661f18bbe8704a8024",
+    "public": "docs/validation/webview-engine/audit-repair/post-control-apk-payload-comparison.json",
+    "public_sha256": "11bae15a0eaf89a384aef313ce15ecf38cd966e35e87e8661f18bbe8704a8024",
+    "transform": "identity"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-harness-build-v1.log",
+    "original_sha256": "6f3c7aef9fa884b5c4dfa37d9216df9a32d17d52497215bb69cfa8a9b1e884b0",
+    "public": "docs/validation/webview-engine/audit-repair/checks/audit-repair-harness-build-v1.log",
+    "public_sha256": "dfda487e5ca032cc2e56caaf1f2e5741ddd8890068ee314abe3a49c0f2d39059",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-harness-build-v2.log",
+    "original_sha256": "d0f29fe8506d869db05a0599b35d8d813bbb0f2bd1faf8618b97495aaac56cb8",
+    "public": "docs/validation/webview-engine/audit-repair/checks/audit-repair-harness-build-v2.log",
+    "public_sha256": "d0f29fe8506d869db05a0599b35d8d813bbb0f2bd1faf8618b97495aaac56cb8",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-harness-build-v3.log",
+    "original_sha256": "598feb7b68210ac06d5af9f27b1a11962f7f8bdc1ac7325ff1e277ed585fd483",
+    "public": "docs/validation/webview-engine/audit-repair/checks/audit-repair-harness-build-v3.log",
+    "public_sha256": "598feb7b68210ac06d5af9f27b1a11962f7f8bdc1ac7325ff1e277ed585fd483",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-restored-build-v1.log",
+    "original_sha256": "2790bff113f440f64264c440ef6806b166aef26f47f09db7610147b22489fd3e",
+    "public": "docs/validation/webview-engine/audit-repair/checks/audit-repair-restored-build-v1.log",
+    "public_sha256": "2790bff113f440f64264c440ef6806b166aef26f47f09db7610147b22489fd3e",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-benchmark-harness-build-v1.log",
+    "original_sha256": "b423c6bad30d808971179b0aa84c446360883b95c89b57429dc70f463affc5d3",
+    "public": "docs/validation/webview-engine/audit-repair/checks/audit-repair-benchmark-harness-build-v1.log",
+    "public_sha256": "b423c6bad30d808971179b0aa84c446360883b95c89b57429dc70f463affc5d3",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/guard-control/build.log",
+    "original_sha256": "732f2f806cb350c28a0505214f5bdfe8fcc2cab2c07c2a9b18d023daa0447c2a",
+    "public": "docs/validation/webview-engine/audit-repair/checks/mutation-build.log",
+    "public_sha256": "732f2f806cb350c28a0505214f5bdfe8fcc2cab2c07c2a9b18d023daa0447c2a",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "app/build/reports/lint-results-debug.xml",
+    "original_sha256": "582646afcedf4679af1b4f47a045dda8099113d57fee013f8b71f347f54332c2",
+    "public": "docs/validation/webview-engine/audit-repair/checks/lint-results-debug.xml",
+    "public_sha256": "1beb4077ae2dbb1852acab60801c1d7a06f2f346f32ff56f5246bbb9148d672c",
+    "transform": "replace checkout/home with escaped placeholders"
+  },
+  {
+    "original": "app/build/reports/lint-results-benchmark.xml",
+    "original_sha256": "582646afcedf4679af1b4f47a045dda8099113d57fee013f8b71f347f54332c2",
+    "public": "docs/validation/webview-engine/audit-repair/checks/lint-results-benchmark.xml",
+    "public_sha256": "1beb4077ae2dbb1852acab60801c1d7a06f2f346f32ff56f5246bbb9148d672c",
+    "transform": "replace checkout/home with escaped placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/publish-repair.py",
+    "original_sha256": "b34dc80161cac0af278bb7fbc9611011c7f214474f04d7a8fb60200a1abdde19",
+    "public": "docs/validation/webview-engine/audit-repair/collectors/publish-repair.py",
+    "public_sha256": "b34dc80161cac0af278bb7fbc9611011c7f214474f04d7a8fb60200a1abdde19",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/build-guard-control.py",
+    "original_sha256": "1246bfc74a5da05ceec41cc76ee62b5b4652323ec028965ef67f46858b71f413",
+    "public": "docs/validation/webview-engine/audit-repair/collectors/build-guard-control.py",
+    "public_sha256": "dcbe53ea840ab4cc91ac70be934d107a5a80c597392f2dbf12c8bcc6f4f23612",
+    "transform": "replace checkout/home with placeholders"
+  },
+  {
+    "original": "artifacts/webview-compatibility/audit-repair-v1/run-guard-controls.py",
+    "original_sha256": "c185408d7bc789e9701450c6676f812f1c410750ec86c400e416b387b99bdc36",
+    "public": "docs/validation/webview-engine/audit-repair/collectors/run-guard-controls.py",
+    "public_sha256": "e45225faeeb67de9acc40fa29ad7d6de1c1b54163f39044c66249dc4a5a147d8",
+    "transform": "replace checkout/home with placeholders"
+  }
+]

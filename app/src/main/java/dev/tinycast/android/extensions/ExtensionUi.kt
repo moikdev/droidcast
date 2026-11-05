@@ -695,7 +695,9 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
         if(pasteCopy!=null){
             PasteCopyFallback(catalog,pasteCopy,{ currentChrome() && !store.backupBusy },close)
         }else if(catalog.runtimeError!=null){
-            Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
+            val engineProblem = catalog.runtimeEngineProblem
+            if (engineProblem != null) EngineRecovery(catalog, engineProblem, { currentChrome() && !store.backupBusy }, close)
+            else Column(Modifier.weight(1f).padding(24.dp).verticalScroll(rememberScrollState())){Text("This command stopped",fontSize=17.sp,color=ink);Text(catalog.runtimeError!!,color=muted,fontSize=12.sp,lineHeight=19.sp,modifier=Modifier.padding(top=15.dp).testTag("extension-error"))}
         }else if(root==null){
             Column(Modifier.weight(1f).fillMaxWidth().testTag("extension-completion")) {
                 Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally){

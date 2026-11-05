@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.util.UUID
+import kotlin.coroutines.resume
 import dev.tinycast.android.TextInputProblem
 import dev.tinycast.android.TextInputRejected
 
@@ -42,6 +43,8 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
     private var pendingLaunchAcknowledgement: Any? = null
     private var acknowledgementTimeout: Runnable? = null
     private var engineDestroyed = false
+    private val engineGate = ExtensionEngineGate()
+    private var engineCheckDeadline: Job? = null
     val webView = WebView(context).apply {
         // This is a headless JavaScript engine; visible native controls own input.
         isFocusable = false; isFocusableInTouchMode = false
@@ -68,34 +71,68 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         }
     }
     private val runtimeRegistration = catalog.attachRuntime(textContext.owner, extension, command) {
+        engineGate.close()
         scope.cancel()
         if (pendingLaunchAcknowledgement == null) webView.stopLoading()
     }
-    init { if (runtimeRegistration == null) scope.cancel() }
+    init { if (runtimeRegistration == null) { engineGate.close(); scope.cancel() } }
     private fun active() = !destroyed && scope.isActive && catalog.ownsRuntime(textContext.owner,extension,command) && catalog.runtimeError == null
-    internal fun isCurrentInvocation(): Boolean = active()
-    internal fun formFileStorage(): FormFileStorage? = if (active()) FormFileStorage(context.filesDir, extension.listing.id) else null
+    private fun authorized() = engineGate.approved && active()
+    internal fun isCurrentInvocation(): Boolean = authorized()
+    internal fun formFileStorage(): FormFileStorage? = if (authorized()) FormFileStorage(context.filesDir, extension.listing.id) else null
     private fun fail(message: String) {
         if (!active()) return
+        engineGate.block()
         ready()
         catalog.runtimeError = message
+        scope.cancel()
+    }
+    private fun failEngine(failure: ExtensionEngineFailure, missingApis: List<String> = emptyList()) {
+        if (!active()) return
+        engineGate.block()
+        val provider = WebView.getCurrentWebViewPackage()
+        val problem = ExtensionEngineProblem(ExtensionEngineIdentity(provider?.packageName, provider?.versionName), failure, missingApis)
+        ready()
+        catalog.reportEngineProblem(textContext.owner, extension, command, problem)
         scope.cancel()
     }
     fun start() {
         if(started || !active())return
         started = true
+        engineCheckDeadline = scope.launch { delay(10000); if (active() && !engineGate.approved) failEngine(ExtensionEngineFailure.CHECK_TIMED_OUT) }
         watchdog = scope.launch { delay(20000); if (active() && !catalog.runtimeReady) fail("This command did not respond. It may require unsupported desktop APIs.") }
         webView.loadDataWithBaseURL("https://tinycast.invalid/", "<html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'\"></head><body></body></html>", "text/html", "UTF-8", null)
     }
     private fun evaluate(script: String, then: (() -> Unit)? = null) {
-        if (active()) webView.evaluateJavascript(script) { if (active()) then?.invoke() }
+        if (authorized()) webView.evaluateJavascript(script) { if (authorized()) then?.invoke() }
+    }
+    private suspend fun checkEngine(stage: ExtensionEngineProbe.Stage, script: String): Boolean {
+        if (!active() || engineGate.stage != stage) return false
+        val result = try {
+            val raw = suspendCancellableCoroutine<String?> { continuation ->
+                webView.evaluateJavascript(script) { value -> if (continuation.isActive) continuation.resume(value) }
+            }
+            ExtensionEngineProbe.decode(raw, stage)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: RuntimeException) { ExtensionEngineProbe.Result.Rejected(ExtensionEngineFailure.CHECK_UNAVAILABLE) }
+        if (!active() || engineGate.stage != stage) return false
+        return when (result) {
+            ExtensionEngineProbe.Result.Passed -> engineGate.accept(stage)
+            is ExtensionEngineProbe.Result.Rejected -> { failEngine(result.failure, result.missingApis); false }
+        }
     }
     private fun boot() {
+        if (!engineGate.begin()) return
         scope.launch {
-            val (adapter, runtime, bundle) = withContext(Dispatchers.IO) {
-                Triple(context.assets.open("android-runtime.js").bufferedReader().use { it.readText() },
-                    context.assets.open("RaycastRuntime.generated.js").bufferedReader().use { it.readText() }, File(extension.directory, "${command.name}.js").readText())
+            val (adapter, runtime) = withContext(Dispatchers.IO) {
+                context.assets.open("android-runtime.js").bufferedReader().use { it.readText() } to
+                    context.assets.open("RaycastRuntime.generated.js").bufferedReader().use { it.readText() }
             }
+            if (!checkEngine(ExtensionEngineProbe.Stage.ADAPTER, ExtensionEngineProbe.compileScript(ExtensionEngineProbe.Stage.ADAPTER, adapter)) ||
+                !checkEngine(ExtensionEngineProbe.Stage.RUNTIME, ExtensionEngineProbe.compileScript(ExtensionEngineProbe.Stage.RUNTIME, runtime)) ||
+                !checkEngine(ExtensionEngineProbe.Stage.APIS, ExtensionEngineProbe.apiScript())) return@launch
+            engineCheckDeadline?.cancel()
+            val bundle = withContext(Dispatchers.IO) { File(extension.directory, "${command.name}.js").readText() }
             evaluate(adapter) { evaluate(runtime) {
                 val node = JSONObject().put("platform", "android").put("arch", "arm64").put("cwd", support.path).put("homedir", support.path).put("tmpdir", support.path).put("env", JSONObject())
                 val env = JSONObject().put("extensionName", extension.listing.name).put("commandName", command.name).put("commandMode", command.mode)
@@ -107,15 +144,15 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         }
     }
     fun dispatch(handle: String?, args: JSONArray = JSONArray()) {
-        if (active() && !handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
+        if (authorized() && !handle.isNullOrBlank()) evaluate("__tinycast.dispatch(${quote(session)},${quote(handle)},${quote(args.toString())})")
     }
     fun dispatchFormFocus(handle: String?, fieldId: String, focused: Boolean, value: Any) {
-        if (active() && !handle.isNullOrBlank()) evaluate("__androidDispatchFormFocus(${quote(session)},${quote(handle)},${quote(fieldId)},${quote(if (focused) "focus" else "blur")},${quote(JSONArray().put(value).toString())})")
+        if (authorized() && !handle.isNullOrBlank()) evaluate("__androidDispatchFormFocus(${quote(session)},${quote(handle)},${quote(fieldId)},${quote(if (focused) "focus" else "blur")},${quote(JSONArray().put(value).toString())})")
     }
     fun back() { evaluate("__tinycast.popNavigation(${quote(session)})") }
     fun close() {
         if (destroyed) return
-        destroyed = true; catalog.detachRuntime(runtimeRegistration); textContext.input?.let(catalog.reviewedText::release); scope.cancel()
+        destroyed = true; engineGate.close(); catalog.detachRuntime(runtimeRegistration); textContext.input?.let(catalog.reviewedText::release); scope.cancel()
         (webView.parent as? android.view.ViewGroup)?.removeView(webView)
         // Only the acknowledgement may finish in this retired, detached engine.
         // Its authority was revoked before settlement; the timeout is independent
@@ -174,7 +211,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         error("Clipboard paste into another app is unavailable on Android. Use Copy result instead in Droidcast.")
     }
     private fun quote(s: String) = JSONObject.quote(s)
-    private fun post(block: () -> Unit) { if (active()) scope.launch { if (active()) block() } }
+    private fun post(block: () -> Unit) { if (authorized()) scope.launch { if (authorized()) block() } }
     inner class Bridge {
         @JavascriptInterface fun render(tree: String) = post { ready(); catalog.runtimeTree = JSONObject(tree); catalog.runtimeStatus = "" }
         @JavascriptInterface fun failed(message: String) = post { fail(message.take(3000)) }
@@ -183,7 +220,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
         @JavascriptInterface fun log(message: String) = post { if (catalog.runtimeTree == null) catalog.runtimeStatus = message.take(300) }
         @JavascriptInterface fun invoke(id: String, api: String, method: String, raw: String) {
             scope.launch {
-                if(!active())return@launch
+                if(!authorized())return@launch
                 try {
                     if (api == "system" && method == "launchCommand") {
                         launchCommand(id, raw)
@@ -191,7 +228,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
                     }
                     if (api == "clipboard" && method == "paste") rejectPasteWithCopyOffer(raw)
                     val result = asyncCall(api, method, JSONArray(raw))
-                    if(!active())return@launch
+                    if(!authorized())return@launch
                     val encoded = JSONArray().put(result ?: JSONObject.NULL).toString().drop(1).dropLast(1)
                     evaluate("__tinycast.settle(${quote(id)},true,${quote(encoded)})")
                 } catch (e: CancellationException) { throw e } catch (e: Throwable) {
@@ -201,7 +238,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
             }
         }
         @JavascriptInterface fun invokeSync(api: String, method: String, raw: String): String = try {
-            check(active()) { "This command session has ended" }
+            check(authorized()) { "This command session has ended" }
             JSONObject().put("ok", true).put("value", syncCall(api, method, JSONArray(raw)) ?: JSONObject.NULL).toString()
         } catch (e: Throwable) {
             post { catalog.releaseText(textContext.owner) }

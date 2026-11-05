@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "exact_installed_apks_verified": true,
+    "no_app_data_or_instrumentation_created": true,
+    "original_geometry_and_font_unchanged": true,
+    "both_initial_package_absences_restored": true,
+    "adbd_unprivileged": true
+  },
+  "completed": true,
+  "native_executions": 0,
+  "original_outer_run_still_failed": true,
+  "original_run_record_sha256": "377e7f2eba79b2aeaf3889c51211a05c84c6681b0ec262a23a41018dd489d936",
+  "reason": "Fresh application files parent absent before lease claim; no fixture, settings or instrumentation mutation occurred"
+}

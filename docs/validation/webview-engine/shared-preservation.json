@@ -1,0 +1,36 @@
+{
+  "completed": true,
+  "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "test_apk_sha256": "906bc489e527b99d2f763c8c7b60a0cf0692acf671a2d2a7a3bb0204b1849a9c",
+  "collector_sha256": "4f98c89eb0f6ecb980e0425e01842f16ac0638646af075f51e67c40b81ae1b6d",
+  "cohorts": {
+    "review-lifecycle": {
+      "exit_code": 0,
+      "completed": true,
+      "passes": 5,
+      "cleanup_checks": 18,
+      "cleanup_passed": true
+    },
+    "handoff": {
+      "exit_code": 0,
+      "completed": true,
+      "passes": 2,
+      "cleanup_checks": 18,
+      "cleanup_passed": true
+    },
+    "paste": {
+      "exit_code": 0,
+      "completed": true,
+      "passes": 2,
+      "cleanup_checks": 18,
+      "cleanup_passed": true
+    }
+  },
+  "restoration": {
+    "original_files_and_evidence": true,
+    "original_apks": true,
+    "unprivileged": true,
+    "release_after_verification": true
+  },
+  "preserved_files": 573
+}

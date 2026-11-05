@@ -1,0 +1,174 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.WebViewRecoveryDeviceTest:
+INSTRUMENTATION_STATUS: test=modernEnginePublishesGridAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Text + EditableText contains 'Owned grid row one' (ignoreCase: false))
+Nodes found:
+1) Node #148 at (l=422.0, t=378.0, r=680.0, b=669.0)px, Tag: 'extension-grid-cell-0'
+Selected = 'true'
+ContentDescription = '[Owned grid row one]'
+Focused = 'false'
+Text = '[No preview, Owned grid row one]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+2) Node #129 at (l=422.0, t=909.0, r=576.0, b=932.0)px, Tag: 'extension-grid-selected'
+Text = '[Owned grid row one]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:152)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesGridAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:166)
+
+INSTRUMENTATION_STATUS: stream=
+Error in modernEnginePublishesGridAndRunsLiveAction(dev.tinycast.android.WebViewRecoveryDeviceTest):
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Text + EditableText contains 'Owned grid row one' (ignoreCase: false))
+Nodes found:
+1) Node #148 at (l=422.0, t=378.0, r=680.0, b=669.0)px, Tag: 'extension-grid-cell-0'
+Selected = 'true'
+ContentDescription = '[Owned grid row one]'
+Focused = 'false'
+Text = '[No preview, Owned grid row one]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+2) Node #129 at (l=422.0, t=909.0, r=576.0, b=932.0)px, Tag: 'extension-grid-selected'
+Text = '[Owned grid row one]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:152)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesGridAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:166)
+
+INSTRUMENTATION_STATUS: test=modernEnginePublishesGridAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=closingBeforePreflightFinishesRejectsLatePublication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=closingBeforePreflightFinishesRejectsLatePublication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.RuntimeException: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {186faa5} called on null, FYI main Looper is Looper (main, tid 2) {186faa5})
+	at android.webkit.WebView.checkThread(WebView.java:2665)
+	at android.webkit.WebView.getProgress(WebView.java:1340)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax$lambda$20(WebViewRecoveryDeviceTest.kt:129)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(WebViewRecoveryDeviceTest.kt:129)
+	... 56 trimmed
+Caused by: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {186faa5} called on null, FYI main Looper is Looper (main, tid 2) {186faa5})
+	at android.webkit.WebView.checkThread(WebView.java:2660)
+	... 63 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(dev.tinycast.android.WebViewRecoveryDeviceTest):
+java.lang.RuntimeException: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {186faa5} called on null, FYI main Looper is Looper (main, tid 2) {186faa5})
+	at android.webkit.WebView.checkThread(WebView.java:2665)
+	at android.webkit.WebView.getProgress(WebView.java:1340)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax$lambda$20(WebViewRecoveryDeviceTest.kt:129)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(WebViewRecoveryDeviceTest.kt:129)
+	... 56 trimmed
+Caused by: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {186faa5} called on null, FYI main Looper is Looper (main, tid 2) {186faa5})
+	at android.webkit.WebView.checkThread(WebView.java:2660)
+	... 63 more
+
+INSTRUMENTATION_STATUS: test=actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=modernEnginePublishesListAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=modernEnginePublishesListAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 33.622
+There were 2 failures:
+1) modernEnginePublishesGridAndRunsLiveAction(dev.tinycast.android.WebViewRecoveryDeviceTest)
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Text + EditableText contains 'Owned grid row one' (ignoreCase: false))
+Nodes found:
+1) Node #148 at (l=422.0, t=378.0, r=680.0, b=669.0)px, Tag: 'extension-grid-cell-0'
+Selected = 'true'
+ContentDescription = '[Owned grid row one]'
+Focused = 'false'
+Text = '[No preview, Owned grid row one]'
+Actions = [OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+MergeDescendants = 'true'
+2) Node #129 at (l=422.0, t=909.0, r=576.0, b=932.0)px, Tag: 'extension-grid-selected'
+Text = '[Owned grid row one]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:152)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesGridAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:166)
+2) actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(dev.tinycast.android.WebViewRecoveryDeviceTest)
+java.lang.RuntimeException: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {186faa5} called on null, FYI main Looper is Looper (main, tid 2) {186faa5})
+	at android.webkit.WebView.checkThread(WebView.java:2665)
+	at android.webkit.WebView.getProgress(WebView.java:1340)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax$lambda$20(WebViewRecoveryDeviceTest.kt:129)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:434)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax(WebViewRecoveryDeviceTest.kt:129)
+	... 56 trimmed
+Caused by: java.lang.Throwable: A WebView method was called on thread 'Instr: androidx.test.runner.AndroidJUnitRunner'. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 2) {186faa5} called on null, FYI main Looper is Looper (main, tid 2) {186faa5})
+	at android.webkit.WebView.checkThread(WebView.java:2660)
+	... 63 more
+
+FAILURES!!!
+Tests run: 4,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

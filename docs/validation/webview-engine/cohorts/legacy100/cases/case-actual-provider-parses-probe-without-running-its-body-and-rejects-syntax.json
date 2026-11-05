@@ -1,0 +1,15 @@
+{
+  "android_api": 26,
+  "api_probe_result": "Rejected(failure=MISSING_APIS, missingApis=[Array.prototype.at, Object.fromEntries, Object.hasOwn, globalThis])",
+  "case": "actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax",
+  "compile_body_executed": false,
+  "fixture_bytecode_scope": "ES5 owned List/Grid; local React-state action only; no preferences, storage, clipboard or networking",
+  "fixture_cleanup_owner": "Host retains ownership until evidence is pulled and registered paths are removed",
+  "font_scale": 1,
+  "invalid_syntax_caught": true,
+  "palette_preferences_restored": true,
+  "passed": true,
+  "provider": "com.google.android.webview",
+  "provider_version": "58.0.3029.125",
+  "scope": "Owned parser/engine boundary and native recovery; no Store, service, clipboard or Android8 execution-parity credit"
+}

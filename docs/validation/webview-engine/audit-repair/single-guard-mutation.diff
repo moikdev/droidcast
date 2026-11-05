@@ -1,0 +1,11 @@
+--- candidate/ExtensionRuntime.kt
++++ control/ExtensionRuntime.kt
+@@ -238,7 +238,7 @@
+             }
+         }
+         @JavascriptInterface fun invokeSync(api: String, method: String, raw: String): String = try {
+-            check(authorized()) { "This command session has ended" }
++            check(active()) { "This command session has ended" }
+             JSONObject().put("ok", true).put("value", syncCall(api, method, JSONArray(raw)) ?: JSONObject.NULL).toString()
+         } catch (e: Throwable) {
+             post { catalog.releaseText(textContext.owner) }

@@ -245,6 +245,12 @@ class ReviewedTextLifecycleDeviceTest {
             val command = catalog.running!!.second
             directRuntime = ExtensionRuntime(it, catalog, extension, command)
             bridge = directRuntime!!.Bridge()
+            directRuntime!!.start()
+        }
+        // The live control must pass the real engine gate and publish its
+        // owned fixture before direct host calls acquire execution authority.
+        awaitInput()
+        ui {
             assertTrue(JSONObject(bridge.invokeSync("fs", "writeFile", write(liveFile))).getBoolean("ok"))
             bridge.render("""{"type":"Detail","id":"live-control","props":{"markdown":"Owned live control"}}""")
             assertEquals("live-control", catalog.runtimeTree!!.getString("id"))
@@ -320,6 +326,10 @@ class ReviewedTextLifecycleDeviceTest {
         val second = approve(receive("Next owned input"), show = false)
         ui {
             directRuntime = ExtensionRuntime(it, catalog, extension, catalog.running!!.second)
+            directRuntime!!.start()
+        }
+        awaitInput("Next owned input")
+        ui {
             assertFalse(JSONObject(directRuntime!!.Bridge().invokeSync("fs", "exists", JSONArray().put("/owned-denied-outside").toString())).getBoolean("ok"))
         }
         compose.waitForIdle(); rejected(second)

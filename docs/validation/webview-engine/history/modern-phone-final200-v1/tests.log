@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.WebViewRecoveryDeviceTest:
+INSTRUMENTATION_STATUS: test=modernEnginePublishesGridAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:215)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesGridAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:222)
+
+INSTRUMENTATION_STATUS: stream=
+Error in modernEnginePublishesGridAndRunsLiveAction(dev.tinycast.android.WebViewRecoveryDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:215)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesGridAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:222)
+
+INSTRUMENTATION_STATUS: test=modernEnginePublishesGridAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=modernEnginePublishesListAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.WebViewRecoveryDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:215)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesListAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:221)
+
+INSTRUMENTATION_STATUS: stream=
+Error in modernEnginePublishesListAndRunsLiveAction(dev.tinycast.android.WebViewRecoveryDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:215)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesListAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:221)
+
+INSTRUMENTATION_STATUS: test=modernEnginePublishesListAndRunsLiveAction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.886
+There were 2 failures:
+1) modernEnginePublishesGridAndRunsLiveAction(dev.tinycast.android.WebViewRecoveryDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:215)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesGridAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:222)
+2) modernEnginePublishesListAndRunsLiveAction(dev.tinycast.android.WebViewRecoveryDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernCommand(WebViewRecoveryDeviceTest.kt:215)
+	at dev.tinycast.android.WebViewRecoveryDeviceTest.modernEnginePublishesListAndRunsLiveAction(WebViewRecoveryDeviceTest.kt:221)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
