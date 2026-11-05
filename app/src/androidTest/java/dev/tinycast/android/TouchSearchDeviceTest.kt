@@ -89,7 +89,13 @@ class TouchSearchDeviceTest {
 
     private fun keyboard(visible: Boolean, search: String) {
         node(search).assertIsFocused()
-        if (visible && compose.activity.resources.configuration.screenWidthDp >= 700) {
+        val before = ime()
+        val method = if (before == visible) "already-in-requested-state"
+            else if (visible && compose.activity.resources.configuration.screenWidthDp >= 700) "header-pointer"
+            else "native-controller"
+        if (before == visible) {
+            // Repeated setup does not invert a keyboard that is already shown.
+        } else if (visible && compose.activity.resources.configuration.screenWidthDp >= 700) {
             compose.onNodeWithContentDescription("Show on-screen keyboard").performTouchInput { click(center) }
         } else ui { activity ->
             val view = requireNotNull(activity.window.decorView.findFocus())
@@ -100,7 +106,8 @@ class TouchSearchDeviceTest {
         }
         compose.waitUntil(10000) { ime() == visible }
         compose.waitForIdle()
-        events.put(JSONObject().put("kind", "explicit-ime-visibility-setup").put("visible", visible))
+        events.put(JSONObject().put("kind", "explicit-ime-visibility-setup").put("visible", visible)
+            .put("before", before).put("method", method))
     }
 
     private fun text(tag: String, expected: String) {
