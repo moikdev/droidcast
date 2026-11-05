@@ -79,6 +79,30 @@ def archive_files(data):
     return files
 
 
+def private_app_archive(adb, destination, timeout=60):
+    """Stream large snapshots to a private file; publish only a validated archive.
+
+    Keeping the transfer out of a Python stdout pipe bounds buffering and does
+    not depend on a caller closing its interactive stdin. A failed capture stays
+    partial, with the device lease retained by the caller.
+    """
+    destination = Path(destination)
+    partial = destination.with_name(destination.name + '.partial')
+    require(destination.name.startswith('private-') and destination.suffix == '.tar', 'Private archive destination required')
+    require(not destination.exists() and not partial.exists(), 'Inspect the existing private snapshot before repeating capture')
+    descriptor = os.open(partial, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(descriptor, 'wb') as output:
+        command = adb + ['exec-out', 'run-as', APP, 'tar', '-cf', '-', 'files', 'shared_prefs']
+        result = subprocess.run(command, stdin=subprocess.DEVNULL, stdout=output,
+                                stderr=subprocess.PIPE, timeout=timeout)
+        require(result.returncode == 0 and not result.stderr, 'Private archive capture failed')
+        output.flush()
+        os.fsync(output.fileno())
+    files = archive_files(partial.read_bytes())
+    os.replace(partial, destination)
+    return files
+
+
 def fixture(id):
     # ES5 source: a failure on API26 belongs to the unchanged shared bootstrap,
     # not to modern syntax added by the command fixture.
@@ -241,9 +265,7 @@ def main():
             data = raw('exec-out', 'cat', value.removeprefix('package:'))
             path = a.output / ('private-original-' + pkg + '.apk'); path.write_bytes(data); path.chmod(0o600)
             originals[pkg] = (path, sha(data))
-        data = raw('exec-out', 'run-as', APP, 'tar', '-cf', '-', 'files', 'shared_prefs')
-        path = a.output / 'private-data-before.tar'; path.write_bytes(data); path.chmod(0o600)
-        original_files = archive_files(data)
+        original_files = private_app_archive(adb, a.output / 'private-data-before.tar')
         original_profile = original_files.get('files/profileInstalled')
         before = {path: sha(value) for path, value in original_files.items() if not path.startswith(lease + '/')}
         palette = raw('exec-out', 'run-as', APP, 'cat', 'shared_prefs/palette.xml')
@@ -362,7 +384,7 @@ def main():
                             require(raw('exec-out', 'run-as', APP, 'cat', 'files/profileInstalled') == original_profile, 'Profile marker differs')
                     c.attempt('profile-installer-marker', restore_profile_stamp)
                     def preserved_data():
-                        after = archive_files(raw('exec-out', 'run-as', APP, 'tar', '-cf', '-', 'files', 'shared_prefs'))
+                        after = private_app_archive(adb, a.output / 'private-data-after.tar')
                         after = {path: sha(value) for path, value in after.items() if not path.startswith(lease + '/')}
                         require(after == before, 'Installed data/evidence changed; retain private recovery inputs')
                         r['preserved_file_count'] = len(before)
