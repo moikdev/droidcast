@@ -1,0 +1,31 @@
+{
+  "app_source": "5e7cb6b6e0bc146a9e78085f844594afe4d5e1be",
+  "test_source": "07a2de6df0403ed15b03d3712cdd7724b4946f10",
+  "apk_sha256": {
+    "app-debug.apk": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+    "app-debug-androidTest.apk": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6"
+  },
+  "completed": false,
+  "cohorts": [
+    {
+      "name": "final-tablet200-v2",
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "state": "finished",
+      "started": 1793887195.677036,
+      "exit_code": 1,
+      "finished": 1793887556.552435,
+      "passes": null,
+      "failures": null,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": false,
+          "error_type": "TimeoutExpired"
+        }
+      }
+    }
+  ]
+}

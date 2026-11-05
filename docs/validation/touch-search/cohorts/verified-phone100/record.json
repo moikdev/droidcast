@@ -1,0 +1,114 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "4cef6df9b6f28aafa5e303e72b146dac0f20ac3754d2825d704d42b2c5b5d1e3",
+  "apk_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+  "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+  "methods": [
+    "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+    "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "phone",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "restore-size": {
+      "passed": true
+    },
+    "restore-density": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 2,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.xml": "82a2a976ea25495919c713c1f4f1d5adb9628cc30b5cbba6b70c30c2858cd9db",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.png": "fe757c08513eab3f5250475ad03dae2aa056f30f47bd43eb751918df9375bc16",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before-frame.json": "fe1e0162c95b6ab67165deddb69218c6200386fc7d91a1371c2d3edfad5c3e5a",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.xml": "61f240ac2f78abaf45bf71a0b383ad615716488a10b33bb0f7ca3886f2c32221",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.png": "434fac0eefb0ff814140898fe992c1b9b525ab9cb8d1892df2fa3ea2e4d04947",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after-frame.json": "7f514ddd80e67f155791ac86266aca6236e48cb68e04c2462ded9a1c0e3d3f39",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before.xml": "82a2a976ea25495919c713c1f4f1d5adb9628cc30b5cbba6b70c30c2858cd9db",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before.png": "fe757c08513eab3f5250475ad03dae2aa056f30f47bd43eb751918df9375bc16",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before-frame.json": "3d3f02432a6c1c3941e976fde6dafcafefe31b947208809a5eb4e6dbec241761",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after.xml": "03e72977c01264eecdc7ace87e77cfdd20b791c4322451571f23ee43d933af95",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after.png": "c1ad2d03dfa44e7fda1c2f32211ad1bdc36bddbc88e9b5caa190f6db683284e3",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after-frame.json": "f284ab9aec54fe48812e19f8bfe5eac8bc81c4ba37b7fbdf0fd683f14d2de987",
+    "emojitouchclearpreservescategorygeometryandkeyboard-caller-return.xml": "3bb69e31d33b5c4572d28cbde4461bfab33147ce6b4a0505599448b4199e5c6e",
+    "emojitouchclearpreservescategorygeometryandkeyboard-caller-return.png": "22ed01931ad1b6dd80d7be5f51d6d8a720a6bd776e802dc0667eba2a8c8eee58",
+    "emojitouchclearpreservescategorygeometryandkeyboard-caller-return-frame.json": "f605da15421043e3f7b10d158f8254172b79551acaaffc2475fc5dcd4b05988b",
+    "emojitouchclearpreservescategorygeometryandkeyboard-case.json": "4b061c583a99cd703f61ab2a92846d44ddb993a419378864fee782924a7a2575",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.xml": "4489f96d437ed98c4c253c4e1ae47a64bae1cd0da2084fa091c28c229a5b36d5",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.png": "c0b165699e5b0d7703d1ab73bdb57066700788604a337301f0884d45810414e8",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before-frame.json": "4c81703ab407588cd7283145e81aa3f83bea028fe4ec05d492ca9a238afd1c2d",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after.xml": "c99b391d43fdb12da0446a801f900a3d91611dc37e0e389fc2bcd02596e34b10",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after.png": "cd2c3091e60ee1ab84b5696f54d50fe42211516d2f5fbe39b1c4cc544cad6646",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after-frame.json": "efa6a9949c78f198e22bb0885a9f639beb4083149fbc74f9655af5f789d6ade7",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-before.xml": "4489f96d437ed98c4c253c4e1ae47a64bae1cd0da2084fa091c28c229a5b36d5",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-before.png": "70fce7f5f09577299ca770084ecd7fafa6ca5757499b719f3a8ed1cc3d22344b",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-before-frame.json": "6c6835f04798d4c1adc99f9b059f9fd973308f18426f917db64107d75a9b6d28",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-after.xml": "0b23a4010e5f3484525ab35c9004986e3688adf08764e65c62811ceb0a313c67",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-after.png": "6313c7d764560e42dc8b5d3c158c85fc8dd1e29c84b9cc30048a17875751298b",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-after-frame.json": "b130cc50d72acb82b7da1d4b5d9a824e2fbedd76b3902a392e016d0aedef9949",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-case.json": "5ce8dd1f4c98533131dc6b360c333325b70bd9a3606a871e724bdbaac3b2d3a9"
+  },
+  "preserved_file_count": 573
+}

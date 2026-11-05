@@ -1,0 +1,91 @@
+{
+  "completed": false,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "6df86c7a7d150331e4df7ce467977e7ba053f0fc7494b160c0adaba57d9c1cf4",
+  "apk_sha256": "e143a921f4adb69551ad327ee252ffb7008b207ae1b814542f980dd8c17a7a34",
+  "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+  "methods": [
+    "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+  ],
+  "api": 36,
+  "font_scale": 2.0,
+  "layout": "tablet",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 0,
+  "failures": 1,
+  "native_expected_outcome": false,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.xml": "3b9713a90d02184420e2fd6063a6b0a4162acbb3897c0c50538e7198dea90a5d",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.png": "483a19e90fc38efc8d3f4753cce9b0e8f2f26177195d730b8f505a658c3313a0",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before-frame.json": "af93c54e66c94ec30aaa05b574e3dc67018f595bd4a31a7beb1f36e3e28db3f6",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.xml": "f5b5b88e91e8f5e8b4995f1ccb1fb57c24cc4aa72db6f05af838993e6a57aa38",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.png": "d4fbe73ebc29ecdf1483b193a49163823687bc53c395c39665244ca0faa68ff3",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after-frame.json": "1150019e60cef61241bc56e7e59b66f23955161e4bb57932f76cacdba8b91d2d",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before.xml": "5de71c3a64b7e3be32474f3b9f4fc2ad804fc51f1f7f1ed01ced7cb2d8b651c1",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before.png": "41a48585199143d77819476da688b170e3bdf2c9295c10cf033c0e95f129c7f9",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before-frame.json": "c75370405db044d1dad25d7839e29a42587a66205c8b434e45999c6fc3d8d621",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after.xml": "4b9787990930d22c1da211b3a653628a5ee67bf029ec5e5e4485e36e3ecabf31",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after.png": "7b7163483e42a4e481faf98b0d6dff7834c5aa2eb3ee1ba1f7f7fabcd5f3dca8",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after-frame.json": "5089865def933a36d306ef298d51be6eef73b19a99e00ea6d32a83e8e914a10c",
+    "emojitouchclearpreservescategorygeometryandkeyboard-case.json": "608522254d6159fe90250aa446dda86939777df515d7336fc0676d9719a6a9f1"
+  },
+  "preserved_file_count": 573
+}

@@ -1,0 +1,78 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "emojiTouchClearPreservesCategoryGeometryAndKeyboard",
+  "api": 26,
+  "font_scale": 1,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        578,
+        106,
+        704,
+        232
+      ],
+      "search": [
+        163,
+        106,
+        578,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1342
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        578,
+        106,
+        704,
+        232
+      ],
+      "search": [
+        163,
+        106,
+        578,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1022
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "emoji-launcher-origin",
+      "emoji": [
+        163,
+        106,
+        749,
+        232
+      ],
+      "launcher": [
+        164,
+        106,
+        880,
+        232
+      ]
+    }
+  ]
+}

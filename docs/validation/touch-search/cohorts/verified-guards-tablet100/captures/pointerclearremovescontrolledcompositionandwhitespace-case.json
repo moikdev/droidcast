@@ -1,0 +1,25 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "pointerClearRemovesControlledCompositionAndWhitespace",
+  "api": 36,
+  "font_scale": 1,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "controlled-composition-and-whitespace-cleared",
+      "search": "search"
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "controlled-composition-and-whitespace-cleared",
+      "search": "emoji-search"
+    }
+  ]
+}

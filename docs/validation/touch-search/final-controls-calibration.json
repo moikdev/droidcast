@@ -1,0 +1,56 @@
+{
+  "all_completed": true,
+  "controls": [
+    {
+      "cohort": "final-old-tablet100-1",
+      "passes": 0,
+      "intended_failures": 1,
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_log_sha256": "538247ef6d51316b95974672d1aea74a27d8eee5a0c0c0fa4abbdf8fcefdf517",
+      "cleanup_checks": 15,
+      "assertion": "Missing Clear display at geometry line107; ordinary pre-action app frame, no app error banner"
+    },
+    {
+      "cohort": "final-old-tablet100-2",
+      "passes": 0,
+      "intended_failures": 1,
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_log_sha256": "f87b444e578d882ff28e97364a72930ee899ff630175d5e4a56fe78345c3df0d",
+      "cleanup_checks": 15,
+      "assertion": "Missing Clear display at geometry line107; ordinary pre-action app frame, no app error banner"
+    },
+    {
+      "cohort": "final-old-phone100-1",
+      "passes": 0,
+      "intended_failures": 1,
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_log_sha256": "3e8e7173a13922e0a494e331cc49dcf5a1c0658c02be1db7450eb0df112856b5",
+      "cleanup_checks": 17,
+      "assertion": "Missing Clear display at geometry line107; ordinary pre-action app frame, no app error banner"
+    },
+    {
+      "cohort": "final-old-phone100-2",
+      "passes": 0,
+      "intended_failures": 1,
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_log_sha256": "ade5560a09c0ba12b1f9f5a02f597f8030528b79cc3dea20238503e0fd971889",
+      "cleanup_checks": 17,
+      "assertion": "Missing Clear display at geometry line107; ordinary pre-action app frame, no app error banner"
+    },
+    {
+      "cohort": "final-spacing-control-tablet200",
+      "passes": 0,
+      "intended_failures": 1,
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "app_sha256": "e143a921f4adb69551ad327ee252ffb7008b207ae1b814542f980dd8c17a7a34",
+      "test_log_sha256": "c45a1cf53735123a0ffc42e65a801f8205dcc1cbcd0fcb483b6e0a6b5a222634",
+      "cleanup_checks": 15,
+      "assertion": "Six-pixel Emoji/launcher return-origin mismatch after successful pointer Clear, 200%"
+    }
+  ],
+  "scope": "Same final54a instrumentation on negative and repaired apps. Positive-only runner receipts remain failed; no generic failure classification earns control credit."
+}

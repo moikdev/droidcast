@@ -1,0 +1,102 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "4cef6df9b6f28aafa5e303e72b146dac0f20ac3754d2825d704d42b2c5b5d1e3",
+  "apk_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+  "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+  "methods": [
+    "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+    "emojiTouchClearPreservesCategoryGeometryAndKeyboard",
+    "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+    "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+  ],
+  "api": 26,
+  "font_scale": 1.0,
+  "layout": "phone",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-initial-package-absence": {
+      "passed": true
+    }
+  },
+  "passes": 4,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 58.0.3029.125)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  },
+  "original_font_scale": "null",
+  "captures": {
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.xml": "262fa1bfe3e381ce13020fb77d6d4c293ca98d802deac7b7ae24973d97f7cb7d",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.png": "fbf1c6712443f54b71d4c14bdfb357a67f9547279adccd0d1e543d6830600c84",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before-frame.json": "4edb089a0d0cc912e3a39a2ad453ca0e74a7e3b02936ebf754598daed0e3ddea",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.xml": "8c653f3ca2d857851ea9ed6af59a7192007ff37c146ddef6bf694114d7e8ed6f",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.png": "22d097b13429786b897dad241877dc3bf444afe265a4c4d6c0b50c5830d61c3b",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after-frame.json": "d6cadd16243a505faec61d5647c211d47e1ca4d575c001ef7c07fb526b1f78b2",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before.xml": "f2c655335f71c275947bfb962ca3ffe2607477a6e728dbcfaa55815f3306b27f",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before.png": "48704d81914767c019542921b8a00d68529fb5f791a8146862d0ec882436625f",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-before-frame.json": "63262b9aece34538793029df166aaf5c39db6df03bde66f02fb8fa9d8d56cfcd",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after.xml": "7f6c9bc77b961b0e876032465cb322e0a6be199df5622ced9cb172eb98012170",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after.png": "e3e86dc34e17f9d4adae93313549b176553d31244661960aebc38c5e45111cd8",
+    "emojitouchclearpreservescategorygeometryandkeyboard-shown-after-frame.json": "52b5280c366ccc83da37ceb5aa5cbfb3e8758a97b7da2008a900164144a30d09",
+    "emojitouchclearpreservescategorygeometryandkeyboard-caller-return.xml": "fb25230c79f59c1964b6a6ca884cfdfec61b0b212858a7e3d6e505112ba9447c",
+    "emojitouchclearpreservescategorygeometryandkeyboard-caller-return.png": "2b23e4658c3740f32a13efaf142cd0c317e35df81120c2fd45d8a69c1615184e",
+    "emojitouchclearpreservescategorygeometryandkeyboard-caller-return-frame.json": "91791c46dd5cc282fb68a5e5c9ee1acc987b90e191e9d1a48035927168bd4332",
+    "emojitouchclearpreservescategorygeometryandkeyboard-case.json": "19f1dbfd73174baeea4211d99460ec9de8d4b9e26d66c50a1de13f64f6721750",
+    "currentclearuseslivequeryandrecreationrejectsoldcallback-case.json": "fa37b3e172b85ff1d30581dbbb3f9b61c9e53e8997654860fced26a124b31cd7",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.xml": "fd259abb059547a6320b19e2afec387fbe395fc842c0582c3828df3d47def6eb",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.png": "be23688db55ecc0d4bab638e94f8ab096ef47a65f0364fa2e363337ee3851e6f",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before-frame.json": "57d9eb8a9348347861053e27fc27cfb1f89095e89eab088b7b4525a0bd353bf8",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after.xml": "647f1d250d8879c8316791dff2ca452d3c9d8b4e8a9dd5975fb6b3bd96819e9b",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after.png": "cf05ec75264f4e4278c56b61c76f6d14ea8628d866a00ba648bac8387f6f02d2",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after-frame.json": "d28dccb4a1204bf927a946a539df0be3fc4352d94d753d6ba2c7fdc6cc12cac8",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-before.xml": "ddef5099c82c9cbfb4c836f656f3f822ba6262cd2460e1311600656a41001380",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-before.png": "28b7fd2c5cb300b3e98d1c0a2f61148d2d1fc620470a26524c3f2a34e10dfc0d",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-before-frame.json": "eedc3a4f0396709a57cae7dab482663b8cc0a887b71ca36eac43dc3424eb1a63",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-after.xml": "1a12bccc944c0d9f76063a40054d16aa2bb3a2f5851ef0cdd963668e9bdeb2e8",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-after.png": "1763f0f95f0773a69f5fc1983786115270acb30f14cd277146706243a675fca6",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-shown-after-frame.json": "1000d8060b7466d029a06bcc1c05903a87b2e793da19cf59e23ebdffffd42306",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-case.json": "f1ea376b12e0b149e66e489f9f8e3694a50fd172aef9d54620e57877b3084b0c",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-covered-by-menu.xml": "3708eb83ad537858822f0f6fe1758d751148792c74a8d6108ea13b0d2d737492",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-covered-by-menu.png": "068e8eecdd8f8d293a3ed4f1d8cce0d6bb2ee5b4c42237185379cf4fef837efe",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-covered-by-menu-frame.json": "f1d308a5eb0f6b26ee0ae36bc295f36e65b61cdd9c287110f1bf5fb972747719",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-replacement-emoji.xml": "fbf1be21dd4953761042a766146e339e5dc199d9b8ee814191df5016e6fc7657",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-replacement-emoji.png": "3715ee0884d279d447d5be8d31c7830c35d6dc351092e67a807a93d0981a9541",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-replacement-emoji-frame.json": "8852e5e7085304ab359cb508307fb5ff0be4bc9715224d3edd881d56a86c8cfc",
+    "retainedclearcallbacksrejectreplacedsurfacesandmenus-case.json": "2d04ebaceb482d3c46f5868fcb3d7f207ecb12ac07822b057d75b0ad8f6f1dd9"
+  }
+}

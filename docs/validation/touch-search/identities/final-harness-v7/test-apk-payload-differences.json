@@ -1,0 +1,36 @@
+{
+  "pairs": [
+    {
+      "left": "original-f79",
+      "right": "diagnostic-7003",
+      "changed_entries": [
+        "classes3.dex",
+        "classes4.dex"
+      ]
+    },
+    {
+      "left": "diagnostic-7003",
+      "right": "final-54a",
+      "changed_entries": [
+        "classes3.dex"
+      ]
+    },
+    {
+      "left": "original-f79",
+      "right": "final-54a",
+      "changed_entries": [
+        "classes3.dex",
+        "classes4.dex"
+      ]
+    },
+    {
+      "left": "original-f79",
+      "right": "unused-compiled-9e80",
+      "changed_entries": [
+        "classes3.dex",
+        "classes4.dex"
+      ]
+    }
+  ],
+  "scope": "Actual uncompressed ZIP entry comparison. These instrumentation APKs are distinct; source/build identities and controls remain separate, without stamp-only equivalence."
+}

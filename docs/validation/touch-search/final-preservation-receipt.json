@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "emulator-5580-four-ime-fields": true,
+    "emulator-5598-four-ime-fields": true,
+    "emulator-5580-unprivileged": true,
+    "emulator-5580-no-active-instrumentation": true,
+    "emulator-5580-geometry-not-overridden": true,
+    "emulator-5580-original-font-scale": true,
+    "emulator-5598-unprivileged": true,
+    "emulator-5598-no-active-instrumentation": true,
+    "emulator-5598-geometry-not-overridden": true,
+    "emulator-5598-original-font-scale": true,
+    "all-original-modern-app-and-evidence-files": true,
+    "original-apk-dev.tinycast.android": true,
+    "original-apk-dev.tinycast.android.test": true,
+    "legacy-original-package-absence": true
+  },
+  "all_passed": true,
+  "scope": "Read-only current-baseline equality after the whole pipeline; no private original contents or fingerprints published"
+}

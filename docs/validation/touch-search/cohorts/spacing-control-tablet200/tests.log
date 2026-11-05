@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: test=emojiTouchClearPreservesCategoryGeometryAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Returning retains the search baseline expected:<249.0> but was:<243.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiTouchClearPreservesCategoryGeometryAndKeyboard(TouchSearchDeviceTest.kt:184)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emojiTouchClearPreservesCategoryGeometryAndKeyboard(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Returning retains the search baseline expected:<249.0> but was:<243.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiTouchClearPreservesCategoryGeometryAndKeyboard(TouchSearchDeviceTest.kt:184)
+
+INSTRUMENTATION_STATUS: test=emojiTouchClearPreservesCategoryGeometryAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 32.18
+There was 1 failure:
+1) emojiTouchClearPreservesCategoryGeometryAndKeyboard(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Returning retains the search baseline expected:<249.0> but was:<243.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiTouchClearPreservesCategoryGeometryAndKeyboard(TouchSearchDeviceTest.kt:184)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

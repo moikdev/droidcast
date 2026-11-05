@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionPayloadIdentityTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-05T13:38:36.093Z" hostname="MacBook-Pro-2.local" time="0.559">
+  <properties/>
+  <testcase name="missingOrIncompletePayloadsCannotProduceAnIdentity" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.044"/>
+  <testcase name="installerMetadataIsExcludedButOtherHiddenFilesArePayload" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.013"/>
+  <testcase name="symlinkedFilesAndDirectoriesAreRejectedWithoutChangingTheirTargets" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.007"/>
+  <testcase name="changingOnlyAnAssetCannotKeepTheRecordedIdentity" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.004"/>
+  <testcase name="oversizedFilesAndTreesDoNotGetPartialIdentities" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.345"/>
+  <testcase name="unicodePathsAndEmptyFilesKeepTheirExactBytes" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.005"/>
+  <testcase name="canonicalBytesMatchTheIndependentBigEndianUtf8Vector" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.001"/>
+  <testcase name="callerCollectionChangesCannotMutateAnExpectedIdentity" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.002"/>
+  <testcase name="allNineFrozenSourceArchivesMatchTheIndependentPayloadVectors" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.013"/>
+  <testcase name="rootReplacementDuringInspectionIsRejected" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.003"/>
+  <testcase name="aLinkedRootOrSiblingOutsideTheAllowedParentCannotBeScanned" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.01"/>
+  <testcase name="cancellationPropagatesWithoutBecomingAnIdentityOrIoResult" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.084"/>
+  <testcase name="sameLengthCommandEditsStillInvalidateIdentityWhenTheTimestampIsRestored" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.009"/>
+  <testcase name="exactPayloadIncludesManifestCommandAndAssetsRegardlessOfDeclarationOrder" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.004"/>
+  <testcase name="malformedAndConflictingManifestPathsCannotBecomeExpectedIdentities" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.002"/>
+  <testcase name="addedMissingAndChangedManifestFilesStayDifferent" classname="dev.tinycast.android.ExtensionPayloadIdentityTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

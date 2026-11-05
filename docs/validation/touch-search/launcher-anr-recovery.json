@@ -1,0 +1,13 @@
+{
+  "completed": true,
+  "checks": {
+    "owned-avd": true,
+    "unprivileged": true,
+    "idle-instrumentation": true,
+    "previous-cohort-restored": true,
+    "anr-window-absent": true,
+    "four-ime-fields-unchanged": true
+  },
+  "action": "Force-stop exact observed Pixel Launcher package on the owned dedicated AVD; no app data wipe or APK/source changes",
+  "scope": "Dismisses the directly observed external ANR window. The failed cohort remains failed; the next execution will use unchanged app/test/controller hashes."
+}
