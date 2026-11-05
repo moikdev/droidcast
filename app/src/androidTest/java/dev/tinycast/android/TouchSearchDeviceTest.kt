@@ -423,7 +423,7 @@ class TouchSearchDeviceTest {
                 completeFeedbackTarget(node("emoji-filter"), "Emoji category", surface)
             }
             if (compose.activity.resources.configuration.screenWidthDp >= 700)
-                completeFeedbackTarget(compose.onNodeWithContentDescription("Show on-screen keyboard"), "Keyboard", surface)
+                completeFeedbackTarget(compose.onNodeWithContentDescription(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard"), "Keyboard", surface)
             val footer = if(emojiRoute)node("emoji-favorite")else node("palette-menu")
             feedbackReveal(footer, surface)
             completeFeedbackTarget(footer, if(emojiRoute)"Emoji favorite"else"Droidcast menu", surface)
@@ -596,7 +596,7 @@ class TouchSearchDeviceTest {
 
     private fun keyboardCallbackFlow(emojiRoute: Boolean) {
         assumeTrue("Owned wide-screen callback contract", compose.activity.resources.configuration.screenWidthDp >= 700)
-        record.put("scope", "Controlled retained native callbacks; visibility and menu-backdrop dismissal use actual pointers. Physical Back failure remains #115; no queued-input or cross-window certification.")
+        record.put("scope", "Controlled retained native callbacks; visibility and menu-backdrop dismissal use actual pointers. Injected system Back failure remains #115; no queued-input or cross-window certification.")
         if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
         val search = if (emojiRoute) "emoji-search" else "search"
         val surface = if (emojiRoute) "emoji-palette" else "palette"
@@ -625,7 +625,7 @@ class TouchSearchDeviceTest {
         node("inline-menu").assertIsDisplayed()
         rejectedKeyboardCallback(obstructedShow, false, search, surface, "keyboard-guard-open-menu")
         node("inline-menu").assertIsDisplayed()
-        // Physical Back cleared Emoji's caller query in the retained #115
+        // Injected system Back cleared Emoji's caller query in the retained #115
         // cohort. This pointer-backdrop protocol earns no Back repair credit.
         dismissKeyboardMenuByPointer(search, surface)
         node(search).assertIsFocused()
@@ -679,6 +679,31 @@ class TouchSearchDeviceTest {
                 capture("keyboard-accessibility-${if (emojiRoute) "emoji" else "launcher"}-$index", search)
             }
         }
+        record.put("completed", true)
+    }
+
+    @Test fun emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle() {
+        assumeTrue("Owned wide-screen Back diagnostic", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Injected system Back diagnostic with no header keyboard activation. Editor and epoch setup are controlled; it earns no Back repair, hardware-key or TalkBack certification.")
+        emoji(); ui { it.store.emoji.chooseFilter("All") }
+        node("emoji-search").performTextReplacement("face")
+        keyboard(false, "emoji-search")
+        ui { val before = it.store.focusEpoch; it.store.focusEpoch++
+            events.put(JSONObject().put("kind", "back-probe-epoch-setup").put("before", before).put("after", it.store.focusEpoch)) }
+        settledFeedbackViewport("emoji-palette")
+        text("emoji-search", "face"); node("emoji-search").assertIsFocused()
+        capture("back-probe-before-menu", "emoji-search")
+        node("emoji-filter").assertIsDisplayed().performTouchInput { click(center) }
+        node("inline-menu").assertIsDisplayed()
+        capture("back-probe-menu", "emoji-search")
+        val injected = device.pressBack()
+        compose.waitForIdle(); settledFeedbackViewport("emoji-palette")
+        capture("back-probe-after", "emoji-search")
+        ui { events.put(JSONObject().put("kind", "back-probe-after-injection").put("injection_accepted", injected)
+            .put("query", it.store.emoji.query).put("route", it.store.dialog).put("ime_visible", ime())) }
+        node("inline-menu").assertDoesNotExist()
+        text("emoji-search", "face")
+        node("emoji-search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(4)))
         record.put("completed", true)
     }
 }
