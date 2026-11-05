@@ -445,4 +445,118 @@ class TouchSearchDeviceTest {
 
     @Test fun launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable() = feedbackFlow(false)
     @Test fun emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable() = feedbackFlow(true)
+
+    private fun keyboardControl() = compose.onNode(
+        hasContentDescription("Show on-screen keyboard") or hasContentDescription("Hide on-screen keyboard"))
+
+    private fun keyboardState(search: String, query: String, range: TextRange, emojiRoute: Boolean, phase: String) {
+        text(search, query)
+        node(search).assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, range))
+        ui {
+            assertTrue("Keyboard controls need the owned foreground window", it.window.decorView.hasWindowFocus())
+            if (emojiRoute) {
+                assertEquals("emoji", it.store.dialog)
+                assertEquals("All", it.store.emoji.filter)
+                assertEquals(query, it.store.emoji.query)
+                assertEquals(0, it.store.emoji.selected)
+            } else {
+                assertNull(it.store.dialog)
+                assertEquals("Apps", it.store.category)
+                assertEquals(query, it.store.query)
+                assertEquals(0, it.store.selected)
+            }
+        }
+        events.put(JSONObject().put("kind", "keyboard-search-state").put("phase", phase)
+            .put("query", query).put("range", JSONArray(listOf(range.start, range.end)))
+            .put("focused", true).put("ime_visible", ime()).put("route", if (emojiRoute) "emoji" else "launcher"))
+    }
+
+    private fun pointerKeyboard(visible: Boolean, search: String, surface: String, phase: String) {
+        val before = ime()
+        assertEquals("Start with the opposite actual IME state", !visible, before)
+        completeFeedbackTarget(keyboardControl(), "Keyboard", surface)
+        val label = keyboardControl().fetchSemanticsNode().config[SemanticsProperties.ContentDescription].single()
+        keyboardControl().performTouchInput { click(center) }
+        var reached = true
+        try { compose.waitUntil(6000) { ime() == visible } }
+        catch (_: ComposeTimeoutException) { reached = false }
+        settledFeedbackViewport(surface)
+        // Retain the actual post-tap screen even when the old Show-only action
+        // leaves the visible IME unchanged. A new label is not the control gate.
+        capture(phase, search)
+        events.put(JSONObject().put("kind", "keyboard-pointer-action").put("phase", phase)
+            .put("label_before", label).put("ime_before", before).put("expected_visible", visible)
+            .put("ime_after", ime()).put("reached_expected_state", reached))
+        assertTrue(if (visible) "Header keyboard action must reopen the IME" else "Header keyboard action must hide the visible IME", reached)
+        keyboardControl().assertContentDescriptionEquals(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard")
+    }
+
+    private fun keyboardResultTitle(value: String, surface: String) {
+        val target = compose.onNodeWithText(value, useUnmergedTree = true)
+        val layouts = mutableListOf<TextLayoutResult>()
+        target.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(layouts)) }
+        val layout = layouts.single(); val semantics = target.fetchSemanticsNode()
+        val origin = compose.runOnUiThread { semantics.positionInRoot }
+        val visible = semantics.boundsInRoot; val palette = node(surface).fetchSemanticsNode().boundsInRoot
+        assertEquals(value, layout.layoutInput.text.text)
+        assertEquals(14f, layout.layoutInput.style.fontSize.value, .01f)
+        for (line in 0 until layout.lineCount) {
+            val bounds = Rect(origin.x + layout.getLineLeft(line), origin.y + layout.getLineTop(line),
+                origin.x + layout.getLineRight(line), origin.y + layout.getLineBottom(line))
+            val complete = bounds.left >= visible.left - 1 && bounds.right <= visible.right + 1 &&
+                bounds.top >= visible.top - 1 && bounds.bottom <= visible.bottom + 1 &&
+                bounds.left >= palette.left - 1 && bounds.right <= palette.right + 1 &&
+                bounds.top >= palette.top - 1 && bounds.bottom <= palette.bottom + 1
+            events.put(JSONObject().put("kind", "keyboard-result-line").put("text", value).put("line", line)
+                .put("full", json(bounds)).put("visible", json(visible)).put("palette", json(palette))
+                .put("complete", complete).put("ellipsized", layout.isLineEllipsized(line)))
+            assertFalse("Revealed result title must not ellipsize", layout.isLineEllipsized(line))
+            assertTrue("Revealed result title line is complete", complete)
+        }
+    }
+
+    private fun keyboardToggleFlow(emojiRoute: Boolean) {
+        assumeTrue("This contract exercises the existing wide-screen keyboard slot", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Owned header pointer Hide/Show; editor/range and initial IME setup are controlled. Selected result target, not full list/grid typography or physical typing.")
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        for ((index, query) in listOf(if (emojiRoute) "face" else "settings", "").withIndex()) {
+            feedbackTop(surface); keyboard(false, search)
+            node(search).performTextReplacement(query)
+            keyboard(true, search); settledFeedbackViewport(surface)
+            val range = if (query.isEmpty()) TextRange.Zero else TextRange(1, minOf(5, query.length - 1))
+            node(search).performTextInputSelection(range)
+            keyboardState(search, query, range, emojiRoute, "before-$index")
+            val origin = rect(search); val beforeSurface = rect(surface)
+            capture("keyboard-$index-before-hide", search)
+            pointerKeyboard(false, search, surface, "keyboard-$index-after-hide")
+            keyboardState(search, query, range, emojiRoute, "hidden-$index")
+            assertEquals("Hide retains search geometry", origin, rect(search))
+            val button = keyboardControl().fetchSemanticsNode().boundsInWindow
+            assertFalse("Keyboard target and editor do not overlap", button.overlaps(rect(search)))
+            assertTrue("Editor retains at least 80 dp", rect(search).width >= 80 * context.resources.displayMetrics.density - 1)
+            if (query.isNotEmpty()) {
+                if (emojiRoute) {
+                    var id = ""
+                    ui { id = it.store.emoji.results()[it.store.emoji.selected].id }
+                    completeFeedbackTarget(node("emoji-cell-$id"), "Selected Emoji result", surface)
+                } else {
+                    var id = ""
+                    ui { id = it.store.results()[it.store.selected].id }
+                    completeFeedbackTarget(node("result-$id"), "Selected launcher result", surface)
+                    keyboardResultTitle("Settings", surface)
+                }
+            }
+            events.put(JSONObject().put("kind", "keyboard-result-viewport").put("query", query)
+                .put("before", json(beforeSurface)).put("after", json(rect(surface))))
+            pointerKeyboard(true, search, surface, "keyboard-$index-after-show")
+            keyboardState(search, query, range, emojiRoute, "shown-$index")
+            assertEquals("Show retains search geometry", origin, rect(search))
+        }
+        record.put("completed", true)
+    }
+
+    @Test fun launcherKeyboardToggleRevealsResultsAndPreservesSearch() = keyboardToggleFlow(false)
+    @Test fun emojiKeyboardToggleRevealsResultsAndPreservesSearch() = keyboardToggleFlow(true)
 }
