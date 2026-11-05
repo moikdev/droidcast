@@ -3,6 +3,8 @@ package dev.tinycast.android
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
+import android.view.KeyEvent
+import android.view.Window
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
@@ -139,6 +141,48 @@ class TouchSearchDeviceTest {
     private fun emoji() {
         ui { it.execute(Command("emoji", "Emoji & Symbols", "")) }
         node("emoji-search").assertIsFocused()
+    }
+
+    /** Observe delivery without adding a dispatcher callback or changing key handling. */
+    private fun observeBackWindow(block: () -> Unit) {
+        var original: Window.Callback? = null
+        var observer: Window.Callback? = null
+        ui { activity ->
+            val previous = activity.window.callback
+            original = previous
+            fun sample(stage: String, event: KeyEvent, handled: Boolean? = null) {
+                // This probe owns only this literal query; do not collect unrelated text.
+                val query = activity.store.emoji.query
+                check(query == "face" || query.isEmpty())
+                if (events.length() < 256) events.put(JSONObject().put("kind", stage)
+                    .put("action", event.action).put("key_code", event.keyCode)
+                    .put("down_time", event.downTime).put("event_time", event.eventTime)
+                    .put("device_id", event.deviceId).put("source", event.source)
+                    .put("repeat", event.repeatCount).put("canceled", event.isCanceled)
+                    .put("handled", handled ?: JSONObject.NULL)
+                    .put("window_focused", activity.window.decorView.hasWindowFocus())
+                    .put("menu_bookkeeping_open", activity.store.paletteMenuOpen)
+                    .put("query", query).put("route", activity.store.dialog))
+            }
+            val installed = object : Window.Callback by previous {
+                override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+                    if (event.keyCode != KeyEvent.KEYCODE_BACK) return previous.dispatchKeyEvent(event)
+                    sample("back-window-before", event)
+                    val handled = previous.dispatchKeyEvent(event)
+                    sample("back-window-after", event, handled)
+                    return handled
+                }
+            }
+            observer = installed
+            activity.window.callback = installed
+        }
+        try { block() } finally {
+            ui { activity ->
+                assertSame("Restore only the owned window observer", observer, activity.window.callback)
+                activity.window.callback = requireNotNull(original)
+                events.put(JSONObject().put("kind", "back-window-observer-restored").put("passed", activity.window.callback === original))
+            }
+        }
     }
 
     private fun emptyFeedback(node: SemanticsNodeInteraction, palette: String, keyboardVisible: Boolean) {
@@ -685,25 +729,27 @@ class TouchSearchDeviceTest {
     @Test fun emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle() {
         assumeTrue("Owned wide-screen Back diagnostic", compose.activity.resources.configuration.screenWidthDp >= 700)
         record.put("scope", "Injected system Back diagnostic with no header keyboard activation. Editor and epoch setup are controlled; it earns no Back repair, hardware-key or TalkBack certification.")
-        emoji(); ui { it.store.emoji.chooseFilter("All") }
-        node("emoji-search").performTextReplacement("face")
-        keyboard(false, "emoji-search")
-        ui { val before = it.store.focusEpoch; it.store.focusEpoch++
-            events.put(JSONObject().put("kind", "back-probe-epoch-setup").put("before", before).put("after", it.store.focusEpoch)) }
-        settledFeedbackViewport("emoji-palette")
-        text("emoji-search", "face"); node("emoji-search").assertIsFocused()
-        capture("back-probe-before-menu", "emoji-search")
-        node("emoji-filter").assertIsDisplayed().performTouchInput { click(center) }
-        node("inline-menu").assertIsDisplayed()
-        capture("back-probe-menu", "emoji-search")
-        val injected = device.pressBack()
-        compose.waitForIdle(); settledFeedbackViewport("emoji-palette")
-        capture("back-probe-after", "emoji-search")
-        ui { events.put(JSONObject().put("kind", "back-probe-after-injection").put("injection_accepted", injected)
-            .put("query", it.store.emoji.query).put("route", it.store.dialog).put("ime_visible", ime())) }
-        node("inline-menu").assertDoesNotExist()
-        text("emoji-search", "face")
-        node("emoji-search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(4)))
-        record.put("completed", true)
+        observeBackWindow {
+            emoji(); ui { it.store.emoji.chooseFilter("All") }
+            node("emoji-search").performTextReplacement("face")
+            keyboard(false, "emoji-search")
+            ui { val before = it.store.focusEpoch; it.store.focusEpoch++
+                events.put(JSONObject().put("kind", "back-probe-epoch-setup").put("before", before).put("after", it.store.focusEpoch)) }
+            settledFeedbackViewport("emoji-palette")
+            text("emoji-search", "face"); node("emoji-search").assertIsFocused()
+            capture("back-probe-before-menu", "emoji-search")
+            node("emoji-filter").assertIsDisplayed().performTouchInput { click(center) }
+            node("inline-menu").assertIsDisplayed()
+            capture("back-probe-menu", "emoji-search")
+            val injected = device.pressBack()
+            compose.waitForIdle(); settledFeedbackViewport("emoji-palette")
+            capture("back-probe-after", "emoji-search")
+            ui { events.put(JSONObject().put("kind", "back-probe-after-injection").put("injection_accepted", injected)
+                .put("query", it.store.emoji.query).put("route", it.store.dialog).put("ime_visible", ime())) }
+            node("inline-menu").assertDoesNotExist()
+            text("emoji-search", "face")
+            node("emoji-search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(4)))
+            record.put("completed", true)
+        }
     }
 }
