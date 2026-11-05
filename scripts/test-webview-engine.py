@@ -167,10 +167,11 @@ def main():
     require('Override' not in size + density, 'An existing geometry override has an owner')
     font = text('shell', 'settings', 'get', 'system', 'font_scale')
     ime_settings = {key: text('shell', 'settings', 'get', 'secure', key) for key in
-                    ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype')} if a.input_mode == 'owned' else None
+                    ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype',
+                     'input_methods_subtype_history')} if a.input_mode == 'owned' else None
     if ime_settings:
         require(re.fullmatch(r'[A-Za-z0-9_.]+/[A-Za-z0-9_.$]+', ime_settings['default_input_method']), 'A restorable original input method is required')
-        require(OWNED_IME not in ime_settings['enabled_input_methods'], 'An existing owned IME activation has a recovery owner')
+        require(not any(OWNED_IME in value for value in ime_settings.values()), 'An existing owned IME activation/history has a recovery owner')
     nonce = uuid.uuid4().hex; id = ('native-input-' if native_input else 'webview-engine-') + nonce
     lease = 'files/native-input-lease' if native_input else 'files/webview-compatibility-lease'
     evidence = 'files/native-input-evidence' if native_input else 'files/webview-compatibility-evidence'
@@ -195,6 +196,7 @@ def main():
     r['input_mode'] = a.input_mode
     if ime_settings:
         path = a.output / 'private-ime-settings.json'; path.write_text(json.dumps(ime_settings)); path.chmod(0o600)
+        r['ime_restoration_scope'] = 'Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement'
     def save():
         (a.output / 'record.json').write_text(json.dumps(r, indent=2) + '\n')
     save()
@@ -207,6 +209,9 @@ def main():
         raw('shell', 'run-as', APP, 'tee', lease + '/owner.json', data=json.dumps(owner).encode())
     def verify_owner():
         require(json.loads(raw('exec-out', 'run-as', APP, 'cat', lease + '/owner.json')) == owner, 'Recovery owner changed')
+    def verify_input_method():
+        require({key: text('shell', 'settings', 'get', 'secure', key) for key in ime_settings} == ime_settings,
+                'Original input method settings changed after test APK restoration')
     if not legacy:
         claim(); lease_claimed = True
         for pkg in (TEST, APP):
@@ -343,13 +348,18 @@ def main():
                     if legacy:
                         # The app lease stays held until PackageManager removes
                         # the entire owned app. Host journal stays for verification.
-                        for pkg in (TEST, APP):
-                            c.attempt('restore-absence-' + pkg, lambda pkg=pkg: raw('uninstall', pkg))
-                        c.attempt('verify-initial-package-absence', lambda: require(all(not package_path(pkg) for pkg in (APP, TEST)), 'A package remains'))
+                        c.attempt('restore-absence-' + TEST, lambda: raw('uninstall', TEST))
+                        if not c.errors and ime_activation_attempted:
+                            c.attempt('verify-input-method-after-test-apk-removal', verify_input_method)
+                        if not c.errors:
+                            c.attempt('restore-absence-' + APP, lambda: raw('uninstall', APP))
+                            c.attempt('verify-initial-package-absence', lambda: require(all(not package_path(pkg) for pkg in (APP, TEST)), 'A package remains'))
                     else:
                         for pkg, (path, expected) in originals.items():
                             c.attempt('restore-binary-' + pkg, lambda path=path: raw('install', '-r', '-t', str(path), timeout=120))
                             c.attempt('verify-binary-' + pkg, lambda pkg=pkg, expected=expected: require(sha(raw('exec-out', 'cat', text('shell', 'pm', 'path', pkg).removeprefix('package:'))) == expected, 'Original binary differs'))
+                        if not c.errors and ime_activation_attempted:
+                            c.attempt('verify-input-method-after-original-apks', verify_input_method)
                         if not c.errors:
                             verify_owner()
                             # Final device operation: no restoration runs after release.
