@@ -515,6 +515,7 @@ class TouchSearchDeviceTest {
         }
     }
 
+    @OptIn(ExperimentalTestApi::class)
     private fun keyboardToggleFlow(emojiRoute: Boolean) {
         assumeTrue("This contract exercises the existing wide-screen keyboard slot", compose.activity.resources.configuration.screenWidthDp >= 700)
         record.put("scope", "Owned header pointer Hide/Show; editor/range and initial IME setup are controlled. Selected result target, not full list/grid typography or physical typing.")
