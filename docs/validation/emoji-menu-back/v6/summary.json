@@ -40,7 +40,7 @@
     "failed_keys": [
       "all-original-modern-app-evidence-files"
     ],
-    "explanation": "Only files/profileInstalled differs among 573 original modern app files. Its bytes record the package lastUpdateTime 2026-11-06 06:17:52, the moment the last v4 modern cohort restoration reinstalled the original APK (record written 06:17:55). The v4 preservation pass at 06:51 still saw the old marker; the original app process later started (inferred, not observed) and AndroidX ProfileInstaller rewrote it. An install timestamp cannot be restored; the marker is build/install-derived, not user data."
+    "explanation": "Only files/profileInstalled differs among 573 original modern app files. Its embedded timestamp (2026-11-05 21:17:52 UTC) is 3 s before the last round-1 modern cohort finished its restoration, which reinstalls the original APK. The round-1 preservation pass (21:51 UTC) still saw the old marker; the first v5 cohort (22:19 UTC) saw the new one. Inferred, not observed: the original app process started in between and AndroidX ProfileInstaller rewrote the marker. An install timestamp cannot be restored; the marker is build/install-derived, not user data. See profile-marker-record.json."
   },
   "recovery": {
     "all_passed": true,

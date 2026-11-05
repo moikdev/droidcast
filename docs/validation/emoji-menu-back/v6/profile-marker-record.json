@@ -1,0 +1,31 @@
+{
+  "baseline_marker": {
+    "sha256": "620dfd8380ef2d8cac681eebb92dd6ccd1dc9d0f2a571c114567f51df9a75625",
+    "bytes_hex": "0000000100050000000001a1ab9310770000000000000000",
+    "embedded_ms": 1793879904375,
+    "embedded_utc": "2026-11-05T11:58:24.375000+00:00"
+  },
+  "last_round1_modern_cohort_before": {
+    "sha256": "620dfd8380ef2d8cac681eebb92dd6ccd1dc9d0f2a571c114567f51df9a75625",
+    "bytes_hex": "0000000100050000000001a1ab9310770000000000000000",
+    "embedded_ms": 1793879904375,
+    "embedded_utc": "2026-11-05T11:58:24.375000+00:00"
+  },
+  "first_v5_cohort_before": {
+    "sha256": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+    "bytes_hex": "0000000100050000000001a1ad9347bd0000000000000000",
+    "embedded_ms": 1793913472957,
+    "embedded_utc": "2026-11-05T21:17:52.957000+00:00"
+  },
+  "final_global_after": {
+    "sha256": "743fa69cfb13ee6f6637a3186f784e9545fdf082b152cfc678e076c99a53b5a8",
+    "bytes_hex": "0000000100050000000001a1ad9347bd0000000000000000",
+    "embedded_ms": 1793913472957,
+    "embedded_utc": "2026-11-05T21:17:52.957000+00:00"
+  },
+  "round1_last_modern_cohort_record_written_utc": "2026-11-05T21:17:55.308959+00:00",
+  "round1_preservation_written_utc": "2026-11-05T21:51:03.682667+00:00",
+  "first_v5_cohort_owner_written_utc": "2026-11-05T22:19:44.075063+00:00",
+  "facts": "The marker is a 24-byte AndroidX ProfileInstaller record; bytes 8-16 hold a millisecond timestamp. The baseline value predates this slice. The first v5 cohort snapshot already holds the later value, which falls 3 s before the last round-1 modern cohort finished its restoration (which reinstalls the original APK). Every v5/v6 cohort restored to that later value.",
+  "inference": "The original app process started between the round-1 preservation pass and the first v5 cohort (not observed), and ProfileInstaller rewrote the marker to match the reinstall time. An install timestamp cannot be restored."
+}
