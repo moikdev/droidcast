@@ -1,0 +1,131 @@
+{
+  "api": 26,
+  "case": "activeMultilingualCompositionKeepsResultSelection",
+  "contract_completed": true,
+  "default_ime": "dev.tinycast.android.test/dev.tinycast.android.NativeInputTestIme",
+  "diagnostic_only": false,
+  "emoji_preferences_unchanged": true,
+  "font_scale": 2,
+  "input_setup": "Owned silent test IME plus explicit native InputConnection readiness/commit; no system-keyboard or physical-typing credit",
+  "observations": [
+    {
+      "kind": "controlled-input-ready",
+      "tag": "emoji-search",
+      "expected_text_length": 4,
+      "readiness_attempts": 1
+    },
+    {
+      "kind": "observation",
+      "stage": "explicitly-committed-emoji-search",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 4,
+      "selection_end": 4,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 35450781
+    },
+    {
+      "kind": "observation",
+      "stage": "active-japanese-composition",
+      "tag": "emoji-search",
+      "text_length": 3,
+      "text_sha256": "f22e589664a7450ca0686710eb046f65eff8b26741c1fb1a581ffdebe1edcaa7",
+      "text_prefix": "\u306b\u307b\u3093",
+      "plain_annotated_equal": false,
+      "span_styles": [
+        {
+          "start": 0,
+          "end": 3,
+          "decoration": "TextDecoration.Underline",
+          "style": "SpanStyle(color=Color(0.0, 0.0, 0.0, 0.0, None), brush=null, alpha=NaN, fontSize=Unspecified, fontWeight=null, fontStyle=null, fontSynthesis=null, fontFamily=null, fontFeatureSettings=null, letterSpacing=Unspecified, baselineShift=null, textGeometricTransform=null, localeList=null, background=Color(0.0, 0.0, 0.0, 0.0, None), textDecoration=TextDecoration.Underline, shadow=null, platformStyle=null, drawStyle=null)"
+        }
+      ],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 3,
+      "selection_end": 3,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        12395,
+        12411,
+        12435
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "\u306b\u307b\u3093",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 35450853
+    },
+    {
+      "kind": "direct-key",
+      "code": 22,
+      "action": 0,
+      "handled": true
+    },
+    {
+      "kind": "direct-key",
+      "code": 22,
+      "action": 1,
+      "handled": false
+    },
+    {
+      "kind": "observation",
+      "stage": "active-japanese-after-direct-navigation",
+      "tag": "emoji-search",
+      "text_length": 3,
+      "text_sha256": "f22e589664a7450ca0686710eb046f65eff8b26741c1fb1a581ffdebe1edcaa7",
+      "text_prefix": "\u306b\u307b\u3093",
+      "plain_annotated_equal": false,
+      "span_styles": [
+        {
+          "start": 0,
+          "end": 3,
+          "decoration": "TextDecoration.Underline",
+          "style": "SpanStyle(color=Color(0.0, 0.0, 0.0, 0.0, None), brush=null, alpha=NaN, fontSize=Unspecified, fontWeight=null, fontStyle=null, fontSynthesis=null, fontFamily=null, fontFeatureSettings=null, letterSpacing=Unspecified, baselineShift=null, textGeometricTransform=null, localeList=null, background=Color(0.0, 0.0, 0.0, 0.0, None), textDecoration=TextDecoration.Underline, shadow=null, platformStyle=null, drawStyle=null)"
+        }
+      ],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 3,
+      "selection_end": 3,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        12395,
+        12411,
+        12435
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "\u306b\u307b\u3093",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 35450856
+    }
+  ],
+  "palette_preferences_restored": true,
+  "scope": "Controlled active Japanese composition keeps direct native navigation with the editor, before and after composition publication"
+}

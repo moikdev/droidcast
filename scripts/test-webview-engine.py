@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Owned API26 rejection or API36 execution probes; retain recovery ownership on any restoration failure."""
+"""Owned API26/API36 engine or native-input probes; retain ownership on restoration failure."""
 from pathlib import Path, PurePosixPath
 import argparse
 import hashlib
@@ -27,6 +27,21 @@ CASES = {
                'closingBeforePreflightFinishesRejectsLatePublication',
                'bridgeCannotPublishOrReadHostApisBeforeApproval'],
 }
+INPUT_CASES = ['recordDefaultImeAndControlledCompositionNavigation',
+               'recordCallerSelectionAcrossNativeRoutes',
+               'recordLargeDraftTextAndAnnotationsAfterRecreation',
+               'recordSameTurnLauncherActivationTextAndAnnotations',
+               'recordInjectedTypingAndCommittedQueryNavigation',
+               'exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters',
+               'committedEmojiNavigationAndCaretAreExact',
+               'activeMultilingualCompositionKeepsResultSelection',
+               'committedCallerSelectionSurvivesIdleNativeRoutes',
+               'committedSameTurnLauncherActivationUsesCurrentNote',
+               'largeDraftRestoresExactCharactersAfterRecreation']
+CONTRACT_CASES = INPUT_CASES[5:]
+OWNED_IME = TEST + '/dev.tinycast.android.NativeInputTestIme'
+IME_SETTING_KEYS = ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype',
+                    'input_methods_subtype_history')
 
 
 def require(value, message):
@@ -84,17 +99,25 @@ def main():
     p.add_argument('--apk', type=Path, required=True)
     p.add_argument('--test-apk', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--cases', required=True, help='Comma-separated exact WebViewRecoveryDeviceTest methods')
+    p.add_argument('--cases', required=True, help='Comma-separated allowlisted methods from the selected suite')
+    p.add_argument('--suite', choices=['engine', 'native-input'], default='engine',
+                   help='Native-input reuses the same emulator ownership/restoration protocol without executing an extension')
+    p.add_argument('--input-mode', choices=['system', 'owned'], default='system',
+                   help='Controlled contracts require the silent test IME; system-IME diagnostics retain the current keyboard')
     p.add_argument('--font-scale', type=float, choices=[1, 2], default=1)
     p.add_argument('--layout', choices=['tablet', 'phone', 'landscape'], default='phone')
     p.add_argument('--expected-negative', action='store_true', help='Only the missing recovery assertion on the old app')
     a = p.parse_args()
     legacy = a.avd == 'Droidcast_WebView_API26_27caf3'
+    native_input = a.suite == 'native-input'
+    suite_class = 'dev.tinycast.android.NativeInputCompatibilityDeviceTest' if native_input else CLASS
     require(a.serial.startswith('emulator-') and a.avd in ('Droidcast_WebView_API26_27caf3', 'Tinycast_Tablet_API_36'), 'Use an explicitly owned AVD')
     methods = a.cases.split(',')
     require(len(methods) == len(set(methods)) and 1 <= len(methods) <= 7 and all(
-        name in CASES['shared'] + CASES['legacy' if legacy else 'modern'] for name in methods), 'Unsupported native cases')
-    require(not a.expected_negative or legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
+        name in (INPUT_CASES if native_input else CASES['shared'] + CASES['legacy' if legacy else 'modern']) for name in methods), 'Unsupported native cases')
+    require(not a.expected_negative or not native_input and legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
+    require(a.input_mode != 'owned' or native_input and all(name in CONTRACT_CASES for name in methods), 'Owned IME is limited to controlled native-input contracts')
+    require(not native_input or not any(name in CONTRACT_CASES for name in methods) or a.input_mode == 'owned', 'Controlled contracts require --input-mode owned')
     require(not legacy or a.layout == 'phone', 'Keep the actual API26 geometry unchanged')
     require(a.apk.is_file() and a.test_apk.is_file(), 'Both frozen APKs are required')
     sdk = os.environ.get('ANDROID_HOME') or next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
@@ -105,6 +128,14 @@ def main():
 
     def text(*args):
         return raw(*args).decode().strip()
+
+    def read_input_method_settings():
+        # One ADB round trip observes this settings group. Four separate remote
+        # sessions could exhaust the restoration deadline before confirmation.
+        values = raw('shell', 'for key in ' + ' '.join(IME_SETTING_KEYS) +
+                     '; do settings get secure "$key"; done', timeout=10).decode().splitlines()
+        require(len(values) == len(IME_SETTING_KEYS), 'Invalid grouped input method settings response')
+        return dict(zip(IME_SETTING_KEYS, values))
 
     def absent(path):
         # API26 run-as cannot exec toybox's `test` symlink. The shell builtin
@@ -145,15 +176,22 @@ def main():
     size = text('shell', 'wm', 'size'); density = text('shell', 'wm', 'density')
     require('Override' not in size + density, 'An existing geometry override has an owner')
     font = text('shell', 'settings', 'get', 'system', 'font_scale')
-    nonce = uuid.uuid4().hex; id = 'webview-engine-' + nonce
-    lease = 'files/webview-compatibility-lease'; evidence = 'files/webview-compatibility-evidence'
+    ime_settings = read_input_method_settings() if a.input_mode == 'owned' else None
+    if ime_settings:
+        require(re.fullmatch(r'[A-Za-z0-9_.]+/[A-Za-z0-9_.$]+', ime_settings['default_input_method']), 'A restorable original input method is required')
+        require(not any(OWNED_IME in value for value in ime_settings.values()), 'An existing owned IME activation/history has a recovery owner')
+    nonce = uuid.uuid4().hex; id = ('native-input-' if native_input else 'webview-engine-') + nonce
+    lease = 'files/native-input-lease' if native_input else 'files/webview-compatibility-lease'
+    evidence = 'files/native-input-evidence' if native_input else 'files/webview-compatibility-evidence'
     root = 'files/extensions/' + id
-    owner = {'kind': 'webview-compatibility-v1', 'nonce': nonce, 'extension_id': id, 'fresh_disposable_avd': legacy}
+    owner = {'kind': 'native-input-v1' if native_input else 'webview-compatibility-v1', 'nonce': nonce, 'extension_id': id, 'fresh_disposable_avd': legacy}
+    if native_input:
+        owner['input_mode'] = a.input_mode
     owned = [root, 'cache/' + id, 'files/extension-data/' + id, 'shared_prefs/extension-' + id + '.xml',
              'shared_prefs/extension-' + id + '.xml.bak', evidence]
     if not legacy:
         require(not text('shell', 'run-as', APP, 'id').startswith(('uid=0(', 'uid=1000(', 'uid=2000(')), 'The app must remain unprivileged')
-        for path in [lease, evidence, 'files/reviewed-text-fixture-lease', 'files/empty-view-fixture-lease'] + owned[:5]:
+        for path in [lease, evidence, 'files/webview-compatibility-lease', 'files/native-input-lease', 'files/reviewed-text-fixture-lease', 'files/empty-view-fixture-lease'] + owned[:5]:
             require(absent(path), 'A prior recovery owner/path remains: ' + path)
     a.output.mkdir(parents=True, exist_ok=False, mode=0o700)
     (a.output / 'private-owner.json').write_text(json.dumps(owner)); (a.output / 'private-owner.json').chmod(0o600)
@@ -162,11 +200,16 @@ def main():
          'api': 26 if legacy else 36, 'font_scale': a.font_scale, 'layout': a.layout, 'cleanup': {},
          'provider_before': [line.strip() for line in text('shell', 'dumpsys', 'webviewupdate').splitlines() if 'Current WebView package' in line],
          'original_geometry': {'size': size, 'density': density}, 'original_font_scale': font}
+    r['suite'] = a.suite
+    r['input_mode'] = a.input_mode
+    if ime_settings:
+        path = a.output / 'private-ime-settings.json'; path.write_text(json.dumps(ime_settings)); path.chmod(0o600)
+        r['ime_restoration_scope'] = 'Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement'
     def save():
         (a.output / 'record.json').write_text(json.dumps(r, indent=2) + '\n')
     save()
     before = {}; originals = {}; palette = None; original_profile = None
-    lease_claimed = False; installed = []
+    lease_claimed = False; installed = []; ime_activation_attempted = False
     def claim():
         # A never-launched fresh installation has no files directory yet.
         raw('shell', 'run-as', APP, 'mkdir', '-p', 'files')
@@ -174,6 +217,9 @@ def main():
         raw('shell', 'run-as', APP, 'tee', lease + '/owner.json', data=json.dumps(owner).encode())
     def verify_owner():
         require(json.loads(raw('exec-out', 'run-as', APP, 'cat', lease + '/owner.json')) == owner, 'Recovery owner changed')
+    def verify_input_method():
+        require(read_input_method_settings() == ime_settings,
+                'Original input method settings changed after test APK restoration')
     if not legacy:
         claim(); lease_claimed = True
         for pkg in (TEST, APP):
@@ -196,16 +242,24 @@ def main():
             require(sha(raw('exec-out', 'cat', text('shell', 'pm', 'path', pkg).removeprefix('package:'))) == sha(apk.read_bytes()), 'Installed APK differs')
         if legacy:
             claim(); lease_claimed = True
-        raw('shell', 'run-as', APP, 'mkdir', '-p', root)
+        if ime_settings:
+            ime_activation_attempted = True
+            raw('shell', 'ime', 'enable', OWNED_IME)
+            raw('shell', 'ime', 'set', OWNED_IME)
+            require(text('shell', 'settings', 'get', 'secure', 'default_input_method') == OWNED_IME, 'Owned IME was not selected')
+        if not native_input:
+            raw('shell', 'run-as', APP, 'mkdir', '-p', root)
         r['fixture_sha256'] = {}
-        for name, data in fixture(id).items():
+        for name, data in ({} if native_input else fixture(id)).items():
             raw('shell', 'run-as', APP, 'tee', root + '/' + name, data=data); r['fixture_sha256'][name] = sha(data)
         if not legacy and a.layout != 'tablet':
             raw('shell', 'wm', 'size', '1080x2340' if a.layout == 'phone' else '2340x1080'); raw('shell', 'wm', 'density', '420')
         raw('shell', 'settings', 'put', 'system', 'font_scale', str(a.font_scale))
         save()
-        command = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'webViewFixture', 'true', '-e', 'webViewOwner', nonce,
-                   '-e', 'class', ','.join(CLASS + '#' + name for name in methods), TEST + '/androidx.test.runner.AndroidJUnitRunner']
+        command = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'nativeInputFixture' if native_input else 'webViewFixture', 'true',
+                   '-e', 'nativeInputOwner' if native_input else 'webViewOwner', nonce,
+                   '-e', 'nativeInputMode', a.input_mode,
+                   '-e', 'class', ','.join(suite_class + '#' + name for name in methods), TEST + '/androidx.test.runner.AndroidJUnitRunner']
         with (a.output / 'tests.log').open('xb') as log:
             result = subprocess.run(adb + command, stdout=log, stderr=subprocess.STDOUT, timeout=90 * len(methods))
         r['instrumentation_exit_code'] = result.returncode
@@ -233,6 +287,33 @@ def main():
                 require('ActiveInstrumentation{' not in text('shell', 'dumpsys', 'activity', 'processes'), 'Do not restore under active instrumentation')
                 verify_owner()
             c.attempt('idle-owned-instrumentation', idle_owner)
+            if not c.errors and ime_activation_attempted:
+                def restore_input_method():
+                    verify_owner()
+                    raw('shell', 'ime', 'set', shlex.quote(ime_settings['default_input_method']))
+                    raw('shell', 'ime', 'disable', OWNED_IME)
+                    deadline = time.monotonic() + 5
+                    stable = None
+                    samples = r.setdefault('ime_restore_observations', [])
+                    while time.monotonic() < deadline:
+                        started = time.monotonic()
+                        current = read_input_method_settings()
+                        observed = time.monotonic()
+                        samples.append({'query_ms': round((observed - started) * 1000),
+                                        'all_raw_fields_equal': current == ime_settings})
+                        if current == ime_settings:
+                            if stable is None:
+                                stable = observed
+                            if observed - stable >= .5:
+                                return
+                        else:
+                            stable = None
+                            for key, value in ime_settings.items():
+                                if current[key] != value:
+                                    raw('shell', 'settings', 'delete', 'secure', key) if value == 'null' else raw('shell', 'settings', 'put', 'secure', key, shlex.quote(value))
+                        time.sleep(.1)
+                    require(False, 'Original raw input method settings did not settle')
+                c.attempt('restore-input-method-before-test-apk-stop', restore_input_method)
             if not c.errors:
                 for pkg in (TEST, APP):
                     c.attempt('stop-' + pkg, lambda pkg=pkg: raw('shell', 'am', 'force-stop', pkg))
@@ -280,13 +361,18 @@ def main():
                     if legacy:
                         # The app lease stays held until PackageManager removes
                         # the entire owned app. Host journal stays for verification.
-                        for pkg in (TEST, APP):
-                            c.attempt('restore-absence-' + pkg, lambda pkg=pkg: raw('uninstall', pkg))
-                        c.attempt('verify-initial-package-absence', lambda: require(all(not package_path(pkg) for pkg in (APP, TEST)), 'A package remains'))
+                        c.attempt('restore-absence-' + TEST, lambda: raw('uninstall', TEST))
+                        if not c.errors and ime_activation_attempted:
+                            c.attempt('verify-input-method-after-test-apk-removal', verify_input_method)
+                        if not c.errors:
+                            c.attempt('restore-absence-' + APP, lambda: raw('uninstall', APP))
+                            c.attempt('verify-initial-package-absence', lambda: require(all(not package_path(pkg) for pkg in (APP, TEST)), 'A package remains'))
                     else:
                         for pkg, (path, expected) in originals.items():
                             c.attempt('restore-binary-' + pkg, lambda path=path: raw('install', '-r', '-t', str(path), timeout=120))
                             c.attempt('verify-binary-' + pkg, lambda pkg=pkg, expected=expected: require(sha(raw('exec-out', 'cat', text('shell', 'pm', 'path', pkg).removeprefix('package:'))) == expected, 'Original binary differs'))
+                        if not c.errors and ime_activation_attempted:
+                            c.attempt('verify-input-method-after-original-apks', verify_input_method)
                         if not c.errors:
                             verify_owner()
                             # Final device operation: no restoration runs after release.

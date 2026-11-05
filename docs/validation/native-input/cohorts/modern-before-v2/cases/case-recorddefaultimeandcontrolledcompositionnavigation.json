@@ -1,0 +1,353 @@
+{
+  "api": 36,
+  "case": "recordDefaultImeAndControlledCompositionNavigation",
+  "default_ime": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+  "diagnostic_completed": true,
+  "diagnostic_only": true,
+  "emoji_preferences_unchanged": true,
+  "font_scale": 1,
+  "observations": [
+    {
+      "kind": "observation",
+      "stage": "default-ime-after-semantic-replacement",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 4,
+      "selection_end": 4,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 128253594
+    },
+    {
+      "kind": "injected-key",
+      "code": 22,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 22,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "observation",
+      "stage": "default-after-injected-right",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 4,
+      "selection_end": 4,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 1,
+      "ime_accepting_text": true,
+      "uptime_ms": 128254817
+    },
+    {
+      "kind": "window-key",
+      "code": 111,
+      "action": 0,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": true,
+      "uptime_ms": 128254875
+    },
+    {
+      "kind": "injected-key",
+      "code": 111,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 111,
+      "action": 1,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": false,
+      "uptime_ms": 128254995
+    },
+    {
+      "kind": "injected-key",
+      "code": 111,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "observation",
+      "stage": "default-after-injected-escape",
+      "tag": "emoji-search",
+      "text_length": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_prefix": "",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 0,
+      "selection_end": 0,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 128255190
+    },
+    {
+      "kind": "direct-key",
+      "code": 111,
+      "action": 0,
+      "handled": true
+    },
+    {
+      "kind": "direct-key",
+      "code": 111,
+      "action": 1,
+      "handled": false
+    },
+    {
+      "kind": "controlled-input-connection-created",
+      "input_type": 32769,
+      "ime_options": 33554435,
+      "initial_selection_start": 4,
+      "initial_selection_end": 4
+    },
+    {
+      "kind": "observation",
+      "stage": "controlled-finish-composition",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 4,
+      "selection_end": 4,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 128255846
+    },
+    {
+      "kind": "injected-key",
+      "code": 22,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 22,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "observation",
+      "stage": "controlled-after-injected-right",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 4,
+      "selection_end": 4,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 1,
+      "ime_accepting_text": true,
+      "uptime_ms": 128255997
+    },
+    {
+      "kind": "injected-key",
+      "code": 20,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 20,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "observation",
+      "stage": "controlled-after-injected-down",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 4,
+      "selection_end": 4,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 11,
+      "ime_accepting_text": true,
+      "uptime_ms": 128256265
+    },
+    {
+      "kind": "observation",
+      "stage": "controlled-japanese-composition",
+      "tag": "emoji-search",
+      "text_length": 3,
+      "text_sha256": "f22e589664a7450ca0686710eb046f65eff8b26741c1fb1a581ffdebe1edcaa7",
+      "text_prefix": "\u306b\u307b\u3093",
+      "plain_annotated_equal": false,
+      "span_styles": [
+        {
+          "start": 0,
+          "end": 3,
+          "decoration": "TextDecoration.Underline",
+          "style": "SpanStyle(color=Color(0.0, 0.0, 0.0, 0.0, None), brush=null, alpha=NaN, fontSize=Unspecified, fontWeight=null, fontStyle=null, fontSynthesis=null, fontFamily=null, fontFeatureSettings=null, letterSpacing=Unspecified, baselineShift=null, textGeometricTransform=null, localeList=null, background=Color(0.0, 0.0, 0.0, 0.0, None), textDecoration=TextDecoration.Underline, shadow=null, platformStyle=null, drawStyle=null)"
+        }
+      ],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 3,
+      "selection_end": 3,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        12395,
+        12411,
+        12435
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "\u306b\u307b\u3093",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 128257187
+    },
+    {
+      "kind": "direct-key",
+      "code": 22,
+      "action": 0,
+      "handled": true
+    },
+    {
+      "kind": "direct-key",
+      "code": 22,
+      "action": 1,
+      "handled": false
+    },
+    {
+      "kind": "observation",
+      "stage": "japanese-after-direct-right",
+      "tag": "emoji-search",
+      "text_length": 3,
+      "text_sha256": "f22e589664a7450ca0686710eb046f65eff8b26741c1fb1a581ffdebe1edcaa7",
+      "text_prefix": "\u306b\u307b\u3093",
+      "plain_annotated_equal": false,
+      "span_styles": [
+        {
+          "start": 0,
+          "end": 3,
+          "decoration": "TextDecoration.Underline",
+          "style": "SpanStyle(color=Color(0.0, 0.0, 0.0, 0.0, None), brush=null, alpha=NaN, fontSize=Unspecified, fontWeight=null, fontStyle=null, fontSynthesis=null, fontFamily=null, fontFeatureSettings=null, letterSpacing=Unspecified, baselineShift=null, textGeometricTransform=null, localeList=null, background=Color(0.0, 0.0, 0.0, 0.0, None), textDecoration=TextDecoration.Underline, shadow=null, platformStyle=null, drawStyle=null)"
+        }
+      ],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 3,
+      "selection_end": 3,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        12395,
+        12411,
+        12435
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "\u306b\u307b\u3093",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 128257218
+    }
+  ],
+  "palette_preferences_restored": true,
+  "scope": "Owned native input observations; semantic/model setup and injected keys are not physical typing; no clipboard or extension execution"
+}

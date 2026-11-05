@@ -1,0 +1,86 @@
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.NativeInputCompatibilityDeviceTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+Error in exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters(dev.tinycast.android.NativeInputCompatibilityDeviceTest):
+java.lang.AssertionError: Exact character matcher must accept the composing title
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters$lambda$38$lambda$36$lambda$35(NativeInputCompatibilityDeviceTest.kt:320)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.ui$lambda$1(NativeInputCompatibilityDeviceTest.kt:53)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda41.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)
+	at android.os.Handler.handleCallback(Handler.java:789)
+	at android.os.Handler.dispatchMessage(Handler.java:98)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6541)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Exact character matcher must accept the composing title
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters$lambda$38$lambda$36$lambda$35(NativeInputCompatibilityDeviceTest.kt:320)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.ui$lambda$1(NativeInputCompatibilityDeviceTest.kt:53)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda41.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)
+	at android.os.Handler.handleCallback(Handler.java:789)
+	at android.os.Handler.dispatchMessage(Handler.java:98)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6541)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.058
+There was 1 failure:
+1) exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters(dev.tinycast.android.NativeInputCompatibilityDeviceTest)
+java.lang.AssertionError: Exact character matcher must accept the composing title
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters$lambda$38$lambda$36$lambda$35(NativeInputCompatibilityDeviceTest.kt:320)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.ui$lambda$1(NativeInputCompatibilityDeviceTest.kt:53)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda41.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)
+	at android.os.Handler.handleCallback(Handler.java:789)
+	at android.os.Handler.dispatchMessage(Handler.java:98)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6541)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

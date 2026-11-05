@@ -1,0 +1,64 @@
+{
+  "api": 26,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-initial-package-absence": {
+      "passed": true
+    }
+  },
+  "completed": false,
+  "expected_negative": false,
+  "failures": 2,
+  "fixture_sha256": {},
+  "font_scale": 1.0,
+  "initialization_error": false,
+  "instrumentation_exit_code": 0,
+  "layout": "phone",
+  "methods": [
+    "recordDefaultImeAndControlledCompositionNavigation",
+    "recordCallerSelectionAcrossNativeRoutes",
+    "recordLargeDraftTextAndAnnotationsAfterRecreation",
+    "recordSameTurnLauncherActivationTextAndAnnotations",
+    "recordInjectedTypingAndCommittedQueryNavigation"
+  ],
+  "native_expected_outcome": false,
+  "original_font_scale": "null",
+  "original_geometry": {
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  },
+  "passes": 3,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 58.0.3029.125)"
+  ],
+  "runner_sha256": "a9e45755143efc91340a8bd0a9d8b75d0fd54d5a51cb06f50446c5e7c5378ba0",
+  "suite": "native-input",
+  "test_apk_sha256": "be1d64e7f6874911b8a57459f7970f04a38bdb5c04ba9a3151481f6dbd664df8"
+}

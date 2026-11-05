@@ -2,6 +2,7 @@ import importlib.util
 import io
 from pathlib import Path
 import sys
+import subprocess
 import tarfile
 import unittest
 
@@ -13,6 +14,34 @@ spec.loader.exec_module(runner)
 
 
 class WebViewRunnerTests(unittest.TestCase):
+    def rejected_suite(self, suite, method, extra=()):
+        result = subprocess.run([sys.executable, str(ROOT / 'test-webview-engine.py'),
+            '--serial', 'emulator-5598', '--avd', 'Droidcast_WebView_API26_27caf3',
+            '--apk', '/unused-app.apk', '--test-apk', '/unused-test.apk', '--output', '/unused-output',
+            '--suite', suite, '--cases', method, *extra], capture_output=True, text=True)
+        self.assertNotEqual(0, result.returncode)
+        self.assertNotIn('Both frozen APKs are required', result.stderr)
+        self.assertNotIn('FileNotFoundError', result.stderr)
+        return result.stderr
+
+    def test_native_suite_cannot_select_engine_cases(self):
+        self.assertIn('Unsupported native cases', self.rejected_suite('native-input', 'incompatibleEngineShowsNativeRecoveryWithoutDispatch'))
+
+    def test_default_engine_suite_cannot_select_native_input_cases(self):
+        self.assertIn('Unsupported native cases', self.rejected_suite('engine', 'recordCallerSelectionAcrossNativeRoutes'))
+
+    def test_engine_negative_classifier_cannot_certify_native_input_diagnostics(self):
+        self.assertIn('Negative control is limited', self.rejected_suite('native-input', 'recordDefaultImeAndControlledCompositionNavigation', ['--expected-negative']))
+
+    def test_controlled_contracts_require_owned_ime(self):
+        self.assertIn('Controlled contracts require', self.rejected_suite('native-input', 'exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters'))
+
+    def test_system_ime_diagnostics_cannot_use_owned_ime(self):
+        self.assertIn('Owned IME is limited', self.rejected_suite('native-input', 'recordCallerSelectionAcrossNativeRoutes', ['--input-mode', 'owned']))
+
+    def test_engine_suite_cannot_change_input_method(self):
+        self.assertIn('Owned IME is limited', self.rejected_suite('engine', 'incompatibleEngineShowsNativeRecoveryWithoutDispatch', ['--input-mode', 'owned']))
+
     def test_package_absence_uses_exact_successful_inventory(self):
         self.assertFalse(runner.listed_package_presence('', 'dev.tinycast.android'))
         self.assertFalse(runner.listed_package_presence('package:dev.tinycast.android.test\n', 'dev.tinycast.android'))

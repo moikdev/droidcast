@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionMarkdownModelTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-05T10:46:50.399Z" hostname="MacBook-Pro-2.local" time="0.127">
+  <properties/>
+  <testcase name="cancellationAfterParserLimitIsNotConvertedToAnUnavailableDocument" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.035"/>
+  <testcase name="referenceLinksResolveWithoutChangingTargetsOrTitles" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.005"/>
+  <testcase name="oversizedSourcesAndNodeCountsDoNotProducePartialDocuments" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.04"/>
+  <testcase name="tableCellBudgetAllowsItsBoundaryAndRejectsTheNextPaddedRow" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.02"/>
+  <testcase name="numericLineFeedsStayTextWhileExplicitBreaksAndCodeKeepTheirLines" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.007"/>
+  <testcase name="quotesAndDividersRemainSeparateBlocks" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.0"/>
+  <testcase name="fencedAndIndentedCodeKeepSpacesTabsAndBlankLines" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.001"/>
+  <testcase name="nestedListsPreserveStartingNumberAndParagraphs" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.003"/>
+  <testcase name="cancellationIsObservedBeforeParsing" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.0"/>
+  <testcase name="compactPaddedTableLimitBecomesAnUnavailableDocument" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.006"/>
+  <testcase name="escapesEntitiesAndLineBreaksFollowCommonMark" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.001"/>
+  <testcase name="tablesKeepHeaderAlignmentCodeAndCellValues" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.001"/>
+  <testcase name="headingAndNestedMarksKeepUnicodeAndCombiningText" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.002"/>
+  <testcase name="inlineCodeKeepsItsOwnWhitespaceAndMarks" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.0"/>
+  <testcase name="linkedImagesPreserveAlternativeAndRenderParameters" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.003"/>
+  <testcase name="strikeAndRawHtmlNeverBecomeExecutableMarkup" classname="dev.tinycast.android.ExtensionMarkdownModelTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

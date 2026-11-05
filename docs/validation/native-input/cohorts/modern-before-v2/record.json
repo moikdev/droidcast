@@ -1,0 +1,80 @@
+{
+  "api": 36,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "completed": false,
+  "expected_negative": false,
+  "failures": 1,
+  "fixture_sha256": {},
+  "font_scale": 1.0,
+  "initialization_error": false,
+  "instrumentation_exit_code": 0,
+  "layout": "tablet",
+  "methods": [
+    "recordDefaultImeAndControlledCompositionNavigation",
+    "recordCallerSelectionAcrossNativeRoutes",
+    "recordLargeDraftTextAndAnnotationsAfterRecreation",
+    "recordSameTurnLauncherActivationTextAndAnnotations",
+    "recordInjectedTypingAndCommittedQueryNavigation"
+  ],
+  "native_expected_outcome": false,
+  "original_font_scale": "1.0",
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "passes": 4,
+  "preserved_file_count": 573,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "runner_sha256": "a9e45755143efc91340a8bd0a9d8b75d0fd54d5a51cb06f50446c5e7c5378ba0",
+  "suite": "native-input",
+  "test_apk_sha256": "be1d64e7f6874911b8a57459f7970f04a38bdb5c04ba9a3151481f6dbd664df8"
+}

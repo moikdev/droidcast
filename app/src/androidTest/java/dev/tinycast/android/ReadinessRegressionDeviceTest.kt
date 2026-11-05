@@ -6,7 +6,6 @@ import android.content.Context
 import android.view.KeyEvent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -64,7 +63,7 @@ class ReadinessRegressionDeviceTest {
         assertTrue(device.takeScreenshot(File(directory,"$name.png")))
     }
     private fun editable(tag: String, value: String) {
-        compose.onNodeWithTag(tag).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)))
+        compose.onNodeWithTag(tag).assert(editableCharactersExactly(value))
     }
     private fun checkWithCapture(name: String, assertion: () -> Unit) {
         try { assertion(); capture(name) } catch (failure: Throwable) { capture("$name-failed"); throw failure }

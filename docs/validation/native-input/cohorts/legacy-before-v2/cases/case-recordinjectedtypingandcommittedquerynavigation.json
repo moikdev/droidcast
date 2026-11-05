@@ -1,0 +1,104 @@
+{
+  "api": 26,
+  "case": "recordInjectedTypingAndCommittedQueryNavigation",
+  "default_ime": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+  "diagnostic_only": true,
+  "emoji_preferences_unchanged": true,
+  "font_scale": 1,
+  "observations": [
+    {
+      "kind": "injected-key",
+      "code": 34,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 34,
+      "action": 1,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": false,
+      "uptime_ms": 31587066
+    },
+    {
+      "kind": "injected-key",
+      "code": 34,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 29,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 29,
+      "action": 1,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": false,
+      "uptime_ms": 31587737
+    },
+    {
+      "kind": "injected-key",
+      "code": 29,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 31,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 31,
+      "action": 1,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": false,
+      "uptime_ms": 31587847
+    },
+    {
+      "kind": "injected-key",
+      "code": 31,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 33,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 33,
+      "action": 1,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": false,
+      "uptime_ms": 31588054
+    },
+    {
+      "kind": "injected-key",
+      "code": 33,
+      "action": 1,
+      "accepted": true
+    }
+  ],
+  "palette_preferences_restored": true,
+  "scope": "Owned native input observations; semantic/model setup and injected keys are not physical typing; no clipboard or extension execution"
+}

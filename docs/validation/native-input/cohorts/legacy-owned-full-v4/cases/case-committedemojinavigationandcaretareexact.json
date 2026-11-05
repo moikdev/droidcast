@@ -1,0 +1,218 @@
+{
+  "api": 26,
+  "case": "committedEmojiNavigationAndCaretAreExact",
+  "contract_completed": true,
+  "default_ime": "dev.tinycast.android.test/dev.tinycast.android.NativeInputTestIme",
+  "diagnostic_only": false,
+  "emoji_preferences_unchanged": true,
+  "font_scale": 1,
+  "input_setup": "Owned silent test IME plus explicit native InputConnection readiness/commit; no system-keyboard or physical-typing credit",
+  "observations": [
+    {
+      "kind": "controlled-input-ready",
+      "tag": "emoji-search",
+      "expected_text_length": 4,
+      "readiness_attempts": 1
+    },
+    {
+      "kind": "observation",
+      "stage": "explicitly-committed-emoji-search",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 4,
+      "selection_end": 4,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 33841541
+    },
+    {
+      "kind": "injected-key",
+      "code": 22,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 22,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 20,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 20,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 21,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 21,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 19,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 19,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 123,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 123,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 122,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "injected-key",
+      "code": 122,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 40,
+      "action": 0,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": true,
+      "uptime_ms": 33844630
+    },
+    {
+      "kind": "injected-key",
+      "code": 40,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 40,
+      "action": 1,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": false,
+      "uptime_ms": 33844634
+    },
+    {
+      "kind": "injected-key",
+      "code": 40,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 21,
+      "action": 0,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": true,
+      "uptime_ms": 33844658
+    },
+    {
+      "kind": "injected-key",
+      "code": 21,
+      "action": 0,
+      "accepted": true
+    },
+    {
+      "kind": "window-key",
+      "code": 21,
+      "action": 1,
+      "flags": 0,
+      "source": 257,
+      "device": -1,
+      "repeat": 0,
+      "handled": false,
+      "uptime_ms": 33844661
+    },
+    {
+      "kind": "injected-key",
+      "code": 21,
+      "action": 1,
+      "accepted": true
+    },
+    {
+      "kind": "observation",
+      "stage": "committed-query-selected-range",
+      "tag": "emoji-search",
+      "text_length": 4,
+      "text_sha256": "0282d9b79f42c74c1550b20ff2dd16aafc3fe5d8ae9a00b2f66996d0ae882775",
+      "text_prefix": "face",
+      "plain_annotated_equal": true,
+      "span_styles": [],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 0,
+      "selection_end": 2,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        102,
+        97,
+        99,
+        101
+      ],
+      "route": "emoji",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "face",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 33844858
+    }
+  ],
+  "palette_preferences_restored": true,
+  "scope": "Explicitly committed Emoji query supports injected grid navigation, exact caret and selected range"
+}

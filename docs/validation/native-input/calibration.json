@@ -1,0 +1,12 @@
+{
+  "completed": true,
+  "scope": "Two intended strict-annotation failures, zero JUnit passes; both positive-only runner receipts remain failed; all restoration checks succeed",
+  "cohorts": {
+    "legacy-strict": "legacy-strict-control-v3",
+    "tablet-strict": "modern-strict-control-v3"
+  },
+  "test_payload_delta": [
+    "classes3.dex"
+  ],
+  "production_app_unchanged": true
+}

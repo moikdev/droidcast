@@ -1,0 +1,56 @@
+{
+  "api": 26,
+  "case": "recordSameTurnLauncherActivationTextAndAnnotations",
+  "default_ime": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+  "diagnostic_only": true,
+  "emoji_preferences_unchanged": true,
+  "expected_note_id": "notes:e36a926f-309a-4694-b29b-5f42ee284731",
+  "font_scale": 1,
+  "observations": [
+    {
+      "kind": "observation",
+      "stage": "before-same-turn-navigation",
+      "tag": "search",
+      "text_length": 11,
+      "text_sha256": "abae325470b759339986262e173907c559743e8c35f5771d8de64a42b3c07ebc",
+      "text_prefix": "Owned rapid",
+      "plain_annotated_equal": false,
+      "span_styles": [
+        {
+          "start": 6,
+          "end": 11,
+          "decoration": "TextDecoration.Underline",
+          "style": "SpanStyle(color=Color(0.0, 0.0, 0.0, 0.0, None), brush=null, alpha=NaN, fontSize=Unspecified, fontWeight=null, fontStyle=null, fontSynthesis=null, fontFamily=null, fontFeatureSettings=null, letterSpacing=Unspecified, baselineShift=null, textGeometricTransform=null, localeList=null, background=Color(0.0, 0.0, 0.0, 0.0, None), textDecoration=TextDecoration.Underline, shadow=null, platformStyle=null, drawStyle=null)"
+        }
+      ],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 11,
+      "selection_end": 11,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        79,
+        119,
+        110,
+        101,
+        100,
+        32,
+        114,
+        97,
+        112,
+        105,
+        100
+      ],
+      "route": null,
+      "window_focus": true,
+      "query": "Owned rapid",
+      "emoji_query": "",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 31599676
+    }
+  ],
+  "palette_preferences_restored": true,
+  "scope": "Owned native input observations; semantic/model setup and injected keys are not physical typing; no clipboard or extension execution"
+}

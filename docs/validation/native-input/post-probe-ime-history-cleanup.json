@@ -1,0 +1,17 @@
+{
+  "scope": "Remove only the newly created owned test-IME history component after the first probes; original pre-probe history was not snapshotted and is not certified",
+  "rows": [
+    {
+      "device": "legacy",
+      "owned_entries_removed": 1,
+      "other_current_entries_preserved": true,
+      "original_pre_probe_history_identity_certified": false
+    },
+    {
+      "device": "modern",
+      "owned_entries_removed": 1,
+      "other_current_entries_preserved": true,
+      "original_pre_probe_history_identity_certified": false
+    }
+  ]
+}
