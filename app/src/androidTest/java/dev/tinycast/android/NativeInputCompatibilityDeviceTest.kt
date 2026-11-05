@@ -194,14 +194,7 @@ class NativeInputCompatibilityDeviceTest {
     }
 
     @Test fun recordSameTurnLauncherActivationTextAndAnnotations() {
-        ui {
-            it.store.save("notes", "Owned rapid Alpha", "Owned first body")
-            it.store.save("notes", "Owned rapid Bravo", "Owned second body")
-            it.store.filter("Notes"); it.store.search("Owned rapid")
-        }
-        compose.onNodeWithTag("search").assertIsFocused()
-        val rows = compose.activity.store.results()
-        assertEquals(2, rows.size)
+        val rows = ownedNotes()
         observe("before-same-turn-navigation", "search")
         ui { activity ->
             val down = SystemClock.uptimeMillis()
@@ -286,13 +279,17 @@ class NativeInputCompatibilityDeviceTest {
     }
 
     private fun ownedNotes(): List<Command> {
+        val ids = mutableSetOf<String>()
         ui {
-            it.store.save("notes", "Owned rapid Alpha", "Owned first body")
-            it.store.save("notes", "Owned rapid Bravo", "Owned second body")
+            ids += it.store.save("notes", "Owned rapid Alpha", "Owned first body")
+            ids += it.store.save("notes", "Owned rapid Bravo", "Owned second body")
             it.store.filter("Notes"); it.store.search("Owned rapid")
         }
         compose.onNodeWithTag("search").assertIsFocused()
-        return compose.activity.store.results().also { assertEquals(2, it.size) }
+        return compose.activity.store.results().also { rows ->
+            assertEquals(2, rows.size)
+            assertEquals("Only this fixture's saved IDs may be observed", ids, rows.map { it.id }.toSet())
+        }
     }
 
     @Test fun exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters() {
@@ -415,6 +412,11 @@ class NativeInputCompatibilityDeviceTest {
     @Test fun committedSameTurnLauncherActivationUsesCurrentNote() {
         contract("Explicitly committed owned launcher query opens the second note on Down/Enter within one main-thread turn")
         val rows = ownedNotes()
+        val expectedBody = when (rows[1].title) {
+            "Owned rapid Alpha" -> "Owned first body"
+            "Owned rapid Bravo" -> "Owned second body"
+            else -> error("Unexpected owned note title")
+        }
         withControlledInput("search", "Owned rapid") { connection ->
             committed("search", "Owned rapid", connection)
             ui { activity ->
@@ -428,7 +430,7 @@ class NativeInputCompatibilityDeviceTest {
             }
         }
         compose.onNodeWithTag("editor-title").assert(editableCharactersExactly(rows[1].title))
-        compose.onNodeWithTag("editor-body").assert(editableCharactersExactly("Owned second body"))
+        compose.onNodeWithTag("editor-body").assert(editableCharactersExactly(expectedBody))
         observe("same-turn-exact-title", "editor-title"); capture("same-turn-current-note")
         record.put("contract_completed", true)
     }
