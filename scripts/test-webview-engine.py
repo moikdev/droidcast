@@ -29,7 +29,9 @@ CASES = {
 }
 INPUT_CASES = ['recordDefaultImeAndControlledCompositionNavigation',
                'recordCallerSelectionAcrossNativeRoutes',
-               'recordLargeDraftTextAndAnnotationsAfterRecreation']
+               'recordLargeDraftTextAndAnnotationsAfterRecreation',
+               'recordSameTurnLauncherActivationTextAndAnnotations',
+               'recordInjectedTypingAndCommittedQueryNavigation']
 
 
 def require(value, message):

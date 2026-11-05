@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -119,10 +120,10 @@ class NativeInputCompatibilityDeviceTest {
             .put("scope", record.getString("scope")).toString(2))
     }
 
-    private fun key(code: Int, direct: Boolean) {
+    private fun key(code: Int, direct: Boolean, meta: Int = 0) {
         val down = SystemClock.uptimeMillis()
         for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
-            val event = KeyEvent(down, SystemClock.uptimeMillis(), action, code, 0, 0,
+            val event = KeyEvent(down, SystemClock.uptimeMillis(), action, code, 0, meta,
                 KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD)
             if (direct) ui { trace.put(JSONObject().put("kind", "direct-key").put("code", code)
                 .put("action", action).put("handled", it.dispatchKeyEvent(event))) }
@@ -173,6 +174,10 @@ class NativeInputCompatibilityDeviceTest {
         observe("before-updates-route", "search")
         ui { it.store.dialog = "updates" }
         capture("updates-route-idle")
+        compose.onNodeWithTag("palette-screen").performSemanticsAction(SemanticsActions.RequestFocus)
+        compose.onNodeWithTag("palette-screen").assertIsFocused()
+        record.put("updates_root_focus_requested_before_return", true)
+        capture("updates-route-focused")
         compose.onNodeWithTag("inline-back").performTouchInput { click(center) }
         observe("after-updates-return", "search"); capture("updates-caller")
         compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 8))
@@ -184,6 +189,60 @@ class NativeInputCompatibilityDeviceTest {
         record.put("updates_scope", "Idle native Updates route, no public check/download/install requested")
             .put("selection_setup", "Semantic selection action; not physical selection")
             .put("diagnostic_completed", true)
+    }
+
+    @Test fun recordSameTurnLauncherActivationTextAndAnnotations() {
+        ui {
+            it.store.save("notes", "Owned rapid Alpha", "Owned first body")
+            it.store.save("notes", "Owned rapid Bravo", "Owned second body")
+            it.store.filter("Notes"); it.store.search("Owned rapid")
+        }
+        compose.onNodeWithTag("search").assertIsFocused()
+        val rows = compose.activity.store.results()
+        assertEquals(2, rows.size)
+        observe("before-same-turn-navigation", "search")
+        ui { activity ->
+            val down = SystemClock.uptimeMillis()
+            for (code in listOf(KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_ENTER)) {
+                for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
+                    activity.dispatchKeyEvent(KeyEvent(down, down, action, code, 0, 0,
+                        KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD))
+                }
+            }
+            record.put("expected_note_id", rows[1].id).put("actual_note_id", activity.store.editing?.id)
+        }
+        observe("same-turn-destination-title", "editor-title")
+        val title = compose.onNodeWithTag("editor-title").fetchSemanticsNode().config[SemanticsProperties.EditableText]
+        record.put("title_plain_exact", title.text == rows[1].title)
+            .put("title_annotated_exact", title == AnnotatedString(rows[1].title))
+            .put("diagnostic_completed", true)
+        capture("same-turn-destination")
+    }
+
+    @Test fun recordInjectedTypingAndCommittedQueryNavigation() {
+        ui { it.execute(Command("emoji", "Emoji & Symbols", "")) }
+        for (code in listOf(KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_A, KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_E)) {
+            key(code, false); compose.waitForIdle()
+        }
+        compose.waitUntil(5000) {
+            compose.onNodeWithTag("emoji-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text == "face"
+        }
+        observe("injected-typing-before-right", "emoji-search")
+        key(KeyEvent.KEYCODE_DPAD_RIGHT, false); observe("injected-typing-after-right", "emoji-search")
+        capture("injected-typing")
+        var connection: InputConnection? = null
+        try {
+            ui {
+                connection = requireNotNull(it.window.decorView.findFocus()?.onCreateInputConnection(EditorInfo()))
+                assertTrue(connection!!.finishComposingText())
+            }
+            observe("typed-query-explicitly-committed", "emoji-search")
+            key(KeyEvent.KEYCODE_DPAD_RIGHT, false); observe("typed-committed-after-right", "emoji-search")
+            key(KeyEvent.KEYCODE_L, false, KeyEvent.META_CTRL_ON)
+            key(KeyEvent.KEYCODE_DPAD_LEFT, false); observe("typed-query-editing-left", "emoji-search")
+            capture("typed-query-caret")
+        } finally { ui { connection?.closeConnection() } }
+        record.put("diagnostic_completed", true)
     }
 
     @Test fun recordLargeDraftTextAndAnnotationsAfterRecreation() {
