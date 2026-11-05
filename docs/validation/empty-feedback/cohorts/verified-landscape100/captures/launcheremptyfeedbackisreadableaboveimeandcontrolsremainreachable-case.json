@@ -1,0 +1,243 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+  "api": 36,
+  "font_scale": 1,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        1861,
+        106,
+        1987,
+        232
+      ],
+      "search": [
+        318,
+        106,
+        1861,
+        232
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-hidden",
+      "text": "No matching commands",
+      "line": 0,
+      "font_sp": 14,
+      "line_bounds": [
+        958,
+        531,
+        1382.4286,
+        594
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        958,
+        531,
+        1384,
+        594
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1987,
+        106,
+        2113,
+        232
+      ],
+      "visible": [
+        1987,
+        106,
+        2113,
+        232
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Droidcast menu",
+      "full": [
+        207,
+        849,
+        333,
+        975
+      ],
+      "visible": [
+        207,
+        849,
+        333,
+        975
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        1861,
+        106,
+        1987,
+        232
+      ],
+      "search": [
+        318,
+        106,
+        1861,
+        232
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-shown",
+      "text": "No matching commands",
+      "line": 0,
+      "font_sp": 14,
+      "line_bounds": [
+        958,
+        243,
+        1382.4286,
+        291
+      ],
+      "declared_line_height": "18.0.sp",
+      "visible": [
+        958,
+        243,
+        1384,
+        291
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1987,
+        106,
+        2113,
+        232
+      ],
+      "visible": [
+        1987,
+        106,
+        2113,
+        232
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 0,
+      "after": 146
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 146,
+      "after": 293
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": true,
+      "before": 293,
+      "after": 309
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Droidcast menu",
+      "full": [
+        207,
+        197,
+        333,
+        323
+      ],
+      "visible": [
+        207,
+        197,
+        333,
+        323
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        334
+      ]
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 309,
+      "after": 163
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 163,
+      "after": 16
+    },
+    {
+      "kind": "feedback-pointer-pan",
+      "up": false,
+      "before": 16,
+      "after": 0
+    }
+  ]
+}

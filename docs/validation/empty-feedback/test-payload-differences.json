@@ -1,0 +1,63 @@
+{
+  "differences": [
+    {
+      "from": "old",
+      "to": "candidate-v1",
+      "apk": "app-debug.apk",
+      "changed_payloads": [
+        "AndroidManifest.xml",
+        "classes3.dex",
+        "classes4.dex"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "from": "candidate-v1",
+      "to": "candidate-v2",
+      "apk": "app-debug.apk",
+      "changed_payloads": [
+        "AndroidManifest.xml",
+        "classes3.dex",
+        "classes4.dex"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "from": "candidate-v1",
+      "to": "candidate-v2",
+      "apk": "app-debug-androidTest.apk",
+      "changed_payloads": [
+        "classes3.dex",
+        "classes4.dex"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "from": "candidate-v2",
+      "to": "candidate-v3",
+      "apk": "app-debug.apk",
+      "changed_payloads": [
+        "AndroidManifest.xml",
+        "classes3.dex",
+        "classes4.dex"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "from": "candidate-v2",
+      "to": "candidate-v3",
+      "apk": "app-debug-androidTest.apk",
+      "changed_payloads": [
+        "classes3.dex",
+        "classes4.dex"
+      ],
+      "added": [],
+      "removed": []
+    }
+  ],
+  "scope": "Actual uncompressed ZIP payload differences; signed APK bytes and DEX cohorts remain distinct. No stamp-only reconstruction or equivalence is claimed."
+}

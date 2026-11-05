@@ -1,0 +1,46 @@
+{
+  "build_source_commit": "6c5825bf0da60ad9b452ec4550aa49d60704e677",
+  "debug_and_test_build": "success",
+  "benchmark_and_test_build": "success",
+  "host_log_sha256": "173af9b5117ceb04ba317ad5076833fc53c4ddaf1c4aa71e50ddde6367f0d2b0",
+  "jvm": {
+    "tests": 343,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "task_line": "> Task :app:testDebugUnitTest",
+    "task_state": "executed",
+    "report_files": 37
+  },
+  "lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    },
+    "benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    }
+  },
+  "python": {
+    "normal": {
+      "cases": 135,
+      "seconds": 23.733,
+      "result": "passed",
+      "source_commit": "15eb95c1c8d91611d5cd099989bf67eaaf5ecaf3",
+      "log_sha256": "ed31e5d3f57328ddfca166d83437f2491ea44d1bcd12c06fe0589d7cd97732df",
+      "reuse": "All Python inputs byte-identical through final source; no later Python rerun claimed."
+    },
+    "optimized": {
+      "cases": 135,
+      "seconds": 24.525,
+      "result": "passed",
+      "source_commit": "15eb95c1c8d91611d5cd099989bf67eaaf5ecaf3",
+      "log_sha256": "0878ed41e27ba12b5f6271230865ab035cdb2e2390768dd6b8f4faf4cdc12291",
+      "reuse": "All Python inputs byte-identical through final source; no later Python rerun claimed."
+    }
+  },
+  "scope": "Actual local source-bound checks and retained exact-source Python receipts. Hosted exact-head Android CI and independent audits remain separate gates."
+}

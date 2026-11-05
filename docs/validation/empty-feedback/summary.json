@@ -1,0 +1,427 @@
+{
+  "final_positive_executions": 25,
+  "final_positive_cohorts": 12,
+  "final_positive_restoration_checks": 186,
+  "final_control_failures": 8,
+  "final_control_passes": 0,
+  "final_control_cohorts": 4,
+  "final_control_restoration_checks": 68,
+  "all_retained_executions": 59,
+  "all_retained_passes": 39,
+  "all_retained_failures": 20,
+  "all_cohort_restoration_checks": 471,
+  "separate_orchestration_stop_checks": 7,
+  "separate_final_preservation_checks": 14,
+  "selected_png_xml_frame_sets": 84,
+  "retained_capture_files": 1121,
+  "cohorts": [
+    {
+      "name": "old-landscape100",
+      "credit": "historical",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "6555d4beb6096a8a6b59a78c778b704d1cf4e3a82fb01d7fe9f0b303488976b9"
+    },
+    {
+      "name": "old-landscape200",
+      "credit": "historical",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "6555d4beb6096a8a6b59a78c778b704d1cf4e3a82fb01d7fe9f0b303488976b9"
+    },
+    {
+      "name": "current-landscape100",
+      "credit": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "3c7860c837a7085a383ef7baaadcbd5195213ff34586955838c86477e72cf292",
+      "test_apk_sha256": "6555d4beb6096a8a6b59a78c778b704d1cf4e3a82fb01d7fe9f0b303488976b9"
+    },
+    {
+      "name": "current-landscape200",
+      "credit": "historical",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "3c7860c837a7085a383ef7baaadcbd5195213ff34586955838c86477e72cf292",
+      "test_apk_sha256": "6555d4beb6096a8a6b59a78c778b704d1cf4e3a82fb01d7fe9f0b303488976b9"
+    },
+    {
+      "name": "verified-landscape200",
+      "credit": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "final-old-landscape100",
+      "credit": "historical",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "final-old-landscape200",
+      "credit": "historical",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "final-intermediate-landscape200",
+      "credit": "historical",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "3c7860c837a7085a383ef7baaadcbd5195213ff34586955838c86477e72cf292",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "verified-landscape100",
+      "credit": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "verified-tablet100",
+      "credit": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "verified-tablet200",
+      "credit": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "verified-phone100",
+      "credit": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "verified-phone200",
+      "credit": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "e28ed7e9f9439b56d04a94420095e72e43ff188a47c98a446acdce6ede1426f5"
+    },
+    {
+      "name": "final-landscape200",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-landscape100",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "control-old-landscape100",
+      "credit": "current-control",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "control-old-landscape200",
+      "credit": "current-control",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "control-first-landscape200",
+      "credit": "current-control",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "3c7860c837a7085a383ef7baaadcbd5195213ff34586955838c86477e72cf292",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "control-secondary-landscape100",
+      "credit": "current-control",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-tablet100",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-tablet200",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-phone100",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-phone200",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-guards-tablet100",
+      "credit": "current-positive",
+      "passes": 3,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "pointerClearRemovesControlledCompositionAndWhitespace",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-clear-tablet200",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-clear-phone200",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-input-phone100",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "cleanup_checks": 19,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-input-api26100",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "cleanup_checks": 12,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    },
+    {
+      "name": "final-api26-phone100",
+      "credit": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 10,
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2"
+    }
+  ],
+  "scope": "Only final app/test pair earns current credit. All intermediate/failed cohorts remain separate; v2 registry is incomplete after a restored whole-cohort stop, including a separately completed phone200 receipt. No later planned v2 work is credited. Primary lines/target geometry are distinct from nonempty functional smoke and source tracing."
+}

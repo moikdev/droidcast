@@ -1,0 +1,326 @@
+{
+  "all_completed": true,
+  "controls": [
+    {
+      "cohort": "control-old-landscape100",
+      "passes": 0,
+      "intended_failures": 2,
+      "expected_assertion": "complete-primary-line",
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2",
+      "log_sha256": "7aebe655c9d142b5083f56315312b5ea3b386e58fc4b71a53cc44aad942aec32",
+      "restoration_checks": 17,
+      "witnesses": [
+        {
+          "case": "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching commands",
+              "line": 0,
+              "font_sp": 14,
+              "line_bounds": [
+                958,
+                412,
+                1382.4286,
+                475
+              ],
+              "declared_line_height": "24.0.sp",
+              "visible": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "complete": false,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "83d5697db40ab3cdfb46866877a33f1df4d75474a213ea6c6ef1733decab5386"
+        },
+        {
+          "case": "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching emoji or symbols",
+              "line": 0,
+              "font_sp": 13,
+              "line_bounds": [
+                869,
+                345,
+                1364.3076,
+                408
+              ],
+              "declared_line_height": "24.0.sp",
+              "visible": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "complete": false,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "dd7247eeafef41f6e3ca5bf2ad40917bbe1da8f6afd6f352d9031a70ea5a8808"
+        }
+      ]
+    },
+    {
+      "cohort": "control-old-landscape200",
+      "passes": 0,
+      "intended_failures": 2,
+      "expected_assertion": "complete-primary-line",
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2",
+      "log_sha256": "d344e368a4686d9f160a8d7e523cbd0f738f5d439930fc6bcff1e0cb2a822962",
+      "restoration_checks": 17,
+      "witnesses": [
+        {
+          "case": "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching commands",
+              "line": 0,
+              "font_sp": 14,
+              "line_bounds": [
+                770,
+                427,
+                1569.6924,
+                544
+              ],
+              "declared_line_height": "24.0.sp",
+              "visible": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "complete": false,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "b460746c68e23b89afbbebcd00123764344d3d05692790f10c82affb2c12c643"
+        },
+        {
+          "case": "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching emoji or symbols",
+              "line": 0,
+              "font_sp": 13,
+              "line_bounds": [
+                640,
+                463,
+                1594.2,
+                585
+              ],
+              "declared_line_height": "24.0.sp",
+              "visible": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "complete": false,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "72be95c4024a77747cc491280804eaecc1a015aed4568270667a1c9c6856c42c"
+        }
+      ]
+    },
+    {
+      "cohort": "control-first-landscape200",
+      "passes": 0,
+      "intended_failures": 2,
+      "expected_assertion": "complete-primary-line",
+      "app_sha256": "3c7860c837a7085a383ef7baaadcbd5195213ff34586955838c86477e72cf292",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2",
+      "log_sha256": "ab4ee01cd824be4852848cfaeb2e9bd36567e865159ff5fcfde962ee1c613efb",
+      "restoration_checks": 17,
+      "witnesses": [
+        {
+          "case": "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching commands",
+              "line": 0,
+              "font_sp": 14,
+              "line_bounds": [
+                770,
+                243,
+                1569.6924,
+                360
+              ],
+              "declared_line_height": "24.0.sp",
+              "visible": [
+                770,
+                243,
+                1571,
+                313
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "complete": false,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "bc48ac8e38428b1263be1ee6c74ef73f571c477ad613fc40f54c41fd23f8cfdc"
+        },
+        {
+          "case": "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching emoji or symbols",
+              "line": 0,
+              "font_sp": 13,
+              "line_bounds": [
+                693,
+                247,
+                1647.2,
+                369
+              ],
+              "declared_line_height": "24.0.sp",
+              "visible": [
+                693,
+                247,
+                1649,
+                313
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                313
+              ],
+              "complete": false,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "099f708c988ec137f23cd0f3bf30fa83ed3f00a18e0095c8d2e8fc398b7317b9"
+        }
+      ]
+    },
+    {
+      "cohort": "control-secondary-landscape100",
+      "passes": 0,
+      "intended_failures": 2,
+      "expected_assertion": "compact-metadata-absence",
+      "app_sha256": "d079a24f1618f6562ffa3b712fae6aab5601b317fde243173a0d64f2b4ddb025",
+      "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2",
+      "log_sha256": "ff706bf27cab586fa2e6d21dd7c530a9be74bacbba3c966db5b4c49e927fbd80",
+      "restoration_checks": 17,
+      "witnesses": [
+        {
+          "case": "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching commands",
+              "line": 0,
+              "font_sp": 14,
+              "line_bounds": [
+                958,
+                243,
+                1382.4286,
+                291
+              ],
+              "declared_line_height": "18.0.sp",
+              "visible": [
+                958,
+                243,
+                1384,
+                291
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                334
+              ],
+              "complete": true,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "b7958ddf168b5284a884739bf7856fa1d5efe4b15ec6ad99b55d062b4874daea"
+        },
+        {
+          "case": "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+          "shown_primary_lines": [
+            {
+              "kind": "natural-feedback-line",
+              "phase": "initial-shown",
+              "text": "No matching emoji or symbols",
+              "line": 0,
+              "font_sp": 13,
+              "line_bounds": [
+                922,
+                246,
+                1417.3076,
+                288
+              ],
+              "declared_line_height": "16.0.sp",
+              "visible": [
+                922,
+                246,
+                1419,
+                288
+              ],
+              "palette": [
+                186,
+                95,
+                2155,
+                334
+              ],
+              "complete": true,
+              "ellipsized": false
+            }
+          ],
+          "case_receipt_sha256": "1e7a10e79322642eedf3e108e6fe28db47322e9c487fb0c7644c0b2101b7c93b"
+        }
+      ]
+    }
+  ],
+  "scope": "Common final test APK, failed positive-only runner receipts and exact intended assertions. Ordinary app/clipping frames, no app error banner; no generic failure is accepted as a control."
+}

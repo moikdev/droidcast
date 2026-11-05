@@ -1,0 +1,19 @@
+{
+  "parent_pid": 93774,
+  "parent_command_verified": true,
+  "parent_cwd_verified": true,
+  "paused_parent_only": true,
+  "current_cohort": "verified-phone200",
+  "completed": true,
+  "reason": "Actual100% PNGs show clipped secondary helper/count below the repaired primary line. Pause host orchestration only; current owned runner must finish restoration before parent termination and source refinement. No device process was interrupted.",
+  "checks": {
+    "whole_cohort_completed": true,
+    "all_cohort_restoration_checks_pass": true,
+    "no_child_process": true,
+    "owned_avd": true,
+    "idle_instrumentation": true,
+    "unprivileged": true,
+    "four_ime_fields_equal_initial": true
+  },
+  "scope": "Host orchestration terminated at a restored whole-cohort boundary. The last phone200 receipt completes2/2 with17 checks although its paused registry row was not finalized. Later planned guards/regressions were not run. No device runner or instrumentation was interrupted."
+}

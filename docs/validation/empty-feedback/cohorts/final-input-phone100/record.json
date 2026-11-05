@@ -1,0 +1,125 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "native-input",
+  "input_mode": "owned",
+  "runner_sha256": "609b3caaadd2bceecc31124d4068b9b71201cb9cd217ac1f42e0aeec3295037b",
+  "apk_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+  "test_apk_sha256": "72dc12a358c57c33b35d92439203b65e968ef4250801c6964ee008b6af4d51d2",
+  "methods": [
+    "committedEmojiNavigationAndCaretAreExact",
+    "activeMultilingualCompositionKeepsResultSelection"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "phone",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "restore-input-method-before-test-apk-stop": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "restore-size": {
+      "passed": true
+    },
+    "restore-density": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-input-method-after-original-apks": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 2,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.xml": "8ce6934a7d7a74fb34132004babb58ed9ed38fa90fa2d7ed8cadaf07e6bf28e1",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.png": "be52acce6734a1a73a40666642b1c235a512854fbad6ee71f3971f31a49460eb",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation-frame.json": "c89fda5acb65f03ec6fae122d1ec0270fb5d70fca467d361bdcc039cdaebc11a",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.xml": "96b1290410258f302607355f1279f44fb30cba9440c2c28dc1340f4443117528",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.png": "7ab4947905025d5c380db78b2924e9eeb2e7ee2cb3c5d54d6a04ecae41d7f606",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range-frame.json": "90fb582ae52bd82daa7dc747e0bd4cf17c64024807d8ef632f303464e1f2fade",
+    "case-committedemojinavigationandcaretareexact.json": "0a4db4d4ce4b47a78ced6d0571f8ab42b9b15f73971c72939066013fa713384d",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.xml": "7c3511be0c3194ddc5468e925a3f724d9245f6be92037f5db2a198c7651c8550",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.png": "f0d8c27460e600f3861e42d0f4a5bf7e08e40ff5fc9bf6183069257fe0e71979",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition-frame.json": "386677aeb164b77096876bdad86dffc22a44a3cc7fe72b674be113e87e5280b3",
+    "case-activemultilingualcompositionkeepsresultselection.json": "a16963fb598310ae19c7e6bacbdb5de65fecfd87a24e227c3e9b0166278cd4de"
+  },
+  "preserved_file_count": 573,
+  "ime_restoration_scope": "Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement",
+  "ime_restore_observations": [
+    {
+      "query_ms": 111,
+      "all_raw_fields_equal": false
+    },
+    {
+      "query_ms": 76,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 75,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 75,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 94,
+      "all_raw_fields_equal": true
+    }
+  ]
+}

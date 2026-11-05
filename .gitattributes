@@ -38,3 +38,6 @@ docs/validation/native-input/** -text -whitespace
 
 # Preserve touch-search receipts and raw native hierarchy CRLF bytes.
 docs/validation/touch-search/** -text -whitespace
+
+# Preserve empty-feedback evidence and raw Android hierarchy CRLF.
+docs/validation/empty-feedback/** -text -whitespace

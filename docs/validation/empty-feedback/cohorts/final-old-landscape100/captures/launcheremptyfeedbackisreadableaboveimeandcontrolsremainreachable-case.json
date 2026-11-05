@@ -1,0 +1,162 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+  "api": 36,
+  "font_scale": 1,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        1861,
+        106,
+        1987,
+        232
+      ],
+      "search": [
+        318,
+        106,
+        1861,
+        232
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-hidden",
+      "text": "No matching commands",
+      "line": 0,
+      "font_sp": 14,
+      "line_bounds": [
+        958,
+        531,
+        1382.4286,
+        594
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        958,
+        531,
+        1384,
+        594
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1987,
+        106,
+        2113,
+        232
+      ],
+      "visible": [
+        1987,
+        106,
+        2113,
+        232
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Droidcast menu",
+      "full": [
+        207,
+        849,
+        333,
+        975
+      ],
+      "visible": [
+        207,
+        849,
+        333,
+        975
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        986
+      ]
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "search-clear",
+      "target": [
+        1861,
+        106,
+        1987,
+        232
+      ],
+      "search": [
+        318,
+        106,
+        1861,
+        232
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-shown",
+      "text": "No matching commands",
+      "line": 0,
+      "font_sp": 14,
+      "line_bounds": [
+        958,
+        412,
+        1382.4286,
+        475
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "palette": [
+        186,
+        95,
+        2155,
+        313
+      ],
+      "complete": false,
+      "ellipsized": false
+    }
+  ]
+}

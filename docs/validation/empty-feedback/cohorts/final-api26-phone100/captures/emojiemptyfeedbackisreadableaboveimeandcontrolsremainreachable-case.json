@@ -1,0 +1,251 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+  "api": 26,
+  "font_scale": 1,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        749,
+        106,
+        875,
+        232
+      ],
+      "search": [
+        163,
+        106,
+        749,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1342
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-hidden",
+      "text": "No matching emoji or symbols",
+      "line": 0,
+      "font_sp": 13,
+      "line_bounds": [
+        296,
+        683,
+        784,
+        746
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        296,
+        683,
+        785,
+        746
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1342
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji Back",
+      "full": [
+        32,
+        106,
+        158,
+        232
+      ],
+      "visible": [
+        32,
+        106,
+        158,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1342
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji category",
+      "full": [
+        875,
+        106,
+        1027,
+        232
+      ],
+      "visible": [
+        875,
+        106,
+        1027,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1342
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji favorite",
+      "full": [
+        53,
+        1200,
+        179,
+        1326
+      ],
+      "visible": [
+        53,
+        1200,
+        179,
+        1326
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1342
+      ]
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        749,
+        106,
+        875,
+        232
+      ],
+      "search": [
+        163,
+        106,
+        749,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1022
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "natural-feedback-line",
+      "phase": "initial-shown",
+      "text": "No matching emoji or symbols",
+      "line": 0,
+      "font_sp": 13,
+      "line_bounds": [
+        296,
+        523,
+        784,
+        586
+      ],
+      "declared_line_height": "24.0.sp",
+      "visible": [
+        296,
+        523,
+        785,
+        586
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1022
+      ],
+      "complete": true,
+      "ellipsized": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji Back",
+      "full": [
+        32,
+        106,
+        158,
+        232
+      ],
+      "visible": [
+        32,
+        106,
+        158,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1022
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji category",
+      "full": [
+        875,
+        106,
+        1027,
+        232
+      ],
+      "visible": [
+        875,
+        106,
+        1027,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1022
+      ]
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Emoji favorite",
+      "full": [
+        53,
+        880,
+        179,
+        1006
+      ],
+      "visible": [
+        53,
+        880,
+        179,
+        1006
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1022
+      ]
+    }
+  ]
+}

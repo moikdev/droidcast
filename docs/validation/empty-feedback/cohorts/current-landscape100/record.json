@@ -1,0 +1,135 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "609b3caaadd2bceecc31124d4068b9b71201cb9cd217ac1f42e0aeec3295037b",
+  "apk_sha256": "3c7860c837a7085a383ef7baaadcbd5195213ff34586955838c86477e72cf292",
+  "test_apk_sha256": "6555d4beb6096a8a6b59a78c778b704d1cf4e3a82fb01d7fe9f0b303488976b9",
+  "methods": [
+    "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+    "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "landscape",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "restore-size": {
+      "passed": true
+    },
+    "restore-density": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 2,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-empty.xml": "a7a89d4d3d6ef410708ba5aa6dc31d8318d8032f1d007461406dc8dc2caef6e0",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-empty.png": "5bb6ee074ce266853caf06ca27eed1f9f7eab476ea0af3318471210812b090de",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-empty-frame.json": "7b8649e0430770e732fc6a7bda82ef472d04598399301d3a38cf4713348c206f",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-footer.xml": "a7a89d4d3d6ef410708ba5aa6dc31d8318d8032f1d007461406dc8dc2caef6e0",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-footer.png": "5bb6ee074ce266853caf06ca27eed1f9f7eab476ea0af3318471210812b090de",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-footer-frame.json": "2adf20d0c9d920b71597dfae8ff9cc275c68960c2c5445a92e61692726814964",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-matching.xml": "3be990c591e6e0ed7898ce204bac4484f57eda881e266d5d6e003a633176ce50",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-matching.png": "afd7bad58f0b7ed010e45967908611ba87bd37aa17e58cf4e347df3dca645436",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-matching-frame.json": "88cacf61e846e65b025bfaffaf0ee6d17075685a2b95abc42e7b80413ac388e4",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-cleared.xml": "291ed24a10d9a2cf88c6332bd0066c88498229a363fb5214233d1cfc01b0ebbb",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-cleared.png": "07c12401d12855236bd050c7ad1816bd44dfef33df1043caf145eab1aee0c914",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-cleared-frame.json": "125303e0c950c98d6fd4196092734e754c44e835464068f265e26e88d0598dd1",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-empty.xml": "e414f9327dc7367037e577a958ece8d65fbc3266745574265c4eb1f235ff3740",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-empty.png": "6d5dbe1bda378d4971f3810b06b5bf4032caf51dca02b7e122136675e615e279",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-empty-frame.json": "e4434f6e10d7590510c17f9e36f6adbc299efd2f5b9c803e7fd1bc25c5620ff8",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-footer.xml": "11e47ce6841ad51a103bb3399f7e51dc43a432a386444ce9cacbcb12c26e482e",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-footer.png": "bce20b1954c6e439cdb7afe3eb1749afde10861abb7d9af08a6603b7db469195",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-footer-frame.json": "8119b67ead2b5ad4de48b15a2b34d9bf08b38972c95377eacd4a1cc86b2c369c",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-matching.xml": "9bbe74f88999a153bcb9d3bb5912b223511f2c2c02cde4375dfefd169f2c1184",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-matching.png": "1fdbc94d3bed25d3e74df699a802a785c9495d3bee6202dc1d25e600015e48cb",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-matching-frame.json": "f36856660cabc2df9b030f2e69e53cec13001c9a9b9bdb18d4fe8ae6e147909b",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-cleared.xml": "2d082778453874825f7a948a99f46ffe7146c30499714945459e2faf6631faba",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-cleared.png": "e3fbc4e11991b057311f812ba099df743993d14be7c1c2dc1ea06693db0cbea1",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-cleared-frame.json": "189e2d0b0af9591883e7bf7a635192948ba906cd0bb02675d5989522051b01f8",
+    "emojiemptyfeedbackisreadableaboveimeandcontrolsremainreachable-case.json": "4265da2f4efa95c7afb7bad3a40c6150830d222da009775f85f7a4aaec4858ac",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-empty.xml": "f57c69b86f7257fee1ea0c8d8df95f56f7b481aa5999c9b130793338c84ef7fb",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-empty.png": "87df76fc159dc7cdfd31084c372cd5aabe1cce6c9b1753fe96305bbb3b8107b6",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-empty-frame.json": "c40ff24358a7cdbb5509f2684776463f48cb143f9fbbc4a971a37d3751ad97ff",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-footer.xml": "f57c69b86f7257fee1ea0c8d8df95f56f7b481aa5999c9b130793338c84ef7fb",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-footer.png": "87df76fc159dc7cdfd31084c372cd5aabe1cce6c9b1753fe96305bbb3b8107b6",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-footer-frame.json": "0c023b6e39c2f1de019d994379a016bab80bb80bef30dc9aac2cdc120b82b7b7",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-matching.xml": "5484c96b4c106b5a8cd7f73ead08da3b8ac822f344b4b49aa054400b900d93d5",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-matching.png": "3547bd2c3d95e6d8f9a8fcc725531329c8a4804ef7ec6e1eac62da0be7c00afb",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-matching-frame.json": "f203ccd6275346d502fe67d9eaeb6a35064b66c9c2a8d6528297bdac12d94f4d",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-cleared.xml": "73d1bc5c5890cd999422f96589e84cd33fff0ac23d4200a1b40f25eec64d81a1",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-cleared.png": "cfa41cb78ad813d10b54f48321d5bee5a70c533ad40b6258bf27f013b5bd626a",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-hidden-cleared-frame.json": "485332371897fee2e4d2310e3c32f4f478373750c3169ced6afb77466c6021cf",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-empty.xml": "6e5e17431226a7f5966c0a5fdeaef184b648aa99e00928f06bb1d6189e52965b",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-empty.png": "ad493e258afbd2fed88b0edd6703a719870a984f99a00d6d699c259fff94a272",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-empty-frame.json": "1fe33d9819ba45418cb13ec90578a5ca0c9b9c534969127992c7c53ea61511f6",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-footer.xml": "e2ae52fbe9df1cbb3eefb9b980e70de1c1f388e0c84bbdbe08ab2270dcfe7287",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-footer.png": "f7ad48336505b08f3aa7e556595475ad303d844b960d8644aba95cfec654123e",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-footer-frame.json": "8119b67ead2b5ad4de48b15a2b34d9bf08b38972c95377eacd4a1cc86b2c369c",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-matching.xml": "0592af95ecb0597bbbdc131a1cf35b53622e47df23d01b5c198ee9498d34ab09",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-matching.png": "e984c486c281da8f0160ad1754ee2e1e198b01d355c2c6f6a9c366efbb6a7827",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-matching-frame.json": "a448b966b8cc09e35cbaf534d8e50581f1dcf956684e97b00cb688699ac4593c",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-cleared.xml": "d26c4cfe8d1eeecaa0e8077863da1f371d99d7fb6b1fedf5d286759f09a8bb65",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-cleared.png": "71191399ab9033b17c223392d71e932f2e4cec304b00c0de6383cfc327b33d3e",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-feedback-shown-cleared-frame.json": "992f771caff5b7cd06003721cfc7f032005e669e1428581bee5bb155017bb70a",
+    "launcheremptyfeedbackisreadableaboveimeandcontrolsremainreachable-case.json": "b4e1e14a5c77b475dd14f771c4e9ed2137fabef4ad5a40a665f67fc1116243b2"
+  },
+  "preserved_file_count": 573
+}
