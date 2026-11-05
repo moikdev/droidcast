@@ -14,8 +14,10 @@ internal data class ExtensionEngineIdentity(val packageName: String?, val versio
 }
 
 internal enum class ExtensionEngineFailure { SYNTAX, MISSING_APIS, CHECK_UNAVAILABLE, CHECK_TIMED_OUT }
-internal data class ExtensionEngineProblem(val engine: ExtensionEngineIdentity, val failure: ExtensionEngineFailure,
-                                          val missingApis: List<String> = emptyList())
+// Each failure owns a fresh recovery lifetime, even when its display values
+// equal a preceding failure. Compose must not retain a consumed action slot.
+internal class ExtensionEngineProblem(val engine: ExtensionEngineIdentity, val failure: ExtensionEngineFailure,
+                                     val missingApis: List<String> = emptyList())
 
 /** Only this ordered check can enable host dispatch. An ended check never reopens. */
 internal class ExtensionEngineGate {
