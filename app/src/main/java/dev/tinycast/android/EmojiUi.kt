@@ -204,7 +204,14 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     Glyph("keyboard", PaletteTheme.tertiary, 16)
                 }
                 Box {
-                    TextButton(onClick = { menu = true }, modifier = Modifier.heightIn(min=48.dp).testTag("emoji-filter")) { Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp)); Text(" ▾") }
+                    // Retain natural scaled text and a 48 dp target without extra
+                    // vertical padding shifting this editor below the launcher.
+                    TextButton(onClick = { menu = true }, contentPadding = PaddingValues(horizontal=12.dp, vertical=4.dp),
+                        modifier = Modifier.heightIn(min=48.dp).testTag("emoji-filter")) {
+                        Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp))
+                        Text(" ▾")
+                    }
                     PaletteChoiceMenu(menu, { menu = false },
                         (listOf("All", "Favorites", "Recent") + store.entries.map { it.category }.distinct()).map { category ->
                             PaletteChoice("emoji-filter-$category", category, checked = store.filter == category) {
