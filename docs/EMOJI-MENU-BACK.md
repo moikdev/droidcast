@@ -109,7 +109,7 @@ Known API 26 limits visible in these frames:
 
 - Newer emoji render as missing glyphs, a pre-existing platform font limit.
 - At 200% font with the keyboard up, the Emoji footer is cut off at "Copy to" and the Actions button is off-screen. This layout limit predates this change and belongs to #69/#71.
-- After system Back hides the keyboard, the menu's keyboard button keeps showing its Hide icon and label, because Compose's keyboard-visibility state lags the system on API 26. This is not only cosmetic: by the code, the next tap requests Hide and does nothing, so showing the keyboard takes a second tap, and TalkBack announces the wrong action. Inferred from code and not executed. Before this change, Back closed the menu instead, so this PR makes the state reachable by Back. Tracked as a follow-up. The behavior assertions use the platform inset state.
+- After system Back hides the keyboard, the menu's keyboard button keeps showing its Hide icon and label, because Compose's keyboard-visibility state lags the system on API 26. This is not only cosmetic: by the code, the next tap requests Hide and does nothing, so showing the keyboard takes a second tap, and TalkBack announces the wrong action. Inferred from code and not executed. Before this change, Back closed the menu instead, so this PR makes the state reachable by Back. Tracked in [#118](https://github.com/moikdev/droidcast/issues/118). The behavior assertions use the platform inset state.
 
 ## Limits
 
