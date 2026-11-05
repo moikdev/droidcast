@@ -320,11 +320,14 @@ class NativeInputCompatibilityDeviceTest {
                         assertTrue("Exact character matcher must accept the composing title", editableCharactersExactly(title).matches(node))
                         val wrong = linkedMapOf(
                             "changed-character" to title.replace("日本", "日本語"),
+                            "same-length-substitution" to title.replace("日本", "中日"),
                             "trimmed-whitespace" to title.trim(),
                             "removed-joiner" to title.replace("\u200d", ""),
                             "removed-variation-selector" to title.replace("\ufe0f", ""),
                             "normalized-combining-sequence" to title.replace("café", "cafe\u0301")
                         )
+                        assertEquals("Keep the substitution negative the same UTF-16 length", title.length,
+                            wrong.getValue("same-length-substitution").length)
                         wrong.forEach { (label, value) ->
                             assertNotEquals(label, title, value)
                             assertFalse("Reject $label", editableCharactersExactly(value).matches(node))
