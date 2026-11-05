@@ -38,6 +38,8 @@ INPUT_CASES = ['recordDefaultImeAndControlledCompositionNavigation',
                'committedCallerSelectionSurvivesIdleNativeRoutes',
                'committedSameTurnLauncherActivationUsesCurrentNote',
                'largeDraftRestoresExactCharactersAfterRecreation']
+CONTRACT_CASES = INPUT_CASES[5:]
+OWNED_IME = TEST + '/dev.tinycast.android.NativeInputTestIme'
 
 
 def require(value, message):
@@ -98,6 +100,8 @@ def main():
     p.add_argument('--cases', required=True, help='Comma-separated allowlisted methods from the selected suite')
     p.add_argument('--suite', choices=['engine', 'native-input'], default='engine',
                    help='Native-input reuses the same emulator ownership/restoration protocol without executing an extension')
+    p.add_argument('--input-mode', choices=['system', 'owned'], default='system',
+                   help='Controlled contracts require the silent test IME; system-IME diagnostics retain the current keyboard')
     p.add_argument('--font-scale', type=float, choices=[1, 2], default=1)
     p.add_argument('--layout', choices=['tablet', 'phone', 'landscape'], default='phone')
     p.add_argument('--expected-negative', action='store_true', help='Only the missing recovery assertion on the old app')
@@ -110,6 +114,8 @@ def main():
     require(len(methods) == len(set(methods)) and 1 <= len(methods) <= 7 and all(
         name in (INPUT_CASES if native_input else CASES['shared'] + CASES['legacy' if legacy else 'modern']) for name in methods), 'Unsupported native cases')
     require(not a.expected_negative or not native_input and legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
+    require(a.input_mode != 'owned' or native_input and all(name in CONTRACT_CASES for name in methods), 'Owned IME is limited to controlled native-input contracts')
+    require(not native_input or not any(name in CONTRACT_CASES for name in methods) or a.input_mode == 'owned', 'Controlled contracts require --input-mode owned')
     require(not legacy or a.layout == 'phone', 'Keep the actual API26 geometry unchanged')
     require(a.apk.is_file() and a.test_apk.is_file(), 'Both frozen APKs are required')
     sdk = os.environ.get('ANDROID_HOME') or next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
@@ -160,11 +166,18 @@ def main():
     size = text('shell', 'wm', 'size'); density = text('shell', 'wm', 'density')
     require('Override' not in size + density, 'An existing geometry override has an owner')
     font = text('shell', 'settings', 'get', 'system', 'font_scale')
+    ime_settings = {key: text('shell', 'settings', 'get', 'secure', key) for key in
+                    ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype')} if a.input_mode == 'owned' else None
+    if ime_settings:
+        require(re.fullmatch(r'[A-Za-z0-9_.]+/[A-Za-z0-9_.$]+', ime_settings['default_input_method']), 'A restorable original input method is required')
+        require(OWNED_IME not in ime_settings['enabled_input_methods'], 'An existing owned IME activation has a recovery owner')
     nonce = uuid.uuid4().hex; id = ('native-input-' if native_input else 'webview-engine-') + nonce
     lease = 'files/native-input-lease' if native_input else 'files/webview-compatibility-lease'
     evidence = 'files/native-input-evidence' if native_input else 'files/webview-compatibility-evidence'
     root = 'files/extensions/' + id
     owner = {'kind': 'native-input-v1' if native_input else 'webview-compatibility-v1', 'nonce': nonce, 'extension_id': id, 'fresh_disposable_avd': legacy}
+    if native_input:
+        owner['input_mode'] = a.input_mode
     owned = [root, 'cache/' + id, 'files/extension-data/' + id, 'shared_prefs/extension-' + id + '.xml',
              'shared_prefs/extension-' + id + '.xml.bak', evidence]
     if not legacy:
@@ -179,6 +192,9 @@ def main():
          'provider_before': [line.strip() for line in text('shell', 'dumpsys', 'webviewupdate').splitlines() if 'Current WebView package' in line],
          'original_geometry': {'size': size, 'density': density}, 'original_font_scale': font}
     r['suite'] = a.suite
+    r['input_mode'] = a.input_mode
+    if ime_settings:
+        path = a.output / 'private-ime-settings.json'; path.write_text(json.dumps(ime_settings)); path.chmod(0o600)
     def save():
         (a.output / 'record.json').write_text(json.dumps(r, indent=2) + '\n')
     save()
@@ -213,6 +229,10 @@ def main():
             require(sha(raw('exec-out', 'cat', text('shell', 'pm', 'path', pkg).removeprefix('package:'))) == sha(apk.read_bytes()), 'Installed APK differs')
         if legacy:
             claim(); lease_claimed = True
+        if ime_settings:
+            raw('shell', 'ime', 'enable', OWNED_IME)
+            raw('shell', 'ime', 'set', OWNED_IME)
+            require(text('shell', 'settings', 'get', 'secure', 'default_input_method') == OWNED_IME, 'Owned IME was not selected')
         if not native_input:
             raw('shell', 'run-as', APP, 'mkdir', '-p', root)
         r['fixture_sha256'] = {}
@@ -224,6 +244,7 @@ def main():
         save()
         command = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'nativeInputFixture' if native_input else 'webViewFixture', 'true',
                    '-e', 'nativeInputOwner' if native_input else 'webViewOwner', nonce,
+                   '-e', 'nativeInputMode', a.input_mode,
                    '-e', 'class', ','.join(suite_class + '#' + name for name in methods), TEST + '/androidx.test.runner.AndroidJUnitRunner']
         with (a.output / 'tests.log').open('xb') as log:
             result = subprocess.run(adb + command, stdout=log, stderr=subprocess.STDOUT, timeout=90 * len(methods))
@@ -252,6 +273,28 @@ def main():
                 require('ActiveInstrumentation{' not in text('shell', 'dumpsys', 'activity', 'processes'), 'Do not restore under active instrumentation')
                 verify_owner()
             c.attempt('idle-owned-instrumentation', idle_owner)
+            if not c.errors and ime_settings:
+                def restore_input_method():
+                    verify_owner()
+                    raw('shell', 'ime', 'set', shlex.quote(ime_settings['default_input_method']))
+                    raw('shell', 'ime', 'disable', OWNED_IME)
+                    deadline = time.monotonic() + 5
+                    stable = None
+                    while time.monotonic() < deadline:
+                        current = {key: text('shell', 'settings', 'get', 'secure', key) for key in ime_settings}
+                        if current == ime_settings:
+                            if stable is None:
+                                stable = time.monotonic()
+                            if time.monotonic() - stable >= .5:
+                                return
+                        else:
+                            stable = None
+                            for key, value in ime_settings.items():
+                                if current[key] != value:
+                                    raw('shell', 'settings', 'delete', 'secure', key) if value == 'null' else raw('shell', 'settings', 'put', 'secure', key, shlex.quote(value))
+                        time.sleep(.1)
+                    require(False, 'Original raw input method settings did not settle')
+                c.attempt('restore-input-method-before-test-apk-stop', restore_input_method)
             if not c.errors:
                 for pkg in (TEST, APP):
                     c.attempt('stop-' + pkg, lambda pkg=pkg: raw('shell', 'am', 'force-stop', pkg))

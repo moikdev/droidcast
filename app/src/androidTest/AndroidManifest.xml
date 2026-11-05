@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
+        <service android:name="dev.tinycast.android.NativeInputTestIme"
+            android:exported="true" android:permission="android.permission.BIND_INPUT_METHOD"
+            android:process=":owned_native_input_ime">
+            <intent-filter><action android:name="android.view.InputMethod" /></intent-filter>
+            <meta-data android:name="android.view.im" android:resource="@xml/native_input_test_ime" />
+        </service>
         <provider android:name="dev.tinycast.android.OwnedFormDocumentsProvider"
             android:authorities="${applicationId}.formdocuments" android:exported="true"
             android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">

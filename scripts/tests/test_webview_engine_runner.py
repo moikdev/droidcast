@@ -33,6 +33,15 @@ class WebViewRunnerTests(unittest.TestCase):
     def test_engine_negative_classifier_cannot_certify_native_input_diagnostics(self):
         self.assertIn('Negative control is limited', self.rejected_suite('native-input', 'recordDefaultImeAndControlledCompositionNavigation', ['--expected-negative']))
 
+    def test_controlled_contracts_require_owned_ime(self):
+        self.assertIn('Controlled contracts require', self.rejected_suite('native-input', 'exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters'))
+
+    def test_system_ime_diagnostics_cannot_use_owned_ime(self):
+        self.assertIn('Owned IME is limited', self.rejected_suite('native-input', 'recordCallerSelectionAcrossNativeRoutes', ['--input-mode', 'owned']))
+
+    def test_engine_suite_cannot_change_input_method(self):
+        self.assertIn('Owned IME is limited', self.rejected_suite('engine', 'incompatibleEngineShowsNativeRecoveryWithoutDispatch', ['--input-mode', 'owned']))
+
     def test_package_absence_uses_exact_successful_inventory(self):
         self.assertFalse(runner.listed_package_presence('', 'dev.tinycast.android'))
         self.assertFalse(runner.listed_package_presence('package:dev.tinycast.android.test\n', 'dev.tinycast.android'))

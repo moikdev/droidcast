@@ -61,6 +61,7 @@ class NativeInputCompatibilityDeviceTest {
         assertEquals("native-input-v1", owner.getString("kind")); assertEquals(nonce, owner.getString("nonce"))
         assertEquals("native-input-$nonce", owner.getString("extension_id"))
         assertEquals(Build.VERSION.SDK_INT == 26, owner.getBoolean("fresh_disposable_avd"))
+        assertEquals(args.getString("nativeInputMode"), owner.getString("input_mode"))
         compose.waitUntil(15000) { !compose.activity.store.loading && !compose.activity.store.emoji.loading }
         palette = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         emoji = context.getSharedPreferences("emoji", Context.MODE_PRIVATE).all.toMap()
@@ -248,8 +249,11 @@ class NativeInputCompatibilityDeviceTest {
     }
 
     private fun contract(scope: String) {
+        assertEquals("Use the explicitly owned silent IME for controlled contracts", "owned", InstrumentationRegistry.getArguments().getString("nativeInputMode"))
+        assertEquals("dev.tinycast.android.test/dev.tinycast.android.NativeInputTestIme",
+            android.provider.Settings.Secure.getString(context.contentResolver, android.provider.Settings.Secure.DEFAULT_INPUT_METHOD))
         record.put("diagnostic_only", false).put("scope", scope)
-            .put("input_setup", "Explicit owned native InputConnection readiness/commit; no physical-typing claim")
+            .put("input_setup", "Owned silent test IME plus explicit native InputConnection readiness/commit; no system-keyboard or physical-typing credit")
     }
 
     private fun withControlledInput(tag: String, expected: String, block: (InputConnection) -> Unit) {
