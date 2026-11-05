@@ -1,0 +1,20 @@
+{
+  "completed": false,
+  "classification": "Insensitive protocol: both old strict controls passed after composition expired during screenshot capture; zero intended-negative credit",
+  "rows": [
+    {
+      "cohort": "legacy-strict-control-v1",
+      "passes": 1,
+      "failures": 0,
+      "strict_annotation_equal_at_late_assertion": true,
+      "restoration_checks": 10
+    },
+    {
+      "cohort": "modern-strict-control-v1",
+      "passes": 1,
+      "failures": 0,
+      "strict_annotation_equal_at_late_assertion": true,
+      "restoration_checks": 15
+    }
+  ]
+}

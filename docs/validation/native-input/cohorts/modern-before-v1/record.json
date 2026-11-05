@@ -1,0 +1,78 @@
+{
+  "api": 36,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "completed": true,
+  "expected_negative": false,
+  "failures": 0,
+  "fixture_sha256": {},
+  "font_scale": 1.0,
+  "initialization_error": false,
+  "instrumentation_exit_code": 0,
+  "layout": "tablet",
+  "methods": [
+    "recordDefaultImeAndControlledCompositionNavigation",
+    "recordCallerSelectionAcrossNativeRoutes",
+    "recordLargeDraftTextAndAnnotationsAfterRecreation"
+  ],
+  "native_expected_outcome": true,
+  "original_font_scale": "1.0",
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "passes": 3,
+  "preserved_file_count": 573,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "runner_sha256": "6d2d61bd4fe43b6e906b26d233c5cb65bb605f4f9ae8296d1b2f79e55a68cce0",
+  "suite": "native-input",
+  "test_apk_sha256": "95dff20e67a68a07b6da3f62e116272d9b8c30ae06d9f602909d124c8c4405d3"
+}

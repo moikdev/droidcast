@@ -1,0 +1,59 @@
+{
+  "completed": true,
+  "original_control_still_failed": true,
+  "original_native_passes": 0,
+  "original_native_failures": 1,
+  "original_record_sha256": "5b54506609ab6cf4d649b0e4ab777f97dc44a4d3a378beb13b769af9d74c80bd",
+  "collector_sha256": "0c681081ce7c7028f932c226e917627330fdbae6affca6bc222e66f0583ff581",
+  "checks": {
+    "idle-and-exact-owner": {
+      "passed": true
+    },
+    "four-original-ime-settings": {
+      "passed": true
+    },
+    "stop-test": {
+      "passed": true
+    },
+    "stop-app": {
+      "passed": true
+    },
+    "remove-owned-only": {
+      "passed": true
+    },
+    "restore-palette-bytes": {
+      "passed": true
+    },
+    "restore-profile-marker": {
+      "passed": true
+    },
+    "original-settings": {
+      "passed": true
+    },
+    "original-data-before-apks": {
+      "passed": true
+    },
+    "restore-original-app": {
+      "passed": true
+    },
+    "restore-original-test": {
+      "passed": true
+    },
+    "original-ime-after-apks": {
+      "passed": true
+    },
+    "original-data-after-apks": {
+      "passed": true
+    },
+    "original-privilege": {
+      "passed": true
+    },
+    "revalidate-owner-last": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "preserved_file_count": 573
+}

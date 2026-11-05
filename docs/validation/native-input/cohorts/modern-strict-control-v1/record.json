@@ -1,0 +1,76 @@
+{
+  "api": 36,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "completed": true,
+  "expected_negative": false,
+  "failures": 0,
+  "fixture_sha256": {},
+  "font_scale": 1.0,
+  "initialization_error": false,
+  "instrumentation_exit_code": 0,
+  "layout": "tablet",
+  "methods": [
+    "exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters"
+  ],
+  "native_expected_outcome": true,
+  "original_font_scale": "1.0",
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "passes": 1,
+  "preserved_file_count": 573,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "runner_sha256": "92c573677402bf1ed33455f2bc49833c0bc9c924e9a85a0dfe8fa343e93e1bcb",
+  "suite": "native-input",
+  "test_apk_sha256": "c52f3e04917a94a7e7cf3cbb2a259c469a5e6e860cbb45691b52f2995acd7196"
+}

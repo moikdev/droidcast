@@ -1,0 +1,68 @@
+{
+  "api": 26,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "restore-input-method-before-test-apk-stop": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-input-method-after-test-apk-removal": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-initial-package-absence": {
+      "passed": true
+    }
+  },
+  "completed": false,
+  "expected_negative": false,
+  "failures": 1,
+  "fixture_sha256": {},
+  "font_scale": 1.0,
+  "ime_restoration_scope": "Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement",
+  "initialization_error": false,
+  "input_mode": "owned",
+  "instrumentation_exit_code": 0,
+  "layout": "phone",
+  "methods": [
+    "exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters"
+  ],
+  "native_expected_outcome": false,
+  "original_font_scale": "null",
+  "original_geometry": {
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  },
+  "passes": 0,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 58.0.3029.125)"
+  ],
+  "runner_sha256": "0f08cc33955a073e0fd19d40cfeb08aa241254bbe1a257acdb8791080cac19a7",
+  "suite": "native-input",
+  "test_apk_sha256": "663557f37ad94b33e9db71fc5628a2098198e8e28b7eae12c2dbcf7cef60d1b3"
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ShortcutTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-05T10:46:51.233Z" hostname="MacBook-Pro-2.local" time="0.003">
+  <properties/>
+  <testcase name="duplicateBindingsAndEphemeralTargetsAreRejected" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="devicesAreTrackedSeparatelyAndDisconnectedDevicesAreCleared" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="matchingDownAndUpAreConsumedEvenAfterModifiersAreReleased" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="invocationTokensAreOneUseAndExpireBeforeAndAfterConsumption" classname="dev.tinycast.android.ShortcutTest" time="0.002"/>
+  <testcase name="outstandingInvocationTokensAreBounded" classname="dev.tinycast.android.ShortcutTest" time="0.001"/>
+  <testcase name="plainTypingAndSystemOrEditorConflictsAreRejected" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="recordingPauseAndRebindingPreserveAlreadyConsumedReleases" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="defaultAndDisabledConfigurationsAreValid" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="unrelatedTypingAndUnboundChordsPassBothEnds" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="freshPressRecoversFromLostReleaseWithoutSwallowingTyping" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <testcase name="repeatsNeverDispatchAnotherCommandOrCaptureAnUnmatchedHold" classname="dev.tinycast.android.ShortcutTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

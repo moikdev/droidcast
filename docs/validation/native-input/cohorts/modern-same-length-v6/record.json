@@ -1,0 +1,106 @@
+{
+  "api": 36,
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "restore-input-method-before-test-apk-stop": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-input-method-after-original-apks": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "completed": true,
+  "expected_negative": false,
+  "failures": 0,
+  "fixture_sha256": {},
+  "font_scale": 1.0,
+  "ime_restoration_scope": "Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement",
+  "ime_restore_observations": [
+    {
+      "query_ms": 294,
+      "all_raw_fields_equal": false
+    },
+    {
+      "query_ms": 105,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 122,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 127,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 174,
+      "all_raw_fields_equal": true
+    }
+  ],
+  "initialization_error": false,
+  "input_mode": "owned",
+  "instrumentation_exit_code": 0,
+  "layout": "tablet",
+  "methods": [
+    "exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters"
+  ],
+  "native_expected_outcome": true,
+  "original_font_scale": "1.0",
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "passes": 1,
+  "preserved_file_count": 573,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "runner_sha256": "4a43ad7c9878451d5e92fa37fb376dde3f4206fc2b2b78fc6c7c84af7763926a",
+  "suite": "native-input",
+  "test_apk_sha256": "60598e18bab4968030c3fe627a54ee2c0f018ce801b4b13f34112cdd011ddabc"
+}

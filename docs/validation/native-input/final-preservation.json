@@ -1,0 +1,58 @@
+{
+  "completed": true,
+  "scope": "Read-only final state after all current installs/replacements, relative to the four-setting baselines after initial probe-history cleanup; original pre-probe IME-history identity remains unverified",
+  "collector_sha256": "3eaf6b09091cb5a25327b8d5094821be19283c1505aa599e63f056f8cbdf26d2",
+  "rows": [
+    {
+      "device": "legacy",
+      "checks": {
+        "exact-emulator-and-api": {
+          "passed": true
+        },
+        "idle-unprivileged-adbd": {
+          "passed": true
+        },
+        "four-original-ime-settings": {
+          "passed": true
+        },
+        "original-geometry-and-raw-font": {
+          "passed": true
+        },
+        "original-package-absence": {
+          "passed": true
+        }
+      },
+      "preserved_file_count": null
+    },
+    {
+      "device": "modern",
+      "checks": {
+        "exact-emulator-and-api": {
+          "passed": true
+        },
+        "idle-unprivileged-adbd": {
+          "passed": true
+        },
+        "four-original-ime-settings": {
+          "passed": true
+        },
+        "original-geometry-and-raw-font": {
+          "passed": true
+        },
+        "all-original-files-after-original-apks": {
+          "passed": true
+        },
+        "application-unprivileged": {
+          "passed": true
+        },
+        "original-apk-dev.tinycast.android": {
+          "passed": true
+        },
+        "original-apk-dev.tinycast.android.test": {
+          "passed": true
+        }
+      },
+      "preserved_file_count": 573
+    }
+  ]
+}

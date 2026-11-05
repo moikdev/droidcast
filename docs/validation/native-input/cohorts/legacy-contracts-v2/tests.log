@@ -1,0 +1,198 @@
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.NativeInputCompatibilityDeviceTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=committedCallerSelectionSurvivesIdleNativeRoutes
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=committedCallerSelectionSurvivesIdleNativeRoutes
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+Error in exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters(dev.tinycast.android.NativeInputCompatibilityDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters$lambda$38(NativeInputCompatibilityDeviceTest.kt:302)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda29.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.withControlledInput(NativeInputCompatibilityDeviceTest.kt:270)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters(NativeInputCompatibilityDeviceTest.kt:299)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters$lambda$38(NativeInputCompatibilityDeviceTest.kt:302)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda29.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.withControlledInput(NativeInputCompatibilityDeviceTest.kt:270)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters(NativeInputCompatibilityDeviceTest.kt:299)
+
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=largeDraftRestoresExactCharactersAfterRecreation
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=largeDraftRestoresExactCharactersAfterRecreation
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=activeMultilingualCompositionKeepsResultSelection
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+Error in activeMultilingualCompositionKeepsResultSelection(dev.tinycast.android.NativeInputCompatibilityDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.activeMultilingualCompositionKeepsResultSelection$lambda$46(NativeInputCompatibilityDeviceTest.kt:389)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.withControlledInput(NativeInputCompatibilityDeviceTest.kt:270)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.activeMultilingualCompositionKeepsResultSelection(NativeInputCompatibilityDeviceTest.kt:377)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=activeMultilingualCompositionKeepsResultSelection
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.activeMultilingualCompositionKeepsResultSelection$lambda$46(NativeInputCompatibilityDeviceTest.kt:389)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.withControlledInput(NativeInputCompatibilityDeviceTest.kt:270)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.activeMultilingualCompositionKeepsResultSelection(NativeInputCompatibilityDeviceTest.kt:377)
+
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=committedSameTurnLauncherActivationUsesCurrentNote
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+Error in committedSameTurnLauncherActivationUsesCurrentNote(dev.tinycast.android.NativeInputCompatibilityDeviceTest):
+java.lang.AssertionError: expected:<notes:e6864700-b98c-4637-8e6d-8ad6e011304e> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.committedSameTurnLauncherActivationUsesCurrentNote$lambda$52$lambda$51(NativeInputCompatibilityDeviceTest.kt:442)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.ui$lambda$1(NativeInputCompatibilityDeviceTest.kt:53)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda41.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)
+	at android.os.Handler.handleCallback(Handler.java:789)
+	at android.os.Handler.dispatchMessage(Handler.java:98)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6541)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=committedSameTurnLauncherActivationUsesCurrentNote
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.NativeInputCompatibilityDeviceTest
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<notes:e6864700-b98c-4637-8e6d-8ad6e011304e> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.committedSameTurnLauncherActivationUsesCurrentNote$lambda$52$lambda$51(NativeInputCompatibilityDeviceTest.kt:442)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.ui$lambda$1(NativeInputCompatibilityDeviceTest.kt:53)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda41.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)
+	at android.os.Handler.handleCallback(Handler.java:789)
+	at android.os.Handler.dispatchMessage(Handler.java:98)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6541)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.034
+There were 3 failures:
+1) exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters(dev.tinycast.android.NativeInputCompatibilityDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters$lambda$38(NativeInputCompatibilityDeviceTest.kt:302)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda29.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.withControlledInput(NativeInputCompatibilityDeviceTest.kt:270)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters(NativeInputCompatibilityDeviceTest.kt:299)
+2) activeMultilingualCompositionKeepsResultSelection(dev.tinycast.android.NativeInputCompatibilityDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.activeMultilingualCompositionKeepsResultSelection$lambda$46(NativeInputCompatibilityDeviceTest.kt:389)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.withControlledInput(NativeInputCompatibilityDeviceTest.kt:270)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.activeMultilingualCompositionKeepsResultSelection(NativeInputCompatibilityDeviceTest.kt:377)
+3) committedSameTurnLauncherActivationUsesCurrentNote(dev.tinycast.android.NativeInputCompatibilityDeviceTest)
+java.lang.AssertionError: expected:<notes:e6864700-b98c-4637-8e6d-8ad6e011304e> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.committedSameTurnLauncherActivationUsesCurrentNote$lambda$52$lambda$51(NativeInputCompatibilityDeviceTest.kt:442)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest.ui$lambda$1(NativeInputCompatibilityDeviceTest.kt:53)
+	at dev.tinycast.android.NativeInputCompatibilityDeviceTest$$ExternalSyntheticLambda41.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)
+	at android.os.Handler.handleCallback(Handler.java:789)
+	at android.os.Handler.dispatchMessage(Handler.java:98)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6541)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+
+FAILURES!!!
+Tests run: 5,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

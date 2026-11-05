@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionWorkflowInspectionTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-05T10:46:51.077Z" hostname="MacBook-Pro-2.local" time="0.08">
+  <properties/>
+  <testcase name="malformedUnsupportedAndUnavailableCatalogsDoNotBecomeUnknownSuccess" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.011"/>
+  <testcase name="knownUnreadableOrLinkedPayloadIsAnErrorNotAnEmptySuccess" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.008"/>
+  <testcase name="oversizeAndNonProgressingStreamsAreBoundedAndClosed" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.009"/>
+  <testcase name="changedOwnerAfterReadingCannotPublishAMatch" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.007"/>
+  <testcase name="knownExactPayloadMatchesButACommandEditStaysUnknown" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.009"/>
+  <testcase name="unknownPackageDoesNotReadItsMissingDirectory" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.019"/>
+  <testcase name="canonicalIdentityCannotBeInferredFromAnExtensionTitle" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.009"/>
+  <testcase name="cancellationClosesTheStreamAndIsNeverReportedAsAnErrorOutcome" classname="dev.tinycast.android.ExtensionWorkflowInspectionTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

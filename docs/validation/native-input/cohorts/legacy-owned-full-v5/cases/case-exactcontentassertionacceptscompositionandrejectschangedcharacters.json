@@ -1,0 +1,99 @@
+{
+  "api": 26,
+  "assertion_witness": {
+    "single_ui_turn": true,
+    "text_length": 36,
+    "text_sha256": "c080759ec92298a9520b3aeb7c4cf0f5e1be73f601871ad70ec9feb94cd48a0f",
+    "composition_underline_start": 0,
+    "composition_underline_end": 36
+  },
+  "case": "exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters",
+  "contract_completed": true,
+  "default_ime": "dev.tinycast.android.test/dev.tinycast.android.NativeInputTestIme",
+  "diagnostic_only": false,
+  "emoji_preferences_unchanged": true,
+  "font_scale": 1,
+  "input_setup": "Owned silent test IME plus explicit native InputConnection readiness/commit; no system-keyboard or physical-typing credit",
+  "observations": [
+    {
+      "kind": "controlled-input-ready",
+      "tag": "editor-title",
+      "expected_text_length": 36,
+      "readiness_attempts": 1
+    },
+    {
+      "kind": "observation",
+      "stage": "composed-title-after-content-assertion",
+      "tag": "editor-title",
+      "text_length": 36,
+      "text_sha256": "c080759ec92298a9520b3aeb7c4cf0f5e1be73f601871ad70ec9feb94cd48a0f",
+      "text_prefix": "  Owned caf\u00e9 \u65e5\u672c \ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66 \u2764\ufe0f 1\ufe0f\u20e3  ",
+      "plain_annotated_equal": false,
+      "span_styles": [
+        {
+          "start": 0,
+          "end": 36,
+          "decoration": "TextDecoration.Underline",
+          "style": "SpanStyle(color=Color(0.0, 0.0, 0.0, 0.0, None), brush=null, alpha=NaN, fontSize=Unspecified, fontWeight=null, fontStyle=null, fontSynthesis=null, fontFamily=null, fontFeatureSettings=null, letterSpacing=Unspecified, baselineShift=null, textGeometricTransform=null, localeList=null, background=Color(0.0, 0.0, 0.0, 0.0, None), textDecoration=TextDecoration.Underline, shadow=null, platformStyle=null, drawStyle=null)"
+        }
+      ],
+      "paragraph_styles": "[]",
+      "string_annotations": "[]",
+      "selection_start": 0,
+      "selection_end": 0,
+      "focused": true,
+      "no_input_connection_created_for_this_observation": true,
+      "codepoints": [
+        32,
+        32,
+        79,
+        119,
+        110,
+        101,
+        100,
+        32,
+        99,
+        97,
+        102,
+        233,
+        32,
+        26085,
+        26412,
+        32,
+        128104,
+        8205,
+        128105,
+        8205,
+        128103,
+        8205,
+        128102,
+        32,
+        10084,
+        65039,
+        32,
+        49,
+        65039,
+        8419,
+        32,
+        32
+      ],
+      "route": "note",
+      "window_focus": true,
+      "query": "",
+      "emoji_query": "",
+      "emoji_selected": 0,
+      "ime_accepting_text": true,
+      "uptime_ms": 35176946
+    }
+  ],
+  "palette_preferences_restored": true,
+  "scope": "Exact characters survive legitimate IME decoration; wrong Unicode/whitespace remains rejected",
+  "strict_annotation_equal": false,
+  "wrong_content_rejected": [
+    "changed-character",
+    "trimmed-whitespace",
+    "removed-joiner",
+    "removed-variation-selector",
+    "normalized-combining-sequence"
+  ]
+}
