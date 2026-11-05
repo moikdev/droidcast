@@ -1,0 +1,105 @@
+{
+  "completed": false,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "775233d14eb064bf6636071d89ade59f8a596c518beeb5f6844ea788c613cb7a",
+  "apk_sha256": "32e2726d35d1c01fe488aa0781a3a0d67d99498699f7121ab4ad2f1be95e5286",
+  "test_apk_sha256": "dc22049a5a03de863a783228cff53072e01484b1ccc3eed12222e9e832ccdf3d",
+  "methods": [
+    "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+    "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "tablet",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 0,
+  "failures": 2,
+  "native_expected_outcome": false,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-first-show.xml": "4cb8ed138228a0f00c680502a851522b1fb677a33bb29771d0fd5b9080dff728",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-first-show.png": "6cb6882a536cfd20e203cdb3ea88278fd530afb1327a58ca1a4f4851d98dc9c6",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-first-show-frame.json": "16daad1eef0957b1b8bc75a1b86c80f4e5d2987f88e5d2fd9b5ec547ffb7b717",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-hide.xml": "d18c845e91909af70857f9235f05066f780c3997d2cd073fbe8b6a48ab81eaec",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-hide.png": "60e979cb5c4f421baed33837f6053b0feda28f9a5bf3692385099d59d43901b2",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-hide-frame.json": "6603dc62fe03f29ad0d642eb32d16a958d6319a6edad8c4a851194f5462f7e16",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-show.xml": "4cb8ed138228a0f00c680502a851522b1fb677a33bb29771d0fd5b9080dff728",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-show.png": "7d94be69507ba6069750b745bef8dc586c46e73d6d6da98ae969c0b9090bbdb6",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-show-frame.json": "34d7d1afd5f68148d05b298170023beee817cc13f54f2e1cf2900ee03f4e85a2",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-obsolete-mode.xml": "d18c845e91909af70857f9235f05066f780c3997d2cd073fbe8b6a48ab81eaec",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-obsolete-mode.png": "cd8ce9376ac29fa6eee37ee6122c8a944d69709434dbabecf7c3040a76069b65",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-obsolete-mode-frame.json": "7a9c905a232410a42ed73ffa023143c6c237aad8b2be080c0be2419f1fe3cb00",
+    "emojikeyboardcallbacksrejectobsoletemodesownersandmenus-case.json": "b338c38dab75f6c1d2f124d5078945bd66bf9d22890a9ad86f7f1ebef50faf68",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-first-show.xml": "a8badaa0dd88ddf81a1f9f1b9633bba50185ad4ea3f1e9e6edd13c642e4f7eaa",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-first-show.png": "9b922a26ebed47f57e58bfb2fd376ffb735ca76f96c6d0fd2696b5b3f2a1d209",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-first-show-frame.json": "554b08aa0d3dd50ff6a54e07176a85fdfd4cceb70052137b8621ef406c550548",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-hide.xml": "3d5fc11771146b9ea01c9e3d4290e42d3dc7929ab03bfd7aa4eee63397728414",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-hide.png": "f595e889f7b6e1c2586e720d4a7a7fd65aa2d35a1b5bf19e347c8ebe5dba2281",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-hide-frame.json": "2da02eff294aeff70b20d3c0dba8d1a085cbe2a5d2588540697e531039a729c0",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-show.xml": "a8badaa0dd88ddf81a1f9f1b9633bba50185ad4ea3f1e9e6edd13c642e4f7eaa",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-show.png": "310938650bd27a857ee33532be1459556f9f12b75143cb5c6ec19e427407a2f8",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-live-show-frame.json": "80acb74de7e9b2ab66ef6279b09d7d2672c37d7ebfcf1e8c3a82c0e1add4da63",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-obsolete-mode.xml": "3d5fc11771146b9ea01c9e3d4290e42d3dc7929ab03bfd7aa4eee63397728414",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-obsolete-mode.png": "0bc019d8840abdf43b707150e402686cd8d28b06f1238c4118b3075126554ea2",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-keyboard-guard-obsolete-mode-frame.json": "12de910259e63531209a08d948ed0942a8f9a98f738b8fec5a5d73a56a7e6519",
+    "launcherkeyboardcallbacksrejectobsoletemodesownersandmenus-case.json": "b97217edde8e460e0573ede2faa0e5cbd937f43026fcf3a282dd445dddea032f"
+  },
+  "preserved_file_count": 573
+}

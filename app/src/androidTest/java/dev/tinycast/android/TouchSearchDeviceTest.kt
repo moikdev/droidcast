@@ -423,7 +423,7 @@ class TouchSearchDeviceTest {
                 completeFeedbackTarget(node("emoji-filter"), "Emoji category", surface)
             }
             if (compose.activity.resources.configuration.screenWidthDp >= 700)
-                completeFeedbackTarget(compose.onNodeWithContentDescription("Show on-screen keyboard"), "Keyboard", surface)
+                completeFeedbackTarget(compose.onNodeWithContentDescription(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard"), "Keyboard", surface)
             val footer = if(emojiRoute)node("emoji-favorite")else node("palette-menu")
             feedbackReveal(footer, surface)
             completeFeedbackTarget(footer, if(emojiRoute)"Emoji favorite"else"Droidcast menu", surface)
@@ -445,4 +445,265 @@ class TouchSearchDeviceTest {
 
     @Test fun launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable() = feedbackFlow(false)
     @Test fun emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable() = feedbackFlow(true)
+
+    private fun keyboardControl() = compose.onNode(
+        hasContentDescription("Show on-screen keyboard") or hasContentDescription("Hide on-screen keyboard"))
+
+    private fun keyboardState(search: String, query: String, range: TextRange, emojiRoute: Boolean, phase: String) {
+        text(search, query)
+        node(search).assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, range))
+        ui {
+            assertTrue("Keyboard controls need the owned foreground window", it.window.decorView.hasWindowFocus())
+            if (emojiRoute) {
+                assertEquals("emoji", it.store.dialog)
+                assertEquals("All", it.store.emoji.filter)
+                assertEquals(query, it.store.emoji.query)
+                assertEquals(0, it.store.emoji.selected)
+            } else {
+                assertNull(it.store.dialog)
+                assertEquals("Apps", it.store.category)
+                assertEquals(query, it.store.query)
+                assertEquals(0, it.store.selected)
+            }
+        }
+        events.put(JSONObject().put("kind", "keyboard-search-state").put("phase", phase)
+            .put("query", query).put("range", JSONArray(listOf(range.start, range.end)))
+            .put("focused", true).put("ime_visible", ime()).put("route", if (emojiRoute) "emoji" else "launcher"))
+    }
+
+    private fun pointerKeyboard(visible: Boolean, search: String, surface: String, phase: String, checkLabel: Boolean = true) {
+        val before = ime()
+        assertEquals("Start with the opposite actual IME state", !visible, before)
+        completeFeedbackTarget(keyboardControl(), "Keyboard", surface)
+        val label = keyboardControl().fetchSemanticsNode().config[SemanticsProperties.ContentDescription].single()
+        keyboardControl().performTouchInput { click(center) }
+        var reached = true
+        try { compose.waitUntil(6000) { ime() == visible } }
+        catch (_: ComposeTimeoutException) { reached = false }
+        settledFeedbackViewport(surface)
+        // Retain the actual post-tap screen even when the old Show-only action
+        // leaves the visible IME unchanged. A new label is not the control gate.
+        capture(phase, search)
+        events.put(JSONObject().put("kind", "keyboard-pointer-action").put("phase", phase)
+            .put("label_before", label).put("ime_before", before).put("expected_visible", visible)
+            .put("ime_after", ime()).put("reached_expected_state", reached))
+        assertTrue(if (visible) "Header keyboard action must reopen the IME" else "Header keyboard action must hide the visible IME", reached)
+        if (checkLabel) keyboardControl().assertContentDescriptionEquals(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard")
+    }
+
+    private fun keyboardResultTitle(value: String, surface: String) {
+        val target = compose.onNodeWithText(value, useUnmergedTree = true)
+        val layouts = mutableListOf<TextLayoutResult>()
+        target.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(layouts)) }
+        val layout = layouts.single(); val semantics = target.fetchSemanticsNode()
+        val origin = compose.runOnUiThread { semantics.positionInRoot }
+        val visible = semantics.boundsInRoot; val palette = node(surface).fetchSemanticsNode().boundsInRoot
+        assertEquals(value, layout.layoutInput.text.text)
+        assertEquals(14f, layout.layoutInput.style.fontSize.value, .01f)
+        for (line in 0 until layout.lineCount) {
+            val bounds = Rect(origin.x + layout.getLineLeft(line), origin.y + layout.getLineTop(line),
+                origin.x + layout.getLineRight(line), origin.y + layout.getLineBottom(line))
+            val complete = bounds.left >= visible.left - 1 && bounds.right <= visible.right + 1 &&
+                bounds.top >= visible.top - 1 && bounds.bottom <= visible.bottom + 1 &&
+                bounds.left >= palette.left - 1 && bounds.right <= palette.right + 1 &&
+                bounds.top >= palette.top - 1 && bounds.bottom <= palette.bottom + 1
+            events.put(JSONObject().put("kind", "keyboard-result-line").put("text", value).put("line", line)
+                .put("full", json(bounds)).put("visible", json(visible)).put("palette", json(palette))
+                .put("complete", complete).put("ellipsized", layout.isLineEllipsized(line)))
+            assertFalse("Revealed result title must not ellipsize", layout.isLineEllipsized(line))
+            assertTrue("Revealed result title line is complete", complete)
+        }
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    private fun keyboardToggleFlow(emojiRoute: Boolean) {
+        assumeTrue("This contract exercises the existing wide-screen keyboard slot", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Owned header pointer Hide/Show; editor/range and initial IME setup are controlled. Selected result target, not full list/grid typography or physical typing.")
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        for ((index, query) in listOf(if (emojiRoute) "face" else "settings", "").withIndex()) {
+            feedbackTop(surface); keyboard(false, search)
+            node(search).performTextReplacement(query)
+            settledFeedbackViewport(surface)
+            // Initial opening is an explicit pointer contract too. Delay the
+            // new state-label assertion until the old app has attempted Hide.
+            pointerKeyboard(true, search, surface, "keyboard-$index-initial-show", checkLabel = false)
+            val range = if (query.isEmpty()) TextRange.Zero else TextRange(1, minOf(5, query.length - 1))
+            node(search).performTextInputSelection(range)
+            keyboardState(search, query, range, emojiRoute, "before-$index")
+            val origin = rect(search); val beforeSurface = rect(surface)
+            capture("keyboard-$index-before-hide", search)
+            pointerKeyboard(false, search, surface, "keyboard-$index-after-hide")
+            keyboardState(search, query, range, emojiRoute, "hidden-$index")
+            assertEquals("Hide retains search geometry", origin, rect(search))
+            val button = keyboardControl().fetchSemanticsNode().boundsInWindow
+            assertFalse("Keyboard target and editor do not overlap", button.overlaps(rect(search)))
+            assertTrue("Editor retains at least 80 dp", rect(search).width >= 80 * context.resources.displayMetrics.density - 1)
+            if (query.isNotEmpty()) {
+                if (emojiRoute) {
+                    var id = ""
+                    ui { id = it.store.emoji.results()[it.store.emoji.selected].id }
+                    completeFeedbackTarget(node("emoji-cell-$id"), "Selected Emoji result", surface)
+                } else {
+                    var id = ""
+                    ui { id = it.store.results()[it.store.selected].id }
+                    completeFeedbackTarget(node("result-$id"), "Selected launcher result", surface)
+                    keyboardResultTitle("Settings", surface)
+                }
+            }
+            events.put(JSONObject().put("kind", "keyboard-result-viewport").put("query", query)
+                .put("before", json(beforeSurface)).put("after", json(rect(surface))))
+            pointerKeyboard(true, search, surface, "keyboard-$index-after-show")
+            keyboardState(search, query, range, emojiRoute, "shown-$index")
+            assertEquals("Show retains search geometry", origin, rect(search))
+        }
+        record.put("completed", true)
+    }
+
+    @Test fun launcherKeyboardToggleRevealsResultsAndPreservesSearch() = keyboardToggleFlow(false)
+    @Test fun emojiKeyboardToggleRevealsResultsAndPreservesSearch() = keyboardToggleFlow(true)
+
+    private fun rejectedKeyboardCallback(
+        action: () -> Boolean, expectedVisible: Boolean, search: String, surface: String, phase: String
+    ) {
+        var accepted = true
+        ui { accepted = action() }
+        compose.waitForIdle(); instrumentation.waitForIdleSync()
+        settledFeedbackViewport(surface)
+        capture(phase, search)
+        assertEquals("Obsolete or obstructed keyboard callback must not change visibility: $phase", expectedVisible, ime())
+        assertFalse("The published action must report rejection", accepted)
+        events.put(JSONObject().put("kind", "keyboard-callback-rejected").put("phase", phase)
+            .put("visible", expectedVisible).put("accepted", accepted))
+    }
+
+    private fun dismissKeyboardMenuByPointer(search: String, surface: String) {
+        val menu = node("inline-menu").fetchSemanticsNode().boundsInRoot
+        val editor = node(search).fetchSemanticsNode().boundsInRoot
+        val palette = node(surface).fetchSemanticsNode().boundsInRoot
+        val inset = 12 * context.resources.displayMetrics.density
+        val candidates = listOf(
+            androidx.compose.ui.geometry.Offset(editor.left + minOf(inset, editor.width / 2), editor.center.y),
+            androidx.compose.ui.geometry.Offset(editor.right - minOf(inset, editor.width / 2), editor.center.y))
+        val point = candidates.firstOrNull { p -> palette.contains(p) && !menu.contains(p) }
+        assertNotNull("An owned palette backdrop point remains outside the menu", point)
+        compose.onRoot().performTouchInput { click(requireNotNull(point)) }
+        node("inline-menu").assertDoesNotExist()
+        events.put(JSONObject().put("kind", "keyboard-menu-pointer-dismissal")
+            .put("point", JSONArray(listOf(point!!.x, point.y))).put("menu", json(menu)).put("palette", json(palette)))
+    }
+
+    private fun keyboardCallbackFlow(emojiRoute: Boolean) {
+        assumeTrue("Owned wide-screen callback contract", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Controlled retained native callbacks; visibility and menu-backdrop dismissal use actual pointers. Injected system Back failure remains #115; no queued-input or cross-window certification.")
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        val query = if (emojiRoute) "face" else "settings"
+        keyboard(false, search); node(search).performTextReplacement(query); settledFeedbackViewport(surface)
+        pointerKeyboard(true, search, surface, "keyboard-guard-first-show")
+        val oldHide = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        pointerKeyboard(false, search, surface, "keyboard-guard-live-hide")
+        pointerKeyboard(true, search, surface, "keyboard-guard-live-show")
+        rejectedKeyboardCallback(oldHide, true, search, surface, "keyboard-guard-obsolete-mode")
+
+        // Change the epoch and invoke before Compose can dispose the old owner.
+        val beforeEpoch = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        var epochAccepted = true
+        ui { it.store.focusEpoch++; epochAccepted = beforeEpoch() }
+        settledFeedbackViewport(surface)
+        assertTrue("Changed search epoch rejects Hide before disposal", ime())
+        assertFalse("Changed epoch reports rejection before disposal", epochAccepted)
+        capture("keyboard-guard-epoch", search)
+        events.put(JSONObject().put("kind", "keyboard-callback-rejected").put("phase", "changed-epoch-before-disposal").put("visible", true).put("accepted", epochAccepted))
+
+        pointerKeyboard(false, search, surface, "keyboard-guard-before-menu")
+        val obstructedShow = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        // Semantics is deliberate menu setup, not pointer-navigation evidence.
+        node(if (emojiRoute) "emoji-filter" else "palette-menu").performClick()
+        node("inline-menu").assertIsDisplayed()
+        rejectedKeyboardCallback(obstructedShow, false, search, surface, "keyboard-guard-open-menu")
+        node("inline-menu").assertIsDisplayed()
+        // Injected system Back cleared Emoji's caller query in the retained #115
+        // cohort. This pointer-backdrop protocol earns no Back repair credit.
+        dismissKeyboardMenuByPointer(search, surface)
+        node(search).assertIsFocused()
+        text(search, query)
+        pointerKeyboard(true, search, surface, "keyboard-guard-after-menu")
+        pointerKeyboard(false, search, surface, "keyboard-guard-before-replacement")
+
+        val replacedShow = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        ui { it.store.dialog = "updates"; replacedShow(); assertEquals("updates", it.store.dialog) }
+        node("inline-back").assertIsDisplayed().performTouchInput { click(center) }
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        node(search).performTextReplacement(query); keyboard(false, search); settledFeedbackViewport(surface)
+        rejectedKeyboardCallback(replacedShow, false, search, surface, "keyboard-guard-replaced-route")
+        pointerKeyboard(true, search, surface, "keyboard-guard-current-replacement-show")
+        pointerKeyboard(false, search, surface, "keyboard-guard-before-recreation")
+        val recreatedShow = requireNotNull(keyboardControl().fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.activityRule.scenario.recreate()
+        node(search).performTextReplacement(query); keyboard(false, search); settledFeedbackViewport(surface)
+        rejectedKeyboardCallback(recreatedShow, false, search, surface, "keyboard-guard-recreated-owner")
+        pointerKeyboard(true, search, surface, "keyboard-guard-current-recreated-show")
+        record.put("rejected_callbacks", 5).put("completed", true)
+    }
+
+    @Test fun launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus() = keyboardCallbackFlow(false)
+    @Test fun emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus() = keyboardCallbackFlow(true)
+
+    @Test fun currentKeyboardAccessibilityActionsApplyTheirPublishedVisibility() {
+        assumeTrue("Owned wide-screen accessibility action contract", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Explicit native accessibility action invocation with accepted return and actual IME transition; editor setup is controlled. No TalkBack gesture or physical-typing certification.")
+        for (emojiRoute in listOf(false, true)) {
+            if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+            val search = if (emojiRoute) "emoji-search" else "search"
+            val surface = if (emojiRoute) "emoji-palette" else "palette"
+            val query = if (emojiRoute) "face" else "settings"
+            keyboard(false, search); node(search).performTextReplacement(query); settledFeedbackViewport(surface)
+            val origin = rect(search)
+            for ((index, visible) in listOf(true, false, true).withIndex()) {
+                val semantics = keyboardControl().fetchSemanticsNode()
+                assertEquals(androidx.compose.ui.semantics.Role.Button, semantics.config[SemanticsProperties.Role])
+                val action = requireNotNull(semantics.config[SemanticsActions.OnClick].action)
+                var accepted = false
+                ui { accepted = action() }
+                assertTrue("The current published keyboard action is supported and accepted", accepted)
+                compose.waitUntil(6000) { ime() == visible }
+                settledFeedbackViewport(surface)
+                keyboardState(search, query, TextRange(query.length), emojiRoute, "accessibility-$emojiRoute-$index")
+                assertEquals(origin, rect(search))
+                keyboardControl().assertContentDescriptionEquals(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard")
+                events.put(JSONObject().put("kind", "current-keyboard-accessibility-action").put("route", if (emojiRoute) "emoji" else "launcher")
+                    .put("expected_visible", visible).put("actual_visible", ime()).put("accepted", accepted))
+                capture("keyboard-accessibility-${if (emojiRoute) "emoji" else "launcher"}-$index", search)
+            }
+        }
+        record.put("completed", true)
+    }
+
+    @Test fun emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle() {
+        assumeTrue("Owned wide-screen Back diagnostic", compose.activity.resources.configuration.screenWidthDp >= 700)
+        record.put("scope", "Injected system Back diagnostic with no header keyboard activation. Editor and epoch setup are controlled; it earns no Back repair, hardware-key or TalkBack certification.")
+        emoji(); ui { it.store.emoji.chooseFilter("All") }
+        node("emoji-search").performTextReplacement("face")
+        keyboard(false, "emoji-search")
+        ui { val before = it.store.focusEpoch; it.store.focusEpoch++
+            events.put(JSONObject().put("kind", "back-probe-epoch-setup").put("before", before).put("after", it.store.focusEpoch)) }
+        settledFeedbackViewport("emoji-palette")
+        text("emoji-search", "face"); node("emoji-search").assertIsFocused()
+        capture("back-probe-before-menu", "emoji-search")
+        node("emoji-filter").assertIsDisplayed().performTouchInput { click(center) }
+        node("inline-menu").assertIsDisplayed()
+        capture("back-probe-menu", "emoji-search")
+        val injected = device.pressBack()
+        compose.waitForIdle(); settledFeedbackViewport("emoji-palette")
+        capture("back-probe-after", "emoji-search")
+        ui { events.put(JSONObject().put("kind", "back-probe-after-injection").put("injection_accepted", injected)
+            .put("query", it.store.emoji.query).put("route", it.store.dialog).put("ime_visible", ime())) }
+        node("inline-menu").assertDoesNotExist()
+        text("emoji-search", "face")
+        node("emoji-search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(4)))
+        record.put("completed", true)
+    }
 }

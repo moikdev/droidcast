@@ -1,0 +1,99 @@
+{
+  "app_build_source": "f30bebd6c414307a5b5fe690d80dfffe5fc58ccc",
+  "source_count": 255,
+  "historical_vectors_and_apk_payloads_match": true,
+  "production_build_sources_equal": "411b7f73ffea57b15ffa1c5ff01a468506495467",
+  "production_build_input_count": 110,
+  "unchanged_python_source_count": 39,
+  "python_reuse": {
+    "normal": {
+      "cases": 135,
+      "seconds": 22.433,
+      "source_commit": "1355f84cb4f3cc93ae732a5ae9028c42747f0f8e",
+      "log_sha256": "1316b28e38783e8e019d172ccbbddd33ae3f932a63b3f839ed67088d1692168b"
+    },
+    "optimized": {
+      "cases": 135,
+      "seconds": 22.723,
+      "source_commit": "1355f84cb4f3cc93ae732a5ae9028c42747f0f8e",
+      "log_sha256": "773915088754da34ef9b26ae2e2fa0d4a8f63e157b2924f09922c27d7c34f4df"
+    }
+  },
+  "unchanged_assets": {
+    "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+    "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+  },
+  "manifest_stamps_match": true,
+  "test_manifests_have_no_independent_source_stamp": true,
+  "jvm": {
+    "tests": 343,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "task_line": "> Task :app:testDebugUnitTest",
+    "report_files": 37
+  },
+  "lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    },
+    "benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    }
+  },
+  "build_successes": 2,
+  "zip_differences": [
+    {
+      "from": "candidate-v1",
+      "to": "candidate-v2",
+      "apk": "app-debug.apk",
+      "changed_payloads": [
+        "AndroidManifest.xml",
+        "classes3.dex",
+        "classes4.dex"
+      ]
+    },
+    {
+      "from": "candidate-v1",
+      "to": "candidate-v2",
+      "apk": "app-debug-androidTest.apk",
+      "changed_payloads": [
+        "classes3.dex",
+        "classes4.dex"
+      ]
+    },
+    {
+      "from": "candidate-v2",
+      "to": "candidate-v3",
+      "apk": "app-debug.apk",
+      "changed_payloads": [
+        "AndroidManifest.xml",
+        "classes3.dex",
+        "classes4.dex"
+      ]
+    },
+    {
+      "from": "candidate-v2",
+      "to": "candidate-v3",
+      "apk": "app-debug-androidTest.apk",
+      "changed_payloads": [
+        "classes3.dex",
+        "classes4.dex"
+      ]
+    }
+  ],
+  "scope": "Source/Git/ZIP/manifest inspection and actual host reports. Candidate app binaries remain distinct; no stamp-only reconstruction/equivalence is inferred. Python receipts reuse exact unchanged inputs."
+}

@@ -1,0 +1,131 @@
+{
+  "scope": "Explicit native accessibility action invocation with accepted return and actual IME transition; editor setup is controlled. No TalkBack gesture or physical-typing certification.",
+  "case": "currentKeyboardAccessibilityActionsApplyTheirPublishedVisibility",
+  "api": 36,
+  "font_scale": 1,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "keyboard-search-state",
+      "phase": "accessibility-false-0",
+      "query": "settings",
+      "range": [
+        8,
+        8
+      ],
+      "focused": true,
+      "ime_visible": true,
+      "route": "launcher"
+    },
+    {
+      "kind": "current-keyboard-accessibility-action",
+      "route": "launcher",
+      "expected_visible": true,
+      "actual_visible": true,
+      "accepted": true
+    },
+    {
+      "kind": "keyboard-search-state",
+      "phase": "accessibility-false-1",
+      "query": "settings",
+      "range": [
+        8,
+        8
+      ],
+      "focused": true,
+      "ime_visible": false,
+      "route": "launcher"
+    },
+    {
+      "kind": "current-keyboard-accessibility-action",
+      "route": "launcher",
+      "expected_visible": false,
+      "actual_visible": false,
+      "accepted": true
+    },
+    {
+      "kind": "keyboard-search-state",
+      "phase": "accessibility-false-2",
+      "query": "settings",
+      "range": [
+        8,
+        8
+      ],
+      "focused": true,
+      "ime_visible": true,
+      "route": "launcher"
+    },
+    {
+      "kind": "current-keyboard-accessibility-action",
+      "route": "launcher",
+      "expected_visible": true,
+      "actual_visible": true,
+      "accepted": true
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "keyboard-search-state",
+      "phase": "accessibility-true-0",
+      "query": "face",
+      "range": [
+        4,
+        4
+      ],
+      "focused": true,
+      "ime_visible": true,
+      "route": "emoji"
+    },
+    {
+      "kind": "current-keyboard-accessibility-action",
+      "route": "emoji",
+      "expected_visible": true,
+      "actual_visible": true,
+      "accepted": true
+    },
+    {
+      "kind": "keyboard-search-state",
+      "phase": "accessibility-true-1",
+      "query": "face",
+      "range": [
+        4,
+        4
+      ],
+      "focused": true,
+      "ime_visible": false,
+      "route": "emoji"
+    },
+    {
+      "kind": "current-keyboard-accessibility-action",
+      "route": "emoji",
+      "expected_visible": false,
+      "actual_visible": false,
+      "accepted": true
+    },
+    {
+      "kind": "keyboard-search-state",
+      "phase": "accessibility-true-2",
+      "query": "face",
+      "range": [
+        4,
+        4
+      ],
+      "focused": true,
+      "ime_visible": true,
+      "route": "emoji"
+    },
+    {
+      "kind": "current-keyboard-accessibility-action",
+      "route": "emoji",
+      "expected_visible": true,
+      "actual_visible": true,
+      "accepted": true
+    }
+  ]
+}

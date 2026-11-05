@@ -1,0 +1,105 @@
+{
+  "scope": "Controlled retained native callbacks; visibility and menu-backdrop dismissal use actual pointers. Injected system Back failure remains #115; no queued-input or cross-window certification.",
+  "case": "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+  "api": 36,
+  "font_scale": 1,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "visible": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-first-show",
+      "label_before": "Show on-screen keyboard",
+      "ime_before": false,
+      "expected_visible": true,
+      "ime_after": true,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "visible": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        630
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-live-hide",
+      "label_before": "Hide on-screen keyboard",
+      "ime_before": true,
+      "expected_visible": false,
+      "ime_after": false,
+      "reached_expected_state": true
+    },
+    {
+      "kind": "feedback-control",
+      "label": "Keyboard",
+      "full": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "visible": [
+        1427,
+        243,
+        1499,
+        315
+      ],
+      "palette": [
+        398,
+        237,
+        1523,
+        950
+      ]
+    },
+    {
+      "kind": "keyboard-pointer-action",
+      "phase": "keyboard-guard-live-show",
+      "label_before": "Show on-screen keyboard",
+      "ime_before": false,
+      "expected_visible": true,
+      "ime_after": true,
+      "reached_expected_state": true
+    }
+  ]
+}

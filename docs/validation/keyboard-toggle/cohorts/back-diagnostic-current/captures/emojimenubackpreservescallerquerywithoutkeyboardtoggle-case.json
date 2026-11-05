@@ -1,0 +1,24 @@
+{
+  "scope": "Injected system Back diagnostic with no header keyboard activation. Editor and epoch setup are controlled; it earns no Back repair, hardware-key or TalkBack certification.",
+  "case": "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+  "api": 36,
+  "font_scale": 1,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "back-probe-epoch-setup",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "kind": "back-probe-after-injection",
+      "injection_accepted": false,
+      "query": "",
+      "route": "emoji",
+      "ime_visible": false
+    }
+  ]
+}

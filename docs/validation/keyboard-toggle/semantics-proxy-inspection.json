@@ -1,0 +1,26 @@
+{
+  "dependencies": [
+    {
+      "artifact": "foundation",
+      "version": "1.7.6",
+      "source_url": "https://dl.google.com/dl/android/maven2/androidx/compose/foundation/foundation/1.7.6/foundation-1.7.6-sources.jar",
+      "source_sha256": "0bf091a6b6054ce0ff8b8b01a4d6ee6ba8a8b70edcfac77ff2ee5b91c9f37dec",
+      "cached_aar_sha256": "5ccb96bab040a70f7fdd577faaad75343261c006d42fcc5723a38f50a82f597c"
+    },
+    {
+      "artifact": "ui",
+      "version": "1.7.6",
+      "source_url": "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui/1.7.6/ui-1.7.6-sources.jar",
+      "source_sha256": "743dfcbd19efcda674d1ceab729cecacbb624c72d804878a77c17d089f8cf4b4"
+    }
+  ],
+  "cached_class": "androidx.compose.foundation.AbstractClickableNode$applySemantics$1",
+  "bytecode_observation": "The lambda holds its clickable node and invokes getOnClick() on that node when called. The node update method replaces onClick. A retained default accessibility action therefore forwards to the latest application callback.",
+  "source_locations": {
+    "Clickable.kt": "protected onClick property, update assignment, applySemantics action lambda",
+    "SemanticsModifier.kt": "clearAndSetSemantics stores the supplied semantics properties"
+  },
+  "candidate_v1_observation": "After pointer Show/Hide/Show, both retained default actions hid the current IME. Those failures do not show invocation of the original application closure.",
+  "candidate_v2_design": "Publish an owned accessibility action that closes over the same guarded activation function as pointer clicks; preserve Button role and return false on rejection.",
+  "scope": "Independent primary-source/AAR inspection. The earlier Show-setup timeout remains unexplained. No TalkBack or physical queued-gesture certification."
+}
