@@ -308,23 +308,33 @@ class ExtensionRecordedTestsDeviceTest {
         try {
             val density=context.resources.displayMetrics.density
             val tint=PaletteTheme.secondary.toArgb()
+            val centerX=(bounds[0]+bounds[2])/2;val centerY=(bounds[1]+bounds[3])/2
+            // The secondary tint is translucent. Sample the same control's
+            // background outside the 18dp glyph, then composite its RGB.
+            val background=bitmap.getPixel((centerX+8*density).roundToInt(),(centerY+8*density).roundToInt())
+            val alpha=android.graphics.Color.alpha(tint)/255f
+            fun blend(front:Int,back:Int)=(front*alpha+back*(1-alpha)).roundToInt()
+            val expected=android.graphics.Color.rgb(blend(android.graphics.Color.red(tint),android.graphics.Color.red(background)),
+                blend(android.graphics.Color.green(tint),android.graphics.Color.green(background)),
+                blend(android.graphics.Color.blue(tint),android.graphics.Color.blue(background)))
             fun ink(dx:Float,dy:Float):Int {
-                val x=((bounds[0]+bounds[2])/2+dx*density).roundToInt()
-                val y=((bounds[1]+bounds[3])/2+dy*density).roundToInt()
+                val x=(centerX+dx*density).roundToInt()
+                val y=(centerY+dy*density).roundToInt()
                 val radius=maxOf(1,(density*.8f).roundToInt())
                 var count=0
                 for(py in y-radius..y+radius)for(px in x-radius..x+radius) {
                     assertTrue(px in 0 until bitmap.width&&py in 0 until bitmap.height)
                     val pixel=bitmap.getPixel(px,py)
-                    if(kotlin.math.abs(android.graphics.Color.red(pixel)-android.graphics.Color.red(tint))<=24&&
-                       kotlin.math.abs(android.graphics.Color.green(pixel)-android.graphics.Color.green(tint))<=24&&
-                       kotlin.math.abs(android.graphics.Color.blue(pixel)-android.graphics.Color.blue(tint))<=24)count++
+                    if(kotlin.math.abs(android.graphics.Color.red(pixel)-android.graphics.Color.red(expected))<=32&&
+                       kotlin.math.abs(android.graphics.Color.green(pixel)-android.graphics.Color.green(expected))<=32&&
+                       kotlin.math.abs(android.graphics.Color.blue(pixel)-android.graphics.Color.blue(expected))<=32)count++
                 }
                 return count
             }
             val diagonal=listOf(ink(-3f,-3f),ink(3f,-3f),ink(-3f,3f),ink(3f,3f))
             val axes=listOf(ink(0f,-3f),ink(0f,3f),ink(-3f,0f),ink(3f,0f))
             record.put("clear_glyph_pixels",JSONObject().put("diagonal_ink",JSONArray(diagonal)).put("axis_ink",JSONArray(axes))
+                .put("screen_bounds",JSONArray(bounds)).put("background_argb",background).put("composited_tint_argb",expected).put("channel_tolerance",32)
                 .put("pixel_probe_scope","Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"))
             assertTrue("Clear search must draw a close glyph rather than the fallback plus",diagonal.all { it>0 }&&axes.all { it==0 })
         } finally { bitmap.recycle() }
