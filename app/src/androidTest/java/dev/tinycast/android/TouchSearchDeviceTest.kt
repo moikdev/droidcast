@@ -1080,9 +1080,16 @@ class TouchSearchDeviceTest {
             node(search).performTextInputSelection(range)
             assertEquals(range, ownedRange("$phase-before-menu", search, query))
             feedbackReveal(node(button), surface)
+            // Mirror the menu's own opening intent: a narrow palette requests the
+            // keyboard, a wide one keeps it hidden. Settle that before toggling.
+            val density = context.resources.displayMetrics.density
+            val requested = rect(surface).width / density < 600 || ime()
             node(button).performTouchInput { click(center) }
             node("inline-menu").assertIsDisplayed()
             node("inline-menu-search").assertIsFocused()
+            compose.waitUntil(10000) { ime() == requested }
+            settledFeedbackViewport(surface)
+            events.put(JSONObject().put("kind", "action-menu-open-keyboard").put("requested", requested).put("ime_visible", ime()))
             ui { assertEquals(if (emojiRoute) "emoji" else "actions", it.store.dialog) }
         }
         fun menuKeyboard(visible: Boolean) {
