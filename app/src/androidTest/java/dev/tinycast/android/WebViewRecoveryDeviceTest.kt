@@ -286,6 +286,34 @@ class WebViewRecoveryDeviceTest {
         } finally { instrumentation.removeMonitor(monitor) }
     }
 
+    @Test fun equivalentFailureGetsFreshRecoveryActionsBeforeRecomposition() {
+        assumeTrue(Build.VERSION.SDK_INT == 26)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single { c -> c.name == "index" }) }
+        compose.waitUntil(15000) { compose.activity.store.extensions.runtimeEngineProblem != null }
+        val first = requireNotNull(compose.activity.store.extensions.runtimeEngineProblem)
+        compose.onNodeWithTag("extension-engine-settings").performTouchInput { click(center) }
+        assertTrue(device.wait(androidx.test.uiautomator.Until.hasObject(androidx.test.uiautomator.By.pkg("com.android.settings")), 10000))
+        device.pressBack(); compose.waitUntil(10000) { compose.activity.hasWindowFocus() }
+        compose.onNodeWithTag("extension-engine-settings").assertIsNotEnabled()
+        compose.activityRule.scenario.onActivity {
+            val next = extension.commands.single { c -> c.name == "index" }
+            it.store.openExtension(extension, next)
+            val catalog = it.store.extensions
+            val owner = catalog.captureText(extension, next).owner
+            assertTrue(catalog.reportEngineProblem(owner, extension, next,
+                ExtensionEngineProblem(first.engine, first.failure, first.missingApis)))
+        }
+        compose.waitForIdle()
+        compose.onNodeWithTag("extension-engine-settings").assertIsEnabled()
+        compose.onNodeWithTag("extension-engine-return").assertIsEnabled()
+        record.put("second_failure_scope", "Controlled native publication of an equivalent failure before recomposition; first failure used the actual legacy engine")
+            .put("fresh_recovery_actions", true)
+        capture("equivalent-failure-ready")
+        compose.onNodeWithTag("extension-engine-return").performTouchInput { click(center) }
+        compose.waitUntil(10000) { compose.activity.store.dialog == null }
+        record.put("passed", true)
+    }
+
     @After fun restore() {
         if (!prepared) return
         try {

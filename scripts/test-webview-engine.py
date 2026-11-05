@@ -20,7 +20,8 @@ CLASS = 'dev.tinycast.android.WebViewRecoveryDeviceTest'
 CASES = {
     'legacy': ['incompatibleEngineShowsNativeRecoveryWithoutDispatch',
                'incompatibleEngineOpensOnlyActualProviderSettingsAndReturns',
-               'replacedRecoveryRejectsRetainedSettingsAndReturnCallbacks'],
+               'replacedRecoveryRejectsRetainedSettingsAndReturnCallbacks',
+               'equivalentFailureGetsFreshRecoveryActionsBeforeRecomposition'],
     'modern': ['modernEnginePublishesListAndRunsLiveAction', 'modernEnginePublishesGridAndRunsLiveAction'],
     'shared': ['actualProviderParsesProbeWithoutRunningItsBodyAndRejectsSyntax',
                'closingBeforePreflightFinishesRejectsLatePublication',
@@ -91,7 +92,7 @@ def main():
     legacy = a.avd == 'Droidcast_WebView_API26_27caf3'
     require(a.serial.startswith('emulator-') and a.avd in ('Droidcast_WebView_API26_27caf3', 'Tinycast_Tablet_API_36'), 'Use an explicitly owned AVD')
     methods = a.cases.split(',')
-    require(len(methods) == len(set(methods)) and 1 <= len(methods) <= 6 and all(
+    require(len(methods) == len(set(methods)) and 1 <= len(methods) <= 7 and all(
         name in CASES['shared'] + CASES['legacy' if legacy else 'modern'] for name in methods), 'Unsupported native cases')
     require(not a.expected_negative or legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
     require(not legacy or a.layout == 'phone', 'Keep the actual API26 geometry unchanged')
