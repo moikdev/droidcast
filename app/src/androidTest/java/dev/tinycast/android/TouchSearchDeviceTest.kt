@@ -11,8 +11,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
@@ -915,13 +918,13 @@ class TouchSearchDeviceTest {
                     androidx.compose.material3.MaterialTheme {
                         PaletteMenuHost(activity.store) {
                             if (!route) PaletteFrame({}, tag = "back-fixture-home") {
-                                androidx.compose.material3.Text("Controlled native Back ownership fixture")
-                                androidx.compose.material3.Button(onClick = { route = true }, modifier = Modifier.testTag("back-fixture-enter")) {
+                                androidx.compose.material3.Text("Controlled native Back ownership fixture", color = PaletteTheme.ink, modifier = Modifier.padding(16.dp))
+                                androidx.compose.material3.Button(onClick = { route = true }, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = 48.dp).testTag("back-fixture-enter")) {
                                     androidx.compose.material3.Text("Enter owned route")
                                 }
                             } else PaletteFrame({ routeBacks++; route = false }, tag = "back-fixture-route") {
-                                androidx.compose.material3.Text("Later registered route callback")
-                                androidx.compose.material3.Button(onClick = { menu = true }, modifier = Modifier.testTag("back-fixture-menu")) {
+                                androidx.compose.material3.Text("Later registered route callback", color = PaletteTheme.ink, modifier = Modifier.padding(16.dp))
+                                androidx.compose.material3.Button(onClick = { menu = true }, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = 48.dp).testTag("back-fixture-menu")) {
                                     androidx.compose.material3.Text("Open owned menu")
                                 }
                                 PaletteChoiceMenu(menu, { menuDismissals++; menu = false },
