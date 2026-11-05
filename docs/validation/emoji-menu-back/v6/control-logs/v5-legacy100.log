@@ -1,0 +1,187 @@
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=launcherMenuDismissalsPreserveRangeAndFilter
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=launcherMenuDismissalsPreserveRangeAndFilter
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=emojiMenuDismissalsPreserveRangeAndImeIntent
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=emojiMenuDismissalsPreserveRangeAndImeIntent
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=emojiActionsBackHidesKeyboardBeforeClosingMenu
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+Error in emojiActionsBackHidesKeyboardBeforeClosingMenu(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (TestTag = 'inline-menu')
+Node found:
+Node #957 at (l=187.0, t=434.0, r=1027.0, b=1086.0)px, Tag: 'inline-menu'
+IsTraversalGroup = 'true'
+TestTagsAsResourceId = 'true'
+Has 3 children, 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$136(TouchSearchDeviceTest.kt:1129)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda64.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1094)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1138)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=emojiActionsBackHidesKeyboardBeforeClosingMenu
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (TestTag = 'inline-menu')
+Node found:
+Node #957 at (l=187.0, t=434.0, r=1027.0, b=1086.0)px, Tag: 'inline-menu'
+IsTraversalGroup = 'true'
+TestTagsAsResourceId = 'true'
+Has 3 children, 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$136(TouchSearchDeviceTest.kt:1129)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda64.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1094)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1138)
+
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=menuBackPrecedesLaterRegisteredRouteCallback
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=menuBackPrecedesLaterRegisteredRouteCallback
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=launcherActionsBackHidesKeyboardBeforeClosingMenu
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+Error in launcherActionsBackHidesKeyboardBeforeClosingMenu(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (TestTag = 'inline-menu')
+Node found:
+Node #1305 at (l=187.0, t=290.0, r=1027.0, b=1194.0)px, Tag: 'inline-menu'
+IsTraversalGroup = 'true'
+TestTagsAsResourceId = 'true'
+Has 3 children, 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$136(TouchSearchDeviceTest.kt:1129)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda64.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1094)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1139)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=launcherActionsBackHidesKeyboardBeforeClosingMenu
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (TestTag = 'inline-menu')
+Node found:
+Node #1305 at (l=187.0, t=290.0, r=1027.0, b=1194.0)px, Tag: 'inline-menu'
+IsTraversalGroup = 'true'
+TestTagsAsResourceId = 'true'
+Has 3 children, 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$136(TouchSearchDeviceTest.kt:1129)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda64.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1094)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1139)
+
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=emojiCanceledRepeatedBackKeepsActiveMenu
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=emojiCanceledRepeatedBackKeepsActiveMenu
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 58.389
+There were 2 failures:
+1) emojiActionsBackHidesKeyboardBeforeClosingMenu(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (TestTag = 'inline-menu')
+Node found:
+Node #957 at (l=187.0, t=434.0, r=1027.0, b=1086.0)px, Tag: 'inline-menu'
+IsTraversalGroup = 'true'
+TestTagsAsResourceId = 'true'
+Has 3 children, 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$136(TouchSearchDeviceTest.kt:1129)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda64.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1094)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1138)
+2) launcherActionsBackHidesKeyboardBeforeClosingMenu(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (TestTag = 'inline-menu')
+Node found:
+Node #1305 at (l=187.0, t=290.0, r=1027.0, b=1194.0)px, Tag: 'inline-menu'
+IsTraversalGroup = 'true'
+TestTagsAsResourceId = 'true'
+Has 3 children, 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$136(TouchSearchDeviceTest.kt:1129)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda64.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1094)
+	at dev.tinycast.android.TouchSearchDeviceTest.launcherActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1139)
+
+FAILURES!!!
+Tests run: 6,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

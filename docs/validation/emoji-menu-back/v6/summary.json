@@ -1,0 +1,812 @@
+{
+  "source_commit": "ded3f8177b31327f1057ad679e1baca9ffa04c83",
+  "app_source": "867f9917933db90c970ada4c5b979b2da52471d4",
+  "test_source": "ded3f8177b31327f1057ad679e1baca9ffa04c83",
+  "apk_sha256": {
+    "app-debug-androidTest.apk": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+    "app-debug.apk": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14"
+  },
+  "current": {
+    "cohorts": 15,
+    "passes": 69,
+    "failures": 0,
+    "restoration_checks": 228
+  },
+  "control": {
+    "cohorts": 5,
+    "passes": 0,
+    "failures": 5,
+    "restoration_checks": 79
+  },
+  "v5_v6_historical": {
+    "cohorts": 14,
+    "passes": 47,
+    "failures": 7,
+    "restoration_checks": 214
+  },
+  "v5_v6_executions": 128,
+  "v5_v6_failures": 12,
+  "prior_v4_round": {
+    "all_retained_executions": 81,
+    "all_retained_passes": 63,
+    "all_retained_failures": 18,
+    "all_cohort_restoration_checks": 453
+  },
+  "all_retained_executions": 209,
+  "all_retained_failures": 30,
+  "final_preservation": {
+    "checks": 16,
+    "passed": 15,
+    "failed_keys": [
+      "all-original-modern-app-evidence-files"
+    ],
+    "explanation": "Only files/profileInstalled differs among 573 original modern app files. Its bytes record the package lastUpdateTime 2026-11-06 06:17:52, the moment the last v4 modern cohort restoration reinstalled the original APK (record written 06:17:55). The v4 preservation pass at 06:51 still saw the old marker; the original app process later started (inferred, not observed) and AndroidX ProfileInstaller rewrote it. An install timestamp cannot be restored; the marker is build/install-derived, not user data."
+  },
+  "recovery": {
+    "all_passed": true,
+    "checks": {
+      "owner-before-recovery": true,
+      "idle-instrumentation": true,
+      "installed-data-and-evidence": true,
+      "verify-unprivileged": true,
+      "restore-binary-dev.tinycast.android": true,
+      "restore-binary-dev.tinycast.android.test": true,
+      "owner-after-binaries": true,
+      "original-geometry-font": true,
+      "release-owner-last": true
+    },
+    "preserved_file_count": 573,
+    "scope": "Completes the runner restoration after its 60 s private-data snapshot timed out (57.8 of ~77 MB transferred). Same steps; snapshot timeout 600 s. The cohort itself remains a failed restoration in the registry and earns no current credit."
+  },
+  "cohorts": [
+    {
+      "name": "v5-control-double-tablet100",
+      "role": "historical",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-control-priority-tablet100",
+      "role": "historical",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-control-range-tablet100",
+      "role": "historical",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-control-emoji-actions-phone100",
+      "role": "historical",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-control-launcher-actions-phone100",
+      "role": "historical",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-tablet100",
+      "role": "preflight-rejected",
+      "executed": false,
+      "passes": 0,
+      "failures": 0,
+      "cleanup_checks": 0
+    },
+    {
+      "name": "v5-tablet100a",
+      "role": "historical",
+      "passes": 5,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-tablet100b",
+      "role": "historical",
+      "passes": 3,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-phone100",
+      "role": "historical",
+      "passes": 6,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-phone200",
+      "role": "historical",
+      "passes": 6,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-tablet200",
+      "role": "historical",
+      "passes": 7,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-landscape100",
+      "role": "historical",
+      "passes": 7,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "landscape",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-landscape200",
+      "role": "historical",
+      "passes": 7,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "landscape",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v5-legacy100",
+      "role": "historical",
+      "passes": 4,
+      "failures": 2,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 10,
+      "cleanup_passed": 10,
+      "api": 26,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+      "registry": "v5"
+    },
+    {
+      "name": "v6-control-double-tablet100",
+      "role": "current-control",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-control-priority-tablet100",
+      "role": "current-control",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-control-range-tablet100",
+      "role": "current-control",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-control-emoji-actions-phone100",
+      "role": "current-control",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-control-launcher-actions-phone100",
+      "role": "current-control",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "restoration_passed": true,
+      "methods": [
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-tablet100a",
+      "role": "current-positive",
+      "passes": 5,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-tablet100b",
+      "role": "current-positive",
+      "passes": 3,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-phone100",
+      "role": "current-positive",
+      "passes": 6,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-phone200",
+      "role": "current-positive",
+      "passes": 6,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-tablet200",
+      "role": "current-positive",
+      "passes": 7,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-landscape100",
+      "role": "current-positive",
+      "passes": 7,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "landscape",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-landscape200",
+      "role": "current-positive",
+      "passes": 7,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "landscape",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-legacy100",
+      "role": "current-positive",
+      "passes": 6,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 10,
+      "cleanup_passed": 10,
+      "api": 26,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-legacy200",
+      "role": "current-positive",
+      "passes": 6,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "cleanup_checks": 10,
+      "cleanup_passed": 10,
+      "api": 26,
+      "layout": "phone",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-regression-toggle-tablet100",
+      "role": "current-positive",
+      "passes": 5,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+        "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+        "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+        "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+        "currentKeyboardAccessibilityActionsApplyTheirPublishedVisibility"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-regression-empty-landscape200",
+      "role": "historical",
+      "passes": 2,
+      "failures": 0,
+      "completed": false,
+      "restoration_passed": false,
+      "methods": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 12,
+      "cleanup_passed": 11,
+      "api": 36,
+      "layout": "landscape",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-regression-clear-phone200",
+      "role": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-regression-core-tablet100",
+      "role": "current-positive",
+      "passes": 3,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "pointerClearRemovesControlledCompositionAndWhitespace",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "cleanup_checks": 15,
+      "cleanup_passed": 15,
+      "api": 36,
+      "layout": "tablet",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-regression-input-phone100",
+      "role": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "cleanup_checks": 19,
+      "cleanup_passed": 19,
+      "api": 36,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-regression-input-api26100",
+      "role": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "cleanup_checks": 12,
+      "cleanup_passed": 12,
+      "api": 26,
+      "layout": "phone",
+      "font_scale": 1.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    },
+    {
+      "name": "v6-regression-empty-landscape200-r2",
+      "role": "current-positive",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "restoration_passed": true,
+      "methods": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "cleanup_checks": 17,
+      "cleanup_passed": 17,
+      "api": 36,
+      "layout": "landscape",
+      "font_scale": 2.0,
+      "apk_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "8e5b6e9cf42ef0720ca45691789df94c22a8438bda8f2e060f89ad08f55d72dd",
+      "registry": "v6"
+    }
+  ],
+  "scope": "Only whole successful cohorts on the exact final app/test pair earn current credit. v5 cohorts used an earlier test APK; the preflight-rejected v5 row never executed; the restoration-timeout cohort earns no credit despite its 2 passes."
+}

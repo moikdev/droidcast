@@ -1,0 +1,42 @@
+{
+  "source_commit": "867f9917933db90c970ada4c5b979b2da52471d4",
+  "jvm": {
+    "tests": 343,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "jvm_task": "> Task :app:testDebugUnitTest",
+  "lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    },
+    "benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    }
+  },
+  "python": {
+    "normal": {
+      "exit_code": 0,
+      "cases": 135,
+      "seconds": 23.666,
+      "passed": true
+    },
+    "optimized": {
+      "exit_code": 0,
+      "cases": 135,
+      "seconds": 19.89,
+      "passed": true
+    }
+  },
+  "build_successes": 2,
+  "apk_sha256": {
+    "app-debug-androidTest.apk": "68bed2cd0904214ef53e1eedf445a2c0f6022fcd930547eedd22964770f35594",
+    "app-debug.apk": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14"
+  },
+  "scope": "Fresh at app source 867f9917; ded3f817 changes only TouchSearchDeviceTest.kt and was rebuilt/relinted (identity-final-pair.json)."
+}
