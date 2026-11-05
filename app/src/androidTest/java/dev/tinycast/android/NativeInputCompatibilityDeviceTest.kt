@@ -298,28 +298,41 @@ class NativeInputCompatibilityDeviceTest {
         ui { it.execute(Command("new-note", "New note", "")); it.store.editorDraft("note").title = title }
         withControlledInput("editor-title", title) { connection ->
             ui { assertTrue(connection.setComposingRegion(0, title.length)) }
+            var checked = false
             compose.waitUntil(5000) {
-                val actual = compose.onNodeWithTag("editor-title").fetchSemanticsNode().config[SemanticsProperties.EditableText]
-                actual.text == title && actual.spanStyles.any { it.start == 0 && it.end == title.length && it.item.textDecoration == TextDecoration.Underline }
+                val node = compose.onNodeWithTag("editor-title").fetchSemanticsNode()
+                ui {
+                    // Native IME callbacks cannot interleave this witness and the
+                    // matcher evaluations. A screenshot/idle wait here would
+                    // allow composition to finish before the assertion.
+                    val actual = node.config[SemanticsProperties.EditableText]
+                    if (actual.text == title && actual.spanStyles.any { span ->
+                        span.start == 0 && span.end == title.length && span.item.textDecoration == TextDecoration.Underline
+                    }) {
+                        record.put("strict_annotation_equal", actual == AnnotatedString(title))
+                            .put("assertion_witness", JSONObject().put("single_ui_turn", true)
+                                .put("text_length", actual.length).put("text_sha256", digest(actual.text))
+                                .put("composition_underline_start", 0).put("composition_underline_end", title.length))
+                        assertTrue("Exact character matcher must accept the composing title", editableCharactersExactly(title).matches(node))
+                        val wrong = linkedMapOf(
+                            "changed-character" to title.replace("日本", "日本語"),
+                            "trimmed-whitespace" to title.trim(),
+                            "removed-joiner" to title.replace("\u200d", ""),
+                            "removed-variation-selector" to title.replace("\ufe0f", ""),
+                            "normalized-combining-sequence" to title.replace("café", "cafe\u0301")
+                        )
+                        wrong.forEach { (label, value) ->
+                            assertNotEquals(label, title, value)
+                            assertFalse("Reject $label", editableCharactersExactly(value).matches(node))
+                        }
+                        record.put("wrong_content_rejected", JSONArray(wrong.keys.toList()))
+                        checked = true
+                    }
+                }
+                checked
             }
-            observe("composed-title-before-content-assertion", "editor-title")
-            capture("composed-title-before-assertion")
-            val node = compose.onNodeWithTag("editor-title").fetchSemanticsNode()
-            val actual = node.config[SemanticsProperties.EditableText]
-            record.put("strict_annotation_equal", actual == AnnotatedString(title))
-            compose.onNodeWithTag("editor-title").assert(editableCharactersExactly(title))
-            val wrong = linkedMapOf(
-                "changed-character" to title.replace("日本", "日本語"),
-                "trimmed-whitespace" to title.trim(),
-                "removed-joiner" to title.replace("\u200d", ""),
-                "removed-variation-selector" to title.replace("\ufe0f", ""),
-                "normalized-combining-sequence" to title.replace("café", "cafe\u0301")
-            )
-            wrong.forEach { (label, value) ->
-                assertNotEquals(label, title, value)
-                assertFalse("Reject $label", editableCharactersExactly(value).matches(node))
-            }
-            record.put("wrong_content_rejected", JSONArray(wrong.keys.toList()))
+            observe("composed-title-after-content-assertion", "editor-title")
+            capture("composed-title-after-assertion")
             ui { assertTrue(connection.finishComposingText()) }
         }
         record.put("contract_completed", true)
