@@ -187,12 +187,14 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back to commands" }.testTag("emoji-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 BasicTextField(displayedSearch, {
-                    // Losing focus to a menu can emit a selection-only collapse.
-                    // Keep the committed caller range while that menu owns focus;
-                    // actual text and composition changes still update normally.
-                    val next = if ((menu || actionsMenu || paletteMenus.current != null) &&
-                        it.text == searchValue.text && it.composition == null && searchValue.composition == null)
-                        it.copy(selection = searchValue.selection) else it
+                    // A menu borrows focus. CoreTextField's blur collapse must not
+                    // overwrite the caller's committed range; every other update,
+                    // including deliberate selection changes, still applies.
+                    val current = searchValue
+                    val keepMenuRange = (menu || actionsMenu || paletteMenus.current != null) &&
+                        it.text == current.text && it.composition == null && current.composition == null &&
+                        !current.selection.collapsed && it.selection == TextRange(current.selection.max)
+                    val next = if (keepMenuRange) it.copy(selection = current.selection) else it
                     searchValue = next
                     if (next.text != store.query) { store.search(next.text); copiedName = null }
                 }, singleLine = true,

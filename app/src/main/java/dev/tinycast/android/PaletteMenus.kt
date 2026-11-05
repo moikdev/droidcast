@@ -144,9 +144,9 @@ internal class PaletteMenus {
     fun clearPresses() = presses.clear()
     fun index(): Int = choices().indexOfFirst { it.id == selectedId }.coerceAtLeast(0)
     fun key(event: KeyEvent, stage: String = "direct"): Boolean {
-        PaletteBackTrace.key("$stage-before", event, current != null)
+        PaletteBackTrace.key(stage, "before", event, current != null)
         val handled = handleKey(event)
-        PaletteBackTrace.key("$stage-after", event, current != null, handled)
+        PaletteBackTrace.key(stage, "after", event, current != null, handled)
         return handled
     }
     private fun handleKey(event: KeyEvent): Boolean {
@@ -251,7 +251,7 @@ internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit
             .onPreviewKeyEvent { menus.key(it.nativeKeyEvent, "preview") }) {
             content()
             // Routes can register callbacks after this host first composes.
-            // Register each menu opening last, so its caller stays underneath.
+            // Re-register on each opening, above every callback that existed then.
             key(menus.activation) {
                 BackHandler(enabled = menus.current != null) {
                     PaletteBackTrace.handler("menu-dispatcher-before", menus.current != null,

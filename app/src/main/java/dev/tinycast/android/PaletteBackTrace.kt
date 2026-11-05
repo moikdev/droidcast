@@ -31,9 +31,9 @@ internal object PaletteBackTrace {
         events.addLast(event)
     }
 
-    fun key(stage: String, event: KeyEvent, menuOpen: Boolean, handled: Boolean? = null) {
+    fun key(stage: String, phase: String, event: KeyEvent, menuOpen: Boolean, handled: Boolean? = null) {
         if (!enabled() || event.keyCode != KeyEvent.KEYCODE_BACK) return
-        append(PaletteBackEvent(stage, SystemClock.uptimeMillis(), event.action, event.downTime,
+        append(PaletteBackEvent("$stage-$phase", SystemClock.uptimeMillis(), event.action, event.downTime,
             event.eventTime, event.repeatCount, event.isCanceled, menuOpen, handled = handled))
     }
 
