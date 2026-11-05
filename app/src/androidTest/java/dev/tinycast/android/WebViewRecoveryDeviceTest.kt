@@ -9,6 +9,9 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.text.TextLayoutResult
 import dev.tinycast.android.extensions.*
 import java.io.File
 import org.json.JSONObject
@@ -51,18 +54,64 @@ class WebViewRecoveryDeviceTest {
         val provider = WebView.getCurrentWebViewPackage()
         record.put("case", testName.methodName).put("android_api", Build.VERSION.SDK_INT).put("provider", provider?.packageName)
             .put("provider_version", provider?.versionName).put("font_scale", context.resources.configuration.fontScale)
-            .put("fixture_bytecode_scope", "ES5 two-row List; no actions, preferences, storage, clipboard or networking")
+            .put("fixture_bytecode_scope", "ES5 owned List/Grid; local React-state action only; no preferences, storage, clipboard or networking")
     }
 
     private fun capture(phase: String) {
+        compose.waitForIdle()
+        val frames = java.util.concurrent.CountDownLatch(1)
+        instrumentation.runOnMainSync { compose.activity.window.decorView.postOnAnimation {
+            compose.activity.window.decorView.postOnAnimation { frames.countDown() }
+        } }
+        assertTrue("Two UI frames", frames.await(5, java.util.concurrent.TimeUnit.SECONDS))
         compose.waitForIdle()
         evidence.mkdirs()
         testAutomation().clearCacheForTest()
         device.dumpWindowHierarchy(File(evidence, "$phase.xml"))
         assertTrue(device.takeScreenshot(File(evidence, "$phase.png")))
         File(evidence, "$phase-frame.json").writeText(JSONObject().put("phase", phase)
-            .put("synchronization", "Compose idle; accessibility cache reset where supported; hierarchy before PNG")
+            .put("synchronization", "Compose idle and two UI frames; accessibility cache reset where supported; hierarchy before PNG; XML geometry is not a visibility witness on API26")
             .put("api", Build.VERSION.SDK_INT).put("scope", record.getString("scope")).toString(2))
+    }
+
+    private fun recoveryTargetsAndText() {
+        val viewport = compose.onNodeWithTag("extension-engine-problem").fetchSemanticsNode().boundsInRoot
+        val density = context.resources.displayMetrics.density
+        for (tag in listOf("extension-engine-settings", "extension-engine-return")) {
+            val bounds = compose.onNodeWithTag(tag).fetchSemanticsNode().boundsInRoot
+            assertTrue("Full 48dp recovery target: $tag", bounds.height >= 48 * density - 1 &&
+                bounds.top >= viewport.top - 1 && bounds.bottom <= viewport.bottom + 1 &&
+                bounds.left >= viewport.left - 1 && bounds.right <= viewport.right + 1)
+            record.append("target_witnesses", org.json.JSONArray().put(tag).put(bounds.width).put(bounds.height))
+        }
+        val body = compose.onNode(hasScrollAction() and hasAnyAncestor(hasTestTag("extension-engine-problem")))
+        for (tag in listOf("extension-engine-title", "extension-engine-provider", "extension-engine-explanation", "extension-engine-guidance")) {
+            val text = compose.onNodeWithTag(tag, useUnmergedTree = true)
+            text.performScrollTo(); compose.waitForIdle()
+            val node = text.fetchSemanticsNode(); val layouts = mutableListOf<TextLayoutResult>()
+            assertTrue(requireNotNull(node.config[SemanticsActions.GetTextLayoutResult].action).invoke(layouts))
+            val layout = layouts.single()
+            assertFalse(layout.didOverflowHeight); assertEquals(layout.size.height, node.size.height)
+            repeat(layout.lineCount) { line ->
+                assertFalse(layout.isLineEllipsized(line))
+                assertTrue(layout.getLineLeft(line) >= -1 && layout.getLineRight(line) <= node.size.width + 1)
+                var reached = false
+                for (attempt in 0..30) {
+                    val current = text.fetchSemanticsNode(); val visible = body.fetchSemanticsNode().boundsInRoot
+                    val origin = compose.runOnUiThread { current.layoutInfo.coordinates.localToRoot(Offset.Zero) }
+                    val top = origin.y + layout.getLineTop(line); val bottom = origin.y + layout.getLineBottom(line)
+                    if (top >= visible.top - 1 && bottom <= visible.bottom + 1) { reached = true; break }
+                    val delta = (if (top < visible.top) top - visible.top - 4 else bottom - visible.bottom + 4)
+                        .coerceIn(-visible.height * .4f, visible.height * .4f)
+                    body.performTouchInput { swipe(Offset(centerX, centerY + delta / 2), Offset(centerX, centerY - delta / 2), 250) }
+                    compose.waitForIdle()
+                }
+                assertTrue("Full natural line $line of $tag", reached)
+            }
+            record.append("text_witnesses", JSONObject().put("tag", tag).put("lines", layout.lineCount).put("all_lines_reached", true))
+        }
+        record.put("text_setup", "Semantic scroll to each paragraph; pointer swipes establish sequential full-line reachability")
+        capture("engine-content-end")
     }
 
     @Test fun incompatibleEngineShowsNativeRecoveryWithoutDispatch() {
@@ -84,6 +133,7 @@ class WebViewRecoveryDeviceTest {
         compose.onNodeWithTag("extension-engine-problem").assertExists()
         compose.onNodeWithTag("extension-engine-provider").assertTextContains(record.getString("provider"), substring = true)
         compose.onNodeWithTag("extension-engine-provider").assertTextContains(record.getString("provider_version"), substring = true)
+        recoveryTargetsAndText()
         compose.onNodeWithTag("extension-engine-return").performTouchInput { click(center) }
         compose.waitUntil(10000) { compose.activity.store.dialog == null }
         assertEquals(caller, compose.activity.store.query)
@@ -126,7 +176,11 @@ class WebViewRecoveryDeviceTest {
             instrumentation.runOnMainSync {
                 engine = WebView(context).apply { settings.javaScriptEnabled = true; loadData("<html></html>", "text/html", "UTF-8") }
             }
-            compose.waitUntil(10000) { engine?.progress == 100 }
+            compose.waitUntil(10000) {
+                var complete = false
+                instrumentation.runOnMainSync { complete = engine?.progress == 100 }
+                complete
+            }
             val stage = ExtensionEngineProbe.Stage.ADAPTER
             val result = ExtensionEngineProbe.decode(evaluate(ExtensionEngineProbe.compileScript(stage,
                 "window.__ownedProbeExecuted=true;throw new Error('must not execute');")), stage)
@@ -149,11 +203,13 @@ class WebViewRecoveryDeviceTest {
         compose.waitUntil(20000) { compose.activity.store.extensions.runtimeTree != null || compose.activity.store.extensions.runtimeError != null }
         assertNull(compose.activity.store.extensions.runtimeError)
         assertEquals(type, activeRoot(compose.activity.store.extensions.runtimeTree)?.optString("type"))
-        compose.onNodeWithText(row).assertExists()
+        if (type == "Grid") compose.onNodeWithTag("extension-grid-cell-0").assertTextContains(row, substring = true)
+        else compose.onNodeWithText(row).assertExists()
         capture("$name-ready")
         compose.onNodeWithTag("extension-primary").performTouchInput { click(center) }
         compose.waitUntil(10000) { compose.activity.store.extensions.runtimeTree?.toString()?.contains(updated) == true }
-        compose.onNodeWithText(updated).assertExists()
+        if (type == "Grid") compose.onNodeWithTag("extension-grid-cell-0").assertTextContains(updated, substring = true)
+        else compose.onNodeWithText(updated).assertExists()
         capture("$name-action")
         device.pressBack()
         compose.waitUntil(10000) { compose.activity.store.dialog == null }
@@ -185,6 +241,49 @@ class WebViewRecoveryDeviceTest {
         assertEquals(caller, compose.activity.store.query)
         record.put("closed_owner_remained_inactive", true).put("passed", true)
         capture("cancelled-caller")
+    }
+
+    @Test fun bridgeCannotPublishOrReadHostApisBeforeApproval() {
+        compose.activityRule.scenario.onActivity { activity ->
+            val catalog = activity.store.extensions
+            activity.store.reset()
+            activity.store.openExtension(extension, extension.commands.single { it.name == "index" })
+            val runtime = ExtensionRuntime(activity, catalog, extension, catalog.running!!.second)
+            try {
+                runtime.Bridge().render("{\"type\":\"List\",\"children\":[]}")
+                val response = JSONObject(runtime.Bridge().invokeSync("localStorage", "getItem", "[\"owned-preflight\"]"))
+                assertFalse(response.getBoolean("ok"))
+                assertNull(catalog.runtimeTree)
+                runtime.dispatch("not-approved")
+                record.put("preflight_bridge_render_rejected", true).put("preflight_host_api_rejected", true)
+            } finally { runtime.close(); catalog.close(); activity.store.dialog = null }
+        }
+        compose.waitForIdle()
+        assertNull(compose.activity.store.extensions.runtimeTree)
+        record.put("passed", true)
+    }
+
+    @Test fun replacedRecoveryRejectsRetainedSettingsAndReturnCallbacks() {
+        assumeTrue(Build.VERSION.SDK_INT == 26)
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single { c -> c.name == "index" }) }
+        compose.waitUntil(15000) { compose.activity.store.extensions.runtimeError != null }
+        val settings = requireNotNull(compose.onNodeWithTag("extension-engine-settings").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val back = requireNotNull(compose.onNodeWithTag("extension-engine-return").fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        val monitor = instrumentation.addMonitor(android.content.IntentFilter(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS),
+            android.app.Instrumentation.ActivityResult(0, null), true)
+        try {
+            compose.activityRule.scenario.onActivity {
+                val next = extension.commands.single { c -> c.name == "grid" }
+                it.store.openExtension(extension, next)
+                // Invoke retained callbacks before Compose disposes the old UI.
+                settings(); back()
+                assertEquals("extension-run", it.store.dialog)
+                assertSame(next, it.store.extensions.running!!.second)
+            }
+            compose.waitForIdle()
+            assertEquals(0, monitor.hits)
+            record.put("stale_settings_launches", 0).put("replacement_not_closed", true).put("passed", true)
+        } finally { instrumentation.removeMonitor(monitor) }
     }
 
     @After fun restore() {

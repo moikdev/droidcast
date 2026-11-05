@@ -142,7 +142,7 @@ def main():
     def save():
         (a.output / 'record.json').write_text(json.dumps(r, indent=2) + '\n')
     save()
-    before = {}; originals = {}; palette = None
+    before = {}; originals = {}; palette = None; original_profile = None
     lease_claimed = False; installed = []
     def claim():
         # A never-launched fresh installation has no files directory yet.
@@ -162,7 +162,9 @@ def main():
             originals[pkg] = (path, sha(data))
         data = raw('exec-out', 'run-as', APP, 'tar', '-cf', '-', 'files', 'shared_prefs')
         path = a.output / 'private-data-before.tar'; path.write_bytes(data); path.chmod(0o600)
-        before = {path: sha(value) for path, value in archive_files(data).items() if not path.startswith(lease + '/')}
+        original_files = archive_files(data)
+        original_profile = original_files.get('files/profileInstalled')
+        before = {path: sha(value) for path, value in original_files.items() if not path.startswith(lease + '/')}
         palette = raw('exec-out', 'run-as', APP, 'cat', 'shared_prefs/palette.xml')
         (a.output / 'private-palette.xml').write_bytes(palette); (a.output / 'private-palette.xml').chmod(0o600)
     try:
@@ -229,6 +231,17 @@ def main():
                             and text('shell', 'settings', 'get', 'system', 'font_scale') == font, 'Original settings differ')
                 c.attempt('verify-settings', geometry)
                 if not legacy:
+                    def restore_profile_stamp():
+                        # AndroidX ProfileInstaller updates this build-derived
+                        # marker after installing a different APK. It is not an
+                        # extension/user-data restoration wildcard.
+                        if original_profile is None:
+                            raw('shell', 'run-as', APP, 'rm', '-f', 'files/profileInstalled')
+                            require(absent('files/profileInstalled'), 'Profile marker remains')
+                        else:
+                            raw('shell', 'run-as', APP, 'tee', 'files/profileInstalled', data=original_profile)
+                            require(raw('exec-out', 'run-as', APP, 'cat', 'files/profileInstalled') == original_profile, 'Profile marker differs')
+                    c.attempt('profile-installer-marker', restore_profile_stamp)
                     def preserved_data():
                         after = archive_files(raw('exec-out', 'run-as', APP, 'tar', '-cf', '-', 'files', 'shared_prefs'))
                         after = {path: sha(value) for path, value in after.items() if not path.startswith(lease + '/')}
