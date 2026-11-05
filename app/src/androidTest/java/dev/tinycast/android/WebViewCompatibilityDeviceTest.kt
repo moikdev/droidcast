@@ -1,69 +1,106 @@
 package dev.tinycast.android
 
-import android.graphics.BitmapFactory
-import android.os.ParcelFileDescriptor
+import android.content.Context
+import android.os.Build
 import android.os.SystemClock
 import android.webkit.WebView
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import dev.tinycast.android.extensions.*
+import java.io.File
 import org.json.JSONObject
 import org.junit.*
 import org.junit.Assert.*
+import org.junit.Assume.assumeTrue
 import org.junit.runner.RunWith
-import java.io.File
-import java.util.UUID
 
-/** Diagnostic only: recording a rejected renderer is not extension-execution certification. */
+/** The host owns this disposable API26 fixture; it has no clipboard/network actions. */
 @RunWith(AndroidJUnit4::class)
 class WebViewCompatibilityDeviceTest {
-    @get:Rule val compose=createAndroidComposeRule<MainActivity>()
-    private val context get()=InstrumentationRegistry.getInstrumentation().targetContext
-    private var fixture:File?=null
-    private var support:File?=null
-    @After fun cleanup() {
-        compose.activityRule.scenario.onActivity { it.store.extensions.close();it.store.dialog=null }
-        fixture?.deleteRecursively();support?.deleteRecursively()
-    }
-    @Test fun recordActualProviderRuntimeOutcomeAndCapturePaths() {
+    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
+    private val context get() = instrumentation.targetContext
+    private val device get() = UiDevice.getInstance(instrumentation)
+    private var prepared = false
+    private var palette = emptyMap<String, Any?>()
+    private lateinit var extension: InstalledExtension
+    private val record = JSONObject().put("scope", "Owned parser/engine boundary and native recovery; no Store, service, clipboard or Android8 execution-parity credit")
+    private val evidence get() = File(context.filesDir, "webview-compatibility-evidence")
+
+    @Before fun prepare() {
+        val args = InstrumentationRegistry.getArguments()
+        assumeTrue("Use the owned WebView compatibility runner", args.getString("webViewFixture") == "true")
+        assertEquals(26, Build.VERSION.SDK_INT)
+        val nonce = requireNotNull(args.getString("webViewOwner"))
+        assertTrue(nonce.matches(Regex("[0-9a-f]{32}")))
+        val owner = JSONObject(File(context.filesDir, "webview-compatibility-lease/owner.json").readText())
+        assertEquals("webview-compatibility-v1", owner.getString("kind"))
+        assertEquals(nonce, owner.getString("nonce"))
+        assertTrue(owner.getBoolean("fresh_disposable_avd"))
+        val id = owner.getString("extension_id")
+        assertEquals("webview-engine-$nonce", id)
         compose.waitUntil(15000) { !compose.activity.store.loading }
-        val id="compatibility-probe-"+UUID.randomUUID()
-        fixture=File(context.cacheDir,id).apply { mkdirs() }
-        support=File(context.filesDir,"extension-data/$id");assertFalse(support!!.exists())
-        File(fixture,"fixture.js").writeText("""
-            const React = require('react');const { List } = require('@raycast/api');
-            module.exports.default = function() { return React.createElement(List, {},
-              React.createElement(List.Item, {id:'compatible',title:'Compatibility fixture row'})); };
-        """.trimIndent())
-        val listing=StoreExtension(id,id,"WebView compatibility fixture","","Fixture","fixture","https://example.com","","",1)
-        val installed=InstalledExtension(listing,fixture!!,JSONObject("""{"commands":[{"name":"fixture","title":"WebView compatibility fixture","mode":"view"}]}"""))
-        val started=SystemClock.elapsedRealtime()
-        compose.activityRule.scenario.onActivity { it.store.openExtension(installed,installed.commands.single()) }
-        compose.waitUntil(30000) { compose.activity.store.extensions.runtimeTree!=null || compose.activity.store.extensions.runtimeError!=null }
+        extension = compose.activity.store.extensions.installed.single { it.listing.id == id }
+        assertEquals("Owned engine fixture", extension.listing.title)
+        palette = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
+        prepared = true
+        val provider = WebView.getCurrentWebViewPackage()
+        record.put("android_api", Build.VERSION.SDK_INT).put("provider", provider?.packageName)
+            .put("provider_version", provider?.versionName).put("font_scale", context.resources.configuration.fontScale)
+            .put("fixture_bytecode_scope", "ES5 two-row List; no actions, preferences, storage, clipboard or networking")
+    }
+
+    private fun capture(phase: String) {
         compose.waitForIdle()
-        val provider=WebView.getCurrentWebViewPackage()
-        val directory=File(context.filesDir,"readiness-evidence").apply { mkdirs() }
-        val device=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        device.dumpWindowHierarchy(File(directory,"webview-compatibility.xml"))
-        val regular=device.takeScreenshot(File(directory,"webview-compatibility-uiautomation.png"))
-        val screenshot=File(directory,"webview-compatibility-shell.png")
-        ParcelFileDescriptor.AutoCloseInputStream(testAutomation().executeShellCommand("screencap -p")).use { input ->
-            screenshot.outputStream().use { output ->
-                val buffer=ByteArray(8192);var total=0
-                while(true) { val count=input.read(buffer);if(count<0)break;total+=count;check(total<=16*1024*1024);output.write(buffer,0,count) }
-            }
+        evidence.mkdirs()
+        testAutomation().clearCacheForTest()
+        device.dumpWindowHierarchy(File(evidence, "$phase.xml"))
+        assertTrue(device.takeScreenshot(File(evidence, "$phase.png")))
+        File(evidence, "$phase-frame.json").writeText(JSONObject().put("phase", phase)
+            .put("synchronization", "Compose idle; accessibility cache reset where supported; hierarchy before PNG")
+            .put("api", Build.VERSION.SDK_INT).put("scope", record.getString("scope")).toString(2))
+    }
+
+    @Test fun incompatibleEngineShowsNativeRecoveryWithoutDispatch() {
+        val caller = "owned-engine-caller-日本"
+        compose.activityRule.scenario.onActivity { it.store.reset(); it.store.search(caller) }
+        val start = SystemClock.uptimeMillis()
+        compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single()) }
+        compose.waitUntil(25000) { compose.activity.store.extensions.runtimeError != null ||
+            compose.activity.store.extensions.runtimeTree != null }
+        val catalog = compose.activity.store.extensions
+        record.put("time_to_result_ms", SystemClock.uptimeMillis() - start).put("runtime_error", catalog.runtimeError)
+            .put("published_native_tree", catalog.runtimeTree != null)
+        assertNotNull("The actual legacy engine must report its boundary", catalog.runtimeError)
+        assertNull("An incompatible engine must not publish the owned command", catalog.runtimeTree)
+        capture("engine-result")
+        // Common-harness old-app control reaches the captured late error, then
+        // fails here. No new application type/method is referenced before it.
+        compose.onNodeWithTag("extension-engine-problem").assertExists()
+        compose.onNodeWithTag("extension-engine-provider").assertTextContains(record.getString("provider"), substring = true)
+        compose.onNodeWithTag("extension-engine-provider").assertTextContains(record.getString("provider_version"), substring = true)
+        compose.onNodeWithTag("extension-engine-return").performTouchInput { click(center) }
+        compose.waitUntil(10000) { compose.activity.store.dialog == null }
+        assertEquals(caller, compose.activity.store.query)
+        record.put("caller_query_restored", true).put("passed", true)
+        capture("returned-caller")
+    }
+
+    @After fun restore() {
+        if (!prepared) return
+        try {
+            if (!record.optBoolean("passed")) capture("failure")
+        } finally {
+            compose.activityRule.scenario.onActivity { it.store.extensions.close(); it.store.dialog = null }
+            compose.waitForIdle()
+            restorePalettePreferences(context, palette)
+            assertEquals(palette, context.getSharedPreferences("palette", Context.MODE_PRIVATE).all)
+            record.put("palette_preferences_restored", true).put("fixture_cleanup_owner", "Host retains ownership until evidence is pulled and registered paths are removed")
+            evidence.mkdirs()
+            File(evidence, "case-record.json").writeText(record.toString(2))
         }
-        val bounds=BitmapFactory.Options().apply { inJustDecodeBounds=true };BitmapFactory.decodeFile(screenshot.path,bounds)
-        assertTrue("A real shell screencap PNG is available",bounds.outWidth>0 && bounds.outHeight>0)
-        File(directory,"webview-compatibility.json").writeText(JSONObject()
-            .put("diagnostic_only",true).put("api",android.os.Build.VERSION.SDK_INT)
-            .put("provider_package",provider?.packageName).put("provider_version",provider?.versionName)
-            .put("runtime_error",compose.activity.store.extensions.runtimeError ?: JSONObject.NULL)
-            .put("rendered_fixture_row",compose.activity.store.extensions.runtimeTree?.toString()?.contains("Compatibility fixture row")==true)
-            .put("initialization_observation_ms",SystemClock.elapsedRealtime()-started)
-            .put("uiautomation_screenshot",regular).put("shell_screenshot",true)
-            .put("width",bounds.outWidth).put("height",bounds.outHeight).toString(2))
     }
 }
