@@ -31,7 +31,13 @@ INPUT_CASES = ['recordDefaultImeAndControlledCompositionNavigation',
                'recordCallerSelectionAcrossNativeRoutes',
                'recordLargeDraftTextAndAnnotationsAfterRecreation',
                'recordSameTurnLauncherActivationTextAndAnnotations',
-               'recordInjectedTypingAndCommittedQueryNavigation']
+               'recordInjectedTypingAndCommittedQueryNavigation',
+               'exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters',
+               'committedEmojiNavigationAndCaretAreExact',
+               'activeMultilingualCompositionKeepsResultSelection',
+               'committedCallerSelectionSurvivesIdleNativeRoutes',
+               'committedSameTurnLauncherActivationUsesCurrentNote',
+               'largeDraftRestoresExactCharactersAfterRecreation']
 
 
 def require(value, message):

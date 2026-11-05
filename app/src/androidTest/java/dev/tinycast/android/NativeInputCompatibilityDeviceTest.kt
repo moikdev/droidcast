@@ -8,6 +8,7 @@ import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import android.view.Window
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import androidx.compose.ui.semantics.SemanticsProperties
@@ -17,6 +18,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -29,7 +31,7 @@ import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
 import org.junit.runner.RunWith
 
-/** Observations only: completion does not certify a functional compatibility fix. */
+/** Owned observations and separately labeled contracts; no production-fix credit. */
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalTestApi::class)
 class NativeInputCompatibilityDeviceTest {
@@ -209,7 +211,13 @@ class NativeInputCompatibilityDeviceTest {
                         KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD))
                 }
             }
-            record.put("expected_note_id", rows[1].id).put("actual_note_id", activity.store.editing?.id)
+            record.put("expected_note_id", rows[1].id).put("actual_note_id", activity.store.editing?.id ?: JSONObject.NULL)
+        }
+        if (compose.onAllNodesWithTag("editor-title").fetchSemanticsNodes().isEmpty()) {
+            observe("same-turn-query-retained", "search")
+            record.put("destination_present", false).put("diagnostic_completed", true)
+            capture("same-turn-no-destination")
+            return
         }
         observe("same-turn-destination-title", "editor-title")
         val title = compose.onNodeWithTag("editor-title").fetchSemanticsNode().config[SemanticsProperties.EditableText]
@@ -221,12 +229,13 @@ class NativeInputCompatibilityDeviceTest {
 
     @Test fun recordInjectedTypingAndCommittedQueryNavigation() {
         ui { it.execute(Command("emoji", "Emoji & Symbols", "")) }
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        observe("before-first-injected-character", "emoji-search")
         for (code in listOf(KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_A, KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_E)) {
             key(code, false); compose.waitForIdle()
         }
-        compose.waitUntil(5000) {
-            compose.onNodeWithTag("emoji-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text == "face"
-        }
+        observe("after-four-injected-characters", "emoji-search")
+        compose.onNodeWithTag("emoji-search").assert(editableCharactersExactly("face"))
         observe("injected-typing-before-right", "emoji-search")
         key(KeyEvent.KEYCODE_DPAD_RIGHT, false); observe("injected-typing-after-right", "emoji-search")
         capture("injected-typing")
@@ -243,6 +252,203 @@ class NativeInputCompatibilityDeviceTest {
             capture("typed-query-caret")
         } finally { ui { connection?.closeConnection() } }
         record.put("diagnostic_completed", true)
+    }
+
+    private fun contract(scope: String) {
+        record.put("diagnostic_only", false).put("scope", scope)
+            .put("input_setup", "Explicit owned native InputConnection readiness/commit; no physical-typing claim")
+    }
+
+    private fun withControlledInput(tag: String, expected: String, block: (InputConnection) -> Unit) {
+        compose.onNodeWithTag(tag).assertIsFocused()
+        var connection: InputConnection? = null
+        var attempts = 0
+        compose.waitUntil(5000) {
+            ui {
+                attempts++
+                val candidate = it.window.decorView.findFocus()?.onCreateInputConnection(EditorInfo())
+                val extracted = candidate?.getExtractedText(ExtractedTextRequest(), 0)?.text?.toString()
+                if (extracted == expected) connection = candidate else candidate?.closeConnection()
+            }
+            connection != null
+        }
+        trace.put(JSONObject().put("kind", "controlled-input-ready").put("tag", tag)
+            .put("expected_text_length", expected.length).put("readiness_attempts", attempts))
+        try { block(requireNotNull(connection)) } finally { ui { connection?.closeConnection() } }
+    }
+
+    private fun committed(tag: String, text: String, connection: InputConnection) {
+        ui { assertTrue(connection.finishComposingText()) }
+        compose.waitUntil(5000) {
+            compose.onNodeWithTag(tag).fetchSemanticsNode().config[SemanticsProperties.EditableText] == AnnotatedString(text)
+        }
+        observe("explicitly-committed-$tag", tag)
+    }
+
+    private fun ownedNotes(): List<Command> {
+        ui {
+            it.store.save("notes", "Owned rapid Alpha", "Owned first body")
+            it.store.save("notes", "Owned rapid Bravo", "Owned second body")
+            it.store.filter("Notes"); it.store.search("Owned rapid")
+        }
+        compose.onNodeWithTag("search").assertIsFocused()
+        return compose.activity.store.results().also { assertEquals(2, it.size) }
+    }
+
+    @Test fun exactContentAssertionAcceptsCompositionAndRejectsChangedCharacters() {
+        contract("Exact characters survive legitimate IME decoration; wrong Unicode/whitespace remains rejected")
+        val title = "  Owned café 日本 👨‍👩‍👧‍👦 ❤️ 1️⃣  "
+        ui { it.execute(Command("new-note", "New note", "")); it.store.editorDraft("note").title = title }
+        withControlledInput("editor-title", title) { connection ->
+            ui { assertTrue(connection.setComposingRegion(0, title.length)) }
+            compose.waitUntil(5000) {
+                val actual = compose.onNodeWithTag("editor-title").fetchSemanticsNode().config[SemanticsProperties.EditableText]
+                actual.text == title && actual.spanStyles.any { it.start == 0 && it.end == title.length && it.item.textDecoration == TextDecoration.Underline }
+            }
+            observe("composed-title-before-content-assertion", "editor-title")
+            capture("composed-title-before-assertion")
+            val node = compose.onNodeWithTag("editor-title").fetchSemanticsNode()
+            val actual = node.config[SemanticsProperties.EditableText]
+            record.put("strict_annotation_equal", actual == AnnotatedString(title))
+            compose.onNodeWithTag("editor-title").assert(editableCharactersExactly(title))
+            val wrong = linkedMapOf(
+                "changed-character" to title.replace("日本", "日本語"),
+                "trimmed-whitespace" to title.trim(),
+                "removed-joiner" to title.replace("\u200d", ""),
+                "removed-variation-selector" to title.replace("\ufe0f", ""),
+                "normalized-combining-sequence" to title.replace("café", "cafe\u0301")
+            )
+            wrong.forEach { (label, value) ->
+                assertNotEquals(label, title, value)
+                assertFalse("Reject $label", editableCharactersExactly(value).matches(node))
+            }
+            record.put("wrong_content_rejected", JSONArray(wrong.keys.toList()))
+            ui { assertTrue(connection.finishComposingText()) }
+        }
+        record.put("contract_completed", true)
+    }
+
+    @Test fun committedEmojiNavigationAndCaretAreExact() {
+        contract("Explicitly committed Emoji query supports injected grid navigation, exact caret and selected range")
+        ui { it.execute(Command("emoji", "Emoji & Symbols", "")) }
+        compose.onNodeWithTag("emoji-search").performTextReplacement("face")
+        withControlledInput("emoji-search", "face") { connection ->
+            committed("emoji-search", "face", connection)
+            key(KeyEvent.KEYCODE_DPAD_RIGHT, false); compose.waitForIdle()
+            assertEquals(1, compose.activity.store.emoji.selected)
+            key(KeyEvent.KEYCODE_DPAD_DOWN, false); compose.waitForIdle()
+            val row = compose.activity.store.emoji.selected; assertTrue(row > 1)
+            key(KeyEvent.KEYCODE_DPAD_LEFT, false); compose.waitForIdle()
+            assertEquals(row - 1, compose.activity.store.emoji.selected)
+            key(KeyEvent.KEYCODE_DPAD_UP, false); compose.waitForIdle()
+            assertEquals(0, compose.activity.store.emoji.selected)
+            key(KeyEvent.KEYCODE_MOVE_END, false); compose.waitForIdle()
+            assertEquals(compose.activity.store.emoji.results().lastIndex, compose.activity.store.emoji.selected)
+            key(KeyEvent.KEYCODE_MOVE_HOME, false); compose.waitForIdle()
+            assertEquals(0, compose.activity.store.emoji.selected)
+            compose.onNodeWithTag("emoji-search").assert(editableCharactersExactly("face"))
+            capture("committed-four-way-navigation")
+            key(KeyEvent.KEYCODE_L, false, KeyEvent.META_CTRL_ON)
+            key(KeyEvent.KEYCODE_DPAD_LEFT, false); compose.waitForIdle()
+            compose.onNodeWithTag("emoji-search").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(3)))
+            assertEquals(0, compose.activity.store.emoji.selected)
+            compose.onNodeWithTag("emoji-search").performTextInputSelection(TextRange(0, 2))
+            compose.onNodeWithTag("emoji-search").assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(0, 2)))
+            assertEquals(0, compose.activity.store.emoji.selected)
+            observe("committed-query-selected-range", "emoji-search"); capture("committed-query-selected-range")
+        }
+        record.put("contract_completed", true)
+    }
+
+    @Test fun activeMultilingualCompositionKeepsResultSelection() {
+        contract("Controlled active Japanese composition keeps direct native navigation with the editor, before and after composition publication")
+        ui { it.execute(Command("emoji", "Emoji & Symbols", "")) }
+        compose.onNodeWithTag("emoji-search").performTextReplacement("face")
+        withControlledInput("emoji-search", "face") { connection ->
+            committed("emoji-search", "face", connection)
+            ui {
+                assertTrue(connection.setSelection(0, 4))
+                assertTrue(connection.setComposingText("にほん", 1))
+                val down = SystemClock.uptimeMillis()
+                for (code in listOf(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_DPAD_DOWN)) {
+                    for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP))
+                        it.dispatchKeyEvent(KeyEvent(down, down, action, code, 0))
+                }
+                assertEquals("Read current composition before redraw", 0, it.store.emoji.selected)
+            }
+            compose.waitUntil(5000) {
+                val actual = compose.onNodeWithTag("emoji-search").fetchSemanticsNode().config[SemanticsProperties.EditableText]
+                actual.text == "にほん" && actual.spanStyles.any { it.start == 0 && it.end == 3 && it.item.textDecoration == TextDecoration.Underline }
+            }
+            observe("active-japanese-composition", "emoji-search")
+            key(KeyEvent.KEYCODE_DPAD_RIGHT, true); compose.waitForIdle()
+            assertEquals(0, compose.activity.store.emoji.selected)
+            compose.onNodeWithTag("emoji-search").assert(editableCharactersExactly("にほん"))
+            observe("active-japanese-after-direct-navigation", "emoji-search"); capture("active-japanese-composition")
+            ui { assertTrue(connection.finishComposingText()) }
+        }
+        record.put("contract_completed", true)
+    }
+
+    @Test fun committedCallerSelectionSurvivesIdleNativeRoutes() {
+        contract("Committed caller query/range survives pointer Back from focused idle Updates and unsaved Note routes; no live network check")
+        val query = "Owned caller 日本 012345"
+        ui { it.store.search(query) }
+        withControlledInput("search", query) { committed("search", query, it) }
+        for (route in listOf("updates", "note")) {
+            compose.onNodeWithTag("search").performTextInputSelection(TextRange(2, 8))
+            observe("before-$route-route", "search")
+            ui { if (route == "updates") it.store.dialog = "updates" else it.execute(Command("new-note", "New note", "")) }
+            if (route == "updates") {
+                compose.onNodeWithTag("palette-screen").performSemanticsAction(SemanticsActions.RequestFocus)
+                compose.onNodeWithTag("palette-screen").assertIsFocused()
+            }
+            capture("$route-destination")
+            compose.onNodeWithTag("inline-back").performTouchInput { click(center) }
+            compose.onNodeWithTag("search").assertIsFocused().assert(editableCharactersExactly(query))
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(2, 8)))
+            observe("after-$route-return", "search"); capture("$route-caller-return")
+        }
+        record.put("contract_completed", true)
+    }
+
+    @Test fun committedSameTurnLauncherActivationUsesCurrentNote() {
+        contract("Explicitly committed owned launcher query opens the second note on Down/Enter within one main-thread turn")
+        val rows = ownedNotes()
+        withControlledInput("search", "Owned rapid") { connection ->
+            committed("search", "Owned rapid", connection)
+            ui { activity ->
+                val down = SystemClock.uptimeMillis()
+                for (code in listOf(KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_ENTER)) {
+                    for (action in listOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP))
+                        activity.dispatchKeyEvent(KeyEvent(down, down, action, code, 0, 0,
+                            KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD))
+                }
+                assertEquals(rows[1].id, activity.store.editing?.id)
+            }
+        }
+        compose.onNodeWithTag("editor-title").assert(editableCharactersExactly(rows[1].title))
+        compose.onNodeWithTag("editor-body").assert(editableCharactersExactly("Owned second body"))
+        observe("same-turn-exact-title", "editor-title"); capture("same-turn-current-note")
+        record.put("contract_completed", true)
+    }
+
+    @Test fun largeDraftRestoresExactCharactersAfterRecreation() {
+        contract("Owned unsaved 540000-unit multilingual draft survives recreation with exact title/body characters")
+        val ownedTitle = "Owned large draft 日本"
+        val ownedBody = "Owned draft line café 日本 🌱 314159.\n".repeat(15000)
+        ui { it.execute(Command("new-note", "New note", "")); it.store.editorDraft("note").apply { title = ownedTitle; body = ownedBody } }
+        compose.waitForIdle(); compose.activityRule.scenario.recreate(); compose.waitForIdle()
+        compose.onNodeWithTag("editor-title").assert(editableCharactersExactly(ownedTitle))
+        compose.onNodeWithTag("editor-body").assert(editableCharactersExactly(ownedBody))
+        ui {
+            assertEquals(ownedTitle, it.store.editorDraft("note").title)
+            assertEquals(ownedBody, it.store.editorDraft("note").body)
+            assertFalse(it.store.notes.any { note -> note.title == ownedTitle })
+        }
+        observe("exact-recreated-title", "editor-title"); observe("exact-recreated-body", "editor-body")
+        capture("large-draft-exact-characters")
+        record.put("expected_body_length", ownedBody.length).put("expected_body_sha256", digest(ownedBody)).put("contract_completed", true)
     }
 
     @Test fun recordLargeDraftTextAndAnnotationsAfterRecreation() {
@@ -263,7 +469,7 @@ class NativeInputCompatibilityDeviceTest {
     @After fun restore() {
         if (!prepared) return
         try {
-            if (!record.optBoolean("diagnostic_completed")) capture("failure")
+            if (!record.optBoolean("diagnostic_completed") && !record.optBoolean("contract_completed")) capture("failure")
         } finally {
             ui { current ->
                 hooks.forEach { (activity, original, wrapper) -> if (activity.window.callback === wrapper) activity.window.callback = original }
