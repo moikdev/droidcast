@@ -1,0 +1,85 @@
+{
+  "completed": true,
+  "layout": "tablet",
+  "font_scale": 1.0,
+  "classes": "dev.tinycast.android.ExtensionRecordedTestsDeviceTest",
+  "expected": 12,
+  "passes": 12,
+  "instrumentation_exit_code": 0,
+  "tests_completed": true,
+  "apk_sha256": "b0fa0e302a63320b6e5ed163856756961b4480a1ce476f4cb6167be799535e54",
+  "test_apk_sha256": "2cb58a31df55c8e4f12d700da9bb5157e9a69a4c94db076ee52f9b5d5abbaa26",
+  "installed_apks_match": true,
+  "recorded_catalog_sha256": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5",
+  "typed_workflow_archive_sha256": {
+    "recorded-uuid-generator": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+    "recorded-oklch-color-converter": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+    "recorded-palette-colors": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+    "recorded-base64": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+    "recorded-json-format": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+    "recorded-lorem-ipsum": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+    "recorded-translate": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+    "recorded-http-status-codes": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+    "recorded-weather": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c"
+  },
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "stop-owned-caller": {
+      "passed": true
+    },
+    "clipboard-restored-and-verified-independently": {
+      "passed": true
+    },
+    "stop-clipboard-recovery-activity": {
+      "passed": true
+    },
+    "owned-fixture-data": {
+      "passed": true
+    },
+    "copied-evidence": {
+      "passed": true
+    },
+    "palette-backup": {
+      "passed": true
+    },
+    "palette-preferences": {
+      "passed": true
+    },
+    "palette-verified": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "emoji-verified": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-state-and-unprivileged-identity": {
+      "passed": true
+    },
+    "release-lease": {
+      "passed": true
+    }
+  },
+  "runner_sha256": "4e9ab25f0b1bce00277d0dde5a37a29ab8cbbdb9900699c5bdfd9cfa4b9bb248",
+  "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+  "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+  "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841"
+}

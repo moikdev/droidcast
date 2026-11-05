@@ -1,0 +1,82 @@
+{
+  "scope": "Owned source-copy inspection; no extension execution, Store\/service request, or current-app compatibility certification",
+  "geometry": [
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        1920,
+        1200,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    }
+  ],
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "extension_bytecode_executed": false,
+  "native_complete_payload_matches": [
+    {
+      "name": "uuid-generator",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "files": 20
+    },
+    {
+      "name": "oklch-color-converter",
+      "archive_sha256": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+      "files": 5
+    },
+    {
+      "name": "palette-colors",
+      "archive_sha256": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+      "files": 5
+    },
+    {
+      "name": "base64",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "files": 12
+    },
+    {
+      "name": "json-format",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "files": 56
+    },
+    {
+      "name": "lorem-ipsum",
+      "archive_sha256": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+      "files": 10
+    },
+    {
+      "name": "translate",
+      "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+      "files": 147
+    },
+    {
+      "name": "http-status-codes",
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "files": 5
+    },
+    {
+      "name": "weather",
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "files": 40
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "recorded-tests-json-format",
+      "size": [
+        216,
+        72
+      ],
+      "visible": "Rect.fromLTRB(804.0, 446.0, 1020.0, 518.0)"
+    }
+  ],
+  "passed": true,
+  "inspection_did_not_start_runtime": true,
+  "owned_source_copies_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_scope": "No clipboard reads or writes in this class; host independently restores\/verifies its durable recovery snapshot"
+}

@@ -1,0 +1,22 @@
+{
+  "pid": 72350,
+  "completed": false,
+  "cohorts": [
+    {
+      "name": "ux-old-tablet100",
+      "exit_code": 0,
+      "verified": true
+    },
+    {
+      "name": "ux-old-phone100",
+      "exit_code": 0,
+      "verified": true
+    },
+    {
+      "name": "native-tablet100",
+      "exit_code": 1,
+      "verified": false
+    }
+  ],
+  "active": "native-tablet100"
+}
