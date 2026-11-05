@@ -251,9 +251,11 @@ internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit
             .onPreviewKeyEvent { menus.key(it.nativeKeyEvent, "preview") }) {
             content()
             BackHandler(enabled = menus.current != null) {
-                PaletteBackTrace.handler("menu-dispatcher-before", menus.current != null, store.emoji.query.length)
+                PaletteBackTrace.handler("menu-dispatcher-before", menus.current != null,
+                    if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
                 menus.dismiss()
-                PaletteBackTrace.handler("menu-dispatcher-after", menus.current != null, store.emoji.query.length)
+                PaletteBackTrace.handler("menu-dispatcher-after", menus.current != null,
+                    if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
             }
             if(feedback) menus.surface?.let { bounds -> PaletteFeedback(bounds, menus, snackbar) }
             menus.current?.let { request -> PaletteMenuOverlay(menus, request) }
