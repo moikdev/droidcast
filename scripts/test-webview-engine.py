@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Owned API26/API36 engine or native-input probes; retain ownership on restoration failure."""
+"""Owned API26/API36 engine, input or touch-search checks; retain ownership on restoration failure."""
 from pathlib import Path, PurePosixPath
 import argparse
 import hashlib
@@ -39,6 +39,11 @@ INPUT_CASES = ['recordDefaultImeAndControlledCompositionNavigation',
                'committedSameTurnLauncherActivationUsesCurrentNote',
                'largeDraftRestoresExactCharactersAfterRecreation']
 CONTRACT_CASES = INPUT_CASES[5:]
+TOUCH_CASES = ['launcherTouchClearPreservesFocusCategoryAndKeyboard',
+               'emojiTouchClearPreservesCategoryGeometryAndKeyboard',
+               'pointerClearRemovesControlledCompositionAndWhitespace',
+               'retainedClearCallbacksRejectReplacedSurfacesAndMenus',
+               'currentClearUsesLiveQueryAndRecreationRejectsOldCallback']
 OWNED_IME = TEST + '/dev.tinycast.android.NativeInputTestIme'
 IME_SETTING_KEYS = ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype',
                     'input_methods_subtype_history')
@@ -100,8 +105,8 @@ def main():
     p.add_argument('--test-apk', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--cases', required=True, help='Comma-separated allowlisted methods from the selected suite')
-    p.add_argument('--suite', choices=['engine', 'native-input'], default='engine',
-                   help='Native-input reuses the same emulator ownership/restoration protocol without executing an extension')
+    p.add_argument('--suite', choices=['engine', 'native-input', 'touch-search'], default='engine',
+                   help='Input/touch-search reuse emulator restoration without executing an extension')
     p.add_argument('--input-mode', choices=['system', 'owned'], default='system',
                    help='Controlled contracts require the silent test IME; system-IME diagnostics retain the current keyboard')
     p.add_argument('--font-scale', type=float, choices=[1, 2], default=1)
@@ -110,12 +115,19 @@ def main():
     a = p.parse_args()
     legacy = a.avd == 'Droidcast_WebView_API26_27caf3'
     native_input = a.suite == 'native-input'
-    suite_class = 'dev.tinycast.android.NativeInputCompatibilityDeviceTest' if native_input else CLASS
+    touch_search = a.suite == 'touch-search'
+    native_probe = native_input or touch_search
+    namespace = 'touch-search' if touch_search else 'native-input' if native_input else 'webview-engine'
+    lease_name = 'touch-search-lease' if touch_search else 'native-input-lease' if native_input else 'webview-compatibility-lease'
+    evidence_name = 'touch-search-evidence' if touch_search else 'native-input-evidence' if native_input else 'webview-compatibility-evidence'
+    argument_prefix = 'touchSearch' if touch_search else 'nativeInput' if native_input else 'webView'
+    suite_class = ('dev.tinycast.android.TouchSearchDeviceTest' if touch_search else
+                   'dev.tinycast.android.NativeInputCompatibilityDeviceTest' if native_input else CLASS)
     require(a.serial.startswith('emulator-') and a.avd in ('Droidcast_WebView_API26_27caf3', 'Tinycast_Tablet_API_36'), 'Use an explicitly owned AVD')
     methods = a.cases.split(',')
     require(len(methods) == len(set(methods)) and 1 <= len(methods) <= 7 and all(
-        name in (INPUT_CASES if native_input else CASES['shared'] + CASES['legacy' if legacy else 'modern']) for name in methods), 'Unsupported native cases')
-    require(not a.expected_negative or not native_input and legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
+        name in (TOUCH_CASES if touch_search else INPUT_CASES if native_input else CASES['shared'] + CASES['legacy' if legacy else 'modern']) for name in methods), 'Unsupported native cases')
+    require(not a.expected_negative or not native_probe and legacy and methods == [CASES['legacy'][0]], 'Negative control is limited to the old missing-recovery assertion')
     require(a.input_mode != 'owned' or native_input and all(name in CONTRACT_CASES for name in methods), 'Owned IME is limited to controlled native-input contracts')
     require(not native_input or not any(name in CONTRACT_CASES for name in methods) or a.input_mode == 'owned', 'Controlled contracts require --input-mode owned')
     require(not legacy or a.layout == 'phone', 'Keep the actual API26 geometry unchanged')
@@ -180,18 +192,18 @@ def main():
     if ime_settings:
         require(re.fullmatch(r'[A-Za-z0-9_.]+/[A-Za-z0-9_.$]+', ime_settings['default_input_method']), 'A restorable original input method is required')
         require(not any(OWNED_IME in value for value in ime_settings.values()), 'An existing owned IME activation/history has a recovery owner')
-    nonce = uuid.uuid4().hex; id = ('native-input-' if native_input else 'webview-engine-') + nonce
-    lease = 'files/native-input-lease' if native_input else 'files/webview-compatibility-lease'
-    evidence = 'files/native-input-evidence' if native_input else 'files/webview-compatibility-evidence'
+    nonce = uuid.uuid4().hex; id = namespace + '-' + nonce
+    lease = 'files/' + lease_name
+    evidence = 'files/' + evidence_name
     root = 'files/extensions/' + id
-    owner = {'kind': 'native-input-v1' if native_input else 'webview-compatibility-v1', 'nonce': nonce, 'extension_id': id, 'fresh_disposable_avd': legacy}
+    owner = {'kind': namespace + '-v1' if native_probe else 'webview-compatibility-v1', 'nonce': nonce, 'extension_id': id, 'fresh_disposable_avd': legacy}
     if native_input:
         owner['input_mode'] = a.input_mode
     owned = [root, 'cache/' + id, 'files/extension-data/' + id, 'shared_prefs/extension-' + id + '.xml',
              'shared_prefs/extension-' + id + '.xml.bak', evidence]
     if not legacy:
         require(not text('shell', 'run-as', APP, 'id').startswith(('uid=0(', 'uid=1000(', 'uid=2000(')), 'The app must remain unprivileged')
-        for path in [lease, evidence, 'files/webview-compatibility-lease', 'files/native-input-lease', 'files/reviewed-text-fixture-lease', 'files/empty-view-fixture-lease'] + owned[:5]:
+        for path in [lease, evidence, 'files/webview-compatibility-lease', 'files/native-input-lease', 'files/touch-search-lease', 'files/reviewed-text-fixture-lease', 'files/empty-view-fixture-lease'] + owned[:5]:
             require(absent(path), 'A prior recovery owner/path remains: ' + path)
     a.output.mkdir(parents=True, exist_ok=False, mode=0o700)
     (a.output / 'private-owner.json').write_text(json.dumps(owner)); (a.output / 'private-owner.json').chmod(0o600)
@@ -247,17 +259,18 @@ def main():
             raw('shell', 'ime', 'enable', OWNED_IME)
             raw('shell', 'ime', 'set', OWNED_IME)
             require(text('shell', 'settings', 'get', 'secure', 'default_input_method') == OWNED_IME, 'Owned IME was not selected')
-        if not native_input:
+        if not native_probe:
             raw('shell', 'run-as', APP, 'mkdir', '-p', root)
         r['fixture_sha256'] = {}
-        for name, data in ({} if native_input else fixture(id)).items():
+        for name, data in ({} if native_probe else fixture(id)).items():
             raw('shell', 'run-as', APP, 'tee', root + '/' + name, data=data); r['fixture_sha256'][name] = sha(data)
         if not legacy and a.layout != 'tablet':
             raw('shell', 'wm', 'size', '1080x2340' if a.layout == 'phone' else '2340x1080'); raw('shell', 'wm', 'density', '420')
         raw('shell', 'settings', 'put', 'system', 'font_scale', str(a.font_scale))
         save()
-        command = ['shell', 'am', 'instrument', '-w', '-r', '-e', 'nativeInputFixture' if native_input else 'webViewFixture', 'true',
-                   '-e', 'nativeInputOwner' if native_input else 'webViewOwner', nonce,
+        command = ['shell', 'am', 'instrument', '-w', '-r', '-e', argument_prefix + 'Fixture', 'true',
+                   '-e', argument_prefix + 'Owner', nonce,
+                   '-e', 'touchSearchFontScale', str(a.font_scale),
                    '-e', 'nativeInputMode', a.input_mode,
                    '-e', 'class', ','.join(suite_class + '#' + name for name in methods), TEST + '/androidx.test.runner.AndroidJUnitRunner']
         with (a.output / 'tests.log').open('xb') as log:
