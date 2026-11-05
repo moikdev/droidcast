@@ -244,19 +244,49 @@ class WebViewRecoveryDeviceTest {
     }
 
     @Test fun bridgeCannotPublishOrReadHostApisBeforeApproval() {
-        compose.activityRule.scenario.onActivity { activity ->
-            val catalog = activity.store.extensions
-            activity.store.reset()
-            activity.store.openExtension(extension, extension.commands.single { it.name == "index" })
-            val runtime = ExtensionRuntime(activity, catalog, extension, catalog.running!!.second)
-            try {
+        lateinit var runtime: ExtensionRuntime
+        lateinit var bridge: ExtensionRuntime.Bridge
+        val file = File(extension.directory, "index.js").canonicalFile
+        assertTrue("The harmless supported probe targets the existing owned fixture", file.isFile)
+        val arguments = org.json.JSONArray().put(file.path).toString()
+        try {
+            compose.activityRule.scenario.onActivity { activity ->
+                val catalog = activity.store.extensions
+                activity.store.reset()
+                activity.store.openExtension(extension, extension.commands.single { it.name == "index" })
+                // This test owns its engine directly; keep Compose from
+                // constructing another runtime for the same invocation.
+                activity.store.dialog = null
+                runtime = ExtensionRuntime(activity, catalog, extension, catalog.running!!.second)
+                bridge = runtime.Bridge()
                 runtime.Bridge().render("{\"type\":\"List\",\"children\":[]}")
-                val response = JSONObject(runtime.Bridge().invokeSync("localStorage", "getItem", "[\"owned-preflight\"]"))
-                assertFalse(response.getBoolean("ok"))
+                val response = JSONObject(bridge.invokeSync("fs", "exists", arguments))
+                assertFalse("Supported fs.exists must remain blocked before approval", response.getBoolean("ok"))
                 assertNull(catalog.runtimeTree)
                 runtime.dispatch("not-approved")
                 record.put("preflight_bridge_render_rejected", true).put("preflight_host_api_rejected", true)
-            } finally { runtime.close(); catalog.close(); activity.store.dialog = null }
+                    .put("supported_probe_operation", "fs.exists").put("owned_probe_file_exists", true)
+                    .put("preflight_response_ok", response.getBoolean("ok"))
+                if (Build.VERSION.SDK_INT == 36) runtime.start()
+            }
+            if (Build.VERSION.SDK_INT == 36) {
+                compose.waitUntil(20000) { compose.activity.store.extensions.runtimeError != null ||
+                    (runtime.isCurrentInvocation() && compose.activity.store.extensions.runtimeTree != null) }
+                compose.activityRule.scenario.onActivity { activity ->
+                    assertNull(activity.store.extensions.runtimeError)
+                    assertTrue(runtime.isCurrentInvocation())
+                    val response = JSONObject(bridge.invokeSync("fs", "exists", arguments))
+                    assertTrue("The same supported probe succeeds after actual approval", response.getBoolean("ok"))
+                    assertTrue("The same owned fixture still exists", response.getBoolean("value"))
+                    record.put("approved_response_ok", true).put("approved_owned_file_exists", true)
+                        .put("same_engine_bridge_operation_and_arguments", true)
+                }
+            } else record.put("approved_control_scope", "The paired approved control runs on API36; this actual API26 engine cannot pass preflight")
+        } finally {
+            compose.activityRule.scenario.onActivity { activity ->
+                if (::runtime.isInitialized) runtime.close()
+                activity.store.extensions.close(); activity.store.dialog = null
+            }
         }
         compose.waitForIdle()
         assertNull(compose.activity.store.extensions.runtimeTree)
