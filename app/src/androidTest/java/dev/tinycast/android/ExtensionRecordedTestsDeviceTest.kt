@@ -338,7 +338,9 @@ class ExtensionRecordedTestsDeviceTest {
                 .put("pixel_probe_scope","Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"))
             assertTrue("Clear search must draw a close glyph rather than the fallback plus",diagonal.all { it>0 }&&axes.all { it==0 })
         } finally { bitmap.recycle() }
-        tap("recorded-tests-clear");compose.onNodeWithTag("recorded-tests-search").assertTextEquals("")
+        tap("recorded-tests-clear")
+        assertEquals("",compose.onNodeWithTag("recorded-tests-search").fetchSemanticsNode().config[SemanticsProperties.EditableText].text)
+        compose.onNodeWithTag("recorded-tests-clear").assertDoesNotExist()
         compose.onNodeWithTag("recorded-tests-list").performScrollToNode(hasTestTag("recorded-test-batch001-json-format-index"))
         compose.onNodeWithTag("recorded-test-batch001-json-format-index").assertExists();capture("clear-search-restored-results")
         record.put("clear_search_pointer_restores_results",true);passed()
