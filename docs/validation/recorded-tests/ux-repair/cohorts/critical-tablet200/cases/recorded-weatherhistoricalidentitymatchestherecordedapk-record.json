@@ -1,0 +1,67 @@
+{
+  "scope": "Owned source-copy inspection; no extension execution, Store\/service request, or current-app compatibility certification",
+  "geometry": [
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        1920,
+        1200,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    },
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        1920,
+        1200,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    }
+  ],
+  "font_scale": 2,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "extension_bytecode_executed": false,
+  "pointer_taps": [
+    {
+      "tag": "recorded-tests-weather",
+      "size": [
+        341,
+        80
+      ],
+      "visible": "Rect.fromLTRB(1031.0, 520.0, 1372.0, 600.0)"
+    },
+    {
+      "tag": "recorded-details-weather-tokyo-observation",
+      "size": [
+        195,
+        80
+      ],
+      "visible": "Rect.fromLTRB(449.0, 1003.0, 644.0, 1083.0)"
+    }
+  ],
+  "filter_setup": "Semantic text replacement; palette focus; native IME hide; stable actual closed-IME geometry. This is not physical typing or a pointer-hide claim.",
+  "reveal_scrolls": [
+    {
+      "target": "recorded-details-weather-tokyo-observation",
+      "surface": "recorded-tests-list",
+      "viewport": "Rect.fromLTRB(398.0, 444.0, 1523.0, 1134.0)",
+      "raw_target_y": 1283,
+      "distance": 379.5
+    }
+  ],
+  "observed_historical_test_source": "d806004eb4d65a43e08c3966fff16ebd79d9affb",
+  "observed_historical_test_apk": "e26b3fe6b97575edbbc2fda121b6615d65316264db48b87dd5d87614ea16969d",
+  "identity_setup": "Semantic text positioning; native pointer scrolling for complete identity lines; no Weather code or service is executed",
+  "passed": true,
+  "inspection_did_not_start_runtime": true,
+  "owned_source_copies_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_scope": "No clipboard reads or writes in this class; host independently restores\/verifies its durable recovery snapshot"
+}

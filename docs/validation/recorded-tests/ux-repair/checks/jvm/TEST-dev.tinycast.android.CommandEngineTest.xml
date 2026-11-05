@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.CommandEngineTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-11-05T00:33:24.781Z" hostname="MacBook-Pro-2.local" time="0.011">
+  <properties/>
+  <testcase name="constantsCanImmediatelyPrecedeAsciiMultiplication" classname="dev.tinycast.android.CommandEngineTest" time="0.001"/>
+  <testcase name="knownConstantOperandsDoNotNeedADecimalDigitAndWordsStillFail" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="xInWordsAndIncompleteExpressionsRemainSearches" classname="dev.tinycast.android.CommandEngineTest" time="0.001"/>
+  <testcase name="rightAssociativePower" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="pinsLeadEmptyQuery" classname="dev.tinycast.android.CommandEngineTest" time="0.002"/>
+  <testcase name="exactAndPrefixRankAboveSubsequence" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="arithmeticPrecedence" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="exactAliasWins" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="functions" classname="dev.tinycast.android.CommandEngineTest" time="0.001"/>
+  <testcase name="xMultiplicationRetainsPrecedenceAndFunctionNames" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="refusesOversizedExpression" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="arithmeticOperatorsTriggerRootCalculation" classname="dev.tinycast.android.CommandEngineTest" time="0.001"/>
+  <testcase name="invalidMathDoesNotCrashOrProduceNan" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="localeIndependentOutput" classname="dev.tinycast.android.CommandEngineTest" time="0.001"/>
+  <testcase name="stableOrderingAndUsage" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="explicitCalculatorModeAcceptsNumbers" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="unaryMinusPrecedence" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="convertsTimeAndData" classname="dev.tinycast.android.CommandEngineTest" time="0.001"/>
+  <testcase name="functionsConstantsAndConversionsKeepTheirIntentionalSearchBehavior" classname="dev.tinycast.android.CommandEngineTest" time="0.001"/>
+  <testcase name="percentages" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="multiplicationDisplayUsesTheRealSymbolAndKeepsResultsNumeric" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="convertsTemperature" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="calculatorPrefixAndUnicodeOperators" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="ordinaryNumbersRemainRootSearches" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="rejectsIncompatibleUnits" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="convertsLength" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <testcase name="fuzzySubsequenceMatches" classname="dev.tinycast.android.CommandEngineTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

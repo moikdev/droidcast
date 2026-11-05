@@ -1,0 +1,117 @@
+{
+  "scope": "Owned source-copy inspection; no extension execution, Store\/service request, or current-app compatibility certification",
+  "geometry": [
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        2340,
+        1080,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    },
+    {
+      "wanted": null,
+      "visible": true,
+      "values": [
+        2340,
+        1080,
+        736,
+        1
+      ],
+      "stable_ms": 200
+    },
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        2340,
+        1080,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    }
+  ],
+  "font_scale": 1,
+  "width_dp": 891,
+  "height_dp": 411,
+  "extension_bytecode_executed": false,
+  "pointer_taps": [
+    {
+      "tag": "recorded-tests-json-format",
+      "size": [
+        374,
+        126
+      ],
+      "visible": "Rect.fromLTRB(889.0, 461.0, 1263.0, 587.0)"
+    },
+    {
+      "tag": "recorded-tests-keyboard",
+      "size": [
+        126,
+        126
+      ],
+      "visible": "Rect.fromLTRB(1971.0, 106.0, 2097.0, 232.0)"
+    },
+    {
+      "tag": "recorded-details-batch001-json-format-index",
+      "size": [
+        240,
+        126
+      ],
+      "visible": "Rect.fromLTRB(275.0, 860.0, 515.0, 986.0)"
+    },
+    {
+      "tag": "extension-back",
+      "size": [
+        126,
+        126
+      ],
+      "visible": "Rect.fromLTRB(186.0, 106.0, 312.0, 232.0)"
+    }
+  ],
+  "natural_text_witnesses": [
+    {
+      "text": "These are earlier observations of specific workflows. Matching source files does not verify your current app or device.",
+      "lines": 2,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    },
+    {
+      "text": "Worked in recorded test",
+      "lines": 1,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    },
+    {
+      "text": "Use the manual JSON formatter and verify its clipboard output.",
+      "lines": 1,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    },
+    {
+      "text": "Only this listed workflow was checked. Other arguments\/actions and your current app\/device remain unverified.",
+      "lines": 2,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    }
+  ],
+  "reveal_scrolls": [
+    {
+      "target": "recorded-tests-keyboard",
+      "surface": "palette-content-scroll",
+      "viewport": "Rect.fromLTRB(186.0, 95.0, 2155.0, 313.0)",
+      "raw_target_y": 219,
+      "distance": 119.9
+    }
+  ],
+  "natural_text_and_full_targets": true,
+  "passed": true,
+  "inspection_did_not_start_runtime": true,
+  "owned_source_copies_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_scope": "No clipboard reads or writes in this class; host independently restores\/verifies its durable recovery snapshot"
+}

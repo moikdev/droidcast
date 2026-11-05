@@ -1,0 +1,38 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionRecordedTestsDeviceTest:
+INSTRUMENTATION_STATUS: test=weatherHistoricalIdentityMatchesTheRecordedApk
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionRecordedTestsDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: Weather historical source must match its recorded test APK expected:<[d806004eb4d65a43e08c3966fff16ebd79d9affb]> but was:<[74da77a4d2ea4a7e5178a77ef2035e927d328444]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.weatherHistoricalIdentityMatchesTheRecordedApk(ExtensionRecordedTestsDeviceTest.kt:416)
+
+INSTRUMENTATION_STATUS: stream=
+Error in weatherHistoricalIdentityMatchesTheRecordedApk(dev.tinycast.android.ExtensionRecordedTestsDeviceTest):
+org.junit.ComparisonFailure: Weather historical source must match its recorded test APK expected:<[d806004eb4d65a43e08c3966fff16ebd79d9affb]> but was:<[74da77a4d2ea4a7e5178a77ef2035e927d328444]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.weatherHistoricalIdentityMatchesTheRecordedApk(ExtensionRecordedTestsDeviceTest.kt:416)
+
+INSTRUMENTATION_STATUS: test=weatherHistoricalIdentityMatchesTheRecordedApk
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.396
+There was 1 failure:
+1) weatherHistoricalIdentityMatchesTheRecordedApk(dev.tinycast.android.ExtensionRecordedTestsDeviceTest)
+org.junit.ComparisonFailure: Weather historical source must match its recorded test APK expected:<[d806004eb4d65a43e08c3966fff16ebd79d9affb]> but was:<[74da77a4d2ea4a7e5178a77ef2035e927d328444]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.tinycast.android.ExtensionRecordedTestsDeviceTest.weatherHistoricalIdentityMatchesTheRecordedApk(ExtensionRecordedTestsDeviceTest.kt:416)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

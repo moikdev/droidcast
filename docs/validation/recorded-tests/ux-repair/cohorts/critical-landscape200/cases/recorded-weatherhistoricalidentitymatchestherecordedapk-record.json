@@ -1,0 +1,81 @@
+{
+  "scope": "Owned source-copy inspection; no extension execution, Store\/service request, or current-app compatibility certification",
+  "geometry": [
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        2340,
+        1080,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    },
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        2340,
+        1080,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    }
+  ],
+  "font_scale": 2,
+  "width_dp": 891,
+  "height_dp": 411,
+  "extension_bytecode_executed": false,
+  "reveal_scrolls": [
+    {
+      "target": "recorded-tests-weather",
+      "surface": "store-results",
+      "viewport": "Rect.fromLTRB(186.0, 267.0, 2155.0, 682.0)",
+      "raw_target_y": 590,
+      "distance": 228.25
+    },
+    {
+      "target": "recorded-details-weather-tokyo-observation",
+      "surface": "recorded-tests-list",
+      "viewport": "Rect.fromLTRB(186.0, 460.0, 2155.0, 986.0)",
+      "raw_target_y": 1423,
+      "distance": 289.30002
+    },
+    {
+      "target": "recorded-details-weather-tokyo-observation",
+      "surface": "recorded-tests-list",
+      "viewport": "Rect.fromLTRB(186.0, 460.0, 2155.0, 986.0)",
+      "raw_target_y": 1086,
+      "distance": 289.30002
+    }
+  ],
+  "pointer_taps": [
+    {
+      "tag": "recorded-tests-weather",
+      "size": [
+        593,
+        140
+      ],
+      "visible": "Rect.fromLTRB(1286.0, 337.0, 1879.0, 477.0)"
+    },
+    {
+      "tag": "recorded-details-weather-tokyo-observation",
+      "size": [
+        340,
+        140
+      ],
+      "visible": "Rect.fromLTRB(275.0, 757.0, 615.0, 897.0)"
+    }
+  ],
+  "filter_setup": "Semantic text replacement; palette focus; native IME hide; stable actual closed-IME geometry. This is not physical typing or a pointer-hide claim.",
+  "observed_historical_test_source": "d806004eb4d65a43e08c3966fff16ebd79d9affb",
+  "observed_historical_test_apk": "e26b3fe6b97575edbbc2fda121b6615d65316264db48b87dd5d87614ea16969d",
+  "identity_setup": "Semantic text positioning; native pointer scrolling for complete identity lines; no Weather code or service is executed",
+  "passed": true,
+  "inspection_did_not_start_runtime": true,
+  "owned_source_copies_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_scope": "No clipboard reads or writes in this class; host independently restores\/verifies its durable recovery snapshot"
+}

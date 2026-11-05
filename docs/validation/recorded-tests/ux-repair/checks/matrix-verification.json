@@ -1,0 +1,505 @@
+{
+  "app_source_commit": "2f7a3edf89644ba6841affb8fcdd3f8250d26e2c",
+  "test_source_commit": "975ba30eb7b5602e251a30befca1e436425753e8",
+  "app_sha256": "b0fa0e302a63320b6e5ed163856756961b4480a1ce476f4cb6167be799535e54",
+  "test_apk_sha256": "2cb58a31df55c8e4f12d700da9bb5157e9a69a4c94db076ee52f9b5d5abbaa26",
+  "current_passes": 44,
+  "current_whole_cohorts": 6,
+  "current_restoration_checks": 116,
+  "old_app_intended_failures": 4,
+  "old_app_junit_passes": 0,
+  "old_app_restoration_checks": 38,
+  "identity_geometry_witnesses": [
+    {
+      "cohort": "native-tablet100",
+      "phase": "weather-test-apk",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        449,
+        816,
+        1396,
+        950
+      ],
+      "compose_screen_bounds_after": [
+        449,
+        816,
+        1396,
+        950
+      ],
+      "xml_screen_bounds": [
+        449,
+        816,
+        1396,
+        950
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "native-tablet100",
+      "phase": "weather-test-source",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        449,
+        843,
+        1396,
+        950
+      ],
+      "compose_screen_bounds_after": [
+        449,
+        843,
+        1396,
+        950
+      ],
+      "xml_screen_bounds": [
+        449,
+        843,
+        1396,
+        950
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "native-phone100",
+      "phase": "weather-test-apk",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        121,
+        750,
+        959,
+        1342
+      ],
+      "compose_screen_bounds_after": [
+        121,
+        750,
+        959,
+        1342
+      ],
+      "xml_screen_bounds": [
+        121,
+        750,
+        959,
+        1342
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "native-phone100",
+      "phase": "weather-test-source",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        121,
+        891,
+        959,
+        1342
+      ],
+      "compose_screen_bounds_after": [
+        121,
+        891,
+        959,
+        1342
+      ],
+      "xml_screen_bounds": [
+        121,
+        891,
+        959,
+        1342
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-landscape100",
+      "phase": "weather-test-apk",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        275,
+        711,
+        1886,
+        986
+      ],
+      "compose_screen_bounds_after": [
+        275,
+        711,
+        1886,
+        986
+      ],
+      "xml_screen_bounds": [
+        275,
+        711,
+        1886,
+        986
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-landscape100",
+      "phase": "weather-test-source",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        275,
+        805,
+        1886,
+        986
+      ],
+      "compose_screen_bounds_after": [
+        275,
+        805,
+        1886,
+        986
+      ],
+      "xml_screen_bounds": [
+        275,
+        805,
+        1886,
+        986
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-tablet200",
+      "phase": "weather-test-apk",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        449,
+        514,
+        1472,
+        1134
+      ],
+      "compose_screen_bounds_after": [
+        449,
+        514,
+        1472,
+        1134
+      ],
+      "xml_screen_bounds": [
+        449,
+        514,
+        1472,
+        1134
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-tablet200",
+      "phase": "weather-test-source",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        449,
+        665,
+        1472,
+        1134
+      ],
+      "compose_screen_bounds_after": [
+        449,
+        665,
+        1472,
+        1134
+      ],
+      "xml_screen_bounds": [
+        449,
+        665,
+        1472,
+        1134
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-phone200",
+      "phase": "weather-test-apk",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        121,
+        460,
+        959,
+        1965
+      ],
+      "compose_screen_bounds_after": [
+        121,
+        460,
+        959,
+        1965
+      ],
+      "xml_screen_bounds": [
+        121,
+        460,
+        959,
+        1965
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-phone200",
+      "phase": "weather-test-source",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        121,
+        754,
+        959,
+        1965
+      ],
+      "compose_screen_bounds_after": [
+        121,
+        754,
+        959,
+        1965
+      ],
+      "xml_screen_bounds": [
+        121,
+        754,
+        959,
+        1965
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-landscape200",
+      "phase": "weather-test-apk",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        275,
+        460,
+        2066,
+        986
+      ],
+      "compose_screen_bounds_after": [
+        275,
+        460,
+        2066,
+        986
+      ],
+      "xml_screen_bounds": [
+        275,
+        460,
+        2066,
+        986
+      ],
+      "bounds_agree_within_pixels": 2
+    },
+    {
+      "cohort": "critical-landscape200",
+      "phase": "weather-test-source",
+      "anchor_text_sha256": "23f50602f0cd57afdb116506c9f1a73a7efab2224fcf22e39a5e3cb4b75a723b",
+      "compose_screen_bounds_before": [
+        275,
+        460,
+        2066,
+        986
+      ],
+      "compose_screen_bounds_after": [
+        275,
+        460,
+        2066,
+        986
+      ],
+      "xml_screen_bounds": [
+        275,
+        460,
+        2066,
+        986
+      ],
+      "bounds_agree_within_pixels": 2
+    }
+  ],
+  "clear_glyph_witnesses": [
+    {
+      "cohort": "native-tablet100",
+      "diagonal_ink": [
+        7,
+        6,
+        6,
+        7
+      ],
+      "axis_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "screen_bounds": [
+        1346,
+        341,
+        1418,
+        413
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    },
+    {
+      "cohort": "native-phone100",
+      "diagonal_ink": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "axis_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "screen_bounds": [
+        738,
+        278,
+        864,
+        404
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    },
+    {
+      "cohort": "critical-landscape100",
+      "diagonal_ink": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "axis_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "screen_bounds": [
+        1845,
+        278,
+        1971,
+        404
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    },
+    {
+      "cohort": "critical-tablet200",
+      "diagonal_ink": [
+        7,
+        6,
+        6,
+        7
+      ],
+      "axis_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "screen_bounds": [
+        1346,
+        341,
+        1418,
+        413
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    },
+    {
+      "cohort": "critical-phone200",
+      "diagonal_ink": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "axis_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "screen_bounds": [
+        738,
+        278,
+        864,
+        404
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    },
+    {
+      "cohort": "critical-landscape200",
+      "diagonal_ink": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "axis_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "screen_bounds": [
+        1845,
+        278,
+        1971,
+        404
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    },
+    {
+      "cohort": "ux-old-tablet100",
+      "diagonal_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "axis_ink": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "screen_bounds": [
+        1346,
+        341,
+        1418,
+        413
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    },
+    {
+      "cohort": "ux-old-phone100",
+      "diagonal_ink": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "axis_ink": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "screen_bounds": [
+        738,
+        278,
+        864,
+        404
+      ],
+      "background_argb": -13158601,
+      "composited_tint_argb": -5263441,
+      "channel_tolerance": 32,
+      "pixel_probe_scope": "Four diagonal and four axis neighborhoods of the actual 18dp clear glyph; not a full-image comparison"
+    }
+  ],
+  "scope": "Artifact and raw XML reconciliation after the complete native run; no new runtime execution"
+}

@@ -1,0 +1,2743 @@
+{
+  "schema_version": 1,
+  "snapshots": [
+    {
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "handle": "jmaeso",
+      "name": "uuid-generator",
+      "package_name": "uuid-generator",
+      "manifest_sha256": "251e5540e44ee39c424321b6c1d98eeaaecc3118f5f932c7236e7013f70847c7",
+      "payload_sha256": "e8527de4eeeee1924153550fcd05cea4f92e5542f711dde826f289c1cf6dfa20",
+      "files": [
+        {
+          "path": "assets/command-icon.png",
+          "size": 17477,
+          "sha256": "423115229079dcd49a77183284e0704df85c2ecbc9bc106e14664eaaf55d95c9"
+        },
+        {
+          "path": "formatUuid.js",
+          "size": 1217,
+          "sha256": "29e73d55a4d9616e9493a8c64bbaa2019d76d00c81752eccb765532bb77b821f"
+        },
+        {
+          "path": "formatUuid.js.map",
+          "size": 2555,
+          "sha256": "bc3ac2cad88e9eba67c1e3280abbc7d9292ba6c0963bf8477abe31ecf6c3c1c4"
+        },
+        {
+          "path": "generate.js",
+          "size": 2720,
+          "sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d"
+        },
+        {
+          "path": "generate.js.map",
+          "size": 12219,
+          "sha256": "c02f4f40fbbd281fcb9e17d23c745fb9e8b11241a2a80e9fff8ff6014fe077e6"
+        },
+        {
+          "path": "generateTypeID.js",
+          "size": 9628,
+          "sha256": "71dbb01590489e51b50e1fb7ba5161075d6417fde1345759832471901b032be2"
+        },
+        {
+          "path": "generateTypeID.js.map",
+          "size": 45665,
+          "sha256": "ce3a34a775f9f67c52c59a221b92b996d1b47892141af0b644084a66f0d59491"
+        },
+        {
+          "path": "generateUlid.js",
+          "size": 5471,
+          "sha256": "b77ea4ed9a3cf13da20193cae737a3b0a62dea50ab5fbeaaa05de5c6e0769e8d"
+        },
+        {
+          "path": "generateUlid.js.map",
+          "size": 28851,
+          "sha256": "3e74444cf09fe44d48f2686600a41c65dd62463a27a9e25eef4dc9160ff8c3bc"
+        },
+        {
+          "path": "generateV5.js",
+          "size": 3935,
+          "sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04"
+        },
+        {
+          "path": "generateV5.js.map",
+          "size": 16150,
+          "sha256": "bcde29b4b75229c9afc8e0104b6b434b4589c79f33fe38d5edc86c9fe454f57a"
+        },
+        {
+          "path": "generateV7.js",
+          "size": 10730,
+          "sha256": "4b9a760aea9de7f1cf720224050844b09ae842e88aaca9aec5969c69115b499a"
+        },
+        {
+          "path": "generateV7.js.map",
+          "size": 51894,
+          "sha256": "230a6a97df10590c22a323d2796f24e1b2d31925ba3068f821b4ac6ba6f71860"
+        },
+        {
+          "path": "packTypeID.js",
+          "size": 9586,
+          "sha256": "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac"
+        },
+        {
+          "path": "packTypeID.js.map",
+          "size": 42970,
+          "sha256": "f3c845f97be3cb189430cd6010160b6da65373f40caa3b692115de36d819ca4b"
+        },
+        {
+          "path": "package.json",
+          "size": 5653,
+          "sha256": "251e5540e44ee39c424321b6c1d98eeaaecc3118f5f932c7236e7013f70847c7"
+        },
+        {
+          "path": "parseTypeID.js",
+          "size": 7216,
+          "sha256": "bb3ef0b5708548df44d13ecb95d2e21d538d15bd492c5d5de731d6933ce828cf"
+        },
+        {
+          "path": "parseTypeID.js.map",
+          "size": 37266,
+          "sha256": "2294b1d8ad440223f40bc63ac67f905d25ce8fdc125c14357306e51fc2a4a866"
+        },
+        {
+          "path": "viewHistory.js",
+          "size": 3178,
+          "sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d"
+        },
+        {
+          "path": "viewHistory.js.map",
+          "size": 9838,
+          "sha256": "da96e2111371e8b711068a2f9b57fed37aa5860bdb03df5475e3f3066f16f6b9"
+        }
+      ],
+      "commands": [
+        {
+          "name": "generate",
+          "sha256": "bca54a948e8d074bf64ed363d733e614fff8d65d3f418a08bd705f8208f4e12d",
+          "mode": "no-view",
+          "title": "Generate UUIDs"
+        },
+        {
+          "name": "generateV5",
+          "sha256": "316dd53603bfe0b759c928a6779ea9e8dc1aa9a52ad47ce6bd41734b9b3b9f04",
+          "mode": "no-view",
+          "title": "Generate V5 UUIDs"
+        },
+        {
+          "name": "generateV7",
+          "sha256": "4b9a760aea9de7f1cf720224050844b09ae842e88aaca9aec5969c69115b499a",
+          "mode": "no-view",
+          "title": "Generate V7 UUIDs"
+        },
+        {
+          "name": "generateUlid",
+          "sha256": "b77ea4ed9a3cf13da20193cae737a3b0a62dea50ab5fbeaaa05de5c6e0769e8d",
+          "mode": "no-view",
+          "title": "Generate ULIDs"
+        },
+        {
+          "name": "generateTypeID",
+          "sha256": "71dbb01590489e51b50e1fb7ba5161075d6417fde1345759832471901b032be2",
+          "mode": "no-view",
+          "title": "Generate TypeIDs"
+        },
+        {
+          "name": "parseTypeID",
+          "sha256": "bb3ef0b5708548df44d13ecb95d2e21d538d15bd492c5d5de731d6933ce828cf",
+          "mode": "no-view",
+          "title": "Parse TypeIDs"
+        },
+        {
+          "name": "formatUuid",
+          "sha256": "29e73d55a4d9616e9493a8c64bbaa2019d76d00c81752eccb765532bb77b821f",
+          "mode": "no-view",
+          "title": "Format UUID"
+        },
+        {
+          "name": "packTypeID",
+          "sha256": "50cf8f6857f2ac5f697ec925ad6977dbbed5b91ed25d25928d888ae40577c5ac",
+          "mode": "no-view",
+          "title": "Pack TypeID"
+        },
+        {
+          "name": "viewHistory",
+          "sha256": "3087afde1f4236f8ff4fcc0647582f67eafa0d0b1df4655d7a625410d378e29d",
+          "mode": "view",
+          "title": "View History"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+      "handle": "strongeron",
+      "name": "oklch-color-converter",
+      "package_name": "oklch-color-converter",
+      "manifest_sha256": "63a115ed123efa9b87161fd6398cad418edf4bce72f89c184cb33b6d7f0f44bf",
+      "payload_sha256": "3e4b1fa1992f866330ff60322d56c5541c13f3281c4362e954d3e76486193099",
+      "files": [
+        {
+          "path": "assets/icon.png",
+          "size": 202561,
+          "sha256": "8bcde32c4dc7b94a8e119d3576153f34aee95bd416f937b2b93c8b56471af1e9"
+        },
+        {
+          "path": "convert-color.js",
+          "size": 48561,
+          "sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806"
+        },
+        {
+          "path": "convert-color.js.map",
+          "size": 265122,
+          "sha256": "b5ff3fc54659f985755ca8ea52e439f9eda61d1d803341eae93bd06ee0ce9a56"
+        },
+        {
+          "path": "package.json",
+          "size": 1242,
+          "sha256": "63a115ed123efa9b87161fd6398cad418edf4bce72f89c184cb33b6d7f0f44bf"
+        },
+        {
+          "path": "plugin.json",
+          "size": 273,
+          "sha256": "f5695768e02d83a56077d10609b4d64a56e14b2741ee483c0eba9f6c911c721d"
+        }
+      ],
+      "commands": [
+        {
+          "name": "convert-color",
+          "sha256": "3a584f62b56d403149360365ac132e6230e536d4bc2e951406bf1694cd9a8806",
+          "mode": "view",
+          "title": "Convert Color"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+      "handle": "douglas-pires",
+      "name": "palette-colors",
+      "package_name": "palette-colors",
+      "manifest_sha256": "59eb0df1d2d81b06232112b66a10bcdac45ad3dd0d2c1f0ed677523466c1bd01",
+      "payload_sha256": "7e1fb809d196fe907bf774b4c2641a05b9546b11f8bc4d39039937ab26d3fdf3",
+      "files": [
+        {
+          "path": "assets/command-icon.png",
+          "size": 190123,
+          "sha256": "df7a90fedba9c69dcd331c889e00111d77b5e976f4768109110e561c87611026"
+        },
+        {
+          "path": "index.js",
+          "size": 104300,
+          "sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f"
+        },
+        {
+          "path": "index.js.map",
+          "size": 422691,
+          "sha256": "b67c4c094eed6db093f337b1d7376aceaf37b309cbb6eaa13a3ad9375eb57b94"
+        },
+        {
+          "path": "package.json",
+          "size": 1157,
+          "sha256": "59eb0df1d2d81b06232112b66a10bcdac45ad3dd0d2c1f0ed677523466c1bd01"
+        },
+        {
+          "path": "plugin.json",
+          "size": 239,
+          "sha256": "429c37a0868a1d3150fe981c5145267866d5e8e270234bdb83f513592753cede"
+        }
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "sha256": "417fb87ed785191256381bb37faab3bd8f5d48267ee41bdb530f436fcb96486f",
+          "mode": "view",
+          "title": "Palette Colors"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "handle": "DanielSinclair",
+      "name": "base64",
+      "package_name": "base64",
+      "manifest_sha256": "2bd0bf26758d9ba89d37c6468c7e528a4325f3685898c89149419313a4b60311",
+      "payload_sha256": "87a43a7a5ad09fe672a794dfbcf8ba1d7ddb2e2c16649e7b3bd57c2f0f024d3a",
+      "files": [
+        {
+          "path": "assets/command-icon.png",
+          "size": 80527,
+          "sha256": "91b4ccba2a5abfaf8eb4541073a5bc10e06b8349a94b0c33538ebf8f0a2eca8c"
+        },
+        {
+          "path": "decode.js",
+          "size": 2823,
+          "sha256": "e37ce8d5428ec1d8772f34b78d087d83784342efffc0e7790c233c0d2fc7b76b"
+        },
+        {
+          "path": "decode.js.map",
+          "size": 15517,
+          "sha256": "d83c89df49f7394176bf06e9d63d4441bd7c80fcd66bb0d5999d2436e514a98a"
+        },
+        {
+          "path": "encode.js",
+          "size": 2463,
+          "sha256": "28cd6fb4b0f1d60347a3e793819053915ff5b1167d04cbe07cb24996bebfcefd"
+        },
+        {
+          "path": "encode.js.map",
+          "size": 15164,
+          "sha256": "1b6fe5c60d6745f26217a67625e7b0f5c2c4c6616805ab3c0fc40bbdf65f8d0d"
+        },
+        {
+          "path": "index.js",
+          "size": 9504,
+          "sha256": "b4fbf304d94efaba62c845c1be21efb1cfb2e37fb714813432db4d3db53d773e"
+        },
+        {
+          "path": "index.js.map",
+          "size": 263643,
+          "sha256": "b5daa9b8786e753ab7a36bd82bdcb6aa6ee1883f2b5d673b321ace71c322d0f1"
+        },
+        {
+          "path": "package.json",
+          "size": 2836,
+          "sha256": "2bd0bf26758d9ba89d37c6468c7e528a4325f3685898c89149419313a4b60311"
+        },
+        {
+          "path": "tools/base64-decode.js",
+          "size": 2195,
+          "sha256": "474498f8330076d2e9cbc61a4b2004ca9b84c20f1cec257586b2f5782bf44eac"
+        },
+        {
+          "path": "tools/base64-decode.js.map",
+          "size": 13987,
+          "sha256": "2b4d9948d8e8e4281024a6857d251f385f82bae248b3b4c7c66a558e2bd9da1c"
+        },
+        {
+          "path": "tools/base64-encode.js",
+          "size": 2027,
+          "sha256": "8d52d293b835a4e53bcf3368bf122ccfa5ce0a14ae0488fc58d787601a36617c"
+        },
+        {
+          "path": "tools/base64-encode.js.map",
+          "size": 13937,
+          "sha256": "99b7e780c254493ceda7b5e8288b3e5791a4c721f324ec45a418353571f34056"
+        }
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "sha256": "b4fbf304d94efaba62c845c1be21efb1cfb2e37fb714813432db4d3db53d773e",
+          "mode": "view",
+          "title": "Base64"
+        },
+        {
+          "name": "encode",
+          "sha256": "28cd6fb4b0f1d60347a3e793819053915ff5b1167d04cbe07cb24996bebfcefd",
+          "mode": "no-view",
+          "title": "Base64 Encode"
+        },
+        {
+          "name": "decode",
+          "sha256": "e37ce8d5428ec1d8772f34b78d087d83784342efffc0e7790c233c0d2fc7b76b",
+          "mode": "no-view",
+          "title": "Base64 Decode"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "handle": "destiner",
+      "name": "json-format",
+      "package_name": "json-format",
+      "manifest_sha256": "20c40f4070eb2bd7310a75441a684233423d651318158f3fd38bdbec01a9ac33",
+      "payload_sha256": "e0162ca791af06fe9e42b0d8ed1c5588eeefa825005201efc3cdde9e017d6350",
+      "files": [
+        {
+          "path": "assets/command-icon.png",
+          "size": 237176,
+          "sha256": "cfee8098d945a0541c391777deeae1fc6e3ddee07a8516f1f730b2103e4e8f13"
+        },
+        {
+          "path": "formatClipboard.js",
+          "size": 2469,
+          "sha256": "2fcf507c9a1cf422d9410193e99ba7e4e496f4fc8c45ee78072e19ea58538d6e"
+        },
+        {
+          "path": "formatClipboard.js.map",
+          "size": 6868,
+          "sha256": "b5c3c818414be3d968b74be27c7a3311b5add1bcf7e40215703789a405f17fc3"
+        },
+        {
+          "path": "formatJsonLines.js",
+          "size": 2937,
+          "sha256": "690c15e7c0f1f52ea1b2315e8d1a75a5bdd15b8f25abe5a741337da5f8ba9a98"
+        },
+        {
+          "path": "formatJsonLines.js.map",
+          "size": 9364,
+          "sha256": "3ac9f846e37e8ae63cd56fb9a3dfb3e02d4670837585853ba37c84c8be313528"
+        },
+        {
+          "path": "formatSelection.js",
+          "size": 2465,
+          "sha256": "b445fd841a7a81d29fa1db2b6f6107ed332edc3174cd3ce788267270f771ccdb"
+        },
+        {
+          "path": "formatSelection.js.map",
+          "size": 6853,
+          "sha256": "274afe948bf3e882a1c51906ff6b445fd6f6dedce3e9200fb689a25671902f14"
+        },
+        {
+          "path": "formatSelectionAndShow.js",
+          "size": 3296,
+          "sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92"
+        },
+        {
+          "path": "formatSelectionAndShow.js.map",
+          "size": 10891,
+          "sha256": "77d5ff18cbf9bc56d9adf947addfb151d1bad3f6c2e31b1f37a8fdfb20a95d06"
+        },
+        {
+          "path": "formatToJsonValue.js",
+          "size": 1105,
+          "sha256": "1367d9a2247ea560b69c9b84496d3424b41647f037d303e0ea4e3c99e71bfa1d"
+        },
+        {
+          "path": "formatToJsonValue.js.map",
+          "size": 1853,
+          "sha256": "18e64e1eba65094f1b200c3310719507e96dbcd9f04611fc5effef9e791c741e"
+        },
+        {
+          "path": "index.js",
+          "size": 3734,
+          "sha256": "bcca05348f11ffc115adc346944dcd78d209958684cb9df44d571e70a99575a0"
+        },
+        {
+          "path": "index.js.map",
+          "size": 10384,
+          "sha256": "3b0a0ead3b3720240d8fdf3a857857dfe414535c8ad3c34a500f17fd97a677c0"
+        },
+        {
+          "path": "node_modules/.raycast-shared-dependencies",
+          "size": 38,
+          "sha256": "390aeefbc89aca1a8eea7e94d71fefb326c1de8afb2091dd6a292fcc1d3d03d8"
+        },
+        {
+          "path": "node_modules/@raycast/utils/index.js",
+          "size": 54059,
+          "sha256": "4643b35758839882cea9207f02f8b15191f5b1f3edb193ac9f4bb2c46bc00cb1"
+        },
+        {
+          "path": "node_modules/@raycast/utils/index.js.map",
+          "size": 194357,
+          "sha256": "65a48db96d99f094d3853a339b13d61c1d96ee52725cb04f3cc82d353dc257cc"
+        },
+        {
+          "path": "node_modules/@raycast/utils/package.json",
+          "size": 94,
+          "sha256": "3ff3d6e29d9a5e87a64e23694c3d8a68f52afd4c45b26df0de1b159a5bc6af7e"
+        },
+        {
+          "path": "node_modules/cross-fetch/index.js",
+          "size": 360,
+          "sha256": "4429aa46d6ac8f146de46f07f137be2416506aede1a9679c024ce8c785461e84"
+        },
+        {
+          "path": "node_modules/cross-fetch/index.js.map",
+          "size": 1448,
+          "sha256": "5dc83976ca7d9a9d36069b92da37791b3d402f6caf2465202e4098e20cff1141"
+        },
+        {
+          "path": "node_modules/cross-fetch/package.json",
+          "size": 91,
+          "sha256": "fe16615d6f76bd5c9e3baab04fb563e5e1e57e79bbc03eb52140f3228ce61104"
+        },
+        {
+          "path": "node_modules/dequal/__subpath/lite.js",
+          "size": 603,
+          "sha256": "6e5987f51aa5d2213033a214dc01385d6e2c0448d2d3f3d24b8dfff565211100"
+        },
+        {
+          "path": "node_modules/dequal/__subpath/lite.js.map",
+          "size": 2037,
+          "sha256": "418dcd42e646f2aa956bac8acdf4ae0ae77d14e8436761af10671341c62474b4"
+        },
+        {
+          "path": "node_modules/dequal/package.json",
+          "size": 100,
+          "sha256": "c85b67e3a7788fd78b9003fbe4b4835a5549be3bab733b3923d87c816ea9d608"
+        },
+        {
+          "path": "node_modules/js-beautify/index.js",
+          "size": 102187,
+          "sha256": "865f1f3d924c8e3214ab7fc325700ec039a45ea9223488b2ec13255503bad4c1"
+        },
+        {
+          "path": "node_modules/js-beautify/index.js.map",
+          "size": 336222,
+          "sha256": "af98e8ab1b8ec41dea5054a269e12497f20a4f8739ee0c737923fafc1e2eacc8"
+        },
+        {
+          "path": "node_modules/js-beautify/package.json",
+          "size": 91,
+          "sha256": "01181d54ac39e2a2428df05b73b662777f19c20f9f94f26c87bfb0b170195134"
+        },
+        {
+          "path": "node_modules/node-fetch/index.js",
+          "size": 19053,
+          "sha256": "14909396cd9fe58ebf302426e5668dc02ac0bbc4a91115bc8a0d7863f2b41ed8"
+        },
+        {
+          "path": "node_modules/node-fetch/index.js.map",
+          "size": 76628,
+          "sha256": "88fda1f011fb72f9fbabd2668b8e74cd8ded9f7d55c8a2c856f36c6022447daa"
+        },
+        {
+          "path": "node_modules/node-fetch/package.json",
+          "size": 90,
+          "sha256": "be54ea90d41fb1c0ca9f42e9ca0997aa93a647af152bc2e6a95e4a4c26b57e4f"
+        },
+        {
+          "path": "node_modules/object-hash/index.js",
+          "size": 6727,
+          "sha256": "70ffc357ad60e733eff965663ebf0b53b478294d34af6c7065e98f014294c3ed"
+        },
+        {
+          "path": "node_modules/object-hash/index.js.map",
+          "size": 23943,
+          "sha256": "b1ad7f7ad047fb47f7c0d5a2fd1f8eaa8f6c4555accd5a274d5b2a9f082f02b2"
+        },
+        {
+          "path": "node_modules/object-hash/package.json",
+          "size": 91,
+          "sha256": "a210b63c8f42db6f2ac7b43f0191888b1875bf862c2d2cd21052c645a49b575a"
+        },
+        {
+          "path": "node_modules/signal-exit/index.js",
+          "size": 3338,
+          "sha256": "737b0a818de2c84f941a6199110da07915bc25863392e7fe3b68d36ca6a1c8ef"
+        },
+        {
+          "path": "node_modules/signal-exit/index.js.map",
+          "size": 16461,
+          "sha256": "0dbfc650f1786acf154616bf17037738354bc28dc520953bc3c21fd98d002336"
+        },
+        {
+          "path": "node_modules/signal-exit/package.json",
+          "size": 91,
+          "sha256": "dc1176dca33226ff86fbf3b4425129f152afede6e5073f658476c1926f54006a"
+        },
+        {
+          "path": "node_modules/stream-chain/index.js",
+          "size": 3167,
+          "sha256": "843c83fa48dd44abba138e6997628bc7ff6b49667b3b61b06e53e751ed025742"
+        },
+        {
+          "path": "node_modules/stream-chain/index.js.map",
+          "size": 11364,
+          "sha256": "328291719c712dd11adffec76ce0bf031e3c75a9f3cd00fa340d7b0077cbae02"
+        },
+        {
+          "path": "node_modules/stream-chain/package.json",
+          "size": 92,
+          "sha256": "f04652dc3b2667db4b4591539223161688e14b2c53e758b62f7d0c68e3303871"
+        },
+        {
+          "path": "node_modules/stream-json/__subpath/filters/Pick.js",
+          "size": 16391,
+          "sha256": "7bfe71b71146915d360baa54269ed084e5561f1dd2d62b0b4d0b577aa88f7783"
+        },
+        {
+          "path": "node_modules/stream-json/__subpath/filters/Pick.js.map",
+          "size": 48014,
+          "sha256": "971242dd0e1db9fb1d96a49c7b74cbe1faef032ae2fd66a86bbbe89ccfc8c2dd"
+        },
+        {
+          "path": "node_modules/stream-json/__subpath/streamers/StreamArray.js",
+          "size": 16599,
+          "sha256": "8e79b4da81d1bc25e84c7dd12f02d0acdaf84b04966504e254e7090b52ff5a93"
+        },
+        {
+          "path": "node_modules/stream-json/__subpath/streamers/StreamArray.js.map",
+          "size": 49019,
+          "sha256": "4537e3fa2cc601522dc0b8da29f489a4b4e5d7c4dfbabe4ebb625497bf6834b3"
+        },
+        {
+          "path": "node_modules/stream-json/index.js",
+          "size": 12428,
+          "sha256": "ed8267c86674c67f5441a029f2f149e35fda22a421dc296939a6eb26e2fecdc4"
+        },
+        {
+          "path": "node_modules/stream-json/index.js.map",
+          "size": 36280,
+          "sha256": "5b919e0a6cd68cd5201c7c79707c7ef8ae51a7a19d3ea9fc2cbf724e3f34c715"
+        },
+        {
+          "path": "node_modules/stream-json/package.json",
+          "size": 215,
+          "sha256": "7ed58c50408b12386a5d211bd47916d26e27908dfe033d5f7c284f1eb073379a"
+        },
+        {
+          "path": "node_modules/tr46/index.js",
+          "size": 265011,
+          "sha256": "cdda468c79ea785c46e99d0b91792454414fcc1dac2367327d7b0579a88099e0"
+        },
+        {
+          "path": "node_modules/tr46/index.js.map",
+          "size": 678669,
+          "sha256": "3769d1a93a4c1773fc6b47f81a67abea758afae91999671bea2f19d48e47e8dc"
+        },
+        {
+          "path": "node_modules/tr46/package.json",
+          "size": 84,
+          "sha256": "a7e83927afdf5cda5b44665b61f444023397919362d71bfe998b5a67e7099e6f"
+        },
+        {
+          "path": "node_modules/webidl-conversions/index.js",
+          "size": 2518,
+          "sha256": "6ec77b78c6294c12a6869abdf72375f11dfe9d71312e1cfb40e56316d0386599"
+        },
+        {
+          "path": "node_modules/webidl-conversions/index.js.map",
+          "size": 9082,
+          "sha256": "da2908dd299074b905b1b673500c377cfc1d34197ee68f716b81718f4008bc23"
+        },
+        {
+          "path": "node_modules/webidl-conversions/package.json",
+          "size": 98,
+          "sha256": "c9974217053531f02167933251465baefc2cd3ddfefaf1e46d0142e6d4e4264b"
+        },
+        {
+          "path": "node_modules/whatwg-url/index.js",
+          "size": 22548,
+          "sha256": "37334329fdd864051d783633c2aff36f0133a479c9da3f05204bb47c887e1d47"
+        },
+        {
+          "path": "node_modules/whatwg-url/index.js.map",
+          "size": 76348,
+          "sha256": "c82211d0c2b04bba6a46a48a7faba5f70e20124d9f70e1f39e1e43a5077d41ca"
+        },
+        {
+          "path": "node_modules/whatwg-url/package.json",
+          "size": 90,
+          "sha256": "7158ba9e26019ac543f050b2e982ff5ce986438b1ba5f899d4cec5002fc6ba1f"
+        },
+        {
+          "path": "package.json",
+          "size": 3440,
+          "sha256": "20c40f4070eb2bd7310a75441a684233423d651318158f3fd38bdbec01a9ac33"
+        },
+        {
+          "path": "plugin.json",
+          "size": 298,
+          "sha256": "34589f03908a9d1ffdff831f7de04a8e5d00b69b90dd11e38834b65dca1178c6"
+        }
+      ],
+      "commands": [
+        {
+          "name": "formatClipboard",
+          "sha256": "2fcf507c9a1cf422d9410193e99ba7e4e496f4fc8c45ee78072e19ea58538d6e",
+          "mode": "no-view",
+          "title": "Format Clipboard JSON"
+        },
+        {
+          "name": "formatSelection",
+          "sha256": "b445fd841a7a81d29fa1db2b6f6107ed332edc3174cd3ce788267270f771ccdb",
+          "mode": "no-view",
+          "title": "Format Selected JSON"
+        },
+        {
+          "name": "formatSelectionAndShow",
+          "sha256": "bb859bf5193664df28734d7982ff540ba7da4fc92be0f3958afd7e717c84ac92",
+          "mode": "view",
+          "title": "Format Selected JSON and Show"
+        },
+        {
+          "name": "index",
+          "sha256": "bcca05348f11ffc115adc346944dcd78d209958684cb9df44d571e70a99575a0",
+          "mode": "view",
+          "title": "Format JSON"
+        },
+        {
+          "name": "formatJsonLines",
+          "sha256": "690c15e7c0f1f52ea1b2315e8d1a75a5bdd15b8f25abe5a741337da5f8ba9a98",
+          "mode": "view",
+          "title": "Format Array of JSON to JSONLines"
+        },
+        {
+          "name": "formatToJsonValue",
+          "sha256": "1367d9a2247ea560b69c9b84496d3424b41647f037d303e0ea4e3c99e71bfa1d",
+          "mode": "view",
+          "title": "Format Text into Valid JSON Value"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+      "handle": "AntonNiklasson",
+      "name": "lorem-ipsum",
+      "package_name": "lorem-ipsum",
+      "manifest_sha256": "c91806a93b699a55cc4efe9b33fd552fe85aaccf3c0f91beaa7a19a0c9d34f4d",
+      "payload_sha256": "b0cf35160662301ba0b74b5746845edd66420fe63bf6eb11a4f92bea41c5e680",
+      "files": [
+        {
+          "path": "ai-generate.js",
+          "size": 11382,
+          "sha256": "b1877fee4876cdc15685eba1fea423ab669821be85ad62a55fd1985a954a90b5"
+        },
+        {
+          "path": "ai-generate.js.map",
+          "size": 26353,
+          "sha256": "1f0b1516ba673ced837a6c9bddf4534e6853e730a2bac66382cfce63f434da78"
+        },
+        {
+          "path": "assets/paragraph-icon.png",
+          "size": 162251,
+          "sha256": "bdab13f531df5979899dd29779578fd0405266ac26dee44abcb36828ec0a12ed"
+        },
+        {
+          "path": "package.json",
+          "size": 3166,
+          "sha256": "c91806a93b699a55cc4efe9b33fd552fe85aaccf3c0f91beaa7a19a0c9d34f4d"
+        },
+        {
+          "path": "paragraphs.js",
+          "size": 11049,
+          "sha256": "8a03c4d22efefd777fd4de6df805811f01be880ecf745aed1557087981656aac"
+        },
+        {
+          "path": "paragraphs.js.map",
+          "size": 25759,
+          "sha256": "ff02047250902bffefb609b4f7958cc5cfbeead1b3a10ee361b73e6dcde6b691"
+        },
+        {
+          "path": "sentences.js",
+          "size": 10894,
+          "sha256": "759ff8c89086caf88af24609e0a7096179053cfb455a0e7fe630a4ccedcfd2aa"
+        },
+        {
+          "path": "sentences.js.map",
+          "size": 25608,
+          "sha256": "89062f80c0d9500f04b70b003cc620957dabab43a228fbc4723bae4789f98a3d"
+        },
+        {
+          "path": "words.js",
+          "size": 10882,
+          "sha256": "e3fdd7d6e44804faacaaeb2b4f00a33010bd402803336178161a6952a34ee600"
+        },
+        {
+          "path": "words.js.map",
+          "size": 25556,
+          "sha256": "62f5c4e88344a0f9210ba32e5111a64a217735d6fc06b9fa50e4a7ed3126398c"
+        }
+      ],
+      "commands": [
+        {
+          "name": "paragraphs",
+          "sha256": "8a03c4d22efefd777fd4de6df805811f01be880ecf745aed1557087981656aac",
+          "mode": "no-view",
+          "title": "Generate Paragraphs"
+        },
+        {
+          "name": "sentences",
+          "sha256": "759ff8c89086caf88af24609e0a7096179053cfb455a0e7fe630a4ccedcfd2aa",
+          "mode": "no-view",
+          "title": "Generate Sentences"
+        },
+        {
+          "name": "words",
+          "sha256": "e3fdd7d6e44804faacaaeb2b4f00a33010bd402803336178161a6952a34ee600",
+          "mode": "no-view",
+          "title": "Generate Words"
+        },
+        {
+          "name": "ai-generate",
+          "sha256": "b1877fee4876cdc15685eba1fea423ab669821be85ad62a55fd1985a954a90b5",
+          "mode": "no-view",
+          "title": "Generate with AI"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+      "handle": "gebeto",
+      "name": "translate",
+      "package_name": "translate",
+      "manifest_sha256": "b59d270794a2ce73cdd44a260341d3250a746c6c0be0f634435d6a8d88842d4b",
+      "payload_sha256": "58d62d54994195ed74d4e445d1d453f4eb3eeaf861a135b9b4f92eb379c28d26",
+      "files": [
+        {
+          "path": "assets/google-translate.png",
+          "size": 51950,
+          "sha256": "47a1286dede63a0e1f5593982ce6f1916ee9f0a350adfbfb9cbc74d2bc41a346"
+        },
+        {
+          "path": "instant-translate-copy.js",
+          "size": 9159,
+          "sha256": "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610"
+        },
+        {
+          "path": "instant-translate-copy.js.map",
+          "size": 37242,
+          "sha256": "ec08d1cec520f3e87bb83da1cc240daf8baabc4791825d7083c0cd14e618c1c8"
+        },
+        {
+          "path": "instant-translate-paste.js",
+          "size": 9147,
+          "sha256": "0ff7fcfdd0c6d1adb8b229b038ffe9fc9b26b47fb4b30543a6b4cf48892688dd"
+        },
+        {
+          "path": "instant-translate-paste.js.map",
+          "size": 37233,
+          "sha256": "d33fbf16df1d60820d42886ca20f10e038d94b976d90434411dba687761a9c61"
+        },
+        {
+          "path": "instant-translate-view.js",
+          "size": 9283,
+          "sha256": "6c8da836ed165e4469aed98710b82bbdca28834cc0f30fbc34cac30e94c7e4ce"
+        },
+        {
+          "path": "instant-translate-view.js.map",
+          "size": 37689,
+          "sha256": "754b65b22da88fc01dc3fd30c920be253da49ec934e5c9ba4642d16a98d79cfd"
+        },
+        {
+          "path": "node_modules/.raycast-shared-dependencies",
+          "size": 38,
+          "sha256": "390aeefbc89aca1a8eea7e94d71fefb326c1de8afb2091dd6a292fcc1d3d03d8"
+        },
+        {
+          "path": "node_modules/@fastify/busboy/index.js",
+          "size": 25087,
+          "sha256": "ab86c3555f6b25f5dc21d5ede1058f73b8ac6edf89b491dc3eb62fa49ea7dd07"
+        },
+        {
+          "path": "node_modules/@fastify/busboy/index.js.map",
+          "size": 83050,
+          "sha256": "37f1edc6824a59dfec74ddb75350141ed8e46c2f0835ae3a676dcafb43a52d26"
+        },
+        {
+          "path": "node_modules/@fastify/busboy/package.json",
+          "size": 95,
+          "sha256": "fb9d27fcceb3abff10094d5949e4e9de7c9e189284868d3440e163306b465284"
+        },
+        {
+          "path": "node_modules/asynckit/index.js",
+          "size": 2063,
+          "sha256": "51af1772c2ee2dc37cd4c6f1cfe09d8717850029a787b72fe0b57134e4649f24"
+        },
+        {
+          "path": "node_modules/asynckit/index.js.map",
+          "size": 13915,
+          "sha256": "502bf0e47e03f22c37bd547e12d1ad27ac2a1c9fd66bd23410172849fc183922"
+        },
+        {
+          "path": "node_modules/asynckit/package.json",
+          "size": 88,
+          "sha256": "aa1f07a869261342a245a8d529c8954d2060c2934aff81ca85904cdd0bdf38e3"
+        },
+        {
+          "path": "node_modules/axios/index.js",
+          "size": 34836,
+          "sha256": "a7b8c93c7fd10a3565d0ff1516b0db8033c70ed7398569aaf795622f8246cd23"
+        },
+        {
+          "path": "node_modules/axios/index.js.map",
+          "size": 160151,
+          "sha256": "ba7d8a89dcf963d6bbc7292ce62cb43dd3ba9984e9682405e99060e8e193c236"
+        },
+        {
+          "path": "node_modules/axios/package.json",
+          "size": 85,
+          "sha256": "e6ed9f1aecb53abde7aa4eaa66796d0a751b942d2df58c44e9e8effbacb7cbe1"
+        },
+        {
+          "path": "node_modules/call-bind-apply-helpers/__subpath/functionApply.js",
+          "size": 181,
+          "sha256": "eda5e74892425983ac375761d4d56b5b0ca64190c0cafa0725378e79d11e337e"
+        },
+        {
+          "path": "node_modules/call-bind-apply-helpers/__subpath/functionApply.js.map",
+          "size": 620,
+          "sha256": "5befa2d2b449310b2929eb7d45472c24db71a19dd6c3f70ed924cbefcda22869"
+        },
+        {
+          "path": "node_modules/call-bind-apply-helpers/__subpath/functionCall.js",
+          "size": 180,
+          "sha256": "fd35d9c426c76900b54ada6e27813363b55e64aefbd8ecc7c14992217bd677ed"
+        },
+        {
+          "path": "node_modules/call-bind-apply-helpers/__subpath/functionCall.js.map",
+          "size": 614,
+          "sha256": "2986461135601106c2b477a4d774e25d1d82c0505b71964571874984dc8de9c5"
+        },
+        {
+          "path": "node_modules/call-bind-apply-helpers/index.js",
+          "size": 653,
+          "sha256": "f08e060df1b3e9bb44e5300fe9c8cae3da6ca4308eabdfe2d92e852f9cb71a82"
+        },
+        {
+          "path": "node_modules/call-bind-apply-helpers/index.js.map",
+          "size": 2832,
+          "sha256": "8148dbd0a39097fef4107d0b346982f1263aff1cef0da332880a429c153a5bd7"
+        },
+        {
+          "path": "node_modules/call-bind-apply-helpers/package.json",
+          "size": 211,
+          "sha256": "886d1776775c0a20e8aedb1a5f5c6482891f88d271309707ccbc2a9624d1e626"
+        },
+        {
+          "path": "node_modules/combined-stream/index.js",
+          "size": 3049,
+          "sha256": "b0c78a3ed825054f3664c2cf6c52320c2f632066f1a0e4fc32b61d6fad16a8b8"
+        },
+        {
+          "path": "node_modules/combined-stream/index.js.map",
+          "size": 8581,
+          "sha256": "bfdaa8e684790e6b179190ad139d451cbb9f15d33941c0161022be91caeef9ce"
+        },
+        {
+          "path": "node_modules/combined-stream/package.json",
+          "size": 95,
+          "sha256": "13676664ee83761cebb3f30bd60e5c4b2ea7135a13de3768c283d9aba4c9227c"
+        },
+        {
+          "path": "node_modules/debug/index.js",
+          "size": 6865,
+          "sha256": "9128b807c6bd288438b7f1a0659dd60e364353d2dba1d25f515c79f1a0697783"
+        },
+        {
+          "path": "node_modules/debug/index.js.map",
+          "size": 29420,
+          "sha256": "abd3aa4a1f6fdda1d1f4f26e5acd795f187dad7177ea182619f4dafccca60732"
+        },
+        {
+          "path": "node_modules/debug/package.json",
+          "size": 85,
+          "sha256": "398089cba4671d8e0675c37b7854b394d777caa5f9a7a9d4e3a90c371ca427c7"
+        },
+        {
+          "path": "node_modules/delayed-stream/index.js",
+          "size": 1653,
+          "sha256": "804141c58ded1cd7df19bffc2ac85f2d3202e0ada1b63b571254a7eeba82fa52"
+        },
+        {
+          "path": "node_modules/delayed-stream/index.js.map",
+          "size": 4526,
+          "sha256": "7fe32710d9c5dd2f2270acad62dddaf289f3d71442d6d6ac39f4feed3844040f"
+        },
+        {
+          "path": "node_modules/delayed-stream/package.json",
+          "size": 94,
+          "sha256": "b6b0bed62b951e6ce9129ab7a8b7ae6f04f6be70324c2f7a8f238e24439b99c2"
+        },
+        {
+          "path": "node_modules/dequal/__subpath/lite.js",
+          "size": 1032,
+          "sha256": "1863673e3cc4a1971d7f3b6efd4bd704a4fe76e65bae014821fb9a131868b801"
+        },
+        {
+          "path": "node_modules/dequal/__subpath/lite.js.map",
+          "size": 2056,
+          "sha256": "10fced5e09a7876a6aeb5ed94c1639dbfab3a734f8fd0056b91fcc7d13674183"
+        },
+        {
+          "path": "node_modules/dequal/package.json",
+          "size": 100,
+          "sha256": "c85b67e3a7788fd78b9003fbe4b4835a5549be3bab733b3923d87c816ea9d608"
+        },
+        {
+          "path": "node_modules/dunder-proto/__subpath/get.js",
+          "size": 516,
+          "sha256": "ca7dc6594d1257f89e0017abf1f37f5ce3f327ddb2ece5c5688c2aadbb6230b8"
+        },
+        {
+          "path": "node_modules/dunder-proto/__subpath/get.js.map",
+          "size": 1988,
+          "sha256": "7f881704889d407b57edc3cb767b3c0d83bab939c681b4ea901b6136c56a25e1"
+        },
+        {
+          "path": "node_modules/dunder-proto/package.json",
+          "size": 104,
+          "sha256": "89d610bf8e07cf7f6d08a12c9b22c4eabdca6a72d58dc04d108494921d42eb55"
+        },
+        {
+          "path": "node_modules/es-define-property/index.js",
+          "size": 230,
+          "sha256": "8a4ac2376013deefc6289fcaaab6ee9320d81cdbbc7ef8c717fe24a31477b8e6"
+        },
+        {
+          "path": "node_modules/es-define-property/index.js.map",
+          "size": 922,
+          "sha256": "4166087129972b6b45ce1f3c4f111264b96f7c85dd4a597da065560890ac5fee"
+        },
+        {
+          "path": "node_modules/es-define-property/package.json",
+          "size": 98,
+          "sha256": "3fdbfa0886e2e3eb71f1cd3840f79084f3d3608fdace92d8ae947d3e15e8fc72"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/eval.js",
+          "size": 166,
+          "sha256": "639754daca8e0a914e1b4542ffbdeb8325cdf020b481b8f15416ab78d7129d62"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/eval.js.map",
+          "size": 508,
+          "sha256": "098b9d32145080f714123be29b06427a422f1fac737b4411b0fa676ed151bc6a"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/range.js",
+          "size": 167,
+          "sha256": "329cb0e52b62b183fcf0a3399e9d120dbfe9630ba460103fa4d240f9dfe0aa3d"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/range.js.map",
+          "size": 514,
+          "sha256": "1322f60473d7399ca15680074dead733467a18fea100617b75e5600cd5083205"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/ref.js",
+          "size": 171,
+          "sha256": "2ecfa12b6c6d4116a48af45f397f5ff61491490e7c0a2e6e8a032109b8426a0a"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/ref.js.map",
+          "size": 509,
+          "sha256": "70f62d3ef605e99070dc2e889dec21366e0a853423491ed7f5b23a330b3cd2ab"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/syntax.js",
+          "size": 168,
+          "sha256": "ebe03d7623528cf11bfd3f210d020047a162c5434375ee11a7ce98abc2b96600"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/syntax.js.map",
+          "size": 520,
+          "sha256": "9ef8384b251d155a0c8c922acee5348969b45515a6666d19d0477781ab5162fe"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/type.js",
+          "size": 166,
+          "sha256": "68c49d42d9ad124f5d6e1b0c7722c9c0f1e952623f56b717040591430fa7108b"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/type.js.map",
+          "size": 508,
+          "sha256": "88f5e08effe43c68f18b69bb05e7e3ce4895d1bab4bfdcdfc4e7f3eec16c8199"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/uri.js",
+          "size": 165,
+          "sha256": "83ef67d47c75b2b4c0260e2ecca0449b125d608e944cd87c640076495e85d2ea"
+        },
+        {
+          "path": "node_modules/es-errors/__subpath/uri.js.map",
+          "size": 502,
+          "sha256": "504dabd39f90dfc0a10d65909817c1311fb658102dff7623ee66400e407f9ad2"
+        },
+        {
+          "path": "node_modules/es-errors/index.js",
+          "size": 162,
+          "sha256": "8907403cf332e26873270a58541febc91d547f01784a57753c7c52bcb946b97c"
+        },
+        {
+          "path": "node_modules/es-errors/index.js.map",
+          "size": 498,
+          "sha256": "0f79fd4be0285d928d43b8f671c28cccf1e83ab4a06d19b2e07a0aa4174063cb"
+        },
+        {
+          "path": "node_modules/es-errors/package.json",
+          "size": 313,
+          "sha256": "786252db647fefbef86c852891b7c9534891f15b29feadc1b50ae78703f02786"
+        },
+        {
+          "path": "node_modules/es-object-atoms/index.js",
+          "size": 163,
+          "sha256": "df6ea61b1797caae92ab2cdae7493d7ed07b1adea360fb09b798dd614e2ea293"
+        },
+        {
+          "path": "node_modules/es-object-atoms/index.js.map",
+          "size": 523,
+          "sha256": "68a6b07ffc4dfd56ccc9e4a58ac472936d8463e79bea006a8ae374a2e394946d"
+        },
+        {
+          "path": "node_modules/es-object-atoms/package.json",
+          "size": 95,
+          "sha256": "fc7d272c7a36ffa7aa3a2e3c141a0b9536d23bf2d180301bffefa02794abbcda"
+        },
+        {
+          "path": "node_modules/es-set-tostringtag/index.js",
+          "size": 731,
+          "sha256": "66d144972598a8721efce181ad3ba4ca0c29f81f1f15e9131fa1823c5b34c1d8"
+        },
+        {
+          "path": "node_modules/es-set-tostringtag/index.js.map",
+          "size": 2491,
+          "sha256": "fa1a87e13a5b6a27492d2d04aa629944ed7418fd6cfdb7e450da54ed1434eb73"
+        },
+        {
+          "path": "node_modules/es-set-tostringtag/package.json",
+          "size": 98,
+          "sha256": "3c676ba4c3d3c93b158d78400988e1488e7807befaba4e386270e773e6f46d57"
+        },
+        {
+          "path": "node_modules/follow-redirects/__subpath/http.js",
+          "size": 8588,
+          "sha256": "bfad6d3adc70ce3c3a5e396ec57db04afd4dee8b8ef9445af534cfccc983ccc9"
+        },
+        {
+          "path": "node_modules/follow-redirects/__subpath/http.js.map",
+          "size": 34909,
+          "sha256": "0203b323059255698d86f31f743b29e38992d01fd2bcc117a31ed9cd684cb4b5"
+        },
+        {
+          "path": "node_modules/follow-redirects/__subpath/https.js",
+          "size": 8589,
+          "sha256": "7979c9eb758e2b88b7527aa34bfc68a5db63b2cf105e5ba060aa10b942557d1a"
+        },
+        {
+          "path": "node_modules/follow-redirects/__subpath/https.js.map",
+          "size": 34914,
+          "sha256": "08f05dc67a396c773f52233e4e2094dbd2cf7b359577befaf896dbec8f3ddd32"
+        },
+        {
+          "path": "node_modules/follow-redirects/package.json",
+          "size": 149,
+          "sha256": "e6cf20b7e0e09067dcaf55778f711b72776ff72d3f8adc5806bd2a1b1ddd991b"
+        },
+        {
+          "path": "node_modules/form-data/index.js",
+          "size": 5924,
+          "sha256": "6574cce1e5a4f9558456883218c595eee3f1c10ee5c854de8398977cca941daf"
+        },
+        {
+          "path": "node_modules/form-data/index.js.map",
+          "size": 23888,
+          "sha256": "d0c0202004a74cca7a30b41cb5d71c798aaf12a1fd318010dd88717bccfe6d8b"
+        },
+        {
+          "path": "node_modules/form-data/package.json",
+          "size": 89,
+          "sha256": "377a7fde1e9374e8204c0c12a704212642c59f718c45c508981194219e45b97f"
+        },
+        {
+          "path": "node_modules/function-bind/index.js",
+          "size": 1137,
+          "sha256": "78b25f36a866413ac5e9364918d9556f05f841f9a2decbd9b534606511c351d6"
+        },
+        {
+          "path": "node_modules/function-bind/index.js.map",
+          "size": 4473,
+          "sha256": "c13dfa351bdc4834b29457c0e1d83917591652221154f75f3a9d00707b122a53"
+        },
+        {
+          "path": "node_modules/function-bind/package.json",
+          "size": 93,
+          "sha256": "cc54cf8f84c2212837d9610f04df187d563825b508f6125a739f1f5884401a97"
+        },
+        {
+          "path": "node_modules/get-intrinsic/index.js",
+          "size": 8850,
+          "sha256": "2cd36e9775031a05df153e7fe1a0bf82d6cc420ccbcbb4c4c3c5aefa5335a179"
+        },
+        {
+          "path": "node_modules/get-intrinsic/index.js.map",
+          "size": 24007,
+          "sha256": "43d0f3e6be53d5736e5cec0a625a53732131da838a6131670f5220aaea4a277c"
+        },
+        {
+          "path": "node_modules/get-intrinsic/package.json",
+          "size": 93,
+          "sha256": "fc42cc78980815109e6a80428604ccac6eb2a9c65ebe6705b14cd6fe596ddce5"
+        },
+        {
+          "path": "node_modules/get-proto/__subpath/Object.getPrototypeOf.js",
+          "size": 212,
+          "sha256": "47df137683b989713b3539209529d1174cbcf24281d8692ff7a1e4fd98da9b12"
+        },
+        {
+          "path": "node_modules/get-proto/__subpath/Object.getPrototypeOf.js.map",
+          "size": 712,
+          "sha256": "a522ee7b0e2aa9ffe4c67354981b7fd6ff4213a6fc2da179d5ef3c7dd7b49f5a"
+        },
+        {
+          "path": "node_modules/get-proto/__subpath/Reflect.getPrototypeOf.js",
+          "size": 205,
+          "sha256": "ea3a53182825341615e29e834827be152c165c2b08cd15ccc549c4fd599e5254"
+        },
+        {
+          "path": "node_modules/get-proto/__subpath/Reflect.getPrototypeOf.js.map",
+          "size": 682,
+          "sha256": "c50a9ed07e7ba42a7492263a613946b0fb1a894d13a655b6eaf1e965ce4919f9"
+        },
+        {
+          "path": "node_modules/get-proto/index.js",
+          "size": 570,
+          "sha256": "253cadfb5f4ee9781fbac3388b27bf5f1feb473e19830946cdfac865b5cc9ef1"
+        },
+        {
+          "path": "node_modules/get-proto/index.js.map",
+          "size": 2455,
+          "sha256": "4a258edd2a21b5935c3c9b7056c5bc2990911277a94f9950b9caee14bd704d5f"
+        },
+        {
+          "path": "node_modules/get-proto/package.json",
+          "size": 233,
+          "sha256": "42762930554e221e4714bd72ffd80a4b513db13a569793de2da30e3f0c582963"
+        },
+        {
+          "path": "node_modules/google-tts-api/index.js",
+          "size": 6960,
+          "sha256": "758b1b2d2d65d095eb1423cfb6df4aae46be20ed8e080886fe23641cdb50ea7c"
+        },
+        {
+          "path": "node_modules/google-tts-api/index.js.map",
+          "size": 6137,
+          "sha256": "1312c8d89f33183289b7b6782a1c087f7dae1ffdda7c5779bcd7320b88cf84b8"
+        },
+        {
+          "path": "node_modules/google-tts-api/package.json",
+          "size": 94,
+          "sha256": "bae2e57faebd0e8e81a226fd35ea91929171a4cc80e559df057e3472b308c7de"
+        },
+        {
+          "path": "node_modules/gopd/index.js",
+          "size": 278,
+          "sha256": "a6935ed1bba4d59108aa8a598c84343bd27d100087c11891266f7f9fa928c554"
+        },
+        {
+          "path": "node_modules/gopd/index.js.map",
+          "size": 997,
+          "sha256": "cde7f58965cf393d7e4c3f787485f893e1782622f3e027ee9ba325448e712aa3"
+        },
+        {
+          "path": "node_modules/gopd/package.json",
+          "size": 84,
+          "sha256": "73591430b5cd502f85763457001f5e679cbaa344bb62300364a2457e56f3bf60"
+        },
+        {
+          "path": "node_modules/has-flag/index.js",
+          "size": 291,
+          "sha256": "67da3e904b84ec277437f040ad19a6e349f14aa7d5f56cd8b1ad257b7fe0fdef"
+        },
+        {
+          "path": "node_modules/has-flag/index.js.map",
+          "size": 1027,
+          "sha256": "6310c5d0849318c18a7db123be201187a97c9794d83da08cbf19a55a30c18a42"
+        },
+        {
+          "path": "node_modules/has-flag/package.json",
+          "size": 88,
+          "sha256": "3516d3de3eeaa8df4f43f36b976822fd7fa5eda967c224c6fa8ad03edc6d828e"
+        },
+        {
+          "path": "node_modules/has-symbols/__subpath/shams.js",
+          "size": 951,
+          "sha256": "2a5336ae8556a36c470a073800faea873368dc0838610bd88f5a9891bf0c7d12"
+        },
+        {
+          "path": "node_modules/has-symbols/__subpath/shams.js.map",
+          "size": 3237,
+          "sha256": "246cc391bc46161fc8117fa0ffc15b880f576de71d77102287c6af451211ada1"
+        },
+        {
+          "path": "node_modules/has-symbols/index.js",
+          "size": 1163,
+          "sha256": "093300481cc4f48a1d8d46528bfd59673abd3bf08361e044ee74a1f3550d2c68"
+        },
+        {
+          "path": "node_modules/has-symbols/index.js.map",
+          "size": 4057,
+          "sha256": "6f20b66a54b727be5631ef697d480a68176e1eaaf57299b070a43a9fdff239dc"
+        },
+        {
+          "path": "node_modules/has-symbols/package.json",
+          "size": 130,
+          "sha256": "05d32c5e76bf6c5e46480a665c1c893f14919569e2d5c9453ce8d20ca079ed32"
+        },
+        {
+          "path": "node_modules/has-tostringtag/__subpath/shams.js",
+          "size": 236,
+          "sha256": "7057223c4937018cee3e0bfe028fb94c8d1501e8cd4698b81d941e8e315b6ff9"
+        },
+        {
+          "path": "node_modules/has-tostringtag/__subpath/shams.js.map",
+          "size": 740,
+          "sha256": "0f8bbe8bc7a59d6282f3227b23ac1e0681c36af0acbe3b6c0ce2d57d4398ecf8"
+        },
+        {
+          "path": "node_modules/has-tostringtag/package.json",
+          "size": 111,
+          "sha256": "fcb74c3bdd8a4108aba22e72f94935465815be78406487e382aaba34d5f53b2e"
+        },
+        {
+          "path": "node_modules/hasown/index.js",
+          "size": 259,
+          "sha256": "06a6615875a4fa438e7f05427c883f8c78092a04fa0380bfb1f102b168842e8f"
+        },
+        {
+          "path": "node_modules/hasown/index.js.map",
+          "size": 751,
+          "sha256": "8742974107ff831d2cc4dbc044e7db2fa21c28e848993fc68a5477a646134b0e"
+        },
+        {
+          "path": "node_modules/hasown/package.json",
+          "size": 86,
+          "sha256": "843d8d0f413164f13536c3b94d26488f0d4286b4ea04d4430cfd38c3827540a6"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/abs.js",
+          "size": 165,
+          "sha256": "ce5d617b67b8913cdcd6725ccbfdaf5d6c05f42151d09dad67440254346b8d96"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/abs.js.map",
+          "size": 525,
+          "sha256": "0b59692b09cb6c34eef02cbabf409852cca4a594f5c25022db6aa99ccd422279"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/floor.js",
+          "size": 167,
+          "sha256": "f252a12e65d4aeedb7c7a14cfe7f544882693b545b3b8f85726d78d599b02bfa"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/floor.js.map",
+          "size": 537,
+          "sha256": "10f5a65f08a5571da9e70576026e861d4d62895ab0b7403d2dc47f22aac4460c"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/max.js",
+          "size": 165,
+          "sha256": "5832269c598395d6a79d2fb8d4b46f621787270738a660a7762e3f5674eedc2c"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/max.js.map",
+          "size": 525,
+          "sha256": "2aeeb821ce9f4e4a7bb95fb9e745179c92e2d4934dfa878f3113303ac3fcfdee"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/min.js",
+          "size": 165,
+          "sha256": "0c33fca142535f2ed729c86066b9848a600ec210edcafb5af74b3d3602df4313"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/min.js.map",
+          "size": 525,
+          "sha256": "4e3f5c3a30311eec1c0ff6837999e36cae677c760b37028a2832c902ff753f2d"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/pow.js",
+          "size": 165,
+          "sha256": "b0b8855898a1555881b6236c067acb15c6760de2ddc44b6c7a9e3059422dac33"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/pow.js.map",
+          "size": 525,
+          "sha256": "7a243895dd846d1d806ba11f375928ffa5e0c31e036f0ef441d12026957b902a"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/round.js",
+          "size": 167,
+          "sha256": "8d06b5135e04a509f3a08b99a93342efcbe266d2b6c5cd2152e14a76c80784d4"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/round.js.map",
+          "size": 537,
+          "sha256": "505f3b3663b727479d002448fcf6f70703ce17f32be2dfc9096759868a59bf78"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/sign.js",
+          "size": 290,
+          "sha256": "159665e8d87100b49d2cf03126554662353a8dac1528360e4ccbf59ba8695b7c"
+        },
+        {
+          "path": "node_modules/math-intrinsics/__subpath/sign.js.map",
+          "size": 1135,
+          "sha256": "b1831633b7d1cf84ab288dbcfec332aeb051b534baef36b414c5299c034a89c3"
+        },
+        {
+          "path": "node_modules/math-intrinsics/package.json",
+          "size": 327,
+          "sha256": "cf1269adc79a191af60c10abea1507c82d419381aa1de5b6c83d387679b264db"
+        },
+        {
+          "path": "node_modules/mime-db/index.js",
+          "size": 137023,
+          "sha256": "4acbeb5df1c0637e5b71c6f0667a7ccdb05b4c04bbad4b0a3883f34dca855006"
+        },
+        {
+          "path": "node_modules/mime-db/index.js.map",
+          "size": 307791,
+          "sha256": "51d0ab9392213358d8a1cc459c74ce04fb10f58b892829502b6fce96ea46fb0f"
+        },
+        {
+          "path": "node_modules/mime-db/package.json",
+          "size": 87,
+          "sha256": "18fcadc37df96f102327658d14b3a5cfdfc4474baf697585d47195b04fe1c903"
+        },
+        {
+          "path": "node_modules/mime-types/index.js",
+          "size": 1531,
+          "sha256": "1425261fe21f6b27d9f59ca6cf697d621e9a7bdce3f28ff1377b54790c54f8a2"
+        },
+        {
+          "path": "node_modules/mime-types/index.js.map",
+          "size": 6248,
+          "sha256": "d1006c7f62396c2e5374cca74d9b097cf37dc595bdf3c0fa23c3442dd93dab6d"
+        },
+        {
+          "path": "node_modules/mime-types/package.json",
+          "size": 90,
+          "sha256": "612049c0a9ea0ed17fdd8bde4562b897e8a3738c806486f1f465c3cc84c074fc"
+        },
+        {
+          "path": "node_modules/ms/index.js",
+          "size": 1462,
+          "sha256": "75bc70e1a6de6fb2323e221446c0e0fddfbbffcf51d845b2c8c6ee9cdb29a0a8"
+        },
+        {
+          "path": "node_modules/ms/index.js.map",
+          "size": 5405,
+          "sha256": "266bb4d59bd79f6b0fc4a1d0a06fb1c91f38fde723eedde04776049f5b37c491"
+        },
+        {
+          "path": "node_modules/ms/package.json",
+          "size": 82,
+          "sha256": "f7f494c1b174da604a92e8cfac841f3781113a0ec7f3071fa5a445084e5bf1f6"
+        },
+        {
+          "path": "node_modules/proxy-from-env/index.js",
+          "size": 1095,
+          "sha256": "464c1b0faff6139666b7d5e5faadad48b631d3b5b9073d2a0595be3f50207f38"
+        },
+        {
+          "path": "node_modules/proxy-from-env/index.js.map",
+          "size": 5445,
+          "sha256": "3c0e7402492b39292c37a2756f7d1b576d9b366ea1bd382d3f4377e442b6f2f9"
+        },
+        {
+          "path": "node_modules/proxy-from-env/package.json",
+          "size": 94,
+          "sha256": "a58c284efd0a724161b697505a85dca95c6253b6c4a9083d6b0daed67161ba2b"
+        },
+        {
+          "path": "node_modules/supports-color/index.js",
+          "size": 1756,
+          "sha256": "19229c9c1659a7ac84995164352367c0da29d5d226effb8429b6ceb6769995bb"
+        },
+        {
+          "path": "node_modules/supports-color/index.js.map",
+          "size": 6023,
+          "sha256": "b1c88a71f34450486a397bc629c08b50c32ac57b3e1e794576924f26ac5c4044"
+        },
+        {
+          "path": "node_modules/supports-color/package.json",
+          "size": 94,
+          "sha256": "a75fadc45b23520d403a385e33c93cbdbc57b8776134b868e8510845e23b916d"
+        },
+        {
+          "path": "node_modules/undici/index.js",
+          "size": 378791,
+          "sha256": "efb1fdf6d180dfa932882d8bcd329b1dfba78b4306bf6a5e349da62b2f32c7c2"
+        },
+        {
+          "path": "node_modules/undici/index.js.map",
+          "size": 1109182,
+          "sha256": "132278871d30dc10eea78d666d0962c58cedd4cab5216121f643ca2aececc80b"
+        },
+        {
+          "path": "node_modules/undici/package.json",
+          "size": 86,
+          "sha256": "2b4e2c0ff69b2d90ddb34904635ed319faa0d17920dc696da4215d002e621736"
+        },
+        {
+          "path": "package.json",
+          "size": 62699,
+          "sha256": "b59d270794a2ce73cdd44a260341d3250a746c6c0be0f634435d6a8d88842d4b"
+        },
+        {
+          "path": "plugin.json",
+          "size": 222,
+          "sha256": "38905f80509c072bbc90e5772bc9c1674fe6c08af22564e9f8c8a9ab7eee799b"
+        },
+        {
+          "path": "quick-translate-view.js",
+          "size": 19509,
+          "sha256": "456de7764bc2012c92883700260f5044ce169205b00bb9daf110e81a2c54cfec"
+        },
+        {
+          "path": "quick-translate-view.js.map",
+          "size": 301440,
+          "sha256": "d266acf8c8ece26ce7d2798aecd95b7fccd2345b5adc70fd14209a860856df43"
+        },
+        {
+          "path": "quick-translate.js",
+          "size": 776,
+          "sha256": "597e079da9f40604482472c94e3810d6654415aaf04477371441c9c7fbfdf521"
+        },
+        {
+          "path": "quick-translate.js.map",
+          "size": 1135,
+          "sha256": "953cdf3d8b6b0ac0a4cc2cc35b484964f66627836c2619b3f62574a147a4b158"
+        },
+        {
+          "path": "translate-form.js",
+          "size": 21954,
+          "sha256": "f961d5328c882cdb0e3a3861584b17408a509ebd3453ea96f389922236ab0665"
+        },
+        {
+          "path": "translate-form.js.map",
+          "size": 312446,
+          "sha256": "aeed9afe4f19b71f238ea35b689c603d285c46234888f5546e4ee971f66306f4"
+        },
+        {
+          "path": "translate.js",
+          "size": 33885,
+          "sha256": "54c37e972a14f280ddbe953285a9cda50c3ccf0563e4ea5d54bcaef2a7d84d64"
+        },
+        {
+          "path": "translate.js.map",
+          "size": 328345,
+          "sha256": "f4d656a40fab9dbc32753d63f00857a0ec2d6ea2f9aa1d6175e5d6cd4aa590d8"
+        }
+      ],
+      "commands": [
+        {
+          "name": "translate",
+          "sha256": "54c37e972a14f280ddbe953285a9cda50c3ccf0563e4ea5d54bcaef2a7d84d64",
+          "mode": "view",
+          "title": "Translate"
+        },
+        {
+          "name": "translate-form",
+          "sha256": "f961d5328c882cdb0e3a3861584b17408a509ebd3453ea96f389922236ab0665",
+          "mode": "view",
+          "title": "Translate Form"
+        },
+        {
+          "name": "quick-translate",
+          "sha256": "597e079da9f40604482472c94e3810d6654415aaf04477371441c9c7fbfdf521",
+          "mode": "no-view",
+          "title": "Quick Translate"
+        },
+        {
+          "name": "quick-translate-view",
+          "sha256": "456de7764bc2012c92883700260f5044ce169205b00bb9daf110e81a2c54cfec",
+          "mode": "view",
+          "title": "Quick Translate Results"
+        },
+        {
+          "name": "instant-translate-copy",
+          "sha256": "7b1fb777536b39ea9837ac0f996eb023a053f32283415d65b7bbedc36c75f610",
+          "mode": "no-view",
+          "title": "Instant Translate Copy"
+        },
+        {
+          "name": "instant-translate-paste",
+          "sha256": "0ff7fcfdd0c6d1adb8b229b038ffe9fc9b26b47fb4b30543a6b4cf48892688dd",
+          "mode": "no-view",
+          "title": "Instant Translate Paste"
+        },
+        {
+          "name": "instant-translate-view",
+          "sha256": "6c8da836ed165e4469aed98710b82bbdca28834cc0f30fbc34cac30e94c7e4ce",
+          "mode": "no-view",
+          "title": "Instant Translate View"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "handle": "Alex_",
+      "name": "http-status-codes",
+      "package_name": "http-status-codes",
+      "manifest_sha256": "0d9355a925f7d0ef9023dc0ca4445bb887aaef3a2757ffb53dc7b2b005c1f9a4",
+      "payload_sha256": "75072d91d3cb334624482b6c43cfcc19e25e4b5d2a2328e587752658e46db54f",
+      "files": [
+        {
+          "path": "assets/command-icon.png",
+          "size": 208178,
+          "sha256": "1eed93867d48f5f60382d4f060b5ef3dfdf10087fed792f1fb66ed7c17623362"
+        },
+        {
+          "path": "assets/config.png",
+          "size": 262258,
+          "sha256": "6bb184eb65d6701e824fdbd2616e928a2b4141560b1db5c0a0f6273099efa480"
+        },
+        {
+          "path": "index.js",
+          "size": 152018,
+          "sha256": "96426ed0c09fd073a2411370e444dbbf45e2b02ad4970bf44f757b0f8b662cb9"
+        },
+        {
+          "path": "index.js.map",
+          "size": 638913,
+          "sha256": "ca702a187f44a584f6425f85be1fba278090610d2217cfad9e977972a560bbfe"
+        },
+        {
+          "path": "package.json",
+          "size": 1795,
+          "sha256": "0d9355a925f7d0ef9023dc0ca4445bb887aaef3a2757ffb53dc7b2b005c1f9a4"
+        }
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "sha256": "96426ed0c09fd073a2411370e444dbbf45e2b02ad4970bf44f757b0f8b662cb9",
+          "mode": "view",
+          "title": "Search HTTP Status Codes"
+        }
+      ]
+    },
+    {
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "handle": "tonka3000",
+      "name": "weather",
+      "package_name": "weather",
+      "manifest_sha256": "65b270e5f7d75963a808c8170dafbd08b52f3e3089e491f7ba6f62cb8fc52f4c",
+      "payload_sha256": "41f072b5021580a1368d5c01d7850459c28fbd18b07f57d4aed4085d03f2e594",
+      "files": [
+        {
+          "path": "assets/arrow.down.svg",
+          "size": 1104,
+          "sha256": "1f6fbb8a40ea255b4b690dd35e2c5c35522b5ef08eae4132b9725dcbad5ec651"
+        },
+        {
+          "path": "assets/arrow.up.svg",
+          "size": 1110,
+          "sha256": "3c3d12b2b2d23dab61cc02eb35a72cf5f390fa453865fa2129cc2bba3fc88a83"
+        },
+        {
+          "path": "assets/barometer.svg",
+          "size": 1591,
+          "sha256": "2c442b9c02f06f244d2646e7664db5ae14e20c20cb67cd84944184fe96552f2b"
+        },
+        {
+          "path": "assets/bolt.svg",
+          "size": 973,
+          "sha256": "644a5cf2eb72127b7586792ea69f64612f496283a3008d2f9f69035b9cdec0a5"
+        },
+        {
+          "path": "assets/building.2.svg",
+          "size": 4075,
+          "sha256": "2346f00b3e9cfb92a9e7cefc6371020a82696ae6186cca5769f96f209077b5a0"
+        },
+        {
+          "path": "assets/clock.svg",
+          "size": 1195,
+          "sha256": "c92f43d381cb82e4aac4c9a4affcfd2a04cb3b28cae1bfe4f2134ee2bad38898"
+        },
+        {
+          "path": "assets/cloud.bolt.rain.svg",
+          "size": 2819,
+          "sha256": "4f5baf4d675284926c3c124692f8f700366b132cc6af05ce4ca73b3ce1c45cb8"
+        },
+        {
+          "path": "assets/cloud.fog.svg",
+          "size": 1730,
+          "sha256": "48aed4c2b18e80bee645ccc1e9f05f9a92d36b2890b50c8d9ef1cf25ae8733c0"
+        },
+        {
+          "path": "assets/cloud.heavyrain.svg",
+          "size": 2330,
+          "sha256": "4d0350658c93f3a7bda04435cffe7af1b1217ee385e3b61fe45a297ca30b385b"
+        },
+        {
+          "path": "assets/cloud.rain.svg",
+          "size": 2328,
+          "sha256": "f80014e87887b87eda03b42f14142fd00a8d8a7032f967e1fb1ca09ac52a0111"
+        },
+        {
+          "path": "assets/cloud.sleet.svg",
+          "size": 4501,
+          "sha256": "2e442f2889d8902f1c18e1e99bdeb8ebbc693e1251f2a84e08d45e01dbd4cc13"
+        },
+        {
+          "path": "assets/cloud.snow.svg",
+          "size": 6111,
+          "sha256": "984c0547af4974b6b5f333a62b24232c6e6efd7cc51e0fac0f2b7ae58f1a647c"
+        },
+        {
+          "path": "assets/cloud.svg",
+          "size": 1152,
+          "sha256": "984958ba799588dab14fd0e45f2f9e9769ed839b78650a649562bd55af9125e2"
+        },
+        {
+          "path": "assets/drop.svg",
+          "size": 1171,
+          "sha256": "15bc065f8611c1b2b6dd3eb8b0b8a972ab2493270931d782a906e537c5a5271f"
+        },
+        {
+          "path": "assets/eye.svg",
+          "size": 1264,
+          "sha256": "5fc16bd46476f330fb3c72fbe32094f2c5bca22a2a1a22640409b44c9b4134ff"
+        },
+        {
+          "path": "assets/gear.svg",
+          "size": 4516,
+          "sha256": "c56bfa1da5233463eb73cd275545f7b2a063e4cc19cf58ac7b6f843f874dae22"
+        },
+        {
+          "path": "assets/humidity.svg",
+          "size": 2372,
+          "sha256": "59fa27066f1bbf8743179ab6d91ef6d354dd2ab6d942cb94ce0eca75d4e37a79"
+        },
+        {
+          "path": "assets/link.svg",
+          "size": 1508,
+          "sha256": "49f4ab059d2b92ae30b5b1369402d47f9f52a8bf78f61a330aa9f677edaa6c44"
+        },
+        {
+          "path": "assets/map.svg",
+          "size": 1718,
+          "sha256": "56d00eccc8e4a5eec316e7112865dd2363b63c97b1ad09bdc0c4cfa57a97a462"
+        },
+        {
+          "path": "assets/mappin.and.ellipse.svg",
+          "size": 1561,
+          "sha256": "843a3ac9e4e94baefe3c5ad4a84733958eabd4708a7b8ba7ebfb8799d20faeb1"
+        },
+        {
+          "path": "assets/mappin.svg",
+          "size": 961,
+          "sha256": "2a33035421c47f749aa0bb8c2999fce35ea1dec7386cb5ab030ba3b4100f5ea3"
+        },
+        {
+          "path": "assets/moon.svg",
+          "size": 1312,
+          "sha256": "57c4b0d2458fb87656bde60b593388aafbd37b8e0cd448e1e16340a7bf6fd909"
+        },
+        {
+          "path": "assets/moonrise.svg",
+          "size": 2222,
+          "sha256": "75cec1453b376881995cf011b1b69697cd6bebe090ea981fbd21342ff57b4191"
+        },
+        {
+          "path": "assets/moonset.svg",
+          "size": 2217,
+          "sha256": "4dc14a7e7a844b3dd81e0242f3881064a775f3040688a98322b2f3ba4f6ae256"
+        },
+        {
+          "path": "assets/rays.svg",
+          "size": 2560,
+          "sha256": "b63cc4aacb15239883867578d578058d5a1d813416b6e7d08f8479345a1984a6"
+        },
+        {
+          "path": "assets/snowflake.svg",
+          "size": 3150,
+          "sha256": "9fbec6a34eb26e6ef2c0668e80e3e7c44c2d82203fbd8c90cbbbc34f67efc623"
+        },
+        {
+          "path": "assets/sparkles.svg",
+          "size": 2290,
+          "sha256": "024fd15b946302a8924d40fa9e77ca2af56299f51b6b06438f8c3dad3b3e4fd4"
+        },
+        {
+          "path": "assets/square.and.arrow.down.svg",
+          "size": 1718,
+          "sha256": "3692fdf7590ef1a7fa6f3d11beee8583374c157de44c782619a39bc56668b213"
+        },
+        {
+          "path": "assets/sun.max.svg",
+          "size": 2784,
+          "sha256": "3cd1425d09062f0e6c156f6b0c8ad90a14c59b20e74bbc1ca03c310a5106f8ca"
+        },
+        {
+          "path": "assets/sunrise.svg",
+          "size": 2795,
+          "sha256": "89b915271960f2fc6bb59308e1d6a139b7492a7ff67f63c40cc2f9645ea08bd2"
+        },
+        {
+          "path": "assets/sunset.svg",
+          "size": 2791,
+          "sha256": "13f18833ad273c6956ea64e5a228355292e00ebdb53eba3fa98b3a6e7f96f211"
+        },
+        {
+          "path": "assets/thermometer.medium.svg",
+          "size": 2758,
+          "sha256": "ed5ba95537d4acb89cef44eb639ce8f038c59e6483b7f820d12ac53ceeed36ea"
+        },
+        {
+          "path": "assets/thermometer.variable.and.figure.svg",
+          "size": 3731,
+          "sha256": "a7b3cd72fa3db85ce070e8726e1beb09c419f49e1f9d0921b539be72e129c270"
+        },
+        {
+          "path": "assets/weather.png",
+          "size": 132381,
+          "sha256": "0e6f8fa40b002989304bf525a4b67f5ef7f710073744c9e7efa43632f68c3778"
+        },
+        {
+          "path": "assets/wind.svg",
+          "size": 2428,
+          "sha256": "4daf62b23a9ecc89195181d0cfd416fd383480e2d07faef2c5dcfe0f5ec73377"
+        },
+        {
+          "path": "index.js",
+          "size": 138169,
+          "sha256": "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af"
+        },
+        {
+          "path": "index.js.map",
+          "size": 774555,
+          "sha256": "a3ab862a1ae66a6ba9b95ea390577c5b63d989ee14d36c7bdeb3d7299634b020"
+        },
+        {
+          "path": "menubar.js",
+          "size": 138641,
+          "sha256": "750f3914568354a8b7358a267e830ddaac896fa1935567269919a9a4d1a9933f"
+        },
+        {
+          "path": "menubar.js.map",
+          "size": 788162,
+          "sha256": "ca20995714a4fbb66a7f2b91e450b5d8a0fcde51c7b5eee4218ca9fa65ad4f6a"
+        },
+        {
+          "path": "package.json",
+          "size": 3754,
+          "sha256": "65b270e5f7d75963a808c8170dafbd08b52f3e3089e491f7ba6f62cb8fc52f4c"
+        }
+      ],
+      "commands": [
+        {
+          "name": "index",
+          "sha256": "31fab52ecefee8c78a86ba1807e5736e6033b8d143e7fbca88632268db4488af",
+          "mode": "view",
+          "title": "Show Weather"
+        },
+        {
+          "name": "menubar",
+          "sha256": "750f3914568354a8b7358a267e830ddaac896fa1935567269919a9a4d1a9933f",
+          "mode": "menu-bar",
+          "title": "Weather Menu Bar"
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "batch001-uuid-generator-generate",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "command": "generate",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Generate UUID values and copy the checked result.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-uuid-generator-generatev5",
+      "archive_sha256": "bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0",
+      "command": "generateV5",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Generate a UUIDv5 result using the sample namespace/name inputs.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-oklch-color-converter-convert-color",
+      "archive_sha256": "fb09135d5f19a151741cb40bbfdbaa870b7d24a3bd5276c0954a24dd3cfcce69",
+      "command": "convert-color",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Convert the sample OKLCH color and copy the checked result.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-palette-colors-index",
+      "archive_sha256": "c698c38d81af8d286448dd36a250af3f10d50d7c088105927108a925f2b3f2e7",
+      "command": "index",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Select the listed palette color and copy the checked result.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-base64-index",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "command": "index",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Use the manual Base64 interface and copy its checked output.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-base64-encode",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "command": "encode",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Encode the sample clipboard text and verify the clipboard output.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-base64-decode",
+      "archive_sha256": "b0979c24757e579d340bd825bb8261a00b46370fa1f3af91c9624d7bb17d4c0b",
+      "command": "decode",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Decode the sample Base64 clipboard value and verify the output.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-json-format-index",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "command": "index",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Use the manual JSON formatter and verify its clipboard output.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-json-format-formatclipboard",
+      "archive_sha256": "fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58",
+      "command": "formatClipboard",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Format sample JSON from the clipboard and verify the result.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "batch001-lorem-ipsum-words",
+      "archive_sha256": "a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b",
+      "command": "words",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "Generate the requested sample word output and verify the clipboard result.",
+      "configuration": "Sample inputs and configured preferences from the published workflow report.",
+      "limits": [
+        "Only this listed workflow was checked. Other arguments/actions and your current app/device remain unverified.",
+        "Sample input setup does not certify physical typing or full accessibility."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The listed action produced independently checked output."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard result matched the expected value or format."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "http404-after-root-repair",
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "command": "index",
+      "outcome": "worked_for_workflow",
+      "kind": "execution",
+      "workflow": "After the root repair: search for 404, select Copy Code, and return to the caller.",
+      "configuration": "No command preferences or arguments required for this listed path.",
+      "limits": [
+        "Only the listed 404 search/Copy workflow was checked. Other codes/actions and the current environment are not certified."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "Native 404 search and pointer Copy Code completed."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "The clipboard contained exactly 404; caller return preserved the query."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "965d470cf47c2db543bf65a907582ce3321ad71d",
+        "app_sha256": "df93da03b1e5455d1bf8507bbf34af51e4a763a478853f09d6c7c37aa5088b9d",
+        "test_source": "965d470cf47c2db543bf65a907582ce3321ad71d",
+        "test_sha256": "6a204ddceb1f8217400e1aeb2689be7256df6100eca6101adbd7eda01a4a2d38",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": null,
+        "webview_version": null,
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "19a0a85334161ebbc6908bb360fea4f8dde2aa8f",
+        "case_path": "docs/validation/extension-compatibility/http-startup-checkpoint.json",
+        "report_path": "docs/EXTENSION-HTTP-STARTUP.md"
+      }
+    },
+    {
+      "id": "http-before-root-repair",
+      "archive_sha256": "d2fa1de9e51b40ea1f5e4bf68db99c504060a5a041e14946f62cc8da8b29d9c2",
+      "command": "index",
+      "outcome": "observed_failure",
+      "kind": "execution",
+      "workflow": "Earlier record, before the root repair: startup failed at the filesystem boundary.",
+      "configuration": "The original sample workflow and frozen source bundle.",
+      "limits": [
+        "This is a retained earlier failure. The separate after-repair record above completes the 404 workflow."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "failed",
+          "detail": "The command reported an owned-root filesystem error before its search/Copy workflow."
+        },
+        "interaction": {
+          "result": "not_exercised",
+          "detail": "Search and Copy were not completed."
+        },
+        "destination": {
+          "result": "not_exercised",
+          "detail": "No successful action output was verified."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "weather-tokyo-observation",
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "command": "index",
+      "outcome": "partial",
+      "kind": "execution",
+      "workflow": "The Tokyo search reached the service and rendered rows; forecast actions and city identity were not verified.",
+      "configuration": "Tokyo was entered into the composed search using the recorded test setup.",
+      "limits": [
+        "Weather remains partial. This does not certify the city identity, forecast values or action destinations.",
+        "Requests before observer attachment are outside the recorded network scope."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The owned Tokyo request and subsequent native rows were observed."
+        },
+        "destination": {
+          "result": "not_exercised",
+          "detail": "Forecast detail/actions and exact city identity were not exercised."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "The workflow returned to its owned caller."
+        }
+      },
+      "environment": {
+        "app_source": "79491fb6cb502064e8ff2b7e7c2a52a750a11e36",
+        "app_sha256": "b25450577102e16fb89fd2ef6f91e61070556d0ad06bb2c80bbbce97b5da0e5e",
+        "test_source": "d806004eb4d65a43e08c3966fff16ebd79d9affb",
+        "test_sha256": "e26b3fe6b97575edbbc2fda121b6615d65316264db48b87dd5d87614ea16969d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": null,
+        "webview_version": null,
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "a1381c9f879cfe76dace3600f995e3dabcbe3dd8",
+        "case_path": "docs/validation/extension-compatibility/fetch/cohorts/frozen-weather-tablet-v1/captures/detail-frozenweatherreportstheownedtokyoworkflowoutcome-record.json",
+        "report_path": "docs/EXTENSION-FETCH-ROUTING.md"
+      }
+    },
+    {
+      "id": "weather-earlier-service-failure",
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "command": "index",
+      "outcome": "observed_failure",
+      "kind": "execution",
+      "workflow": "Earlier record: the Weather workflow ended in a service-request failure.",
+      "configuration": "Original sample Weather setup from the first frozen batch.",
+      "limits": [
+        "This earlier observed failure is retained separately from the later partial Tokyo observation."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "failed",
+          "detail": "The recorded service request failed."
+        },
+        "destination": {
+          "result": "not_exercised",
+          "detail": "Forecast actions and outputs were not completed."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Back or Close returned to the sample caller with its query preserved."
+        }
+      },
+      "environment": {
+        "app_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "app_sha256": "e5ffaf70766e25d253332d0957aea71c2f1fc94ec839dbd5963e6676abd2b707",
+        "test_source": "eef1b8dadcb51c822d1dab4168e516805de2f505",
+        "test_sha256": "0ea75182ee7044808c0b97120c0d2c648de4695b4a952fbc401b718fb4b8c60d",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": "com.google.android.webview",
+        "webview_version": "133.0.6943.137",
+        "profiles": [
+          "Tablet 100%: 1920×1200 / 240 dpi",
+          "Phone 100%: 1080×2340 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "8fd173baaadaf3e19ecc1cd04e9cb99d1211a141",
+        "case_path": "docs/validation/extension-compatibility/batch-001-checkpoint.json",
+        "report_path": "docs/EXTENSION-WORKFLOWS.md"
+      }
+    },
+    {
+      "id": "translate-paste-explicit-copy",
+      "archive_sha256": "9ecbb40257fbc1d0d32778efa95c1392fc6c46d03eb6099e3995a73b6e16eec2",
+      "command": "instant-translate-paste",
+      "outcome": "partial",
+      "kind": "execution",
+      "workflow": "Paste stays unavailable. Explicit Copy copied the translation result, then Return preserved the original source and selection.",
+      "configuration": "Sample hello selection; English to Japanese; explicit input review and Run.",
+      "limits": [
+        "This is an explicit Copy fallback. Arbitrary cross-app insertion remains unsupported.",
+        "Translation quality and arbitrary callers are not certified."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "passed",
+          "detail": "The command started and its listed interface or status appeared."
+        },
+        "interaction": {
+          "result": "passed",
+          "detail": "The paste Promise stayed rejected. A pointer explicitly selected Copy result instead."
+        },
+        "destination": {
+          "result": "passed",
+          "detail": "Clipboard output matched the observed service response; no automatic Copy occurred."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "Pointer Return restored the sample source text and selection 0 to 5."
+        }
+      },
+      "environment": {
+        "app_source": "08210fa24674be924a6ebc93ce09b4fd170dfbc5",
+        "app_sha256": "a5b1ccb154033800634f4f382759fcab74b606780dd6d8f3936de01991a0045b",
+        "test_source": "08210fa24674be924a6ebc93ce09b4fd170dfbc5",
+        "test_sha256": "6bd62608478c96e6d150e17514d89c13f2202f626208632ace6734c95cadce86",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": null,
+        "webview_version": null,
+        "profiles": [
+          "Tablet 100% and 200%: 1920×1200 / 240 dpi",
+          "Phone 100% and 200%: 1080×2340 / 420 dpi",
+          "Short landscape 100% and 200%: 2340×1080 / 420 dpi"
+        ]
+      },
+      "evidence": {
+        "commit": "3b5ec1918c5fe36a8f75a66e601d74da0e3c4b00",
+        "case_path": "docs/validation/paste-copy/cases/frozen-copy-tablet100-v2/text-selectedtranslationrunsonlyafterreviewandreportsexactcopyorservicefailure-record.json",
+        "report_path": "docs/EXTENSION-PASTE-COPY.md"
+      }
+    },
+    {
+      "id": "weather-menu-bar-entry",
+      "archive_sha256": "20ecbb18633829b80aa5cf3668a9876d1cacee9510548f7c2ba01ea695ec2b0c",
+      "command": "menubar",
+      "outcome": "entry_unavailable",
+      "kind": "entry_probe",
+      "workflow": "The menu-bar command was unavailable in the reviewed-input chooser. It was not executed.",
+      "configuration": "Reviewed sample input and the declared menu-bar command.",
+      "limits": [
+        "This records the entry boundary only; it does not certify a desktop-menu equivalent or forecast execution."
+      ],
+      "phases": {
+        "setup": {
+          "result": "passed",
+          "detail": "Sample inputs and configured preferences were prepared for the listed workflow."
+        },
+        "startup": {
+          "result": "blocked",
+          "detail": "The reviewed chooser did not offer the menu-bar command."
+        },
+        "interaction": {
+          "result": "not_exercised",
+          "detail": "Extension bytecode was not executed."
+        },
+        "destination": {
+          "result": "not_exercised",
+          "detail": "No Weather command action was performed."
+        },
+        "persistence": {
+          "result": "not_exercised",
+          "detail": "Process restart and cross-process persistence were not exercised."
+        },
+        "lifecycle": {
+          "result": "passed",
+          "detail": "The source text/selection were unchanged after returning."
+        }
+      },
+      "environment": {
+        "app_source": "ed3831303a8319a194f0ae137830acba1f3580d5",
+        "app_sha256": "de99960d7658740d8377877fe19287e9a34c3fce46394367f5ac5426c1d5e18d",
+        "test_source": "c262fdf3adb7eb4ab7f249007aa72142190a283f",
+        "test_sha256": "f0acef65d29ab8b4829fc01427956a1a98223210dffcfec879d15ef4e50f7ffd",
+        "android_api": 36,
+        "device": "Tinycast_Tablet_API_36",
+        "webview_package": null,
+        "webview_version": null,
+        "profiles": [
+          "Tablet and phone: 100% and 200%"
+        ]
+      },
+      "evidence": {
+        "commit": "729f22b5e5df766bc9cba882e75ac5b2a65af3f7",
+        "case_path": "docs/validation/context-workflows/cohorts/baseline-menu-bar-tablet100-v4/cases/text-desktopmenubarisunavailableinreviewedchooserandreturnstosource-record.json",
+        "report_path": "docs/CONTEXT-COMMAND-WORKFLOWS.md"
+      }
+    }
+  ]
+}

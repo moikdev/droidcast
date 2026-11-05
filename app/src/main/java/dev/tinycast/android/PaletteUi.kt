@@ -446,6 +446,7 @@ fun Glyph(name: String, tint: Color = PaletteTheme.secondary, size: Int = 20) {
         fun rect(x: Float, y: Float, w: Float, h: Float, r: Float = 2f) { drawRoundRect(tint, androidx.compose.ui.geometry.Offset(x * scale, y * scale), androidx.compose.ui.geometry.Size(w * scale, h * scale), androidx.compose.ui.geometry.CornerRadius(r * scale), style = Stroke(1.6f * scale)) }
         when (name) {
             "menu" -> { line(5f,9f,19f,9f); line(5f,15f,14f,15f) }
+            "close" -> { line(6f,6f,18f,18f); line(6f,18f,18f,6f) }
             "back" -> { val a=if(rtl)9f else 15f;val b=24f-a;line(a,5f,b,12f);line(b,12f,a,19f) }
             "arrow" -> { line(4f,12f,20f,12f); line(14f,6f,20f,12f); line(14f,18f,20f,12f) }
             "search" -> { drawCircle(tint, 6.5f * scale, androidx.compose.ui.geometry.Offset(10.5f * scale, 10.5f * scale), style = Stroke(1.7f * scale)); line(15.5f, 15.5f, 21f, 21f) }

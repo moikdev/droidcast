@@ -1,0 +1,97 @@
+{
+  "scope": "Owned source-copy inspection; no extension execution, Store\/service request, or current-app compatibility certification",
+  "font_scale": 1,
+  "width_dp": 1280,
+  "height_dp": 800,
+  "extension_bytecode_executed": false,
+  "pointer_taps": [
+    {
+      "tag": "recorded-tests-json-format",
+      "size": [
+        216,
+        72
+      ],
+      "visible": "Rect.fromLTRB(804.0, 446.0, 1020.0, 518.0)"
+    },
+    {
+      "tag": "recorded-tests-keyboard",
+      "size": [
+        72,
+        72
+      ],
+      "visible": "Rect.fromLTRB(1418.0, 341.0, 1490.0, 413.0)"
+    },
+    {
+      "tag": "recorded-details-batch001-json-format-index",
+      "size": [
+        138,
+        72
+      ],
+      "visible": "Rect.fromLTRB(449.0, 824.0, 587.0, 896.0)"
+    },
+    {
+      "tag": "extension-back",
+      "size": [
+        72,
+        72
+      ],
+      "visible": "Rect.fromLTRB(398.0, 243.0, 470.0, 315.0)"
+    }
+  ],
+  "natural_text_witnesses": [
+    {
+      "text": "These are earlier observations of specific workflows. Matching source files does not verify your current app or device.",
+      "lines": 2,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    },
+    {
+      "text": "Worked in recorded test",
+      "lines": 1,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    },
+    {
+      "text": "Use the manual JSON formatter and verify its clipboard output.",
+      "lines": 1,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    },
+    {
+      "text": "Only this listed workflow was checked. Other arguments\/actions and your current app\/device remain unverified.",
+      "lines": 2,
+      "all_lines_reached": true,
+      "positioning_setup": "Semantic scroll-to-text, then pointer swipes for sequential full-line reachability"
+    }
+  ],
+  "geometry": [
+    {
+      "wanted": null,
+      "visible": true,
+      "values": [
+        1920,
+        1200,
+        552,
+        1
+      ],
+      "stable_ms": 200
+    },
+    {
+      "wanted": false,
+      "visible": false,
+      "values": [
+        1920,
+        1200,
+        0,
+        0
+      ],
+      "stable_ms": 200
+    }
+  ],
+  "natural_text_and_full_targets": true,
+  "passed": true,
+  "inspection_did_not_start_runtime": true,
+  "owned_source_copies_removed": true,
+  "preexisting_installations_and_data_preserved": true,
+  "clipboard_scope": "No clipboard reads or writes in this class; host independently restores\/verifies its durable recovery snapshot"
+}

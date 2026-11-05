@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<checkout>/artifacts/compatibility-view/run-cohort-v4.py", line 18, in <module>
+    assert result.returncode!=0 and r['passes']==0 and (('recorded-tests-json-format' in log and 'ExtensionRecordedTestsDeviceTest.enter' in log) if old else ('recorded-tests-search' in log and 'searchAndKeyboardRemainReachableAfterScrolling' in log)) and 'NoClassDefFoundError' not in log and 'prepare(' not in log,'Not the intended missing-entry control'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Not the intended missing-entry control

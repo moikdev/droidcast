@@ -1,0 +1,28 @@
+{
+  "current_harness_source": "975ba30eb7b5602e251a30befca1e436425753e8",
+  "app_source": "2f7a3edf89644ba6841affb8fcdd3f8250d26e2c",
+  "changed_sources_since_2f7a3edf": [
+    "app/src/androidTest/java/dev/tinycast/android/ExtensionRecordedTestsDeviceTest.kt"
+  ],
+  "jvm_reuse": {
+    "source_commit": "2f7a3edf89644ba6841affb8fcdd3f8250d26e2c",
+    "cases": 336,
+    "app_build_jvm_sources_unchanged": true
+  },
+  "apks": {
+    "app-debug-androidTest.apk": {
+      "sha256": "2cb58a31df55c8e4f12d700da9bb5157e9a69a4c94db076ee52f9b5d5abbaa26",
+      "changed_uncompressed_payloads_since_v5": [
+        "classes3.dex"
+      ],
+      "byte_identical_to_v5": false,
+      "manifest_contains_app_source_commit": false
+    },
+    "app-debug.apk": {
+      "sha256": "b0fa0e302a63320b6e5ed163856756961b4480a1ce476f4cb6167be799535e54",
+      "changed_uncompressed_payloads_since_v5": [],
+      "byte_identical_to_v5": true,
+      "manifest_contains_app_source_commit": true
+    }
+  }
+}

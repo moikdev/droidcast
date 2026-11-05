@@ -32,6 +32,7 @@ SELECTED_TRANSLATION_CASE = ('dev.tinycast.android.ReviewedTextDeviceTest#'
                              'selectedTranslationRunsOnlyAfterReviewAndReportsExactCopyOrServiceFailure')
 MENU_BAR_OBSERVATION_CASE = ('dev.tinycast.android.ReviewedTextDeviceTest#'
                              'desktopMenuBarIsUnavailableInReviewedChooserAndReturnsToSource')
+RECORDED_TESTS_CLASS = 'dev.tinycast.android.ExtensionRecordedTestsDeviceTest'
 
 
 def translation_test_filter(classes, has_archive):
@@ -64,6 +65,18 @@ def frozen_form_archive(path, expected):
     return data
 
 
+def recorded_test_archives(directory):
+    snapshot = json.loads((Path(__file__).resolve().parents[1] /
+        'docs/validation/extension-compatibility/batch-001-snapshot.json').read_text())
+    require(len(snapshot['extensions']) == 9, 'Recorded source inventory changed')
+    result = {}
+    for row in snapshot['extensions']:
+        filename = Path(row['archive_cache_path']).name
+        require(re.fullmatch(r'[0-9a-f]{64}\.zip', filename) is not None, 'Unsafe recorded archive filename')
+        result['recorded-' + row['store_name']] = frozen_form_archive(directory / filename, row['archive_sha256'])
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--serial', required=True)
@@ -80,6 +93,7 @@ def main():
     parser.add_argument('--weather-archive', type=Path, help='Optional hash-pinned Weather bundle for owned network observations')
     parser.add_argument('--uuid-archive', type=Path, help='Optional hash-pinned UUID bundle for owned offline workflows')
     parser.add_argument('--lorem-archive', type=Path, help='Optional hash-pinned Lorem bundle for owned offline workflows')
+    parser.add_argument('--recorded-archives', type=Path, help='Nine hash-pinned source archives for local, non-executing Recorded tests inspection only')
     parser.add_argument('--reviewed-json-command', choices=['formatSelectionAndShow', 'formatSelection'], default='formatSelectionAndShow')
     parser.add_argument('--reviewed-translation-command', choices=['instant-translate-copy', 'translate', 'quick-translate',
                         'quick-translate-view', 'instant-translate-paste', 'instant-translate-view'], default='instant-translate-copy')
@@ -110,6 +124,7 @@ def main():
                               'dev.tinycast.android.ExtensionDetailDeviceTest',
                               'dev.tinycast.android.ExtensionCommandHandoffDeviceTest',
                               'dev.tinycast.android.ExtensionPasteCopyDeviceTest',
+                              RECORDED_TESTS_CLASS,
                               'dev.tinycast.android.CalculatorActionsDeviceTest',
                               'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
@@ -120,6 +135,11 @@ def main():
     regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest',
                           'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
+    recorded_tests = any(item.split('#')[0] == RECORDED_TESTS_CLASS for item in args.classes.split(','))
+    require(not recorded_tests or all(item.split('#')[0] == RECORDED_TESTS_CLASS for item in args.classes.split(',')),
+            'Keep Recorded tests inspection separate from executable fixtures')
+    require(not args.recorded_archives or recorded_tests, 'Recorded archives belong only to the non-executing Recorded tests cohort')
+    require(not recorded_tests or args.recorded_archives is not None, 'Recorded tests inspection requires --recorded-archives')
     paste_copy = any(item.split('#')[0] == 'dev.tinycast.android.ExtensionPasteCopyDeviceTest' for item in args.classes.split(','))
     require(not paste_copy or all(item.split('#')[0] == 'dev.tinycast.android.ExtensionPasteCopyDeviceTest' for item in args.classes.split(',')),
             'Keep the owned paste Copy cohort separate from other fixtures')
@@ -162,7 +182,11 @@ def main():
     require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
         'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
-    typed_archives = {}
+    typed_archives = recorded_test_archives(args.recorded_archives) if args.recorded_archives else {}
+    recorded_catalog = None
+    if recorded_tests:
+        recorded_catalog = (Path(__file__).resolve().parents[1] / 'app/src/main/assets/extension-workflow-evidence-v1.json').read_bytes()
+        require(0 < len(recorded_catalog) <= 1024 * 1024, 'Recorded catalog exceeds its bound')
     for name, path, expected in [('uuid-generator', args.uuid_archive, 'bd8ba3641beaa9f7b4b9ac257dfa0f45717bb8d6206a94090bb9fd0f9c109dd0'),
                                  ('lorem-ipsum', args.lorem_archive, 'a85ce23b2b5e5fecb915d95eac5e688323dc9ae4dc326ab5cf572ba135b04d7b')]:
         if path is not None:
@@ -226,6 +250,7 @@ def main():
               'font_scale': args.font_scale, 'classes': args.classes, 'expected': args.expected, 'owner_nonce': owner,
               'runner_sha256': sha(Path(__file__).read_bytes()), 'archive_sha256': sha(archive) if archive is not None else None,
               'typed_workflow_archive_sha256': {name: sha(data) for name, data in typed_archives.items()},
+              'recorded_catalog_sha256': sha(recorded_catalog) if recorded_catalog is not None else None,
               'cleanup_helper_sha256': sha(helper.read_bytes()),
               'clipboard_helper_sha256': sha(clipboard_helper.read_bytes()),
               'document_helper_sha256': sha(document_helper.read_bytes()),
@@ -271,6 +296,8 @@ def main():
             raw('shell', 'run-as', app, 'tee', root + '/json-format.zip', data=archive)
         for name, data in typed_archives.items():
             raw('shell', 'run-as', app, 'tee', root + '/' + name + '.zip', data=data)
+        if recorded_catalog is not None:
+            raw('shell', 'run-as', app, 'tee', root + '/recorded-catalog.json', data=recorded_catalog)
         if args.layout in ['phone', 'landscape']:
             raw('shell', 'wm', 'size', '1080x2340' if args.layout == 'phone' else '2340x1080')
             raw('shell', 'wm', 'density', '420')

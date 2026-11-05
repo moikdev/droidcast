@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<checkout>/scripts/verify-recorded-workflow-catalog.py", line 93, in <module>
+    require(asset.read_bytes()==expected, 'The shipped historical catalog differs from its pinned source projection')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>/scripts/verify-recorded-workflow-catalog.py", line 11, in require
+    if not condition: raise ValueError(message)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: The shipped historical catalog differs from its pinned source projection

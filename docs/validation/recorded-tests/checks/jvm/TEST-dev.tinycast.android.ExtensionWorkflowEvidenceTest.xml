@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.ExtensionWorkflowEvidenceTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-04T22:42:06.758Z" hostname="MacBook-Pro-2.local" time="0.142">
+  <properties/>
+  <testcase name="observationsStayHistoricalAndDoNotPromoteOtherCommandsOrPackages" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.007"/>
+  <testcase name="jsonDuplicateKeysAndPlatformLeniencyAreRejectedBeforeDecoding" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.004"/>
+  <testcase name="duplicateIdsAndDeclarationsCannotSilentlyReplaceHistory" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.014"/>
+  <testcase name="invalidUtf8EscapesDepthAndSizeAreBounded" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.007"/>
+  <testcase name="changedAssetsAndCommandsCannotReuseTheExpectedPayload" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.01"/>
+  <testcase name="cancelledParsingCannotReturnRecords" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.003"/>
+  <testcase name="failureAndConfigurationLabelsRequireTheirObservedPhase" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.01"/>
+  <testcase name="missingAndUnknownSchemaDataCannotBecomeAnEmptySuccessfulCatalog" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.035"/>
+  <testcase name="incompleteEnvironmentAndMissingPhaseDetailsRemainInvalid" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.009"/>
+  <testcase name="entryProbesDoNotCertifyAnExecutedAction" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.003"/>
+  <testcase name="evidenceLinksOnlyUseThePinnedRepositoryDocsPath" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.017"/>
+  <testcase name="aWorkedOutcomeRequiresStartupInteractionAndDestinationWithoutBlockedPhases" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.01"/>
+  <testcase name="shippedCatalogParsesAndKeepsUntestedCommandsSeparateFromHistoricalOutcomes" classname="dev.tinycast.android.ExtensionWorkflowEvidenceTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

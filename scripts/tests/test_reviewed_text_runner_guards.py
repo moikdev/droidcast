@@ -16,9 +16,28 @@ CLIPBOARD = 'dev.tinycast.android.ClipboardEvidenceDeviceTest'
 ACTIVATION = 'dev.tinycast.android.ActivationDeviceTest'
 HANDOFF = 'dev.tinycast.android.ExtensionCommandHandoffDeviceTest'
 PASTE_COPY = 'dev.tinycast.android.ExtensionPasteCopyDeviceTest'
+RECORDED = 'dev.tinycast.android.ExtensionRecordedTestsDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
+    def test_recorded_inspection_requires_its_sources_and_cannot_mix_with_execution(self):
+        self.refused_without_device_access(RECORDED, [], 'Recorded tests inspection requires --recorded-archives')
+        self.refused_without_device_access(RECORDED + ',' + DETAIL, [], 'Keep Recorded tests inspection separate from executable fixtures')
+        self.refused_without_device_access(RECORDED + 'Extra', [], 'Only owned input/Form/Markdown')
+
+    def test_recorded_archives_cannot_broaden_other_fixtures(self):
+        for classes in [DETAIL, CALCULATOR, PASTE_COPY, 'dev.tinycast.android.ReviewedTextDeviceTest']:
+            self.refused_without_device_access(classes, ['--recorded-archives', 'not-read'], 'Recorded archives belong only')
+
+    def test_recorded_inspection_cannot_claim_unrelated_mutating_options(self):
+        for flag, error in [('--translate-archive', 'Network bundle is not authorized'),
+                            ('--weather-archive', 'Network bundle is not authorized'),
+                            ('--html-colors-archive', 'HTML Colors belongs only'),
+                            ('--uuid-archive', 'Offline bundles belong only')]:
+            self.refused_without_device_access(RECORDED, ['--recorded-archives', 'not-read', flag, 'not-read.zip'], error)
+        self.refused_without_device_access(RECORDED, ['--recorded-archives', 'not-read', '--document-fixtures'], 'Document fixtures belong only')
+        self.refused_without_device_access(RECORDED, ['--recorded-archives', 'not-read', '--inject-clipboard-restore-failure'], 'Restoration failure is limited')
+
     def test_legacy_paste_reveal_is_limited_to_the_exact_diagnostic(self):
         case = PASTE_COPY + '#keyboardCopyHidesImeAndEscapeReturns'
         for classes, options in [(PASTE_COPY, ['--layout', 'landscape', '--font-scale', '2', '--expected', '1']),

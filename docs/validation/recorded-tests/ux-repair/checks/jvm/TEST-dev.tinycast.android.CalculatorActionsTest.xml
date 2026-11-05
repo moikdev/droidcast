@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tinycast.android.CalculatorActionsTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-05T00:33:24.751Z" hostname="MacBook-Pro-2.local" time="0.028">
+  <properties/>
+  <testcase name="answersBeyondTheParserLimitRemainCopyableWithoutAnUnusableChain" classname="dev.tinycast.android.CalculatorActionsTest" time="0.01"/>
+  <testcase name="modifiedEnterDefaultsDoNotReserveAnExistingConfigurableBinding" classname="dev.tinycast.android.CalculatorActionsTest" time="0.001"/>
+  <testcase name="explicitQuantityLiteralsAcceptOnlyKnownUnitsAndFiniteValues" classname="dev.tinycast.android.CalculatorActionsTest" time="0.001"/>
+  <testcase name="acceleratorsConsumeHeldRepeatsAndReleaseAfterTheResultChanges" classname="dev.tinycast.android.CalculatorActionsTest" time="0.0"/>
+  <testcase name="scalarChainingKeepsExplicitIntentAndAllowsTheNextOperation" classname="dev.tinycast.android.CalculatorActionsTest" time="0.0"/>
+  <testcase name="ordinaryCommandsAndWebResultsDoNotOfferCalculatorActions" classname="dev.tinycast.android.CalculatorActionsTest" time="0.0"/>
+  <testcase name="sharedResultIdsCannotAuthorizeChangedQueryValueSelectionCategoryOrRoute" classname="dev.tinycast.android.CalculatorActionsTest" time="0.007"/>
+  <testcase name="copyingUsesTheSelectedPayloadWithoutRoundingOrReevaluatingIt" classname="dev.tinycast.android.CalculatorActionsTest" time="0.001"/>
+  <testcase name="functionsAndUnitsRetainTheirExpressionAndAnswer" classname="dev.tinycast.android.CalculatorActionsTest" time="0.001"/>
+  <testcase name="quantitiesChainWithoutDiscardingTheirUnit" classname="dev.tinycast.android.CalculatorActionsTest" time="0.002"/>
+  <testcase name="fullCalculationUsesTheDisplayedMultiplicationAndStripsOnlyTheModePrefix" classname="dev.tinycast.android.CalculatorActionsTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
