@@ -211,7 +211,7 @@ class WebViewRecoveryDeviceTest {
         if (type == "Grid") compose.onNodeWithTag("extension-grid-cell-0").assertTextContains(updated, substring = true)
         else compose.onNodeWithText(updated).assertExists()
         capture("$name-action")
-        device.pressBack()
+        compose.onNodeWithTag("extension-back").performTouchInput { click(center) }
         compose.waitUntil(10000) { compose.activity.store.dialog == null }
         assertEquals(caller, compose.activity.store.query)
         record.put("live_action_published", true).put("caller_query_restored", true).put("passed", true)

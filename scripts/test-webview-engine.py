@@ -10,6 +10,7 @@ import re
 import shlex
 import subprocess
 import tarfile
+import time
 import uuid
 from android_test_cleanup import Cleanup, private_path_absent
 
@@ -114,6 +115,25 @@ def main():
         # Old PackageManager returns exit 1 from `path` for an absent package.
         # Establish absence from its successful exact inventory first.
         return text('shell', 'pm', 'path', pkg) if listed_package_presence(text('shell', 'pm', 'list', 'packages', pkg), pkg) else ''
+
+    def restore_font(wanted):
+        # Android26 may materialize its default row after processing deletion
+        # of a nondefault scale. Require the original raw value to settle;
+        # never relabel an effective default as exact restoration.
+        deadline = time.monotonic() + 5
+        stable = None
+        while time.monotonic() < deadline:
+            value = text('shell', 'settings', 'get', 'system', 'font_scale')
+            if value == wanted:
+                if stable is None:
+                    stable = time.monotonic()
+                if time.monotonic() - stable >= .5:
+                    return
+            else:
+                stable = None
+                raw('shell', 'settings', 'delete', 'system', 'font_scale') if wanted == 'null' else raw('shell', 'settings', 'put', 'system', 'font_scale', wanted)
+            time.sleep(.1)
+        require(False, 'Original raw font setting did not settle')
 
     require(text('emu', 'avd', 'name').splitlines()[0] == a.avd and text('shell', 'getprop', 'ro.kernel.qemu') == '1', 'AVD identity changed')
     require(text('shell', 'getprop', 'ro.build.version.sdk') == ('26' if legacy else '36'), 'Unexpected Android API')
@@ -224,7 +244,7 @@ def main():
                         raw('shell', 'run-as', APP, 'tee', 'shared_prefs/palette.xml', data=palette)
                         require(raw('exec-out', 'run-as', APP, 'cat', 'shared_prefs/palette.xml') == palette, 'Palette restoration differs')
                     c.attempt('palette-bytes', restore_palette)
-                c.attempt('restore-font', lambda: raw('shell', 'settings', 'delete', 'system', 'font_scale') if font == 'null' else raw('shell', 'settings', 'put', 'system', 'font_scale', font))
+                c.attempt('restore-font', lambda: restore_font(font))
                 if not legacy and a.layout != 'tablet':
                     c.attempt('restore-size', lambda: raw('shell', 'wm', 'size', 'reset'))
                     c.attempt('restore-density', lambda: raw('shell', 'wm', 'density', 'reset'))
