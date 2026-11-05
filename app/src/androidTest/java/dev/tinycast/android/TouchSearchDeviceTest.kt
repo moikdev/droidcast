@@ -349,6 +349,7 @@ class TouchSearchDeviceTest {
                 visible.width > 0 && visible.height > 0
             events.put(JSONObject().put("kind", "natural-feedback-line").put("phase", phase).put("text", text)
                 .put("line", line).put("font_sp", fontSp).put("line_bounds", json(bounds))
+                .put("declared_line_height", layout.layoutInput.style.lineHeight.toString())
                 .put("visible", json(visible)).put("palette", json(surface)).put("complete", complete)
                 .put("ellipsized", layout.isLineEllipsized(line)))
             assertFalse("Primary empty feedback must not ellipsize", layout.isLineEllipsized(line))
