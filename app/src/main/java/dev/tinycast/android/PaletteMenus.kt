@@ -143,7 +143,13 @@ internal class PaletteMenus {
     }
     fun clearPresses() = presses.clear()
     fun index(): Int = choices().indexOfFirst { it.id == selectedId }.coerceAtLeast(0)
-    fun key(event: KeyEvent): Boolean {
+    fun key(event: KeyEvent, stage: String = "direct"): Boolean {
+        PaletteBackTrace.key("$stage-before", event, current != null)
+        val handled = handleKey(event)
+        PaletteBackTrace.key("$stage-after", event, current != null, handled)
+        return handled
+    }
+    private fun handleKey(event: KeyEvent): Boolean {
         val id = event.deviceId to event.keyCode
         if (presses[id] == event.downTime) {
             if (event.action == KeyEvent.ACTION_UP) presses.remove(id)
@@ -237,10 +243,14 @@ internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit
         }
     }
     CompositionLocalProvider(LocalPaletteMenus provides menus) {
-        Box(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { menus.key(it.nativeKeyEvent) }
-            .onPreviewKeyEvent { menus.key(it.nativeKeyEvent) }) {
+        Box(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { menus.key(it.nativeKeyEvent, "pre-ime") }
+            .onPreviewKeyEvent { menus.key(it.nativeKeyEvent, "preview") }) {
             content()
-            BackHandler(enabled = menus.current != null) { menus.dismiss() }
+            BackHandler(enabled = menus.current != null) {
+                PaletteBackTrace.handler("menu-dispatcher-before", menus.current != null, store.emoji.query.length)
+                menus.dismiss()
+                PaletteBackTrace.handler("menu-dispatcher-after", menus.current != null, store.emoji.query.length)
+            }
             if(feedback) menus.surface?.let { bounds -> PaletteFeedback(bounds, menus, snackbar) }
             menus.current?.let { request -> PaletteMenuOverlay(menus, request) }
         }

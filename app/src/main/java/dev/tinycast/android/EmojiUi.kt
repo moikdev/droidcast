@@ -85,7 +85,11 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         return true
     }
     fun back() { if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
-    BackHandler(onBack = ::back)
+    BackHandler {
+        PaletteBackTrace.handler("emoji-dispatcher-before", menu || actionsMenu, store.query.length)
+        back()
+        PaletteBackTrace.handler("emoji-dispatcher-after", menu || actionsMenu, store.query.length)
+    }
     PaletteViewport(emptyFeedback=results.isEmpty()) { wide, top, height ->
         val compactEmpty = results.isEmpty() && height < 180.dp
         val columns = ((minOf(maxWidth - 24.dp, PaletteTheme.width).value - 24) / 64).toInt().coerceIn(3, 10)

@@ -147,7 +147,12 @@ class TouchSearchDeviceTest {
     private fun observeBackWindow(block: () -> Unit) {
         var original: Window.Callback? = null
         var observer: Window.Callback? = null
+        var originalTraceProperty: String? = null
         ui { activity ->
+            originalTraceProperty = System.getProperty(PaletteBackTrace.property)
+            check(originalTraceProperty != "true") { "An existing Back trace has another owner" }
+            check(PaletteBackTrace.snapshot().events.isEmpty())
+            System.setProperty(PaletteBackTrace.property, "true")
             val previous = activity.window.callback
             original = previous
             fun sample(stage: String, event: KeyEvent, handled: Boolean? = null) {
@@ -178,9 +183,33 @@ class TouchSearchDeviceTest {
         }
         try { block() } finally {
             ui { activity ->
-                assertSame("Restore only the owned window observer", observer, activity.window.callback)
-                activity.window.callback = requireNotNull(original)
-                events.put(JSONObject().put("kind", "back-window-observer-restored").put("passed", activity.window.callback === original))
+                try {
+                    val trace = PaletteBackTrace.snapshot()
+                    val samples = JSONArray(trace.events.map { sample ->
+                        JSONObject().put("stage", sample.stage).put("uptime_ms", sample.uptime)
+                            .put("action", sample.action ?: JSONObject.NULL)
+                            .put("down_time", sample.downTime ?: JSONObject.NULL)
+                            .put("event_time", sample.eventTime ?: JSONObject.NULL)
+                            .put("repeat", sample.repeat ?: JSONObject.NULL)
+                            .put("canceled", sample.canceled ?: JSONObject.NULL)
+                            .put("menu_open", sample.menuOpen ?: JSONObject.NULL)
+                            .put("query_length", sample.queryLength ?: JSONObject.NULL)
+                            .put("handled", sample.handled ?: JSONObject.NULL)
+                    })
+                    events.put(JSONObject().put("kind", "back-stage-trace").put("enabled", trace.enabled)
+                        .put("dropped", trace.dropped).put("samples", samples))
+                    assertSame("Restore only the owned window observer", observer, activity.window.callback)
+                    activity.window.callback = requireNotNull(original)
+                    events.put(JSONObject().put("kind", "back-window-observer-restored").put("passed", activity.window.callback === original))
+                } finally {
+                    PaletteBackTrace.clear()
+                    originalTraceProperty?.let { System.setProperty(PaletteBackTrace.property, it) }
+                        ?: System.clearProperty(PaletteBackTrace.property)
+                    val restored = System.getProperty(PaletteBackTrace.property) == originalTraceProperty &&
+                        PaletteBackTrace.snapshot().events.isEmpty()
+                    events.put(JSONObject().put("kind", "back-trace-property-restored").put("passed", restored))
+                    assertTrue(restored)
+                }
             }
         }
     }
