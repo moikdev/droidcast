@@ -61,7 +61,8 @@ class TouchSearchDeviceTest {
         compose.waitUntil(15000) { !compose.activity.store.loading && !compose.activity.store.emoji.loading }
         palette = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         prepared = true
-        ui { it.store.reset() }
+        // Empty-query captures must not reveal unrelated saved notes or clips.
+        ui { it.store.reset(); it.store.filter("Apps") }
         record.put("case", name.methodName).put("api", Build.VERSION.SDK_INT).put("font_scale", font)
     }
 
@@ -160,6 +161,7 @@ class TouchSearchDeviceTest {
     @Test fun emojiTouchClearPreservesCategoryGeometryAndKeyboard() {
         ui { it.store.search("Owned launcher caller") }
         emoji()
+        val origin = rect("emoji-search")
         val longest = compose.activity.store.emoji.entries.map { it.category }.distinct().maxBy { it.length }
         ui { it.store.emoji.chooseFilter(longest) }
         for (visible in listOf(false, true)) {
@@ -177,6 +179,11 @@ class TouchSearchDeviceTest {
         }
         node("emoji-back").performTouchInput { click(center) }
         text("search", "Owned launcher caller"); node("search").assertIsFocused()
+        val launcher = rect("search")
+        assertEquals("Returning retains the search column", origin.left, launcher.left, 1f)
+        assertEquals("Returning retains the search baseline", origin.top, launcher.top, 1f)
+        assertEquals("Both editors have the same natural height", origin.height, launcher.height, 1f)
+        events.put(JSONObject().put("kind", "emoji-launcher-origin").put("emoji", json(origin)).put("launcher", json(launcher)))
         capture("caller-return", "search")
         record.put("completed", true)
     }
