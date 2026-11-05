@@ -145,8 +145,11 @@ class TouchSearchDeviceTest {
         for (visible in listOf(false, true)) {
             node("search").performTextReplacement("zzownednomatchingapp")
             keyboard(visible, "search")
-            compose.onNodeWithText("No matching commands").assertIsDisplayed()
+            ui { events.put(JSONObject().put("kind", "empty-state-before-clear").put("search", "search")
+                .put("ime_visible", visible).put("expected_query_matches", it.store.query == "zzownednomatchingapp")
+                .put("result_count", it.store.results().size)) }
             capture("${if (visible) "shown" else "hidden"}-before", "search")
+            compose.onNodeWithText("No matching commands").assertIsDisplayed()
             val before = geometry("search", "search-clear", "palette", emptyList())
             node("search-clear").performTouchInput { click(center) }
             cleared("search", "search-clear")
@@ -167,8 +170,11 @@ class TouchSearchDeviceTest {
         for (visible in listOf(false, true)) {
             node("emoji-search").performTextReplacement("zzownednomatchingemoji")
             keyboard(visible, "emoji-search")
-            node("emoji-empty").assertIsDisplayed()
+            ui { events.put(JSONObject().put("kind", "empty-state-before-clear").put("search", "emoji-search")
+                .put("ime_visible", visible).put("expected_query_matches", it.store.emoji.query == "zzownednomatchingemoji")
+                .put("result_count", it.store.emoji.results().size)) }
             capture("${if (visible) "shown" else "hidden"}-before", "emoji-search")
+            node("emoji-empty").assertIsDisplayed()
             val before = geometry("emoji-search", "emoji-search-clear", "emoji-palette", listOf("emoji-back", "emoji-filter"))
             node("emoji-search-clear").performTouchInput { click(center) }
             cleared("emoji-search", "emoji-search-clear")
