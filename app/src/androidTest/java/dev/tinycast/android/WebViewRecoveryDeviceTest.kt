@@ -246,6 +246,7 @@ class WebViewRecoveryDeviceTest {
     @Test fun bridgeCannotPublishOrReadHostApisBeforeApproval() {
         lateinit var runtime: ExtensionRuntime
         lateinit var bridge: ExtensionRuntime.Bridge
+        var created = false
         val file = File(extension.directory, "index.js").canonicalFile
         assertTrue("The harmless supported probe targets the existing owned fixture", file.isFile)
         val arguments = org.json.JSONArray().put(file.path).toString()
@@ -258,6 +259,7 @@ class WebViewRecoveryDeviceTest {
                 // constructing another runtime for the same invocation.
                 activity.store.dialog = null
                 runtime = ExtensionRuntime(activity, catalog, extension, catalog.running!!.second)
+                created = true
                 bridge = runtime.Bridge()
                 runtime.Bridge().render("{\"type\":\"List\",\"children\":[]}")
                 val response = JSONObject(bridge.invokeSync("fs", "exists", arguments))
@@ -284,7 +286,7 @@ class WebViewRecoveryDeviceTest {
             } else record.put("approved_control_scope", "The paired approved control runs on API36; this actual API26 engine cannot pass preflight")
         } finally {
             compose.activityRule.scenario.onActivity { activity ->
-                if (::runtime.isInitialized) runtime.close()
+                if (created) runtime.close()
                 activity.store.extensions.close(); activity.store.dialog = null
             }
         }
