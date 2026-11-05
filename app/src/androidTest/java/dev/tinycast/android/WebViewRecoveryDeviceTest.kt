@@ -299,8 +299,10 @@ class WebViewRecoveryDeviceTest {
             val next = extension.commands.single { c -> c.name == "index" }
             it.store.openExtension(extension, next)
             val catalog = it.store.extensions
-            val owner = catalog.captureText(extension, next).owner
-            assertTrue(catalog.reportEngineProblem(owner, extension, next,
+            val current = requireNotNull(catalog.running).second
+            assertEquals("index", current.name)
+            val owner = catalog.captureText(extension, current).owner
+            assertTrue(catalog.reportEngineProblem(owner, extension, current,
                 ExtensionEngineProblem(first.engine, first.failure, first.missingApis)))
         }
         compose.waitForIdle()
