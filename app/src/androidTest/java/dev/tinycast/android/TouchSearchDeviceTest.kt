@@ -198,17 +198,20 @@ class TouchSearchDeviceTest {
                     })
                     events.put(JSONObject().put("kind", "back-stage-trace").put("enabled", trace.enabled)
                         .put("dropped", trace.dropped).put("samples", samples))
-                    assertSame("Restore only the owned window observer", observer, activity.window.callback)
-                    activity.window.callback = requireNotNull(original)
-                    events.put(JSONObject().put("kind", "back-window-observer-restored").put("passed", activity.window.callback === original))
                 } finally {
-                    PaletteBackTrace.clear()
-                    originalTraceProperty?.let { System.setProperty(PaletteBackTrace.property, it) }
-                        ?: System.clearProperty(PaletteBackTrace.property)
-                    val restored = System.getProperty(PaletteBackTrace.property) == originalTraceProperty &&
-                        PaletteBackTrace.snapshot().events.isEmpty()
-                    events.put(JSONObject().put("kind", "back-trace-property-restored").put("passed", restored))
-                    assertTrue(restored)
+                    try {
+                        assertSame("Restore only the owned window observer", observer, activity.window.callback)
+                        activity.window.callback = requireNotNull(original)
+                        events.put(JSONObject().put("kind", "back-window-observer-restored").put("passed", activity.window.callback === original))
+                    } finally {
+                        PaletteBackTrace.clear()
+                        originalTraceProperty?.let { System.setProperty(PaletteBackTrace.property, it) }
+                            ?: System.clearProperty(PaletteBackTrace.property)
+                        val restored = System.getProperty(PaletteBackTrace.property) == originalTraceProperty &&
+                            PaletteBackTrace.snapshot().events.isEmpty()
+                        events.put(JSONObject().put("kind", "back-trace-property-restored").put("passed", restored))
+                        assertTrue(restored)
+                    }
                 }
             }
         }
