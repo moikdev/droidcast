@@ -7,6 +7,12 @@ import android.view.KeyEvent
 import android.view.KeyCharacterMap
 import android.view.InputDevice
 import android.view.Window
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
@@ -125,7 +131,7 @@ class TouchSearchDeviceTest {
         return editor
     }
 
-    private fun capture(phase: String, search: String) {
+    private fun capture(phase: String, search: String, boundsRole: String = "search") {
         compose.waitForIdle(); instrumentation.waitForIdleSync(); device.waitForIdle()
         evidence.mkdirs()
         val stem = "${name.methodName.lowercase()}-$phase"
@@ -133,7 +139,7 @@ class TouchSearchDeviceTest {
         device.dumpWindowHierarchy(File(evidence, "$stem.xml"))
         val bounds = rect(search)
         assertTrue(device.takeScreenshot(File(evidence, "$stem.png")))
-        File(evidence, "$stem-frame.json").writeText(JSONObject().put("phase", phase).put("search", json(bounds))
+        File(evidence, "$stem-frame.json").writeText(JSONObject().put("phase", phase).put(boundsRole, json(bounds))
             .put("ime_visible", ime()).put("api", Build.VERSION.SDK_INT)
             .put("font_scale", compose.activity.resources.configuration.fontScale)
             .put("synchronization", "Compose and UiAutomator idle; hierarchy before PNG; XML geometry is not independent visibility proof")
@@ -876,6 +882,60 @@ class TouchSearchDeviceTest {
             events.put(JSONObject().put("kind", "normal-back-returns-route").put("press_back_return", device.pressBack()))
             compose.waitForIdle(); node("emoji-palette").assertDoesNotExist(); node("search").assertIsFocused()
             capture("cancel-final-back-launcher", "search")
+            record.put("completed", true)
+        }
+    }
+
+    @Test fun menuBackPrecedesLaterRegisteredRouteCallback() {
+        record.put("scope", "Controlled native fixture using the production PaletteMenuHost, PaletteFrame and PaletteChoiceMenu. Actual pointers enter a later route and open a menu; injected Back must dismiss the menu before the route callback. This is callback-priority evidence, not ordinary-screen execution.")
+        observeBackWindow {
+            var route by mutableStateOf(false)
+            var menu by mutableStateOf(false)
+            var routeBacks = 0
+            var menuDismissals = 0
+            ui { activity ->
+                activity.setContent {
+                    androidx.compose.material3.MaterialTheme {
+                        PaletteMenuHost(activity.store) {
+                            if (!route) PaletteFrame({}, tag = "back-fixture-home") {
+                                androidx.compose.material3.Text("Controlled native Back ownership fixture")
+                                androidx.compose.material3.Button(onClick = { route = true }, modifier = Modifier.testTag("back-fixture-enter")) {
+                                    androidx.compose.material3.Text("Enter owned route")
+                                }
+                            } else PaletteFrame({ routeBacks++; route = false }, tag = "back-fixture-route") {
+                                androidx.compose.material3.Text("Later registered route callback")
+                                androidx.compose.material3.Button(onClick = { menu = true }, modifier = Modifier.testTag("back-fixture-menu")) {
+                                    androidx.compose.material3.Text("Open owned menu")
+                                }
+                                PaletteChoiceMenu(menu, { menuDismissals++; menu = false },
+                                    listOf(PaletteChoice("back-fixture-choice", "Owned unchanged choice") {}), title = "Owned menu")
+                            }
+                        }
+                    }
+                }
+            }
+            node("back-fixture-enter").performTouchInput { click(center) }
+            node("back-fixture-route").assertIsDisplayed()
+            node("back-fixture-menu").performTouchInput { click(center) }
+            node("inline-menu").assertIsDisplayed()
+            capture("priority-menu-before", "back-fixture-route", "fixture_route")
+            events.put(JSONObject().put("kind", "priority-first-back").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            val afterFirst = JSONObject().put("kind", "priority-after-first-back").put("route_retained", route)
+                .put("route_backs", routeBacks).put("menu_dismissals", menuDismissals)
+            events.put(afterFirst)
+            capture("priority-menu-return", if (route) "back-fixture-route" else "back-fixture-home", "fixture_route")
+            assertTrue("One Back dismisses the menu while retaining its caller", route)
+            assertEquals(0, routeBacks)
+            assertEquals(1, menuDismissals)
+            node("inline-menu").assertDoesNotExist()
+            events.put(JSONObject().put("kind", "priority-second-back").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            node("back-fixture-route").assertDoesNotExist()
+            node("back-fixture-home").assertIsDisplayed()
+            assertEquals(1, routeBacks)
+            assertEquals(1, menuDismissals)
+            capture("priority-second-back-home", "back-fixture-home", "fixture_route")
             record.put("completed", true)
         }
     }
