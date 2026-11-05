@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<checkout>/scripts/test-webview-engine.py", line 402, in <module>
+    main()
+    ~~~~^^
+  File "<checkout>/scripts/test-webview-engine.py", line 397, in main
+    require(r['completed'], 'Native outcome failed; inspect retained receipts')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>/scripts/test-webview-engine.py", line 54, in require
+    raise ValueError(message)
+ValueError: Native outcome failed; inspect retained receipts

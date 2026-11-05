@@ -42,6 +42,15 @@ class WebViewRunnerTests(unittest.TestCase):
     def test_engine_suite_cannot_change_input_method(self):
         self.assertIn('Owned IME is limited', self.rejected_suite('engine', 'incompatibleEngineShowsNativeRecoveryWithoutDispatch', ['--input-mode', 'owned']))
 
+    def test_touch_suite_cannot_select_engine_or_input_cases(self):
+        for method in ('recordCallerSelectionAcrossNativeRoutes', 'modernEnginePublishesListAndRunsLiveAction'):
+            self.assertIn('Unsupported native cases', self.rejected_suite('touch-search', method))
+
+    def test_touch_suite_cannot_change_input_method_or_use_engine_negative_classifier(self):
+        method = 'launcherTouchClearPreservesFocusCategoryAndKeyboard'
+        self.assertIn('Owned IME is limited', self.rejected_suite('touch-search', method, ['--input-mode', 'owned']))
+        self.assertIn('Negative control is limited', self.rejected_suite('touch-search', method, ['--expected-negative']))
+
     def test_package_absence_uses_exact_successful_inventory(self):
         self.assertFalse(runner.listed_package_presence('', 'dev.tinycast.android'))
         self.assertFalse(runner.listed_package_presence('package:dev.tinycast.android.test\n', 'dev.tinycast.android'))

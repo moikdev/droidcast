@@ -1,0 +1,46 @@
+{
+  "controls": [
+    {
+      "cohort": "old-tablet100-1",
+      "passes": 0,
+      "intended_failures": 1,
+      "assertion": "Clear control display at geometry line107; ordinary before image, not an app error banner",
+      "expected_absent_tag": "search-clear",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "test_log_sha256": "eefae928b4c1c0dd3be792b57017479363ed15ccee3fd6e18dd71fbef03ad4f4",
+      "cleanup_checks": 15
+    },
+    {
+      "cohort": "old-tablet100-2",
+      "passes": 0,
+      "intended_failures": 1,
+      "assertion": "Clear control display at geometry line107; ordinary before image, not an app error banner",
+      "expected_absent_tag": "emoji-search-clear",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "test_log_sha256": "ad145673c8c289e7b62d482f359f25b4b432a1b9b605562deb71f76745c74d98",
+      "cleanup_checks": 15
+    },
+    {
+      "cohort": "old-phone100-1",
+      "passes": 0,
+      "intended_failures": 1,
+      "assertion": "Clear control display at geometry line107; ordinary before image, not an app error banner",
+      "expected_absent_tag": "search-clear",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "test_log_sha256": "edeb27f024f4ba606e74dcbbbbe6a0673cff85f5a896d072dad7a316997534bc",
+      "cleanup_checks": 17
+    },
+    {
+      "cohort": "old-phone100-2",
+      "passes": 0,
+      "intended_failures": 1,
+      "assertion": "Clear control display at geometry line107; ordinary before image, not an app error banner",
+      "expected_absent_tag": "emoji-search-clear",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "test_log_sha256": "934715d5bb65d6bf692a369c8a72e319c1a42c1f5c4f6cafdd12cf9572168daa",
+      "cleanup_checks": 17
+    }
+  ],
+  "all_completed": true,
+  "scope": "Intended missing-Clear failures remain failed in the positive-only runner; no runtime repair or parser-error credit"
+}

@@ -1,0 +1,99 @@
+{
+  "completed": false,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "4cef6df9b6f28aafa5e303e72b146dac0f20ac3754d2825d704d42b2c5b5d1e3",
+  "apk_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+  "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+  "methods": [
+    "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+    "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "landscape",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "restore-size": {
+      "passed": true
+    },
+    "restore-density": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 0,
+  "failures": 2,
+  "native_expected_outcome": false,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.xml": "df2924c6bfd1043a9e1b6e817b6653732e2e210f422322230ec0e598f326bbf5",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.png": "4279e60d22515516ee068719dfcbaa4b694ba9ec764c0783ebd3cf4386bba12c",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before-frame.json": "183f4026e843e400b488a47e798d6d2ed894d2ea5087b1952e19fe6ff0d5a429",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.xml": "a20f7b24c568143f433a14653cc44e50a17a16854b8981ffb388cef3f17d83b0",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after.png": "a566941571e01fdb08838bb63d2057b8b8bf1d59677f2f20469c1841ca8e4d0f",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-after-frame.json": "4789fd81b7957830b05bd5fc3fef0221d65b1e7dac14635d49441d84eb801025",
+    "emojitouchclearpreservescategorygeometryandkeyboard-case.json": "10cd5e47591af2b7375e3d599f070be2c479011ec803390acc15d5c5767473ae",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.xml": "4594b772a811db09a3d5fa9e10264abf8be5cee7e3c67ddd63f69fea13d4a2c4",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.png": "48c22ccc190565d038f6c324a82bbff1cd875cdffcd5c3651f59c53b084fac52",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before-frame.json": "993b08b0346bef7b473d1fa87de892601b0b69c1f63a584c700875c29d47bd23",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after.xml": "d9b5cfb8b8763d5d68452dd5a7b3fd09cc9ba91aee98c12bd124547edc22a247",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after.png": "f5ea21f30fe4f8e8e554c5139cdb4d455cd2e6baebe4c5efec9239a1859b807a",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-after-frame.json": "bca4f2e586419cfcb3ca60a80645af1728c6925505c9eba0b4e18e7ad235ebf4",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-case.json": "f8b8651c9c3bc3f07ba642a466aa6d3bcaea8cd285c8d0fb45ff13e77f2d7ebe"
+  },
+  "preserved_file_count": 573
+}

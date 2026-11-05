@@ -1,0 +1,82 @@
+{
+  "completed": false,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "4cef6df9b6f28aafa5e303e72b146dac0f20ac3754d2825d704d42b2c5b5d1e3",
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+  "methods": [
+    "launcherTouchClearPreservesFocusCategoryAndKeyboard"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "tablet",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 0,
+  "failures": 1,
+  "native_expected_outcome": false,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.xml": "6df80d65aa291b824d06d07360175390c5d3473378e66842657ca94d92c016a7",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.png": "588912ae1e727e9e5495f1afd96f1ed66320ad6946fcb8a74db084ad08cc898e",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before-frame.json": "3af0693f24d6cd6663b53771f2ceafaafa267eaff0273b0de4e0ebd1b733638c",
+    "launchertouchclearpreservesfocuscategoryandkeyboard-case.json": "29a9c3b167996d906581fc9a8988159f0a5a548ec9f53b046655bf3e472a7233"
+  },
+  "preserved_file_count": 573
+}

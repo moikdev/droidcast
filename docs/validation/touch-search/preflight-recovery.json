@@ -1,0 +1,25 @@
+{
+  "completed": true,
+  "checks": {
+    "no-native-log-created": true,
+    "owned-avd": true,
+    "api36": true,
+    "unprivileged-adbd": true,
+    "idle-instrumentation": true,
+    "host-owner-namespace": true,
+    "live-owner-exact": true,
+    "one-original-package-dev.tinycast.android": true,
+    "original-apk-dev.tinycast.android": true,
+    "one-original-package-dev.tinycast.android.test": true,
+    "original-apk-dev.tinycast.android.test": true,
+    "lease-has-only-registered-owner": true,
+    "all-original-files-and-preferences-equal": true,
+    "original-size": true,
+    "original-density": true,
+    "original-raw-font": true,
+    "owner-revalidated-last": true,
+    "release-owner-last": true
+  },
+  "preserved_original_file_count": 573,
+  "scope": "Zero-test pre-install archive timeout; original binaries, all files/shared_prefs, geometry and raw font matched before release. No restore writes were needed. Private originals/owners are not published; no cross-boot certification."
+}

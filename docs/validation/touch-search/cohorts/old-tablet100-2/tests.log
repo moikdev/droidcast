@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: test=emojiTouchClearPreservesCategoryGeometryAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.TouchSearchDeviceTest.geometry(TouchSearchDeviceTest.kt:107)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiTouchClearPreservesCategoryGeometryAndKeyboard(TouchSearchDeviceTest.kt:172)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emojiTouchClearPreservesCategoryGeometryAndKeyboard(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.TouchSearchDeviceTest.geometry(TouchSearchDeviceTest.kt:107)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiTouchClearPreservesCategoryGeometryAndKeyboard(TouchSearchDeviceTest.kt:172)
+
+INSTRUMENTATION_STATUS: test=emojiTouchClearPreservesCategoryGeometryAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.2
+There was 1 failure:
+1) emojiTouchClearPreservesCategoryGeometryAndKeyboard(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.TouchSearchDeviceTest.geometry(TouchSearchDeviceTest.kt:107)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiTouchClearPreservesCategoryGeometryAndKeyboard(TouchSearchDeviceTest.kt:172)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.*
 /** A palette sub-screen; no Dialog, overlay permission or clipboard monitoring. */
 @Composable
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
-fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
+fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolean, close: () -> Unit, copy: (String) -> Unit) {
     val searchFocus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val view = LocalView.current
@@ -53,6 +53,7 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
     // of later modifier release or the selection changing after an unpin.
     val favoritePresses = remember { mutableMapOf<Int, Long>() }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
+    val paletteMenus = LocalPaletteMenus.current
     LaunchedEffect(windowFocused) { if (!windowFocused) favoritePresses.clear() }
     fun consumeFavoriteSequence(event: KeyEvent): Boolean {
         if (event.keyCode != KeyEvent.KEYCODE_D || favoritePresses[event.deviceId] != event.downTime) return false
@@ -191,11 +192,26 @@ fun EmojiPicker(store: EmojiStore, close: () -> Unit, copy: (String) -> Unit) {
                     decorationBox = { inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp), contentAlignment = Alignment.CenterStart) {
                         if (store.query.isEmpty()) Text("Search Emoji & Symbols…", color = PaletteTheme.secondary, fontSize = 20.sp, lineHeight = 26.sp, maxLines = 1, overflow = TextOverflow.Ellipsis); inner()
                     } })
+                SearchClearButton(store.query.isNotEmpty(), Triple(store, searchEpoch, windowFocused), "emoji-search-clear",
+                    current = { store.query.isNotEmpty() && actionCurrent() && view.hasWindowFocus() &&
+                        !menu && !actionsMenu && paletteMenus.current == null }) {
+                    searchValue = TextFieldValue("")
+                    store.search("")
+                    copiedName = null
+                    queryEditing = false
+                }
                 if (wide) IconButton(onClick = { keyboardRequested = true; searchFocus.requestFocus(); keyboard?.show() }, modifier = Modifier.size(48.dp).semantics { contentDescription = "Show on-screen keyboard" }) {
                     Glyph("keyboard", PaletteTheme.tertiary, 16)
                 }
                 Box {
-                    TextButton(onClick = { menu = true }, modifier = Modifier.heightIn(min=48.dp).testTag("emoji-filter")) { Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp)); Text(" ▾") }
+                    // Retain natural scaled text and a 48 dp target without extra
+                    // vertical padding shifting this editor below the launcher.
+                    TextButton(onClick = { menu = true }, contentPadding = PaddingValues(horizontal=12.dp, vertical=4.dp),
+                        modifier = Modifier.heightIn(min=48.dp).testTag("emoji-filter")) {
+                        Text(store.filter, maxLines = 1, fontSize = 12.sp, overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.widthIn(max = if (wide) 160.dp else 90.dp))
+                        Text(" ▾")
+                    }
                     PaletteChoiceMenu(menu, { menu = false },
                         (listOf("All", "Favorites", "Recent") + store.entries.map { it.category }.distinct()).map { category ->
                             PaletteChoice("emoji-filter-$category", category, checked = store.filter == category) {

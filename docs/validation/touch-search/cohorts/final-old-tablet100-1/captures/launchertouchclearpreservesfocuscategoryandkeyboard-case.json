@@ -1,0 +1,26 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+  "api": 36,
+  "font_scale": 1,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "empty-state-before-clear",
+      "search": "search",
+      "ime_visible": false,
+      "expected_query_matches": true,
+      "result_count": 0
+    },
+    {
+      "kind": "empty-feedback-visibility",
+      "palette_height_px": 713,
+      "constrained_by_ime": false,
+      "displayed": true,
+      "known_layout_gap": null
+    }
+  ]
+}

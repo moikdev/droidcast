@@ -1,0 +1,380 @@
+{
+  "source_commit": "07a2de6df0403ed15b03d3712cdd7724b4946f10",
+  "completed": false,
+  "cohorts": [
+    {
+      "name": "old-tablet100-1",
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard"
+      ],
+      "started": 1793884582.231462,
+      "state": "finished",
+      "exit_code": 1,
+      "finished": 1793884679.156678,
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "name": "old-tablet100-2",
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "started": 1793884679.157723,
+      "state": "finished",
+      "exit_code": 1,
+      "finished": 1793884732.179701,
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "name": "old-phone100-1",
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard"
+      ],
+      "started": 1793884732.182953,
+      "state": "finished",
+      "exit_code": 1,
+      "finished": 1793884851.778462,
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "restore-size": {
+          "passed": true
+        },
+        "restore-density": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "name": "old-phone100-2",
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "started": 1793884851.779764,
+      "state": "finished",
+      "exit_code": 1,
+      "finished": 1793885063.3723788,
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "restore-size": {
+          "passed": true
+        },
+        "restore-density": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "name": "current-tablet100",
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "started": 1793885063.373795,
+      "state": "finished",
+      "exit_code": 0,
+      "finished": 1793885253.1594188,
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    },
+    {
+      "name": "current-tablet200",
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "started": 1793885253.161914,
+      "state": "finished",
+      "exit_code": 1,
+      "finished": 1793885391.378186,
+      "passes": 1,
+      "failures": 1,
+      "completed": false,
+      "cleanup": {
+        "idle-owned-instrumentation": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "stop-dev.tinycast.android": {
+          "passed": true
+        },
+        "owned-paths": {
+          "passed": true
+        },
+        "palette-bytes": {
+          "passed": true
+        },
+        "restore-font": {
+          "passed": true
+        },
+        "verify-settings": {
+          "passed": true
+        },
+        "profile-installer-marker": {
+          "passed": true
+        },
+        "installed-data-and-evidence": {
+          "passed": true
+        },
+        "verify-unprivileged": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android": {
+          "passed": true
+        },
+        "restore-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "verify-binary-dev.tinycast.android.test": {
+          "passed": true
+        },
+        "release-owner-last": {
+          "passed": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "native-input",
+  "input_mode": "owned",
+  "runner_sha256": "4cef6df9b6f28aafa5e303e72b146dac0f20ac3754d2825d704d42b2c5b5d1e3",
+  "apk_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+  "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+  "methods": [
+    "committedEmojiNavigationAndCaretAreExact",
+    "activeMultilingualCompositionKeepsResultSelection"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "tablet",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "restore-input-method-before-test-apk-stop": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-input-method-after-original-apks": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 2,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.xml": "dda9c6b5a2916c0e3c1282f1fbfecd7a60ca90210727794d012d44e06b99a1b0",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.png": "c9a47e6172bb698d9b4c672c754c6caea6b43faa6f950a04c1c07783773a541c",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation-frame.json": "c89fda5acb65f03ec6fae122d1ec0270fb5d70fca467d361bdcc039cdaebc11a",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.xml": "d69782b962a9dc14f2234f0e032fa7f26e0d0e2c283e6302e733dc24ded1d209",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.png": "dc185383a94dd0b8906cc426fb5c40053890b821f91ace377e7c826d4144dc3b",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range-frame.json": "90fb582ae52bd82daa7dc747e0bd4cf17c64024807d8ef632f303464e1f2fade",
+    "case-committedemojinavigationandcaretareexact.json": "f553228a67b8ba8ba41cf75695bcab1333e67ac416d12adc9c726c16b8a8fd35",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.xml": "aa7939048d19a65ee5452359834b8463f4885daa4d9eff2a56781806d40fbc4c",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.png": "d0aa65887cf448399bbc08ee852fc134e4f414483850f18c576dcf723e34b65a",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition-frame.json": "386677aeb164b77096876bdad86dffc22a44a3cc7fe72b674be113e87e5280b3",
+    "case-activemultilingualcompositionkeepsresultselection.json": "fe254b336e1a00e494b67afa177600c4283a72abbe00fa7c8155ecaaf532a34a"
+  },
+  "preserved_file_count": 573,
+  "ime_restoration_scope": "Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement",
+  "ime_restore_observations": [
+    {
+      "query_ms": 237,
+      "all_raw_fields_equal": false
+    },
+    {
+      "query_ms": 287,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 113,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 175,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 80,
+      "all_raw_fields_equal": true
+    }
+  ]
+}

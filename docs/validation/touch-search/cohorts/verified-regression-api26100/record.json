@@ -1,0 +1,103 @@
+{
+  "completed": true,
+  "expected_negative": false,
+  "suite": "native-input",
+  "input_mode": "owned",
+  "runner_sha256": "4cef6df9b6f28aafa5e303e72b146dac0f20ac3754d2825d704d42b2c5b5d1e3",
+  "apk_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+  "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+  "methods": [
+    "committedEmojiNavigationAndCaretAreExact",
+    "activeMultilingualCompositionKeepsResultSelection"
+  ],
+  "api": 26,
+  "font_scale": 1.0,
+  "layout": "phone",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "restore-input-method-before-test-apk-stop": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-input-method-after-test-apk-removal": {
+      "passed": true
+    },
+    "restore-absence-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-initial-package-absence": {
+      "passed": true
+    }
+  },
+  "passes": 2,
+  "failures": 0,
+  "native_expected_outcome": true,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 58.0.3029.125)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  },
+  "original_font_scale": "null",
+  "captures": {
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.xml": "f84573215d81e18793c26328e13a9fab93329b043455e8720cae12e363e62c22",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation.png": "30a60ad4b6d83a066e2bedd8380c59e14ba06f8636e9eece25a25cd3ab33edc6",
+    "committedemojinavigationandcaretareexact-committed-four-way-navigation-frame.json": "c89fda5acb65f03ec6fae122d1ec0270fb5d70fca467d361bdcc039cdaebc11a",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.xml": "f84573215d81e18793c26328e13a9fab93329b043455e8720cae12e363e62c22",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range.png": "b8de6c919e495e9cff341d0d8ef4955b72d648b34266dfc7a1d814635c4c9182",
+    "committedemojinavigationandcaretareexact-committed-query-selected-range-frame.json": "90fb582ae52bd82daa7dc747e0bd4cf17c64024807d8ef632f303464e1f2fade",
+    "case-committedemojinavigationandcaretareexact.json": "dac1ab016d13c4e716c6c438dd984bd65fb8a12f4787de33709d91260a62c8fc",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.xml": "0ab84983d97b0be271697471728f561102c485eaac3ac88f260fa9c1cf528248",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition.png": "20d8375f3e04cbbaa95d639713ef88bddbce4d0361e19d622caea57c743714a7",
+    "activemultilingualcompositionkeepsresultselection-active-japanese-composition-frame.json": "386677aeb164b77096876bdad86dffc22a44a3cc7fe72b674be113e87e5280b3",
+    "case-activemultilingualcompositionkeepsresultselection.json": "4592fbad4d58da0a8dae402e467e916cb4461bd994812a737bed8350ece672aa"
+  },
+  "ime_restoration_scope": "Four raw secure settings: default, enabled methods, selected subtype and subtype history; verified before test-APK stop and after its removal/replacement",
+  "ime_restore_observations": [
+    {
+      "query_ms": 148,
+      "all_raw_fields_equal": false
+    },
+    {
+      "query_ms": 286,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 83,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 73,
+      "all_raw_fields_equal": true
+    },
+    {
+      "query_ms": 221,
+      "all_raw_fields_equal": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "completed": false,
+  "expected_negative": false,
+  "suite": "touch-search",
+  "input_mode": "system",
+  "runner_sha256": "6df86c7a7d150331e4df7ce467977e7ba053f0fc7494b160c0adaba57d9c1cf4",
+  "apk_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+  "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+  "methods": [
+    "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+  ],
+  "api": 36,
+  "font_scale": 1.0,
+  "layout": "tablet",
+  "cleanup": {
+    "idle-owned-instrumentation": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "stop-dev.tinycast.android": {
+      "passed": true
+    },
+    "owned-paths": {
+      "passed": true
+    },
+    "palette-bytes": {
+      "passed": true
+    },
+    "restore-font": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "profile-installer-marker": {
+      "passed": true
+    },
+    "installed-data-and-evidence": {
+      "passed": true
+    },
+    "verify-unprivileged": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android": {
+      "passed": true
+    },
+    "restore-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "verify-binary-dev.tinycast.android.test": {
+      "passed": true
+    },
+    "release-owner-last": {
+      "passed": true
+    }
+  },
+  "passes": 0,
+  "failures": 1,
+  "native_expected_outcome": false,
+  "instrumentation_exit_code": 0,
+  "initialization_error": false,
+  "provider_before": [
+    "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)"
+  ],
+  "original_geometry": {
+    "size": "Physical size: 1920x1200",
+    "density": "Physical density: 240"
+  },
+  "original_font_scale": "1.0",
+  "captures": {
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.xml": "800490c8afbc0ceed7d08c68767a5f96995f494c1318545d93d42a2909b6c8d2",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.png": "0f01973c79cbab7dd04deb1d692e1c34fe7dc442205587c0cd6362bc2b1e13bb",
+    "emojitouchclearpreservescategorygeometryandkeyboard-hidden-before-frame.json": "ef48f0bc2b3731ef50b0244388a84e5c826166280578e7dde02d95cdbd698ac4",
+    "emojitouchclearpreservescategorygeometryandkeyboard-case.json": "9ae6a82f564b24bc304dd74e0dca1ce5233c3daf8d3fd5a57ae9b0fa3466e44e"
+  },
+  "preserved_file_count": 573
+}

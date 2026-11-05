@@ -1,0 +1,106 @@
+{
+  "scope": "Owned launcher\/Emoji pointer Clear; editor and IME visibility setup are controlled, not physical typing",
+  "case": "emojiTouchClearPreservesCategoryGeometryAndKeyboard",
+  "api": 26,
+  "font_scale": 1,
+  "completed": true,
+  "events": [
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": false
+    },
+    {
+      "kind": "empty-state-before-clear",
+      "search": "emoji-search",
+      "ime_visible": false,
+      "expected_query_matches": true,
+      "result_count": 0
+    },
+    {
+      "kind": "empty-feedback-visibility",
+      "palette_height_px": 1247,
+      "constrained_by_ime": false,
+      "displayed": true,
+      "known_layout_gap": null
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        578,
+        106,
+        704,
+        232
+      ],
+      "search": [
+        163,
+        106,
+        578,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1342
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "explicit-ime-visibility-setup",
+      "visible": true
+    },
+    {
+      "kind": "empty-state-before-clear",
+      "search": "emoji-search",
+      "ime_visible": true,
+      "expected_query_matches": true,
+      "result_count": 0
+    },
+    {
+      "kind": "empty-feedback-visibility",
+      "palette_height_px": 927,
+      "constrained_by_ime": false,
+      "displayed": true,
+      "known_layout_gap": null
+    },
+    {
+      "kind": "target-geometry",
+      "tag": "emoji-search-clear",
+      "target": [
+        578,
+        106,
+        704,
+        232
+      ],
+      "search": [
+        163,
+        106,
+        578,
+        232
+      ],
+      "palette": [
+        32,
+        95,
+        1048,
+        1022
+      ],
+      "density": 2.625
+    },
+    {
+      "kind": "emoji-launcher-origin",
+      "emoji": [
+        163,
+        106,
+        749,
+        232
+      ],
+      "launcher": [
+        164,
+        106,
+        880,
+        232
+      ]
+    }
+  ]
+}

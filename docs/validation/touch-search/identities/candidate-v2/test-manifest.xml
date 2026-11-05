@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:compileSdkVersion="36"
+    android:compileSdkVersionCodename="16"
+    package="dev.tinycast.android.test"
+    platformBuildVersionCode="36"
+    platformBuildVersionName="16">
+
+    <uses-sdk
+        android:minSdkVersion="26"
+        android:targetSdkVersion="36" />
+
+    <instrumentation
+        android:label="Tests for dev.tinycast.android"
+        android:name="androidx.test.runner.AndroidJUnitRunner"
+        android:targetPackage="dev.tinycast.android"
+        android:handleProfiling="false"
+        android:functionalTest="false" />
+
+    <queries>
+
+        <package
+            android:name="androidx.test.orchestrator" />
+
+        <package
+            android:name="androidx.test.services" />
+
+        <package
+            android:name="com.google.android.apps.common.testing.services" />
+    </queries>
+
+    <uses-permission
+        android:name="android.permission.REORDER_TASKS" />
+
+    <application
+        android:debuggable="true"
+        android:extractNativeLibs="false">
+
+        <service
+            android:name="dev.tinycast.android.NativeInputTestIme"
+            android:permission="android.permission.BIND_INPUT_METHOD"
+            android:exported="true"
+            android:process=":owned_native_input_ime">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.view.InputMethod" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@ref/0x7f0b0000" />
+        </service>
+
+        <provider
+            android:name="dev.tinycast.android.OwnedFormDocumentsProvider"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
+            android:exported="true"
+            android:authorities="dev.tinycast.android.test.formdocuments"
+            android:grantUriPermissions="true">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
+        <activity
+            android:theme="@ref/0x1030055"
+            android:name="dev.tinycast.android.FormDocumentsFixtureActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="dev.tinycast.android.ReviewedTextCallerActivity"
+            android:exported="true"
+            android:taskAffinity="dev.tinycast.android.test.textcaller"
+            android:launchMode="2"
+            android:windowSoftInputMode="0x13" />
+
+        <activity
+            android:name="dev.tinycast.android.ClipboardRecoveryActivity"
+            android:exported="true"
+            android:taskAffinity="dev.tinycast.android.test.clipboardrecovery"
+            android:launchMode="2"
+            android:windowSoftInputMode="0x3" />
+
+        <activity
+            android:theme="@ref/0x7f090009"
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+            android:exported="true">
+
+            <intent-filter
+                android:priority="-100">
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:theme="@ref/0x7f090009"
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+            android:exported="true">
+
+            <intent-filter
+                android:priority="-100">
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:theme="@ref/0x7f090008"
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+            android:exported="true">
+
+            <intent-filter
+                android:priority="-100">
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

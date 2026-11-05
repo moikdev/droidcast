@@ -1,0 +1,479 @@
+{
+  "final_positive_executions": 25,
+  "final_whole_cohorts": 11,
+  "final_cleanup_checks": 171,
+  "final_control_failures": 5,
+  "final_control_passes": 0,
+  "final_control_cohorts": 5,
+  "final_control_cleanup_checks": 79,
+  "all_retained_executions": 65,
+  "all_retained_raw_passes": 47,
+  "all_retained_failures": 18,
+  "successful_cohort_cleanup_checks": 494,
+  "failed_post_test_protocol": {
+    "raw_junit_passes": 2,
+    "raw_junit_failures": 0,
+    "failed_cleanup_checks": 1,
+    "completed": false,
+    "final_credit": 0
+  },
+  "zero_test_preflight_attempts": 1,
+  "selected_png_xml_frame_sets": 92,
+  "retained_capture_files": 653,
+  "separate_recovery_checks": {
+    "preflight": 18,
+    "post_test": 33,
+    "launcher_anr": 6
+  },
+  "separate_final_preservation_checks": 14,
+  "scope": "Final credit only uses app974b/test54a/current controller. All older harnesses and failed protocols are excluded. Clear uses the selected system IME; native-input regression cases use the explicitly owned silent test IME. Constrained empty-feedback visibility remains open in#111; v7 scopes that body assertion, keeping all Clear assertions mandatory.",
+  "cohorts": [
+    {
+      "name": "old-tablet100-1",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "old-tablet100-2",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "old-phone100-1",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "old-phone100-2",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "current-tablet100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "e143a921f4adb69551ad327ee252ffb7008b207ae1b814542f980dd8c17a7a34",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "current-tablet200",
+      "passes": 1,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "e143a921f4adb69551ad327ee252ffb7008b207ae1b814542f980dd8c17a7a34",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "spacing-control-tablet200",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "e143a921f4adb69551ad327ee252ffb7008b207ae1b814542f980dd8c17a7a34",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "legacy-independent-phone100",
+      "passes": 5,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard",
+        "pointerClearRemovesControlledCompositionAndWhitespace",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "cleanup_checks": 10,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "ready-tablet200",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "ready-tablet100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "ready-phone100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "ready-phone200",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "ready-landscape100",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "f79e5337c1fdb40c955bb771ef314007c0b1028ee9fd14a6fec087caad8112a6",
+      "credit": "historical"
+    },
+    {
+      "name": "diagnostic-landscape100-v6",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "700348aa86aae44801d679f0496dfd745bfb23855b15b9730bb0e19f6acbc8bc",
+      "credit": "historical"
+    },
+    {
+      "name": "verified-phone200",
+      "passes": 0,
+      "failures": 2,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "historical"
+    },
+    {
+      "name": "verified-api26-phone100",
+      "passes": 4,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard",
+        "pointerClearRemovesControlledCompositionAndWhitespace",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "cleanup_checks": 10,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "historical"
+    },
+    {
+      "name": "verified-landscape100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-landscape200",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-tablet100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-tablet200",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-phone100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-phone200-after-launcher-anr",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-guards-tablet100",
+      "passes": 3,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "pointerClearRemovesControlledCompositionAndWhitespace",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-api26-established-clear-phone100",
+      "passes": 4,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "cleanup_checks": 10,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-regression-tablet100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-regression-phone100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "cleanup_checks": 19,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "verified-regression-api26100",
+      "passes": 2,
+      "failures": 0,
+      "completed": true,
+      "cases": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "cleanup_checks": 12,
+      "app_sha256": "974b2faadb54b23d5f2d259371943379f7b372c7ad14651f898ee0a82959d750",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-positive"
+    },
+    {
+      "name": "final-old-tablet100-1",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-control"
+    },
+    {
+      "name": "final-old-tablet100-2",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-control"
+    },
+    {
+      "name": "final-old-phone100-1",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-control"
+    },
+    {
+      "name": "final-old-phone100-2",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 17,
+      "app_sha256": "ae03c859cbdb5177796b6ed559a8db20b210d2919b2f5c9e4bf5d4694ac4ec71",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-control"
+    },
+    {
+      "name": "final-spacing-control-tablet200",
+      "passes": 0,
+      "failures": 1,
+      "completed": false,
+      "cases": [
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "cleanup_checks": 15,
+      "app_sha256": "e143a921f4adb69551ad327ee252ffb7008b207ae1b814542f980dd8c17a7a34",
+      "test_apk_sha256": "54a86c606faa86f45c6e467631d90df72462e7d4b72e1f28a9a531c032e366e1",
+      "credit": "current-control"
+    }
+  ]
+}

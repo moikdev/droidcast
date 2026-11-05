@@ -1,0 +1,54 @@
+{
+  "actual_failed_cohort": "verified-phone200",
+  "window_observation_after_completed_cleanup": [
+    "Window #6 Window{a314494 u0 Application Not Responding: com.google.android.apps.nexuslauncher}:",
+    "WindowStateAnimator{9f63985 Application Not Responding: com.google.android.apps.nexuslauncher}:",
+    "mAnimationIsEntrance=true      mSurface=Surface(name=Application Not Responding: com.google.android.apps.nexuslauncher)/@0x53b33da"
+  ],
+  "launcher_package": [
+    "package:com.google.android.apps.nexuslauncher"
+  ],
+  "retained_capture_dialogs": [
+    {
+      "capture": "artifacts/touch-clear/verified-phone200/captures/emojitouchclearpreservescategorygeometryandkeyboard-hidden-before.xml",
+      "dialog_nodes": [
+        [
+          "android",
+          "android:id/alertTitle",
+          "Pixel Launcher isn't responding"
+        ],
+        [
+          "android",
+          "android:id/aerr_close",
+          "Close app"
+        ],
+        [
+          "android",
+          "android:id/aerr_wait",
+          "Wait"
+        ]
+      ]
+    },
+    {
+      "capture": "artifacts/touch-clear/verified-phone200/captures/launchertouchclearpreservesfocuscategoryandkeyboard-hidden-before.xml",
+      "dialog_nodes": [
+        [
+          "android",
+          "android:id/alertTitle",
+          "Pixel Launcher isn't responding"
+        ],
+        [
+          "android",
+          "android:id/aerr_close",
+          "Close app"
+        ],
+        [
+          "android",
+          "android:id/aerr_wait",
+          "Wait"
+        ]
+      ]
+    }
+  ],
+  "scope": "Both failed pre-action PNG/XML sets visibly contain Pixel Launcher not-responding dialog above Droidcast. App-window focus was not measured in the failed case receipt; the dialog is direct evidence of an obstructing external window. No production repair or failure-to-pass conversion is claimed."
+}

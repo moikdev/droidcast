@@ -98,7 +98,11 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
             return@PaletteMenuHost
         }
         if (store.dialog == "emoji") {
-            EmojiPicker(store.emoji, { store.dialog = null; store.focusEpoch++ }, { copy(it); store.message = null })
+            val emojiEpoch = store.focusEpoch
+            EmojiPicker(store.emoji, emojiEpoch,
+                { store.dialog == "emoji" && store.focusEpoch == emojiEpoch && store.textReview == null &&
+                    !store.backupBusy && ShortcutRuntime.recordingOwner == null },
+                { store.dialog = null; store.focusEpoch++ }, { copy(it); store.message = null })
             return@PaletteMenuHost
         }
         val focus = remember { FocusRequester() }
@@ -110,6 +114,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val paletteMenus = LocalPaletteMenus.current
         val view = LocalView.current
         val windowFocused = LocalWindowInfo.current.isWindowFocused
+        val searchEpoch = store.focusEpoch
         var searchFocused by remember { mutableStateOf(false) }
         var keyboardRequested by launcherKeyboard
         val list = launcherList
@@ -278,6 +283,13 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                         textStyle=TextStyle(color=PaletteTheme.ink,fontSize=20.sp,lineHeight=26.sp),singleLine=true,cursorBrush=SolidColor(PaletteTheme.accent),
                         keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search,showKeyboardOnFocus=!wide || keyboardRequested),keyboardActions=KeyboardActions(onSearch={activateCurrent()}),
                         decorationBox={inner -> Box(Modifier.fillMaxWidth().heightIn(min=48.dp),contentAlignment=Alignment.CenterStart){if(store.query.isEmpty())Text("Search for apps and commands…",color=PaletteTheme.secondary,fontSize=20.sp,lineHeight=26.sp,maxLines=1,overflow=TextOverflow.Ellipsis);inner()}})
+                    SearchClearButton(store.query.isNotEmpty(), Triple(store, searchEpoch, windowFocused), "search-clear",
+                        current = { store.query.isNotEmpty() && store.focusEpoch == searchEpoch && store.dialog == null &&
+                            store.textReview == null && !store.backupBusy && ShortcutRuntime.recordingOwner == null &&
+                            view.hasWindowFocus() && !menu && paletteMenus.current == null }) {
+                        searchValue = TextFieldValue("")
+                        store.search("")
+                    }
                     if(wide) IconButton(onClick={keyboardRequested=true;focus.requestFocus();keyboard?.show()},modifier=Modifier.size(48.dp).semantics{contentDescription="Show on-screen keyboard"}){Glyph("keyboard",PaletteTheme.tertiary,16)}
                 }
                 if (store.category == "Files") FileSearchToolbar(store, run)
