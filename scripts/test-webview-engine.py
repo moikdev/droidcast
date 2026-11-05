@@ -40,6 +40,8 @@ INPUT_CASES = ['recordDefaultImeAndControlledCompositionNavigation',
                'largeDraftRestoresExactCharactersAfterRecreation']
 CONTRACT_CASES = INPUT_CASES[5:]
 OWNED_IME = TEST + '/dev.tinycast.android.NativeInputTestIme'
+IME_SETTING_KEYS = ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype',
+                    'input_methods_subtype_history')
 
 
 def require(value, message):
@@ -127,6 +129,14 @@ def main():
     def text(*args):
         return raw(*args).decode().strip()
 
+    def read_input_method_settings():
+        # One ADB round trip observes this settings group. Four separate remote
+        # sessions could exhaust the restoration deadline before confirmation.
+        values = raw('shell', 'for key in ' + ' '.join(IME_SETTING_KEYS) +
+                     '; do settings get secure "$key"; done', timeout=10).decode().splitlines()
+        require(len(values) == len(IME_SETTING_KEYS), 'Invalid grouped input method settings response')
+        return dict(zip(IME_SETTING_KEYS, values))
+
     def absent(path):
         # API26 run-as cannot exec toybox's `test` symlink. The shell builtin
         # preserves silent 0/1 semantics without treating transport errors as absence.
@@ -166,9 +176,7 @@ def main():
     size = text('shell', 'wm', 'size'); density = text('shell', 'wm', 'density')
     require('Override' not in size + density, 'An existing geometry override has an owner')
     font = text('shell', 'settings', 'get', 'system', 'font_scale')
-    ime_settings = {key: text('shell', 'settings', 'get', 'secure', key) for key in
-                    ('default_input_method', 'enabled_input_methods', 'selected_input_method_subtype',
-                     'input_methods_subtype_history')} if a.input_mode == 'owned' else None
+    ime_settings = read_input_method_settings() if a.input_mode == 'owned' else None
     if ime_settings:
         require(re.fullmatch(r'[A-Za-z0-9_.]+/[A-Za-z0-9_.$]+', ime_settings['default_input_method']), 'A restorable original input method is required')
         require(not any(OWNED_IME in value for value in ime_settings.values()), 'An existing owned IME activation/history has a recovery owner')
@@ -210,7 +218,7 @@ def main():
     def verify_owner():
         require(json.loads(raw('exec-out', 'run-as', APP, 'cat', lease + '/owner.json')) == owner, 'Recovery owner changed')
     def verify_input_method():
-        require({key: text('shell', 'settings', 'get', 'secure', key) for key in ime_settings} == ime_settings,
+        require(read_input_method_settings() == ime_settings,
                 'Original input method settings changed after test APK restoration')
     if not legacy:
         claim(); lease_claimed = True
@@ -286,12 +294,17 @@ def main():
                     raw('shell', 'ime', 'disable', OWNED_IME)
                     deadline = time.monotonic() + 5
                     stable = None
+                    samples = r.setdefault('ime_restore_observations', [])
                     while time.monotonic() < deadline:
-                        current = {key: text('shell', 'settings', 'get', 'secure', key) for key in ime_settings}
+                        started = time.monotonic()
+                        current = read_input_method_settings()
+                        observed = time.monotonic()
+                        samples.append({'query_ms': round((observed - started) * 1000),
+                                        'all_raw_fields_equal': current == ime_settings})
                         if current == ime_settings:
                             if stable is None:
-                                stable = time.monotonic()
-                            if time.monotonic() - stable >= .5:
+                                stable = observed
+                            if observed - stable >= .5:
                                 return
                         else:
                             stable = None
