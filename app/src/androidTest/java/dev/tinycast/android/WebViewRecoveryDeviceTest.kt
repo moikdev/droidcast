@@ -263,12 +263,12 @@ class WebViewRecoveryDeviceTest {
                 bridge = runtime.Bridge()
                 runtime.Bridge().render("{\"type\":\"List\",\"children\":[]}")
                 val response = JSONObject(bridge.invokeSync("fs", "exists", arguments))
+                record.put("supported_probe_operation", "fs.exists").put("owned_probe_file_exists", true)
+                    .put("preflight_response_ok", response.getBoolean("ok"))
                 assertFalse("Supported fs.exists must remain blocked before approval", response.getBoolean("ok"))
                 assertNull(catalog.runtimeTree)
                 runtime.dispatch("not-approved")
                 record.put("preflight_bridge_render_rejected", true).put("preflight_host_api_rejected", true)
-                    .put("supported_probe_operation", "fs.exists").put("owned_probe_file_exists", true)
-                    .put("preflight_response_ok", response.getBoolean("ok"))
                 if (Build.VERSION.SDK_INT == 36) runtime.start()
             }
             if (Build.VERSION.SDK_INT == 36) {
@@ -278,10 +278,11 @@ class WebViewRecoveryDeviceTest {
                     assertNull(activity.store.extensions.runtimeError)
                     assertTrue(runtime.isCurrentInvocation())
                     val response = JSONObject(bridge.invokeSync("fs", "exists", arguments))
+                    record.put("approved_response_ok", response.getBoolean("ok"))
+                        .put("approved_owned_file_exists", response.optBoolean("value"))
                     assertTrue("The same supported probe succeeds after actual approval", response.getBoolean("ok"))
                     assertTrue("The same owned fixture still exists", response.getBoolean("value"))
-                    record.put("approved_response_ok", true).put("approved_owned_file_exists", true)
-                        .put("same_engine_bridge_operation_and_arguments", true)
+                    record.put("same_engine_bridge_operation_and_arguments", true)
                 }
             } else record.put("approved_control_scope", "The paired approved control runs on API36; this actual API26 engine cannot pass preflight")
         } finally {
