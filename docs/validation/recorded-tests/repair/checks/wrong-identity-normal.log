@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<checkout>/artifacts/compatibility-view/repair-v2/wrong-identity-control.py", line 63, in <module>
+    require(wh['apk_hashes']['app-debug-androidTest.apk']==wr['test_apk_sha256'] and wh['apk_hashes']['app-debug.apk']==wr['apk_sha256'] and wh['runtime_source_commit']==w['installed_build_commit'], 'Weather source identity does not match the cohort APKs')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>/artifacts/compatibility-view/repair-v2/wrong-identity-control.py", line 11, in require
+    if not condition: raise ValueError(message)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Weather source identity does not match the cohort APKs

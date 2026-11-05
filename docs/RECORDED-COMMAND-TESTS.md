@@ -56,85 +56,104 @@ identity or explicit absence; and pinned case/report links. Earlier failures are
 kept alongside later observations. Missing WebView metadata is not inferred.
 
 The read-only `scripts/verify-recorded-workflow-catalog.py` reconstructs the exact
-asset and its source bindings from sixteen pinned historical Git objects and
+asset and its source bindings from seventeen pinned historical Git objects and
 the independent complete-payload vectors. It requires full repository history
 and runs no app, Store or service code. The bindings live in
 `docs/validation/recorded-tests/catalog-sources.json`.
 
-## Validation
+## Provenance correction and current validation
 
-The frozen debug app is `105764d9…718f`, built from `7902c2a6`. Production/build
-sources remain identical at the final harness head. The main tablet/phone cohorts
-use instrumentation `e5b4ca91…ba4d` from `7902c2a6`; the four focused critical
-cohorts use `d8926e88…3b74` from `0e7cd99e`. These are distinct APKs, beyond build
-stamps. The final two harness transitions each change `classes3.dex` only; no
-stamp-only equivalence is inferred. All ten pre-existing packaged assets and
-notices remain byte-identical; the historical catalog is one new Android source asset. Benchmark packaging
-also generates `baseline.prof` and `baseline.profm`; their separate hashes are
-recorded without claiming they are unchanged runtime assets.
+The first correctness audit at `26d80073` found a P2 in the Tokyo Weather record:
+it paired v3 APK `e26b3fe6…969d` with v4 test source `74da77a4`. Both original
+Weather cohorts actually use v3 source `d806004e`. The corrected catalog selects
+the v3 identity, requires its app/test APKs and runtime source to agree with the
+cohort, and checks that the phone cohort uses the same binaries. The menu-bar
+projection also checks its source identity against its cohort APKs. The only
+catalog-value change is Weather's test-source commit; workflow outcomes, source
+payloads and limitations remain unchanged.
 
-| API 36 emulator viewport | Font | Credited native cases | Restoration checks |
+A new JVM regression compares the shipped Weather environment against the
+retained v3 identity. Host negative controls reject both a substituted v4
+identity and the originally shipped bad catalog in normal and optimized Python.
+These are host provenance checks, not Android workflow executions.
+
+The corrected frozen app is `caf6ee93…c801`, built from `d1c48cb4`, with common
+instrumentation `120bed06…3b99` from the same source. Production Kotlin/Java,
+manifest and build source files are unchanged from the initial implementation;
+the one changed Android source asset contains the corrected historical field.
+Generated APK manifest/DEX stamps also differ, so binary equivalence is not
+assumed. All ten original source assets/notices remain unchanged. Benchmark
+packaging additionally generates two dexopt profiles, recorded separately.
+
+| API 36 emulator viewport | Font | Current native cases | Restoration checks |
 |---|---:|---:|---:|
-| Tablet 1920×1200 / 240 dpi | 100% | 10 | 18 |
-| Phone 1080×2340 / 420 dpi | 100% | 10 | 20 |
-| Short landscape 2340×1080 / 420 dpi | 100% | 2 | 20 |
-| Tablet | 200% | 2 | 18 |
-| Phone | 200% | 2 | 20 |
-| Short landscape | 200% | 2 | 20 |
-| **Total** | | **28 / six whole cohorts** | **116** |
+| Tablet 1920×1200 / 240 dpi | 100% | 11 | 18 |
+| Phone 1080×2340 / 420 dpi | 100% | 11 | 20 |
+| Short landscape 2340×1080 / 420 dpi | 100% | 3 | 20 |
+| Tablet | 200% | 3 | 18 |
+| Phone | 200% | 3 | 20 |
+| Short landscape | 200% | 3 | 20 |
+| **Total** | | **34 / six whole cohorts** | **116** |
 
-All use the dedicated `Tinycast_Tablet_API_36` emulator; these are resized
-viewports, not six physical devices. The main cases cover all nine complete
-source copies, known/unknown/changed/missing/linked files, search/details/return,
-queued action rejection and explicit unavailable/report-error rendering. The
-critical cases check four selected natural-text strings, non-ellipsized layouts,
-complete line reachability and full 48 dp keyboard targets above the observed
-IME. The fixed search remains available while results scroll. A very short
-IME-constrained palette uses the existing outer route scroll to expose chrome;
-prose checks use explicit closed-IME setup. Text replacement and semantic
-positioning are setup; they do not prove physical typing or pointer navigation
-to every text line. Separate pointer protocols show and hide the actual IME.
+Every profile checks the actual displayed historical test source and APK,
+including targeted identity-line layout/reachability checks. The source-only
+checkpoint can sit at a scroll edge; the later APK checkpoint shows both fields.
+Viewport snapshots do not claim every line is simultaneously visible. The main cohorts also cover nine
+complete source copies, known/unknown/changed/missing/linked files,
+search/details/return, queued action rejection and explicit error rendering.
+The focused cases check selected natural-text strings and complete 48 dp
+keyboard targets above the observed IME. The dedicated
+`Tinycast_Tablet_API_36` emulator is resized; these are not six physical devices.
+Very short IME-constrained palettes use the existing outer route scroll for
+chrome. Semantic text/positioning and explicit focus/IME setup do not certify
+physical typing or pointer navigation to every text line. Separate pointer
+protocols show and hide the actual IME.
 
-There are **four matched negative controls / zero JUnit passes / 76 restoration
-checks**. Two old `08210fa2` app controls reach the missing Recorded tests entry.
-Two intermediate `3d963614` app controls reach the intended offscreen-search
-assertion. Their common instrumentation is exactly `e5b4ca91…ba4d`, also used by
-the repaired main cohorts. The first tablet sticky-control host classifier
-mistakenly expected selector text that `assertIsDisplayed` does not print; its
-failed log and separate source-bound classification remain preserved. The
-native outcome was never changed or rerun for that classification.
+Two identical-instrumentation old-catalog controls have **zero JUnit passes / 38
+restoration checks**. They display the original `74da77a4` source beside the v3
+APK, capture both fields, and fail the intended source/APK assertion. The
+repaired app passes with the same instrumentation. No Weather command or
+service is executed by these viewer tests.
 
-Retained failures are not folded into the final matrix. They include an old-app
-class-loading failure before fixture setup, a fixture-launch/cleanup assertion
-failure, the initial exact-versus-substring assertion, the original **5/9**
-tablet cohort, and the **0/2**, **0/2** and **1/2** landscape cohorts. Compact
-navigation, lazy realization and delayed editor-IME setup were corrected in the
-harness on the **identical production APK**. These corrections earn no app-repair
-credit. Six earlier focused passes retain their earlier harness and are not
-counted again. The earlier missing-entry control retains its own identity.
+The initial-catalog **28 positives / six cohorts / 116 checks** and its four
+matched UI negatives / zero passes / 76 checks are retained separately. They
+support initial viewer behavior, not verification of the incorrect Weather
+field, and are not credited to the repaired app. Their original checkpoint and
+catalog-source map are preserved byte-for-byte; prior checkpoint paths resolve
+against Git commit `26d80073`. The current checkpoint separately binds the
+repaired source tree and catalog.
+
+Historical failures remain excluded: an old-app class-loading failure before
+fixture setup, a launch/cleanup assertion, an exact-versus-substring assertion,
+the original **5/9** tablet cohort, and **0/2**, **0/2**, **1/2** landscape cohorts.
+Compact navigation, lazy realization and delayed editor-IME setup were harness
+corrections on the identical initial app, with no production-repair credit.
+Superseded focused passes and the earlier entry control keep their identities.
+The first sticky-control classifier expected selector text that
+`assertIsDisplayed` did not print; its failed log and separate source-bound
+classification remain preserved without changing the native outcome.
 
 The original parser unit fixture also remains failed: serializing a floating
-value normalized it to an integer. Supplying the literal raw floating token
-corrected the test input; this was not a production parser repair. Current
-receipts support **335 debug JVM cases / zero failures, errors or skips**,
-**118 Python cases per mode**, normal/optimized catalog reconstruction, successful
-debug/benchmark app and instrumentation builds, and lint **0 errors / 56 warnings
-per variant**. Later native-only builds reuse the unchanged JVM/runtime inputs
-and unchanged lint-report bytes; their compilation/analysis logs are separate.
-Benchmark device execution and Node reruns are not claimed.
+value normalized it to an integer. Supplying a literal floating token corrected
+the test input, not production parsing. Current receipts support **336 debug JVM
+passes / zero errors or skips**, **118 Python cases per mode**, normal/optimized
+catalog reconstruction, successful debug/benchmark app/test builds, and lint
+**0 errors / 56 warnings per variant**. Benchmark device execution and Node
+reruns are not claimed.
 
-The [checkpoint](validation/recorded-tests/checkpoint.json) indexes 294 public files plus itself, 38 raw triplets, 322 retained capture hashes and 225 source hashes. It binds current and
-historical sources, APK hashes, selected raw PNG/XML/frame triplets, all retained
-capture hashes, exact redactions and allowlisted host projections. Raw captures
-are unedited, including XML CRLF bytes. Private clipboard snapshots, originals,
-owner metadata and backups are not published. Independent recovery and final
-preservation checks retain the original **12 durable files and 528 evidence
-files**, ordinary UIDs, preferences, geometry and settings. This does not
-independently certify unseen private originals or cross-boot recovery.
+The [checkpoint](validation/recorded-tests/checkpoint.json) indexes 469 public files plus itself, 58 raw triplets, 544 retained capture hashes and 225 current source hashes. It records the current
+and retained source/APK identities, raw PNG/XML/frame copies, retained capture
+hashes, exact redactions and allowlisted host projections. Raw captures are
+unedited, including XML CRLF. Private clipboard snapshots, originals, owners and
+backups are excluded. Guarded recovery and final preservation verify the same
+**12 durable files and 528 evidence files**, ordinary UIDs, preferences,
+geometry and settings. This does not independently certify unseen private
+originals or cross-boot recovery.
 
 ## Android captures
 
-All captures are real native Android screens. The source copies and modifications
+All captures are real native Android screens. The initial viewer figures below
+retain their `7902c2a6` runtime identity; they are not repaired-catalog executions. The source copies and modifications
 are owned fixtures. Error frames inject a failing local stream or a rejecting
 external-report handler into the production component; they certify rendering
 and explicit intent handling, not a live browser or service failure.
@@ -155,7 +174,21 @@ and explicit intent handling, not a live browser or service failure.
 
 ![200% phone keyboard control above the actual IME](screenshots/recorded-tests/critical-ime-phone200.png)
 
-Actual exact-head hosted CI, local status, both independent sol/high audits and
+### Corrected Weather identity
+
+The before app is `7902c2a6`; the after app is `d1c48cb4`. Both use the same new
+`d1c48cb4` instrumentation and full frozen Weather source copy. These show
+historical identity metadata, not a new Weather service result.
+
+| Before: source/APK mismatch | After: matching v3 identity |
+|---|---|
+| ![Old Weather test source](screenshots/recorded-tests/repair/metadata-old-tablet100-weather-test-apk.png) | ![Corrected Weather test source](screenshots/recorded-tests/repair/native-tablet100-weather-test-apk.png) |
+
+![Corrected historical APK, phone 100%](screenshots/recorded-tests/repair/native-phone100-weather-test-apk.png)
+
+![Corrected source lines, landscape 200%](screenshots/recorded-tests/repair/critical-landscape200-weather-test-apk.png)
+
+Actual exact-head hosted CI, local status, both fresh independent sol/high audits and
 an expected-head merge are separate gates recorded on the implementation PR.
 This change does not close whole-Store/full-Raycast parity, arbitrary provider
 workflows, physical/OEM, TalkBack, production signing, or unresolved #89.
