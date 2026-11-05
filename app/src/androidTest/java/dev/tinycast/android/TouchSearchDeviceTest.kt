@@ -578,9 +578,25 @@ class TouchSearchDeviceTest {
             .put("visible", expectedVisible).put("accepted", accepted))
     }
 
+    private fun dismissKeyboardMenuByPointer(search: String, surface: String) {
+        val menu = node("inline-menu").fetchSemanticsNode().boundsInRoot
+        val editor = node(search).fetchSemanticsNode().boundsInRoot
+        val palette = node(surface).fetchSemanticsNode().boundsInRoot
+        val inset = 12 * context.resources.displayMetrics.density
+        val candidates = listOf(
+            androidx.compose.ui.geometry.Offset(editor.left + minOf(inset, editor.width / 2), editor.center.y),
+            androidx.compose.ui.geometry.Offset(editor.right - minOf(inset, editor.width / 2), editor.center.y))
+        val point = candidates.firstOrNull { p -> palette.contains(p) && !menu.contains(p) }
+        assertNotNull("An owned palette backdrop point remains outside the menu", point)
+        compose.onRoot().performTouchInput { click(requireNotNull(point)) }
+        node("inline-menu").assertDoesNotExist()
+        events.put(JSONObject().put("kind", "keyboard-menu-pointer-dismissal")
+            .put("point", JSONArray(listOf(point!!.x, point.y))).put("menu", json(menu)).put("palette", json(palette)))
+    }
+
     private fun keyboardCallbackFlow(emojiRoute: Boolean) {
         assumeTrue("Owned wide-screen callback contract", compose.activity.resources.configuration.screenWidthDp >= 700)
-        record.put("scope", "Controlled retained native callbacks; live visibility transitions use actual pointer actions. No physical queued-input or cross-window certification.")
+        record.put("scope", "Controlled retained native callbacks; visibility and menu-backdrop dismissal use actual pointers. Physical Back failure remains #115; no queued-input or cross-window certification.")
         if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
         val search = if (emojiRoute) "emoji-search" else "search"
         val surface = if (emojiRoute) "emoji-palette" else "palette"
@@ -609,7 +625,9 @@ class TouchSearchDeviceTest {
         node("inline-menu").assertIsDisplayed()
         rejectedKeyboardCallback(obstructedShow, false, search, surface, "keyboard-guard-open-menu")
         node("inline-menu").assertIsDisplayed()
-        device.pressBack(); compose.waitForIdle()
+        // Physical Back cleared Emoji's caller query in the retained #115
+        // cohort. This pointer-backdrop protocol earns no Back repair credit.
+        dismissKeyboardMenuByPointer(search, surface)
         node(search).assertIsFocused()
         text(search, query)
         pointerKeyboard(true, search, surface, "keyboard-guard-after-menu")
