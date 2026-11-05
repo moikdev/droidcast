@@ -471,7 +471,7 @@ class TouchSearchDeviceTest {
             .put("focused", true).put("ime_visible", ime()).put("route", if (emojiRoute) "emoji" else "launcher"))
     }
 
-    private fun pointerKeyboard(visible: Boolean, search: String, surface: String, phase: String) {
+    private fun pointerKeyboard(visible: Boolean, search: String, surface: String, phase: String, checkLabel: Boolean = true) {
         val before = ime()
         assertEquals("Start with the opposite actual IME state", !visible, before)
         completeFeedbackTarget(keyboardControl(), "Keyboard", surface)
@@ -488,7 +488,7 @@ class TouchSearchDeviceTest {
             .put("label_before", label).put("ime_before", before).put("expected_visible", visible)
             .put("ime_after", ime()).put("reached_expected_state", reached))
         assertTrue(if (visible) "Header keyboard action must reopen the IME" else "Header keyboard action must hide the visible IME", reached)
-        keyboardControl().assertContentDescriptionEquals(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard")
+        if (checkLabel) keyboardControl().assertContentDescriptionEquals(if (visible) "Hide on-screen keyboard" else "Show on-screen keyboard")
     }
 
     private fun keyboardResultTitle(value: String, surface: String) {
@@ -525,7 +525,10 @@ class TouchSearchDeviceTest {
         for ((index, query) in listOf(if (emojiRoute) "face" else "settings", "").withIndex()) {
             feedbackTop(surface); keyboard(false, search)
             node(search).performTextReplacement(query)
-            keyboard(true, search); settledFeedbackViewport(surface)
+            settledFeedbackViewport(surface)
+            // Initial opening is an explicit pointer contract too. Delay the
+            // new state-label assertion until the old app has attempted Hide.
+            pointerKeyboard(true, search, surface, "keyboard-$index-initial-show", checkLabel = false)
             val range = if (query.isEmpty()) TextRange.Zero else TextRange(1, minOf(5, query.length - 1))
             node(search).performTextInputSelection(range)
             keyboardState(search, query, range, emojiRoute, "before-$index")
