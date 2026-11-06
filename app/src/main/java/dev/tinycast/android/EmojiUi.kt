@@ -267,6 +267,9 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 Column(modifier) {
                     Text(selected?.name ?: "Emoji & Symbols", fontSize=12.sp,lineHeight=16.sp,maxLines=2,
                         overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("emoji-selected-name"))
+                    // Phones drop the selection hint once a symbol is selected;
+                    // copy/edit status and the empty-selection hint still show.
+                    if(wide || selected == null || copiedName != null || queryEditing)
                     Text(copiedName ?: if(queryEditing) "Editing query" else if(wide) "Arrows select · Enter copy · Ctrl L edit" else "Tap a symbol to select",
                         fontSize=11.sp,lineHeight=15.sp,color=PaletteTheme.secondary,maxLines=2,overflow=TextOverflow.Ellipsis,
                         modifier=Modifier.semantics { liveRegion=LiveRegionMode.Polite }.testTag("emoji-copy-status"))
@@ -278,7 +281,8 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 }
             }) {
                 Box {
-                    PaletteActionCapsule("Copy to Clipboard",{currentEntry()?.let(::copyEntry)},{actionsMenu=true},"emoji-copy","emoji-actions",compact=!wide,enabled=selected!=null)
+                    PaletteActionCapsule(if(wide) "Copy to Clipboard" else "Copy",{currentEntry()?.let(::copyEntry)},{actionsMenu=true},"emoji-copy","emoji-actions",
+                        compact=!wide,enabled=selected!=null,description="Copy to Clipboard")
                     PaletteChoiceMenu(actionsMenu,{actionsMenu=false},listOf(
                         PaletteChoice("emoji-action-copy","Copy to Clipboard",enabled=selected!=null,shortcut=listOf("↵"),icon="clipboard") { currentEntry()?.let(::copyEntry) },
                         PaletteChoice("emoji-action-favorite",if(selected?.id in store.favorites)"Remove Favorite"else"Add Favorite",enabled=selected!=null,

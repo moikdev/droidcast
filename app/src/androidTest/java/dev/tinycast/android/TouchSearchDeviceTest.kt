@@ -1142,6 +1142,62 @@ class TouchSearchDeviceTest {
         }
     }
 
+    @OptIn(ExperimentalTestApi::class)
+    private fun phoneActionsSheet(emojiRoute: Boolean) {
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        val button = if (emojiRoute) "emoji-actions" else "actions-button"
+        val query = if (emojiRoute) "face" else "settings"
+        val density = context.resources.displayMetrics.density
+        fun within(inner: Rect, outer: Rect) = inner.left >= outer.left - 1 && inner.right <= outer.right + 1 &&
+            inner.top >= outer.top - 1 && inner.bottom <= outer.bottom + 1
+        record.put("scope", "Compact-width Actions sheet geometry with an actual pointer opening and the stock system keyboard shown by the menu's own request. Layout witness only; no physical typing, gesture or TalkBack certification.")
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        node(search).performTextReplacement(query)
+        feedbackTop(surface)
+        assertTrue("Compact palette profile required", rect(surface).width / density < 600)
+        keyboard(false, search)
+        if (emojiRoute) {
+            node("emoji-copy").assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Copy to Clipboard")))
+            capture("sheet-footer", search)
+        }
+        feedbackReveal(node(button), surface)
+        node(button).performTouchInput { click(center) }
+        node("inline-menu").assertIsDisplayed()
+        compose.waitUntil(10000) { ime() }
+        settledFeedbackViewport(surface)
+        capture("sheet-keyboard", search, "caller_search")
+        val palette = rect(surface); val sheet = rect("inline-menu"); val list = rect("inline-menu-choices")
+        val close = rect("inline-menu-close")
+        events.put(JSONObject().put("kind", "action-sheet-geometry").put("palette", json(palette)).put("sheet", json(sheet))
+            .put("choices", json(list)).put("close", json(close)).put("ime_visible", ime()))
+        assertEquals("Sheet docks to the palette bottom", palette.bottom, sheet.bottom, 2f)
+        assertEquals("Sheet spans the palette width", palette.left, sheet.left, 2f)
+        assertEquals("Sheet spans the palette width", palette.right, sheet.right, 2f)
+        assertTrue("Sheet stays inside the palette", sheet.top >= palette.top - 1)
+        node("inline-menu-heading").assertIsDisplayed()
+        assertTrue("Close keeps 48 dp", close.width >= 48 * density - 1 && close.height >= 48 * density - 1)
+        val rows = if (emojiRoute) listOf("emoji-action-copy", "emoji-action-favorite", "emoji-action-unicode")
+            else listOf(compose.onAllNodes(hasAnyAncestor(hasTestTag("inline-menu-choices")) and hasClickAction()).fetchSemanticsNodes().first().config[SemanticsProperties.TestTag])
+        for (tag in rows) {
+            val row = rect(tag)
+            events.put(JSONObject().put("kind", "action-sheet-row").put("tag", tag).put("bounds", json(row)))
+            assertTrue("$tag keeps 52 dp", row.height >= 52 * density - 1)
+            assertTrue("$tag is complete inside the visible list", within(row, list))
+        }
+        node("inline-menu-close").performTouchInput { click(center) }
+        compose.waitForIdle()
+        node("inline-menu").assertDoesNotExist()
+        text(search, query)
+        node(search).assertIsFocused()
+        settledFeedbackViewport(surface)
+        capture("sheet-closed", search)
+        record.put("completed", true)
+    }
+
+    @Test fun emojiActionsSheetDocksAboveKeyboard() = phoneActionsSheet(true)
+    @Test fun launcherActionsSheetDocksAboveKeyboard() = phoneActionsSheet(false)
+
     @Test fun emojiActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(true)
     @Test fun launcherActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(false)
 }
