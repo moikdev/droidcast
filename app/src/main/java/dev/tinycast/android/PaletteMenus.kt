@@ -370,14 +370,17 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                     .semantics { testTagsAsResourceId = true }.testTag("inline-menu")) {
                 Column(Modifier.fillMaxWidth().padding(padding)) {
                     if(sheet) {
-                        Box(Modifier.fillMaxWidth().height(16.dp),contentAlignment=Alignment.Center) {
+                        // Large text and short palettes keep the body's height for
+                        // actions: drop the decorative handle and the subtitle line.
+                        val roomy = density.fontScale <= 1.3f && !compact
+                        if(roomy) Box(Modifier.fillMaxWidth().height(16.dp),contentAlignment=Alignment.Center) {
                             Box(Modifier.size(36.dp,4.dp).background(PaletteTheme.border,RoundedCornerShape(2.dp)))
                         }
                         Row(Modifier.fillMaxWidth().heightIn(min=48.dp).padding(start=12.dp),verticalAlignment=Alignment.CenterVertically) {
                             Column(Modifier.weight(1f)) {
                                 Text(heading ?: "Actions",color=PaletteTheme.ink,fontSize=15.sp,lineHeight=20.sp,fontWeight=androidx.compose.ui.text.font.FontWeight.SemiBold,
                                     maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("inline-menu-heading"))
-                                if(heading != null) Text("Actions",color=PaletteTheme.secondary,fontSize=12.sp,lineHeight=16.sp,maxLines=1)
+                                if(heading != null && roomy) Text("Actions",color=PaletteTheme.secondary,fontSize=12.sp,lineHeight=16.sp,maxLines=1)
                             }
                             IconButton(onClick={ menus.dismiss() },modifier=Modifier.size(48.dp).semantics { contentDescription="Close actions" }.testTag("inline-menu-close")) {
                                 Glyph("close",PaletteTheme.secondary,20)
