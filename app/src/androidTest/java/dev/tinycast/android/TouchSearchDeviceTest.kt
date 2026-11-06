@@ -1091,9 +1091,10 @@ class TouchSearchDeviceTest {
             compose.waitUntil(10000) { ime() == requested }
             settledFeedbackViewport(surface)
             events.put(JSONObject().put("kind", "action-menu-open-keyboard").put("requested", requested).put("ime_visible", ime()))
-            // Compact palettes present the sheet; wide layouts keep the anchored popover.
-            if (rect(surface).width / density < 600) node("inline-menu-close").assertExists()
-            else {
+            // Wide layouts keep the anchored popover. Compact presentation is
+            // asserted by phoneActionsSheet, so old-app Back controls still reach
+            // their first-Back assertion here.
+            if (rect(surface).width / density >= 600) {
                 node("inline-menu-close").assertDoesNotExist()
                 assertTrue("Wide layouts keep the anchored popover", rect("inline-menu").width < rect(surface).width - 1)
             }
@@ -1169,14 +1170,7 @@ class TouchSearchDeviceTest {
         assertTrue("Compact palette profile required", rect(surface).width / density < 600)
         keyboard(false, search)
         val (selectedId, selectedTitle) = selected()
-        if (emojiRoute) {
-            node("emoji-copy").assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Copy to Clipboard")))
-                .assert(hasText("Copy"))
-            // The polite live region exists before any copy, empty while a symbol is selected.
-            node("emoji-copy-status").assertExists().assertTextEquals("")
-                .assert(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite))
-            capture("sheet-footer", search)
-        }
+        if (emojiRoute) capture("sheet-footer", search)
         fun sheetGeometry(phase: String, keyboardShown: Boolean) {
             val palette = rect(surface); val sheet = rect("inline-menu"); val list = rect("inline-menu-choices")
             val top = imeTop()
@@ -1236,6 +1230,14 @@ class TouchSearchDeviceTest {
         menuBackdrop(surface)
         compose.waitForIdle()
         callerKept("backdrop")
+        if (emojiRoute) {
+            // Phone footer: short visible label, full accessible name, and a polite
+            // live region that exists before any copy (empty while a symbol is selected).
+            node("emoji-copy").assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Copy to Clipboard")))
+                .assert(hasText("Copy"))
+            node("emoji-copy-status").assertExists().assertTextEquals("")
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite))
+        }
         record.put("completed", true)
     }
 
