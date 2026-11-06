@@ -23,6 +23,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.TextLayoutResult
