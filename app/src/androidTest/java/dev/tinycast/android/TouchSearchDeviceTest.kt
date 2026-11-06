@@ -1188,7 +1188,8 @@ class TouchSearchDeviceTest {
             assertTrue("Sheet stays inside the palette", sheet.top >= palette.top - 1)
             if (keyboardShown) assertTrue("Sheet sits above the keyboard", sheet.bottom <= top + 1)
             val rows = if (emojiRoute) listOf("emoji-action-copy", "emoji-action-favorite", "emoji-action-unicode")
-                else listOf(compose.onAllNodes(hasAnyAncestor(hasTestTag("inline-menu-choices")) and hasClickAction()).fetchSemanticsNodes().first().config[SemanticsProperties.TestTag])
+                else listOf(compose.onAllNodes(hasAnyAncestor(hasTestTag("inline-menu-choices")) and hasClickAction() and !hasTestTag("inline-menu-close"))
+                    .fetchSemanticsNodes().first().config[SemanticsProperties.TestTag])
             for (tag in rows) {
                 val row = rect(tag)
                 events.put(JSONObject().put("kind", "action-sheet-row").put("phase", phase).put("tag", tag).put("bounds", json(row)))
