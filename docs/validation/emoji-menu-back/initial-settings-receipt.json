@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "emulator-5580-owned-avd": true,
+    "emulator-5580-api": true,
+    "emulator-5580-unprivileged": true,
+    "emulator-5580-idle": true,
+    "emulator-5598-owned-avd": true,
+    "emulator-5598-api": true,
+    "emulator-5598-unprivileged": true,
+    "emulator-5598-idle": true
+  },
+  "current_four_field_baseline_saved_privately": true,
+  "scope": "Read-only current baseline after PR116; older original pre-probe IME-history identity remains uncertified. No device mutation."
+}

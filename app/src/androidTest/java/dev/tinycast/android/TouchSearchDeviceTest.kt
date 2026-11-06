@@ -3,6 +3,19 @@ package dev.tinycast.android
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
+import android.view.KeyEvent
+import android.view.KeyCharacterMap
+import android.view.InputDevice
+import android.view.Window
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
@@ -76,7 +89,13 @@ class TouchSearchDeviceTest {
 
     private fun keyboard(visible: Boolean, search: String) {
         node(search).assertIsFocused()
-        if (visible && compose.activity.resources.configuration.screenWidthDp >= 700) {
+        val before = ime()
+        val method = if (before == visible) "already-in-requested-state"
+            else if (visible && compose.activity.resources.configuration.screenWidthDp >= 700) "header-pointer"
+            else "native-controller"
+        if (before == visible) {
+            // Repeated setup does not invert a keyboard that is already shown.
+        } else if (visible && compose.activity.resources.configuration.screenWidthDp >= 700) {
             compose.onNodeWithContentDescription("Show on-screen keyboard").performTouchInput { click(center) }
         } else ui { activity ->
             val view = requireNotNull(activity.window.decorView.findFocus())
@@ -87,7 +106,8 @@ class TouchSearchDeviceTest {
         }
         compose.waitUntil(10000) { ime() == visible }
         compose.waitForIdle()
-        events.put(JSONObject().put("kind", "explicit-ime-visibility-setup").put("visible", visible))
+        events.put(JSONObject().put("kind", "explicit-ime-visibility-setup").put("visible", visible)
+            .put("before", before).put("method", method))
     }
 
     private fun text(tag: String, expected: String) {
@@ -121,7 +141,7 @@ class TouchSearchDeviceTest {
         return editor
     }
 
-    private fun capture(phase: String, search: String) {
+    private fun capture(phase: String, search: String, boundsRole: String = "search") {
         compose.waitForIdle(); instrumentation.waitForIdleSync(); device.waitForIdle()
         evidence.mkdirs()
         val stem = "${name.methodName.lowercase()}-$phase"
@@ -129,7 +149,7 @@ class TouchSearchDeviceTest {
         device.dumpWindowHierarchy(File(evidence, "$stem.xml"))
         val bounds = rect(search)
         assertTrue(device.takeScreenshot(File(evidence, "$stem.png")))
-        File(evidence, "$stem-frame.json").writeText(JSONObject().put("phase", phase).put("search", json(bounds))
+        File(evidence, "$stem-frame.json").writeText(JSONObject().put("phase", phase).put(boundsRole, json(bounds))
             .put("ime_visible", ime()).put("api", Build.VERSION.SDK_INT)
             .put("font_scale", compose.activity.resources.configuration.fontScale)
             .put("synchronization", "Compose and UiAutomator idle; hierarchy before PNG; XML geometry is not independent visibility proof")
@@ -139,6 +159,100 @@ class TouchSearchDeviceTest {
     private fun emoji() {
         ui { it.execute(Command("emoji", "Emoji & Symbols", "")) }
         node("emoji-search").assertIsFocused()
+    }
+
+    /** Observe delivery without adding a dispatcher callback or changing key handling. */
+    private fun observeBackWindow(ownedQuery: String = "face", block: () -> Unit) {
+        var original: Window.Callback? = null
+        var observer: Window.Callback? = null
+        var originalTraceProperty: String? = null
+        var traceClaimed = false
+        try {
+            ui { activity ->
+                originalTraceProperty = System.getProperty(PaletteBackTrace.property)
+                check(originalTraceProperty != "true") { "An existing Back trace has another owner" }
+                check(PaletteBackTrace.snapshot().events.isEmpty())
+                System.setProperty(PaletteBackTrace.property, "true")
+                traceClaimed = true
+                val previous = activity.window.callback
+                original = previous
+                fun sample(stage: String, event: KeyEvent, handled: Boolean? = null) {
+                    // This probe owns only this literal query; do not collect unrelated text.
+                    val query = if (activity.store.dialog == "emoji") activity.store.emoji.query else activity.store.query
+                    check(query == ownedQuery || query.isEmpty())
+                    if (events.length() < 256) events.put(JSONObject().put("kind", stage)
+                        .put("action", event.action).put("key_code", event.keyCode)
+                        .put("down_time", event.downTime).put("event_time", event.eventTime)
+                        .put("device_id", event.deviceId).put("source", event.source)
+                        .put("repeat", event.repeatCount).put("canceled", event.isCanceled)
+                        .put("handled", handled ?: JSONObject.NULL)
+                        .put("window_focused", activity.window.decorView.hasWindowFocus())
+                        .put("menu_bookkeeping_open", activity.store.paletteMenuOpen)
+                        .put("query", query).put("route", activity.store.dialog))
+                }
+                val installed = object : Window.Callback by previous {
+                    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+                        if (event.keyCode != KeyEvent.KEYCODE_BACK) return previous.dispatchKeyEvent(event)
+                        sample("back-window-before", event)
+                        val handled = previous.dispatchKeyEvent(event)
+                        sample("back-window-after", event, handled)
+                        return handled
+                    }
+                }
+                observer = installed
+                activity.window.callback = installed
+            }
+            block()
+        } finally {
+            if (traceClaimed) ui { activity ->
+                try {
+                    val trace = PaletteBackTrace.snapshot()
+                    val samples = JSONArray(trace.events.map { sample ->
+                        JSONObject().put("stage", sample.stage).put("uptime_ms", sample.uptime)
+                            .put("action", sample.action ?: JSONObject.NULL)
+                            .put("down_time", sample.downTime ?: JSONObject.NULL)
+                            .put("event_time", sample.eventTime ?: JSONObject.NULL)
+                            .put("repeat", sample.repeat ?: JSONObject.NULL)
+                            .put("canceled", sample.canceled ?: JSONObject.NULL)
+                            .put("menu_open", sample.menuOpen ?: JSONObject.NULL)
+                            .put("query_length", sample.queryLength ?: JSONObject.NULL)
+                            .put("handled", sample.handled ?: JSONObject.NULL)
+                    })
+                    events.put(JSONObject().put("kind", "back-stage-trace").put("enabled", trace.enabled)
+                        .put("dropped", trace.dropped).put("samples", samples))
+                    assertTrue("The owned debug trace must be enabled", trace.enabled)
+                    assertEquals("No Back stage witness may be evicted", 0, trace.dropped)
+                } finally {
+                    try {
+                        assertTrue("Restore only the owned window observer", activity.window.callback === observer || activity.window.callback === original)
+                        if (activity.window.callback === observer) activity.window.callback = requireNotNull(original)
+                        val observerRestored = activity.window.callback === original
+                        events.put(JSONObject().put("kind", "back-window-observer-restored").put("passed", observerRestored))
+                        assertTrue("The original window callback must be restored", observerRestored)
+                    } finally {
+                        PaletteBackTrace.clear()
+                        originalTraceProperty?.let { System.setProperty(PaletteBackTrace.property, it) }
+                            ?: System.clearProperty(PaletteBackTrace.property)
+                        val restored = System.getProperty(PaletteBackTrace.property) == originalTraceProperty &&
+                            PaletteBackTrace.snapshot().events.isEmpty()
+                        events.put(JSONObject().put("kind", "back-trace-property-restored").put("passed", restored))
+                        assertTrue(restored)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun traceMark(): Int { var size = 0; ui { size = PaletteBackTrace.snapshot().events.size }; return size }
+
+    /** Dispatcher callbacks traced since [mark]; one Back press must reach exactly the expected owners. */
+    private fun dispatcherOwners(mark: Int, press: String, expected: List<String>? = null): List<String> {
+        var owners = emptyList<String>()
+        ui { owners = PaletteBackTrace.snapshot().events.drop(mark).map { it.stage }.filter { it.endsWith("-dispatcher-before") } }
+        events.put(JSONObject().put("kind", "back-dispatcher-owners").put("press", press).put("owners", JSONArray(owners))
+            .put("expected", expected?.let { JSONArray(it) } ?: JSONObject.NULL))
+        if (expected != null) assertEquals("Dispatcher owners for $press", expected, owners)
+        return owners
     }
 
     private fun emptyFeedback(node: SemanticsNodeInteraction, palette: String, keyboardVisible: Boolean) {
@@ -682,28 +796,408 @@ class TouchSearchDeviceTest {
         record.put("completed", true)
     }
 
+    private fun menuBackdrop(surface: String) {
+        val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+        val popup = node("inline-menu").fetchSemanticsNode().boundsInRoot
+        val palette = node(surface).fetchSemanticsNode().boundsInRoot
+        val candidates = listOf(
+            androidx.compose.ui.geometry.Offset((root.left + palette.left) / 2, palette.center.y),
+            androidx.compose.ui.geometry.Offset((palette.right + root.right) / 2, palette.center.y),
+            androidx.compose.ui.geometry.Offset(root.center.x, (root.top + palette.top) / 2),
+            androidx.compose.ui.geometry.Offset(root.center.x, (palette.bottom + root.bottom) / 2))
+        val point = requireNotNull(candidates.firstOrNull { root.contains(it) && !popup.contains(it) })
+        compose.onRoot().performTouchInput { click(point) }
+        node("inline-menu").assertDoesNotExist()
+        events.put(JSONObject().put("kind", "menu-backdrop-pointer").put("point", JSONArray(listOf(point.x, point.y)))
+            .put("popup", json(popup)).put("palette", json(palette)).put("root", json(root)))
+    }
+
+    private fun ownedRange(phase: String, search: String, query: String): TextRange {
+        val semantics = node(search).fetchSemanticsNode().config
+        assertTrue("Owned query retained at $phase", semantics[SemanticsProperties.EditableText].text == query)
+        val range = semantics[SemanticsProperties.TextSelectionRange]
+        events.put(JSONObject().put("kind", "owned-caller-range").put("phase", phase).put("query", query)
+            .put("selection", JSONArray(listOf(range.start, range.end)))
+            .put("focused", semantics[SemanticsProperties.Focused]).put("ime_visible", ime()))
+        return range
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    private fun menuDismissals(emojiRoute: Boolean) {
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        val button = if (emojiRoute) "emoji-filter" else "palette-menu"
+        val query = if (emojiRoute) "face" else "settings"
+        val range = TextRange(1, 3)
+        val wide = compose.activity.resources.configuration.screenWidthDp >= 700
+        record.put("scope", "Owned range/editor setup; actual pointer menu open, injected Back/Escape and pointer backdrop. Emoji starts with explicitly shown IME; launcher starts hidden. Functional return/input coverage, not full menu typography or physical typing.")
+        observeBackWindow(query) {
+            if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+            node(search).performTextReplacement(query)
+            var selected = ""
+            ui { selected = if (emojiRoute) it.store.emoji.results()[it.store.emoji.selected].id else it.store.results()[it.store.selected].id }
+            for (action in listOf("back", "escape", "backdrop")) {
+                feedbackTop(surface)
+                keyboard(emojiRoute, search)
+                node(search).performTextInputSelection(range)
+                assertEquals(range, ownedRange("$action-before-menu", search, query))
+                capture("dismiss-$action-before", search)
+                if (!emojiRoute) feedbackReveal(node(button), surface)
+                completeFeedbackTarget(node(button), "Menu opener", surface)
+                node(button).performTouchInput { click(center) }
+                node("inline-menu").assertIsDisplayed()
+                compose.waitUntil(10000) { !ime() }
+                capture("dismiss-$action-menu", search)
+                when (action) {
+                    "back" -> {
+                        val mark = traceMark()
+                        events.put(JSONObject().put("kind", "menu-dismiss-back").put("press_back_return", device.pressBack()))
+                        compose.waitForIdle()
+                        dispatcherOwners(mark, "menu-dismiss-back", listOf("menu-dispatcher-before"))
+                    }
+                    "escape" -> events.put(JSONObject().put("kind", "menu-dismiss-escape").put("key_injection_return", device.pressKeyCode(KeyEvent.KEYCODE_ESCAPE)))
+                    else -> menuBackdrop(surface)
+                }
+                compose.waitForIdle()
+                node("inline-menu").assertDoesNotExist()
+                text(search, query)
+                node(search).assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, range))
+                ui { activity ->
+                    assertEquals(if (emojiRoute) "emoji" else null, activity.store.dialog)
+                    assertEquals(if (emojiRoute) "All" else "Apps", if (emojiRoute) activity.store.emoji.filter else activity.store.category)
+                    val now = if (emojiRoute) activity.store.emoji.results()[activity.store.emoji.selected].id else activity.store.results()[activity.store.selected].id
+                    assertEquals(selected, now)
+                }
+                val expectedIme = emojiRoute || !wide
+                compose.waitUntil(10000) { ime() == expectedIme }
+                feedbackTop(surface)
+                text(search, query)
+                node(search).assertIsFocused()
+                assertEquals(range, ownedRange("$action-return", search, query))
+                capture("dismiss-$action-return", search)
+                events.put(JSONObject().put("kind", "menu-caller-preserved").put("dismissal", action)
+                    .put("query", query).put("selection", JSONArray(listOf(range.start, range.end)))
+                    .put("filter", if (emojiRoute) "All" else "Apps").put("selected_id", selected)
+                    .put("ime_visible", ime()).put("expected_ime_visible", expectedIme))
+            }
+            record.put("completed", true)
+        }
+    }
+
+    @Test fun emojiMenuDismissalsPreserveRangeAndImeIntent() = menuDismissals(true)
+    @Test fun launcherMenuDismissalsPreserveRangeAndFilter() = menuDismissals(false)
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test fun emojiCanceledRepeatedBackKeepsActiveMenu() {
+        record.put("scope", "Controlled editor/range setup and injected Back DOWN/repeats/canceled UP; no physical hold or predictive gesture certification.")
+        observeBackWindow {
+            emoji(); ui { it.store.emoji.chooseFilter("All") }
+            node("emoji-search").performTextReplacement("face")
+            keyboard(false, "emoji-search")
+            node("emoji-search").performTextInputSelection(TextRange(1, 3))
+            assertEquals(TextRange(1, 3), ownedRange("cancel-before-menu", "emoji-search", "face"))
+            node("emoji-filter").performTouchInput { click(center) }
+            node("inline-menu").assertIsDisplayed()
+            capture("cancel-menu-before", "emoji-search")
+            val canceledMark = traceMark()
+            val down = SystemClock.uptimeMillis()
+            for ((action, repeat) in listOf(KeyEvent.ACTION_DOWN to 0, KeyEvent.ACTION_DOWN to 1,
+                KeyEvent.ACTION_DOWN to 2, KeyEvent.ACTION_UP to 0)) {
+                val flags = if (action == KeyEvent.ACTION_UP) KeyEvent.FLAG_CANCELED else 0
+                val event = KeyEvent(down, SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_BACK,
+                    repeat, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0, flags, InputDevice.SOURCE_KEYBOARD)
+                val accepted = testAutomation().injectInputEvent(event, true)
+                events.put(JSONObject().put("kind", "canceled-back-injection").put("action", action)
+                    .put("repeat", repeat).put("canceled", action == KeyEvent.ACTION_UP).put("accepted", accepted))
+                assertTrue("Each controlled key injection must succeed", accepted)
+            }
+            compose.waitForIdle()
+            node("inline-menu").assertIsDisplayed()
+            text("emoji-search", "face")
+            dispatcherOwners(canceledMark, "canceled-back", emptyList())
+            capture("cancel-menu-retained", "emoji-search")
+            val normalMark = traceMark()
+            events.put(JSONObject().put("kind", "normal-back-after-cancel").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            dispatcherOwners(normalMark, "normal-back-after-cancel", listOf("menu-dispatcher-before"))
+            node("inline-menu").assertDoesNotExist()
+            text("emoji-search", "face")
+            node("emoji-search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(1, 3)))
+            capture("cancel-normal-back-return", "emoji-search")
+            keyboard(false, "emoji-search")
+            val clearMark = traceMark()
+            events.put(JSONObject().put("kind", "normal-back-clears-query").put("press_back_return", device.pressBack()))
+            compose.waitForIdle(); text("emoji-search", "")
+            dispatcherOwners(clearMark, "normal-back-clears-query", listOf("emoji-dispatcher-before"))
+            node("emoji-palette").assertIsDisplayed()
+            capture("cancel-next-back-cleared", "emoji-search")
+            events.put(JSONObject().put("kind", "normal-back-returns-route").put("press_back_return", device.pressBack()))
+            compose.waitForIdle(); node("emoji-palette").assertDoesNotExist(); node("search").assertIsFocused()
+            capture("cancel-final-back-launcher", "search")
+            record.put("completed", true)
+        }
+    }
+
+    @Test fun menuBackPrecedesLaterRegisteredRouteCallback() {
+        record.put("scope", "Controlled native fixture using the production PaletteMenuHost, PaletteFrame and PaletteChoiceMenu. Actual pointers enter a later route and open a menu; injected Back must dismiss the menu before the route callback. This is callback-priority evidence, not ordinary-screen execution.")
+        observeBackWindow {
+            var route by mutableStateOf(false)
+            var menu by mutableStateOf(false)
+            var routeBacks = 0
+            var menuDismissals = 0
+            ui { activity ->
+                activity.setContent {
+                    androidx.compose.material3.MaterialTheme {
+                        PaletteMenuHost(activity.store) {
+                            if (!route) PaletteFrame({}, tag = "back-fixture-home") {
+                                androidx.compose.material3.Text("Controlled native Back ownership fixture", color = PaletteTheme.ink, modifier = Modifier.padding(16.dp))
+                                androidx.compose.material3.Button(onClick = { route = true }, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = 48.dp).testTag("back-fixture-enter")) {
+                                    androidx.compose.material3.Text("Enter owned route")
+                                }
+                            } else PaletteFrame({ routeBacks++; route = false }, tag = "back-fixture-route") {
+                                androidx.compose.material3.Text("Later registered route callback", color = PaletteTheme.ink, modifier = Modifier.padding(16.dp))
+                                androidx.compose.material3.Button(onClick = { menu = true }, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = 48.dp).testTag("back-fixture-menu")) {
+                                    androidx.compose.material3.Text("Open owned menu")
+                                }
+                                PaletteChoiceMenu(menu, { menuDismissals++; menu = false },
+                                    listOf(PaletteChoice("back-fixture-choice", "Owned unchanged choice") {}), title = "Owned menu")
+                            }
+                        }
+                    }
+                }
+            }
+            node("back-fixture-enter").performTouchInput { click(center) }
+            node("back-fixture-route").assertIsDisplayed()
+            node("back-fixture-menu").performTouchInput { click(center) }
+            node("inline-menu").assertIsDisplayed()
+            capture("priority-menu-before", "back-fixture-route", "fixture_route")
+            val priorityMark = traceMark()
+            events.put(JSONObject().put("kind", "priority-first-back").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            val afterFirst = JSONObject().put("kind", "priority-after-first-back").put("route_retained", route)
+                .put("route_backs", routeBacks).put("menu_dismissals", menuDismissals)
+            events.put(afterFirst)
+            capture("priority-menu-return", if (route) "back-fixture-route" else "back-fixture-home", "fixture_route")
+            assertTrue("One Back dismisses the menu while retaining its caller", route)
+            dispatcherOwners(priorityMark, "priority-first-back", listOf("menu-dispatcher-before"))
+            assertEquals(0, routeBacks)
+            assertEquals(1, menuDismissals)
+            node("inline-menu").assertDoesNotExist()
+            events.put(JSONObject().put("kind", "priority-second-back").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            node("back-fixture-route").assertDoesNotExist()
+            node("back-fixture-home").assertIsDisplayed()
+            assertEquals(1, routeBacks)
+            assertEquals(1, menuDismissals)
+            capture("priority-second-back-home", "back-fixture-home", "fixture_route")
+            record.put("completed", true)
+        }
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test fun diagnoseRangePlacementBeforeAndAfterImeSetup() {
+        record.put("scope", "Diagnostic range setup comparison on the same app. Earlier ordering is observed without preservation credit; later ordering must establish the actual range before opening. No keyboard-typing or app-repair claim.")
+        observeBackWindow {
+            emoji(); ui { it.store.emoji.chooseFilter("All") }
+            node("emoji-search").performTextReplacement("face")
+            val range = TextRange(1, 3)
+            for (after in listOf(false, true)) {
+                keyboard(false, "emoji-search")
+                if (!after) node("emoji-search").performTextInputSelection(range)
+                keyboard(true, "emoji-search")
+                if (after) node("emoji-search").performTextInputSelection(range)
+                val before = ownedRange("range-order-$after-before-menu", "emoji-search", "face")
+                capture("range-order-$after-before-menu", "emoji-search")
+                node("emoji-filter").performTouchInput { click(center) }
+                node("inline-menu").assertIsDisplayed()
+                ownedRange("range-order-$after-menu", "emoji-search", "face")
+                menuBackdrop("emoji-palette")
+                node("emoji-search").assertIsFocused()
+                val returned = ownedRange("range-order-$after-return", "emoji-search", "face")
+                capture("range-order-$after-return", "emoji-search")
+                events.put(JSONObject().put("kind", "range-order-observation").put("selection_after_ime_setup", after)
+                    .put("before", JSONArray(listOf(before.start, before.end))).put("returned", JSONArray(listOf(returned.start, returned.end))))
+                if (after) {
+                    assertEquals("Corrected setup must establish the range before menu opening", range, before)
+                    assertEquals("Corrected setup must retain the witnessed range", range, returned)
+                }
+            }
+            record.put("completed", true)
+        }
+    }
+
     @Test fun emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle() {
         assumeTrue("Owned wide-screen Back diagnostic", compose.activity.resources.configuration.screenWidthDp >= 700)
-        record.put("scope", "Injected system Back diagnostic with no header keyboard activation. Editor and epoch setup are controlled; it earns no Back repair, hardware-key or TalkBack certification.")
-        emoji(); ui { it.store.emoji.chooseFilter("All") }
-        node("emoji-search").performTextReplacement("face")
-        keyboard(false, "emoji-search")
-        ui { val before = it.store.focusEpoch; it.store.focusEpoch++
-            events.put(JSONObject().put("kind", "back-probe-epoch-setup").put("before", before).put("after", it.store.focusEpoch)) }
-        settledFeedbackViewport("emoji-palette")
-        text("emoji-search", "face"); node("emoji-search").assertIsFocused()
-        capture("back-probe-before-menu", "emoji-search")
-        node("emoji-filter").assertIsDisplayed().performTouchInput { click(center) }
+        record.put("scope", "Injected system Back with the Emoji category menu open and no header keyboard activation. Editor and epoch setup are controlled. One press must dismiss only the menu and retain the query; no hardware-key, predictive-gesture or TalkBack certification.")
+        observeBackWindow {
+            emoji(); ui { it.store.emoji.chooseFilter("All") }
+            node("emoji-search").performTextReplacement("face")
+            keyboard(false, "emoji-search")
+            ui { val before = it.store.focusEpoch; it.store.focusEpoch++
+                events.put(JSONObject().put("kind", "back-probe-epoch-setup").put("before", before).put("after", it.store.focusEpoch)) }
+            settledFeedbackViewport("emoji-palette")
+            text("emoji-search", "face"); node("emoji-search").assertIsFocused()
+            capture("back-probe-before-menu", "emoji-search")
+            node("emoji-filter").assertIsDisplayed().performTouchInput { click(center) }
+            node("inline-menu").assertIsDisplayed()
+            capture("back-probe-menu", "emoji-search")
+            val probeMark = traceMark()
+            val injected = device.pressBack()
+            compose.waitForIdle(); settledFeedbackViewport("emoji-palette")
+            capture("back-probe-after", "emoji-search")
+            ui { events.put(JSONObject().put("kind", "back-probe-after-injection").put("press_back_return", injected)
+                .put("query", it.store.emoji.query).put("route", it.store.dialog).put("ime_visible", ime())) }
+            node("inline-menu").assertDoesNotExist()
+            text("emoji-search", "face")
+            node("emoji-search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(4)))
+            dispatcherOwners(probeMark, "probe-back", listOf("menu-dispatcher-before"))
+            record.put("completed", true)
+        }
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    private fun searchableMenuBack(emojiRoute: Boolean) {
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        val button = if (emojiRoute) "emoji-actions" else "actions-button"
+        val query = if (emojiRoute) "face" else "settings"
+        val range = TextRange(1, 3)
+        record.put("scope", "Owned range/editor setup; actual pointers open the searchable Actions menu and use its own keyboard control; injected system Back with the stock system IME. Defines keyboard-first Back: with the action-search keyboard shown, Back hides it and keeps the menu; the next Back closes only the menu. With it hidden, one Back closes only the menu. No physical typing, hardware-key, predictive-gesture or TalkBack certification.")
+        fun selectedId(): String { var id = ""; ui { id = if (emojiRoute) it.store.emoji.results()[it.store.emoji.selected].id else it.store.results()[it.store.selected].id }; return id }
+        fun callerRetained(selected: String, phase: String) {
+            text(search, query)
+            node(search).assertIsFocused()
+            assertEquals(range, ownedRange(phase, search, query))
+            ui { activity ->
+                assertEquals(if (emojiRoute) "emoji" else null, activity.store.dialog)
+                assertEquals(if (emojiRoute) "All" else "Apps", if (emojiRoute) activity.store.emoji.filter else activity.store.category)
+            }
+            assertEquals(selected, selectedId())
+        }
+        fun openActions(phase: String) {
+            feedbackTop(surface)
+            keyboard(false, search)
+            node(search).performTextInputSelection(range)
+            assertEquals(range, ownedRange("$phase-before-menu", search, query))
+            feedbackReveal(node(button), surface)
+            // Mirror the menu's own opening intent: a narrow palette requests the
+            // keyboard, a wide one keeps it hidden. Settle that before toggling.
+            val density = context.resources.displayMetrics.density
+            val requested = rect(surface).width / density < 600 || ime()
+            node(button).performTouchInput { click(center) }
+            node("inline-menu").assertIsDisplayed()
+            node("inline-menu-search").assertIsFocused()
+            compose.waitUntil(10000) { ime() == requested }
+            settledFeedbackViewport(surface)
+            events.put(JSONObject().put("kind", "action-menu-open-keyboard").put("requested", requested).put("ime_visible", ime()))
+            ui { assertEquals(if (emojiRoute) "emoji" else "actions", it.store.dialog) }
+        }
+        fun menuKeyboard(visible: Boolean) {
+            if (ime() != visible) node("inline-menu-keyboard").performTouchInput { click(center) }
+            compose.waitUntil(10000) { ime() == visible }
+            settledFeedbackViewport(surface)
+            events.put(JSONObject().put("kind", "action-search-keyboard").put("visible", visible))
+        }
+        observeBackWindow(query) {
+            if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+            node(search).performTextReplacement(query)
+            val selected = selectedId()
+
+            openActions("shown")
+            menuKeyboard(true)
+            capture("actions-shown-menu", search)
+            val firstMark = traceMark()
+            events.put(JSONObject().put("kind", "searchable-first-back").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            node("inline-menu").assertIsDisplayed()
+            compose.waitUntil(10000) { !ime() }
+            settledFeedbackViewport(surface)
+            node("inline-menu").assertIsDisplayed()
+            node("inline-menu-search").assertIsFocused()
+            ui { assertEquals(if (emojiRoute) "emoji" else "actions", it.store.dialog) }
+            dispatcherOwners(firstMark, "searchable-first-back", emptyList())
+            capture("actions-shown-first-back", search)
+            val secondMark = traceMark()
+            events.put(JSONObject().put("kind", "searchable-second-back").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            node("inline-menu").assertDoesNotExist()
+            dispatcherOwners(secondMark, "searchable-second-back", listOf("menu-dispatcher-before"))
+            settledFeedbackViewport(surface)
+            callerRetained(selected, "shown-return")
+            capture("actions-shown-return", search)
+            events.put(JSONObject().put("kind", "searchable-return-ime").put("ime_visible", ime()))
+
+            openActions("hidden")
+            menuKeyboard(false)
+            capture("actions-hidden-menu", search)
+            val hiddenMark = traceMark()
+            events.put(JSONObject().put("kind", "searchable-hidden-back").put("press_back_return", device.pressBack()))
+            compose.waitForIdle()
+            node("inline-menu").assertDoesNotExist()
+            dispatcherOwners(hiddenMark, "searchable-hidden-back", listOf("menu-dispatcher-before"))
+            settledFeedbackViewport(surface)
+            callerRetained(selected, "hidden-return")
+            capture("actions-hidden-return", search)
+            record.put("completed", true)
+        }
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    private fun phoneActionsSheet(emojiRoute: Boolean) {
+        val search = if (emojiRoute) "emoji-search" else "search"
+        val surface = if (emojiRoute) "emoji-palette" else "palette"
+        val button = if (emojiRoute) "emoji-actions" else "actions-button"
+        val query = if (emojiRoute) "face" else "settings"
+        val density = context.resources.displayMetrics.density
+        fun within(inner: Rect, outer: Rect) = inner.left >= outer.left - 1 && inner.right <= outer.right + 1 &&
+            inner.top >= outer.top - 1 && inner.bottom <= outer.bottom + 1
+        record.put("scope", "Compact-width Actions sheet geometry with an actual pointer opening and the stock system keyboard shown by the menu's own request. Layout witness only; no physical typing, gesture or TalkBack certification.")
+        if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
+        node(search).performTextReplacement(query)
+        feedbackTop(surface)
+        assertTrue("Compact palette profile required", rect(surface).width / density < 600)
+        keyboard(false, search)
+        if (emojiRoute) {
+            node("emoji-copy").assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Copy to Clipboard")))
+            capture("sheet-footer", search)
+        }
+        feedbackReveal(node(button), surface)
+        node(button).performTouchInput { click(center) }
         node("inline-menu").assertIsDisplayed()
-        capture("back-probe-menu", "emoji-search")
-        val injected = device.pressBack()
-        compose.waitForIdle(); settledFeedbackViewport("emoji-palette")
-        capture("back-probe-after", "emoji-search")
-        ui { events.put(JSONObject().put("kind", "back-probe-after-injection").put("injection_accepted", injected)
-            .put("query", it.store.emoji.query).put("route", it.store.dialog).put("ime_visible", ime())) }
+        compose.waitUntil(10000) { ime() }
+        settledFeedbackViewport(surface)
+        capture("sheet-keyboard", search, "caller_search")
+        val palette = rect(surface); val sheet = rect("inline-menu"); val list = rect("inline-menu-choices")
+        val close = rect("inline-menu-close")
+        events.put(JSONObject().put("kind", "action-sheet-geometry").put("palette", json(palette)).put("sheet", json(sheet))
+            .put("choices", json(list)).put("close", json(close)).put("ime_visible", ime()))
+        assertEquals("Sheet docks to the palette bottom", palette.bottom, sheet.bottom, 2f)
+        assertEquals("Sheet spans the palette width", palette.left, sheet.left, 2f)
+        assertEquals("Sheet spans the palette width", palette.right, sheet.right, 2f)
+        assertTrue("Sheet stays inside the palette", sheet.top >= palette.top - 1)
+        node("inline-menu-heading").assertIsDisplayed()
+        assertTrue("Close keeps 48 dp", close.width >= 48 * density - 1 && close.height >= 48 * density - 1)
+        val rows = if (emojiRoute) listOf("emoji-action-copy", "emoji-action-favorite", "emoji-action-unicode")
+            else listOf(compose.onAllNodes(hasAnyAncestor(hasTestTag("inline-menu-choices")) and hasClickAction()).fetchSemanticsNodes().first().config[SemanticsProperties.TestTag])
+        for (tag in rows) {
+            val row = rect(tag)
+            events.put(JSONObject().put("kind", "action-sheet-row").put("tag", tag).put("bounds", json(row)))
+            assertTrue("$tag keeps 52 dp", row.height >= 52 * density - 1)
+            assertTrue("$tag is complete inside the visible list", within(row, list))
+        }
+        node("inline-menu-close").performTouchInput { click(center) }
+        compose.waitForIdle()
         node("inline-menu").assertDoesNotExist()
-        text("emoji-search", "face")
-        node("emoji-search").assertIsFocused().assert(SemanticsMatcher.expectValue(SemanticsProperties.TextSelectionRange, TextRange(4)))
+        text(search, query)
+        node(search).assertIsFocused()
+        settledFeedbackViewport(surface)
+        capture("sheet-closed", search)
         record.put("completed", true)
     }
+
+    @Test fun emojiActionsSheetDocksAboveKeyboard() = phoneActionsSheet(true)
+    @Test fun launcherActionsSheetDocksAboveKeyboard() = phoneActionsSheet(false)
+
+    @Test fun emojiActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(true)
+    @Test fun launcherActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(false)
 }

@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: test=diagnoseRangePlacementBeforeAndAfterImeSetup
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Corrected setup must retain the witnessed range expected:<TextRange(1, 3)> but was:<TextRange(3, 3)>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.TouchSearchDeviceTest.diagnoseRangePlacementBeforeAndAfterImeSetup$lambda$116(TouchSearchDeviceTest.kt:995)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda57.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow$default(TouchSearchDeviceTest.kt:165)
+	at dev.tinycast.android.TouchSearchDeviceTest.diagnoseRangePlacementBeforeAndAfterImeSetup(TouchSearchDeviceTest.kt:973)
+
+INSTRUMENTATION_STATUS: stream=
+Error in diagnoseRangePlacementBeforeAndAfterImeSetup(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Corrected setup must retain the witnessed range expected:<TextRange(1, 3)> but was:<TextRange(3, 3)>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.TouchSearchDeviceTest.diagnoseRangePlacementBeforeAndAfterImeSetup$lambda$116(TouchSearchDeviceTest.kt:995)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda57.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow$default(TouchSearchDeviceTest.kt:165)
+	at dev.tinycast.android.TouchSearchDeviceTest.diagnoseRangePlacementBeforeAndAfterImeSetup(TouchSearchDeviceTest.kt:973)
+
+INSTRUMENTATION_STATUS: test=diagnoseRangePlacementBeforeAndAfterImeSetup
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.985
+There was 1 failure:
+1) diagnoseRangePlacementBeforeAndAfterImeSetup(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Corrected setup must retain the witnessed range expected:<TextRange(1, 3)> but was:<TextRange(3, 3)>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.TouchSearchDeviceTest.diagnoseRangePlacementBeforeAndAfterImeSetup$lambda$116(TouchSearchDeviceTest.kt:995)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda57.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow$default(TouchSearchDeviceTest.kt:165)
+	at dev.tinycast.android.TouchSearchDeviceTest.diagnoseRangePlacementBeforeAndAfterImeSetup(TouchSearchDeviceTest.kt:973)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

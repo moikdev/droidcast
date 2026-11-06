@@ -85,7 +85,11 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         return true
     }
     fun back() { if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
-    BackHandler(onBack = ::back)
+    BackHandler {
+        PaletteBackTrace.handler("emoji-dispatcher-before", menu || actionsMenu, store.query.length)
+        back()
+        PaletteBackTrace.handler("emoji-dispatcher-after", menu || actionsMenu, store.query.length)
+    }
     PaletteViewport(emptyFeedback=results.isEmpty()) { wide, top, height ->
         val compactEmpty = results.isEmpty() && height < 180.dp
         val columns = ((minOf(maxWidth - 24.dp, PaletteTheme.width).value - 24) / 64).toInt().coerceIn(3, 10)
@@ -183,8 +187,16 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back to commands" }.testTag("emoji-back")) { Glyph("back",PaletteTheme.ink,24) }
                 Spacer(Modifier.width(2.dp))
                 BasicTextField(displayedSearch, {
-                    searchValue = it
-                    if (it.text != store.query) { store.search(it.text); copiedName = null }
+                    // A menu borrows focus. CoreTextField's blur collapse must not
+                    // overwrite the caller's committed range; every other update,
+                    // including deliberate selection changes, still applies.
+                    val current = searchValue
+                    val keepMenuRange = (menu || actionsMenu || paletteMenus.current != null) &&
+                        it.text == current.text && it.composition == null && current.composition == null &&
+                        !current.selection.collapsed && it.selection == TextRange(current.selection.max)
+                    val next = if (keepMenuRange) it.copy(selection = current.selection) else it
+                    searchValue = next
+                    if (next.text != store.query) { store.search(next.text); copiedName = null }
                 }, singleLine = true,
                     modifier = Modifier.weight(1f).heightIn(min=48.dp).paletteFocusBookmark(searchFocus).onFocusChanged { searchFocused = it.isFocused }.testTag("emoji-search"),
                     textStyle = TextStyle(color = PaletteTheme.ink, fontSize = 20.sp, lineHeight = 26.sp), cursorBrush = SolidColor(PaletteTheme.accent),
@@ -255,6 +267,9 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 Column(modifier) {
                     Text(selected?.name ?: "Emoji & Symbols", fontSize=12.sp,lineHeight=16.sp,maxLines=2,
                         overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("emoji-selected-name"))
+                    // Phones drop the selection hint once a symbol is selected;
+                    // copy/edit status and the empty-selection hint still show.
+                    if(wide || selected == null || copiedName != null || queryEditing)
                     Text(copiedName ?: if(queryEditing) "Editing query" else if(wide) "Arrows select · Enter copy · Ctrl L edit" else "Tap a symbol to select",
                         fontSize=11.sp,lineHeight=15.sp,color=PaletteTheme.secondary,maxLines=2,overflow=TextOverflow.Ellipsis,
                         modifier=Modifier.semantics { liveRegion=LiveRegionMode.Polite }.testTag("emoji-copy-status"))
@@ -266,7 +281,8 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 }
             }) {
                 Box {
-                    PaletteActionCapsule("Copy to Clipboard",{currentEntry()?.let(::copyEntry)},{actionsMenu=true},"emoji-copy","emoji-actions",compact=!wide,enabled=selected!=null)
+                    PaletteActionCapsule(if(wide) "Copy to Clipboard" else "Copy",{currentEntry()?.let(::copyEntry)},{actionsMenu=true},"emoji-copy","emoji-actions",
+                        compact=!wide,enabled=selected!=null,description="Copy to Clipboard")
                     PaletteChoiceMenu(actionsMenu,{actionsMenu=false},listOf(
                         PaletteChoice("emoji-action-copy","Copy to Clipboard",enabled=selected!=null,shortcut=listOf("↵"),icon="clipboard") { currentEntry()?.let(::copyEntry) },
                         PaletteChoice("emoji-action-favorite",if(selected?.id in store.favorites)"Remove Favorite"else"Add Favorite",enabled=selected!=null,

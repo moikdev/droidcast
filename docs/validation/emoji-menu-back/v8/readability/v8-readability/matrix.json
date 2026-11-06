@@ -1,0 +1,55 @@
+{
+  "pid": 60871,
+  "started_at": 1793928187.5959811,
+  "kind": "candidate",
+  "apk_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+  "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+  "frozen_inputs": {
+    "artifacts/emoji-back/v8/app-debug.apk": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+    "artifacts/emoji-back/v8/app-debug-androidTest.apk": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+    "scripts/test-extension-grid.py": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "scripts/test-touch-readability.py": "d9ae59ab3db56d63cb5c959c200263b71acd0e04c305dce4e9ceb8a395933fb6"
+  },
+  "runs": [
+    {
+      "stage": "phone-font-1-0",
+      "exit": 0,
+      "passed": true,
+      "passes": 6,
+      "expected": 6,
+      "cleanup_verified": true,
+      "record_sha256": "fd80e2a8253091b5c1f6e5b0ac03c299b1bcc1a571668b3b922ba2922059ebca"
+    },
+    {
+      "stage": "phone-font-2-0",
+      "exit": 0,
+      "passed": true,
+      "passes": 6,
+      "expected": 6,
+      "cleanup_verified": true,
+      "record_sha256": "f93fbabe26a53e1591b612ee3b083e33cf7d980d5c3f6739db1e28d0a0aa4bfd"
+    },
+    {
+      "stage": "narrow-font-1-0",
+      "exit": 0,
+      "passed": true,
+      "passes": 6,
+      "expected": 6,
+      "cleanup_verified": true,
+      "record_sha256": "a7719d357618232d1c1541e1483f1ea5f389f38489bbcc487d35fe4314640190"
+    },
+    {
+      "stage": "narrow-font-2-0",
+      "exit": 0,
+      "passed": true,
+      "passes": 6,
+      "expected": 6,
+      "cleanup_verified": true,
+      "record_sha256": "fe3f1aad27e5446d7237dda9062cefaa42dc08f33f374be9a1e8085c69418f41"
+    }
+  ],
+  "collection_complete": true,
+  "all_suites_passed": true,
+  "viewport_limit": "Display overrides exercise layout; they do not certify Android split-screen gestures, physical devices or OEM behavior.",
+  "current_stage": "completed"
+}

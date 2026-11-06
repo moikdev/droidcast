@@ -1,0 +1,281 @@
+{
+  "completed": true,
+  "source_commit": "319d9c87988b3494e7fe2da302cca32a035daa78",
+  "app_source": "c0d9a06848cd32b1d9df5e2f9827224a0c0e4016",
+  "test_source": "319d9c87988b3494e7fe2da302cca32a035daa78",
+  "apk_sha256": {
+    "app-debug-androidTest.apk": "c3e3f9c7d1140f7328c5a67c18c41b015bd3c498d8fd6248386db833133cb01f",
+    "app-debug.apk": "f56e13db745743e53c9b12a2bb07a2b127b9a1281dbeca3aaa80b19216728cd8"
+  },
+  "cohorts": [
+    {
+      "name": "final-tablet200",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "tablet",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "exit_code": 0,
+      "passes": 5,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "final-landscape100",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "landscape",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "exit_code": 0,
+      "passes": 5,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "final-landscape200",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "landscape",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "exit_code": 0,
+      "passes": 5,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "final-phone100",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "exit_code": 0,
+      "passes": 4,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "final-phone200",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "exit_code": 0,
+      "passes": 4,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "regression-toggle-tablet100",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+        "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+        "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+        "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+        "currentKeyboardAccessibilityActionsApplyTheirPublishedVisibility"
+      ],
+      "exit_code": 0,
+      "passes": 5,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "regression-empty-landscape200",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "landscape",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "regression-clear-phone200",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "regression-core-tablet100",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "pointerClearRemovesControlledCompositionAndWhitespace",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "exit_code": 0,
+      "passes": 3,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "regression-input-phone100",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "layout": "phone",
+      "font": 1,
+      "suite": "native-input",
+      "input_mode": "owned",
+      "methods": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 19,
+      "restoration_passed": true
+    },
+    {
+      "name": "final-legacy100",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "exit_code": 0,
+      "passes": 4,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 10,
+      "restoration_passed": true
+    },
+    {
+      "name": "final-legacy200",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "exit_code": 0,
+      "passes": 4,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 10,
+      "restoration_passed": true
+    },
+    {
+      "name": "regression-input-api26100",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "layout": "phone",
+      "font": 1,
+      "suite": "native-input",
+      "input_mode": "owned",
+      "methods": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 12,
+      "restoration_passed": true
+    }
+  ],
+  "scope": "Only whole successful source-bound cohorts earn current credit. Stop on a failure; unrun plans earn no execution credit."
+}

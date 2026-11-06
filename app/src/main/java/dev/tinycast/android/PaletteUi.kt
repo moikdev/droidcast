@@ -228,7 +228,11 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 else -> false
             }
         }
-        BackHandler(onBack = ::escape)
+        BackHandler {
+            PaletteBackTrace.handler("launcher-dispatcher-before", paletteMenus.current != null, store.query.length)
+            escape()
+            PaletteBackTrace.handler("launcher-dispatcher-after", paletteMenus.current != null, store.query.length)
+        }
         // Reset before the next measure so stable item keys cannot preserve an old
         // anchor for a frame. Moving selection inside the viewport never scrolls.
         val scrollHistory = launcherScrollHistory

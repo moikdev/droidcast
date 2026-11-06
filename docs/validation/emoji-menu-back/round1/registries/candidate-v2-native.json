@@ -1,0 +1,451 @@
+{
+  "completed": false,
+  "source_commit": "bc338ac8139cdacef5bc649fa0ad4307cf593b72",
+  "cohorts": [
+    {
+      "name": "control-double-v2-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle"
+      ],
+      "app_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "f855465966f5ed7d0f26d409875ed41aee1923350b839a7dd754a2b5ad8ebaf5",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true,
+      "cases": {
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle": {
+          "completed": false,
+          "events": [
+            {
+              "kind": "back-probe-epoch-setup",
+              "before": 2,
+              "after": 3
+            },
+            {
+              "kind": "back-probe-after-injection",
+              "press_back_return": false,
+              "query": "",
+              "route": "emoji",
+              "ime_visible": false
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "control-priority-v2-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "app_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "f855465966f5ed7d0f26d409875ed41aee1923350b839a7dd754a2b5ad8ebaf5",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true,
+      "cases": {
+        "menuBackPrecedesLaterRegisteredRouteCallback": {
+          "completed": false,
+          "events": [
+            {
+              "kind": "priority-first-back",
+              "press_back_return": false
+            },
+            {
+              "kind": "priority-after-first-back",
+              "route_retained": false,
+              "route_backs": 1,
+              "menu_dismissals": 0
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "range-diagnostic-v2-tablet100",
+      "role": "diagnostic",
+      "state": "finished",
+      "methods": [
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "app_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "f855465966f5ed7d0f26d409875ed41aee1923350b839a7dd754a2b5ad8ebaf5",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true,
+      "cases": {
+        "diagnoseRangePlacementBeforeAndAfterImeSetup": {
+          "completed": false,
+          "events": [
+            {
+              "kind": "owned-caller-range",
+              "phase": "range-order-false-before-menu",
+              "query": "face",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": true
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "range-order-false-menu",
+              "query": "face",
+              "selection": [
+                3,
+                3
+              ],
+              "focused": false,
+              "ime_visible": false
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "range-order-false-return",
+              "query": "face",
+              "selection": [
+                3,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "range-order-observation",
+              "selection_after_ime_setup": false,
+              "before": [
+                1,
+                3
+              ],
+              "returned": [
+                3,
+                3
+              ]
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "range-order-true-before-menu",
+              "query": "face",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": true
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "range-order-true-menu",
+              "query": "face",
+              "selection": [
+                3,
+                3
+              ],
+              "focused": false,
+              "ime_visible": false
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "range-order-true-return",
+              "query": "face",
+              "selection": [
+                3,
+                3
+              ],
+              "focused": true,
+              "ime_visible": true
+            },
+            {
+              "kind": "range-order-observation",
+              "selection_after_ime_setup": true,
+              "before": [
+                1,
+                3
+              ],
+              "returned": [
+                3,
+                3
+              ]
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "candidate-v2-tablet100",
+      "role": "candidate",
+      "state": "finished",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "app_sha256": "0351a377030e130b64b73d0899548e521573af39e0d3fcd8f54805bd9375ea7c",
+      "test_apk_sha256": "f855465966f5ed7d0f26d409875ed41aee1923350b839a7dd754a2b5ad8ebaf5",
+      "exit_code": 1,
+      "passes": 3,
+      "failures": 2,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true,
+      "cases": {
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle": {
+          "completed": true,
+          "events": [
+            {
+              "kind": "back-probe-epoch-setup",
+              "before": 2,
+              "after": 3
+            },
+            {
+              "kind": "back-probe-after-injection",
+              "press_back_return": false,
+              "query": "face",
+              "route": "emoji",
+              "ime_visible": false
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        },
+        "emojiMenuDismissalsPreserveRangeAndImeIntent": {
+          "completed": false,
+          "events": [
+            {
+              "kind": "owned-caller-range",
+              "phase": "back-before-menu",
+              "query": "face",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": true
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        },
+        "launcherMenuDismissalsPreserveRangeAndFilter": {
+          "completed": true,
+          "events": [
+            {
+              "kind": "owned-caller-range",
+              "phase": "back-before-menu",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "back-return",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "menu-caller-preserved",
+              "dismissal": "back",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "filter": "Apps",
+              "selected_id": "app:com.android.settings/com.android.settings.Settings",
+              "ime_visible": false,
+              "expected_ime_visible": false
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "escape-before-menu",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "escape-return",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "menu-caller-preserved",
+              "dismissal": "escape",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "filter": "Apps",
+              "selected_id": "app:com.android.settings/com.android.settings.Settings",
+              "ime_visible": false,
+              "expected_ime_visible": false
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "backdrop-before-menu",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "owned-caller-range",
+              "phase": "backdrop-return",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "menu-caller-preserved",
+              "dismissal": "backdrop",
+              "query": "settings",
+              "selection": [
+                1,
+                3
+              ],
+              "filter": "Apps",
+              "selected_id": "app:com.android.settings/com.android.settings.Settings",
+              "ime_visible": false,
+              "expected_ime_visible": false
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        },
+        "emojiCanceledRepeatedBackKeepsActiveMenu": {
+          "completed": false,
+          "events": [
+            {
+              "kind": "owned-caller-range",
+              "phase": "cancel-before-menu",
+              "query": "face",
+              "selection": [
+                1,
+                3
+              ],
+              "focused": true,
+              "ime_visible": false
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        },
+        "menuBackPrecedesLaterRegisteredRouteCallback": {
+          "completed": true,
+          "events": [
+            {
+              "kind": "priority-first-back",
+              "press_back_return": false
+            },
+            {
+              "kind": "priority-after-first-back",
+              "route_retained": true,
+              "route_backs": 0,
+              "menu_dismissals": 1
+            },
+            {
+              "kind": "priority-second-back",
+              "press_back_return": true
+            },
+            {
+              "kind": "back-window-observer-restored",
+              "passed": true
+            },
+            {
+              "kind": "back-trace-property-restored",
+              "passed": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
