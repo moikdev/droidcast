@@ -1,0 +1,43 @@
+{
+  "source_commit": "6b7d5fa961bf0d660b2b9b0a460c64dd10d18888",
+  "jvm": {
+    "tests": 343,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "jvm_task": "> Task :app:testDebugUnitTest",
+  "lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    },
+    "benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 56
+    }
+  },
+  "python": {
+    "normal": {
+      "exit_code": 0,
+      "cases": 135,
+      "seconds": 29.033,
+      "passed": true
+    },
+    "optimized": {
+      "exit_code": 0,
+      "cases": 135,
+      "seconds": 25.859,
+      "passed": true
+    }
+  },
+  "build_successes": 2,
+  "apk_sha256": {
+    "app-debug-androidTest.apk": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+    "app-debug.apk": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150"
+  },
+  "clean_build": true,
+  "scope": "Fresh after ./gradlew clean; APK verified to contain the sheet code."
+}

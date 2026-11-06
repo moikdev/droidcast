@@ -1,0 +1,23 @@
+{
+  "all_passed": true,
+  "checks": {
+    "emulator-5580-owned-avd-api": true,
+    "emulator-5580-four-ime-fields": true,
+    "emulator-5580-unprivileged": true,
+    "emulator-5580-idle": true,
+    "emulator-5580-original-geometry": true,
+    "emulator-5580-original-font": true,
+    "emulator-5598-owned-avd-api": true,
+    "emulator-5598-four-ime-fields": true,
+    "emulator-5598-unprivileged": true,
+    "emulator-5598-idle": true,
+    "emulator-5598-original-geometry": true,
+    "emulator-5598-original-font": true,
+    "all-original-modern-app-evidence-files": true,
+    "original-apk-dev.tinycast.android": true,
+    "original-apk-dev.tinycast.android.test": true,
+    "legacy-original-exact-package-absence": true
+  },
+  "original_modern_file_count": 573,
+  "scope": "Read-only equality to this slice baseline after PR116. Private originals/settings and fingerprints excluded. No whole-system/cross-boot or older pre-probe IME-history identity certification."
+}

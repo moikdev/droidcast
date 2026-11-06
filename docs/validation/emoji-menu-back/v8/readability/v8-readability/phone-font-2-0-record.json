@@ -1,0 +1,86 @@
+{
+  "avd": "Tinycast_Tablet_API_36",
+  "serial": "emulator-5580",
+  "layout": "phone",
+  "classes": "dev.tinycast.android.TouchReadabilityDeviceTest",
+  "expected": 6,
+  "completed": true,
+  "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+  "original_size": "Physical size: 1920x1200",
+  "original_density": "Physical density: 240",
+  "original_font_scale": "1.0",
+  "requested_font_scale": 2.0,
+  "requested_size": null,
+  "requested_density": null,
+  "settings_before": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "show_ime_with_hard_keyboard": "0"
+  },
+  "fixture_upload_directory": null,
+  "apk_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+  "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+  "installed_matches": true,
+  "capture_background": "launcher-intent",
+  "suite_timeout_seconds": 600,
+  "passes": 6,
+  "tests_completed": true,
+  "cleanup": {
+    "stop-app": {
+      "passed": true
+    },
+    "preferences-backup": {
+      "passed": true
+    },
+    "preferences": {
+      "passed": true
+    },
+    "emoji-backup": {
+      "passed": true
+    },
+    "emoji-preferences": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "font-scale": {
+      "passed": true
+    },
+    "size": {
+      "passed": true
+    },
+    "density": {
+      "passed": true
+    },
+    "private-fixture": {
+      "passed": true
+    },
+    "fixture-cache": {
+      "passed": true
+    },
+    "verify-data": {
+      "passed": true
+    },
+    "verify-geometry": {
+      "passed": true
+    },
+    "verify-identity": {
+      "passed": true
+    }
+  },
+  "preferences_restored": true,
+  "emoji_preferences_restored": true,
+  "settings_restored": true,
+  "font_scale_restored": true,
+  "size": "Physical size: 1920x1200",
+  "density": "Physical density: 240",
+  "adbd": "uid=2000(shell) gid=2000(shell)",
+  "app_uid": "uid=10213(u0_a213) gid=10213(u0_a213)"
+}

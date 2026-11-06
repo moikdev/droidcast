@@ -1,0 +1,18 @@
+{
+  "all_passed": true,
+  "checks": {
+    "owned-avd": true,
+    "idle-instrumentation": true,
+    "no-leases": true,
+    "original-apk-dev.tinycast.android": true,
+    "original-apk-dev.tinycast.android.test": true,
+    "exact-original-file-set": true,
+    "original-apk-final-dev.tinycast.android": true,
+    "original-apk-final-dev.tinycast.android.test": true,
+    "unprivileged": true
+  },
+  "removed_foreign_files": 45,
+  "restored_original_files": 23,
+  "baseline_file_count": 573,
+  "scope": "The touch-readability runner leaves its candidate APKs installed and replaces files/readiness-evidence. This restores the pre-slice original APKs and exact 573-file app data, including the ProfileInstaller marker bytes. Readability results keep their own runner records."
+}
