@@ -335,7 +335,23 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
     // Compact-width action search presents as a sheet docked to the palette's
     // bottom edge, directly above the keyboard, instead of a wedged popover.
     val sheet = request.searchable && !wide
-    val headingItems = if(heading == null || sheet) 0 else 1
+    // Large text and short palettes keep the body's height for actions: the
+    // sheet header then scrolls with the list and drops the handle/subtitle.
+    val roomy = density.fontScale <= 1.3f && !compact
+    val scrollingHeader = sheet && !roomy
+    val headingItems = if(scrollingHeader || (heading != null && !sheet)) 1 else 0
+    val sheetHeader: @Composable () -> Unit = {
+        Row(Modifier.fillMaxWidth().heightIn(min=48.dp).padding(start=12.dp),verticalAlignment=Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text(heading ?: "Actions",color=PaletteTheme.ink,fontSize=15.sp,lineHeight=20.sp,fontWeight=androidx.compose.ui.text.font.FontWeight.SemiBold,
+                    maxLines=if(roomy) 2 else 3,overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("inline-menu-heading"))
+                if(roomy && heading != null && heading != "Actions") Text("Actions",color=PaletteTheme.secondary,fontSize=12.sp,lineHeight=16.sp,maxLines=1)
+            }
+            IconButton(onClick={ menus.dismiss() },modifier=Modifier.size(48.dp).semantics { contentDescription="Close actions" }.testTag("inline-menu-close")) {
+                Glyph("close",PaletteTheme.secondary,20)
+            }
+        }
+    }
     var bodyHeight by remember { mutableIntStateOf(0) }
     val imeVisible=WindowInsets.isImeVisible
     val keyboard=LocalSoftwareKeyboardController.current
@@ -369,28 +385,17 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                     .pointerInput(Unit) { detectTapGestures {} }
                     .semantics { testTagsAsResourceId = true }.testTag("inline-menu")) {
                 Column(Modifier.fillMaxWidth().padding(padding)) {
-                    if(sheet) {
-                        // Large text and short palettes keep the body's height for
-                        // actions: drop the decorative handle and the subtitle line.
-                        val roomy = density.fontScale <= 1.3f && !compact
-                        if(roomy) Box(Modifier.fillMaxWidth().height(16.dp),contentAlignment=Alignment.Center) {
+                    if(sheet && roomy) {
+                        Box(Modifier.fillMaxWidth().height(16.dp),contentAlignment=Alignment.Center) {
                             Box(Modifier.size(36.dp,4.dp).background(PaletteTheme.border,RoundedCornerShape(2.dp)))
                         }
-                        Row(Modifier.fillMaxWidth().heightIn(min=48.dp).padding(start=12.dp),verticalAlignment=Alignment.CenterVertically) {
-                            Column(Modifier.weight(1f)) {
-                                Text(heading ?: "Actions",color=PaletteTheme.ink,fontSize=15.sp,lineHeight=20.sp,fontWeight=androidx.compose.ui.text.font.FontWeight.SemiBold,
-                                    maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("inline-menu-heading"))
-                                if(heading != null && roomy) Text("Actions",color=PaletteTheme.secondary,fontSize=12.sp,lineHeight=16.sp,maxLines=1)
-                            }
-                            IconButton(onClick={ menus.dismiss() },modifier=Modifier.size(48.dp).semantics { contentDescription="Close actions" }.testTag("inline-menu-close")) {
-                                Glyph("close",PaletteTheme.secondary,20)
-                            }
-                        }
+                        sheetHeader()
                     }
                     // The heading shares the bounded scroll area. Search and its
                     // keyboard toggle retain their touch height in a short IME viewport.
                     LazyColumn(state = scroll, modifier = Modifier.fillMaxWidth().weight(1f,fill=false)
                         .onSizeChanged { bodyHeight = it.height }.testTag("inline-menu-choices")) {
+                        if(scrollingHeader) item { sheetHeader() }
                         if(!sheet) heading?.let { title -> item {
                             Text(title, color = PaletteTheme.secondary, fontSize = 11.sp, lineHeight=16.sp,
                                 maxLines = 2, overflow = TextOverflow.Ellipsis,

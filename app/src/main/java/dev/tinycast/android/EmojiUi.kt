@@ -267,12 +267,14 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 Column(modifier) {
                     Text(selected?.name ?: "Emoji & Symbols", fontSize=12.sp,lineHeight=16.sp,maxLines=2,
                         overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("emoji-selected-name"))
-                    // Phones drop the selection hint once a symbol is selected;
-                    // copy/edit status and the empty-selection hint still show.
-                    if(wide || selected == null || copiedName != null || queryEditing)
-                    Text(copiedName ?: if(queryEditing) "Editing query" else if(wide) "Arrows select · Enter copy · Ctrl L edit" else "Tap a symbol to select",
-                        fontSize=11.sp,lineHeight=15.sp,color=PaletteTheme.secondary,maxLines=2,overflow=TextOverflow.Ellipsis,
-                        modifier=Modifier.semantics { liveRegion=LiveRegionMode.Polite }.testTag("emoji-copy-status"))
+                    // The polite live region must already exist when a copy happens,
+                    // or TalkBack treats it as a new node and stays silent. Phones
+                    // hide the selection hint once a symbol is selected by leaving
+                    // the region empty at 1 dp; copy/edit status still shows.
+                    val status = copiedName ?: if(queryEditing) "Editing query" else if(wide) "Arrows select · Enter copy · Ctrl L edit"
+                        else if(selected == null) "Tap a symbol to select" else ""
+                    Text(status,fontSize=11.sp,lineHeight=15.sp,color=PaletteTheme.secondary,maxLines=2,overflow=TextOverflow.Ellipsis,
+                        modifier=(if(status.isEmpty()) Modifier.height(1.dp) else Modifier).semantics { liveRegion=LiveRegionMode.Polite }.testTag("emoji-copy-status"))
                 }
             },leading={
                 IconButton(onClick={currentEntry()?.let(::pin)},enabled=selected!=null,

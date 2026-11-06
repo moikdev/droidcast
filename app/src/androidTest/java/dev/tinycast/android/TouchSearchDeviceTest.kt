@@ -1090,6 +1090,12 @@ class TouchSearchDeviceTest {
             compose.waitUntil(10000) { ime() == requested }
             settledFeedbackViewport(surface)
             events.put(JSONObject().put("kind", "action-menu-open-keyboard").put("requested", requested).put("ime_visible", ime()))
+            // Compact palettes present the sheet; wide layouts keep the anchored popover.
+            if (rect(surface).width / density < 600) node("inline-menu-close").assertExists()
+            else {
+                node("inline-menu-close").assertDoesNotExist()
+                assertTrue("Wide layouts keep the anchored popover", rect("inline-menu").width < rect(surface).width - 1)
+            }
             ui { assertEquals(if (emojiRoute) "emoji" else "actions", it.store.dialog) }
         }
         fun menuKeyboard(visible: Boolean) {
@@ -1151,47 +1157,83 @@ class TouchSearchDeviceTest {
         val density = context.resources.displayMetrics.density
         fun within(inner: Rect, outer: Rect) = inner.left >= outer.left - 1 && inner.right <= outer.right + 1 &&
             inner.top >= outer.top - 1 && inner.bottom <= outer.bottom + 1
-        record.put("scope", "Compact-width Actions sheet geometry with an actual pointer opening and the stock system keyboard shown by the menu's own request. Layout witness only; no physical typing, gesture or TalkBack certification.")
+        fun selected(): Pair<String, String> { var value = "" to ""; ui { value = if (emojiRoute) it.store.emoji.results()[it.store.emoji.selected].let { e -> e.id to e.name }
+            else it.store.results()[it.store.selected].let { c -> c.id to c.title } }; return value }
+        fun imeTop(): Float { var top = 0f; ui { val decor = it.window.decorView
+            top = (decor.height - (ViewCompat.getRootWindowInsets(decor)?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: 0)).toFloat() }; return top }
+        record.put("scope", "Compact-width Actions sheet with actual pointers and the stock system keyboard, shown by the menu's own request and then hidden by its own control. Layout and semantics witness; no physical typing, gesture or TalkBack certification.")
         if (emojiRoute) { emoji(); ui { it.store.emoji.chooseFilter("All") } }
         node(search).performTextReplacement(query)
         feedbackTop(surface)
         assertTrue("Compact palette profile required", rect(surface).width / density < 600)
         keyboard(false, search)
+        val (selectedId, selectedTitle) = selected()
         if (emojiRoute) {
             node("emoji-copy").assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Copy to Clipboard")))
+                .assert(hasText("Copy"))
+            // The polite live region exists before any copy, empty while a symbol is selected.
+            node("emoji-copy-status").assertExists().assertTextEquals("")
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite))
             capture("sheet-footer", search)
         }
+        fun sheetGeometry(phase: String, keyboardShown: Boolean) {
+            val palette = rect(surface); val sheet = rect("inline-menu"); val list = rect("inline-menu-choices")
+            val top = imeTop()
+            events.put(JSONObject().put("kind", "action-sheet-geometry").put("phase", phase).put("palette", json(palette)).put("sheet", json(sheet))
+                .put("choices", json(list)).put("ime_top", top).put("ime_visible", ime()))
+            assertEquals("Sheet docks to the palette bottom", palette.bottom, sheet.bottom, 2f)
+            assertEquals("Sheet spans the palette width", palette.left, sheet.left, 2f)
+            assertEquals("Sheet spans the palette width", palette.right, sheet.right, 2f)
+            assertTrue("Sheet stays inside the palette", sheet.top >= palette.top - 1)
+            if (keyboardShown) assertTrue("Sheet sits above the keyboard", sheet.bottom <= top + 1)
+            val rows = if (emojiRoute) listOf("emoji-action-copy", "emoji-action-favorite", "emoji-action-unicode")
+                else listOf(compose.onAllNodes(hasAnyAncestor(hasTestTag("inline-menu-choices")) and hasClickAction()).fetchSemanticsNodes().first().config[SemanticsProperties.TestTag])
+            for (tag in rows) {
+                val row = rect(tag)
+                events.put(JSONObject().put("kind", "action-sheet-row").put("phase", phase).put("tag", tag).put("bounds", json(row)))
+                assertTrue("$tag keeps 52 dp", row.height >= 52 * density - 1)
+                assertTrue("$tag is complete inside the visible list", within(row, list))
+            }
+            node("inline-menu-heading").assertTextEquals(selectedTitle)
+            val close = rect("inline-menu-close")
+            node("inline-menu-close").assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Close actions")))
+            assertTrue("Close keeps 48 dp", close.width >= 48 * density - 1 && close.height >= 48 * density - 1)
+        }
+        fun callerKept(phase: String) {
+            node("inline-menu").assertDoesNotExist()
+            text(search, query)
+            node(search).assertIsFocused()
+            assertEquals("Selected result kept after $phase", selectedId, selected().first)
+            ui { assertEquals(if (emojiRoute) "All" else "Apps", if (emojiRoute) it.store.emoji.filter else it.store.category) }
+        }
+        // Keyboard shown by the sheet's own request, closed by its button.
         feedbackReveal(node(button), surface)
         node(button).performTouchInput { click(center) }
         node("inline-menu").assertIsDisplayed()
         compose.waitUntil(10000) { ime() }
         settledFeedbackViewport(surface)
         capture("sheet-keyboard", search, "caller_search")
-        val palette = rect(surface); val sheet = rect("inline-menu"); val list = rect("inline-menu-choices")
-        val close = rect("inline-menu-close")
-        events.put(JSONObject().put("kind", "action-sheet-geometry").put("palette", json(palette)).put("sheet", json(sheet))
-            .put("choices", json(list)).put("close", json(close)).put("ime_visible", ime()))
-        assertEquals("Sheet docks to the palette bottom", palette.bottom, sheet.bottom, 2f)
-        assertEquals("Sheet spans the palette width", palette.left, sheet.left, 2f)
-        assertEquals("Sheet spans the palette width", palette.right, sheet.right, 2f)
-        assertTrue("Sheet stays inside the palette", sheet.top >= palette.top - 1)
-        node("inline-menu-heading").assertIsDisplayed()
-        assertTrue("Close keeps 48 dp", close.width >= 48 * density - 1 && close.height >= 48 * density - 1)
-        val rows = if (emojiRoute) listOf("emoji-action-copy", "emoji-action-favorite", "emoji-action-unicode")
-            else listOf(compose.onAllNodes(hasAnyAncestor(hasTestTag("inline-menu-choices")) and hasClickAction()).fetchSemanticsNodes().first().config[SemanticsProperties.TestTag])
-        for (tag in rows) {
-            val row = rect(tag)
-            events.put(JSONObject().put("kind", "action-sheet-row").put("tag", tag).put("bounds", json(row)))
-            assertTrue("$tag keeps 52 dp", row.height >= 52 * density - 1)
-            assertTrue("$tag is complete inside the visible list", within(row, list))
-        }
+        sheetGeometry("keyboard", true)
         node("inline-menu-close").performTouchInput { click(center) }
         compose.waitForIdle()
-        node("inline-menu").assertDoesNotExist()
-        text(search, query)
-        node(search).assertIsFocused()
+        callerKept("close")
         settledFeedbackViewport(surface)
         capture("sheet-closed", search)
+        // Keyboard hidden by the sheet's own control, dismissed by the backdrop.
+        feedbackTop(surface)
+        keyboard(false, search)
+        feedbackReveal(node(button), surface)
+        node(button).performTouchInput { click(center) }
+        node("inline-menu").assertIsDisplayed()
+        compose.waitUntil(10000) { ime() }
+        node("inline-menu-keyboard").performTouchInput { click(center) }
+        compose.waitUntil(10000) { !ime() }
+        settledFeedbackViewport(surface)
+        capture("sheet-hidden", search, "caller_search")
+        sheetGeometry("hidden", false)
+        menuBackdrop(surface)
+        compose.waitForIdle()
+        callerKept("backdrop")
         record.put("completed", true)
     }
 
