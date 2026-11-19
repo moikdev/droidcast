@@ -131,9 +131,13 @@ class FolderDeviceTest {
     private fun evidence(name: String, marker: String) {
         compose.onNode(hasText(marker, substring = true)).performScrollTo().assertIsDisplayed()
         compose.waitForIdle(); device.waitForIdle()
+        compose.waitUntil(5000) {
+            testAutomation().clearCacheForTest()
+            device.hasObject(By.pkg(context.packageName).textContains(marker))
+        }
         val dir = File(context.filesDir, "folder-evidence").apply { mkdirs() }
-        device.dumpWindowHierarchy(File(dir, "$name.xml")); assertTrue(device.takeScreenshot(File(dir, "$name.png")))
-        assertTrue(device.wait(Until.hasObject(By.textContains(marker)), 5000))
+        device.dumpWindowHierarchy(File(dir, "$name.xml"))
+        assertTrue(device.takeScreenshot(File(dir, "$name.png")))
     }
     private fun clickText(text: String) {
         val node = device.wait(Until.findObject(By.text(text)), 5000) ?: run {
