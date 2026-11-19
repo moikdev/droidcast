@@ -20,7 +20,8 @@ import java.util.Set;
 
 /** Self-targeted test instrumentation loads this class without the production APK or Kotlin runtime. */
 public class KeyboardObservationActivity extends Activity {
-    private final JSONArray events = new JSONArray();
+    private final JSONArray beforeIme = new JSONArray();
+    private final JSONArray activityDispatch = new JSONArray();
     private final JSONArray edits = new JSONArray();
     private final Set<Integer> keys = new HashSet<>();
     private EditText editor;
@@ -39,7 +40,12 @@ public class KeyboardObservationActivity extends Activity {
         }
         keys.add(KeyEvent.KEYCODE_SHIFT_LEFT);
         keys.add(KeyEvent.KEYCODE_SHIFT_RIGHT);
-        editor = new EditText(this);
+        editor = new EditText(this) {
+            @Override public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+                record(beforeIme, event);
+                return super.onKeyPreIme(keyCode, event);
+            }
+        };
         editor.setSingleLine();
         editor.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         editor.setFilters(new InputFilter[]{new InputFilter.LengthFilter(64)});
@@ -58,7 +64,11 @@ public class KeyboardObservationActivity extends Activity {
         });
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(32, 32, 32, 32);
+        layout.setOnApplyWindowInsetsListener((view, insets) -> {
+            view.setPadding(32 + insets.getSystemWindowInsetLeft(), 32 + insets.getSystemWindowInsetTop(),
+                    32 + insets.getSystemWindowInsetRight(), 32 + insets.getSystemWindowInsetBottom());
+            return insets;
+        });
         TextView label = new TextView(this);
         label.setText("Keyboard delivery test");
         layout.addView(label);
@@ -67,7 +77,7 @@ public class KeyboardObservationActivity extends Activity {
         editor.requestFocus();
     }
 
-    @Override public boolean dispatchKeyEvent(KeyEvent e) {
+    private void record(JSONArray events, KeyEvent e) {
         if (editor != null && hasWindowFocus() && editor.hasFocus() &&
                 (e.getAction() == KeyEvent.ACTION_DOWN || e.getAction() == KeyEvent.ACTION_UP)) {
             if (events.length() >= 256) overflow = true;
@@ -79,6 +89,10 @@ public class KeyboardObservationActivity extends Activity {
                 } catch (JSONException error) { throw new IllegalStateException(error); }
             }
         }
+    }
+
+    @Override public boolean dispatchKeyEvent(KeyEvent e) {
+        record(activityDispatch, e);
         return super.dispatchKeyEvent(e);
     }
 
@@ -89,7 +103,9 @@ public class KeyboardObservationActivity extends Activity {
                     .put("observed", expected.startsWith(actual) || "qwerrty".equals(actual) ? actual : "outside-fixture")
                     .put("length", actual.length()).put("focused", hasWindowFocus() && editor.hasFocus())
                     .put("ms", SystemClock.uptimeMillis()).put("overflow", overflow)
-                    .put("events", new JSONArray(events.toString())).put("edits", new JSONArray(edits.toString()));
+                    .put("pre_ime", new JSONArray(beforeIme.toString()))
+                    .put("activity_dispatch", new JSONArray(activityDispatch.toString()))
+                    .put("edits", new JSONArray(edits.toString()));
         } catch (JSONException error) { throw new IllegalStateException(error); }
     }
 

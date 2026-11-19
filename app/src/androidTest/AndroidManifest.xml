@@ -19,7 +19,7 @@
         <activity android:name="dev.tinycast.android.FormDocumentsFixtureActivity"
             android:exported="true" android:theme="@android:style/Theme.NoDisplay" />
         <activity android:name="dev.tinycast.android.KeyboardObservationActivity"
-            android:exported="false"
+            android:exported="false" android:theme="@android:style/Theme.Material.Light.NoActionBar"
             android:excludeFromRecents="true" android:windowSoftInputMode="stateAlwaysHidden"
             android:taskAffinity="dev.tinycast.android.test.keyobservation" />
         <activity android:name="dev.tinycast.android.ReviewedTextCallerActivity"
