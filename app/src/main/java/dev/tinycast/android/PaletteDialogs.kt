@@ -27,6 +27,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontFamily
@@ -128,24 +130,36 @@ private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
     var title by draft::title
     var body by draft::body
     var alias by draft::alias
-    var error by remember { mutableStateOf<String?>(null) }
+    var error by remember(draft) { mutableStateOf<String?>(null) }
     val focus = remember { FocusRequester() }
     var fieldReady by remember { mutableStateOf(false) }
     val type = when (kind) { "note" -> "note"; "link" -> "quicklink"; else -> "clip" }
+    val savedMessage = "${type.replaceFirstChar { it.uppercase() }} saved"
     fun save() {
         runCatching { store.saveEditor(draft) }
-            .onSuccess { store.message = "${type.replaceFirstChar { it.uppercase() }} saved"; close() }
-            .onFailure { error = it.message ?: "Could not save" }
+            .onSuccess { store.message = savedMessage; close() }
+            .onFailure {
+                if (store.message == savedMessage) store.message = null
+                error = it.message ?: "Could not save"
+            }
     }
     Shell(if (old?.id.isNullOrEmpty()) "Create a $type" else "Edit $type", when (kind) { "note" -> "A place for the thought you don't want to lose."; "link" -> "Your favorite destination, one command away."; else -> "Keep useful text close. Stored only on this device." }, close,
         Modifier.onPreviewKeyEvent {
             if (it.type == KeyEventType.KeyDown && (it.isCtrlPressed xor it.isMetaPressed) && !it.isAltPressed && !it.isShiftPressed && (it.key == Key.S || it.key == Key.Enter)) { save(); true } else false
         }, footer = {
-            if(LocalPaletteWide.current && LocalDensity.current.fontScale<=1.3f) Text("Ctrl + S", color=muted,fontSize=11.sp)
-            Spacer(Modifier.weight(1f))
-            TextButton(onClick = close,modifier=Modifier.heightIn(min=48.dp).testTag("cancel-editor")) { Text("Cancel", color = muted) }
-            Spacer(Modifier.width(8.dp))
-            Button(onClick = ::save, modifier = Modifier.heightIn(min=48.dp).testTag("save-editor")) { Text("Save $type") }
+            Column(Modifier.fillMaxWidth()) {
+                error?.let { feedback ->
+                    Text(feedback, color = MaterialTheme.colorScheme.error, fontSize = 13.sp, lineHeight = 18.sp,
+                        modifier = Modifier.padding(top = 4.dp).semantics { liveRegion = LiveRegionMode.Polite })
+                }
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    if(LocalPaletteWide.current && LocalDensity.current.fontScale<=1.3f) Text("Ctrl + S", color=muted,fontSize=11.sp)
+                    Spacer(Modifier.weight(1f))
+                    TextButton(onClick = close,modifier=Modifier.heightIn(min=48.dp).testTag("cancel-editor")) { Text("Cancel", color = muted) }
+                    Spacer(Modifier.width(8.dp))
+                    Button(onClick = ::save, modifier = Modifier.heightIn(min=48.dp).testTag("save-editor")) { Text("Save $type") }
+                }
+            }
         }) {
         LaunchedEffect(fieldReady) { if (fieldReady) focus.requestFocus() }
         Field("Title", title, { title = it; error = null }, "Give it a name", "editor-title", modifier = Modifier.focusRequester(focus).onGloballyPositioned { fieldReady = true })
@@ -158,8 +172,6 @@ private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
             OutlinedTextField(body, { body = it }, label = { Text(if (kind == "note") "Note" else "Text") }, placeholder = { Text(if (kind == "note") "Start writing…" else "Your saved text") },
                 modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 260.dp).testTag("editor-body"), textStyle = androidx.compose.ui.text.TextStyle(fontSize = 14.sp, lineHeight = 22.sp), shape = RoundedCornerShape(10.dp), keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences))
         }
-        error?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.padding(top = 10.dp)) }
-
     }
 }
 
