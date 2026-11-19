@@ -300,16 +300,43 @@ class ReadinessRegressionDeviceTest {
             editLink(id, title)
             val field = compose.onNodeWithTag("editor-alias")
             editable("editor-alias", "flowers")
-            field.performTextReplacement("calc")
-            compose.onNodeWithTag("save-editor").performClick()
-            compose.onNodeWithText("That alias is already in use").assertExists()
-            compose.runOnIdle { assertEquals("flowers", peer().command(id)?.alias) }
-            field.performScrollTo().performTextReplacement("pets")
-            compose.runOnIdle { peer().setAlias(id, "plants") }
-            compose.onNodeWithTag("save-editor").performClick()
-            compose.onNodeWithText("The alias changed in Settings. Reopen the quicklink to edit it.").assertExists()
-            compose.runOnIdle { assertEquals("plants", peer().command(id)?.alias) }
-            compose.onNodeWithTag("cancel-editor").performClick()
+            val rejectedFeedback = mutableListOf<String>()
+            fun rejectAlias(phase: String, attemptedAlias: String, expectedOverride: String, feedback: String) {
+                val attemptedTitle = "Draft $phase title"
+                val attemptedUrl = "https://example.invalid/draft-$phase?q={query}"
+                compose.onNodeWithTag("editor-title").performScrollTo().performTextReplacement(attemptedTitle)
+                compose.onNodeWithTag("editor-body").performScrollTo().performTextReplacement(attemptedUrl)
+                field.performScrollTo().performClick().performTextReplacement(attemptedAlias)
+                val activity = compose.activity
+                val view = activity.window.decorView
+                val ime = WindowInsetsCompat.Type.ime()
+                fun keyboardShown() = compose.runOnUiThread { ViewCompat.getRootWindowInsets(view)?.isVisible(ime) == true }
+                compose.runOnUiThread { WindowCompat.getInsetsController(activity.window, view).show(ime) }
+                compose.waitUntil(5000) { keyboardShown() }
+                if (phase == "concurrent") compose.runOnIdle { peer().setAlias(id, expectedOverride) }
+                val before = compose.runOnUiThread { peer().backupSnapshot() }
+                assertEquals(SavedItem(id, title, revised, "journal"), before.links.single { it.id == id })
+                assertEquals(expectedOverride, before.aliases[id])
+                compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled().performTouchInput { click() }
+                compose.onNodeWithText(feedback).assertExists()
+                val after = compose.runOnUiThread { peer().backupSnapshot() }
+                assertEquals("Rejected $phase edit changed saved links", before.links, after.links)
+                assertEquals("Rejected $phase edit changed alias overrides", before.aliases, after.aliases)
+                editable("editor-title", attemptedTitle)
+                editable("editor-body", attemptedUrl)
+                editable("editor-alias", attemptedAlias)
+                capture("alias-$phase-rejected")
+                assertTrue("Keyboard open at $phase rejection", keyboardShown())
+                compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled()
+                compose.onNodeWithTag("cancel-editor").assertIsDisplayed().assertIsEnabled()
+                val message = compose.onNodeWithText(feedback).fetchSemanticsNode()
+                if (message.boundsInRoot.height + 1f < message.size.height || message.boundsInRoot.width <= 0f) {
+                    rejectedFeedback.add(phase)
+                }
+            }
+            rejectAlias("duplicate", "calc", "flowers", "That alias is already in use")
+            rejectAlias("concurrent", "pets", "plants", "The alias changed in Settings. Reopen the quicklink to edit it.")
+            compose.onNodeWithTag("cancel-editor").performTouchInput { click() }
             editLink(id, title)
             field.performTextReplacement("pets")
             compose.onNodeWithTag("save-editor").performClick()
@@ -322,6 +349,7 @@ class ReadinessRegressionDeviceTest {
                 reopened.search("pets spring")
                 assertEquals(revised.replace("{query}", "spring"), reopened.results().first().payload)
             }
+            assertEquals("Clipped alias rejection feedback", emptyList<String>(), rejectedFeedback)
         } finally {
             compose.runOnUiThread { holder.clear() }
         }
