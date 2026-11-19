@@ -44,3 +44,6 @@ docs/validation/empty-feedback/** -text -whitespace
 
 # Preserve keyboard visibility receipts and native XML CRLF.
 docs/validation/keyboard-toggle/** -text -whitespace
+
+# Preserve Android's original hierarchy capture bytes.
+docs/validation/emoji-menu-back/keyboard-first/*.xml -text -whitespace

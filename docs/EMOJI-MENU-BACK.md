@@ -28,7 +28,7 @@ Two further facts appeared while testing the repair:
 
 Searchable menus (Emoji Actions, launcher Actions, extension Actions, reviewed-text chooser) have an action-search field. Before this change, the pre-IME handler closed them on the first Back even when the keyboard was up. Now Android's normal input order applies:
 
-- **Keyboard shown:** the first Back hides the keyboard. The menu stays open with its action search focused, and no app Back callback runs. The second Back closes only the menu and returns to the caller with its query, range, filter and selected result intact.
+- **Keyboard shown:** the first Back hides the keyboard. The menu stays open with its action search focused. Normally the keyboard consumes the press. If Android dispatches it to the activity while the platform still reports a visible keyboard, the menu handler requests keyboard dismissal and keeps the menu open. The second Back closes only the menu and returns to the caller with its query, range, filter and selected result intact.
 - **Keyboard hidden:** one Back closes only the menu, with the same caller preservation.
 
 On a narrow palette (under 600 dp) the Actions menu requests its keyboard when it opens. A wide palette keeps it hidden unless the keyboard was already up. After return, the caller's keyboard state follows the route's existing focus behavior. The tests record that state but do not define it as a contract.
@@ -38,25 +38,33 @@ On a narrow palette (under 600 dp) the Actions menu requests its keyboard when i
 On the 1080×2340 phone at 200%, the Emoji Actions popover sat between header and footer. It showed about 2½ rows, cut "Copy Unicode" mid-glyph, overlapped the grid, and repeated both the selected name and Copy to Clipboard. The maintainer approved a draft. The change implements it for every searchable menu below a 600 dp palette width:
 
 - **Docked sheet:** the menu docks across the palette's full width on its bottom edge, which sits directly above the keyboard, over a dimmed backdrop.
-  - Its header has the target name, an "Actions" subtitle and a 48 dp **Close actions** button.
+  - Its header has the target name and a 48 dp **Close actions** button. Roomy layouts also show the "Actions" subtitle when the title differs.
   - Rows are at least 52 dp with 16 sp labels; shortcut keycaps stay hidden on phones, as before.
   - The action search stays on the bottom edge.
-- **Large font or short palette:** above 130% font, or when the palette is short, the decorative handle and subtitle are dropped. The sheet grows up to the palette's full height, and its list scrolls instead of clipping.
+- **Large font or short palette:** above 130% font, or when the palette is short, the decorative handle and subtitle are dropped. The header scrolls with the list, leaving the search field visible as the user scrolls through the actions.
 - **Emoji footer on phones:** the primary button reads **Copy**, keeping "Copy to Clipboard" as its accessible name. The "Tap a symbol to select" line shows only when nothing is selected, or with a copy/edit status. The **Actions** label is kept rather than the draft's ⋮ icon: with the short primary label both fit on one row, and the word is easier to find.
 - **Unchanged:** wide, tablet and landscape layouts keep the anchored popover. Ownership, keyboard-first Back, Escape, backdrop dismissal and caller preservation are unchanged.
 
-## Binary boundaries
+## November 19 keyboard and sheet follow-up
+
+The phone sheet now keeps the Emoji copy feedback live region mounted when its text is empty. At large font, users can scroll the header away to make more room for action rows. A pre-Android 11 menu reads keyboard visibility from root-window insets after layout and again on activation. This drives the visible icon, its accessibility label and the first tap after Back.
+
+On API 36, transferring focus from the caller to action search can leave the keyboard visible when Android sends Back to the activity. In the failing run, the menu dispatcher entered with the menu open and returned with it closed. The corrected handler checks the platform keyboard before dismissing a searchable menu. Traces and pointer tests cover both the platform-handled and activity-handled paths.
+
+The supplemental report identifies the builds, outcomes and limits for these changes. [Keyboard verification](MENU-KEYBOARD-VERIFICATION.md)
+
+## Historical v8 binary boundaries
 
 | Role | Source | App SHA-256 prefix |
 | --- | --- | --- |
 | Tracing-only control (unchanged handling) | `1dc1a1ce` | `3bf4f104` |
 | Guard-only control (no priority or range repair) | `0b535d8f` | `98dfdfcc` |
 | Back repair before the sheet (previous PR head app) | `867f9917` | `fb5fce28` |
-| Final app with the phone sheet, executed for every current cohort | `6b7d5fa9` | `e80ac97b` |
+| Phone sheet app used by the v8 cohorts | `6b7d5fa9` | `e80ac97b` |
 
-Every current cohort and control uses one instrumentation APK, `0134ca0c…`, built from `6b7d5fa9` after `./gradlew clean`. The pipeline checked that the built APK contains the sheet code before installing it ([identity](validation/emoji-menu-back/v8/identity.json)). An earlier exploratory build was incremental and stale; see *Retained failures*. All 11 packaged upstream assets and notices remain unchanged.
+Every v8 cohort and control used one instrumentation APK, `0134ca0c…`, built from `6b7d5fa9` after `./gradlew clean`. The pipeline checked that the built APK contains the sheet code before installing it ([identity](validation/emoji-menu-back/v8/identity.json)). An earlier exploratory build was incremental and stale; see *Retained failures*. All 11 packaged upstream assets and notices remain unchanged.
 
-## Current verification
+## Historical v8 verification
 
 [The summary](validation/emoji-menu-back/v8/summary.json) credits **77 passing executions across 19 whole cohorts, zero failures and 282 successful restoration checks** on the exact `e80ac97b` / `0134ca0c` pair:
 
@@ -91,7 +99,7 @@ All seven matched controls run on the same final instrumentation, fail only at t
 
 The searchable Back controls fail before their after-Back capture, so only their menu-open frames exist. The sheet controls capture the old popover before failing.
 
-## Host checks
+## Historical v8 host checks
 
 At `6b7d5fa9`, after `./gradlew clean`, [the host record](validation/emoji-menu-back/v8/checks/host-6b7d5fa9.json) shows these fresh results:
 
@@ -102,7 +110,7 @@ At `6b7d5fa9`, after `./gradlew clean`, [the host record](validation/emoji-menu-
 
 JVM tests can't usefully exercise the `KEYCODE_BACK` guard: the unit-test Android stubs return 0 for `KeyEvent.keyCode`. The device trace assertions cover it instead. Exact-head hosted CI is reported on the PR.
 
-## Preservation and recovery
+## Historical v8 preservation and recovery
 
 [Final preservation](validation/emoji-menu-back/v8/final-preservation.json) passes **16 of 16** read-only checks: AVD/API, unprivileged shell, idle instrumentation, geometry, font and four-field IME settings on both emulators, both original modern APKs, all 573 original modern app files (byte-equal), and absent packages on the legacy emulator.
 
@@ -133,7 +141,7 @@ Known API 26 limits visible in these frames:
 
 - Newer emoji render as missing glyphs, a pre-existing platform font limit.
 - In the v6 frames at 200% with the keyboard up, the Emoji footer was cut off at "Copy to". The phone footer is now one short row, and the sheet covers it while Actions is open. Footer reachability with the keyboard up is still not certified (#69/#71).
-- After system Back hides the keyboard, the menu's keyboard button keeps showing its Hide icon and label, because Compose's keyboard-visibility state lags the system on API 26. This is not only cosmetic: by the code, the next tap requests Hide and does nothing, so showing the keyboard takes a second tap, and TalkBack announces the wrong action. Inferred from code and not executed. Before this change, Back closed the menu instead, so this PR makes the state reachable by Back. Tracked in [#118](https://github.com/moikdev/droidcast/issues/118). In the v8 Android 8 frame after keyboard-first Back, the button shows its Show icon. So the stale state is intermittent, not fixed, and #118 stays open. The behavior assertions use the platform inset state.
+- A historical API 26 frame at 200% shows the Hide icon after Back had hidden the keyboard. The v8 frame shows the Show icon in the same state. The November 19 tests exercise a single pointer tap on both new and earlier apps. The historical first-tap failure remains unconfirmed. [Keyboard verification](MENU-KEYBOARD-VERIFICATION.md)
 
 ## Limits
 

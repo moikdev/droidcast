@@ -1,0 +1,1484 @@
+{
+  "final-fixed-legacy100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "final-fixed-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "final-fixed-phone100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [
+          "menu-dispatcher-before"
+        ],
+        "expected": [
+          "menu-dispatcher-before"
+        ],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-before",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-hide-ime",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "final-fixed-phone200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [
+          "menu-dispatcher-before"
+        ],
+        "expected": [
+          "menu-dispatcher-before"
+        ],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-before",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-hide-ime",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "final-old-dispatch-phone100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "final-old-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "fixed-legacy100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      }
+    ],
+    "stages": []
+  },
+  "fixed-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      }
+    ],
+    "stages": []
+  },
+  "fixed-phone100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": false,
+    "events": [],
+    "stages": []
+  },
+  "hidden-historical-2/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "hidden-new-1/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "hidden-new-2/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "hidden-old-2/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "historical-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      }
+    ],
+    "stages": []
+  },
+  "matched-dispatch-phone100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": false,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [
+          "menu-dispatcher-before"
+        ],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-before",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-after",
+          "menu_open": false
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": false
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": false
+        }
+      ]
+    ]
+  },
+  "matched-dispatch-phone100/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "old-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      }
+    ],
+    "stages": []
+  },
+  "replay-new-1/legacyActionKeyboardIgnoresStaleVisibleInsetDelivery": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "replay-new-2/legacyActionKeyboardIgnoresStaleVisibleInsetDelivery": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "replay-old-2/legacyActionKeyboardIgnoresStaleVisibleInsetDelivery": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "trace-fixed-legacy100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": null,
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "trace-fixed-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": null,
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "trace-fixed-phone100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": false,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [
+          "menu-dispatcher-before"
+        ],
+        "expected": null,
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-before",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-after",
+          "menu_open": false
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": false
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": false
+        }
+      ]
+    ]
+  },
+  "trace-old-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": null,
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-legacy100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-legacy100/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-legacy200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-legacy200/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-phone100/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [
+          "menu-dispatcher-before"
+        ],
+        "expected": [
+          "menu-dispatcher-before"
+        ],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-before",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-hide-ime",
+          "menu_open": true
+        },
+        {
+          "stage": "menu-dispatcher-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-phone100/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-phone200/emojiActionKeyboardReopensOnFirstTapAfterBack": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "first-tap-protocol-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-back",
+        "ime_visible": false,
+        "label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  },
+  "verified-fixed-phone200/emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden": {
+    "case_completed": true,
+    "events": [
+      {
+        "press": "searchable-first-back",
+        "owners": [],
+        "expected": [],
+        "kind": "back-dispatcher-owners"
+      },
+      {
+        "phase": "after-one-tap",
+        "ime_visible": true,
+        "hidden_label": [
+          "Show action search keyboard"
+        ],
+        "kind": null
+      },
+      {
+        "passed": true,
+        "kind": "back-window-observer-restored"
+      },
+      {
+        "passed": true,
+        "kind": "back-trace-property-restored"
+      }
+    ],
+    "stages": [
+      [
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-before",
+          "menu_open": true
+        },
+        {
+          "stage": "pre-ime-after",
+          "menu_open": true
+        }
+      ]
+    ]
+  }
+}
