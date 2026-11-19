@@ -311,7 +311,9 @@ private fun StoreBrowser(store: PaletteStore, state: StoreBrowserState, close: (
         val visibleError=error ?: catalog.error
         if(visibleError!=null) Row(Modifier.fillMaxWidth().padding(18.dp),verticalAlignment=Alignment.CenterVertically){Text(visibleError,color=MaterialTheme.colorScheme.error,fontSize=12.sp,modifier=Modifier.weight(1f));TextButton(onClick={if(listCurrent())retry++}){Text("Retry")}}
         LazyColumn(state=storeScroll,modifier=Modifier.weight(1f).fillMaxWidth().testTag("store-results"),contentPadding=PaddingValues(18.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){
-            if(installedTab){
+            if (!catalog.inventoryReady) {
+                item { Text("Loading installed extensions…", color = muted, modifier = Modifier.padding(16.dp)) }
+            } else if(installedTab){
                 if(catalog.installed.isEmpty())item{Text("Installed extensions will appear here. Browse the Store to add your first one.",color=muted,modifier=Modifier.padding(16.dp))}
                 items(catalog.installed.filter { query.isBlank() || (it.listing.title+" "+it.listing.author+" "+it.commands.joinToString { c->c.title }).contains(query,true) },key={it.listing.id}){ext->
                     Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(card).padding(16.dp)){

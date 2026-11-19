@@ -78,6 +78,36 @@ class ReadinessRegressionDeviceTest {
         val results = compose.activity.store.results(); assertEquals(2,results.size)
         return results
     }
+    @Test fun installedCatalogLoadsWithoutBlockingTheUiThread() {
+        val holder = androidx.lifecycle.ViewModelStore()
+        HeldCatalogFixture(context).use { fixture ->
+            try {
+                fixture.writeCommand()
+                val model = compose.runOnUiThread { fixture.createStore(holder) }
+                val entered = fixture.uiAccesses.get() == 0 && fixture.awaitWorker()
+                val pending = entered && compose.runOnUiThread { model.loading && model.command(fixture.id) == null }
+                fixture.release()
+                compose.waitUntil(15000) { !model.loading }
+                assertEquals(fixture.title, compose.runOnUiThread { model.command(fixture.id)?.title })
+                compose.onNodeWithTag("search").performTextReplacement("= 6 * 7")
+                compose.onNodeWithTag("result-result").assertIsDisplayed()
+                val observed = JSONObject().put("catalog_files_dir_on_main", fixture.uiAccesses.get())
+                    .put("catalog_files_dir_off_main", fixture.workerAccesses.get()).put("ui_responded_while_inventory_pending", pending)
+                    .put("installed_command_resolved", true)
+                if (hostClipboardRecovery) {
+                    capture("catalog-startup")
+                    File(context.filesDir, "readiness-evidence/catalog-startup-probe.json").writeText(observed.toString())
+                }
+                assertEquals("Installed catalog storage accessed from UI thread", 0, fixture.uiAccesses.get())
+                assertTrue("Worker accessed the controlled catalog root", fixture.workerAccesses.get() > 0)
+                assertTrue("UI remained available before command publication", pending)
+            } finally {
+                fixture.release()
+                compose.runOnUiThread { holder.clear() }
+            }
+        }
+    }
+
     @Test fun rapidLauncherDownThenEnterUsesTheCurrentSelection() {
         val rows=twoNotes()
         compose.activityRule.scenario.onActivity { key(it,KeyEvent.KEYCODE_DPAD_DOWN); key(it,KeyEvent.KEYCODE_ENTER) }

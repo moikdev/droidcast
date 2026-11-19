@@ -41,7 +41,7 @@ internal fun ReviewedTextScreen(store: PaletteStore, close: () -> Unit) {
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(top = 16.dp).testTag("text-input-choose")) {
                 Text(flow.choice?.label ?: "Choose extension command", fontSize = 14.sp, lineHeight = 21.sp)
             }
-            if (commands.isEmpty()) Text("No supported commands are installed. Install an extension from Raycast Store, then select or share text again.",
+            if (commands.isEmpty()) Text(if (!store.extensions.inventoryReady) "Loading installed extensions…" else "No supported commands are installed. Install an extension from Raycast Store, then select or share text again.",
                 color = PaletteTheme.secondary, fontSize = 13.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 10.dp))
             flow.problem?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp, lineHeight = 20.sp,
                 modifier = Modifier.padding(top = 12.dp).testTag("text-input-error")) }

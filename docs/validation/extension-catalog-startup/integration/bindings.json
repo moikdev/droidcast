@@ -1,0 +1,72 @@
+[
+  {
+    "run": "tablet",
+    "original": "tests.log",
+    "original_sha256": "f48024f947668c597600bf3dcc6dad07c9e819520b01542ac9664458ce9911cd",
+    "public": "docs/validation/extension-catalog-startup/integration/logs/tablet.log",
+    "sha256": "f48024f947668c597600bf3dcc6dad07c9e819520b01542ac9664458ce9911cd"
+  },
+  {
+    "run": "tablet",
+    "original": "catalog-startup-probe.json",
+    "original_sha256": "a6cb0e27590c319f6ff463709f2c47932890c812b23bc341ffc557e89c044b8d",
+    "public": "docs/validation/extension-catalog-startup/integration/probes/tablet.json",
+    "sha256": "a6cb0e27590c319f6ff463709f2c47932890c812b23bc341ffc557e89c044b8d"
+  },
+  {
+    "run": "tablet",
+    "original": "catalog-startup.png",
+    "original_sha256": "d610a7418a6bee471dfd1831b6acbda268e19cb74bd1986ad809f186ef2c204f",
+    "public": "docs/screenshots/extension-catalog-startup/integration/tablet.png",
+    "sha256": "672abd3d73034b4a7b8db3c32ea0c728d341feb06554af43484ec5bd9e7f1f38",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ]
+  },
+  {
+    "run": "tablet",
+    "original": "catalog-startup.xml",
+    "original_sha256": "cc5bb6a9e00337d9320955b9a201cdfa75566572941799dc049171c5b5d0cd57",
+    "public": "docs/validation/extension-catalog-startup/integration/hierarchies/tablet.xml",
+    "sha256": "16106d0c9aa660a367af50f78ee8343679b1ef6244d69358111cb3b5a2e0054d",
+    "projection": "app palette scroll view"
+  },
+  {
+    "run": "phone",
+    "original": "tests.log",
+    "original_sha256": "330f8ccb4f8e3410f378a0579c07292797313c6e8d24d071d5c026e4d2e80e57",
+    "public": "docs/validation/extension-catalog-startup/integration/logs/phone.log",
+    "sha256": "330f8ccb4f8e3410f378a0579c07292797313c6e8d24d071d5c026e4d2e80e57"
+  },
+  {
+    "run": "phone",
+    "original": "catalog-startup-probe.json",
+    "original_sha256": "a6cb0e27590c319f6ff463709f2c47932890c812b23bc341ffc557e89c044b8d",
+    "public": "docs/validation/extension-catalog-startup/integration/probes/phone.json",
+    "sha256": "a6cb0e27590c319f6ff463709f2c47932890c812b23bc341ffc557e89c044b8d"
+  },
+  {
+    "run": "phone",
+    "original": "catalog-startup.png",
+    "original_sha256": "fa57b0d0069c002bc99213cc0408332cea4c019b11d868c595b2ca5e14a1b1ea",
+    "public": "docs/screenshots/extension-catalog-startup/integration/phone.png",
+    "sha256": "2645bf3ace9de3aedca22040e94b66c6cf129ac343c913a0b232a0b63f3afe69",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ]
+  },
+  {
+    "run": "phone",
+    "original": "catalog-startup.xml",
+    "original_sha256": "98c4080df40512113d076036baf75a84450186ec24aca487020c54337e090150",
+    "public": "docs/validation/extension-catalog-startup/integration/hierarchies/phone.xml",
+    "sha256": "65c52abfdfd14659ad24c8a211d640c640d39f25bea95cee23bc366648c7bdcd",
+    "projection": "app palette scroll view"
+  }
+]

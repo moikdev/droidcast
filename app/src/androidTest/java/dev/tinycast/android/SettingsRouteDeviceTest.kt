@@ -127,6 +127,89 @@ class SettingsRouteDeviceTest {
         compose.onAllNodes(isDialog()).assertCountEquals(0)
         evidence("configure-command-route", "Wi-Fi settings")
     }
+    @Test fun findWaitsForInstalledCommandBeforeShowingEmptyResults() {
+        val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+        HeldCatalogFixture(context).use { fixture ->
+            fixture.writeCommand()
+            lateinit var injectedStore: PaletteStore
+            val callback = androidx.test.runner.lifecycle.ActivityLifecycleCallback { activity, stage ->
+                if (stage == Stage.PRE_ON_CREATE && activity is SettingsActivity) {
+                    injectedStore = fixture.createStore(activity.viewModelStore)
+                }
+            }
+            instrumentation.runOnMainSync { monitor.addLifecycleCallback(callback) }
+            try {
+                ActivityScenario.launch<SettingsActivity>(Intent(context, SettingsActivity::class.java)).use { scenario ->
+                    try {
+                        scenario.onActivity { assertSame(injectedStore, it.store) }
+                        assertTrue("Catalog worker reached the scan", fixture.awaitWorker())
+                        key(KeyEvent.KEYCODE_F, KeyEvent.META_CTRL_ON)
+                        val field = compose.onNodeWithTag("settings-search")
+                        field.assertIsFocused().performTextReplacement(fixture.title)
+                        val loading = "Loading installed extensions…"
+                        val empty = "No matching settings or commands."
+                        fun capture(name: String) {
+                            if (!hostRestoresTestClipboard()) return
+                            val dir = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
+                            testAutomation().clearCacheForTest()
+                            device.dumpWindowHierarchy(File(dir, "find-$name.xml"))
+                            assertTrue(device.takeScreenshot(File(dir, "find-$name.png")))
+                        }
+                        compose.waitForIdle()
+                        val pending = compose.onAllNodesWithText(loading).fetchSemanticsNodes().isNotEmpty()
+                        compose.onNodeWithText(if (pending) loading else empty).assertIsDisplayed()
+                        val earlyEmpty = compose.onAllNodesWithText(empty).fetchSemanticsNodes().isNotEmpty()
+                        scenario.onActivity { assertFalse(it.store.extensions.inventoryReady) }
+                        capture("pending")
+                        fixture.release()
+                        compose.waitUntil(10000) { injectedStore.extensions.inventoryReady }
+                        field.assertIsFocused().assert(editableCharactersExactly(fixture.title))
+                        compose.onNodeWithText("Command shortcuts and alias").assertIsDisplayed()
+                        compose.onNodeWithText(loading).assertDoesNotExist()
+                        capture("published")
+                        field.performTextReplacement("Owned no result 71429")
+                        compose.onNodeWithText(empty).assertIsDisplayed()
+                        capture("empty")
+                        field.performTextReplacement(fixture.title)
+                        compose.onNodeWithText("Command shortcuts and alias").performClick()
+                        scenario.onActivity { assertEquals(fixture.id, it.requestedCommand) }
+                        assertTrue("Settings Find must display pending inventory feedback", pending)
+                        assertFalse("Settings Find must defer definitive empty results", earlyEmpty)
+                    } finally { fixture.release() }
+                }
+            } finally {
+                instrumentation.runOnMainSync { monitor.removeLifecycleCallback(callback) }
+            }
+        }
+    }
+
+    @Test fun pendingAliasRequestFocusesWhenTheCommandBecomesAvailable() {
+        key(KeyEvent.KEYCODE_COMMA, KeyEvent.META_CTRL_ON)
+        val workspace = settings()
+        val id = "notes:${java.util.UUID.randomUUID()}"
+        instrumentation.runOnMainSync { workspace.configure(id, "alias") }
+        val alias = compose.onNodeWithTag("settings-alias")
+        alias.performScrollTo().assertIsNotEnabled()
+        compose.onAllNodes(hasTestTag("settings-alias") and isFocused()).assertCountEquals(0)
+        assertEquals("alias", workspace.requestedEditor)
+
+        // Publish a local command after the unavailable inspector has been laid out.
+        // This exercises the shared inspector without relying on a scheduler or Store download.
+        instrumentation.runOnMainSync { workspace.store.save("notes", "Owned late command", "Fixture", id = id) }
+        alias.performScrollTo().assertIsEnabled()
+        compose.waitForIdle()
+        if (hostRestoresTestClipboard()) {
+            val dir = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
+            device.waitForIdle()
+            testAutomation().clearCacheForTest()
+            device.dumpWindowHierarchy(File(dir, "late-command.xml"))
+            assertTrue(device.takeScreenshot(File(dir, "late-command.png")))
+        }
+        alias.assertIsFocused()
+        assertEquals("", workspace.requestedEditor)
+        assertEquals(id, workspace.requestedCommand)
+    }
+
     @Test fun aliasActionFocusesCorrectCommandAndPersistsWithoutPopup() {
         compose.onNodeWithTag("search").performTextReplacement("Create a note")
         key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)

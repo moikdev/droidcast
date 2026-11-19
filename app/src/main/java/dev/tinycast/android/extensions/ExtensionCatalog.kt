@@ -7,6 +7,8 @@ import dev.tinycast.android.TextInputPreview
 import dev.tinycast.android.TextInputTarget
 import androidx.compose.runtime.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
@@ -74,8 +76,10 @@ object ExtensionArchive {
 }
 
 class ExtensionCatalog(private val context: Context) {
-    private val root = File(context.filesDir, "extensions").apply { mkdirs() }
-    var installed by mutableStateOf(readInstalled()); private set
+    private val root by lazy { File(context.filesDir, "extensions") }
+    private val initialScan = Mutex()
+    var inventoryReady by mutableStateOf(false); private set
+    var installed by mutableStateOf(emptyList<InstalledExtension>()); private set
     var busy by mutableStateOf<String?>(null)
     var error by mutableStateOf<String?>(null)
     var running by mutableStateOf<Pair<InstalledExtension, ExtensionCommand>?>(null)
@@ -117,12 +121,22 @@ class ExtensionCatalog(private val context: Context) {
         val launchProperties: String, val depth: Int,
     )
 
+    internal suspend fun loadInstalled() {
+        initialScan.withLock {
+            if (!inventoryReady) {
+                installed = withContext(Dispatchers.IO) { readInstalled() }
+                inventoryReady = true
+            }
+        }
+    }
+
     suspend fun search(query: String, page: Int = 1): List<StoreExtension> = withContext(Dispatchers.IO) {
         val q = URLEncoder.encode(query, "UTF-8")
         val json = JSONObject(String(ExtensionHttp.download("https://www.raycast.com/frontend_api/extensions/search?q=$q&page=$page&platform=macOS&_=${System.currentTimeMillis()}"), Charsets.UTF_8))
         json.optJSONArray("data").objects().filter { it.optString("status", "active") == "active" && it.optString("download_url").startsWith("https://") }.map(StoreExtension::parse)
     }
     suspend fun install(listing: StoreExtension) {
+        loadInstalled()
         check(busy == null) { "Another installation is in progress" }
         busy = listing.id; error = null
         try {
@@ -138,6 +152,7 @@ class ExtensionCatalog(private val context: Context) {
                     val prepared = ExtensionArchive.extract(bytes, stage)
                     require(JSONObject(File(prepared, "package.json").readText()).getString("name") == fresh.name) { "Downloaded package does not match the Store listing" }
                     File(prepared, ".tinycast-store.json").writeText(fresh.json().toString())
+                    check(root.isDirectory || root.mkdirs() || root.isDirectory) { "Could not create extension storage" }
                     val destination = directory(fresh.id)
                     val backup = File(root, ".backup-${fresh.id}")
                     backup.deleteRecursively()
@@ -150,6 +165,7 @@ class ExtensionCatalog(private val context: Context) {
         } finally { busy = null }
     }
     suspend fun uninstall(extension: InstalledExtension) {
+        loadInstalled()
         check(busy == null) { "Wait for the installation to finish" }
         busy = "uninstall:${extension.listing.id}"
         try {
