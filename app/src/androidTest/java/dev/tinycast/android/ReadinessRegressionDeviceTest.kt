@@ -317,15 +317,34 @@ class ReadinessRegressionDeviceTest {
                 val before = compose.runOnUiThread { peer().backupSnapshot() }
                 assertEquals(SavedItem(id, title, revised, "journal"), before.links.single { it.id == id })
                 assertEquals(expectedOverride, before.aliases[id])
-                compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled().performTouchInput { click() }
-                compose.onNodeWithText(feedback).assertExists()
+                val notice = compose.onNodeWithText("Quicklink saved")
+                compose.runOnIdle { store.message = null }
+                notice.assertDoesNotExist()
+                // Restart the success notice so its normal timeout cannot mask a failed dismissal.
+                compose.mainClock.autoAdvance = false
+                try {
+                    compose.runOnUiThread { store.message = "Quicklink saved" }
+                    compose.mainClock.advanceTimeBy(400)
+                    notice.assertIsDisplayed()
+                    capture("alias-$phase-before-rejection")
+                    notice.assertIsDisplayed()
+                    compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled().performTouchInput { click() }
+                    compose.mainClock.advanceTimeBy(400)
+                    compose.onNodeWithText(feedback).assertExists()
+                    try {
+                        notice.assertDoesNotExist()
+                    } finally {
+                        capture("alias-$phase-rejected")
+                    }
+                } finally {
+                    compose.mainClock.autoAdvance = true
+                }
                 val after = compose.runOnUiThread { peer().backupSnapshot() }
                 assertEquals("Rejected $phase edit changed saved links", before.links, after.links)
                 assertEquals("Rejected $phase edit changed alias overrides", before.aliases, after.aliases)
                 editable("editor-title", attemptedTitle)
                 editable("editor-body", attemptedUrl)
                 editable("editor-alias", attemptedAlias)
-                capture("alias-$phase-rejected")
                 assertTrue("Keyboard open at $phase rejection", keyboardShown())
                 compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled()
                 compose.onNodeWithTag("cancel-editor").assertIsDisplayed().assertIsEnabled()
