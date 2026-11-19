@@ -149,11 +149,17 @@ class FolderDeviceTest {
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 7000))
         // Picker may retain a previous initial directory; choose Downloads explicitly.
         device.waitForIdle()
-        if (!device.hasObject(By.res("com.google.android.documentsui:id/breadcrumb_text").text(rootName))) {
+        val folderCrumb = By.res("com.google.android.documentsui:id/breadcrumb_text").text(rootName)
+        val ancestor = device.findObject(folderCrumb)
+        if (ancestor == null) {
             device.findObject(By.desc("Show roots"))?.click()
             if (device.hasObject(By.text("Downloads"))) clickText("Downloads") else clickText("Download")
             clickText(rootName)
+        } else if (!device.hasObject(By.text("Previous-note.txt"))) {
+            ancestor.click()
         }
+        assertTrue("Fixture root must show its own immediate children",
+            device.wait(Until.hasObject(By.text("Previous-note.txt")), 5000))
         if (subfolder != null) clickText(subfolder)
         assertTrue(device.wait(Until.hasObject(By.text("USE THIS FOLDER")), 5000))
         val dir = File(context.filesDir, "folder-evidence").apply { mkdirs() }
