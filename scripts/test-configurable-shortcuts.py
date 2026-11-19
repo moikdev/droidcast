@@ -71,6 +71,12 @@ def focused():
     return next((line for line in adb("shell", "dumpsys", "window").splitlines() if "mCurrentFocus=" in line), "")
 
 
+def app_window(activity):
+    window = focused()
+    component = re.escape(APP) + r"/(?:" + re.escape(APP) + r")?\." + re.escape(activity)
+    return bool(re.search(r"\bu\d+ " + component + r"(?:\s|})", window))
+
+
 def bound():
     return any("Bound services:" in line and "Service[label=Droidcast" in line for line in adb("shell", "dumpsys", "accessibility").splitlines())
 
@@ -331,14 +337,26 @@ def settings_keyboard_route(trace=None):
     if trace:
         trace.mark("before_global_chord")
     chord(57)
-    wait(lambda: APP + "/" in focused() and ".MainActivity" in focused(), "Global chord did not return to the palette")
+    wait(lambda: app_window("MainActivity"), "Global chord did not return to the palette")
     if trace:
         trace.mark("before_ctrl_comma")
     chord(51, (29,))
     if trace:
         trace.mark("ctrl_comma_injection_returned")
     node("Make Droidcast fit the way you work.")
-    snapshot("settings-keyboard-route", "Global shortcut")
+    if trace:
+        # Verify the destination in the exact hierarchy kept with the terminal frame.
+        view = tree_bytes()
+        nodes = ET.fromstring(view).iter("node")
+        labels = [n.get("text", "") or n.get("content-desc", "") for n in nodes if n.get("package") == APP]
+        assert "Make Droidcast fit the way you work." in labels and any("Global shortcut" in label for label in labels)
+        assert app_window("SettingsActivity"), "Expected focused Settings before the capture"
+        pixels = raw("exec-out", "screencap", "-p")
+        assert app_window("SettingsActivity"), "Settings lost focus during the capture"
+        (output / "settings-keyboard-route.xml").write_bytes(view)
+        (output / "settings-keyboard-route.png").write_bytes(pixels)
+    else:
+        snapshot("settings-keyboard-route", "Global shortcut")
     if trace:
         trace.mark("destination_verified")
     passed("Ctrl+Comma opens the separate settings workspace with the service enabled")
@@ -364,10 +382,10 @@ try:
     if args.settings_focus_run:
         from shortcut_focus_evidence import SettingsFocusTrace
         configure_global_shortcut()
-        assert ".SettingsActivity" in focused(), "Missing starting Settings workspace"
+        assert app_window("SettingsActivity"), "Missing starting Settings workspace"
         with SettingsFocusTrace(base, output / "focus.json") as trace:
             settings_keyboard_route(trace)
-            assert ".SettingsActivity" in focused(), "Missing Settings destination window"
+            assert app_window("SettingsActivity"), "Missing Settings destination window"
     elif args.document_only:
         verify_document_shortcut()
     elif args.alt_q_only or args.readiness:
