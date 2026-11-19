@@ -279,14 +279,17 @@ class FolderDeviceTest {
         val evidence = File(context.filesDir, "folder-evidence").apply { mkdirs() }
         instrumentation.addMonitor(monitor)
         try {
+            device.dumpWindowHierarchy(File(evidence, "moved-$kind-cached.xml"))
+            assertTrue(device.takeScreenshot(File(evidence, "moved-$kind-cached.png")))
             device.findObject(row).click()
             compose.waitUntil(8000) {
-                attempts.isNotEmpty() || compose.onAllNodesWithText(message).fetchSemanticsNodes().isNotEmpty()
+                attempts.isNotEmpty() || device.hasObject(By.pkg(context.packageName).text(message))
             }
-            val hasMessage = compose.onAllNodesWithText(message).fetchSemanticsNodes().isNotEmpty()
-            if (hasMessage) assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text(message)), 4000))
-            device.dumpWindowHierarchy(File(evidence, "moved-$kind.xml"))
-            assertTrue(device.takeScreenshot(File(evidence, "moved-$kind.png")))
+            val hasMessage = device.hasObject(By.pkg(context.packageName).text(message))
+            if (hasMessage) {
+                device.dumpWindowHierarchy(File(evidence, "moved-$kind.xml"))
+                assertTrue(device.takeScreenshot(File(evidence, "moved-$kind.png")))
+            }
             File(evidence, "moved-$kind.json").writeText(org.json.JSONObject()
                 .put("attempted_external_actions", org.json.JSONArray(attempts))
                 .put("recovery_message", hasMessage).toString(2))
