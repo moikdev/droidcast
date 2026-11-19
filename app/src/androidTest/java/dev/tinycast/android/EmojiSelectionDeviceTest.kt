@@ -32,12 +32,18 @@ class EmojiSelectionDeviceTest {
         assertTrue(device.takeScreenshot(File(folder, "$name.png")))
     }
 
-    private fun start(readOnly: Boolean = false) {
+    private fun launchCaller(text: String, start: Int, end: Int, readOnly: Boolean, toolbar: Boolean = false) {
         val owner = instrumentation.context
         owner.startActivity(Intent().setComponent(ComponentName(owner.packageName, ReviewedTextCallerActivity::class.java.name))
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            .putExtra("emojiReplacement", true).putExtra("source", source)
-            .putExtra("selectionStart", 7).putExtra("selectionEnd", 19).putExtra("readOnly", readOnly))
+            .putExtra("emojiReplacement", true).putExtra("systemToolbar", toolbar).putExtra("source", text)
+            .putExtra("selectionStart", start).putExtra("selectionEnd", end).putExtra("readOnly", readOnly))
+        assertNotNull(device.wait(Until.findObject(By.res("android:id/edit").text(text)), 10000))
+    }
+
+    private fun start(readOnly: Boolean = false) {
+        launchCaller(source, 7, 19, readOnly)
+        val owner = instrumentation.context
         val button = device.wait(Until.findObject(By.text("Replace with emoji").pkg(owner.packageName)), 10000)
         assertNotNull(button)
         assertEquals(source, device.findObject(By.res("android:id/edit")).text)
@@ -77,6 +83,31 @@ class EmojiSelectionDeviceTest {
         choose()
         compose.onNodeWithText("Cancel").performTouchInput { click(center) }
         returned(source, "Canceled", "canceled")
+    }
+
+    @Test fun androidTextSelectionMenuReplacesTheWordInANativeEditor() {
+        val owner = instrumentation.context
+        launchCaller("sunshine", 0, 0, readOnly = false, toolbar = true)
+        val editor = device.findObject(By.res("android:id/edit"))
+        val bounds = editor.visibleBounds
+        // Long press the first word in the stock EditText to open Android's toolbar.
+        val x = bounds.left + (bounds.width() / 12).coerceIn(16, 32)
+        val y = bounds.top + (bounds.height() / 4).coerceAtLeast(12)
+        device.swipe(x, y, x, y, 130)
+        val match = By.text(java.util.regex.Pattern.compile("Replace with emoji", java.util.regex.Pattern.CASE_INSENSITIVE))
+        if (!device.wait(Until.hasObject(match), 1000)) {
+            val more = device.wait(Until.findObject(By.desc("More options")), 3000)
+            assertNotNull("Android text selection overflow is missing", more)
+            more.click()
+        }
+        val target = device.wait(Until.findObject(match), 4000)
+        capture("system-menu", owner.packageName)
+        assertNotNull("Android's selection menu must offer the installed emoji handler", target)
+        target.click()
+        choose()
+        compose.onNodeWithText("Replace selection").performTouchInput { click(center) }
+        assertNotNull(device.wait(Until.findObject(By.res("android:id/edit").text(glyph)), 10000))
+        capture("system-return", owner.packageName)
     }
 
     @Test fun readOnlySelectionReturnsUnchanged() {

@@ -44,6 +44,7 @@ public class ReviewedTextCallerActivity extends Activity {
         column.addView(heading);
         TextView explanation = new TextView(this);
         boolean emoji = getIntent().getBooleanExtra("emojiReplacement", false);
+        boolean toolbar = getIntent().getBooleanExtra("systemToolbar", false);
         explanation.setText(emoji ? "Replace the selected range in this editor."
             : "Select or share the owned text. Returning must leave this source unchanged.");
         explanation.setTextSize(15); column.addView(explanation);
@@ -61,7 +62,7 @@ public class ReviewedTextCallerActivity extends Activity {
             resultStatus = new TextView(this);
             column.addView(resultStatus);
         }
-        button(column, emoji ? "Replace with emoji" : "Process selected text", android.R.id.button1,
+        if (!toolbar) button(column, emoji ? "Replace with emoji" : "Process selected text", android.R.id.button1,
             () -> send(Intent.ACTION_PROCESS_TEXT));
         button(column, "Share owned text", android.R.id.button2, () -> send(Intent.ACTION_SEND));
         button(column, "Edit owned source", android.R.id.button3, () -> {
@@ -106,11 +107,15 @@ public class ReviewedTextCallerActivity extends Activity {
             if (emoji) getSystemService(android.content.ClipboardManager.class).setPrimaryClip(
                 android.content.ClipData.newPlainText("Owned selection check", "Owned clipboard sentinel"));
             requestedReadOnly = getIntent().getBooleanExtra("readOnly", true);
+            if (emoji && getPackageManager().resolveActivity(value, 0) == null) {
+                resultStatus.setText("Emoji replacement is unavailable");
+                return;
+            }
             try {
                 startActivityForResult(value, 42);
             } catch (android.content.ActivityNotFoundException e) {
                 if (!emoji) throw e;
-                selection.setText("Emoji replacement is unavailable");
+                resultStatus.setText("Emoji replacement is unavailable");
             }
         } else startActivity(value);
     }

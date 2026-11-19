@@ -17,6 +17,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -110,6 +111,8 @@ private fun SelectionScreen(request: EmojiSelectionRequest, cancel: () -> Unit, 
                     }
                 } else {
                     val store = request.store
+                    val languages = LocalConfiguration.current.locales.toLanguageTags()
+                    LaunchedEffect(languages) { store.loadLanguages(languages) }
                     val results by remember(store) { derivedStateOf { store.results() } }
                     OutlinedTextField(value = store.query, onValueChange = store::search, singleLine = true,
                         label = { Text("Search emoji or symbols") }, modifier = Modifier.fillMaxWidth())
