@@ -291,6 +291,37 @@ class CalculatorActionsDeviceTest {
             .put("capture_order","Compose idle, native XML, then PNG; sequential observations").toString(2))
     }
 
+    private fun assertDisplayedAnswer(answer: String) {
+        compose.onNode(hasAnyAncestor(hasTestTag("result-result")) and hasText(answer, substring = false),
+            useUnmergedTree = true).assertTextEquals(answer).assertIsDisplayed()
+    }
+
+    @Test fun subnormalUnitAnswerKeepsMagnitudeWhenCopiedAndChained() {
+        val query = "1e-322 mm to cm"
+        compose.onNodeWithTag("search").performTextReplacement(query)
+        compose.onNodeWithTag("result-result").assertIsDisplayed().assertIsSelected()
+        assertEquals(query, store.query)
+        fixtureUiReady = true
+        val answer = store.results().first().payload
+        assertDisplayedAnswer(answer)
+        capture("conversion")
+        assertTrue(answer.endsWith(" cm"))
+        assertEquals("Converted millimetres to centimetres", 1e-323, answer.removeSuffix(" cm").toDouble(), 0.0)
+        key(KeyEvent.KEYCODE_ENTER)
+        assertClip(answer)
+        dismissOwnedClipboard()
+        key(KeyEvent.KEYCODE_ENTER, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("search").assertIsFocused().assertTextEquals("= $answer")
+        connection { assertTrue(it.commitText(" to mm", 1)) }
+        compose.waitForIdle()
+        val chained = store.results().first().payload
+        assertTrue(chained.endsWith(" mm"))
+        assertEquals("Converted the displayed quantity back", 1e-322, chained.removeSuffix(" mm").toDouble(), 0.0)
+        assertDisplayedAnswer(chained)
+        capture("converted-back")
+        done()
+    }
+
     @Test fun smallAnswerCanBeCopiedAndUsedInTheNextCalculation() {
         val query = "1/1000000000000"
         compose.onNodeWithTag("search").performTextReplacement(query)
@@ -299,8 +330,7 @@ class CalculatorActionsDeviceTest {
         fixtureUiReady = true
         capture("result")
         assertEquals("1E-12", store.results().first().payload)
-        compose.onNode(hasAnyAncestor(hasTestTag("result-result")) and hasText("1E-12", substring = false),
-            useUnmergedTree = true).assertTextEquals("1E-12").assertIsDisplayed()
+        assertDisplayedAnswer("1E-12")
         key(KeyEvent.KEYCODE_ENTER)
         assertClip("1E-12")
         dismissOwnedClipboard()
@@ -309,8 +339,7 @@ class CalculatorActionsDeviceTest {
         connection { assertTrue(it.commitText(" * 1E+12", 1)) }
         compose.waitForIdle()
         assertEquals("1", store.results().first().payload)
-        compose.onNode(hasAnyAncestor(hasTestTag("result-result")) and hasText("1", substring = false),
-            useUnmergedTree = true).assertTextEquals("1").assertIsDisplayed()
+        assertDisplayedAnswer("1")
         capture("chained")
         done()
     }

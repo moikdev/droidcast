@@ -58,14 +58,16 @@ object CommandSearch {
 data class Calculation(val expression: String, val result: String, val explanation: String)
 
 object Calculator {
-    private data class UnitDef(val dimension: String, val factor: Double)
+    private data class UnitDef(val dimension: String, val factor: Double, val origin: Double = 0.0)
     private val units = mapOf(
         "mm" to UnitDef("length", .001), "cm" to UnitDef("length", .01), "m" to UnitDef("length", 1.0),
         "km" to UnitDef("length", 1000.0), "in" to UnitDef("length", .0254), "ft" to UnitDef("length", .3048), "mi" to UnitDef("length", 1609.344),
         "g" to UnitDef("mass", 1.0), "kg" to UnitDef("mass", 1000.0), "lb" to UnitDef("mass", 453.59237), "oz" to UnitDef("mass", 28.349523125),
         "ms" to UnitDef("time", .001), "s" to UnitDef("time", 1.0), "min" to UnitDef("time", 60.0), "h" to UnitDef("time", 3600.0), "day" to UnitDef("time", 86400.0),
         "b" to UnitDef("data", 1.0), "kb" to UnitDef("data", 1000.0), "mb" to UnitDef("data", 1e6), "gb" to UnitDef("data", 1e9),
-        "kib" to UnitDef("data", 1024.0), "mib" to UnitDef("data", 1048576.0), "gib" to UnitDef("data", 1073741824.0)
+        "kib" to UnitDef("data", 1024.0), "mib" to UnitDef("data", 1048576.0), "gib" to UnitDef("data", 1073741824.0),
+        // All three origins denote freezing water. Integer scales keep the 5:9 ratio exact.
+        "c" to UnitDef("temperature", 9.0), "f" to UnitDef("temperature", 5.0, 32.0), "k" to UnitDef("temperature", 9.0, 273.15)
     )
     private const val EXPONENT = "(?:e[+-]?\\d+)?"
     private val numericLiteral = Regex("(?:\\d+(?:\\.\\d*)?|\\.\\d+)$EXPONENT")
@@ -106,24 +108,22 @@ object Calculator {
         val conversion = conversionPattern.matchEntire(text)
         val quantity = if (source.startsWith('=')) quantityPattern.matchEntire(text) else null
         if (conversion != null) {
-            val value = parseAmount(conversion.groupValues[1])
-            val from = conversion.groupValues[2].removePrefix("°")
-            val to = conversion.groupValues[3].removePrefix("°")
-            val converted = if (from in listOf("c", "f", "k") && to in listOf("c", "f", "k")) {
-                val c = when (from) { "f" -> (value - 32) * 5 / 9; "k" -> value - 273.15; else -> value }
-                when (to) { "f" -> c * 9 / 5 + 32; "k" -> c + 273.15; else -> c }
-            } else {
-                val a = units.getValue(from)
-                val b = units.getValue(to)
-                require(a.dimension == b.dimension)
-                value * a.factor / b.factor
-            }
-            require(converted.isFinite())
+            val (literal, sourceUnit, targetUnit) = conversion.destructured
+            val to = targetUnit.removePrefix("°")
+            val sourceDef = units.getValue(sourceUnit.removePrefix("°"))
+            val targetDef = units.getValue(to)
+            require(sourceDef.dimension == targetDef.dimension)
+            val value = if (parseAmount(literal) == 0.0) BigDecimal.ZERO else BigDecimal(literal)
+            val scaled = (value - sourceDef.origin.toBigDecimal()) * sourceDef.factor.toBigDecimal()
+            val divisor = targetDef.factor.toBigDecimal()
+            val numerator = scaled + targetDef.origin.toBigDecimal() * divisor
+            val converted = numerator.divide(divisor, MathContext.DECIMAL128).toDouble()
+            require(converted.isFinite() && (converted != 0.0 || numerator.signum() == 0))
             Calculation(input, "${format(converted)} $to", "Unit conversion · computed on device")
         } else if (quantity != null) {
             val (number, unit) = quantity.destructured
             val amount = parseAmount(number)
-            require(unit in units || unit in listOf("c", "f", "k"))
+            require(unit in units)
             Calculation(source, "${format(amount)} $unit", "Quantity · computed on device")
         } else {
             val parser = Parser(text.replace('÷', '/').replace('−', '-'))
