@@ -59,6 +59,7 @@ TOUCH_CASES = ['launcherTouchClearPreservesFocusCategoryAndKeyboard',
                'diagnoseRangePlacementBeforeAndAfterImeSetup',
                'emojiActionsBackHidesKeyboardBeforeClosingMenu',
                'emojiActionKeyboardReopensOnFirstTapAfterBack',
+               'legacyActionKeyboardIgnoresStaleVisibleInsetDelivery',
                'launcherActionsBackHidesKeyboardBeforeClosingMenu',
                'emojiActionsSheetDocksAboveKeyboard',
                'launcherActionsSheetDocksAboveKeyboard']
