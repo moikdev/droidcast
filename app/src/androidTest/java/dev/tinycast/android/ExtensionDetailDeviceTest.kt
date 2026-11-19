@@ -529,6 +529,11 @@ class ExtensionDetailDeviceTest {
             assertEquals("POST", connection.requestMethod)
             if (connection.doOutput != (bytes != null) || !sent.contentEquals(bytes ?: byteArrayOf())) mismatches += name
         }
+        val malformed = FetchRequestProbe()
+        val rejection = runCatching { malformed.execute(malformed.post().put("bodyBase64", 1234)) }.exceptionOrNull()
+        observations.put(JSONObject().put("case", "non-string").put("connections", malformed.connections.size)
+            .put("rejected", rejection is IllegalArgumentException))
+        if (rejection !is IllegalArgumentException || malformed.connections.isNotEmpty()) mismatches += "non-string"
         assertEquals("Body presence or bytes differ", emptyList<String>(), mismatches)
         record.put("passed", true)
     }
