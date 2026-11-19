@@ -337,3 +337,11 @@ PR #137 merged at `0148f79f` after independent correctness and UX audits. The ve
 ### Detail and Grid JPEG sampling (#89)
 
 [Matched Android runs](EXTENSION-IMAGE-READINESS.md#jpeg-edges-at-a-power-of-two-sampling-boundary) reproduced two rejected Detail images and an oversized Grid thumbnail at odd JPEG dimensions. The repaired app passed the same five landscape cases and four JPEG cases in portrait. The earlier SVG blank/loading observation remains open.
+
+PR #139 merged this JPEG repair at `32e7e45b` after both audits and the hosted Android workflow passed.
+
+### Bodyless extension Fetch requests (#138)
+
+[Android Fetch measurements](EXTENSION-FETCH-ROUTING.md#request-body-presence-on-android) identified why a JSON-null POST supplied three unexpected bytes and why the HTTP redirect policy misclassified explicitly empty requests. The repaired adapter preserves the distinction. Real WebView smoke frames cover the HTTPS-only rejection route, and controlled connections cover POST bytes and redirect decisions.
+
+A JVM regression also reproduced a crash closing the HTTP client immediately after a request completed. The repaired client passed 300 such cycles. On API 36 the final tablet and phone builds each passed all three Fetch cases under the same instrumentation that caught both earlier body-handling failures. The intermediate phone failure has no recorded exception type. [Verification history](EXTENSION-FETCH-ROUTING.md#request-body-presence-on-android).

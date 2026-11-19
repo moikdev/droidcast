@@ -56,6 +56,12 @@ test('fetch_routes_to_host_with_browser_globals', () => use({}, async f => {
   assert.equal(f.browserCalls.length, 0); assert.equal(f.calls.length, 1);
   assert.equal(f.calls[0].url, target); assert.equal(f.calls[0].bodyBase64, null);
 }));
+test('bodyless_and_explicit_empty_posts_have_distinct_envelopes', () => use({}, async f => {
+  await f.run(`fetch(${JSON.stringify(target)}, {method:'POST'})`);
+  await f.run(`fetch(${JSON.stringify(target)}, {method:'POST', body:new Uint8Array(0)})`);
+  assert.equal(f.calls[0].bodyBase64, null);
+  assert.equal(f.calls[1].bodyBase64, '');
+}));
 test('request_preserves_unicode_method_and_headers', () => use({}, async f => {
   await f.run(`fetch(new Request(${JSON.stringify(target)}, {method:'post', headers:new Headers([['X-Owned','request']]), body:'café é 日本 🌱'}))`);
   const call = f.calls[0]; assert.equal(call.method, 'POST'); assert.equal(call.headers['x-owned'], 'request');

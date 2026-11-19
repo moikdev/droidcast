@@ -518,6 +518,74 @@ class ExtensionDetailDeviceTest {
         assertEquals(caller, compose.activity.store.query)
         record.put("caller_returned", true).put("passed", true)
     }
+    @Test fun nativeFetchPreservesAbsentAndExplicitRequestBodies() {
+        val expected = "café 日本".toByteArray()
+        val cases = listOf(
+            "omitted" to (null to null),
+            "json-null" to (JSONObject.NULL to null),
+            "empty" to ("" to byteArrayOf()),
+            "binary" to ("/wAB" to byteArrayOf(-1, 0, 1)),
+            "unicode" to (Base64.getEncoder().encodeToString(expected) to expected),
+            "literal-base64-null" to ("null" to Base64.getDecoder().decode("null"))
+        )
+        val observations = JSONArray()
+        record.put("post_requests", observations)
+        val mismatches = mutableListOf<String>()
+        for ((name, body) in cases) {
+            val (encoded, bytes) = body
+            val probe = FetchRequestProbe()
+            val envelope = probe.post()
+            if (encoded != null) envelope.put("bodyBase64", encoded)
+            val response = probe.execute(envelope)
+            val connection = probe.connections.single()
+            val sent = connection.sent.toByteArray()
+            observations.put(JSONObject().put("case", name).put("output", connection.doOutput)
+                .put("sent_hex", sent.joinToString("") { "%02x".format(it) }))
+            assertEquals(200, response.getInt("status"))
+            assertEquals("POST", connection.requestMethod)
+            if (connection.doOutput != (bytes != null) || !sent.contentEquals(bytes ?: byteArrayOf())) mismatches += name
+        }
+        val malformed = FetchRequestProbe()
+        val rejection = runCatching { malformed.execute(malformed.post().put("bodyBase64", 1234)) }.exceptionOrNull()
+        observations.put(JSONObject().put("case", "non-string").put("connections", malformed.connections.size)
+            .put("rejected", rejection is IllegalArgumentException))
+        if (rejection !is IllegalArgumentException || malformed.connections.isNotEmpty()) mismatches += "non-string"
+        assertEquals("Body presence or bytes differ", emptyList<String>(), mismatches)
+        record.put("passed", true)
+    }
+
+    @Test fun nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests() {
+        val results = JSONArray()
+        record.put("cross_origin_redirects", results)
+        val mismatches = mutableListOf<String>()
+        for (name in listOf("absent", "json-null", "explicit-empty", "binary", "header")) {
+            val probe = FetchRequestProbe()
+            val envelope = probe.post()
+            when (name) {
+                "json-null" -> envelope.put("bodyBase64", JSONObject.NULL)
+                "explicit-empty" -> envelope.put("bodyBase64", "")
+                "binary" -> envelope.put("bodyBase64", "/wAB")
+                "header" -> envelope.put("headers", JSONObject().put("X-Fixture", "owned"))
+            }
+            val result = runCatching { probe.execute(envelope, redirect = true) }
+            val failure = result.exceptionOrNull()
+            val allowed = name == "absent" || name == "json-null"
+            results.put(JSONObject().put("case", name).put("connections", probe.connections.size)
+                .put("status", result.getOrNull()?.optInt("status") ?: 0)
+                .put("exception_type", failure?.javaClass?.name ?: JSONObject.NULL))
+            if (failure != null && failure !is IllegalArgumentException) throw failure
+            val correct = if (allowed) {
+                result.getOrNull()?.optString("url") == probe.destination && probe.connections.size == 2 &&
+                    probe.connections.all { !it.doOutput && it.requestMethod == "POST" }
+            } else {
+                probe.connections.size == 1 && result.exceptionOrNull()?.message == "Cross-origin redirects with credentials are unsupported"
+            }
+            if (!correct) mismatches += name
+        }
+        assertEquals("Unexpected cross-origin outcomes", emptyList<String>(), mismatches)
+        record.put("passed", true)
+    }
+
     @Test fun globalHttpsFetchPublishesTheResponseCopiesExactTextAndReturnsToTheCaller() {
         launchOwnedHttpsProbe(); capture("https-ready")
         touchTag("extension-primary")
