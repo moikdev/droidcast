@@ -243,47 +243,73 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
             finally { backupBusy = false }
         }
     }
+    private fun android.content.SharedPreferences.Editor.putBackupValue(key: String, value: Any?) {
+        when (value) {
+            null -> remove(key)
+            is String -> putString(key, value)
+            is Int -> putInt(key, value)
+            is Set<*> -> putStringSet(key, value.filterIsInstance<String>().toSet())
+            is Boolean -> putBoolean(key, value)
+            is Long -> putLong(key, value)
+            is Float -> putFloat(key, value)
+        }
+    }
+
     fun applyBackup() {
         if (backupBusy) return
         val plan = runCatching { restorePlan() }.getOrElse { backupError = it.message; return }
         // One SharedPreferences transaction: no category is published independently.
         val data = plan.data
         val restoredShortcuts = ShortcutConfiguration(data.shortcuts.bindings + shortcutConfiguration.bindings.filterKeys { it.startsWith("files:") })
-        val original = prefs.all
-        val editor = prefs.edit().putString("notes", encodeItems(data.notes)).putString("links", encodeItems(data.links)).putString("clips", encodeItems(data.clips))
-            .putStringSet("pins", data.pins + pins.filter { it.startsWith("files:") })
-            .putString("aliases", JSONObject(data.aliases + aliases.filterKeys { it.startsWith("files:") }).toString())
-            .putString("usage", JSONObject(data.usage + usage.filterKeys { it.startsWith("files:") }).toString())
-            .putString("shortcuts", ShortcutCodec.encode(restoredShortcuts).toString())
-        val restoringEmoji = BackupCategory.EMOJI in plan.categories
-        if (restoringEmoji) {
-            editor.putString(EmojiStore.FAVORITES_KEY, org.json.JSONArray(data.emoji.favorites).toString())
-                .putInt(EmojiStore.GRID_KEY, data.emoji.gridColumns ?: 0)
+        val changes = buildMap<String, Any> {
+            for (category in plan.categories) when (category) {
+                BackupCategory.NOTES -> put("notes", encodeItems(data.notes))
+                BackupCategory.LINKS -> put("links", encodeItems(data.links))
+                BackupCategory.CLIPS -> put("clips", encodeItems(data.clips))
+                BackupCategory.PREFERENCES -> {
+                    put("pins", data.pins + pins.filter { it.startsWith("files:") })
+                    put("aliases", JSONObject(data.aliases + aliases.filterKeys { it.startsWith("files:") }).toString())
+                }
+                BackupCategory.LEARNING -> put("usage", JSONObject(data.usage + usage.filterKeys { it.startsWith("files:") }).toString())
+                BackupCategory.SHORTCUTS -> put("shortcuts", ShortcutCodec.encode(restoredShortcuts).toString())
+                BackupCategory.EMOJI -> {
+                    put(EmojiStore.FAVORITES_KEY, JSONArray(data.emoji.favorites).toString())
+                    put(EmojiStore.GRID_KEY, data.emoji.gridColumns ?: 0)
+                }
+            }
         }
         backupBusy = true; backupError = null
         viewModelScope.launch {
             try {
                 val saved = withContext(Dispatchers.IO) {
+                    val original = prefs.all
+                    val editor = prefs.edit()
+                    changes.forEach { (key, value) -> editor.putBackupValue(key, value) }
                     if (editor.commit()) true else {
-                        // commit also changes the preference memory map on failure. Roll it back.
+                        // A failed commit also publishes to the in-memory map. Restore only
+                        // values this transaction wrote and no subsequent editor replaced.
+                        val current = prefs.all
                         prefs.edit().also { rollback ->
-                            val emojiKeys = if (restoringEmoji) listOf(EmojiStore.FAVORITES_KEY, EmojiStore.GRID_KEY) else emptyList()
-                            (listOf("notes", "links", "clips", "pins", "aliases", "usage", "shortcuts") + emojiKeys).forEach { key ->
-                                when (val value = original[key]) {
-                                    is String -> rollback.putString(key, value)
-                                    is Int -> rollback.putInt(key, value)
-                                    is Set<*> -> rollback.putStringSet(key, value.filterIsInstance<String>().toSet())
-                                    else -> rollback.remove(key)
-                                }
+                            changes.forEach { (key, value) ->
+                                if (current[key] == value) rollback.putBackupValue(key, original[key])
                             }
                         }.apply()
                         false
                     }
                 }
                 if (!saved) { backupError = "Could not save restored data. Your collections were kept."; return@launch }
-                notes = data.notes; links = data.links; clips = data.clips
-                pins = prefs.getStringSet("pins", emptySet())!!.toSet(); aliases = readAliases(); usage = readMap("usage")
-                shortcutConfiguration = restoredShortcuts; shortcutError = null
+                for (category in plan.categories) when (category) {
+                    BackupCategory.NOTES -> notes = read("notes")
+                    BackupCategory.LINKS -> links = read("links")
+                    BackupCategory.CLIPS -> clips = read("clips")
+                    BackupCategory.PREFERENCES -> {
+                        pins = prefs.getStringSet("pins", emptySet())!!.toSet()
+                        aliases = readAliases()
+                    }
+                    BackupCategory.LEARNING -> usage = readMap("usage")
+                    BackupCategory.SHORTCUTS -> { shortcutConfiguration = restoredShortcuts; shortcutError = null }
+                    BackupCategory.EMOJI -> Unit // EmojiStore observes the committed preferences.
+                }
                 backupDocument = null; dialog = "backup"; selected = 0
                 message = plan.completionMessage()
             } finally { backupBusy = false }

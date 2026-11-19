@@ -222,6 +222,51 @@ class BackupDeviceTest {
         }
     }
 
+    @Test fun selectedBackupCategoriesPreserveNewerUnselectedNotesAndGrid() {
+        val store = compose.activity.store
+        val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val categories = setOf(BackupCategory.NOTES, BackupCategory.EMOJI)
+        val note = SavedItem("notes:portable", "Portable note", "Mixed category fixture")
+        val incoming = PortableEmojiSettings(listOf("1f604", "1f603"), null)
+        val document = BackupDocument(BackupData(notes = listOf(note), emoji = incoming), categories)
+        val file = File.createTempFile("mixed-backup-", ".json", context.cacheDir)
+        fun review(exclude: BackupCategory?) {
+            load(document, file)
+            exclude?.let { compose.onNodeWithTag("backup-category-${it.name}").performScrollTo().performClick() }
+            compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+        }
+        fun apply() {
+            compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+            compose.waitUntil(10000) { !store.backupBusy && store.backupDocument == null }
+        }
+        try {
+            compose.activityRule.scenario.onActivity {
+                prefs.edit().putString("emojiFavoriteOrder", """["1f600"]""").putInt("emojiGridColumns", 6).apply()
+                store.beginBackup()
+            }
+            review(BackupCategory.EMOJI)
+            apply()
+            assertEquals(listOf(note), store.notes)
+            assertEquals(PortableEmojiSettings(listOf("1f600"), 6), store.emoji.portableSettings())
+
+            review(BackupCategory.NOTES)
+            // A separate writer changed this unselected collection after the preview.
+            val newer = """[{"id":"notes:newer","title":"Newer local edit","body":"Keep this note","alias":""}]"""
+            compose.activityRule.scenario.onActivity { prefs.edit().putString("notes", newer).apply() }
+            apply()
+            assertEquals("An emoji-only restore must preserve newer notes", newer, prefs.getString("notes", null))
+            assertEquals(incoming, store.emoji.portableSettings())
+            review(null)
+            apply()
+            assertEquals(listOf(note), store.notes)
+            assertEquals(incoming, store.emoji.portableSettings())
+            assertEquals(0, prefs.getInt("emojiGridColumns", -1))
+        } finally {
+            file.delete()
+        }
+    }
+
     @Test fun previewCancelAndMalformedInputLeaveDataUntouched() {
         val before = compose.activity.store.backupSnapshot()
         load(BackupDocument(BackupData(notes = listOf(SavedItem("notes:import", "Imported note", "Do not apply on preview"))), setOf(BackupCategory.NOTES)))
