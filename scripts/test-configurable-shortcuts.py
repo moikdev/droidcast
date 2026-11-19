@@ -14,6 +14,8 @@ import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from html_viewer_evidence import VIEWER, visible_body_method
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--adb", default=os.environ.get("ADB", "adb"))
 parser.add_argument("--serial", default="emulator-5580")
@@ -419,11 +421,23 @@ try:
                 tap(choice)
             # Android may already name the remembered viewer in the chooser title.
             click("Just once")
-        wait(lambda: "com.android.htmlviewer/" in focused(), "Recent-document binding did not reach its viewer")
-        node("tinycast-soak-document.txt")
-        node("Tinycast extended text file test.", contains=True)
-        (output / "document-viewer.xml").write_bytes(ET.tostring(tree()))
-        (output / "document-viewer.png").write_bytes(raw("exec-out", "screencap", "-p"))
+        def document_visible():
+            if VIEWER + "/" not in focused():
+                return False
+            hierarchy = tree()
+            screenshot = raw("exec-out", "screencap", "-p")
+            if VIEWER + "/" not in focused():
+                return False
+            method = visible_body_method(hierarchy, screenshot, "tinycast-soak-document.txt",
+                                         "Tinycast extended text file test.")
+            if method is None:
+                return False
+            (output / "document-viewer.xml").write_bytes(ET.tostring(hierarchy))
+            (output / "document-viewer.png").write_bytes(screenshot)
+            results["document_body_evidence"] = method
+            return True
+
+        wait(document_visible, "HTML Viewer did not show the exact TXT title and body")
         passed("recent-document binding opens the persisted TXT fixture")
 
         assign("Calculator", 46, "Ctrl + Alt + C")
