@@ -281,6 +281,7 @@ class EmojiDeviceTest {
         val glyph = "🫱🏽‍🫲🏻"
         val id = "1faf1-1f3fd-200d-1faf2-1f3fb"
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("Medium + Light")
+        compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-tone-$id"))
         toneMenuFrame("mixed-choice", "emoji-tone-$id")
         compose.onNodeWithTag("emoji-tone-$id").performTouchInput { click(center) }
         assertEquals(glyph, clipboard())
