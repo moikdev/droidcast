@@ -3,6 +3,8 @@
 from pathlib import Path
 import argparse,subprocess,hashlib,json,re,time,xml.etree.ElementTree as E,os,shutil,platform
 from android_test_cleanup import Cleanup,transition_adbd
+if not __debug__:
+ raise SystemExit("Run without -O so the device, input and restoration checks remain enabled.")
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--output',type=Path,required=True)
 p.add_argument('--typing-only',action='store_true');p.add_argument('--menus-only',action='store_true');p.add_argument('--allow-adbd-root',action='store_true');p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
@@ -140,9 +142,11 @@ try:
   raw('shell','input','text',expected)
   observations=[];start=time.monotonic()
   if a.pre_observer_frame:
-   assert APP+'/' in focus() and 'MainActivity' in focus()
-   (a.output/'typing-before-observer.png').write_bytes(raw('exec-out','screencap','-p'))
-   assert 'MainActivity' in focus()
+   main_window = re.compile(r'\b' + re.escape(APP) + r'/(?:' + re.escape(APP) + r')?\.MainActivity\b')
+   assert main_window.search(focus()),'Expected the focused palette before the screenshot'
+   image=raw('exec-out','screencap','-p')
+   assert main_window.search(focus()),'Palette lost focus during the screenshot'
+   (a.output/'typing-before-observer.png').write_bytes(image)
    record['pre_observer_frame_seconds']=round(time.monotonic()-start,3)
   while True:
    data=tree();values=[n.get('text','') for n in E.fromstring(data).iter('node') if n.get('package')==APP and n.get('class')=='android.widget.EditText']
