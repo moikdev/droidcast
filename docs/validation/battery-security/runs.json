@@ -1,0 +1,270 @@
+{
+  "final-old": {
+    "app": "d35fbbf0b119d0543a74b786aab81cc425784e1620ed91074505d234412602cd",
+    "cases": {
+      "battery": {
+        "files": {
+          "battery-search.png": "97a0191c9c6e8833e7f9eb979ff132b974416164985fdd0f7cd5e5c0d1a59e35",
+          "battery-search.xml": "6ca9cada6383057a21cfdfed01069be289af03234d5bda60620135d30561b3f8"
+        },
+        "junit_pass": false,
+        "method": "batterySearchOpensUsageOverview"
+      },
+      "security": {
+        "files": {
+          "security-search.png": "eb5e4e7d47a7d5dfafbd1f231389c93815465315b9ec538be4efd877834dd7b9",
+          "security-search.xml": "cc0154645e4dbd03843500a51be3e30100e3ffe952c9e13f00d19847f69bcaf2"
+        },
+        "junit_pass": false,
+        "method": "securitySearchOpensSafetyCenter"
+      }
+    },
+    "kind": "prior",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fa7ad11da67070d61fd17b22ff96314d39758fc11f85999c2fd06906956481b8",
+    "test": "fc139785d376612ab0823af2fb9f54b6c89cf79ce6777f5172deb4088ab811fa"
+  },
+  "final-phone": {
+    "app": "6a13a1ad249d568e173b56a69d0cdaf8426a0b347f6bd221295d69b972112f76",
+    "cases": {
+      "args": {
+        "files": {},
+        "junit_pass": true,
+        "method": "appScopedIntentsCarryOnlyTheRequiredPackageArgument"
+      },
+      "battery": {
+        "files": {
+          "battery-search.png": "2730d710a5209df72e218c8867eaa9873478836622f887765df8ae5068527298",
+          "battery-search.xml": "d931b3ad8abc5c4acae1cb8fea9630eb43b528c0acbf8794c825d56e5d41f180",
+          "battery.png": "eb884e37049d7bb230dd9f253f306594624e7fc37cb663d90c0503acd72546a7",
+          "battery.xml": "a9dd20ccb4e6f0853c6d76f58efe97e2898d497d08926c955cc74a43c7176146"
+        },
+        "junit_pass": true,
+        "method": "batterySearchOpensUsageOverview"
+      },
+      "denied": {
+        "files": {
+          "security-denied.png": "5cbfc49cff2a2220073615efa2f012d10cf9eb6b3c51ee6988959b8fd4bb3e02",
+          "security-denied.xml": "5eb13adce97d521991650e9c0c5cde453058d0e74a5d05b5232e95179650cfc3"
+        },
+        "junit_pass": true,
+        "method": "deniedSecurityDashboardPreservesTheSearch"
+      },
+      "missing": {
+        "files": {
+          "unavailable.png": "9f636f0e0a92bf104e9cdfd65a0b548781bd9ebdfc646f238abf68e450f3d4cb"
+        },
+        "junit_pass": true,
+        "method": "missingDestinationReportsErrorAndKeepsPaletteQuery"
+      },
+      "security": {
+        "files": {
+          "security-search.png": "ed1876ea4d902935afcb7c0cb9927df0aaa266ef66ac23c55e0e10e5b740debd",
+          "security-search.xml": "aa878a41faed5e41084f4583b6a6bde863ec12c9ba632e5d09976fc856489bb4",
+          "security.png": "ef3c18db54ed535c003ae39359899438e88a4dc90f36b737db5f2180faa7f625",
+          "security.xml": "2b2b1b798ea8fee4aae012164a4105f27d8e78612014f01a9e5e3f9bc5fd44e4"
+        },
+        "junit_pass": true,
+        "method": "securitySearchOpensSafetyCenter"
+      }
+    },
+    "kind": "current",
+    "profile": "phone",
+    "released": true,
+    "restoration": {
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fa7ad11da67070d61fd17b22ff96314d39758fc11f85999c2fd06906956481b8",
+    "test": "fc139785d376612ab0823af2fb9f54b6c89cf79ce6777f5172deb4088ab811fa"
+  },
+  "final-tablet": {
+    "app": "6a13a1ad249d568e173b56a69d0cdaf8426a0b347f6bd221295d69b972112f76",
+    "cases": {
+      "args": {
+        "files": {},
+        "junit_pass": true,
+        "method": "appScopedIntentsCarryOnlyTheRequiredPackageArgument"
+      },
+      "battery": {
+        "files": {
+          "battery-search.png": "0f5f31a0b597c8f0f392b8f7cee1b0e4fdbdfbca23a8b43ee0178f69c96a719d",
+          "battery-search.xml": "96b6b548c787eae92219ae749bc786463b743945ead3283f08093bceaf37e3f2",
+          "battery.png": "3f359431e0b7547f797e6eed549aeac53c2e95b5aaac79f581d3eb31a6f638e2",
+          "battery.xml": "654e0c400758d4ca4c3bb1bec425f4eaf9371c649f58a5c673ba1052620c3e0f"
+        },
+        "junit_pass": true,
+        "method": "batterySearchOpensUsageOverview"
+      },
+      "denied": {
+        "files": {
+          "security-denied.png": "5eca2a1f16f710a3b3e3cbdb28d04400cf4d0cef45226146894cbc2e70ace863",
+          "security-denied.xml": "9bde3791b6bba3de26c1154daf1ae26b2e79d3ff6f7ea2bb803491bf01cdcf70"
+        },
+        "junit_pass": true,
+        "method": "deniedSecurityDashboardPreservesTheSearch"
+      },
+      "missing": {
+        "files": {
+          "unavailable.png": "18686b5a60dad7e0f25b0a6c0cec813af6c38d94d932e9f1b117f3744dab251f"
+        },
+        "junit_pass": true,
+        "method": "missingDestinationReportsErrorAndKeepsPaletteQuery"
+      },
+      "security": {
+        "files": {
+          "security-search.png": "8eb99f864091c22c33d3e2fd4f482556a4c27a9107c87d51b510df0243bd5d64",
+          "security-search.xml": "6cb82c577c469478e4892180910dd91116f41dc97733a7327799ae94b23088f8",
+          "security.png": "05217bf2966f3c422e2865cd18c0bafd997f13cb6d7e0e13dd3e9b8a77121bce",
+          "security.xml": "76fcc20ac009ed155333757347e9b2b3c5af2a43ecdca864e260b2c68b4a1254"
+        },
+        "junit_pass": true,
+        "method": "securitySearchOpensSafetyCenter"
+      },
+      "wifi": {
+        "files": {
+          "wifi.png": "75935f57d9fa67098b0e7eff4fdbc39e91a86c40906a258548a30dadf248558d",
+          "wifi.xml": "48f3408f653a399ea825ca7e0ca61b221e19606f1a8d5b8d76e65b8e438fc178"
+        },
+        "junit_pass": true,
+        "method": "wifiSearchOpensWifiPage"
+      }
+    },
+    "kind": "current",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fa7ad11da67070d61fd17b22ff96314d39758fc11f85999c2fd06906956481b8",
+    "test": "fc139785d376612ab0823af2fb9f54b6c89cf79ce6777f5172deb4088ab811fa"
+  },
+  "new-tablet": {
+    "app": "fd3fdeb31006a6e38777a45f606c083fc9cf3927fd16ece1033168a61f935cce",
+    "cases": {
+      "args": {
+        "files": {},
+        "junit_pass": true,
+        "method": "appScopedIntentsCarryOnlyTheRequiredPackageArgument"
+      },
+      "battery": {
+        "files": {
+          "battery-search.png": "f3ee511e628b6008204537f0e6fd462ca75598ce7990a2466773e47ab85f3741",
+          "battery-search.xml": "092760b413123267aed67f2dcde3dd4574cd27d1d03c874ef1667ec5e1af8d0e",
+          "battery.png": "0b522c212da3433fa4454add5d2a8c4f3dcf0f13b8e041211896b4106d874d28",
+          "battery.xml": "42af2800526882be03b4dbf514813adfbd490f55ecbb19531b31437e3a4fe270"
+        },
+        "junit_pass": true,
+        "method": "batterySearchOpensUsageOverview"
+      },
+      "denied": {
+        "files": {
+          "security-denied.png": "11cc6ff8ef1e853591f4a047c5e043490e0f3bf042341241643b5f3f06d05000",
+          "security-denied.xml": "5f7dc9cece6b0c7932bd1cf2f98a5dbfe7c22ab92d30742a1619f96f53f0c880"
+        },
+        "junit_pass": true,
+        "method": "deniedSecurityDashboardPreservesTheSearch"
+      },
+      "missing": {
+        "files": {
+          "unavailable.png": "9884ff784d6290c36fc715ec2a641f0a401b8643e0bec861cf02fc805c52b5d7"
+        },
+        "junit_pass": true,
+        "method": "missingDestinationReportsErrorAndKeepsPaletteQuery"
+      },
+      "security": {
+        "files": {
+          "security-search.png": "8fddc6c411db09a1487caeb982ff867ad018ba1ec82d18aab45b2be4fa76e0a8",
+          "security-search.xml": "281bf35fc32e826b470f705341f61f2a907575db3407eae3572ae51f59700b1e",
+          "security.png": "321251ac7aaeff5fd3d86d4f298365b701d69c9916dfd931caaeab389a490c45",
+          "security.xml": "ae5e61ce27fb4dd070fe44e7811d4200d71bf5b13f574826ecc495558a863738"
+        },
+        "junit_pass": true,
+        "method": "securitySearchOpensSafetyCenter"
+      },
+      "wifi": {
+        "files": {
+          "wifi.png": "32a30a756bb15187f51ce1ce1a8e6aecde454e36a1483ca9a502ffa072b366ab",
+          "wifi.xml": "aefeb0796006f0b2266f905a8a1571439b96f699b28cecad1b35e3f8890f8145"
+        },
+        "junit_pass": true,
+        "method": "wifiSearchOpensWifiPage"
+      }
+    },
+    "kind": "current",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fa7ad11da67070d61fd17b22ff96314d39758fc11f85999c2fd06906956481b8",
+    "test": "68bca82ee68e1d3524bce575edb739c50be8f0410e21bcc1b0422374cbd8259f"
+  },
+  "old-tablet": {
+    "app": "d35fbbf0b119d0543a74b786aab81cc425784e1620ed91074505d234412602cd",
+    "cases": {
+      "battery": {
+        "files": {
+          "battery-search.png": "4658967df2d0bd3661d0565b9735042547b9385f090442fdd0ff3babb24a5f10",
+          "battery-search.xml": "daa00c40e964505b944e2cffdd42e7d792a1be8bdff3173f7cfaf822161c1b67"
+        },
+        "junit_pass": false,
+        "method": "batterySearchOpensUsageOverview"
+      },
+      "security": {
+        "files": {
+          "security-search.png": "5b4f684051cf54454e7e7e337d846a08ce8378336af45221df919d3d9c558d41",
+          "security-search.xml": "cf1114eccac11ef451bc7833a0193af08c8cad420f2540198e1963b6b6178e59"
+        },
+        "junit_pass": false,
+        "method": "securitySearchOpensSafetyCenter"
+      }
+    },
+    "kind": "prior",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fa7ad11da67070d61fd17b22ff96314d39758fc11f85999c2fd06906956481b8",
+    "test": "68bca82ee68e1d3524bce575edb739c50be8f0410e21bcc1b0422374cbd8259f"
+  }
+}
