@@ -78,6 +78,69 @@ class ReadinessRegressionDeviceTest {
         val results = compose.activity.store.results(); assertEquals(2,results.size)
         return results
     }
+    @Test fun installedCatalogLoadsWithoutBlockingTheUiThread() {
+        val fixture = java.nio.file.Files.createTempDirectory(context.cacheDir.toPath(), "catalog-startup-").toFile()
+        val holder = androidx.lifecycle.ViewModelStore()
+        val ioEntered = java.util.concurrent.CountDownLatch(1)
+        val releaseIo = java.util.concurrent.CountDownLatch(1)
+        val uiAccess = java.util.concurrent.atomic.AtomicInteger()
+        val workerAccess = java.util.concurrent.atomic.AtomicInteger()
+        val prefix = fixture.name + "-"
+        val prefNames = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
+        val app = object : android.app.Application() {
+            init { attachBaseContext(context.applicationContext) }
+            override fun getSharedPreferences(name: String, mode: Int): android.content.SharedPreferences {
+                prefNames.add(prefix + name)
+                return super.getSharedPreferences(prefix + name, mode)
+            }
+            override fun getFilesDir(): File {
+                if (Thread.currentThread().stackTrace.any { it.className.startsWith(ExtensionCatalog::class.java.name) }) {
+                    if (android.os.Looper.myLooper() == android.os.Looper.getMainLooper()) uiAccess.incrementAndGet()
+                    else {
+                        workerAccess.incrementAndGet()
+                        ioEntered.countDown()
+                        check(releaseIo.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                    }
+                }
+                return fixture
+            }
+        }
+        val commandId = "ext:startup-probe/fixture"
+        try {
+            val directory = File(fixture, "extensions/startup-probe")
+            check(directory.mkdirs())
+            val listing = StoreExtension("startup-probe", "startup-probe", "Owned startup probe", "", "Tester", "tester", "", "", "", 1)
+            File(directory, ".tinycast-store.json").writeText(listing.json().toString())
+            File(directory, "package.json").writeText("""{"commands":[{"name":"fixture","title":"Owned startup command","mode":"view"}]}""")
+            val model = compose.runOnUiThread {
+                androidx.lifecycle.ViewModelProvider(holder, androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(app))[PaletteStore::class.java]
+            }
+            // The earlier build already read the manifest on main. Only hold the worker if it exists.
+            val entered = uiAccess.get() == 0 && ioEntered.await(10, java.util.concurrent.TimeUnit.SECONDS)
+            val pending = entered && compose.runOnUiThread { model.loading && model.command(commandId) == null }
+            releaseIo.countDown()
+            compose.waitUntil(15000) { !model.loading }
+            assertEquals("Owned startup command", compose.runOnUiThread { model.command(commandId)?.title })
+            compose.onNodeWithTag("search").performTextReplacement("= 6 * 7")
+            compose.onNodeWithTag("result-result").assertIsDisplayed()
+            val observed = JSONObject().put("catalog_files_dir_on_main", uiAccess.get())
+                .put("catalog_files_dir_off_main", workerAccess.get()).put("ui_responded_while_inventory_pending", pending)
+                .put("installed_command_resolved", true)
+            if (hostClipboardRecovery) {
+                capture("catalog-startup")
+                File(context.filesDir, "readiness-evidence/catalog-startup-probe.json").writeText(observed.toString())
+            }
+            assertEquals("Installed catalog storage accessed from UI thread", 0, uiAccess.get())
+            assertTrue("Worker accessed the controlled catalog root", workerAccess.get() > 0)
+            assertTrue("UI remained available before command publication", pending)
+        } finally {
+            releaseIo.countDown()
+            compose.runOnUiThread { holder.clear() }
+            for (name in prefNames) context.deleteSharedPreferences(name)
+            check(fixture.deleteRecursively())
+        }
+    }
+
     @Test fun rapidLauncherDownThenEnterUsesTheCurrentSelection() {
         val rows=twoNotes()
         compose.activityRule.scenario.onActivity { key(it,KeyEvent.KEYCODE_DPAD_DOWN); key(it,KeyEvent.KEYCODE_ENTER) }
