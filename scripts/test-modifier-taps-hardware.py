@@ -7,7 +7,12 @@ p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--output',type=Path,required=True)
 p.add_argument('--typing-only',action='store_true');p.add_argument('--menus-only',action='store_true');p.add_argument('--allow-adbd-root',action='store_true');p.add_argument('--apk',type=Path,default=Path('app/build/outputs/apk/debug/app-debug.apk'))
 p.add_argument('--test-apk',type=Path,default=Path('app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'))
-a=p.parse_args();assert a.allow_adbd_root and a.serial.startswith('emulator-')
+p.add_argument('--pre-observer-frame', action='store_true',
+               help='In a separate typing probe, capture the focused palette before the first hierarchy observer')
+a=p.parse_args()
+if a.pre_observer_frame and not a.typing_only:
+ p.error('--pre-observer-frame requires --typing-only')
+assert a.allow_adbd_root and a.serial.startswith('emulator-')
 sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT') or next(x[8:] for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
 adb=[str(Path(sdk)/'platform-tools/adb'),'-s',a.serial];APP='dev.tinycast.android';SERVICE=APP+'/'+APP+'.PaletteShortcutService'
 def raw(*args,data=None):return subprocess.check_output(adb+list(args),input=data,stderr=subprocess.STDOUT)
@@ -134,6 +139,11 @@ try:
   expected='menuKeyboardProbe271828'
   raw('shell','input','text',expected)
   observations=[];start=time.monotonic()
+  if a.pre_observer_frame:
+   assert APP+'/' in focus() and 'MainActivity' in focus()
+   (a.output/'typing-before-observer.png').write_bytes(raw('exec-out','screencap','-p'))
+   assert 'MainActivity' in focus()
+   record['pre_observer_frame_seconds']=round(time.monotonic()-start,3)
   while True:
    data=tree();values=[n.get('text','') for n in E.fromstring(data).iter('node') if n.get('package')==APP and n.get('class')=='android.widget.EditText']
    observations.append({'seconds':round(time.monotonic()-start,3),'values':values})
