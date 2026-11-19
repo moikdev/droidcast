@@ -22,6 +22,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -92,13 +93,22 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
             scrubTextIntent(intent)
         } else if (isTextIntent(intent)) scrubTextIntent(intent)
         setContent {
-            LaunchedEffect(store.pendingShortcut, store.loading, store.folderSearch.loading) {
-                val request = store.pendingShortcut
-                if (request != null && !store.loading && !store.folderSearch.loading) {
+            val windowFocused = LocalWindowInfo.current.isWindowFocused
+            LaunchedEffect(store.pendingShortcut, store.loading, store.folderSearch.loading, windowFocused) {
+                val request = store.pendingShortcut ?: return@LaunchedEffect
+                if (store.loading || store.folderSearch.loading) return@LaunchedEffect
+                if (!ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) {
                     store.pendingShortcut = null
-                    if (!ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) store.message = "Shortcut changed or expired. Try again."
-                    else store.command(request.target)?.let(::execute) ?: run { store.message = "This shortcut's command is unavailable. Clear or reassign it in Keyboard shortcuts." }
+                    store.message = "Shortcut changed or expired. Try again."
+                    return@LaunchedEffect
                 }
+                val command = store.command(request.target)
+                // A resumed palette may still be waiting for its window. Starting
+                // the MIME lookup here can discard a valid file launch at its focus check.
+                if (command?.kind == Kind.FILE && !windowFocused) return@LaunchedEffect
+                store.pendingShortcut = null
+                if (command != null) execute(command)
+                else store.message = "This shortcut's command is unavailable. Clear or reassign it in Keyboard shortcuts."
             }
             TinycastApp(store, shortcutEnabled, ::execute, ::copyText, ::enableShortcut, { finish() }, { target, chord -> ShortcutRuntime.dispatch(this, target, chord) })
         }
@@ -110,7 +120,14 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         if (store.dialog == "updates") store.updates.refresh()
         shortcutEnabled = KeyboardServiceConsent.read(this) == KeyboardConsent.APPROVED
     }
-    override fun onPause() { cancelDocumentOpen(); modifierShortcuts.clear(); store.clearModifierRecording(); ShortcutRuntime.paused(this); super.onPause() }
+    override fun onPause() {
+        store.pendingShortcut = null
+        cancelDocumentOpen()
+        modifierShortcuts.clear()
+        store.clearModifierRecording()
+        ShortcutRuntime.paused(this)
+        super.onPause()
+    }
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (!hasFocus) { modifierShortcuts.clear(); store.clearModifierRecording() }
@@ -144,6 +161,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         cancelDocumentOpen()
         if (request == null || !ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) { store.message = "Shortcut changed or expired. Try again."; return }
         if (store.backupBusy || ShortcutRuntime.recordingOwner != null) { store.message = "Finish the current operation before running a shortcut."; return }
+        store.pendingShortcut = null
         TextReviewOwnership.revoke()
         if (request.target == ShortcutRules.PALETTE) { if (toggleExisting) finish() else store.reset() }
         else if (toggleExisting && request.target == "calculator" && store.dialog == null && store.category == "All" && store.query.trimStart().startsWith("=")) finish()
@@ -232,6 +250,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     }
     fun execute(command: Command) {
         if (store.backupBusy || store.textReview != null) return
+        store.pendingShortcut = null
         TextReviewOwnership.revoke()
         cancelDocumentOpen()
         if (command.id !in setOf("backup", "backup-export", "backup-import", "backup-write", "backup-read")) store.used(command.id)

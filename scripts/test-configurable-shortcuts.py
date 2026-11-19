@@ -14,6 +14,11 @@ import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from html_viewer_evidence import VIEWER, visible_body_method
+
+if not __debug__:
+    raise SystemExit("Run without -O so device and restoration assertions are enabled.")
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--adb", default=os.environ.get("ADB", "adb"))
 parser.add_argument("--serial", default="emulator-5580")
@@ -21,12 +26,18 @@ parser.add_argument("--avd", default="Tinycast_Tablet_API_36", help="Exact dedic
 parser.add_argument("--rounds", type=int, default=3)
 parser.add_argument("--alt-q-only", action="store_true", help="Verify the reported Alt+Q activation chord from other apps")
 parser.add_argument("--readiness", action="store_true", help="Also verify the inline settings check with real service-filtered Alt+Q")
+parser.add_argument("--document-only", action="store_true", help="Only exercise the configured TXT shortcut and its viewer")
 args = parser.parse_args()
+if args.document_only and (args.alt_q_only or args.readiness):
+    parser.error("--document-only cannot be combined with the keyboard readiness modes")
 assert 1 <= args.rounds <= 10
 base = [args.adb, "-s", args.serial]
 APP = "dev.tinycast.android"
 SERVICE = APP + "/" + APP + ".PaletteShortcutService"
-output = Path(__file__).resolve().parents[1] / "artifacts" / ("shortcut-readiness-hardware" if args.readiness else "shortcut-hardware")
+suite = "shortcut-readiness-hardware" if args.readiness else "shortcut-hardware"
+if args.document_only:
+    suite = "shortcut-document-hardware"
+output = Path(__file__).resolve().parents[1] / "artifacts" / suite
 output.mkdir(parents=True, exist_ok=True)
 results = {"device": args.serial, "app_requires_root": False, "injection": "dedicated emulator Linux qwerty2 device", "cases": []}
 
@@ -56,9 +67,13 @@ def bound():
     return any("Bound services:" in line and "Service[label=Droidcast" in line for line in adb("shell", "dumpsys", "accessibility").splitlines())
 
 
-def tree():
+def tree_bytes():
     adb("shell", "uiautomator", "dump", "/sdcard/droidcast-shortcut-test.xml")
-    return ET.fromstring(raw("exec-out", "cat", "/sdcard/droidcast-shortcut-test.xml"))
+    return raw("exec-out", "cat", "/sdcard/droidcast-shortcut-test.xml")
+
+
+def tree():
+    return ET.fromstring(tree_bytes())
 
 
 def node(text, contains=False):
@@ -162,15 +177,63 @@ def settings():
     wait(lambda: "com.android.settings/" in focused(), "Settings did not open")
 
 
-def assign(query, key, label):
+def open_shortcut_recorder(query):
     palette(query)
     click("Actions")
+    # The software keyboard can leave only the first action visible. Filter
+    # the menu before tapping so an offscreen row cannot select its neighbor.
+    wait(lambda: any(n.get("resource-id") == "inline-menu-search" and n.get("focused") == "true"
+                     for n in tree().iter("node")), "Action search did not receive focus")
+    type_text("shortcut")
     click("Set keyboard shortcut")
     node("Record a shortcut")
+
+
+def assign(query, key, label):
+    open_shortcut_recorder(query)
     chord(key)
     node(label)
     click("Save shortcut")
     node("Manage command aliases and keyboard shortcuts in one place.")
+
+
+def verify_document_shortcut():
+    assert any(item["title"] == "tinycast-soak-document.txt" for item in json.loads(prefs().get("files", "[]"))), "Run the document fixture setup before this dedicated test"
+    assign("tinycast-soak-document.txt", 25, "Ctrl + Alt + P")
+    if args.document_only:
+        # Re-enter an existing palette from Settings, as in the full shortcut run.
+        adb("shell", "am", "start", "-W", "-n", APP + "/.MainActivity")
+        wait(lambda: APP + "/" in focused(), "Palette did not open before the shortcut")
+    else:
+        chord(57)
+    settings()
+    chord(25)
+    visible = tree()
+    if any(item.get("text", "").startswith("Open with") for item in visible.iter("node")):
+        choice = next((item for item in visible.iter("node") if item.get("text") == "HTML Viewer"), None)
+        if choice is not None:
+            tap(choice)
+        # Android may already name the remembered viewer in the chooser title.
+        click("Just once")
+
+    def document_visible():
+        if not any(token.startswith(VIEWER + "/") for token in focused().split()):
+            return False
+        xml = tree_bytes()
+        screenshot = raw("exec-out", "screencap", "-p")
+        if not any(token.startswith(VIEWER + "/") for token in focused().split()):
+            return False
+        method = visible_body_method(ET.fromstring(xml), screenshot, "tinycast-soak-document.txt",
+                                     "Tinycast extended text file test.")
+        if method is None:
+            return False
+        (output / "document-viewer.xml").write_bytes(xml)
+        (output / "document-viewer.png").write_bytes(screenshot)
+        results["document_body_evidence"] = method
+        return True
+
+    wait(document_visible, "HTML Viewer did not show the exact TXT title and body")
+    passed("recent-document binding opens the persisted TXT fixture")
 
 
 def restore_setting(name, value):
@@ -244,7 +307,9 @@ try:
     assert match, "Dedicated qwerty2 device not found"
     keyboard = match.group(1)
 
-    if args.alt_q_only or args.readiness:
+    if args.document_only:
+        verify_document_shortcut()
+    elif args.alt_q_only or args.readiness:
         palette("Keyboard shortcuts")
         adb("shell", "input", "keyevent", "KEYCODE_ENTER")
         click("Reset shortcuts…"); click("Reset shortcuts")
@@ -385,8 +450,8 @@ try:
         passed("old global chord stops activating after reassignment")
 
         assign("wifi", 17, "Ctrl + Alt + W")
-        palette("Calculator"); click("Actions"); click("Set keyboard shortcut")
-        node("Record a shortcut"); chord(17)
+        open_shortcut_recorder("Calculator")
+        chord(17)
         snapshot("conflict", "Already assigned to Wi-Fi settings")
         chord(1, ())
         assert "calculator" not in json.loads(prefs()["shortcuts"])["bindings"]
@@ -408,23 +473,7 @@ try:
         (output / "files-app.png").write_bytes(raw("exec-out", "screencap", "-p"))
         passed("installed-app binding launches real Files app")
 
-        assert any(item["title"] == "tinycast-soak-document.txt" for item in json.loads(prefs().get("files", "[]"))), "Run the document fixture setup before this dedicated test"
-        assign("tinycast-soak-document.txt", 25, "Ctrl + Alt + P")
-        chord(57)
-        settings(); chord(25)
-        visible = tree()
-        if any(item.get("text", "").startswith("Open with") for item in visible.iter("node")):
-            choice = next((item for item in visible.iter("node") if item.get("text") == "HTML Viewer"), None)
-            if choice is not None:
-                tap(choice)
-            # Android may already name the remembered viewer in the chooser title.
-            click("Just once")
-        wait(lambda: "com.android.htmlviewer/" in focused(), "Recent-document binding did not reach its viewer")
-        node("tinycast-soak-document.txt")
-        node("Tinycast extended text file test.", contains=True)
-        (output / "document-viewer.xml").write_bytes(ET.tostring(tree()))
-        (output / "document-viewer.png").write_bytes(raw("exec-out", "screencap", "-p"))
-        passed("recent-document binding opens the persisted TXT fixture")
+        verify_document_shortcut()
 
         assign("Calculator", 46, "Ctrl + Alt + C")
         chord(57)

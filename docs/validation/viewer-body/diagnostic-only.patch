@@ -1,0 +1,44 @@
+diff --git a/app/src/main/java/dev/tinycast/android/MainActivity.kt b/app/src/main/java/dev/tinycast/android/MainActivity.kt
+index 4ec7c79a..4ecce651 100644
+--- a/app/src/main/java/dev/tinycast/android/MainActivity.kt
++++ b/app/src/main/java/dev/tinycast/android/MainActivity.kt
+@@ -34,6 +34,9 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
+     private var documentNameJob: Job? = null
+     private var documentOpenJob: Job? = null
+     private val documentReader by lazy { DocumentProviderQueries(applicationContext.contentResolver) }
++    private fun traceViewer(step: String) {
++        android.util.Log.d("DCViewer41", "$step focus=${window.decorView.hasWindowFocus()} resumed=${lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)}")
++    }
+     private fun cancelDocumentOpen() { documentOpenJob?.cancel(); documentOpenJob = null }
+     private val createBackup = registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { store.writeExport(it) }
+     private val importBackup = registerForActivityResult(ActivityResultContracts.OpenDocument()) { store.readBackup(it) }
+@@ -63,11 +66,13 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
+     }
+     internal fun openRecentDocument(command: Command, reader: RecentDocumentReader = documentReader) {
+         cancelDocumentOpen()
++        traceViewer("document-start")
+         val uri = Uri.parse(command.payload)
+         val query = store.query; val category = store.category; val route = store.dialog; val epoch = store.focusEpoch
+         documentOpenJob = lifecycleScope.launch {
+             try {
+                 val type = command.mimeType ?: reader.mimeType(uri) ?: "*/*"
++                traceViewer("mime-return sameQuery=${store.query == query} sameCategory=${store.category == category} sameDialog=${store.dialog == route} sameEpoch=${store.focusEpoch == epoch} finishing=$isFinishing")
+                 // A delayed provider response cannot open a file after the user has
+                 // navigated elsewhere or a newer operation has taken ownership.
+                 if (store.query == query && store.category == category && store.dialog == route && store.focusEpoch == epoch &&
+@@ -95,6 +100,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
+             LaunchedEffect(store.pendingShortcut, store.loading, store.folderSearch.loading) {
+                 val request = store.pendingShortcut
+                 if (request != null && !store.loading && !store.folderSearch.loading) {
++                    traceViewer("resolve kind=${store.command(request.target)?.kind} bound=${store.shortcutConfiguration.bindings[request.target] == request.chord} fresh=${ShortcutRuntime.requests.isFresh(request)}")
+                     store.pendingShortcut = null
+                     if (!ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) store.message = "Shortcut changed or expired. Try again."
+                     else store.command(request.target)?.let(::execute) ?: run { store.message = "This shortcut's command is unavailable. Clear or reassign it in Keyboard shortcuts." }
+@@ -113,6 +119,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
+     override fun onPause() { cancelDocumentOpen(); modifierShortcuts.clear(); store.clearModifierRecording(); ShortcutRuntime.paused(this); super.onPause() }
+     override fun onWindowFocusChanged(hasFocus: Boolean) {
+         super.onWindowFocusChanged(hasFocus)
++        traceViewer("window-focus=$hasFocus")
+         if (!hasFocus) { modifierShortcuts.clear(); store.clearModifierRecording() }
+     }
+     @android.annotation.SuppressLint("RestrictedApi")

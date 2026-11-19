@@ -47,3 +47,5 @@ docs/validation/keyboard-toggle/** -text -whitespace
 
 # Preserve Android's original hierarchy capture bytes.
 docs/validation/emoji-menu-back/keyboard-first/*.xml -text -whitespace
+# Preserve the original HTML Viewer accessibility captures.
+docs/validation/viewer-body/*.xml -text -whitespace
