@@ -1,0 +1,18 @@
+{
+  "app_sha256": "88dcfa81be5193d3adf3c15b3473f14eb1190126474dead5ab8c0420fe9062d8",
+  "fixture": "DroidcastColdIndex",
+  "steps": [
+    "Real tree grant and one indexed document",
+    "App process absent after force-stop",
+    "New process displayed the saved index and sole matching file",
+    "External HTML Viewer displayed exact title and original content"
+  ],
+  "restoration": {
+    "fixture_grant_absent": true,
+    "fixture_and_index_removed": true,
+    "original_app_and_preferences_verified": true
+  },
+  "runner_sha256": "f6b2a6a96fac07dabc298c2ad8ef3bed2f4c5b018a3cde912734a1c33bd46daa",
+  "viewer_body_method": "accessibility_text",
+  "released": true
+}

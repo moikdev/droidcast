@@ -352,8 +352,14 @@ PR #140 merged the Fetch and HTTP client fixes at `f4c8bfd0` after both independ
 
 [Folder cache verification](FOLDER-SEARCH.md#index-retention-when-permissions-change) covers taking and releasing an individual document permission, keeping another readable tree after revocation, and removing expired metadata when Settings loads the cache. Android provider and process-death coverage remains partial.
 
-The one-row status still uses the plural “1 indexed items.” Ownership of individual document grants after a recent is deleted is tracked separately in [#141](https://github.com/moikdev/droidcast/issues/141).
+Settings and Files now show “1 indexed item” for a single result. Both layouts passed the [count checks](FOLDER-SEARCH.md#opening-an-indexed-result-after-a-move-or-restart). [#141](https://github.com/moikdev/droidcast/issues/141) covered releasing a document grant after its last recent reference is removed.
 
 ### Recent document permission lifetime (#141)
 
 Folder-cache PR #142 merged at `5d61f1f0` after two independent audits and successful local and hosted Android checks. The related recent-document fix now tracks individually acquired read access and releases it after durable removal of the last reference. The comparison app removed the row but kept the permission. Both repaired layouts released read access and preserved the original text. Separate tests cover borrowed access, duplicate URI references, write access and recovery after controlled failures. Twelve final Android cases passed, including four provider regressions. Two comparison cases failed at the intended permission checks. [Android observations and limits](FOLDER-SEARCH.md#android-verification-for-141)
+
+PR #143 merged as `02a166bd` after both independent audits cleared `e26cc7b2` and its local and hosted Android checks passed. Removing the last recent document releases its owned read permission. [Permission fix and verification](https://github.com/moikdev/droidcast/pull/143).
+
+Under [#5](https://github.com/moikdev/droidcast/issues/5), the Files palette now checks a cached result with its provider before opening it. Tests cover moves of both files and directories, singular indexed counts, and opening a real indexed file from a new app process. Cloud and offline providers still need coverage. [Folder-search results](FOLDER-SEARCH.md#opening-an-indexed-result-after-a-move-or-restart).
+
+The correctness review of #144 identified a pending directory lookup that could outlive its file-type filter. The [filter-change comparison](FOLDER-SEARCH.md#changing-the-file-type-while-an-item-is-opening) reproduced both a stale picker launch and a stale error after returning to the original filter. The fix binds the lookup to the initiating search revision.

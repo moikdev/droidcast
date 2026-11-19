@@ -44,7 +44,7 @@ class DocumentProviderDeviceTest {
         providers.forEach { it.release.countDown() }
         restorePalettePreferences(context,original)
     }
-    private class SlowProvider:ContentProvider() {
+    internal class SlowProvider:ContentProvider() {
         val entered=CountDownLatch(1); val release=CountDownLatch(1); val finished=CountDownLatch(1)
         val offMain=AtomicBoolean(false); val cancellation=CountDownLatch(1)
         private fun waitForRelease() {

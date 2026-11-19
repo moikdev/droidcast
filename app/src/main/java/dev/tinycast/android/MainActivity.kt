@@ -66,19 +66,31 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         cancelDocumentOpen()
         val uri = Uri.parse(command.payload)
         val query = store.query; val category = store.category; val route = store.dialog; val epoch = store.focusEpoch
+        val indexed = command.id.startsWith("files:index:")
+        val searchRevision = store.folderSearch.navigationRevision
+        fun current() = store.query == query && store.category == category && store.dialog == route &&
+            store.focusEpoch == epoch && !isFinishing && window.decorView.hasWindowFocus() &&
+            (!indexed || (store.folderSearch.navigationRevision == searchRevision &&
+                store.folderSearch.command(command.id)?.payload == command.payload))
         documentOpenJob = lifecycleScope.launch {
             try {
-                val type = command.mimeType ?: reader.mimeType(uri) ?: "*/*"
-                // A delayed provider response cannot open a file after the user has
-                // navigated elsewhere or a newer operation has taken ownership.
-                if (store.query == query && store.category == category && store.dialog == route && store.focusEpoch == epoch &&
-                    !isFinishing && window.decorView.hasWindowFocus()) {
+                val type = if (indexed) documentReader.indexedMimeType(uri) else reader.mimeType(uri) ?: "*/*"
+                if (!current()) return@launch
+                if (indexed && type == android.provider.DocumentsContract.Document.MIME_TYPE_DIR) {
+                    browseIndexedFolder.launch(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*")
+                        .putExtra(android.provider.DocumentsContract.EXTRA_INITIAL_URI, uri))
+                } else {
                     open(Intent(Intent.ACTION_VIEW).setDataAndType(uri, type)
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: DocumentProviderTimeout) { store.message = "Storage provider timed out. Select the document again to retry." }
-            catch (_: Exception) { store.message = "Document access expired. Choose it again with Open a document." }
+            catch (_: DocumentProviderTimeout) {
+                if (current()) store.message = "Storage provider timed out. Select the document again to retry."
+            }
+            catch (_: Exception) {
+                if (current()) store.message = if (indexed) "Item unavailable. Refresh the index in Search folders."
+                    else "Document access expired. Choose it again with Open a document."
+            }
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -265,15 +277,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
                 if (command.payload.contains("{query}")) { store.editing = store.links.firstOrNull { it.id == command.id }; store.dialog = "link-query" }
                 else open(Intent(Intent.ACTION_VIEW, Uri.parse(command.payload)))
             }
-            Kind.FILE -> {
-                val uri = Uri.parse(command.payload)
-                if (command.mimeType == android.provider.DocumentsContract.Document.MIME_TYPE_DIR) {
-                    browseIndexedFolder.launch(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*")
-                        .putExtra(android.provider.DocumentsContract.EXTRA_INITIAL_URI, uri))
-                    return
-                }
-                openRecentDocument(command)
-            }
+            Kind.FILE -> openRecentDocument(command)
             Kind.EXTENSION -> {
                 val parts = command.payload.split('/', limit = 2)
                 val extension = store.extensions.installed.firstOrNull { it.listing.id == parts[0] }

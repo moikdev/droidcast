@@ -1,0 +1,74 @@
+{
+  "release/cold-tablet": {
+    "app_sha256": "46dd100cb6788d686d5790e2045aeab669feafc366b0bc4b9167bfb26864cc87",
+    "fixture": "DroidcastColdIndex",
+    "steps": [],
+    "restoration": {
+      "fixture_grant_absent": true,
+      "fixture_and_index_removed": true,
+      "original_app_and_preferences_verified": true
+    },
+    "runner_sha256": "015f189c58a83103e8afbf398a215ea08a681eb2f007f801f43c6b483e5803db",
+    "released": true
+  },
+  "verified/cold-tablet": {
+    "app_sha256": "2168a684809a72c5b2eb6cb0ab46d59e49de3874f98842944c4653e833d6c277",
+    "fixture": "DroidcastColdIndex",
+    "steps": [],
+    "restoration": {
+      "fixture_grant_absent": true,
+      "fixture_and_index_removed": true,
+      "original_app_and_preferences_verified": true
+    },
+    "runner_sha256": "2e54391db639ffbfc00bf21ce4a82fffcf9c04881596a9cbcde81dd4a757faa1",
+    "released": true
+  },
+  "verified/cold-picker": {
+    "app_sha256": "2168a684809a72c5b2eb6cb0ab46d59e49de3874f98842944c4653e833d6c277",
+    "fixture": "DroidcastColdIndex",
+    "steps": [],
+    "restoration": {
+      "fixture_grant_absent": true,
+      "fixture_and_index_removed": true,
+      "original_app_and_preferences_verified": true
+    },
+    "runner_sha256": "dd4115291a7a0871025ae8a7e2870cff7c6c9c93b2e12bb5163a0a066d2b266e",
+    "released": true
+  },
+  "verified/cold-grant": {
+    "app_sha256": "2168a684809a72c5b2eb6cb0ab46d59e49de3874f98842944c4653e833d6c277",
+    "fixture": "DroidcastColdIndex",
+    "steps": [
+      "Real tree grant and one indexed document",
+      "App process absent after force-stop",
+      "New process displayed the saved index and sole matching file",
+      "External HTML Viewer displayed exact title and original content"
+    ],
+    "restoration": {
+      "fixture_grant_absent": true,
+      "fixture_and_index_removed": true,
+      "original_app_and_preferences_verified": true
+    },
+    "runner_sha256": "5f78bfe9cda517f9a5b9d0214b95d8f500106e9b125971e07a47cf955c301e55",
+    "viewer_body_method": "accessibility_text",
+    "released": true
+  },
+  "integrated/cold-final": {
+    "app_sha256": "1f56d57d79729d54fd15a2428613aeeb555a6711eea55be2c947496ec2b40b46",
+    "fixture": "DroidcastColdIndex",
+    "steps": [
+      "Real tree grant and one indexed document",
+      "App process absent after force-stop",
+      "New process displayed the saved index and sole matching file",
+      "External HTML Viewer displayed exact title and original content"
+    ],
+    "restoration": {
+      "fixture_grant_absent": true,
+      "fixture_and_index_removed": true,
+      "original_app_and_preferences_verified": true
+    },
+    "runner_sha256": "96a84e241d52980a7358f42b0251b2bcd8eeec3f7e609c68c8bbee58f5fd1baa",
+    "viewer_body_method": "accessibility_text",
+    "released": true
+  }
+}

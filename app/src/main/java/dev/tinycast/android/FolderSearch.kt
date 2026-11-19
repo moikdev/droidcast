@@ -86,6 +86,8 @@ class FolderSearch internal constructor(
     private val byId by derivedStateOf { entries.associateBy { it.id } }
     private var readable: Set<String> = emptySet()
     private var currentQuery = ""
+    var navigationRevision = 0L
+        private set
     private var searchActive = false
     var folders by mutableStateOf<List<SearchFolder>>(emptyList()); private set
     var enabled by mutableStateOf(false); private set
@@ -102,6 +104,7 @@ class FolderSearch internal constructor(
     var selecting by mutableStateOf(false); private set
     private var reauthorizing: String? = null
     val count get() = entries.size
+    val countLabel get() = app.resources.getQuantityString(R.plurals.folder_index_count, count, count)
 
     init { scope.launch {
         try {
@@ -131,7 +134,7 @@ class FolderSearch internal constructor(
             publish(loaded.entries)
             if (loaded.cacheFailed) error = "The local index could not be loaded or cleared. Refresh folders to rebuild it."
             errors = folders.filter { it.uri !in readable }.associate { it.uri to "Folder access expired. Reauthorize this folder." }
-            status = if (enabled) "${entries.size} indexed items · Refresh to check for changes." else "Folder search is off."
+            status = if (enabled) "$countLabel · Refresh to check for changes." else "Folder search is off."
         } catch (_: Exception) { error = "Folder settings or index could not be loaded. Remove the local index and choose folders again." }
         finally { loading = false; scheduleSearch() }
     } }
@@ -229,12 +232,23 @@ class FolderSearch internal constructor(
     fun configurationCommands() = if (enabled) entries.map { it.command() } else emptyList()
     fun command(id: String) = if (enabled) byId[id]?.command() else null
     fun retainedCommands(ids: Set<String>) = if (enabled) ids.mapNotNull { byId[it]?.command() } else emptyList()
-    fun filterType(value: FileSearchType) { type = value; scheduleSearch() }
-    fun search(query: String, active: Boolean) { currentQuery = query.take(256); searchActive = active; scheduleSearch() }
+    fun filterType(value: FileSearchType) {
+        if (type == value) return
+        navigationRevision++
+        type = value
+        scheduleSearch()
+    }
+    fun search(query: String, active: Boolean) {
+        if (currentQuery == query && searchActive == active) return
+        navigationRevision++
+        currentQuery = query
+        searchActive = active
+        scheduleSearch()
+    }
     private fun scheduleSearch() {
         val revision = searchRevision.incrementAndGet(); searchJob?.cancel(); matches = emptyList()
         if (!enabled || !searchActive || loading) { searching = false; return }
-        val snapshot = entries; val query = currentQuery; val filter = type
+        val snapshot = entries; val query = currentQuery.take(256); val filter = type
         searching = true
         searchJob = scope.launch {
             try {
@@ -307,7 +321,7 @@ class FolderSearch internal constructor(
                 readable = readGrants(next)
                 publish(if (on) entries.filter { it.folder in next.map(SearchFolder::uri) && it.folder in readable } else emptyList())
                 errors = errors.filterKeys { key -> next.any { it.uri == key } }; error = if (cacheCleared) null else "Settings saved, but the old private index could not be cleared. Try disabling again."
-                status = if (on) "${entries.size} indexed items · Refresh to check for changes." else "Folder search is off; cached index removed."
+                status = if (on) "$countLabel · Refresh to check for changes." else "Folder search is off; cached index removed."
                 if (on && (removed != null || entries.isEmpty())) refresh()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = "Folder settings could not be saved. Try again." }
@@ -326,7 +340,7 @@ class FolderSearch internal constructor(
                 stopScan(); readable = permissions
                 publish(entries.filter { it.folder in permissions })
                 errors = folders.filter { it.uri !in permissions }.associate { it.uri to "Folder access expired. Reauthorize this folder." }
-                status = if (!enabled) "Folder search is off." else "${entries.size} indexed items" +
+                status = if (!enabled) "Folder search is off." else countLabel +
                     if (errors.isNotEmpty()) " · Some folders need attention." else " · Refresh to check for changes."
                 val revision = scanRevision.get()
                 if (revoked.isNotEmpty()) {
@@ -369,7 +383,7 @@ class FolderSearch internal constructor(
                 val saved = withContext(Dispatchers.IO) { disk.withLock { write(indexFile, indexJson(items, roots), FolderIndexRules.MAX_CACHE_BYTES) { scanRevision.get() == revision } } }
                 if (saved && scanRevision.get() == revision) {
                     readable = permissions; publish(items); errors = problems
-                    status = "${items.size} indexed items" + if (limited) " · Some items omitted by metadata or safety limits." else if (problems.isNotEmpty()) " · Some folders need attention." else " · Metadata only."
+                    status = countLabel + if (limited) " · Some items omitted by metadata or safety limits." else if (problems.isNotEmpty()) " · Some folders need attention." else " · Metadata only."
                 }
             } catch (cancelled: CancellationException) { if (scanRevision.get() == revision) status = "Refresh cancelled or timed out. Previous results kept."; throw cancelled }
             catch (_: Exception) { if (scanRevision.get() == revision) error = "The index could not be saved. Previous results kept." }

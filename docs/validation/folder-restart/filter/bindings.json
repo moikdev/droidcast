@@ -1,0 +1,225 @@
+[
+  {
+    "public": "docs/validation/folder-restart/filter/logs/initial-earlier.log",
+    "batch": "initial-earlier",
+    "original": "tests.log",
+    "original_sha256": "669238f4017f2e4da1af87fc303627ea76a3873b2bda43ac3728148caff86825",
+    "sha256": "669238f4017f2e4da1af87fc303627ea76a3873b2bda43ac3728148caff86825"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/logs/initial-tablet.log",
+    "batch": "initial-tablet",
+    "original": "tests.log",
+    "original_sha256": "f216e0e8fa50f13365c4062f71852daf74185d612c627d068b9f8e049747af74",
+    "sha256": "f216e0e8fa50f13365c4062f71852daf74185d612c627d068b9f8e049747af74"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/logs/final-earlier.log",
+    "batch": "final-earlier",
+    "original": "tests.log",
+    "original_sha256": "30bc69f2ceeea3800a723a82d27a7aa6fcbbbebcf960d54e6d9ef35f3e02ffae",
+    "sha256": "30bc69f2ceeea3800a723a82d27a7aa6fcbbbebcf960d54e6d9ef35f3e02ffae"
+  },
+  {
+    "public": "docs/screenshots/folder-restart/filter/earlier-filtered-directory.png",
+    "batch": "final-earlier",
+    "original": "folder-evidence/filtered-directory.png",
+    "original_sha256": "e063e299a2e37da38d8a8087051fba56f108b1ebea7233cc605367de7631bdd0",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ],
+    "sha256": "6f8aeb2d58e48f323021f713c5ac85f33f78c3fcee6b4012166911635ece55d9"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/hierarchies/earlier-filtered-directory.xml",
+    "batch": "final-earlier",
+    "original": "folder-evidence/filtered-directory.xml",
+    "original_sha256": "1324cc29bf9231580663e6f171a70fdb17a09cde4f4a3219f3b6030eb82c51e4",
+    "sha256": "1324cc29bf9231580663e6f171a70fdb17a09cde4f4a3219f3b6030eb82c51e4"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/cases/earlier-filtered-directory.json",
+    "batch": "final-earlier",
+    "original": "folder-evidence/filtered-directory.json",
+    "original_sha256": "7821d7d085b2ebb0f612ecb8be2a2174658e70c9cbe1dc1db6fcca8f82de7c0d",
+    "sha256": "7821d7d085b2ebb0f612ecb8be2a2174658e70c9cbe1dc1db6fcca8f82de7c0d"
+  },
+  {
+    "public": "docs/screenshots/folder-restart/filter/earlier-restored-filter-error.png",
+    "batch": "final-earlier",
+    "original": "folder-evidence/restored-filter-error.png",
+    "original_sha256": "e36c439a9051e634d39926c57e8af21d5c1e6c58424bf60f9ac01dbecf525616",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ],
+    "sha256": "de8c0cf9a1e4ff5e11deea5fd83fc4b82217dd645c3080db98523fc3ef8669e3"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/hierarchies/earlier-restored-filter-error.xml",
+    "batch": "final-earlier",
+    "original": "folder-evidence/restored-filter-error.xml",
+    "original_sha256": "c58093c4f09120147ac2c958360a4389caaedc1ac8aafb392bbe3bc4581027c5",
+    "sha256": "c58093c4f09120147ac2c958360a4389caaedc1ac8aafb392bbe3bc4581027c5"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/cases/earlier-restored-filter-error.json",
+    "batch": "final-earlier",
+    "original": "folder-evidence/restored-filter-error.json",
+    "original_sha256": "65b19e4018e64e13257e75c1eec3349fc90d9e3cd277d845671f7f625dde2b0d",
+    "sha256": "65b19e4018e64e13257e75c1eec3349fc90d9e3cd277d845671f7f625dde2b0d"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/logs/final-tablet.log",
+    "batch": "final-tablet",
+    "original": "tests.log",
+    "original_sha256": "50ed0175948794e6ae218f1a9bda8c2c9897ec4a16720b19168d2ad031879414",
+    "sha256": "50ed0175948794e6ae218f1a9bda8c2c9897ec4a16720b19168d2ad031879414"
+  },
+  {
+    "public": "docs/screenshots/folder-restart/filter/tablet-filtered-directory.png",
+    "batch": "final-tablet",
+    "original": "folder-evidence/filtered-directory.png",
+    "original_sha256": "da6196efa1445592fbb283232b60c4755d2d3bb7b415de6fbf2d6d237912bf5e",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ],
+    "sha256": "6f8aeb2d58e48f323021f713c5ac85f33f78c3fcee6b4012166911635ece55d9"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/hierarchies/tablet-filtered-directory.xml",
+    "batch": "final-tablet",
+    "original": "folder-evidence/filtered-directory.xml",
+    "original_sha256": "1f2d56ff8d8647ae638869070bdace755652357df124e8de78335dfef1f8cf5e",
+    "sha256": "1f2d56ff8d8647ae638869070bdace755652357df124e8de78335dfef1f8cf5e"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/cases/tablet-filtered-directory.json",
+    "batch": "final-tablet",
+    "original": "folder-evidence/filtered-directory.json",
+    "original_sha256": "043ce714e4088aa72aaabc215bb11a80e359eefd6a0ab459e5af46d6afde503c",
+    "sha256": "043ce714e4088aa72aaabc215bb11a80e359eefd6a0ab459e5af46d6afde503c"
+  },
+  {
+    "public": "docs/screenshots/folder-restart/filter/tablet-restored-filter-error.png",
+    "batch": "final-tablet",
+    "original": "folder-evidence/restored-filter-error.png",
+    "original_sha256": "e11a9eab781546fe7422e6797d5e2387f63511e25e93bb0df67e39037fa078ed",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ],
+    "sha256": "4c0a9d184f32ef3cadb817338fd8816c59225737600b82ecbd274b34a481a6ff"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/hierarchies/tablet-restored-filter-error.xml",
+    "batch": "final-tablet",
+    "original": "folder-evidence/restored-filter-error.xml",
+    "original_sha256": "b61b6f70f3f16bb2627f8c9dbc73714ba138f03404e8f039990744240aa18659",
+    "sha256": "b61b6f70f3f16bb2627f8c9dbc73714ba138f03404e8f039990744240aa18659"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/cases/tablet-restored-filter-error.json",
+    "batch": "final-tablet",
+    "original": "folder-evidence/restored-filter-error.json",
+    "original_sha256": "e8b87cb37de8db807d32b51b7326f6b2d8b14135225427182c07aa12d8ed9aa6",
+    "sha256": "e8b87cb37de8db807d32b51b7326f6b2d8b14135225427182c07aa12d8ed9aa6"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/logs/final-phone.log",
+    "batch": "final-phone",
+    "original": "tests.log",
+    "original_sha256": "fa95a903f617a682ae6591439d76ba7878d50ba0b685bc9895dafeae6fdb3976",
+    "sha256": "fa95a903f617a682ae6591439d76ba7878d50ba0b685bc9895dafeae6fdb3976"
+  },
+  {
+    "public": "docs/screenshots/folder-restart/filter/phone-filtered-directory.png",
+    "batch": "final-phone",
+    "original": "folder-evidence/filtered-directory.png",
+    "original_sha256": "1c22b3ddde04ad770bc528b6899fc5ef56afc9b0f54ff391e1123c801e09d85b",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ],
+    "sha256": "644db51858eb57b0bd88dc487054d0cbf903df09b681bff739b9952a8919abc4"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/hierarchies/phone-filtered-directory.xml",
+    "batch": "final-phone",
+    "original": "folder-evidence/filtered-directory.xml",
+    "original_sha256": "38a4af613b81970dec41f2358257964c723298b62a9eb1a7878f1934af7b9d4e",
+    "projection": "DroidCast package nodes only",
+    "sha256": "98d294ebccbb93fa596beb6fdb53e453e03c896ea0458b85f22c84c7169b8839"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/cases/phone-filtered-directory.json",
+    "batch": "final-phone",
+    "original": "folder-evidence/filtered-directory.json",
+    "original_sha256": "043ce714e4088aa72aaabc215bb11a80e359eefd6a0ab459e5af46d6afde503c",
+    "sha256": "043ce714e4088aa72aaabc215bb11a80e359eefd6a0ab459e5af46d6afde503c"
+  },
+  {
+    "public": "docs/screenshots/folder-restart/filter/phone-restored-filter-error.png",
+    "batch": "final-phone",
+    "original": "folder-evidence/restored-filter-error.png",
+    "original_sha256": "5b770287c21f3b6e83315b55158e1e1c73f68ae2bb80af2f646f2cbd9347b11f",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ],
+    "sha256": "639423177fddaf2fe7e7bcd433c256d9af8965629359a30800c4f5b487739ffa"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/hierarchies/phone-restored-filter-error.xml",
+    "batch": "final-phone",
+    "original": "folder-evidence/restored-filter-error.xml",
+    "original_sha256": "64f47c60c7995b3d6196e09a3aba59cbbfe09b9b04515b4367de2407d0c91994",
+    "projection": "DroidCast package nodes only",
+    "sha256": "cdd1a40a02297109269005c00e76911b49ee9cfc6e393624b2f27ba44338ce42"
+  },
+  {
+    "public": "docs/validation/folder-restart/filter/cases/phone-restored-filter-error.json",
+    "batch": "final-phone",
+    "original": "folder-evidence/restored-filter-error.json",
+    "original_sha256": "e8b87cb37de8db807d32b51b7326f6b2d8b14135225427182c07aa12d8ed9aa6",
+    "sha256": "e8b87cb37de8db807d32b51b7326f6b2d8b14135225427182c07aa12d8ed9aa6"
+  },
+  {
+    "batch": "final/cold-repair",
+    "original": "restarted-index.png",
+    "public": "docs/screenshots/folder-restart/filter/restart-restarted-index.png",
+    "sha256": "1963b4bb7b0e2495de23fe96d0d6bbea1c2225a668c162344d1f1d9890aeda31"
+  },
+  {
+    "batch": "final/cold-repair",
+    "original": "restarted-index.xml",
+    "public": "docs/validation/folder-restart/filter/hierarchies/restart-restarted-index.xml",
+    "sha256": "7d7f941fda8895d7105b4b7aab8a79c2e01d10de9c07e87a78e525d8845f01b4"
+  },
+  {
+    "batch": "final/cold-repair",
+    "original": "opened-document.png",
+    "public": "docs/screenshots/folder-restart/filter/restart-opened-document.png",
+    "sha256": "6929fd02e575ca22072c624e9487416780956caad8a67d6fac4fa7bda67907f4"
+  },
+  {
+    "batch": "final/cold-repair",
+    "original": "opened-document.xml",
+    "public": "docs/validation/folder-restart/filter/hierarchies/restart-opened-document.xml",
+    "sha256": "bbeefe35a2a1fefd7051a80891520e83ddc32e99fa8528a9ecddc16994ef90dc"
+  }
+]
