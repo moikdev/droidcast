@@ -1,0 +1,43 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.PaletteOverlayTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.PaletteOverlayTest:
+INSTRUMENTATION_STATUS: test=quickSettingsTileSummonsPalette
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: tile_activation_state=[{"phase":"settings","start_ms":1200,"focused_window":"android-settings","resumed_activity":"android-settings","tile_in_settings":true,"sysui_tile_state":"1","qs_expanded":"false","service_record_present":true,"service_process_attached":true,"tile_node_visible":false,"palette_editor_visible":false,"guest_load_1m":4.38,"observed_ms":1412},{"phase":"shade","start_ms":2480,"focused_window":"shade","resumed_activity":"android-settings","tile_in_settings":true,"sysui_tile_state":"1","qs_expanded":"true","service_record_present":true,"service_process_attached":true,"tile_node_visible":true,"palette_editor_visible":false,"guest_load_1m":4.38,"observed_ms":2571},{"phase":"before_omit","elapsed_ms":2683},{"phase":"after_omit","elapsed_ms":2683},{"phase":"failure","start_ms":12696,"focused_window":"shade","resumed_activity":"android-settings","tile_in_settings":true,"sysui_tile_state":"1","qs_expanded":"true","service_record_present":true,"service_process_attached":true,"tile_node_visible":true,"palette_editor_visible":false,"guest_load_1m":3.79,"observed_ms":12800}]
+INSTRUMENTATION_STATUS_CODE: 2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.PaletteOverlayTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Tile did not open the palette search editor
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.PaletteOverlayTest.quickSettingsTileSummonsPalette(PaletteOverlayTest.kt:81)
+
+INSTRUMENTATION_STATUS: stream=
+Error in quickSettingsTileSummonsPalette(dev.tinycast.android.PaletteOverlayTest):
+java.lang.AssertionError: Tile did not open the palette search editor
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.PaletteOverlayTest.quickSettingsTileSummonsPalette(PaletteOverlayTest.kt:81)
+
+INSTRUMENTATION_STATUS: test=quickSettingsTileSummonsPalette
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.34
+There was 1 failure:
+1) quickSettingsTileSummonsPalette(dev.tinycast.android.PaletteOverlayTest)
+java.lang.AssertionError: Tile did not open the palette search editor
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.PaletteOverlayTest.quickSettingsTileSummonsPalette(PaletteOverlayTest.kt:81)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

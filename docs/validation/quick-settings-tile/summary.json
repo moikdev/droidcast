@@ -1,0 +1,102 @@
+{
+  "accounting": {
+    "earlier": {
+      "executions": 14,
+      "host_restoration_checks": 153,
+      "junit_failures": 4,
+      "junit_passes": 10,
+      "leases_released": 14
+    },
+    "final_omission": {
+      "executions": 1,
+      "host_restoration_checks": 11,
+      "junit_failures": 1,
+      "junit_passes": 0,
+      "leases_released": 1
+    },
+    "final_positive": {
+      "executions": 10,
+      "host_restoration_checks": 112,
+      "junit_failures": 0,
+      "junit_passes": 10,
+      "leases_released": 10
+    },
+    "total": {
+      "executions": 25,
+      "host_restoration_checks": 276,
+      "junit_failures": 5,
+      "junit_passes": 20,
+      "leases_released": 25
+    }
+  },
+  "after_guard_test_apk_sha256": "56e8d9d675deef91acd5805cab851f2635d94cf193432fe374e2ed4bd5406e8c",
+  "base_package_assets": {
+    "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+    "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+  },
+  "before_guard_test_apk_sha256": "599b3f55b0ad903a3b12716d79a32a7d69dbe6c676c10c3f9be43f2698e59aee",
+  "changed_test_zip_payloads": [
+    "classes3.dex"
+  ],
+  "host": {
+    "final-benchmark": {
+      "log_sha256": "3724ea43eec66f828954987981240eaceb25d0bf6b1d80d28438863263a3338f",
+      "result": "passed"
+    },
+    "final-build": {
+      "log_sha256": "1179ba63ef2dcfe3db6058234d7e02ba5fc454707a53b2414c08199344fc482c",
+      "result": "failed"
+    },
+    "final-debug": {
+      "log_sha256": "48d7ad245eff3a2bb546c6edc74e75d0ed5577e3a434d5c840527b2830ca19f3",
+      "result": "passed"
+    },
+    "jvm": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 346
+    },
+    "lint-benchmark": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 47
+    },
+    "lint-debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 47
+    },
+    "panel-benchmark": {
+      "log_sha256": "3e29065145ad82caeda17aef6b58e6e4b0c2cb1259f961238ec4e8e0716d4f24",
+      "result": "passed"
+    },
+    "panel-debug": {
+      "log_sha256": "0d7bae44c86c99b8650662b1a2c66dcffdc4166783858eabe55884c97d11550b",
+      "result": "passed"
+    },
+    "python": {
+      "log_sha256": "c6211e29c0c08d10537478a25dc3a84c99fd672597b3b18e88ead6c5abbae30c",
+      "result": "passed"
+    },
+    "python-opt": {
+      "log_sha256": "ee5c6b64e5b889c2a1c18761795e6c9382ff29aea73bd532fceb2f8191c89912",
+      "result": "passed"
+    }
+  },
+  "production_apk_sha256": "d35fbbf0b119d0543a74b786aab81cc425784e1620ed91074505d234412602cd",
+  "sources": {
+    "base": "c3b4c4c2533d025411a18a05600b773a9899a5ab",
+    "panel_guard": "dce49984eae1ca195aded4b1aebb39db6c9827b4",
+    "unmonitored_diagnostics": "f5ef2d8a0a0547913a28da3c45884d96dc9f4597"
+  }
+}
