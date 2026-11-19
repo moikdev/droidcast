@@ -2,10 +2,13 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.SystemClock
 import android.view.KeyEvent
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowCompat
+import androidx.compose.ui.semantics.SemanticsActions
 import org.json.JSONArray
 import org.json.JSONObject
 import androidx.compose.ui.test.*
@@ -193,11 +196,20 @@ class SettingsRouteDeviceTest {
             return compose.runOnUiThread {
                 val clipped = node.boundsInWindow
                 val whole = node.size
+                val decor = workspace.window.decorView
+                val frame = Rect().also(decor::getWindowVisibleDisplayFrame)
+                val screen = IntArray(2).also(decor::getLocationOnScreen)
+                val window = IntArray(2).also(decor::getLocationInWindow)
+                frame.offset(window[0] - screen[0], window[1] - screen[1])
                 val full = whole.height > 0 && whole.width > 0 &&
+                    clipped.left + 1 >= frame.left && clipped.right <= frame.right + 1 &&
+                    clipped.top + 1 >= frame.top && clipped.bottom <= frame.bottom + 1 &&
                     clipped.height + 1 >= whole.height && clipped.width + 1 >= whole.width
                 samples.put(JSONObject().put("elapsed_ms", SystemClock.uptimeMillis() - start)
                     .put("ime", imeVisible()).put("height", whole.height).put("width", whole.width)
                     .put("visible_height", clipped.height.toDouble()).put("visible_width", clipped.width.toDouble())
+                    .put("clipped_xyxy", JSONArray(listOf(clipped.left, clipped.top, clipped.right, clipped.bottom)))
+                    .put("display_frame_xyxy", JSONArray(listOf(frame.left, frame.top, frame.right, frame.bottom)))
                     .put("full", full))
                 full && imeVisible()
             }
@@ -210,6 +222,13 @@ class SettingsRouteDeviceTest {
             assertTrue(device.takeScreenshot(File(dest, "$path-$phase.png")))
         }
         measure()
+        val controller = WindowCompat.getInsetsController(workspace.window, workspace.window.decorView)
+        compose.runOnUiThread { controller.hide(WindowInsetsCompat.Type.ime()) }
+        compose.waitUntil(5000) { !compose.runOnUiThread { imeVisible() } }
+        alias.assertIsFocused()
+        measure()
+        compose.runOnUiThread { controller.show(WindowInsetsCompat.Type.ime()) }
+        compose.waitUntil(5000) { measure(); compose.runOnUiThread { imeVisible() } }
         // Allow both opening animation and automatic scrolling to settle. Never scroll to the focused field here.
         val until = SystemClock.uptimeMillis() + 1600
         while (SystemClock.uptimeMillis() < until) {
@@ -224,11 +243,26 @@ class SettingsRouteDeviceTest {
         assertEquals("", workspace.requestedEditor)
         val visibleAfter = measure()
         capture("typed")
+        // Move the inspector back to the top while the IME is open. An offscreen
+        // field may still be focused and editable; both dimensions must catch it.
+        val inspector = compose.onNode(hasScrollAction() and hasAnyDescendant(hasTestTag("settings-alias")))
+        inspector.performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, -10000f) }
+        compose.waitForIdle()
+        val inspectorClipped = !measure()
+        alias.assertIsFocused().assert(editableCharactersExactly("x"))
+        val stillOpen = compose.runOnUiThread { imeVisible() }
+        val scrollStable = if (inspectorClipped && stillOpen) {
+            SystemClock.sleep(350)
+            !measure() && compose.runOnUiThread { imeVisible() }
+        } else false
+        if (inspectorClipped && stillOpen) capture("panned")
         dest?.let { File(it, "$path-probe.json").writeText(JSONObject().put("samples", samples)
             .put("visible_before_typing", visibleBefore).put("visible_after_typing", visibleAfter)
-            .put("typed_exactly_x", true).toString()) }
+            .put("panned_clipped", inspectorClipped).put("keyboard_after_pan", stillOpen)
+            .put("user_scroll_preserved", scrollStable).put("typed_exactly_x", true).toString()) }
         assertTrue("The focused alias field must be fully visible with the keyboard before typing", visibleBefore)
         assertTrue("The typed alias field must remain fully visible with the keyboard", visibleAfter)
+        assertTrue("User scroll must be preserved with focus and keyboard intact", scrollStable)
     }
 
     @Test fun aliasActionFocusesCorrectCommandAndPersistsWithoutPopup() {
