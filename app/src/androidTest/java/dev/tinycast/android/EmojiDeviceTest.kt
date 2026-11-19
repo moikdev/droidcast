@@ -332,7 +332,13 @@ class EmojiDeviceTest {
             prefs.edit().putBoolean("rememberRecent", true).putString("recent", org.json.JSONArray(previous).toString()).apply()
         }
         filter("Recent")
-        if (exact) search(caller.glyph) else key(KeyEvent.KEYCODE_MOVE_END)
+        if (exact) search(caller.glyph) else {
+            // The category overlay returns editor focus on the following frame.
+            compose.waitUntil(5000) {
+                compose.onNodeWithTag("emoji-search").fetchSemanticsNode().config[SemanticsProperties.Focused]
+            }
+            key(KeyEvent.KEYCODE_MOVE_END)
+        }
         assertEquals(caller.id, store.results()[store.selected].id)
         openToneMenu()
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("Dark")
