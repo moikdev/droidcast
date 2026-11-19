@@ -1,0 +1,61 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=malformedMetadataCacheKeepsSelectedScopesAndCanRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=malformedMetadataCacheKeepsSelectedScopesAndCanRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.tinycast.android.FolderDeviceTest.evidence(FolderDeviceTest.kt:136)
+	at dev.tinycast.android.FolderDeviceTest.pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments(FolderDeviceTest.kt:729)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.tinycast.android.FolderDeviceTest.evidence(FolderDeviceTest.kt:136)
+	at dev.tinycast.android.FolderDeviceTest.pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments(FolderDeviceTest.kt:729)
+
+INSTRUMENTATION_STATUS: test=pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.49
+There was 1 failure:
+1) pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.tinycast.android.FolderDeviceTest.evidence(FolderDeviceTest.kt:136)
+	at dev.tinycast.android.FolderDeviceTest.pickerCancellationOffRemovalAndRevocationPreserveRecentDocuments(FolderDeviceTest.kt:729)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

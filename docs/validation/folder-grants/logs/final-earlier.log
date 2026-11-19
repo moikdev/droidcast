@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=revokedFolderKeepsOtherReadableFolderAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<[files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening$lambda$50(FolderDeviceTest.kt:266)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda58.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:226)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening(FolderDeviceTest.kt:264)
+
+INSTRUMENTATION_STATUS: stream=
+Error in revokedFolderKeepsOtherReadableFolderAcrossReopening(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: expected:<[files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening$lambda$50(FolderDeviceTest.kt:266)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda58.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:226)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening(FolderDeviceTest.kt:264)
+
+INSTRUMENTATION_STATUS: test=revokedFolderKeepsOtherReadableFolderAcrossReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=separateDocumentGrantKeepsFolderIndexAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Fixture root must show its own immediate children
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.authorize(FolderDeviceTest.kt:161)
+	at dev.tinycast.android.FolderDeviceTest.authorize$default(FolderDeviceTest.kt:147)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:231)
+
+INSTRUMENTATION_STATUS: stream=
+Error in separateDocumentGrantKeepsFolderIndexAcrossReopening(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Fixture root must show its own immediate children
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.authorize(FolderDeviceTest.kt:161)
+	at dev.tinycast.android.FolderDeviceTest.authorize$default(FolderDeviceTest.kt:147)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:231)
+
+INSTRUMENTATION_STATUS: test=separateDocumentGrantKeepsFolderIndexAcrossReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.685
+There were 2 failures:
+1) revokedFolderKeepsOtherReadableFolderAcrossReopening(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: expected:<[files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening$lambda$50(FolderDeviceTest.kt:266)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda58.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:226)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening(FolderDeviceTest.kt:264)
+2) separateDocumentGrantKeepsFolderIndexAcrossReopening(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Fixture root must show its own immediate children
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.authorize(FolderDeviceTest.kt:161)
+	at dev.tinycast.android.FolderDeviceTest.authorize$default(FolderDeviceTest.kt:147)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:231)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

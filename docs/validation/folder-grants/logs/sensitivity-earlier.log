@@ -1,0 +1,61 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=revokedFolderKeepsOtherReadableFolderAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=revokedFolderKeepsOtherReadableFolderAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=separateDocumentGrantKeepsFolderIndexAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<[files:index:ffc8af90cbd0063d21792f9333af21081a1421560a77d6947587033ae8be2816, files:index:1bf74a6474a877d769e522e028eb3081875a253d20890f2628b061abc9e08e7b, files:index:8fdbc5a0291d21b455cd51e85ad0d05956cf823a07e72993bf0ad2da3bb26c3b, files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:231)
+
+INSTRUMENTATION_STATUS: stream=
+Error in separateDocumentGrantKeepsFolderIndexAcrossReopening(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: expected:<[files:index:ffc8af90cbd0063d21792f9333af21081a1421560a77d6947587033ae8be2816, files:index:1bf74a6474a877d769e522e028eb3081875a253d20890f2628b061abc9e08e7b, files:index:8fdbc5a0291d21b455cd51e85ad0d05956cf823a07e72993bf0ad2da3bb26c3b, files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:231)
+
+INSTRUMENTATION_STATUS: test=separateDocumentGrantKeepsFolderIndexAcrossReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 19.719
+There was 1 failure:
+1) separateDocumentGrantKeepsFolderIndexAcrossReopening(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: expected:<[files:index:ffc8af90cbd0063d21792f9333af21081a1421560a77d6947587033ae8be2816, files:index:1bf74a6474a877d769e522e028eb3081875a253d20890f2628b061abc9e08e7b, files:index:8fdbc5a0291d21b455cd51e85ad0d05956cf823a07e72993bf0ad2da3bb26c3b, files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:231)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

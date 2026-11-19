@@ -345,3 +345,11 @@ PR #139 merged this JPEG repair at `32e7e45b` after both audits and the hosted A
 [Android Fetch measurements](EXTENSION-FETCH-ROUTING.md#request-body-presence-on-android) identified why a JSON-null POST supplied three unexpected bytes and why the HTTP redirect policy misclassified explicitly empty requests. The repaired adapter preserves the distinction. Real WebView smoke frames cover the HTTPS-only rejection route, and controlled connections cover POST bytes and redirect decisions.
 
 A JVM regression also reproduced a crash closing the HTTP client immediately after a request completed. The repaired client passed 300 such cycles. On API 36 the final tablet and phone builds each passed all three Fetch cases under the same instrumentation that caught both earlier body-handling failures. The intermediate phone failure has no recorded exception type. [Verification history](EXTENSION-FETCH-ROUTING.md#request-body-presence-on-android).
+
+PR #140 merged the Fetch and HTTP client fixes at `f4c8bfd0` after both independent audits and hosted Android CI passed.
+
+### Folder search and persisted document permissions (#5)
+
+[Folder cache verification](FOLDER-SEARCH.md#index-retention-when-permissions-change) covers taking and releasing an individual document permission, keeping another readable tree after revocation, and removing expired metadata when Settings loads the cache. Android provider and process-death coverage remains partial.
+
+The one-row status still uses the plural “1 indexed items.” Ownership of individual document grants after a recent is deleted is tracked separately in [#141](https://github.com/moikdev/droidcast/issues/141).
