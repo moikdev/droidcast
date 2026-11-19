@@ -1244,6 +1244,46 @@ class TouchSearchDeviceTest {
     @Test fun emojiActionsSheetDocksAboveKeyboard() = phoneActionsSheet(true)
     @Test fun launcherActionsSheetDocksAboveKeyboard() = phoneActionsSheet(false)
 
+    @Test fun emojiActionKeyboardReopensOnFirstTapAfterBack() {
+        record.put("scope", "Injected Back with a visible stock keyboard, followed by one pointer tap on the Emoji action-search keyboard button")
+        emoji()
+        node("emoji-search").performTextReplacement("face")
+        feedbackReveal(node("emoji-actions"), "emoji-palette")
+        val wide = rect("emoji-palette").width / context.resources.displayMetrics.density >= 600
+        val opensWithIme = !wide || ime()
+        node("emoji-actions").performTouchInput { click(center) }
+        node("inline-menu-search").assertIsFocused()
+        val toggle = node("inline-menu-keyboard")
+        compose.waitUntil(10000) { ime() == opensWithIme }
+        settledFeedbackViewport("emoji-palette")
+        if (!opensWithIme) {
+            toggle.performTouchInput { click(center) }
+            compose.waitUntil(10000) { ime() }
+            settledFeedbackViewport("emoji-palette")
+        }
+        toggle.assertContentDescriptionEquals("Hide action search keyboard")
+        device.pressBack()
+        compose.waitUntil(10000) { !ime() }
+        settledFeedbackViewport("emoji-palette")
+        node("inline-menu-search").assertIsFocused()
+        val hiddenLabel = toggle.fetchSemanticsNode().config[SemanticsProperties.ContentDescription]
+        events.put(JSONObject().put("phase", "after-back").put("ime_visible", ime())
+            .put("label", JSONArray(hiddenLabel)))
+        capture("hidden-after-back", "emoji-search")
+        toggle.performTouchInput { click(center) }
+        val deadline = SystemClock.uptimeMillis() + 5000
+        while (!ime() && SystemClock.uptimeMillis() < deadline) SystemClock.sleep(50)
+        settledFeedbackViewport("emoji-palette")
+        events.put(JSONObject().put("phase", "after-one-tap").put("ime_visible", ime()))
+        capture("one-tap-after-back", "emoji-search")
+        assertTrue("A single tap reopens the action-search keyboard", ime())
+        assertEquals(listOf("Show action search keyboard"), hiddenLabel)
+        toggle.assertContentDescriptionEquals("Hide action search keyboard")
+        node("inline-menu-search").assertIsFocused()
+        text("emoji-search", "face")
+        record.put("completed", true)
+    }
+
     @Test fun emojiActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(true)
     @Test fun launcherActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(false)
 }
