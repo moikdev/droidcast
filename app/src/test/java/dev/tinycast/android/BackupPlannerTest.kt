@@ -9,6 +9,19 @@ class BackupPlannerTest {
     private val categories = BackupCategory.entries.toSet()
     private fun plan(old: BackupData, incoming: BackupData, policy: RestorePolicy = RestorePolicy.MERGE, selected: Set<BackupCategory> = categories, defaults: Map<String, String> = emptyMap()) = BackupPlanner.plan(old, BackupDocument(incoming, categories), selected, policy, defaults)
 
+    @Test fun emojiMergeRetainsLocalOrderAndGridAndAppendsMissingIdsOnce() {
+        val selected = setOf(BackupCategory.EMOJI)
+        val local = BackupData(emoji = PortableEmojiSettings(listOf("1f603", "1f600"), 4))
+        val incoming = BackupData(emoji = PortableEmojiSettings(listOf("1f600", "1f604", "future-entry"), 8))
+        val merged = plan(local, incoming, selected = selected)
+        assertEquals(PortableEmojiSettings(listOf("1f603", "1f600", "1f604", "future-entry"), 4), merged.data.emoji)
+        assertEquals(merged, plan(merged.data, incoming, selected = selected))
+        assertEquals(incoming.emoji, plan(BackupData(), incoming, selected = selected).data.emoji)
+        assertEquals(local.emoji, plan(local, incoming, RestorePolicy.REPLACE, setOf(BackupCategory.NOTES)).data.emoji)
+        assertEquals(PortableEmojiSettings(), plan(local, BackupData(), RestorePolicy.REPLACE, selected).data.emoji)
+        assertEquals("Portable settings after restore · 4 emoji favorites, 4 grid columns", merged.reviewSummary())
+    }
+
     @Test fun rankingFeedbackDescribesTheResultForMergeAndEmptyReplacement() {
         val selected = setOf(BackupCategory.LEARNING)
         val old = BackupData(usage = mapOf("calculator" to 3))

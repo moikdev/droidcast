@@ -27,6 +27,11 @@ import java.io.File
 class EmojiDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
+    private val palettePrefs get() = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+    private fun storedFavorites(): Set<String> {
+        val order = org.json.JSONArray(palettePrefs.getString(EmojiStore.FAVORITES_KEY, "[]"))
+        return (0 until order.length()).map(order::getString).toSet()
+    }
     private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     private var original = emptyMap<String, Any?>()
     private var originalEmoji = emptyMap<String, Any?>()
@@ -268,8 +273,8 @@ class EmojiDeviceTest {
         val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
         val (a, b, c) = store.entries.take(3)
         compose.activityRule.scenario.onActivity {
-            listOf(a, b, c).forEach(store::toggleFavorite)
-            prefs.edit().remove("favoriteOrder").apply()
+            prefs.edit().putStringSet("favorites", setOf(c.id, b.id, a.id)).remove("favoriteOrder").apply()
+            palettePrefs.edit().remove(EmojiStore.FAVORITES_KEY).apply()
         }
         filter("Favorites")
         fun displayed() = store.results().map { it.id }
@@ -310,12 +315,13 @@ class EmojiDeviceTest {
                 val old = listOf(a.id, "future-entry", b.id)
                 prefs.edit().putStringSet("favorites", old.toSet())
                     .putString("favoriteOrder", org.json.JSONArray(old).toString()).apply()
+                palettePrefs.edit().remove(EmojiStore.FAVORITES_KEY).apply()
                 val peer = EmojiStore(context, scope)
                 store.chooseFilter("Favorites")
                 peer.toggleFavorite(c)
                 assertEquals(listOf(a.id, b.id, c.id), store.results().map { it.id })
                 store.moveFavorite(a.id, b.id, 1)
-                assertEquals(org.json.JSONArray(listOf(b.id, "future-entry", a.id, c.id)).toString(), prefs.getString("favoriteOrder", null))
+                assertEquals(org.json.JSONArray(listOf(b.id, "future-entry", a.id, c.id)).toString(), palettePrefs.getString(EmojiStore.FAVORITES_KEY, null))
                 store.moveFavorite(a.id, b.id, 1)
                 assertEquals(listOf(b.id, a.id, c.id), store.results().map { it.id })
                 peer.toggleFavorite(a)
@@ -374,7 +380,10 @@ class EmojiDeviceTest {
 
     @Test fun gridZoomFollowsSelectionAndOnlySavesAnExplicitDefault() {
         val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
-        compose.activityRule.scenario.onActivity { prefs.edit().remove("gridColumns").apply() }
+        compose.activityRule.scenario.onActivity {
+            prefs.edit().remove("gridColumns").apply()
+            palettePrefs.edit().remove(EmojiStore.GRID_KEY).apply()
+        }
         search("face")
         fun firstRowColumns(): Int {
             val cells = compose.onAllNodes(SemanticsMatcher("emoji cells") {
@@ -397,7 +406,7 @@ class EmojiDeviceTest {
         assertEquals("Zoom in removes a rendered column", original - 1, firstRowColumns())
         compose.onNodeWithTag("emoji-cell-$selectedId").assertIsSelected().assertIsDisplayed()
         assertEquals("face", store.query)
-        assertFalse(prefs.contains("gridColumns"))
+        assertEquals(0, palettePrefs.getInt(EmojiStore.GRID_KEY, 0))
         evidence("grid-zoomed", "results · offline", original - 1)
         val bounds = compose.onNodeWithTag("emoji-cell-$selectedId").fetchSemanticsNode().boundsInWindow
         val minimum = 48 * context.resources.displayMetrics.density - 1
@@ -415,10 +424,10 @@ class EmojiDeviceTest {
         assertEquals(original, firstRowColumns())
         action("emoji-zoom-in")
         action("emoji-save-size")
-        assertEquals(original - 1, prefs.getInt("gridColumns", 0))
+        assertEquals(original - 1, palettePrefs.getInt(EmojiStore.GRID_KEY, 0))
         action("emoji-zoom-out")
         assertEquals(original, firstRowColumns())
-        assertEquals(original - 1, prefs.getInt("gridColumns", 0))
+        assertEquals(original - 1, palettePrefs.getInt(EmojiStore.GRID_KEY, 0))
         compose.onNodeWithTag("emoji-back").performClick()
         compose.onNodeWithTag("search").performTextReplacement("emoji")
         compose.onNodeWithTag("result-emoji").performClick()
@@ -426,7 +435,7 @@ class EmojiDeviceTest {
         assertEquals("A fresh picker uses its saved default", original - 1, firstRowColumns())
         evidence("grid-reopened", "results · offline", original - 1)
         action("emoji-auto-size")
-        assertFalse(prefs.contains("gridColumns"))
+        assertEquals(0, palettePrefs.getInt(EmojiStore.GRID_KEY, 0))
         assertEquals(original, firstRowColumns())
     }
 
@@ -727,7 +736,7 @@ class EmojiDeviceTest {
             assertEquals("", store.query)
             key(KeyEvent.KEYCODE_D, modifier)
             assertEquals("A genuine next press must toggle the next selected favorite", 1, store.favorites.size)
-            assertEquals(store.favorites, context.getSharedPreferences("emoji", Context.MODE_PRIVATE).getStringSet("favorites", emptySet()))
+            assertEquals(store.favorites, storedFavorites())
             compose.activityRule.scenario.onActivity { store.chooseFilter("All"); store.search("grinning face") }
             compose.waitForIdle()
             val allEntry = store.results().first()
@@ -742,7 +751,7 @@ class EmojiDeviceTest {
                     assertEquals("grinning face", store.query)
                 }
             } finally { emit(KeyEvent.ACTION_UP, meta = 0) }
-            assertEquals(allExpected, context.getSharedPreferences("emoji", Context.MODE_PRIVATE).getStringSet("favorites", emptySet()))
+            assertEquals(allExpected, storedFavorites())
         }
     }
 }

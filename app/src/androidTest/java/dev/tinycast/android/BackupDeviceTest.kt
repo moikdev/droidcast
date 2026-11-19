@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -48,6 +49,10 @@ class BackupDeviceTest {
         compose.waitForIdle()
         val directory = File(context.filesDir, "backup-evidence").apply { mkdirs() }
         val marker = when (name) {
+            "peer-merge-results" -> By.text("Peer merge witness imported")
+            "emoji-inspect" -> By.textContains("grinning face with smiling eyes")
+            "emoji-import-rejected" -> By.text("Unsupported backup version")
+            "emoji-merge-preview", "emoji-replace-confirm" -> By.textContains("emoji favorites,")
             "preview-cancel", "document-import-preview" -> By.text("Preview backup")
             "export-categories", "export-import-complete" -> By.text("Backup and restore")
             "document-export-picker" -> By.text("SAVE")
@@ -69,7 +74,7 @@ class BackupDeviceTest {
         // Shared backup component regression; SettingsDeviceTest covers its production settings host.
         compose.activityRule.scenario.onActivity { it.store.beginBackup() }
         try {
-        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithText("Portable collections and settings").performScrollTo().assertIsDisplayed()
         } catch (failure: Throwable) {
             val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
             File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
@@ -124,18 +129,313 @@ class BackupDeviceTest {
         assertEquals(setOf(BackupCategory.NOTES), partial.categories)
         assertEquals(data.notes, partial.data.notes); assertTrue(partial.data.links.isEmpty()); assertTrue(partial.data.aliases.isEmpty())
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("accessibilityEnabled", true).toString()) }
-        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("version", 2).toString()) }
+        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("version", 3).toString()) }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(encoded + " trailing") }
-        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(encoded.replace("\"version\": 1", "\"version\": 1, \"version\": 1")) }
+        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(encoded.replace("\"version\": 2", "\"version\": 2, \"version\": 2")) }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode("[".repeat(20) + "0" + "]".repeat(20)) }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode("not a backup") }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.read(ByteArrayInputStream(ByteArray(BackupCodec.MAX_BYTES + 1))) }
         assertThrows(Exception::class.java) { BackupCodec.read(ByteArrayInputStream(byteArrayOf(0xc3.toByte(), 0x28))) }
+        assertEquals(2, JSONObject(encoded).getInt("version"))
+        assertEquals(1, JSONObject(BackupCodec.encode(data, all - BackupCategory.EMOJI)).getInt("version"))
+        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("version", 1).toString()) }
+        fun invalidEmoji(edit: (JSONObject) -> Unit) {
+            val root = JSONObject(encoded)
+            edit(root.getJSONObject("categories").getJSONObject("EMOJI"))
+            assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(root.toString()) }
+        }
+        invalidEmoji { it.put("recent", org.json.JSONArray()) }
+        invalidEmoji { it.put("rememberRecent", 1) }
+        invalidEmoji { it.put("gridColumns", 11) }
+        invalidEmoji { it.put("favorites", org.json.JSONArray(listOf("1f600", "1f600"))) }
+        invalidEmoji { it.put("favorites", org.json.JSONArray(listOf("files:private"))) }
         val badLink = data.copy(links = listOf(SavedItem("links:test", "Bad", "javascript:alert(1)")))
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.encode(badLink, all) }
         val duplicate = data.copy(notes = listOf(data.notes.first(), data.notes.first()))
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.encode(duplicate, all) }
     }
+    @Test fun emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory() {
+        val settings = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val localHistory = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        val historyBefore = localHistory.all.filterKeys { it == "recent" || it == "rememberRecent" }
+        val file = File.createTempFile("emoji-import-", ".json", context.cacheDir)
+        val export = File.createTempFile("emoji-export-", ".json", context.cacheDir)
+        val owner = compose.activity.store
+        try {
+            compose.activityRule.scenario.onActivity {
+                settings.edit().putString("emojiFavoriteOrder", """["1f603","1f600"]""").putInt("emojiGridColumns", 4).apply()
+                localHistory.edit().putString("recent", """["private-history-control"]""").putBoolean("rememberRecent", false).apply()
+                owner.beginBackup()
+            }
+            file.writeText("""{"format":"dev.droidcast.backup","version":2,"categories":{"EMOJI":{"favorites":["1f600","1f604","future-entry"],"gridColumns":8}}}""")
+            fun read() {
+                compose.activityRule.scenario.onActivity { owner.readBackup(android.net.Uri.fromFile(file)) }
+                compose.waitUntil(10000) { !owner.backupBusy }
+            }
+            fun apply() {
+                compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+                compose.waitUntil(10000) { !owner.backupBusy && owner.backupDocument == null }
+            }
+            read()
+            if (owner.backupDocument == null) {
+                compose.onNodeWithTag("backup-error").performScrollTo()
+                evidence("emoji-import-rejected")
+            }
+            assertNotNull("The version 2 emoji category must reach preview", owner.backupDocument)
+            compose.onNodeWithTag("backup-plan-summary").performScrollTo()
+                .assertTextContains("4 emoji favorites, 4 grid columns", substring = true)
+            evidence("emoji-merge-preview")
+            assertEquals(listOf("1f603", "1f600"), owner.emoji.portableSettings().favorites)
+            compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
+            val contents = compose.onNodeWithTag("backup-contents")
+            contents.performScrollTo().performScrollToNode(hasText("😄 · grinning face with smiling eyes"))
+            compose.onNodeWithText("😄 · grinning face with smiling eyes").assertIsDisplayed()
+            evidence("emoji-inspect")
+            contents.performScrollToNode(hasText("Unavailable emoji · future-entry"))
+            compose.onNodeWithText("Unavailable emoji · future-entry").assertIsDisplayed()
+            compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+            apply()
+            val merged = PortableEmojiSettings(listOf("1f603", "1f600", "1f604", "future-entry"), 4)
+            assertEquals(merged, owner.emoji.portableSettings())
+
+            read()
+            compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+            compose.onNodeWithText("Portable settings after restore · 3 emoji favorites, 8 grid columns").performScrollTo()
+            evidence("emoji-replace-confirm")
+            apply()
+            val replaced = PortableEmojiSettings(listOf("1f600", "1f604", "future-entry"), 8)
+            assertEquals(replaced, owner.emoji.portableSettings())
+            assertEquals(8, settings.getInt("emojiGridColumns", 0))
+            assertEquals(JSONArray(replaced.favorites).toString(), settings.getString("emojiFavoriteOrder", null))
+
+            compose.activityRule.scenario.onActivity {
+                owner.backupCategories = setOf(BackupCategory.EMOJI)
+                owner.prepareExport { owner.writeExport(android.net.Uri.fromFile(export)) }
+            }
+            compose.waitUntil(10000) { owner.message == "Backup exported" }
+            val encoded = export.readText()
+            assertFalse(encoded.contains("private-history-control"))
+            assertFalse(encoded.contains("rememberRecent"))
+            assertEquals(replaced, BackupCodec.decode(encoded).data.emoji)
+            assertEquals(setOf(BackupCategory.EMOJI), BackupCodec.decode(encoded).categories)
+            assertEquals("""["private-history-control"]""", localHistory.getString("recent", null))
+            assertFalse(localHistory.getBoolean("rememberRecent", true))
+        } finally {
+            file.delete()
+            export.delete()
+            localHistory.edit().apply {
+                remove("recent").remove("rememberRecent")
+                (historyBefore["recent"] as? String)?.let { putString("recent", it) }
+                (historyBefore["rememberRecent"] as? Boolean)?.let { putBoolean("rememberRecent", it) }
+            }.commit()
+        }
+    }
+
+    @Test fun selectedBackupCategoriesPreserveNewerUnselectedNotesAndGrid() {
+        val store = compose.activity.store
+        val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val categories = setOf(BackupCategory.NOTES, BackupCategory.EMOJI)
+        val note = SavedItem("notes:portable", "Portable note", "Mixed category fixture")
+        val incoming = PortableEmojiSettings(listOf("1f604", "1f603"), null)
+        val document = BackupDocument(BackupData(notes = listOf(note), emoji = incoming), categories)
+        val file = File.createTempFile("mixed-backup-", ".json", context.cacheDir)
+        fun review(exclude: BackupCategory?) {
+            load(document, file)
+            exclude?.let { compose.onNodeWithTag("backup-category-${it.name}").performScrollTo().performClick() }
+            compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+        }
+        fun apply() {
+            compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+            compose.waitUntil(10000) { !store.backupBusy && store.backupDocument == null }
+        }
+        try {
+            compose.activityRule.scenario.onActivity {
+                prefs.edit().putString("emojiFavoriteOrder", """["1f600"]""").putInt("emojiGridColumns", 6).apply()
+                store.beginBackup()
+            }
+            review(BackupCategory.EMOJI)
+            apply()
+            assertEquals(listOf(note), store.notes)
+            assertEquals(PortableEmojiSettings(listOf("1f600"), 6), store.emoji.portableSettings())
+
+            review(BackupCategory.NOTES)
+            // A separate writer changed this unselected collection after the preview.
+            val newer = """[{"id":"notes:newer","title":"Newer local edit","body":"Keep this note","alias":""}]"""
+            compose.activityRule.scenario.onActivity { prefs.edit().putString("notes", newer).apply() }
+            apply()
+            assertEquals("An emoji-only restore must preserve newer notes", newer, prefs.getString("notes", null))
+            assertEquals(incoming, store.emoji.portableSettings())
+            review(null)
+            apply()
+            assertEquals(listOf(note), store.notes)
+            assertEquals(incoming, store.emoji.portableSettings())
+            assertEquals(0, prefs.getInt("emojiGridColumns", -1))
+        } finally {
+            file.delete()
+        }
+    }
+
+    @Test fun mergePreservesNoteSavedBySettingsAfterConfirmationOpened() {
+        val palette = compose.activity.store
+        val incoming = SavedItem("notes:peer-import", "Peer merge witness imported", "Backup fixture")
+        val peerNote = SavedItem("notes:peer-local", "Peer merge witness local", "New local text")
+        val backup = BackupDocument(BackupData(notes = listOf(incoming)), setOf(BackupCategory.NOTES))
+        val file = File.createTempFile("peer-merge-", ".json", context.cacheDir)
+        try {
+            load(backup, file)
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+            compose.onNodeWithText("Apply this backup?").assertIsDisplayed()
+            ActivityScenario.launch(SettingsActivity::class.java).use { settings ->
+                settings.onActivity {
+                    it.store.save("notes", peerNote.title, peerNote.body, id = peerNote.id)
+                    assertTrue(it.moveTaskToBack(true))
+                }
+                compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+                compose.waitUntil(10000) { !palette.backupBusy && palette.backupDocument == null }
+                compose.activityRule.scenario.onActivity {
+                    palette.reset()
+                    palette.search("Peer merge witness")
+                }
+                evidence("peer-merge-results")
+                val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+                fun persistedIds(): Set<String> {
+                    val items = JSONArray(prefs.getString("notes", "[]"))
+                    return (0 until items.length()).map { items.getJSONObject(it).getString("id") }.toSet()
+                }
+                assertTrue("Merge erased the note saved by Settings after review", peerNote.id in persistedIds())
+                compose.onNodeWithText(peerNote.title).assertIsDisplayed()
+                assertTrue(incoming in palette.notes && peerNote in palette.notes)
+                settings.onActivity {
+                    assertTrue("Settings missed the imported note", incoming in it.store.notes)
+                    it.store.save("notes", "Later peer save", "After import", id = "notes:peer-after")
+                }
+                assertTrue(persistedIds().containsAll(setOf(incoming.id, peerNote.id, "notes:peer-after")))
+                assertTrue(palette.notes.any { it.id == "notes:peer-after" })
+            }
+        } finally {
+            file.delete()
+        }
+    }
+
+    @Test fun paletteReflectsPeerCollectionsBindingsAndRankingUntilPeerCloses() {
+        val palette = compose.activity.store
+        lateinit var closedStore: PaletteStore
+        val shortcut = KeyChord(android.view.KeyEvent.KEYCODE_8, ShortcutRules.CTRL or ShortcutRules.SHIFT)
+        ActivityScenario.launch(SettingsActivity::class.java).use { settings ->
+            settings.onActivity {
+                closedStore = it.store
+                it.store.save("links", "Peer site", "https://example.org/", id = "links:peer")
+                it.store.save("clips", "Peer clip", "Peer text", id = "clips:peer")
+                it.store.save("files", "Peer document", "content://fixture/document", id = "files:peer")
+                it.store.setAlias("links:peer", "peerfixture")
+                it.store.togglePin("links:peer")
+                it.store.used("links:peer")
+                it.store.setShortcut("links:peer", shortcut)
+                assertEquals(it.store.files, palette.files)
+                assertEquals(it.store.backupSnapshot(), palette.backupSnapshot())
+                assertEquals("peerfixture", palette.aliases["links:peer"])
+                assertEquals(shortcut, palette.shortcutConfiguration.bindings["links:peer"])
+            }
+        }
+        compose.activityRule.scenario.onActivity {
+            val previous = closedStore.usage
+            palette.used("links:peer")
+            assertEquals("A cleared Settings ViewModel must stop observing preferences", previous, closedStore.usage)
+        }
+    }
+
+    @Test fun failedRestoreKeepsPeerEditAtRollbackSnapshot() = failedRestoreWithPeerEdit(atSnapshot = true)
+
+    @Test fun failedRestoreKeepsPeerWhoExplicitlySavedSameGrid() = failedRestoreWithPeerEdit(atSnapshot = false)
+
+    private fun failedRestoreWithPeerEdit(atSnapshot: Boolean) {
+        val real = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val enteredCommit = CountDownLatch(1)
+        val finishCommit = CountDownLatch(1)
+        val peerFinished = CountDownLatch(1)
+        val failed = java.util.concurrent.atomic.AtomicBoolean(false)
+        val intercepted = java.util.concurrent.atomic.AtomicBoolean(false)
+        val main = android.os.Handler(android.os.Looper.getMainLooper())
+        val peer = compose.activity.store
+        val injected = object : SharedPreferences by real {
+            override fun getAll(): Map<String, *> {
+                val snapshot = real.all
+                if (atSnapshot && failed.get() && intercepted.compareAndSet(false, true)) {
+                    main.post {
+                        peer.emoji.saveGridColumns(7)
+                        peerFinished.countDown()
+                    }
+                    // A peer can run between a worker's snapshot and rollback. On the main
+                    // thread the edit runs on the next turn, after the indivisible rollback.
+                    if (!main.looper.isCurrentThread) check(peerFinished.await(10, TimeUnit.SECONDS))
+                }
+                return snapshot
+            }
+
+            override fun edit(): SharedPreferences.Editor {
+                val underlying = real.edit()
+                return object : SharedPreferences.Editor by underlying {
+                    override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor {
+                        underlying.putBoolean(key, value)
+                        return this
+                    }
+                    override fun commit(): Boolean {
+                        // Publish memory as Android does even when the durable commit fails.
+                        underlying.apply()
+                        enteredCommit.countDown()
+                        check(finishCommit.await(10, TimeUnit.SECONDS))
+                        failed.set(true)
+                        return false
+                    }
+                }
+            }
+        }
+        val application = object : android.app.Application() {
+            init { attachBaseContext(context.applicationContext) }
+            override fun getSharedPreferences(name: String, mode: Int): SharedPreferences =
+                if (name == "palette") injected else super.getSharedPreferences(name, mode)
+        }
+        val incoming = PortableEmojiSettings(listOf("1f604"), 8)
+        val file = File.createTempFile("restore-failure-", ".json", context.cacheDir)
+        val holder = androidx.lifecycle.ViewModelStore()
+        lateinit var importing: PaletteStore
+        try {
+            file.writeText(BackupCodec.encode(BackupData(emoji = incoming), setOf(BackupCategory.EMOJI)))
+            compose.runOnIdle {
+                real.edit().putInt("emojiGridColumns", 4).putString("emojiFavoriteOrder", """["1f600"]""").apply()
+                importing = androidx.lifecycle.ViewModelProvider(holder,
+                    androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(application))[PaletteStore::class.java]
+                importing.readBackup(android.net.Uri.fromFile(file))
+            }
+            compose.waitUntil(10000) { importing.backupDocument != null && !importing.backupBusy }
+            compose.runOnIdle {
+                importing.restorePolicy = RestorePolicy.REPLACE
+                importing.applyBackup()
+            }
+            assertTrue("The durable commit must be attempted", enteredCommit.await(10, TimeUnit.SECONDS))
+            if (!atSnapshot) {
+                compose.runOnIdle {
+                    peer.emoji.saveGridColumns(9)
+                    peer.emoji.saveGridColumns(8)
+                }
+            }
+            finishCommit.countDown()
+            compose.waitUntil(10000) { !importing.backupBusy && importing.backupError != null }
+            if (atSnapshot) assertTrue(peerFinished.await(10, TimeUnit.SECONDS))
+            assertEquals("Failure recovery overwrote the peer's grid edit", if (atSnapshot) 7 else 8,
+                real.getInt("emojiGridColumns", -1))
+            assertEquals("An untouched key must roll back", """["1f600"]""", real.getString("emojiFavoriteOrder", null))
+            assertNotNull("Keep the import available for retry", importing.backupDocument)
+        } finally {
+            finishCommit.countDown()
+            compose.runOnIdle { holder.clear() }
+            file.delete()
+        }
+    }
+
     @Test fun previewCancelAndMalformedInputLeaveDataUntouched() {
         val before = compose.activity.store.backupSnapshot()
         load(BackupDocument(BackupData(notes = listOf(SavedItem("notes:import", "Imported note", "Do not apply on preview"))), setOf(BackupCategory.NOTES)))
@@ -285,7 +585,7 @@ class BackupDeviceTest {
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000))
         device.pressBack()
         try {
-        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithText("Portable collections and settings").performScrollTo().assertIsDisplayed()
         } catch (failure: Throwable) {
             val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
             File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())

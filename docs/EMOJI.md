@@ -41,8 +41,8 @@ account or network connection is needed to use the bundled catalog.
   and the picker excludes that list from search ranking.
 - In **Recent**, open **Actions** (Ctrl+K) to pause recording or clear the saved
   list. Pausing hides the list and preserves it for later. Clearing removes it
-  without changing your recording preference or favorites. Favorites and recent
-  history are local to this installation. Portable favorites remain part of #44.
+  without changing your recording preference or favorites. Use **Backup and restore → Emoji favorites and grid** to transfer favorites and the saved
+  column count. Recent history and its consent setting stay on this installation.
 
 The licensed snapshot contains 1,870 emoji and 70 common text symbols. It is not
 the complete/current Unicode repertoire. Android's font determines appearance

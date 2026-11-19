@@ -1,0 +1,66 @@
+{
+  "large-release": {
+    "runner": "large.py",
+    "runner_sha256": "bd9a08eb8a5a2d09e34fd3b63f08c8dd854a71ca78190d29922a6984973d56f9"
+  },
+  "old-release": {
+    "runner": "release.py",
+    "runner_sha256": "2bebf5f37f77289b6f5f65a6588347a0435f02918ec83ee606198128462d322b"
+  },
+  "old-v1": {
+    "runner": "run.py",
+    "runner_sha256": "83648c9abbd50eb6f8f064689a2a445604d27a618fb44034e3dc4ccd371d77fb"
+  },
+  "phone-release": {
+    "runner": "release.py",
+    "runner_sha256": "2bebf5f37f77289b6f5f65a6588347a0435f02918ec83ee606198128462d322b"
+  },
+  "phone-v1": {
+    "runner": "run.py",
+    "runner_sha256": "83648c9abbd50eb6f8f064689a2a445604d27a618fb44034e3dc4ccd371d77fb"
+  },
+  "picker-release": {
+    "runner": "emoji.py",
+    "runner_sha256": "f71631778603fefb4c93dd2c231b818178da62aeab7e603b6df8afbc3e416318"
+  },
+  "picker-v1": {
+    "runner": "emoji.py",
+    "runner_sha256": "f71631778603fefb4c93dd2c231b818178da62aeab7e603b6df8afbc3e416318"
+  },
+  "pointer-release": {
+    "helper": "pointer_probe.py",
+    "retained_helper_sha256": "f83f8f364944c1e287055d053ef21020e72e4500048a0690d56960714dae9957",
+    "runner": "pointer.py",
+    "runner_sha256": "01714d1e77ff31f88a0710ce0eba82ea704cb65898533f6de289fba0c258ac36"
+  },
+  "provider-clean": {
+    "helper": "clean_probe.py",
+    "retained_helper_sha256": "a6ce018c46f4d48672d51064b5ff4aba60a0d8ed12bbcba802fc37fd3840dbd4",
+    "runner": "clean.py",
+    "runner_sha256": "06d60d4be341caabc511c622e8861b0903277e02c7d09fa0dd2f1a134d310a7e"
+  },
+  "provider-release": {
+    "helper": "provider_probe.py",
+    "retained_helper_sha256": "c3177d549a1f506895be6716bc93c95cc9cecf709b0913e27a8c542e806be8db",
+    "runner": "provider.py",
+    "runner_sha256": "02cdc3dda6303ec76c69575a8a1749525bb6b9788b9aa96393b39d0b2c693b7a"
+  },
+  "provider-scoped": {
+    "helper": "scoped_probe.py",
+    "retained_helper_sha256": "39d7db4a1028bb0c141e9342bd1a184e338c256720f48c48304bf7d9899aa640",
+    "runner": "scoped.py",
+    "runner_sha256": "24267d0df2fb11b23c379df99c6a3fb62ba3e0007f12ecf020c4ecda4da7faed"
+  },
+  "stale-control": {
+    "runner": "intermediate.py",
+    "runner_sha256": "0bce16367931a816d877bf6846080236716e6b4c8920b7fdb5c0683dd2288257"
+  },
+  "tablet-release": {
+    "runner": "release.py",
+    "runner_sha256": "2bebf5f37f77289b6f5f65a6588347a0435f02918ec83ee606198128462d322b"
+  },
+  "tablet-v1": {
+    "runner": "run.py",
+    "runner_sha256": "83648c9abbd50eb6f8f064689a2a445604d27a618fb44034e3dc4ccd371d77fb"
+  }
+}

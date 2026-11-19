@@ -2,7 +2,6 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
 import androidx.compose.runtime.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +11,16 @@ import kotlinx.coroutines.withContext
 import org.json.JSONArray
 
 class EmojiStore(context: Context, scope: CoroutineScope) {
+    internal companion object {
+        const val FAVORITES_KEY = "emojiFavoriteOrder"
+        const val GRID_KEY = "emojiGridColumns"
+    }
+    private val portable = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+    private val catalogIdsWhileLoading by lazy {
+        context.assets.open("emoji-catalog.tsv").bufferedReader().useLines { lines ->
+            lines.filter { it.isNotBlank() && !it.startsWith('#') }.map { it.substringBefore('\t') }.toList()
+        }
+    }
     private val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
     var entries by mutableStateOf<List<EmojiEntry>>(emptyList()); private set
     var loading by mutableStateOf(true); private set
@@ -23,17 +32,18 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
     var hasSavedHistory by mutableStateOf(prefs.contains("recent")); private set
     var recent by mutableStateOf(if (historyEnabled) readRecent() else emptyList()); private set
     var defaultGridColumns by mutableStateOf(readGridColumns()); private set
-    private fun readGridColumns(): Int? = prefs.getInt("gridColumns", 0).takeIf { it in 1..10 }
+    private fun readGridColumns(): Int? {
+        val value = if (portable.contains(GRID_KEY)) portable.getInt(GRID_KEY, 0) else prefs.getInt("gridColumns", 0)
+        return value.takeIf { it in 1..10 }
+    }
 
     fun saveGridColumns(columns: Int?) {
         require(columns == null || columns in 1..10)
-        prefs.edit {
-            if (columns == null) remove("gridColumns") else putInt("gridColumns", columns)
-        }
+        PalettePreferences.write(portable, GRID_KEY, columns ?: 0)
     }
 
     private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-        if (key == null || key == "favorites" || key == "favoriteOrder") {
+        if (key == null || key == "favorites" || key == "favoriteOrder" || key == FAVORITES_KEY) {
             val next = readFavorites()
             if (next != savedFavorites) {
                 val active = results().getOrNull(selected)?.id
@@ -43,7 +53,7 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
                     ?: selected.coerceAtMost(updated.lastIndex.coerceAtLeast(0))
             }
         }
-        if (key == null || key == "gridColumns") defaultGridColumns = readGridColumns()
+        if (key == null || key == "gridColumns" || key == GRID_KEY) defaultGridColumns = readGridColumns()
         if (key == null || key == "rememberRecent" || key == "recent") refreshHistory()
     }
     var query by mutableStateOf("")
@@ -52,7 +62,11 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
 
     init {
         prefs.registerOnSharedPreferenceChangeListener(preferenceListener)
-        scope.coroutineContext.job.invokeOnCompletion { prefs.unregisterOnSharedPreferenceChangeListener(preferenceListener) }
+        portable.registerOnSharedPreferenceChangeListener(preferenceListener)
+        scope.coroutineContext.job.invokeOnCompletion {
+            portable.unregisterOnSharedPreferenceChangeListener(preferenceListener)
+            prefs.unregisterOnSharedPreferenceChangeListener(preferenceListener)
+        }
         scope.launch {
             runCatching { withContext(Dispatchers.IO) {
                 context.assets.open("emoji-catalog.tsv").bufferedReader().use { EmojiCatalog.parse(it.lineSequence()) }
@@ -64,6 +78,11 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
     fun search(value: String) { query = value; selected = 0 }
     fun chooseFilter(value: String) { filter = value; selected = 0 }
     private fun readFavorites(): SavedFavorites {
+        portable.getString(FAVORITES_KEY, null)?.let { value ->
+            val array = JSONArray(value)
+            val order = (0 until array.length()).map(array::getString)
+            return SavedFavorites(order.toSet(), order)
+        }
         val members = prefs.getStringSet("favorites", emptySet()).orEmpty().toSet()
         val order = runCatching {
             val array = JSONArray(prefs.getString("favoriteOrder", "[]"))
@@ -76,16 +95,18 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
     // preserve unknown IDs for catalogs that can display them in the future.
     private fun orderedMembers(saved: SavedFavorites): List<String> = buildSet {
         addAll(saved.order)
-        entries.forEach { if (it.id in saved.members) add(it.id) }
+        if (size < saved.members.size) {
+            val ids = if (entries.isEmpty()) catalogIdsWhileLoading.asSequence() else entries.asSequence().map { it.id }
+            ids.filterTo(this) { it in saved.members }
+        }
         addAll((saved.members - this).sorted())
     }.toList()
 
     private fun writeFavorites(order: List<String>) {
-        prefs.edit {
-            putStringSet("favorites", order.toSet())
-            putString("favoriteOrder", JSONArray(order).toString())
-        }
+        PalettePreferences.write(portable, FAVORITES_KEY, JSONArray(order).toString())
     }
+
+    fun portableSettings() = PortableEmojiSettings(orderedMembers(savedFavorites), defaultGridColumns)
 
     fun toggleFavorite(entry: EmojiEntry) {
         val current = orderedMembers(readFavorites())

@@ -5,17 +5,21 @@ import org.json.JSONObject
 import java.io.InputStream
 
 enum class BackupCategory(val label: String) {
-    NOTES("Notes"), LINKS("Quicklinks"), CLIPS("Saved clips"), PREFERENCES("Pins and aliases"), LEARNING("Usage ranking"), SHORTCUTS("Keyboard shortcuts")
+    NOTES("Notes"), LINKS("Quicklinks"), CLIPS("Saved clips"), PREFERENCES("Pins and aliases"), LEARNING("Usage ranking"), SHORTCUTS("Keyboard shortcuts"), EMOJI("Emoji favorites and grid")
 }
+
+data class PortableEmojiSettings(val favorites: List<String> = emptyList(), val gridColumns: Int? = null)
 
 data class BackupData(
     val notes: List<SavedItem> = emptyList(), val links: List<SavedItem> = emptyList(),
     val clips: List<SavedItem> = emptyList(), val pins: Set<String> = emptySet(),
-    val aliases: Map<String, String> = emptyMap(), val usage: Map<String, Int> = emptyMap(), val shortcuts: ShortcutConfiguration = ShortcutConfiguration()
+    val aliases: Map<String, String> = emptyMap(), val usage: Map<String, Int> = emptyMap(), val shortcuts: ShortcutConfiguration = ShortcutConfiguration(),
+    val emoji: PortableEmojiSettings = PortableEmojiSettings()
 ) {
     fun count(category: BackupCategory): Int = when (category) {
         BackupCategory.NOTES -> notes.size; BackupCategory.LINKS -> links.size; BackupCategory.CLIPS -> clips.size
         BackupCategory.PREFERENCES -> pins.size + aliases.size; BackupCategory.LEARNING -> usage.size; BackupCategory.SHORTCUTS -> shortcuts.bindings.size
+        BackupCategory.EMOJI -> emoji.favorites.size + if (emoji.gridColumns == null) 0 else 1
     }
 }
 
@@ -36,6 +40,10 @@ data class RestorePlan(
             if (BackupCategory.PREFERENCES in categories) {
                 add(count(data.pins.size, "pin", "pins"))
                 add(count(data.aliases.size, "alias override", "alias overrides"))
+            }
+            if (BackupCategory.EMOJI in categories) {
+                add(count(data.emoji.favorites.size, "emoji favorite", "emoji favorites"))
+                add(data.emoji.gridColumns?.let { "$it grid columns" } ?: "automatic grid size")
             }
             if (BackupCategory.LEARNING in categories) add(count(data.usage.size, "usage ranking entry", "usage ranking entries"))
             if (BackupCategory.SHORTCUTS in categories) add(count(data.shortcuts.bindings.size, "keyboard shortcut", "keyboard shortcuts"))
@@ -60,6 +68,7 @@ data class RestorePlan(
 /** Closed, versioned Android format. No code, capabilities, file grants or extension data. */
 object BackupCodec {
     const val MAX_BYTES = 5 * 1024 * 1024
+    private val emojiId = Regex("[a-z0-9][a-z0-9_-]{0,127}")
     private val aliasPattern = Regex("[a-z][a-z0-9_-]{0,23}")
     private val referencePattern = Regex("[A-Za-z0-9._:/$-]{1,1024}")
     private fun reference(id: String): Boolean = referencePattern.matches(id) && !id.startsWith("files:")
@@ -124,11 +133,13 @@ object BackupCodec {
             }
             keys(root, setOf("format", "version", "categories"))
             require(root.get("format") == "dev.droidcast.backup") { "Choose a Droidcast JSON backup" }
-            require(root.get("version") is Int && root.getInt("version") == 1) { "Unsupported backup version" }
+            val version = root.get("version")
+            require(version is Int && version in 1..2) { "Unsupported backup version" }
             val sections = root.getJSONObject("categories")
             val names = sections.keys().asSequence().toSet()
             require(names.isNotEmpty() && names.all { name -> BackupCategory.entries.any { it.name == name } }) { "Unknown or empty backup categories" }
             val categories = names.map { BackupCategory.valueOf(it) }.toSet()
+            require(version == 2 || BackupCategory.EMOJI !in categories) { "Emoji settings require backup version 2" }
             fun items(category: BackupCategory, prefix: String): List<SavedItem> {
                 if (category !in categories) return emptyList()
                 val array = sections.getJSONArray(category.name)
@@ -171,7 +182,21 @@ object BackupCodec {
             }
             val shortcuts = if (BackupCategory.SHORTCUTS in categories) ShortcutCodec.decode(sections.getJSONObject("SHORTCUTS")) else ShortcutConfiguration()
             require(shortcuts.bindings.keys.none { it.startsWith("files:") }) { "Document shortcuts cannot be imported" }
-            return BackupDocument(BackupData(items(BackupCategory.NOTES, "notes"), items(BackupCategory.LINKS, "links"), items(BackupCategory.CLIPS, "clips"), pins, aliases, usage, shortcuts), categories)
+            val emoji = if (BackupCategory.EMOJI in categories) {
+                val settings = sections.getJSONObject("EMOJI")
+                keys(settings, setOf("favorites", "gridColumns"))
+                val columns = settings.get("gridColumns")
+                require(columns is Int && columns in 0..10) { "Invalid emoji grid size" }
+                val array = settings.getJSONArray("favorites")
+                val ids = (0 until array.length()).map { index ->
+                    val id = array.get(index)
+                    require(id is String && emojiId.matches(id)) { "Invalid emoji favorite" }
+                    id
+                }
+                require(ids.distinct().size == ids.size) { "Duplicate emoji favorite" }
+                PortableEmojiSettings(ids, columns.takeIf { it > 0 })
+            } else PortableEmojiSettings()
+            return BackupDocument(BackupData(items(BackupCategory.NOTES, "notes"), items(BackupCategory.LINKS, "links"), items(BackupCategory.CLIPS, "clips"), pins, aliases, usage, shortcuts, emoji), categories)
         } catch (e: IllegalArgumentException) { throw e }
         catch (_: Exception) { throw IllegalArgumentException("Invalid Droidcast backup") }
     }
@@ -188,10 +213,12 @@ object BackupCodec {
                 }
                 BackupCategory.PREFERENCES -> sections.put(category.name, JSONObject().put("pins", JSONArray(data.pins.filterNot { it.startsWith("files:") }.sorted())).put("aliases", JSONObject(data.aliases.filterKeys { !it.startsWith("files:") })))
                 BackupCategory.LEARNING -> sections.put(category.name, JSONObject(data.usage.filterKeys { !it.startsWith("files:") }))
+                BackupCategory.EMOJI -> sections.put(category.name, JSONObject()
+                    .put("favorites", JSONArray(data.emoji.favorites)).put("gridColumns", data.emoji.gridColumns ?: 0))
                 BackupCategory.SHORTCUTS -> sections.put(category.name, ShortcutCodec.encode(ShortcutConfiguration(data.shortcuts.bindings.filterKeys { !it.startsWith("files:") })))
             }
         }
-        val text = JSONObject().put("format", "dev.droidcast.backup").put("version", 1).put("categories", sections).toString(2)
+        val text = JSONObject().put("format", "dev.droidcast.backup").put("version", if (BackupCategory.EMOJI in categories) 2 else 1).put("categories", sections).toString(2)
         decode(text) // Export must meet the same limits and schema as import.
         return text
     }
@@ -244,6 +271,13 @@ object BackupPlanner {
             ShortcutConfiguration(if (policy == RestorePolicy.MERGE) incoming + current.shortcuts.bindings else incoming.toMap())
         }
         ShortcutRules.validate(ShortcutConfiguration(shortcuts.bindings + preservedShortcuts))
-        return RestorePlan(BackupData(notes, links, clips, pins, aliases, usage, shortcuts), added, skipped, removed, selected.toSet())
+        val emoji = when {
+            BackupCategory.EMOJI !in selected -> current.emoji
+            policy == RestorePolicy.REPLACE -> document.data.emoji
+            else -> PortableEmojiSettings((current.emoji.favorites + document.data.emoji.favorites).distinct(),
+                current.emoji.gridColumns ?: document.data.emoji.gridColumns)
+        }
+        require(emoji.favorites.size <= 5000 || BackupCategory.EMOJI !in selected) { "Too many emoji favorites after merge" }
+        return RestorePlan(BackupData(notes, links, clips, pins, aliases, usage, shortcuts, emoji), added, skipped, removed, selected.toSet())
     }
 }

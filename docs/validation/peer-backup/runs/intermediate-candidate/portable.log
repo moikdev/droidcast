@@ -1,0 +1,47 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.BackupDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.BackupDeviceTest:
+INSTRUMENTATION_STATUS: test=emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.BackupDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<PortableEmojiSettings(favorites=[1f600, 1f604, future-entry], gridColumns=8)> but was:<PortableEmojiSettings(favorites=[1f603, 1f600, 1f604, future-entry], gridColumns=4)>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.BackupDeviceTest.emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory(BackupDeviceTest.kt:209)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory(dev.tinycast.android.BackupDeviceTest):
+java.lang.AssertionError: expected:<PortableEmojiSettings(favorites=[1f600, 1f604, future-entry], gridColumns=8)> but was:<PortableEmojiSettings(favorites=[1f603, 1f600, 1f604, future-entry], gridColumns=4)>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.BackupDeviceTest.emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory(BackupDeviceTest.kt:209)
+
+INSTRUMENTATION_STATUS: test=emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.087
+There was 1 failure:
+1) emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory(dev.tinycast.android.BackupDeviceTest)
+java.lang.AssertionError: expected:<PortableEmojiSettings(favorites=[1f600, 1f604, future-entry], gridColumns=8)> but was:<PortableEmojiSettings(favorites=[1f603, 1f600, 1f604, future-entry], gridColumns=4)>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.BackupDeviceTest.emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory(BackupDeviceTest.kt:209)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

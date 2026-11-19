@@ -4,7 +4,7 @@ Open **Search Emoji & Symbols** and choose **Favorites** from the filter. With t
 
 New favorites appear at the end. Removing and adding a favorite again also puts it last. A picker that already has favorites adopts their catalog order on its first edit. The unfiltered All view shows the ordered favorites first. Keyword matches still rank by relevance and Recent keeps its copy chronology. Moving favorites leaves recent-history consent alone.
 
-Membership and order are written together in the Emoji preferences. A second open store observes the change. If the catalog cannot display an ID saved by another version, moving its visible neighbors preserves the ID's stored position. Portable import and export are still open in #44.
+Membership and order are written together in the Emoji preferences. A second open store observes the change. If the catalog cannot display an ID saved by another version, moving its visible neighbors preserves the ID's stored position. See [Backup and restore](BACKUP.md#emoji-favorites-and-grid-size) to transfer the ordered IDs and saved grid size.
 
 ## Android verification
 
