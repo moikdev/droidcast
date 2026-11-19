@@ -92,7 +92,7 @@ class EmojiDeviceTest {
             compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-filter-$value"))
         compose.onNodeWithTag("emoji-filter-$value").performScrollTo().performClick()
     }
-    private fun evidence(name: String, marker: String, expectedColumns: Int? = null) {
+    private fun evidence(name: String, marker: String, expectedColumns: Int? = null, expectedFavoriteIds: List<String>? = null) {
         compose.waitForIdle()
         assertTrue("Screenshot marker: $marker", device.wait(Until.hasObject(By.textContains(marker)), 5000))
         dismissClipboardForEvidence()
@@ -115,7 +115,9 @@ class EmojiDeviceTest {
             val gridMatches = expectedColumns == null || elements.filter { it.getAttribute("resource-id").startsWith("emoji-cell-") }
                 .map { android.graphics.Rect.unflattenFromString(it.getAttribute("bounds").replace(Regex("[^0-9-]+"), " ").trim()) }
                 .filterNotNull().filter { !it.isEmpty }.groupBy { it.top }.toSortedMap().values.firstOrNull()?.size == expectedColumns
-            gridMatches && tagged("emoji-count")?.getAttribute("text") == expectedCount &&
+            val orderedIdsMatch = expectedFavoriteIds == null || elements.filter { it.getAttribute("resource-id").startsWith("emoji-cell-") }
+                .map { it.getAttribute("resource-id").removePrefix("emoji-cell-") }.let { it == expectedFavoriteIds }
+            orderedIdsMatch && gridMatches && tagged("emoji-count")?.getAttribute("text") == expectedCount &&
                 tagged("emoji-selected-name")?.getAttribute("text") == expectedName &&
                 tagged("emoji-copy")?.getAttribute("enabled") == expectedEnabled &&
                 tagged("emoji-favorite")?.getAttribute("enabled") == expectedEnabled
@@ -262,6 +264,69 @@ class EmojiDeviceTest {
             connection.finishComposingText()
         }
     }
+    @Test fun favoriteOrderingMigratesAndFollowsTheSelectedSymbol() {
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        val (a, b, c) = store.entries.take(3)
+        compose.activityRule.scenario.onActivity {
+            listOf(a, b, c).forEach(store::toggleFavorite)
+            prefs.edit().remove("favoriteOrder").apply()
+        }
+        filter("Favorites")
+        fun displayed() = store.results().map { it.id }
+        val initial = listOf(a.id, b.id, c.id)
+        assertEquals(initial, displayed())
+        evidence("favorites-before", "3 results", expectedFavoriteIds = initial)
+        key(KeyEvent.KEYCODE_DPAD_RIGHT)
+        compose.onNodeWithTag("emoji-cell-${b.id}").assertIsSelected()
+        key(KeyEvent.KEYCODE_DPAD_UP, KeyEvent.META_CTRL_ON or KeyEvent.META_ALT_ON)
+        val moved = listOf(b.id, a.id, c.id)
+        assertEquals("Move the second favorite to the first displayed position", moved, displayed())
+        compose.onNodeWithTag("emoji-cell-${b.id}").assertIsSelected().assertIsDisplayed()
+        evidence("favorites-moved", "3 results", expectedFavoriteIds = moved)
+        compose.onNodeWithTag("emoji-actions").performScrollTo().performClick()
+        compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-favorite-earlier"))
+        compose.onNodeWithTag("emoji-favorite-earlier").assertIsNotEnabled()
+        compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-favorite-later"))
+        compose.onNodeWithTag("emoji-favorite-later").performClick()
+        assertEquals(initial, displayed())
+        compose.onNodeWithTag("emoji-cell-${b.id}").assertIsSelected()
+        key(KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.META_CTRL_ON or KeyEvent.META_ALT_ON)
+        assertEquals(listOf(a.id, c.id, b.id), displayed())
+        filter("All")
+        assertEquals(listOf(a.id, c.id, b.id), displayed().take(3))
+        filter("Favorites")
+        compose.activityRule.scenario.recreate()
+        compose.onNodeWithTag("emoji-palette").assertIsDisplayed()
+        assertEquals(listOf(a.id, c.id, b.id), displayed())
+        evidence("favorites-reopened", "3 results", expectedFavoriteIds = listOf(a.id, c.id, b.id))
+    }
+
+    @Test fun openStoresPreserveNewerMembershipAndInvisibleFavoriteSlots() {
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        try {
+            compose.activityRule.scenario.onActivity {
+                val (a, b, c) = store.entries.take(3)
+                val old = listOf(a.id, "future-entry", b.id)
+                prefs.edit().putStringSet("favorites", old.toSet())
+                    .putString("favoriteOrder", org.json.JSONArray(old).toString()).apply()
+                val peer = EmojiStore(context, scope)
+                store.chooseFilter("Favorites")
+                peer.toggleFavorite(c)
+                assertEquals(listOf(a.id, b.id, c.id), store.results().map { it.id })
+                store.moveFavorite(a.id, b.id, 1)
+                assertEquals(org.json.JSONArray(listOf(b.id, "future-entry", a.id, c.id)).toString(), prefs.getString("favoriteOrder", null))
+                store.moveFavorite(a.id, b.id, 1)
+                assertEquals(listOf(b.id, a.id, c.id), store.results().map { it.id })
+                peer.toggleFavorite(a)
+                peer.toggleFavorite(a)
+                assertEquals(listOf(b.id, c.id, a.id), store.results().map { it.id })
+                assertEquals(setOf(a.id, b.id, c.id, "future-entry"), store.favorites)
+                assertEquals(store.favorites, peer.favorites)
+            }
+        } finally { scope.cancel() }
+    }
+
     @Test fun gridZoomFollowsSelectionAndOnlySavesAnExplicitDefault() {
         val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
         compose.activityRule.scenario.onActivity { prefs.edit().remove("gridColumns").apply() }

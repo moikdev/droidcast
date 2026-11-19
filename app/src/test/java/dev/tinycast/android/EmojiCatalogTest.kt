@@ -44,6 +44,16 @@ class EmojiCatalogTest {
         val result = EmojiCatalog.recordRecent(history, "5")
         assertEquals(32, result.size); assertEquals("5", result.first()); assertEquals(1, result.count { it == "5" })
     }
+    @Test fun explicitFavoriteOrderBreaksTextTiesAndKeepsRecentChronology() {
+        val matches = entries.filter { it.glyph in listOf("😀", "😃", "😄") }
+        val order = matches.reversed().map { it.id }
+        val members = order.toSet()
+        assertEquals(order, EmojiCatalog.search(matches, "", "Favorites", members, emptyList(), order).map { it.id })
+        assertEquals(order, EmojiCatalog.search(matches, "", "All", members, emptyList(), order).map { it.id })
+        assertEquals(order.reversed(), EmojiCatalog.search(matches, "", "Recent", members, order.reversed(), order).map { it.id })
+        assertEquals("😀", EmojiCatalog.search(matches, "grinning face", "All", members, emptyList(), order).first().glyph)
+    }
+
     @Test fun malformedCatalogsAreRejected() {
         listOf(sequenceOf("bad"), sequenceOf("id\tx\tname\tcat\tkeys", "id\ty\tname\tcat\tkeys")).forEach { input ->
             assertTrue(runCatching { EmojiCatalog.parse(input) }.isFailure)

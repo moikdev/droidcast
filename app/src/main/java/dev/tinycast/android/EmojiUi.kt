@@ -52,7 +52,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     var copiedName by remember { mutableStateOf<String?>(null) }
     // Pair a claimed favorite chord with its physical key sequence, independent
     // of later modifier release or the selection changing after an unpin.
-    val favoritePresses = remember { mutableMapOf<Int, Long>() }
+    val favoritePresses = remember { mutableMapOf<Pair<Int, Int>, Long>() }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val paletteMenus = LocalPaletteMenus.current
     val zoomPresses = remember { mutableMapOf<Pair<Int, Int>, Long>() }
@@ -63,8 +63,9 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         }
     }
     fun consumeFavoriteSequence(event: KeyEvent): Boolean {
-        if (event.keyCode != KeyEvent.KEYCODE_D || favoritePresses[event.deviceId] != event.downTime) return false
-        if (event.action == KeyEvent.ACTION_UP) favoritePresses.remove(event.deviceId)
+        val press = event.deviceId to event.keyCode
+        if (favoritePresses[press] != event.downTime) return false
+        if (event.action == KeyEvent.ACTION_UP) favoritePresses.remove(press)
         return true
     }
     val grid = rememberLazyGridState()
@@ -79,15 +80,50 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         store.selected = store.results().indexOfFirst { it.id == entry.id }.coerceAtLeast(0)
     }
     fun pin(entry: EmojiEntry) {
+        val removedFromLeadingFavorites = store.filter == "All" && store.query.isBlank() && entry.id in store.favorites
+        val previousIndex = store.selected
         store.toggleFavorite(entry)
+        if (removedFromLeadingFavorites) {
+            store.selected = previousIndex.coerceIn(0, store.results().lastIndex.coerceAtLeast(0))
+            return
+        }
         store.selected = store.results().indexOfFirst { it.id == entry.id }.takeIf { it >= 0 }
             ?: store.selected.coerceAtMost((store.results().size - 1).coerceAtLeast(0))
     }
+    fun reorderCurrent() = store.filter == "Favorites" && store.query.isBlank() && !isComposing() &&
+        actionCurrent() && view.hasWindowFocus()
+    fun moveChoice(offset: Int): PaletteChoice {
+        val earlier = offset < 0
+        val neighbor = results.getOrNull(store.selected + offset)
+        return PaletteChoice(
+            if (earlier) "emoji-favorite-earlier" else "emoji-favorite-later",
+            if (earlier) "Move favorite earlier" else "Move favorite later",
+            enabled = selected != null && neighbor != null,
+            shortcut = listOf("Ctrl", "Alt", if (earlier) "↑" else "↓"),
+            chord = KeyChord(if (earlier) KeyEvent.KEYCODE_DPAD_UP else KeyEvent.KEYCODE_DPAD_DOWN, ShortcutRules.CTRL or ShortcutRules.ALT)
+        ) {
+            if (selected != null && neighbor != null && reorderCurrent() && currentEntry()?.id == selected.id)
+                store.moveFavorite(selected.id, neighbor.id, offset)
+        }
+    }
     fun handleFavoriteChord(event: KeyEvent): Boolean {
         if (consumeFavoriteSequence(event)) return true
+        if (event.action == KeyEvent.ACTION_DOWN && (event.isCtrlPressed xor event.isMetaPressed) && event.isAltPressed &&
+            !event.isShiftPressed && event.keyCode in listOf(KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN) &&
+            reorderCurrent() && !menu && !actionsMenu && paletteMenus.current == null) {
+            favoritePresses[event.deviceId to event.keyCode] = event.downTime
+            if (event.repeatCount == 0) {
+                val offset = if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) -1 else 1
+                val current = store.results()
+                val entry = current.getOrNull(store.selected)
+                val neighbor = current.getOrNull(store.selected + offset)
+                if (entry != null && neighbor != null) store.moveFavorite(entry.id, neighbor.id, offset)
+            }
+            return true
+        }
         val modifier = (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && !event.isShiftPressed
         if (event.action != KeyEvent.ACTION_DOWN || event.keyCode != KeyEvent.KEYCODE_D || !modifier) return false
-        favoritePresses[event.deviceId] = event.downTime
+        favoritePresses[event.deviceId to event.keyCode] = event.downTime
         if (event.repeatCount == 0) currentEntry()?.let(::pin)
         return true
     }
@@ -349,7 +385,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                         PaletteChoice("emoji-action-unicode","Copy Unicode",enabled=selected!=null,icon="clipboard") {
                             currentEntry()?.let { entry -> copy(entry.glyph.codePoints().toArray().joinToString(" "){"U+"+it.toString(16).uppercase().padStart(4,'0')}); copiedName="Copied Unicode for ${entry.name}" }
                         }
-                    ) + (if (store.filter == "Recent") listOf(
+                    ) + (if (store.filter == "Favorites" && store.query.isBlank()) listOf(moveChoice(-1), moveChoice(1)) else emptyList()) + (if (store.filter == "Recent") listOf(
                         if (store.historyEnabled)
                             PaletteChoice("emoji-history-pause", "Pause recent history") { if (currentHistoryView()) store.rememberRecent(false) }
                         else
