@@ -14,6 +14,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
@@ -288,8 +292,11 @@ class EmojiDeviceTest {
         filter("Recent"); search("")
         assertEquals(listOf(next, originalEntry), store.results())
         evidence("recent-enabled", "2 results")
-        fun historyAction(tag: String) {
-            compose.onNodeWithTag("emoji-actions").performScrollTo().performClick()
+        fun historyAction(tag: String, keyboard: Boolean = false) {
+            if (keyboard) {
+                compose.onNodeWithTag("emoji-search").performSemanticsAction(SemanticsActions.RequestFocus)
+                key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+            } else compose.onNodeWithTag("emoji-actions").performScrollTo().performClick()
             compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag(tag))
             compose.onNodeWithTag(tag).performClick()
             compose.waitForIdle()
@@ -301,13 +308,46 @@ class EmojiDeviceTest {
         filter("All"); search("π"); compose.onNodeWithTag("emoji-copy").performClick()
         assertEquals("π", clipboard()); assertEquals(paused, prefs.getString("recent", null))
         filter("Recent"); search("")
-        historyAction("emoji-history-clear")
+        historyAction("emoji-history-clear", keyboard = true)
         assertFalse(prefs.contains("recent")); assertFalse(prefs.getBoolean("rememberRecent", true))
         assertTrue(originalEntry.id in store.favorites)
         compose.activityRule.scenario.recreate()
         compose.onNodeWithTag("emoji-palette").assertIsDisplayed()
         assertTrue(store.recent.isEmpty())
         assertTrue(originalEntry.id in store.favorites)
+    }
+
+    @Test fun freshAndOpenStoresRespectConsentAndIgnorePausedHistoryForRanking() {
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        val job = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        try {
+            compose.activityRule.scenario.onActivity {
+                val entries = store.entries
+                val chosen = entries.last()
+                val saved = org.json.JSONArray(listOf(chosen.id)).toString()
+                prefs.edit().remove("rememberRecent").putString("recent", saved).apply()
+                val peer = EmojiStore(context, job)
+                assertFalse(peer.historyEnabled)
+                assertTrue(peer.recent.isEmpty())
+                assertEquals(entries.first().id, store.results().first().id)
+                store.rememberRecent(true)
+                assertEquals(listOf(chosen.id), peer.recent)
+                assertEquals(chosen.id, store.results().first().id)
+                val reopened = EmojiStore(context, job)
+                assertTrue(reopened.historyEnabled)
+                assertEquals(listOf(chosen.id), reopened.recent)
+                peer.rememberRecent(false)
+                assertFalse(store.historyEnabled)
+                assertTrue(reopened.recent.isEmpty())
+                reopened.copied(entries.first())
+                assertEquals(saved, prefs.getString("recent", null))
+                assertEquals(entries.first().id, store.results().first().id)
+                peer.clearHistory()
+                assertFalse(store.hasSavedHistory)
+            }
+        } finally {
+            job.cancel()
+        }
     }
 
     @Test fun clipboardPreservesJoinersFlagsVariationSelectorsAndKeycaps() {

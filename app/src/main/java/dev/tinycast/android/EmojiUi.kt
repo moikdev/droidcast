@@ -176,7 +176,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 else if (e.action != KeyEvent.ACTION_DOWN) false
                 else when {
                     e.keyCode == KeyEvent.KEYCODE_ESCAPE -> { back(); true }
-                    ctrl && e.keyCode == KeyEvent.KEYCODE_K -> { actionsMenu = currentEntry()!=null; true }
+                    ctrl && e.keyCode == KeyEvent.KEYCODE_K -> { actionsMenu = currentEntry() != null || store.filter == "Recent"; true }
                     ctrl && e.keyCode == KeyEvent.KEYCODE_L -> { queryEditing = true; searchFocus.requestFocus(); true }
                     navigate(e) -> true
                     searchFocused && (e.isShiftPressed || ctrl) && e.keyCode in setOf(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.KEYCODE_MOVE_END) -> { queryEditing = true; false }
@@ -241,7 +241,19 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     // Use one primary status when only a small band remains
                     // above the keyboard. Keep duplicate counts/hints in the
                     // normal viewport, not as a clipped extra compact line.
-                    Text(when { store.loading -> "Loading catalog…"; store.error != null -> store.error!!; store.filter == "Recent" && !store.historyEnabled -> if (store.hasSavedHistory) "Recent history is off. Enable it to show saved copies and remember new ones." else "Recent history is off. You can remember up to 32 copies on this device."; store.query.isNotBlank() -> "No matching emoji or symbols"; store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"; store.filter == "Recent" -> "Symbols you copy will appear here"; else -> "No symbols in this category" }, color = PaletteTheme.secondary, fontSize = 13.sp,
+                    val emptyMessage = when {
+                        store.loading -> "Loading catalog…"
+                        store.error != null -> store.error!!
+                        store.filter == "Recent" && !store.historyEnabled -> if (store.hasSavedHistory)
+                            "Recent history is off. Enable it to show saved copies and remember new ones."
+                        else
+                            "Recent history is off. You can remember up to 32 copies on this device."
+                        store.query.isNotBlank() -> "No matching emoji or symbols"
+                        store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"
+                        store.filter == "Recent" -> "Symbols you copy will appear here"
+                        else -> "No symbols in this category"
+                    }
+                    Text(emptyMessage, color = PaletteTheme.secondary, fontSize = 13.sp,
                         lineHeight=if(compactEmpty)16.sp else TextUnit.Unspecified,
                         modifier = Modifier.padding(horizontal=20.dp,vertical=if(compactEmpty)0.dp else 20.dp))
                     if (store.filter == "Recent" && !store.historyEnabled && !store.loading && store.error == null) {
