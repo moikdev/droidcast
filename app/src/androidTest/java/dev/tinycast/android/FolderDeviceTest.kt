@@ -6,6 +6,7 @@ import android.net.Uri
 import android.view.KeyEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.view.accessibility.AccessibilityWindowInfo
+import androidx.lifecycle.lifecycleScope
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -298,6 +299,100 @@ class FolderDeviceTest {
             compose.onNodeWithTag("search").assertTextEquals(name)
             assertTrue(device.hasObject(row))
         } finally { instrumentation.removeMonitor(monitor) }
+    }
+
+    @Test fun filteredDirectoryDropsPendingOpen() = checkPendingDirectoryOpen(missing = false)
+
+    @Test fun restoredFilterDropsPendingError() = checkPendingDirectoryOpen(missing = true)
+
+    private fun checkPendingDirectoryOpen(missing: Boolean) {
+        authorizeCacheFixture()
+        val command = controller.configurationCommands().single { it.title == "Research" }
+        compose.activityRule.scenario.onActivity { it.openFileSearch() }
+        compose.onNodeWithTag("search").performTextReplacement("Research")
+        compose.onNodeWithTag("result-${command.id}").assertIsDisplayed()
+        val palette = compose.runOnUiThread {
+            ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED)
+                .filterIsInstance<MainActivity>().single()
+        }
+        val store = palette.store
+        if (missing) {
+            val parent = "/sdcard/Download/$rootName"
+            device.executeShellCommand("mv $parent/Research $parent/Research-moved")
+            val names = device.executeShellCommand("ls $parent").lines()
+            assertTrue("Directory was moved before lookup", "Research-moved" in names && "Research" !in names)
+        }
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val attempted = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val monitor = object : android.app.Instrumentation.ActivityMonitor() {
+            override fun onStartActivity(intent: Intent): android.app.Instrumentation.ActivityResult? {
+                if (intent.action !in setOf(Intent.ACTION_VIEW, Intent.ACTION_OPEN_DOCUMENT)) return null
+                attempted.add(requireNotNull(intent.action))
+                return android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_CANCELED, null)
+            }
+        }
+        // Occupy both provider workers so navigation happens before the real tree lookup.
+        val providers = List(2) { DocumentProviderDeviceTest.SlowProvider() }
+        val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+        val blockers = providers.map { provider ->
+            scope.async {
+                DocumentProviderQueries(android.content.ContentResolver.wrap(provider), 30_000)
+                    .displayName(Uri.parse(command.payload))
+            }
+        }
+        val staleError = "Item unavailable. Refresh the index in Search folders."
+        instrumentation.addMonitor(monitor)
+        try {
+            providers.forEach { assertTrue(it.entered.await(5, TimeUnit.SECONDS)) }
+            val pending = compose.runOnUiThread {
+                val parent = palette.lifecycleScope.coroutineContext.job
+                val previous = parent.children.toSet()
+                palette.execute(command)
+                parent.children.single { it !in previous }
+            }
+            compose.onNodeWithTag("file-type").performClick()
+            compose.onNodeWithTag("file-type-DOCUMENTS").performScrollTo().performClick()
+            compose.onNodeWithTag("result-${command.id}").assertDoesNotExist()
+            if (missing) {
+                compose.onNodeWithTag("file-type").performClick()
+                compose.onNodeWithTag("file-type-ALL").performScrollTo().performClick()
+                compose.onNodeWithTag("result-${command.id}").assertIsDisplayed()
+            }
+            assertTrue("The original open is still pending after navigation", pending.isActive)
+            providers.forEach { it.release.countDown() }
+            runBlocking { withTimeout(5000) { blockers.awaitAll(); pending.join() } }
+            val errorShown = compose.runOnUiThread { store.message == staleError }
+            val label = if (missing) "restored-filter-error" else "filtered-directory"
+            val evidence = File(context.filesDir, "folder-evidence").apply { mkdirs() }
+            File(evidence, "$label.json").writeText(org.json.JSONObject()
+                .put("attempted_actions", org.json.JSONArray(attempted))
+                .put("late_error_shown", errorShown).put("query", store.query)
+                .put("type", store.folderSearch.type.name).toString(2))
+            compose.waitForIdle()
+            device.dumpWindowHierarchy(File(evidence, "$label.xml"))
+            assertTrue(device.takeScreenshot(File(evidence, "$label.png")))
+            assertTrue("Obsolete lookup attempted $attempted", attempted.isEmpty())
+            assertFalse("Obsolete lookup published its error", errorShown)
+            compose.onNodeWithTag("search").assertTextEquals("Research")
+
+            // A fresh request still receives the real provider's success or failure.
+            if (!missing) {
+                compose.onNodeWithTag("file-type").performClick()
+                compose.onNodeWithTag("file-type-ALL").performScrollTo().performClick()
+            }
+            compose.onNodeWithTag("result-${command.id}").performClick()
+            if (missing) {
+                compose.waitUntil(5000) { store.message == staleError }
+                assertTrue(attempted.isEmpty())
+            } else {
+                compose.waitUntil(5000) { attempted.isNotEmpty() }
+                assertEquals(listOf(Intent.ACTION_OPEN_DOCUMENT), attempted.toList())
+            }
+        } finally {
+            providers.forEach { it.release.countDown() }
+            scope.cancel()
+            instrumentation.removeMonitor(monitor)
+        }
     }
 
     @Test fun oneIndexedItemHasSingularSettingsAndFilesLabels() {

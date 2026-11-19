@@ -86,6 +86,8 @@ class FolderSearch internal constructor(
     private val byId by derivedStateOf { entries.associateBy { it.id } }
     private var readable: Set<String> = emptySet()
     private var currentQuery = ""
+    var navigationRevision = 0L
+        private set
     private var searchActive = false
     var folders by mutableStateOf<List<SearchFolder>>(emptyList()); private set
     var enabled by mutableStateOf(false); private set
@@ -230,12 +232,23 @@ class FolderSearch internal constructor(
     fun configurationCommands() = if (enabled) entries.map { it.command() } else emptyList()
     fun command(id: String) = if (enabled) byId[id]?.command() else null
     fun retainedCommands(ids: Set<String>) = if (enabled) ids.mapNotNull { byId[it]?.command() } else emptyList()
-    fun filterType(value: FileSearchType) { type = value; scheduleSearch() }
-    fun search(query: String, active: Boolean) { currentQuery = query.take(256); searchActive = active; scheduleSearch() }
+    fun filterType(value: FileSearchType) {
+        if (type == value) return
+        navigationRevision++
+        type = value
+        scheduleSearch()
+    }
+    fun search(query: String, active: Boolean) {
+        if (currentQuery == query && searchActive == active) return
+        navigationRevision++
+        currentQuery = query
+        searchActive = active
+        scheduleSearch()
+    }
     private fun scheduleSearch() {
         val revision = searchRevision.incrementAndGet(); searchJob?.cancel(); matches = emptyList()
         if (!enabled || !searchActive || loading) { searching = false; return }
-        val snapshot = entries; val query = currentQuery; val filter = type
+        val snapshot = entries; val query = currentQuery.take(256); val filter = type
         searching = true
         searchJob = scope.launch {
             try {

@@ -67,9 +67,11 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         val uri = Uri.parse(command.payload)
         val query = store.query; val category = store.category; val route = store.dialog; val epoch = store.focusEpoch
         val indexed = command.id.startsWith("files:index:")
+        val searchRevision = store.folderSearch.navigationRevision
         fun current() = store.query == query && store.category == category && store.dialog == route &&
             store.focusEpoch == epoch && !isFinishing && window.decorView.hasWindowFocus() &&
-            (!indexed || store.folderSearch.command(command.id)?.payload == command.payload)
+            (!indexed || (store.folderSearch.navigationRevision == searchRevision &&
+                store.folderSearch.command(command.id)?.payload == command.payload))
         documentOpenJob = lifecycleScope.launch {
             try {
                 val type = if (indexed) documentReader.indexedMimeType(uri) else reader.mimeType(uri) ?: "*/*"
