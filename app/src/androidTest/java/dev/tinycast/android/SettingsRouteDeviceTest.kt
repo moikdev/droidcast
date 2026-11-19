@@ -133,7 +133,8 @@ class SettingsRouteDeviceTest {
         val id = "notes:${java.util.UUID.randomUUID()}"
         instrumentation.runOnMainSync { workspace.configure(id, "alias") }
         val alias = compose.onNodeWithTag("settings-alias")
-        alias.performScrollTo().assertIsNotEnabled().assertIsNotFocused()
+        alias.performScrollTo().assertIsNotEnabled()
+        compose.onAllNodes(hasTestTag("settings-alias") and isFocused()).assertCountEquals(0)
         assertEquals("alias", workspace.requestedEditor)
 
         // Publish a local command after the unavailable inspector has been laid out.
