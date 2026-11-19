@@ -57,7 +57,7 @@ public class ReviewedTextCallerActivity extends Activity {
         source.setSelection(start, end);
         column.addView(source, new LinearLayout.LayoutParams(-1, -2));
         selection = new TextView(this); selection.setId(android.R.id.text2); selection.setTextSize(14);
-        column.addView(selection);
+        if (!toolbar) column.addView(selection);
         if (emoji) {
             resultStatus = new TextView(this);
             column.addView(resultStatus);

@@ -41,11 +41,11 @@ class EmojiSelectionActivity : ComponentActivity() {
         setIntent(Intent(this, EmojiSelectionActivity::class.java))
         setContent {
             MaterialTheme(colorScheme = darkColorScheme(primary = PaletteTheme.accent, surface = PaletteTheme.surface)) {
-                SelectionScreen(request, ::finish) { entry ->
+                SelectionScreen(request, ::finish) { confirmation ->
                     if (!isFinishing && hasWindowFocus() && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) &&
-                        request.problem == null && request.choice === entry) {
+                        request.problem == null && request.choice === confirmation) {
                         request.choice = null
-                        setResult(RESULT_OK, Intent().putExtra(Intent.EXTRA_PROCESS_TEXT, entry.glyph))
+                        setResult(RESULT_OK, Intent().putExtra(Intent.EXTRA_PROCESS_TEXT, confirmation.entry.glyph))
                         finish()
                     }
                 }
@@ -79,15 +79,18 @@ class EmojiSelectionActivity : ComponentActivity() {
     }
 }
 
+// Each opening has its own identity, even when the user chooses the same glyph twice.
+internal class EmojiConfirmation(val entry: EmojiEntry)
+
 internal class EmojiSelectionRequest(application: Application) : AndroidViewModel(application) {
     var started = false
     var problem: String? = null
-    var choice by mutableStateOf<EmojiEntry?>(null)
+    var choice by mutableStateOf<EmojiConfirmation?>(null)
     val store by lazy { EmojiStore(application, viewModelScope) }
 }
 
 @Composable
-private fun SelectionScreen(request: EmojiSelectionRequest, cancel: () -> Unit, replace: (EmojiEntry) -> Unit) {
+private fun SelectionScreen(request: EmojiSelectionRequest, cancel: () -> Unit, replace: (EmojiConfirmation) -> Unit) {
     val keyboard = LocalSoftwareKeyboardController.current
     val choice = request.choice
     BackHandler(enabled = choice != null) { request.choice = null }
@@ -102,8 +105,8 @@ private fun SelectionScreen(request: EmojiSelectionRequest, cancel: () -> Unit, 
                             Text(problem)
                             Button(onClick = cancel) { Text("Return to editor") }
                         } else if (choice != null) {
-                            Text(choice.glyph, style = MaterialTheme.typography.displayMedium)
-                            Text(choice.name, style = MaterialTheme.typography.titleMedium)
+                            Text(choice.entry.glyph, style = MaterialTheme.typography.displayMedium)
+                            Text(choice.entry.name, style = MaterialTheme.typography.titleMedium)
                             Button(onClick = { replace(choice) }) { Text("Replace selection") }
                             TextButton(onClick = { request.choice = null }) { Text("Choose another emoji") }
                             TextButton(onClick = cancel) { Text("Cancel") }
@@ -121,7 +124,7 @@ private fun SelectionScreen(request: EmojiSelectionRequest, cancel: () -> Unit, 
                         items(results, key = { it.id }) { entry ->
                             Row(Modifier.fillMaxWidth().clickable(role = Role.Button) {
                                 keyboard?.hide()
-                                request.choice = entry
+                                request.choice = EmojiConfirmation(entry)
                             }.heightIn(min = 48.dp).padding(horizontal = 8.dp, vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically) {
                                 Text(entry.glyph, style = MaterialTheme.typography.headlineSmall)

@@ -4,6 +4,9 @@ import android.content.ComponentName
 import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -32,17 +35,17 @@ class EmojiSelectionDeviceTest {
         assertTrue(device.takeScreenshot(File(folder, "$name.png")))
     }
 
-    private fun launchCaller(text: String, start: Int, end: Int, readOnly: Boolean, toolbar: Boolean = false) {
+    private fun launchCaller(text: String, start: Int, end: Int, readOnly: Boolean, toolbar: Boolean = false, payloadKind: String? = null) {
         val owner = instrumentation.context
         owner.startActivity(Intent().setComponent(ComponentName(owner.packageName, ReviewedTextCallerActivity::class.java.name))
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
             .putExtra("emojiReplacement", true).putExtra("systemToolbar", toolbar).putExtra("source", text)
-            .putExtra("selectionStart", start).putExtra("selectionEnd", end).putExtra("readOnly", readOnly))
+            .putExtra("payloadKind", payloadKind).putExtra("selectionStart", start).putExtra("selectionEnd", end).putExtra("readOnly", readOnly))
         assertNotNull(device.wait(Until.findObject(By.res("android:id/edit").text(text)), 10000))
     }
 
-    private fun start(readOnly: Boolean = false) {
-        launchCaller(source, 7, 19, readOnly)
+    private fun start(readOnly: Boolean = false, payloadKind: String? = null) {
+        launchCaller(source, 7, 19, readOnly, payloadKind = payloadKind)
         val owner = instrumentation.context
         val button = device.wait(Until.findObject(By.text("Replace with emoji").pkg(owner.packageName)), 10000)
         assertNotNull(button)
@@ -55,11 +58,12 @@ class EmojiSelectionDeviceTest {
         }
     }
 
-    private fun choose() {
+    private fun choose(showSearch: Boolean = false) {
         compose.onNode(hasSetTextAction()).performTextReplacement(glyph)
         compose.waitUntil(15000) { compose.onAllNodesWithText(glyph).fetchSemanticsNodes().any {
             it.config.contains(androidx.compose.ui.semantics.SemanticsActions.OnClick)
         } }
+        if (showSearch) capture("search", instrumentation.targetContext.packageName)
         compose.onNode(hasText(glyph) and hasClickAction() and !hasSetTextAction()).performTouchInput { click(center) }
         compose.onNodeWithText("Replace selection").assertIsDisplayed()
     }
@@ -72,7 +76,7 @@ class EmojiSelectionDeviceTest {
 
     @Test fun replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence() {
         start()
-        choose()
+        choose(showSearch = true)
         capture("confirm", instrumentation.targetContext.packageName)
         compose.onNodeWithText("Replace selection").performTouchInput { click(center) }
         returned("Before $glyph after", "Replacement returned", "replaced")
@@ -108,6 +112,41 @@ class EmojiSelectionDeviceTest {
         compose.onNodeWithText("Replace selection").performTouchInput { click(center) }
         assertNotNull(device.wait(Until.findObject(By.res("android:id/edit").text(glyph)), 10000))
         capture("system-return", owner.packageName)
+    }
+
+    @Test fun rechoosingTheSameEmojiRejectsThePreviousConfirmationAndSurvivesRecreation() {
+        start()
+        choose()
+        val confirmation = compose.onNodeWithText("Replace selection")
+        val oldClick = requireNotNull(confirmation.fetchSemanticsNode().config[SemanticsActions.OnClick].action)
+        compose.onNodeWithText("Choose another emoji").performTouchInput { click(center) }
+        choose()
+        compose.runOnUiThread { oldClick() }
+        confirmation.assertIsDisplayed()
+        lateinit var oldActivity: EmojiSelectionActivity
+        instrumentation.runOnMainSync {
+            oldActivity = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED)
+                .filterIsInstance<EmojiSelectionActivity>().single()
+            oldActivity.recreate()
+        }
+        compose.waitUntil(15000) {
+            var ready = false
+            instrumentation.runOnMainSync {
+                ready = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED)
+                    .any { it is EmojiSelectionActivity && it !== oldActivity && it.hasWindowFocus() }
+            }
+            ready
+        }
+        confirmation.assertIsDisplayed().performTouchInput { click(center) }
+        returned("Before $glyph after", "Replacement returned", "recreated-return")
+    }
+
+    @Test fun malformedEditabilityFlagCannotReturnAReplacement() {
+        start(payloadKind = "badflag")
+        compose.onNodeWithText("This selection is read-only.", substring = true).assertIsDisplayed()
+        compose.onNodeWithText("Replace selection").assertDoesNotExist()
+        compose.onNodeWithText("Return to editor").performTouchInput { click(center) }
+        returned(source, "Canceled", "bad-flag-return")
     }
 
     @Test fun readOnlySelectionReturnsUnchanged() {
