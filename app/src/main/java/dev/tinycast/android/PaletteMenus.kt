@@ -2,8 +2,13 @@
 
 package dev.tinycast.android
 
+import android.os.Build
+import android.view.View
+import android.view.ViewTreeObserver
 import android.view.KeyEvent
 import androidx.activity.compose.BackHandler
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -319,6 +324,26 @@ internal fun PaletteChoiceMenu(expanded: Boolean, onDismissRequest: () -> Unit, 
     }
 }
 
+private fun View.rootImeVisible(): Boolean? =
+    ViewCompat.getRootWindowInsets(this)?.isVisible(WindowInsetsCompat.Type.ime())
+
+@Composable
+private fun actionMenuImeVisible(view: View, searchable: Boolean): Boolean {
+    val composeVisible = WindowInsets.isImeVisible
+    if (!searchable || Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) return composeVisible
+
+    // Pre-R can resize the window after Back without delivering fresh Compose IME insets.
+    var visible by remember(view) { mutableStateOf(view.rootImeVisible()) }
+    DisposableEffect(view) {
+        val observer = view.viewTreeObserver
+        val listener = ViewTreeObserver.OnGlobalLayoutListener { visible = view.rootImeVisible() }
+        observer.addOnGlobalLayoutListener(listener)
+        visible = view.rootImeVisible()
+        onDispose { if (observer.isAlive) observer.removeOnGlobalLayoutListener(listener) }
+    }
+    return visible ?: composeVisible
+}
+
 @Composable
 private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Request) {
     val surface = menus.surface ?: return
@@ -353,9 +378,9 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
         }
     }
     var bodyHeight by remember { mutableIntStateOf(0) }
-    val imeVisible=WindowInsets.isImeVisible
+    val view = LocalView.current
+    val imeVisible = actionMenuImeVisible(view, request.searchable)
     val keyboard=LocalSoftwareKeyboardController.current
-    val view=LocalView.current
     var keyboardRequested by remember(request.owner) { mutableStateOf(!wide || imeVisible) }
     LaunchedEffect(request.owner) { focus.requestFocus() }
     LaunchedEffect(request.owner,wide,keyboardRequested) {
@@ -429,7 +454,9 @@ private fun PaletteMenuOverlay(menus: PaletteMenus, request: PaletteMenus.Reques
                                 if(menus.query.text.isEmpty()) Text("Search for actions…",color=PaletteTheme.secondary,fontSize=if(sheet) 15.sp else 13.sp,maxLines=1,overflow=TextOverflow.Ellipsis); inner()
                             } })
                         IconButton(onClick={
-                            keyboardRequested = !imeVisible
+                            val currentlyVisible = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
+                                view.rootImeVisible() ?: imeVisible else imeVisible
+                            keyboardRequested = !currentlyVisible
                             focus.requestFocus()
                             if(keyboardRequested) keyboard?.show()
                             else {
