@@ -416,9 +416,8 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         }
         val old = when (kind) { "notes" -> notes; "links" -> links; "clips" -> clips; else -> read("files") }
         val next = (listOf(item) + old.filter { it.id != item.id }).let { if (kind == "clips") it.take(100) else it }
-        if (kind == "links" && alias != null && item.id in aliases) {
-            PalettePreferences.write(prefs, mapOf("links" to encodeItems(next),
-                "aliases" to JSONObject(aliases - item.id).toString()))
+        if (kind == "links" && alias != null) {
+            PalettePreferences.writeLinkAlias(prefs, encodeItems(next), aliases, item.id)
         } else write(kind, next)
         when (kind) { "notes" -> notes = next; "links" -> links = next; "clips" -> clips = next; else -> files = next }
         return item.id

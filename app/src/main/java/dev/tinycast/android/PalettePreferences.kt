@@ -5,6 +5,7 @@ import android.os.Looper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
 /** Orders portable-data edits across activity stores in the app's main process. */
 internal object PalettePreferences {
@@ -12,6 +13,7 @@ internal object PalettePreferences {
     // when a preceding apply() had an asynchronous disk failure. It is never exported.
     private const val CHECKPOINT = "restorePersistenceCheckpoint"
     private var ownedKeys: MutableSet<String>? = null
+    private val removedAliasOverrides = mutableSetOf<String>()
     val restoring: Boolean get() = ownedKeys != null
 
     fun write(prefs: SharedPreferences, key: String, value: Any) = write(prefs, mapOf(key to value))
@@ -21,6 +23,17 @@ internal object PalettePreferences {
         // Even a deliberate write of the same value transfers ownership to this writer.
         ownedKeys?.removeAll(values.keys)
         prefs.edit().also { editor -> values.forEach { (key, value) -> editor.putValue(key, value) } }.apply()
+    }
+
+    /** Saving an explicit Quicklink alias claims its override, including an already absent one. */
+    fun writeLinkAlias(prefs: SharedPreferences, links: String, aliases: Map<String, String>, id: String) {
+        check(Looper.getMainLooper().isCurrentThread)
+        ownedKeys?.let { owned ->
+            owned.remove("links")
+            if ("aliases" in owned) removedAliasOverrides.add(id)
+        }
+        prefs.edit().putString("links", links)
+            .putString("aliases", JSONObject(aliases - id).toString()).apply()
     }
 
     suspend fun restore(prefs: SharedPreferences, values: Map<String, Any>): Boolean =
@@ -47,13 +60,25 @@ internal object PalettePreferences {
                     val current = prefs.all
                     prefs.edit().also { undo ->
                         for (key in owned) {
-                            if (current[key] == values[key]) undo.putValue(key, before[key])
+                            if (key == "aliases" && removedAliasOverrides.isNotEmpty()) {
+                                val original = before[key] as? String
+                                val aliases = original?.let { runCatching { JSONObject(it) }.getOrNull() }
+                                if (aliases != null && removedAliasOverrides.any(aliases::has)) {
+                                    removedAliasOverrides.forEach { aliases.remove(it) }
+                                    undo.putString(key, aliases.toString())
+                                } else {
+                                    undo.putValue(key, before[key])
+                                }
+                            } else if (current[key] == values[key]) {
+                                undo.putValue(key, before[key])
+                            }
                         }
                         undo.putValue(CHECKPOINT, before[CHECKPOINT])
                     }.apply()
                 }
                 saved
             } finally {
+                removedAliasOverrides.clear()
                 ownedKeys = null
             }
         }
