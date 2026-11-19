@@ -49,6 +49,7 @@ class BackupDeviceTest {
         compose.waitForIdle()
         val directory = File(context.filesDir, "backup-evidence").apply { mkdirs() }
         val marker = when (name) {
+            "reserved-alias-editor" -> By.text("That alias is in use until the backup finishes")
             "reserved-alias-after-rollback" -> By.text("neighbor spring")
             "quicklink-after-rollback" -> By.text("pets spring")
             "peer-merge-results" -> By.text("Peer merge witness imported")
@@ -394,7 +395,7 @@ class BackupDeviceTest {
                         // Publish memory as Android does even when the durable commit fails.
                         underlying.apply()
                         enteredCommit.countDown()
-                        check(finishCommit.await(10, TimeUnit.SECONDS))
+                        check(finishCommit.await(if (quicklinkAlias == "neighbor") 30 else 10, TimeUnit.SECONDS))
                         failed.set(true)
                         return false
                     }
@@ -465,11 +466,26 @@ class BackupDeviceTest {
                             peer.saveEditor(draft)
                             assertEquals("pets", peer.command(linkId)?.alias)
                         }
-                        peer.reset()
+                        if (rejection == null) peer.reset() else draft.alias = quicklinkAlias
                     }
                     peer.emoji.saveGridColumns(9)
                     peer.emoji.saveGridColumns(8)
                 }
+            }
+            if (reserved && rejection != null) {
+                val beforeClick = compose.runOnIdle { peer.backupSnapshot() }
+                compose.onNodeWithTag("save-editor").assertIsDisplayed().performTouchInput { click() }
+                compose.onNodeWithText("That alias is in use until the backup finishes").assertIsDisplayed()
+                compose.onNodeWithTag("cancel-editor").assertIsDisplayed().assertIsEnabled()
+                evidence("reserved-alias-editor")
+                compose.runOnIdle {
+                    assertEquals(beforeClick, peer.backupSnapshot())
+                    val draft = peer.editorDraft("link")
+                    assertEquals("neighbor", draft.alias)
+                    assertEquals("Attempted takeover", draft.title)
+                    assertEquals("https://example.invalid/attempt?q={query}", draft.body)
+                }
+                compose.onNodeWithTag("cancel-editor").performTouchInput { click() }
             }
             finishCommit.countDown()
             compose.waitUntil(10000) { !importing.backupBusy && importing.backupError != null }
