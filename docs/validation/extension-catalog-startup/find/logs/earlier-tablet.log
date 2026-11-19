@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.SettingsRouteDeviceTest:
+INSTRUMENTATION_STATUS: test=findWaitsForInstalledCommandBeforeShowingEmptyResults
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Settings Find must display pending inventory feedback
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.SettingsRouteDeviceTest.findWaitsForInstalledCommandBeforeShowingEmptyResults(SettingsRouteDeviceTest.kt:176)
+
+INSTRUMENTATION_STATUS: stream=
+Error in findWaitsForInstalledCommandBeforeShowingEmptyResults(dev.tinycast.android.SettingsRouteDeviceTest):
+java.lang.AssertionError: Settings Find must display pending inventory feedback
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.SettingsRouteDeviceTest.findWaitsForInstalledCommandBeforeShowingEmptyResults(SettingsRouteDeviceTest.kt:176)
+
+INSTRUMENTATION_STATUS: test=findWaitsForInstalledCommandBeforeShowingEmptyResults
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.115
+There was 1 failure:
+1) findWaitsForInstalledCommandBeforeShowingEmptyResults(dev.tinycast.android.SettingsRouteDeviceTest)
+java.lang.AssertionError: Settings Find must display pending inventory feedback
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.SettingsRouteDeviceTest.findWaitsForInstalledCommandBeforeShowingEmptyResults(SettingsRouteDeviceTest.kt:176)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
