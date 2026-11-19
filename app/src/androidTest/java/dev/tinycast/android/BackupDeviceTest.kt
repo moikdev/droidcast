@@ -75,8 +75,8 @@ class BackupDeviceTest {
             throw failure
         }
     }
-    private fun load(document: BackupDocument) {
-        val file = File(context.cacheDir, "backup-test.json").apply { writeText(BackupCodec.encode(document.data, document.categories)) }
+    private fun load(document: BackupDocument, file: File = File(context.cacheDir, "backup-test.json")) {
+        file.writeText(BackupCodec.encode(document.data, document.categories))
         compose.activityRule.scenario.onActivity { it.store.readBackup(android.net.Uri.fromFile(file)) }
         compose.waitUntil(10000) { compose.activity.store.dialog == "backup-preview" && !compose.activity.store.backupBusy }
     }
@@ -339,9 +339,6 @@ class BackupDeviceTest {
         assertNull(compose.activity.store.backupDocument)
     }
     @Test fun importedRankingCannotOverflowOnNextCommand() {
-        load(BackupDocument(BackupData(usage = mapOf("calculator" to Int.MAX_VALUE)), setOf(BackupCategory.LEARNING)))
-        compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
-        compose.onNodeWithTag("backup-review").performScrollTo().performClick()
         val arguments = InstrumentationRegistry.getArguments()
         val runId = arguments.getString("backupRankingEvidence")
         val control = arguments.getString("backupRankingControl")
@@ -352,7 +349,39 @@ class BackupDeviceTest {
                 require(it.isDirectory && it.list()?.isEmpty() == true) { "Expected a fresh host-owned evidence directory" }
             }
         }
+        val rounds = arguments.getString("backupRankingRounds")?.let {
+            require(folder != null && control == null) { "Warm rounds require evidence and ordinary confirmation" }
+            it.toInt().also { count -> require(count in 1..5) }
+        } ?: 1
         val activity = compose.activity
+        repeat(rounds) { round ->
+            val trial = folder?.let { File(it, "trial-${round + 1}").apply { check(mkdir()) } }
+            val fixture = trial?.let { File(it, "ranking.json") } ?: File.createTempFile("ranking-", ".json", context.cacheDir)
+            try {
+                fun prepare(rank: Int) {
+                    load(BackupDocument(BackupData(usage = mapOf("calculator" to rank)), setOf(BackupCategory.LEARNING)), fixture)
+                    compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
+                    compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+                }
+                if (round > 0) {
+                    // Establish a fresh lower rank using the ordinary import path in this same activity.
+                    prepare(0)
+                    compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+                    compose.waitUntil(10000) { !activity.store.backupBusy && activity.store.dialog == "backup" }
+                    compose.activityRule.scenario.onActivity {
+                        assertSame(activity, it)
+                        assertNull(it.store.backupError)
+                        assertEquals(0, it.store.usage["calculator"])
+                    }
+                }
+                prepare(Int.MAX_VALUE)
+                checkRankingConfirmation(activity, trial, control == "omit-confirm")
+            } finally {
+                if (trial == null) fixture.delete()
+            }
+        }
+    }
+    private fun checkRankingConfirmation(activity: MainActivity, folder: File?, omitConfirm: Boolean) {
         val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
         val observations = JSONArray()
         val startedAt = SystemClock.elapsedRealtime()
@@ -394,8 +423,8 @@ class BackupDeviceTest {
         try {
             val confirm = compose.onNodeWithTag("backup-confirm").performScrollTo().assertIsEnabled()
             observe("before_confirm")
-            if (control != "omit-confirm") confirm.performClick()
-            observe(if (control == "omit-confirm") "confirm_omitted" else "after_confirm")
+            if (!omitConfirm) confirm.performClick()
+            observe(if (omitConfirm) "confirm_omitted" else "after_confirm")
             compose.waitUntil(10000) { !activity.store.backupBusy && activity.store.dialog == "backup" }
             observe("apply_complete")
             compose.activityRule.scenario.onActivity {
@@ -408,9 +437,9 @@ class BackupDeviceTest {
             capture("complete")
         } catch (failure: Throwable) {
             runCatching { observe("failure") }.onFailure(failure::addSuppressed)
-            if (folder != null && device.currentPackageName == context.packageName) {
-                runCatching { capture("failure") }.onFailure(failure::addSuppressed)
-            }
+            runCatching {
+                if (folder != null && device.currentPackageName == context.packageName) capture("failure")
+            }.onFailure(failure::addSuppressed)
             throw failure
         } finally {
             if (folder != null) prefs.unregisterOnSharedPreferenceChangeListener(listener)
