@@ -307,3 +307,5 @@ The [ordered favorites implementation and Android results](EMOJI-FAVORITE-ORDER.
 The reviewed grid and ordered-favorites changes merged in #130 (`36544e7c`) and #131 (`0719ffcd`). Both merge trees matched their audited revisions. Both independent audits and local and hosted Android checks passed for each PR.
 
 The next #44 slice adds [selectable backup of ordered favorites and saved grid size](BACKUP.md#emoji-favorites-and-grid-size). Files without emoji settings can still be exported as version 1. Recent history and consent stay local. Unicode/CLDR data, tone selection, multilingual/custom keywords and Android paste delivery remain open.
+
+The follow-up for [#133](https://github.com/moikdev/droidcast/issues/133) covers backup while the palette and Settings are both open. The earlier app erased a note saved after Merge confirmation opened. Its failed-commit recovery also erased two controlled peer grid edits. The repaired tablet passes all three comparisons using the same test APK. [Behavior and evidence](BACKUP.md#edits-from-another-open-window)

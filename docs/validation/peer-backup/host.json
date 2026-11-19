@@ -1,0 +1,56 @@
+{
+  "assets": {
+    "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+    "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+  },
+  "benchmark": {
+    "build_log_sha256": "e9490028c582c79829095711111fb3a6c0ca5882d4f1824f6e8c8d071f5688a4",
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 52
+    }
+  },
+  "debug": {
+    "build_log_sha256": "672297a5598bd4c4e0c51047127cabfb77300985bbf94411e5a88214bc7bde8e",
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 52
+    }
+  },
+  "intermediate_runner": "e1ad7370ec5e54d568440090cc3eb3efc26a174a824d0bacbf5f33d97f61adb9",
+  "jvm": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 349
+  },
+  "python": {
+    "log_sha256": "375ec326d3dda4e7d37c79b275c691d4a156dfef6ff2fe0873fa06fe9e84d5c2",
+    "passes": 146
+  },
+  "python-O": {
+    "log_sha256": "5309052c97d305b4ce370c309d2430476e301c82d185bf8470f5b54c5ec830f3",
+    "passes": 146
+  },
+  "runner_sources": {
+    "clean.py": "06d60d4be341caabc511c622e8861b0903277e02c7d09fa0dd2f1a134d310a7e",
+    "clean_probe.py": "a6ce018c46f4d48672d51064b5ff4aba60a0d8ed12bbcba802fc37fd3840dbd4",
+    "emoji.py": "f71631778603fefb4c93dd2c231b818178da62aeab7e603b6df8afbc3e416318",
+    "intermediate.py": "0bce16367931a816d877bf6846080236716e6b4c8920b7fdb5c0683dd2288257",
+    "large.py": "bd9a08eb8a5a2d09e34fd3b63f08c8dd854a71ca78190d29922a6984973d56f9",
+    "release.py": "2bebf5f37f77289b6f5f65a6588347a0435f02918ec83ee606198128462d322b",
+    "run.py": "949016a18bd1f5055ddc8318e17224c6b7faf1dce6019a1d5c8923054096c39c"
+  },
+  "source": "41404809e570ff50f932c17e09dfe3f9fafe5c1f"
+}
