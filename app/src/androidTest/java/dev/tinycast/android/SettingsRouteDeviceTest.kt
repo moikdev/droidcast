@@ -67,11 +67,14 @@ class SettingsRouteDeviceTest {
         compose.onNodeWithTag("settings-workspace").assertIsDisplayed()
         val search = compose.onNodeWithTag("settings-search")
         search.assertIsNotFocused().assert(editableCharactersExactly(""))
+        val workspace = settings()
         val down = android.os.SystemClock.uptimeMillis()
         fun send(action: Int, repeat: Int, meta: Int) {
             val event = KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_F,
                 repeat, meta, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD)
-            assertTrue(testAutomation().injectInputEvent(event, true))
+            // Android can reserve Meta+F. Test the app route directly for Meta and inject Ctrl through Android.
+            if (modifier == KeyEvent.META_META_ON) instrumentation.runOnMainSync { workspace.dispatchKeyEvent(event) }
+            else assertTrue(testAutomation().injectInputEvent(event, true))
             compose.waitForIdle()
         }
         fun capture(phase: String) {

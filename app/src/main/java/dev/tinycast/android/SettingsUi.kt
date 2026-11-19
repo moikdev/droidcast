@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.onPreInterceptKeyBeforeSoftKeyboard
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
@@ -83,17 +84,11 @@ internal fun AdvancedSettings(activity: SettingsActivity, updates: AppUpdates = 
             bodySmall = TextStyle(fontSize = 11.sp, lineHeight = 16.sp), labelLarge = TextStyle(fontSize = 12.sp, lineHeight = 16.sp))) {
         LaunchedEffect(store.message) { store.message?.let { snackbar.showSnackbar(it); if (store.message == it) store.message = null } }
         CompositionLocalProvider(LocalContentColor provides PaletteTheme.ink) {
-        PaletteMenuHost(store, openChanged = { if(it) activity.cancelShortcutProbe() }) {
+        PaletteMenuHost(store, modifier = Modifier.onPreInterceptKeyBeforeSoftKeyboard { activity.handleNavigationKey(it.nativeKeyEvent) },
+            openChanged = { if(it) activity.cancelShortcutProbe() }) {
         BoxWithConstraints(Modifier.fillMaxSize().focusRequester(initialFocus).onFocusChanged { hasFocus = it.hasFocus }.onGloballyPositioned { placed = true }.background(settingsBackground).safeDrawingPadding().semantics { testTagsAsResourceId = true }
             .testTag("settings-workspace").onPreviewKeyEvent { event ->
-                val key = event.nativeKeyEvent
-                val command = (key.isCtrlPressed xor key.isMetaPressed) && !key.isAltPressed
-                if (key.action != KeyEvent.ACTION_DOWN || !command || store.recordingTarget != null) false
-                else when {
-                    key.keyCode == KeyEvent.KEYCODE_F && !key.isShiftPressed -> { searchFocus.requestFocus(); true }
-                    key.keyCode == KeyEvent.KEYCODE_COMMA -> true
-                    else -> false
-                }
+                activity.handleNavigationKey(event.nativeKeyEvent)
             }.onKeyEvent { if (it.nativeKeyEvent.action == KeyEvent.ACTION_DOWN && it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ESCAPE && it.nativeKeyEvent.asChord().modifiers == 0) { activity.onBackPressedDispatcher.onBackPressed(); true } else false }.focusable()) {
             val wide = maxWidth >= 760.dp
             val compactHeight = maxHeight < 540.dp
