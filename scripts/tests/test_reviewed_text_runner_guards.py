@@ -20,6 +20,13 @@ RECORDED = 'dev.tinycast.android.ExtensionRecordedTestsDeviceTest'
 
 
 class ReviewedRunnerGuardTests(unittest.TestCase):
+    def test_settings_navigation_is_limited_to_its_named_cases(self):
+        settings = 'dev.tinycast.android.SettingsRouteDeviceTest'
+        allowed = settings + '#heldCtrlFindDoesNotTypeIntoSettingsSearch'
+        for classes in (settings, settings + '#another', allowed + ',' + CALCULATOR):
+            self.refused_without_device_access(classes, [], 'Select only the named Settings navigation cases together',
+                                               without_archive=True)
+
     def test_recorded_inspection_requires_its_sources_and_cannot_mix_with_execution(self):
         self.refused_without_device_access(RECORDED, [], 'Recorded tests inspection requires --recorded-archives')
         self.refused_without_device_access(RECORDED + ',' + DETAIL, [], 'Keep Recorded tests inspection separate from executable fixtures')

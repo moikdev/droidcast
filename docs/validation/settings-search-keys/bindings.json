@@ -1,0 +1,261 @@
+[
+  {
+    "run": "before",
+    "original": "tests.log",
+    "original_sha256": "3ba7bec3ae6db689e8bef8bc5039987227e280a10223657b71172cd90883b3bd",
+    "public": "docs/validation/settings-search-keys/logs/before.log",
+    "sha256": "3ba7bec3ae6db689e8bef8bc5039987227e280a10223657b71172cd90883b3bd"
+  },
+  {
+    "run": "before",
+    "original": "ctrl-held.png",
+    "original_sha256": "8f34f0cf958a701441277b22fba5ded52e5e19c73b5db0c52904720aab6c21e9",
+    "public": "docs/screenshots/settings-search-keys/before-ctrl-held.png",
+    "sha256": "1bf4c4676325a8e99541fcda625766b938838f69282e36b3467f61f0f2983894",
+    "crop_xyxy": [
+      18,
+      165,
+      288,
+      237
+    ]
+  },
+  {
+    "run": "before",
+    "original": "ctrl-held.xml",
+    "original_sha256": "e3c150d7e1cd0ae565068dcf1d31a68057e4a1aa600ccf11b12a8e1f05e8058b",
+    "public": "docs/validation/settings-search-keys/hierarchies/before-ctrl-held.xml",
+    "sha256": "048a7ac3b748fc0f3da8d4873268b85e87d53dd4b7f539209edfc3b250a67251",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "matched-control",
+    "original": "tests.log",
+    "original_sha256": "a364eae9215c58aa33b13186b41b045bca7d43a5c75ad5f2c09c46bc7e6764d0",
+    "public": "docs/validation/settings-search-keys/logs/matched-control.log",
+    "sha256": "a364eae9215c58aa33b13186b41b045bca7d43a5c75ad5f2c09c46bc7e6764d0"
+  },
+  {
+    "run": "matched-control",
+    "original": "ctrl-held.png",
+    "original_sha256": "4aec2ac77058039499c548388359776e2754301ad8d262f281f46d1b7c7dc3e4",
+    "public": "docs/screenshots/settings-search-keys/matched-control-ctrl-held.png",
+    "sha256": "016f8ced2d98a2584778582366b1d3f5e60f206a3121bf97a22abb8080d3c8f3",
+    "crop_xyxy": [
+      18,
+      165,
+      288,
+      237
+    ]
+  },
+  {
+    "run": "matched-control",
+    "original": "ctrl-held.xml",
+    "original_sha256": "0a1cb8ff2a38e1b3dad6769d66a520c53be1535380648f238181257bd7511136",
+    "public": "docs/validation/settings-search-keys/hierarchies/matched-control-ctrl-held.xml",
+    "sha256": "0e9c48843a9c1c5d6b5238734cfe5821a60483e400db5055f7b80fe0677c3f15",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "matched-control",
+    "original": "meta-held.png",
+    "original_sha256": "5741bfab32924468e9bc0039dc55cceafa54999fbff3c1441e0d9c3666037d3e",
+    "public": "docs/screenshots/settings-search-keys/matched-control-meta-held.png",
+    "sha256": "016f8ced2d98a2584778582366b1d3f5e60f206a3121bf97a22abb8080d3c8f3",
+    "crop_xyxy": [
+      18,
+      165,
+      288,
+      237
+    ]
+  },
+  {
+    "run": "matched-control",
+    "original": "meta-held.xml",
+    "original_sha256": "b7140e9d41cf9c0070aefa97d5b3f0352a4552c3c9033d36004353bc9a786fc6",
+    "public": "docs/validation/settings-search-keys/hierarchies/matched-control-meta-held.xml",
+    "sha256": "0e9c48843a9c1c5d6b5238734cfe5821a60483e400db5055f7b80fe0677c3f15",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "tablet",
+    "original": "tests.log",
+    "original_sha256": "6640c3fe7cea6089eca35693f49c58c9f0bfddf9062e8f152b586cc222e21b78",
+    "public": "docs/validation/settings-search-keys/logs/tablet.log",
+    "sha256": "6640c3fe7cea6089eca35693f49c58c9f0bfddf9062e8f152b586cc222e21b78"
+  },
+  {
+    "run": "tablet",
+    "original": "ctrl-fresh.png",
+    "original_sha256": "c0704be1114e18932be3279a0e540c2b178b42678f6cf2edd743d76a3c268f3a",
+    "public": "docs/screenshots/settings-search-keys/tablet-ctrl-fresh.png",
+    "sha256": "3ede9418938ace3a1f34c024a21739c5eb703097ebe6e516d8b24640bff1edb1",
+    "crop_xyxy": [
+      18,
+      165,
+      288,
+      237
+    ]
+  },
+  {
+    "run": "tablet",
+    "original": "ctrl-fresh.xml",
+    "original_sha256": "7b676320d759c9577ac34918ffce38ea854ce209e2866a655e98d648f34355a0",
+    "public": "docs/validation/settings-search-keys/hierarchies/tablet-ctrl-fresh.xml",
+    "sha256": "7f7816fbe6f9b8dea384759465fcc5fd0bd5c8f9bdeff0e7e484747bcbf00efb",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "tablet",
+    "original": "ctrl-held.png",
+    "original_sha256": "5182fe6ff6d221065c8ab0192a7c14ad0ff844b4abaf1eb9ee15568a1e8bae0f",
+    "public": "docs/screenshots/settings-search-keys/tablet-ctrl-held.png",
+    "sha256": "32a1f0589de73b966099c99ad4020d8b083073623fcf4a35471ed1c9d8926f1a",
+    "crop_xyxy": [
+      18,
+      165,
+      288,
+      237
+    ]
+  },
+  {
+    "run": "tablet",
+    "original": "ctrl-held.xml",
+    "original_sha256": "190110ffc19562278d0ca9ae8ed67407affe0ceffcac4196f67e1c5aa85293dc",
+    "public": "docs/validation/settings-search-keys/hierarchies/tablet-ctrl-held.xml",
+    "sha256": "cceaf62b4f22c4d3828452cb5ae4bf7849c744e9e1b336b71342cd5a81761977",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "tablet",
+    "original": "meta-fresh.png",
+    "original_sha256": "c0704be1114e18932be3279a0e540c2b178b42678f6cf2edd743d76a3c268f3a",
+    "public": "docs/screenshots/settings-search-keys/tablet-meta-fresh.png",
+    "sha256": "3ede9418938ace3a1f34c024a21739c5eb703097ebe6e516d8b24640bff1edb1",
+    "crop_xyxy": [
+      18,
+      165,
+      288,
+      237
+    ]
+  },
+  {
+    "run": "tablet",
+    "original": "meta-fresh.xml",
+    "original_sha256": "7b676320d759c9577ac34918ffce38ea854ce209e2866a655e98d648f34355a0",
+    "public": "docs/validation/settings-search-keys/hierarchies/tablet-meta-fresh.xml",
+    "sha256": "7f7816fbe6f9b8dea384759465fcc5fd0bd5c8f9bdeff0e7e484747bcbf00efb",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "tablet",
+    "original": "meta-held.png",
+    "original_sha256": "589247b4cffc17db25d1bfe0df255dfd7ac54f47067152ab5c3d30cb928a38d6",
+    "public": "docs/screenshots/settings-search-keys/tablet-meta-held.png",
+    "sha256": "32a1f0589de73b966099c99ad4020d8b083073623fcf4a35471ed1c9d8926f1a",
+    "crop_xyxy": [
+      18,
+      165,
+      288,
+      237
+    ]
+  },
+  {
+    "run": "tablet",
+    "original": "meta-held.xml",
+    "original_sha256": "bd602edd7667bc21efdecd504fd9ff4b3ba9e68ec9812a169be2b2cc111b16bd",
+    "public": "docs/validation/settings-search-keys/hierarchies/tablet-meta-held.xml",
+    "sha256": "cceaf62b4f22c4d3828452cb5ae4bf7849c744e9e1b336b71342cd5a81761977",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "phone",
+    "original": "tests.log",
+    "original_sha256": "cdd85e20d4c4ba27196d114dbb7c670aebd64ba3717739f45ef5a4793eab2e89",
+    "public": "docs/validation/settings-search-keys/logs/phone.log",
+    "sha256": "cdd85e20d4c4ba27196d114dbb7c670aebd64ba3717739f45ef5a4793eab2e89"
+  },
+  {
+    "run": "phone",
+    "original": "ctrl-fresh.png",
+    "original_sha256": "0d21772a0e6a4363e4dc3e2bcbaf4902309caf82ca467219ee468298bfd0da39",
+    "public": "docs/screenshots/settings-search-keys/phone-ctrl-fresh.png",
+    "sha256": "b7683ab827d61cd562f1cc068fec1a36d85f373c4264d76f7e28c4925fdbf7bb",
+    "crop_xyxy": [
+      37,
+      201,
+      1043,
+      316
+    ]
+  },
+  {
+    "run": "phone",
+    "original": "ctrl-fresh.xml",
+    "original_sha256": "ff8c202c8953996714ec4b69bfcbb243e139b890bf4d2074574b7aee1cf853ab",
+    "public": "docs/validation/settings-search-keys/hierarchies/phone-ctrl-fresh.xml",
+    "sha256": "b7288cadea21698d9f0ec5532a44a9cba11c5080a4022e0068d3ee4f4eb954c5",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "phone",
+    "original": "ctrl-held.png",
+    "original_sha256": "11153c32d782686c4d69a044cf40f56dcd95281b427d7001f24d7cd1a3f466f4",
+    "public": "docs/screenshots/settings-search-keys/phone-ctrl-held.png",
+    "sha256": "d6b3ef23f0673654987184230a9ed5171f272857f7a7e409482ec7aafcae2f26",
+    "crop_xyxy": [
+      37,
+      201,
+      1043,
+      316
+    ]
+  },
+  {
+    "run": "phone",
+    "original": "ctrl-held.xml",
+    "original_sha256": "56fbf05e65d32feb8428e4d190ed7212942be6d3b0b7156fd3cdc9cb2b1b13a0",
+    "public": "docs/validation/settings-search-keys/hierarchies/phone-ctrl-held.xml",
+    "sha256": "6bb4cfbd9f77ef0aae5d8d9c9a505f40adb01d8f03b850169d300274547a305f",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "phone",
+    "original": "meta-fresh.png",
+    "original_sha256": "0d21772a0e6a4363e4dc3e2bcbaf4902309caf82ca467219ee468298bfd0da39",
+    "public": "docs/screenshots/settings-search-keys/phone-meta-fresh.png",
+    "sha256": "b7683ab827d61cd562f1cc068fec1a36d85f373c4264d76f7e28c4925fdbf7bb",
+    "crop_xyxy": [
+      37,
+      201,
+      1043,
+      316
+    ]
+  },
+  {
+    "run": "phone",
+    "original": "meta-fresh.xml",
+    "original_sha256": "464bce283dbd9baa80440c288e1057dd3892e36d475afed2749e50a20227df68",
+    "public": "docs/validation/settings-search-keys/hierarchies/phone-meta-fresh.xml",
+    "sha256": "b7288cadea21698d9f0ec5532a44a9cba11c5080a4022e0068d3ee4f4eb954c5",
+    "projection": "focused Settings Search field"
+  },
+  {
+    "run": "phone",
+    "original": "meta-held.png",
+    "original_sha256": "11153c32d782686c4d69a044cf40f56dcd95281b427d7001f24d7cd1a3f466f4",
+    "public": "docs/screenshots/settings-search-keys/phone-meta-held.png",
+    "sha256": "d6b3ef23f0673654987184230a9ed5171f272857f7a7e409482ec7aafcae2f26",
+    "crop_xyxy": [
+      37,
+      201,
+      1043,
+      316
+    ]
+  },
+  {
+    "run": "phone",
+    "original": "meta-held.xml",
+    "original_sha256": "d76a2f29cd4066a17714f5ca738e0f6fabdcc66a080ffcd0262323e79aa60455",
+    "public": "docs/validation/settings-search-keys/hierarchies/phone-meta-held.xml",
+    "sha256": "6bb4cfbd9f77ef0aae5d8d9c9a505f40adb01d8f03b850169d300274547a305f",
+    "projection": "focused Settings Search field"
+  }
+]

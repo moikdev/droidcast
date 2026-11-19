@@ -214,7 +214,7 @@ internal val LocalPaletteMenus = staticCompositionLocalOf<PaletteMenus> { error(
 
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
-internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit = {}, contextEpoch: Any? = null, feedback: Boolean = false, content: @Composable () -> Unit) {
+internal fun PaletteMenuHost(store: PaletteStore, modifier: Modifier = Modifier, openChanged: (Boolean) -> Unit = {}, contextEpoch: Any? = null, feedback: Boolean = false, content: @Composable () -> Unit) {
     val menus = remember { PaletteMenus() }
     val snackbar = remember { SnackbarHostState() }
     val message = if(feedback) store.message else null
@@ -255,7 +255,7 @@ internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit
         }
     }
     CompositionLocalProvider(LocalPaletteMenus provides menus) {
-        Box(Modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { menus.key(it.nativeKeyEvent, "pre-ime") }
+        Box(modifier.fillMaxSize().onPreInterceptKeyBeforeSoftKeyboard { menus.key(it.nativeKeyEvent, "pre-ime") }
             .onPreviewKeyEvent { menus.key(it.nativeKeyEvent, "preview") }) {
             content()
             // Routes can register callbacks after this host first composes.
