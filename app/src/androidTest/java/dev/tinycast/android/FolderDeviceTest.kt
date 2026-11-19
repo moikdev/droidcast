@@ -14,6 +14,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiScrollable
+import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import kotlinx.coroutines.*
@@ -212,8 +214,10 @@ class FolderDeviceTest {
         val testPackage = InstrumentationRegistry.getInstrumentation().context.packageName
         val fixture = "files/form-document-fixture"
         val shell = "run-as $testPackage"
-        val owner = device.executeShellCommand("$shell ls $fixture/owner.json").trim()
-        Assume.assumeTrue("Requires the owned DocumentsProvider fixture", owner == "$fixture/owner.json")
+        val expected = InstrumentationRegistry.getArguments().getString("expectedFormDocumentOwner")
+        Assume.assumeTrue("Requires --folder-provider-fixture", expected != null)
+        val owner = org.json.JSONObject(device.executeShellCommand("$shell cat $fixture/owner.json"))
+        check(owner.getString("owner_nonce") == expected && owner.getString("fixture_kind") == "form-document-provider-v1")
         val control = "$fixture/$mode-listing"
         val empty = "$fixture/empty-listing"
         check(device.executeShellCommand("$shell ls -A $fixture").trim().lines().toSet() == setOf("owner.json", "data"))
@@ -229,7 +233,20 @@ class FolderDeviceTest {
                 assertTrue(controller.beginSelection(null))
                 launcher.launch(root)
             }
-            assertTrue(device.wait(Until.hasObject(By.text("owned-bytes.bin")), 7000))
+            val picker = "com.google.android.documentsui"
+            assertTrue("Android folder picker", device.wait(Until.hasObject(By.pkg(picker)), 10000))
+            val locations = UiSelector().packageName(picker).resourceId("$picker:id/roots_list")
+            if (!device.findObject(locations).exists()) {
+                val drawer = device.wait(Until.findObject(By.pkg(picker).desc("Show roots")), 5000)
+                requireNotNull(drawer).click()
+            }
+            val rootRow = UiScrollable(locations).getChildByText(
+                UiSelector().className("android.widget.TextView").resourceId("android:id/title"),
+                "Droidcast owned files", true)
+            assertTrue("Select the leased provider", rootRow.click())
+            assertTrue("Close location drawer", device.wait(Until.gone(By.res(picker, "roots_list")), 5000))
+            device.findObject(By.res(picker, "sub_menu_list"))?.click()
+            assertTrue("Owned directory visible", device.wait(Until.hasObject(By.pkg(picker).text("Owned folder")), 7000))
             clickText("USE THIS FOLDER")
             device.wait(Until.findObject(By.text("ALLOW")), 3000)?.click()
             fun idle() = compose.waitUntil(15000) {

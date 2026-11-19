@@ -396,36 +396,13 @@ class FolderSearch internal constructor(
                         }
                     }
                 }
-                val snapshot = withContext(Dispatchers.IO) { disk.withLock {
-                    // A peer may have removed a scope or disabled search while this provider was busy.
-                    val stored = read(configFile, 65536)
-                    val storedRoots = stored?.getJSONArray("folders")
-                    if (stored == null || !stored.getBoolean("enabled") || storedRoots == null ||
-                        (0 until storedRoots.length()).map { storedRoots.getJSONObject(it).getString("uri") } != roots.map { it.uri }) {
-                        return@withLock null
-                    }
-                    val authorized = configuredGrants(roots)
-                    val fresh = result.filter { it.folder in authorized }.associateByTo(linkedMapOf()) { it.id }
-                    if (retryFolders.any { it in authorized }) {
-                        // Read the last committed version under the same lock as the replacement.
-                        val cached = decodeIndex(read(indexFile, FolderIndexRules.MAX_CACHE_BYTES), roots, authorized)
-                        for (entry in cached) {
-                            if (entry.folder !in retryFolders || entry.id in fresh) continue
-                            val bytes = encodedSize(entry)
-                            if (fresh.size >= FolderIndexRules.MAX_ENTRIES || bytes > remainingBytes) { limited = true; continue }
-                            fresh[entry.id] = entry
-                            remainingBytes -= bytes
-                        }
-                    }
-                    val items = fresh.values.toList()
-                    if (write(indexFile, indexJson(items, roots), FolderIndexRules.MAX_CACHE_BYTES) { scanRevision.get() == revision })
-                        authorized to items else null
-                } }
+                val snapshot = saveRefresh(roots, result, retryFolders, remainingBytes, revision)
                 if (scanRevision.get() != revision) return@launch
                 if (snapshot == null) {
                     status = "Search folder settings changed. Reopen Search folders to refresh."
                 } else {
-                    val (authorized, items) = snapshot
+                    val (authorized, items, retainedLimited) = snapshot
+                    limited = limited || retainedLimited
                     for (root in roots) if (root.uri !in authorized) problems[root.uri] = "Folder access expired. Reauthorize this folder."
                     readable = authorized; publish(items); errors = problems
                     status = countLabel + if (limited) " · Some items omitted by metadata or safety limits." else if (problems.isNotEmpty()) " · Some folders need attention." else " · Metadata only."
@@ -433,6 +410,43 @@ class FolderSearch internal constructor(
             } catch (cancelled: CancellationException) { if (scanRevision.get() == revision) status = "Refresh cancelled or timed out. Previous results kept."; throw cancelled }
             catch (_: Exception) { if (scanRevision.get() == revision) error = "The index could not be saved. Previous results kept." }
             finally { if (scanRevision.get() == revision) busy = false }
+        }
+    }
+    private data class SavedRefresh(val authorized: Set<String>, val items: List<IndexedDocument>, val limited: Boolean)
+
+    private suspend fun saveRefresh(roots: List<SearchFolder>, scanned: List<IndexedDocument>, retry: Set<String>,
+                                    byteBudget: Int, revision: Long): SavedRefresh? = withContext(Dispatchers.IO) {
+        disk.withLock {
+            // Check configuration and grants again after waiting for remote providers.
+            val stored = read(configFile, 65536) ?: return@withLock null
+            val storedRoots = stored.getJSONArray("folders")
+            if (!stored.getBoolean("enabled") ||
+                (0 until storedRoots.length()).map { storedRoots.getJSONObject(it).getString("uri") } != roots.map { it.uri }) {
+                return@withLock null
+            }
+            val authorized = configuredGrants(roots)
+            val merged = LinkedHashMap<String, IndexedDocument>()
+            for (entry in scanned) if (entry.folder in authorized) merged.putIfAbsent(entry.id, entry)
+
+            var bytesLeft = byteBudget
+            var limited = false
+            if (retry.any { it in authorized }) {
+                // A peer refresh may have updated the cache since this scan started.
+                val cached = decodeIndex(read(indexFile, FolderIndexRules.MAX_CACHE_BYTES), roots, authorized)
+                for (entry in cached) {
+                    if (entry.folder !in retry || entry.id in merged) continue
+                    val bytes = encodedSize(entry)
+                    if (merged.size >= FolderIndexRules.MAX_ENTRIES || bytes > bytesLeft) {
+                        limited = true
+                        continue
+                    }
+                    merged[entry.id] = entry
+                    bytesLeft -= bytes
+                }
+            }
+            val items = merged.values.toList()
+            if (write(indexFile, indexJson(items, roots), FolderIndexRules.MAX_CACHE_BYTES) { scanRevision.get() == revision })
+                SavedRefresh(authorized, items, limited) else null
         }
     }
     private data class Built(val items: List<IndexedDocument>, val bytes: Int, val limited: Boolean)
