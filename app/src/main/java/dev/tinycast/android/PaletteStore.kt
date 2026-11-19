@@ -30,7 +30,9 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     val folderSearch = FolderSearch(application, viewModelScope)
     val emoji = EmojiStore(application, viewModelScope)
     private val prefs = application.getSharedPreferences("palette", Context.MODE_PRIVATE)
-    private val recentDocumentGrants = RecentDocumentGrants(prefs, application.contentResolver)
+    private val recentDocumentGrants = RecentDocumentGrants(
+        prefs, application.contentResolver, folderSearch::configuredTreeUrisForGrantCleanup
+    )
     var apps by mutableStateOf<List<Command>>(emptyList()); private set
     var loading by mutableStateOf(true); private set
     var notes by mutableStateOf(read("notes")); private set
@@ -408,7 +410,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try { recentDocumentGrants.acquire(uri) }
             catch (e: kotlinx.coroutines.CancellationException) { throw e }
-            catch (_: Exception) { message = "Document saved. Choose it again to renew access." }
+            catch (_: Exception) { message = "Document access could not be saved. Choose the document again to retry." }
         }
     }
     private fun retryRecentDocumentCleanup() {

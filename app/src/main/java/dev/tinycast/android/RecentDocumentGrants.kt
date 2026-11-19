@@ -7,7 +7,6 @@ import android.net.Uri
 import android.provider.DocumentsContract
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -18,6 +17,7 @@ import java.util.UUID
 internal class RecentDocumentGrants(
     private val prefs: SharedPreferences,
     private val resolver: ContentResolver,
+    private val folderReferences: suspend () -> Set<String>,
     private val persist: suspend () -> Boolean = {
         withContext(Dispatchers.IO) {
             prefs.edit().putString(CHECKPOINT, UUID.randomUUID().toString()).commit()
@@ -30,7 +30,7 @@ internal class RecentDocumentGrants(
     companion object {
         private const val OWNED = "recentDocumentOwnedReads"
         private const val CHECKPOINT = "recentDocumentCheckpoint"
-        private val operations = Mutex()
+        private val operations = FolderStorageCoordinator.disk
         private var referenceRevision = 0L
 
         fun referencesChanged() { referenceRevision++ }
@@ -77,10 +77,15 @@ internal class RecentDocumentGrants(
     }
 
     suspend fun releaseUnused() = operations.withLock {
-        if (owned().isEmpty() || (owned() - referenced()).isEmpty()) return@withLock
+        if (owned().isEmpty()) return@withLock
+        val candidates = owned() - referenced()
+        if (candidates.isEmpty()) return@withLock
+        val folders = if (candidates.any { DocumentsContract.isTreeUri(Uri.parse(it)) }) folderReferences() else emptySet()
         checkpoint()
         var failure: RuntimeException? = null
-        for (value in owned() - referenced()) {
+        // Restrict release to inspected candidates. The disk lock keeps the folder
+        // configuration stable, while the barrier rechecks concurrent file edits.
+        for (value in candidates - folders - referenced()) {
             val uri = Uri.parse(value)
             try {
                 if (hasRead(uri)) releaseRead(uri)
