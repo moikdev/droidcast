@@ -14,6 +14,9 @@ internal object PalettePreferences {
     private const val CHECKPOINT = "restorePersistenceCheckpoint"
     private var ownedKeys: MutableSet<String>? = null
     private val removedAliasOverrides = mutableSetOf<String>()
+    private var originalAliases: Map<String, String> = emptyMap()
+    val rollbackAliases: Map<String, String>?
+        get() = if (ownedKeys?.contains("aliases") == true) originalAliases - removedAliasOverrides else null
     val restoring: Boolean get() = ownedKeys != null
 
     fun write(prefs: SharedPreferences, key: String, value: Any) = write(prefs, mapOf(key to value))
@@ -41,6 +44,7 @@ internal object PalettePreferences {
             check(Looper.getMainLooper().isCurrentThread && !restoring)
             val before = prefs.all
             val owned = values.keys.toMutableSet()
+            if ("aliases" in owned) originalAliases = decodeAliases(before["aliases"] as? String)
             ownedKeys = owned
             try {
                 // Publish once on the main thread, so every open store sees the new model
@@ -78,10 +82,16 @@ internal object PalettePreferences {
                 }
                 saved
             } finally {
+                originalAliases = emptyMap()
                 removedAliasOverrides.clear()
                 ownedKeys = null
             }
         }
+
+    fun decodeAliases(raw: String?): Map<String, String> = runCatching {
+        val values = JSONObject(raw ?: "{}")
+        values.keys().asSequence().associateWith { values.getString(it) }
+    }.getOrDefault(emptyMap())
 
     private fun SharedPreferences.Editor.putValue(key: String, value: Any?) {
         when (value) {

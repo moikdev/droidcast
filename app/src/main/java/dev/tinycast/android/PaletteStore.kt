@@ -374,10 +374,14 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun reset() { clearTextReview(); extensions.close(); if (backupBusy) return; discardEditorDraft(); cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
     fun used(id: String) { usage = usage + (id to ((usage[id] ?: 0).coerceAtMost(Int.MAX_VALUE - 1) + 1)); PalettePreferences.write(prefs, "usage", JSONObject(usage).toString()) }
     fun togglePin(id: String) { pins = if (id in pins) pins - id else pins + id; PalettePreferences.write(prefs, "pins", pins) }
+    private fun aliasInUse(id: String?, alias: String, commands: List<Command>, overrides: Map<String, String>): Boolean =
+        overrides.any { it.key != id && it.value == alias } ||
+            commands.any { it.id != id && (overrides[it.id] ?: it.alias) == alias }
+
     fun setAlias(id: String, value: String) {
         val alias = value.trim().lowercase()
         require(alias.isEmpty() || Regex("[a-z][a-z0-9_-]{0,23}").matches(alias)) { "Use one word: letters, numbers, _ or -" }
-        require(alias.isEmpty() || (commands().none { it.id != id && it.alias == alias } && aliases.none { it.key != id && it.value == alias })) { "That alias is already in use" }
+        require(alias.isEmpty() || !aliasInUse(id, alias, catalog(), aliases)) { "That alias is already in use" }
         aliases = aliases + (id to alias)
         PalettePreferences.write(prefs, "aliases", JSONObject(aliases).toString())
     }
@@ -411,7 +415,11 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
             require(uri.scheme in listOf("https", "http") && !uri.host.isNullOrBlank()) { "Enter a complete https:// or http:// URL" }
             if (alias != null && alias.isNotBlank()) {
                 require(Regex("[a-z][a-z0-9_-]{0,23}").matches(alias)) { "Alias must be one lowercase word" }
-                require(commands().none { it.id != id && it.alias == alias } && aliases.none { it.key != id && it.value == alias }) { "That alias is already in use" }
+                val commands = catalog()
+                require(!aliasInUse(id, alias, commands, aliases)) { "That alias is already in use" }
+                PalettePreferences.rollbackAliases?.let { rollback ->
+                    require(!aliasInUse(id, alias, commands, rollback)) { "That alias is in use until the backup finishes" }
+                }
             }
         }
         val old = when (kind) { "notes" -> notes; "links" -> links; "clips" -> clips; else -> read("files") }
@@ -470,5 +478,5 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         prefs.getStringSet("pins", setOf("calculator", "new-note", "browse-files", "new-link"))!!.toSet()
 
     private fun readMap(key: String): Map<String, Int> = runCatching { val o = JSONObject(prefs.getString(key, "{}")!!); o.keys().asSequence().associateWith { o.getInt(it) } }.getOrDefault(emptyMap())
-    private fun readAliases(): Map<String, String> = runCatching { val o = JSONObject(prefs.getString("aliases", "{}")!!); o.keys().asSequence().associateWith { o.getString(it) } }.getOrDefault(emptyMap())
+    private fun readAliases(): Map<String, String> = PalettePreferences.decodeAliases(prefs.all["aliases"] as? String)
 }
