@@ -26,7 +26,11 @@ class SystemSettingsDeviceTest {
     private fun launches(query: String, id: String, action: String, destinationPackage: String = "com.android.settings") {
         compose.onNodeWithTag("search").performTextReplacement(query)
         compose.waitForIdle()
-        assertEquals(id, compose.activity.store.results().first().id)
+        if (id in setOf("system:battery", "system:security")) {
+            compose.waitUntil(7000) { !compose.activity.store.loading && !compose.activity.store.folderSearch.loading }
+            capture(id.substringAfter(':') + "-search")
+        }
+        assertEquals(id, compose.activity.store.results().firstOrNull()?.id)
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val packageName = compose.activity.packageName
         val launched = AtomicReference<Intent>()
@@ -66,9 +70,42 @@ class SystemSettingsDeviceTest {
             markers.forEach { marker -> assertTrue("Missing destination-specific UI for $id: $marker", device.wait(Until.hasObject(marker.pkg(destinationPackage)), 10000)) }
             device.waitForIdle()
             assertFalse("Expected a dedicated page, not root Settings", device.hasObject(By.text("Search Settings")))
-            val evidence = File(instrumentation.targetContext.filesDir, "system-settings-evidence").apply { mkdirs() }
-            device.takeScreenshot(File(evidence, "${id.substringAfter(':')}.png"))
-            device.dumpWindowHierarchy(File(evidence, "${id.substringAfter(':')}.xml"))
+            capture(id.substringAfter(':'))
+        } finally {
+            instrumentation.removeMonitor(monitor)
+        }
+    }
+
+    private fun capture(name: String) {
+        device.waitForIdle()
+        val dir = File(InstrumentationRegistry.getInstrumentation().targetContext.filesDir, "system-settings-evidence").apply { mkdirs() }
+        device.dumpWindowHierarchy(File(dir, "$name.xml"))
+        assertTrue(device.takeScreenshot(File(dir, "$name.png")))
+    }
+
+    @Test fun deniedSecurityDashboardPreservesTheSearch() {
+        val query = "Security settings"
+        compose.onNodeWithTag("search").performTextReplacement(query)
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val requested = SystemSettings.find("system:security")!!.action
+        var denials = 0
+        val monitor = object : Instrumentation.ActivityMonitor() {
+            override fun onStartActivity(intent: Intent): Instrumentation.ActivityResult? {
+                if (intent.action == requested) {
+                    denials++
+                    throw SecurityException("Test denied the security settings launch")
+                }
+                return null
+            }
+        }
+        instrumentation.addMonitor(monitor)
+        try {
+            compose.onNodeWithTag("result-system:security").performClick()
+            compose.onNodeWithText("Security settings is unavailable on this device.").assertIsDisplayed()
+            compose.onNodeWithTag("search").assertTextContains(query)
+            assertEquals(1, denials)
+            assertEquals(Lifecycle.State.RESUMED, compose.activityRule.scenario.state)
+            capture("security-denied")
         } finally {
             instrumentation.removeMonitor(monitor)
         }
@@ -79,7 +116,8 @@ class SystemSettingsDeviceTest {
 
     @Test fun securitySearchOpensSafetyCenter() {
         org.junit.Assume.assumeTrue(android.os.Build.VERSION.SDK_INT >= 33)
-        val owner = requireNotNull(compose.activity.packageManager.permissionControllerPackageName)
+        val resolved = device.executeShellCommand("cmd package resolve-activity --brief -a ${Intent.ACTION_SAFETY_CENTER}")
+        val owner = requireNotNull(android.content.ComponentName.unflattenFromString(resolved.trim().lineSequence().last())).packageName
         launches("Security settings", "system:security", Intent.ACTION_SAFETY_CENTER, owner)
     }
 
