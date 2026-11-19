@@ -61,7 +61,11 @@ Choose the unmodified default, a single tone, or a combination in Unicode
 sequence order. Choosing a row copies that exact emoji. Escape closes the
 chooser and keeps the current search and selection. Copying a variant leaves
 the original favorite in place. When Recent is enabled it records the variant
-that reached the clipboard.
+that reached the clipboard. If a variant displaces the selected emoji from a full
+Recent history, the picker keeps the caller visible for the current view.
+An unfiltered grid can temporarily show 33 results. Saved history still holds
+32. Changing the query or category, leaving the picker, clearing history or
+turning history off releases the extra result.
 
 The picker offers 332 families covering 2,040 modified sequences from Unicode
 18.0. It looks up complete entries, including joined hands and couples; it
@@ -93,3 +97,13 @@ Starting from ✌🏽, Escape preserved the query and clipboard. Reopening the c
 Build `e58b60dd` passed eight tablet cases and three phone cases. Two earlier-app controls failed at the missing tone action with the same final instrumentation. These three batches recorded 33 successful restoration checks. The initial `de8feab1` tablet run passed seven of eight tests. Its mixed-tone test required a row to be displayed before revealing it in a scrollable list. The initial earlier-app controls both failed, and these two batches recorded 22 restoration checks. The initial phone stage did not run. The final instrumentation added the explicit scroll. The app and test binaries from the two builds have different payloads. [Build comparison](validation/emoji-tones/rebuild.json)
 
 Debug and benchmark app and instrumentation builds passed. The debug JVM task ran 352 tests. Python ran 146 tests in each mode. Each lint variant reported zero errors and 52 warnings. Normal and optimized generator runs reproduced the committed asset from the pinned archive. Clipboard and navigation checks used the emulator. Physical keyboard delivery, OEM rendering and comprehensive accessibility remain open. [Device records](validation/emoji-tones/runs.json) · [Host checks](validation/emoji-tones/host.json) · [Source hashes](validation/emoji-tones/sources.json) · [Capture and log bindings](validation/emoji-tones/bindings.json)
+
+### Keeping the caller when Recent is full
+
+Both independent reviews of `cdf945a8` identified a case the mixed-handshake test missed. Starting with 32 saved IDs, copying a previously absent dark thumbs up from the oldest default thumbs up evicted the caller. The clipboard was correct. The [exact-glyph search lost its only result](screenshots/emoji-tones/recent/before-final-exact.png), and the [unfiltered grid selected a different face](screenshots/emoji-tones/recent/before-final-all.png).
+
+The matched device tests seed the history, open Recent, select the oldest caller and tap the variant row. They verify the clipboard and the complete saved chronology before checking the caller. The unfiltered test waits for the category menu to return focus before injecting End. On the repair, the [exact-glyph view keeps its one result](screenshots/emoji-tones/recent/tablet-final-exact.png). The [unfiltered phone view](screenshots/emoji-tones/recent/phone-final-all.png) keeps the caller alongside the 32 saved entries. The tests also change the search or pause and resume history and verify the transient result disappears.
+
+The first repair protocol on `43d2fb86` passed 8/9 tablet cases. On both comparison and repaired apps its unfiltered setup failed to select the oldest ID. The exact-search comparison reached the eviction assertion and failed; the repaired exact-search case passed. These two batches recorded 22 restoration checks. The first repair phone continuation did not run. The later instrumentation adds the focus precondition. All source and binary identities are kept separately. [Device logs and restoration outcomes](validation/emoji-tones/recent/runs.json) · [Repair sources](validation/emoji-tones/recent/sources.json) · [Host build and lint results](validation/emoji-tones/recent/host.json)
+
+With final instrumentation on `c9ef042d`, nine tablet and five phone cases passed. Both matched comparison cases reached the caller-preservation assertion and failed on `e58b60dd`. These three batches completed 33 restoration checks. Both build variants passed, 352 JVM cases passed, and each lint variant reported zero errors and 52 warnings. Python receipts from the unchanged scripts record 146 passes in each mode. The results cover one API 36 emulator in two configurations at 100% font.

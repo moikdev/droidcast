@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.EmojiDeviceTest:
+INSTRUMENTATION_STATUS: test=toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: expected:<1f[44d]> but was:<1f[600]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.EmojiDeviceTest.copyOldestRecent(EmojiDeviceTest.kt:336)
+	at dev.tinycast.android.EmojiDeviceTest.toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid(EmojiDeviceTest.kt:324)
+
+INSTRUMENTATION_STATUS: stream=
+Error in toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid(dev.tinycast.android.EmojiDeviceTest):
+org.junit.ComparisonFailure: expected:<1f[44d]> but was:<1f[600]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.EmojiDeviceTest.copyOldestRecent(EmojiDeviceTest.kt:336)
+	at dev.tinycast.android.EmojiDeviceTest.toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid(EmojiDeviceTest.kt:324)
+
+INSTRUMENTATION_STATUS: test=toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.087
+There was 1 failure:
+1) toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid(dev.tinycast.android.EmojiDeviceTest)
+org.junit.ComparisonFailure: expected:<1f[44d]> but was:<1f[600]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.EmojiDeviceTest.copyOldestRecent(EmojiDeviceTest.kt:336)
+	at dev.tinycast.android.EmojiDeviceTest.toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid(EmojiDeviceTest.kt:324)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
