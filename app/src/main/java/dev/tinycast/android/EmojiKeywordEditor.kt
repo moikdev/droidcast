@@ -23,17 +23,26 @@ internal fun EmojiKeywordEditor(entry: EmojiEntry, store: EmojiStore, current: (
     val menus = LocalPaletteMenus.current
     val focus = remember { FocusRequester() }
     fun save() {
-        if (!current() || draft.composition != null || error != null || conflict) return
-        if (store.saveCustomKeywords(entry.id, original, draft.text)) saved(draft.text.isBlank()) else conflict = true
+        val input = draft
+        if (!current() || input.composition != null || conflict) return
+        // A key event can follow an edit before Compose updates the displayed error.
+        val written = try {
+            store.saveCustomKeywords(entry.id, original, input.text)
+        } catch (_: IllegalArgumentException) {
+            return
+        }
+        if (written) saved(input.text.isBlank()) else conflict = true
     }
 
     Shell("Custom keywords", "${entry.glyph}  ${entry.name}", close,
         Modifier.onPreviewKeyEvent {
             val e = it.nativeKeyEvent
-            if (e.keyCode == KeyEvent.KEYCODE_S && (e.isCtrlPressed xor e.isMetaPressed) && !e.isAltPressed && !e.isShiftPressed) {
+            val cancel = e.keyCode == KeyEvent.KEYCODE_ESCAPE
+            val saveChord = e.keyCode == KeyEvent.KEYCODE_S && (e.isCtrlPressed xor e.isMetaPressed) && !e.isAltPressed && !e.isShiftPressed
+            if (cancel || saveChord) {
                 if (e.action == KeyEvent.ACTION_DOWN && e.repeatCount == 0) {
                     menus.claimPress(e)
-                    save()
+                    if (cancel) close() else save()
                 }
                 true
             } else false

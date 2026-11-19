@@ -382,6 +382,72 @@ class EmojiDeviceTest {
         assertEquals(1, store.query.count { it == 's' })
     }
 
+    @Test fun heldEscapeCancelsOnlyTheKeywordEditor() {
+        val query = "🐱"
+        search(query)
+        openKeywordEditor()
+        compose.onNodeWithTag("emoji-keywords-field").performTextReplacement("discard this draft")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun escape(action: Int, repeat: Int) {
+            val event = KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_ESCAPE,
+                repeat, 0, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD)
+            assertTrue(testAutomation().injectInputEvent(event, true))
+            compose.waitForIdle()
+        }
+        try {
+            escape(KeyEvent.ACTION_DOWN, 0)
+            compose.onNodeWithTag("emoji-keywords-field").assertDoesNotExist()
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            assertEquals(query, store.query)
+            escape(KeyEvent.ACTION_DOWN, 1)
+            captureVisibleNode("escape-repeat", "emoji-search")
+            assertEquals("Held Escape must preserve the caller query", query, store.query)
+            for (repeat in 2..3) escape(KeyEvent.ACTION_DOWN, repeat)
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            assertEquals(query, store.results()[store.selected].glyph)
+            assertEquals("", store.customKeywordText("1f431"))
+        } finally {
+            escape(KeyEvent.ACTION_UP, 0)
+        }
+        key(KeyEvent.KEYCODE_ESCAPE)
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        assertEquals("Fresh Escape clears the query", "", store.query)
+        captureVisibleNode("escape-fresh", "emoji-search")
+    }
+
+    @Test fun immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection() {
+        search("🐱")
+        openKeywordEditor()
+        val field = compose.onNodeWithTag("emoji-keywords-field")
+        val edit = requireNotNull(field.fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val invalid = "x".repeat(65)
+        var failure: IllegalArgumentException? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            val down = android.os.SystemClock.uptimeMillis()
+            fun dispatch(action: Int) = activity.dispatchKeyEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_S, 0, KeyEvent.META_CTRL_ON, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD))
+            assertTrue(edit(AnnotatedString(invalid)))
+            try {
+                assertTrue(dispatch(KeyEvent.ACTION_DOWN))
+            } catch (e: IllegalArgumentException) {
+                failure = e
+            } finally {
+                dispatch(KeyEvent.ACTION_UP)
+            }
+        }
+        field.assertTextContains(invalid)
+        compose.onNodeWithText("Use up to 64 characters per keyword.").assertExists()
+        compose.onNodeWithTag("emoji-keywords-save").assertIsNotEnabled()
+        assertEquals("", store.customKeywordText("1f431"))
+        captureVisibleNode("invalid-save", "emoji-keywords-field")
+        assertNull("Dispatching Save on an invalid live draft threw", failure)
+        field.performTextReplacement("corrected keyword")
+        key(KeyEvent.KEYCODE_S, KeyEvent.META_CTRL_ON)
+        assertEquals("corrected keyword", store.customKeywordText("1f431"))
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+    }
+
     @Test fun keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit() {
         search("🐱")
         openKeywordEditor()
