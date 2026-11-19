@@ -310,7 +310,12 @@ class FolderDeviceTest {
         val command = controller.configurationCommands().single { it.title == "Research" }
         compose.activityRule.scenario.onActivity { it.openFileSearch() }
         compose.onNodeWithTag("search").performTextReplacement("Research")
-        compose.onNodeWithTag("result-${command.id}").assertIsDisplayed()
+        fun awaitDirectoryRow() {
+            compose.waitUntil(5000) {
+                runCatching { compose.onNodeWithTag("result-${command.id}").assertIsDisplayed() }.isSuccess
+            }
+        }
+        awaitDirectoryRow()
         val palette = compose.runOnUiThread {
             ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED)
                 .filterIsInstance<MainActivity>().single()
@@ -356,7 +361,7 @@ class FolderDeviceTest {
             if (missing) {
                 compose.onNodeWithTag("file-type").performClick()
                 compose.onNodeWithTag("file-type-ALL").performScrollTo().performClick()
-                compose.onNodeWithTag("result-${command.id}").assertIsDisplayed()
+                awaitDirectoryRow()
             }
             assertTrue("The original open is still pending after navigation", pending.isActive)
             providers.forEach { it.release.countDown() }
@@ -380,6 +385,7 @@ class FolderDeviceTest {
                 compose.onNodeWithTag("file-type").performClick()
                 compose.onNodeWithTag("file-type-ALL").performScrollTo().performClick()
             }
+            awaitDirectoryRow()
             compose.onNodeWithTag("result-${command.id}").performClick()
             if (missing) {
                 compose.waitUntil(5000) { store.message == staleError }
