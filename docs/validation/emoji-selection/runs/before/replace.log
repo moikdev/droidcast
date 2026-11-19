@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiSelectionDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.EmojiSelectionDeviceTest:
+INSTRUMENTATION_STATUS: test=replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiSelectionDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.start(EmojiSelectionDeviceTest.kt:46)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.start$default(EmojiSelectionDeviceTest.kt:35)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence(EmojiSelectionDeviceTest.kt:68)
+
+INSTRUMENTATION_STATUS: stream=
+Error in replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence(dev.tinycast.android.EmojiSelectionDeviceTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.start(EmojiSelectionDeviceTest.kt:46)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.start$default(EmojiSelectionDeviceTest.kt:35)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence(EmojiSelectionDeviceTest.kt:68)
+
+INSTRUMENTATION_STATUS: test=replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.763
+There was 1 failure:
+1) replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence(dev.tinycast.android.EmojiSelectionDeviceTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.start(EmojiSelectionDeviceTest.kt:46)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.start$default(EmojiSelectionDeviceTest.kt:35)
+	at dev.tinycast.android.EmojiSelectionDeviceTest.replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence(EmojiSelectionDeviceTest.kt:68)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
