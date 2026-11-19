@@ -31,3 +31,29 @@ Both cases in the initial comparison batch stopped during picker setup. A later 
 On the integrated production build, each layout passed all three cache cases. An additional tablet run passed the malformed-cache case and stopped in the cancellation and revocation workflow. Its screenshot shows the expired-access warning while the paired native hierarchy still reports the preceding disabled state. The final instrumentation refreshes the accessibility cache and waits for the app’s expected text before taking the XML and screenshot. [Earlier screenshot](screenshots/folder-grants/verified-affected-expired.png) · [Earlier hierarchy](validation/folder-grants/hierarchies/verified-affected-expired.xml).
 
 With the final instrumentation the earlier app failed all three assertions, and the repaired app passed all three on tablet and phone. The two additional tablet workflows passed, including revocation, reauthorization, removal, cancellation and rebuilding a malformed index. All 54 inner cleanup checks passed across these four batches. Each batch also verified its installed app and instrumentation bytes and restored the earlier packages and evidence directory. Final debug and benchmark builds and lint passed with 53 warnings per variant. All 356 debug JVM cases passed. The 148 Python tests per mode ran at `34f50efd`; the Python sources are identical at the final build revision.
+
+## Removing a recent document
+
+In **Files**, select a recent document, open **Actions**, choose **Delete from Droidcast**, and confirm **Remove**. The provider keeps the original file. When another recent uses the same document, that entry retains access. After the last entry has been saved as removed, Droidcast releases the persistent read permission it acquired for that document.
+
+The ownership record stays in the app's private preferences and is excluded from portable backups. If a read grant already exists, picking the document again leaves ownership with its original consumer. Legacy records alone never authorize release. Droidcast requests only the read flag when acquiring or releasing permission. A separate write grant remains available to its owner. Folder authorization still uses the configured tree URI.
+
+If Droidcast cannot verify that removal was saved, it retains the grant. A failed release leaves the ownership record available for a retry when a new palette or Settings store opens. The user can reselect a document whose provider no longer grants persistent access.
+
+### Android verification for #141
+
+The final comparison used one instrumentation APK on the dedicated Tinycast Tablet API 36 emulator. The earlier app came from build `af929a09`. The repaired debug app and tests were built from `3ab115df`; the local app manifest uses the default `local` stamp. APK hashes and source inventories identify the tested artifacts. Tablet captures are 1920 × 1200 at 240 dpi. The phone layout on the same emulator used 1080 × 2340 at 420 dpi.
+
+| After removing the last recent entry | Earlier tablet | Repaired tablet | Repaired phone |
+| --- | --- | --- | --- |
+| Recent row present | No | No | No |
+| Persisted read access present | Yes | No | No |
+| Original document contents match | Yes | Yes | Yes |
+
+The test created a uniquely named Downloads document, selected it in Android DocumentsUI and confirmed removal in the app. Native picker activation used accessibility actions. Search setup used the model, and confirmation used a Compose click. The screenshots show the dialog and return destination. The test read the permission flags from Android and reopened the original fixture through its MediaStore URI to compare the text. [Earlier observation](validation/recent-grants/earlier-result.json) · [Repaired tablet](validation/recent-grants/tablet-result.json) · [Repaired phone](validation/recent-grants/phone-result.json)
+
+All four recent-document cases passed on each layout. They cover owned access, a borrowed read on a legacy reference, two records sharing a URI with an independently held write grant, and retry after injected persistence and release failures. The failure test stages removal of the selected row, forces a failed persistence barrier and a failed release separately, and opens a new Settings store in the same process to exercise recovery. The shared-reference fixture creates the second record through the store. The earlier app failed both matched owned-read assertions. Four additional tablet cases passed for slow provider names, timeout, MIME retry and cancellation.
+
+The first development pair recorded one earlier failure and one repaired pass. Its app/test source snapshot was still uncommitted. Intermediate build `366bbc15` recorded four repaired passes and two comparison failures. Build `a326a116` recorded eight repaired passes and two comparison failures. Earlier captures taken immediately after the model changed could still show the confirmation dialog. The final fixture waits for the visible search destination before capturing. Only the final screenshot sets illustrate removal here.
+
+The final four batches recorded 54 successful inner cleanup checks. All four outer wrappers verified the original installed packages and restoration of the evidence directory. Host checks recorded 356 passing debug JVM tests and 148 Python tests in each interpreter mode on unchanged scripts. Debug and benchmark app and instrumentation APKs built. Lint found zero errors and 58 warnings per variant, including five Kotlin extension suggestions in the grant coordinator. Physical storage failure, process death between writes, OEM providers and cross-process recovery remain untested. [Run records](validation/recent-grants/runs.json) · [Build checks](validation/recent-grants/host.json) · [APK identities](validation/recent-grants/apks.json)

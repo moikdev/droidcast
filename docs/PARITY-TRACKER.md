@@ -353,3 +353,7 @@ PR #140 merged the Fetch and HTTP client fixes at `f4c8bfd0` after both independ
 [Folder cache verification](FOLDER-SEARCH.md#index-retention-when-permissions-change) covers taking and releasing an individual document permission, keeping another readable tree after revocation, and removing expired metadata when Settings loads the cache. Android provider and process-death coverage remains partial.
 
 The one-row status still uses the plural “1 indexed items.” Ownership of individual document grants after a recent is deleted is tracked separately in [#141](https://github.com/moikdev/droidcast/issues/141).
+
+### Recent document permission lifetime (#141)
+
+Folder-cache PR #142 merged at `5d61f1f0` after two independent audits and successful local and hosted Android checks. The related recent-document fix now tracks individually acquired read access and releases it after durable removal of the last reference. The comparison app removed the row but kept the permission. Both repaired layouts released read access and preserved the original text. Separate tests cover borrowed access, duplicate URI references, write access and recovery after controlled failures. Twelve final Android cases passed, including four provider regressions. Two comparison cases failed at the intended permission checks. [Android observations and limits](FOLDER-SEARCH.md#android-verification-for-141)
