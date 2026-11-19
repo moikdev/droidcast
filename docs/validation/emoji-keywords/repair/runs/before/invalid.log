@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.EmojiDeviceTest:
+INSTRUMENTATION_STATUS: test=immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Dispatching Save on an invalid live draft threw expected null, but was:<java.lang.IllegalArgumentException: Use up to 64 characters per keyword.>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotNull(Assert.java:756)
+	at org.junit.Assert.assertNull(Assert.java:738)
+	at dev.tinycast.android.EmojiDeviceTest.immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection(EmojiDeviceTest.kt:444)
+
+INSTRUMENTATION_STATUS: stream=
+Error in immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection(dev.tinycast.android.EmojiDeviceTest):
+java.lang.AssertionError: Dispatching Save on an invalid live draft threw expected null, but was:<java.lang.IllegalArgumentException: Use up to 64 characters per keyword.>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotNull(Assert.java:756)
+	at org.junit.Assert.assertNull(Assert.java:738)
+	at dev.tinycast.android.EmojiDeviceTest.immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection(EmojiDeviceTest.kt:444)
+
+INSTRUMENTATION_STATUS: test=immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.552
+There was 1 failure:
+1) immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection(dev.tinycast.android.EmojiDeviceTest)
+java.lang.AssertionError: Dispatching Save on an invalid live draft threw expected null, but was:<java.lang.IllegalArgumentException: Use up to 64 characters per keyword.>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotNull(Assert.java:756)
+	at org.junit.Assert.assertNull(Assert.java:738)
+	at dev.tinycast.android.EmojiDeviceTest.immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection(EmojiDeviceTest.kt:444)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
