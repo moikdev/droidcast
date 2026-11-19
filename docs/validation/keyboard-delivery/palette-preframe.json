@@ -1,0 +1,85 @@
+{
+  "avd": "Tinycast_Tablet_API_36",
+  "serial": "emulator-5580",
+  "apk_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+  "test_apk_sha256": "e3d1c508bcdfb72d560fad9a07f831b6c09d3cc965be60bdaf9f52368def5849",
+  "completed": true,
+  "mode": "typing-probe",
+  "typing_probe": {
+    "expected": "menuKeyboardProbe271828",
+    "observations": [
+      {
+        "seconds": 3.888,
+        "values": [
+          "menuKeyboardProbe271828"
+        ]
+      }
+    ],
+    "exact": true
+  },
+  "runner_sha256": "cb51c769dfa5bbed9d5cc05a13fe774ee02c914ce216e701541c803a055029e5",
+  "input_helper_source_sha256": "859cd4f868c0739124384652eb05dcff09f67bd65933c6546ec828adaf4f8756",
+  "input_helper_binary_sha256": "513a567cca9b219d903bf460c77521b656fbe773d90fa50f7b15b2a4c93b0089",
+  "cleanup": {
+    "release-keys": {
+      "passed": true
+    },
+    "disable-service": {
+      "passed": true
+    },
+    "disable-master": {
+      "passed": true
+    },
+    "clipboard": {
+      "passed": true
+    },
+    "stop-app": {
+      "passed": true
+    },
+    "preference-backup-removal": {
+      "passed": true
+    },
+    "preferences": {
+      "passed": true
+    },
+    "secure-enabled_accessibility_services": {
+      "passed": true
+    },
+    "secure-accessibility_enabled": {
+      "passed": true
+    },
+    "secure-show_ime_with_hard_keyboard": {
+      "passed": true
+    },
+    "verify-preferences": {
+      "passed": true
+    },
+    "verify-settings": {
+      "passed": true
+    },
+    "remove-input-helper": {
+      "passed": true
+    },
+    "unroot": {
+      "passed": true
+    },
+    "verify-adbd": {
+      "passed": true
+    },
+    "read-size": {
+      "passed": true
+    },
+    "read-density": {
+      "passed": true
+    }
+  },
+  "clipboard_restored": true,
+  "preferences_restored": true,
+  "settings_restored": true,
+  "adbd_restored": true,
+  "size": "Physical size: 1920x1200",
+  "density": "Physical density: 240",
+  "installed_matches": true,
+  "tests_completed": true,
+  "pre_observer_frame_seconds": 1.73
+}

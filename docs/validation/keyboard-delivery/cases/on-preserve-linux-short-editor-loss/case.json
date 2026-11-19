@@ -1,0 +1,607 @@
+{
+  "before_observer": {
+    "glyph_bounds": [
+      38,
+      116,
+      119,
+      148
+    ],
+    "fixture": "qwerty",
+    "exact": true,
+    "observed": "qwerty",
+    "length": 6,
+    "focused": true,
+    "ms": 996388,
+    "overflow": false,
+    "pre_ime": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995496,
+        "received_ms": 995498
+      },
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995553,
+        "received_ms": 995563
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995620,
+        "received_ms": 995621
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995676,
+        "received_ms": 995679
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995724,
+        "received_ms": 995727
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995779,
+        "received_ms": 995782
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995819,
+        "received_ms": 995821
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995864,
+        "received_ms": 995866
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995900,
+        "received_ms": 995901
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995952,
+        "received_ms": 995954
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996008,
+        "received_ms": 996011
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996086,
+        "received_ms": 996087
+      }
+    ],
+    "activity_dispatch": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995553,
+        "received_ms": 995564
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995676,
+        "received_ms": 995679
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995779,
+        "received_ms": 995784
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995864,
+        "received_ms": 995867
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995952,
+        "received_ms": 995954
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996086,
+        "received_ms": 996088
+      }
+    ],
+    "edits": [
+      {
+        "ms": 995526,
+        "length": 1
+      },
+      {
+        "ms": 995624,
+        "length": 2
+      },
+      {
+        "ms": 995730,
+        "length": 3
+      },
+      {
+        "ms": 995825,
+        "length": 4
+      },
+      {
+        "ms": 995904,
+        "length": 5
+      },
+      {
+        "ms": 996014,
+        "length": 6
+      }
+    ]
+  },
+  "attach_start_ms": 996392,
+  "root_ready_ms": 996406,
+  "root_polls": 1,
+  "after_observer": {
+    "glyph_bounds": [
+      38,
+      116,
+      106,
+      148
+    ],
+    "fixture": "qwerty",
+    "exact": false,
+    "observed": "qwert",
+    "length": 5,
+    "focused": true,
+    "ms": 996408,
+    "overflow": false,
+    "pre_ime": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995496,
+        "received_ms": 995498
+      },
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995553,
+        "received_ms": 995563
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995620,
+        "received_ms": 995621
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995676,
+        "received_ms": 995679
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995724,
+        "received_ms": 995727
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995779,
+        "received_ms": 995782
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995819,
+        "received_ms": 995821
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995864,
+        "received_ms": 995866
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995900,
+        "received_ms": 995901
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995952,
+        "received_ms": 995954
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996008,
+        "received_ms": 996011
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996086,
+        "received_ms": 996087
+      }
+    ],
+    "activity_dispatch": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995553,
+        "received_ms": 995564
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995676,
+        "received_ms": 995679
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995779,
+        "received_ms": 995784
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995864,
+        "received_ms": 995867
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995952,
+        "received_ms": 995954
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996086,
+        "received_ms": 996088
+      }
+    ],
+    "edits": [
+      {
+        "ms": 995526,
+        "length": 1
+      },
+      {
+        "ms": 995624,
+        "length": 2
+      },
+      {
+        "ms": 995730,
+        "length": 3
+      },
+      {
+        "ms": 995825,
+        "length": 4
+      },
+      {
+        "ms": 995904,
+        "length": 5
+      },
+      {
+        "ms": 996014,
+        "length": 6
+      },
+      {
+        "ms": 996391,
+        "length": 5
+      }
+    ]
+  },
+  "final": {
+    "glyph_bounds": [
+      38,
+      116,
+      106,
+      148
+    ],
+    "fixture": "qwerty",
+    "exact": false,
+    "observed": "qwert",
+    "length": 5,
+    "focused": true,
+    "ms": 996777,
+    "overflow": false,
+    "pre_ime": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995496,
+        "received_ms": 995498
+      },
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995553,
+        "received_ms": 995563
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995620,
+        "received_ms": 995621
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995676,
+        "received_ms": 995679
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995724,
+        "received_ms": 995727
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995779,
+        "received_ms": 995782
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995819,
+        "received_ms": 995821
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995864,
+        "received_ms": 995866
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995900,
+        "received_ms": 995901
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995952,
+        "received_ms": 995954
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996008,
+        "received_ms": 996011
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996086,
+        "received_ms": 996087
+      }
+    ],
+    "activity_dispatch": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995496,
+        "event_ms": 995553,
+        "received_ms": 995564
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995620,
+        "event_ms": 995676,
+        "received_ms": 995679
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995724,
+        "event_ms": 995779,
+        "received_ms": 995784
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995819,
+        "event_ms": 995864,
+        "received_ms": 995867
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 995900,
+        "event_ms": 995952,
+        "received_ms": 995954
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 996008,
+        "event_ms": 996086,
+        "received_ms": 996088
+      }
+    ],
+    "edits": [
+      {
+        "ms": 995526,
+        "length": 1
+      },
+      {
+        "ms": 995624,
+        "length": 2
+      },
+      {
+        "ms": 995730,
+        "length": 3
+      },
+      {
+        "ms": 995825,
+        "length": 4
+      },
+      {
+        "ms": 995904,
+        "length": 5
+      },
+      {
+        "ms": 996014,
+        "length": 6
+      },
+      {
+        "ms": 996391,
+        "length": 5
+      }
+    ]
+  },
+  "observer_flags": 1,
+  "bound_before": true,
+  "bound_attached": true,
+  "transport": "linux",
+  "control": "editor-loss",
+  "submitted": "qwerty",
+  "inject_start_ns": 52580864676625,
+  "inject_end_ns": 52581544724875,
+  "prescreen_end_ns": 52581788099750,
+  "checks": {
+    "keys": true,
+    "delivery_before_attachment": true,
+    "timing": true,
+    "fixture_owned": true,
+    "before_text": true,
+    "after_text": true,
+    "hierarchy": true,
+    "pixels": true,
+    "service": true
+  },
+  "samples": {
+    "before_dark_pixels": 405,
+    "after_dark_pixels": 335,
+    "hierarchy_editor_text": [
+      "qwert"
+    ]
+  }
+}
