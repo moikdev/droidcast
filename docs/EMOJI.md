@@ -9,6 +9,16 @@ account or network connection is needed to use the bundled catalog.
   for German, Spanish, French, Japanese, Korean, Portuguese, Russian, and
   Simplified or Traditional Chinese. For example, Japanese `ネコの顔` and
   German `Katzengesicht` both find 🐱 when their language is active.
+  To add your own terms, select a symbol and open **Actions → Edit custom keywords**.
+  Enter one word or phrase per line, then tap **Save** or press Ctrl+S. Keywords
+  belong to that exact symbol, including its skin tone. An exact glyph ranks
+  first, followed by an exact personal phrase, the English name, translated
+  names and built-in keywords. Prefix searches can combine words from built-in
+  and personal terms. Cancel discards edits; clear all lines and save to remove
+  the terms. Each emoji accepts up to 16 distinct phrases of up to 64 code
+  points each. These terms are stored on this device. Portable emoji backups
+  continue to contain ordered favorites and grid size.
+
   Multiple search words may appear in any order. Use the category menu for flags,
   people, animals, text symbols, favorites or recent copies.
 - Select a cell to copy it, or use the Copy button. The complete Unicode string
@@ -65,8 +75,7 @@ that reached the clipboard.
 
 The picker offers 332 families covering 2,040 modified sequences from Unicode
 18.0. It looks up complete entries, including joined hands and couples; it
-offers a tone action only when the data contains variants. User-defined
-keywords and explicit insertion into a destination app remain tracked in
+offers a tone action only when the data contains variants. Explicit insertion into a destination app remains tracked in
 [#44](https://github.com/moikdev/droidcast/issues/44).
 
 References: [Tinycast baseline picker](https://github.com/abue-ammar/tinycast/blob/37e6043f3f550febb64bdb3cff3ac29a30caad5a/docs/features/emoji.md)
@@ -93,3 +102,7 @@ Starting from ✌🏽, Escape preserved the query and clipboard. Reopening the c
 Build `e58b60dd` passed eight tablet cases and three phone cases. Two earlier-app controls failed at the missing tone action with the same final instrumentation. These three batches recorded 33 successful restoration checks. The initial `de8feab1` tablet run passed seven of eight tests. Its mixed-tone test required a row to be displayed before revealing it in a scrollable list. The initial earlier-app controls both failed, and these two batches recorded 22 restoration checks. The initial phone stage did not run. The final instrumentation added the explicit scroll. The app and test binaries from the two builds have different payloads. [Build comparison](validation/emoji-tones/rebuild.json)
 
 Debug and benchmark app and instrumentation builds passed. The debug JVM task ran 352 tests. Python ran 146 tests in each mode. Each lint variant reported zero errors and 52 warnings. Normal and optimized generator runs reproduced the committed asset from the pinned archive. Clipboard and navigation checks used the emulator. Physical keyboard delivery, OEM rendering and comprehensive accessibility remain open. [Device records](validation/emoji-tones/runs.json) · [Host checks](validation/emoji-tones/host.json) · [Source hashes](validation/emoji-tones/sources.json) · [Capture and log bindings](validation/emoji-tones/bindings.json)
+
+### Delivering an emoji to another app
+
+The picker currently writes an explicit copy to the clipboard. Droidcast already receives Android selection requests through `ACTION_PROCESS_TEXT` and checks whether the caller marked its text editable. Android defines a result extra for returning replacement text to that caller. A future **Replace selection with emoji** action could use that contract for an editable selection. It would need a verified return to the requesting editor, separate from the current copy action. A plain launcher invocation has no such selection request. Delivery to an external editor remains open under #44. [Android intent contract](https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT)
