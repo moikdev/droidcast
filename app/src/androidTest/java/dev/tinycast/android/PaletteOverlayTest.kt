@@ -49,19 +49,61 @@ class PaletteOverlayTest {
         device.pressKeyCode(KeyEvent.KEYCODE_ESCAPE)
         compose.waitUntil(5000){compose.activityRule.scenario.state==Lifecycle.State.DESTROYED}
     }
-    @Test fun quickSettingsTileSummonsPalette(){
-        compose.activityRule.scenario.onActivity{it.startActivity(Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))}
-        assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")),5000))
-        device.executeShellCommand("cmd statusbar add-tile dev.tinycast.android/.PaletteTileService")
+    @Test fun quickSettingsTileSummonsPalette() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val probe = TileActivationProbe(context, device)
+        compose.activityRule.scenario.onActivity {
+            it.startActivity(Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        }
+        assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 5000))
+        val installed = probe.tileInstalled()
         try {
-            device.openQuickSettings()
+            if (!installed) {
+                device.executeShellCommand("cmd statusbar add-tile ${probe.component}")
+                probe.awaitMembership(true)
+            }
+            probe.snapshot("settings")
+            assertTrue("Could not open Quick Settings", device.openQuickSettings())
+            // openQuickSettings() returns before SystemUI finishes opening. Injecting
+            // click-tile during that transition can leave the shade above the resumed palette.
+            assertTrue("Quick Settings panel did not appear", device.wait(Until.hasObject(
+                By.res(java.util.regex.Pattern.compile("com.android.systemui:id/(qs_pager|qs_panel|quick_settings_panel|expanded_qs_scroll_view)"))
+            ), 5000))
             device.waitForIdle()
-            device.executeShellCommand("cmd statusbar click-tile dev.tinycast.android/.PaletteTileService")
-            assertTrue(device.wait(Until.hasObject(By.pkg("dev.tinycast.android")),10000))
-            compose.onNodeWithTag("palette").assertExists()
+            probe.snapshot("shade")
+            probe.mark("before_${probe.mode}")
+            when (probe.mode) {
+                "command" -> device.executeShellCommand("cmd statusbar click-tile ${probe.component}")
+                "pointer" -> requireNotNull(device.wait(Until.findObject(By.pkg("com.android.systemui")
+                    .text("Droidcast search").clickable(true).enabled(true)), 5000)) { "Droidcast tile is not on this page" }.click()
+            }
+            probe.mark("after_${probe.mode}")
+            assertTrue("Tile did not open the palette search editor",
+                device.wait(Until.hasObject(By.pkg(context.packageName).clazz("android.widget.EditText")), 10000))
+            assertEquals("palette", probe.focusedWindow())
+            compose.onNodeWithTag("search").assertIsDisplayed()
+            val palette = compose.onNodeWithTag("palette").assertIsDisplayed()
+            probe.snapshot("palette")
+            if (probe.capturing) {
+                val bounds = palette.fetchSemanticsNode().boundsInWindow
+                assertTrue(bounds.left > 1f)
+                device.click((bounds.left / 2).toInt(), bounds.center.y.toInt())
+                assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 5000))
+                assertEquals("android-settings", probe.focusedWindow())
+                probe.snapshot("returned")
+            }
+        } catch (failure: Throwable) {
+            runCatching { probe.snapshot("failure", failure = true) }.onFailure(failure::addSuppressed)
+            throw failure
         } finally {
-            // A failed tile startup must not leave the shade covering the next test.
-            device.executeShellCommand("cmd statusbar collapse")
+            try {
+                device.executeShellCommand("cmd statusbar collapse")
+            } finally {
+                if (!installed) {
+                    device.executeShellCommand("cmd statusbar remove-tile ${probe.component}")
+                    probe.awaitMembership(false)
+                }
+            }
         }
     }
     @Test fun typingAndSelectionUpdateWithoutAnimatedScrollOrMovingSearchFrame() {
