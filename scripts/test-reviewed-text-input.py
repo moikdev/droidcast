@@ -56,6 +56,13 @@ def context_test_filter(classes, has_translation, has_weather):
     return ['-e', 'notClass', ','.join(excluded)] if excluded else []
 
 
+SETTINGS_NAVIGATION_CLASS = 'dev.tinycast.android.SettingsRouteDeviceTest'
+SETTINGS_NAVIGATION_CASES = {SETTINGS_NAVIGATION_CLASS + '#' + method for method in (
+    'heldCtrlFindDoesNotTypeIntoSettingsSearch', 'heldMetaFindDoesNotTypeIntoSettingsSearch',
+    'settingsIsNotExportedAndOldGlobalNavigationBindingsArePreserved',
+)}
+
+
 def uses_only_local_detail_cases(classes):
     methods = (
         'gridJpegThumbnailFitsItsSampledEdge', 'jpegAtExactSampleBoundaryRenders', 'wideJpegOnePixelPastSampleBoundaryRenders',
@@ -135,7 +142,7 @@ def main():
                               'dev.tinycast.android.ExtensionDetailDeviceTest',
                               'dev.tinycast.android.ExtensionCommandHandoffDeviceTest',
                               'dev.tinycast.android.ExtensionPasteCopyDeviceTest',
-                              RECORDED_TESTS_CLASS,
+                              RECORDED_TESTS_CLASS, SETTINGS_NAVIGATION_CLASS,
                               'dev.tinycast.android.CalculatorActionsDeviceTest',
                               'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest',
                               'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest']
@@ -143,6 +150,10 @@ def main():
     require(all(not item.startswith('dev.tinycast.android.ActivationDeviceTest') or
                 item == 'dev.tinycast.android.ActivationDeviceTest#explicitLauncherPrimaryCommitsComposedQueryAndActivates'
                 for item in args.classes.split(',')), 'Only the preference-backed launcher Activation case is authorized')
+    selected = set(args.classes.split(','))
+    settings_navigation = selected <= SETTINGS_NAVIGATION_CASES
+    require(settings_navigation or all(item.split('#')[0] != SETTINGS_NAVIGATION_CLASS for item in selected),
+            'Select only the named Settings navigation cases together')
     regression_classes = {'dev.tinycast.android.InlinePaletteDeviceTest', 'dev.tinycast.android.ReadinessRegressionDeviceTest',
                           'dev.tinycast.android.ClipboardEvidenceDeviceTest', 'dev.tinycast.android.ActivationDeviceTest'}
     regression = any(item.split('#')[0] in regression_classes for item in args.classes.split(','))
@@ -190,7 +201,7 @@ def main():
          args.reviewed_json_command == 'formatSelection'),
         'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
-    require(calculator or uses_only_local_detail_cases(args.classes) or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort or named local Detail cases')
+    require(calculator or settings_navigation or uses_only_local_detail_cases(args.classes) or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort or named local Detail or Settings cases')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
         'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
     typed_archives = recorded_test_archives(args.recorded_archives) if args.recorded_archives else {}
