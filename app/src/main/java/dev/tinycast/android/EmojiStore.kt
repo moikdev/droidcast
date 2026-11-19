@@ -143,9 +143,18 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
             }
         }
     }
-    fun results() = EmojiCatalog.search(entries, query, filter, favorites, recent, savedFavorites.order, keywordIndex)
-    fun search(value: String) { query = value; selected = 0 }
-    fun chooseFilter(value: String) { filter = value; selected = 0 }
+    // A variant copy can evict the very cell the user is acting on. Keep that
+    // caller in this view only; the persisted chronology still contains 32 IDs.
+    private var recentCaller by mutableStateOf<String?>(null)
+    internal fun releaseRecentCaller() { recentCaller = null }
+
+    fun results(): List<EmojiEntry> {
+        val caller = recentCaller
+        val displayed = if (filter == "Recent" && historyEnabled && caller != null && caller !in recent) recent + caller else recent
+        return EmojiCatalog.search(entries, query, filter, favorites, displayed, savedFavorites.order, keywordIndex)
+    }
+    fun search(value: String) { if (value != query) releaseRecentCaller(); query = value; selected = 0 }
+    fun chooseFilter(value: String) { releaseRecentCaller(); filter = value; selected = 0 }
     private fun readFavorites(): SavedFavorites {
         portable.getString(FAVORITES_KEY, null)?.let { value ->
             val array = JSONArray(value)
@@ -202,6 +211,7 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
         historyEnabled = prefs.getBoolean("rememberRecent", false)
         hasSavedHistory = prefs.contains("recent")
         recent = if (historyEnabled) readRecent() else emptyList()
+        if (recent.isEmpty() || recentCaller in recent) releaseRecentCaller()
     }
 
     fun rememberRecent(enabled: Boolean) {
@@ -212,9 +222,19 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
         prefs.edit().remove("recent").apply()
     }
 
-    fun copied(entry: EmojiEntry) {
+    fun copied(entry: EmojiEntry) = recordCopy(entry, null)
+
+    internal fun copiedVariant(entry: EmojiEntry, callerId: String) {
+        recordCopy(entry, callerId)
+        results().indexOfFirst { it.id == callerId }.takeIf { it >= 0 }?.let { selected = it }
+    }
+
+    private fun recordCopy(entry: EmojiEntry, callerId: String?) {
         if (!prefs.getBoolean("rememberRecent", false)) return
-        val next = EmojiCatalog.recordRecent(readRecent(), entry.id)
+        val previous = readRecent()
+        val next = EmojiCatalog.recordRecent(previous, entry.id)
+        if (filter == "Recent" && callerId != null && callerId in previous && callerId !in next)
+            recentCaller = callerId
         prefs.edit().putString("recent", JSONArray(next).toString()).apply()
     }
 }

@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.*
 @Composable
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
 fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolean, close: () -> Unit, copy: (String) -> Unit) {
+    DisposableEffect(store, searchEpoch) { onDispose { store.releaseRecentCaller() } }
     val languageTags = androidx.compose.ui.platform.LocalConfiguration.current.locales.toLanguageTags()
     LaunchedEffect(store, languageTags) { store.loadLanguages(languageTags) }
     val searchFocus = remember { FocusRequester() }
@@ -419,12 +420,10 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     if (toneMenu) PaletteChoiceMenu(true, { toneMenu = false }, variants.mapIndexed { index, variant ->
                         PaletteChoice("emoji-tone-${variant.id}", "${variant.glyph}  ${skinToneLabel(index, variants.size)}",
                             checked = selected?.id == variant.id, activateBeforeDismiss = true) {
-                            if (toneMenu && entryActionCurrent() && !isComposing()) {
+                            if (selected != null && toneMenu && entryActionCurrent() && !isComposing()) {
                                 copy(variant.glyph)
-                                store.copied(variant)
+                                store.copiedVariant(variant, selected.id)
                                 copiedName = "Copied ${variant.name}"
-                                // Recent ranking can change after a copy. Keep the caller on its original cell.
-                                store.results().indexOfFirst { it.id == selected?.id }.takeIf { it >= 0 }?.let { store.selected = it }
                             }
                         }
                     }, title = "Copy with skin tone", returnFocus = searchFocus, searchable = true)
