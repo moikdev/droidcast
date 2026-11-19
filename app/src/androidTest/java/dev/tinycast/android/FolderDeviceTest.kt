@@ -263,7 +263,9 @@ class FolderDeviceTest {
         val row = By.pkg(context.packageName).descStartsWith("$name.")
         assertTrue("Cached result is visible", device.wait(Until.hasObject(row), 7000))
         val source = "/sdcard/Download/$rootName/$path"
-        assertEquals("moved", device.executeShellCommand("mv $source ${source}-moved && test ! -e $source && echo moved").trim())
+        device.executeShellCommand("mv $source ${source}-moved")
+        val siblings = device.executeShellCommand("ls ${source.substringBeforeLast('/')}").lineSequence().toSet()
+        assertTrue("Owned fixture moved before activation", "$name-moved" in siblings && name !in siblings)
         val attempts = java.util.concurrent.CopyOnWriteArrayList<String>()
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val monitor = object : android.app.Instrumentation.ActivityMonitor() {
@@ -299,8 +301,8 @@ class FolderDeviceTest {
         authorizeCacheFixture("Research", 1)
         val status = compose.onNodeWithTag("folder-status")
         status.performScrollTo().assertIsDisplayed()
+        evidence("one-item-settings", "1 indexed item")
         status.assertTextContains("1 indexed item ·", substring = true)
-        evidence("one-item-settings", "1 indexed item ·")
         compose.activityRule.scenario.onActivity { it.openFileSearch() }
         compose.onNodeWithTag("file-search-status").assertTextEquals("1 indexed item")
         assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text("1 indexed item")), 5000))
