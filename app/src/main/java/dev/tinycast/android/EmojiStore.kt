@@ -60,6 +60,9 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
     var filter by mutableStateOf("All")
     var selected by mutableIntStateOf(0)
 
+    private var toneFamilies: Map<String, List<EmojiEntry>> = emptyMap()
+    internal fun skinTones(id: String?) = toneFamilies[id].orEmpty()
+
     private var keywordPacks: List<String> = emptyList()
     private var catalogJob: kotlinx.coroutines.Job? = null
 
@@ -82,18 +85,22 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
         error = null
         catalogJob = scope.launch {
             try {
-                val catalog = withContext(Dispatchers.IO) {
+                val (catalog, families) = withContext(Dispatchers.IO) {
                     val annotations = mutableMapOf<String, EmojiCatalog.Annotations>()
                     for (pack in packs) {
                         context.assets.open("emoji-keywords/$pack.tsv").bufferedReader().use {
                             EmojiCatalog.readKeywords(it.lineSequence(), annotations)
                         }
                     }
-                    context.assets.open("emoji-catalog.tsv").bufferedReader().use {
+                    val entries = context.assets.open("emoji-catalog.tsv").bufferedReader().use {
                         EmojiCatalog.parse(it.lineSequence(), annotations)
+                    }
+                    entries to context.assets.open("emoji-tone-families.tsv").bufferedReader().use {
+                        EmojiCatalog.toneFamilies(it.lineSequence(), entries)
                     }
                 }
                 val previous = results().getOrNull(selected)?.id
+                toneFamilies = families
                 entries = catalog
                 selected = previous?.let { id -> results().indexOfFirst { it.id == id } }?.coerceAtLeast(0) ?: 0
                 loading = false

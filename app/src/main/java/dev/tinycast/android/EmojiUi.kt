@@ -57,9 +57,15 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     val grid = rememberLazyGridState()
     val results by remember(store) { derivedStateOf { store.results() } }
     val selected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
+    var toneMenu by remember(store, searchEpoch, store.query, store.filter, selected?.id, windowFocused) { mutableStateOf(false) }
+    val variants = store.skinTones(selected?.id)
+    val anchorQuery = store.query
+    val anchorFilter = store.filter
     // Key events can arrive back-to-back before recomposition. Resolve logical
     // selection and composition at event time, not from the last rendered frame.
     fun currentEntry(): EmojiEntry? = store.results().let { it.getOrNull(store.selected.coerceIn(0, it.lastIndex.coerceAtLeast(0))) }
+    fun toneActionCurrent() = selected != null && currentEntry()?.id == selected.id && store.query == anchorQuery &&
+        store.filter == anchorFilter && actionCurrent() && view.hasWindowFocus()
     fun isComposing() = searchValue.text == store.query && searchValue.composition != null
     fun copyEntry(entry: EmojiEntry) {
         copy(entry.glyph); store.copied(entry); copiedName = "Copied ${entry.name}"
@@ -95,7 +101,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     fun handleFavoriteChord(event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_DOWN && (event.isCtrlPressed xor event.isMetaPressed) && event.isAltPressed &&
             !event.isShiftPressed && event.keyCode in listOf(KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN) &&
-            reorderCurrent() && !menu && !actionsMenu && paletteMenus.current == null) {
+            reorderCurrent() && !menu && !actionsMenu && !toneMenu && paletteMenus.current == null) {
             paletteMenus.claimPress(event)
             if (event.repeatCount == 0) {
                 val offset = if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) -1 else 1
@@ -113,11 +119,11 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         return true
     }
     fun currentHistoryView() = store.filter == "Recent" && actionCurrent() && view.hasWindowFocus()
-    fun back() { if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
+    fun back() { if (toneMenu) toneMenu = false else if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
     BackHandler {
-        PaletteBackTrace.handler("emoji-dispatcher-before", menu || actionsMenu, store.query.length)
+        PaletteBackTrace.handler("emoji-dispatcher-before", menu || actionsMenu || toneMenu, store.query.length)
         back()
-        PaletteBackTrace.handler("emoji-dispatcher-after", menu || actionsMenu, store.query.length)
+        PaletteBackTrace.handler("emoji-dispatcher-after", menu || actionsMenu || toneMenu, store.query.length)
     }
     PaletteViewport(emptyFeedback=results.isEmpty()) { wide, top, height ->
         val compactEmpty = results.isEmpty() && height < 180.dp
@@ -138,7 +144,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         }
         fun handleZoomChord(e: KeyEvent): Boolean {
             if (e.action != KeyEvent.ACTION_DOWN || e.repeatCount != 0 || !(e.isCtrlPressed xor e.isMetaPressed) ||
-                e.isAltPressed || !canChangeGrid() || menu || actionsMenu || paletteMenus.current != null) return false
+                e.isAltPressed || !canChangeGrid() || menu || actionsMenu || toneMenu || paletteMenus.current != null) return false
             when (e.keyCode) {
                 KeyEvent.KEYCODE_PLUS, KeyEvent.KEYCODE_EQUALS, KeyEvent.KEYCODE_NUMPAD_ADD -> zoom(-1)
                 KeyEvent.KEYCODE_MINUS, KeyEvent.KEYCODE_NUMPAD_SUBTRACT -> if (!e.isShiftPressed) zoom(1) else return false
@@ -246,7 +252,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     // overwrite the caller's committed range; every other update,
                     // including deliberate selection changes, still applies.
                     val current = searchValue
-                    val keepMenuRange = (menu || actionsMenu || paletteMenus.current != null) &&
+                    val keepMenuRange = (menu || actionsMenu || toneMenu || paletteMenus.current != null) &&
                         it.text == current.text && it.composition == null && current.composition == null &&
                         !current.selection.collapsed && it.selection == TextRange(current.selection.max)
                     val next = if (keepMenuRange) it.copy(selection = current.selection) else it
@@ -262,14 +268,14 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     } })
                 SearchClearButton(store.query.isNotEmpty(), Triple(store, searchEpoch, windowFocused), "emoji-search-clear",
                     current = { store.query.isNotEmpty() && actionCurrent() && view.hasWindowFocus() &&
-                        !menu && !actionsMenu && paletteMenus.current == null }) {
+                        !menu && !actionsMenu && !toneMenu && paletteMenus.current == null }) {
                     searchValue = TextFieldValue("")
                     store.search("")
                     copiedName = null
                     queryEditing = false
                 }
                 if (wide) SearchKeyboardButton(imeVisible, Triple(store, searchEpoch, windowFocused), "emoji-keyboard", searchFocus,
-                    current = { actionCurrent() && !menu && !actionsMenu && paletteMenus.current == null },
+                    current = { actionCurrent() && !menu && !actionsMenu && !toneMenu && paletteMenus.current == null },
                     requested = { keyboardRequested = it })
                 Box {
                     // Retain natural scaled text and a 48 dp target without extra
@@ -365,7 +371,11 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                         PaletteChoice("emoji-action-unicode","Copy Unicode",enabled=selected!=null,icon="clipboard") {
                             currentEntry()?.let { entry -> copy(entry.glyph.codePoints().toArray().joinToString(" "){"U+"+it.toString(16).uppercase().padStart(4,'0')}); copiedName="Copied Unicode for ${entry.name}" }
                         }
-                    ) + (if (store.filter == "Favorites" && store.query.isBlank()) listOf(moveChoice(-1), moveChoice(1)) else emptyList()) + (if (store.filter == "Recent") listOf(
+                    ) + (if (variants.isEmpty()) emptyList() else listOf(
+                        PaletteChoice("emoji-action-tone", "Copy with skin tone…") {
+                            if (toneActionCurrent() && !isComposing()) toneMenu = true
+                        }
+                    )) + (if (store.filter == "Favorites" && store.query.isBlank()) listOf(moveChoice(-1), moveChoice(1)) else emptyList()) + (if (store.filter == "Recent") listOf(
                         if (store.historyEnabled)
                             PaletteChoice("emoji-history-pause", "Pause recent history") { if (currentHistoryView()) store.rememberRecent(false) }
                         else
@@ -386,6 +396,18 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                             if (canChangeGrid()) { store.saveGridColumns(null); zoomColumns = null }
                         }
                     ),title=selected?.name ?: "Emoji & Symbols",returnFocus=searchFocus,searchable=true)
+                    if (toneMenu) PaletteChoiceMenu(true, { toneMenu = false }, variants.mapIndexed { index, variant ->
+                        PaletteChoice("emoji-tone-${variant.id}", "${variant.glyph}  ${skinToneLabel(index, variants.size)}",
+                            checked = selected?.id == variant.id, activateBeforeDismiss = true) {
+                            if (toneMenu && toneActionCurrent() && !isComposing()) {
+                                copy(variant.glyph)
+                                store.copied(variant)
+                                copiedName = "Copied ${variant.name}"
+                                // Recent ranking can change after a copy. Keep the caller on its original cell.
+                                store.results().indexOfFirst { it.id == selected?.id }.takeIf { it >= 0 }?.let { store.selected = it }
+                            }
+                        }
+                    }, title = "Copy with skin tone", returnFocus = searchFocus, searchable = true)
                 }
             }
         }
@@ -398,4 +420,15 @@ private fun EmojiResultCount(count: Int, wide: Boolean, queryEditing: Boolean) {
         Text("$count ${if(count==1)"result"else"results"} · offline",color=PaletteTheme.secondary,fontSize=11.sp,modifier=Modifier.testTag("emoji-count"))
         if(wide) Text(if(queryEditing)"Editing query · ↓ browse results"else"Type to search · arrows select · Ctrl L edit",color=PaletteTheme.secondary,fontSize=11.sp)
     }
+}
+
+private val skinToneNames = listOf("Light", "Medium-light", "Medium", "Medium-dark", "Dark")
+
+private fun skinToneLabel(index: Int, familySize: Int): String {
+    if (index == 0) return "Default"
+    if (familySize == 6) return skinToneNames[index - 1]
+    val first = (index - 1) / 5
+    val second = (index - 1) % 5
+    return if (first == second) "Both: ${skinToneNames[first]}"
+        else "${skinToneNames[first]} + ${skinToneNames[second]}"
 }

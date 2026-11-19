@@ -247,6 +247,77 @@ class EmojiDeviceTest {
         assertEquals("🫱🏽‍🫲🏻", clipboard())
     }
 
+    private fun toneMenuFrame(name: String, tag: String) {
+        compose.onNodeWithTag(tag).assertIsDisplayed()
+        val dir = File(context.filesDir, "emoji-evidence").apply { mkdirs() }
+        val xml = File(dir, "$name.xml")
+        compose.waitUntil(10000) {
+            if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
+            device.dumpWindowHierarchy(xml)
+            val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getElementsByTagName("node")
+            (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.any {
+                it.getAttribute("resource-id") == tag && it.getAttribute("package") == context.packageName &&
+                    it.getAttribute("bounds").isNotEmpty()
+            }
+        }
+        assertTrue(device.takeScreenshot(File(dir, "$name.png")))
+    }
+
+    private fun openToneMenu() {
+        compose.onNodeWithTag("emoji-actions").performScrollTo().performTouchInput { click(center) }
+        val menuSearch = compose.onNodeWithTag("inline-menu-search")
+        menuSearch.performTextReplacement("skin tone")
+        if (compose.onAllNodesWithTag("inline-menu-empty").fetchSemanticsNodes().isNotEmpty())
+            toneMenuFrame("tone-before", "inline-menu-empty")
+        compose.onNodeWithTag("emoji-action-tone").assertIsDisplayed().performTouchInput { click(center) }
+        menuSearch.assertIsFocused()
+    }
+
+    @Test fun pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite() {
+        search("🤝")
+        compose.onNodeWithTag("emoji-favorite").performClick()
+        compose.activityRule.scenario.onActivity { store.rememberRecent(true) }
+        openToneMenu()
+        val glyph = "🫱🏽‍🫲🏻"
+        val id = "1faf1-1f3fd-200d-1faf2-1f3fb"
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("Medium + Light")
+        toneMenuFrame("mixed-choice", "emoji-tone-$id")
+        compose.onNodeWithTag("emoji-tone-$id").performTouchInput { click(center) }
+        assertEquals(glyph, clipboard())
+        assertEquals("🤝", store.query)
+        assertEquals("🤝", store.results()[store.selected].glyph)
+        assertEquals(setOf("1f91d"), storedFavorites())
+        assertEquals(id, store.recent.first())
+        evidence("mixed-copied", "Copied handshake")
+    }
+
+    @Test fun keyboardCanCancelAndCopyTheExactDefaultFromAnExistingTone() {
+        search("✌🏽")
+        val before = clipboard()
+        openToneMenu()
+        key(KeyEvent.KEYCODE_ESCAPE)
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        assertEquals(before, clipboard())
+        assertEquals("✌🏽", store.query)
+        openToneMenu()
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("Default")
+        toneMenuFrame("default-choice", "emoji-tone-270c-fe0f")
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals("✌️", clipboard())
+        assertEquals("✌🏽", store.query)
+    }
+
+    @Test fun symbolsWithoutTonesHaveNoToneAction() {
+        search("🇯🇵")
+        key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("skin tone")
+        compose.onNodeWithTag("inline-menu-empty").assertIsDisplayed()
+        compose.onNodeWithTag("emoji-action-tone").assertDoesNotExist()
+        key(KeyEvent.KEYCODE_ESCAPE)
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals("🇯🇵", clipboard())
+    }
+
     @Test fun typingAndFourWayNavigationWorkImmediatelyWithoutTab() {
         for (code in listOf(KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_A, KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_E)) key(code)
         compose.onNodeWithTag("emoji-search").assertTextContains("face")

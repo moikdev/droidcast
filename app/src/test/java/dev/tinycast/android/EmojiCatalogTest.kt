@@ -76,6 +76,24 @@ class EmojiCatalogTest {
         assertEquals(listOf("en", "ja", "zh_Hant", "zh"), EmojiCatalog.keywordPacks(tags.map(java.util.Locale::forLanguageTag)))
     }
 
+    @Test fun everyQualifiedToneHasOneFamilyAndUsesThePublishedSequence() {
+        val families = File("src/main/assets/emoji-tone-families.tsv").useLines { EmojiCatalog.toneFamilies(it, entries) }
+        val modified = entries.filter { it.glyph.length > 2 && it.glyph.codePoints().anyMatch { cp -> cp in 0x1f3fb..0x1f3ff } }
+        assertEquals(2040, modified.size)
+        assertTrue(modified.all { it in families.getValue(it.id) })
+        assertEquals(332, families.values.map { it.first().id }.distinct().size)
+        fun family(glyph: String) = families.getValue(search(glyph).first().id).map { it.glyph }
+        val handshake = family("🤝")
+        assertEquals(26, handshake.size)
+        assertEquals("🤝🏽", handshake[13])
+        assertEquals("🫱🏽‍🫲🏻", handshake[11])
+        assertEquals("🫱🏻‍🫲🏽", handshake[3])
+        assertEquals(handshake, family("🫱🏽‍🫲🏻"))
+        assertEquals("🧑🏻‍❤️‍💋‍🧑🏿", family("💏")[5])
+        assertEquals(listOf("✌️", "✌🏻", "✌🏼", "✌🏽", "✌🏾", "✌🏿"), family("✌🏽"))
+        for (unsupported in listOf("🏻", "🐱", "🇯🇵", "π")) assertNull(families[search(unsupported).first().id])
+    }
+
     @Test fun malformedCatalogsAreRejected() {
         listOf(sequenceOf("bad"), sequenceOf("id\tx\tname\tcat\tkeys", "id\ty\tname\tcat\tkeys")).forEach { input ->
             assertTrue(runCatching { EmojiCatalog.parse(input) }.isFailure)
