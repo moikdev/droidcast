@@ -1,0 +1,38 @@
+{
+  "source_head": "bc10e5918cd23f5b3d5458c0fe13e6f75198621b",
+  "source_size": [
+    1920,
+    1200
+  ],
+  "crop_ltrb": [
+    467,
+    250,
+    940,
+    305
+  ],
+  "resize": [
+    946,
+    110
+  ],
+  "resampling": "bicubic",
+  "engine": "tesseract 5.5.4",
+  "language": "eng",
+  "page_segmentation": 7,
+  "frames": [
+    {
+      "file": "palette-immediate-after.png",
+      "sha256": "c7d4ab881082bb16460216d7da0e9273d60aa5cd61ac48600b1961dca9ee21b1",
+      "visible_query": "menuKeyboardProbe271828"
+    },
+    {
+      "file": "palette-preframe-before.png",
+      "sha256": "d1e10ee8e1319923b2f1ae841283215fbc45f834cc398a2f480f9a7a1674ec57",
+      "visible_query": "menuKeyboardProbe27182"
+    },
+    {
+      "file": "palette-preframe-after.png",
+      "sha256": "68cf5b44331d71e9f8924181e0ab870f8784b241272f3c86fc5d568a86659a3e",
+      "visible_query": "menuKeyboardProbe271828"
+    }
+  ]
+}
