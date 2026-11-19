@@ -2,7 +2,12 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import android.view.KeyEvent
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import org.json.JSONArray
+import org.json.JSONObject
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -152,6 +157,78 @@ class SettingsRouteDeviceTest {
         alias.assertIsFocused()
         assertEquals("", workspace.requestedEditor)
         assertEquals(id, workspace.requestedCommand)
+    }
+
+    @Test fun aliasActionRevealsFieldAboveKeyboard() {
+        val id = "notes:${java.util.UUID.randomUUID()}"
+        main!!.onActivity { it.store.save("notes", "Owned alias viewport", "Fixture", id = id) }
+        compose.onNodeWithTag("search").performTextReplacement("Owned alias viewport")
+        key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("action-Set alias").performClick()
+        checkAliasViewport(settings(), id, "ordinary")
+    }
+
+    @Test fun lateAliasRequestRevealsFieldAboveKeyboard() {
+        key(KeyEvent.KEYCODE_COMMA, KeyEvent.META_CTRL_ON)
+        val workspace = settings()
+        val id = "notes:${java.util.UUID.randomUUID()}"
+        instrumentation.runOnMainSync { workspace.configure(id, "alias") }
+        compose.onNodeWithTag("settings-alias").performScrollTo().assertIsNotEnabled()
+        assertEquals("alias", workspace.requestedEditor)
+        instrumentation.runOnMainSync { workspace.store.save("notes", "Owned alias viewport", "Fixture", id = id) }
+        checkAliasViewport(workspace, id, "late")
+    }
+
+    private fun checkAliasViewport(workspace: SettingsActivity, id: String, path: String) {
+        val alias = compose.onNodeWithTag("settings-alias")
+        val start = SystemClock.uptimeMillis()
+        fun imeVisible() = ViewCompat.getRootWindowInsets(workspace.window.decorView)
+            ?.isVisible(WindowInsetsCompat.Type.ime()) == true
+        compose.waitUntil(5000) { runCatching { alias.assertIsFocused() }.isSuccess }
+        alias.assert(editableCharactersExactly(""))
+        compose.waitUntil(5000) { compose.runOnUiThread { imeVisible() } }
+        val samples = JSONArray()
+        fun measure(): Boolean {
+            val node = alias.fetchSemanticsNode()
+            return compose.runOnUiThread {
+                val clipped = node.boundsInWindow
+                val whole = node.size
+                val full = whole.height > 0 && whole.width > 0 &&
+                    clipped.height + 1 >= whole.height && clipped.width + 1 >= whole.width
+                samples.put(JSONObject().put("elapsed_ms", SystemClock.uptimeMillis() - start)
+                    .put("ime", imeVisible()).put("height", whole.height).put("width", whole.width)
+                    .put("visible_height", clipped.height.toDouble()).put("visible_width", clipped.width.toDouble())
+                    .put("full", full))
+                full && imeVisible()
+            }
+        }
+        val dest = if (hostRestoresTestClipboard()) File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() } else null
+        fun capture(phase: String) {
+            if (dest == null) return
+            testAutomation().clearCacheForTest()
+            device.dumpWindowHierarchy(File(dest, "$path-$phase.xml"))
+            assertTrue(device.takeScreenshot(File(dest, "$path-$phase.png")))
+        }
+        measure()
+        // Allow both opening animation and automatic scrolling to settle. Never scroll to the focused field here.
+        val until = SystemClock.uptimeMillis() + 1600
+        while (SystemClock.uptimeMillis() < until) {
+            SystemClock.sleep(120)
+            measure()
+        }
+        val visibleBefore = measure()
+        capture("settled")
+        assertTrue(device.pressKeyCode(KeyEvent.KEYCODE_X))
+        alias.assertIsFocused().assert(editableCharactersExactly("x"))
+        assertEquals(id, workspace.requestedCommand)
+        assertEquals("", workspace.requestedEditor)
+        val visibleAfter = measure()
+        capture("typed")
+        dest?.let { File(it, "$path-probe.json").writeText(JSONObject().put("samples", samples)
+            .put("visible_before_typing", visibleBefore).put("visible_after_typing", visibleAfter)
+            .put("typed_exactly_x", true).toString()) }
+        assertTrue("The focused alias field must be fully visible with the keyboard before typing", visibleBefore)
+        assertTrue("The typed alias field must remain fully visible with the keyboard", visibleAfter)
     }
 
     @Test fun aliasActionFocusesCorrectCommandAndPersistsWithoutPopup() {
