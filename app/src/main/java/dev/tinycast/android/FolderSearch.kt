@@ -24,6 +24,8 @@ import java.util.concurrent.atomic.AtomicLong
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+private class ListingStillLoading : IOException()
+
 private data class ProviderDocument(val id: String, val title: String, val mime: String, val modified: Long)
 private data class ProviderListing(val documents: List<ProviderDocument>, val partial: Boolean)
 
@@ -42,6 +44,9 @@ private object FolderProviderQueries {
                     val rows = ArrayList<ProviderDocument>(); var inspected = 0; var partial = false
                     val cursor = app.contentResolver.query(uri, columns, null, null, null, signal) ?: throw IOException("Provider returned no listing")
                     cursor.use {
+                        val extras = it.extras
+                        if (extras.getString(DocumentsContract.EXTRA_ERROR) != null) throw IOException("Provider reported a listing error")
+                        if (extras.getBoolean(DocumentsContract.EXTRA_LOADING)) throw ListingStillLoading()
                         val id = it.getColumnIndexOrThrow(columns[0]); val name = it.getColumnIndexOrThrow(columns[1])
                         val mime = it.getColumnIndexOrThrow(columns[2]); val modified = it.getColumnIndex(columns[3])
                         while (it.moveToNext()) {
@@ -196,6 +201,7 @@ class FolderSearch internal constructor(
         .put("folders", JSONArray().also { a -> roots.forEach { a.put(JSONObject().put("uri", it.uri).put("title", it.title).put("ownsGrant", it.ownsGrant)) } })
     private fun encode(entry: IndexedDocument) = JSONObject().put("id", entry.id).put("folder", entry.folder).put("uri", entry.uri)
         .put("title", entry.title).put("path", entry.path).put("mime", entry.mime).put("modified", entry.modified)
+    private fun encodedSize(entry: IndexedDocument) = encode(entry).toString().toByteArray(Charsets.UTF_8).size + 1
     private fun indexJson(items: List<IndexedDocument>, roots: List<SearchFolder>) = JSONObject().put("version", 1)
         .put("folders", JSONArray(roots.map { it.uri }.sorted())).put("entries", JSONArray().also { a -> items.forEach { a.put(encode(it)) } })
     private fun decodeIndex(json: JSONObject?, roots: List<SearchFolder>, permissions: Set<String>): List<IndexedDocument> {
@@ -362,6 +368,7 @@ class FolderSearch internal constructor(
         scanJob = scope.launch {
             try {
                 val permissions = readGrants(roots); val result = ArrayList<IndexedDocument>(); val problems = linkedMapOf<String, String>()
+                val retryFolders = mutableSetOf<String>()
                 var limited = false; var remainingBytes = FolderIndexRules.MAX_CACHE_BYTES - 128 * 1024
                 withTimeout(60000) {
                     for (root in roots) {
@@ -373,16 +380,54 @@ class FolderSearch internal constructor(
                                 crawl(root, FolderIndexRules.MAX_ENTRIES - result.size, remainingBytes)
                             } }
                             result.addAll(built.items); remainingBytes -= built.bytes; limited = limited || built.limited
-                        } catch (_: TimeoutCancellationException) { problems[root.uri] = "Storage provider took too long. Refresh when it is available." }
+                        } catch (_: TimeoutCancellationException) {
+                            currentCoroutineContext().ensureActive()
+                            retryFolders.add(root.uri)
+                            problems[root.uri] = "Storage provider took too long. Refresh when it is available."
+                        } catch (_: ListingStillLoading) {
+                            retryFolders.add(root.uri)
+                            problems[root.uri] = "The provider is still loading this folder. Refresh to try again."
+                        }
                         catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: SecurityException) { problems[root.uri] = "Folder access expired. Reauthorize this folder." }
-                        catch (_: Exception) { problems[root.uri] = "Folder could not be listed. Check the provider and refresh." }
+                        catch (_: Exception) {
+                            retryFolders.add(root.uri)
+                            problems[root.uri] = "Folder could not be listed. Check the provider and refresh."
+                        }
                     }
                 }
-                val items = result.distinctBy { it.id }
-                val saved = withContext(Dispatchers.IO) { disk.withLock { write(indexFile, indexJson(items, roots), FolderIndexRules.MAX_CACHE_BYTES) { scanRevision.get() == revision } } }
-                if (saved && scanRevision.get() == revision) {
-                    readable = permissions; publish(items); errors = problems
+                val snapshot = withContext(Dispatchers.IO) { disk.withLock {
+                    // A peer may have removed a scope or disabled search while this provider was busy.
+                    val stored = read(configFile, 65536)
+                    val storedRoots = stored?.getJSONArray("folders")
+                    if (stored == null || !stored.getBoolean("enabled") || storedRoots == null ||
+                        (0 until storedRoots.length()).map { storedRoots.getJSONObject(it).getString("uri") } != roots.map { it.uri }) {
+                        return@withLock null
+                    }
+                    val authorized = configuredGrants(roots)
+                    val fresh = result.filter { it.folder in authorized }.associateByTo(linkedMapOf()) { it.id }
+                    if (retryFolders.any { it in authorized }) {
+                        // Read the last committed version under the same lock as the replacement.
+                        val cached = decodeIndex(read(indexFile, FolderIndexRules.MAX_CACHE_BYTES), roots, authorized)
+                        for (entry in cached) {
+                            if (entry.folder !in retryFolders || entry.id in fresh) continue
+                            val bytes = encodedSize(entry)
+                            if (fresh.size >= FolderIndexRules.MAX_ENTRIES || bytes > remainingBytes) { limited = true; continue }
+                            fresh[entry.id] = entry
+                            remainingBytes -= bytes
+                        }
+                    }
+                    val items = fresh.values.toList()
+                    if (write(indexFile, indexJson(items, roots), FolderIndexRules.MAX_CACHE_BYTES) { scanRevision.get() == revision })
+                        authorized to items else null
+                } }
+                if (scanRevision.get() != revision) return@launch
+                if (snapshot == null) {
+                    status = "Search folder settings changed. Reopen Search folders to refresh."
+                } else {
+                    val (authorized, items) = snapshot
+                    for (root in roots) if (root.uri !in authorized) problems[root.uri] = "Folder access expired. Reauthorize this folder."
+                    readable = authorized; publish(items); errors = problems
                     status = countLabel + if (limited) " · Some items omitted by metadata or safety limits." else if (problems.isNotEmpty()) " · Some folders need attention." else " · Metadata only."
                 }
             } catch (cancelled: CancellationException) { if (scanRevision.get() == revision) status = "Refresh cancelled or timed out. Previous results kept."; throw cancelled }
@@ -409,7 +454,7 @@ class FolderSearch internal constructor(
                 val uri = DocumentsContract.buildDocumentUriUsingTree(tree, child.id)
                 if (path.length > 4096 || uri.toString().length > 8192) { limited = true; continue }
                 val entry = IndexedDocument(FolderIndexRules.id(requireNotNull(tree.authority), child.id), folder.uri, uri.toString(), child.title, path, child.mime, child.modified)
-                val size = encode(entry).toString().toByteArray(Charsets.UTF_8).size + 1
+                val size = encodedSize(entry)
                 if (items.size >= maximum || bytes + size > byteBudget) return Built(items, bytes, true)
                 items.add(entry); bytes += size
                 if (entry.directory && child.id !in seen) {
