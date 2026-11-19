@@ -194,7 +194,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     }
     override fun onCleared() { clearTextReview(); extensions.close(); retainedEditorDraft = null; editing = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
 
-    fun backupSnapshot() = BackupData(notes, links, clips, pins.filterNot { it.startsWith("files:") }.toSet(), aliases.filterKeys { !it.startsWith("files:") }, usage.filterKeys { !it.startsWith("files:") }, ShortcutConfiguration(shortcutConfiguration.bindings.filterKeys { !it.startsWith("files:") }))
+    fun backupSnapshot() = BackupData(notes, links, clips, pins.filterNot { it.startsWith("files:") }.toSet(), aliases.filterKeys { !it.startsWith("files:") }, usage.filterKeys { !it.startsWith("files:") }, ShortcutConfiguration(shortcutConfiguration.bindings.filterKeys { !it.startsWith("files:") }), emoji.portableSettings())
     fun restorePlan(): RestorePlan = BackupPlanner.plan(backupSnapshot(), requireNotNull(backupDocument), restoreCategories, restorePolicy,
         catalog().filter { it.kind !in listOf(Kind.NOTE, Kind.LINK, Kind.CLIP) }.associate { it.id to it.alias } + aliases.filterKeys { it.startsWith("files:") }, shortcutConfiguration.bindings.filterKeys { it.startsWith("files:") })
     fun beginBackup() { backupError = null; backupDocument = null; dialog = "backup" }
@@ -255,6 +255,11 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
             .putString("aliases", JSONObject(data.aliases + aliases.filterKeys { it.startsWith("files:") }).toString())
             .putString("usage", JSONObject(data.usage + usage.filterKeys { it.startsWith("files:") }).toString())
             .putString("shortcuts", ShortcutCodec.encode(restoredShortcuts).toString())
+        val restoringEmoji = BackupCategory.EMOJI in plan.categories
+        if (restoringEmoji) {
+            editor.putString(EmojiStore.FAVORITES_KEY, org.json.JSONArray(data.emoji.favorites).toString())
+                .putInt(EmojiStore.GRID_KEY, data.emoji.gridColumns ?: 0)
+        }
         backupBusy = true; backupError = null
         viewModelScope.launch {
             try {
@@ -262,9 +267,11 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
                     if (editor.commit()) true else {
                         // commit also changes the preference memory map on failure. Roll it back.
                         prefs.edit().also { rollback ->
-                            listOf("notes", "links", "clips", "pins", "aliases", "usage", "shortcuts").forEach { key ->
+                            val emojiKeys = if (restoringEmoji) listOf(EmojiStore.FAVORITES_KEY, EmojiStore.GRID_KEY) else emptyList()
+                            (listOf("notes", "links", "clips", "pins", "aliases", "usage", "shortcuts") + emojiKeys).forEach { key ->
                                 when (val value = original[key]) {
                                     is String -> rollback.putString(key, value)
+                                    is Int -> rollback.putInt(key, value)
                                     is Set<*> -> rollback.putStringSet(key, value.filterIsInstance<String>().toSet())
                                     else -> rollback.remove(key)
                                 }

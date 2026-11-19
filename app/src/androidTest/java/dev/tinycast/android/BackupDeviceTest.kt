@@ -48,6 +48,8 @@ class BackupDeviceTest {
         compose.waitForIdle()
         val directory = File(context.filesDir, "backup-evidence").apply { mkdirs() }
         val marker = when (name) {
+            "emoji-import-rejected" -> By.text("Unsupported backup version")
+            "emoji-merge-preview", "emoji-replace-confirm" -> By.textContains("emoji favorites,")
             "preview-cancel", "document-import-preview" -> By.text("Preview backup")
             "export-categories", "export-import-complete" -> By.text("Backup and restore")
             "document-export-picker" -> By.text("SAVE")
@@ -69,7 +71,7 @@ class BackupDeviceTest {
         // Shared backup component regression; SettingsDeviceTest covers its production settings host.
         compose.activityRule.scenario.onActivity { it.store.beginBackup() }
         try {
-        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithText("Portable collections and settings").performScrollTo().assertIsDisplayed()
         } catch (failure: Throwable) {
             val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
             File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())
@@ -124,18 +126,102 @@ class BackupDeviceTest {
         assertEquals(setOf(BackupCategory.NOTES), partial.categories)
         assertEquals(data.notes, partial.data.notes); assertTrue(partial.data.links.isEmpty()); assertTrue(partial.data.aliases.isEmpty())
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("accessibilityEnabled", true).toString()) }
-        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("version", 2).toString()) }
+        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("version", 3).toString()) }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(encoded + " trailing") }
-        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(encoded.replace("\"version\": 1", "\"version\": 1, \"version\": 1")) }
+        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(encoded.replace("\"version\": 2", "\"version\": 2, \"version\": 2")) }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode("[".repeat(20) + "0" + "]".repeat(20)) }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode("not a backup") }
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.read(ByteArrayInputStream(ByteArray(BackupCodec.MAX_BYTES + 1))) }
         assertThrows(Exception::class.java) { BackupCodec.read(ByteArrayInputStream(byteArrayOf(0xc3.toByte(), 0x28))) }
+        assertEquals(2, JSONObject(encoded).getInt("version"))
+        assertEquals(1, JSONObject(BackupCodec.encode(data, all - BackupCategory.EMOJI)).getInt("version"))
+        assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(JSONObject(encoded).put("version", 1).toString()) }
+        fun invalidEmoji(edit: (JSONObject) -> Unit) {
+            val root = JSONObject(encoded)
+            edit(root.getJSONObject("categories").getJSONObject("EMOJI"))
+            assertThrows(IllegalArgumentException::class.java) { BackupCodec.decode(root.toString()) }
+        }
+        invalidEmoji { it.put("recent", org.json.JSONArray()) }
+        invalidEmoji { it.put("rememberRecent", 1) }
+        invalidEmoji { it.put("gridColumns", 11) }
+        invalidEmoji { it.put("favorites", org.json.JSONArray(listOf("1f600", "1f600"))) }
+        invalidEmoji { it.put("favorites", org.json.JSONArray(listOf("files:private"))) }
         val badLink = data.copy(links = listOf(SavedItem("links:test", "Bad", "javascript:alert(1)")))
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.encode(badLink, all) }
         val duplicate = data.copy(notes = listOf(data.notes.first(), data.notes.first()))
         assertThrows(IllegalArgumentException::class.java) { BackupCodec.encode(duplicate, all) }
     }
+    @Test fun emojiSettingsPreviewMergeReplaceAndExportPreserveLocalHistory() {
+        val settings = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val localHistory = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        val historyBefore = localHistory.all.filterKeys { it == "recent" || it == "rememberRecent" }
+        val file = File.createTempFile("emoji-import-", ".json", context.cacheDir)
+        val export = File.createTempFile("emoji-export-", ".json", context.cacheDir)
+        val owner = compose.activity.store
+        try {
+            compose.activityRule.scenario.onActivity {
+                settings.edit().putString("emojiFavoriteOrder", """["1f603","1f600"]""").putInt("emojiGridColumns", 4).apply()
+                localHistory.edit().putString("recent", """["private-history-control"]""").putBoolean("rememberRecent", false).apply()
+                owner.beginBackup()
+            }
+            file.writeText("""{"format":"dev.droidcast.backup","version":2,"categories":{"EMOJI":{"favorites":["1f600","1f604","future-entry"],"gridColumns":8}}}""")
+            fun read() {
+                compose.activityRule.scenario.onActivity { owner.readBackup(android.net.Uri.fromFile(file)) }
+                compose.waitUntil(10000) { !owner.backupBusy }
+            }
+            fun apply() {
+                compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+                compose.waitUntil(10000) { !owner.backupBusy && owner.backupDocument == null }
+            }
+            read()
+            if (owner.backupDocument == null) {
+                compose.onNodeWithTag("backup-error").performScrollTo()
+                evidence("emoji-import-rejected")
+            }
+            assertNotNull("The version 2 emoji category must reach preview", owner.backupDocument)
+            compose.onNodeWithTag("backup-plan-summary").performScrollTo()
+                .assertTextContains("4 emoji favorites, 4 grid columns", substring = true)
+            evidence("emoji-merge-preview")
+            assertEquals(listOf("1f603", "1f600"), owner.emoji.portableSettings().favorites)
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+            apply()
+            val merged = PortableEmojiSettings(listOf("1f603", "1f600", "1f604", "future-entry"), 4)
+            assertEquals(merged, owner.emoji.portableSettings())
+
+            read()
+            compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+            compose.onNodeWithText("Portable settings after restore · 3 emoji favorites, 8 grid columns").performScrollTo()
+            evidence("emoji-replace-confirm")
+            apply()
+            val replaced = PortableEmojiSettings(listOf("1f600", "1f604", "future-entry"), 8)
+            assertEquals(replaced, owner.emoji.portableSettings())
+            assertEquals(8, settings.getInt("emojiGridColumns", 0))
+            assertEquals(JSONArray(replaced.favorites).toString(), settings.getString("emojiFavoriteOrder", null))
+
+            compose.activityRule.scenario.onActivity {
+                owner.backupCategories = setOf(BackupCategory.EMOJI)
+                owner.prepareExport { owner.writeExport(android.net.Uri.fromFile(export)) }
+            }
+            compose.waitUntil(10000) { owner.message == "Backup exported" }
+            val encoded = export.readText()
+            assertFalse(encoded.contains("private-history-control"))
+            assertFalse(encoded.contains("rememberRecent"))
+            assertEquals(replaced, BackupCodec.decode(encoded).data.emoji)
+            assertEquals(setOf(BackupCategory.EMOJI), BackupCodec.decode(encoded).categories)
+            assertEquals("""["private-history-control"]""", localHistory.getString("recent", null))
+            assertFalse(localHistory.getBoolean("rememberRecent", true))
+        } finally {
+            file.delete()
+            export.delete()
+            localHistory.edit().apply {
+                remove("recent").remove("rememberRecent")
+                (historyBefore["recent"] as? String)?.let { putString("recent", it) }
+                (historyBefore["rememberRecent"] as? Boolean)?.let { putBoolean("rememberRecent", it) }
+            }.commit()
+        }
+    }
+
     @Test fun previewCancelAndMalformedInputLeaveDataUntouched() {
         val before = compose.activity.store.backupSnapshot()
         load(BackupDocument(BackupData(notes = listOf(SavedItem("notes:import", "Imported note", "Do not apply on preview"))), setOf(BackupCategory.NOTES)))
@@ -285,7 +371,7 @@ class BackupDeviceTest {
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 10000))
         device.pressBack()
         try {
-        compose.onNodeWithText("Portable collections · Droidcast JSON format v1").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithText("Portable collections and settings").performScrollTo().assertIsDisplayed()
         } catch (failure: Throwable) {
             val folder=File(context.filesDir,"backup-evidence").apply { mkdirs() }
             File(folder,"picker-cancel-failure-semantics.tsv").writeText(compose.onRoot(useUnmergedTree=true).printToString())

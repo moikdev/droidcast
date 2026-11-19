@@ -36,7 +36,7 @@ internal fun BackupDialog(store: PaletteStore, run: (Command) -> Unit, close: ()
         return
     }
     val importing = preview != null && store.dialog == "backup-preview"
-    Shell(if (importing) "Preview backup" else "Backup and restore", if (importing) "Review categories and conflicts before applying." else "Portable collections · Droidcast JSON format v1", ::dismiss, embedded = embedded) {
+    Shell(if (importing) "Preview backup" else "Backup and restore", if (importing) "Review categories and conflicts before applying." else "Portable collections and settings", ::dismiss, embedded = embedded) {
         val available = if (importing) preview!!.categories else BackupCategory.entries.toSet()
         val selected = if (importing) store.restoreCategories else store.backupCategories
         val data = if (importing) preview!!.data else store.backupSnapshot()
@@ -53,7 +53,7 @@ internal fun BackupDialog(store: PaletteStore, run: (Command) -> Unit, close: ()
             }
         }
         HorizontalDivider(modifier = Modifier.padding(vertical = 14.dp), color = PaletteTheme.separator)
-        Text("Backups contain readable text, including saved clips and notes. Choose a storage location you trust. Extension credentials/data, recent documents and their permissions, and accessibility consent are excluded.", color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
+        Text("Backups contain readable text, including saved clips and notes. Choose a storage location you trust. Emoji copy history and its consent setting stay on this device. Extension credentials/data, recent documents and their permissions, and accessibility consent are excluded.", color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
         if (importing) {
             var inspect by remember(preview) { mutableStateOf(false) }
             TextButton(onClick = { inspect = !inspect }, modifier = Modifier.testTag("backup-inspect")) { Text(if (inspect) "Hide backup contents" else "Inspect backup contents") }
@@ -65,6 +65,10 @@ internal fun BackupDialog(store: PaletteStore, run: (Command) -> Unit, close: ()
                     if (BackupCategory.PREFERENCES in selected) {
                         data.pins.sorted().forEach { add("Pin" to it) }
                         data.aliases.toSortedMap().forEach { (id, alias) -> add("Alias · $id" to alias.ifEmpty { "Disabled" }) }
+                    }
+                    if (BackupCategory.EMOJI in selected) {
+                        add("Emoji grid" to (data.emoji.gridColumns?.let { "$it columns" } ?: "Automatic"))
+                        data.emoji.favorites.forEachIndexed { index, id -> add("Emoji favorite ${index + 1}" to id) }
                     }
                     if (BackupCategory.LEARNING in selected) data.usage.toSortedMap().forEach { (id, count) -> add("Usage · $id" to count.toString()) }
                     if (BackupCategory.SHORTCUTS in selected) data.shortcuts.bindings.toSortedMap().forEach { (id, chord) ->
