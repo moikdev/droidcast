@@ -16,7 +16,8 @@ internal fun gridSections(root: JSONObject, query: String): List<ExtensionGridSe
         val key = id.takeIf { it.isNotBlank() && seen.add(it) } ?: "${item.optString("id")}-${generated++}"
         ExtensionGridItem(item, key, id, p.optString("title"), p.optString("subtitle"))
     }.filter { item ->
-        !filtering || query.isBlank() || (item.title + " " + item.subtitle + " " + item.node.props().optJSONArray("keywords")?.toString().orEmpty()).contains(query, true)
+        !filtering || query.isBlank() || extensionSearchText(item.title, item.subtitle,
+            item.node.props().optJSONArray("keywords")).contains(query, ignoreCase = true)
     }
     val sections = mutableListOf<ExtensionGridSection>()
     val loose = mutableListOf<JSONObject>()

@@ -469,6 +469,17 @@ private fun CommandSetup(store:PaletteStore,extension:InstalledExtension,command
     }
 }
 
+internal fun extensionSearchText(title: String, subtitle: String, keywords: JSONArray?): String = buildString {
+    append(title)
+    append(' ')
+    append(subtitle)
+    if (keywords != null) for (index in 0 until keywords.length()) {
+        val keyword = keywords.opt(index) as? String ?: continue
+        append(' ')
+        append(keyword)
+    }
+}
+
 internal fun JSONObject.props()=optJSONObject("props")?:JSONObject()
 internal fun JSONObject.children()=optJSONArray("children").objects()
 internal fun JSONObject.handle(name:String)=props().optJSONObject(name)?.optString("\$fn")

@@ -30,18 +30,8 @@ internal fun extensionListRows(root: JSONObject?, query: String): List<JSONObjec
     if (!root.props().optBoolean("filtering", true) || query.isBlank()) return rows
     return rows.filter { row ->
         val props = row.props()
-        val text = buildString {
-            append(extensionLabelText(props.opt("title")))
-            append(' ')
-            append(extensionLabelText(props.opt("subtitle")))
-            val keywords = props.optJSONArray("keywords")
-            if (keywords != null) for (index in 0 until keywords.length()) {
-                val word = keywords.opt(index) as? String ?: continue
-                append(' ')
-                append(word)
-            }
-        }
-        text.contains(query, ignoreCase = true)
+        extensionSearchText(extensionLabelText(props.opt("title")), extensionLabelText(props.opt("subtitle")),
+            props.optJSONArray("keywords")).contains(query, ignoreCase = true)
     }
 }
 
