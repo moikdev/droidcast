@@ -1,26 +1,66 @@
 package dev.tinycast.android
 
+import java.text.Normalizer
 import java.util.Locale
 
-data class EmojiEntry(val id: String, val glyph: String, val name: String, val category: String, val keywords: String) {
-    internal val words = normalize("$name $keywords $category").split(' ').filter(String::isNotEmpty)
+data class EmojiEntry(
+    val id: String, val glyph: String, val name: String, val category: String, val keywords: String,
+    internal val translatedNames: String = "", private val annotationKeywords: String = ""
+) {
     internal val normalizedName = normalize(name)
+    // Tabs bound complete CLDR phrases. Spaces bound individual words used for prefix search.
+    internal val exactKeywords = "\t" + normalize(keywords).replace(' ', '\t') + "\t" + annotationKeywords
+    internal val wordIndex = " $normalizedName " + normalize(category) + " " +
+        (translatedNames + exactKeywords).replace('\t', ' ')
 }
 
-internal fun normalize(value: String): String = value.lowercase(Locale.ROOT).replace('_', ' ').replace('-', ' ').trim()
+internal fun normalize(value: String): String = Normalizer.normalize(value, Normalizer.Form.NFC).lowercase(Locale.ROOT).replace('_', ' ').replace('-', ' ').trim()
 
 object EmojiCatalog {
-    fun parse(lines: Sequence<String>): List<EmojiEntry> = lines.filter { it.isNotBlank() && !it.startsWith('#') }.map { line ->
+    private val whitespace = Regex("\\s+")
+
+    internal fun keywordPacks(locales: List<Locale>): List<String> = buildSet {
+        add("en")
+        for (locale in locales) when (locale.language) {
+            "de", "es", "fr", "ja", "ko", "pt", "ru" -> add(locale.language)
+            "zh" -> {
+                val traditional = locale.script == "Hant" ||
+                    (locale.script.isEmpty() && locale.country in setOf("TW", "HK", "MO"))
+                add(if (traditional) "zh_Hant" else "zh")
+            }
+        }
+    }.toList()
+
+    class Annotations {
+        internal val names = StringBuilder()
+        internal val keywords = StringBuilder()
+    }
+
+    internal fun readKeywords(lines: Sequence<String>, into: MutableMap<String, Annotations>) {
+        for (line in lines) {
+            val idEnd = line.indexOf('\t')
+            require(idEnd > 0)
+            val nameEnd = line.indexOf('\t', idEnd + 1).let { if (it == -1) line.length else it }
+            val entry = into.getOrPut(line.substring(0, idEnd)) { Annotations() }
+            if (nameEnd > idEnd + 1) entry.names.append(line, idEnd, nameEnd).append('\t')
+            if (nameEnd < line.length) entry.keywords.append(line, nameEnd, line.length).append('\t')
+        }
+    }
+
+    fun parse(lines: Sequence<String>, annotations: Map<String, Annotations> = emptyMap()): List<EmojiEntry> = lines.filter { it.isNotBlank() && !it.startsWith('#') }.map { line ->
         val fields = line.split('\t')
         require(fields.size == 5 && fields.take(4).all { it.isNotBlank() }) { "Invalid emoji catalog" }
-        EmojiEntry(fields[0], fields[1], fields[2], fields[3], fields[4])
+        val words = annotations[fields[0]]
+        EmojiEntry(fields[0], fields[1], fields[2], fields[3], fields[4], words?.names?.toString().orEmpty(), words?.keywords?.toString().orEmpty())
     }.toList().also { entries ->
         require(entries.map { it.id }.distinct().size == entries.size && entries.map { it.glyph }.distinct().size == entries.size)
     }
 
     fun search(entries: List<EmojiEntry>, query: String, filter: String, favorites: Set<String>, recent: List<String>, favoriteOrder: List<String> = emptyList()): List<EmojiEntry> {
-        val q = normalize(query.trim().removeSurrounding(":"))
-        val terms = q.split(Regex("\\s+")).filter(String::isNotBlank)
+        val rawQuery = query.trim()
+        val q = normalize(rawQuery.removeSurrounding(":")).replace(whitespace, " ")
+        val phrase = "\t$q\t"
+        val prefixes = q.split(' ').filter(String::isNotBlank).map { " $it" }
         val recentOrder = recent.withIndex().associate { it.value to it.index }
         val pinRank = favoriteOrder.withIndex().associate { it.value to it.index }
         val filtered = entries.filter { entry -> when (filter) {
@@ -37,10 +77,12 @@ object EmojiCatalog {
         }
         return filtered.mapNotNull { entry ->
             val score = when {
-                query.trim() == entry.glyph || q == entry.normalizedName -> 4
-                q in normalize(entry.keywords).split(' ') -> 3
+                rawQuery == entry.glyph -> 6
+                q == entry.normalizedName -> 5
+                phrase in entry.translatedNames -> 4
+                phrase in entry.exactKeywords -> 3
                 entry.normalizedName.startsWith(q) -> 2
-                terms.all { term -> entry.words.any { it.startsWith(term) } } -> 1
+                prefixes.all { it in entry.wordIndex } -> 1
                 else -> return@mapNotNull null
             }
             entry to score

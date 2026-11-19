@@ -4,7 +4,11 @@ Run **Search Emoji & Symbols** (search for `emoji`) from the palette. It can als
 receive a per-command hotkey through Settings → Shortcuts. No extra permission,
 account or network connection is needed to use the bundled catalog.
 
-- Search English names, keywords, shortcodes such as `:+1:` or a literal glyph.
+- Search by a name, keyword, shortcode such as `:+1:` or a literal glyph. English
+  stays active. Android language preferences also enable offline keyword packs
+  for German, Spanish, French, Japanese, Korean, Portuguese, Russian, and
+  Simplified or Traditional Chinese. For example, Japanese `ネコの顔` and
+  German `Katzengesicht` both find 🐱 when their language is active.
   Multiple search words may appear in any order. Use the category menu for flags,
   people, animals, text symbols, favorites or recent copies.
 - Select a cell to copy it, or use the Copy button. The complete Unicode string
@@ -44,12 +48,28 @@ account or network connection is needed to use the bundled catalog.
   without changing your recording preference or favorites. Use **Backup and restore → Emoji favorites and grid** to transfer favorites and the saved
   column count. Recent history and its consent setting stay on this installation.
 
-The licensed snapshot contains 1,870 emoji and 70 common text symbols. It is not
-the complete/current Unicode repertoire. Android's font determines appearance
-and support; no emoji artwork is shipped. See [source provenance](../third_party/gemoji/UPSTREAM.md).
-Skin-tone selection, multilingual/custom keywords
-and portable favorites are tracked in [#44](https://github.com/moikdev/droidcast/issues/44).
-Automatic cross-app paste is not claimed. This is partial Tinycast/Raycast parity.
+The 4,042 entries include 3,963 fully qualified Unicode Emoji 18.0 sequences, nine
+components and 70 additional text symbols. The first 1,940 rows retain the IDs
+and order from the earlier picker. For a mixed-tone handshake, search for
+`handshake: medium skin tone, light skin tone` or paste 🫱🏽‍🫲🏻 into search.
+Copy transfers the exact two modifiers and joiner. Android's font determines
+how the result looks on a particular device. [Catalog sources and generation](../third_party/unicode-emoji/UPSTREAM.md)
+
+The footer displays English names. Dedicated tone controls, user-defined
+keywords and explicit insertion into a destination app remain tracked in
+[#44](https://github.com/moikdev/droidcast/issues/44).
 
 References: [Tinycast baseline picker](https://github.com/abue-ammar/tinycast/blob/37e6043f3f550febb64bdb3cff3ac29a30caad5a/docs/features/emoji.md)
 and [Raycast Emoji & Symbols](https://manual.raycast.com/emoji-symbols).
+
+## Unicode 18 and CLDR 49 verification
+
+On the API 36 emulator, the previous build from `41404809` returned no results for [the Japanese cat-face name](screenshots/unicode-emoji/old-japanese.png) or [the English name “cracking face”](screenshots/unicode-emoji/old-unicode.png). The final instrumentation APK produced both expected assertion failures on that build.
+
+Build `67178422` found [the cat face on tablet](screenshots/unicode-emoji/tablet-japanese.png) and [on phone](screenshots/unicode-emoji/phone-japanese.png). With the picker open, the test changed the Android app language from Japanese to German. It checked that the Japanese query persisted, the previous pack stopped matching, and both German and English searches found the cat face. [Tablet after the language change](screenshots/unicode-emoji/tablet-german.png) · [Phone after the language change](screenshots/unicode-emoji/phone-german.png)
+
+The Unicode case checked exact clipboard strings for 🫫 and 🫱🏽‍🫲🏻. The [tablet](screenshots/unicode-emoji/tablet-mixed-tone.png) and [phone](screenshots/unicode-emoji/phone-mixed-tone.png) screenshots show the selected mixed-tone handshake. On the phone the long query scrolls horizontally. The tests used Compose text replacement and injected Enter. Font support for every sequence, physical typing and translation of the app interface were outside these checks.
+
+The final app passed eight Japanese-start tablet cases, four Japanese-start phone cases and three English-start tablet cases. The previous app failed both matched controls. These four batches recorded 44 successful restoration checks, including app languages, preferences, clipboard and APKs. Both layouts used the dedicated API 36 emulator at 100% font (1920×1200 at 240 dpi and 1080×2340 at 420 dpi). The two earlier batches recorded another 22 restoration checks. The intermediate tablet run at `700b3a2f` remains failed at 6/7. One setup invocation exceeded the ten-second deadline waiting for the launcher and emoji catalog. The final build precomputes folded phrases during generation and builds compact search strings. Later passes do not isolate the timeout’s cause or establish a startup performance bound.
+
+The debug JVM task ran 351 tests. Python passed 146 tests in each mode. Debug and benchmark app and instrumentation builds passed. Lint reported zero errors and 52 warnings per variant. The source archive contains 22 checksum-pinned files. Normal and optimized Python generation produced byte-identical assets without network access. [Device records](validation/unicode-emoji/runs.json) · [Host checks](validation/unicode-emoji/host.json) · [Source hashes](validation/unicode-emoji/sources.json) · [Capture and log bindings](validation/unicode-emoji/bindings.json)

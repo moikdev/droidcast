@@ -9,7 +9,7 @@ class EmojiCatalogTest {
     private fun search(q: String, filter: String = "All", favorites: Set<String> = emptySet(), recent: List<String> = emptyList()) = EmojiCatalog.search(entries, q, filter, favorites, recent)
 
     @Test fun bundledCatalogPreservesSequencesAndStableIdentities() {
-        assertEquals(1940, entries.size)
+        assertEquals(4042, entries.size)
         listOf("👨‍👩‍👧‍👦", "🇯🇵", "❤️", "1️⃣", "π").forEach { glyph ->
             val entry = entries.single { it.glyph == glyph }
             assertEquals(glyph.codePoints().toArray().joinToString("-") { it.toString(16) }, entry.id)
@@ -52,6 +52,28 @@ class EmojiCatalogTest {
         assertEquals(order, EmojiCatalog.search(matches, "", "All", members, emptyList(), order).map { it.id })
         assertEquals(order.reversed(), EmojiCatalog.search(matches, "", "Recent", members, order.reversed(), order).map { it.id })
         assertEquals("😀", EmojiCatalog.search(matches, "grinning face", "All", members, emptyList(), order).first().glyph)
+    }
+
+    @Test fun languagePacksSearchCompleteNamesAndKeepEnglishAndCanonicalSequences() {
+        val terms = mutableMapOf<String, EmojiCatalog.Annotations>()
+        val names = mapOf("de" to "Katzengesicht", "es" to "cara de gato", "fr" to "tête de chat",
+            "ja" to "ネコの顔", "ko" to "고양이 얼굴", "pt" to "rosto de gato", "ru" to "морда кошки",
+            "zh" to "猫脸", "zh_Hant" to "貓頭")
+        for (pack in names.keys + "en") {
+            File("src/main/assets/emoji-keywords/$pack.tsv").useLines { EmojiCatalog.readKeywords(it, terms) }
+        }
+        val catalog = File("src/main/assets/emoji-catalog.tsv").useLines { EmojiCatalog.parse(it, terms) }
+        fun first(query: String) = EmojiCatalog.search(catalog, query, "All", emptySet(), emptyList()).first().glyph
+        for (name in names.values) assertEquals(name, "🐱", first(name))
+        assertEquals("🐱", first("te\u0302te de chat"))
+        assertEquals("🫫", first("cracking face"))
+        assertEquals("🫱🏽‍🫲🏻", first("handshake: medium skin tone, light skin tone"))
+        assertEquals("👍", first(":+1:"))
+    }
+
+    @Test fun resolvesScriptAndRegionAndDeduplicatesPreferredLanguages() {
+        val tags = listOf("ja-JP", "ja", "zh-TW", "zh-Hans-HK", "zh-Hant-CN", "tr", "en")
+        assertEquals(listOf("en", "ja", "zh_Hant", "zh"), EmojiCatalog.keywordPacks(tags.map(java.util.Locale::forLanguageTag)))
     }
 
     @Test fun malformedCatalogsAreRejected() {

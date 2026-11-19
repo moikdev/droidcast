@@ -37,6 +37,8 @@ import androidx.compose.ui.unit.*
 @Composable
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
 fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolean, close: () -> Unit, copy: (String) -> Unit) {
+    val languageTags = androidx.compose.ui.platform.LocalConfiguration.current.locales.toLanguageTags()
+    LaunchedEffect(store, languageTags) { store.loadLanguages(languageTags) }
     val searchFocus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val view = LocalView.current
