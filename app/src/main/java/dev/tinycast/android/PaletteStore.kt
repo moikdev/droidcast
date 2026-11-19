@@ -18,10 +18,10 @@ import dev.tinycast.android.extensions.*
 data class SavedItem(val id: String, val title: String, val body: String, val alias: String = "")
 
 internal data class EditorIdentity(val kind: String, val item: String?, val epoch: Int)
-internal class PaletteEditorDraft(val identity: EditorIdentity, item: SavedItem?) {
+internal class PaletteEditorDraft(val identity: EditorIdentity, item: SavedItem?, val initialAlias: String) {
     var title by mutableStateOf(item?.title.orEmpty())
     var body by mutableStateOf(item?.body.orEmpty())
-    var alias by mutableStateOf(item?.alias.orEmpty())
+    var alias by mutableStateOf(initialAlias)
     var argument by mutableStateOf("")
 }
 
@@ -77,8 +77,10 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     private var retainedEditorDraft: PaletteEditorDraft? = null
     internal fun editorDraft(kind: String): PaletteEditorDraft {
         val identity = EditorIdentity(kind, editing?.id, focusEpoch)
-        return retainedEditorDraft?.takeIf { it.identity == identity }
-            ?: PaletteEditorDraft(identity, editing).also { retainedEditorDraft = it }
+        retainedEditorDraft?.takeIf { it.identity == identity }?.let { return it }
+        val item = editing
+        val initialAlias = if (kind == "link" && item != null) aliases[item.id] ?: item.alias else item?.alias.orEmpty()
+        return PaletteEditorDraft(identity, item, initialAlias).also { retainedEditorDraft = it }
     }
     internal fun ownsEditorDraft(draft: PaletteEditorDraft) = retainedEditorDraft === draft &&
         dialog == draft.identity.kind && editing?.id == draft.identity.item && focusEpoch == draft.identity.epoch
@@ -372,28 +374,59 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     fun reset() { clearTextReview(); extensions.close(); if (backupBusy) return; discardEditorDraft(); cancelShortcutRecording(toManager = false); category = "All"; folderSearch.filterType(FileSearchType.ALL); search(""); dialog = null; actionCommand = null; focusEpoch++ }
     fun used(id: String) { usage = usage + (id to ((usage[id] ?: 0).coerceAtMost(Int.MAX_VALUE - 1) + 1)); PalettePreferences.write(prefs, "usage", JSONObject(usage).toString()) }
     fun togglePin(id: String) { pins = if (id in pins) pins - id else pins + id; PalettePreferences.write(prefs, "pins", pins) }
+    private fun aliasInUse(id: String?, alias: String, commands: List<Command>, overrides: Map<String, String>): Boolean =
+        overrides.any { it.key != id && it.value == alias } ||
+            commands.any { it.id != id && (overrides[it.id] ?: it.alias) == alias }
+
     fun setAlias(id: String, value: String) {
         val alias = value.trim().lowercase()
         require(alias.isEmpty() || Regex("[a-z][a-z0-9_-]{0,23}").matches(alias)) { "Use one word: letters, numbers, _ or -" }
-        require(alias.isEmpty() || (commands().none { it.id != id && it.alias == alias } && aliases.none { it.key != id && it.value == alias })) { "That alias is already in use" }
+        require(alias.isEmpty() || !aliasInUse(id, alias, catalog(), aliases)) { "That alias is already in use" }
         aliases = aliases + (id to alias)
         PalettePreferences.write(prefs, "aliases", JSONObject(aliases).toString())
     }
 
-    fun save(kind: String, title: String, body: String, alias: String = "", id: String? = null): String {
-        val item = SavedItem(id ?: "$kind:${UUID.randomUUID()}", title.trim(), body, alias.trim())
+    internal fun saveEditor(draft: PaletteEditorDraft) {
+        require(ownsEditorDraft(draft)) { "Reopen this editor to save your changes" }
+        val kind = when (draft.identity.kind) { "note" -> "notes"; "link" -> "links"; else -> "clips" }
+        val id = draft.identity.item?.takeIf { it.isNotEmpty() }
+        var alias: String? = draft.alias
+        if (kind == "links" && id != null) {
+            val link = requireNotNull(links.find { it.id == id }) { "This quicklink was removed" }
+            val currentAlias = aliases[id] ?: link.alias
+            if (draft.alias == draft.initialAlias) alias = null
+            else require(currentAlias == draft.initialAlias || currentAlias == draft.alias) {
+                "The alias changed in Settings. Reopen the quicklink to edit it."
+            }
+        }
+        saveItem(kind, draft.title, draft.body, alias, id)
+    }
+
+    fun save(kind: String, title: String, body: String, alias: String = "", id: String? = null): String =
+        saveItem(kind, title, body, alias, id)
+
+    private fun saveItem(kind: String, title: String, body: String, alias: String?, id: String?): String {
+        // An untouched alias in an existing link editor preserves both portable fields.
+        val embeddedAlias = alias?.trim() ?: links.first { it.id == id }.alias
+        val item = SavedItem(id ?: "$kind:${UUID.randomUUID()}", title.trim(), body, embeddedAlias)
         require(item.title.isNotEmpty()) { "Give it a name first" }
         if (kind == "links") {
             val uri = android.net.Uri.parse(body.replace("{query}", "test"))
             require(uri.scheme in listOf("https", "http") && !uri.host.isNullOrBlank()) { "Enter a complete https:// or http:// URL" }
-            require(alias.isBlank() || Regex("[a-z][a-z0-9_-]{0,23}").matches(alias)) { "Alias must be one lowercase word" }
-            require(alias.isBlank() || commands().none { it.id != id && it.alias == alias }) { "That alias is already in use" }
-            aliases = aliases - item.id
-            PalettePreferences.write(prefs, "aliases", JSONObject(aliases).toString())
+            if (alias != null && alias.isNotBlank()) {
+                require(Regex("[a-z][a-z0-9_-]{0,23}").matches(alias)) { "Alias must be one lowercase word" }
+                val commands = catalog()
+                require(!aliasInUse(id, alias, commands, aliases)) { "That alias is already in use" }
+                PalettePreferences.rollbackAliases?.let { rollback ->
+                    require(!aliasInUse(id, alias, commands, rollback)) { "That alias is in use until the backup finishes" }
+                }
+            }
         }
         val old = when (kind) { "notes" -> notes; "links" -> links; "clips" -> clips; else -> read("files") }
         val next = (listOf(item) + old.filter { it.id != item.id }).let { if (kind == "clips") it.take(100) else it }
-        write(kind, next)
+        if (kind == "links" && alias != null) {
+            PalettePreferences.writeLinkAlias(prefs, encodeItems(next), aliases, item.id)
+        } else write(kind, next)
         when (kind) { "notes" -> notes = next; "links" -> links = next; "clips" -> clips = next; else -> files = next }
         return item.id
     }
@@ -445,5 +478,5 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         prefs.getStringSet("pins", setOf("calculator", "new-note", "browse-files", "new-link"))!!.toSet()
 
     private fun readMap(key: String): Map<String, Int> = runCatching { val o = JSONObject(prefs.getString(key, "{}")!!); o.keys().asSequence().associateWith { o.getInt(it) } }.getOrDefault(emptyMap())
-    private fun readAliases(): Map<String, String> = runCatching { val o = JSONObject(prefs.getString("aliases", "{}")!!); o.keys().asSequence().associateWith { o.getString(it) } }.getOrDefault(emptyMap())
+    private fun readAliases(): Map<String, String> = PalettePreferences.decodeAliases(prefs.all["aliases"] as? String)
 }

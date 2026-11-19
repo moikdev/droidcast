@@ -1,0 +1,59 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ReadinessRegressionDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ReadinessRegressionDeviceTest:
+INSTRUMENTATION_STATUS: test=quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ReadinessRegressionDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + EditableText contains 'Quicklink saved' (ignoreCase: false))
+Node found:
+Node #424 at (l=138.0, t=1040.0, r=397.0, b=1093.0)px
+Text = '[Quicklink saved]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.ReadinessRegressionDeviceTest.quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges$rejectAlias(ReadinessRegressionDeviceTest.kt:335)
+	at dev.tinycast.android.ReadinessRegressionDeviceTest.quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges(ReadinessRegressionDeviceTest.kt:356)
+
+INSTRUMENTATION_STATUS: stream=
+Error in quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges(dev.tinycast.android.ReadinessRegressionDeviceTest):
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + EditableText contains 'Quicklink saved' (ignoreCase: false))
+Node found:
+Node #424 at (l=138.0, t=1040.0, r=397.0, b=1093.0)px
+Text = '[Quicklink saved]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.ReadinessRegressionDeviceTest.quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges$rejectAlias(ReadinessRegressionDeviceTest.kt:335)
+	at dev.tinycast.android.ReadinessRegressionDeviceTest.quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges(ReadinessRegressionDeviceTest.kt:356)
+
+INSTRUMENTATION_STATUS: test=quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.843
+There was 1 failure:
+1) quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges(dev.tinycast.android.ReadinessRegressionDeviceTest)
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + EditableText contains 'Quicklink saved' (ignoreCase: false))
+Node found:
+Node #424 at (l=138.0, t=1040.0, r=397.0, b=1093.0)px
+Text = '[Quicklink saved]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:100)
+	at dev.tinycast.android.ReadinessRegressionDeviceTest.quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges$rejectAlias(ReadinessRegressionDeviceTest.kt:335)
+	at dev.tinycast.android.ReadinessRegressionDeviceTest.quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges(ReadinessRegressionDeviceTest.kt:356)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -3,6 +3,9 @@ package dev.tinycast.android
 import android.app.Instrumentation
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -216,6 +219,158 @@ class ReadinessRegressionDeviceTest {
             assertEquals(1, store.usage[id])
         } finally {
             instrumentation.removeMonitor(monitor)
+        }
+    }
+
+    private fun editLink(id: String, title: String) {
+        compose.onNodeWithTag("search").performTextReplacement(title)
+        compose.onNodeWithTag("result-$id").performTouchInput { longClick() }
+        compose.onNodeWithTag("action-Edit quicklink").performScrollTo().performClick()
+        compose.onNodeWithTag("editor-alias").performScrollTo()
+    }
+
+    @Test fun quicklinkEditorKeepsRenamedSettingsAlias() = preserveSettingsAlias("garden")
+    @Test fun quicklinkEditorKeepsClearedSettingsAlias() = preserveSettingsAlias("")
+
+    private fun preserveSettingsAlias(override: String) {
+        val store = compose.activity.store
+        val title = "Garden reference"
+        val url = "https://example.invalid/find?q={query}"
+        val id = compose.runOnUiThread {
+            store.save("links", title, url, "journal").also { store.setAlias(it, override) }
+        }
+        editLink(id, title)
+        val aliasNode = compose.onNodeWithTag("editor-alias")
+        val opened = aliasNode.fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+        val phase = if (override.isEmpty()) "cleared" else "renamed"
+        // Wait for the focus-triggered IME transition, then expose the full alias for capture.
+        aliasNode.performClick()
+        val activity = compose.activity
+        val view = activity.window.decorView
+        val ime = WindowInsetsCompat.Type.ime()
+        val controller = WindowCompat.getInsetsController(activity.window, view)
+        compose.runOnUiThread { controller.show(ime) }
+        compose.waitUntil(5000) { compose.runOnUiThread { ViewCompat.getRootWindowInsets(view)?.isVisible(ime) == true } }
+        compose.runOnUiThread { controller.hide(ime) }
+        compose.waitUntil(5000) { compose.runOnUiThread { ViewCompat.getRootWindowInsets(view)?.isVisible(ime) == false } }
+        aliasNode.performScrollTo().assertIsDisplayed()
+        capture("alias-$phase-open")
+        val newTitle = "Garden reference revised"
+        compose.onNodeWithTag("editor-title").performScrollTo().performTextReplacement(newTitle)
+        compose.onNodeWithTag("save-editor").performClick()
+        compose.waitUntil(5000) { store.dialog == null }
+        compose.runOnIdle {
+            assertEquals("Title was saved", newTitle, store.links.single { it.id == id }.title)
+            assertEquals("Title-only save must keep the effective alias", override, store.command(id)?.alias)
+            assertEquals(override, opened)
+            assertEquals("journal", store.backupSnapshot().links.single { it.id == id }.alias)
+            assertEquals(override, store.backupSnapshot().aliases[id])
+            store.search("journal spring")
+            assertFalse(store.results().any { it.id == id && it.payload.endsWith("q=spring") })
+            if (override.isNotEmpty()) {
+                store.search("$override spring")
+                assertEquals(url.replace("{query}", "spring"), store.results().first().payload)
+            }
+        }
+    }
+
+    @Test fun quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges() {
+        val store = compose.activity.store
+        val app = context.applicationContext as android.app.Application
+        val holder = androidx.lifecycle.ViewModelStore()
+        val factory = androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(app)
+        fun peer() = androidx.lifecycle.ViewModelProvider(holder, factory)[PaletteStore::class.java]
+        val title = "Garden reference"
+        val url = "https://example.invalid/find?q={query}"
+        val revised = "https://example.invalid/articles?q={query}"
+        val id = compose.runOnUiThread {
+            store.save("links", title, url, "journal").also { store.setAlias(it, "garden") }
+        }
+        try {
+            editLink(id, title)
+            compose.runOnIdle { peer().setAlias(id, "flowers") }
+            compose.onNodeWithTag("editor-body").performScrollTo().performTextReplacement(revised)
+            compose.onNodeWithTag("save-editor").performClick()
+            compose.waitUntil(5000) { store.dialog == null }
+            compose.runOnIdle {
+                assertEquals(revised, peer().links.single { it.id == id }.body)
+                assertEquals("flowers", peer().aliases[id])
+                assertEquals("journal", peer().links.single { it.id == id }.alias)
+            }
+            editLink(id, title)
+            val field = compose.onNodeWithTag("editor-alias")
+            editable("editor-alias", "flowers")
+            val rejectedFeedback = mutableListOf<String>()
+            fun rejectAlias(phase: String, attemptedAlias: String, expectedOverride: String, feedback: String) {
+                val attemptedTitle = "Draft $phase title"
+                val attemptedUrl = "https://example.invalid/draft-$phase?q={query}"
+                compose.onNodeWithTag("editor-title").performScrollTo().performTextReplacement(attemptedTitle)
+                compose.onNodeWithTag("editor-body").performScrollTo().performTextReplacement(attemptedUrl)
+                field.performScrollTo().performClick().performTextReplacement(attemptedAlias)
+                val activity = compose.activity
+                val view = activity.window.decorView
+                val ime = WindowInsetsCompat.Type.ime()
+                fun keyboardShown() = compose.runOnUiThread { ViewCompat.getRootWindowInsets(view)?.isVisible(ime) == true }
+                compose.runOnUiThread { WindowCompat.getInsetsController(activity.window, view).show(ime) }
+                compose.waitUntil(5000) { keyboardShown() }
+                if (phase == "concurrent") compose.runOnIdle { peer().setAlias(id, expectedOverride) }
+                val before = compose.runOnUiThread { peer().backupSnapshot() }
+                assertEquals(SavedItem(id, title, revised, "journal"), before.links.single { it.id == id })
+                assertEquals(expectedOverride, before.aliases[id])
+                val notice = compose.onNodeWithText("Quicklink saved")
+                compose.runOnIdle { store.message = null }
+                notice.assertDoesNotExist()
+                // Restart the success notice so its normal timeout cannot mask a failed dismissal.
+                compose.mainClock.autoAdvance = false
+                try {
+                    compose.runOnUiThread { store.message = "Quicklink saved" }
+                    compose.mainClock.advanceTimeBy(400)
+                    notice.assertIsDisplayed()
+                    capture("alias-$phase-before-rejection")
+                    notice.assertIsDisplayed()
+                    compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled().performTouchInput { click() }
+                    compose.mainClock.advanceTimeBy(400)
+                    compose.onNodeWithText(feedback).assertExists()
+                    try {
+                        notice.assertDoesNotExist()
+                    } finally {
+                        capture("alias-$phase-rejected")
+                    }
+                } finally {
+                    compose.mainClock.autoAdvance = true
+                }
+                val after = compose.runOnUiThread { peer().backupSnapshot() }
+                assertEquals("Rejected $phase edit changed saved links", before.links, after.links)
+                assertEquals("Rejected $phase edit changed alias overrides", before.aliases, after.aliases)
+                editable("editor-title", attemptedTitle)
+                editable("editor-body", attemptedUrl)
+                editable("editor-alias", attemptedAlias)
+                assertTrue("Keyboard open at $phase rejection", keyboardShown())
+                compose.onNodeWithTag("save-editor").assertIsDisplayed().assertIsEnabled()
+                compose.onNodeWithTag("cancel-editor").assertIsDisplayed().assertIsEnabled()
+                val message = compose.onNodeWithText(feedback).fetchSemanticsNode()
+                if (message.boundsInRoot.height + 1f < message.size.height || message.boundsInRoot.width <= 0f) {
+                    rejectedFeedback.add(phase)
+                }
+            }
+            rejectAlias("duplicate", "calc", "flowers", "That alias is already in use")
+            rejectAlias("concurrent", "pets", "plants", "The alias changed in Settings. Reopen the quicklink to edit it.")
+            compose.onNodeWithTag("cancel-editor").performTouchInput { click() }
+            editLink(id, title)
+            field.performTextReplacement("pets")
+            compose.onNodeWithTag("save-editor").performClick()
+            compose.waitUntil(5000) { store.dialog == null }
+            compose.runOnIdle {
+                holder.clear()
+                val reopened = peer()
+                assertEquals("pets", reopened.links.single { it.id == id }.alias)
+                assertFalse(reopened.aliases.containsKey(id))
+                reopened.search("pets spring")
+                assertEquals(revised.replace("{query}", "spring"), reopened.results().first().payload)
+            }
+            assertEquals("Clipped alias rejection feedback", emptyList<String>(), rejectedFeedback)
+        } finally {
+            compose.runOnUiThread { holder.clear() }
         }
     }
 

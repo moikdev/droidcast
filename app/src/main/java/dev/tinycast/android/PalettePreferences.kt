@@ -5,6 +5,7 @@ import android.os.Looper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
 /** Orders portable-data edits across activity stores in the app's main process. */
 internal object PalettePreferences {
@@ -12,13 +13,30 @@ internal object PalettePreferences {
     // when a preceding apply() had an asynchronous disk failure. It is never exported.
     private const val CHECKPOINT = "restorePersistenceCheckpoint"
     private var ownedKeys: MutableSet<String>? = null
+    private val removedAliasOverrides = mutableSetOf<String>()
+    private var originalAliases: Map<String, String> = emptyMap()
+    val rollbackAliases: Map<String, String>?
+        get() = if (ownedKeys?.contains("aliases") == true) originalAliases - removedAliasOverrides else null
     val restoring: Boolean get() = ownedKeys != null
 
-    fun write(prefs: SharedPreferences, key: String, value: Any) {
+    fun write(prefs: SharedPreferences, key: String, value: Any) = write(prefs, mapOf(key to value))
+
+    fun write(prefs: SharedPreferences, values: Map<String, Any>) {
         check(Looper.getMainLooper().isCurrentThread)
         // Even a deliberate write of the same value transfers ownership to this writer.
-        ownedKeys?.remove(key)
-        prefs.edit().also { it.putValue(key, value) }.apply()
+        ownedKeys?.removeAll(values.keys)
+        prefs.edit().also { editor -> values.forEach { (key, value) -> editor.putValue(key, value) } }.apply()
+    }
+
+    /** Saving an explicit Quicklink alias claims its override, including an already absent one. */
+    fun writeLinkAlias(prefs: SharedPreferences, links: String, aliases: Map<String, String>, id: String) {
+        check(Looper.getMainLooper().isCurrentThread)
+        ownedKeys?.let { owned ->
+            owned.remove("links")
+            if ("aliases" in owned) removedAliasOverrides.add(id)
+        }
+        prefs.edit().putString("links", links)
+            .putString("aliases", JSONObject(aliases - id).toString()).apply()
     }
 
     suspend fun restore(prefs: SharedPreferences, values: Map<String, Any>): Boolean =
@@ -26,6 +44,7 @@ internal object PalettePreferences {
             check(Looper.getMainLooper().isCurrentThread && !restoring)
             val before = prefs.all
             val owned = values.keys.toMutableSet()
+            if ("aliases" in owned) originalAliases = decodeAliases(before["aliases"] as? String)
             ownedKeys = owned
             try {
                 // Publish once on the main thread, so every open store sees the new model
@@ -45,16 +64,34 @@ internal object PalettePreferences {
                     val current = prefs.all
                     prefs.edit().also { undo ->
                         for (key in owned) {
-                            if (current[key] == values[key]) undo.putValue(key, before[key])
+                            if (key == "aliases" && removedAliasOverrides.isNotEmpty()) {
+                                val original = before[key] as? String
+                                val aliases = original?.let { runCatching { JSONObject(it) }.getOrNull() }
+                                if (aliases != null && removedAliasOverrides.any(aliases::has)) {
+                                    removedAliasOverrides.forEach { aliases.remove(it) }
+                                    undo.putString(key, aliases.toString())
+                                } else {
+                                    undo.putValue(key, before[key])
+                                }
+                            } else if (current[key] == values[key]) {
+                                undo.putValue(key, before[key])
+                            }
                         }
                         undo.putValue(CHECKPOINT, before[CHECKPOINT])
                     }.apply()
                 }
                 saved
             } finally {
+                originalAliases = emptyMap()
+                removedAliasOverrides.clear()
                 ownedKeys = null
             }
         }
+
+    fun decodeAliases(raw: String?): Map<String, String> = runCatching {
+        val values = JSONObject(raw ?: "{}")
+        values.keys().asSequence().associateWith { values.getString(it) }
+    }.getOrDefault(emptyMap())
 
     private fun SharedPreferences.Editor.putValue(key: String, value: Any?) {
         when (value) {

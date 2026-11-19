@@ -209,6 +209,8 @@ def main():
     local_inventory = args.classes == 'dev.tinycast.android.ReadinessRegressionDeviceTest#installedCatalogLoadsWithoutBlockingTheUiThread'
     quicklink_cases = {'dev.tinycast.android.ReadinessRegressionDeviceTest#' + method for method in (
         'quicklinkArgumentSurvivesRecreationAndCancelClearsIt', 'rejectedQuicklinkKeepsArgumentForAnEncodedRetry',
+        'quicklinkEditorKeepsRenamedSettingsAlias', 'quicklinkEditorKeepsClearedSettingsAlias',
+        'quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges',
     )}
     require(selected <= quicklink_cases or local_inventory or calculator or settings_navigation or uses_only_local_detail_cases(args.classes)
             or args.json_archive is not None,

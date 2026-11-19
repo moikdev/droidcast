@@ -49,6 +49,9 @@ class BackupDeviceTest {
         compose.waitForIdle()
         val directory = File(context.filesDir, "backup-evidence").apply { mkdirs() }
         val marker = when (name) {
+            "reserved-alias-editor" -> By.text("That alias is in use until the backup finishes")
+            "reserved-alias-after-rollback" -> By.text("neighbor spring")
+            "quicklink-after-rollback" -> By.text("pets spring")
             "peer-merge-results" -> By.text("Peer merge witness imported")
             "emoji-inspect" -> By.textContains("grinning face with smiling eyes")
             "emoji-import-rejected" -> By.text("Unsupported backup version")
@@ -351,7 +354,13 @@ class BackupDeviceTest {
 
     @Test fun failedRestoreKeepsPeerWhoExplicitlySavedSameGrid() = failedRestoreWithPeerEdit(atSnapshot = false)
 
-    private fun failedRestoreWithPeerEdit(atSnapshot: Boolean) {
+    @Test fun failedRestoreKeepsDeliberateQuicklinkAliasAndRestoresOtherOverrides() =
+        failedRestoreWithPeerEdit(atSnapshot = false, quicklinkAlias = "pets")
+
+    @Test fun failedRestoreReservesAliasForItsOriginalDestination() =
+        failedRestoreWithPeerEdit(atSnapshot = false, quicklinkAlias = "neighbor")
+
+    private fun failedRestoreWithPeerEdit(atSnapshot: Boolean, quicklinkAlias: String? = null) {
         val real = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
         val enteredCommit = CountDownLatch(1)
         val finishCommit = CountDownLatch(1)
@@ -386,7 +395,7 @@ class BackupDeviceTest {
                         // Publish memory as Android does even when the durable commit fails.
                         underlying.apply()
                         enteredCommit.countDown()
-                        check(finishCommit.await(10, TimeUnit.SECONDS))
+                        check(finishCommit.await(if (quicklinkAlias == "neighbor") 30 else 10, TimeUnit.SECONDS))
                         failed.set(true)
                         return false
                     }
@@ -403,9 +412,22 @@ class BackupDeviceTest {
         val holder = androidx.lifecycle.ViewModelStore()
         lateinit var importing: PaletteStore
         try {
-            file.writeText(BackupCodec.encode(BackupData(emoji = incoming), setOf(BackupCategory.EMOJI)))
+            val categories = if (quicklinkAlias != null) setOf(BackupCategory.EMOJI, BackupCategory.PREFERENCES) else setOf(BackupCategory.EMOJI)
+            val linkId = "links:rollback-garden"
+            val otherId = "links:rollback-neighbor"
+            val reserved = quicklinkAlias == "neighbor"
+            val incomingAliases = if (reserved) mapOf("calculator" to "importedcalc") else emptyMap()
+            var rejection: String? = null
+            var unchanged = false
+            file.writeText(BackupCodec.encode(BackupData(emoji = incoming, aliases = incomingAliases), categories))
             compose.runOnIdle {
                 real.edit().putInt("emojiGridColumns", 4).putString("emojiFavoriteOrder", """["1f600"]""").apply()
+                if (quicklinkAlias != null) {
+                    peer.save("links", "Quicklink rollback witness", "https://example.invalid/find?q={query}", "journal", linkId)
+                    peer.save("links", "Other rollback link", "https://example.invalid/other?q={query}", id = otherId)
+                    peer.setAlias(linkId, "garden")
+                    peer.setAlias(otherId, "neighbor")
+                }
                 importing = androidx.lifecycle.ViewModelProvider(holder,
                     androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(application))[PaletteStore::class.java]
                 importing.readBackup(android.net.Uri.fromFile(file))
@@ -418,9 +440,52 @@ class BackupDeviceTest {
             assertTrue("The durable commit must be attempted", enteredCommit.await(10, TimeUnit.SECONDS))
             if (!atSnapshot) {
                 compose.runOnIdle {
+                    if (quicklinkAlias != null) {
+                        assertFalse(peer.aliases.containsKey(linkId))
+                        assertFalse(peer.aliases.containsKey(otherId))
+                        peer.editing = peer.links.single { it.id == linkId }
+                        peer.dialog = "link"
+                        val draft = peer.editorDraft("link")
+                        assertEquals("journal", draft.alias)
+                        draft.alias = quicklinkAlias
+                        if (reserved) {
+                            val prior = peer.backupSnapshot()
+                            draft.title = "Attempted takeover"
+                            draft.body = "https://example.invalid/attempt?q={query}"
+                            rejection = runCatching { peer.saveEditor(draft) }.exceptionOrNull()?.message
+                            if (rejection != null) {
+                                // The imported override also temporarily hides the built-in calculator alias.
+                                assertEquals("importedcalc", peer.command("calculator")?.alias)
+                                draft.alias = "calc"
+                                val other = runCatching { peer.saveEditor(draft) }.exceptionOrNull()
+                                assertEquals("That alias is in use until the backup finishes", other?.message)
+                            }
+                            val after = peer.backupSnapshot()
+                            unchanged = prior.links == after.links && prior.aliases == after.aliases
+                        } else {
+                            peer.saveEditor(draft)
+                            assertEquals("pets", peer.command(linkId)?.alias)
+                        }
+                        if (rejection == null) peer.reset() else draft.alias = quicklinkAlias
+                    }
                     peer.emoji.saveGridColumns(9)
                     peer.emoji.saveGridColumns(8)
                 }
+            }
+            if (reserved && rejection != null) {
+                val beforeClick = compose.runOnIdle { peer.backupSnapshot() }
+                compose.onNodeWithTag("save-editor").assertIsDisplayed().performTouchInput { click() }
+                compose.onNodeWithText("That alias is in use until the backup finishes").assertIsDisplayed()
+                compose.onNodeWithTag("cancel-editor").assertIsDisplayed().assertIsEnabled()
+                evidence("reserved-alias-editor")
+                compose.runOnIdle {
+                    assertEquals(beforeClick, peer.backupSnapshot())
+                    val draft = peer.editorDraft("link")
+                    assertEquals("neighbor", draft.alias)
+                    assertEquals("Attempted takeover", draft.title)
+                    assertEquals("https://example.invalid/attempt?q={query}", draft.body)
+                }
+                compose.onNodeWithTag("cancel-editor").performTouchInput { click() }
             }
             finishCommit.countDown()
             compose.waitUntil(10000) { !importing.backupBusy && importing.backupError != null }
@@ -429,6 +494,29 @@ class BackupDeviceTest {
                 real.getInt("emojiGridColumns", -1))
             assertEquals("An untouched key must roll back", """["1f600"]""", real.getString("emojiFavoriteOrder", null))
             assertNotNull("Keep the import available for retry", importing.backupDocument)
+            if (quicklinkAlias != null) {
+                compose.runOnIdle {
+                    peer.search("$quicklinkAlias spring")
+                    assertEquals("An unrelated override must roll back", "neighbor", peer.aliases[otherId])
+                }
+                evidence(if (reserved) "reserved-alias-after-rollback" else "quicklink-after-rollback")
+                compose.runOnIdle {
+                    if (reserved) {
+                        assertEquals("A rollback-reserved alias was accepted", "That alias is in use until the backup finishes", rejection)
+                        assertTrue("Rejected edits must preserve the entire links and overrides", unchanged)
+                        assertEquals("garden", peer.command(linkId)?.alias)
+                        assertEquals("journal", peer.links.single { it.id == linkId }.alias)
+                        assertEquals("calc", peer.command("calculator")?.alias)
+                        assertEquals(listOf(otherId), peer.commands().filter { it.alias == "neighbor" }.map { it.id })
+                        assertEquals("https://example.invalid/other?q=spring", peer.results().first().payload)
+                    } else {
+                        assertEquals("pets", peer.backupSnapshot().links.single { it.id == linkId }.alias)
+                        assertEquals("Rollback masked the deliberate Quicklink alias", "pets", peer.command(linkId)?.alias)
+                        assertFalse(peer.backupSnapshot().aliases.containsKey(linkId))
+                        assertEquals("https://example.invalid/find?q=spring", peer.results().first().payload)
+                    }
+                }
+            }
         } finally {
             finishCommit.countDown()
             compose.runOnIdle { holder.clear() }

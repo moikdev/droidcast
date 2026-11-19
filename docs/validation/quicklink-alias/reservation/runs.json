@@ -1,0 +1,217 @@
+{
+  "before-tablet": {
+    "profile": "tablet",
+    "kind": "prior",
+    "app": "7316e281fbb3ab4dfd465f2874fb3873134520ba8882544fb23d3bc5e1c6ca31",
+    "test": "774c893687fb3cc37e420295acc4227429d04e71a3e5078ece0fcf91a6ba12d3",
+    "runner": "3af2e338af5914056caf069c70430fdfc82e1e302dc4268391f1295a678ad762",
+    "cases": {
+      "reserved": {
+        "method": "failedRestoreReservesAliasForItsOriginalDestination",
+        "junit_pass": false,
+        "files": {
+          "reserved-alias-after-rollback.png": "530c12f263c06567f359a18808a33e2a71839fb27888a4c33359f28d27854187",
+          "reserved-alias-after-rollback.xml": "675808eb15ebb35b17e3849d62197e7f96b53a0e7c8e2b38dda6d924d2e0ac7b"
+        }
+      }
+    },
+    "restoration": {
+      "stop": true,
+      "original_evidence_directory": true,
+      "clipboard": true,
+      "clipboard_owner_released": true,
+      "original_test_apk": true,
+      "original_app_apk": true,
+      "preferences": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "unprivileged": true
+    },
+    "released_in_original_run": true
+  },
+  "after-tablet": {
+    "profile": "tablet",
+    "kind": "current",
+    "app": "af940363a38a9e97b3e473dcb9f1d6276710c62a3802ae394385c1e09fd8d338",
+    "test": "774c893687fb3cc37e420295acc4227429d04e71a3e5078ece0fcf91a6ba12d3",
+    "runner": "3af2e338af5914056caf069c70430fdfc82e1e302dc4268391f1295a678ad762",
+    "cases": {
+      "reserved": {
+        "method": "failedRestoreReservesAliasForItsOriginalDestination",
+        "junit_pass": true,
+        "files": {
+          "reserved-alias-after-rollback.png": "2d606d5d098d385949c23a56f5ca88d4a4357e260ccbdcd0aab1116b646240df",
+          "reserved-alias-after-rollback.xml": "fac6470a1880f04c8220e5bdc31249d4f61ad9b17f1c05c8537fd057472029b9"
+        }
+      },
+      "alias": {
+        "method": "failedRestoreKeepsDeliberateQuicklinkAliasAndRestoresOtherOverrides",
+        "junit_pass": true,
+        "files": {
+          "quicklink-after-rollback.png": "2add507468a7f7a1b9e84695bde234e0f7b42f56c32fee2da4142564c73a1ef6",
+          "quicklink-after-rollback.xml": "a8ca2f1a34fd1d4a1f56cdd7358d8723565b0ed074d73ae07b6ba5bcd00e9107"
+        }
+      },
+      "grid": {
+        "method": "failedRestoreKeepsPeerWhoExplicitlySavedSameGrid",
+        "junit_pass": true,
+        "files": {}
+      },
+      "snapshot": {
+        "method": "failedRestoreKeepsPeerEditAtRollbackSnapshot",
+        "junit_pass": true,
+        "files": {}
+      }
+    },
+    "restoration": {
+      "stop": true,
+      "original_evidence_directory": true,
+      "clipboard": true,
+      "clipboard_owner_released": true,
+      "original_test_apk": true,
+      "original_app_apk": true,
+      "preferences": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "unprivileged": true
+    },
+    "released_in_original_run": true
+  },
+  "after-phone": {
+    "profile": "phone",
+    "kind": "current",
+    "app": "af940363a38a9e97b3e473dcb9f1d6276710c62a3802ae394385c1e09fd8d338",
+    "test": "774c893687fb3cc37e420295acc4227429d04e71a3e5078ece0fcf91a6ba12d3",
+    "runner": "3af2e338af5914056caf069c70430fdfc82e1e302dc4268391f1295a678ad762",
+    "cases": {
+      "reserved": {
+        "method": "failedRestoreReservesAliasForItsOriginalDestination",
+        "junit_pass": true,
+        "files": {
+          "reserved-alias-after-rollback.png": "62ed0e6e9cfe5a33e93911236b13e5e9e672bd57fd6081b79fbf47b5cfc8867e",
+          "reserved-alias-after-rollback.xml": "a0b8befb6ee6d96c451555916d111eeefc099bb1b5d3512c1e6aee6e166a244f"
+        }
+      },
+      "alias": {
+        "method": "failedRestoreKeepsDeliberateQuicklinkAliasAndRestoresOtherOverrides",
+        "junit_pass": true,
+        "files": {
+          "quicklink-after-rollback.png": "538d946bc6abafa4f3c73709ae377760892fe05f2e5ba3679b271b29e5988ba7",
+          "quicklink-after-rollback.xml": "c976c393b88f760a8afdc04e59a32acef4b48e8faa618e7c7590604a9c12a82e"
+        }
+      }
+    },
+    "restoration": {
+      "stop": true,
+      "original_evidence_directory": true,
+      "clipboard": true,
+      "clipboard_owner_released": true,
+      "original_test_apk": true,
+      "original_app_apk": true,
+      "preferences": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "unprivileged": true
+    },
+    "released_in_original_run": true
+  },
+  "ui-tablet": {
+    "classes": "dev.tinycast.android.ReadinessRegressionDeviceTest#quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges",
+    "layout": "tablet",
+    "expected": 1,
+    "passes": 1,
+    "completed": true,
+    "apk_sha256": "af940363a38a9e97b3e473dcb9f1d6276710c62a3802ae394385c1e09fd8d338",
+    "test_apk_sha256": "774c893687fb3cc37e420295acc4227429d04e71a3e5078ece0fcf91a6ba12d3",
+    "installed_apks_match": true,
+    "avd": "Tinycast_Tablet_API_36",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "legacy-fixtures-completed": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "helpers": {
+      "runner.py": "e0041b8b8ecc69044d23e60a0bae2ac0a751e96649d9efe063f24726e0304c96",
+      "clipboard-helper.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+      "cleanup-helper.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+      "document-helper.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841"
+    },
+    "controller": "0d2b4a97cdcf2f4b5f7b5d3eccbef79b43ea6a3a3ff82eaeba3bc77356bad990"
+  },
+  "ui-phone": {
+    "classes": "dev.tinycast.android.ReadinessRegressionDeviceTest#quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges",
+    "layout": "phone",
+    "expected": 1,
+    "passes": 1,
+    "completed": true,
+    "apk_sha256": "af940363a38a9e97b3e473dcb9f1d6276710c62a3802ae394385c1e09fd8d338",
+    "test_apk_sha256": "774c893687fb3cc37e420295acc4227429d04e71a3e5078ece0fcf91a6ba12d3",
+    "installed_apks_match": true,
+    "avd": "Tinycast_Tablet_API_36",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "legacy-fixtures-completed": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "helpers": {
+      "runner.py": "e0041b8b8ecc69044d23e60a0bae2ac0a751e96649d9efe063f24726e0304c96",
+      "clipboard-helper.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+      "cleanup-helper.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+      "document-helper.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841"
+    },
+    "controller": "0d2b4a97cdcf2f4b5f7b5d3eccbef79b43ea6a3a3ff82eaeba3bc77356bad990"
+  }
+}
