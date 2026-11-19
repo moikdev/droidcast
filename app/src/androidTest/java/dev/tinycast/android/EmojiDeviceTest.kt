@@ -247,7 +247,7 @@ class EmojiDeviceTest {
         assertEquals("🫱🏽‍🫲🏻", clipboard())
     }
 
-    private fun toneMenuFrame(name: String, tag: String) {
+    private fun captureVisibleNode(name: String, tag: String) {
         compose.onNodeWithTag(tag).assertIsDisplayed()
         val dir = File(context.filesDir, "emoji-evidence").apply { mkdirs() }
         val xml = File(dir, "$name.xml")
@@ -268,7 +268,7 @@ class EmojiDeviceTest {
         val menuSearch = compose.onNodeWithTag("inline-menu-search")
         menuSearch.performTextReplacement("skin tone")
         if (compose.onAllNodesWithTag("inline-menu-empty").fetchSemanticsNodes().isNotEmpty())
-            toneMenuFrame("tone-before", "inline-menu-empty")
+            captureVisibleNode("tone-before", "inline-menu-empty")
         compose.onNodeWithTag("emoji-action-tone").assertIsDisplayed().performTouchInput { click(center) }
         menuSearch.assertIsFocused()
     }
@@ -282,7 +282,7 @@ class EmojiDeviceTest {
         val id = "1faf1-1f3fd-200d-1faf2-1f3fb"
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("Medium + Light")
         compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-tone-$id"))
-        toneMenuFrame("mixed-choice", "emoji-tone-$id")
+        captureVisibleNode("mixed-choice", "emoji-tone-$id")
         compose.onNodeWithTag("emoji-tone-$id").performTouchInput { click(center) }
         assertEquals(glyph, clipboard())
         assertEquals("🤝", store.query)
@@ -302,7 +302,7 @@ class EmojiDeviceTest {
         assertEquals("✌🏽", store.query)
         openToneMenu()
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("Default")
-        toneMenuFrame("default-choice", "emoji-tone-270c-fe0f")
+        captureVisibleNode("default-choice", "emoji-tone-270c-fe0f")
         key(KeyEvent.KEYCODE_ENTER)
         assertEquals("✌️", clipboard())
         assertEquals("✌🏽", store.query)
@@ -317,6 +317,165 @@ class EmojiDeviceTest {
         key(KeyEvent.KEYCODE_ESCAPE)
         key(KeyEvent.KEYCODE_ENTER)
         assertEquals("🇯🇵", clipboard())
+    }
+
+    private fun openKeywordEditor() {
+        compose.onNodeWithTag("emoji-actions").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("custom keywords")
+        if (compose.onAllNodesWithTag("inline-menu-empty").fetchSemanticsNodes().isNotEmpty())
+            captureVisibleNode("keywords-before", "inline-menu-empty")
+        compose.onNodeWithTag("emoji-action-keywords").assertIsDisplayed().performTouchInput { click(center) }
+        compose.onNodeWithTag("emoji-keywords-field").assertIsFocused()
+    }
+
+    @Test fun customKeywordEditSearchCopyCancelAndRemove() {
+        val glyph = "🐱"
+        search(glyph)
+        compose.onNodeWithTag("emoji-favorite").performClick()
+        openKeywordEditor()
+        val field = compose.onNodeWithTag("emoji-keywords-field")
+        field.performTextReplacement("Café Club\n夜の猫")
+        captureVisibleNode("keywords-editor", "emoji-keywords-field")
+        compose.onNodeWithTag("emoji-keywords-save").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        assertEquals(glyph, store.query)
+        for (q in listOf("CAFE\u0301-club", "夜の猫")) {
+            search(q)
+            assertEquals(glyph, store.results().first().glyph)
+        }
+        evidence("keywords-result", "cat face")
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals(glyph, clipboard())
+        openKeywordEditor()
+        field.performTextReplacement("Discard this")
+        key(KeyEvent.KEYCODE_ESCAPE)
+        assertEquals("Café Club\n夜の猫", store.customKeywordText("1f431"))
+        openKeywordEditor()
+        field.performTextReplacement("")
+        key(KeyEvent.KEYCODE_S, KeyEvent.META_CTRL_ON)
+        assertTrue(store.customKeywordText("1f431").isEmpty())
+        compose.onNodeWithTag("emoji-empty").assertIsDisplayed()
+        assertEquals(setOf("1f431"), storedFavorites())
+        compose.onNodeWithTag("emoji-copy-status").assertTextEquals("Removed keywords for cat face")
+        evidence("keywords-removed", "No matching emoji")
+    }
+
+    @Test fun heldKeywordSaveDoesNotEnterTextInTheReturningQuery() {
+        search("🐱")
+        openKeywordEditor()
+        compose.onNodeWithTag("emoji-keywords-field").performTextReplacement("quiet cat")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun emit(action: Int, repeat: Int, modifiers: Int) {
+            assertTrue(testAutomation().injectInputEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_S, repeat, modifiers, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
+            compose.waitForIdle()
+        }
+        try {
+            emit(KeyEvent.ACTION_DOWN, 0, KeyEvent.META_CTRL_ON)
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            for (repeat in 1..3) emit(KeyEvent.ACTION_DOWN, repeat, 0)
+            assertEquals("🐱", store.query)
+        } finally { emit(KeyEvent.ACTION_UP, 0, 0) }
+        assertEquals("quiet cat", store.customKeywordText("1f431"))
+        key(KeyEvent.KEYCODE_S)
+        assertEquals(1, store.query.count { it == 's' })
+    }
+
+    @Test fun heldEscapeCancelsOnlyTheKeywordEditor() {
+        val query = "🐱"
+        search(query)
+        openKeywordEditor()
+        compose.onNodeWithTag("emoji-keywords-field").performTextReplacement("discard this draft")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun escape(action: Int, repeat: Int) {
+            val event = KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_ESCAPE,
+                repeat, 0, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD)
+            assertTrue(testAutomation().injectInputEvent(event, true))
+            compose.waitForIdle()
+        }
+        try {
+            escape(KeyEvent.ACTION_DOWN, 0)
+            compose.onNodeWithTag("emoji-keywords-field").assertDoesNotExist()
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            assertEquals(query, store.query)
+            escape(KeyEvent.ACTION_DOWN, 1)
+            captureVisibleNode("escape-repeat", "emoji-search")
+            assertEquals("Held Escape must preserve the caller query", query, store.query)
+            for (repeat in 2..3) escape(KeyEvent.ACTION_DOWN, repeat)
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            assertEquals(query, store.results()[store.selected].glyph)
+            assertEquals("", store.customKeywordText("1f431"))
+        } finally {
+            escape(KeyEvent.ACTION_UP, 0)
+        }
+        key(KeyEvent.KEYCODE_ESCAPE)
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        assertEquals("Fresh Escape clears the query", "", store.query)
+        captureVisibleNode("escape-fresh", "emoji-search")
+    }
+
+    @Test fun immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection() {
+        search("🐱")
+        openKeywordEditor()
+        val field = compose.onNodeWithTag("emoji-keywords-field")
+        val edit = requireNotNull(field.fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val invalid = "x".repeat(65)
+        var failure: IllegalArgumentException? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            val down = android.os.SystemClock.uptimeMillis()
+            fun dispatch(action: Int) = activity.dispatchKeyEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_S, 0, KeyEvent.META_CTRL_ON, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD))
+            assertTrue(edit(AnnotatedString(invalid)))
+            try {
+                assertTrue(dispatch(KeyEvent.ACTION_DOWN))
+            } catch (e: IllegalArgumentException) {
+                failure = e
+            } finally {
+                dispatch(KeyEvent.ACTION_UP)
+            }
+        }
+        field.assertTextContains(invalid)
+        compose.onNodeWithText("Use up to 64 characters per keyword.").assertExists()
+        compose.onNodeWithTag("emoji-keywords-save").assertIsNotEnabled()
+        assertEquals("", store.customKeywordText("1f431"))
+        captureVisibleNode("invalid-save", "emoji-keywords-field")
+        assertNull("Dispatching Save on an invalid live draft threw", failure)
+        field.performTextReplacement("corrected keyword")
+        key(KeyEvent.KEYCODE_S, KeyEvent.META_CTRL_ON)
+        assertEquals("corrected keyword", store.customKeywordText("1f431"))
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+    }
+
+    @Test fun keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit() {
+        search("🐱")
+        openKeywordEditor()
+        val field = compose.onNodeWithTag("emoji-keywords-field")
+        field.performTextReplacement("draft for cat")
+        compose.activityRule.scenario.recreate()
+        field.assertTextContains("draft for cat")
+        val peerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        try {
+            lateinit var peer: EmojiStore
+            compose.activityRule.scenario.onActivity { peer = EmojiStore(context, peerScope) }
+            compose.waitUntil(10000) { !peer.loading }
+            compose.activityRule.scenario.onActivity {
+                assertTrue(peer.saveCustomKeywords("1f431", "", "peer keyword"))
+            }
+            compose.onNodeWithTag("emoji-keywords-save").performClick()
+            compose.onNodeWithTag("emoji-keywords-reload").assertExists()
+            assertEquals("peer keyword", store.customKeywordText("1f431"))
+            captureVisibleNode("keywords-conflict", "emoji-keywords-reload")
+            compose.onNodeWithTag("emoji-keywords-reload").performScrollTo().performClick()
+            field.assertTextContains("peer keyword").performTextReplacement("new keyword")
+            key(KeyEvent.KEYCODE_S, KeyEvent.META_CTRL_ON)
+            compose.activityRule.scenario.onActivity {
+                peer.search("new keyword")
+                assertEquals("🐱", peer.results().first().glyph)
+            }
+            assertEquals("🐱", store.query)
+        } finally { peerScope.cancel() }
     }
 
     @Test fun toneCopyKeepsOldestRecentCallerInAnExactGlyphSearch() = copyOldestRecent(true)

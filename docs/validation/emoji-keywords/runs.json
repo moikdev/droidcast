@@ -1,0 +1,512 @@
+{
+  "before": {
+    "app": "9ee2bf301cab2a07501896dc5661c4319968ea0776a49b928c7a50faba5767c8",
+    "app_assets": {
+      "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+      "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+      "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+      "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+      "assets/NOTICE.md": "06041890b0cc884f3bd3a29866bdbca29e555c5cac63b0f6d800c9a7aeb6a918",
+      "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+      "assets/UNICODE-LICENSE": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+      "assets/emoji-catalog.tsv": "c3cde8bd0603dc2402ffa366f2c5049b15036faed089a0df1265b5c637fd40db",
+      "assets/emoji-keywords/de.tsv": "4dbdd245e32eba33cabc6e97355a9bbab3e4ce8a632c10eabac34198500f1cbf",
+      "assets/emoji-keywords/en.tsv": "249225ce3e34449f9b12773fcd1b69b4878750c6dcba1614f9e134c02e6c03d9",
+      "assets/emoji-keywords/es.tsv": "6f9418dbb7b75fba1e9670f170061130c292f35e6d2bb47083ac495aae1221c5",
+      "assets/emoji-keywords/fr.tsv": "b3d3420889b2070b908f78e1dfda0ffe653ac1fd60ab56c2162427edf46f14f6",
+      "assets/emoji-keywords/ja.tsv": "feb0ad26d26babd4d8547b04360dfe51aaffee298d7f3b48360d2898d5c5a219",
+      "assets/emoji-keywords/ko.tsv": "393fddb90879a93fa269c9948536b58fd4e02139139a4f3151ed85d1d653123c",
+      "assets/emoji-keywords/pt.tsv": "078f0959b9f89661db6bedfd94bc1e86bb50f896d02a7dead69df5c0b38af32e",
+      "assets/emoji-keywords/ru.tsv": "bd7f40c6c0b5832a0f720ecc2ffd7580a58ba980d88d50717a036435641eb964",
+      "assets/emoji-keywords/zh.tsv": "55c9f9373ae7d2cea35e7755d8ace96d717957e423a1bae8a81e52bc8e2d03e0",
+      "assets/emoji-keywords/zh_Hant.tsv": "aad11a5a70fc9b89abfdc09499d67af033cd3652e6403bdfe49132991608b1b6",
+      "assets/emoji-tone-families.tsv": "f436e80631d070df8ed228526e8c4b959e022fab2912ff69dc7ac7b0d9b076d3",
+      "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+    },
+    "app_build_commit": "e58b60dd82d501f957d35f96bee136a3bb2b35bb",
+    "app_language": "en-US",
+    "cases": {
+      "edit": {
+        "files": {
+          "keywords-before.png": "39f7ab19f45f8fe35d7661e7b3036daaeadb9c6d3c67c77743878f175346db13",
+          "keywords-before.xml": "fef40fdeeeceb4ab6f1cee0f6332388706ddb5162d8e783e6e3b47087f06fe8a"
+        },
+        "junit_pass": false,
+        "method": "customKeywordEditSearchCopyCancelAndRemove"
+      }
+    },
+    "clipboard_verified": true,
+    "kind": "prior",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "56edbfa0bf7fe0f265533887ea1f38a867a03a7b987ad55158d400ba156af2f5",
+    "test": "d83d22cfabfb18fea8fbd8f8adaa66af17db7680e94d32a89f03f7c9467af546"
+  },
+  "before-final": {
+    "app": "b26d92bbac0e3da49bec1659b5c54e40da4b458c8130860f2db1c8abee3333f6",
+    "app_assets": {
+      "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+      "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+      "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+      "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+      "assets/NOTICE.md": "06041890b0cc884f3bd3a29866bdbca29e555c5cac63b0f6d800c9a7aeb6a918",
+      "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+      "assets/UNICODE-LICENSE": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+      "assets/emoji-catalog.tsv": "c3cde8bd0603dc2402ffa366f2c5049b15036faed089a0df1265b5c637fd40db",
+      "assets/emoji-keywords/de.tsv": "4dbdd245e32eba33cabc6e97355a9bbab3e4ce8a632c10eabac34198500f1cbf",
+      "assets/emoji-keywords/en.tsv": "249225ce3e34449f9b12773fcd1b69b4878750c6dcba1614f9e134c02e6c03d9",
+      "assets/emoji-keywords/es.tsv": "6f9418dbb7b75fba1e9670f170061130c292f35e6d2bb47083ac495aae1221c5",
+      "assets/emoji-keywords/fr.tsv": "b3d3420889b2070b908f78e1dfda0ffe653ac1fd60ab56c2162427edf46f14f6",
+      "assets/emoji-keywords/ja.tsv": "feb0ad26d26babd4d8547b04360dfe51aaffee298d7f3b48360d2898d5c5a219",
+      "assets/emoji-keywords/ko.tsv": "393fddb90879a93fa269c9948536b58fd4e02139139a4f3151ed85d1d653123c",
+      "assets/emoji-keywords/pt.tsv": "078f0959b9f89661db6bedfd94bc1e86bb50f896d02a7dead69df5c0b38af32e",
+      "assets/emoji-keywords/ru.tsv": "bd7f40c6c0b5832a0f720ecc2ffd7580a58ba980d88d50717a036435641eb964",
+      "assets/emoji-keywords/zh.tsv": "55c9f9373ae7d2cea35e7755d8ace96d717957e423a1bae8a81e52bc8e2d03e0",
+      "assets/emoji-keywords/zh_Hant.tsv": "aad11a5a70fc9b89abfdc09499d67af033cd3652e6403bdfe49132991608b1b6",
+      "assets/emoji-tone-families.tsv": "f436e80631d070df8ed228526e8c4b959e022fab2912ff69dc7ac7b0d9b076d3",
+      "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+    },
+    "app_build_commit": "c9ef042d0f635f56471f42cc117233c7396cdd7f",
+    "app_language": "en-US",
+    "cases": {
+      "conflict": {
+        "files": {
+          "keywords-before.png": "b4ea19554bb0ae57ad4f08c7dc6193b20cb232ca0471b6360799e3d9ed3905c6",
+          "keywords-before.xml": "787360df4d35afb3464dc1960a2b676a6d6d1ad8024b0dfee5fbd072e5a466ea"
+        },
+        "junit_pass": false,
+        "method": "keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit"
+      },
+      "edit": {
+        "files": {
+          "keywords-before.png": "6349384b344cd53ad1c8cfb3071f588e521662db270d702792c4b93647cfd1c9",
+          "keywords-before.xml": "5bbc57b8c25e1d0c643cc92633262eaed149411bb51e9cdee28320fde65fc8db"
+        },
+        "junit_pass": false,
+        "method": "customKeywordEditSearchCopyCancelAndRemove"
+      }
+    },
+    "clipboard_verified": true,
+    "kind": "prior",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "bfd895f3b0641d4a9bbb51341ed484d6f5cf3285d7f2af06045851d25d96827b",
+    "test": "780128a1fc4d40dd9746daa5876bc78a88bfb82a3b29ccbe5030e61c0bd5acc4"
+  },
+  "phone": {
+    "app": "f0b55ee3b30e5424a5031eadc600a4b2aa516dfb84eeb47df2a9a2a8b8c00b20",
+    "app_assets": {
+      "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+      "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+      "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+      "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+      "assets/NOTICE.md": "06041890b0cc884f3bd3a29866bdbca29e555c5cac63b0f6d800c9a7aeb6a918",
+      "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+      "assets/UNICODE-LICENSE": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+      "assets/emoji-catalog.tsv": "c3cde8bd0603dc2402ffa366f2c5049b15036faed089a0df1265b5c637fd40db",
+      "assets/emoji-keywords/de.tsv": "4dbdd245e32eba33cabc6e97355a9bbab3e4ce8a632c10eabac34198500f1cbf",
+      "assets/emoji-keywords/en.tsv": "249225ce3e34449f9b12773fcd1b69b4878750c6dcba1614f9e134c02e6c03d9",
+      "assets/emoji-keywords/es.tsv": "6f9418dbb7b75fba1e9670f170061130c292f35e6d2bb47083ac495aae1221c5",
+      "assets/emoji-keywords/fr.tsv": "b3d3420889b2070b908f78e1dfda0ffe653ac1fd60ab56c2162427edf46f14f6",
+      "assets/emoji-keywords/ja.tsv": "feb0ad26d26babd4d8547b04360dfe51aaffee298d7f3b48360d2898d5c5a219",
+      "assets/emoji-keywords/ko.tsv": "393fddb90879a93fa269c9948536b58fd4e02139139a4f3151ed85d1d653123c",
+      "assets/emoji-keywords/pt.tsv": "078f0959b9f89661db6bedfd94bc1e86bb50f896d02a7dead69df5c0b38af32e",
+      "assets/emoji-keywords/ru.tsv": "bd7f40c6c0b5832a0f720ecc2ffd7580a58ba980d88d50717a036435641eb964",
+      "assets/emoji-keywords/zh.tsv": "55c9f9373ae7d2cea35e7755d8ace96d717957e423a1bae8a81e52bc8e2d03e0",
+      "assets/emoji-keywords/zh_Hant.tsv": "aad11a5a70fc9b89abfdc09499d67af033cd3652e6403bdfe49132991608b1b6",
+      "assets/emoji-tone-families.tsv": "f436e80631d070df8ed228526e8c4b959e022fab2912ff69dc7ac7b0d9b076d3",
+      "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+    },
+    "app_build_commit": "b5debc0cf70206e37db13648ff62c91965d7a0ad",
+    "app_language": "en-US",
+    "cases": {
+      "conflict": {
+        "files": {
+          "keywords-conflict.png": "d95016e43e31a07eccab4fb1f0bab8935713ef10e4dfb7129970536b8041b4a8",
+          "keywords-conflict.xml": "6bdde787606d843f8838ec9090022983300b274d76551248ee79dd10ee49dd73"
+        },
+        "junit_pass": true,
+        "method": "keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit"
+      },
+      "edit": {
+        "files": {
+          "keywords-editor.png": "933b2697374a03431b82ac7e2dfc424555833ac672d74738a99121bd6ee43d88",
+          "keywords-editor.xml": "e351f433f5abb018175117443859fbf51efc9f08ed44bd4e003e829244070ef9",
+          "keywords-removed.png": "174c13a26ce4b43a6cdb65b55c15ed3f4681c678a277256850fb30483a266679",
+          "keywords-removed.xml": "3c123ab999af2182657380f33cb97bdf2895c5a0ec6c1ca4154987c155fa0f1a",
+          "keywords-result.png": "b11aad1e098b381cd96a94c2a0164f01277fecc54e271a7f3568c180f02ab00f",
+          "keywords-result.xml": "31ff68fa011e17cadaf01e6abc10fbf670b29a2eda10673b019922a95a1f632b"
+        },
+        "junit_pass": true,
+        "method": "customKeywordEditSearchCopyCancelAndRemove"
+      }
+    },
+    "clipboard_verified": true,
+    "kind": "current",
+    "profile": "phone",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "56edbfa0bf7fe0f265533887ea1f38a867a03a7b987ad55158d400ba156af2f5",
+    "test": "d83d22cfabfb18fea8fbd8f8adaa66af17db7680e94d32a89f03f7c9467af546"
+  },
+  "phone-final": {
+    "app": "ed07c40338312641aef9fedc847f4dc8c80434e6c319d0181304fd36f449fe01",
+    "app_assets": {
+      "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+      "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+      "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+      "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+      "assets/NOTICE.md": "06041890b0cc884f3bd3a29866bdbca29e555c5cac63b0f6d800c9a7aeb6a918",
+      "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+      "assets/UNICODE-LICENSE": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+      "assets/emoji-catalog.tsv": "c3cde8bd0603dc2402ffa366f2c5049b15036faed089a0df1265b5c637fd40db",
+      "assets/emoji-keywords/de.tsv": "4dbdd245e32eba33cabc6e97355a9bbab3e4ce8a632c10eabac34198500f1cbf",
+      "assets/emoji-keywords/en.tsv": "249225ce3e34449f9b12773fcd1b69b4878750c6dcba1614f9e134c02e6c03d9",
+      "assets/emoji-keywords/es.tsv": "6f9418dbb7b75fba1e9670f170061130c292f35e6d2bb47083ac495aae1221c5",
+      "assets/emoji-keywords/fr.tsv": "b3d3420889b2070b908f78e1dfda0ffe653ac1fd60ab56c2162427edf46f14f6",
+      "assets/emoji-keywords/ja.tsv": "feb0ad26d26babd4d8547b04360dfe51aaffee298d7f3b48360d2898d5c5a219",
+      "assets/emoji-keywords/ko.tsv": "393fddb90879a93fa269c9948536b58fd4e02139139a4f3151ed85d1d653123c",
+      "assets/emoji-keywords/pt.tsv": "078f0959b9f89661db6bedfd94bc1e86bb50f896d02a7dead69df5c0b38af32e",
+      "assets/emoji-keywords/ru.tsv": "bd7f40c6c0b5832a0f720ecc2ffd7580a58ba980d88d50717a036435641eb964",
+      "assets/emoji-keywords/zh.tsv": "55c9f9373ae7d2cea35e7755d8ace96d717957e423a1bae8a81e52bc8e2d03e0",
+      "assets/emoji-keywords/zh_Hant.tsv": "aad11a5a70fc9b89abfdc09499d67af033cd3652e6403bdfe49132991608b1b6",
+      "assets/emoji-tone-families.tsv": "f436e80631d070df8ed228526e8c4b959e022fab2912ff69dc7ac7b0d9b076d3",
+      "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+    },
+    "app_build_commit": "27e2f3b9d593c11eb90679ace6a3ea0824eade1b",
+    "app_language": "en-US",
+    "cases": {
+      "conflict": {
+        "files": {
+          "keywords-conflict.png": "42f612bad39d3f5b9d669a0e8ae4e11ddba0ab391d353815aad2a89ea734f67c",
+          "keywords-conflict.xml": "df8fa4c3e4423dab8b899000d5856da974a33a3f9da469945d9fc2ec95a2ac88"
+        },
+        "junit_pass": true,
+        "method": "keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit"
+      },
+      "edit": {
+        "files": {
+          "keywords-editor.png": "abd44a56618661cc20cf9fd1195b0b960c4c28ba0b4d70183854e91083d82133",
+          "keywords-editor.xml": "6df47a1c299593e7225c908a95bcf11cb3287c9f5fc57fa303ddae8c6c59e911",
+          "keywords-removed.png": "e354b4fec871ed2e0a9d45f36c2ce8152849db17f46ba1e38e00181e1559aaa2",
+          "keywords-removed.xml": "87d2a3c13988365cb4e591853671c0cd600d20b9d9e30b5cc003c2704e5013c4",
+          "keywords-result.png": "9c9043c6a924bb6d00ea18ea0371427f63f0f79aeb07803fdebbdd64f2c90b20",
+          "keywords-result.xml": "b72a3fc67a1b409fbfac40700bcbe5aea8aa681f91e2c07ec820d652a7279c40"
+        },
+        "junit_pass": true,
+        "method": "customKeywordEditSearchCopyCancelAndRemove"
+      },
+      "held-save": {
+        "files": {},
+        "junit_pass": true,
+        "method": "heldKeywordSaveDoesNotEnterTextInTheReturningQuery"
+      },
+      "oldest-exact": {
+        "files": {
+          "oldest-exact.png": "bbe911d201c344bcaa26d0e2de4c5f9efa594fcfdd501dee0dd8acb81d5bbbcc",
+          "oldest-exact.xml": "e754fc5d1ad8ca6affd8f53fc8dfd3c9b777ea93388492f7a883db8f4f0ff538"
+        },
+        "junit_pass": true,
+        "method": "toneCopyKeepsOldestRecentCallerInAnExactGlyphSearch"
+      }
+    },
+    "clipboard_verified": true,
+    "kind": "current",
+    "profile": "phone",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "bfd895f3b0641d4a9bbb51341ed484d6f5cf3285d7f2af06045851d25d96827b",
+    "test": "780128a1fc4d40dd9746daa5876bc78a88bfb82a3b29ccbe5030e61c0bd5acc4"
+  },
+  "tablet": {
+    "app": "f0b55ee3b30e5424a5031eadc600a4b2aa516dfb84eeb47df2a9a2a8b8c00b20",
+    "app_assets": {
+      "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+      "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+      "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+      "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+      "assets/NOTICE.md": "06041890b0cc884f3bd3a29866bdbca29e555c5cac63b0f6d800c9a7aeb6a918",
+      "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+      "assets/UNICODE-LICENSE": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+      "assets/emoji-catalog.tsv": "c3cde8bd0603dc2402ffa366f2c5049b15036faed089a0df1265b5c637fd40db",
+      "assets/emoji-keywords/de.tsv": "4dbdd245e32eba33cabc6e97355a9bbab3e4ce8a632c10eabac34198500f1cbf",
+      "assets/emoji-keywords/en.tsv": "249225ce3e34449f9b12773fcd1b69b4878750c6dcba1614f9e134c02e6c03d9",
+      "assets/emoji-keywords/es.tsv": "6f9418dbb7b75fba1e9670f170061130c292f35e6d2bb47083ac495aae1221c5",
+      "assets/emoji-keywords/fr.tsv": "b3d3420889b2070b908f78e1dfda0ffe653ac1fd60ab56c2162427edf46f14f6",
+      "assets/emoji-keywords/ja.tsv": "feb0ad26d26babd4d8547b04360dfe51aaffee298d7f3b48360d2898d5c5a219",
+      "assets/emoji-keywords/ko.tsv": "393fddb90879a93fa269c9948536b58fd4e02139139a4f3151ed85d1d653123c",
+      "assets/emoji-keywords/pt.tsv": "078f0959b9f89661db6bedfd94bc1e86bb50f896d02a7dead69df5c0b38af32e",
+      "assets/emoji-keywords/ru.tsv": "bd7f40c6c0b5832a0f720ecc2ffd7580a58ba980d88d50717a036435641eb964",
+      "assets/emoji-keywords/zh.tsv": "55c9f9373ae7d2cea35e7755d8ace96d717957e423a1bae8a81e52bc8e2d03e0",
+      "assets/emoji-keywords/zh_Hant.tsv": "aad11a5a70fc9b89abfdc09499d67af033cd3652e6403bdfe49132991608b1b6",
+      "assets/emoji-tone-families.tsv": "f436e80631d070df8ed228526e8c4b959e022fab2912ff69dc7ac7b0d9b076d3",
+      "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+    },
+    "app_build_commit": "b5debc0cf70206e37db13648ff62c91965d7a0ad",
+    "app_language": "en-US",
+    "cases": {
+      "alias": {
+        "files": {
+          "alias-search.png": "d42c65b0bb42f0f87b82328f4924009f1fa181822cb36339c1574074e095e414",
+          "alias-search.xml": "3bca3619640f44983e98bfcdfa33947cebbce07eed0a14cb7560d00428c5fd6a",
+          "no-results.png": "6efa074089f38249ce75cffbe1cd19e246b70fb22b5b800035e81b8e056dc329",
+          "no-results.xml": "e82f9c6fb63a34c0fed801bb36f1c8441c758f009a41c5777e589e7c1697d134"
+        },
+        "junit_pass": true,
+        "method": "searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState"
+      },
+      "conflict": {
+        "files": {
+          "keywords-conflict.png": "fcfc92ea73e4be7b4c1b4ec0b22d27f8434302fa1f26c413de8a0c1c8b86869b",
+          "keywords-conflict.xml": "3e5f0cf923db34fd7b5603254abb0246dbe38c7c37603b970a2d62eaa6b1a7db"
+        },
+        "junit_pass": true,
+        "method": "keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit"
+      },
+      "default-tone": {
+        "files": {
+          "default-choice.png": "4e2f25eeecbde98eb19d154523e66c27409508b999ef2ee05fa1f1a39b442f8f",
+          "default-choice.xml": "293ca3eda00f21a049f319d5144fbd3f0c63d8fadfa910f5fed484ee248dcf15"
+        },
+        "junit_pass": true,
+        "method": "keyboardCanCancelAndCopyTheExactDefaultFromAnExistingTone"
+      },
+      "edit": {
+        "files": {
+          "keywords-editor.png": "80bc9dad4a8142700e523f7e176358b5282cd8d9ae0c9255936962a6304911ae",
+          "keywords-editor.xml": "7423abac195bda9f3dcce72b52bac149c61c13704ef51241db4d28c11d5c7d88",
+          "keywords-removed.png": "f6980d52a9d4b44b4a6f484a4b5616994e59626516c6a18af9eeff5b848f2716",
+          "keywords-removed.xml": "510ba13ddd383322cf2eab3da654afac832fed614e24a585a3cc479df8cb80c0",
+          "keywords-result.png": "adf149e8d6781717aaabae6a4ee9815d00721b42391d6e62f2afa8b15789af90",
+          "keywords-result.xml": "1b5e005182530cccaccb48a42279ba8a0ebb4cd7c32d3ac6a033c5863b75cb92"
+        },
+        "junit_pass": true,
+        "method": "customKeywordEditSearchCopyCancelAndRemove"
+      },
+      "mixed": {
+        "files": {
+          "mixed-choice.png": "059e139fd4b4b40382ea0bfd4398e02942ca4ebd310bb77df5e24e269c59fcf7",
+          "mixed-choice.xml": "5097bcb5fc02fc44b9865977c7039e36e099d5ae9f24d7362a2ba4c66a40a0f8",
+          "mixed-copied.png": "e3cf915afe29545b2c73fc9a5a3fdd7313e703b623eb64283a48b181f2c53cf1",
+          "mixed-copied.xml": "4e985b3cc19e9f6b42e52f5390aec1608ab4d550e801286081f61d4406e6fe64"
+        },
+        "junit_pass": true,
+        "method": "pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite"
+      },
+      "peer": {
+        "files": {},
+        "junit_pass": true,
+        "method": "freshAndOpenStoresRespectConsentAndIgnorePausedHistoryForRanking"
+      }
+    },
+    "clipboard_verified": true,
+    "kind": "current",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "56edbfa0bf7fe0f265533887ea1f38a867a03a7b987ad55158d400ba156af2f5",
+    "test": "d83d22cfabfb18fea8fbd8f8adaa66af17db7680e94d32a89f03f7c9467af546"
+  },
+  "tablet-final": {
+    "app": "ed07c40338312641aef9fedc847f4dc8c80434e6c319d0181304fd36f449fe01",
+    "app_assets": {
+      "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+      "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+      "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+      "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+      "assets/NOTICE.md": "06041890b0cc884f3bd3a29866bdbca29e555c5cac63b0f6d800c9a7aeb6a918",
+      "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+      "assets/UNICODE-LICENSE": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+      "assets/emoji-catalog.tsv": "c3cde8bd0603dc2402ffa366f2c5049b15036faed089a0df1265b5c637fd40db",
+      "assets/emoji-keywords/de.tsv": "4dbdd245e32eba33cabc6e97355a9bbab3e4ce8a632c10eabac34198500f1cbf",
+      "assets/emoji-keywords/en.tsv": "249225ce3e34449f9b12773fcd1b69b4878750c6dcba1614f9e134c02e6c03d9",
+      "assets/emoji-keywords/es.tsv": "6f9418dbb7b75fba1e9670f170061130c292f35e6d2bb47083ac495aae1221c5",
+      "assets/emoji-keywords/fr.tsv": "b3d3420889b2070b908f78e1dfda0ffe653ac1fd60ab56c2162427edf46f14f6",
+      "assets/emoji-keywords/ja.tsv": "feb0ad26d26babd4d8547b04360dfe51aaffee298d7f3b48360d2898d5c5a219",
+      "assets/emoji-keywords/ko.tsv": "393fddb90879a93fa269c9948536b58fd4e02139139a4f3151ed85d1d653123c",
+      "assets/emoji-keywords/pt.tsv": "078f0959b9f89661db6bedfd94bc1e86bb50f896d02a7dead69df5c0b38af32e",
+      "assets/emoji-keywords/ru.tsv": "bd7f40c6c0b5832a0f720ecc2ffd7580a58ba980d88d50717a036435641eb964",
+      "assets/emoji-keywords/zh.tsv": "55c9f9373ae7d2cea35e7755d8ace96d717957e423a1bae8a81e52bc8e2d03e0",
+      "assets/emoji-keywords/zh_Hant.tsv": "aad11a5a70fc9b89abfdc09499d67af033cd3652e6403bdfe49132991608b1b6",
+      "assets/emoji-tone-families.tsv": "f436e80631d070df8ed228526e8c4b959e022fab2912ff69dc7ac7b0d9b076d3",
+      "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+    },
+    "app_build_commit": "27e2f3b9d593c11eb90679ace6a3ea0824eade1b",
+    "app_language": "en-US",
+    "cases": {
+      "alias": {
+        "files": {
+          "alias-search.png": "6ccb093e04b4024159c5c3f4f4248e5ded03f3a9109a7010e9a32b761fa7b1fd",
+          "alias-search.xml": "04e21d50de644590b6a21793bc44895c7f6d38bafa17e5b0d878d55e2d103e2f",
+          "no-results.png": "d6315281617017582b3c570f49eb30aed33726179b0d2527fc155dac3e4e9752",
+          "no-results.xml": "31b916ad3002c32a253d9476b4808ad31c24e477b562a07f801c08578e9d5ee6"
+        },
+        "junit_pass": true,
+        "method": "searchesNamesAliasesAndKeywordsAndShowsHonestEmptyState"
+      },
+      "conflict": {
+        "files": {
+          "keywords-conflict.png": "63558c44570e31b70b59a2a8794a5f204797579244061e86c4440bee0a1d20fa",
+          "keywords-conflict.xml": "564832a564b8863f82c6d7b5fe57aae95507a58e8c6aa6a9df5866e18cd85e60"
+        },
+        "junit_pass": true,
+        "method": "keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit"
+      },
+      "default-tone": {
+        "files": {
+          "default-choice.png": "9fb2ee1b8213e406b8fd551875477148fcdd4d09f3c153cb25a821bfc80a2e65",
+          "default-choice.xml": "093c4a649dc26b78a134ac404b08d79defad8ad4f2d5406e87e6a38daad8ec24"
+        },
+        "junit_pass": true,
+        "method": "keyboardCanCancelAndCopyTheExactDefaultFromAnExistingTone"
+      },
+      "edit": {
+        "files": {
+          "keywords-editor.png": "fa1538f518745fb2f2010f447d89d737152b846e2d152212fa431053c6bac6ce",
+          "keywords-editor.xml": "26e7f2438f18a4b520ac73a09defd479a25ab5fa244aace3147b6e034439439b",
+          "keywords-removed.png": "6f4af82feaa4e7d2a82598968ec023a5189050a88d4d1a5d82e1bc1b498a6ddd",
+          "keywords-removed.xml": "1a812f0976024b62b7a303971f265761dd70cd4904c509f59cf2187aade3cd76",
+          "keywords-result.png": "985e55c58708967fa0e73bf3b8481eb5e18808765d95664d3d0703493e452994",
+          "keywords-result.xml": "c1b5bd945d9a1578a683f6d534c54b7a7497f18c12293c1f5ebee9eadba953f7"
+        },
+        "junit_pass": true,
+        "method": "customKeywordEditSearchCopyCancelAndRemove"
+      },
+      "held-save": {
+        "files": {},
+        "junit_pass": true,
+        "method": "heldKeywordSaveDoesNotEnterTextInTheReturningQuery"
+      },
+      "mixed": {
+        "files": {
+          "mixed-choice.png": "4bc065a779b27eef2cad940754ec2e26a0203044cf1e49321dfb15d484140863",
+          "mixed-choice.xml": "1a0b2675d98a0c40551671b34090f589f9324dcddc9757e9c1b0214b4129ba07",
+          "mixed-copied.png": "182c9c47e8dcf774861574c8b0c10d44da41c150fc353452c9ba4c1eb5f6def7",
+          "mixed-copied.xml": "477bc1a9c88eb440b0b2a7fcca9eb07ef9e9597e75400cf7dc2ba5dfd80f8c35"
+        },
+        "junit_pass": true,
+        "method": "pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite"
+      },
+      "oldest-all": {
+        "files": {
+          "oldest-all.png": "0cd90a3d8ae71daf041ed5c56b639f24fae3b2e2fcebe96db1ec74eaf4b271f3",
+          "oldest-all.xml": "b5edbba1f253577ad30e879b438d3edfff3cd1f904039133bb2fe0153f9a23e6"
+        },
+        "junit_pass": true,
+        "method": "toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid"
+      },
+      "oldest-exact": {
+        "files": {
+          "oldest-exact.png": "96d7695225d22e0292e0fcf459996c47cd569fac7897a79e498bf8e7386342c4",
+          "oldest-exact.xml": "5b13307d50d9ef6373cbae96fc20727a6793278f636282e95d9f19ed3de67305"
+        },
+        "junit_pass": true,
+        "method": "toneCopyKeepsOldestRecentCallerInAnExactGlyphSearch"
+      },
+      "peer": {
+        "files": {},
+        "junit_pass": true,
+        "method": "freshAndOpenStoresRespectConsentAndIgnorePausedHistoryForRanking"
+      }
+    },
+    "clipboard_verified": true,
+    "kind": "current",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "bfd895f3b0641d4a9bbb51341ed484d6f5cf3285d7f2af06045851d25d96827b",
+    "test": "780128a1fc4d40dd9746daa5876bc78a88bfb82a3b29ccbe5030e61c0bd5acc4"
+  }
+}

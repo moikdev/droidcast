@@ -19,6 +19,20 @@ internal fun normalize(value: String): String = Normalizer.normalize(value, Norm
 object EmojiCatalog {
     private val whitespace = Regex("\\s+")
 
+    internal fun searchPhrase(raw: String) = normalize(raw.trim().removeSurrounding(":")).replace(whitespace, " ")
+
+    internal fun cleanCustomKeywords(text: String): List<String> {
+        require(text.length <= 4096) { "Shorten the keyword list before saving." }
+        val lines = text.lineSequence().map { it.trim() }.filter { it.isNotEmpty() }.toList()
+        require(lines.all { it.codePointCount(0, it.length) <= 64 }) { "Use up to 64 characters per keyword." }
+        require(lines.all { searchPhrase(it).isNotBlank() && it.none(Char::isISOControl) }) {
+            "Each keyword needs searchable text without control characters."
+        }
+        val unique = lines.distinctBy(::searchPhrase)
+        require(unique.size <= 16) { "Use up to 16 different keywords per emoji." }
+        return unique
+    }
+
     internal fun keywordPacks(locales: List<Locale>): List<String> = buildSet {
         add("en")
         for (locale in locales) when (locale.language) {
@@ -67,9 +81,9 @@ object EmojiCatalog {
         }
     }
 
-    fun search(entries: List<EmojiEntry>, query: String, filter: String, favorites: Set<String>, recent: List<String>, favoriteOrder: List<String> = emptyList()): List<EmojiEntry> {
+    fun search(entries: List<EmojiEntry>, query: String, filter: String, favorites: Set<String>, recent: List<String>, favoriteOrder: List<String> = emptyList(), customKeywords: Map<String, List<String>> = emptyMap()): List<EmojiEntry> {
         val rawQuery = query.trim()
-        val q = normalize(rawQuery.removeSurrounding(":")).replace(whitespace, " ")
+        val q = searchPhrase(rawQuery)
         val phrase = "\t$q\t"
         val prefixes = q.split(' ').filter(String::isNotBlank).map { " $it" }
         val recentOrder = recent.withIndex().associate { it.value to it.index }
@@ -87,13 +101,15 @@ object EmojiCatalog {
             else -> filtered
         }
         return filtered.mapNotNull { entry ->
+            val personal = customKeywords[entry.id].orEmpty()
             val score = when {
-                rawQuery == entry.glyph -> 6
+                rawQuery == entry.glyph -> 7
+                q in personal -> 6
                 q == entry.normalizedName -> 5
                 phrase in entry.translatedNames -> 4
                 phrase in entry.exactKeywords -> 3
                 entry.normalizedName.startsWith(q) -> 2
-                prefixes.all { it in entry.wordIndex } -> 1
+                prefixes.all { prefix -> prefix in entry.wordIndex || personal.any { term -> " $term".contains(prefix) } } -> 1
                 else -> return@mapNotNull null
             }
             entry to score

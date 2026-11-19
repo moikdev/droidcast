@@ -59,13 +59,16 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     val results by remember(store) { derivedStateOf { store.results() } }
     val selected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
     var toneMenu by remember(store, searchEpoch, store.query, store.filter, selected?.id, windowFocused) { mutableStateOf(false) }
+    var keywordId by rememberSaveable(searchEpoch) { mutableStateOf<String?>(null) }
+    var editOpening by rememberSaveable(searchEpoch) { mutableIntStateOf(0) }
+    var zoomColumns by rememberSaveable(searchEpoch) { mutableStateOf<Int?>(null) }
     val variants = store.skinTones(selected?.id)
     val anchorQuery = store.query
     val anchorFilter = store.filter
     // Key events can arrive back-to-back before recomposition. Resolve logical
     // selection and composition at event time, not from the last rendered frame.
     fun currentEntry(): EmojiEntry? = store.results().let { it.getOrNull(store.selected.coerceIn(0, it.lastIndex.coerceAtLeast(0))) }
-    fun toneActionCurrent() = selected != null && currentEntry()?.id == selected.id && store.query == anchorQuery &&
+    fun entryActionCurrent() = selected != null && currentEntry()?.id == selected.id && store.query == anchorQuery &&
         store.filter == anchorFilter && actionCurrent() && view.hasWindowFocus()
     fun isComposing() = searchValue.text == store.query && searchValue.composition != null
     fun copyEntry(entry: EmojiEntry) {
@@ -120,11 +123,28 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         return true
     }
     fun currentHistoryView() = store.filter == "Recent" && actionCurrent() && view.hasWindowFocus()
-    fun back() { if (toneMenu) toneMenu = false else if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
+    fun back() { if (keywordId != null) keywordId = null else if (toneMenu) toneMenu = false else if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
     BackHandler {
         PaletteBackTrace.handler("emoji-dispatcher-before", menu || actionsMenu || toneMenu, store.query.length)
         back()
         PaletteBackTrace.handler("emoji-dispatcher-after", menu || actionsMenu || toneMenu, store.query.length)
+    }
+    val editingId = keywordId
+    if (editingId != null) {
+        val opening = editOpening
+        val entry = store.entries.firstOrNull { it.id == editingId }
+        fun ownsEditor() = keywordId == editingId && opening == editOpening && actionCurrent() && view.hasWindowFocus()
+        if (entry != null) key(opening) {
+            EmojiKeywordEditor(entry, store, ::ownsEditor, saved = { removed ->
+                if (ownsEditor()) {
+                    copiedName = if (removed) "Removed keywords for ${entry.name}" else "Saved keywords for ${entry.name}"
+                    keywordId = null
+                }
+            }) {
+                if (ownsEditor()) keywordId = null
+            }
+        } else if (!store.loading) LaunchedEffect(editingId) { keywordId = null }
+        return
     }
     PaletteViewport(emptyFeedback=results.isEmpty()) { wide, top, height ->
         val compactEmpty = results.isEmpty() && height < 180.dp
@@ -133,7 +153,6 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         val maxColumns = ((gridWidth + 4) / 52).toInt().coerceIn(1, 10)
         val minColumns = minOf(if (gridWidth >= 600) 6 else 3, maxColumns)
         val automaticColumns = (gridWidth / 64).toInt().coerceIn(minColumns, maxColumns)
-        var zoomColumns by rememberSaveable(searchEpoch) { mutableStateOf<Int?>(null) }
         fun currentColumns() = (zoomColumns ?: store.defaultGridColumns ?: automaticColumns).coerceIn(minColumns, maxColumns)
         val columns = currentColumns()
         val sizeRatio = automaticColumns.toFloat() / columns
@@ -371,10 +390,16 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                             shortcut=listOf("Ctrl","D"),icon="star",separator=true,chord=KeyChord(KeyEvent.KEYCODE_D,ShortcutRules.CTRL)) {currentEntry()?.let(::pin)},
                         PaletteChoice("emoji-action-unicode","Copy Unicode",enabled=selected!=null,icon="clipboard") {
                             currentEntry()?.let { entry -> copy(entry.glyph.codePoints().toArray().joinToString(" "){"U+"+it.toString(16).uppercase().padStart(4,'0')}); copiedName="Copied Unicode for ${entry.name}" }
+                        },
+                        PaletteChoice("emoji-action-keywords", "Edit custom keywords", enabled = selected != null) {
+                            if (selected != null && entryActionCurrent() && !isComposing()) {
+                                editOpening++
+                                keywordId = selected.id
+                            }
                         }
                     ) + (if (variants.isEmpty()) emptyList() else listOf(
                         PaletteChoice("emoji-action-tone", "Copy with skin tone…") {
-                            if (toneActionCurrent() && !isComposing()) toneMenu = true
+                            if (entryActionCurrent() && !isComposing()) toneMenu = true
                         }
                     )) + (if (store.filter == "Favorites" && store.query.isBlank()) listOf(moveChoice(-1), moveChoice(1)) else emptyList()) + (if (store.filter == "Recent") listOf(
                         if (store.historyEnabled)
@@ -400,7 +425,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     if (toneMenu) PaletteChoiceMenu(true, { toneMenu = false }, variants.mapIndexed { index, variant ->
                         PaletteChoice("emoji-tone-${variant.id}", "${variant.glyph}  ${skinToneLabel(index, variants.size)}",
                             checked = selected?.id == variant.id, activateBeforeDismiss = true) {
-                            if (selected != null && toneMenu && toneActionCurrent() && !isComposing()) {
+                            if (selected != null && toneMenu && entryActionCurrent() && !isComposing()) {
                                 copy(variant.glyph)
                                 store.copiedVariant(variant, selected.id)
                                 copiedName = "Copied ${variant.name}"

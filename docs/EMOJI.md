@@ -9,6 +9,16 @@ account or network connection is needed to use the bundled catalog.
   for German, Spanish, French, Japanese, Korean, Portuguese, Russian, and
   Simplified or Traditional Chinese. For example, Japanese `ネコの顔` and
   German `Katzengesicht` both find 🐱 when their language is active.
+  To add your own terms, select a symbol and open **Actions → Edit custom keywords**.
+  Enter one word or phrase per line, then tap **Save** or press Ctrl+S. Keywords
+  belong to that exact symbol, including its skin tone. An exact glyph ranks
+  first, followed by an exact personal phrase, the English name, translated
+  names and built-in keywords. Prefix searches can combine words from built-in
+  and personal terms. Cancel discards edits; clear all lines and save to remove
+  the terms. Each emoji accepts up to 16 distinct phrases of up to 64 code
+  points each. These terms are stored on this device. Portable emoji backups
+  continue to contain ordered favorites and grid size.
+
   Multiple search words may appear in any order. Use the category menu for flags,
   people, animals, text symbols, favorites or recent copies.
 - Select a cell to copy it, or use the Copy button. The complete Unicode string
@@ -69,8 +79,7 @@ turning history off releases the extra result.
 
 The picker offers 332 families covering 2,040 modified sequences from Unicode
 18.0. It looks up complete entries, including joined hands and couples; it
-offers a tone action only when the data contains variants. User-defined
-keywords and explicit insertion into a destination app remain tracked in
+offers a tone action only when the data contains variants. Explicit insertion into a destination app remains tracked in
 [#44](https://github.com/moikdev/droidcast/issues/44).
 
 References: [Tinycast baseline picker](https://github.com/abue-ammar/tinycast/blob/37e6043f3f550febb64bdb3cff3ac29a30caad5a/docs/features/emoji.md)
@@ -107,3 +116,29 @@ The matched device tests seed the history, open Recent, select the oldest caller
 The first repair protocol on `43d2fb86` passed 8/9 tablet cases. On both comparison and repaired apps its unfiltered setup failed to select the oldest ID. The exact-search comparison reached the eviction assertion and failed; the repaired exact-search case passed. These two batches recorded 22 restoration checks. The first repair phone continuation did not run. The later instrumentation adds the focus precondition. All source and binary identities are kept separately. [Device logs and restoration outcomes](validation/emoji-tones/recent/runs.json) · [Repair sources](validation/emoji-tones/recent/sources.json) · [Host build and lint results](validation/emoji-tones/recent/host.json)
 
 With final instrumentation on `c9ef042d`, nine tablet and five phone cases passed. Both matched comparison cases reached the caller-preservation assertion and failed on `e58b60dd`. These three batches completed 33 restoration checks. Both build variants passed, 352 JVM cases passed, and each lint variant reported zero errors and 52 warnings. Python receipts from the unchanged scripts record 146 passes in each mode. The results cover one API 36 emulator in two configurations at 100% font.
+
+### Delivering an emoji to another app
+
+The picker currently writes an explicit copy to the clipboard. Droidcast already receives Android selection requests through `ACTION_PROCESS_TEXT` and checks whether the caller marked its text editable. Android defines a result extra for returning replacement text to that caller. A future **Replace selection with emoji** action could use that contract for an editable selection. It would need a verified return to the requesting editor, separate from the current copy action. A plain launcher invocation has no such selection request. Delivery to an external editor remains open under #44. [Android intent contract](https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT)
+
+### Custom keyword verification
+
+The API 36 emulator ran both tablet and phone layouts at 100% font. The earlier app from `c9ef042d` returned [no matching action](screenshots/emoji-keywords/earlier-custom-action.png) for “custom keywords.” The same final instrumentation failed at that missing action in both comparison cases.
+
+On build `27e2f3b9`, the user could save two phrases for 🐱 and find the same favorited symbol with either a decomposed spelling of “Café Club” or the Japanese phrase “夜の猫”. The tests tapped Save and verified that Enter copied exactly 🐱. Escape discarded a subsequent edit. Clearing both lines and saving removed the match while preserving the favorite. [Tablet editor](screenshots/emoji-keywords/tablet-editor.png) · [Phone search](screenshots/emoji-keywords/phone-result.png) · [Phone after removal](screenshots/emoji-keywords/phone-removed.png)
+
+A separate test recreated the activity with an open draft and used a second live store to save a different value. Save preserved the draft and the peer's edit until the user chose **Load saved keywords**. After loading that value the user could make a new edit. In the held-key case, releasing Ctrl before S produced no extra text in the restored picker, and a new S press reached the query. [Tablet conflict](screenshots/emoji-keywords/tablet-conflict.png) · [Phone conflict](screenshots/emoji-keywords/phone-conflict.png)
+
+Nine final tablet cases and four final phone cases passed. The final comparison failed both missing-action assertions. These three batches completed 33 restoration checks. The initial build `b5debc0c` passed six tablet and two phone cases, and its separate comparison failed one missing-action assertion. Those three batches recorded another 33 checks. Each comparison used the same instrumentation as its matching positive cases. Text setup used Compose replacement, and the concurrent edit used two stores in one process. Physical multilingual typing, a cold process restart and broad accessibility remain outside the recorded scenarios.
+
+Both final build variants succeeded. The debug JVM task ran 354 tests. Each lint variant reported zero errors and 53 warnings, including a suggestion to use the KTX preference editor helper. Python ran 146 tests per mode on unchanged scripts. [Device records](validation/emoji-keywords/runs.json) · [Host results](validation/emoji-keywords/host.json) · [Source identities](validation/emoji-keywords/sources.json) · [Capture and log bindings](validation/emoji-keywords/bindings.json)
+
+### Canceling with a held key and saving an invalid draft
+
+Holding Escape in the keyword editor cancels the draft once. The returning picker keeps its search and selected emoji through further key repeats and release. A new Escape press then clears the search. If Ctrl+S arrives immediately after an invalid edit, the editor keeps the draft and displays its validation message. Correcting it allows Save to succeed.
+
+On the API 36 emulator the earlier keyword app from `27e2f3b9` cleared the cat query on the first repeat. In the other control, setting a 65-character phrase and dispatching Ctrl+S in the same main-thread turn threw an IllegalArgumentException. The fixture caught the exception to retain the screen and fail the test. The screenshot shows the validation state. The exception is recorded in the [earlier dispatch log](validation/emoji-keywords/repair/runs/before/invalid.log).
+
+Using identical instrumentation, the repaired `bc103d88` app passed nine tablet and five phone cases, including both regressions on each layout. Three batches completed 33 restoration checks. The keyboard-hold test injected a down, repeats and release. The immediate Save test combined a Compose text update with direct Activity key dispatch. The earlier keyword matrices above remain attributed to their own builds. Both repaired debug and benchmark app/test variants built, 354 debug JVM tests passed, and lint reported zero errors and 53 warnings per variant. Python results are reused from the unchanged scripts.
+
+[Earlier Escape](screenshots/emoji-keywords/repair/before-escape.png) · [Repaired tablet](screenshots/emoji-keywords/repair/tablet-escape-repeat.png) · [Phone invalid draft](screenshots/emoji-keywords/repair/phone-invalid-save.png) · [Device results](validation/emoji-keywords/repair/runs.json) · [Host results](validation/emoji-keywords/repair/host.json) · [Source inventory](validation/emoji-keywords/repair/sources.json) · [Capture bindings](validation/emoji-keywords/repair/bindings.json)

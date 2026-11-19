@@ -94,6 +94,29 @@ class EmojiCatalogTest {
         for (unsupported in listOf("🏻", "🐱", "🇯🇵", "π")) assertNull(families[search(unsupported).first().id])
     }
 
+    @Test fun customPhrasesKeepExactGlyphFirstAndUseTheExistingTieOrderAndFilters() {
+        val cat = search("🐱").first()
+        val dog = search("🐶").first()
+        val smile = search("😀").first()
+        val terms = mapOf(cat.id to listOf("dog face", "hello world", "😀"), dog.id to listOf("hello world"))
+        fun results(q: String, filter: String = "All") = EmojiCatalog.search(
+            entries, q, filter, setOf(dog.id), emptyList(), listOf(dog.id), terms)
+        assertEquals(cat, results("DOG-FACE").first())
+        assertEquals(smile, results("😀").first())
+        assertEquals(listOf(dog, cat), results(":hello_world:"))
+        assertEquals(listOf(dog), results("hello wo", "Favorites"))
+        assertEquals(cat, results("cat wor").single())
+        assertTrue(results("hello world", "Recent").isEmpty())
+    }
+
+    @Test fun keywordValidationPreservesSpellingAndCombinesEquivalentPhrases() {
+        assertEquals(listOf("Café  Club", "推し"), EmojiCatalog.cleanCustomKeywords(" Café  Club\nCAFE\u0301-club\n推し  \n"))
+        assertTrue(EmojiCatalog.cleanCustomKeywords("  \n").isEmpty())
+        assertTrue(EmojiCatalog.cleanCustomKeywords("🐈".repeat(64)).isNotEmpty())
+        for (draft in listOf("::", "-_", "a\tb", "🐈".repeat(65), (1..17).joinToString("\n")))
+            assertTrue(runCatching { EmojiCatalog.cleanCustomKeywords(draft) }.isFailure)
+    }
+
     @Test fun malformedCatalogsAreRejected() {
         listOf(sequenceOf("bad"), sequenceOf("id\tx\tname\tcat\tkeys", "id\ty\tname\tcat\tkeys")).forEach { input ->
             assertTrue(runCatching { EmojiCatalog.parse(input) }.isFailure)
