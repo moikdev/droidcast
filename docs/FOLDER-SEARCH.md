@@ -90,3 +90,20 @@ The comparison build at `b8eb54eb` attempted to launch the picker for the filter
 The initial harness reproduced the stale launch and confirmed its repair on tablet. On both builds, the error case stopped before lookup because its directory row had yet to appear. The final fixture waits for the row to be displayed before testing navigation. [Case outcomes and APKs](validation/folder-restart/filter/runs.json) · [Screenshots and case bindings](validation/folder-restart/filter/bindings.json).
 
 The repaired build at `e8c4730e` passed all five cases on both tablet and phone. The three final instrumentation batches recorded 41 successful cleanup checks. The separate cold-start workflow also reopened the indexed file and verified the full fixture sentence through the viewer hierarchy. Both app and instrumentation variants built successfully. All 356 JVM tests and 148 Python cases in each interpreter mode passed. Lint reported zero errors and 57 warnings per variant. [Cold-start result](validation/folder-restart/filter/restart.json) · [Host results](validation/folder-restart/filter/host.json).
+
+### Refresh while a provider is loading or offline
+
+A partial directory listing can look like a successful refresh. Android providers can set `DocumentsContract.EXTRA_LOADING` while fetching more children, or `EXTRA_ERROR` when they cannot return a listing. DroidCast now discards the unfinished scan for that folder, reports a retry message beside its name, and keeps its previously indexed names while its tree permission is valid. Healthy folders refresh independently. A completed empty listing removes old entries. Retained entries share the normal index size limits with fresh entries.
+
+On the dedicated API 36 emulator, Android’s picker granted access to a local folder containing one file and a test provider containing five entries. The fixture renamed the local file during refresh. With the earlier app, a loading response containing one row reduced the total to two. An error response containing zero rows reduced it to one. Both updates appeared successful in Settings. With the repair, both responses kept six entries, showed the folder-specific warning, and updated the local filename. A separately constructed store read the same entries back from disk. A completed empty retry reduced the total to one, and a subsequent healthy listing restored all six.
+
+| Device run | Result |
+| --- | --- |
+| First picker fixture on earlier and candidate apps | Both cases on both builds stopped before selecting the test provider. |
+| Earlier app, final fixture, tablet | Both cases failed at the row-preservation assertion. |
+| Repaired app, final fixture, tablet and phone | Both cases passed on both layouts. |
+| Repaired app, separate tablet revocation regression | Opening a fresh Settings store pruned the revoked folder and preserved the readable folder. |
+
+The final four batches completed 57 inner cleanup checks. The earlier two setup batches recorded 26 separately. The final control uses the same instrumentation APK as the repaired runs. The Settings images are native screenshots cropped to the app workspace, with matching hierarchy subtrees. Full query results and persistence are checked in instrumentation. The fixture controls Android cursor flags and row counts. A commercial cloud service, actual network outage and process death during refresh remain untested. [Case outcomes and APKs](validation/folder-provider/runs.json) · [Screenshot bindings](validation/folder-provider/bindings.json).
+
+Debug and benchmark app and instrumentation builds passed, as did 356 debug JVM tests and 149 Python cases in each interpreter mode. Both lint variants reported zero errors and 57 warnings. An initial Python run failed three cleanup-test setups because the hermetic finalizer lacked the new optional fixture variable. The first benchmark command selected the debug instrumentation configuration and failed task selection. The final host checks include the corrected cleanup harness and benchmark configuration. [Host results](validation/folder-provider/host.json).
