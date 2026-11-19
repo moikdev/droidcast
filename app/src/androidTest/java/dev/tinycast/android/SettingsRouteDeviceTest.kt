@@ -277,7 +277,17 @@ class SettingsRouteDeviceTest {
             device.dumpWindowHierarchy(File(dest, "$path-$phase.xml"))
             assertTrue(device.takeScreenshot(File(dest, "$path-$phase.png")))
         }
-        measure()
+        fun settleViewport(): Boolean {
+            val until = SystemClock.uptimeMillis() + 1600
+            while (SystemClock.uptimeMillis() < until) {
+                measure()
+                SystemClock.sleep(120)
+            }
+            return measure()
+        }
+        val openingVisible = settleViewport()
+        capture("opening")
+        assertTrue("Opening the inspector must reveal the complete alias field above the keyboard", openingVisible)
         val controller = WindowCompat.getInsetsController(workspace.window, workspace.window.decorView)
         compose.runOnUiThread { controller.hide(WindowInsetsCompat.Type.ime()) }
         compose.waitUntil(5000) { !compose.runOnUiThread { imeVisible() } }
@@ -285,13 +295,7 @@ class SettingsRouteDeviceTest {
         measure()
         compose.runOnUiThread { controller.show(WindowInsetsCompat.Type.ime()) }
         compose.waitUntil(5000) { measure(); compose.runOnUiThread { imeVisible() } }
-        // Allow both opening animation and automatic scrolling to settle. Never scroll to the focused field here.
-        val until = SystemClock.uptimeMillis() + 1600
-        while (SystemClock.uptimeMillis() < until) {
-            SystemClock.sleep(120)
-            measure()
-        }
-        val visibleBefore = measure()
+        val visibleBefore = settleViewport()
         capture("settled")
         assertTrue(device.pressKeyCode(KeyEvent.KEYCODE_X))
         alias.assertIsFocused().assert(editableCharactersExactly("x"))
@@ -311,12 +315,16 @@ class SettingsRouteDeviceTest {
         alias.assertIsFocused().assert(editableCharactersExactly("x"))
         assertEquals(id, workspace.requestedCommand)
         val stillOpen = compose.runOnUiThread { imeVisible() }
+        assertTrue("The swipe must move the inspector toward its top by at least one field height",
+            beforePan - afterPan >= alias.fetchSemanticsNode().size.height)
+        assertTrue("The swipe must leave the alias field clipped with the keyboard open", inspectorClipped && stillOpen)
         SystemClock.sleep(350)
         val scrollStable = kotlin.math.abs(scrollOffset() - afterPan) <= 1f &&
-            compose.runOnUiThread { imeVisible() }
-        if (inspectorClipped && stillOpen) capture("panned")
+            compose.runOnUiThread { imeVisible() } && !measure()
+        alias.assertIsFocused().assert(editableCharactersExactly("x"))
+        capture("panned")
         dest?.let { File(it, "$path-probe.json").writeText(JSONObject().put("samples", samples)
-            .put("visible_before_typing", visibleBefore).put("visible_after_typing", visibleAfter)
+            .put("opening_visible", openingVisible).put("visible_before_typing", visibleBefore).put("visible_after_typing", visibleAfter)
             .put("offset_before_pan", beforePan.toDouble()).put("offset_after_pan", afterPan.toDouble())
             .put("panned_clipped", inspectorClipped).put("keyboard_after_pan", stillOpen)
             .put("user_scroll_preserved", scrollStable).put("typed_exactly_x", true).toString()) }
