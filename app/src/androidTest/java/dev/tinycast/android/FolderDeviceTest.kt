@@ -250,6 +250,65 @@ class FolderDeviceTest {
         }
     }
 
+    @Test fun movedIndexedFileKeepsSearchAndReportsRefresh() = checkMovedResult(folder = false)
+    @Test fun movedIndexedFolderKeepsSearchAndReportsRefresh() = checkMovedResult(folder = true)
+
+    private fun checkMovedResult(folder: Boolean) {
+        authorizeCacheFixture()
+        val name = if (folder) "Research" else "Orbit-notes.txt"
+        val path = if (folder) "Research" else "Research/Orbit-notes.txt"
+        val kind = if (folder) "folder" else "file"
+        compose.activityRule.scenario.onActivity { it.openFileSearch() }
+        compose.onNodeWithTag("search").performTextReplacement(name)
+        val row = By.pkg(context.packageName).descStartsWith("$name.")
+        assertTrue("Cached result is visible", device.wait(Until.hasObject(row), 7000))
+        val source = "/sdcard/Download/$rootName/$path"
+        assertEquals("moved", device.executeShellCommand("mv $source ${source}-moved && test ! -e $source && echo moved").trim())
+        val attempts = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val monitor = object : android.app.Instrumentation.ActivityMonitor() {
+            override fun onStartActivity(intent: Intent): android.app.Instrumentation.ActivityResult? {
+                if (intent.action !in setOf(Intent.ACTION_VIEW, Intent.ACTION_OPEN_DOCUMENT)) return null
+                attempts.add(requireNotNull(intent.action))
+                return android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_CANCELED, null)
+            }
+        }
+        val message = "Item unavailable. Refresh the index in Search folders."
+        val evidence = File(context.filesDir, "folder-evidence").apply { mkdirs() }
+        instrumentation.addMonitor(monitor)
+        try {
+            device.findObject(row).click()
+            compose.waitUntil(8000) {
+                attempts.isNotEmpty() || compose.onAllNodesWithText(message).fetchSemanticsNodes().isNotEmpty()
+            }
+            val hasMessage = compose.onAllNodesWithText(message).fetchSemanticsNodes().isNotEmpty()
+            if (hasMessage) assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text(message)), 4000))
+            device.dumpWindowHierarchy(File(evidence, "moved-$kind.xml"))
+            assertTrue(device.takeScreenshot(File(evidence, "moved-$kind.png")))
+            File(evidence, "moved-$kind.json").writeText(org.json.JSONObject()
+                .put("attempted_external_actions", org.json.JSONArray(attempts))
+                .put("recovery_message", hasMessage).toString(2))
+            assertTrue("Moved $kind must stay in the palette; attempted $attempts", attempts.isEmpty())
+            compose.onNodeWithText(message).assertIsDisplayed()
+            compose.onNodeWithTag("search").assertTextEquals(name)
+            assertTrue(device.hasObject(row))
+        } finally { instrumentation.removeMonitor(monitor) }
+    }
+
+    @Test fun oneIndexedItemHasSingularSettingsAndFilesLabels() {
+        authorizeCacheFixture("Research", 1)
+        val status = compose.onNodeWithTag("folder-status")
+        status.performScrollTo().assertIsDisplayed()
+        status.assertTextContains("1 indexed item ·", substring = true)
+        evidence("one-item-settings", "1 indexed item ·")
+        compose.activityRule.scenario.onActivity { it.openFileSearch() }
+        compose.onNodeWithTag("file-search-status").assertTextEquals("1 indexed item")
+        assertTrue(device.wait(Until.hasObject(By.pkg(context.packageName).text("1 indexed item")), 5000))
+        val evidence = File(context.filesDir, "folder-evidence").apply { mkdirs() }
+        device.dumpWindowHierarchy(File(evidence, "one-item-files.xml"))
+        assertTrue(device.takeScreenshot(File(evidence, "one-item-files.png")))
+    }
+
     @Test fun separateDocumentGrantKeepsFolderIndexAcrossReopening() {
         authorizeCacheFixture()
         val original = controller.configurationCommands().map { it.id }.toSet()

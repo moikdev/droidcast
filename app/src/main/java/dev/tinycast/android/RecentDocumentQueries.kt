@@ -3,6 +3,8 @@ package dev.tinycast.android
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.CancellationSignal
+import android.provider.DocumentsContract
+import android.provider.DocumentsContract.Document
 import android.provider.OpenableColumns
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withTimeoutOrNull
@@ -60,6 +62,14 @@ internal class DocumentProviderQueries(private val resolver: ContentResolver, pr
         resolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null, signal)?.use { cursor ->
             if (cursor.moveToFirst()) cursor.getString(0)?.replace(Regex("[\\p{Cntrl}]"), " ")?.take(512)?.takeIf { it.isNotBlank() } else null
         }
+    }
+    suspend fun indexedMimeType(uri: Uri): String = query { signal ->
+        val columns = arrayOf(Document.COLUMN_DOCUMENT_ID, Document.COLUMN_MIME_TYPE)
+        resolver.query(uri, columns, null, null, null, signal)?.use { cursor ->
+            if (cursor.moveToFirst() && cursor.getString(cursor.getColumnIndexOrThrow(columns[0])) == DocumentsContract.getDocumentId(uri))
+                cursor.getString(cursor.getColumnIndexOrThrow(columns[1]))?.takeIf { it.isNotBlank() }
+            else null
+        } ?: throw IOException("Indexed document metadata unavailable")
     }
     override suspend fun mimeType(uri: Uri): String? = query { resolver.getType(uri) }
 }

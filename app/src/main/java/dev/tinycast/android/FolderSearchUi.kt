@@ -69,7 +69,7 @@ internal fun FileSearchToolbar(store: PaletteStore, run: (Command) -> Unit) {
     val model = store.folderSearch
     var filter by remember { mutableStateOf(false) }
     Row(Modifier.fillMaxWidth().height(36.dp).padding(horizontal = 14.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(if (model.busy) "Indexing…" else if (model.searching) "Searching…" else if (!model.enabled) "Recent documents" else "${model.count} indexed items", fontSize = 11.sp, color = PaletteTheme.secondary, modifier = Modifier.weight(1f).testTag("file-search-status"))
+        Text(if (model.busy) "Indexing…" else if (model.searching) "Searching…" else if (!model.enabled) "Recent documents" else model.countLabel, fontSize = 11.sp, color = PaletteTheme.secondary, modifier = Modifier.weight(1f).testTag("file-search-status"))
         Box {
             TextButton(onClick = { filter = true }, modifier = Modifier.testTag("file-type").paletteFocusBookmark()) { Text(model.type.label, fontSize = 11.sp) }
             PaletteChoiceMenu(filter, { filter = false }, FileSearchType.entries.map { type ->
