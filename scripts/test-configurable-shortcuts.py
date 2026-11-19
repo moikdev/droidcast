@@ -571,7 +571,7 @@ try:
         passed("service disable/reconnect respects persisted configuration")
 except BaseException as failure:
     results["suite_failure"] = type(failure).__name__
-    if state_changes_started:
+    if state_changes_started and isinstance(failure, Exception):
         try:
             (output / "failure.png").write_bytes(raw("exec-out", "screencap", "-p"))
             (output / "failure.xml").write_bytes(ET.tostring(tree()))
