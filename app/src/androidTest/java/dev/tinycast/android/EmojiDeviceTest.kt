@@ -344,6 +344,13 @@ class EmojiDeviceTest {
                 assertEquals(entries.first().id, store.results().first().id)
                 peer.clearHistory()
                 assertFalse(store.hasSavedHistory)
+                reopened.rememberRecent(true)
+                store.copied(chosen)
+                peer.clearHistory()
+                assertTrue(reopened.historyEnabled)
+                assertTrue(reopened.recent.isEmpty())
+                reopened.copied(entries.first())
+                assertEquals(listOf(entries.first().id), peer.recent)
             }
         } finally {
             job.cancel()

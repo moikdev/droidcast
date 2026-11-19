@@ -244,10 +244,10 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     val emptyMessage = when {
                         store.loading -> "Loading catalog…"
                         store.error != null -> store.error!!
-                        store.filter == "Recent" && !store.historyEnabled -> if (store.hasSavedHistory)
-                            "Recent history is off. Enable it to show saved copies and remember new ones."
-                        else
-                            "Recent history is off. You can remember up to 32 copies on this device."
+                        store.filter == "Recent" && !store.historyEnabled -> {
+                            if (store.hasSavedHistory) "Recent history is off. Enable it to show saved copies and remember new ones."
+                            else "Recent history is off. You can remember up to 32 copies on this device."
+                        }
                         store.query.isNotBlank() -> "No matching emoji or symbols"
                         store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"
                         store.filter == "Recent" -> "Symbols you copy will appear here"
