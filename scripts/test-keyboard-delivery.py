@@ -24,8 +24,7 @@ FIXTURES = {"short": "qwerty", "long": "menuKeyboardProbe271828"}
 LINUX = {"m": 50, "e": 18, "n": 49, "u": 22, "k": 37, "y": 21, "b": 48, "o": 24, "a": 30,
          "r": 19, "d": 32, "p": 25, "2": 3, "7": 8, "1": 2, "8": 9, "q": 16, "w": 17, "t": 20}
 SETTINGS = ("enabled_accessibility_services", "accessibility_enabled")
-LEASE = "cache/keyboard-delivery-owner"
-SHIFT = {"KEYCODE_SHIFT_LEFT", "KEYCODE_SHIFT_RIGHT"}
+LEASE = "files/keyboard-delivery-owner"
 
 
 def require(condition, reason):
@@ -64,19 +63,22 @@ def examine(case, folder, sent, expected, control):
     """Check the receiver, text model, accessibility node and sampled screenshot independently."""
     before, after, final = (case[k] for k in ("before_observer", "after_observer", "final"))
     events = final["pre_ime"]
-    keys = {"downs": [], "ups": []}
-    for event in events:
-        require(event["action"] in (0, 1), "Unexpected key action")
-        if event["key"] not in SHIFT:
-            keys["downs" if event["action"] == 0 else "ups"].append(event["key"])
-    order = ["KEYCODE_" + ch.upper() for ch in sent]
+    order = []
+    for ch in sent:
+        if ch.isupper():
+            order.append(("KEYCODE_SHIFT_LEFT", 0))
+        key = "KEYCODE_" + ch.upper()
+        order.extend(((key, 0), (key, 1)))
+        if ch.isupper():
+            order.append(("KEYCODE_SHIFT_LEFT", 1))
     xml = ET.parse(folder / "hierarchy.xml")
     labels = [node.get("text") for node in xml.iter("node") if node.get("editable") == "true"]
     pre_ink = ink(folder / "before-observer.png", before["glyph_bounds"])
     post_ink = ink(folder / "after-observer.png", after["glyph_bounds"])
     exact = expected == final["fixture"]
     return {
-        "keys": keys["downs"] == order and keys["ups"] == order,
+        "keys": [(event["key"], event["action"]) for event in events] == order,
+        "delivery_before_attachment": before["pre_ime"] == after["pre_ime"] == events,
         "timing": all(e["down_ms"] <= e["event_ms"] <= e["received_ms"] and e["repeat"] == 0 for e in events),
         "fixture_owned": all(x["focused"] and not x["overflow"] for x in (before, after, final)),
         "before_text": before["observed"] == sent,
@@ -240,11 +242,14 @@ def main():
     nonce = uuid.uuid4().hex
     owner = LEASE + "/" + nonce
     (args.output / "private-owner").write_text(nonce)
+    tablet.private("mkdir", "-p", "files")
     tablet.private("mkdir", LEASE)
     tablet.private("touch", owner)
     def owned():
         tablet.private("test", "-f", owner)
     try:
+        owned()
+        require(tablet.consent() == ["null", "0"] and not tablet.bound(), "Consent changed during preflight")
         transition_adbd(tablet.adb, True)
         devices = tablet.shell("getevent", "-pl")
         keyboard = re.search(r'add device \d+: (/dev/input/event\d+)\s+name:\s+"qwerty2"', devices)
