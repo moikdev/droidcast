@@ -45,12 +45,12 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
     internal fun rememberDocument(uri: Uri?, reader: RecentDocumentReader = documentReader) {
         if (uri == null) return
         documentNameJob?.cancel()
-        runCatching { contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
         val existing = store.files.firstOrNull { it.body == uri.toString() }
         // Track the granted URI immediately. A cancelled metadata lookup must not
         // leave an untracked permission or discard the user's selected document.
         val id = store.save("files", existing?.title ?: "Document", uri.toString(), id = existing?.id)
         store.message = "Document added to recent files"
+        store.acquireRecentDocumentGrant(uri)
         documentNameJob = lifecycleScope.launch {
             try {
                 val title = reader.displayName(uri)

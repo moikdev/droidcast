@@ -7,9 +7,15 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.view.KeyEvent
 import android.view.accessibility.AccessibilityNodeInfo
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.core.app.ActivityScenario
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -32,13 +38,13 @@ class RecentDocumentDeviceTest {
     private val name="Droidcast-recent-${UUID.randomUUID()}.txt"
     private val body="Droidcast recent document fixture body 271828"
     private var original=emptyMap<String,Any?>()
-    private var originalGrants=emptySet<Uri>()
+    private var originalGrants=emptyMap<Uri, Pair<Boolean, Boolean>>()
     private var mediaUri:Uri?=null
     private var chosenUri:Uri?=null
     private var snapshotReady=false
     @Before fun prepare() {
         original=context.getSharedPreferences("palette",Context.MODE_PRIVATE).all.toMap()
-        originalGrants=context.contentResolver.persistedUriPermissions.map { it.uri }.toSet()
+        originalGrants=context.contentResolver.persistedUriPermissions.associate { it.uri to (it.isReadPermission to it.isWritePermission) }
         snapshotReady=true
         compose.waitUntil(15_000) { !compose.activity.store.loading }
         compose.activityRule.scenario.onActivity { it.store.resetShortcuts();it.store.reset() }
@@ -51,9 +57,15 @@ class RecentDocumentDeviceTest {
     @After fun restore() {
         if(device.currentPackageName=="com.android.htmlviewer") device.pressBack()
         try {
-            // This standalone case opens exactly one owned picker fixture. Roll back
-            // its new permission even if metadata assertions fail before chosenUri is set.
-            if(snapshotReady) context.contentResolver.persistedUriPermissions.filter { it.uri !in originalGrants }.forEach { grant ->
+            // Only release permissions attributable to this test's unique fixture.
+            if(snapshotReady) context.contentResolver.persistedUriPermissions.filter { grant ->
+                grant.uri !in originalGrants && (grant.uri == chosenUri || runCatching {
+                    val columns = arrayOf(android.provider.OpenableColumns.DISPLAY_NAME)
+                    context.contentResolver.query(grant.uri, columns, null, null, null)?.use {
+                        it.moveToFirst() && it.getString(0) == name
+                    } == true
+                }.getOrDefault(false))
+            }.forEach { grant ->
                 context.contentResolver.releasePersistableUriPermission(grant.uri,(if(grant.isReadPermission) Intent.FLAG_GRANT_READ_URI_PERMISSION else 0) or
                     (if(grant.isWritePermission) Intent.FLAG_GRANT_WRITE_URI_PERMISSION else 0))
             }
@@ -61,7 +73,7 @@ class RecentDocumentDeviceTest {
             try { mediaUri?.let { context.contentResolver.delete(it,null,null) } }
             finally { if(snapshotReady) restorePalettePreferences(context,original) }
         }
-        if(snapshotReady) assertEquals(originalGrants,context.contentResolver.persistedUriPermissions.map { it.uri }.toSet())
+        if(snapshotReady) assertEquals(originalGrants,context.contentResolver.persistedUriPermissions.associate { it.uri to (it.isReadPermission to it.isWritePermission) })
     }
     private fun clickNative(label:String,expectedPackage:String="com.google.android.documentsui",match:(AccessibilityNodeInfo)->Boolean) {
         val deadline=android.os.SystemClock.uptimeMillis()+7000
@@ -86,18 +98,177 @@ class RecentDocumentDeviceTest {
         testAutomation().clearCacheForTest();device.waitForIdle()
         device.dumpWindowHierarchy(File(directory,"$label.xml"));assertTrue(device.takeScreenshot(File(directory,"$label.png")))
     }
-    @Test fun chosenRecentDocumentGetsItsNativeNameAndOpensTheExactContent() {
-        try {
-        compose.activityRule.scenario.onActivity { it.execute(Command("browse-files","Open a document","")) }
+    private fun selectFixtureInDocumentsUi(capturePicker: Boolean = false) {
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")),10_000))
         clickNative("Show roots") { it.contentDescription?.toString()=="Show roots" }
         clickNative("Downloads") { it.viewIdResourceName=="android:id/title" && it.text?.toString()=="Downloads" }
         assertTrue("Controlled fixture appears in Downloads",device.wait(Until.hasObject(By.pkg("com.google.android.documentsui").text(name)),10_000))
-        capture("recent-native-picker")
+        if (capturePicker) capture("recent-native-picker")
         clickNative(name) { it.text?.toString()==name }
+    }
+    private fun pickFixture(capturePicker: Boolean = false): SavedItem {
+        compose.activityRule.scenario.onActivity { it.execute(Command("browse-files","Open a document","")) }
+        selectFixtureInDocumentsUi(capturePicker)
         compose.waitUntil(10_000) { compose.activity.store.files.any { it.title==name } && compose.activity.window.decorView.hasWindowFocus() }
         val saved=compose.activity.store.files.single { it.title==name };chosenUri=Uri.parse(saved.body)
-        assertTrue(context.contentResolver.persistedUriPermissions.any { it.uri==chosenUri && it.isReadPermission })
+        compose.waitUntil(5_000) { context.contentResolver.persistedUriPermissions.any { it.uri==chosenUri && it.isReadPermission } }
+        return saved
+    }
+
+    private fun deleteRecent(selected: SavedItem, withCapture: Boolean = false) {
+        compose.activityRule.scenario.onActivity {
+            it.store.filter("Files")
+            it.store.search(selected.title)
+        }
+        compose.onNodeWithTag("search").assertIsFocused()
+        assertEquals(selected.id, compose.activity.store.results().single().id)
+        device.pressKeyCode(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("action-Delete from Droidcast"))
+        compose.onNodeWithTag("action-Delete from Droidcast").performClick()
+        compose.onNodeWithTag("confirm-delete").assertIsDisplayed()
+        if (withCapture) capture("recent-grant-confirm-delete")
+        compose.onNodeWithTag("confirm-delete").performClick()
+        compose.waitUntil(5_000) { compose.activity.store.files.none { it.id == selected.id } }
+        compose.onNodeWithTag("confirm-delete").assertDoesNotExist()
+        if (withCapture) {
+            compose.onNodeWithText("No matching commands").assertIsDisplayed()
+            compose.waitUntil(5_000) {
+                testAutomation().clearCacheForTest()
+                device.hasObject(By.pkg(context.packageName).text("No matching commands"))
+            }
+            capture("recent-grant-after-delete")
+        }
+    }
+
+    // Acquire access for a separate consumer through a second, actual picker result.
+    private fun takeIndependentGrant(flags: Int): Uri {
+        lateinit var launcher: ActivityResultLauncher<Array<String>>
+        var returned: Uri? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            launcher = activity.activityResultRegistry.register("recent-grant-fixture", ActivityResultContracts.OpenDocument()) { uri ->
+                if (uri != null) {
+                    chosenUri = uri
+                    context.contentResolver.takePersistableUriPermission(uri, flags)
+                    returned = uri
+                }
+            }
+            launcher.launch(arrayOf("text/plain"))
+        }
+        try {
+            selectFixtureInDocumentsUi()
+            compose.waitUntil(10_000) { returned != null }
+            return requireNotNull(returned)
+        } finally {
+            compose.activityRule.scenario.onActivity { launcher.unregister() }
+        }
+    }
+
+    @Test fun keepsBorrowedReadWhenTheLastRecentIsRemoved() {
+        val uri = takeIndependentGrant(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        var legacyId: String? = null
+        compose.activityRule.scenario.onActivity {
+            // Pre-ownership records contain the URI but no acquisition journal entry.
+            legacyId = it.store.save("files", name, uri.toString())
+        }
+        val saved = pickFixture()
+        assertEquals(legacyId, saved.id)
+        assertEquals(uri.toString(), saved.body)
+        deleteRecent(saved)
+        compose.activityRule.scenario.recreate()
+        compose.waitUntil(10_000) { !compose.activity.store.loading }
+        assertTrue(compose.activity.store.files.none { it.id == saved.id })
+        assertTrue(context.contentResolver.persistedUriPermissions.any { it.uri == uri && it.isReadPermission })
+    }
+
+    @Test fun lastSharedReferenceReleasesOnlyTheOwnedRead() {
+        val uri = takeIndependentGrant(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        val initial = context.contentResolver.persistedUriPermissions.single { it.uri == uri }
+        assertTrue(initial.isWritePermission)
+        assertFalse(initial.isReadPermission)
+        val saved = pickFixture()
+        assertEquals(uri.toString(), saved.body)
+        lateinit var second: SavedItem
+        compose.activityRule.scenario.onActivity { activity ->
+            val id = activity.store.save("files", "Second reference", saved.body)
+            second = activity.store.files.single { it.id == id }
+        }
+        deleteRecent(saved)
+        compose.activityRule.scenario.recreate()
+        compose.waitUntil(10_000) { !compose.activity.store.loading }
+        assertTrue(compose.activity.store.files.any { it == second })
+        assertTrue(context.contentResolver.persistedUriPermissions.single { it.uri == uri }.isReadPermission)
+        deleteRecent(second)
+        compose.waitUntil(5_000) {
+            context.contentResolver.persistedUriPermissions.singleOrNull { it.uri == uri }?.let {
+                it.isWritePermission && !it.isReadPermission
+            } == true
+        }
+    }
+
+    @Test fun failedRemovalCheckpointAndReleaseCanRetryFromANewStore() {
+        val saved = pickFixture()
+        val uri = Uri.parse(saved.body)
+        val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val resolver = context.contentResolver
+        fun hasRead() = resolver.persistedUriPermissions.any { it.uri == uri && it.isReadPermission }
+
+        // Stage just this reference's removal. The production cleanup is then invoked
+        // with controlled failure points before a second Activity opens the same store.
+        val rows = org.json.JSONArray(prefs.getString("files", "[]"))
+        val otherRows = org.json.JSONArray()
+        for (index in 0 until rows.length()) {
+            val row = rows.getJSONObject(index)
+            if (row.getString("id") != saved.id) otherRows.put(row)
+        }
+        assertEquals(rows.length() - 1, otherRows.length())
+        assertTrue(prefs.edit().putString("files", otherRows.toString()).commit())
+        var releaseCalls = 0
+        runBlocking {
+            withContext(Dispatchers.Main) {
+                val failedSave = RecentDocumentGrants(prefs, resolver, folderReferences = { emptySet() }, persist = { false }, releaseRead = { releaseCalls++ })
+                assertTrue(runCatching { failedSave.releaseUnused() }.exceptionOrNull() is IllegalStateException)
+                assertEquals(0, releaseCalls)
+                assertTrue(hasRead())
+                val failedRelease = RecentDocumentGrants(prefs, resolver, folderReferences = { emptySet() }, releaseRead = {
+                    assertEquals(uri, it)
+                    releaseCalls++
+                    throw SecurityException("Controlled release failure")
+                })
+                assertTrue(runCatching { failedRelease.releaseUnused() }.exceptionOrNull() is SecurityException)
+                assertEquals(1, releaseCalls)
+                assertTrue(hasRead())
+            }
+        }
+        ActivityScenario.launch(SettingsActivity::class.java).use {
+            compose.waitUntil(10_000) { !hasRead() }
+        }
+    }
+
+    @Test fun deletingLastPickedDocumentReleasesReadAccessAndKeepsSource() {
+        val selected = pickFixture()
+        val uri = Uri.parse(selected.body)
+        assertFalse("Fixture already had a permission before selection", uri in originalGrants)
+        deleteRecent(selected, withCapture = true)
+        try {
+            compose.waitUntil(5_000) {
+                context.contentResolver.persistedUriPermissions.none { it.uri == uri && it.isReadPermission }
+            }
+        } finally {
+            val permission = context.contentResolver.persistedUriPermissions.singleOrNull { it.uri == uri }
+            val originalBody = context.contentResolver.openInputStream(requireNotNull(mediaUri))?.bufferedReader()?.use { it.readText() }
+            val record = JSONObject()
+                .put("read_after_deletion", permission?.isReadPermission == true)
+                .put("write_after_deletion", permission?.isWritePermission == true)
+                .put("row_still_present", compose.activity.store.files.any { it.id == selected.id })
+                .put("source_content_matches", body == originalBody)
+            File(context.filesDir, "readiness-evidence/recent-grant-result.json").writeText(record.toString(2))
+            assertEquals("Removing a recent must keep the provider's document", body, originalBody)
+        }
+    }
+
+    @Test fun chosenRecentDocumentGetsItsNativeNameAndOpensTheExactContent() {
+        try {
+        val saved = pickFixture(capturePicker = true)
         compose.activityRule.scenario.onActivity { it.store.filter("Files");it.store.search(name) }
         compose.onNodeWithTag("search").assertIsFocused()
         assertEquals(saved.id,compose.activity.store.results().single().id)

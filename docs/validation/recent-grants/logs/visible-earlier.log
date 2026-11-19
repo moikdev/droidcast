@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.RecentDocumentDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.RecentDocumentDeviceTest:
+INSTRUMENTATION_STATUS: test=lastSharedReferenceReleasesOnlyTheOwnedRead
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.RecentDocumentDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.RecentDocumentDeviceTest.lastSharedReferenceReleasesOnlyTheOwnedRead(RecentDocumentDeviceTest.kt:201)
+
+INSTRUMENTATION_STATUS: stream=
+Error in lastSharedReferenceReleasesOnlyTheOwnedRead(dev.tinycast.android.RecentDocumentDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.RecentDocumentDeviceTest.lastSharedReferenceReleasesOnlyTheOwnedRead(RecentDocumentDeviceTest.kt:201)
+
+INSTRUMENTATION_STATUS: test=lastSharedReferenceReleasesOnlyTheOwnedRead
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.RecentDocumentDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=deletingLastPickedDocumentReleasesReadAccessAndKeepsSource
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.RecentDocumentDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.RecentDocumentDeviceTest.deletingLastPickedDocumentReleasesReadAccessAndKeepsSource(RecentDocumentDeviceTest.kt:253)
+
+INSTRUMENTATION_STATUS: stream=
+Error in deletingLastPickedDocumentReleasesReadAccessAndKeepsSource(dev.tinycast.android.RecentDocumentDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.RecentDocumentDeviceTest.deletingLastPickedDocumentReleasesReadAccessAndKeepsSource(RecentDocumentDeviceTest.kt:253)
+
+INSTRUMENTATION_STATUS: test=deletingLastPickedDocumentReleasesReadAccessAndKeepsSource
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 35.198
+There were 2 failures:
+1) lastSharedReferenceReleasesOnlyTheOwnedRead(dev.tinycast.android.RecentDocumentDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.RecentDocumentDeviceTest.lastSharedReferenceReleasesOnlyTheOwnedRead(RecentDocumentDeviceTest.kt:201)
+2) deletingLastPickedDocumentReleasesReadAccessAndKeepsSource(dev.tinycast.android.RecentDocumentDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.RecentDocumentDeviceTest.deletingLastPickedDocumentReleasesReadAccessAndKeepsSource(RecentDocumentDeviceTest.kt:253)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

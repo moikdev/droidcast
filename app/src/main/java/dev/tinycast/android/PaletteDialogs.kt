@@ -93,11 +93,15 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
                 Button(onClick = { runCatching { store.setAlias(selected.id, alias) }.onSuccess { close() }.onFailure { error = it.message } }, modifier = Modifier.fillMaxWidth().padding(top = 18.dp).testTag("save-alias")) { Text("Save alias") }
             }
         }
-        "delete" -> if (selected != null) Shell("Delete ${selected.kind.label.lowercase().removeSuffix("s")}?", selected.title, close) {
-            Text("This removes the item from Droidcast. Original documents are kept on your device.", color = muted, fontSize = 13.sp, lineHeight = 20.sp)
+        "delete" -> if (selected != null) Shell(
+            if (selected.kind == Kind.FILE) "Remove recent document?" else "Delete ${selected.kind.label.lowercase().removeSuffix("s")}?",
+            selected.title, close
+        ) {
+            Text(if (selected.kind == Kind.FILE) "Your file stays on your device. Removing its last recent entry lets Droidcast release the read access it acquired."
+                else "This removes the item from Droidcast. Original documents are kept on your device.", color = muted, fontSize = 13.sp, lineHeight = 20.sp)
             Row(Modifier.fillMaxWidth().padding(top = 20.dp), horizontalArrangement = Arrangement.End) {
                 TextButton(onClick = close) { Text("Cancel") }; Spacer(Modifier.width(10.dp))
-                Button(onClick = { store.delete(selected.id); close() }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEBABAA)), modifier = Modifier.testTag("confirm-delete")) { Text("Delete") }
+                Button(onClick = { store.delete(selected.id); close() }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEBABAA)), modifier = Modifier.testTag("confirm-delete")) { Text(if (selected.kind == Kind.FILE) "Remove" else "Delete") }
             }
         }
         "link-query" -> {

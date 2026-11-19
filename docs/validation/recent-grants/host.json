@@ -1,0 +1,34 @@
+{
+  "benchmark": {
+    "build_log_sha256": "0b0af63152845d23756fc005726985cf80c73ec674ec6236ad10573e3ba1aa88",
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 58
+    }
+  },
+  "debug": {
+    "build_log_sha256": "da41e9c84c5177cf7991c774f09f963e897d0f26d5932c34ed5032b2c61b8fef",
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 58
+    }
+  },
+  "jvm": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 356
+  },
+  "python": {
+    "cases": 148,
+    "log_sha256": "4c55d2ab48e6b77a32615cbc94415add08c405c9ca82bef04c8b59f64db0c631",
+    "unchanged_script_revision": "366bbc15"
+  },
+  "python-optimized": {
+    "cases": 148,
+    "log_sha256": "2a628947c77e3c13ea27d33ddf32ffe120dde6c87396b961c7b44e796c14fa66",
+    "unchanged_script_revision": "366bbc15"
+  }
+}

@@ -142,6 +142,12 @@ class FolderSearch internal constructor(
     private fun configuredGrants(roots: List<SearchFolder>) = roots.map { it.uri }.toSet().intersect(grants())
     private suspend fun readGrants(roots: List<SearchFolder>) =
         withContext(Dispatchers.IO) { disk.withLock { configuredGrants(roots) } }
+    // Called under FolderStorageCoordinator.disk alongside the grant operation.
+    internal suspend fun configuredTreeUrisForGrantCleanup(): Set<String> = withContext(Dispatchers.IO) {
+        val config = read(configFile, 65536) ?: return@withContext emptySet()
+        val roots = config.getJSONArray("folders")
+        (0 until roots.length()).mapTo(mutableSetOf()) { roots.getJSONObject(it).getString("uri") }
+    }
     private fun validTree(value: String): Boolean = runCatching {
         val uri = Uri.parse(value)
         value.length <= 8192 && uri.scheme == "content" && !uri.authority.isNullOrBlank() && DocumentsContract.isTreeUri(uri) && DocumentsContract.getTreeDocumentId(uri).isNotEmpty()
