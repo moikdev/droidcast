@@ -1,0 +1,46 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.BackupDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.BackupDeviceTest:
+INSTRUMENTATION_STATUS: test=importedRankingCannotOverflowOnNextCommand
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: backup_ranking_state={"stage":"failure","elapsed_ms":11169,"usage_notification_ms":-1,"activity_state":"RESUMED","window_focused":true,"activity_destroyed":false,"dialog":"backup-confirm","backup_busy":false,"backup_error_present":false,"incoming_document_present":true,"model_at_limit":false,"preferences_at_limit":false}
+INSTRUMENTATION_STATUS_CODE: 2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.BackupDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.BackupDeviceTest.checkRankingConfirmation(BackupDeviceTest.kt:456)
+	at dev.tinycast.android.BackupDeviceTest.importedRankingCannotOverflowOnNextCommand(BackupDeviceTest.kt:385)
+
+INSTRUMENTATION_STATUS: stream=
+Error in importedRankingCannotOverflowOnNextCommand(dev.tinycast.android.BackupDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.BackupDeviceTest.checkRankingConfirmation(BackupDeviceTest.kt:456)
+	at dev.tinycast.android.BackupDeviceTest.importedRankingCannotOverflowOnNextCommand(BackupDeviceTest.kt:385)
+
+INSTRUMENTATION_STATUS: test=importedRankingCannotOverflowOnNextCommand
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.035
+There was 1 failure:
+1) importedRankingCannotOverflowOnNextCommand(dev.tinycast.android.BackupDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at dev.tinycast.android.BackupDeviceTest.checkRankingConfirmation(BackupDeviceTest.kt:456)
+	at dev.tinycast.android.BackupDeviceTest.importedRankingCannotOverflowOnNextCommand(BackupDeviceTest.kt:385)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
