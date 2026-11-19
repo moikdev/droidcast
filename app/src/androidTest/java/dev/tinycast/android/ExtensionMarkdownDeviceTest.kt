@@ -78,7 +78,7 @@ class ExtensionMarkdownDeviceTest {
         owner = args.getString("expectedTextInputLeaseOwner").orEmpty()
         assertTrue(owner.matches(Regex("[0-9a-f]{32}")))
         assertEquals(owner, args.getString("expectedClipboardRecoveryOwner")); lease()
-        compose.waitUntil(15000) { !compose.activity.store.loading && catalog.inventoryReady }
+        compose.waitUntil(15000) { !compose.activity.store.loading }
         palette = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         originalIds = catalog.installed.map { it.listing.id }.toSet()
         preserved = catalog.installed.flatMap { listOf(it.directory, File(context.filesDir, "extension-data/${it.listing.id}"),

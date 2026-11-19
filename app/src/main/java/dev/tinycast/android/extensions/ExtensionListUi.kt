@@ -122,7 +122,7 @@ internal fun NativeExtensionList(root: JSONObject, rows: List<JSONObject>, state
                                     val label = accessory.opt("text")
                                     val text = extensionLabelText(label)
                                     val tint = (label as? JSONObject)?.opt("color")
-                                    if (text.isNotEmpty()) Text(text, color = if (metadataColorName(tint).isEmpty()) PaletteTheme.secondary else metadataTint(tint), fontSize = 11.sp, lineHeight = 17.sp)
+                                    if (text.isNotEmpty()) Text(text, color = metadataTint(tint, PaletteTheme.secondary), fontSize = 11.sp, lineHeight = 17.sp)
                                 }
                             }
                         }

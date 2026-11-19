@@ -91,6 +91,11 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
         self.refused_without_device_access(fetch + ',' + DETAIL, [],
             'A frozen JSON archive is required', without_archive=True)
 
+    def test_list_labels_cannot_exempt_entire_markdown_suite(self):
+        case = MARKDOWN + '#structuredListLabelsRenderAndFilterByVisibleValues'
+        self.refused_without_device_access(case + ',' + MARKDOWN, [],
+            'A frozen JSON archive is required', without_archive=True)
+
     def refused_without_device_access(self, classes, options, error, without_archive=False):
         for optimized in [False, True]:
             with self.subTest(optimized=optimized), tempfile.TemporaryDirectory() as directory:

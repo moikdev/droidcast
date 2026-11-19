@@ -50,13 +50,13 @@ internal fun extensionLabelText(value: Any?): String = when (value) {
     is JSONObject -> (value.opt("value") as? String).orEmpty()
     else -> ""
 }
-internal fun metadataTint(value: Any?): Color {
+internal fun metadataTint(value: Any?, fallback: Color = PaletteTheme.ink): Color {
     val name = metadataColorName(value)
     return when (name) {
         "raycast-blue" -> Color(0xff3b82f6); "raycast-green" -> Color(0xff22c55e); "raycast-red" -> Color(0xffef4444)
         "raycast-yellow" -> Color(0xffeab308); "raycast-orange" -> Color(0xfff97316); "raycast-purple" -> Color(0xffa855f7)
         "raycast-magenta" -> Color(0xffd946ef); "raycast-secondary-text" -> PaletteTheme.secondary
-        else -> runCatching { Color(android.graphics.Color.parseColor(name)) }.getOrDefault(PaletteTheme.ink)
+        else -> runCatching { Color(android.graphics.Color.parseColor(name)) }.getOrDefault(fallback)
     }
 }
 
