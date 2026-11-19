@@ -301,3 +301,9 @@ The #130 keyboard regression reproduced on the original grid-density app. Its Ac
 ### Ordered emoji favorites
 
 The [ordered favorites implementation and Android results](EMOJI-FAVORITE-ORDER.md) cover the ordering part of #44. Favorites support keyboard and touch moves, preserve the selected symbol, and retain their order after process restart. Existing sets migrate on edit. Portable import/export, multilingual and custom keywords, the dataset update and tone support remain open.
+
+### Portable emoji settings
+
+The reviewed grid and ordered-favorites changes merged in #130 (`36544e7c`) and #131 (`0719ffcd`). Both merge trees matched their audited revisions. Both independent audits and local and hosted Android checks passed for each PR.
+
+The next #44 slice adds [selectable backup of ordered favorites and saved grid size](BACKUP.md#emoji-favorites-and-grid-size). Files without emoji settings can still be exported as version 1. Recent history and consent stay local. Unicode/CLDR data, tone selection, multilingual/custom keywords and Android paste delivery remain open.

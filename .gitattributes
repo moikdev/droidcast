@@ -78,3 +78,7 @@ docs/validation/emoji-density/held-input/runs/**/*.log -text -whitespace
 # Preserve the original favorite-order hierarchy and device log bytes.
 docs/validation/emoji-order/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-order/runs/**/*.log -text -whitespace
+
+# Keep the Android backup captures and instrumentation output byte-identical.
+docs/validation/emoji-portable/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-portable/runs/**/*.log -text -whitespace
