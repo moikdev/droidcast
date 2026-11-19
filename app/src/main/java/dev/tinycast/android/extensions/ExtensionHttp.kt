@@ -148,7 +148,8 @@ internal class ExtensionHttpClient(
 
     override fun close() {
         if (closed.compareAndSet(false, true)) {
-            cancellations.toList().forEach { it() }
+            // A completed request can remove its callback while close is iterating.
+            for (cancel in cancellations) cancel()
             workers.shutdownNow(); timer.shutdownNow(); closers.shutdown()
         }
     }

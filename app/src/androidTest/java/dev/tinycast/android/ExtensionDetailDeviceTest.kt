@@ -568,9 +568,12 @@ class ExtensionDetailDeviceTest {
                 "header" -> envelope.put("headers", JSONObject().put("X-Fixture", "owned"))
             }
             val result = runCatching { probe.execute(envelope, redirect = true) }
+            val failure = result.exceptionOrNull()
             val allowed = name == "absent" || name == "json-null"
             results.put(JSONObject().put("case", name).put("connections", probe.connections.size)
-                .put("status", result.getOrNull()?.optInt("status") ?: 0))
+                .put("status", result.getOrNull()?.optInt("status") ?: 0)
+                .put("exception_type", failure?.javaClass?.name ?: JSONObject.NULL))
+            if (failure != null && failure !is IllegalArgumentException) throw failure
             val correct = if (allowed) {
                 result.getOrNull()?.optString("url") == probe.destination && probe.connections.size == 2 &&
                     probe.connections.all { !it.doOutput && it.requestMethod == "POST" }
