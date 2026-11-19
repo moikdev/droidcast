@@ -1,0 +1,20 @@
+{
+  "kind": "broad",
+  "exit": 0,
+  "app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+  "executed_runner_sha256": "7e9b7b8bac8aa0e05903ed104145d520af61894cfe4ca84a8fcb69e5257287e3",
+  "passed": 16,
+  "outer_checks": {
+    "apk": true,
+    "preferences": true,
+    "consent": true,
+    "shell_uid": true,
+    "app_uid": true
+  },
+  "runner_cleanup": {
+    "original_service_consent_restored": true,
+    "original_preferences_restored": true,
+    "adbd_unprivileged": true,
+    "app_unprivileged": true
+  }
+}
