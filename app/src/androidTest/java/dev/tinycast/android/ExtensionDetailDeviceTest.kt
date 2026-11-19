@@ -847,6 +847,20 @@ class ExtensionDetailDeviceTest {
     @Test fun wideJpegOnePixelPastSampleBoundaryRenders() = checkJpegPreview(2049, 256)
     @Test fun tallJpegOnePixelPastSampleBoundaryRenders() = checkJpegPreview(256, 2049)
 
+    @Test fun gridJpegThumbnailFitsItsSampledEdge() {
+        launch("images", 513 to 64)
+        val directory = compose.runOnIdle { requireNotNull(catalog.running).first.directory }
+        ExtensionGridImages(directory).use { images ->
+            val bitmap = kotlinx.coroutines.runBlocking { images.load("sample.jpg") }
+            val color = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+            record.put("grid_decoder", JSONObject().put("width", bitmap.width)
+                .put("height", bitmap.height).put("center_argb", color))
+            assertTrue("Decoded thumbnail is ${bitmap.width} by ${bitmap.height}", maxOf(bitmap.width, bitmap.height) <= 256)
+            assertTrue(android.graphics.Color.green(color) > 120)
+        }
+        record.put("passed", true)
+    }
+
     @Test fun packageSvgTintAndFailureImagesRenderWithBoundedAlternatives() {
         launch("images")
         imagePixel("Owned package image", 0xffe7582b.toInt()); capture("package-image")

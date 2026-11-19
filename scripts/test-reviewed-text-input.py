@@ -58,7 +58,7 @@ def context_test_filter(classes, has_translation, has_weather):
 
 def uses_only_owned_images(classes):
     methods = (
-        'jpegAtExactSampleBoundaryRenders', 'wideJpegOnePixelPastSampleBoundaryRenders',
+        'gridJpegThumbnailFitsItsSampledEdge', 'jpegAtExactSampleBoundaryRenders', 'wideJpegOnePixelPastSampleBoundaryRenders',
         'tallJpegOnePixelPastSampleBoundaryRenders', 'imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument',
     )
     allowed = {'dev.tinycast.android.ExtensionDetailDeviceTest#' + method for method in methods}

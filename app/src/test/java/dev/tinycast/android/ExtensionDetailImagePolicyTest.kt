@@ -6,6 +6,16 @@ import java.nio.file.Files
 import java.util.concurrent.CancellationException
 
 class ExtensionDetailImagePolicyTest {
+    @Test fun rasterSamplingFitsRoundedDimensionsAtDetailAndGridBoundaries() {
+        for (edge in listOf(128, 256, 1024)) {
+            assertEquals(1, rasterSampleSize(edge, edge))
+            assertEquals(2, rasterSampleSize(2 * edge - 1, edge))
+            assertEquals(2, rasterSampleSize(2 * edge, edge))
+            assertEquals(4, rasterSampleSize(2 * edge + 1, edge))
+            assertEquals(32768 / edge, rasterSampleSize(32768, edge))
+        }
+    }
+
     private fun rejected(action: () -> Unit) {
         try { action(); fail("Unsupported input was accepted") } catch (_: IllegalArgumentException) { }
         catch (_: org.xml.sax.SAXException) { }
