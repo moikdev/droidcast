@@ -1,0 +1,136 @@
+{
+  "hardware-reaudit-160": {
+    "app_sha256": "d81b3d0c5f19613803d92ed60c6ad4d944c315291cf317f83537eef0d9e9f0ee",
+    "checks_passed": [],
+    "inner": {
+      "original_service_consent_restored": true,
+      "original_preferences_restored": true,
+      "adbd_unprivileged": true,
+      "app_unprivileged": true
+    },
+    "results_sha256": "26c7832cc02977263400dcf5ae9dddc65468664742d13d093420aedb2cf1083d",
+    "controller_sha256": "4bf6e9c5ed8a653075f2d2c822af5c2c7240dbf1cd53887a3879455d2710d1b9",
+    "suite_log_sha256": "e811385370aab51e9857a0834a768879f5787e7b7f34ca4e66a33715d49f43b6",
+    "exit": 1,
+    "outer_package_preferences_consent_and_dump": true
+  },
+  "hardware-reaudit-158": {
+    "app_sha256": "0e7099484857e9bd9fd7f8865cea3addfa03707c834f0d7fc3512ce9ed1898f0",
+    "checks_passed": [],
+    "inner": {
+      "original_service_consent_restored": null,
+      "original_preferences_restored": null,
+      "adbd_unprivileged": false,
+      "app_unprivileged": false
+    },
+    "results_sha256": "9386b69081a8b27cabd87fdc922b54b65e76d44f049a9cf53da99fbe3bd0ca38",
+    "controller_sha256": "50e44627a30a52f6b4a2fcf4f484f7a4fcd0f6501be892d53d9822b950ef86f6",
+    "suite_log_sha256": "d2b0491741465c5cd54f9a060e5a8ae165e966989a905e47a4bf9b2fffbd8158",
+    "separate_recovery": {
+      "app": true,
+      "unchangedTest": true,
+      "dump": true,
+      "prefs": true,
+      "consent": true,
+      "unprivileged": true,
+      "ownershipReleased": true
+    },
+    "initial_root_command_exit": 1,
+    "initial_unroot_command_exit": 1
+  },
+  "hardware-reaudit-158-again": {
+    "app_sha256": "0e7099484857e9bd9fd7f8865cea3addfa03707c834f0d7fc3512ce9ed1898f0",
+    "checks_passed": [
+      "recording pauses the existing global shortcut",
+      "record and persist Ctrl + Alt + Space",
+      "Ctrl+F focuses settings search while the service is enabled",
+      "Ctrl+Comma opens the separate settings workspace with the service enabled",
+      "round 1: summon/toggle from Settings",
+      "round 1: summon/toggle from Home",
+      "old global chord stops activating after reassignment",
+      "live conflict names its owner and cannot overwrite it",
+      "Wi-Fi command uses normal destination and suppresses repeats",
+      "installed-app binding launches real Files app",
+      "recent-document binding opens the persisted TXT fixture",
+      "calculator binding enters the same calculator mode",
+      "calculator shortcut toggles its existing mode",
+      "note command binding opens the normal native editor",
+      "unrelated typing and an unbound chord pass through",
+      "service disable/reconnect respects persisted configuration"
+    ],
+    "inner": {
+      "original_service_consent_restored": true,
+      "original_preferences_restored": true,
+      "adbd_unprivileged": true,
+      "app_unprivileged": true
+    },
+    "results_sha256": "51002a3e03564c97fdb621def0babf0763ea0c186f3818aec3f6a2d64001598e",
+    "controller_sha256": "1e64ce9680525e00bdeab0e5b44c3c14f9ec2fa9dca03f106230315309b463cf",
+    "suite_log_sha256": "a94c024b67a65d287ff5d20ca23d6bbdcf3f0591f1f37cbd774a3b5d04a7ae54",
+    "exit": 0,
+    "outer_package_preferences_consent_and_dump": true
+  },
+  "hardware-reaudit-160-again": {
+    "app_sha256": "d81b3d0c5f19613803d92ed60c6ad4d944c315291cf317f83537eef0d9e9f0ee",
+    "checks_passed": [
+      "recording pauses the existing global shortcut",
+      "record and persist Ctrl + Alt + Space",
+      "Ctrl+F focuses settings search while the service is enabled",
+      "Ctrl+Comma opens the separate settings workspace with the service enabled",
+      "round 1: summon/toggle from Settings",
+      "round 1: summon/toggle from Home",
+      "old global chord stops activating after reassignment",
+      "live conflict names its owner and cannot overwrite it",
+      "Wi-Fi command uses normal destination and suppresses repeats",
+      "installed-app binding launches real Files app",
+      "recent-document binding opens the persisted TXT fixture",
+      "calculator binding enters the same calculator mode",
+      "calculator shortcut toggles its existing mode",
+      "note command binding opens the normal native editor",
+      "unrelated typing and an unbound chord pass through",
+      "service disable/reconnect respects persisted configuration"
+    ],
+    "inner": {
+      "original_service_consent_restored": true,
+      "original_preferences_restored": true,
+      "adbd_unprivileged": true,
+      "app_unprivileged": true
+    },
+    "results_sha256": "51002a3e03564c97fdb621def0babf0763ea0c186f3818aec3f6a2d64001598e",
+    "controller_sha256": "eea9d006866515ee432bb34bf0521f6c040f5dfb22a4cb1c62fdf11e0674bfb5",
+    "suite_log_sha256": "a94c024b67a65d287ff5d20ca23d6bbdcf3f0591f1f37cbd774a3b5d04a7ae54",
+    "exit": 0,
+    "outer_package_preferences_consent_and_dump": true
+  },
+  "smoke": {
+    "app_sha256": "d81b3d0c5f19613803d92ed60c6ad4d944c315291cf317f83537eef0d9e9f0ee",
+    "checks_passed": [
+      "recording pauses the existing global shortcut",
+      "record and persist Ctrl + Alt + Space",
+      "Ctrl+F focuses settings search while the service is enabled",
+      "Ctrl+Comma opens the separate settings workspace with the service enabled"
+    ],
+    "inner": {
+      "original_service_consent_restored": true,
+      "original_preferences_restored": true,
+      "adbd_unprivileged": true,
+      "app_unprivileged": true
+    },
+    "results_sha256": "1d3c0537f895eb2dd506506b3fc67408dd0945d4e9d5c3749fa61aa5f63d8e93",
+    "controller_sha256": "ad00a93ce322904d0a7a43946d026d95570b0be5d5faad50898aa43723837cf7",
+    "suite_log_sha256": "cee0b4c8c323cf5b7b7a4e51efd35596a3515cc06ac090a67bf151d0f7b2c3cc",
+    "exit": 0,
+    "outer_package_preferences_consent_and_dump": true,
+    "root_requests": [
+      0
+    ],
+    "unroot_requests": [
+      0
+    ],
+    "settings_smoke": {
+      "path": "docs/screenshots/shortcut-transport/settings-workspace.png",
+      "sha256": "a8cf8e55d48a7906927c1526dae73d8c91a2c739d7f05a705a53a9ab92f26c2d",
+      "hierarchy_sha256": "2e1d65d6e2e7c8f12643940013a5ae5e5fcd0b952b77812545fb928289ac3382"
+    }
+  }
+}

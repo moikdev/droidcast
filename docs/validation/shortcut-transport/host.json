@@ -1,0 +1,54 @@
+{
+  "original": {
+    "remained_failed": true,
+    "root_requests": 1,
+    "cleanup_force_stop": true,
+    "cleanup_secure_setting_mutation": true,
+    "helper_verified_unprivileged": true
+  },
+  "repaired": {
+    "remained_failed": true,
+    "root_requests": 1,
+    "cleanup_force_stop": false,
+    "cleanup_secure_setting_mutation": false,
+    "helper_verified_unprivileged": true
+  },
+  "stub_script_sha256": "1fdba2555108fccefe29d8d07c44cfcc758831a61a2af6c3b8829e83342923f9",
+  "python": {
+    "final-python": {
+      "passed": 157,
+      "log_sha256": "c9ffec75086dda4415f45082322605262ca7b5fd5070ca7af00d608e57e05776"
+    },
+    "final-python-optimized": {
+      "passed": 157,
+      "log_sha256": "30a58296c5dbcd393c3606e70282ecde3bb8d871fc58e4ee99e8d01d98b8b64a"
+    }
+  },
+  "runner_inputs": {
+    "scripts/test-configurable-shortcuts.py": "7a50aaa5d4aa04ab6a23de55edb392a4babeca4d98219a10e7bbd0ea23868825",
+    "scripts/shortcut_adbd.py": "fe2f4b42c0b9628cdbc7acd506aac41b3b53975fc4c17e807d04d8d8783c5dbe",
+    "scripts/shortcut_focus_evidence.py": "a0aa53279370bf300d31e00c5e7f7161faccd9f458cbedbb732bb766d7f8ae07",
+    "scripts/html_viewer_evidence.py": "e6d4f47e476f4069a1b7031e6d31dece93cc0e252cfd8c92e6b7d2318fe73ac1",
+    "scripts/tests/test_shortcut_adbd.py": "9681ea35512c392bd6e66bdb1da6e4a9e8accc72f56740615c798a4c665fcf50"
+  },
+  "later_android_builds": {
+    "debug": {
+      "build_source": "255c01cc9882991dddc6b7e3edac7a4c5c1d4c0a",
+      "build_log_sha256": "c6f9e88439baf6a28af1ad9b96ffce77070fc54811a95c1fd7699ce9f59ce5bd",
+      "errors": 0,
+      "warnings": 48
+    },
+    "benchmark": {
+      "build_source": "255c01cc9882991dddc6b7e3edac7a4c5c1d4c0a",
+      "build_log_sha256": "46727bb93b7d8cbc26f8b566b96ecc0a3fe62db87a033d8d3537e24525915d25",
+      "errors": 0,
+      "warnings": 48
+    }
+  },
+  "debug_jvm": {
+    "tests": 358,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}
