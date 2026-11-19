@@ -1,5 +1,9 @@
 package dev.tinycast.android
 
+import android.app.Instrumentation
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import androidx.lifecycle.Lifecycle
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -41,7 +45,10 @@ class ReadinessRegressionDeviceTest {
         compose.waitForIdle()
     }
     @After fun restore() {
-        compose.activityRule.scenario.onActivity {
+        val scenario = compose.activityRule.scenario
+        if (scenario.state == Lifecycle.State.DESTROYED) {
+            assertTrue("The runner owns clipboard recovery after a successful launch", hostClipboardRecovery)
+        } else scenario.onActivity {
             it.store.extensions.close()
             val manager = it.getSystemService(ClipboardManager::class.java)
             if (hostClipboardRecovery) manager.resetClipboardForTest()
@@ -147,6 +154,71 @@ class ReadinessRegressionDeviceTest {
         val saved=PaletteStore(context.applicationContext as android.app.Application).notes.single { it.title=="Audit unsaved note" }
         assertEquals("Unsaved draft body 314159",saved.body)
     }
+    private fun openArgumentPrompt(): String {
+        val id = compose.runOnUiThread {
+            compose.activity.store.save("links", "Garden journal", "https://example.invalid/lookup?q={query}")
+        }
+        compose.onNodeWithTag("search").performTextReplacement("Garden journal")
+        compose.onNodeWithTag("result-$id").performClick()
+        return id
+    }
+
+    @Test fun quicklinkArgumentSurvivesRecreationAndCancelClearsIt() {
+        val id = openArgumentPrompt()
+        val field = compose.onNodeWithTag("link-query-field")
+        val argument = "Café & 日本"
+        field.performTextReplacement(argument)
+        compose.activityRule.scenario.recreate()
+        capture("quicklink-argument-recreated")
+        editable("link-query-field", argument)
+        compose.onNodeWithTag("inline-back").performClick()
+        compose.onNodeWithTag("result-$id").performClick()
+        editable("link-query-field", "")
+        assertEquals(0, compose.activity.store.usage[id] ?: 0)
+    }
+
+    @Test fun rejectedQuicklinkKeepsArgumentForAnEncodedRetry() {
+        Assume.assumeTrue("Runner restores the clipboard after the palette finishes", hostClipboardRecovery)
+        val id = openArgumentPrompt()
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val requests = mutableListOf<String>()
+        val monitor = object : Instrumentation.ActivityMonitor() {
+            override fun onStartActivity(intent: Intent): Instrumentation.ActivityResult? {
+                if (intent.action != Intent.ACTION_VIEW || intent.data?.host != "example.invalid") return null
+                requests.add(requireNotNull(intent.dataString))
+                when (requests.size) {
+                    1 -> throw ActivityNotFoundException("Fixture has no handler")
+                    2 -> throw SecurityException("Fixture denied this attempt")
+                }
+                return Instrumentation.ActivityResult(android.app.Activity.RESULT_CANCELED, null)
+            }
+        }
+        instrumentation.addMonitor(monitor)
+        try {
+            val field = compose.onNodeWithTag("link-query-field")
+            val open = compose.onNodeWithText("Open quicklink")
+            field.performTextReplacement("A & B")
+            open.performClick()
+            compose.onNodeWithText("No available app can open this item").assertIsDisplayed()
+            capture("quicklink-argument-missing")
+            editable("link-query-field", "A & B")
+            assertEquals(0, compose.activity.store.usage[id] ?: 0)
+            field.performTextReplacement("A/B")
+            open.performClick()
+            editable("link-query-field", "A/B")
+            assertEquals(0, compose.activity.store.usage[id] ?: 0)
+            field.performTextReplacement("Café #2")
+            val store = compose.activity.store
+            open.performClick()
+            compose.waitUntil(5000) { compose.activityRule.scenario.state == Lifecycle.State.DESTROYED }
+            assertEquals(listOf("https://example.invalid/lookup?q=A%20%26%20B",
+                "https://example.invalid/lookup?q=A%2FB", "https://example.invalid/lookup?q=Caf%C3%A9%20%232"), requests)
+            assertEquals(1, store.usage[id])
+        } finally {
+            instrumentation.removeMonitor(monitor)
+        }
+    }
+
     @Test fun unsavedQuicklinkFieldsSurviveActivityRecreation() {
         var id=""
         compose.activityRule.scenario.onActivity {

@@ -207,7 +207,10 @@ def main():
         'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
     local_inventory = args.classes == 'dev.tinycast.android.ReadinessRegressionDeviceTest#installedCatalogLoadsWithoutBlockingTheUiThread'
-    require(local_inventory or calculator or settings_navigation or uses_only_local_detail_cases(args.classes)
+    quicklink_cases = {'dev.tinycast.android.ReadinessRegressionDeviceTest#' + method for method in (
+        'quicklinkArgumentSurvivesRecreationAndCancelClearsIt', 'rejectedQuicklinkKeepsArgumentForAnEncodedRetry',
+    )}
+    require(selected <= quicklink_cases or local_inventory or calculator or settings_navigation or uses_only_local_detail_cases(args.classes)
             or args.json_archive is not None,
             'A frozen JSON archive is required outside the owned calculator cohort or named local inventory, Detail or Settings cases')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,

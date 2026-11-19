@@ -22,6 +22,7 @@ internal class PaletteEditorDraft(val identity: EditorIdentity, item: SavedItem?
     var title by mutableStateOf(item?.title.orEmpty())
     var body by mutableStateOf(item?.body.orEmpty())
     var alias by mutableStateOf(item?.alias.orEmpty())
+    var argument by mutableStateOf("")
 }
 
 class PaletteStore(application: Application) : AndroidViewModel(application) {
@@ -79,6 +80,8 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         return retainedEditorDraft?.takeIf { it.identity == identity }
             ?: PaletteEditorDraft(identity, editing).also { retainedEditorDraft = it }
     }
+    internal fun ownsEditorDraft(draft: PaletteEditorDraft) = retainedEditorDraft === draft &&
+        dialog == draft.identity.kind && editing?.id == draft.identity.item && focusEpoch == draft.identity.epoch
     internal fun discardEditorDraft() { retainedEditorDraft = null }
 
     var actionCommand by mutableStateOf<Command?>(null)

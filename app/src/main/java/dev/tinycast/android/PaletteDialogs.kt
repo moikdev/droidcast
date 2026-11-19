@@ -105,11 +105,17 @@ fun PaletteDialogs(store: PaletteStore, provided: Command?, globalEnabled: Boole
             }
         }
         "link-query" -> {
-            val link = store.editing
-            var argument by remember { mutableStateOf("") }
-            Shell(link?.title ?: "Quicklink", "What would you like to search for?", close) {
-                Field("Search terms", argument, { argument = it }, "Type your query", "link-query-field")
-                Button(onClick = { link?.let { run(Command(it.id, it.title, it.body, Kind.LINK, "link", payload = it.body.replace("{query}", android.net.Uri.encode(argument)))) }; close() }, enabled = argument.isNotBlank(), modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) { Text("Open quicklink") }
+            val link = store.editing ?: return
+            val draft = store.editorDraft("link-query")
+            val view = LocalView.current
+            Shell(link.title, "What would you like to search for?", close) {
+                Field("Search terms", draft.argument, { draft.argument = it }, "Type your query", "link-query-field")
+                Button(onClick = {
+                    if (view.hasWindowFocus() && store.ownsEditorDraft(draft) && draft.argument.isNotBlank()) {
+                        val url = link.body.replace("{query}", android.net.Uri.encode(draft.argument))
+                        run(Command(link.id, link.title, link.body, Kind.LINK, "link", payload = url))
+                    }
+                }, enabled = draft.argument.isNotBlank(), modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) { Text("Open quicklink") }
             }
         }
     }

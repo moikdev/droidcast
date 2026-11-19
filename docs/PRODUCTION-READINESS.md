@@ -261,3 +261,15 @@ Hosted workflows are associated with a PR head and build GitHub's generated merg
 ![Tablet real app smoke before the controlled retry](screenshots/readiness-regressions/provider-retry-tablet-smoke.png)
 
 ![Phone real app smoke before the controlled retry](screenshots/readiness-regressions/provider-retry-phone-smoke.png)
+
+## Quicklink arguments after recreation and launch failure
+
+For #159, the search argument now belongs to the current Quicklink prompt in the palette ViewModel. Activity recreation retains the draft. Back discards it, and opening the same link again starts with an empty field. If Android reports a missing handler or denies the launch, the prompt stays open for editing. The usage counter advances once after Android accepts the launch attempt.
+
+Identical instrumentation compared app build `7da6c3e3` with repaired build `0c3ef167` on Tinycast_Tablet_API_36. On the earlier tablet, activity recreation cleared the editable text and a missing handler closed the prompt. Both tests failed at their argument assertions. On the repaired tablet and resized phone, recreation retained `Café & 日本`, and cancel/reopen produced an empty field. The retry test retained `A & B` after a missing handler, retained `A/B` after a denied attempt, and submitted `Café #2` as `Caf%C3%A9%20%232`. Usage remained zero through both rejections and reached one after the final submission.
+
+The tests created a synthetic saved link, opened it from its palette result and used Compose text replacement and clicks. An Android instrumentation monitor captured the actual ACTION_VIEW intents, injected the two errors and intercepted the final accepted dispatch before a browser opened. The activity finished after that dispatch. The UI captures show the argument prompt, error feedback and earlier return to the launcher. This comparison covers activity recreation on an API 36 emulator. Process death, physical typing, external browser rendering and multi-argument templates remain outside the exercised paths.
+
+The earlier comparison’s two expected failures triggered the runner’s rule to retain ownership after an incomplete legacy test cohort. The separate recovery checked both failures, original preferences and settings, restored clipboard receipt and original APKs before releasing ownership. The original run retains two failed cleanup entries. Both repaired batches completed ordinary cleanup and package restoration. [Comparison and restoration records](validation/quicklink-prompt/runs.json) · [Android captures](screenshots/quicklink-prompt) · [Host checks](validation/quicklink-prompt/host.json)
+
+The repaired tablet’s missing-handler PNG is cropped to the form because the keyboard moved into the lower palette between the XML and PNG captures. The repaired phone shows the argument and launch feedback together.
