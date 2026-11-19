@@ -1,0 +1,74 @@
+{
+  "assets": {
+    "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+    "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+  },
+  "checks": {
+    "benchmark": {
+      "log_sha256": "7a7da526b30d14721a7c691ce009f7d1bc32b92ad7c2f063f8d9c646dcc32959",
+      "passed": true
+    },
+    "benchmark-lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 58
+    },
+    "debug": {
+      "log_sha256": "5dc41464edc651e3eaa28e2f340208657662e1e2a91f3857644222187c8adb78",
+      "passed": true
+    },
+    "debug-lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 58
+    },
+    "guard-benchmark": {
+      "log_sha256": "404bea245843092a904d943fad5649bdd49e95df274737ddde0badbfaa911a4e",
+      "passed": true
+    },
+    "guard-debug": {
+      "log_sha256": "15be052adb65cd07980ab2a2c80fe6e3af29d0a3c6a0995d1584ef3af5fa9445",
+      "passed": true
+    },
+    "jvm": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 347
+    },
+    "python": {
+      "log_sha256": "cfd4756c34150c74e429508e6c4954f78d4713288041ffcf0dbc15113127b9b9",
+      "passed": true
+    },
+    "python-O": {
+      "log_sha256": "3a857d47e005be0a8555743c98c497180ec5c37345c5c08e1908ba0cf330114b",
+      "passed": true
+    },
+    "release-benchmark": {
+      "log_sha256": "2d417b7496a03c2d9e8621def252d9c6a8d04636bd61a44fc4628be1236454eb",
+      "passed": true
+    },
+    "release-debug": {
+      "log_sha256": "8580d518eb6a4dac8b6cd8cf19d1d7cc60a57794337e93cd2ec56f0873f12cc3",
+      "passed": true
+    }
+  },
+  "optimization_guard": {
+    "observed": {
+      "-O": "rejected",
+      "-OO": "rejected",
+      "PYTHONOPTIMIZE=1": "rejected",
+      "PYTHONOPTIMIZE=2": "rejected"
+    },
+    "runner_sha256": "b100c5add8c6283d26edf7bca1ccf389b91a55a4c9a2cd0ed2c58b418d4cbcb3"
+  }
+}

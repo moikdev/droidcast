@@ -161,6 +161,7 @@ class UpdateSelfInstallDeviceTest {
             store.setShortcut(note, KeyChord(KeyEvent.KEYCODE_J, ShortcutRules.CTRL or ShortcutRules.ALT))
             val emoji = store.emoji.entries.first()
             if (emoji.id !in store.emoji.favorites) store.emoji.toggleFavorite(emoji)
+            it.getSharedPreferences("emoji", Context.MODE_PRIVATE).edit().putBoolean("rememberRecent", true).apply()
             store.emoji.copied(emoji)
             saved.put("note", note).put("link", link).put("clip", clip).put("alias", "retnote$nonce").put("emoji", emoji.id)
         }

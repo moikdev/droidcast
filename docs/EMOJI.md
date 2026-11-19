@@ -21,9 +21,16 @@ account or network connection is needed to use the bundled catalog.
   panel searches Copy, Favorite and Copy Unicode actions; Unicode copies each
   codepoint as `U+XXXX`. Escape closes it and restores search focus.
 - The footer names the selected symbol and confirms copying. The star toggles a
-  favorite. Favorites lead the All view; Recent holds the last 32 distinct copies.
-  Both are private on-device preferences and survive app restart. They are not
-  included in the current portable backup schema.
+  favorite. Favorites lead the All view.
+- **Recent history is off by default**, including after an upgrade. To remember
+  up to 32 distinct copied symbols on this device, choose **Recent** in the category
+  menu and select **Enable recent history**. Enabling also shows any previously
+  saved entries. While history is off, copying leaves the saved list untouched
+  and the picker excludes that list from search ranking.
+- In **Recent**, open **Actions** (Ctrl+K) to pause recording or clear the saved
+  list. Pausing hides the list and preserves it for later. Clearing removes it
+  without changing your recording preference or favorites. Favorites and recent
+  history are local to this installation. Portable favorites remain part of #44.
 
 The licensed snapshot contains 1,870 emoji and 70 common text symbols. It is not
 the complete/current Unicode repertoire. Android's font determines appearance

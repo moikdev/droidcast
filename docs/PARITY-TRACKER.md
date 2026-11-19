@@ -283,3 +283,9 @@ The ranking-only backup summary fix from #125 merged in #126 as `c3b4c4c2`. The 
 DroidCast now exposes Battery settings and Security settings in palette search. On the dedicated API 36 emulator the battery overview and the Security & privacy dashboard each opened on both phone and tablet viewports. Controlled denial kept the query visible. The pre-33 security destination and physical/OEM behavior still need device validation in #22. [Evidence and platform coverage](BATTERY-SECURITY-SETTINGS.md)
 
 The Quick Settings harness in #127 merged as `c337f481` after both independent audits and hosted/local Android checks passed on `b8e37258`. The merge tree equals the audited tree. The historical suite failures remain open in #37.
+
+### Emoji history consent
+
+The [#44 emoji history change](EMOJI-HISTORY.md) makes recording an explicit choice, including on upgrade. Pausing hides saved entries from Recent and search ranking. Clearing removes the list and preserves favorites. Tablet and phone cover default privacy, enabling, pausing, clearing, keyboard actions and exact clipboard text. The tablet restart workflow verifies preference persistence. Portable favorites, custom ranking and the other #44 acceptance items remain open.
+
+PR #128 merged the battery and security settings destinations at `2bc32888`. The merged tree matches reviewed `0e9c628c`. Both independent reviews and [hosted Android](https://github.com/moikdev/droidcast/actions/runs/44449810216) passed after the collector optimization guard was repaired. #22 still tracks pre-33 and physical/OEM verification.
