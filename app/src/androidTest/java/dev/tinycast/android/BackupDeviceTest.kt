@@ -1,6 +1,9 @@
 package dev.tinycast.android
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -10,12 +13,16 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import androidx.test.uiautomator.UiScrollable
 import androidx.test.uiautomator.UiSelector
+import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
 import java.io.ByteArrayInputStream
 import java.io.File
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicLong
 
 @RunWith(AndroidJUnit4::class)
 class BackupDeviceTest {
@@ -71,8 +78,8 @@ class BackupDeviceTest {
             throw failure
         }
     }
-    private fun load(document: BackupDocument) {
-        val file = File(context.cacheDir, "backup-test.json").apply { writeText(BackupCodec.encode(document.data, document.categories)) }
+    private fun load(document: BackupDocument, file: File = File(context.cacheDir, "backup-test.json")) {
+        file.writeText(BackupCodec.encode(document.data, document.categories))
         compose.activityRule.scenario.onActivity { it.store.readBackup(android.net.Uri.fromFile(file)) }
         compose.waitUntil(10000) { compose.activity.store.dialog == "backup-preview" && !compose.activity.store.backupBusy }
     }
@@ -335,13 +342,142 @@ class BackupDeviceTest {
         assertNull(compose.activity.store.backupDocument)
     }
     @Test fun importedRankingCannotOverflowOnNextCommand() {
-        load(BackupDocument(BackupData(usage = mapOf("calculator" to Int.MAX_VALUE)), setOf(BackupCategory.LEARNING)))
-        compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
-        compose.onNodeWithTag("backup-review").performScrollTo().performClick()
-        compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
-        compose.waitUntil(10000) { !compose.activity.store.backupBusy && compose.activity.store.dialog == "backup" }
-        compose.activityRule.scenario.onActivity { it.store.used("calculator") }
-        assertEquals(Int.MAX_VALUE, compose.activity.store.usage["calculator"])
+        val arguments = InstrumentationRegistry.getArguments()
+        val runId = arguments.getString("backupRankingEvidence")
+        val control = arguments.getString("backupRankingControl")
+        require(control == null || (control == "omit-confirm" && runId != null))
+        val folder = runId?.let { id ->
+            require(Regex("[0-9a-f]{32}").matches(id))
+            File(context.filesDir, "backup-ranking-$id").also {
+                require(it.isDirectory && it.list()?.isEmpty() == true) { "Expected a fresh host-owned evidence directory" }
+            }
+        }
+        val rounds = arguments.getString("backupRankingRounds")?.let {
+            require(folder != null && control == null) { "Warm rounds require evidence and ordinary confirmation" }
+            it.toInt().also { count -> require(count in 1..5) }
+        } ?: 1
+        val activity = compose.activity
+        repeat(rounds) { round ->
+            val trial = folder?.let { File(it, "trial-${round + 1}").apply { check(mkdir()) } }
+            val fixture = trial?.let { File(it, "ranking.json") } ?: File.createTempFile("ranking-", ".json", context.cacheDir)
+            try {
+                fun prepare(rank: Int) {
+                    load(BackupDocument(BackupData(usage = mapOf("calculator" to rank)), setOf(BackupCategory.LEARNING)), fixture)
+                    compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
+                    if (trial != null && rank == Int.MAX_VALUE) {
+                        compose.onNodeWithTag("backup-plan-summary").performScrollTo().assertIsDisplayed()
+                        captureRankingScreen(activity, trial, "preview", "Preview backup")
+                    }
+                    compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+                }
+                if (round > 0) {
+                    // Establish a fresh lower rank using the ordinary import path in this same activity.
+                    prepare(0)
+                    compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+                    compose.waitUntil(10000) { !activity.store.backupBusy && activity.store.dialog == "backup" }
+                    compose.activityRule.scenario.onActivity {
+                        assertSame(activity, it)
+                        assertNull(it.store.backupError)
+                        assertEquals(0, it.store.usage["calculator"])
+                    }
+                }
+                prepare(Int.MAX_VALUE)
+                checkRankingConfirmation(activity, trial, control == "omit-confirm")
+            } finally {
+                if (trial == null) fixture.delete()
+            }
+        }
+    }
+    private fun captureRankingScreen(activity: MainActivity, folder: File?, stage: String, marker: String? = null) {
+        if (folder == null) return
+        if (marker != null) {
+            compose.waitForIdle()
+            val frames = CountDownLatch(1)
+            compose.activityRule.scenario.onActivity { live ->
+                assertSame(activity, live)
+                live.window.decorView.postOnAnimation { live.window.decorView.postOnAnimation { frames.countDown() } }
+            }
+            assertTrue(frames.await(5, TimeUnit.SECONDS))
+            check(device.wait(Until.hasObject(By.pkg(context.packageName).text(marker)), 5000))
+        }
+        check(device.currentPackageName == context.packageName)
+        device.dumpWindowHierarchy(File(folder, "$stage.xml"))
+        check(device.currentPackageName == context.packageName)
+        check(device.takeScreenshot(File(folder, "$stage.png")))
+    }
+
+    private fun checkRankingConfirmation(activity: MainActivity, folder: File?, omitConfirm: Boolean) {
+        val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val observations = JSONArray()
+        val startedAt = SystemClock.elapsedRealtime()
+        val usageNotification = AtomicLong(-1)
+        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == "usage") usageNotification.compareAndSet(-1, SystemClock.elapsedRealtime() - startedAt)
+        }
+        val store = activity.store
+        fun observe(stage: String) {
+            if (folder == null && stage != "failure") return
+            InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                val dialog = store.dialog
+                observations.put(JSONObject()
+                    .put("stage", stage)
+                    .put("elapsed_ms", SystemClock.elapsedRealtime() - startedAt)
+                    .put("usage_notification_ms", usageNotification.get())
+                    .put("activity_state", activity.lifecycle.currentState.name)
+                    .put("window_focused", activity.hasWindowFocus())
+                    .put("activity_destroyed", activity.isDestroyed)
+                    .put("dialog", dialog?.takeIf { it in setOf("backup-confirm", "backup-preview", "backup") } ?: "other")
+                    .put("backup_busy", store.backupBusy)
+                    .put("backup_error_present", store.backupError != null)
+                    .put("incoming_document_present", store.backupDocument != null)
+                    .put("model_at_limit", store.usage["calculator"] == Int.MAX_VALUE)
+                    .put("preferences_at_limit", runCatching {
+                        JSONObject(prefs.getString("usage", "{}") ?: "{}").optInt("calculator") == Int.MAX_VALUE
+                    }.getOrNull() ?: JSONObject.NULL))
+            }
+            if (stage == "failure") {
+                val status = Bundle().apply { putString("backup_ranking_state", observations.getJSONObject(observations.length() - 1).toString()) }
+                InstrumentationRegistry.getInstrumentation().sendStatus(2, status)
+            }
+            if (folder == null) return
+            val tmp = File(folder, "states.tmp")
+            tmp.writeText(observations.toString(2))
+            check(tmp.renameTo(File(folder, "states.json"))) { "Could not save fixture observations" }
+        }
+        if (folder != null) prefs.registerOnSharedPreferenceChangeListener(listener)
+        try {
+            val summary = "Portable settings after restore · 1 usage ranking entry"
+            compose.onNodeWithText(summary).performScrollTo().assertIsDisplayed()
+            captureRankingScreen(activity, folder, "confirmation", summary)
+            val confirm = compose.onNodeWithTag("backup-confirm").performScrollTo().assertIsEnabled()
+            observe("before_confirm")
+            if (!omitConfirm) confirm.performClick()
+            observe(if (omitConfirm) "confirm_omitted" else "after_confirm")
+            compose.waitUntil(10000) { !compose.activity.store.backupBusy && compose.activity.store.dialog == "backup" }
+            observe("apply_complete")
+            compose.activityRule.scenario.onActivity {
+                assertSame(activity, it)
+                assertNull(it.store.backupError)
+                assertEquals("Backup restored · Usage ranking", it.store.message)
+                assertEquals(Int.MAX_VALUE, it.store.usage["calculator"])
+                it.store.used("calculator")
+                assertEquals(Int.MAX_VALUE, it.store.usage["calculator"])
+            }
+            observe("after_next_command")
+            if (folder != null) {
+                compose.onNodeWithText("Notes").performScrollTo().assertIsDisplayed()
+                captureRankingScreen(activity, folder, "complete", "Notes")
+                compose.onNodeWithText("Backup and restore").assertIsDisplayed()
+            }
+        } catch (failure: Throwable) {
+            runCatching { observe("failure") }.onFailure(failure::addSuppressed)
+            runCatching {
+                if (folder != null && device.currentPackageName == context.packageName) captureRankingScreen(activity, folder, "failure")
+            }.onFailure(failure::addSuppressed)
+            throw failure
+        } finally {
+            if (folder != null) prefs.unregisterOnSharedPreferenceChangeListener(listener)
+        }
     }
     @Test fun preservedDocumentAliasBlocksQuicklinkCollisionsForBothPolicies() {
         lateinit var documentId: String

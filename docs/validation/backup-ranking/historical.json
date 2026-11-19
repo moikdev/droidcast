@@ -1,0 +1,25 @@
+{
+  "reported_revision": "8ccd87dff85e683c4a141bd5dd8cec036348f622",
+  "original_log_sha256": {
+    "parity-shortcuts-keypad-phone-backup-timeout.log": "bea0edbaaf988d8f52a82747bcd004afb4abb9b892626798c3b32b9ee1fc9079",
+    "parity-shortcuts-phone-recheck.log": "ec3317850731db5221ab8a7ec3d39b4248dcffcd54e28a1a6af29e19256a4615",
+    "parity-shortcuts-ranking-phone-repeat-1.log": "d23ab38aed01cc43cce4ec4b6ebc34625a4ca218963879cc1cd0f6b036a033d3",
+    "parity-shortcuts-ranking-phone-repeat-2.log": "85eb3b319d8783c6e89837bc3c0953a14bcec68ca975f39f3d1d740c7ea8858f",
+    "parity-shortcuts-ranking-phone-repeat-3.log": "1e75efea0a71f3ba37768de8f57f21263115a85e5a64d91b7716e27f3c379481"
+  },
+  "timeout_log_selected_lines": [
+    "INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms",
+    "\tat dev.tinycast.android.BackupDeviceTest.importedRankingCannotOverflowOnNextCommand(BackupDeviceTest.kt:212)",
+    "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms",
+    "\tat dev.tinycast.android.BackupDeviceTest.importedRankingCannotOverflowOnNextCommand(BackupDeviceTest.kt:212)",
+    "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms",
+    "\tat dev.tinycast.android.BackupDeviceTest.importedRankingCannotOverflowOnNextCommand(BackupDeviceTest.kt:212)",
+    "Tests run: 23,  Failures: 1"
+  ],
+  "rerun_summary": "phone {'passed': 23, 'seconds': 108.9}",
+  "focused_successes": [
+    true,
+    true,
+    true
+  ]
+}

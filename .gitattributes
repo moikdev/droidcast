@@ -52,3 +52,6 @@ docs/validation/viewer-body/*.xml -text -whitespace
 
 # Keep the on-device Settings focus hierarchies byte-identical to their captures.
 docs/validation/settings-focus/**/*.xml -text -whitespace
+
+# Preserve the Android hierarchy bytes used with the backup import screenshots.
+docs/validation/backup-ranking/hierarchies/*.xml -text -whitespace
