@@ -510,7 +510,11 @@ private fun SettingsSearchResults(activity: SettingsActivity, query: String, sel
             items(commands, key = { "command:${it.id}" }) { command ->
                 ListItem(headlineContent = { Text(command.title) }, supportingContent = { Text("Command shortcuts and alias") }, modifier = Modifier.clickable { activity.configure(command.id); selected() })
             }
-            if (pages.isEmpty() && commands.isEmpty()) item { Text("No matching settings or commands.", color = PaletteTheme.secondary, fontSize = 13.sp) }
+            if (pages.isEmpty() && commands.isEmpty()) item {
+                val message = if (activity.store.extensions.inventoryReady) "No matching settings or commands."
+                    else "Loading installed extensions…"
+                Text(message, color = PaletteTheme.secondary, fontSize = 13.sp)
+            }
         }
     }
 }

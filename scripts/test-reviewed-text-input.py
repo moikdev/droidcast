@@ -61,6 +61,7 @@ SETTINGS_NAVIGATION_CASES = {SETTINGS_NAVIGATION_CLASS + '#' + method for method
     'heldCtrlFindDoesNotTypeIntoSettingsSearch', 'heldMetaFindDoesNotTypeIntoSettingsSearch',
     'settingsIsNotExportedAndOldGlobalNavigationBindingsArePreserved',
     'pendingAliasRequestFocusesWhenTheCommandBecomesAvailable',
+    'findWaitsForInstalledCommandBeforeShowingEmptyResults',
 )}
 
 
