@@ -82,3 +82,5 @@ docs/validation/emoji-order/runs/**/*.log -text -whitespace
 # Keep the Android backup captures and instrumentation output byte-identical.
 docs/validation/emoji-portable/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-portable/runs/**/*.log -text -whitespace
+docs/validation/peer-backup/hierarchies/*.xml -text -whitespace
+docs/validation/peer-backup/runs/**/*.log -text -whitespace
