@@ -44,3 +44,17 @@ class HtmlViewerEvidenceTests(unittest.TestCase):
         for node in tree.iter("node"):
             node.set("package", "other.viewer")
         self.assertIsNone(visible_body_method(tree, b"", TITLE, BODY))
+
+    def test_sibling_webviews_are_ambiguous(self):
+        tree = ET.parse(RECORDS / "historical-exposed-body.xml")
+        ET.SubElement(tree.getroot(), "node", {"package": "com.android.htmlviewer",
+                                              "class": "android.webkit.WebView"})
+        self.assertIsNone(visible_body_method(tree, b"", TITLE, BODY))
+
+    def test_out_of_image_webview_rejected(self):
+        if find_spec("PIL") is None:
+            self.skipTest("Requires Pillow")
+        tree = ET.parse(RECORDS / "historical-missing-body.xml")
+        webview = next(n for n in tree.iter("node") if n.get("class") == "android.webkit.WebView")
+        webview.set("bounds", "[0,0][1921,1200]")
+        self.assertIsNone(visible_body_method(tree, (IMAGES / "historical-visible.png").read_bytes(), TITLE, BODY))
