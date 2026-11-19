@@ -382,6 +382,39 @@ class EmojiDeviceTest {
         assertEquals(1, store.query.count { it == 's' })
     }
 
+    @Test fun heldEscapeCancelsOnlyTheKeywordEditor() {
+        val query = "🐱"
+        search(query)
+        openKeywordEditor()
+        compose.onNodeWithTag("emoji-keywords-field").performTextReplacement("discard this draft")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun escape(action: Int, repeat: Int) {
+            val event = KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_ESCAPE,
+                repeat, 0, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD)
+            assertTrue(testAutomation().injectInputEvent(event, true))
+            compose.waitForIdle()
+        }
+        try {
+            escape(KeyEvent.ACTION_DOWN, 0)
+            compose.onNodeWithTag("emoji-keywords-field").assertDoesNotExist()
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            assertEquals(query, store.query)
+            escape(KeyEvent.ACTION_DOWN, 1)
+            captureVisibleNode("escape-repeat", "emoji-search")
+            assertEquals("Held Escape must preserve the caller query", query, store.query)
+            for (repeat in 2..3) escape(KeyEvent.ACTION_DOWN, repeat)
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            assertEquals(query, store.results()[store.selected].glyph)
+            assertEquals("", store.customKeywordText("1f431"))
+        } finally {
+            escape(KeyEvent.ACTION_UP, 0)
+        }
+        key(KeyEvent.KEYCODE_ESCAPE)
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        assertEquals("Fresh Escape clears the query", "", store.query)
+        captureVisibleNode("escape-fresh", "emoji-search")
+    }
+
     @Test fun keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit() {
         search("🐱")
         openKeywordEditor()

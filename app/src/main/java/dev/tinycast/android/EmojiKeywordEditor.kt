@@ -30,10 +30,12 @@ internal fun EmojiKeywordEditor(entry: EmojiEntry, store: EmojiStore, current: (
     Shell("Custom keywords", "${entry.glyph}  ${entry.name}", close,
         Modifier.onPreviewKeyEvent {
             val e = it.nativeKeyEvent
-            if (e.keyCode == KeyEvent.KEYCODE_S && (e.isCtrlPressed xor e.isMetaPressed) && !e.isAltPressed && !e.isShiftPressed) {
+            val cancel = e.keyCode == KeyEvent.KEYCODE_ESCAPE
+            val saveChord = e.keyCode == KeyEvent.KEYCODE_S && (e.isCtrlPressed xor e.isMetaPressed) && !e.isAltPressed && !e.isShiftPressed
+            if (cancel || saveChord) {
                 if (e.action == KeyEvent.ACTION_DOWN && e.repeatCount == 0) {
                     menus.claimPress(e)
-                    save()
+                    if (cancel) close() else save()
                 }
                 true
             } else false
