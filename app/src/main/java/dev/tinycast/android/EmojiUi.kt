@@ -358,9 +358,9 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                             if (currentHistoryView()) store.clearHistory()
                         }
                     ) else emptyList()) + listOf(
-                        PaletteChoice("emoji-zoom-in", "Zoom in", enabled=columns > minColumns, shortcut=listOf("Ctrl", "+"), separator=true) { zoom(-1) },
-                        PaletteChoice("emoji-zoom-out", "Zoom out", enabled=columns < maxColumns, shortcut=listOf("Ctrl", "−")) { zoom(1) },
-                        PaletteChoice("emoji-actual-size", "Actual size", enabled=zoomColumns != null, shortcut=listOf("Ctrl", "0")) {
+                        PaletteChoice("emoji-zoom-in", "Zoom in", enabled=columns > minColumns, shortcut=listOf("Ctrl", "+"), chord=KeyChord(KeyEvent.KEYCODE_EQUALS, ShortcutRules.CTRL or ShortcutRules.SHIFT), separator=true) { zoom(-1) },
+                        PaletteChoice("emoji-zoom-out", "Zoom out", enabled=columns < maxColumns, shortcut=listOf("Ctrl", "−"), chord=KeyChord(KeyEvent.KEYCODE_MINUS, ShortcutRules.CTRL)) { zoom(1) },
+                        PaletteChoice("emoji-actual-size", "Actual size", enabled=zoomColumns != null, shortcut=listOf("Ctrl", "0"), chord=KeyChord(KeyEvent.KEYCODE_0, ShortcutRules.CTRL)) {
                             if (canChangeGrid()) zoomColumns = null
                         },
                         PaletteChoice("emoji-save-size", "Set default to $columns columns", enabled=store.defaultGridColumns != columns) {

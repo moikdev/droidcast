@@ -92,7 +92,7 @@ class EmojiDeviceTest {
             compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-filter-$value"))
         compose.onNodeWithTag("emoji-filter-$value").performScrollTo().performClick()
     }
-    private fun evidence(name: String, marker: String) {
+    private fun evidence(name: String, marker: String, expectedColumns: Int? = null) {
         compose.waitForIdle()
         assertTrue("Screenshot marker: $marker", device.wait(Until.hasObject(By.textContains(marker)), 5000))
         dismissClipboardForEvidence()
@@ -112,7 +112,10 @@ class EmojiDeviceTest {
             val elements = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }
                 .filter { it.getAttribute("package") == context.packageName }
             fun tagged(tag: String) = elements.singleOrNull { it.getAttribute("resource-id").substringAfterLast('/') == tag }
-            tagged("emoji-count")?.getAttribute("text") == expectedCount &&
+            val gridMatches = expectedColumns == null || elements.filter { it.getAttribute("resource-id").startsWith("emoji-cell-") }
+                .map { android.graphics.Rect.unflattenFromString(it.getAttribute("bounds").replace(Regex("[^0-9-]+"), " ").trim()) }
+                .filterNotNull().filter { !it.isEmpty }.groupBy { it.top }.toSortedMap().values.firstOrNull()?.size == expectedColumns
+            gridMatches && tagged("emoji-count")?.getAttribute("text") == expectedCount &&
                 tagged("emoji-selected-name")?.getAttribute("text") == expectedName &&
                 tagged("emoji-copy")?.getAttribute("enabled") == expectedEnabled &&
                 tagged("emoji-favorite")?.getAttribute("enabled") == expectedEnabled
@@ -277,7 +280,7 @@ class EmojiDeviceTest {
             compose.waitForIdle()
         }
         val original = firstRowColumns()
-        evidence("grid-default", "results · offline")
+        evidence("grid-default", "results · offline", original)
         key(KeyEvent.KEYCODE_DPAD_RIGHT)
         val selectedId = store.results()[store.selected].id
         key(KeyEvent.KEYCODE_EQUALS, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
@@ -285,16 +288,22 @@ class EmojiDeviceTest {
         compose.onNodeWithTag("emoji-cell-$selectedId").assertIsSelected().assertIsDisplayed()
         assertEquals("face", store.query)
         assertFalse(prefs.contains("gridColumns"))
-        evidence("grid-zoomed", "results · offline")
+        evidence("grid-zoomed", "results · offline", original - 1)
         val bounds = compose.onNodeWithTag("emoji-cell-$selectedId").fetchSemanticsNode().boundsInWindow
         val minimum = 48 * context.resources.displayMetrics.density - 1
         assertTrue("Zoomed target", bounds.width >= minimum && bounds.height >= minimum)
         key(KeyEvent.KEYCODE_DPAD_DOWN)
         assertEquals(original, store.selected)
-        key(KeyEvent.KEYCODE_0, KeyEvent.META_META_ON)
+        key(KeyEvent.KEYCODE_0, KeyEvent.META_CTRL_ON)
         assertEquals(original, firstRowColumns())
         action("emoji-zoom-in")
         assertEquals(original - 1, firstRowColumns())
+        key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("inline-menu").assertIsDisplayed()
+        key(KeyEvent.KEYCODE_0, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+        assertEquals(original, firstRowColumns())
+        action("emoji-zoom-in")
         action("emoji-save-size")
         assertEquals(original - 1, prefs.getInt("gridColumns", 0))
         action("emoji-zoom-out")
@@ -305,7 +314,7 @@ class EmojiDeviceTest {
         compose.onNodeWithTag("result-emoji").performClick()
         search("face")
         assertEquals("A fresh picker uses its saved default", original - 1, firstRowColumns())
-        evidence("grid-reopened", "results · offline")
+        evidence("grid-reopened", "results · offline", original - 1)
         action("emoji-auto-size")
         assertFalse(prefs.contains("gridColumns"))
         assertEquals(original, firstRowColumns())
