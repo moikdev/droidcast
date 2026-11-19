@@ -8,7 +8,7 @@ import android.view.KeyEvent
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowCompat
-import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import org.json.JSONArray
 import org.json.JSONObject
 import androidx.compose.ui.test.*
@@ -246,18 +246,22 @@ class SettingsRouteDeviceTest {
         // Move the inspector back to the top while the IME is open. An offscreen
         // field may still be focused and editable; both dimensions must catch it.
         val inspector = compose.onNode(hasScrollAction() and hasAnyDescendant(hasTestTag("settings-alias")))
-        inspector.performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, -10000f) }
+        fun scrollOffset() = inspector.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange].value()
+        val beforePan = scrollOffset()
+        inspector.performTouchInput { swipeDown() }
         compose.waitForIdle()
+        val afterPan = scrollOffset()
         val inspectorClipped = !measure()
         alias.assertIsFocused().assert(editableCharactersExactly("x"))
+        assertEquals(id, workspace.requestedCommand)
         val stillOpen = compose.runOnUiThread { imeVisible() }
-        val scrollStable = if (inspectorClipped && stillOpen) {
-            SystemClock.sleep(350)
-            !measure() && compose.runOnUiThread { imeVisible() }
-        } else false
+        SystemClock.sleep(350)
+        val scrollStable = kotlin.math.abs(scrollOffset() - afterPan) <= 1f &&
+            compose.runOnUiThread { imeVisible() }
         if (inspectorClipped && stillOpen) capture("panned")
         dest?.let { File(it, "$path-probe.json").writeText(JSONObject().put("samples", samples)
             .put("visible_before_typing", visibleBefore).put("visible_after_typing", visibleAfter)
+            .put("offset_before_pan", beforePan.toDouble()).put("offset_after_pan", afterPan.toDouble())
             .put("panned_clipped", inspectorClipped).put("keyboard_after_pan", stillOpen)
             .put("user_scroll_preserved", scrollStable).put("typed_exactly_x", true).toString()) }
         assertTrue("The focused alias field must be fully visible with the keyboard before typing", visibleBefore)
