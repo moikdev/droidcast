@@ -1,0 +1,75 @@
+{
+  "cases": [
+    {
+      "name": "recording pauses the existing global shortcut",
+      "passed": true
+    },
+    {
+      "name": "record and persist Ctrl + Alt + Space",
+      "passed": true
+    },
+    {
+      "name": "Ctrl+F focuses settings search while the service is enabled",
+      "passed": true
+    },
+    {
+      "name": "Ctrl+Comma opens the separate settings workspace with the service enabled",
+      "passed": true
+    },
+    {
+      "name": "round 1: summon/toggle from Settings",
+      "passed": true
+    },
+    {
+      "name": "round 1: summon/toggle from Home",
+      "passed": true
+    },
+    {
+      "name": "old global chord stops activating after reassignment",
+      "passed": true
+    },
+    {
+      "name": "live conflict names its owner and cannot overwrite it",
+      "passed": true
+    },
+    {
+      "name": "Wi-Fi command uses normal destination and suppresses repeats",
+      "passed": true
+    },
+    {
+      "name": "installed-app binding launches real Files app",
+      "passed": true
+    },
+    {
+      "name": "recent-document binding opens the persisted TXT fixture",
+      "passed": true
+    },
+    {
+      "name": "calculator binding enters the same calculator mode",
+      "passed": true
+    },
+    {
+      "name": "calculator shortcut toggles its existing mode",
+      "passed": true
+    },
+    {
+      "name": "note command binding opens the normal native editor",
+      "passed": true
+    },
+    {
+      "name": "unrelated typing and an unbound chord pass through",
+      "passed": true
+    },
+    {
+      "name": "service disable/reconnect respects persisted configuration",
+      "passed": true
+    }
+  ],
+  "app_requires_root": false,
+  "injection": "dedicated emulator Linux qwerty2 device",
+  "original_service_consent_restored": true,
+  "original_preferences_restored": true,
+  "adbd_unprivileged": true,
+  "app_unprivileged": true,
+  "unroot_command_exit_code": 0
+}

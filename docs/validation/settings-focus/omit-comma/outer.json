@@ -1,0 +1,20 @@
+{
+  "kind": "omit-comma",
+  "exit": 1,
+  "app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+  "executed_runner_sha256": "ae70474f807b00c53333f59e9adfa88073fa7d09b68ae8ecb791b19e0468fa62",
+  "passed": 3,
+  "outer_checks": {
+    "apk": true,
+    "preferences": true,
+    "consent": true,
+    "shell_uid": true,
+    "app_uid": true
+  },
+  "runner_cleanup": {
+    "original_service_consent_restored": true,
+    "original_preferences_restored": true,
+    "adbd_unprivileged": true,
+    "app_unprivileged": true
+  }
+}
