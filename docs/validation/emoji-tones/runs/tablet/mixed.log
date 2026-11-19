@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.EmojiDeviceTest:
+INSTRUMENTATION_STATUS: test=pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.EmojiDeviceTest.toneMenuFrame(EmojiDeviceTest.kt:251)
+	at dev.tinycast.android.EmojiDeviceTest.pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite(EmojiDeviceTest.kt:284)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite(dev.tinycast.android.EmojiDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.EmojiDeviceTest.toneMenuFrame(EmojiDeviceTest.kt:251)
+	at dev.tinycast.android.EmojiDeviceTest.pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite(EmojiDeviceTest.kt:284)
+
+INSTRUMENTATION_STATUS: test=pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.756
+There was 1 failure:
+1) pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite(dev.tinycast.android.EmojiDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.EmojiDeviceTest.toneMenuFrame(EmojiDeviceTest.kt:251)
+	at dev.tinycast.android.EmojiDeviceTest.pointerCopiesMixedToneWithoutChangingTheCallerOrOriginalFavorite(EmojiDeviceTest.kt:284)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

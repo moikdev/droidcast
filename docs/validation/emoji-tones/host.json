@@ -1,0 +1,37 @@
+{
+  "benchmark": {
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 52
+    },
+    "log_sha256": "31e32d607a8c8c20ada436158ea8bece6528e1cfdc9645d4b7e31e9f6d730434"
+  },
+  "debug": {
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 52
+    },
+    "log_sha256": "7238ce9b024ee341971bbdf6ec52fd445ba9d726b2f55c82ad9205724c3468b6"
+  },
+  "jvm": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 352
+  },
+  "python": {
+    "cases": 146,
+    "log_sha256": "9aab4c8778d25382cef10647bb6079d4d9df12bed2b42573e7a92b5e67311836"
+  },
+  "python-O": {
+    "cases": 146,
+    "log_sha256": "0f7d962f50ad84d964fc9336aea41aacd0f3bebd19a4dfee04ecd82e1eec6138"
+  },
+  "runners": {
+    "release.py": "e11f9c45b53b95d584adf7670b9bb4a7d9dbfb650d136fbaa60917d5ff639503"
+  },
+  "source": "e58b60dd82d501f957d35f96bee136a3bb2b35bb",
+  "source_count": 237
+}

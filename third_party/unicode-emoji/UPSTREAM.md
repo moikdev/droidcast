@@ -9,3 +9,5 @@ Run `python3 scripts/generate-emoji.py` from an offline checkout to regenerate t
 The vendored `emoji-test.txt` matches the [Unicode Consortium’s published 18.0 file](https://www.unicode.org/Public/18.0.0/emoji/emoji-test.txt) byte for byte (SHA-256 `8f3735cda1f92a779d78af67cf86066bb1f07143dc22f2ac29394d9bc57ab21a`).
 
 [Unicode Emoji 18.0 data](https://github.com/unicode-org/unicodetools/tree/7c451e2cfe2c85990dc0f4cb3396de05e2aa599d/unicodetools/data/emoji/18.0) · [CLDR 49 source](https://github.com/unicode-org/cldr/tree/96e54b273d2da4ec6fbad350ba19ff23fa24a588/common)
+
+The generator also groups complete fully-qualified records in `emoji-tone-families.tsv`. Each line starts with the unmodified catalog ID, followed by five tones or a 5 × 5 table in Unicode descriptor order. The generic kiss and couple-with-heart records omit “person, person” from their default and uniform-tone names. Their mixed-tone records include it. The generator resolves these two naming differences and rejects missing or duplicate combinations.

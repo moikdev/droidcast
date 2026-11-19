@@ -1,0 +1,38 @@
+{
+  "benchmark": {
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 52
+    },
+    "log_sha256": "8b528656344637e62ca93d2bfc4b4e69a54bc1c2c854af90daf9a02bb323789f"
+  },
+  "debug": {
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 52
+    },
+    "log_sha256": "15ad7757fc38b39d2c385f2cec83222893bad960a5ab2a940828479a80707540"
+  },
+  "jvm": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 352
+  },
+  "python": {
+    "cases": 146,
+    "log_sha256": "9aab4c8778d25382cef10647bb6079d4d9df12bed2b42573e7a92b5e67311836"
+  },
+  "python-O": {
+    "cases": 146,
+    "log_sha256": "0f7d962f50ad84d964fc9336aea41aacd0f3bebd19a4dfee04ecd82e1eec6138"
+  },
+  "python_evidence": "Retained at the original implementation inputs; Python sources unchanged.",
+  "runners": {
+    "release.py": "b620112cab498a9ade4c48998941d24f952532474e79719424354035c5784206"
+  },
+  "source": "c9ef042d0f635f56471f42cc117233c7396cdd7f",
+  "source_count": 237
+}

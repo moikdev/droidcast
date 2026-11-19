@@ -56,6 +56,17 @@ object EmojiCatalog {
         require(entries.map { it.id }.distinct().size == entries.size && entries.map { it.glyph }.distinct().size == entries.size)
     }
 
+    internal fun toneFamilies(lines: Sequence<String>, catalog: List<EmojiEntry>): Map<String, List<EmojiEntry>> {
+        val byId = catalog.associateBy { it.id }
+        return buildMap {
+            for (line in lines) {
+                val variants = line.split('\t').map(byId::getValue)
+                require(variants.size == 6 || variants.size == 26)
+                for (variant in variants) require(put(variant.id, variants) == null)
+            }
+        }
+    }
+
     fun search(entries: List<EmojiEntry>, query: String, filter: String, favorites: Set<String>, recent: List<String>, favoriteOrder: List<String> = emptyList()): List<EmojiEntry> {
         val rawQuery = query.trim()
         val q = normalize(rawQuery.removeSurrounding(":")).replace(whitespace, " ")
