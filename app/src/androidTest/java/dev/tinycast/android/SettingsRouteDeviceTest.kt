@@ -127,6 +127,32 @@ class SettingsRouteDeviceTest {
         compose.onAllNodes(isDialog()).assertCountEquals(0)
         evidence("configure-command-route", "Wi-Fi settings")
     }
+    @Test fun pendingAliasRequestFocusesWhenTheCommandBecomesAvailable() {
+        key(KeyEvent.KEYCODE_COMMA, KeyEvent.META_CTRL_ON)
+        val workspace = settings()
+        val id = "notes:${java.util.UUID.randomUUID()}"
+        instrumentation.runOnMainSync { workspace.configure(id, "alias") }
+        val alias = compose.onNodeWithTag("settings-alias")
+        alias.performScrollTo().assertIsNotEnabled().assertIsNotFocused()
+        assertEquals("alias", workspace.requestedEditor)
+
+        // Publish a local command after the unavailable inspector has been laid out.
+        // This exercises the shared inspector without relying on a scheduler or Store download.
+        instrumentation.runOnMainSync { workspace.store.save("notes", "Owned late command", "Fixture", id = id) }
+        alias.performScrollTo().assertIsEnabled()
+        compose.waitForIdle()
+        if (hostRestoresTestClipboard()) {
+            val dir = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
+            device.waitForIdle()
+            testAutomation().clearCacheForTest()
+            device.dumpWindowHierarchy(File(dir, "late-command.xml"))
+            assertTrue(device.takeScreenshot(File(dir, "late-command.png")))
+        }
+        alias.assertIsFocused()
+        assertEquals("", workspace.requestedEditor)
+        assertEquals(id, workspace.requestedCommand)
+    }
+
     @Test fun aliasActionFocusesCorrectCommandAndPersistsWithoutPopup() {
         compose.onNodeWithTag("search").performTextReplacement("Create a note")
         key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)

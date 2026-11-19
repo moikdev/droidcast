@@ -60,6 +60,7 @@ SETTINGS_NAVIGATION_CLASS = 'dev.tinycast.android.SettingsRouteDeviceTest'
 SETTINGS_NAVIGATION_CASES = {SETTINGS_NAVIGATION_CLASS + '#' + method for method in (
     'heldCtrlFindDoesNotTypeIntoSettingsSearch', 'heldMetaFindDoesNotTypeIntoSettingsSearch',
     'settingsIsNotExportedAndOldGlobalNavigationBindingsArePreserved',
+    'pendingAliasRequestFocusesWhenTheCommandBecomesAvailable',
 )}
 
 

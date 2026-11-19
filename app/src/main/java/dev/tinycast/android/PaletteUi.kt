@@ -310,8 +310,9 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                     // push it below that strip. The route still scrolls to help
                     // text and full-size footer controls.
                     if(!compactEmpty) { Glyph("search",PaletteTheme.tertiary,28);Spacer(Modifier.height(12.dp)) }
-                    Text("No matching commands",fontSize=14.sp,lineHeight=if(compactEmpty)18.sp else TextUnit.Unspecified)
-                    if(!compactEmpty) Text("Try another name or category.",fontSize=12.sp,color=PaletteTheme.secondary)
+                    val loadingExtensions = store.category in setOf("Extensions", "Pinned", "All") && !store.extensions.inventoryReady
+                    Text(if (loadingExtensions) "Loading installed extensions…" else "No matching commands",fontSize=14.sp,lineHeight=if(compactEmpty)18.sp else TextUnit.Unspecified)
+                    if(!compactEmpty && !loadingExtensions) Text("Try another name or category.",fontSize=12.sp,color=PaletteTheme.secondary)
                     if(store.category=="Files") TextButton(onClick={run(Command("search-folders","Search folders",""))}){Text("Choose search folders")}
                     if(store.category=="Extensions") TextButton(onClick={store.dialog="extensions"}){Text("Browse Raycast Store")}
                 } else LazyColumn(state=list,modifier=Modifier.fillMaxWidth().weight(1f).testTag("results"),contentPadding=PaddingValues(horizontal=8.dp,vertical=4.dp)) {
