@@ -241,7 +241,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
             store.message = unavailableMessage
         }
     }
-    fun openSystemSettings(destination: SettingsDestination) = open(destination.intent(packageName), "${destination.title} is unavailable on this device.")
+    fun openSystemSettings(destination: SettingsDestination) = open(destination.intent(packageName), "This device can’t open ${destination.title}.")
     private fun openSettings(page: String = "general", command: String? = null, editor: String = "", operation: String? = null) {
         if (store.backupBusy) return
         startActivity(Intent(this, SettingsActivity::class.java).putExtra("page", page).putExtra("command", command)

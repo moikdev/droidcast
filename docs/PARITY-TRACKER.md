@@ -277,3 +277,9 @@ For #35 and #125, a ranking-only restore now reports the resulting portable rank
 On the API 36 emulator, the tablet and phone timeout captures both show a resumed palette behind the still-focused Quick Settings shade. The revised test waits for a visible panel before activation, checks the visible editor and focused palette, and restores the initial tile membership. The historical suite failures and the release comparison remain open in #37. [Report and device evidence](QUICK-SETTINGS-TILE.md)
 
 The ranking-only backup summary fix from #125 merged in #126 as `c3b4c4c2`. The merged tree matches the independently reviewed head `a1f5be8a`. Hosted and local Android checks passed. #35 remains open for the historical phone import timeout.
+
+### Battery and security commands
+
+DroidCast now exposes Battery settings and Security settings in palette search. On the dedicated API 36 emulator the battery overview and the Security & privacy dashboard each opened on both phone and tablet viewports. Controlled denial kept the query visible. The pre-33 security destination and physical/OEM behavior still need device validation in #22. [Evidence and platform coverage](BATTERY-SECURITY-SETTINGS.md)
+
+The Quick Settings harness in #127 merged as `c337f481` after both independent audits and hosted/local Android checks passed on `b8e37258`. The merge tree equals the audited tree. The historical suite failures remain open in #37.

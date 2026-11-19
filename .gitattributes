@@ -59,3 +59,7 @@ docs/validation/backup-ranking/hierarchies/*.xml -text -whitespace
 # Preserve native Quick Settings hierarchy and instrumentation output bytes.
 docs/validation/quick-settings-tile/hierarchies/*.xml -text -whitespace
 docs/validation/quick-settings-tile/runs/**/*.log -text -whitespace
+
+# Keep system Settings screenshot companions and Android test output byte-identical.
+docs/validation/battery-security/hierarchies/*.xml -text -whitespace
+docs/validation/battery-security/runs/**/*.log -text -whitespace

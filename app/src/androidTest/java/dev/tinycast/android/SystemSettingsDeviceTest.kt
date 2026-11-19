@@ -23,10 +23,14 @@ class SystemSettingsDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-    private fun launches(query: String, id: String, action: String) {
+    private fun launches(query: String, id: String, action: String, destinationPackage: String = "com.android.settings") {
         compose.onNodeWithTag("search").performTextReplacement(query)
         compose.waitForIdle()
-        assertEquals(id, compose.activity.store.results().first().id)
+        if (id in setOf("system:battery", "system:security")) {
+            compose.waitUntil(7000) { !compose.activity.store.loading && !compose.activity.store.folderSearch.loading }
+            capture(id.substringAfter(':') + "-search")
+        }
+        assertEquals(id, compose.activity.store.results().firstOrNull()?.id)
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val packageName = compose.activity.packageName
         val launched = AtomicReference<Intent>()
@@ -44,10 +48,12 @@ class SystemSettingsDeviceTest {
             if (id == "system:app-info") assertEquals("package:$packageName", launched.get().dataString)
             if (id == "system:notifications") assertEquals(packageName, launched.get().getStringExtra(Settings.EXTRA_APP_PACKAGE))
             compose.waitUntil(7000) { compose.activityRule.scenario.state == Lifecycle.State.DESTROYED }
-            assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 7000))
+            assertTrue(device.wait(Until.hasObject(By.pkg(destinationPackage)), 7000))
             device.waitForIdle()
-            assertEquals("com.android.settings", device.currentPackageName)
+            assertEquals(destinationPackage, device.currentPackageName)
             val markers = when (id) {
+                "system:battery" -> listOf(By.text("Battery usage"), By.text("Battery Saver"))
+                "system:security" -> listOf(By.text("Device unlock"), By.text("App security"))
                 "system:wifi" -> listOf(By.desc("Internet"), By.text("Wi-Fi"))
                 "system:bluetooth" -> listOf(By.desc("Connected devices"), By.text("Pair new device"))
                 "system:display" -> listOf(By.text("Brightness level"), By.text("Dark theme"))
@@ -61,15 +67,58 @@ class SystemSettingsDeviceTest {
                 "system:language" -> listOf(By.text("Preferred language order"), By.text("Add a language"))
                 else -> error("Define destination-specific assertions for $id")
             }
-            markers.forEach { marker -> assertTrue("Missing destination-specific UI for $id: $marker", device.wait(Until.hasObject(marker.pkg("com.android.settings")), 10000)) }
+            markers.forEach { marker -> assertTrue("Missing destination-specific UI for $id: $marker", device.wait(Until.hasObject(marker.pkg(destinationPackage)), 10000)) }
             device.waitForIdle()
             assertFalse("Expected a dedicated page, not root Settings", device.hasObject(By.text("Search Settings")))
-            val evidence = File(instrumentation.targetContext.filesDir, "system-settings-evidence").apply { mkdirs() }
-            device.takeScreenshot(File(evidence, "${id.substringAfter(':')}.png"))
-            device.dumpWindowHierarchy(File(evidence, "${id.substringAfter(':')}.xml"))
+            capture(id.substringAfter(':'))
         } finally {
             instrumentation.removeMonitor(monitor)
         }
+    }
+
+    private fun capture(name: String) {
+        device.waitForIdle()
+        val dir = File(InstrumentationRegistry.getInstrumentation().targetContext.filesDir, "system-settings-evidence").apply { mkdirs() }
+        device.dumpWindowHierarchy(File(dir, "$name.xml"))
+        assertTrue(device.takeScreenshot(File(dir, "$name.png")))
+    }
+
+    @Test fun deniedSecurityDashboardPreservesTheSearch() {
+        val query = "Security settings"
+        compose.onNodeWithTag("search").performTextReplacement(query)
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val requested = SystemSettings.find("system:security")!!.action
+        var denials = 0
+        val monitor = object : Instrumentation.ActivityMonitor() {
+            override fun onStartActivity(intent: Intent): Instrumentation.ActivityResult? {
+                if (intent.action == requested) {
+                    denials++
+                    throw SecurityException("Test denied the security settings launch")
+                }
+                return null
+            }
+        }
+        instrumentation.addMonitor(monitor)
+        try {
+            compose.onNodeWithTag("result-system:security").performClick()
+            compose.onNodeWithText("This device can’t open Security settings.").assertIsDisplayed()
+            compose.onNodeWithTag("search").assertTextContains(query)
+            assertEquals(1, denials)
+            assertEquals(Lifecycle.State.RESUMED, compose.activityRule.scenario.state)
+            capture("security-denied")
+        } finally {
+            instrumentation.removeMonitor(monitor)
+        }
+    }
+
+    @Test fun batterySearchOpensUsageOverview() =
+        launches("Battery settings", "system:battery", Intent.ACTION_POWER_USAGE_SUMMARY)
+
+    @Test fun securitySearchOpensSafetyCenter() {
+        org.junit.Assume.assumeTrue(android.os.Build.VERSION.SDK_INT >= 33)
+        val resolved = device.executeShellCommand("cmd package resolve-activity --brief -a ${Intent.ACTION_SAFETY_CENTER}")
+        val owner = requireNotNull(android.content.ComponentName.unflattenFromString(resolved.trim().lineSequence().last())).packageName
+        launches("Security settings", "system:security", Intent.ACTION_SAFETY_CENTER, owner)
     }
 
     @Test fun wifiSearchOpensWifiPage() = launches("wifi", "system:wifi", Settings.ACTION_WIFI_SETTINGS)
@@ -111,7 +160,7 @@ class SystemSettingsDeviceTest {
             it.openSystemSettings(SettingsDestination("test:unavailable", "Unavailable settings test", "", "dev.droidcast.NO_SETTINGS_HANDLER", ""))
         }
         compose.waitUntil(5000) {
-            runCatching { compose.onNodeWithText("Unavailable settings test is unavailable on this device.").assertIsDisplayed(); true }.getOrDefault(false)
+            runCatching { compose.onNodeWithText("This device can’t open Unavailable settings test.").assertIsDisplayed(); true }.getOrDefault(false)
         }
         compose.onNodeWithTag("search").assertTextContains("unavailable settings test")
         assertEquals(Lifecycle.State.RESUMED, compose.activityRule.scenario.state)
