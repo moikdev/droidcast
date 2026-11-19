@@ -278,7 +278,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
                 pins = prefs.getStringSet("pins", emptySet())!!.toSet(); aliases = readAliases(); usage = readMap("usage")
                 shortcutConfiguration = restoredShortcuts; shortcutError = null
                 backupDocument = null; dialog = "backup"; selected = 0
-                message = "Backup restored · ${plan.added} items applied, ${plan.skipped} duplicates kept"
+                message = plan.completionMessage()
             } finally { backupBusy = false }
         }
     }

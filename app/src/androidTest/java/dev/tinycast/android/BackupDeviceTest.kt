@@ -2,6 +2,7 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Bundle
 import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -19,6 +20,8 @@ import org.junit.Assert.*
 import org.junit.runner.RunWith
 import java.io.ByteArrayInputStream
 import java.io.File
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicLong
 
 @RunWith(AndroidJUnit4::class)
@@ -389,31 +392,48 @@ class BackupDeviceTest {
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             if (key == "usage") usageNotification.compareAndSet(-1, SystemClock.elapsedRealtime() - startedAt)
         }
+        val store = activity.store
         fun observe(stage: String) {
-            if (folder == null) return
+            if (folder == null && stage != "failure") return
             InstrumentationRegistry.getInstrumentation().runOnMainSync {
-                val dialog = activity.store.dialog
+                val dialog = store.dialog
                 observations.put(JSONObject()
                     .put("stage", stage)
                     .put("elapsed_ms", SystemClock.elapsedRealtime() - startedAt)
                     .put("usage_notification_ms", usageNotification.get())
                     .put("activity_state", activity.lifecycle.currentState.name)
                     .put("window_focused", activity.hasWindowFocus())
+                    .put("activity_destroyed", activity.isDestroyed)
                     .put("dialog", dialog?.takeIf { it in setOf("backup-confirm", "backup-preview", "backup") } ?: "other")
-                    .put("backup_busy", activity.store.backupBusy)
-                    .put("backup_error_present", activity.store.backupError != null)
-                    .put("incoming_document_present", activity.store.backupDocument != null)
-                    .put("model_at_limit", activity.store.usage["calculator"] == Int.MAX_VALUE)
+                    .put("backup_busy", store.backupBusy)
+                    .put("backup_error_present", store.backupError != null)
+                    .put("incoming_document_present", store.backupDocument != null)
+                    .put("model_at_limit", store.usage["calculator"] == Int.MAX_VALUE)
                     .put("preferences_at_limit", runCatching {
                         JSONObject(prefs.getString("usage", "{}") ?: "{}").optInt("calculator") == Int.MAX_VALUE
                     }.getOrNull() ?: JSONObject.NULL))
             }
+            if (stage == "failure") {
+                val status = Bundle().apply { putString("backup_ranking_state", observations.getJSONObject(observations.length() - 1).toString()) }
+                InstrumentationRegistry.getInstrumentation().sendStatus(2, status)
+            }
+            if (folder == null) return
             val tmp = File(folder, "states.tmp")
             tmp.writeText(observations.toString(2))
             check(tmp.renameTo(File(folder, "states.json"))) { "Could not save fixture observations" }
         }
-        fun capture(stage: String) {
+        fun capture(stage: String, marker: String? = null) {
             if (folder == null) return
+            if (marker != null) {
+                compose.waitForIdle()
+                val frames = CountDownLatch(1)
+                compose.activityRule.scenario.onActivity { live ->
+                    assertSame(activity, live)
+                    live.window.decorView.postOnAnimation { live.window.decorView.postOnAnimation { frames.countDown() } }
+                }
+                assertTrue(frames.await(5, TimeUnit.SECONDS))
+                check(device.wait(Until.hasObject(By.pkg(context.packageName).text(marker)), 5000))
+            }
             check(device.currentPackageName == context.packageName)
             device.dumpWindowHierarchy(File(folder, "$stage.xml"))
             check(device.currentPackageName == context.packageName)
@@ -421,20 +441,29 @@ class BackupDeviceTest {
         }
         if (folder != null) prefs.registerOnSharedPreferenceChangeListener(listener)
         try {
+            val summary = "After restore · 1 usage ranking entry"
+            compose.onNodeWithText(summary).performScrollTo().assertIsDisplayed()
+            capture("confirmation", summary)
             val confirm = compose.onNodeWithTag("backup-confirm").performScrollTo().assertIsEnabled()
             observe("before_confirm")
             if (!omitConfirm) confirm.performClick()
             observe(if (omitConfirm) "confirm_omitted" else "after_confirm")
-            compose.waitUntil(10000) { !activity.store.backupBusy && activity.store.dialog == "backup" }
+            compose.waitUntil(10000) { !compose.activity.store.backupBusy && compose.activity.store.dialog == "backup" }
             observe("apply_complete")
             compose.activityRule.scenario.onActivity {
+                assertSame(activity, it)
                 assertNull(it.store.backupError)
+                assertEquals("Backup restored · Usage ranking", it.store.message)
                 assertEquals(Int.MAX_VALUE, it.store.usage["calculator"])
                 it.store.used("calculator")
                 assertEquals(Int.MAX_VALUE, it.store.usage["calculator"])
             }
             observe("after_next_command")
-            capture("complete")
+            if (folder != null) {
+                compose.onNodeWithText("Notes").performScrollTo().assertIsDisplayed()
+                capture("complete", "Notes")
+                compose.onNodeWithText("Backup and restore").assertIsDisplayed()
+            }
         } catch (failure: Throwable) {
             runCatching { observe("failure") }.onFailure(failure::addSuppressed)
             runCatching {
