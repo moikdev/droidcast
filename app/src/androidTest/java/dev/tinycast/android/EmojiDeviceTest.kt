@@ -57,6 +57,7 @@ class EmojiDeviceTest {
         val editor = context.getSharedPreferences("emoji", Context.MODE_PRIVATE).edit().clear()
         originalEmoji.forEach { (key, value) -> when (value) {
             is String -> editor.putString(key, value)
+            is Boolean -> editor.putBoolean(key, value)
             is Set<*> -> editor.putStringSet(key, value.filterIsInstance<String>().toSet())
         } }
         assertTrue(editor.commit())
@@ -253,7 +254,64 @@ class EmojiDeviceTest {
             connection.finishComposingText()
         }
     }
+    @Test fun copyingWithoutConsentLeavesHistoryEmpty() {
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        compose.activityRule.scenario.onActivity { prefs.edit().remove("rememberRecent").remove("recent").apply() }
+        search("🇯🇵")
+        compose.onNodeWithTag("emoji-copy").performClick()
+        assertEquals("🇯🇵", clipboard())
+        filter("Recent"); search("")
+        evidence("recent-default", "Recent")
+        assertFalse("Copy without consent must leave the recent preference absent", prefs.contains("recent"))
+        assertTrue(store.results().isEmpty())
+        compose.onNodeWithTag("emoji-enable-history").assertIsDisplayed()
+    }
+
+    @Test fun legacyHistoryStaysHiddenUntilEnabledAndCanBePausedAndCleared() {
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        val originalEntry = store.entries.first { it.glyph == "🇯🇵" }
+        val next = store.entries.first { it.glyph == "❤️" }
+        val legacy = org.json.JSONArray(listOf(originalEntry.id)).toString()
+        compose.activityRule.scenario.onActivity {
+            prefs.edit().remove("rememberRecent").putString("recent", legacy).apply()
+            store.toggleFavorite(originalEntry)
+        }
+        filter("Recent")
+        assertTrue(store.results().isEmpty())
+        assertEquals(legacy, prefs.getString("recent", null))
+        evidence("recent-legacy-off", "Recent history is off")
+        compose.onNodeWithTag("emoji-enable-history").performScrollTo().performClick()
+        assertEquals(listOf(originalEntry), store.results())
+        filter("All"); search(next.glyph)
+        compose.onNodeWithTag("emoji-copy").performClick()
+        assertEquals(next.glyph, clipboard())
+        filter("Recent"); search("")
+        assertEquals(listOf(next, originalEntry), store.results())
+        evidence("recent-enabled", "2 results")
+        fun historyAction(tag: String) {
+            compose.onNodeWithTag("emoji-actions").performScrollTo().performClick()
+            compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+            compose.waitForIdle()
+        }
+        historyAction("emoji-history-pause")
+        assertTrue(store.results().isEmpty())
+        val paused = prefs.getString("recent", null)
+        assertEquals(org.json.JSONArray(listOf(next.id, originalEntry.id)).toString(), paused)
+        filter("All"); search("π"); compose.onNodeWithTag("emoji-copy").performClick()
+        assertEquals("π", clipboard()); assertEquals(paused, prefs.getString("recent", null))
+        filter("Recent"); search("")
+        historyAction("emoji-history-clear")
+        assertFalse(prefs.contains("recent")); assertFalse(prefs.getBoolean("rememberRecent", true))
+        assertTrue(originalEntry.id in store.favorites)
+        compose.activityRule.scenario.recreate()
+        compose.onNodeWithTag("emoji-palette").assertIsDisplayed()
+        assertTrue(store.recent.isEmpty())
+        assertTrue(originalEntry.id in store.favorites)
+    }
+
     @Test fun clipboardPreservesJoinersFlagsVariationSelectorsAndKeycaps() {
+        compose.activityRule.scenario.onActivity { store.rememberRecent(true) }
         listOf("👨‍👩‍👧‍👦", "🇯🇵", "❤️", "1️⃣", "π").forEach { glyph ->
             search(glyph)
             if (glyph == "π") compose.onNodeWithTag("emoji-search").performImeAction()
@@ -288,6 +346,7 @@ class EmojiDeviceTest {
         assertTrue(entry.id in store.favorites)
     }
     @Test fun keyboardNavigationAndActivationKeepSelectionVisibleWithoutAnimation() {
+        compose.activityRule.scenario.onActivity { store.rememberRecent(true) }
         compose.activityRule.scenario.onActivity {
             androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView).hide(androidx.core.view.WindowInsetsCompat.Type.ime())
         }

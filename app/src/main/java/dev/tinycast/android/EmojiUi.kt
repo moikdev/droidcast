@@ -84,6 +84,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         if (event.repeatCount == 0) currentEntry()?.let(::pin)
         return true
     }
+    fun currentHistoryView() = store.filter == "Recent" && actionCurrent() && view.hasWindowFocus()
     fun back() { if(actionsMenu) actionsMenu=false else if (menu) menu = false else if (queryEditing) queryEditing = false else if (store.query.isNotEmpty()) store.search("") else close() }
     BackHandler {
         PaletteBackTrace.handler("emoji-dispatcher-before", menu || actionsMenu, store.query.length)
@@ -240,9 +241,15 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                     // Use one primary status when only a small band remains
                     // above the keyboard. Keep duplicate counts/hints in the
                     // normal viewport, not as a clipped extra compact line.
-                    Text(when { store.loading -> "Loading catalog…"; store.error != null -> store.error!!; store.query.isNotBlank() -> "No matching emoji or symbols"; store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"; store.filter == "Recent" -> "Symbols you copy will appear here"; else -> "No symbols in this category" }, color = PaletteTheme.secondary, fontSize = 13.sp,
+                    Text(when { store.loading -> "Loading catalog…"; store.error != null -> store.error!!; store.filter == "Recent" && !store.historyEnabled -> if (store.hasSavedHistory) "Recent history is off. Enable it to show saved copies and remember new ones." else "Recent history is off. You can remember up to 32 copies on this device."; store.query.isNotBlank() -> "No matching emoji or symbols"; store.filter == "Favorites" -> "Favorite a symbol with the star or Ctrl D"; store.filter == "Recent" -> "Symbols you copy will appear here"; else -> "No symbols in this category" }, color = PaletteTheme.secondary, fontSize = 13.sp,
                         lineHeight=if(compactEmpty)16.sp else TextUnit.Unspecified,
                         modifier = Modifier.padding(horizontal=20.dp,vertical=if(compactEmpty)0.dp else 20.dp))
+                    if (store.filter == "Recent" && !store.historyEnabled && !store.loading && store.error == null) {
+                        TextButton(
+                            onClick = { if (currentHistoryView() && !store.historyEnabled) store.rememberRecent(true) },
+                            modifier = Modifier.heightIn(min = 48.dp).testTag("emoji-enable-history")
+                        ) { Text("Enable recent history") }
+                    }
                 }
             } else LazyVerticalGrid(GridCells.Fixed(columns), state = grid,
                 modifier = Modifier.weight(1f).fillMaxWidth().padding(horizontal = 12.dp).onFocusChanged { gridFocused = it.hasFocus }.focusable().testTag("emoji-grid"),
@@ -284,7 +291,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
             }) {
                 Box {
                     PaletteActionCapsule(if(wide) "Copy to Clipboard" else "Copy",{currentEntry()?.let(::copyEntry)},{actionsMenu=true},"emoji-copy","emoji-actions",
-                        compact=!wide,enabled=selected!=null,description="Copy to Clipboard")
+                        compact=!wide,enabled=selected!=null,actionsEnabled=selected!=null || store.filter == "Recent",description="Copy to Clipboard")
                     PaletteChoiceMenu(actionsMenu,{actionsMenu=false},listOf(
                         PaletteChoice("emoji-action-copy","Copy to Clipboard",enabled=selected!=null,shortcut=listOf("↵"),icon="clipboard") { currentEntry()?.let(::copyEntry) },
                         PaletteChoice("emoji-action-favorite",if(selected?.id in store.favorites)"Remove Favorite"else"Add Favorite",enabled=selected!=null,
@@ -292,7 +299,15 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                         PaletteChoice("emoji-action-unicode","Copy Unicode",enabled=selected!=null,icon="clipboard") {
                             currentEntry()?.let { entry -> copy(entry.glyph.codePoints().toArray().joinToString(" "){"U+"+it.toString(16).uppercase().padStart(4,'0')}); copiedName="Copied Unicode for ${entry.name}" }
                         }
-                    ),title=selected?.name ?: "Emoji & Symbols",returnFocus=searchFocus,searchable=true)
+                    ) + if (store.filter == "Recent") listOf(
+                        if (store.historyEnabled)
+                            PaletteChoice("emoji-history-pause", "Pause recent history") { if (currentHistoryView()) store.rememberRecent(false) }
+                        else
+                            PaletteChoice("emoji-history-enable", "Enable recent history") { if (currentHistoryView()) store.rememberRecent(true) },
+                        PaletteChoice("emoji-history-clear", "Clear saved emoji history", enabled = store.hasSavedHistory) {
+                            if (currentHistoryView()) store.clearHistory()
+                        }
+                    ) else emptyList(),title=selected?.name ?: "Emoji & Symbols",returnFocus=searchFocus,searchable=true)
                 }
             }
         }
