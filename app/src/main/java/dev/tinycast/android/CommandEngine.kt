@@ -1,6 +1,7 @@
 package dev.tinycast.android
 
 import java.math.BigDecimal
+import java.math.MathContext
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -79,9 +80,15 @@ object Calculator {
         return amount
     }
 
+    private val smallPrecision = MathContext(11, java.math.RoundingMode.HALF_EVEN)
+
     fun format(value: Double): String = when {
         value == 0.0 -> "0"
-        abs(value) < 1e-10 -> BigDecimal.valueOf(value).stripTrailingZeros().toString()
+        abs(value) < 1e-10 -> {
+            val rounded = BigDecimal.valueOf(value).round(smallPrecision).stripTrailingZeros()
+            // A rounded mantissa can cross into the ordinary decimal range.
+            if (abs(rounded.toDouble()) >= 1e-10) rounded.toPlainString() else rounded.toString()
+        }
         else -> DecimalFormat("0.##########", DecimalFormatSymbols(Locale.US)).format(value)
     }
 
@@ -97,6 +104,7 @@ object Calculator {
         val text = expression.lowercase(Locale.ROOT)
         require(text.isNotBlank() && text.length <= 256)
         val conversion = conversionPattern.matchEntire(text)
+        val quantity = if (source.startsWith('=')) quantityPattern.matchEntire(text) else null
         if (conversion != null) {
             val value = parseAmount(conversion.groupValues[1])
             val from = conversion.groupValues[2].removePrefix("°")
@@ -112,8 +120,8 @@ object Calculator {
             }
             require(converted.isFinite())
             Calculation(input, "${format(converted)} $to", "Unit conversion · computed on device")
-        } else if (source.startsWith('=') && quantityPattern.matches(text)) {
-            val (number, unit) = quantityPattern.matchEntire(text)!!.destructured
+        } else if (quantity != null) {
+            val (number, unit) = quantity.destructured
             val amount = parseAmount(number)
             require(unit in units || unit in listOf("c", "f", "k"))
             Calculation(source, "${format(amount)} $unit", "Quantity · computed on device")

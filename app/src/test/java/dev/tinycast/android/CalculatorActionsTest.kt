@@ -32,7 +32,8 @@ class CalculatorActionsTest {
     }
     @Test fun smallNonzeroAnswersSurviveCopyAndChaining() {
         for ((query, answer) in mapOf("1/1000000000000" to "1E-12", "-1/100000000000" to "-1E-11",
-            "0.000000001 mm to m" to "1E-12 m", "1e-12 m to mm" to "0.000000001")) {
+            "0.000000001 mm to m" to "1E-12 m", "1e-12 m to mm" to "0.000000001",
+            "= 9.99999999999999E-11" to "0.0000000001", "= 1E-300" to "1E-300")) {
             val owner = snapshot(query)
             assertEquals(query, answer, owner.answer)
             assertEquals(query, "= $answer", owner.chainQuery)
