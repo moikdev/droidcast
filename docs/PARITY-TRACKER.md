@@ -271,3 +271,9 @@ For #121, four measured Settings → palette → Settings transitions succeeded 
 The #121 Settings focus comparison merged in #124 at `2f375a03` after exact-head CI and both independent audits passed. The historical ANR remains open.
 
 For #35 and #125, a ranking-only restore now reports the resulting portable ranking total in preview and confirmation and names Usage ranking on completion. The earlier app failed the new summary check. The repaired app passed the phone and tablet imports. Omitting confirmation produced a captured ten-second timeout. The historical failure had no matching state capture and remains unexplained. [Backup ranking report](BACKUP-RANKING.md)
+
+### Quick Settings tile activation
+
+On the API 36 emulator, the tablet and phone timeout captures both show a resumed palette behind the still-focused Quick Settings shade. The revised test waits for a visible panel before activation, checks the visible editor and focused palette, and restores the initial tile membership. The historical suite failures and the release comparison remain open in #37. [Report and device evidence](QUICK-SETTINGS-TILE.md)
+
+The ranking-only backup summary fix from #125 merged in #126 as `c3b4c4c2`. The merged tree matches the independently reviewed head `a1f5be8a`. Hosted and local Android checks passed. #35 remains open for the historical phone import timeout.

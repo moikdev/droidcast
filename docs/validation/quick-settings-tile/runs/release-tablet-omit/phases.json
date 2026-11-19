@@ -1,0 +1,55 @@
+[
+  {
+    "phase": "settings",
+    "start_ms": 1200,
+    "focused_window": "android-settings",
+    "resumed_activity": "android-settings",
+    "tile_in_settings": true,
+    "sysui_tile_state": "1",
+    "qs_expanded": "false",
+    "service_record_present": true,
+    "service_process_attached": true,
+    "tile_node_visible": false,
+    "palette_editor_visible": false,
+    "guest_load_1m": 4.38,
+    "observed_ms": 1412
+  },
+  {
+    "phase": "shade",
+    "start_ms": 2480,
+    "focused_window": "shade",
+    "resumed_activity": "android-settings",
+    "tile_in_settings": true,
+    "sysui_tile_state": "1",
+    "qs_expanded": "true",
+    "service_record_present": true,
+    "service_process_attached": true,
+    "tile_node_visible": true,
+    "palette_editor_visible": false,
+    "guest_load_1m": 4.38,
+    "observed_ms": 2571
+  },
+  {
+    "phase": "before_omit",
+    "elapsed_ms": 2683
+  },
+  {
+    "phase": "after_omit",
+    "elapsed_ms": 2683
+  },
+  {
+    "phase": "failure",
+    "start_ms": 12696,
+    "focused_window": "shade",
+    "resumed_activity": "android-settings",
+    "tile_in_settings": true,
+    "sysui_tile_state": "1",
+    "qs_expanded": "true",
+    "service_record_present": true,
+    "service_process_attached": true,
+    "tile_node_visible": true,
+    "palette_editor_visible": false,
+    "guest_load_1m": 3.79,
+    "observed_ms": 12800
+  }
+]

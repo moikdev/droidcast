@@ -55,3 +55,7 @@ docs/validation/settings-focus/**/*.xml -text -whitespace
 
 # Preserve the Android hierarchy bytes used with the backup import screenshots.
 docs/validation/backup-ranking/hierarchies/*.xml -text -whitespace
+
+# Preserve native Quick Settings hierarchy and instrumentation output bytes.
+docs/validation/quick-settings-tile/hierarchies/*.xml -text -whitespace
+docs/validation/quick-settings-tile/runs/**/*.log -text -whitespace
