@@ -594,20 +594,14 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
     val query = listSearch.text
     var selected by listState::selected
     var menu by remember{mutableStateOf(false)}
-    val rows=(if(root?.optString("type")=="Grid") emptyList() else root?.nodes("List.Item").orEmpty()).filter{
-        root?.props()?.optBoolean("filtering",true)==false||query.isBlank()||("${it.props().optString("title")} ${it.props().optString("subtitle")} ${it.props().optJSONArray("keywords")}").contains(query,true)
-    }
+    val rows = extensionListRows(root, query)
     val item=rows.getOrNull(selected.coerceIn(0,(rows.size-1).coerceAtLeast(0)))
     val actionScope=extensionActionScope(root,item,rows.size,query)
     val actions=actionScope.nodes
     fun liveRows(): List<JSONObject> {
         val liveRoot = liveRoot() ?: return emptyList()
         if (liveRoot.optString("type") != "List" || liveRoot.optString("id") != root?.optString("id")) return emptyList()
-        val liveQuery = listState.search.text
-        return liveRoot.nodes("List.Item").filter {
-            !liveRoot.props().optBoolean("filtering", true) || liveQuery.isBlank() ||
-                ("${it.props().optString("title")} ${it.props().optString("subtitle")} ${it.props().optJSONArray("keywords")}").contains(liveQuery, true)
-        }
+        return extensionListRows(liveRoot, listState.search.text)
     }
     fun liveActionScope(): ExtensionActionScope {
         val liveRoot = liveRoot() ?: return ExtensionActionScope("", "", emptyList())
@@ -773,7 +767,7 @@ private fun CommandRunner(store:PaletteStore,extension:InstalledExtension,comman
                             if (blocked) "$title · Correct highlighted fields" else title, enabled = !blocked,
                             tag="extension-action-$i",shortcut=if(i==0)listOf("↵")else emptyList(),icon="command",
                             labelLines = if (blocked) Int.MAX_VALUE else 3) { action(a, actionScope) }
-                    },title=item?.props()?.optString("title") ?: command.title,searchable=true)
+                    },title=item?.let { extensionLabelText(it.props().opt("title")) } ?: command.title,searchable=true)
 
                 }
             }

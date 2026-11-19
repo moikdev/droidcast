@@ -24,6 +24,27 @@ import dev.tinycast.android.paletteHeaderSurface
 import org.json.JSONArray
 import org.json.JSONObject
 
+internal fun extensionListRows(root: JSONObject?, query: String): List<JSONObject> {
+    if (root?.optString("type") != "List") return emptyList()
+    val rows = root.nodes("List.Item")
+    if (!root.props().optBoolean("filtering", true) || query.isBlank()) return rows
+    return rows.filter { row ->
+        val props = row.props()
+        val text = buildString {
+            append(extensionLabelText(props.opt("title")))
+            append(' ')
+            append(extensionLabelText(props.opt("subtitle")))
+            val keywords = props.optJSONArray("keywords")
+            if (keywords != null) for (index in 0 until keywords.length()) {
+                val word = keywords.opt(index) as? String ?: continue
+                append(' ')
+                append(word)
+            }
+        }
+        text.contains(query, ignoreCase = true)
+    }
+}
+
 /** Detail mode uses two useful panes or an explicit, reversible touch destination. */
 @Composable
 internal fun NativeExtensionList(root: JSONObject, rows: List<JSONObject>, state: ExtensionListState, ownerKey: Any, images: ExtensionDetailImages,
@@ -67,7 +88,7 @@ internal fun NativeExtensionList(root: JSONObject, rows: List<JSONObject>, state
                         modifier = Modifier.size(48.dp).testTag("extension-detail-back").semantics { contentDescription = "Back to results" }) {
                         Glyph("back", PaletteTheme.ink, 24)
                     }
-                    Text(selected?.props()?.optString("title").orEmpty(), fontSize = 18.sp, lineHeight = 26.sp,
+                    Text(extensionLabelText(selected?.props()?.opt("title")), fontSize = 18.sp, lineHeight = 26.sp,
                         modifier = Modifier.weight(1f).semantics { heading() })
                 }
                 HorizontalDivider(color = PaletteTheme.separator)
@@ -91,15 +112,17 @@ internal fun NativeExtensionList(root: JSONObject, rows: List<JSONObject>, state
                                     }
                                 }.padding(14.dp).testTag("extension-row-$index")) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(row.props().optString("title"), fontSize = 14.sp, lineHeight = 21.sp,
+                                    Text(extensionLabelText(row.props().opt("title")), fontSize = 14.sp, lineHeight = 21.sp,
                                         maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                                     if (hasDetail && !panes) Glyph("arrow", PaletteTheme.secondary, 16)
                                 }
-                                val subtitle = row.props().optString("subtitle")
+                                val subtitle = extensionLabelText(row.props().opt("subtitle"))
                                 if (subtitle.isNotBlank()) Text(subtitle, color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
                                 row.props().optJSONArray("accessories").objects().forEach { accessory ->
-                                    val text = accessory.optString("text")
-                                    if (text.isNotEmpty()) Text(text, color = PaletteTheme.secondary, fontSize = 11.sp, lineHeight = 17.sp)
+                                    val label = accessory.opt("text")
+                                    val text = extensionLabelText(label)
+                                    val tint = (label as? JSONObject)?.opt("color")
+                                    if (text.isNotEmpty()) Text(text, color = metadataTint(tint, PaletteTheme.secondary), fontSize = 11.sp, lineHeight = 17.sp)
                                 }
                             }
                         }
