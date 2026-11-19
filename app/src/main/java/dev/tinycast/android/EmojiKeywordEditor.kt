@@ -23,8 +23,15 @@ internal fun EmojiKeywordEditor(entry: EmojiEntry, store: EmojiStore, current: (
     val menus = LocalPaletteMenus.current
     val focus = remember { FocusRequester() }
     fun save() {
-        if (!current() || draft.composition != null || error != null || conflict) return
-        if (store.saveCustomKeywords(entry.id, original, draft.text)) saved(draft.text.isBlank()) else conflict = true
+        val input = draft
+        if (!current() || input.composition != null || conflict) return
+        // A key event can follow an edit before Compose updates the displayed error.
+        val written = try {
+            store.saveCustomKeywords(entry.id, original, input.text)
+        } catch (_: IllegalArgumentException) {
+            return
+        }
+        if (written) saved(input.text.isBlank()) else conflict = true
     }
 
     Shell("Custom keywords", "${entry.glyph}  ${entry.name}", close,

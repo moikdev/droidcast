@@ -415,6 +415,39 @@ class EmojiDeviceTest {
         captureVisibleNode("escape-fresh", "emoji-search")
     }
 
+    @Test fun immediateSaveRejectsAnInvalidLiveKeywordAndAllowsCorrection() {
+        search("🐱")
+        openKeywordEditor()
+        val field = compose.onNodeWithTag("emoji-keywords-field")
+        val edit = requireNotNull(field.fetchSemanticsNode().config[SemanticsActions.SetText].action)
+        val invalid = "x".repeat(65)
+        var failure: IllegalArgumentException? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            val down = android.os.SystemClock.uptimeMillis()
+            fun dispatch(action: Int) = activity.dispatchKeyEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_S, 0, KeyEvent.META_CTRL_ON, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD))
+            assertTrue(edit(AnnotatedString(invalid)))
+            try {
+                assertTrue(dispatch(KeyEvent.ACTION_DOWN))
+            } catch (e: IllegalArgumentException) {
+                failure = e
+            } finally {
+                dispatch(KeyEvent.ACTION_UP)
+            }
+        }
+        field.assertTextContains(invalid)
+        compose.onNodeWithText("Use up to 64 characters per keyword.").assertExists()
+        compose.onNodeWithTag("emoji-keywords-save").assertIsNotEnabled()
+        assertEquals("", store.customKeywordText("1f431"))
+        captureVisibleNode("invalid-save", "emoji-keywords-field")
+        assertNull("Dispatching Save on an invalid live draft threw", failure)
+        field.performTextReplacement("corrected keyword")
+        key(KeyEvent.KEYCODE_S, KeyEvent.META_CTRL_ON)
+        assertEquals("corrected keyword", store.customKeywordText("1f431"))
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+    }
+
     @Test fun keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit() {
         search("🐱")
         openKeywordEditor()
