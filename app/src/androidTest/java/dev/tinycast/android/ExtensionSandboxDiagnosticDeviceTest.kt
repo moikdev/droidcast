@@ -233,10 +233,10 @@ class ExtensionSandboxDiagnosticDeviceTest {
         val extension = InstalledExtension(listing, root, manifest)
         val command = extension.commands.single()
         val calls = ConcurrentLinkedQueue<JSONObject>()
-        lateinit var catalog: ExtensionCatalog
+        val catalog = ExtensionCatalog(context)
+        kotlinx.coroutines.runBlocking { catalog.loadInstalled() }
         lateinit var bridge: ExtensionRuntime.Bridge
         compose.activityRule.scenario.onActivity {
-            catalog = ExtensionCatalog(context)
             catalog.savePreferences(extension, JSONObject().put("typeOfPerson", "none"))
             catalog.launch(extension,command)
             runtime = ExtensionRuntime(context, catalog, extension, command).also { engine ->

@@ -323,7 +323,7 @@ private fun shortcutRows(store: PaletteStore): List<ShortcutSettingsRow> {
     val rows = commands.filter { ShortcutRules.targetAllowed(it.id) }.map { ShortcutSettingsRow(it.id, it.title, it.subtitle, it.alias, it.kind, true) }
     val known = rows.map { it.id }.toSet() + ShortcutRules.PALETTE
     val unavailableIds = store.shortcutConfiguration.bindings.keys + store.aliases.filterValues { it.isNotBlank() }.keys
-    val unavailable = unavailableIds.filterNot { it in known }.map { ShortcutSettingsRow(it, "Unavailable command", it, store.aliases[it].orEmpty(), if (it.startsWith("files:")) Kind.FILE else null, false) }
+    val unavailable = unavailableIds.filterNot { it in known || (it.startsWith("ext:") && !store.extensions.inventoryReady) }.map { ShortcutSettingsRow(it, "Unavailable command", it, store.aliases[it].orEmpty(), if (it.startsWith("files:")) Kind.FILE else null, false) }
     return listOf(ShortcutSettingsRow(ShortcutRules.PALETTE, "Show or hide Droidcast", "Global palette shortcut", "", null, true)) + rows.sortedBy { it.title.lowercase() } + unavailable
 }
 @Composable
@@ -407,7 +407,7 @@ private fun SettingsShortcuts(activity: SettingsActivity) {
                                     }
                                 }
                             }
-                            if (visible.isEmpty()) item { Text("No matching commands", fontSize = 12.sp, color = PaletteTheme.secondary, modifier = Modifier.padding(18.dp)) }
+                            if (visible.isEmpty()) item { Text(if (store.extensions.inventoryReady) "No matching commands" else "Loading installed extensions…", fontSize = 12.sp, color = PaletteTheme.secondary, modifier = Modifier.padding(18.dp)) }
                         }
                     }
                 }
@@ -425,6 +425,10 @@ private fun SettingsShortcuts(activity: SettingsActivity) {
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 private fun ShortcutInspector(activity: SettingsActivity, row: ShortcutSettingsRow) {
     val store = activity.store
+    if (!row.available && row.id.startsWith("ext:") && !store.extensions.inventoryReady) {
+        Text("Loading installed extensions…", color = PaletteTheme.secondary)
+        return
+    }
     val recording = store.recordingTarget == row.id
     val recordFocus = remember(row.id) { FocusRequester() }
     val aliasFocus = remember(row.id) { FocusRequester() }
@@ -447,7 +451,7 @@ private fun ShortcutInspector(activity: SettingsActivity, row: ShortcutSettingsR
         if (wasRecording && !recording && store.dialog != "shortcut-reset") recordFocus.requestFocus()
         wasRecording = recording
     }
-    LaunchedEffect(row.id, activity.requestedEditor, aliasReady) {
+    LaunchedEffect(row.id, row.available, activity.requestedEditor, aliasReady) {
         if (aliasReady && activity.requestedEditor == "alias" && row.available && row.id != ShortcutRules.PALETTE) { aliasFocus.requestFocus(); activity.consumeEditorRequest() }
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -506,7 +510,11 @@ private fun SettingsSearchResults(activity: SettingsActivity, query: String, sel
             items(commands, key = { "command:${it.id}" }) { command ->
                 ListItem(headlineContent = { Text(command.title) }, supportingContent = { Text("Command shortcuts and alias") }, modifier = Modifier.clickable { activity.configure(command.id); selected() })
             }
-            if (pages.isEmpty() && commands.isEmpty()) item { Text("No matching settings or commands.", color = PaletteTheme.secondary, fontSize = 13.sp) }
+            if (pages.isEmpty() && commands.isEmpty()) item {
+                val message = if (activity.store.extensions.inventoryReady) "No matching settings or commands."
+                    else "Loading installed extensions…"
+                Text(message, color = PaletteTheme.secondary, fontSize = 13.sp)
+            }
         }
     }
 }

@@ -1,0 +1,29 @@
+{
+  "debug": {
+    "build_log_sha256": "27282300c989cd91fa09d112df8f9cb4a8bce8bec137933fb13ec23c7f4377f0",
+    "lint_errors": 0,
+    "lint_warnings": 57
+  },
+  "benchmark": {
+    "build_log_sha256": "6363c1a5d9b4da2d224960810a023784b0241eee09eb818d36866fa216462f53",
+    "lint_errors": 0,
+    "lint_warnings": 57
+  },
+  "python": {
+    "tests": 151,
+    "log_sha256": "d14e8d47c6c5a801243c57df689cfce693cff233b87124e9c851d292a13dc0c9"
+  },
+  "python-optimized": {
+    "tests": 151,
+    "log_sha256": "dad245b5e0cc3ec8918a8213ce845f01181373d8e551cbd897000cac62c52d51"
+  },
+  "jvm": {
+    "tests": 358,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "python_source": "42b6c94788f1f4688781023b2e02f7a8fc71478a",
+  "android_build_source": "bceb1819c9e588b4a4b60c734c3984958fb9a7ef",
+  "app_execution_source": "42b6c94788f1f4688781023b2e02f7a8fc71478a"
+}

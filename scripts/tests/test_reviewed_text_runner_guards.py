@@ -158,6 +158,12 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
             self.refused_without_device_access(CALCULATOR, [flag, 'not-read-network.zip'],
                                                'Network bundle is not authorized for this test class', without_archive=True)
 
+    def test_catalog_startup_does_not_exempt_other_readiness_cases(self):
+        prefix = 'dev.tinycast.android.ReadinessRegressionDeviceTest'
+        startup = prefix + '#installedCatalogLoadsWithoutBlockingTheUiThread'
+        for classes in (prefix, startup + 'Extra', startup + ',' + prefix):
+            self.refused_without_device_access(classes, [], 'A frozen JSON archive is required', without_archive=True)
+
     def test_owned_image_case_cannot_exempt_a_mixed_suite_from_the_archive(self):
         local = DETAIL + '#wideJpegOnePixelPastSampleBoundaryRenders'
         for selection in [DETAIL, local + ',' + DETAIL, local + 'Extra']:

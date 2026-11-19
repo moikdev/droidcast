@@ -60,6 +60,8 @@ SETTINGS_NAVIGATION_CLASS = 'dev.tinycast.android.SettingsRouteDeviceTest'
 SETTINGS_NAVIGATION_CASES = {SETTINGS_NAVIGATION_CLASS + '#' + method for method in (
     'heldCtrlFindDoesNotTypeIntoSettingsSearch', 'heldMetaFindDoesNotTypeIntoSettingsSearch',
     'settingsIsNotExportedAndOldGlobalNavigationBindingsArePreserved',
+    'pendingAliasRequestFocusesWhenTheCommandBecomesAvailable',
+    'findWaitsForInstalledCommandBeforeShowingEmptyResults',
 )}
 
 
@@ -202,7 +204,10 @@ def main():
          args.reviewed_json_command == 'formatSelection'),
         'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
-    require(calculator or settings_navigation or uses_only_local_detail_cases(args.classes) or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort or named local Detail or Settings cases')
+    local_inventory = args.classes == 'dev.tinycast.android.ReadinessRegressionDeviceTest#installedCatalogLoadsWithoutBlockingTheUiThread'
+    require(local_inventory or calculator or settings_navigation or uses_only_local_detail_cases(args.classes)
+            or args.json_archive is not None,
+            'A frozen JSON archive is required outside the owned calculator cohort or named local inventory, Detail or Settings cases')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
         'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
     typed_archives = recorded_test_archives(args.recorded_archives) if args.recorded_archives else {}

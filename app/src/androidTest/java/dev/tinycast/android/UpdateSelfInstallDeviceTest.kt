@@ -184,7 +184,9 @@ class UpdateSelfInstallDeviceTest {
         assertTrue(context.getSharedPreferences("extension-$extensionId", Context.MODE_PRIVATE).edit()
             .putString("local", JSONObject().put("retention-value", "Extension data survives update").toString())
             .putString("preferences", JSONObject().put("sample", "Saved preference survives").toString()).commit())
-        assertTrue(ExtensionCatalog(context).installed.any { it.listing.id == extensionId })
+        val catalog = ExtensionCatalog(context)
+        kotlinx.coroutines.runBlocking { catalog.loadInstalled() }
+        assertTrue(catalog.installed.any { it.listing.id == extensionId })
         for (name in listOf("palette", "emoji")) assertTrue(context.getSharedPreferences(name, Context.MODE_PRIVATE).edit().commit())
         for (name in listOf("emoji", "extension-$extensionId"))
             saved.put("hash-$name", hash(File(context.applicationInfo.dataDir, "shared_prefs/$name.xml")))
