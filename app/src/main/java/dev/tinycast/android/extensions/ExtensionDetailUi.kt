@@ -45,7 +45,7 @@ private fun metadataDocument(value: Any?): MetadataDocument {
     }
     return MetadataDocument(rows, all)
 }
-private fun metadataText(value: Any?): String = when (value) {
+internal fun extensionLabelText(value: Any?): String = when (value) {
     is String -> value
     is JSONObject -> (value.opt("value") as? String).orEmpty()
     else -> ""
@@ -92,7 +92,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                         "onAction" -> candidate.handle(field) == expected.handle(field)
                         "icon" -> metadataIconSignature(live) == metadataIconSignature(shown)
                         "color" -> metadataColorName(live) == metadataColorName(shown)
-                        "text" -> metadataText(live) == metadataText(shown)
+                        "text" -> extensionLabelText(live) == extensionLabelText(shown)
                         else -> live == shown
                     }
                 }
@@ -117,12 +117,12 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                 if (metadata.rows.isNotEmpty()) Column(Modifier.fillMaxWidth().testTag("extension-detail-metadata"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     metadata.rows.forEach { node ->
                         val props = node.props(); val title = (props.opt("title") as? String).orEmpty()
-                        key(documentIdentity, node.optString("id"), node.optString("type"), title, metadataText(props.opt("text")), props.opt("target")) {
+                        key(documentIdentity, node.optString("id"), node.optString("type"), title, extensionLabelText(props.opt("text")), props.opt("target")) {
                         when (metadataKind(node)) {
                             "Separator" -> HorizontalDivider(color = PaletteTheme.ink.copy(alpha = .15f))
                             "Label" -> Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 if (title.isNotEmpty()) Text(title, color = PaletteTheme.secondary, fontSize = 12.sp, lineHeight = 18.sp)
-                                val text = metadataText(props.opt("text"))
+                                val text = extensionLabelText(props.opt("text"))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                                     props.opt("icon")?.takeIf { it != JSONObject.NULL }?.let { NativeDetailIcon(it, images) }
                                     Text(text.ifBlank { "Not provided" }, color = if (text.isBlank()) PaletteTheme.secondary else metadataTint((props.opt("text") as? JSONObject)?.opt("color")), fontSize = 14.sp, lineHeight = 22.sp,
@@ -131,7 +131,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                             }
                             "Link" -> {
                                 val available = !(props.opt("target") as? String).isNullOrBlank()
-                                val label = metadataText(props.opt("text")).ifBlank { if (available) "Open link" else "Link unavailable" }
+                                val label = extensionLabelText(props.opt("text")).ifBlank { if (available) "Open link" else "Link unavailable" }
                                 TextButton(enabled = available, onClick = {
                                 liveMetadata(node, listOf("title", "text", "target"))?.props()?.opt("target")?.let { target ->
                                     if (target is String) activateLink(target)
@@ -154,7 +154,7 @@ internal fun NativeExtensionDetail(source: JSONObject, liveSource: () -> JSONObj
                                 if (tags.isEmpty()) Text("No tags", color = PaletteTheme.secondary, fontSize = 14.sp, lineHeight = 22.sp)
                                 FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                     tags.forEach { tag ->
-                                        val text = metadataText(tag.props().opt("text")); val handle = tag.handle("onAction")
+                                        val text = extensionLabelText(tag.props().opt("text")); val handle = tag.handle("onAction")
                                         val tint = metadataTint(tag.props().opt("color"))
                                         key(tag.optString("id"), text, handle, metadataIconSignature(tag.props().opt("icon")), metadataColorName(tag.props().opt("color"))) {
                                         val click = if (handle.isNullOrBlank()) Modifier else Modifier.clickable(role = Role.Button) {

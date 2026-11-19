@@ -117,6 +117,12 @@ class ExtensionMarkdownDeviceTest {
               const actions=content=>h(api.ActionPanel,null,
                 h(api.Action.CopyToClipboard,{title:'Copy owned Markdown',content}),
                 h(api.Action,{title:'Toggle owned detail',onAction:()=>setShown(value=>!value)}));
+              if(mode==='list-labels') return h(api.List,{navigationTitle:'Owned labels',isShowingDetail:true},
+                h(api.List.Item,{id:'plain',title:'Plain row',subtitle:'Plain subtitle'}),
+                h(api.List.Item,{id:'label',title:{value:'Café 日本',tooltip:'private-tooltip-needle'},
+                  subtitle:{value:'Résumé 🌱'},keywords:['owned-keyword'],accessories:[
+                    {text:{value:'Available',color:'#22aa77'}},{text:'Plain accessory'},{text:{value:null}}],
+                  detail:h(api.List.Item.Detail,{markdown:'Owned row detail'}),actions:actions('Owned row payload')}));
               if(mode.startsWith('list-')){
                 const props={navigationTitle:'Owned visibility',actions:actions('Owned list copy')};
                 if(mode!=='list-omitted')props.isShowingDetail=shown;
@@ -245,6 +251,40 @@ class ExtensionMarkdownDeviceTest {
         show("Owned action count 1"); record.put("pointer_tag_activation_count", 1)
         capture("metadata-tag-activated"); record.put("passed", true)
     }
+    @Test fun structuredListLabelsRenderAndFilterByVisibleValues() {
+        launch("list-labels")
+        val search = compose.onNodeWithTag("extension-search")
+        capture("rows")
+        compose.onNodeWithText("Plain row").assertIsDisplayed()
+        compose.onNodeWithText("Café 日本").assertIsDisplayed()
+        compose.onNodeWithText("Résumé 🌱").assertIsDisplayed()
+        compose.onNodeWithText("Available").assertIsDisplayed()
+        compose.onNodeWithText("Plain accessory").assertIsDisplayed()
+        search.performTextReplacement("private-tooltip-needle")
+        compose.onNodeWithTag("extension-list-empty").assertIsDisplayed()
+        compose.onNodeWithTag("extension-row-0").assertDoesNotExist()
+        capture("miss")
+        for (term in listOf("café", "résumé", "owned-keyword")) {
+            search.performTextReplacement(term)
+            compose.onNodeWithText("Café 日本").assertIsDisplayed()
+            compose.onNodeWithText("Plain row").assertDoesNotExist()
+        }
+        compose.onNodeWithText("Café 日本").performTouchInput { click() }
+        compose.onNodeWithText("Owned row detail").assertIsDisplayed()
+        compose.onNodeWithText("Café 日本").assertIsDisplayed()
+        capture("detail")
+        if (compose.onAllNodesWithTag("extension-detail-back").fetchSemanticsNodes().isNotEmpty()) {
+            compose.onNodeWithTag("extension-detail-back").performTouchInput { click() }
+        }
+        search.assert(editableCharactersExactly("owned-keyword"))
+        compose.onNodeWithTag("extension-actions").performClick()
+        compose.onNodeWithTag("inline-menu-heading").assertTextEquals("Café 日本")
+        compose.onNodeWithText("Copy owned Markdown").performClick()
+        val clipboard = context.getSystemService(ClipboardManager::class.java)
+        assertEquals("Owned row payload", compose.runOnUiThread { clipboard.primaryClip?.getItemAt(0)?.text.toString() })
+        record.put("passed", true)
+    }
+
     private fun hiddenDetail(mode: String) {
         launch(mode)
         val props = requireNotNull(activeRoot(catalog.runtimeTree)).props()

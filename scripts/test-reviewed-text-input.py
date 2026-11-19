@@ -71,6 +71,7 @@ def uses_only_local_detail_cases(classes):
         'tallJpegOnePixelPastSampleBoundaryRenders', 'imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument',
     )
     allowed = {'dev.tinycast.android.ExtensionDetailDeviceTest#' + method for method in methods}
+    allowed.add('dev.tinycast.android.ExtensionMarkdownDeviceTest#structuredListLabelsRenderAndFilterByVisibleValues')
     return set(classes.split(',')) <= allowed
 
 
