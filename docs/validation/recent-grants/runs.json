@@ -1,0 +1,585 @@
+[
+  {
+    "apk_sha256": "e2a4a1ac1313fc9c1bd80337f3bbba7ad48c62f0f52c82abb43d3a5ac88063f4",
+    "batch": "initial/comparison",
+    "cases": [
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": -2
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": false,
+    "density": "Physical density: 240",
+    "expected": 1,
+    "host_wrapper_sha256": "cae9bdfff337c4ce04879b48f4fa54caae7a0a96a09f50d06ba865577c06cbe9",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 0,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "befa5dd378b86af0c7d12eddb0e168dc935d3cdcb97016845f577145c7a8561b"
+  },
+  {
+    "apk_sha256": "bf4c974430ab7ae90c415507a265cd103199a3eef8b5cd3354741a64a4a3ced4",
+    "batch": "initial/current",
+    "cases": [
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": 0
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": true,
+    "density": "Physical density: 240",
+    "expected": 1,
+    "host_wrapper_sha256": "cae9bdfff337c4ce04879b48f4fa54caae7a0a96a09f50d06ba865577c06cbe9",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 1,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "befa5dd378b86af0c7d12eddb0e168dc935d3cdcb97016845f577145c7a8561b"
+  },
+  {
+    "apk_sha256": "a4ccd781eb946deeb44d60c52aa27783e4b98aac97546bc16bb7a5cc4ce2139d",
+    "batch": "release/earlier",
+    "cases": [
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": -2
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": -2
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": false,
+    "density": "Physical density: 240",
+    "expected": 2,
+    "host_wrapper_sha256": "86d905736e33b7c77f127002c22c697695f2afef546411c63b3818037ca2ba1a",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 0,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "6f9e5dfae17de928e2a5ccfde2ceefde5cd3413271e55fe3ff0e8ac18185bb73"
+  },
+  {
+    "apk_sha256": "05590647189311a4c97612f90af687d59fb27513a34435f6163f23f2aad503d8",
+    "batch": "release/tablet",
+    "cases": [
+      {
+        "method": "keepsBorrowedReadWhenTheLastRecentIsRemoved",
+        "result_code": 0
+      },
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": 0
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": 0
+      },
+      {
+        "method": "failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+        "result_code": 0
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead,dev.tinycast.android.RecentDocumentDeviceTest#keepsBorrowedReadWhenTheLastRecentIsRemoved,dev.tinycast.android.RecentDocumentDeviceTest#failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": true,
+    "density": "Physical density: 240",
+    "expected": 4,
+    "host_wrapper_sha256": "86d905736e33b7c77f127002c22c697695f2afef546411c63b3818037ca2ba1a",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 4,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "6f9e5dfae17de928e2a5ccfde2ceefde5cd3413271e55fe3ff0e8ac18185bb73"
+  },
+  {
+    "apk_sha256": "a4ccd781eb946deeb44d60c52aa27783e4b98aac97546bc16bb7a5cc4ce2139d",
+    "batch": "final/earlier",
+    "cases": [
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": -2
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": -2
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": false,
+    "density": "Physical density: 240",
+    "expected": 2,
+    "host_wrapper_sha256": "65393dfa869bf04a76cd4b9262a07616831a8165d638e4dbf6d21e92bda9fe87",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 0,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "39cf321a8a24371b9414fa58830ca09dfdd43d20631d528539aca6798b6e9365"
+  },
+  {
+    "apk_sha256": "986c5beda71127d21d4dd39f827ceb1c6a3016bb728b17d3a168a96eb6511f83",
+    "batch": "final/phone",
+    "cases": [
+      {
+        "method": "keepsBorrowedReadWhenTheLastRecentIsRemoved",
+        "result_code": 0
+      },
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": 0
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": 0
+      },
+      {
+        "method": "failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+        "result_code": 0
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead,dev.tinycast.android.RecentDocumentDeviceTest#keepsBorrowedReadWhenTheLastRecentIsRemoved,dev.tinycast.android.RecentDocumentDeviceTest#failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+    "cleanup": {
+      "density": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": true,
+    "density": "Physical density: 240",
+    "expected": 4,
+    "host_wrapper_sha256": "65393dfa869bf04a76cd4b9262a07616831a8165d638e4dbf6d21e92bda9fe87",
+    "installed_matches": true,
+    "layout": "phone",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 4,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "39cf321a8a24371b9414fa58830ca09dfdd43d20631d528539aca6798b6e9365"
+  },
+  {
+    "apk_sha256": "986c5beda71127d21d4dd39f827ceb1c6a3016bb728b17d3a168a96eb6511f83",
+    "batch": "final/tablet",
+    "cases": [
+      {
+        "method": "keepsBorrowedReadWhenTheLastRecentIsRemoved",
+        "result_code": 0
+      },
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": 0
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": 0
+      },
+      {
+        "method": "failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+        "result_code": 0
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead,dev.tinycast.android.RecentDocumentDeviceTest#keepsBorrowedReadWhenTheLastRecentIsRemoved,dev.tinycast.android.RecentDocumentDeviceTest#failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": true,
+    "density": "Physical density: 240",
+    "expected": 4,
+    "host_wrapper_sha256": "65393dfa869bf04a76cd4b9262a07616831a8165d638e4dbf6d21e92bda9fe87",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 4,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "39cf321a8a24371b9414fa58830ca09dfdd43d20631d528539aca6798b6e9365"
+  },
+  {
+    "apk_sha256": "a4ccd781eb946deeb44d60c52aa27783e4b98aac97546bc16bb7a5cc4ce2139d",
+    "batch": "visible/earlier",
+    "cases": [
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": -2
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": -2
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": false,
+    "density": "Physical density: 240",
+    "expected": 2,
+    "host_wrapper_sha256": "c555aecde25e83a07bf38d674a4f471caf482b512b5a80fe2e42ec31ea4d50a2",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 0,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "60081cf68fcc05e520bca325b8f6289f36df9a12a328238437f63013c4a42629"
+  },
+  {
+    "apk_sha256": "17b359cedaf0fd38c8a2f13e6448bed7cdbec13c2d56e4e56cea0f708ae479a5",
+    "batch": "visible/phone",
+    "cases": [
+      {
+        "method": "keepsBorrowedReadWhenTheLastRecentIsRemoved",
+        "result_code": 0
+      },
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": 0
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": 0
+      },
+      {
+        "method": "failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+        "result_code": 0
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead,dev.tinycast.android.RecentDocumentDeviceTest#keepsBorrowedReadWhenTheLastRecentIsRemoved,dev.tinycast.android.RecentDocumentDeviceTest#failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+    "cleanup": {
+      "density": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": true,
+    "density": "Physical density: 240",
+    "expected": 4,
+    "host_wrapper_sha256": "c555aecde25e83a07bf38d674a4f471caf482b512b5a80fe2e42ec31ea4d50a2",
+    "installed_matches": true,
+    "layout": "phone",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 4,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "60081cf68fcc05e520bca325b8f6289f36df9a12a328238437f63013c4a42629"
+  },
+  {
+    "apk_sha256": "17b359cedaf0fd38c8a2f13e6448bed7cdbec13c2d56e4e56cea0f708ae479a5",
+    "batch": "visible/provider",
+    "cases": [
+      {
+        "method": "providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+        "result_code": 0
+      },
+      {
+        "method": "newerCommandCancelsPendingFileLaunch",
+        "result_code": 0
+      },
+      {
+        "method": "timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+        "result_code": 0
+      },
+      {
+        "method": "slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference",
+        "result_code": 0
+      }
+    ],
+    "classes": "dev.tinycast.android.DocumentProviderDeviceTest#slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference,dev.tinycast.android.DocumentProviderDeviceTest#providerTimeoutLeavesTheDocumentTrackedAndSearchUsable,dev.tinycast.android.DocumentProviderDeviceTest#timedOutMimeLookupDoesNotLaunchAndAllowsRetry,dev.tinycast.android.DocumentProviderDeviceTest#newerCommandCancelsPendingFileLaunch",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": true,
+    "density": "Physical density: 240",
+    "expected": 4,
+    "host_wrapper_sha256": "db9d309d42e20ada60bf5b01796ea1f6d770c50abf843fef5a284e50074552ce",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 4,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "60081cf68fcc05e520bca325b8f6289f36df9a12a328238437f63013c4a42629"
+  },
+  {
+    "apk_sha256": "17b359cedaf0fd38c8a2f13e6448bed7cdbec13c2d56e4e56cea0f708ae479a5",
+    "batch": "visible/tablet",
+    "cases": [
+      {
+        "method": "keepsBorrowedReadWhenTheLastRecentIsRemoved",
+        "result_code": 0
+      },
+      {
+        "method": "lastSharedReferenceReleasesOnlyTheOwnedRead",
+        "result_code": 0
+      },
+      {
+        "method": "deletingLastPickedDocumentReleasesReadAccessAndKeepsSource",
+        "result_code": 0
+      },
+      {
+        "method": "failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+        "result_code": 0
+      }
+    ],
+    "classes": "dev.tinycast.android.RecentDocumentDeviceTest#deletingLastPickedDocumentReleasesReadAccessAndKeepsSource,dev.tinycast.android.RecentDocumentDeviceTest#lastSharedReferenceReleasesOnlyTheOwnedRead,dev.tinycast.android.RecentDocumentDeviceTest#keepsBorrowedReadWhenTheLastRecentIsRemoved,dev.tinycast.android.RecentDocumentDeviceTest#failedRemovalCheckpointAndReleaseCanRetryFromANewStore",
+    "cleanup": {
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "fixture-cache": true,
+      "preferences": true,
+      "preferences-backup": true,
+      "private-fixture": true,
+      "secure-accessibility_enabled": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "stop-app": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "completed": true,
+    "density": "Physical density: 240",
+    "expected": 4,
+    "host_wrapper_sha256": "c555aecde25e83a07bf38d674a4f471caf482b512b5a80fe2e42ec31ea4d50a2",
+    "installed_matches": true,
+    "layout": "tablet",
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "inner_cleanup_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "released": true,
+      "unprivileged": true
+    },
+    "passes": 4,
+    "runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "size": "Physical size: 1920x1200",
+    "test_apk_sha256": "60081cf68fcc05e520bca325b8f6289f36df9a12a328238437f63013c4a42629"
+  }
+]
