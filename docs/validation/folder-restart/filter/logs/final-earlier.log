@@ -1,0 +1,80 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=filteredDirectoryDropsPendingOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Obsolete lookup attempted [android.intent.action.OPEN_DOCUMENT]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:379)
+	at dev.tinycast.android.FolderDeviceTest.filteredDirectoryDropsPendingOpen(FolderDeviceTest.kt:304)
+
+INSTRUMENTATION_STATUS: stream=
+Error in filteredDirectoryDropsPendingOpen(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Obsolete lookup attempted [android.intent.action.OPEN_DOCUMENT]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:379)
+	at dev.tinycast.android.FolderDeviceTest.filteredDirectoryDropsPendingOpen(FolderDeviceTest.kt:304)
+
+INSTRUMENTATION_STATUS: test=filteredDirectoryDropsPendingOpen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=restoredFilterDropsPendingError
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Obsolete lookup published its error
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:380)
+	at dev.tinycast.android.FolderDeviceTest.restoredFilterDropsPendingError(FolderDeviceTest.kt:306)
+
+INSTRUMENTATION_STATUS: stream=
+Error in restoredFilterDropsPendingError(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Obsolete lookup published its error
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:380)
+	at dev.tinycast.android.FolderDeviceTest.restoredFilterDropsPendingError(FolderDeviceTest.kt:306)
+
+INSTRUMENTATION_STATUS: test=restoredFilterDropsPendingError
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.527
+There were 2 failures:
+1) filteredDirectoryDropsPendingOpen(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Obsolete lookup attempted [android.intent.action.OPEN_DOCUMENT]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:379)
+	at dev.tinycast.android.FolderDeviceTest.filteredDirectoryDropsPendingOpen(FolderDeviceTest.kt:304)
+2) restoredFilterDropsPendingError(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Obsolete lookup published its error
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:380)
+	at dev.tinycast.android.FolderDeviceTest.restoredFilterDropsPendingError(FolderDeviceTest.kt:306)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

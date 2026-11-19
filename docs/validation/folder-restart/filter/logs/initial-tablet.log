@@ -1,0 +1,55 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=filteredDirectoryDropsPendingOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=filteredDirectoryDropsPendingOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=restoredFilterDropsPendingError
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:359)
+	at dev.tinycast.android.FolderDeviceTest.restoredFilterDropsPendingError(FolderDeviceTest.kt:306)
+
+INSTRUMENTATION_STATUS: stream=
+Error in restoredFilterDropsPendingError(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:359)
+	at dev.tinycast.android.FolderDeviceTest.restoredFilterDropsPendingError(FolderDeviceTest.kt:306)
+
+INSTRUMENTATION_STATUS: test=restoredFilterDropsPendingError
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.322
+There was 1 failure:
+1) restoredFilterDropsPendingError(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.FolderDeviceTest.checkPendingDirectoryOpen(FolderDeviceTest.kt:359)
+	at dev.tinycast.android.FolderDeviceTest.restoredFilterDropsPendingError(FolderDeviceTest.kt:306)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

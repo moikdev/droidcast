@@ -1,0 +1,220 @@
+{
+  "initial-earlier": {
+    "classes": "dev.tinycast.android.FolderDeviceTest#filteredDirectoryDropsPendingOpen,dev.tinycast.android.FolderDeviceTest#restoredFilterDropsPendingError",
+    "layout": "tablet",
+    "expected": 2,
+    "passes": 0,
+    "completed": false,
+    "installed_matches": true,
+    "apk_sha256": "1f56d57d79729d54fd15a2428613aeeb555a6711eea55be2c947496ec2b40b46",
+    "test_apk_sha256": "fb66121b917133d2a3bc1c4dad0baa9cda78433437d4c9c03b26a888d2f3dc54",
+    "app_build": "b8eb54eb5fe0b929d09864c11de693e5f5b49b9d",
+    "instrumentation_build": "9c97300e2de8f558b420e1cd8c62868132b6c580",
+    "cleanup": {
+      "stop-app": true,
+      "preferences-backup": true,
+      "preferences": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "private-fixture": true,
+      "fixture-cache": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "outer_verification": {
+      "candidate_app_and_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "0a4525a373d62607074e52e62f50e2dcfb58f29f47f3881ce19989bdcf5beba3",
+    "inner_runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "case_outcomes": {
+      "filteredDirectoryDropsPendingOpen": "failed",
+      "restoredFilterDropsPendingError": "failed"
+    }
+  },
+  "initial-tablet": {
+    "classes": "dev.tinycast.android.FolderDeviceTest#filteredDirectoryDropsPendingOpen,dev.tinycast.android.FolderDeviceTest#restoredFilterDropsPendingError",
+    "layout": "tablet",
+    "expected": 2,
+    "passes": 1,
+    "completed": false,
+    "installed_matches": true,
+    "apk_sha256": "2b8fd0d45e5046893431b0da40c8b00ed0139d26828bbcf154adb3cca91216c0",
+    "test_apk_sha256": "fb66121b917133d2a3bc1c4dad0baa9cda78433437d4c9c03b26a888d2f3dc54",
+    "app_build": "9c97300e2de8f558b420e1cd8c62868132b6c580",
+    "instrumentation_build": "9c97300e2de8f558b420e1cd8c62868132b6c580",
+    "cleanup": {
+      "stop-app": true,
+      "preferences-backup": true,
+      "preferences": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "private-fixture": true,
+      "fixture-cache": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "outer_verification": {
+      "candidate_app_and_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "0a4525a373d62607074e52e62f50e2dcfb58f29f47f3881ce19989bdcf5beba3",
+    "inner_runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "case_outcomes": {
+      "filteredDirectoryDropsPendingOpen": "passed",
+      "restoredFilterDropsPendingError": "failed"
+    }
+  },
+  "final-earlier": {
+    "classes": "dev.tinycast.android.FolderDeviceTest#filteredDirectoryDropsPendingOpen,dev.tinycast.android.FolderDeviceTest#restoredFilterDropsPendingError",
+    "layout": "tablet",
+    "expected": 2,
+    "passes": 0,
+    "completed": false,
+    "installed_matches": true,
+    "apk_sha256": "1f56d57d79729d54fd15a2428613aeeb555a6711eea55be2c947496ec2b40b46",
+    "test_apk_sha256": "5f061ec58891e5e51f8833df2b16c2368d5bc92e42547708034585c443c3b7b7",
+    "app_build": "b8eb54eb5fe0b929d09864c11de693e5f5b49b9d",
+    "instrumentation_build": "e8c4730eeba410f9e69a782414d63cd82a08a02e",
+    "cleanup": {
+      "stop-app": true,
+      "preferences-backup": true,
+      "preferences": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "private-fixture": true,
+      "fixture-cache": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "outer_verification": {
+      "candidate_app_and_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "0a4525a373d62607074e52e62f50e2dcfb58f29f47f3881ce19989bdcf5beba3",
+    "inner_runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "case_outcomes": {
+      "filteredDirectoryDropsPendingOpen": "failed",
+      "restoredFilterDropsPendingError": "failed"
+    }
+  },
+  "final-tablet": {
+    "classes": "dev.tinycast.android.FolderDeviceTest#filteredDirectoryDropsPendingOpen,dev.tinycast.android.FolderDeviceTest#restoredFilterDropsPendingError,dev.tinycast.android.FolderDeviceTest#movedIndexedFileKeepsSearchAndReportsRefresh,dev.tinycast.android.FolderDeviceTest#movedIndexedFolderKeepsSearchAndReportsRefresh,dev.tinycast.android.FolderDeviceTest#oneIndexedItemHasSingularSettingsAndFilesLabels",
+    "layout": "tablet",
+    "expected": 5,
+    "passes": 5,
+    "completed": true,
+    "installed_matches": true,
+    "apk_sha256": "88dcfa81be5193d3adf3c15b3473f14eb1190126474dead5ab8c0420fe9062d8",
+    "test_apk_sha256": "5f061ec58891e5e51f8833df2b16c2368d5bc92e42547708034585c443c3b7b7",
+    "app_build": "e8c4730eeba410f9e69a782414d63cd82a08a02e",
+    "instrumentation_build": "e8c4730eeba410f9e69a782414d63cd82a08a02e",
+    "cleanup": {
+      "stop-app": true,
+      "preferences-backup": true,
+      "preferences": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "private-fixture": true,
+      "fixture-cache": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "outer_verification": {
+      "candidate_app_and_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "0a4525a373d62607074e52e62f50e2dcfb58f29f47f3881ce19989bdcf5beba3",
+    "inner_runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "case_outcomes": {
+      "filteredDirectoryDropsPendingOpen": "passed",
+      "restoredFilterDropsPendingError": "passed",
+      "movedIndexedFolderKeepsSearchAndReportsRefresh": "passed",
+      "oneIndexedItemHasSingularSettingsAndFilesLabels": "passed",
+      "movedIndexedFileKeepsSearchAndReportsRefresh": "passed"
+    }
+  },
+  "final-phone": {
+    "classes": "dev.tinycast.android.FolderDeviceTest#filteredDirectoryDropsPendingOpen,dev.tinycast.android.FolderDeviceTest#restoredFilterDropsPendingError,dev.tinycast.android.FolderDeviceTest#movedIndexedFileKeepsSearchAndReportsRefresh,dev.tinycast.android.FolderDeviceTest#movedIndexedFolderKeepsSearchAndReportsRefresh,dev.tinycast.android.FolderDeviceTest#oneIndexedItemHasSingularSettingsAndFilesLabels",
+    "layout": "phone",
+    "expected": 5,
+    "passes": 5,
+    "completed": true,
+    "installed_matches": true,
+    "apk_sha256": "88dcfa81be5193d3adf3c15b3473f14eb1190126474dead5ab8c0420fe9062d8",
+    "test_apk_sha256": "5f061ec58891e5e51f8833df2b16c2368d5bc92e42547708034585c443c3b7b7",
+    "app_build": "e8c4730eeba410f9e69a782414d63cd82a08a02e",
+    "instrumentation_build": "e8c4730eeba410f9e69a782414d63cd82a08a02e",
+    "cleanup": {
+      "stop-app": true,
+      "preferences-backup": true,
+      "preferences": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "private-fixture": true,
+      "fixture-cache": true,
+      "verify-data": true,
+      "verify-geometry": true,
+      "verify-identity": true
+    },
+    "outer_verification": {
+      "candidate_app_and_test_verified": true,
+      "prior_evidence_directory_restored": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "0a4525a373d62607074e52e62f50e2dcfb58f29f47f3881ce19989bdcf5beba3",
+    "inner_runner_sha256": "26f15b12f40277cbd3b6b874c58e41ab7e26735ef8e70634e5b5eb53b5652560",
+    "case_outcomes": {
+      "filteredDirectoryDropsPendingOpen": "passed",
+      "restoredFilterDropsPendingError": "passed",
+      "movedIndexedFolderKeepsSearchAndReportsRefresh": "passed",
+      "oneIndexedItemHasSingularSettingsAndFilesLabels": "passed",
+      "movedIndexedFileKeepsSearchAndReportsRefresh": "passed"
+    }
+  }
+}
