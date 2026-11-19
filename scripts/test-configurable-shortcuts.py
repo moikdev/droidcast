@@ -200,7 +200,11 @@ def assign(query, key, label):
 def verify_document_shortcut():
     assert any(item["title"] == "tinycast-soak-document.txt" for item in json.loads(prefs().get("files", "[]"))), "Run the document fixture setup before this dedicated test"
     assign("tinycast-soak-document.txt", 25, "Ctrl + Alt + P")
-    if not args.document_only:
+    if args.document_only:
+        # Re-enter an existing palette from Settings, as in the full shortcut run.
+        adb("shell", "am", "start", "-W", "-n", APP + "/.MainActivity")
+        wait(lambda: APP + "/" in focused(), "Palette did not open before the shortcut")
+    else:
         chord(57)
     settings()
     chord(25)
