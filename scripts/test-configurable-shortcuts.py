@@ -16,6 +16,9 @@ from pathlib import Path
 
 from html_viewer_evidence import VIEWER, visible_body_method
 
+if not __debug__:
+    raise SystemExit("Run without -O so device and restoration assertions are enabled.")
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--adb", default=os.environ.get("ADB", "adb"))
 parser.add_argument("--serial", default="emulator-5580")
@@ -174,11 +177,20 @@ def settings():
     wait(lambda: "com.android.settings/" in focused(), "Settings did not open")
 
 
-def assign(query, key, label):
+def open_shortcut_recorder(query):
     palette(query)
     click("Actions")
+    # The software keyboard can leave only the first action visible. Filter
+    # the menu before tapping so an offscreen row cannot select its neighbor.
+    wait(lambda: any(n.get("resource-id") == "inline-menu-search" and n.get("focused") == "true"
+                     for n in tree().iter("node")), "Action search did not receive focus")
+    type_text("shortcut")
     click("Set keyboard shortcut")
     node("Record a shortcut")
+
+
+def assign(query, key, label):
+    open_shortcut_recorder(query)
     chord(key)
     node(label)
     click("Save shortcut")
@@ -434,8 +446,8 @@ try:
         passed("old global chord stops activating after reassignment")
 
         assign("wifi", 17, "Ctrl + Alt + W")
-        palette("Calculator"); click("Actions"); click("Set keyboard shortcut")
-        node("Record a shortcut"); chord(17)
+        open_shortcut_recorder("Calculator")
+        chord(17)
         snapshot("conflict", "Already assigned to Wi-Fi settings")
         chord(1, ())
         assert "calculator" not in json.loads(prefs()["shortcuts"])["bindings"]
