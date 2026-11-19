@@ -161,6 +161,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         cancelDocumentOpen()
         if (request == null || !ShortcutRuntime.requests.isFresh(request) || store.shortcutConfiguration.bindings[request.target] != request.chord) { store.message = "Shortcut changed or expired. Try again."; return }
         if (store.backupBusy || ShortcutRuntime.recordingOwner != null) { store.message = "Finish the current operation before running a shortcut."; return }
+        store.pendingShortcut = null
         TextReviewOwnership.revoke()
         if (request.target == ShortcutRules.PALETTE) { if (toggleExisting) finish() else store.reset() }
         else if (toggleExisting && request.target == "calculator" && store.dialog == null && store.category == "All" && store.query.trimStart().startsWith("=")) finish()

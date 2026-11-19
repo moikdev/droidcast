@@ -1,5 +1,6 @@
 package dev.tinycast.android
 
+import android.app.Dialog
 import android.content.Context
 import android.provider.Settings
 import android.view.KeyEvent
@@ -223,6 +224,37 @@ class ShortcutDeviceTest {
         compose.onNodeWithTag("editor-title").assertDoesNotExist()
         assertEquals(Lifecycle.State.RESUMED, compose.activityRule.scenario.state)
     }
+    @Test fun deferredFileShortcutRechecksItsBindingWhenFocusReturns() {
+        val scenario = compose.activityRule.scenario
+        val chord = KeyChord(KeyEvent.KEYCODE_P, ShortcutRules.CTRL or ShortcutRules.ALT)
+        lateinit var overlay: Dialog
+        lateinit var fileId: String
+        compose.waitUntil(5000) { !compose.activity.store.loading && !compose.activity.store.folderSearch.loading }
+        scenario.onActivity { activity ->
+            fileId = activity.store.save("files", "Deferred shortcut fixture", "content://dev.droidcast.test/deferred")
+            activity.store.setShortcut(fileId, chord)
+            overlay = Dialog(activity).apply { show() }
+        }
+        try {
+            compose.waitUntil(5000) { overlay.window?.decorView?.hasWindowFocus() == true && !compose.activity.window.decorView.hasWindowFocus() }
+            scenario.onActivity { it.acceptShortcut(ShortcutRuntime.requests.issue(fileId, chord)) }
+            compose.waitForIdle()
+            scenario.onActivity { activity ->
+                assertEquals(fileId, activity.store.pendingShortcut?.target)
+                assertNull(activity.store.usage[fileId])
+                activity.store.setShortcut(fileId, null)
+                overlay.dismiss()
+            }
+            compose.waitUntil(5000) { compose.activity.window.decorView.hasWindowFocus() && compose.activity.store.pendingShortcut == null }
+            scenario.onActivity { activity ->
+                assertNull(activity.store.usage[fileId])
+                assertEquals("Shortcut changed or expired. Try again.", activity.store.message)
+            }
+        } finally {
+            InstrumentationRegistry.getInstrumentation().runOnMainSync { overlay.dismiss() }
+        }
+    }
+
     @Test fun forgedExternalIntentCannotExecuteACommand() {
         compose.activityRule.scenario.onActivity { it.store.setShortcut("system:wifi", wifiChord) }
         device.executeShellCommand("am start -W -n dev.tinycast.android/.MainActivity -a ${ShortcutRuntime.ACTION} --es ${ShortcutRuntime.TOKEN} forged --es commandId system:wifi")
