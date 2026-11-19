@@ -1,3 +1,4 @@
+from importlib.util import find_spec
 from pathlib import Path
 import shutil
 import sys
@@ -12,6 +13,7 @@ RECORDS = ROOT / "docs/validation/viewer-body"
 IMAGES = ROOT / "docs/screenshots/viewer-body"
 TITLE = "tinycast-soak-document.txt"
 BODY = "Tinycast extended text file test."
+OCR_AVAILABLE = find_spec("PIL") is not None and shutil.which("tesseract") is not None
 
 
 class HtmlViewerEvidenceTests(unittest.TestCase):
@@ -21,7 +23,7 @@ class HtmlViewerEvidenceTests(unittest.TestCase):
         self.assertIsNone(visible_body_method(tree, b"", TITLE, BODY[:-1]))
         self.assertIsNone(visible_body_method(tree, b"", "wrong-title.txt", BODY))
 
-    @unittest.skipUnless(shutil.which("tesseract"), "Requires Tesseract with English data")
+    @unittest.skipUnless(OCR_AVAILABLE, "Requires Pillow and Tesseract with English data")
     def test_rendered_body_omitted_from_hierarchy(self):
         tree = ET.parse(RECORDS / "historical-missing-body.xml")
         self.assertFalse(any(n.get("text", "").strip() == BODY for n in tree.iter("node")))
@@ -29,6 +31,13 @@ class HtmlViewerEvidenceTests(unittest.TestCase):
         self.assertEqual("screenshot_ocr", visible_body_method(tree, png, TITLE, BODY))
         self.assertIsNone(visible_body_method(tree, png, TITLE, BODY[:-1]))
         self.assertIsNone(visible_body_method(tree, png, TITLE, TITLE))
+
+    @unittest.skipUnless(OCR_AVAILABLE, "Requires Pillow and Tesseract with English data")
+    def test_same_title_opens_a_different_document_body(self):
+        tree = ET.parse(RECORDS / "same-title-wrong-body.xml")
+        png = (IMAGES / "wrong-body.png").read_bytes()
+        self.assertIsNone(visible_body_method(tree, png, TITLE, BODY))
+        self.assertEqual("screenshot_ocr", visible_body_method(tree, png, TITLE, "Tinycast wrong document control."))
 
     def test_package_required(self):
         tree = ET.parse(RECORDS / "historical-exposed-body.xml")

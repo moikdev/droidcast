@@ -28,12 +28,15 @@ def visible_body_method(hierarchy, screenshot, title, expected_body):
         return "accessibility_text" if exposed == [expected_body] else None
 
     # Only the missing-body path needs host OCR. Keep the fixture title, toolbar,
-    # system bars and unrelated windows outside the sampled rectangle.
+    # and system bars outside the sampled rectangle.
     match = re.fullmatch(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", webview.get("bounds", ""))
     if match is None:
         return None
     left, top, right, bottom = map(int, match.groups())
-    from PIL import Image
+    try:
+        from PIL import Image
+    except ImportError as error:
+        raise RuntimeError("The WebView omitted its body. Install Pillow to check the screenshot.") from error
     with Image.open(io.BytesIO(screenshot)) as image:
         if not (0 <= left < right <= image.width and 0 <= top < bottom <= image.height):
             return None
