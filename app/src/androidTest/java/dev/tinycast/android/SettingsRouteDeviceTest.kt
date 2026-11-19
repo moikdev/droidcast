@@ -2,7 +2,15 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
+import android.os.SystemClock
 import android.view.KeyEvent
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowCompat
+import androidx.compose.ui.semantics.SemanticsProperties
+import org.json.JSONArray
+import org.json.JSONObject
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -208,6 +216,121 @@ class SettingsRouteDeviceTest {
         alias.assertIsFocused()
         assertEquals("", workspace.requestedEditor)
         assertEquals(id, workspace.requestedCommand)
+    }
+
+    @Test fun aliasActionRevealsFieldAboveKeyboard() {
+        val id = "notes:${java.util.UUID.randomUUID()}"
+        main!!.onActivity { it.store.save("notes", "Owned alias viewport", "Fixture", id = id) }
+        compose.onNodeWithTag("search").performTextReplacement("Owned alias viewport")
+        key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("action-Set alias").performClick()
+        checkAliasViewport(settings(), id, "ordinary")
+    }
+
+    @Test fun lateAliasRequestRevealsFieldAboveKeyboard() {
+        key(KeyEvent.KEYCODE_COMMA, KeyEvent.META_CTRL_ON)
+        val workspace = settings()
+        val id = "notes:${java.util.UUID.randomUUID()}"
+        instrumentation.runOnMainSync { workspace.configure(id, "alias") }
+        compose.onNodeWithTag("settings-alias").performScrollTo().assertIsNotEnabled()
+        assertEquals("alias", workspace.requestedEditor)
+        instrumentation.runOnMainSync { workspace.store.save("notes", "Owned alias viewport", "Fixture", id = id) }
+        checkAliasViewport(workspace, id, "late")
+    }
+
+    private fun checkAliasViewport(workspace: SettingsActivity, id: String, path: String) {
+        val alias = compose.onNodeWithTag("settings-alias")
+        val start = SystemClock.uptimeMillis()
+        fun imeVisible() = ViewCompat.getRootWindowInsets(workspace.window.decorView)
+            ?.isVisible(WindowInsetsCompat.Type.ime()) == true
+        compose.waitUntil(5000) { runCatching { alias.assertIsFocused() }.isSuccess }
+        alias.assert(editableCharactersExactly(""))
+        compose.waitUntil(5000) { compose.runOnUiThread { imeVisible() } }
+        val samples = JSONArray()
+        fun measure(): Boolean {
+            val node = alias.fetchSemanticsNode()
+            return compose.runOnUiThread {
+                val clipped = node.boundsInWindow
+                val whole = node.size
+                val decor = workspace.window.decorView
+                val frame = Rect().also(decor::getWindowVisibleDisplayFrame)
+                val screen = IntArray(2).also(decor::getLocationOnScreen)
+                val window = IntArray(2).also(decor::getLocationInWindow)
+                frame.offset(window[0] - screen[0], window[1] - screen[1])
+                val full = whole.height > 0 && whole.width > 0 &&
+                    clipped.left + 1 >= frame.left && clipped.right <= frame.right + 1 &&
+                    clipped.top + 1 >= frame.top && clipped.bottom <= frame.bottom + 1 &&
+                    clipped.height + 1 >= whole.height && clipped.width + 1 >= whole.width
+                samples.put(JSONObject().put("elapsed_ms", SystemClock.uptimeMillis() - start)
+                    .put("ime", imeVisible()).put("height", whole.height).put("width", whole.width)
+                    .put("visible_height", clipped.height.toDouble()).put("visible_width", clipped.width.toDouble())
+                    .put("clipped_xyxy", JSONArray(listOf(clipped.left, clipped.top, clipped.right, clipped.bottom)))
+                    .put("display_frame_xyxy", JSONArray(listOf(frame.left, frame.top, frame.right, frame.bottom)))
+                    .put("full", full))
+                full && imeVisible()
+            }
+        }
+        val dest = if (hostRestoresTestClipboard()) File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() } else null
+        fun capture(phase: String) {
+            if (dest == null) return
+            testAutomation().clearCacheForTest()
+            device.dumpWindowHierarchy(File(dest, "$path-$phase.xml"))
+            assertTrue(device.takeScreenshot(File(dest, "$path-$phase.png")))
+        }
+        fun settleViewport(): Boolean {
+            val until = SystemClock.uptimeMillis() + 1600
+            while (SystemClock.uptimeMillis() < until) {
+                measure()
+                SystemClock.sleep(120)
+            }
+            return measure()
+        }
+        val openingVisible = settleViewport()
+        capture("opening")
+        assertTrue("Opening the inspector must reveal the complete alias field above the keyboard", openingVisible)
+        val controller = WindowCompat.getInsetsController(workspace.window, workspace.window.decorView)
+        compose.runOnUiThread { controller.hide(WindowInsetsCompat.Type.ime()) }
+        compose.waitUntil(5000) { !compose.runOnUiThread { imeVisible() } }
+        alias.assertIsFocused()
+        measure()
+        compose.runOnUiThread { controller.show(WindowInsetsCompat.Type.ime()) }
+        compose.waitUntil(5000) { measure(); compose.runOnUiThread { imeVisible() } }
+        val visibleBefore = settleViewport()
+        capture("settled")
+        assertTrue(device.pressKeyCode(KeyEvent.KEYCODE_X))
+        alias.assertIsFocused().assert(editableCharactersExactly("x"))
+        assertEquals(id, workspace.requestedCommand)
+        assertEquals("", workspace.requestedEditor)
+        val visibleAfter = measure()
+        capture("typed")
+        // Move the inspector back to the top while the IME is open. An offscreen
+        // field may still be focused and editable; both dimensions must catch it.
+        val inspector = compose.onNode(hasScrollAction() and hasAnyDescendant(hasTestTag("settings-alias")))
+        fun scrollOffset() = inspector.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange].value()
+        val beforePan = scrollOffset()
+        inspector.performTouchInput { swipeDown() }
+        compose.waitForIdle()
+        val afterPan = scrollOffset()
+        val inspectorClipped = !measure()
+        alias.assertIsFocused().assert(editableCharactersExactly("x"))
+        assertEquals(id, workspace.requestedCommand)
+        val stillOpen = compose.runOnUiThread { imeVisible() }
+        assertTrue("The swipe must move the inspector toward its top by at least one field height",
+            beforePan - afterPan >= alias.fetchSemanticsNode().size.height)
+        assertTrue("The swipe must leave the alias field clipped with the keyboard open", inspectorClipped && stillOpen)
+        SystemClock.sleep(350)
+        val scrollStable = kotlin.math.abs(scrollOffset() - afterPan) <= 1f &&
+            compose.runOnUiThread { imeVisible() } && !measure()
+        alias.assertIsFocused().assert(editableCharactersExactly("x"))
+        capture("panned")
+        dest?.let { File(it, "$path-probe.json").writeText(JSONObject().put("samples", samples)
+            .put("opening_visible", openingVisible).put("visible_before_typing", visibleBefore).put("visible_after_typing", visibleAfter)
+            .put("offset_before_pan", beforePan.toDouble()).put("offset_after_pan", afterPan.toDouble())
+            .put("panned_clipped", inspectorClipped).put("keyboard_after_pan", stillOpen)
+            .put("user_scroll_preserved", scrollStable).put("typed_exactly_x", true).toString()) }
+        assertTrue("The focused alias field must be fully visible with the keyboard before typing", visibleBefore)
+        assertTrue("The typed alias field must remain fully visible with the keyboard", visibleAfter)
+        assertTrue("User scroll must be preserved with focus and keyboard intact", scrollStable)
     }
 
     @Test fun aliasActionFocusesCorrectCommandAndPersistsWithoutPopup() {
