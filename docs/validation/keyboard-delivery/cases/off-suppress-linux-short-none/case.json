@@ -1,0 +1,599 @@
+{
+  "before_observer": {
+    "glyph_bounds": [
+      38,
+      116,
+      119,
+      148
+    ],
+    "fixture": "qwerty",
+    "exact": true,
+    "observed": "qwerty",
+    "length": 6,
+    "focused": true,
+    "ms": 940437,
+    "overflow": false,
+    "pre_ime": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939481,
+        "received_ms": 939483
+      },
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939543,
+        "received_ms": 939554
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939630,
+        "received_ms": 939631
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939699,
+        "received_ms": 939700
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939742,
+        "received_ms": 939745
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939793,
+        "received_ms": 939811
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939853,
+        "received_ms": 939856
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939900,
+        "received_ms": 939901
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 939957,
+        "received_ms": 939959
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 940015,
+        "received_ms": 940017
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940060,
+        "received_ms": 940061
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940116,
+        "received_ms": 940117
+      }
+    ],
+    "activity_dispatch": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939543,
+        "received_ms": 939577
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939699,
+        "received_ms": 939702
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939793,
+        "received_ms": 939815
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939900,
+        "received_ms": 939902
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 940015,
+        "received_ms": 940017
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940116,
+        "received_ms": 940118
+      }
+    ],
+    "edits": [
+      {
+        "ms": 939515,
+        "length": 1
+      },
+      {
+        "ms": 939635,
+        "length": 2
+      },
+      {
+        "ms": 939756,
+        "length": 3
+      },
+      {
+        "ms": 939861,
+        "length": 4
+      },
+      {
+        "ms": 939961,
+        "length": 5
+      },
+      {
+        "ms": 940063,
+        "length": 6
+      }
+    ]
+  },
+  "attach_start_ms": 940450,
+  "root_ready_ms": 940515,
+  "root_polls": 2,
+  "after_observer": {
+    "glyph_bounds": [
+      38,
+      116,
+      119,
+      148
+    ],
+    "fixture": "qwerty",
+    "exact": true,
+    "observed": "qwerty",
+    "length": 6,
+    "focused": true,
+    "ms": 940518,
+    "overflow": false,
+    "pre_ime": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939481,
+        "received_ms": 939483
+      },
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939543,
+        "received_ms": 939554
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939630,
+        "received_ms": 939631
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939699,
+        "received_ms": 939700
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939742,
+        "received_ms": 939745
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939793,
+        "received_ms": 939811
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939853,
+        "received_ms": 939856
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939900,
+        "received_ms": 939901
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 939957,
+        "received_ms": 939959
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 940015,
+        "received_ms": 940017
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940060,
+        "received_ms": 940061
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940116,
+        "received_ms": 940117
+      }
+    ],
+    "activity_dispatch": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939543,
+        "received_ms": 939577
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939699,
+        "received_ms": 939702
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939793,
+        "received_ms": 939815
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939900,
+        "received_ms": 939902
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 940015,
+        "received_ms": 940017
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940116,
+        "received_ms": 940118
+      }
+    ],
+    "edits": [
+      {
+        "ms": 939515,
+        "length": 1
+      },
+      {
+        "ms": 939635,
+        "length": 2
+      },
+      {
+        "ms": 939756,
+        "length": 3
+      },
+      {
+        "ms": 939861,
+        "length": 4
+      },
+      {
+        "ms": 939961,
+        "length": 5
+      },
+      {
+        "ms": 940063,
+        "length": 6
+      }
+    ]
+  },
+  "final": {
+    "glyph_bounds": [
+      38,
+      116,
+      119,
+      148
+    ],
+    "fixture": "qwerty",
+    "exact": true,
+    "observed": "qwerty",
+    "length": 6,
+    "focused": true,
+    "ms": 940884,
+    "overflow": false,
+    "pre_ime": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939481,
+        "received_ms": 939483
+      },
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939543,
+        "received_ms": 939554
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939630,
+        "received_ms": 939631
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939699,
+        "received_ms": 939700
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939742,
+        "received_ms": 939745
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939793,
+        "received_ms": 939811
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939853,
+        "received_ms": 939856
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939900,
+        "received_ms": 939901
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 939957,
+        "received_ms": 939959
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 940015,
+        "received_ms": 940017
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 0,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940060,
+        "received_ms": 940061
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940116,
+        "received_ms": 940117
+      }
+    ],
+    "activity_dispatch": [
+      {
+        "key": "KEYCODE_Q",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939481,
+        "event_ms": 939543,
+        "received_ms": 939577
+      },
+      {
+        "key": "KEYCODE_W",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939630,
+        "event_ms": 939699,
+        "received_ms": 939702
+      },
+      {
+        "key": "KEYCODE_E",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939742,
+        "event_ms": 939793,
+        "received_ms": 939815
+      },
+      {
+        "key": "KEYCODE_R",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939853,
+        "event_ms": 939900,
+        "received_ms": 939902
+      },
+      {
+        "key": "KEYCODE_T",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 939957,
+        "event_ms": 940015,
+        "received_ms": 940017
+      },
+      {
+        "key": "KEYCODE_Y",
+        "action": 1,
+        "repeat": 0,
+        "down_ms": 940060,
+        "event_ms": 940116,
+        "received_ms": 940118
+      }
+    ],
+    "edits": [
+      {
+        "ms": 939515,
+        "length": 1
+      },
+      {
+        "ms": 939635,
+        "length": 2
+      },
+      {
+        "ms": 939756,
+        "length": 3
+      },
+      {
+        "ms": 939861,
+        "length": 4
+      },
+      {
+        "ms": 939961,
+        "length": 5
+      },
+      {
+        "ms": 940063,
+        "length": 6
+      }
+    ]
+  },
+  "observer_flags": 0,
+  "bound_before": false,
+  "bound_attached": false,
+  "transport": "linux",
+  "control": "none",
+  "submitted": "qwerty",
+  "inject_start_ns": 52524873370125,
+  "inject_end_ns": 52525568812791,
+  "prescreen_end_ns": 52525819811291,
+  "checks": {
+    "keys": true,
+    "delivery_before_attachment": true,
+    "timing": true,
+    "fixture_owned": true,
+    "before_text": true,
+    "after_text": true,
+    "hierarchy": true,
+    "pixels": true,
+    "service": true
+  },
+  "samples": {
+    "before_dark_pixels": 405,
+    "after_dark_pixels": 405,
+    "hierarchy_editor_text": [
+      "qwerty"
+    ]
+  }
+}
