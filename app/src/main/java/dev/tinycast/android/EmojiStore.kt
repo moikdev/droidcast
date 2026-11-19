@@ -13,6 +13,7 @@ import org.json.JSONArray
 class EmojiStore(private val context: Context, private val scope: CoroutineScope) {
     internal companion object {
         const val FAVORITES_KEY = "emojiFavoriteOrder"
+        private const val KEYWORD_PREFIX = "keyword:"
         const val GRID_KEY = "emojiGridColumns"
     }
     private val portable = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
@@ -22,6 +23,28 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
         }
     }
     private val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+    private var keywordIndex by mutableStateOf(readKeywordIndex())
+
+    private fun readKeywordIndex(): Map<String, List<String>> = buildMap {
+        for ((key, value) in prefs.all) {
+            if (key.startsWith(KEYWORD_PREFIX) && value is String)
+                put(key.removePrefix(KEYWORD_PREFIX), value.lines().map(EmojiCatalog::searchPhrase))
+        }
+    }
+
+    internal fun customKeywordText(id: String) = prefs.getString(KEYWORD_PREFIX + id, "").orEmpty()
+
+    internal fun saveCustomKeywords(id: String, original: String, draft: String): Boolean {
+        check(android.os.Looper.myLooper() === android.os.Looper.getMainLooper())
+        if (entries.none { it.id == id } || customKeywordText(id) != original) return false
+        val words = EmojiCatalog.cleanCustomKeywords(draft)
+        val editor = prefs.edit()
+        if (words.isEmpty()) editor.remove(KEYWORD_PREFIX + id)
+        else editor.putString(KEYWORD_PREFIX + id, words.joinToString("\n"))
+        editor.apply()
+        return true
+    }
+
     var entries by mutableStateOf<List<EmojiEntry>>(emptyList()); private set
     var loading by mutableStateOf(true); private set
     var error by mutableStateOf<String?>(null); private set
@@ -52,6 +75,13 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
                 selected = updated.indexOfFirst { it.id == active }.takeIf { it >= 0 }
                     ?: selected.coerceAtMost(updated.lastIndex.coerceAtLeast(0))
             }
+        }
+        if (key == null || key.startsWith(KEYWORD_PREFIX)) {
+            val active = results().getOrNull(selected)?.id
+            keywordIndex = readKeywordIndex()
+            val updated = results()
+            selected = updated.indexOfFirst { it.id == active }.takeIf { it >= 0 }
+                ?: selected.coerceAtMost(updated.lastIndex.coerceAtLeast(0))
         }
         if (key == null || key == "gridColumns" || key == GRID_KEY) defaultGridColumns = readGridColumns()
         if (key == null || key == "rememberRecent" || key == "recent") refreshHistory()
@@ -113,7 +143,7 @@ class EmojiStore(private val context: Context, private val scope: CoroutineScope
             }
         }
     }
-    fun results() = EmojiCatalog.search(entries, query, filter, favorites, recent, savedFavorites.order)
+    fun results() = EmojiCatalog.search(entries, query, filter, favorites, recent, savedFavorites.order, keywordIndex)
     fun search(value: String) { query = value; selected = 0 }
     fun chooseFilter(value: String) { filter = value; selected = 0 }
     private fun readFavorites(): SavedFavorites {

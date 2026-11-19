@@ -247,7 +247,7 @@ class EmojiDeviceTest {
         assertEquals("🫱🏽‍🫲🏻", clipboard())
     }
 
-    private fun toneMenuFrame(name: String, tag: String) {
+    private fun captureVisibleNode(name: String, tag: String) {
         compose.onNodeWithTag(tag).assertIsDisplayed()
         val dir = File(context.filesDir, "emoji-evidence").apply { mkdirs() }
         val xml = File(dir, "$name.xml")
@@ -268,7 +268,7 @@ class EmojiDeviceTest {
         val menuSearch = compose.onNodeWithTag("inline-menu-search")
         menuSearch.performTextReplacement("skin tone")
         if (compose.onAllNodesWithTag("inline-menu-empty").fetchSemanticsNodes().isNotEmpty())
-            toneMenuFrame("tone-before", "inline-menu-empty")
+            captureVisibleNode("tone-before", "inline-menu-empty")
         compose.onNodeWithTag("emoji-action-tone").assertIsDisplayed().performTouchInput { click(center) }
         menuSearch.assertIsFocused()
     }
@@ -282,7 +282,7 @@ class EmojiDeviceTest {
         val id = "1faf1-1f3fd-200d-1faf2-1f3fb"
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("Medium + Light")
         compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-tone-$id"))
-        toneMenuFrame("mixed-choice", "emoji-tone-$id")
+        captureVisibleNode("mixed-choice", "emoji-tone-$id")
         compose.onNodeWithTag("emoji-tone-$id").performTouchInput { click(center) }
         assertEquals(glyph, clipboard())
         assertEquals("🤝", store.query)
@@ -302,7 +302,7 @@ class EmojiDeviceTest {
         assertEquals("✌🏽", store.query)
         openToneMenu()
         compose.onNodeWithTag("inline-menu-search").performTextReplacement("Default")
-        toneMenuFrame("default-choice", "emoji-tone-270c-fe0f")
+        captureVisibleNode("default-choice", "emoji-tone-270c-fe0f")
         key(KeyEvent.KEYCODE_ENTER)
         assertEquals("✌️", clipboard())
         assertEquals("✌🏽", store.query)
@@ -317,6 +317,76 @@ class EmojiDeviceTest {
         key(KeyEvent.KEYCODE_ESCAPE)
         key(KeyEvent.KEYCODE_ENTER)
         assertEquals("🇯🇵", clipboard())
+    }
+
+    private fun openKeywordEditor() {
+        compose.onNodeWithTag("emoji-actions").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("custom keywords")
+        if (compose.onAllNodesWithTag("inline-menu-empty").fetchSemanticsNodes().isNotEmpty())
+            captureVisibleNode("keywords-before", "inline-menu-empty")
+        compose.onNodeWithTag("emoji-action-keywords").assertIsDisplayed().performTouchInput { click(center) }
+        compose.onNodeWithTag("emoji-keywords-field").assertIsFocused()
+    }
+
+    @Test fun customKeywordEditSearchCopyCancelAndRemove() {
+        val glyph = "🐱"
+        search(glyph)
+        compose.onNodeWithTag("emoji-favorite").performClick()
+        openKeywordEditor()
+        val field = compose.onNodeWithTag("emoji-keywords-field")
+        field.performTextReplacement("Café Club\n夜の猫")
+        captureVisibleNode("keywords-editor", "emoji-keywords-field")
+        compose.onNodeWithTag("emoji-keywords-save").performScrollTo().performTouchInput { click(center) }
+        compose.onNodeWithTag("emoji-search").assertIsFocused()
+        assertEquals(glyph, store.query)
+        for (q in listOf("CAFE\u0301-club", "夜の猫")) {
+            search(q)
+            assertEquals(glyph, store.results().first().glyph)
+        }
+        evidence("keywords-result", "cat face")
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals(glyph, clipboard())
+        openKeywordEditor()
+        field.performTextReplacement("Discard this")
+        key(KeyEvent.KEYCODE_ESCAPE)
+        assertEquals("Café Club\n夜の猫", store.customKeywordText("1f431"))
+        openKeywordEditor()
+        field.performTextReplacement("")
+        key(KeyEvent.KEYCODE_S, KeyEvent.META_CTRL_ON)
+        assertTrue(store.customKeywordText("1f431").isEmpty())
+        compose.onNodeWithTag("emoji-empty").assertIsDisplayed()
+        assertEquals(setOf("1f431"), storedFavorites())
+        evidence("keywords-removed", "No matching emoji")
+    }
+
+    @Test fun keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit() {
+        search("🐱")
+        openKeywordEditor()
+        val field = compose.onNodeWithTag("emoji-keywords-field")
+        field.performTextReplacement("draft for cat")
+        compose.activityRule.scenario.recreate()
+        field.assertTextContains("draft for cat")
+        val peerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        try {
+            lateinit var peer: EmojiStore
+            compose.activityRule.scenario.onActivity { peer = EmojiStore(context, peerScope) }
+            compose.waitUntil(10000) { !peer.loading }
+            compose.activityRule.scenario.onActivity {
+                assertTrue(peer.saveCustomKeywords("1f431", "", "peer keyword"))
+            }
+            compose.onNodeWithTag("emoji-keywords-save").performClick()
+            compose.onNodeWithTag("emoji-keywords-reload").assertExists()
+            assertEquals("peer keyword", store.customKeywordText("1f431"))
+            captureVisibleNode("keywords-conflict", "emoji-keywords-reload")
+            compose.onNodeWithTag("emoji-keywords-reload").performScrollTo().performClick()
+            field.assertTextContains("peer keyword").performTextReplacement("new keyword")
+            key(KeyEvent.KEYCODE_S, KeyEvent.META_CTRL_ON)
+            compose.activityRule.scenario.onActivity {
+                peer.search("new keyword")
+                assertEquals("🐱", peer.results().first().glyph)
+            }
+            assertEquals("🐱", store.query)
+        } finally { peerScope.cancel() }
     }
 
     @Test fun typingAndFourWayNavigationWorkImmediatelyWithoutTab() {

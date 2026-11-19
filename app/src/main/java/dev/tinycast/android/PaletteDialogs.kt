@@ -203,7 +203,7 @@ internal fun ActionsMenu(store: PaletteStore, command: Command, run: (Command) -
 }
 
 @Composable
-internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier, embedded: Boolean = false, footer: (@Composable RowScope.() -> Unit)? = null, content: @Composable ColumnScope.() -> Unit) {
+internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier: Modifier = Modifier, embedded: Boolean = false, backLabel: String = "Back to commands", footer: (@Composable RowScope.() -> Unit)? = null, content: @Composable ColumnScope.() -> Unit) {
     if (embedded) {
         val focus = remember { FocusRequester() }; var ready by remember { mutableStateOf(false) }; var hasFocus by remember { mutableStateOf(false) }
         LaunchedEffect(ready) { if (ready && !hasFocus) focus.requestFocus() }
@@ -227,7 +227,7 @@ internal fun Shell(title: String, subtitle: String, close: () -> Unit, modifier:
         .onGloballyPositioned { ready = true }
         .onPreviewKeyEvent { if (it.type == KeyEventType.KeyDown && it.key == Key.Escape) { close(); true } else false }.focusable()) {
         Row(Modifier.fillMaxWidth().heightIn(min=PaletteTheme.header).paletteHeaderSurface().padding(end=8.dp,top=4.dp,bottom=4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = "Back to commands" }.testTag("inline-back")) { Glyph("back",PaletteTheme.ink,24) }
+            IconButton(onClick = close, modifier = Modifier.size(48.dp).semantics { contentDescription = backLabel }.testTag("inline-back")) { Glyph("back",PaletteTheme.ink,24) }
             Spacer(Modifier.width(2.dp))
             Text(title, fontSize = 20.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
         }
