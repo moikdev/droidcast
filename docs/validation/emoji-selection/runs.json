@@ -1,0 +1,558 @@
+{
+  "before": {
+    "app": "64f954f6752f35415161dfbf63c01fca2d8374e1055fddd148e21278e7ca5632",
+    "app_language": "en-US",
+    "app_source": "bc103d88cc36e990c86857b0eb6620cd81971300",
+    "cases": {
+      "replace": {
+        "files": {},
+        "junit_pass": false,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "4460e0398953065f13563a5031dc316d11ff1978",
+    "kind": "prior",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fdc4dd5219c3126930db6d4d3ca82b7fc0b55c253a4570363cc779244993af39",
+    "test": "e9d8f3c0c3aa27f78f3f94a886b58ce7d7cc89c57bfb513aee1fd2e43dd83a15"
+  },
+  "phone": {
+    "app": "fe538cc60bb0d44269e243f2542dc9266ebf13596a753006385038ad4d818cc4",
+    "app_language": "en-US",
+    "app_source": "4460e0398953065f13563a5031dc316d11ff1978",
+    "cases": {
+      "cancel": {
+        "files": {
+          "canceled.png": "d3e3796a0191c8fc2c68eade479f995a31d532ad6859f314dfb2f906c8789739",
+          "canceled.xml": "c6c33b2ca2a7b2b0ce2079fd2d0bc42f6c67460feaec4bba78096ed615bc7b05"
+        },
+        "junit_pass": true,
+        "method": "cancellationPreservesTheSourceAfterChoosingAnEmoji"
+      },
+      "readonly": {
+        "files": {
+          "read-only-return.png": "e4c9838af73765f02bb20cf054539c215ab23cc6b49b95fb38063004c59fa26e",
+          "read-only-return.xml": "530f7f70feee1a4cb74d101faba3d9d5dbfb64571e270f72a045f27203dca270",
+          "read-only.png": "ca448bfd2bbd54401f3b90569624dd55395d4ecefb017f2dfbeea3b884c0cc27",
+          "read-only.xml": "6d580d05d2fb19d2e835aa3afa07199f814900876859a86b1e27ac4748882527"
+        },
+        "junit_pass": true,
+        "method": "readOnlySelectionReturnsUnchanged"
+      },
+      "replace": {
+        "files": {
+          "confirm.png": "b4d0a64a1103a22d1f1bf3ebbb2dfd7ed44e55dd3c3cda8e5aae8699231728a7",
+          "confirm.xml": "f78aeb1909c355ad583f1c92f3f79ffb5b039a9b0647f7f6a434ad73db536f38",
+          "replaced.png": "750b425801f92a69f6027539d482c87157ee6ecf8f5ed9ae7d2c3bc06a5e7f8d",
+          "replaced.xml": "ade1d1129838980b3a151b745ec699f2b55cf9ccce301662c20f635f424b8038"
+        },
+        "junit_pass": true,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "4460e0398953065f13563a5031dc316d11ff1978",
+    "kind": "current",
+    "profile": "phone",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fdc4dd5219c3126930db6d4d3ca82b7fc0b55c253a4570363cc779244993af39",
+    "test": "e9d8f3c0c3aa27f78f3f94a886b58ce7d7cc89c57bfb513aee1fd2e43dd83a15"
+  },
+  "tablet": {
+    "app": "fe538cc60bb0d44269e243f2542dc9266ebf13596a753006385038ad4d818cc4",
+    "app_language": "en-US",
+    "app_source": "4460e0398953065f13563a5031dc316d11ff1978",
+    "cases": {
+      "cancel": {
+        "files": {
+          "canceled.png": "598d7bd1c18c18b2052bbbb197b5c146f438cbb26ec8cea2a055cf29e7816ef9",
+          "canceled.xml": "6ee81d14a86a3075a583b856b065b7fb0e85943c4f77ef75e424909077073b73"
+        },
+        "junit_pass": true,
+        "method": "cancellationPreservesTheSourceAfterChoosingAnEmoji"
+      },
+      "readonly": {
+        "files": {
+          "read-only-return.png": "598d7bd1c18c18b2052bbbb197b5c146f438cbb26ec8cea2a055cf29e7816ef9",
+          "read-only-return.xml": "6ee81d14a86a3075a583b856b065b7fb0e85943c4f77ef75e424909077073b73",
+          "read-only.png": "26117656ca863000a930455af19b24267bac543ee9abfa98a907685905b3f543",
+          "read-only.xml": "93a0fc0fc0b3688bc9bc91c83e3af1039340c25993fb6a0a36b3eae613b8221a"
+        },
+        "junit_pass": true,
+        "method": "readOnlySelectionReturnsUnchanged"
+      },
+      "replace": {
+        "files": {
+          "confirm.png": "55cafe2f60f4004b1344148ed8a827528e3e02caf2237eebe58a66d905206f0f",
+          "confirm.xml": "8fc3d98879cf0bb1fbb08df569b591152dce6ed679c6915f81e91dee6712a6d0",
+          "replaced.png": "2fcbfdcdc2ddf66999f829c29b1ef93b487138b07dfdba94f8e5ba239157b9a3",
+          "replaced.xml": "0c5ee0cc3ec14a37f5b94311b51da035ce9709becd913439c84c649afedec8e0"
+        },
+        "junit_pass": true,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "4460e0398953065f13563a5031dc316d11ff1978",
+    "kind": "current",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "fdc4dd5219c3126930db6d4d3ca82b7fc0b55c253a4570363cc779244993af39",
+    "test": "e9d8f3c0c3aa27f78f3f94a886b58ce7d7cc89c57bfb513aee1fd2e43dd83a15"
+  },
+  "v2/earlier": {
+    "app": "64f954f6752f35415161dfbf63c01fca2d8374e1055fddd148e21278e7ca5632",
+    "app_language": "en-US",
+    "app_source": "bc103d88cc36e990c86857b0eb6620cd81971300",
+    "cases": {
+      "replace": {
+        "files": {
+          "unavailable.png": "aeae5d6a36edd93a48f10eb9cc04267c870fd5840a1e16c71a3d390027f1898c",
+          "unavailable.xml": "3164c78554efa7fcc4516eceb45a1a64510b00c8f6685412d641be2d49b8db74"
+        },
+        "junit_pass": false,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      },
+      "toolbar": {
+        "files": {
+          "system-menu.png": "9a0b07f702de6397fc9d4ed8ea4f95f485cbb273d1408134a400e7cf5ac2782b",
+          "system-menu.xml": "a623ef86751de8d9b9895900e796134cade86a07f9e6682aff276db8cd7e3d1c"
+        },
+        "junit_pass": false,
+        "method": "androidTextSelectionMenuReplacesTheWordInANativeEditor"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "afdd21502582643b095fcb44170f492f86fadbc9",
+    "kind": "prior",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "d85f7bd02dd05eb8bca9dd03fcae7d2e57c44711121c3b44c5e96a6b96711d44",
+    "test": "2b927c02e2313c1f0b07d8ed3c0d10257631db36c01f3f7cd507cc102bcc2db6"
+  },
+  "v2/phone": {
+    "app": "47348846b145ddf21a29d1c50b8073af094ae0eb6bcb6c4b3a8e7aeceb68546b",
+    "app_language": "en-US",
+    "app_source": "afdd21502582643b095fcb44170f492f86fadbc9",
+    "cases": {
+      "cancel": {
+        "files": {
+          "canceled.png": "e94640fd867b99c973e3b38871882b65a148188bcd56b56b3a4081120f969390",
+          "canceled.xml": "f835bad29ca666f0389f0a30fafb817d73803d42f315f4759a58d3e6d36e3f8d"
+        },
+        "junit_pass": true,
+        "method": "cancellationPreservesTheSourceAfterChoosingAnEmoji"
+      },
+      "readonly": {
+        "files": {
+          "read-only-return.png": "1a563fe5492bf2cda4437bb26eea0430b7d8f66f63d13881ee5d0eb6bef83781",
+          "read-only-return.xml": "35eaefea5105624afa4b9de521385da1c5c30674e813d76fc0ba0602f1512d9a",
+          "read-only.png": "f6cd1bccc477f6f6b818c18fabddb2f20477dc52ec4b6679f867cd3d10d28e73",
+          "read-only.xml": "671cdfec33da5bc8c7d1a7f339c7c1c3c3b93022489545b635cceedcca40af7a"
+        },
+        "junit_pass": true,
+        "method": "readOnlySelectionReturnsUnchanged"
+      },
+      "replace": {
+        "files": {
+          "confirm.png": "9e4ad8a39f882b280a51eca7d03a1ccf4c0dd026ef9b6f023e64df303807eea0",
+          "confirm.xml": "830269159663e960c029ae80317c9407a5c0e8cbcaefe22c93957290ece4c3a1",
+          "replaced.png": "81c1c6adb609964d00f12f2a3fac82dbfd34d27f6459a401cb5df7dc2d862dd4",
+          "replaced.xml": "29eff6789e72a7315d4ed94b7bcd8604bc6374822e45afeb28db5301ce236749"
+        },
+        "junit_pass": true,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      },
+      "toolbar": {
+        "files": {
+          "system-menu.png": "4c2f70bed3db776ed850a00523f9fde053b5bc01239973e758c9d5e30138ba0f",
+          "system-menu.xml": "ca295c6898aa8c5df80bfe2252dc279237ed52d4ca67189a8addc94a68ad51ee",
+          "system-return.png": "ce8911a5c3410cf10b6d6667f7e37d75bd09fd18f4ed457aec2686120ea49feb",
+          "system-return.xml": "442067871b2ceaea5402d0e1388269426dc056dc98c67f0d78d0710c3eeeeccc"
+        },
+        "junit_pass": true,
+        "method": "androidTextSelectionMenuReplacesTheWordInANativeEditor"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "afdd21502582643b095fcb44170f492f86fadbc9",
+    "kind": "current",
+    "profile": "phone",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "d85f7bd02dd05eb8bca9dd03fcae7d2e57c44711121c3b44c5e96a6b96711d44",
+    "test": "2b927c02e2313c1f0b07d8ed3c0d10257631db36c01f3f7cd507cc102bcc2db6"
+  },
+  "v2/tablet": {
+    "app": "47348846b145ddf21a29d1c50b8073af094ae0eb6bcb6c4b3a8e7aeceb68546b",
+    "app_language": "en-US",
+    "app_source": "afdd21502582643b095fcb44170f492f86fadbc9",
+    "cases": {
+      "cancel": {
+        "files": {
+          "canceled.png": "101b35ab62f3843bc4d15383f41dddc04d0c3928f70baa1417885a377ca33a20",
+          "canceled.xml": "5c998c393267d2284426756255cadc4fd256b79ca8eea2fb200716066f85a8a2"
+        },
+        "junit_pass": true,
+        "method": "cancellationPreservesTheSourceAfterChoosingAnEmoji"
+      },
+      "readonly": {
+        "files": {
+          "read-only-return.png": "939c6948e2f8fc936b57f0f88688058e8acde80f06a5d3bcbbc278367c1faa17",
+          "read-only-return.xml": "f7a6d88e98e23d7ae52675dfc56ddbbfa0740bcb018ab8fce73de51ef344c3e2",
+          "read-only.png": "8bc960a7142ca2a066c42b61d01188b2f775f4d3495475c7bbc99e8f69ead492",
+          "read-only.xml": "db2cb5af4facb41eb248d167fd41510d6a46bf542be510675414d4933ed04124"
+        },
+        "junit_pass": true,
+        "method": "readOnlySelectionReturnsUnchanged"
+      },
+      "replace": {
+        "files": {
+          "confirm.png": "0d203ce18a210b1a51affb1e19ab51f601600ffa3eda8bbf59f2e9289f9f4ce2",
+          "confirm.xml": "d184498206c4fa8345e01e55de9ece7396d6898d8233d8c020d4b50425cf5228",
+          "replaced.png": "fa7966b16385ec386c44a728031011ff519525a4bfb2267a804b3004cf2c8dcc",
+          "replaced.xml": "26cc67efa4deff22611dc7e6c73b35246823db14d48fd34c873076644b4fa048"
+        },
+        "junit_pass": true,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      },
+      "toolbar": {
+        "files": {
+          "system-menu.png": "4229b0efc2be723c329726328a422aa1ef4bdbcbb2ee54da761d665788d35a65",
+          "system-menu.xml": "79f49d5c011859acb2a6ded46034a2a79ba50fbc3cfe45b5ca35011ef288cec1",
+          "system-return.png": "8340e666df9bb17e2545d9037e1c8907588e9b32170a9e6a0899ff735222c9e1",
+          "system-return.xml": "48e9c5e4ad2583d5647b4309ef0bd99dcec5b6fe5b3bc0a72e328faf655b557f"
+        },
+        "junit_pass": true,
+        "method": "androidTextSelectionMenuReplacesTheWordInANativeEditor"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "afdd21502582643b095fcb44170f492f86fadbc9",
+    "kind": "current",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "d85f7bd02dd05eb8bca9dd03fcae7d2e57c44711121c3b44c5e96a6b96711d44",
+    "test": "2b927c02e2313c1f0b07d8ed3c0d10257631db36c01f3f7cd507cc102bcc2db6"
+  },
+  "v3/earlier": {
+    "app": "64f954f6752f35415161dfbf63c01fca2d8374e1055fddd148e21278e7ca5632",
+    "app_language": "en-US",
+    "app_source": "bc103d88cc36e990c86857b0eb6620cd81971300",
+    "cases": {
+      "replace": {
+        "files": {
+          "unavailable.png": "04ba8eaf96cb97bc030143d33d25cfaba9c2be930d67b5dae9acd1eb41fbe0c3",
+          "unavailable.xml": "6f9fb7db0565ff7f513f7b6de79562996ac2ea205917dc5c95447afa1f13e5e3"
+        },
+        "junit_pass": false,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      },
+      "toolbar": {
+        "files": {
+          "system-menu.png": "e11eb33a918a18b1399e7172ac725846acb965afb5d3076e8f82f16a3553d69c",
+          "system-menu.xml": "1f5657b059a615e6db59677b0c204914547e74be53e01365b443401898b2b47a"
+        },
+        "junit_pass": false,
+        "method": "androidTextSelectionMenuReplacesTheWordInANativeEditor"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+    "kind": "prior",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "e134c7914be6a71788a00bbcf5d3564dd3dead4714571a689b95e3276561325e",
+    "test": "f623913aa540fd1794c552eb9e7e0619ffd3aa254a13398a108741867efcfdfb"
+  },
+  "v3/phone": {
+    "app": "8fa732ba22c4aabf2f82f67481a70dbfc78caaf9400746d778720c8750d85cd0",
+    "app_language": "en-US",
+    "app_source": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+    "cases": {
+      "badflag": {
+        "files": {
+          "bad-flag-return.png": "e2d2a60ee97d27e256397109d9ec3673bc6c09879fd4a6c4bb631abcf65950eb",
+          "bad-flag-return.xml": "9b736bb876b69df09c1ad1e0132826438a2f445dba59931ce51320de34cdcf48"
+        },
+        "junit_pass": true,
+        "method": "malformedEditabilityFlagCannotReturnAReplacement"
+      },
+      "cancel": {
+        "files": {
+          "canceled.png": "fab5ac08a1ee1efedff8ca41b9508a4d06c54574938200896f1031c34f05cc85",
+          "canceled.xml": "0985ab38a6d8d157f5df0702ef280414383b2ce547069f9ff9712e0395b62285"
+        },
+        "junit_pass": true,
+        "method": "cancellationPreservesTheSourceAfterChoosingAnEmoji"
+      },
+      "readonly": {
+        "files": {
+          "read-only-return.png": "e2d2a60ee97d27e256397109d9ec3673bc6c09879fd4a6c4bb631abcf65950eb",
+          "read-only-return.xml": "b815ffaf6f20a82aa57440be6072bd409f984d5735f3962614055cc3178bac68",
+          "read-only.png": "29066618d3115fc379602ce42a6dd8c522fd53484bc3ed4c9f1ca3271fb7f182",
+          "read-only.xml": "206e285af0569a025a12d2af2aea1114675899e9d81ec0ef25b50233d2751327"
+        },
+        "junit_pass": true,
+        "method": "readOnlySelectionReturnsUnchanged"
+      },
+      "recreate": {
+        "files": {
+          "recreated-return.png": "6c9fd7cda8b8277e8bcd0fdf6f728b1b0923c0291dd6f833e1fab9cefea8d1a8",
+          "recreated-return.xml": "73f0957fe7b3bcceb683287d4b82b0c69b664ea575d639ded87fdab753af5879"
+        },
+        "junit_pass": true,
+        "method": "rechoosingTheSameEmojiRejectsThePreviousConfirmationAndSurvivesRecreation"
+      },
+      "replace": {
+        "files": {
+          "confirm.png": "223494641651b04528c79cc19b9ac9ae553d513eafaaeeea7b3231dfa6481991",
+          "confirm.xml": "3c58827f2455ad6d62e82a0a1fb99c2beaa23755646822e1c58936c19baa2c40",
+          "replaced.png": "6c9fd7cda8b8277e8bcd0fdf6f728b1b0923c0291dd6f833e1fab9cefea8d1a8",
+          "replaced.xml": "7226823e8bec9d2cdcc57322c0144c43acb640e28b129e1512325b5a84b34f51",
+          "search.png": "10ac1d1a876e7a24accabaf364eb9bc9ae6ec4329ff80df423b61f7d9eaf4ef6",
+          "search.xml": "7d23a1b3118e5fc98f58133d1c18c91788549cb56e79bfd3107e1f4a72a6933a"
+        },
+        "junit_pass": true,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      },
+      "toolbar": {
+        "files": {
+          "system-menu.png": "b20f1e72ae97174e1c046c06c16147b2f75380ca9d9a1ceadc6335a8bd7330dc",
+          "system-menu.xml": "b559b04d1cde954f0df72cc6377fc81edb2e6576c1486adda3a398ce8968257b",
+          "system-return.png": "3cb49dc2ee7f6b2374fe5b63006d03bbeb8c591b949afd87e37f0b5ea3e8eba1",
+          "system-return.xml": "a2829c5f2f371690453fb449c85883accc7edef48c9e11e1b74bc0a37a980ee2"
+        },
+        "junit_pass": true,
+        "method": "androidTextSelectionMenuReplacesTheWordInANativeEditor"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+    "kind": "current",
+    "profile": "phone",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "e134c7914be6a71788a00bbcf5d3564dd3dead4714571a689b95e3276561325e",
+    "test": "f623913aa540fd1794c552eb9e7e0619ffd3aa254a13398a108741867efcfdfb"
+  },
+  "v3/previous": {
+    "app": "47348846b145ddf21a29d1c50b8073af094ae0eb6bcb6c4b3a8e7aeceb68546b",
+    "app_language": "en-US",
+    "app_source": "afdd21502582643b095fcb44170f492f86fadbc9",
+    "cases": {
+      "recreate": {
+        "files": {},
+        "junit_pass": false,
+        "method": "rechoosingTheSameEmojiRejectsThePreviousConfirmationAndSurvivesRecreation"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+    "kind": "previous-confirmation",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "e134c7914be6a71788a00bbcf5d3564dd3dead4714571a689b95e3276561325e",
+    "test": "f623913aa540fd1794c552eb9e7e0619ffd3aa254a13398a108741867efcfdfb"
+  },
+  "v3/tablet": {
+    "app": "8fa732ba22c4aabf2f82f67481a70dbfc78caaf9400746d778720c8750d85cd0",
+    "app_language": "en-US",
+    "app_source": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+    "cases": {
+      "badflag": {
+        "files": {
+          "bad-flag-return.png": "3e0affb1ea3bcd743f6ade81ca32365e4aaddbaa7d26e670b675fbb244df5a11",
+          "bad-flag-return.xml": "61b301aa40ec9b15a9771684b1687deb6e6be8f1387e2a763ceb03ddc0330e0a"
+        },
+        "junit_pass": true,
+        "method": "malformedEditabilityFlagCannotReturnAReplacement"
+      },
+      "cancel": {
+        "files": {
+          "canceled.png": "0fd2dbca7c2745e0af8532bdf34b91f8f8723adbededf71dc0e06310453e4e98",
+          "canceled.xml": "4ec1fce61fa40fef586a2a93b426b673de87f74be720187e7e5cd3e83ad10b7d"
+        },
+        "junit_pass": true,
+        "method": "cancellationPreservesTheSourceAfterChoosingAnEmoji"
+      },
+      "readonly": {
+        "files": {
+          "read-only-return.png": "0fd2dbca7c2745e0af8532bdf34b91f8f8723adbededf71dc0e06310453e4e98",
+          "read-only-return.xml": "4ec1fce61fa40fef586a2a93b426b673de87f74be720187e7e5cd3e83ad10b7d",
+          "read-only.png": "853754046cb1c9852c09793854466794b0586f7fbf7f1119ba74fcf46e486bb9",
+          "read-only.xml": "dae15963d33ea7e6fdce4680d183f9ae78f58e145bce18332aa297c7b82baa7e"
+        },
+        "junit_pass": true,
+        "method": "readOnlySelectionReturnsUnchanged"
+      },
+      "recreate": {
+        "files": {
+          "recreated-return.png": "dcdb3b95acbb097191b51fbce4d6590f590f188d16fc959e59c202dcbb6cee19",
+          "recreated-return.xml": "9d8b7280dc9e34908d394b79a771fa85d7d682285dc1cc58e4112ef3ca12c68a"
+        },
+        "junit_pass": true,
+        "method": "rechoosingTheSameEmojiRejectsThePreviousConfirmationAndSurvivesRecreation"
+      },
+      "replace": {
+        "files": {
+          "confirm.png": "baecde6cce1d94180ec8df5ecda99eb8ad50d6d4e9bcb8c3077c54008283234d",
+          "confirm.xml": "017a68feb31f314b3b2d65d1492d05dba4aa126b7661a0e907c62b3d545b1deb",
+          "replaced.png": "8c55d598e7b9f6621331d7aaad82ef2afccd6232de0873b4265aa432894e36d9",
+          "replaced.xml": "899c8730eb10ece743fe2f1034e00536474916eccdbd3037f048ddb87d4d63e6",
+          "search.png": "e0dc2796b14b53b8bc835d252460cb40287fb57428920d9c42d4989480377363",
+          "search.xml": "b5888c7a42aa8c3d05b90eafe8db314b65ec6c6c1e2d56bd21974d71b5d4ac28"
+        },
+        "junit_pass": true,
+        "method": "replacesOnlyTheRequestedRangeWithTheExactMixedToneSequence"
+      },
+      "toolbar": {
+        "files": {
+          "system-menu.png": "ed1aa4e0193189214825b2d118ba8ddec8e46e1ddb3b5d5c54b94e640734d660",
+          "system-menu.xml": "12d436d1ffb42b6dd52b2af7e5aae93a8205d2c4c276f1f839b84c44dd7eef9f",
+          "system-return.png": "deaca4ca6edf88697625928e27117a8bcbbfae4834a999790914148a8e797af4",
+          "system-return.xml": "ffe57b1a419e87d1842b533b0c07723b779ecf61fb9c46365cbc19260c6f48f1"
+        },
+        "junit_pass": true,
+        "method": "androidTextSelectionMenuReplacesTheWordInANativeEditor"
+      }
+    },
+    "clipboard_restored": true,
+    "instrumentation_build_source": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+    "kind": "current",
+    "profile": "tablet",
+    "released": true,
+    "restoration": {
+      "app_locales": true,
+      "clipboard": true,
+      "emoji_preferences": true,
+      "geometry_font": true,
+      "ime_consent": true,
+      "original_app_apk": true,
+      "original_evidence_directory": true,
+      "original_test_apk": true,
+      "preferences": true,
+      "stop": true,
+      "unprivileged": true
+    },
+    "runner": "e134c7914be6a71788a00bbcf5d3564dd3dead4714571a689b95e3276561325e",
+    "test": "f623913aa540fd1794c552eb9e7e0619ffd3aa254a13398a108741867efcfdfb"
+  }
+}
