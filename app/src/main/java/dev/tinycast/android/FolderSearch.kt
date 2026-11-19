@@ -119,7 +119,8 @@ class FolderSearch internal constructor(
                 val cached = try { if (on) {
                     val index = read(indexFile, FolderIndexRules.MAX_CACHE_BYTES)
                     val rows = decodeIndex(index, roots, grants)
-                    pruneIndex(index, roots.map { it.uri }.toSet() - grants)
+                    try { pruneIndex(index, roots.map { it.uri }.toSet() - grants) }
+                    catch (_: Exception) { cacheFailed = true }
                     rows
                 } else {
                     deleteIndex(); emptyList()
