@@ -1,0 +1,198 @@
+[
+  {
+    "run": "before-tablet",
+    "source": "junit.log",
+    "source_sha256": "2883c3d121be4529da3f100ccf65659026570027a15217226ee51ea28ad64743",
+    "public": "docs/validation/quicklink-alias/reservation-editor/logs/before-tablet-reserved.log",
+    "sha256": "2883c3d121be4529da3f100ccf65659026570027a15217226ee51ea28ad64743"
+  },
+  {
+    "run": "before-tablet",
+    "source": "reserved-alias-after-rollback.xml",
+    "source_sha256": "4b1e1143cb2578a4eddfd64ab4c46a870a05c9e0f10b1d2538bf3e6c588cb229",
+    "public": "docs/validation/quicklink-alias/reservation-editor/xml/before-tablet-reserved.xml",
+    "sha256": "937bda41f06acaa8789928add1f82e3a9b8cb5ddc6318811cd6d57147adf28bc",
+    "projection": "app palette"
+  },
+  {
+    "run": "before-tablet",
+    "source": "reserved-alias-after-rollback.png",
+    "source_sha256": "7efb7423266ba11c1e21c53eeb356acb8637444e4a5ca60cd78f15f2dde64841",
+    "public": "docs/screenshots/quicklink-alias/reservation-editor/before-tablet-reserved.png",
+    "sha256": "33349fea78c20fb1924929417e985edfd645679dcabc73bbb275670aa379ce99",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ]
+  },
+  {
+    "run": "after-tablet",
+    "source": "junit.log",
+    "source_sha256": "13e9d69f4298586c62a7a7b86c8862d428cb778f264f91839975cfdd7dc83c7f",
+    "public": "docs/validation/quicklink-alias/reservation-editor/logs/after-tablet-reserved.log",
+    "sha256": "13e9d69f4298586c62a7a7b86c8862d428cb778f264f91839975cfdd7dc83c7f"
+  },
+  {
+    "run": "after-tablet",
+    "source": "junit.log",
+    "source_sha256": "f0c9ef532fd2108f11b34e0407ecc97db05fc14d8bbe792ddeda42201c91d971",
+    "public": "docs/validation/quicklink-alias/reservation-editor/logs/after-tablet-alias.log",
+    "sha256": "f0c9ef532fd2108f11b34e0407ecc97db05fc14d8bbe792ddeda42201c91d971"
+  },
+  {
+    "run": "after-tablet",
+    "source": "junit.log",
+    "source_sha256": "7ff32aa09b13c1bc9a02261025208227bc1baeb9af6b84aa27f96889e52d224d",
+    "public": "docs/validation/quicklink-alias/reservation-editor/logs/after-tablet-grid.log",
+    "sha256": "7ff32aa09b13c1bc9a02261025208227bc1baeb9af6b84aa27f96889e52d224d"
+  },
+  {
+    "run": "after-tablet",
+    "source": "junit.log",
+    "source_sha256": "e89cb6f2a957c8556dde398fea0072dd3435dfbf04c2ed596ea9a96d1f3dc230",
+    "public": "docs/validation/quicklink-alias/reservation-editor/logs/after-tablet-snapshot.log",
+    "sha256": "e89cb6f2a957c8556dde398fea0072dd3435dfbf04c2ed596ea9a96d1f3dc230"
+  },
+  {
+    "run": "after-tablet",
+    "source": "reserved-alias-after-rollback.xml",
+    "source_sha256": "2ddc67aca03f4e0317990c2c4b2f28faa7622ecbc3c99e0cef60a648de4c8ffe",
+    "public": "docs/validation/quicklink-alias/reservation-editor/xml/after-tablet-reserved.xml",
+    "sha256": "57943e4a746e8afbbdbedf0ca0bb4169f3a636ec1c86ba7b0309f1a18adb801d",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-tablet",
+    "source": "reserved-alias-after-rollback.png",
+    "source_sha256": "c0ca2006e6f35f56926b7284a49521f27b90dad282ab22a72ca6b0b12cd13c87",
+    "public": "docs/screenshots/quicklink-alias/reservation-editor/after-tablet-reserved.png",
+    "sha256": "ea294562d5173b424d282018f40ff98db62070b367c0d1d2014acd0a0b2c1f53",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ]
+  },
+  {
+    "run": "after-tablet",
+    "source": "reserved-alias-editor.xml",
+    "source_sha256": "8e1ec10130ddd8e74174230cae4c3c7b20cf555dc55730895c2c4a64504a36fe",
+    "public": "docs/validation/quicklink-alias/reservation-editor/xml/after-tablet-error.xml",
+    "sha256": "70246964f24e9b808f065563fa45bf1fbce358ab1694835914e7e35e75f35399",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-tablet",
+    "source": "reserved-alias-editor.png",
+    "source_sha256": "0c577bd565b853215393b21437fb24d5f7ba76eff9ca569bfc64c0bba4a5b920",
+    "public": "docs/screenshots/quicklink-alias/reservation-editor/after-tablet-error.png",
+    "sha256": "5a2f4e0e09af2b6d3410fb416c59726dfec41868ae02b2ca573a1c6994659ba4",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      630
+    ]
+  },
+  {
+    "run": "after-tablet",
+    "source": "quicklink-after-rollback.xml",
+    "source_sha256": "4ab73814733ff3080929d71934520e70b4ec193d97e1d59ff6dc47dc2c00e00d",
+    "public": "docs/validation/quicklink-alias/reservation-editor/xml/after-tablet-search.xml",
+    "sha256": "dd186da85f288b0e5dcaac15e66b1f964ffdf016839bf227188a3149d355cef0",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-tablet",
+    "source": "quicklink-after-rollback.png",
+    "source_sha256": "fc4e0126ecd7ae72b364354384c06db28bbe1d68ddad415145c75bbd3a31a138",
+    "public": "docs/screenshots/quicklink-alias/reservation-editor/after-tablet-search.png",
+    "sha256": "b9fcb3987df2b93f1293dbe77cbcb2a043f18cb51d7ea2fbc87e33c604264b3b",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ]
+  },
+  {
+    "run": "after-phone",
+    "source": "junit.log",
+    "source_sha256": "30c266bb44cff58ffde4e3cc1bedfc0ef6ddb2037d5e458f2b213e9f8faa9bd7",
+    "public": "docs/validation/quicklink-alias/reservation-editor/logs/after-phone-reserved.log",
+    "sha256": "30c266bb44cff58ffde4e3cc1bedfc0ef6ddb2037d5e458f2b213e9f8faa9bd7"
+  },
+  {
+    "run": "after-phone",
+    "source": "junit.log",
+    "source_sha256": "aba31d1dc0e8c73c5e45e79f1bcc8f1de77fbad9c2752ee239eb96e5fc3056b5",
+    "public": "docs/validation/quicklink-alias/reservation-editor/logs/after-phone-alias.log",
+    "sha256": "aba31d1dc0e8c73c5e45e79f1bcc8f1de77fbad9c2752ee239eb96e5fc3056b5"
+  },
+  {
+    "run": "after-phone",
+    "source": "reserved-alias-after-rollback.xml",
+    "source_sha256": "3450d88336fb1909e367e102fbef949429c559bf9d0c1c53883b106f48cb7a24",
+    "public": "docs/validation/quicklink-alias/reservation-editor/xml/after-phone-reserved.xml",
+    "sha256": "1fb4f426c92fed080c97762c129433316ae75736830e4423066355eced3d3a8c",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-phone",
+    "source": "reserved-alias-after-rollback.png",
+    "source_sha256": "d07dfe00e79119c79430591ac88dd06969f1238e257b11bf644968331b264f2a",
+    "public": "docs/screenshots/quicklink-alias/reservation-editor/after-phone-reserved.png",
+    "sha256": "df03886866898730ee333db7c7d2f33b37c152aec545cfa5df203d99abdd2946",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ]
+  },
+  {
+    "run": "after-phone",
+    "source": "reserved-alias-editor.xml",
+    "source_sha256": "8e6b7be0560117fc805a62b7c7397a4fd98fd14e8ae6784bf0155420513e9040",
+    "public": "docs/validation/quicklink-alias/reservation-editor/xml/after-phone-error.xml",
+    "sha256": "bf81a72ba29049d47ddc183205d518e1df9dbf7d4da7c3b3c77226ed4a3cc1c2",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-phone",
+    "source": "reserved-alias-editor.png",
+    "source_sha256": "b013be358a372f5b6eff2e7807fbfcd111be0529434f3ee08fe49c60790aa973",
+    "public": "docs/screenshots/quicklink-alias/reservation-editor/after-phone-error.png",
+    "sha256": "9902be8cfc6584fe4907ebeee0d2a81cbde26d4e2cf50ccc8c280782cd9d606a",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ]
+  },
+  {
+    "run": "after-phone",
+    "source": "quicklink-after-rollback.xml",
+    "source_sha256": "79bf1cd81d8d1c67888466bf92735625a5d2758bd62283ba06bd58c3b75fc94f",
+    "public": "docs/validation/quicklink-alias/reservation-editor/xml/after-phone-search.xml",
+    "sha256": "2c405d4024c9ece16ebbc47f3c317ed311bbf06ade48c1dd34edf7e36990a9c3",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-phone",
+    "source": "quicklink-after-rollback.png",
+    "source_sha256": "0642876349f1f4e07ac9defe33b2fafb2c1b9350c0c138ad7dce700e8efb235e",
+    "public": "docs/screenshots/quicklink-alias/reservation-editor/after-phone-search.png",
+    "sha256": "2bce6f646be0490cdae2db922c4f59359b1ff110e449491c4dd3726c171d6aeb",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ]
+  }
+]
