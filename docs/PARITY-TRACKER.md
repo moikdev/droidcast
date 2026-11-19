@@ -352,7 +352,7 @@ PR #140 merged the Fetch and HTTP client fixes at `f4c8bfd0` after both independ
 
 [Folder cache verification](FOLDER-SEARCH.md#index-retention-when-permissions-change) covers taking and releasing an individual document permission, keeping another readable tree after revocation, and removing expired metadata when Settings loads the cache. Android provider and process-death coverage remains partial.
 
-The one-row status still uses the plural “1 indexed items.” Ownership of individual document grants after a recent is deleted is tracked separately in [#141](https://github.com/moikdev/droidcast/issues/141).
+Settings and Files now show “1 indexed item” for a single result. Both layouts passed the [count checks](FOLDER-SEARCH.md#opening-an-indexed-result-after-a-move-or-restart). [#141](https://github.com/moikdev/droidcast/issues/141) covered releasing a document grant after its last recent reference is removed.
 
 ### Recent document permission lifetime (#141)
 
