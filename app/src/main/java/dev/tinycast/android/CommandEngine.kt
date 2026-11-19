@@ -1,5 +1,7 @@
 package dev.tinycast.android
 
+import java.math.BigDecimal
+import java.math.MathContext
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -56,16 +58,41 @@ object CommandSearch {
 data class Calculation(val expression: String, val result: String, val explanation: String)
 
 object Calculator {
-    private data class UnitDef(val dimension: String, val factor: Double)
+    private data class UnitDef(val dimension: String, val factor: Double, val origin: Double = 0.0)
     private val units = mapOf(
         "mm" to UnitDef("length", .001), "cm" to UnitDef("length", .01), "m" to UnitDef("length", 1.0),
         "km" to UnitDef("length", 1000.0), "in" to UnitDef("length", .0254), "ft" to UnitDef("length", .3048), "mi" to UnitDef("length", 1609.344),
         "g" to UnitDef("mass", 1.0), "kg" to UnitDef("mass", 1000.0), "lb" to UnitDef("mass", 453.59237), "oz" to UnitDef("mass", 28.349523125),
         "ms" to UnitDef("time", .001), "s" to UnitDef("time", 1.0), "min" to UnitDef("time", 60.0), "h" to UnitDef("time", 3600.0), "day" to UnitDef("time", 86400.0),
         "b" to UnitDef("data", 1.0), "kb" to UnitDef("data", 1000.0), "mb" to UnitDef("data", 1e6), "gb" to UnitDef("data", 1e9),
-        "kib" to UnitDef("data", 1024.0), "mib" to UnitDef("data", 1048576.0), "gib" to UnitDef("data", 1073741824.0)
+        "kib" to UnitDef("data", 1024.0), "mib" to UnitDef("data", 1048576.0), "gib" to UnitDef("data", 1073741824.0),
+        // All three origins denote freezing water. Integer scales keep the 5:9 ratio exact.
+        "c" to UnitDef("temperature", 9.0), "f" to UnitDef("temperature", 5.0, 32.0), "k" to UnitDef("temperature", 9.0, 273.15)
     )
-    fun format(value: Double): String = DecimalFormat("0.##########", DecimalFormatSymbols(Locale.US)).format(if (abs(value) < 1e-12) 0.0 else value)
+    private const val EXPONENT = "(?:e[+-]?\\d+)?"
+    private val numericLiteral = Regex("(?:\\d+(?:\\.\\d*)?|\\.\\d+)$EXPONENT")
+    private const val QUANTITY_NUMBER = "-?\\d+(?:\\.\\d+)?$EXPONENT"
+    private val conversionPattern = Regex("^($QUANTITY_NUMBER)\\s*([a-z°]+)\\s+(?:to|in)\\s+([a-z°]+)$")
+    private val quantityPattern = Regex("^($QUANTITY_NUMBER)\\s+([a-z]+)$")
+
+    private fun parseAmount(text: String): Double {
+        val amount = text.toDouble()
+        require(amount.isFinite())
+        require(amount != 0.0 || text.substringBefore('e').none { it in '1'..'9' })
+        return amount
+    }
+
+    private val smallPrecision = MathContext(11, java.math.RoundingMode.HALF_EVEN)
+
+    fun format(value: Double): String = when {
+        value == 0.0 -> "0"
+        abs(value) < 1e-10 -> {
+            val rounded = BigDecimal.valueOf(value).round(smallPrecision).stripTrailingZeros()
+            // A rounded mantissa can cross into the ordinary decimal range.
+            if (abs(rounded.toDouble()) >= 1e-10) rounded.toPlainString() else rounded.toString()
+        }
+        else -> DecimalFormat("0.##########", DecimalFormatSymbols(Locale.US)).format(value)
+    }
 
     fun evaluate(input: String): Calculation? = calculate(input, requireIntent = false)
 
@@ -78,29 +105,25 @@ object Calculator {
         val expression = source.removePrefix("=").trimStart()
         val text = expression.lowercase(Locale.ROOT)
         require(text.isNotBlank() && text.length <= 256)
-        val conversion = Regex("^(-?\\d+(?:\\.\\d+)?)\\s*([a-z°]+)\\s+(?:to|in)\\s+([a-z°]+)$").matchEntire(text)
+        val conversion = conversionPattern.matchEntire(text)
+        val quantity = if (source.startsWith('=')) quantityPattern.matchEntire(text) else null
         if (conversion != null) {
-            val value = conversion.groupValues[1].toDouble()
-            val from = conversion.groupValues[2].removePrefix("°")
-            val to = conversion.groupValues[3].removePrefix("°")
-            val converted = if (from in listOf("c", "f", "k") && to in listOf("c", "f", "k")) {
-                val c = when (from) { "f" -> (value - 32) * 5 / 9; "k" -> value - 273.15; else -> value }
-                when (to) { "f" -> c * 9 / 5 + 32; "k" -> c + 273.15; else -> c }
-            } else {
-                val a = units.getValue(from)
-                val b = units.getValue(to)
-                require(a.dimension == b.dimension)
-                value * a.factor / b.factor
-            }
-            require(converted.isFinite())
+            val (literal, sourceUnit, targetUnit) = conversion.destructured
+            val to = targetUnit.removePrefix("°")
+            val sourceDef = units.getValue(sourceUnit.removePrefix("°"))
+            val targetDef = units.getValue(to)
+            require(sourceDef.dimension == targetDef.dimension)
+            val value = if (parseAmount(literal) == 0.0) BigDecimal.ZERO else BigDecimal(literal)
+            val scaled = (value - sourceDef.origin.toBigDecimal()) * sourceDef.factor.toBigDecimal()
+            val divisor = targetDef.factor.toBigDecimal()
+            val numerator = scaled + targetDef.origin.toBigDecimal() * divisor
+            val converted = numerator.divide(divisor, MathContext.DECIMAL128).toDouble()
+            require(converted.isFinite() && (converted != 0.0 || numerator.signum() == 0))
             Calculation(input, "${format(converted)} $to", "Unit conversion · computed on device")
-        } else if (source.startsWith('=') && Regex("^(-?\\d+(?:\\.\\d+)?)\\s+([a-z]+)$").matches(text)) {
-            // Chaining a converted answer keeps its unit. Only explicit
-            // Calculator mode accepts a quantity literal; ordinary search is unchanged.
-            val parts = text.split(Regex("\\s+"))
-            val amount = parts[0].toDouble()
-            val unit = parts[1]
-            require(amount.isFinite() && (unit in units || unit in listOf("c", "f", "k")))
+        } else if (quantity != null) {
+            val (number, unit) = quantity.destructured
+            val amount = parseAmount(number)
+            require(unit in units)
             Calculation(source, "${format(amount)} $unit", "Quantity · computed on device")
         } else {
             val parser = Parser(text.replace('÷', '/').replace('−', '-'))
@@ -162,9 +185,9 @@ object Calculator {
                 require(take('(')); hasOperation = true; val v = sum(); require(take(')'))
                 return when (name) { "sqrt" -> sqrt(v); "abs" -> abs(v); "sin" -> sin(v); "cos" -> cos(v); "tan" -> tan(v); "ln" -> ln(v); "log" -> log10(v); "round" -> round(v); else -> error("Unknown function") }
             }
-            while (pos < text.length && (text[pos].isDigit() || text[pos] == '.')) pos++
-            require(start != pos)
-            return text.substring(start, pos).toDouble()
+            val number = requireNotNull(numericLiteral.matchAt(text, pos))
+            pos = number.range.last + 1
+            return parseAmount(number.value)
         }
     }
 }

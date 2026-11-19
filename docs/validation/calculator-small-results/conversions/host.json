@@ -1,0 +1,33 @@
+{
+  "debug": {
+    "build_log_sha256": "daccc156b7e81465e81d5d80bed20ebdd1196bb34600c717d5a825acf5dfadf5",
+    "lint_errors": 0,
+    "lint_warnings": 57
+  },
+  "benchmark": {
+    "build_log_sha256": "b1a2975dc2328783ec29836bf154a2ef5770290120800b916c1a167c7b920556",
+    "lint_errors": 0,
+    "lint_warnings": 57
+  },
+  "python": {
+    "tests": 148,
+    "log_sha256": "0bdd090882ba709049a17007c30b55745f38ce8197f3907252b104d772d84659"
+  },
+  "python-optimized": {
+    "tests": 148,
+    "log_sha256": "11a0a1ffecf98f727255679051af51b063bb65b57fd5667aebee7f48a5a9d2df"
+  },
+  "jvm": {
+    "tests": 358,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "comparison_jvm": {
+    "method": "unitConversionKeepsRepresentableResultsAtNumericLimits",
+    "assertion": "java.lang.AssertionError: 1e-322 mm to cm expected:<9.9E-324> but was:<0.0>",
+    "production_source": "7290399192b007b6f75569ffbff9e9582075f643",
+    "xml_sha256": "3e4dd058fbd96b78ac116269c121c7597ed76c2e251e9776d9ba4f1b61ad0ae1"
+  },
+  "device_wrapper_sha256": "b86ea91e25873aeb16356bca64168f324ab8e25bf2bf2d5633098f95daa3a9a3"
+}

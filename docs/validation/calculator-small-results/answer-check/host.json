@@ -1,0 +1,26 @@
+{
+  "debug": {
+    "build_log_sha256": "9ab2ea1b9d717b7c9cdc8f9600c3842b521d89e17267b94e510171eb17b78ee3",
+    "lint_errors": 0,
+    "lint_warnings": 57
+  },
+  "benchmark": {
+    "build_log_sha256": "e466cdb84b7a9c934d0c4912dac536d2e1ef6fab836f0a1315b266bc28c89e1a",
+    "lint_errors": 0,
+    "lint_warnings": 57
+  },
+  "python": {
+    "tests": 148,
+    "log_sha256": "2a757543110e82a8e1ef8585a45f21612b6f67a7554fee99140aeb07b76af051"
+  },
+  "python-optimized": {
+    "tests": 148,
+    "log_sha256": "4ef739128cc8a9bf47983b3a3e3c67049d3d814c48ee50809499beaf9e70c694"
+  },
+  "jvm": {
+    "tests": 357,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

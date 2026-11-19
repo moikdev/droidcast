@@ -1,0 +1,221 @@
+{
+  "earlier": {
+    "classes": "dev.tinycast.android.CalculatorActionsDeviceTest#subnormalUnitAnswerKeepsMagnitudeWhenCopiedAndChained",
+    "layout": "tablet",
+    "passes": 0,
+    "expected": 1,
+    "completed": false,
+    "apk_sha256": "ef1b10cde8eba9d39da5473f3e42a4eb90a02d468f40c1fcd77404c5714ccfd1",
+    "test_apk_sha256": "662526c504b68423c1a79472a3ac1c8e96c1e28cf1852b914ba68f9def5aca20",
+    "installed_apks_match": true,
+    "avd": "Tinycast_Tablet_API_36",
+    "app_source": "7290399192b007b6f75569ffbff9e9582075f643",
+    "test_source": "11ad12205e04ef8e83366c493232699cb0d938dd",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "sources": {
+      "runner.py": "764ee50f814dcf3674168b091945b93fe61770aab6fee22247f84f326050e6f1",
+      "clipboard-helper.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+      "cleanup-helper.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+      "document-helper.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841"
+    },
+    "visible_answer_nodes": {
+      "conversion": {
+        "text": "0 cm",
+        "bounds_xyxy": [
+          1192,
+          417,
+          1276,
+          462
+        ],
+        "light_pixels": 714
+      }
+    }
+  },
+  "tablet": {
+    "classes": "dev.tinycast.android.CalculatorActionsDeviceTest#subnormalUnitAnswerKeepsMagnitudeWhenCopiedAndChained,dev.tinycast.android.CalculatorActionsDeviceTest#smallAnswerCanBeCopiedAndUsedInTheNextCalculation,dev.tinycast.android.CalculatorActionsDeviceTest#unitAnswerChainsWithItsUnitAndCanBeConvertedAgain,dev.tinycast.android.CalculatorActionsDeviceTest#oversizedAnswerDisablesChainingWithoutFallingThroughToCopyAnswer",
+    "layout": "tablet",
+    "passes": 4,
+    "expected": 4,
+    "completed": true,
+    "apk_sha256": "970de8d4fb6370f2082eac60fe882fe3c97bee5f5faa37f99ebdacd0177c3e26",
+    "test_apk_sha256": "662526c504b68423c1a79472a3ac1c8e96c1e28cf1852b914ba68f9def5aca20",
+    "installed_apks_match": true,
+    "avd": "Tinycast_Tablet_API_36",
+    "app_source": "11ad12205e04ef8e83366c493232699cb0d938dd",
+    "test_source": "11ad12205e04ef8e83366c493232699cb0d938dd",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "sources": {
+      "runner.py": "764ee50f814dcf3674168b091945b93fe61770aab6fee22247f84f326050e6f1",
+      "clipboard-helper.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+      "cleanup-helper.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+      "document-helper.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841"
+    },
+    "visible_answer_nodes": {
+      "chained": {
+        "text": "1",
+        "bounds_xyxy": [
+          1223,
+          417,
+          1245,
+          462
+        ],
+        "light_pixels": 147
+      },
+      "conversion": {
+        "text": "1E-323 cm",
+        "bounds_xyxy": [
+          1143,
+          417,
+          1326,
+          462
+        ],
+        "light_pixels": 1579
+      },
+      "converted-back": {
+        "text": "1E-322 mm",
+        "bounds_xyxy": [
+          1137,
+          417,
+          1332,
+          462
+        ],
+        "light_pixels": 1715
+      }
+    }
+  },
+  "phone": {
+    "classes": "dev.tinycast.android.CalculatorActionsDeviceTest#subnormalUnitAnswerKeepsMagnitudeWhenCopiedAndChained,dev.tinycast.android.CalculatorActionsDeviceTest#smallAnswerCanBeCopiedAndUsedInTheNextCalculation",
+    "layout": "phone",
+    "passes": 2,
+    "expected": 2,
+    "completed": true,
+    "apk_sha256": "970de8d4fb6370f2082eac60fe882fe3c97bee5f5faa37f99ebdacd0177c3e26",
+    "test_apk_sha256": "662526c504b68423c1a79472a3ac1c8e96c1e28cf1852b914ba68f9def5aca20",
+    "installed_apks_match": true,
+    "avd": "Tinycast_Tablet_API_36",
+    "app_source": "11ad12205e04ef8e83366c493232699cb0d938dd",
+    "test_source": "11ad12205e04ef8e83366c493232699cb0d938dd",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "outer": {
+      "candidate_app_and_test_verified": true,
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "sources": {
+      "runner.py": "764ee50f814dcf3674168b091945b93fe61770aab6fee22247f84f326050e6f1",
+      "clipboard-helper.py": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+      "cleanup-helper.py": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+      "document-helper.py": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841"
+    },
+    "visible_answer_nodes": {
+      "chained": {
+        "text": "1",
+        "bounds_xyxy": [
+          100,
+          636,
+          137,
+          715
+        ],
+        "light_pixels": 423
+      },
+      "conversion": {
+        "text": "1E-323 cm",
+        "bounds_xyxy": [
+          100,
+          636,
+          419,
+          715
+        ],
+        "light_pixels": 4789
+      },
+      "converted-back": {
+        "text": "1E-322 mm",
+        "bounds_xyxy": [
+          100,
+          636,
+          441,
+          715
+        ],
+        "light_pixels": 5192
+      }
+    }
+  }
+}

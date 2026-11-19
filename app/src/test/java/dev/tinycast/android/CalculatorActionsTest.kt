@@ -30,6 +30,36 @@ class CalculatorActionsTest {
         assertEquals("144", Calculator.evaluateSearch(chain + "*4")?.result)
         assertNull(Calculator.evaluateSearch("36"))
     }
+    @Test fun smallNonzeroAnswersSurviveCopyAndChaining() {
+        for ((query, answer) in mapOf("1/1000000000000" to "1E-12", "-1/100000000000" to "-1E-11",
+            "0.000000001 mm to m" to "1E-12 m", "1e-12 m to mm" to "0.000000001 mm",
+            "= 9.99999999999999E-11" to "0.0000000001", "= 1E-300" to "1E-300")) {
+            val owner = snapshot(query)
+            assertEquals(query, answer, owner.answer)
+            assertEquals(query, "= $answer", owner.chainQuery)
+            assertEquals(query, answer, Calculator.evaluateSearch(owner.chainQuery!!)?.result)
+        }
+        assertEquals("1", Calculator.evaluateSearch("= 1E-12 * 1E+12")?.result)
+        assertEquals("0", Calculator.evaluateSearch("= -0e-400")?.result)
+        assertNull(Calculator.evaluateSearch("1E-12"))
+        for (bad in listOf("= 1e", "= 1e+", "= 1e-999", "= 1e309", "= 1e-999 m", "1e309 m to mm")) {
+            assertNull(bad, Calculator.evaluateSearch(bad))
+        }
+    }
+    @Test fun unitConversionKeepsRepresentableResultsAtNumericLimits() {
+        for ((query, expected) in mapOf("1e-322 mm to cm" to 1e-323, "-1e-322 mm to cm" to -1e-323,
+            "1e308 km to mi" to (1e308 / 1.609344), "1e-322 f to f" to 1e-322,
+            "1e-322 k to k" to 1e-322, "-459.67 f to k" to 0.0, "1e308 f to c" to (1e308 * (5.0 / 9.0)))) {
+            val owner = snapshot(query)
+            val (number, unit) = owner.answer.split(' ')
+            assertEquals(query, query.substringAfterLast(' '), unit)
+            assertEquals(query, expected, number.toDouble(), if (expected > 1e300) Math.ulp(expected) else 0.0)
+            owner.chainQuery?.let { assertEquals(query, owner.answer, Calculator.evaluateSearch(it)?.result) }
+        }
+        assertEquals("= " + snapshot("1e-322 mm to cm").answer, snapshot("1e-322 mm to cm").chainQuery)
+        assertNull(Calculator.evaluateSearch("1e-323 mm to km"))
+        assertNull(Calculator.evaluateSearch("1e308 km to mm"))
+    }
     @Test fun quantitiesChainWithoutDiscardingTheirUnit() {
         for (query in listOf("1 m to in", "100 c to f", "1024 mib to gib", "1.5 h to min", "1 kg to lb")) {
             val owner = snapshot(query)
