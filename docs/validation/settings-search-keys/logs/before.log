@@ -1,0 +1,155 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.SettingsRouteDeviceTest:
+INSTRUMENTATION_STATUS: test=heldCtrlFindDoesNotTypeIntoSettingsSearch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText has exactly 0 UTF-16 units and matching characters)
+Semantics of the node:
+Node #127 at (l=18.0, t=171.0, r=288.0, b=231.0)px, Tag: 'settings-search'
+EditableText = 'fff'
+TextSelectionRange = 'TextRange(3, 3)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (TestTag = 'settings-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.SettingsRouteDeviceTest.checkHeldFind(SettingsRouteDeviceTest.kt:90)
+	at dev.tinycast.android.SettingsRouteDeviceTest.heldCtrlFindDoesNotTypeIntoSettingsSearch(SettingsRouteDeviceTest.kt:58)
+
+INSTRUMENTATION_STATUS: stream=
+Error in heldCtrlFindDoesNotTypeIntoSettingsSearch(dev.tinycast.android.SettingsRouteDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText has exactly 0 UTF-16 units and matching characters)
+Semantics of the node:
+Node #127 at (l=18.0, t=171.0, r=288.0, b=231.0)px, Tag: 'settings-search'
+EditableText = 'fff'
+TextSelectionRange = 'TextRange(3, 3)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (TestTag = 'settings-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.SettingsRouteDeviceTest.checkHeldFind(SettingsRouteDeviceTest.kt:90)
+	at dev.tinycast.android.SettingsRouteDeviceTest.heldCtrlFindDoesNotTypeIntoSettingsSearch(SettingsRouteDeviceTest.kt:58)
+
+INSTRUMENTATION_STATUS: test=heldCtrlFindDoesNotTypeIntoSettingsSearch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=heldMetaFindDoesNotTypeIntoSettingsSearch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #468 at (l=18.0, t=171.0, r=288.0, b=231.0)px, Tag: 'settings-search'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'false'
+Text = '[Search settings]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (TestTag = 'settings-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.SettingsRouteDeviceTest.checkHeldFind(SettingsRouteDeviceTest.kt:87)
+	at dev.tinycast.android.SettingsRouteDeviceTest.heldMetaFindDoesNotTypeIntoSettingsSearch(SettingsRouteDeviceTest.kt:62)
+
+INSTRUMENTATION_STATUS: stream=
+Error in heldMetaFindDoesNotTypeIntoSettingsSearch(dev.tinycast.android.SettingsRouteDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #468 at (l=18.0, t=171.0, r=288.0, b=231.0)px, Tag: 'settings-search'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'false'
+Text = '[Search settings]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (TestTag = 'settings-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.SettingsRouteDeviceTest.checkHeldFind(SettingsRouteDeviceTest.kt:87)
+	at dev.tinycast.android.SettingsRouteDeviceTest.heldMetaFindDoesNotTypeIntoSettingsSearch(SettingsRouteDeviceTest.kt:62)
+
+INSTRUMENTATION_STATUS: test=heldMetaFindDoesNotTypeIntoSettingsSearch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.659
+There were 2 failures:
+1) heldCtrlFindDoesNotTypeIntoSettingsSearch(dev.tinycast.android.SettingsRouteDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText has exactly 0 UTF-16 units and matching characters)
+Semantics of the node:
+Node #127 at (l=18.0, t=171.0, r=288.0, b=231.0)px, Tag: 'settings-search'
+EditableText = 'fff'
+TextSelectionRange = 'TextRange(3, 3)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (TestTag = 'settings-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.SettingsRouteDeviceTest.checkHeldFind(SettingsRouteDeviceTest.kt:90)
+	at dev.tinycast.android.SettingsRouteDeviceTest.heldCtrlFindDoesNotTypeIntoSettingsSearch(SettingsRouteDeviceTest.kt:58)
+2) heldMetaFindDoesNotTypeIntoSettingsSearch(dev.tinycast.android.SettingsRouteDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #468 at (l=18.0, t=171.0, r=288.0, b=231.0)px, Tag: 'settings-search'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Default'
+Focused = 'false'
+Text = '[Search settings]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: (TestTag = 'settings-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.SettingsRouteDeviceTest.checkHeldFind(SettingsRouteDeviceTest.kt:87)
+	at dev.tinycast.android.SettingsRouteDeviceTest.heldMetaFindDoesNotTypeIntoSettingsSearch(SettingsRouteDeviceTest.kt:62)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

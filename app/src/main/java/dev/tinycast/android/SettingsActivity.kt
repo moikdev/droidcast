@@ -36,7 +36,7 @@ class SettingsActivity : ComponentActivity(), android.hardware.input.InputManage
     }
     var assistantSelected by mutableStateOf(false); private set
     var searchFocusEpoch by mutableStateOf(0); private set
-    private val navigationKeys = mutableSetOf<Pair<Int, Int>>()
+    private val navigationKeys = mutableMapOf<Pair<Int, Int>, Long>()
     private var pendingOperation: String? = null
     private val createBackup = registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { store.writeExport(it) }
     private val importBackup = registerForActivityResult(ActivityResultContracts.OpenDocument()) { store.readBackup(it) }
@@ -84,26 +84,33 @@ class SettingsActivity : ComponentActivity(), android.hardware.input.InputManage
         if (!serviceEnabled) cancelShortcutProbe()
     }
     override fun onPause() { cancelShortcutProbe(); store.clearModifierRecording(); navigationKeys.clear(); ShortcutRuntime.settingsPaused(this); super.onPause() }
-    override fun onWindowFocusChanged(hasFocus: Boolean) { super.onWindowFocusChanged(hasFocus); if (!hasFocus) { cancelShortcutProbe(); store.clearModifierRecording() } }
+    override fun onWindowFocusChanged(hasFocus: Boolean) { super.onWindowFocusChanged(hasFocus); if (!hasFocus) { navigationKeys.clear(); cancelShortcutProbe(); store.clearModifierRecording() } }
     // Public Activity/Window.Callback hook; AndroidX core's hidden base class
     // carries a class-wide restriction that lint also applies to this override.
     @android.annotation.SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        val key = event.deviceId to event.keyCode
-        if (event.action == KeyEvent.ACTION_UP && navigationKeys.remove(key)) return true
-        val modifier = (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed
-        if (event.action == KeyEvent.ACTION_DOWN && modifier && store.recordingTarget == null && !store.paletteMenuOpen &&
-            (event.keyCode == KeyEvent.KEYCODE_COMMA || (event.keyCode == KeyEvent.KEYCODE_F && !event.isShiftPressed))) {
-            navigationKeys.add(key)
-            if (event.keyCode == KeyEvent.KEYCODE_F && event.repeatCount == 0) searchFocusEpoch++
-            return true
-        }
+        if (handleNavigationKey(event)) return true
         if (super.dispatchKeyEvent(event)) return true
         if (event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ESCAPE && event.asChord().modifiers == 0) {
             onBackPressedDispatcher.onBackPressed(); return true
         }
         return false
     }
+    internal fun handleNavigationKey(event: KeyEvent): Boolean {
+        if (event.keyCode != KeyEvent.KEYCODE_F && event.keyCode != KeyEvent.KEYCODE_COMMA) return false
+        val key = event.deviceId to event.keyCode
+        if (navigationKeys[key] == event.downTime) {
+            if (event.action == KeyEvent.ACTION_UP) navigationKeys.remove(key)
+            return true
+        }
+        val modifier = (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed
+        if (event.action != KeyEvent.ACTION_DOWN || !modifier || (event.keyCode == KeyEvent.KEYCODE_F && event.isShiftPressed) ||
+            store.recordingTarget != null || store.paletteMenuOpen) return false
+        navigationKeys[key] = event.downTime
+        if (event.repeatCount == 0 && event.keyCode == KeyEvent.KEYCODE_F) searchFocusEpoch++
+        return true
+    }
+
     override fun onInputDeviceAdded(deviceId: Int) = Unit
     override fun onInputDeviceChanged(deviceId: Int) { store.clearModifierRecording() }
     override fun onInputDeviceRemoved(deviceId: Int) { store.clearModifierRecording() }

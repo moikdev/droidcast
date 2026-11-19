@@ -108,6 +108,8 @@ Offline Emoji & Symbols merged in [PR #45](https://github.com/moikdev/droidcast/
 
 Rigid typing and immediate emoji navigation merged in [PR #48](https://github.com/moikdev/droidcast/pull/48), closing #46/#49 after both sol/high audits cleared `a101671`; merge `703ddb0`. Final local scope: 71 JVM, 27 tablet and 24 phone cases, lint 0 errors/41 warnings and 42 real screenshots. Viewport and retained-index audit findings were resolved with old-head negative controls. [Nightly r4](https://github.com/moikdev/droidcast/releases/tag/nightly-2026-10-31-r4) publishes that tested APK. Physical/OEM/latency/TalkBack and full parity remain unclaimed.
 
+Settings Search now consumes the rest of a handled Find press after focus moves to the search field. The previous build inserted three unwanted letters when Ctrl was released first. The repaired tablet and phone both kept the field empty, then accepted a fresh F. [Issue #149](https://github.com/moikdev/droidcast/issues/149) · [Android comparison](SETTINGS-SHORTCUT-FOCUS.md#holding-find-after-settings-search-gains-focus).
+
 ## Additional upstream gaps
 
 - [#27: Editable settings mirror and history](https://github.com/moikdev/droidcast/issues/27)

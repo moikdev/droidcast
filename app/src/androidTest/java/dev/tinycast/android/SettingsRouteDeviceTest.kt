@@ -54,6 +54,51 @@ class SettingsRouteDeviceTest {
         val dir = File(context.filesDir, "settings-evidence").apply { mkdirs() }
         device.dumpWindowHierarchy(File(dir, "$name.xml")); assertTrue(device.takeScreenshot(File(dir, "$name.png")))
     }
+    @Test fun heldCtrlFindDoesNotTypeIntoSettingsSearch() {
+        checkHeldFind(KeyEvent.META_CTRL_ON, "ctrl")
+    }
+
+    @Test fun heldMetaFindDoesNotTypeIntoSettingsSearch() {
+        checkHeldFind(KeyEvent.META_META_ON, "meta")
+    }
+
+    private fun checkHeldFind(modifier: Int, label: String) {
+        key(KeyEvent.KEYCODE_COMMA, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("settings-workspace").assertIsDisplayed()
+        val search = compose.onNodeWithTag("settings-search")
+        search.assertIsNotFocused().assert(editableCharactersExactly(""))
+        val workspace = settings()
+        val down = android.os.SystemClock.uptimeMillis()
+        fun send(action: Int, repeat: Int, meta: Int) {
+            val event = KeyEvent(down, android.os.SystemClock.uptimeMillis(), action, KeyEvent.KEYCODE_F,
+                repeat, meta, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, android.view.InputDevice.SOURCE_KEYBOARD)
+            // Android can reserve Meta+F. Test the app route directly for Meta and inject Ctrl through Android.
+            if (modifier == KeyEvent.META_META_ON) instrumentation.runOnMainSync { workspace.dispatchKeyEvent(event) }
+            else assertTrue(testAutomation().injectInputEvent(event, true))
+            compose.waitForIdle()
+        }
+        fun capture(phase: String) {
+            if (!hostRestoresTestClipboard()) return
+            val dir = File(context.filesDir, "reviewed-text-evidence").apply { mkdirs() }
+            device.waitForIdle()
+            testAutomation().clearCacheForTest()
+            device.dumpWindowHierarchy(File(dir, "$label-$phase.xml"))
+            assertTrue(device.takeScreenshot(File(dir, "$label-$phase.png")))
+        }
+        try {
+            send(KeyEvent.ACTION_DOWN, 0, modifier)
+            search.assertIsFocused().assert(editableCharactersExactly(""))
+            for (repeat in 1..3) send(KeyEvent.ACTION_DOWN, repeat, 0)
+            capture("held")
+            search.assertIsFocused().assert(editableCharactersExactly(""))
+        } finally {
+            send(KeyEvent.ACTION_UP, 0, 0)
+        }
+        key(KeyEvent.KEYCODE_F)
+        search.assertIsFocused().assert(editableCharactersExactly("f"))
+        capture("fresh")
+    }
+
     @Test fun ctrlCommaOpensSeparateSettingsAndPaletteReturnsWithFreshPreferences() {
         key(KeyEvent.KEYCODE_COMMA, KeyEvent.META_CTRL_ON)
         compose.onNodeWithTag("settings-workspace").assertIsDisplayed()
