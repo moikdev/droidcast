@@ -1,0 +1,140 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=movedIndexedFolderKeepsSearchAndReportsRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Moved folder must stay in the palette; attempted [android.intent.action.OPEN_DOCUMENT]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.checkMovedResult(FolderDeviceTest.kt:293)
+	at dev.tinycast.android.FolderDeviceTest.movedIndexedFolderKeepsSearchAndReportsRefresh(FolderDeviceTest.kt:254)
+
+INSTRUMENTATION_STATUS: stream=
+Error in movedIndexedFolderKeepsSearchAndReportsRefresh(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Moved folder must stay in the palette; attempted [android.intent.action.OPEN_DOCUMENT]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.checkMovedResult(FolderDeviceTest.kt:293)
+	at dev.tinycast.android.FolderDeviceTest.movedIndexedFolderKeepsSearchAndReportsRefresh(FolderDeviceTest.kt:254)
+
+INSTRUMENTATION_STATUS: test=movedIndexedFolderKeepsSearchAndReportsRefresh
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=oneIndexedItemHasSingularSettingsAndFilesLabels
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + EditableText contains '1 indexed item ·' (ignoreCase: false) as substring)
+Semantics of the node:
+Node #535 at (l=576.0, t=649.0, r=834.0, b=676.0)px, Tag: 'folder-status'
+Text = '[1 indexed items · Metadata only.]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 16 siblings
+Selector used: (TestTag = 'folder-status')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:209)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at dev.tinycast.android.FolderDeviceTest.oneIndexedItemHasSingularSettingsAndFilesLabels(FolderDeviceTest.kt:305)
+
+INSTRUMENTATION_STATUS: stream=
+Error in oneIndexedItemHasSingularSettingsAndFilesLabels(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText contains '1 indexed item ·' (ignoreCase: false) as substring)
+Semantics of the node:
+Node #535 at (l=576.0, t=649.0, r=834.0, b=676.0)px, Tag: 'folder-status'
+Text = '[1 indexed items · Metadata only.]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 16 siblings
+Selector used: (TestTag = 'folder-status')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:209)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at dev.tinycast.android.FolderDeviceTest.oneIndexedItemHasSingularSettingsAndFilesLabels(FolderDeviceTest.kt:305)
+
+INSTRUMENTATION_STATUS: test=oneIndexedItemHasSingularSettingsAndFilesLabels
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=movedIndexedFileKeepsSearchAndReportsRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestContext.getAllSemanticsNodes$ui_test_release(TestOwner.kt:87)
+	at androidx.compose.ui.test.TestContext.getAllSemanticsNodes$ui_test_release$default(TestOwner.kt:81)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:256)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:249)
+	at dev.tinycast.android.FolderDeviceTest.checkMovedResult(FolderDeviceTest.kt:286)
+	at dev.tinycast.android.FolderDeviceTest.movedIndexedFileKeepsSearchAndReportsRefresh(FolderDeviceTest.kt:253)
+
+INSTRUMENTATION_STATUS: stream=
+Error in movedIndexedFileKeepsSearchAndReportsRefresh(dev.tinycast.android.FolderDeviceTest):
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestContext.getAllSemanticsNodes$ui_test_release(TestOwner.kt:87)
+	at androidx.compose.ui.test.TestContext.getAllSemanticsNodes$ui_test_release$default(TestOwner.kt:81)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:256)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:249)
+	at dev.tinycast.android.FolderDeviceTest.checkMovedResult(FolderDeviceTest.kt:286)
+	at dev.tinycast.android.FolderDeviceTest.movedIndexedFileKeepsSearchAndReportsRefresh(FolderDeviceTest.kt:253)
+
+INSTRUMENTATION_STATUS: test=movedIndexedFileKeepsSearchAndReportsRefresh
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 18.311
+There were 3 failures:
+1) movedIndexedFolderKeepsSearchAndReportsRefresh(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Moved folder must stay in the palette; attempted [android.intent.action.OPEN_DOCUMENT]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.tinycast.android.FolderDeviceTest.checkMovedResult(FolderDeviceTest.kt:293)
+	at dev.tinycast.android.FolderDeviceTest.movedIndexedFolderKeepsSearchAndReportsRefresh(FolderDeviceTest.kt:254)
+2) oneIndexedItemHasSingularSettingsAndFilesLabels(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText contains '1 indexed item ·' (ignoreCase: false) as substring)
+Semantics of the node:
+Node #535 at (l=576.0, t=649.0, r=834.0, b=676.0)px, Tag: 'folder-status'
+Text = '[1 indexed items · Metadata only.]'
+Actions = [SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, GetTextLayoutResult]
+Has 16 siblings
+Selector used: (TestTag = 'folder-status')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:209)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at dev.tinycast.android.FolderDeviceTest.oneIndexedItemHasSingularSettingsAndFilesLabels(FolderDeviceTest.kt:305)
+3) movedIndexedFileKeepsSearchAndReportsRefresh(dev.tinycast.android.FolderDeviceTest)
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestContext.getAllSemanticsNodes$ui_test_release(TestOwner.kt:87)
+	at androidx.compose.ui.test.TestContext.getAllSemanticsNodes$ui_test_release$default(TestOwner.kt:81)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:256)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:249)
+	at dev.tinycast.android.FolderDeviceTest.checkMovedResult(FolderDeviceTest.kt:286)
+	at dev.tinycast.android.FolderDeviceTest.movedIndexedFileKeepsSearchAndReportsRefresh(FolderDeviceTest.kt:253)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1
