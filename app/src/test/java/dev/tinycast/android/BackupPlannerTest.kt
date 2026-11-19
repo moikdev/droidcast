@@ -27,6 +27,13 @@ class BackupPlannerTest {
         assertEquals("Backup restored · 2 categories", mixed.completionMessage())
     }
 
+    @Test fun collectionCompletionReportsOneAppliedItemOrOneDuplicate() {
+        val source = BackupData(notes = listOf(note))
+        val selected = setOf(BackupCategory.NOTES)
+        assertEquals("Backup restored · 1 item applied, 0 duplicates kept", plan(BackupData(), source, selected = selected).completionMessage())
+        assertEquals("Backup restored · 0 items applied, 1 duplicate kept", plan(source, source, selected = selected).completionMessage())
+    }
+
     @Test fun mergeIsIdempotentAndKeepsConflictingIdentity() {
         val incoming = BackupData(notes = listOf(note, SavedItem("notes:two", "Other", "New")))
         val first = plan(BackupData(notes = listOf(note.copy(body = "Keep edited text"))), incoming)

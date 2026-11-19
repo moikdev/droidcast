@@ -29,8 +29,9 @@ data class RestorePlan(
         val collectionCategories = setOf(BackupCategory.NOTES, BackupCategory.LINKS, BackupCategory.CLIPS)
     }
 
+    private fun count(n: Int, singular: String, plural: String) = "$n ${if (n == 1) singular else plural}"
+
     fun reviewSummary(): String {
-        fun count(n: Int, singular: String, plural: String) = "$n ${if (n == 1) singular else plural}"
         val settings = buildList {
             if (BackupCategory.PREFERENCES in categories) {
                 add(count(data.pins.size, "pin", "pins"))
@@ -48,7 +49,9 @@ data class RestorePlan(
     }
 
     fun completionMessage(): String {
-        if (categories.all { it in collectionCategories }) return "Backup restored · $added items applied, $skipped duplicates kept"
+        if (categories.all { it in collectionCategories }) {
+            return "Backup restored · ${count(added, "item", "items")} applied, ${count(skipped, "duplicate", "duplicates")} kept"
+        }
         val selection = categories.singleOrNull()?.label ?: "${categories.size} categories"
         return "Backup restored · $selection"
     }
