@@ -14,6 +14,7 @@ import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from shortcut_adbd import change_daemon
 from html_viewer_evidence import VIEWER, visible_body_method
 
 if not __debug__:
@@ -152,7 +153,7 @@ adb("shell", "input", "keyevent", "KEYCODE_HOME")
 tree()  # Let onStop flush pending preference writes before taking the private snapshot.
 original_xml = raw("exec-out", "run-as", APP, "cat", "shared_prefs/palette.xml")
 (output / "original-palette.xml").write_bytes(original_xml)  # Ignored, never published.
-rooted = False
+state_changes_started = False
 keyboard = None
 initial = [] if original_enabled != "1" or original_services == "null" else original_services.split(":")
 other_services = [service for service in initial if service != SERVICE]
@@ -365,9 +366,8 @@ def settings_keyboard_route(trace=None):
 
 try:
     # Also unroot if the transport drops during the root/reconnect attempt.
-    rooted = True
-    adb("root"); adb("wait-for-device")
-    assert "uid=0" in adb("shell", "id"), "Dedicated image must support test-only root injection"
+    change_daemon(base, args.avd, "root", results)
+    state_changes_started = True
     enabled_services = ":".join(dict.fromkeys(initial + [SERVICE]))
     adb("shell", "am", "force-stop", APP)
     adb("shell", "am", "start", "-W", "-n", APP + "/.MainActivity")
@@ -569,13 +569,19 @@ try:
         wait(lambda: APP + "/" in focused(), "Persisted chord failed after reconnect")
         palette_snapshot("reconnected")
         passed("service disable/reconnect respects persisted configuration")
-except Exception:
-    (output / "failure.png").write_bytes(raw("exec-out", "screencap", "-p"))
-    (output / "failure.xml").write_bytes(ET.tostring(tree()))
+except BaseException as failure:
+    results["suite_failure"] = type(failure).__name__
+    if state_changes_started and isinstance(failure, Exception):
+        try:
+            (output / "failure.png").write_bytes(raw("exec-out", "screencap", "-p"))
+            (output / "failure.xml").write_bytes(ET.tostring(tree()))
+        except Exception as capture_failure:
+            results["failure_capture_error"] = type(capture_failure).__name__
     raise
 finally:
-    if rooted:
-        try:
+    results["state_changes_started"] = state_changes_started
+    try:
+        if state_changes_started:
             if keyboard:
                 emit([(1, code, 0) for code in (1, 16, 17, 25, 29, 30, 33, 42, 44, 46, 49, 56, 57, 125)] + [(0, 0, 0)])
             set_services(other_services)
@@ -591,16 +597,21 @@ finally:
             assert results["original_service_consent_restored"]
             results["original_preferences_restored"] = raw("exec-out", "run-as", APP, "cat", "shared_prefs/palette.xml") == original_xml
             assert results["original_preferences_restored"]
+    except Exception as cleanup_failure:
+        results["state_cleanup_error"] = type(cleanup_failure).__name__
+        raise
+    finally:
+        try:
+            change_daemon(base, args.avd, "unroot", results)
+            results["adbd_unprivileged"] = True
+            if state_changes_started:
+                results["app_process"] = [line for line in adb("shell", "ps", "-A", "-o", "USER,NAME").splitlines() if line.endswith(APP)]
+                results["app_unprivileged"] = bool(results["app_process"]) and all(line.split()[0] not in ("root", "system", "shell") for line in results["app_process"])
+                assert results["app_unprivileged"]
+        except Exception as identity_failure:
+            results.setdefault("adbd_unprivileged", False)
+            results["identity_check_error"] = type(identity_failure).__name__
+            raise
         finally:
-            # adbd can disconnect before the unroot command receives its reply.
-            # Check the actual identity after reconnect, even on a nonzero reply.
-            unroot = subprocess.run(base + ["unroot"], capture_output=True, text=True)
-            results["unroot_command_exit_code"] = unroot.returncode
-            adb("wait-for-device")
-            results["adbd_unprivileged"] = "uid=2000" in adb("shell", "id")
-            results["app_process"] = [line for line in adb("shell", "ps", "-A", "-o", "USER,NAME").splitlines() if line.endswith(APP)]
-            results["app_unprivileged"] = bool(results["app_process"]) and all(line.split()[0] not in ("root", "system", "shell") for line in results["app_process"])
             (output / "results.json").write_text(json.dumps(results, indent=2) + "\n")
-            assert results["adbd_unprivileged"]
-            assert results["app_unprivileged"]
 print(json.dumps({"passed_cases": len(results["cases"]), "data_restored": results.get("original_preferences_restored"), "adbd_unprivileged": results.get("adbd_unprivileged")}, indent=2))
