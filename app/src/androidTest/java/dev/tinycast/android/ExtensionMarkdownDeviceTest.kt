@@ -117,6 +117,16 @@ class ExtensionMarkdownDeviceTest {
               const actions=content=>h(api.ActionPanel,null,
                 h(api.Action.CopyToClipboard,{title:'Copy owned Markdown',content}),
                 h(api.Action,{title:'Toggle owned detail',onAction:()=>setShown(value=>!value)}));
+              if(mode==='grid-keywords'){
+                const card=(id,title,subtitle,content,keywords)=>h(api.Grid.Item,{id,title,subtitle,content,keywords,
+                  actions:h(api.ActionPanel,null,
+                    h(api.Action.CopyToClipboard,{title:'Copy card',content:id}),
+                    h(api.Action,{title:'Show all cards',onAction:()=>setCount(1)}))});
+                return h(api.Grid,{columns:2,filtering:count===0,searchBarPlaceholder:'Find a garden card'},
+                  card('mint','Mint','Herb','🌿',['garden','fresh']),
+                  card('rose','Rose','Flower','🌹',['rose "red"','path\\rose']),
+                  h(api.Grid.EmptyView,{title:'No garden cards match'}));
+              }
               if(mode==='list-labels') return h(api.List,{navigationTitle:'Owned labels',isShowingDetail:true},
                 h(api.List.Item,{id:'plain',title:'Plain row',subtitle:'Plain subtitle'}),
                 h(api.List.Item,{id:'label',title:{value:'Café 日本',tooltip:'private-tooltip-needle'},
@@ -147,7 +157,11 @@ class ExtensionMarkdownDeviceTest {
         record.put("fixture_mode", mode).put("fixture_command_sha256", hash(script.toByteArray(Charsets.UTF_8)))
             .put("fixture_manifest_sha256", hash(manifest.toString().toByteArray(Charsets.UTF_8))).put("owned_extension_id", id)
         compose.activityRule.scenario.onActivity { it.store.openExtension(extension, extension.commands.single()) }
-        val expected = if (mode.startsWith("list-")) "List" else "Detail"
+        val expected = when {
+            mode == "grid-keywords" -> "Grid"
+            mode.startsWith("list-") -> "List"
+            else -> "Detail"
+        }
         compose.waitUntil(25000) { catalog.runtimeError != null || (catalog.runtimeReady && activeRoot(catalog.runtimeTree)?.optString("type") == expected) }
         assertNull(catalog.runtimeError, catalog.runtimeError); compose.waitForIdle()
         compose.activityRule.scenario.onActivity { WindowCompat.getInsetsController(it.window, it.window.decorView).hide(WindowInsetsCompat.Type.ime()) }
@@ -251,6 +265,36 @@ class ExtensionMarkdownDeviceTest {
         show("Owned action count 1"); record.put("pointer_tag_activation_count", 1)
         capture("metadata-tag-activated"); record.put("passed", true)
     }
+    @Test fun gridSearchMatchesDecodedKeywordsAndActivatesTheVisibleCard() {
+        launch("grid-keywords")
+        val search = compose.onNodeWithTag("extension-search")
+        val count = compose.onNodeWithTag("extension-grid-count")
+        count.assertTextEquals("2 results")
+        search.performTextReplacement("[")
+        capture("bracket")
+        val bracketMiss = compose.onAllNodesWithTag("extension-grid-empty").fetchSemanticsNodes().isNotEmpty()
+        search.performTextReplacement("ROSE \"red\"")
+        capture("quoted")
+        assertTrue("Array brackets must not match garden cards", bracketMiss)
+        count.assertTextEquals("1 result")
+        compose.onNodeWithTag("extension-grid-cell-0").assertContentDescriptionEquals("Rose").assertIsSelected()
+        for (query in listOf("path\\rose", "Flower", "Rose")) {
+            search.performTextReplacement(query)
+            count.assertTextEquals("1 result")
+            compose.onNodeWithTag("extension-grid-cell-0").assertContentDescriptionEquals("Rose")
+        }
+        search.performTextReplacement("ROSE \"red\"")
+        compose.onNodeWithTag("extension-primary").performClick()
+        val clipboard = context.getSystemService(ClipboardManager::class.java)
+        compose.waitUntil(5000) { compose.runOnUiThread { clipboard.primaryClip?.getItemAt(0)?.text == "rose" } }
+        compose.onNodeWithTag("extension-actions").performClick()
+        compose.onNodeWithTag("extension-action-1").performClick()
+        compose.waitUntil(5000) { activeRoot(catalog.runtimeTree)?.props()?.opt("filtering") == false }
+        search.performTextReplacement("[")
+        count.assertTextEquals("2 results")
+        record.put("passed", true)
+    }
+
     @Test fun structuredListLabelsRenderAndFilterByVisibleValues() {
         launch("list-labels")
         val search = compose.onNodeWithTag("extension-search")

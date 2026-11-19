@@ -75,6 +75,7 @@ def uses_only_local_detail_cases(classes):
     )
     allowed = {'dev.tinycast.android.ExtensionDetailDeviceTest#' + method for method in methods}
     allowed.add('dev.tinycast.android.ExtensionMarkdownDeviceTest#structuredListLabelsRenderAndFilterByVisibleValues')
+    allowed.add('dev.tinycast.android.ExtensionMarkdownDeviceTest#gridSearchMatchesDecodedKeywordsAndActivatesTheVisibleCard')
     return set(classes.split(',')) <= allowed
 
 
