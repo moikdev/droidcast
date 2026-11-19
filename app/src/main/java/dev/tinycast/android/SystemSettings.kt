@@ -27,6 +27,8 @@ data class SettingsDestination(
 }
 
 object SystemSettings {
+    // The caller supplies SDK_INT. Tests also exercise the API 32/33 boundary.
+    @android.annotation.SuppressLint("InlinedApi")
     internal fun securityAction(sdk: Int): String =
         if (sdk >= Build.VERSION_CODES.TIRAMISU) Intent.ACTION_SAFETY_CENTER else Settings.ACTION_SECURITY_SETTINGS
 

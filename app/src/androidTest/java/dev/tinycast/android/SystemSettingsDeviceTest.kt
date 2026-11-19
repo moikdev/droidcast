@@ -101,7 +101,7 @@ class SystemSettingsDeviceTest {
         instrumentation.addMonitor(monitor)
         try {
             compose.onNodeWithTag("result-system:security").performClick()
-            compose.onNodeWithText("Security settings is unavailable on this device.").assertIsDisplayed()
+            compose.onNodeWithText("This device can’t open Security settings.").assertIsDisplayed()
             compose.onNodeWithTag("search").assertTextContains(query)
             assertEquals(1, denials)
             assertEquals(Lifecycle.State.RESUMED, compose.activityRule.scenario.state)
@@ -160,7 +160,7 @@ class SystemSettingsDeviceTest {
             it.openSystemSettings(SettingsDestination("test:unavailable", "Unavailable settings test", "", "dev.droidcast.NO_SETTINGS_HANDLER", ""))
         }
         compose.waitUntil(5000) {
-            runCatching { compose.onNodeWithText("Unavailable settings test is unavailable on this device.").assertIsDisplayed(); true }.getOrDefault(false)
+            runCatching { compose.onNodeWithText("This device can’t open Unavailable settings test.").assertIsDisplayed(); true }.getOrDefault(false)
         }
         compose.onNodeWithTag("search").assertTextContains("unavailable settings test")
         assertEquals(Lifecycle.State.RESUMED, compose.activityRule.scenario.state)
