@@ -1,0 +1,198 @@
+[
+  {
+    "run": "before-tablet",
+    "source": "junit.log",
+    "source_sha256": "5a76256aaba73fe184c43da5ca4ebd1ce9b820baa8995ab34f990eba189bfe9f",
+    "public": "docs/validation/quicklink-alias/rollback/logs/before-tablet-alias.log",
+    "sha256": "5a76256aaba73fe184c43da5ca4ebd1ce9b820baa8995ab34f990eba189bfe9f"
+  },
+  {
+    "run": "before-tablet",
+    "source": "quicklink-after-rollback.xml",
+    "source_sha256": "7e37dae19271f469dbc1857f459446f4cd6b77608a7d50d473eb49ca4f26e78f",
+    "public": "docs/validation/quicklink-alias/rollback/xml/before-tablet-search.xml",
+    "sha256": "0b30cff6c7fb0f0c1e9a5dc6d4d0f9d67e26347b7899f77c127c3b03447d96ad",
+    "projection": "app palette"
+  },
+  {
+    "run": "before-tablet",
+    "source": "quicklink-after-rollback.png",
+    "source_sha256": "6d8fc446c65bb3bd65754df1c1d42028df27c0279b5a77bc0f0f4d9d753c028a",
+    "public": "docs/screenshots/quicklink-alias/rollback/before-tablet-search.png",
+    "sha256": "e09bedac3d043cc2709832e6525399cf21a8cd1019046f1370468060e74501eb",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ]
+  },
+  {
+    "run": "after-tablet",
+    "source": "junit.log",
+    "source_sha256": "73df23343da8d835423a7e9bef3c657bf6b2b99cc1c1bc1f8f22f7157a0ce3a1",
+    "public": "docs/validation/quicklink-alias/rollback/logs/after-tablet-alias.log",
+    "sha256": "73df23343da8d835423a7e9bef3c657bf6b2b99cc1c1bc1f8f22f7157a0ce3a1"
+  },
+  {
+    "run": "after-tablet",
+    "source": "junit.log",
+    "source_sha256": "a9a939afc85a874336aec7417a988ac0600e48e4a840fad1be88925d529c4abb",
+    "public": "docs/validation/quicklink-alias/rollback/logs/after-tablet-grid.log",
+    "sha256": "a9a939afc85a874336aec7417a988ac0600e48e4a840fad1be88925d529c4abb"
+  },
+  {
+    "run": "after-tablet",
+    "source": "junit.log",
+    "source_sha256": "2ba2f2f8acde8f82768f101fb71bcd638b5518200b031d9478a13221f083d9a8",
+    "public": "docs/validation/quicklink-alias/rollback/logs/after-tablet-snapshot.log",
+    "sha256": "2ba2f2f8acde8f82768f101fb71bcd638b5518200b031d9478a13221f083d9a8"
+  },
+  {
+    "run": "after-tablet",
+    "source": "quicklink-after-rollback.xml",
+    "source_sha256": "611b838c93b28c0757ec07d88bdd4f1ce467138b3a5e273e639a8e6ba17ba072",
+    "public": "docs/validation/quicklink-alias/rollback/xml/after-tablet-search.xml",
+    "sha256": "dd186da85f288b0e5dcaac15e66b1f964ffdf016839bf227188a3149d355cef0",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-tablet",
+    "source": "quicklink-after-rollback.png",
+    "source_sha256": "e55de2357531fd152ad460106b845c2e1c473006fafd0a747dc7678da26e1b0b",
+    "public": "docs/screenshots/quicklink-alias/rollback/after-tablet-search.png",
+    "sha256": "b9fcb3987df2b93f1293dbe77cbcb2a043f18cb51d7ea2fbc87e33c604264b3b",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      950
+    ]
+  },
+  {
+    "run": "after-phone",
+    "source": "junit.log",
+    "source_sha256": "32c4c998cc34440bfb748dd0b027e680a833683fb0eda47955132d3822b2e51c",
+    "public": "docs/validation/quicklink-alias/rollback/logs/after-phone-alias.log",
+    "sha256": "32c4c998cc34440bfb748dd0b027e680a833683fb0eda47955132d3822b2e51c"
+  },
+  {
+    "run": "after-phone",
+    "source": "quicklink-after-rollback.xml",
+    "source_sha256": "34de9418b16ee97c0548736feb55f083f6732b6c98f0dbf3afe4e275413dd50b",
+    "public": "docs/validation/quicklink-alias/rollback/xml/after-phone-search.xml",
+    "sha256": "2c405d4024c9ece16ebbc47f3c317ed311bbf06ade48c1dd34edf7e36990a9c3",
+    "projection": "app palette"
+  },
+  {
+    "run": "after-phone",
+    "source": "quicklink-after-rollback.png",
+    "source_sha256": "1133f5281fb884d6db02e1f1cb91e270466dfcb7ee58569f8f5caf6d5b7c39dc",
+    "public": "docs/screenshots/quicklink-alias/rollback/after-phone-search.png",
+    "sha256": "2bce6f646be0490cdae2db922c4f59359b1ff110e449491c4dd3726c171d6aeb",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ]
+  },
+  {
+    "run": "ui-tablet",
+    "source": "tests.log",
+    "source_sha256": "083ef230f6defc95e639a6c74497023d5e2dc2037acde41c8422c61b387b99ac",
+    "public": "docs/validation/quicklink-alias/rollback/logs/ui-tablet.log",
+    "sha256": "083ef230f6defc95e639a6c74497023d5e2dc2037acde41c8422c61b387b99ac"
+  },
+  {
+    "run": "ui-tablet",
+    "source": "alias-duplicate-rejected.xml",
+    "source_sha256": "b1e64528bb922636f56fd8c9aa047812ea13cd0b2a0c3cee8c6765de1897761b",
+    "public": "docs/validation/quicklink-alias/rollback/xml/ui-tablet-duplicate.xml",
+    "sha256": "e72db5608ec0df41500a69bf4d593a79dbfc139de993e13d4121f26d06918683",
+    "projection": "app palette"
+  },
+  {
+    "run": "ui-tablet",
+    "source": "alias-duplicate-rejected.png",
+    "source_sha256": "8930c929753acdcbfd80271b1a45981a9e58a43765ca0cb3195b1a4112fc5435",
+    "public": "docs/screenshots/quicklink-alias/rollback/ui-tablet-duplicate.png",
+    "sha256": "1c7e868d2becc9b4358c24b238d7362e5bc913eba9474ed5e24da960d17814f2",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      630
+    ]
+  },
+  {
+    "run": "ui-tablet",
+    "source": "alias-concurrent-rejected.xml",
+    "source_sha256": "30f1d56c92d2f6bcb8eb25ebfc477189881d077876e1a09e7b0468cc5eb18b56",
+    "public": "docs/validation/quicklink-alias/rollback/xml/ui-tablet-concurrent.xml",
+    "sha256": "9a69d353356fd72f36ff7bc3bd9e891b907197d9fde5b8b7f9139c4ad0d2957d",
+    "projection": "app palette"
+  },
+  {
+    "run": "ui-tablet",
+    "source": "alias-concurrent-rejected.png",
+    "source_sha256": "59dd248923d13c09eee0dd38d395cf9995f9fd303358130036d9949df42f39c8",
+    "public": "docs/screenshots/quicklink-alias/rollback/ui-tablet-concurrent.png",
+    "sha256": "baf1c54f48568367d6bf5294f9f4fbfc8dc23d6e343efc0557912ade02f72af2",
+    "crop_xyxy": [
+      398,
+      237,
+      1523,
+      630
+    ]
+  },
+  {
+    "run": "ui-phone",
+    "source": "tests.log",
+    "source_sha256": "cef00d28cbb905ff19f6d48ea6cb506899a130e462e91a27487db799339804bb",
+    "public": "docs/validation/quicklink-alias/rollback/logs/ui-phone.log",
+    "sha256": "cef00d28cbb905ff19f6d48ea6cb506899a130e462e91a27487db799339804bb"
+  },
+  {
+    "run": "ui-phone",
+    "source": "alias-duplicate-rejected.xml",
+    "source_sha256": "b35c78ba95694c22860d9968129700f2ec67c7f4d79c7f793d7c8299785a1b0b",
+    "public": "docs/validation/quicklink-alias/rollback/xml/ui-phone-duplicate.xml",
+    "sha256": "bac0afd8d6ffeb18e311f2220c4d842c1ec89da011b5810a8920a903c4bf3cc0",
+    "projection": "app palette"
+  },
+  {
+    "run": "ui-phone",
+    "source": "alias-duplicate-rejected.png",
+    "source_sha256": "7cbf204b1fa0f8d24cb8c25d43756572ff069c71fa854091f4469d409b945034",
+    "public": "docs/screenshots/quicklink-alias/rollback/ui-phone-duplicate.png",
+    "sha256": "f92b70b439f4d1b360f7380c59c31486c0487437c5fc2de7187792bf3643b33f",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ]
+  },
+  {
+    "run": "ui-phone",
+    "source": "alias-concurrent-rejected.xml",
+    "source_sha256": "02019dccdad691084bd055d05f54bdcdbd282192fccf2e38a721f1fad4c14bce",
+    "public": "docs/validation/quicklink-alias/rollback/xml/ui-phone-concurrent.xml",
+    "sha256": "6e0fa27427051b8f9dcc9589fca2efbe392362e6a8d649606d790a1a40085721",
+    "projection": "app palette"
+  },
+  {
+    "run": "ui-phone",
+    "source": "alias-concurrent-rejected.png",
+    "source_sha256": "e9b4430d8f52c9c73ac78923b59052c895e9126d1aa232f893242ae61b24718f",
+    "public": "docs/screenshots/quicklink-alias/rollback/ui-phone-concurrent.png",
+    "sha256": "c6084cc6d0156355ce823b062ee0fa964bb1bf786b3166d8e656bbfb720435ed",
+    "crop_xyxy": [
+      32,
+      95,
+      1048,
+      1342
+    ]
+  }
+]
