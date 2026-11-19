@@ -89,8 +89,9 @@ internal class ExtensionGridImages(private val directory: File) : Closeable {
                     val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
                     BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
                     require(bounds.outWidth in 1..32768 && bounds.outHeight in 1..32768) { "Unsupported image" }
-                    val options = BitmapFactory.Options().apply { inSampleSize = 1 }
-                    while (maxOf(bounds.outWidth, bounds.outHeight) / options.inSampleSize > 256) options.inSampleSize *= 2
+                    val options = BitmapFactory.Options().apply {
+                        inSampleSize = rasterSampleSize(maxOf(bounds.outWidth, bounds.outHeight), 256)
+                    }
                     val bitmap = requireNotNull(BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)) { "Unsupported image" }
                     synchronized(cache) {
                         if (!closed && continuation.isActive) {

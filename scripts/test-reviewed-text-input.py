@@ -56,6 +56,17 @@ def context_test_filter(classes, has_translation, has_weather):
     return ['-e', 'notClass', ','.join(excluded)] if excluded else []
 
 
+def uses_only_local_detail_cases(classes):
+    methods = (
+        'gridJpegThumbnailFitsItsSampledEdge', 'jpegAtExactSampleBoundaryRenders', 'wideJpegOnePixelPastSampleBoundaryRenders',
+        'nativeFetchPreservesAbsentAndExplicitRequestBodies', 'nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests',
+        'globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess',
+        'tallJpegOnePixelPastSampleBoundaryRenders', 'imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument',
+    )
+    allowed = {'dev.tinycast.android.ExtensionDetailDeviceTest#' + method for method in methods}
+    return set(classes.split(',')) <= allowed
+
+
 def frozen_form_archive(path, expected):
     limit = 32 * 1024 * 1024
     require(path.stat().st_size <= limit, 'Frozen Form archive exceeds the size bound')
@@ -179,12 +190,7 @@ def main():
          args.reviewed_json_command == 'formatSelection'),
         'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
-    local_fetch_cases = {
-        'dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchPreservesAbsentAndExplicitRequestBodies',
-        'dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests',
-        'dev.tinycast.android.ExtensionDetailDeviceTest#globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess',
-    }
-    require(calculator or set(args.classes.split(',')) <= local_fetch_cases or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort or named local Fetch cases')
+    require(calculator or uses_only_local_detail_cases(args.classes) or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort or named local Detail cases')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
         'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
     typed_archives = recorded_test_archives(args.recorded_archives) if args.recorded_archives else {}

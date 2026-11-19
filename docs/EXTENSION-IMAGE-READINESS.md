@@ -43,3 +43,21 @@ Five current captures and one earlier diagnostic-failure capture are raw Android
 The [checkpoint](validation/extension-compatibility/image-readiness/checkpoint.json) binds the public projections, raw frames and retained capture hashes. Host/case projections use explicit allowlists; private clipboard originals/fingerprints, preference backups, evidence tar backups, signing material and VM boot/disk data are excluded. JVM/lint/log host prefixes use declared replacements; XML placeholders are escaped. Generated upstream assets and AGPL/React notices are unchanged.
 
 The original blank-image investigation stays under #89. Legacy menu failures remain under #91. Whole Store/API coverage, physical/OEM devices, accessibility, near-cap aggregate resource stress and production migration remain open. Actual final-head hosted CI, local status, two fresh independent gpt-6.1-sol/high audits and expected-head verification remain separate merge gates.
+
+## JPEG edges at a power-of-two sampling boundary
+
+On API 36, a 2,049 × 256 JPEG decoded at a sample factor of two produced a 1,025 × 128 bitmap. Detail exceeded its 1,024-pixel edge limit and showed “Image unavailable.” Swapping width and height produced the same failure. A 2,048 × 256 JPEG rendered on the same earlier app. The Grid decoder also returned a 257 × 32 thumbnail for a 513 × 64 JPEG despite its 256-pixel target.
+
+Detail and Grid now choose the smallest power-of-two sample for which the source edge fits within the target edge multiplied by the sample. For the two Detail failures this chooses four. The native Detail tests check green pixels after the actual Markdown image appears. The Grid test invokes the production thumbnail loader and measures the returned bitmap and its center pixel. The repaired thumbnail measured 129 × 16. The Grid test’s host screen is Detail.
+
+| Landscape run on the dedicated API 36 emulator | Passed | Failed |
+| --- | ---: | ---: |
+| Initial investigation, app built at `bc103d88`, test source `96a90012` | 2 | 2 |
+| Comparison app built at `adde55c9`, final test APK | 2 | 3 |
+| Repaired app built at `2449c383`, same final test APK | 5 | 0 |
+
+The landscape tests ran at 2340 × 1080, 420 dpi, and 100% font scale. The comparison app’s production sources match main at `0148f79f`. Both landscape apps rendered the exact boundary and passed the existing SVG image-information workflow. The historical blank SVG frame on `37eb0ed` remains unexplained under #89. Each completed landscape batch recorded 20 cleanup checks, verification of both original installed packages, and release of the host lease.
+
+The first portrait attempt stopped after the first JUnit start event when the host process and read-only emulator instance disappeared. Its log contains no method completion, and its wrapper produced no restoration receipt. The later boot had different installed package hashes and no prior run lease. Cross-boot restoration of the interrupted instance is unverified. The fresh portrait run used the same repaired app and test APKs at 1080 × 2340, 420 dpi and 100% font. All four JPEG cases passed. Its 20 inner cleanup checks passed, and the outer wrapper verified both package bytes against the separate fresh-boot baseline before releasing its lease. [Native logs and selected measurements](validation/extension-compatibility/raster-sampling/batches.json) · [Captured frames and hierarchies](validation/extension-compatibility/raster-sampling/bindings.json).
+
+Host verification ran 355 debug JVM tests and 147 Python tests in each of normal and optimized modes. The debug and benchmark app and instrumentation APKs built. Lint recorded zero errors and 53 warnings per variant. The first benchmark invocation stopped during lint analysis. The separate continuation completed successfully. [Host results](validation/extension-compatibility/raster-sampling/host.json).

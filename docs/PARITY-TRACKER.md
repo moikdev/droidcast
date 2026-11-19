@@ -332,6 +332,14 @@ PR #135 merged the tone picker and full-Recent selection repair at reviewed head
 
 PR #136 merged custom keywords and both keyboard repairs at reviewed head `f30d4982`. Both audits cleared the change and hosted Android and local checks passed. The [editable-selection workflow](EMOJI.md#delivering-an-emoji-to-another-app) adds a separate Android text action under #44. The final candidate passed 12 device cases, including two real selection-toolbar returns. The same harness failed at both pre-feature checks and at the superseded confirmation on an intermediate app. The test uses the requesting editor’s range. Arbitrary insertion from the launcher remains outside the Android contract.
 
+PR #137 merged at `0148f79f` after independent correctness and UX audits. The verified tree matches reviewed head `c6866cec`. The selection-toolbar result completed the final #44 acceptance item. Recreation was exercised by recreating the activity.
+
+### Detail and Grid JPEG sampling (#89)
+
+[Matched Android runs](EXTENSION-IMAGE-READINESS.md#jpeg-edges-at-a-power-of-two-sampling-boundary) reproduced two rejected Detail images and an oversized Grid thumbnail at odd JPEG dimensions. The repaired app passed the same five landscape cases and four JPEG cases in portrait. The earlier SVG blank/loading observation remains open.
+
+PR #139 merged this JPEG repair at `32e7e45b` after both audits and the hosted Android workflow passed.
+
 ### Bodyless extension Fetch requests (#138)
 
 [Android Fetch measurements](EXTENSION-FETCH-ROUTING.md#request-body-presence-on-android) identified why a JSON-null POST supplied three unexpected bytes and why the HTTP redirect policy misclassified explicitly empty requests. The repaired adapter preserves the distinction. Real WebView smoke frames cover the HTTPS-only rejection route, and controlled connections cover POST bytes and redirect decisions.
