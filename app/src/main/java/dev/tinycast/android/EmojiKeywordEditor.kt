@@ -13,24 +13,28 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun EmojiKeywordEditor(entry: EmojiEntry, store: EmojiStore, current: () -> Boolean, close: () -> Unit) {
+internal fun EmojiKeywordEditor(entry: EmojiEntry, store: EmojiStore, current: () -> Boolean, saved: (Boolean) -> Unit, close: () -> Unit) {
     var original by rememberSaveable { mutableStateOf(store.customKeywordText(entry.id)) }
     var draft by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(original)) }
     var conflict by rememberSaveable { mutableStateOf(false) }
     val error = remember(draft.text) {
         runCatching { EmojiCatalog.cleanCustomKeywords(draft.text) }.exceptionOrNull()?.message
     }
+    val menus = LocalPaletteMenus.current
     val focus = remember { FocusRequester() }
     fun save() {
         if (!current() || draft.composition != null || error != null || conflict) return
-        if (store.saveCustomKeywords(entry.id, original, draft.text)) close() else conflict = true
+        if (store.saveCustomKeywords(entry.id, original, draft.text)) saved(draft.text.isBlank()) else conflict = true
     }
 
     Shell("Custom keywords", "${entry.glyph}  ${entry.name}", close,
         Modifier.onPreviewKeyEvent {
             val e = it.nativeKeyEvent
             if (e.keyCode == KeyEvent.KEYCODE_S && (e.isCtrlPressed xor e.isMetaPressed) && !e.isAltPressed && !e.isShiftPressed) {
-                if (e.action == KeyEvent.ACTION_DOWN && e.repeatCount == 0) save()
+                if (e.action == KeyEvent.ACTION_DOWN && e.repeatCount == 0) {
+                    menus.claimPress(e)
+                    save()
+                }
                 true
             } else false
         }, backLabel = "Back to emoji picker", footer = {

@@ -135,7 +135,12 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         val entry = store.entries.firstOrNull { it.id == editingId }
         fun ownsEditor() = keywordId == editingId && opening == editOpening && actionCurrent() && view.hasWindowFocus()
         if (entry != null) key(opening) {
-            EmojiKeywordEditor(entry, store, ::ownsEditor) {
+            EmojiKeywordEditor(entry, store, ::ownsEditor, saved = { removed ->
+                if (ownsEditor()) {
+                    copiedName = if (removed) "Removed keywords for ${entry.name}" else "Saved keywords for ${entry.name}"
+                    keywordId = null
+                }
+            }) {
                 if (ownsEditor()) keywordId = null
             }
         } else if (!store.loading) LaunchedEffect(editingId) { keywordId = null }

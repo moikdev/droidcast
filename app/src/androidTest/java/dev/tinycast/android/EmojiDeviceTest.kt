@@ -356,7 +356,30 @@ class EmojiDeviceTest {
         assertTrue(store.customKeywordText("1f431").isEmpty())
         compose.onNodeWithTag("emoji-empty").assertIsDisplayed()
         assertEquals(setOf("1f431"), storedFavorites())
+        compose.onNodeWithTag("emoji-copy-status").assertTextEquals("Removed keywords for cat face")
         evidence("keywords-removed", "No matching emoji")
+    }
+
+    @Test fun heldKeywordSaveDoesNotEnterTextInTheReturningQuery() {
+        search("🐱")
+        openKeywordEditor()
+        compose.onNodeWithTag("emoji-keywords-field").performTextReplacement("quiet cat")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun emit(action: Int, repeat: Int, modifiers: Int) {
+            assertTrue(testAutomation().injectInputEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_S, repeat, modifiers, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
+            compose.waitForIdle()
+        }
+        try {
+            emit(KeyEvent.ACTION_DOWN, 0, KeyEvent.META_CTRL_ON)
+            compose.onNodeWithTag("emoji-search").assertIsFocused()
+            for (repeat in 1..3) emit(KeyEvent.ACTION_DOWN, repeat, 0)
+            assertEquals("🐱", store.query)
+        } finally { emit(KeyEvent.ACTION_UP, 0, 0) }
+        assertEquals("quiet cat", store.customKeywordText("1f431"))
+        key(KeyEvent.KEYCODE_S)
+        assertEquals(1, store.query.count { it == 's' })
     }
 
     @Test fun keywordDraftSurvivesRecreationAndAvoidsOverwritingAPeerEdit() {
