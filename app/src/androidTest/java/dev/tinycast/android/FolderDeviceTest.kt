@@ -212,6 +212,21 @@ class FolderDeviceTest {
         runBlocking { withTimeout(10000) { scope.coroutineContext.job.children.toList().joinAll() } }
     }
 
+    private fun reopenSettingsWithFreshStore(checkFolder: (FolderSearch) -> Unit) {
+        val previous = compose.activity.store
+        compose.activityRule.scenario.close()
+        androidx.test.core.app.ActivityScenario.launch(SettingsActivity::class.java).use { scenario ->
+            lateinit var model: FolderSearch
+            scenario.onActivity {
+                assertNotSame(previous, it.store)
+                model = it.store.folderSearch
+                it.selectPage("folders")
+            }
+            compose.waitUntil(10000) { !model.loading }
+            checkFolder(model)
+        }
+    }
+
     @Test fun separateDocumentGrantKeepsFolderIndexAcrossReopening() {
         authorize()
         val original = controller.configurationCommands().map { it.id }.toSet()
@@ -220,12 +235,10 @@ class FolderDeviceTest {
         val uri = takeFixtureDocumentGrant(model.folders.single())
         revalidateAndWait(model, scope)
         assertEquals(original, model.configurationCommands().map { it.id }.toSet())
-        compose.activityRule.scenario.recreate()
-        compose.waitUntil(10000) { !compose.activity.store.folderSearch.loading }
-        compose.activityRule.scenario.onActivity { it.selectPage("folders") }
-        val count = compose.activity.store.folderSearch.count
-        evidence("document-grant-reopened", "$count indexed items")
-        assertEquals(original, compose.activity.store.folderSearch.configurationCommands().map { it.id }.toSet())
+        reopenSettingsWithFreshStore { loaded ->
+            evidence("document-grant-reopened", "${loaded.count} indexed items")
+            assertEquals(original, loaded.configurationCommands().map { it.id }.toSet())
+        }
         context.contentResolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         revalidateAndWait(model, scope)
         assertEquals(original, reopened().configurationCommands().map { it.id }.toSet())
@@ -244,14 +257,12 @@ class FolderDeviceTest {
         revalidateAndWait(model, scope)
         assertEquals(listOf(id), model.configurationCommands().map { it.id })
         assertTrue(model.errors.containsKey(expired.uri))
-        compose.activityRule.scenario.recreate()
-        compose.waitUntil(10000) { !compose.activity.store.folderSearch.loading }
-        compose.activityRule.scenario.onActivity { it.selectPage("folders") }
-        val loaded = compose.activity.store.folderSearch
-        evidence("revoked-folder-reopened", "Folder access expired")
-        assertEquals(listOf(id), loaded.configurationCommands().map { it.id })
-        assertFalse(loaded.errors.containsKey(research.uri))
-        assertTrue(loaded.errors.containsKey(expired.uri))
+        reopenSettingsWithFreshStore { loaded ->
+            evidence("revoked-folder-reopened", "Folder access expired")
+            assertEquals(listOf(id), loaded.configurationCommands().map { it.id })
+            assertFalse(loaded.errors.containsKey(research.uri))
+            assertTrue(loaded.errors.containsKey(expired.uri))
+        }
     }
 
     private class QueuedIo : CoroutineDispatcher() {
