@@ -385,3 +385,5 @@ For [#153](https://github.com/moikdev/droidcast/issues/153), both Settings alias
   After #154 merged, build `90e41155` repeated the #155 comparison on the integrated branch. The two repaired cases passed, the earlier app failed the intended assertion and all 56 restoration checks passed.
 
 - [#157](https://github.com/moikdev/droidcast/issues/157) fixes native Grid keyword matching. In the matched control a bracket returned both garden cards and a quoted keyword returned zero. The repaired tablet and phone returned zero and one respectively and copied the selected Rose card’s payload. [Grid search evidence](EXTENSION-GRID.md#searching-keyword-text)
+
+- [#159](https://github.com/moikdev/droidcast/issues/159) preserves the active Quicklink argument across activity recreation and two launch rejection paths. The earlier tablet lost the argument in both controls. Four repaired tablet/phone cases passed. The final outbound URI and usage count are checked through an intercepted Android launch. [Quicklink comparison](PRODUCTION-READINESS.md#quicklink-arguments-after-recreation-and-launch-failure)
