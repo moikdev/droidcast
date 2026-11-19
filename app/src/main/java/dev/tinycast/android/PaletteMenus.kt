@@ -146,6 +146,9 @@ internal class PaletteMenus {
         val choices = choices()
         if(choices.none { it.id == selectedId && it.enabled }) selectedId = choices.firstOrNull { it.enabled }?.id
     }
+    // A handled key can stay down while a sibling menu or editor gains focus.
+    // The host sees subsequent events before the IME in either subtree.
+    fun claimPress(event: KeyEvent) { presses[event.deviceId to event.keyCode] = event.downTime }
     fun clearPresses() = presses.clear()
     fun index(): Int = choices().indexOfFirst { it.id == selectedId }.coerceAtLeast(0)
     fun key(event: KeyEvent, stage: String = "direct"): Boolean {
@@ -170,7 +173,7 @@ internal class PaletteMenus {
         // would activate a different selected row (for example Copy Answer).
         val shortcut=request.choices.value.firstOrNull { it.chord!=null && it.chord==chord }
         if(shortcut!=null && event.action==KeyEvent.ACTION_DOWN && query.composition==null) {
-            presses[id]=event.downTime
+            claimPress(event)
             if(shortcut.enabled && event.repeatCount==0) choose(shortcut.id)
             return true
         }
@@ -180,10 +183,10 @@ internal class PaletteMenus {
             val toggle=(event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && !event.isShiftPressed && event.keyCode==KeyEvent.KEYCODE_K
             if(!navigation && !toggle) return false
             if(query.composition!=null && event.keyCode != KeyEvent.KEYCODE_ESCAPE) return false
-            if(toggle && event.action==KeyEvent.ACTION_DOWN) { presses[id]=event.downTime; if(event.repeatCount==0) dismiss(); return true }
+            if(toggle && event.action==KeyEvent.ACTION_DOWN) { claimPress(event); if(event.repeatCount==0) dismiss(); return true }
         }
         if (event.action != KeyEvent.ACTION_DOWN) return !request.searchable
-        presses[id] = event.downTime
+        claimPress(event)
         if (event.repeatCount > 0) return true
         val enabled = choices().filter { it.enabled }
         val index = enabled.indexOfFirst { it.id == selectedId }.coerceAtLeast(0)

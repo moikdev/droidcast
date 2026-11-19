@@ -327,6 +327,51 @@ class EmojiDeviceTest {
         } finally { scope.cancel() }
     }
 
+    @Test fun heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer() {
+        search("face")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun emit(action: Int, repeat: Int, modifiers: Int) {
+            assertTrue(testAutomation().injectInputEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_EQUALS, repeat, modifiers, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
+            compose.waitForIdle()
+        }
+        val menu = compose.onNodeWithTag("inline-menu-search")
+        val exactText = { value: String -> SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)) }
+        fun captureMenu(name: String) {
+            val observed = menu.fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+            assertTrue(observed.length <= 3 && observed.all { it == '=' })
+            val dir = File(context.filesDir, "emoji-evidence").apply { mkdirs() }
+            val xml = File(dir, "$name.xml")
+            compose.waitUntil(10000) {
+                if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
+                device.dumpWindowHierarchy(xml)
+                val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                    .parse(xml).getElementsByTagName("node")
+                (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.any {
+                    it.getAttribute("resource-id") == "inline-menu-search" && it.getAttribute("focused") == "true" &&
+                        (it.getAttribute("text") == observed || (observed.isEmpty() && it.getAttribute("text") == "Search for actions…"))
+                }
+            }
+            assertTrue(device.takeScreenshot(File(dir, "$name.png")))
+        }
+        try {
+            emit(KeyEvent.ACTION_DOWN, 0, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
+            compose.onNodeWithTag("emoji-actions").performScrollTo().performTouchInput { click(center) }
+            menu.assertIsFocused().assert(exactText(""))
+            for (repeat in 1..3) emit(KeyEvent.ACTION_DOWN, repeat, 0)
+            captureMenu("handoff-menu")
+            menu.assert(exactText(""))
+        } finally {
+            emit(KeyEvent.ACTION_UP, 0, 0)
+        }
+        // A genuinely new unmodified press must still reach the new editor.
+        key(KeyEvent.KEYCODE_EQUALS)
+        menu.assert(exactText("="))
+        captureMenu("handoff-next")
+        assertEquals("face", store.query)
+    }
+
     @Test fun gridZoomFollowsSelectionAndOnlySavesAnExplicitDefault() {
         val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
         compose.activityRule.scenario.onActivity { prefs.edit().remove("gridColumns").apply() }

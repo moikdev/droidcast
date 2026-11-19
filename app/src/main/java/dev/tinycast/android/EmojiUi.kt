@@ -50,24 +50,8 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     var keyboardRequested by remember { mutableStateOf(false) }
     var queryEditing by remember { mutableStateOf(false) }
     var copiedName by remember { mutableStateOf<String?>(null) }
-    // Pair a claimed favorite chord with its physical key sequence, independent
-    // of later modifier release or the selection changing after an unpin.
-    val favoritePresses = remember { mutableMapOf<Pair<Int, Int>, Long>() }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val paletteMenus = LocalPaletteMenus.current
-    val zoomPresses = remember { mutableMapOf<Pair<Int, Int>, Long>() }
-    LaunchedEffect(windowFocused) {
-        if (!windowFocused) {
-            favoritePresses.clear()
-            zoomPresses.clear()
-        }
-    }
-    fun consumeFavoriteSequence(event: KeyEvent): Boolean {
-        val press = event.deviceId to event.keyCode
-        if (favoritePresses[press] != event.downTime) return false
-        if (event.action == KeyEvent.ACTION_UP) favoritePresses.remove(press)
-        return true
-    }
     val grid = rememberLazyGridState()
     val results by remember(store) { derivedStateOf { store.results() } }
     val selected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
@@ -107,11 +91,10 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         }
     }
     fun handleFavoriteChord(event: KeyEvent): Boolean {
-        if (consumeFavoriteSequence(event)) return true
         if (event.action == KeyEvent.ACTION_DOWN && (event.isCtrlPressed xor event.isMetaPressed) && event.isAltPressed &&
             !event.isShiftPressed && event.keyCode in listOf(KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN) &&
             reorderCurrent() && !menu && !actionsMenu && paletteMenus.current == null) {
-            favoritePresses[event.deviceId to event.keyCode] = event.downTime
+            paletteMenus.claimPress(event)
             if (event.repeatCount == 0) {
                 val offset = if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) -1 else 1
                 val current = store.results()
@@ -123,7 +106,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
         }
         val modifier = (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && !event.isShiftPressed
         if (event.action != KeyEvent.ACTION_DOWN || event.keyCode != KeyEvent.KEYCODE_D || !modifier) return false
-        favoritePresses[event.deviceId to event.keyCode] = event.downTime
+        paletteMenus.claimPress(event)
         if (event.repeatCount == 0) currentEntry()?.let(::pin)
         return true
     }
@@ -152,11 +135,6 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
             if (current != next && canChangeGrid()) zoomColumns = next
         }
         fun handleZoomChord(e: KeyEvent): Boolean {
-            val press = e.deviceId to e.keyCode
-            if (zoomPresses[press] == e.downTime) {
-                if (e.action == KeyEvent.ACTION_UP) zoomPresses.remove(press)
-                return true
-            }
             if (e.action != KeyEvent.ACTION_DOWN || e.repeatCount != 0 || !(e.isCtrlPressed xor e.isMetaPressed) ||
                 e.isAltPressed || !canChangeGrid() || menu || actionsMenu || paletteMenus.current != null) return false
             when (e.keyCode) {
@@ -165,7 +143,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_NUMPAD_0 -> if (!e.isShiftPressed) zoomColumns = null else return false
                 else -> return false
             }
-            zoomPresses[press] = e.downTime
+            paletteMenus.claimPress(e)
             return true
         }
         LaunchedEffect(Unit) { searchFocus.requestFocus() }
