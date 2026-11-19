@@ -315,3 +315,9 @@ The follow-up for [#133](https://github.com/moikdev/droidcast/issues/133) covers
 The emoji backup and peer-edit repair merged in [#132](https://github.com/moikdev/droidcast/pull/132) at `428d05fa`. Both independent audits cleared `2fc5c95e`. Local verification and [hosted Android CI](https://github.com/moikdev/droidcast/actions/runs/44460555944) passed. The merged tree matches the reviewed head, and #133 closed.
 
 The [offline picker and Android evidence](EMOJI.md#unicode-18-and-cldr-49-verification) add pinned Unicode Emoji 18.0 and CLDR 49 search data for #44. All earlier IDs and their order are preserved. Dedicated tone selection, custom keywords and explicit Android paste delivery remain open.
+
+### Emoji skin-tone selection (#44)
+
+[Unicode 18 and CLDR 49 search](https://github.com/moikdev/droidcast/pull/134) merged at `38f6844c` with the audited tree. Both independent reviews cleared `78ada67f` and its [hosted Android workflow](https://github.com/moikdev/droidcast/actions/runs/44462417203) passed.
+
+The [skin-tone chooser](EMOJI.md#skin-tone-picker-verification) uses 332 families from the pinned Unicode archive. It copies single and mixed tones from Actions and preserves the selected favorite. Retained device evidence for `e58b60dd` covers 11 passing current cases, two intended earlier-app failures and 33 restoration checks on the dedicated API 36 emulator. The earlier 7/8 tablet attempt remains separate. Custom keywords and explicit delivery to a destination app remain open under #44.
