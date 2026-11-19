@@ -299,7 +299,8 @@ class CalculatorActionsDeviceTest {
         fixtureUiReady = true
         capture("result")
         assertEquals("1E-12", store.results().first().payload)
-        compose.onNodeWithTag("result-result").assertTextContains("1E-12", substring = true)
+        compose.onNode(hasAnyAncestor(hasTestTag("result-result")) and hasText("1E-12", substring = false),
+            useUnmergedTree = true).assertTextEquals("1E-12").assertIsDisplayed()
         key(KeyEvent.KEYCODE_ENTER)
         assertClip("1E-12")
         dismissOwnedClipboard()
@@ -308,7 +309,8 @@ class CalculatorActionsDeviceTest {
         connection { assertTrue(it.commitText(" * 1E+12", 1)) }
         compose.waitForIdle()
         assertEquals("1", store.results().first().payload)
-        compose.onNodeWithTag("result-result").assertTextContains("1", substring = true)
+        compose.onNode(hasAnyAncestor(hasTestTag("result-result")) and hasText("1", substring = false),
+            useUnmergedTree = true).assertTextEquals("1").assertIsDisplayed()
         capture("chained")
         done()
     }
