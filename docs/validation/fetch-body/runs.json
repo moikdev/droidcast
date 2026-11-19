@@ -1,0 +1,434 @@
+{
+  "earlier": {
+    "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchPreservesAbsentAndExplicitRequestBodies,dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests,dev.tinycast.android.ExtensionDetailDeviceTest#globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess",
+    "layout": "tablet",
+    "font_scale": 1,
+    "expected": 3,
+    "completed": false,
+    "passes": 1,
+    "installed_apks_match": true,
+    "apk_sha256": "270c3dfb15153f13fbf035081fc0ee8e83880fba7ffec16a15d778ac8509064d",
+    "test_apk_sha256": "b647c07d81fd4af0d0bd931dcb82a4ef546b07b262fb95e4221f815c1b210d84",
+    "runner_sha256": "670982ce29690a7b53acdbcf2949ee31fb0868903191e00737ac0cd529758fc6",
+    "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "preservation": {
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "4bf53c94652bb2b8a16f97e0378dad75683fd039b8959e7880e6bd19dfc16c87",
+    "cases": {
+      "detail-globalfetchreachesthenativehostandrejectshttpbeforenetworkaccess-record.json": {
+        "installed_build_commit": "bc8353fe5c93d8525d5d3f9a3defdbadc5bdf983",
+        "passed": true,
+        "width_dp": 1280,
+        "height_dp": 800,
+        "font_scale": 1,
+        "global_fetch_routing": {
+          "phase": "settled",
+          "calls": 1,
+          "nativeFetchAtEntry": false,
+          "error": "Only HTTPS requests are supported",
+          "errorName": "Error"
+        },
+        "caller_returned": true,
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      },
+      "detail-nativefetchpreservesabsentandexplicitrequestbodies-record.json": {
+        "installed_build_commit": "bc8353fe5c93d8525d5d3f9a3defdbadc5bdf983",
+        "width_dp": 1280,
+        "height_dp": 800,
+        "font_scale": 1,
+        "post_requests": [
+          {
+            "case": "omitted",
+            "output": false,
+            "sent_hex": ""
+          },
+          {
+            "case": "json-null",
+            "output": true,
+            "sent_hex": "9ee965"
+          },
+          {
+            "case": "empty",
+            "output": false,
+            "sent_hex": ""
+          },
+          {
+            "case": "binary",
+            "output": true,
+            "sent_hex": "ff0001"
+          },
+          {
+            "case": "unicode",
+            "output": true,
+            "sent_hex": "636166c3a920e697a5e69cac"
+          },
+          {
+            "case": "literal-base64-null",
+            "output": true,
+            "sent_hex": "9ee965"
+          },
+          {
+            "case": "non-string",
+            "connections": 1,
+            "rejected": false
+          }
+        ],
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      },
+      "detail-nativefetchredirectsonlybodylessheaderlesscrossoriginrequests-record.json": {
+        "installed_build_commit": "bc8353fe5c93d8525d5d3f9a3defdbadc5bdf983",
+        "width_dp": 1280,
+        "height_dp": 800,
+        "font_scale": 1,
+        "cross_origin_redirects": [
+          {
+            "case": "absent",
+            "connections": 2,
+            "status": 200
+          },
+          {
+            "case": "json-null",
+            "connections": 1,
+            "status": 0
+          },
+          {
+            "case": "explicit-empty",
+            "connections": 2,
+            "status": 200
+          },
+          {
+            "case": "binary",
+            "connections": 1,
+            "status": 0
+          },
+          {
+            "case": "header",
+            "connections": 1,
+            "status": 0
+          }
+        ],
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      }
+    }
+  },
+  "tablet": {
+    "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchPreservesAbsentAndExplicitRequestBodies,dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests,dev.tinycast.android.ExtensionDetailDeviceTest#globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess",
+    "layout": "tablet",
+    "font_scale": 1,
+    "expected": 3,
+    "completed": true,
+    "passes": 3,
+    "installed_apks_match": true,
+    "apk_sha256": "4ae821450eb1b8694c43d57fd05d9f62678c0d8209a5bf10179be3b6e114fa54",
+    "test_apk_sha256": "b647c07d81fd4af0d0bd931dcb82a4ef546b07b262fb95e4221f815c1b210d84",
+    "runner_sha256": "670982ce29690a7b53acdbcf2949ee31fb0868903191e00737ac0cd529758fc6",
+    "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "preservation": {
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "4bf53c94652bb2b8a16f97e0378dad75683fd039b8959e7880e6bd19dfc16c87",
+    "cases": {
+      "detail-globalfetchreachesthenativehostandrejectshttpbeforenetworkaccess-record.json": {
+        "installed_build_commit": "fdc22eda09eb0614a1f3439d268def778359556d",
+        "passed": true,
+        "width_dp": 1280,
+        "height_dp": 800,
+        "font_scale": 1,
+        "global_fetch_routing": {
+          "phase": "settled",
+          "calls": 1,
+          "nativeFetchAtEntry": false,
+          "error": "Only HTTPS requests are supported",
+          "errorName": "Error"
+        },
+        "caller_returned": true,
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      },
+      "detail-nativefetchpreservesabsentandexplicitrequestbodies-record.json": {
+        "installed_build_commit": "fdc22eda09eb0614a1f3439d268def778359556d",
+        "passed": true,
+        "width_dp": 1280,
+        "height_dp": 800,
+        "font_scale": 1,
+        "post_requests": [
+          {
+            "case": "omitted",
+            "output": false,
+            "sent_hex": ""
+          },
+          {
+            "case": "json-null",
+            "output": false,
+            "sent_hex": ""
+          },
+          {
+            "case": "empty",
+            "output": true,
+            "sent_hex": ""
+          },
+          {
+            "case": "binary",
+            "output": true,
+            "sent_hex": "ff0001"
+          },
+          {
+            "case": "unicode",
+            "output": true,
+            "sent_hex": "636166c3a920e697a5e69cac"
+          },
+          {
+            "case": "literal-base64-null",
+            "output": true,
+            "sent_hex": "9ee965"
+          },
+          {
+            "case": "non-string",
+            "connections": 0,
+            "rejected": true
+          }
+        ],
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      },
+      "detail-nativefetchredirectsonlybodylessheaderlesscrossoriginrequests-record.json": {
+        "installed_build_commit": "fdc22eda09eb0614a1f3439d268def778359556d",
+        "passed": true,
+        "width_dp": 1280,
+        "height_dp": 800,
+        "font_scale": 1,
+        "cross_origin_redirects": [
+          {
+            "case": "absent",
+            "connections": 2,
+            "status": 200
+          },
+          {
+            "case": "json-null",
+            "connections": 2,
+            "status": 200
+          },
+          {
+            "case": "explicit-empty",
+            "connections": 1,
+            "status": 0
+          },
+          {
+            "case": "binary",
+            "connections": 1,
+            "status": 0
+          },
+          {
+            "case": "header",
+            "connections": 1,
+            "status": 0
+          }
+        ],
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      }
+    }
+  },
+  "phone": {
+    "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchPreservesAbsentAndExplicitRequestBodies,dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests,dev.tinycast.android.ExtensionDetailDeviceTest#globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess",
+    "layout": "phone",
+    "font_scale": 1,
+    "expected": 3,
+    "completed": true,
+    "passes": 3,
+    "installed_apks_match": true,
+    "apk_sha256": "4ae821450eb1b8694c43d57fd05d9f62678c0d8209a5bf10179be3b6e114fa54",
+    "test_apk_sha256": "b647c07d81fd4af0d0bd931dcb82a4ef546b07b262fb95e4221f815c1b210d84",
+    "runner_sha256": "670982ce29690a7b53acdbcf2949ee31fb0868903191e00737ac0cd529758fc6",
+    "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "preservation": {
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "wrapper_sha256": "4bf53c94652bb2b8a16f97e0378dad75683fd039b8959e7880e6bd19dfc16c87",
+    "cases": {
+      "detail-globalfetchreachesthenativehostandrejectshttpbeforenetworkaccess-record.json": {
+        "installed_build_commit": "fdc22eda09eb0614a1f3439d268def778359556d",
+        "passed": true,
+        "width_dp": 411,
+        "height_dp": 891,
+        "font_scale": 1,
+        "global_fetch_routing": {
+          "phase": "settled",
+          "calls": 1,
+          "nativeFetchAtEntry": false,
+          "error": "Only HTTPS requests are supported",
+          "errorName": "Error"
+        },
+        "caller_returned": true,
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      },
+      "detail-nativefetchpreservesabsentandexplicitrequestbodies-record.json": {
+        "installed_build_commit": "fdc22eda09eb0614a1f3439d268def778359556d",
+        "passed": true,
+        "width_dp": 411,
+        "height_dp": 891,
+        "font_scale": 1,
+        "post_requests": [
+          {
+            "case": "omitted",
+            "output": false,
+            "sent_hex": ""
+          },
+          {
+            "case": "json-null",
+            "output": false,
+            "sent_hex": ""
+          },
+          {
+            "case": "empty",
+            "output": true,
+            "sent_hex": ""
+          },
+          {
+            "case": "binary",
+            "output": true,
+            "sent_hex": "ff0001"
+          },
+          {
+            "case": "unicode",
+            "output": true,
+            "sent_hex": "636166c3a920e697a5e69cac"
+          },
+          {
+            "case": "literal-base64-null",
+            "output": true,
+            "sent_hex": "9ee965"
+          },
+          {
+            "case": "non-string",
+            "connections": 0,
+            "rejected": true
+          }
+        ],
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      },
+      "detail-nativefetchredirectsonlybodylessheaderlesscrossoriginrequests-record.json": {
+        "installed_build_commit": "fdc22eda09eb0614a1f3439d268def778359556d",
+        "passed": true,
+        "width_dp": 411,
+        "height_dp": 891,
+        "font_scale": 1,
+        "cross_origin_redirects": [
+          {
+            "case": "absent",
+            "connections": 2,
+            "status": 200
+          },
+          {
+            "case": "json-null",
+            "connections": 2,
+            "status": 200
+          },
+          {
+            "case": "explicit-empty",
+            "connections": 1,
+            "status": 0
+          },
+          {
+            "case": "binary",
+            "connections": 1,
+            "status": 0
+          },
+          {
+            "case": "header",
+            "connections": 1,
+            "status": 0
+          }
+        ],
+        "preexisting_installations_and_data_preserved": true,
+        "owned_data_removed": true
+      }
+    }
+  }
+}

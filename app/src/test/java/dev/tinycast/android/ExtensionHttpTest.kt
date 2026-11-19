@@ -104,6 +104,13 @@ class ExtensionHttpTest {
             assertEquals(1,calls.get()); await(connection.disconnected)
         }
     }
+    @Test fun closingImmediatelyAfterCompletionKeepsTheSuccessfulResponse() = runBlocking {
+        repeat(300) {
+            val fixture = Connection(ByteArrayInputStream(byteArrayOf(42)))
+            val response = ExtensionHttpClient(connect = { fixture }).use { client -> get(client) }
+            assertArrayEquals(byteArrayOf(42), response.bytes)
+        }
+    }
     @Test fun completedResponseContainsNoLiveConnection() = runBlocking {
         val connection=Connection(ByteArrayInputStream("body".toByteArray()))
         ExtensionHttpClient(connect={connection}).use { client ->
