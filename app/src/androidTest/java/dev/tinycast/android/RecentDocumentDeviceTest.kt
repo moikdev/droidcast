@@ -249,11 +249,21 @@ class RecentDocumentDeviceTest {
         val uri = Uri.parse(selected.body)
         assertFalse("Fixture already had a permission before selection", uri in originalGrants)
         deleteRecent(selected, withCapture = true)
-        compose.waitUntil(5_000) {
-            context.contentResolver.persistedUriPermissions.none { it.uri == uri && it.isReadPermission }
+        try {
+            compose.waitUntil(5_000) {
+                context.contentResolver.persistedUriPermissions.none { it.uri == uri && it.isReadPermission }
+            }
+        } finally {
+            val permission = context.contentResolver.persistedUriPermissions.singleOrNull { it.uri == uri }
+            val originalBody = context.contentResolver.openInputStream(requireNotNull(mediaUri))?.bufferedReader()?.use { it.readText() }
+            val record = JSONObject()
+                .put("read_after_deletion", permission?.isReadPermission == true)
+                .put("write_after_deletion", permission?.isWritePermission == true)
+                .put("row_still_present", compose.activity.store.files.any { it.id == selected.id })
+                .put("source_content_matches", body == originalBody)
+            File(context.filesDir, "readiness-evidence/recent-grant-result.json").writeText(record.toString(2))
+            assertEquals("Removing a recent must keep the provider's document", body, originalBody)
         }
-        val originalBody = context.contentResolver.openInputStream(requireNotNull(mediaUri))?.bufferedReader()?.use { it.readText() }
-        assertEquals("Removing a recent must keep the provider's document", body, originalBody)
     }
 
     @Test fun chosenRecentDocumentGetsItsNativeNameAndOpensTheExactContent() {
