@@ -97,3 +97,5 @@ docs/validation/emoji-tones/recent/runs/**/*.log -text -whitespace
 # Preserve native hierarchy and JUnit bytes used for custom-keyword evidence.
 docs/validation/emoji-keywords/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-keywords/runs/**/*.log -text -whitespace
+docs/validation/emoji-keywords/repair/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-keywords/repair/runs/**/*.log -text -whitespace
