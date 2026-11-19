@@ -230,6 +230,8 @@ class FolderDeviceTest {
     @Test fun separateDocumentGrantKeepsFolderIndexAcrossReopening() {
         authorize()
         val original = controller.configurationCommands().map { it.id }.toSet()
+        val cache = File(directory, "index.json")
+        val originalBytes = cache.readBytes()
         val model = reopened()
         val scope = scopes.last()
         val uri = takeFixtureDocumentGrant(model.folders.single())
@@ -239,9 +241,11 @@ class FolderDeviceTest {
             evidence("document-grant-reopened", "${loaded.count} indexed items")
             assertEquals(original, loaded.configurationCommands().map { it.id }.toSet())
         }
+        assertArrayEquals(originalBytes, cache.readBytes())
         context.contentResolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         revalidateAndWait(model, scope)
         assertEquals(original, reopened().configurationCommands().map { it.id }.toSet())
+        assertArrayEquals(originalBytes, cache.readBytes())
     }
 
     @Test fun revokedFolderKeepsOtherReadableFolderAcrossReopening() {
@@ -260,6 +264,8 @@ class FolderDeviceTest {
         reopenSettingsWithFreshStore { loaded ->
             evidence("revoked-folder-reopened", "Folder access expired")
             assertEquals(listOf(id), loaded.configurationCommands().map { it.id })
+            val stored = org.json.JSONObject(File(directory, "index.json").readText()).getJSONArray("entries")
+            assertEquals(listOf(research.uri), (0 until stored.length()).map { stored.getJSONObject(it).getString("folder") })
             assertFalse(loaded.errors.containsKey(research.uri))
             assertTrue(loaded.errors.containsKey(expired.uri))
         }
