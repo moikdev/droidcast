@@ -133,7 +133,7 @@ private fun Editor(store: PaletteStore, kind: String, close: () -> Unit) {
     var fieldReady by remember { mutableStateOf(false) }
     val type = when (kind) { "note" -> "note"; "link" -> "quicklink"; else -> "clip" }
     fun save() {
-        runCatching { store.save(when (kind) { "note" -> "notes"; "link" -> "links"; else -> "clips" }, title, body, alias, old?.id?.takeIf { it.isNotEmpty() }) }
+        runCatching { store.saveEditor(draft) }
             .onSuccess { store.message = "${type.replaceFirstChar { it.uppercase() }} saved"; close() }
             .onFailure { error = it.message ?: "Could not save" }
     }

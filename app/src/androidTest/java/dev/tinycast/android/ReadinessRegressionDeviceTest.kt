@@ -219,6 +219,100 @@ class ReadinessRegressionDeviceTest {
         }
     }
 
+    private fun editLink(id: String, title: String) {
+        compose.onNodeWithTag("search").performTextReplacement(title)
+        compose.onNodeWithTag("result-$id").performTouchInput { longClick() }
+        compose.onNodeWithTag("action-Edit quicklink").performScrollTo().performClick()
+        compose.onNodeWithTag("editor-alias").performScrollTo()
+    }
+
+    @Test fun quicklinkEditorKeepsRenamedSettingsAlias() = preserveSettingsAlias("garden")
+    @Test fun quicklinkEditorKeepsClearedSettingsAlias() = preserveSettingsAlias("")
+
+    private fun preserveSettingsAlias(override: String) {
+        val store = compose.activity.store
+        val title = "Garden reference"
+        val url = "https://example.invalid/find?q={query}"
+        val id = compose.runOnUiThread {
+            store.save("links", title, url, "journal").also { store.setAlias(it, override) }
+        }
+        editLink(id, title)
+        val aliasNode = compose.onNodeWithTag("editor-alias")
+        val opened = aliasNode.fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+        val phase = if (override.isEmpty()) "cleared" else "renamed"
+        capture("alias-$phase-open")
+        val newTitle = "Garden reference revised"
+        compose.onNodeWithTag("editor-title").performScrollTo().performTextReplacement(newTitle)
+        compose.onNodeWithTag("save-editor").performClick()
+        compose.waitUntil(5000) { store.dialog == null }
+        compose.runOnIdle {
+            assertEquals("Title was saved", newTitle, store.links.single { it.id == id }.title)
+            assertEquals("Title-only save must keep the effective alias", override, store.command(id)?.alias)
+            assertEquals(override, opened)
+            assertEquals("journal", store.backupSnapshot().links.single { it.id == id }.alias)
+            assertEquals(override, store.backupSnapshot().aliases[id])
+            store.search("journal spring")
+            assertFalse(store.results().any { it.id == id && it.payload.endsWith("q=spring") })
+            if (override.isNotEmpty()) {
+                store.search("$override spring")
+                assertEquals(url.replace("{query}", "spring"), store.results().first().payload)
+            }
+        }
+    }
+
+    @Test fun quicklinkEditorKeepsPeerAliasAndValidatesDeliberateChanges() {
+        val store = compose.activity.store
+        val app = context.applicationContext as android.app.Application
+        val holder = androidx.lifecycle.ViewModelStore()
+        val factory = androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(app)
+        fun peer() = androidx.lifecycle.ViewModelProvider(holder, factory)[PaletteStore::class.java]
+        val title = "Garden reference"
+        val url = "https://example.invalid/find?q={query}"
+        val revised = "https://example.invalid/articles?q={query}"
+        val id = compose.runOnUiThread {
+            store.save("links", title, url, "journal").also { store.setAlias(it, "garden") }
+        }
+        try {
+            editLink(id, title)
+            compose.runOnIdle { peer().setAlias(id, "flowers") }
+            compose.onNodeWithTag("editor-body").performScrollTo().performTextReplacement(revised)
+            compose.onNodeWithTag("save-editor").performClick()
+            compose.waitUntil(5000) { store.dialog == null }
+            compose.runOnIdle {
+                assertEquals(revised, peer().links.single { it.id == id }.body)
+                assertEquals("flowers", peer().aliases[id])
+                assertEquals("journal", peer().links.single { it.id == id }.alias)
+            }
+            editLink(id, title)
+            val field = compose.onNodeWithTag("editor-alias")
+            editable("editor-alias", "flowers")
+            field.performTextReplacement("calc")
+            compose.onNodeWithTag("save-editor").performClick()
+            compose.onNodeWithText("That alias is already in use").assertExists()
+            compose.runOnIdle { assertEquals("flowers", peer().command(id)?.alias) }
+            field.performScrollTo().performTextReplacement("pets")
+            compose.runOnIdle { peer().setAlias(id, "plants") }
+            compose.onNodeWithTag("save-editor").performClick()
+            compose.onNodeWithText("The alias changed in Settings. Reopen the quicklink to edit it.").assertExists()
+            compose.runOnIdle { assertEquals("plants", peer().command(id)?.alias) }
+            compose.onNodeWithTag("cancel-editor").performClick()
+            editLink(id, title)
+            field.performTextReplacement("pets")
+            compose.onNodeWithTag("save-editor").performClick()
+            compose.waitUntil(5000) { store.dialog == null }
+            compose.runOnIdle {
+                holder.clear()
+                val reopened = peer()
+                assertEquals("pets", reopened.links.single { it.id == id }.alias)
+                assertFalse(reopened.aliases.containsKey(id))
+                reopened.search("pets spring")
+                assertEquals(revised.replace("{query}", "spring"), reopened.results().first().payload)
+            }
+        } finally {
+            compose.runOnUiThread { holder.clear() }
+        }
+    }
+
     @Test fun unsavedQuicklinkFieldsSurviveActivityRecreation() {
         var id=""
         compose.activityRule.scenario.onActivity {

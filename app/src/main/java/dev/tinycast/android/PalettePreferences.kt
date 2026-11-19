@@ -14,11 +14,13 @@ internal object PalettePreferences {
     private var ownedKeys: MutableSet<String>? = null
     val restoring: Boolean get() = ownedKeys != null
 
-    fun write(prefs: SharedPreferences, key: String, value: Any) {
+    fun write(prefs: SharedPreferences, key: String, value: Any) = write(prefs, mapOf(key to value))
+
+    fun write(prefs: SharedPreferences, values: Map<String, Any>) {
         check(Looper.getMainLooper().isCurrentThread)
         // Even a deliberate write of the same value transfers ownership to this writer.
-        ownedKeys?.remove(key)
-        prefs.edit().also { it.putValue(key, value) }.apply()
+        ownedKeys?.removeAll(values.keys)
+        prefs.edit().also { editor -> values.forEach { (key, value) -> editor.putValue(key, value) } }.apply()
     }
 
     suspend fun restore(prefs: SharedPreferences, values: Map<String, Any>): Boolean =
