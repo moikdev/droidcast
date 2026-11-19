@@ -79,6 +79,11 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
         self.refused_without_device_access(HANDOFF, ['--document-fixtures'], 'Document fixtures belong only')
         self.refused_without_device_access(HANDOFF, ['--inject-clipboard-restore-failure'], 'Restoration failure is limited')
 
+    def test_fetch_case_cannot_exempt_an_unrelated_method_from_archive_validation(self):
+        fetch = DETAIL + '#nativeFetchPreservesAbsentAndExplicitRequestBodies'
+        self.refused_without_device_access(fetch + ',' + DETAIL, [],
+            'A frozen JSON archive is required', without_archive=True)
+
     def refused_without_device_access(self, classes, options, error, without_archive=False):
         for optimized in [False, True]:
             with self.subTest(optimized=optimized), tempfile.TemporaryDirectory() as directory:

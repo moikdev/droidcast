@@ -179,7 +179,12 @@ def main():
          args.reviewed_json_command == 'formatSelection'),
         'Completion Return belongs only to owned Form or the single reviewed no-view JSON workflow')
     require(args.apk.name != args.test_apk.name, 'APK archive names must differ')
-    require(calculator or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort')
+    local_fetch_cases = {
+        'dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchPreservesAbsentAndExplicitRequestBodies',
+        'dev.tinycast.android.ExtensionDetailDeviceTest#nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests',
+        'dev.tinycast.android.ExtensionDetailDeviceTest#globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess',
+    }
+    require(calculator or set(args.classes.split(',')) <= local_fetch_cases or args.json_archive is not None, 'A frozen JSON archive is required outside the owned calculator cohort or named local Fetch cases')
     archive = None if args.json_archive is None else frozen_form_archive(args.json_archive,
         'fc420406a59251daee0c9af32e216026724631480b3a4e2f5d65d0c507b09a58')
     typed_archives = recorded_test_archives(args.recorded_archives) if args.recorded_archives else {}
