@@ -114,9 +114,15 @@ class FolderSearch internal constructor(
                 require(roots.all { validTree(it.uri) && it.title.length <= 512 } && roots.map { it.uri }.distinct().size == roots.size)
                 val on = config?.getBoolean("enabled") ?: false
                 val launcher = config?.getBoolean("launcher") ?: false
-                val grants = grants()
+                val grants = configuredGrants(roots)
                 var cacheFailed = false
-                val cached = try { if (on) decodeIndex(read(indexFile, FolderIndexRules.MAX_CACHE_BYTES), roots, grants) else {
+                val cached = try { if (on) {
+                    val index = read(indexFile, FolderIndexRules.MAX_CACHE_BYTES)
+                    val rows = decodeIndex(index, roots, grants)
+                    try { pruneIndex(index, roots.map { it.uri }.toSet() - grants) }
+                    catch (_: Exception) { cacheFailed = true }
+                    rows
+                } else {
                     deleteIndex(); emptyList()
                 } } catch (_: Exception) { cacheFailed = true; emptyList() }
                 Loaded(roots, on, launcher, grants, cached, cacheFailed)
@@ -132,7 +138,9 @@ class FolderSearch internal constructor(
 
     private data class Loaded(val folders: List<SearchFolder>, val enabled: Boolean, val launcher: Boolean, val grants: Set<String>, val entries: List<IndexedDocument>, val cacheFailed: Boolean)
     private fun grants() = app.contentResolver.persistedUriPermissions.filter { it.isReadPermission }.map { it.uri.toString() }.toSet()
-    private suspend fun readGrants() = withContext(Dispatchers.IO) { disk.withLock { grants() } }
+    private fun configuredGrants(roots: List<SearchFolder>) = roots.map { it.uri }.toSet().intersect(grants())
+    private suspend fun readGrants(roots: List<SearchFolder>) =
+        withContext(Dispatchers.IO) { disk.withLock { configuredGrants(roots) } }
     private fun validTree(value: String): Boolean = runCatching {
         val uri = Uri.parse(value)
         value.length <= 8192 && uri.scheme == "content" && !uri.authority.isNullOrBlank() && DocumentsContract.isTreeUri(uri) && DocumentsContract.getTreeDocumentId(uri).isNotEmpty()
@@ -196,6 +204,21 @@ class FolderSearch internal constructor(
             entry
         } }.filter { it.folder in permissions }.distinctBy { it.id }
     }
+    // Work on the persisted index under the shared disk lock. Another controller may
+    // already have refreshed the surviving roots since this controller loaded them.
+    private fun pruneIndex(index: JSONObject?, revoked: Set<String>) {
+        if (index == null || revoked.isEmpty()) return
+        val rows = index.getJSONArray("entries")
+        val kept = JSONArray()
+        for (i in 0 until rows.length()) {
+            val row = rows.getJSONObject(i)
+            if (row.getString("folder") !in revoked) kept.put(row)
+        }
+        if (kept.length() != rows.length()) {
+            if (kept.length() == 0) deleteIndex()
+            else check(write(indexFile, index.put("entries", kept), FolderIndexRules.MAX_CACHE_BYTES))
+        }
+    }
     private fun publish(items: List<IndexedDocument>) { entries = items; scheduleSearch() }
     fun configurationCommands() = if (enabled) entries.map { it.command() } else emptyList()
     fun command(id: String) = if (enabled) byId[id]?.command() else null
@@ -249,7 +272,7 @@ class FolderSearch internal constructor(
                     next = folders.filterNot { it.uri == value } + added
                     ownership.commit(disk) { check(write(configFile, config(next, true, includeInLauncher), 65536)) }
                 } finally { ownership.releaseIfUncommitted() }
-                folders = next; enabled = true; readable = readGrants(); errors = errors - value; error = null
+                folders = next; enabled = true; readable = readGrants(next); errors = errors - value; error = null
                 refresh()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: IndeterminateFolderWrite) { error = "Folder save could not be verified. Permission was retained. Reopen Settings to check the saved folders." }
@@ -275,7 +298,7 @@ class FolderSearch internal constructor(
                         }
                     })
                 folders = next; enabled = on; includeInLauncher = launcher
-                readable = readGrants()
+                readable = readGrants(next)
                 publish(if (on) entries.filter { it.folder in next.map(SearchFolder::uri) && it.folder in readable } else emptyList())
                 errors = errors.filterKeys { key -> next.any { it.uri == key } }; error = if (cacheCleared) null else "Settings saved, but the old private index could not be cleared. Try disabling again."
                 status = if (on) "${entries.size} indexed items · Refresh to check for changes." else "Folder search is off; cached index removed."
@@ -290,16 +313,25 @@ class FolderSearch internal constructor(
         if (loading || changing) return
         val requestedRevision = scanRevision.get()
         scope.launch {
-            val permissions = readGrants()
+            val permissions = readGrants(folders)
             if (scanRevision.get() != requestedRevision || changing) return@launch
             if (permissions != readable) {
+                val revoked = readable - permissions
                 stopScan(); readable = permissions
                 publish(entries.filter { it.folder in permissions })
                 errors = folders.filter { it.uri !in permissions }.associate { it.uri to "Folder access expired. Reauthorize this folder." }
                 status = if (!enabled) "Folder search is off." else "${entries.size} indexed items" +
                     if (errors.isNotEmpty()) " · Some folders need attention." else " · Refresh to check for changes."
                 val revision = scanRevision.get()
-                withContext(Dispatchers.IO) { disk.withLock { if (scanRevision.get() == revision) runCatching { deleteIndex() } } }
+                if (revoked.isNotEmpty()) {
+                    val pruned = withContext(Dispatchers.IO) { disk.withLock {
+                        runCatching {
+                            val stillRevoked = revoked - grants()
+                            if (stillRevoked.isNotEmpty()) pruneIndex(read(indexFile, FolderIndexRules.MAX_CACHE_BYTES), stillRevoked)
+                        }.isSuccess
+                    } }
+                    if (!pruned && scanRevision.get() == revision) error = "Expired folder entries could not be removed from the local index. Refresh to rebuild it."
+                }
             }
         }
     }
@@ -309,7 +341,7 @@ class FolderSearch internal constructor(
         busy = true; error = null; status = "Indexing selected folders…"
         scanJob = scope.launch {
             try {
-                val permissions = readGrants(); val result = ArrayList<IndexedDocument>(); val problems = linkedMapOf<String, String>()
+                val permissions = readGrants(roots); val result = ArrayList<IndexedDocument>(); val problems = linkedMapOf<String, String>()
                 var limited = false; var remainingBytes = FolderIndexRules.MAX_CACHE_BYTES - 128 * 1024
                 withTimeout(60000) {
                     for (root in roots) {

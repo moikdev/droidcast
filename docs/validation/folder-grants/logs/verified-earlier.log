@@ -1,0 +1,152 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=revokedFolderKeepsOtherReadableFolderAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<[files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder$lambda$56(FolderDeviceTest.kt:290)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder(FolderDeviceTest.kt:288)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening(FolderDeviceTest.kt:270)
+
+INSTRUMENTATION_STATUS: stream=
+Error in revokedFolderKeepsOtherReadableFolderAcrossReopening(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: expected:<[files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder$lambda$56(FolderDeviceTest.kt:290)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder(FolderDeviceTest.kt:288)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening(FolderDeviceTest.kt:270)
+
+INSTRUMENTATION_STATUS: test=revokedFolderKeepsOtherReadableFolderAcrossReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=openingSettingsPrunesFolderRevokedWhileAway
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<[content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture%2FResearch]> but was:<[content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture%2FResearch, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder$lambda$56(FolderDeviceTest.kt:292)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder(FolderDeviceTest.kt:288)
+	at dev.tinycast.android.FolderDeviceTest.openingSettingsPrunesFolderRevokedWhileAway(FolderDeviceTest.kt:271)
+
+INSTRUMENTATION_STATUS: stream=
+Error in openingSettingsPrunesFolderRevokedWhileAway(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: expected:<[content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture%2FResearch]> but was:<[content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture%2FResearch, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder$lambda$56(FolderDeviceTest.kt:292)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder(FolderDeviceTest.kt:288)
+	at dev.tinycast.android.FolderDeviceTest.openingSettingsPrunesFolderRevokedWhileAway(FolderDeviceTest.kt:271)
+
+INSTRUMENTATION_STATUS: test=openingSettingsPrunesFolderRevokedWhileAway
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=separateDocumentGrantKeepsFolderIndexAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<[files:index:ffc8af90cbd0063d21792f9333af21081a1421560a77d6947587033ae8be2816, files:index:1bf74a6474a877d769e522e028eb3081875a253d20890f2628b061abc9e08e7b, files:index:8fdbc5a0291d21b455cd51e85ad0d05956cf823a07e72993bf0ad2da3bb26c3b, files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening$lambda$48(FolderDeviceTest.kt:261)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:259)
+
+INSTRUMENTATION_STATUS: stream=
+Error in separateDocumentGrantKeepsFolderIndexAcrossReopening(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: expected:<[files:index:ffc8af90cbd0063d21792f9333af21081a1421560a77d6947587033ae8be2816, files:index:1bf74a6474a877d769e522e028eb3081875a253d20890f2628b061abc9e08e7b, files:index:8fdbc5a0291d21b455cd51e85ad0d05956cf823a07e72993bf0ad2da3bb26c3b, files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening$lambda$48(FolderDeviceTest.kt:261)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:259)
+
+INSTRUMENTATION_STATUS: test=separateDocumentGrantKeepsFolderIndexAcrossReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.287
+There were 3 failures:
+1) revokedFolderKeepsOtherReadableFolderAcrossReopening(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: expected:<[files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder$lambda$56(FolderDeviceTest.kt:290)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder(FolderDeviceTest.kt:288)
+	at dev.tinycast.android.FolderDeviceTest.revokedFolderKeepsOtherReadableFolderAcrossReopening(FolderDeviceTest.kt:270)
+2) openingSettingsPrunesFolderRevokedWhileAway(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: expected:<[content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture%2FResearch]> but was:<[content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture%2FResearch, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture, content://com.android.externalstorage.documents/tree/primary%3ADownload%2FDroidcastFolderFixture]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder$lambda$56(FolderDeviceTest.kt:292)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.checkExpiredFolder(FolderDeviceTest.kt:288)
+	at dev.tinycast.android.FolderDeviceTest.openingSettingsPrunesFolderRevokedWhileAway(FolderDeviceTest.kt:271)
+3) separateDocumentGrantKeepsFolderIndexAcrossReopening(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: expected:<[files:index:ffc8af90cbd0063d21792f9333af21081a1421560a77d6947587033ae8be2816, files:index:1bf74a6474a877d769e522e028eb3081875a253d20890f2628b061abc9e08e7b, files:index:8fdbc5a0291d21b455cd51e85ad0d05956cf823a07e72993bf0ad2da3bb26c3b, files:index:2225fa33809976c27847d9b8d9c02ccffcd77f39a1fab84fe300b838abbddcb4]> but was:<[]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening$lambda$48(FolderDeviceTest.kt:261)
+	at dev.tinycast.android.FolderDeviceTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.FolderDeviceTest.reopenSettingsWithFreshStore(FolderDeviceTest.kt:245)
+	at dev.tinycast.android.FolderDeviceTest.separateDocumentGrantKeepsFolderIndexAcrossReopening(FolderDeviceTest.kt:259)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1
