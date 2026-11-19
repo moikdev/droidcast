@@ -1,3 +1,5 @@
+import tempfile
+import os
 import json
 import subprocess
 from pathlib import Path
@@ -7,6 +9,23 @@ from unittest.mock import Mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from android_form_documents_fixture import DOCUMENTS, ROOT, FormDocumentsFixture, validate_owner
+
+
+class FolderProviderRunnerGuardTests(unittest.TestCase):
+    def test_optimized_or_unrelated_requests_fail_before_adb(self):
+        runner = Path(__file__).resolve().parents[1] / 'test-extension-grid.py'
+        method = 'dev.tinycast.android.FolderDeviceTest#loadingProviderKeepsIndexedRowsUntilComplete'
+        for flags, cases in [(['-O'], method), ([], method.split('#')[0]), ([], method + ',' + method)]:
+            with self.subTest(flags=flags, cases=cases), tempfile.TemporaryDirectory() as temporary:
+                dest = Path(temporary) / 'output'
+                result = subprocess.run([sys.executable, *flags, str(runner), '--folder-provider-fixture',
+                    '--classes', cases, '--expected', '1', '--avd', 'Tinycast_Tablet_API_36',
+                    '--serial', 'emulator-1234', '--layout', 'tablet', '--output', str(dest),
+                    '--extra-evidence-dir', 'folder-evidence'], capture_output=True, text=True,
+                    env=dict(os.environ, ANDROID_HOME=temporary))
+                self.assertEqual(2, result.returncode)
+                self.assertIn('Folder provider fixtures require', result.stderr)
+                self.assertFalse(dest.exists())
 
 
 class FormDocumentOwnershipTest(unittest.TestCase):

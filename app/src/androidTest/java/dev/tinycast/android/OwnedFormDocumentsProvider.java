@@ -117,6 +117,22 @@ public final class OwnedFormDocumentsProvider extends DocumentsProvider {
         else if ("folder".equals(id)) children = new String[]{"nested"};
         else throw new FileNotFoundException("Not a fixture directory");
         MatrixCursor result = new MatrixCursor(projection != null ? projection : DOCUMENT_COLUMNS);
+        // The optional, host-owned folder-index fixture exercises Android cursor extras
+        // without requiring a cloud account or changing any of the fixture documents.
+        if ("root".equals(id)) {
+            File fixture = root();
+            android.os.Bundle extras = new android.os.Bundle();
+            if (new File(fixture, "loading-listing").isFile()) {
+                extras.putBoolean(DocumentsContract.EXTRA_LOADING, true);
+                children = new String[]{"text"};
+            } else if (new File(fixture, "error-listing").isFile()) {
+                extras.putString(DocumentsContract.EXTRA_ERROR, "Fixture offline");
+                children = new String[0];
+            } else if (new File(fixture, "empty-listing").isFile()) {
+                children = new String[0];
+            }
+            result.setExtras(extras);
+        }
         for (String child : children) addDocument(result, child);
         return result;
     }

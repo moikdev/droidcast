@@ -14,6 +14,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiScrollable
+import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import kotlinx.coroutines.*
@@ -202,6 +204,99 @@ class FolderDeviceTest {
             assertNull(model.error)
             assertEquals(expectedCount, model.count)
         } finally { compose.runOnUiThread { launcher.unregister() } }
+    }
+
+    @Test fun loadingProviderKeepsIndexedRowsUntilComplete() = checkIncompleteProvider("loading")
+
+    @Test fun offlineProviderKeepsIndexedRowsUntilComplete() = checkIncompleteProvider("error")
+
+    private fun checkIncompleteProvider(mode: String) {
+        val testPackage = InstrumentationRegistry.getInstrumentation().context.packageName
+        val fixture = "files/form-document-fixture"
+        val shell = "run-as $testPackage"
+        val expected = InstrumentationRegistry.getArguments().getString("expectedFormDocumentOwner")
+        Assume.assumeTrue("Requires --folder-provider-fixture", expected != null)
+        val owner = org.json.JSONObject(device.executeShellCommand("$shell cat $fixture/owner.json"))
+        check(owner.getString("owner_nonce") == expected && owner.getString("fixture_kind") == "form-document-provider-v1")
+        val control = "$fixture/$mode-listing"
+        val empty = "$fixture/empty-listing"
+        check(device.executeShellCommand("$shell ls -A $fixture").trim().lines().toSet() == setOf("owner.json", "data"))
+        authorizeCacheFixture("Research", 1)
+        val authority = "$testPackage.formdocuments"
+        val root = android.provider.DocumentsContract.buildDocumentUri(authority, "root")
+        val launcher = compose.runOnUiThread {
+            compose.activity.activityResultRegistry.register("owned-provider-tree",
+                androidx.activity.result.contract.ActivityResultContracts.OpenDocumentTree()) { controller.selected(it) }
+        }
+        try {
+            compose.runOnUiThread {
+                assertTrue(controller.beginSelection(null))
+                launcher.launch(root)
+            }
+            val picker = "com.google.android.documentsui"
+            assertTrue("Android folder picker", device.wait(Until.hasObject(By.pkg(picker)), 10000))
+            val locations = UiSelector().packageName(picker).resourceId("$picker:id/roots_list")
+            if (!device.findObject(locations).exists()) {
+                val drawer = device.wait(Until.findObject(By.pkg(picker).desc("Show roots")), 5000)
+                requireNotNull(drawer).click()
+            }
+            val rootRow = UiScrollable(locations).getChildByText(
+                UiSelector().className("android.widget.TextView").resourceId("android:id/title"),
+                "Droidcast owned files", true)
+            assertTrue("Select the leased provider", rootRow.click())
+            assertTrue("Close location drawer", device.wait(Until.gone(By.res(picker, "roots_list")), 5000))
+            device.findObject(By.res(picker, "sub_menu_list"))?.click()
+            assertTrue("Owned directory visible", device.wait(Until.hasObject(By.pkg(picker).text("Owned folder")), 7000))
+            clickText("USE THIS FOLDER")
+            device.wait(Until.findObject(By.text("ALLOW")), 3000)?.click()
+            fun idle() = compose.waitUntil(15000) {
+                !controller.selecting && !controller.loading && !controller.changing && !controller.busy
+            }
+            compose.waitUntil(15000) { controller.count == 6 }
+            idle()
+            val uri = controller.folders.single { Uri.parse(it.uri).authority == authority }.uri
+            fun names(model: FolderSearch) = model.configurationCommands().map { it.title }.toSet()
+            val baseline = names(controller)
+            assertTrue("Nested item in complete listing", "nested.txt" in baseline)
+            fun refresh() { compose.runOnUiThread { controller.refresh() }; idle() }
+
+            val healthy = "/sdcard/Download/$rootName/Research"
+            device.executeShellCommand("mv $healthy/Orbit-notes.txt $healthy/Orbit-renamed.txt")
+            assertEquals("Orbit-renamed.txt", device.executeShellCommand("ls -A $healthy").trim())
+            device.executeShellCommand("$shell touch $control")
+            val children = android.provider.DocumentsContract.buildChildDocumentsUriUsingTree(Uri.parse(uri), "root")
+            context.contentResolver.query(children, null, null, null, null)!!.use {
+                if (mode == "loading") {
+                    assertTrue(it.extras.getBoolean(android.provider.DocumentsContract.EXTRA_LOADING))
+                    assertEquals(1, it.count)
+                } else {
+                    assertEquals("Fixture offline", it.extras.getString(android.provider.DocumentsContract.EXTRA_ERROR))
+                    assertEquals(0, it.count)
+                }
+            }
+            refresh()
+            val snapshot = names(controller)
+            evidence("provider-$mode", controller.errors[uri] ?: controller.status)
+            assertEquals("Partial provider listing must preserve previously indexed rows and refresh healthy folders",
+                baseline - "Orbit-notes.txt" + "Orbit-renamed.txt", snapshot)
+            assertNotNull("Report the incomplete folder", controller.errors[uri])
+            assertEquals("Previously indexed rows survive reopening", snapshot, names(reopened()))
+
+            device.executeShellCommand("$shell rm $control")
+            device.executeShellCommand("$shell touch $empty")
+            refresh()
+            assertEquals(setOf("Orbit-renamed.txt"), names(controller))
+            assertNull(controller.errors[uri])
+            assertEquals(names(controller), names(reopened()))
+            device.executeShellCommand("$shell rm $empty")
+            refresh()
+            assertEquals(snapshot, names(controller))
+            assertNull(controller.errors[uri])
+            evidence("provider-$mode-retry", "6 indexed items")
+        } finally {
+            device.executeShellCommand("$shell rm -f $control $empty")
+            compose.runOnUiThread { launcher.unregister() }
+        }
     }
 
     private fun takeFixtureDocumentGrant(folder: SearchFolder): Uri {

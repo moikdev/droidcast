@@ -2,6 +2,7 @@
 """Native Grid evidence on one explicitly owned, unprivileged emulator."""
 from pathlib import Path
 import argparse, subprocess, os, json, hashlib, re, shutil, uuid
+from android_form_documents_fixture import FormDocumentsFixture
 from android_test_cleanup import Cleanup, empty_view_fixture_ids
 p=argparse.ArgumentParser()
 p.add_argument('--serial',required=True);p.add_argument('--avd',required=True);p.add_argument('--layout',choices=['tablet','phone'],required=True)
@@ -14,9 +15,18 @@ p.add_argument('--readiness',action='store_true');p.add_argument('--soak-seconds
 p.add_argument('--classes',default='dev.tinycast.android.ExtensionGridDeviceTest');p.add_argument('--expected',type=int,default=16)
 p.add_argument('--font-scale',type=float,help='Owned-emulator typography probe; restored exactly afterward')
 p.add_argument('--empty-view-fixtures',action='store_true',help='Explicit isolated empty-view fixtures and their recovery lease')
+p.add_argument('--folder-provider-fixture', action='store_true', help='Prepare the owned DocumentsUI provider for folder refresh tests')
 p.add_argument('--size',help='Optional WIDTHxHEIGHT pixel viewport, paired with --density')
 p.add_argument('--density',type=int,help='Density for the optional viewport')
 a=p.parse_args();sdk=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
+if a.folder_provider_fixture:
+ prefix = 'dev.tinycast.android.FolderDeviceTest#'
+ allowed = {prefix + method for method in ('loadingProviderKeepsIndexedRowsUntilComplete', 'offlineProviderKeepsIndexedRowsUntilComplete')}
+ cases = a.classes.split(',')
+ if (not __debug__ or a.avd != 'Tinycast_Tablet_API_36' or not set(cases) <= allowed or len(set(cases)) != len(cases)
+     or len(cases) != a.expected or a.empty_view_fixtures or a.readiness or a.update_fixtures is not None
+     or a.evidence_dir != 'extension-grid-evidence' or a.extra_evidence_dir != ['folder-evidence']):
+  p.error('Folder provider fixtures require normal Python and the named folder cases on the dedicated AVD')
 if not sdk:sdk=next(x.removeprefix('sdk.dir=') for x in Path('local.properties').read_text().splitlines() if x.startswith('sdk.dir='))
 adb=[str(Path(sdk)/'platform-tools/adb'),'-s',a.serial];app='dev.tinycast.android'
 def raw(*args,data=None):return subprocess.check_output(adb+list(args),input=data,stderr=subprocess.STDOUT,timeout=60)
@@ -61,6 +71,9 @@ if a.empty_view_fixtures:
  raw('shell','run-as',app,'mkdir',empty_root)
  raw('shell','run-as',app,'tee',empty_lease,data=(json.dumps({'schema_version':1,'fixture_kind':'empty-view-device-test-v1','owner_nonce':empty_owner,'owned_extension_ids':[]})+'\n').encode())
  raw('shell','run-as',app,'tee',empty_root+'/host.json',data=(json.dumps({'pid':os.getpid(),'owner_nonce':empty_owner,'serial':a.serial,'avd':a.avd})+'\n').encode())
+document_owner = uuid.uuid4().hex if a.folder_provider_fixture else None
+if document_owner and FormDocumentsFixture(raw, document_owner, app+'.test', {}).exists():
+ raise ValueError('An existing document fixture must be recovered before collection')
 raw('shell','am','force-stop',app);prefs=raw('exec-out','run-as',app,'cat','shared_prefs/palette.xml')
 emoji_prefs=raw('exec-out','run-as',app,'cat','shared_prefs/emoji.xml')
 a.output.mkdir(exist_ok=False,parents=True,mode=0o700);shutil.copyfile(__file__,a.output/'runner.py')
@@ -69,6 +82,7 @@ a.output.mkdir(exist_ok=False,parents=True,mode=0o700);shutil.copyfile(__file__,
 r={'avd':a.avd,'serial':a.serial,'layout':a.layout,'classes':a.classes,'expected':a.expected,'completed':False,'runner_sha256':sha(Path(__file__).read_bytes()),'original_size':text('shell','wm','size'),'original_density':text('shell','wm','density')}
 r.update(original_font_scale=font_before,requested_font_scale=a.font_scale,requested_size=a.size,requested_density=a.density)
 if a.empty_view_fixtures:r.update(empty_view_fixture_mode=True,empty_view_lease_owner=empty_owner,pid=os.getpid())
+document_fixture = FormDocumentsFixture(raw, document_owner, app+'.test', r) if document_owner else None
 empty_view_owned=a.empty_view_fixtures
 fixture_owned=False
 upload_owned=False
@@ -91,6 +105,11 @@ try:
   shutil.copyfile(source,a.output/source.name);raw('install','-r',str(source))
  r['apk_sha256']=sha(a.apk.read_bytes());r['test_apk_sha256']=sha((a.output/a.test_apk.name).read_bytes())
  installed=text('shell','pm','path',app).removeprefix('package:');assert sha(raw('exec-out','cat',installed))==r['apk_sha256'];r['installed_matches']=True
+ if document_fixture:
+  installed_test = text('shell','pm','path',app+'.test').removeprefix('package:')
+  if sha(raw('exec-out','cat',installed_test)) != r['test_apk_sha256']:
+   raise ValueError('Installed provider instrumentation differs from the requested APK')
+  document_fixture.setup()
  if a.update_fixtures is not None:
   assert subprocess.run(adb+['shell','run-as',app,'test','-e','files/updates-fixtures'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0, 'Refuse to overwrite an existing fixture directory'
   fixture_owned=True;raw('shell','run-as',app,'mkdir','files/updates-fixtures')
@@ -115,7 +134,7 @@ try:
  if a.empty_view_fixtures:
   raw('shell','run-as',app,'mkdir','-p','files/readiness-evidence')
  r['suite_timeout_seconds']=max(600,a.expected*30,a.soak_seconds+300 if a.readiness else 0)
- with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes]+(['-e','expectedFontScale',str(a.font_scale)] if a.font_scale is not None else [])+(['-e','emptyViewFixture','true','-e','expectedEmptyViewLeaseOwner',empty_owner] if a.empty_view_fixtures else [])+(['-e','runReadiness','true','-e','soakSeconds',str(a.soak_seconds)] if a.readiness else [])+[app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
+ with (a.output/'tests.log').open('wb') as log:subprocess.run(adb+['shell','am','instrument','-w','-r','-e','dedicatedAvd',a.avd,'-e','class',a.classes]+(['-e','expectedFormDocumentOwner',document_owner] if document_owner else [])+(['-e','expectedFontScale',str(a.font_scale)] if a.font_scale is not None else [])+(['-e','emptyViewFixture','true','-e','expectedEmptyViewLeaseOwner',empty_owner] if a.empty_view_fixtures else [])+(['-e','runReadiness','true','-e','soakSeconds',str(a.soak_seconds)] if a.readiness else [])+[app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=log,stderr=subprocess.STDOUT,check=True,timeout=r['suite_timeout_seconds'])
  log=(a.output/'tests.log').read_text();r['passes']=len(re.findall('^INSTRUMENTATION_STATUS_CODE: 0$',log,re.M));r['tests_completed']=f'OK ({a.expected} test' in log and 'FAILURES!!!' not in log and r['passes']==a.expected
  present=text('shell','run-as',app,'ls','files').splitlines()
  for folder in evidence_dirs:
@@ -129,6 +148,7 @@ try:
  assert r['completed'],log[-3000:]
 finally:
  c=Cleanup(r);c.attempt('stop-app',lambda:raw('shell','am','force-stop',app))
+ if document_fixture and document_fixture.claimed:c.attempt('folder-provider-fixture', document_fixture.release)
  if empty_view_owned:
   def cleanup_empty_view():
    lease_bytes=raw('exec-out','run-as',app,'cat',empty_lease)

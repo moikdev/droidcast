@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.FolderDeviceTest:
+INSTRUMENTATION_STATUS: test=loadingProviderKeepsIndexedRowsUntilComplete
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Partial provider listing must preserve previously indexed rows and refresh healthy folders expected:<[Owned folder, café 日本.txt, owned-bytes.bin, Owned too large.bin, nested.txt, Orbit-renamed.txt]> but was:<[Orbit-renamed.txt, café 日本.txt]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.FolderDeviceTest.checkIncompleteProvider(FolderDeviceTest.kt:280)
+	at dev.tinycast.android.FolderDeviceTest.loadingProviderKeepsIndexedRowsUntilComplete(FolderDeviceTest.kt:209)
+
+INSTRUMENTATION_STATUS: stream=
+Error in loadingProviderKeepsIndexedRowsUntilComplete(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Partial provider listing must preserve previously indexed rows and refresh healthy folders expected:<[Owned folder, café 日本.txt, owned-bytes.bin, Owned too large.bin, nested.txt, Orbit-renamed.txt]> but was:<[Orbit-renamed.txt, café 日本.txt]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.FolderDeviceTest.checkIncompleteProvider(FolderDeviceTest.kt:280)
+	at dev.tinycast.android.FolderDeviceTest.loadingProviderKeepsIndexedRowsUntilComplete(FolderDeviceTest.kt:209)
+
+INSTRUMENTATION_STATUS: test=loadingProviderKeepsIndexedRowsUntilComplete
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=offlineProviderKeepsIndexedRowsUntilComplete
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.FolderDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Partial provider listing must preserve previously indexed rows and refresh healthy folders expected:<[Owned folder, café 日本.txt, owned-bytes.bin, Owned too large.bin, nested.txt, Orbit-renamed.txt]> but was:<[Orbit-renamed.txt]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.FolderDeviceTest.checkIncompleteProvider(FolderDeviceTest.kt:280)
+	at dev.tinycast.android.FolderDeviceTest.offlineProviderKeepsIndexedRowsUntilComplete(FolderDeviceTest.kt:211)
+
+INSTRUMENTATION_STATUS: stream=
+Error in offlineProviderKeepsIndexedRowsUntilComplete(dev.tinycast.android.FolderDeviceTest):
+java.lang.AssertionError: Partial provider listing must preserve previously indexed rows and refresh healthy folders expected:<[Owned folder, café 日本.txt, owned-bytes.bin, Owned too large.bin, nested.txt, Orbit-renamed.txt]> but was:<[Orbit-renamed.txt]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.FolderDeviceTest.checkIncompleteProvider(FolderDeviceTest.kt:280)
+	at dev.tinycast.android.FolderDeviceTest.offlineProviderKeepsIndexedRowsUntilComplete(FolderDeviceTest.kt:211)
+
+INSTRUMENTATION_STATUS: test=offlineProviderKeepsIndexedRowsUntilComplete
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 19.968
+There were 2 failures:
+1) loadingProviderKeepsIndexedRowsUntilComplete(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Partial provider listing must preserve previously indexed rows and refresh healthy folders expected:<[Owned folder, café 日本.txt, owned-bytes.bin, Owned too large.bin, nested.txt, Orbit-renamed.txt]> but was:<[Orbit-renamed.txt, café 日本.txt]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.FolderDeviceTest.checkIncompleteProvider(FolderDeviceTest.kt:280)
+	at dev.tinycast.android.FolderDeviceTest.loadingProviderKeepsIndexedRowsUntilComplete(FolderDeviceTest.kt:209)
+2) offlineProviderKeepsIndexedRowsUntilComplete(dev.tinycast.android.FolderDeviceTest)
+java.lang.AssertionError: Partial provider listing must preserve previously indexed rows and refresh healthy folders expected:<[Owned folder, café 日本.txt, owned-bytes.bin, Owned too large.bin, nested.txt, Orbit-renamed.txt]> but was:<[Orbit-renamed.txt]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.FolderDeviceTest.checkIncompleteProvider(FolderDeviceTest.kt:280)
+	at dev.tinycast.android.FolderDeviceTest.offlineProviderKeepsIndexedRowsUntilComplete(FolderDeviceTest.kt:211)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

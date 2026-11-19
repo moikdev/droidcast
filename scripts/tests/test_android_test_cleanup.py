@@ -118,7 +118,7 @@ class RunnerRestorationOwnershipTests(unittest.TestCase):
             values = dict(Cleanup=Cleanup, empty_view_fixture_ids=empty_view_fixture_ids, json=json, subprocess=SimpleNamespace(run=lambda *a, **k: subprocess.CompletedProcess(a, 1)),
                           raw=raw, text=lambda *a: raw(*a).decode(), r=record, app=app, adb=['hermetic-adb'], a=SimpleNamespace(output=Path(temporary), layout='phone', size=None),
                           empty_view_owned=True, empty_owner=owner, empty_root=root, empty_lease=root + '/owners.json', fixture_owned=False, upload_owned=False,
-                          source_approval=None, prefs=prefs, emoji_prefs=emoji, settings=settings, keys=list(settings), font_before='1.0')
+                          document_fixture=None, source_approval=None, prefs=prefs, emoji_prefs=emoji, settings=settings, keys=list(settings), font_before='1.0')
             try: exec(code, values)
             except CleanupError as failure: error = failure
         return record, error, events, state['lease']
