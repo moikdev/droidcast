@@ -74,3 +74,15 @@ Short-landscape 200% transport smoke; scrolling remains available.
 ## Remaining scope and merge gates
 
 The source inventory remains statically untested. No complete Store/Raycast parity, physical/OEM, TalkBack, fetch-spec compliance, benchmark device execution, provider/account/paid-AI, production signing or migration claim is made. The original #89 image observation remains unexplained. CI, two independent gpt-6.1-sol/high exact-head audits and an expected-head merge remain required; hosted and local results must be recorded separately on the PR.
+
+## Request body presence on Android
+
+The portable runtime sends JSON null when a request has no body. Android's `JSONObject.optString` converted that value to the text `null`. Those four characters are valid Base64, so the bridge passed three bytes (`9e e9 65`) to the HTTP transport. An explicitly empty encoded body had the opposite problem. The bridge dropped it altogether.
+
+Droidcast now recognizes absent and JSON-null fields before decoding. An encoded empty string produces a present, zero-length byte array. Binary and Unicode payloads preserve their bytes. The literal Base64 string `"null"` still decodes as data, and a non-string field is rejected before opening a connection.
+
+The Android instrumentation exercises the shipping envelope conversion and HTTP client against controlled in-memory connections. It measures output-stream use, bytes written, the response URL and how many connections the redirect loop opens. On the earlier decoder, a headerless JSON-null POST failed to follow a cross-origin 307, and an explicitly empty POST followed it. On the repaired decoder, bodyless headerless requests reach the second origin. Requests with a present body or a header stop at the first connection. These checks use synthetic hosts and exercise no external network.
+
+The separate app smoke test taps the action in a real extension Detail screen, observes one WebView-to-native bridge call and the expected HTTPS-only rejection, and checks the caller on return. The screenshots show that smoke workflow. The body and redirect measurements come from the controlled connections. [Android observations and binary identities](validation/fetch-body/runs.json) · [Real Android frame bindings](validation/fetch-body/bindings.json).
+
+The comparison app built at `bc8353fe` includes the extraction of the existing decoder into the testable transport path and retains its original conversion. It passed the smoke workflow and failed the body and redirect assertions. With the same final instrumentation the repaired app built at `fdc22eda` passed all three cases on tablet and phone layouts of the dedicated API 36 emulator. The two tablet batches each recorded 18 successful cleanup checks. The phone batch recorded 20, including display size and density restoration. All three verified the original installed app and test packages. [Host verification](validation/fetch-body/host.json).
