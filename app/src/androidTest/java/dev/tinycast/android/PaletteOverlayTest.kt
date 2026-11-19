@@ -63,7 +63,12 @@ class PaletteOverlayTest {
                 probe.awaitMembership(true)
             }
             probe.snapshot("settings")
-            device.openQuickSettings()
+            assertTrue("Could not open Quick Settings", device.openQuickSettings())
+            // openQuickSettings() returns before SystemUI finishes opening. Injecting
+            // click-tile during that transition can leave the shade above the resumed palette.
+            assertTrue("Quick Settings panel did not appear", device.wait(Until.hasObject(
+                By.res(java.util.regex.Pattern.compile("com.android.systemui:id/(qs_pager|qs_panel|quick_settings_panel|expanded_qs_scroll_view)"))
+            ), 5000))
             device.waitForIdle()
             probe.snapshot("shade")
             probe.mark("before_${probe.mode}")
