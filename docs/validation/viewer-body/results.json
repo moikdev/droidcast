@@ -1,0 +1,310 @@
+{
+  "device": {
+    "avd": "Tinycast_Tablet_API_36",
+    "API": 36,
+    "ABI": "arm64-v8a",
+    "tablet_pixels": [
+      1920,
+      1200
+    ],
+    "tablet_dpi": 240
+  },
+  "apks": {
+    "pre_repair": {
+      "sha256": "0dad860558e404ea6292694bc801055326754f61a8230a843c4eff737b27d384",
+      "source_commit": "f29d95f51abe378e1686d408380353beade64163"
+    },
+    "diagnostic": {
+      "sha256": "fb0028ac93fd9a3e8ec4f341500a1690af663840e67a188e9c9f383b5db62bd4",
+      "source_commit": "8fb4f3ad7859459dc0196671267df2edbd8328ef",
+      "additional_patch_sha256": "ba14b93909e34a8d6aa99c3ded22074de806a18c3e292fc4a6c738002b0b7d5f"
+    },
+    "first_repair": {
+      "sha256": "26db26050339e3e8a95a546ac428003560d1b1af374a33501b3d5ae9cb0c8283",
+      "source_commit": "1ed0a73b59da283d936885a4d97302d6a76c9840"
+    },
+    "final": {
+      "sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "source_commit": "b4f3fe7c858509e7f12bb8b85388f2b7f5e455ea"
+    },
+    "test": {
+      "sha256": "56d873d9223489bdce2eb0ec7121dd1d93e7231d9a96023951bf956436805663",
+      "source_commit": "b4f3fe7c858509e7f12bb8b85388f2b7f5e455ea"
+    }
+  },
+  "unchanged_assets": 11,
+  "hardware": {
+    "early-service": {
+      "app": "pre-117 build; binary hash unavailable",
+      "status": "failed",
+      "scope": "service bind timed out",
+      "passed": [],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      }
+    },
+    "early-recorder": {
+      "app": "pre-117 build; binary hash unavailable",
+      "status": "failed",
+      "scope": "Wi-Fi shortcut recorder absent",
+      "passed": [
+        "recording pauses the existing global shortcut",
+        "record and persist Ctrl + Alt + Space",
+        "Ctrl+F focuses settings search while the service is enabled",
+        "Ctrl+Comma opens the separate settings workspace with the service enabled",
+        "round 1: summon/toggle from Settings",
+        "round 1: summon/toggle from Home",
+        "old global chord stops activating after reassignment"
+      ],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      }
+    },
+    "unfiltered-file": {
+      "app": "pre_repair",
+      "status": "failed",
+      "scope": "Set keyboard shortcut missing from exposed menu rows",
+      "passed": [],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      }
+    },
+    "isolated-file": {
+      "app": "pre_repair",
+      "status": "passed",
+      "scope": "isolated file binding without first warming a palette",
+      "passed": [
+        "recent-document binding opens the persisted TXT fixture"
+      ],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      },
+      "verified_by": "accessibility_text"
+    },
+    "warm-full-control": {
+      "app": "pre_repair",
+      "status": "failed",
+      "scope": "viewer absent after existing palette resumed",
+      "passed": [
+        "recording pauses the existing global shortcut",
+        "record and persist Ctrl + Alt + Space",
+        "Ctrl+F focuses settings search while the service is enabled",
+        "Ctrl+Comma opens the separate settings workspace with the service enabled",
+        "round 1: summon/toggle from Settings",
+        "round 1: summon/toggle from Home",
+        "old global chord stops activating after reassignment",
+        "live conflict names its owner and cannot overwrite it",
+        "Wi-Fi command uses normal destination and suppresses repeats",
+        "installed-app binding launches real Files app"
+      ],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      }
+    },
+    "warm-focused-control": {
+      "app": "pre_repair",
+      "status": "failed",
+      "scope": "viewer absent",
+      "passed": [],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      }
+    },
+    "warm-trace": {
+      "app": "diagnostic",
+      "status": "failed",
+      "scope": "viewer absent; MIME lookup returned before window focus",
+      "passed": [],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      }
+    },
+    "first-repair": {
+      "app": "first_repair",
+      "status": "passed",
+      "scope": "warm file binding",
+      "passed": [
+        "recent-document binding opens the persisted TXT fixture"
+      ],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      },
+      "verified_by": "accessibility_text"
+    },
+    "warm-final": {
+      "app": "final",
+      "status": "passed",
+      "scope": "warm file binding",
+      "passed": [
+        "recent-document binding opens the persisted TXT fixture"
+      ],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      },
+      "verified_by": "accessibility_text"
+    },
+    "full-final-typing": {
+      "app": "final",
+      "status": "failed",
+      "scope": "14 successful cases before external Settings search contained qwerrty",
+      "passed": [
+        "recording pauses the existing global shortcut",
+        "record and persist Ctrl + Alt + Space",
+        "Ctrl+F focuses settings search while the service is enabled",
+        "Ctrl+Comma opens the separate settings workspace with the service enabled",
+        "round 1: summon/toggle from Settings",
+        "round 1: summon/toggle from Home",
+        "old global chord stops activating after reassignment",
+        "live conflict names its owner and cannot overwrite it",
+        "Wi-Fi command uses normal destination and suppresses repeats",
+        "installed-app binding launches real Files app",
+        "recent-document binding opens the persisted TXT fixture",
+        "calculator binding enters the same calculator mode",
+        "calculator shortcut toggles its existing mode",
+        "note command binding opens the normal native editor"
+      ],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      },
+      "verified_by": "accessibility_text"
+    },
+    "full-final-repeat": {
+      "app": "final",
+      "status": "failed",
+      "scope": "three passes before Settings route timeout; subsequent hierarchy showed an Android ANR dialog",
+      "passed": [
+        "recording pauses the existing global shortcut",
+        "record and persist Ctrl + Alt + Space",
+        "Ctrl+F focuses settings search while the service is enabled"
+      ],
+      "restore": {
+        "original_service_consent_restored": true,
+        "original_preferences_restored": true,
+        "adbd_unprivileged": true,
+        "app_unprivileged": true
+      }
+    }
+  },
+  "native": {
+    "native-old": {
+      "layout": "tablet",
+      "apk_sha256": "0dad860558e404ea6292694bc801055326754f61a8230a843c4eff737b27d384",
+      "test_apk_sha256": "56d873d9223489bdce2eb0ec7121dd1d93e7231d9a96023951bf956436805663",
+      "passes": 0,
+      "completed": false,
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "methods": [
+        "deferredFileShortcutRechecksItsBindingWhenFocusReturns"
+      ],
+      "tests_log_sha256": "ab2a8c3f7ddd9f37d237f2769f90ec73b30e22dc0f87fcbf23f19cc4316b53c3"
+    },
+    "native-fixed": {
+      "layout": "tablet",
+      "apk_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "test_apk_sha256": "56d873d9223489bdce2eb0ec7121dd1d93e7231d9a96023951bf956436805663",
+      "passes": 6,
+      "completed": true,
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "methods": [
+        "authenticatedInvocationUsesNormalFunnelAndRejectsReplayAndRebinding",
+        "deferredFileShortcutRechecksItsBindingWhenFocusReturns",
+        "providerTimeoutLeavesTheDocumentTrackedAndSearchUsable",
+        "newerCommandCancelsPendingFileLaunch",
+        "timedOutMimeLookupDoesNotLaunchAndAllowsRetry",
+        "slowDisplayNameLeavesSearchResponsiveAndUpdatesTheTrackedReference"
+      ],
+      "tests_log_sha256": "1f43e3b66543b3821a867a51915784dc7f4114aa1380e20090001ff289e62eb1"
+    },
+    "native-phone": {
+      "layout": "phone",
+      "apk_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "test_apk_sha256": "56d873d9223489bdce2eb0ec7121dd1d93e7231d9a96023951bf956436805663",
+      "passes": 1,
+      "completed": true,
+      "preferences_restored": true,
+      "emoji_preferences_restored": true,
+      "settings_restored": true,
+      "methods": [
+        "deferredFileShortcutRechecksItsBindingWhenFocusReturns"
+      ],
+      "tests_log_sha256": "45591a22451070fcb6f5b4aa10b2f3c36855163aaa7c30702e9c71c824bfbdb0"
+    }
+  },
+  "host": {
+    "python_normal": 141,
+    "python_optimized": 141,
+    "jvm": {
+      "tests": 343,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "lint_debug": {
+      "Warning": 47
+    },
+    "lint_benchmark": {
+      "Warning": 47
+    },
+    "build_log_sha256": "e0e53e540cf763a95fc0401e6f47e7a2d55dee6a66195ca78d06bc2bfb6ef3a9"
+  },
+  "hardware_runner_sha256": "6445a5f457af5567956425b92f8bb648ea74a1db124820badee91caf9a576057",
+  "body_verifier_sha256": "e6d4f47e476f4069a1b7031e6d31dece93cc0e252cfd8c92e6b7d2318fe73ac1",
+  "files_sha256": {
+    "docs/screenshots/viewer-body/app-file-search.png": "23040f7b999ac95ad606f8c84fb511f659d895755e05209ba4a8a9f5975760c8",
+    "docs/screenshots/viewer-body/app-file-viewer.png": "52c6c9ff04d05d27fab9d670582a86c7107dfaeb7d81d2842bea158c1b84f544",
+    "docs/screenshots/viewer-body/before-settings-anr.png": "3df866095cba0286f2cd29528532b342188ea8c44f66f73dc6fbbaa02df35dd2",
+    "docs/screenshots/viewer-body/historical-visible.png": "ef71924617d9d8f10e7c02c81674d069fb06c5b5d50c97756f7278c848a66fa4",
+    "docs/screenshots/viewer-body/settings-typing-failure.png": "c055ea69ed9bb22b2da1b5b54f9f3db213cbe70e854eae64f131ca4d02217e94",
+    "docs/screenshots/viewer-body/shortcut-destination.png": "6737209a8f08b1bb740cace3044b646b2bfdb21ca3be168aa5934f7f3d79f399",
+    "docs/screenshots/viewer-body/warm-after.png": "a7f27439916dbd31b96f63a36c97806ec9835af081dfea24996515c2710317c1",
+    "docs/screenshots/viewer-body/warm-before.png": "adc6b218a5e9a537a2fd22220fd36d899bb3f5d9d3cf247bbc2c60f85e3f1353",
+    "docs/screenshots/viewer-body/wrong-body.png": "14fefa9801f641ce2afbd08438429cd07971cceb982084aa63214f5650a0c393",
+    "docs/validation/viewer-body/anr-main-frames.txt": "b60d3c50725692a3c82966a8f7d3d6a204cb38695b3b16c9dc682ef3e6dd9baa",
+    "docs/validation/viewer-body/app-file-search.xml": "74b4b49b3d587016eb595dbde4e0b7065eb776ecf1035cbe3248dc66f31cd35b",
+    "docs/validation/viewer-body/app-file-viewer.xml": "a122db79ee56652ba8da3e2f71ab71dbadcf3bc368e8af4a58edb1335e36fef8",
+    "docs/validation/viewer-body/diagnostic-only.patch": "ba14b93909e34a8d6aa99c3ded22074de806a18c3e292fc4a6c738002b0b7d5f",
+    "docs/validation/viewer-body/diagnostic-timing.log": "b39a02978da5269bb0ef88909e8617af0fed92fe118a87b6719123c057f8598f",
+    "docs/validation/viewer-body/historical-exposed-body.xml": "ba6d506b8d6bd3173ee1532dda3d684007f600e3f79cca8966eb3ab61f494d2b",
+    "docs/validation/viewer-body/historical-missing-body.xml": "1593290ec8be07dcb68aecb90415045150c45f1b3e9442944ee4585f922c54a7",
+    "docs/validation/viewer-body/same-title-wrong-body.xml": "15c86d47c768ccdc462db41c9decf8b281a56be16ae44799323c11fa34cfc29b",
+    "docs/validation/viewer-body/settings-anr.xml": "969405bb3af88f0523c1ca2d8a344dd75cba7495c9bb7ec2e9d9ab9cd5699e2d",
+    "docs/validation/viewer-body/settings-typing-failure.xml": "ff17ec78ca6a98b0e0e7dca84d8823b592b33789bcb8613c66865aa5185e4668",
+    "docs/validation/viewer-body/shortcut-destination.xml": "a122db79ee56652ba8da3e2f71ab71dbadcf3bc368e8af4a58edb1335e36fef8",
+    "docs/validation/viewer-body/warm-after.xml": "a122db79ee56652ba8da3e2f71ab71dbadcf3bc368e8af4a58edb1335e36fef8",
+    "docs/validation/viewer-body/warm-before.xml": "cb887f2fc9043b86b6ee884b441ffe4007c1238aa283bd072160e43a0c6fcd46"
+  }
+}

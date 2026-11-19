@@ -110,7 +110,7 @@ Global shortcut testing runs outside UiAutomation because UI instrumentation can
 python3 scripts/test-configurable-shortcuts.py --serial emulator-5580 --rounds 3
 ```
 
-The shortcut harness checks the TXT fixture inside Android HTML Viewer. When its accessibility tree omits the body, the host needs Python Pillow and Tesseract with English language data to check the visible WebView pixels. The result records which method verified the document. [Viewer evidence](docs/HTML-VIEWER-EVIDENCE.md)
+Use `--document-only` with the shortcut harness to test the configured TXT binding and Android HTML Viewer in isolation. When its accessibility tree omits the body, the host needs Python Pillow and Tesseract with English language data to check the visible WebView pixels. The result records which method verified the document. [Viewer evidence](docs/HTML-VIEWER-EVIDENCE.md)
 
 The helper restores preferences, accessibility consent and unprivileged adbd in a finally block. It requires the saved TXT fixture from the extended workflow below. It is restricted to the dedicated `Tinycast_Tablet_API_36` emulator. Root adbd is used only to inject hardware-style Linux key events; the app stays unprivileged and does not require root.
 

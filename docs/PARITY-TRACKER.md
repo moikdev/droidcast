@@ -121,7 +121,7 @@ Global-shortcut onboarding follow-up: [#39](https://github.com/moikdev/droidcast
 
 Assistant activation and immediate search: [#40](https://github.com/moikdev/droidcast/issues/40), merged in PR #38. The custom global hotkey remains separate from the system assistant mapping.
 
-The TXT shortcut verifier checks text within Android HTML Viewer’s WebView. When the accessibility hierarchy omits the body, a screenshot-based check reads the visible sentence. A real same-title document with different content fails the check. The cause of the stock viewer’s intermittent accessibility omission remains open. [Evidence for #41](HTML-VIEWER-EVIDENCE.md)
+The TXT shortcut verifier checks text within Android HTML Viewer’s WebView. When the accessibility hierarchy omits the body, a screenshot-based check reads the visible sentence. A real same-title document with different content fails the check. The [warm-palette shortcut fix](https://github.com/moikdev/droidcast/issues/120) defers file dispatch until the window gains focus. The cause of the stock viewer’s intermittent accessibility omission remains open. [Evidence for #41](HTML-VIEWER-EVIDENCE.md)
 
 Tablet Settings fullscreen polish: [#42](https://github.com/moikdev/droidcast/issues/42), merged in PR #43; the palette remains floating.
 
