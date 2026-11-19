@@ -68,10 +68,11 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
         val reviewOwner = store.textReview
         val route = store.dialog
         val extensionEpoch = store.extensions.launchEpoch
+        val routeEpoch = store.focusEpoch
         fun closeRoute() {
             // Queued Back/Cancel callbacks from an older surface cannot dismiss
             // a newer incoming review or a replacement command.
-            if (store.dialog != route) return
+            if (store.dialog != route || (route == "link-query" && store.focusEpoch != routeEpoch)) return
             if (route in setOf("extension-run", "extension-setup") && store.extensions.launchEpoch != extensionEpoch) return
             if (reviewOwner != null) {
                 if (store.textReview !== reviewOwner) return
@@ -79,7 +80,7 @@ fun TinycastApp(store: PaletteStore, globalEnabled: Boolean, run: (Command) -> U
                 return
             }
             if (store.textReview != null) return
-            if (store.dialog in setOf("note", "link", "clip")) { store.discardEditorDraft(); store.editing = null }
+            if (store.dialog in setOf("note", "link", "clip", "link-query")) { store.discardEditorDraft(); store.editing = null }
             if (store.recordingTarget != null) { store.cancelShortcutRecording(); return }
             if (store.dialog?.startsWith("backup") == true) {
                 if (store.backupBusy) return

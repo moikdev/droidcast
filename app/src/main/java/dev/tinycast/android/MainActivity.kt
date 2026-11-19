@@ -243,15 +243,17 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Droidcast", text))
         store.message = "Copied to clipboard"
     }
-    private fun open(intent: Intent, unavailableMessage: String = "No available app can open this item") {
+    private fun open(intent: Intent, unavailableMessage: String = "No available app can open this item"): Boolean {
         try {
             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             finish()
+            return true
         } catch (_: ActivityNotFoundException) {
             store.message = unavailableMessage
         } catch (_: SecurityException) {
             store.message = unavailableMessage
         }
+        return false
     }
     fun openSystemSettings(destination: SettingsDestination) = open(destination.intent(packageName), "This device can’t open ${destination.title}.")
     private fun openSettings(page: String = "general", command: String? = null, editor: String = "", operation: String? = null) {
@@ -265,7 +267,7 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
         store.pendingShortcut = null
         TextReviewOwnership.revoke()
         cancelDocumentOpen()
-        if (command.id !in setOf("backup", "backup-export", "backup-import", "backup-write", "backup-read")) store.used(command.id)
+        if (command.kind != Kind.LINK && command.id !in setOf("backup", "backup-export", "backup-import", "backup-write", "backup-read")) store.used(command.id)
         if (command.kind == Kind.COMMAND) {
             SystemSettings.find(command.id)?.let { openSystemSettings(it); return }
         }
@@ -274,8 +276,16 @@ class MainActivity : ComponentActivity(), InputManager.InputDeviceListener {
             Kind.APP -> open(Intent.makeMainActivity(ComponentName.unflattenFromString(command.payload)))
             Kind.NOTE -> { store.editing = store.notes.firstOrNull { it.id == command.id }; store.dialog = "note" }
             Kind.LINK -> {
-                if (command.payload.contains("{query}")) { store.editing = store.links.firstOrNull { it.id == command.id }; store.dialog = "link-query" }
-                else open(Intent(Intent.ACTION_VIEW, Uri.parse(command.payload)))
+                if (isFinishing) return
+                if (command.payload.contains("{query}")) {
+                    val link = store.links.firstOrNull { it.id == command.id } ?: return
+                    store.discardEditorDraft()
+                    store.editing = link
+                    store.focusEpoch++
+                    store.dialog = "link-query"
+                } else if (open(Intent(Intent.ACTION_VIEW, Uri.parse(command.payload)))) {
+                    store.used(command.id)
+                }
             }
             Kind.FILE -> openRecentDocument(command)
             Kind.EXTENSION -> {
