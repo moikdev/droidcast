@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- AGP configures the first entry for each tested variant. The second targets only the test APK. -->
+    <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner" />
     <instrumentation android:name="dev.tinycast.android.KeyboardObservationInstrumentation"
         android:targetPackage="${applicationId}" />
     <application>
