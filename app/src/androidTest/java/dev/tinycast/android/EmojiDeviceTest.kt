@@ -62,6 +62,7 @@ class EmojiDeviceTest {
         originalEmoji.forEach { (key, value) -> when (value) {
             is String -> editor.putString(key, value)
             is Boolean -> editor.putBoolean(key, value)
+            is Int -> editor.putInt(key, value)
             is Set<*> -> editor.putStringSet(key, value.filterIsInstance<String>().toSet())
         } }
         assertTrue(editor.commit())
@@ -258,6 +259,58 @@ class EmojiDeviceTest {
             connection.finishComposingText()
         }
     }
+    @Test fun gridZoomFollowsSelectionAndOnlySavesAnExplicitDefault() {
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        compose.activityRule.scenario.onActivity { prefs.edit().remove("gridColumns").apply() }
+        search("face")
+        fun firstRowColumns(): Int {
+            val cells = compose.onAllNodes(SemanticsMatcher("emoji cells") {
+                SemanticsProperties.TestTag in it.config && it.config[SemanticsProperties.TestTag].startsWith("emoji-cell-")
+            }).fetchSemanticsNodes().map { it.boundsInWindow }.filter { it.height > 0 && it.width > 0 }
+            val top = cells.minOf { it.top }
+            return cells.count { kotlin.math.abs(it.top - top) < 1 }
+        }
+        fun action(tag: String) {
+            compose.onNodeWithTag("emoji-actions").performScrollTo().performClick()
+            compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+            compose.waitForIdle()
+        }
+        val original = firstRowColumns()
+        evidence("grid-default", "results · offline")
+        key(KeyEvent.KEYCODE_DPAD_RIGHT)
+        val selectedId = store.results()[store.selected].id
+        key(KeyEvent.KEYCODE_EQUALS, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
+        assertEquals("Zoom in removes a rendered column", original - 1, firstRowColumns())
+        compose.onNodeWithTag("emoji-cell-$selectedId").assertIsSelected().assertIsDisplayed()
+        assertEquals("face", store.query)
+        assertFalse(prefs.contains("gridColumns"))
+        evidence("grid-zoomed", "results · offline")
+        val bounds = compose.onNodeWithTag("emoji-cell-$selectedId").fetchSemanticsNode().boundsInWindow
+        val minimum = 48 * context.resources.displayMetrics.density - 1
+        assertTrue("Zoomed target", bounds.width >= minimum && bounds.height >= minimum)
+        key(KeyEvent.KEYCODE_DPAD_DOWN)
+        assertEquals(original, store.selected)
+        key(KeyEvent.KEYCODE_0, KeyEvent.META_META_ON)
+        assertEquals(original, firstRowColumns())
+        action("emoji-zoom-in")
+        assertEquals(original - 1, firstRowColumns())
+        action("emoji-save-size")
+        assertEquals(original - 1, prefs.getInt("gridColumns", 0))
+        action("emoji-zoom-out")
+        assertEquals(original, firstRowColumns())
+        assertEquals(original - 1, prefs.getInt("gridColumns", 0))
+        compose.onNodeWithTag("emoji-back").performClick()
+        compose.onNodeWithTag("search").performTextReplacement("emoji")
+        compose.onNodeWithTag("result-emoji").performClick()
+        search("face")
+        assertEquals("A fresh picker uses its saved default", original - 1, firstRowColumns())
+        evidence("grid-reopened", "results · offline")
+        action("emoji-auto-size")
+        assertFalse(prefs.contains("gridColumns"))
+        assertEquals(original, firstRowColumns())
+    }
+
     @Test fun copyingWithoutConsentLeavesHistoryEmpty() {
         val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
         compose.activityRule.scenario.onActivity { prefs.edit().remove("rememberRecent").remove("recent").apply() }

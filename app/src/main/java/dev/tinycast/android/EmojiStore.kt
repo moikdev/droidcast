@@ -2,6 +2,7 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.compose.runtime.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,18 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
     var historyEnabled by mutableStateOf(prefs.getBoolean("rememberRecent", false)); private set
     var hasSavedHistory by mutableStateOf(prefs.contains("recent")); private set
     var recent by mutableStateOf(if (historyEnabled) readRecent() else emptyList()); private set
-    private val historyListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+    var defaultGridColumns by mutableStateOf(readGridColumns()); private set
+    private fun readGridColumns(): Int? = prefs.getInt("gridColumns", 0).takeIf { it in 1..10 }
+
+    fun saveGridColumns(columns: Int?) {
+        require(columns == null || columns in 1..10)
+        prefs.edit {
+            if (columns == null) remove("gridColumns") else putInt("gridColumns", columns)
+        }
+    }
+
+    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == null || key == "gridColumns") defaultGridColumns = readGridColumns()
         if (key == null || key == "rememberRecent" || key == "recent") refreshHistory()
     }
     var query by mutableStateOf("")
@@ -27,8 +39,8 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
     var selected by mutableIntStateOf(0)
 
     init {
-        prefs.registerOnSharedPreferenceChangeListener(historyListener)
-        scope.coroutineContext.job.invokeOnCompletion { prefs.unregisterOnSharedPreferenceChangeListener(historyListener) }
+        prefs.registerOnSharedPreferenceChangeListener(preferenceListener)
+        scope.coroutineContext.job.invokeOnCompletion { prefs.unregisterOnSharedPreferenceChangeListener(preferenceListener) }
         scope.launch {
             runCatching { withContext(Dispatchers.IO) {
                 context.assets.open("emoji-catalog.tsv").bufferedReader().use { EmojiCatalog.parse(it.lineSequence()) }
