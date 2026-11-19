@@ -398,7 +398,10 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
             val next = old.filter { it.id != id }
             if (next.size == old.size) return@forEach
             write(key, next)
-            if (key == "files") retryRecentDocumentCleanup()
+            if (key == "files") {
+                message = "Removed from recent files. Your original file was kept."
+                retryRecentDocumentCleanup()
+            }
             when (key) { "notes" -> notes = next; "links" -> links = next; "clips" -> clips = next; else -> files = next }
         }
         pins = pins - id; PalettePreferences.write(prefs, "pins", pins)

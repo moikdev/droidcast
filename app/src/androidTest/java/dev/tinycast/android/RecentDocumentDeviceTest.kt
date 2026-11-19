@@ -129,7 +129,15 @@ class RecentDocumentDeviceTest {
         if (withCapture) capture("recent-grant-confirm-delete")
         compose.onNodeWithTag("confirm-delete").performClick()
         compose.waitUntil(5_000) { compose.activity.store.files.none { it.id == selected.id } }
-        if (withCapture) capture("recent-grant-after-delete")
+        compose.onNodeWithTag("confirm-delete").assertDoesNotExist()
+        if (withCapture) {
+            compose.onNodeWithText("No matching commands").assertIsDisplayed()
+            compose.waitUntil(5_000) {
+                testAutomation().clearCacheForTest()
+                device.hasObject(By.pkg(context.packageName).text("No matching commands"))
+            }
+            capture("recent-grant-after-delete")
+        }
     }
 
     // Acquire access for a separate consumer through a second, actual picker result.
