@@ -319,6 +319,46 @@ class EmojiDeviceTest {
         assertEquals("🇯🇵", clipboard())
     }
 
+    @Test fun toneCopyKeepsOldestRecentCallerInAnExactGlyphSearch() = copyOldestRecent(true)
+
+    @Test fun toneCopyKeepsOldestRecentCallerInTheUnfilteredGrid() = copyOldestRecent(false)
+
+    private fun copyOldestRecent(exact: Boolean) {
+        val caller = store.entries.single { it.glyph == "👍" }
+        val variant = store.entries.single { it.glyph == "👍🏿" }
+        val previous = store.entries.filter { it.id != caller.id && it.id != variant.id }.take(31).map { it.id } + caller.id
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        compose.activityRule.scenario.onActivity {
+            prefs.edit().putBoolean("rememberRecent", true).putString("recent", org.json.JSONArray(previous).toString()).apply()
+        }
+        filter("Recent")
+        if (exact) search(caller.glyph) else key(KeyEvent.KEYCODE_MOVE_END)
+        assertEquals(caller.id, store.results()[store.selected].id)
+        openToneMenu()
+        compose.onNodeWithTag("inline-menu-search").performTextReplacement("Dark")
+        compose.onNodeWithTag("emoji-tone-${variant.id}").performTouchInput { click(center) }
+        assertEquals(variant.glyph, clipboard())
+        val persisted = org.json.JSONArray(prefs.getString("recent", "[]"))
+        assertEquals(listOf(variant.id) + previous.take(31), (0 until persisted.length()).map(persisted::getString))
+        val suffix = if (exact) "exact" else "all"
+        evidence("oldest-$suffix", "Copied thumbs up")
+        assertEquals("The caller remains selected after the variant evicts it from saved Recent",
+            caller.id, store.results().getOrNull(store.selected)?.id)
+        assertEquals(if (exact) 1 else 33, store.results().size)
+        if (exact) {
+            search("")
+            assertEquals(32, store.results().size)
+            search(caller.glyph)
+            compose.onNodeWithTag("emoji-empty").assertIsDisplayed()
+        } else {
+            compose.activityRule.scenario.onActivity { store.rememberRecent(false) }
+            compose.onNodeWithTag("emoji-empty").assertIsDisplayed()
+            compose.activityRule.scenario.onActivity { store.rememberRecent(true) }
+            assertEquals(32, store.results().size)
+            assertFalse(store.results().any { it.id == caller.id })
+        }
+    }
+
     @Test fun typingAndFourWayNavigationWorkImmediatelyWithoutTab() {
         for (code in listOf(KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_A, KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_E)) key(code)
         compose.onNodeWithTag("emoji-search").assertTextContains("face")
