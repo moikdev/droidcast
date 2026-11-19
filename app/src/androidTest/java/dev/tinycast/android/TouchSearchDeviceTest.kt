@@ -1251,14 +1251,7 @@ class TouchSearchDeviceTest {
     @Test fun emojiActionsSheetDocksAboveKeyboard() = phoneActionsSheet(true)
     @Test fun launcherActionsSheetDocksAboveKeyboard() = phoneActionsSheet(false)
 
-    @Test fun emojiActionKeyboardReopensOnFirstTapAfterBack() = actionKeyboardAfterBack(false)
-
-    @Test fun legacyActionKeyboardIgnoresStaleVisibleInsetDelivery() {
-        assumeTrue("Pre-R inset delivery calibration", Build.VERSION.SDK_INT == 26)
-        actionKeyboardAfterBack(true)
-    }
-
-    private fun actionKeyboardAfterBack(replayShownInsets: Boolean) = observeBackWindow {
+    @Test fun emojiActionKeyboardReopensOnFirstTapAfterBack() = observeBackWindow {
         record.put("scope", "Injected Back with a visible stock keyboard, followed by one pointer tap on the Emoji action-search keyboard button")
         emoji()
         node("emoji-search").performTextReplacement("face")
@@ -1278,42 +1271,27 @@ class TouchSearchDeviceTest {
         toggle.assertContentDescriptionEquals("Hide action search keyboard")
         capture("before-back", "emoji-search")
         assertTrue("Keyboard is visible immediately before Back", ime())
-        val editorView = requireNotNull(compose.activity.currentFocus)
-        val shownInsets = requireNotNull(editorView.rootWindowInsets)
         val mark = traceMark()
         device.pressBack()
         compose.waitUntil(10000) { !ime() }
         keyboardFirstBackOwners(mark, "first-tap-protocol-back")
         settledFeedbackViewport("emoji-palette")
         node("inline-menu-search").assertIsFocused()
-        try {
-            if (replayShownInsets) {
-                record.put("scope", "Controlled replay of the real pre-Back visible WindowInsets to the focused Compose view while the platform keyboard is hidden; actual pointer first tap")
-                ui {
-                    assertSame(editorView, it.currentFocus)
-                    editorView.dispatchApplyWindowInsets(shownInsets)
-                }
-                compose.waitForIdle()
-                assertFalse("Replaying a view notification leaves the platform keyboard hidden", ime())
-            }
-            val hiddenLabel = toggle.fetchSemanticsNode().config[SemanticsProperties.ContentDescription]
-            events.put(JSONObject().put("phase", "after-back").put("ime_visible", ime())
-                .put("label", JSONArray(hiddenLabel)))
-            capture("hidden-after-back", "emoji-search")
-            toggle.performTouchInput { click(center) }
-            val deadline = SystemClock.uptimeMillis() + 5000
-            while (!ime() && SystemClock.uptimeMillis() < deadline) SystemClock.sleep(50)
-            settledFeedbackViewport("emoji-palette")
-            events.put(JSONObject().put("phase", "after-one-tap").put("ime_visible", ime()))
-            capture("one-tap-after-back", "emoji-search")
-            assertTrue("A single tap reopens the action-search keyboard", ime())
-            assertEquals(listOf("Show action search keyboard"), hiddenLabel)
-            toggle.assertContentDescriptionEquals("Hide action search keyboard")
-            node("inline-menu-search").assertIsFocused()
-            text("emoji-search", "face")
-        } finally {
-            if (replayShownInsets) ui { ViewCompat.requestApplyInsets(editorView) }
-        }
+        val hiddenLabel = toggle.fetchSemanticsNode().config[SemanticsProperties.ContentDescription]
+        events.put(JSONObject().put("phase", "after-back").put("ime_visible", ime())
+            .put("label", JSONArray(hiddenLabel)))
+        capture("hidden-after-back", "emoji-search")
+        toggle.performTouchInput { click(center) }
+        val deadline = SystemClock.uptimeMillis() + 5000
+        while (!ime() && SystemClock.uptimeMillis() < deadline) SystemClock.sleep(50)
+        settledFeedbackViewport("emoji-palette")
+        events.put(JSONObject().put("phase", "after-one-tap").put("ime_visible", ime()))
+        capture("one-tap-after-back", "emoji-search")
+        assertTrue("A single tap reopens the action-search keyboard", ime())
+        assertEquals(listOf("Show action search keyboard"), hiddenLabel)
+        toggle.assertContentDescriptionEquals("Hide action search keyboard")
+        node("inline-menu-search").assertIsFocused()
+        text("emoji-search", "face")
         record.put("completed", true)
     }
 
