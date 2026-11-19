@@ -309,3 +309,9 @@ The reviewed grid and ordered-favorites changes merged in #130 (`36544e7c`) and 
 The next #44 slice adds [selectable backup of ordered favorites and saved grid size](BACKUP.md#emoji-favorites-and-grid-size). Files without emoji settings can still be exported as version 1. Recent history and consent stay local. Unicode/CLDR data, tone selection, multilingual/custom keywords and Android paste delivery remain open.
 
 The follow-up for [#133](https://github.com/moikdev/droidcast/issues/133) covers backup while the palette and Settings are both open. The earlier app erased a note saved after Merge confirmation opened. Its failed-commit recovery also erased two controlled peer grid edits. The repaired tablet passes all three comparisons using the same test APK. [Behavior and evidence](BACKUP.md#edits-from-another-open-window)
+
+### Unicode emoji and multilingual search
+
+The emoji backup and peer-edit repair merged in [#132](https://github.com/moikdev/droidcast/pull/132) at `428d05fa`. Both independent audits cleared `2fc5c95e`. Local verification and [hosted Android CI](https://github.com/moikdev/droidcast/actions/runs/44460555944) passed. The merged tree matches the reviewed head, and #133 closed.
+
+The [offline picker and Android evidence](EMOJI.md#unicode-18-and-cldr-49-verification) add pinned Unicode Emoji 18.0 and CLDR 49 search data for #44. All earlier IDs and their order are preserved. Dedicated tone selection, custom keywords and explicit Android paste delivery remain open.
