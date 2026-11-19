@@ -4,6 +4,9 @@
     <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner" />
     <instrumentation android:name="dev.tinycast.android.KeyboardObservationInstrumentation"
         android:targetPackage="${applicationId}" />
+    <queries>
+        <intent><action android:name="android.intent.action.PROCESS_TEXT"/><data android:mimeType="text/plain"/></intent>
+    </queries>
     <application>
         <service android:name="dev.tinycast.android.NativeInputTestIme"
             android:exported="true" android:permission="android.permission.BIND_INPUT_METHOD"
