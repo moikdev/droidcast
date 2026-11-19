@@ -1064,7 +1064,7 @@ class TouchSearchDeviceTest {
     }
 
     @OptIn(ExperimentalTestApi::class)
-    private fun searchableMenuBack(emojiRoute: Boolean) {
+    private fun searchableMenuBack(emojiRoute: Boolean, checkFirstTap: Boolean = false) {
         val search = if (emojiRoute) "emoji-search" else "search"
         val surface = if (emojiRoute) "emoji-palette" else "palette"
         val button = if (emojiRoute) "emoji-actions" else "actions-button"
@@ -1132,6 +1132,24 @@ class TouchSearchDeviceTest {
             ui { assertEquals(if (emojiRoute) "emoji" else "actions", it.store.dialog) }
             keyboardFirstBackOwners(firstMark, "searchable-first-back")
             capture("actions-shown-first-back", search)
+            if (checkFirstTap) {
+                val toggle = node("inline-menu-keyboard")
+                val hiddenLabel = toggle.fetchSemanticsNode().config[SemanticsProperties.ContentDescription]
+                toggle.performTouchInput { click(center) }
+                val deadline = SystemClock.uptimeMillis() + 5000
+                while (!ime() && SystemClock.uptimeMillis() < deadline) SystemClock.sleep(50)
+                settledFeedbackViewport(surface)
+                events.put(JSONObject().put("phase", "after-one-tap").put("hidden_label", JSONArray(hiddenLabel))
+                    .put("ime_visible", ime()))
+                capture("actions-one-tap", search)
+                assertTrue("One tap after keyboard-first Back shows the keyboard", ime())
+                assertEquals(listOf("Show action search keyboard"), hiddenLabel)
+                toggle.assertContentDescriptionEquals("Hide action search keyboard")
+                node("inline-menu-search").assertIsFocused()
+                text(search, query)
+                record.put("completed", true)
+                return@observeBackWindow
+            }
             val secondMark = traceMark()
             events.put(JSONObject().put("kind", "searchable-second-back").put("press_back_return", device.pressBack()))
             compose.waitForIdle()
@@ -1294,6 +1312,9 @@ class TouchSearchDeviceTest {
         text("emoji-search", "face")
         record.put("completed", true)
     }
+
+    @Test fun emojiActionKeyboardReopensWithCallerKeyboardInitiallyHidden() =
+        searchableMenuBack(emojiRoute = true, checkFirstTap = true)
 
     @Test fun emojiActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(true)
     @Test fun launcherActionsBackHidesKeyboardBeforeClosingMenu() = searchableMenuBack(false)
