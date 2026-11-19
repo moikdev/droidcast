@@ -64,11 +64,14 @@ for name, data in sources.items():
 
 assets = root / 'app/src/main/assets'
 (assets / 'UNICODE-LICENSE').write_bytes(sources['LICENSE'])
-category = None
+category = subgroup = None
 qualified = set()
 for line in sources['emoji-test.txt'].decode('utf-8').splitlines():
     if line.startswith('# group: '):
         category = line.removeprefix('# group: ')
+        subgroup = None
+    if line.startswith('# subgroup: '):
+        subgroup = line.removeprefix('# subgroup: ').replace('-', ' ')
     if not line or line.startswith('#'):
         continue
     values, description = line.split('#', 1)
@@ -77,10 +80,10 @@ for line in sources['emoji-test.txt'].decode('utf-8').splitlines():
         continue
     glyph = ''.join(chr(int(point, 16)) for point in points.split())
     match = re.fullmatch(r'(\S+) E[\d.]+ (.+)', description.strip())
-    if match is None or match[1] != glyph or glyph in qualified or not category:
+    if match is None or match[1] != glyph or glyph in qualified or not category or not subgroup:
         raise ValueError(f'Invalid emoji data: {line}')
     qualified.add(glyph)
-    rows.append((glyph, match[2], category, ''))
+    rows.append((glyph, match[2], category, subgroup))
 
 entries = {}
 for glyph, name, category, keywords in rows:
