@@ -1,0 +1,58 @@
+[
+  {
+    "stage": "before_confirm",
+    "elapsed_ms": 1227,
+    "usage_notification_ms": -1,
+    "activity_state": "RESUMED",
+    "window_focused": true,
+    "activity_destroyed": false,
+    "dialog": "backup-confirm",
+    "backup_busy": false,
+    "backup_error_present": false,
+    "incoming_document_present": true,
+    "model_at_limit": false,
+    "preferences_at_limit": false
+  },
+  {
+    "stage": "after_confirm",
+    "elapsed_ms": 1243,
+    "usage_notification_ms": -1,
+    "activity_state": "RESUMED",
+    "window_focused": true,
+    "activity_destroyed": false,
+    "dialog": "backup-confirm",
+    "backup_busy": true,
+    "backup_error_present": false,
+    "incoming_document_present": true,
+    "model_at_limit": false,
+    "preferences_at_limit": true
+  },
+  {
+    "stage": "apply_complete",
+    "elapsed_ms": 1261,
+    "usage_notification_ms": 1259,
+    "activity_state": "RESUMED",
+    "window_focused": true,
+    "activity_destroyed": false,
+    "dialog": "backup",
+    "backup_busy": false,
+    "backup_error_present": false,
+    "incoming_document_present": false,
+    "model_at_limit": true,
+    "preferences_at_limit": true
+  },
+  {
+    "stage": "after_next_command",
+    "elapsed_ms": 1265,
+    "usage_notification_ms": 1259,
+    "activity_state": "RESUMED",
+    "window_focused": true,
+    "activity_destroyed": false,
+    "dialog": "backup",
+    "backup_busy": false,
+    "backup_error_present": false,
+    "incoming_document_present": false,
+    "model_at_limit": true,
+    "preferences_at_limit": true
+  }
+]

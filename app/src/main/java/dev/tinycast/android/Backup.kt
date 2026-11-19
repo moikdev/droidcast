@@ -21,7 +21,41 @@ data class BackupData(
 
 data class BackupDocument(val data: BackupData, val categories: Set<BackupCategory>)
 enum class RestorePolicy { MERGE, REPLACE }
-data class RestorePlan(val data: BackupData, val added: Int, val skipped: Int, val removed: Int)
+data class RestorePlan(
+    val data: BackupData, val added: Int, val skipped: Int, val removed: Int,
+    val categories: Set<BackupCategory>
+) {
+    private companion object {
+        val collectionCategories = setOf(BackupCategory.NOTES, BackupCategory.LINKS, BackupCategory.CLIPS)
+    }
+
+    private fun count(n: Int, singular: String, plural: String) = "$n ${if (n == 1) singular else plural}"
+
+    fun reviewSummary(): String {
+        val settings = buildList {
+            if (BackupCategory.PREFERENCES in categories) {
+                add(count(data.pins.size, "pin", "pins"))
+                add(count(data.aliases.size, "alias override", "alias overrides"))
+            }
+            if (BackupCategory.LEARNING in categories) add(count(data.usage.size, "usage ranking entry", "usage ranking entries"))
+            if (BackupCategory.SHORTCUTS in categories) add(count(data.shortcuts.bindings.size, "keyboard shortcut", "keyboard shortcuts"))
+        }
+        return buildList {
+            if (categories.any { it in collectionCategories }) {
+                add("Collection items · $added to apply · ${count(skipped, "duplicate", "duplicates")} kept · $removed to replace")
+            }
+            if (settings.isNotEmpty()) add("Portable settings after restore · " + settings.joinToString(", "))
+        }.joinToString("\n")
+    }
+
+    fun completionMessage(): String {
+        if (categories.all { it in collectionCategories }) {
+            return "Backup restored · ${count(added, "item", "items")} applied, ${count(skipped, "duplicate", "duplicates")} kept"
+        }
+        val selection = categories.singleOrNull()?.label ?: "${categories.size} categories"
+        return "Backup restored · $selection"
+    }
+}
 
 /** Closed, versioned Android format. No code, capabilities, file grants or extension data. */
 object BackupCodec {
@@ -210,6 +244,6 @@ object BackupPlanner {
             ShortcutConfiguration(if (policy == RestorePolicy.MERGE) incoming + current.shortcuts.bindings else incoming.toMap())
         }
         ShortcutRules.validate(ShortcutConfiguration(shortcuts.bindings + preservedShortcuts))
-        return RestorePlan(BackupData(notes, links, clips, pins, aliases, usage, shortcuts), added, skipped, removed)
+        return RestorePlan(BackupData(notes, links, clips, pins, aliases, usage, shortcuts), added, skipped, removed, selected.toSet())
     }
 }

@@ -9,6 +9,31 @@ class BackupPlannerTest {
     private val categories = BackupCategory.entries.toSet()
     private fun plan(old: BackupData, incoming: BackupData, policy: RestorePolicy = RestorePolicy.MERGE, selected: Set<BackupCategory> = categories, defaults: Map<String, String> = emptyMap()) = BackupPlanner.plan(old, BackupDocument(incoming, categories), selected, policy, defaults)
 
+    @Test fun rankingFeedbackDescribesTheResultForMergeAndEmptyReplacement() {
+        val selected = setOf(BackupCategory.LEARNING)
+        val old = BackupData(usage = mapOf("calculator" to 3))
+        val incoming = BackupData(usage = mapOf("calculator" to 2, "emoji" to 1))
+        val merge = plan(old, incoming, selected = selected)
+        assertEquals("Portable settings after restore · 2 usage ranking entries", merge.reviewSummary())
+        assertEquals("Backup restored · Usage ranking", merge.completionMessage())
+        val cleared = plan(old, BackupData(), RestorePolicy.REPLACE, selected)
+        assertEquals("Portable settings after restore · 0 usage ranking entries", cleared.reviewSummary())
+    }
+
+    @Test fun mixedFeedbackSeparatesCollectionChangesAndSelectedSettings() {
+        val incoming = BackupData(notes = listOf(note), pins = setOf(note.id))
+        val mixed = plan(BackupData(), incoming, selected = setOf(BackupCategory.NOTES, BackupCategory.PREFERENCES))
+        assertEquals("Collection items · 1 to apply · 0 duplicates kept · 0 to replace\nPortable settings after restore · 1 pin, 0 alias overrides", mixed.reviewSummary())
+        assertEquals("Backup restored · 2 categories", mixed.completionMessage())
+    }
+
+    @Test fun collectionCompletionReportsOneAppliedItemOrOneDuplicate() {
+        val source = BackupData(notes = listOf(note))
+        val selected = setOf(BackupCategory.NOTES)
+        assertEquals("Backup restored · 1 item applied, 0 duplicates kept", plan(BackupData(), source, selected = selected).completionMessage())
+        assertEquals("Backup restored · 0 items applied, 1 duplicate kept", plan(source, source, selected = selected).completionMessage())
+    }
+
     @Test fun mergeIsIdempotentAndKeepsConflictingIdentity() {
         val incoming = BackupData(notes = listOf(note, SavedItem("notes:two", "Other", "New")))
         val first = plan(BackupData(notes = listOf(note.copy(body = "Keep edited text"))), incoming)

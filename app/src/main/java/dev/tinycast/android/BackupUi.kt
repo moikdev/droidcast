@@ -23,7 +23,7 @@ internal fun BackupDialog(store: PaletteStore, run: (Command) -> Unit, close: ()
         val plan = runCatching { store.restorePlan() }
         Shell("Apply this backup?", "Only your selected categories will change.", { if (!busy) store.dialog = "backup-preview" }, embedded = embedded) {
             Text(if (store.restorePolicy == RestorePolicy.REPLACE) "Replace deletes the current contents of selected categories and uses the backup instead. Other categories and recent documents are kept." else "Merge keeps existing items and their identities. Duplicate or conflicting items keep the existing version.", fontSize = 13.sp, lineHeight = 20.sp)
-            plan.getOrNull()?.let { Text("${it.added} collection items applied · ${it.skipped} duplicates kept · ${it.removed} current collection items replaced", color = PaletteTheme.secondary, fontSize = 12.sp, modifier = Modifier.padding(top = 16.dp)) }
+            plan.getOrNull()?.let { Text(it.reviewSummary(), color = PaletteTheme.secondary, fontSize = 12.sp, modifier = Modifier.padding(top = 16.dp)) }
             Text("Pins, aliases, ranking and keyboard bindings follow your selected merge/replace policy. Import never grants permissions or runs a command.", color = PaletteTheme.secondary, fontSize = 12.sp, modifier = Modifier.padding(top = 12.dp))
             if (BackupCategory.SHORTCUTS in store.restoreCategories) Text("Selected keyboard bindings take effect after applying. They can work globally if the keyboard service is already enabled. Import never enables that Android service.", color = PaletteTheme.ink, fontSize = 12.sp, modifier = Modifier.padding(top = 12.dp).testTag("backup-shortcut-warning"))
             store.backupError?.let { Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 12.dp)) }
@@ -90,7 +90,7 @@ internal fun BackupDialog(store: PaletteStore, run: (Command) -> Unit, close: ()
             }
             val plan = runCatching { store.restorePlan() }
             plan.exceptionOrNull()?.message?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp).testTag("backup-plan-error")) }
-            plan.getOrNull()?.let { Text("${it.added} items to apply · ${it.skipped} duplicates kept · ${it.removed} current items replaced", fontSize = 12.sp, color = PaletteTheme.secondary, modifier = Modifier.padding(top = 8.dp).testTag("backup-plan-summary")) }
+            plan.getOrNull()?.let { Text(it.reviewSummary(), fontSize = 12.sp, color = PaletteTheme.secondary, modifier = Modifier.padding(top = 8.dp).testTag("backup-plan-summary")) }
             Row(Modifier.fillMaxWidth().padding(top = 20.dp), horizontalArrangement = Arrangement.End) {
                 TextButton(onClick = store::discardImport, modifier = Modifier.testTag("backup-cancel-import")) { Text("Cancel import") }
                 Button(onClick = { store.dialog = "backup-confirm" }, enabled = plan.isSuccess, modifier = Modifier.testTag("backup-review")) { Text("Review changes") }

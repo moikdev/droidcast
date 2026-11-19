@@ -1,0 +1,705 @@
+{
+  "earlier_app_source": "b4f3fe7c858509e7f12bb8b85388f2b7f5e455ea",
+  "final_build_source": "9b373d579866a4e8185fc6e3b802f85f782204f8",
+  "runs": {
+    "phone-v1": {
+      "test_sha256": "e06e3277e185835109b4afb7330c599d58108ec161b5bbe0ca0d0471a5a5e0fa",
+      "runner_sha256": "b1740fe3d3cecd64b963d30a255d54cc1359ad00a0c961aff033a3aa5f3307b8",
+      "restoration": {
+        "force_stop": true,
+        "preferences": true,
+        "original_test_apk": true,
+        "size": true,
+        "density": true,
+        "font": true,
+        "consent_ime": true,
+        "app_apk": true,
+        "unprivileged": true
+      },
+      "lease_released": true,
+      "test_source": "163a2ca1c59be5e84305d18f0c746b092f50597a",
+      "earlier_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "candidate_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "cases": {
+        "warm": {
+          "rounds": 3,
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "efe3e6eca100e7cad2789f847483659a88de88c420994246acfe1cf765813738",
+          "stages": {
+            "trial-1": "fa5079a49e345d23581fdaeb13b0ed60a21bf1f33040632859240bd043d2f04c",
+            "trial-2": "da122519316a236595079472c529b96f18861a164104a375635515256d8fa50d",
+            "trial-3": "48b96cf4a0f47819af6946e2f2e35c36531dc2d6b1e348a0e7d43c1c885f51e5"
+          }
+        },
+        "omit-confirm": {
+          "rounds": 1,
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "execution_positive": false,
+          "timeout_reported": true,
+          "log_sha256": "be7490804c9813f5c03951ae43bdd348e49b8603ac4817c560a1a94750675572",
+          "stages": {
+            "trial-1": "22a025bdf1119d5723595e42f67900b18185e35c368f705524b32b7802a06ef2"
+          }
+        }
+      }
+    },
+    "fixed-v2": {
+      "test_sha256": "bd5b812eca9b8ec457dfb0ea11e7c8009f2382846c69fd9ffe39fe7348ac9253",
+      "runner_sha256": "07b1e044902e7fdf63c96fb630eb6e8717440e32231addd3a295a534326b0207",
+      "restoration": {
+        "force_stop": true,
+        "preferences": true,
+        "original_app_apk": true,
+        "original_test_apk": true,
+        "size": true,
+        "density": true,
+        "font": true,
+        "consent_ime": true,
+        "app_apk": true,
+        "unprivileged": true
+      },
+      "lease_released": true,
+      "test_source": "a2f59765c3237382790b74bc2132f9b4dd71ee21",
+      "earlier_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "candidate_app_sha256": "9ffa005eb8ade6324d59ebbb2d4364f91fe886e3f97bbe9691e1ed077c25ac7e",
+      "cases": {
+        "old-summary": {
+          "rounds": 1,
+          "active_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "execution_positive": false,
+          "timeout_reported": false,
+          "log_sha256": "341add54e58f3f2c842a7ccb3a9cae72c6c56cdb127ca8a08750d446d6598657",
+          "stages": {
+            "trial-1": "844cf176eadd27f596178648be3a19e42162926b73e90353d8f6a780a46bf87a"
+          }
+        },
+        "warm": {
+          "rounds": 3,
+          "active_app_sha256": "9ffa005eb8ade6324d59ebbb2d4364f91fe886e3f97bbe9691e1ed077c25ac7e",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "7b806ddf8b5c67865b9e8478babf2ffc57e72361cbf706aff4a0d90b40aebff9",
+          "stages": {
+            "trial-1": "d68ba6def6b981cf5ce4af4005972e8153f543f64bd98d4e90647622337a8abb",
+            "trial-2": "c3d09d2dfbd36f53b5f41e563f01244dbe4e4f6f23d7a6d94ee2b03b6c9c60dd",
+            "trial-3": "a669b31e235f4bf8d51f0163d1aef4c60900b5a0b34da79bb4a5a29172f4a582"
+          }
+        },
+        "omit-confirm": {
+          "rounds": 1,
+          "active_app_sha256": "9ffa005eb8ade6324d59ebbb2d4364f91fe886e3f97bbe9691e1ed077c25ac7e",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "execution_positive": false,
+          "timeout_reported": true,
+          "log_sha256": "d01aa9852c4ca0456d2ee9cbf722a89eba6f4e959cf6a076440366fbd3e1c550",
+          "stages": {
+            "trial-1": "130aa0a3b54bfeacd286359597306307eee2f33fa833629a235d75e12d4f762e"
+          }
+        },
+        "ordinary": {
+          "rounds": 1,
+          "active_app_sha256": "9ffa005eb8ade6324d59ebbb2d4364f91fe886e3f97bbe9691e1ed077c25ac7e",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "9e346d950adef05ae0dc0579f492544b9883b6d4925657fdcd0ba2dfb92cdd6d",
+          "stages": {}
+        }
+      }
+    },
+    "final-v3": {
+      "test_sha256": "1fef6538f993cc0c8a59b679884479dfff45ffc0827342ed03f49858e73021b7",
+      "runner_sha256": "b7c2a4e16f8e7f14fcfd86a1927cdc08d9a13f7b794710d1d0f7f54a69e746c7",
+      "restoration": {
+        "force_stop": true,
+        "preferences": true,
+        "original_app_apk": true,
+        "original_test_apk": true,
+        "size": true,
+        "density": true,
+        "font": true,
+        "consent_ime": true,
+        "app_apk": true,
+        "unprivileged": true
+      },
+      "lease_released": true,
+      "test_source": "30db6157255d2e4684302d9ef57d17b9e44139b6",
+      "earlier_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "candidate_app_sha256": "3151ce1657ecc38e0d53592ff183a2f6935536e0667a14ec47d225eaea243b2d",
+      "cases": {
+        "old-summary": {
+          "rounds": 1,
+          "active_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": false,
+          "timeout_reported": false,
+          "log_sha256": "193a4d7c4253829e34d2dfa68a41ec08999acad42eed2265f424156c340348f7",
+          "stages": {
+            "trial-1": "54320fc5c1a4ca82c50a7aaed49714985c2ce779518bda23e832ff1d0098f6ab"
+          }
+        },
+        "warm": {
+          "rounds": 3,
+          "active_app_sha256": "3151ce1657ecc38e0d53592ff183a2f6935536e0667a14ec47d225eaea243b2d",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "6988fc378a2787fb12f2eda7280129c1bcf7e6ee91737c9997fb2f21e4bd2cc6",
+          "stages": {
+            "trial-1": "cbd3554229d8af55d2b749b31cbfa77c7a26560cb55afb1d41b2b3e9524b38ab",
+            "trial-2": "0814371db55c9ce6a3bdf3a940ad59338f84b9f4a7c614ce21af95c78780bd4f",
+            "trial-3": "c1e3b06d67d9e9988f3f242669d928dd82d69adcf9e25d83aa9362d6bd9c503f"
+          }
+        },
+        "omit-confirm": {
+          "rounds": 1,
+          "active_app_sha256": "3151ce1657ecc38e0d53592ff183a2f6935536e0667a14ec47d225eaea243b2d",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": false,
+          "timeout_reported": true,
+          "log_sha256": "fd6b336875b47daa8ca15d4ce8c484fcc63d5822523883c5c0f0ab7faa4645bc",
+          "stages": {
+            "trial-1": "84c4e539cc6550aaafe743e62470f675d9c23cca958395747de937f7cdee031b"
+          }
+        },
+        "ordinary": {
+          "rounds": 1,
+          "active_app_sha256": "3151ce1657ecc38e0d53592ff183a2f6935536e0667a14ec47d225eaea243b2d",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "45254d626c942a478972bad8c98b77c9b0376bb60d1a0c913ad7f30c13b18aee",
+          "stages": {}
+        },
+        "tablet": {
+          "rounds": 1,
+          "active_app_sha256": "3151ce1657ecc38e0d53592ff183a2f6935536e0667a14ec47d225eaea243b2d",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200",
+            "Physical density: 240"
+          ],
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "3086182291a078a5731fa62421e036fb3321c049ae51c07f491698065d7bc3ef",
+          "stages": {
+            "trial-1": "13af4dce14386d6ab4465a6b741f0f3d1ee4e71d6620a259713450bed5373f8a"
+          }
+        }
+      }
+    },
+    "final-affected": {
+      "test_sha256": "1fef6538f993cc0c8a59b679884479dfff45ffc0827342ed03f49858e73021b7",
+      "runner_sha256": "59fde336c0d39940af48298cc6d24eee7a9f82c74ac9d925824226c123c2db52",
+      "restoration": {
+        "force_stop": true,
+        "preferences": true,
+        "original_app_apk": true,
+        "original_test_apk": true,
+        "size": true,
+        "density": true,
+        "font": true,
+        "consent_ime": true,
+        "app_apk": true,
+        "unprivileged": true
+      },
+      "lease_released": true,
+      "test_source": "30db6157255d2e4684302d9ef57d17b9e44139b6",
+      "earlier_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "candidate_app_sha256": "3151ce1657ecc38e0d53592ff183a2f6935536e0667a14ec47d225eaea243b2d",
+      "cases": {
+        "collection": {
+          "method": "replaceSelectedCategoryPersistsAndPreservesPermissionsAndOtherData",
+          "capture_sets_complete": true,
+          "execution_positive": true,
+          "prefs_logical_after_junit": true,
+          "borrowed_paths_restored": true,
+          "log_sha256": "dd64e7a992d513f905986e3a3f7ba7e4b73f0029bc6e29de69481403003dbf01",
+          "stages": {}
+        },
+        "settings": {
+          "method": "backupPreviewEscapeAndSystemPickerCancellationStayInWorkspace",
+          "capture_sets_complete": true,
+          "execution_positive": true,
+          "prefs_logical_after_junit": true,
+          "borrowed_paths_restored": true,
+          "log_sha256": "b9a10b5f148791401ac4de90d56f05089b073b290316c7645deb0b962050ef4d",
+          "stages": {}
+        }
+      }
+    },
+    "release-v4": {
+      "test_sha256": "fb24acfa12d0a1c6bf2ebda46c888a4df67e3cad39b62c80d9f236798400eb7a",
+      "runner_sha256": "b7c2a4e16f8e7f14fcfd86a1927cdc08d9a13f7b794710d1d0f7f54a69e746c7",
+      "restoration": {
+        "force_stop": true,
+        "preferences": true,
+        "original_app_apk": true,
+        "original_test_apk": true,
+        "size": true,
+        "density": true,
+        "font": true,
+        "consent_ime": true,
+        "app_apk": true,
+        "unprivileged": true
+      },
+      "lease_released": true,
+      "test_source": "9b373d579866a4e8185fc6e3b802f85f782204f8",
+      "earlier_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "candidate_app_sha256": "006df8e0824ed21e3dec80b3544da4cef5108bfd304f83d3b04abe69fbc903b4",
+      "cases": {
+        "old-summary": {
+          "rounds": 1,
+          "active_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": false,
+          "timeout_reported": false,
+          "log_sha256": "94d497e8d2317c8a7f06d8ab2f4a023c803957cc71961ebedfda47ada1ae127b",
+          "stages": {
+            "trial-1": "b32c832b2078630d74f6867e9f3dc5a21417500998c5e93e0de6cf9f4fc80a1c"
+          }
+        },
+        "warm": {
+          "rounds": 3,
+          "active_app_sha256": "006df8e0824ed21e3dec80b3544da4cef5108bfd304f83d3b04abe69fbc903b4",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "9ff3e15724d5c8ba47035eeaaed3843dff1740ea28a99bfc6e6f96646e4967fb",
+          "stages": {
+            "trial-1": "e732fc461fa21eff4faf95fe722852b9347588e103050abd7d129fb5f854d9ab",
+            "trial-2": "e4773047d634c59b6a4ccfc1f2b05a7e6e0c1939e59d89cae9e717a207ab012f",
+            "trial-3": "9436339fa3ff0df8f84927c89454fd4b60dece11d37b67c4b901e7a782122b2f"
+          }
+        },
+        "omit-confirm": {
+          "rounds": 1,
+          "active_app_sha256": "006df8e0824ed21e3dec80b3544da4cef5108bfd304f83d3b04abe69fbc903b4",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": false,
+          "timeout_reported": true,
+          "log_sha256": "9b8efce58cc2fd1281d556a97f816d11f6531c3bbe0e51578076fa770e95f75d",
+          "stages": {
+            "trial-1": "06261826e3871e49cc43e880e0e2eb25c7ec4e2a4d0becfdaeac08a8438349ea"
+          }
+        },
+        "ordinary": {
+          "rounds": 1,
+          "active_app_sha256": "006df8e0824ed21e3dec80b3544da4cef5108bfd304f83d3b04abe69fbc903b4",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200\nOverride size: 1080x2340",
+            "Physical density: 240\nOverride density: 420"
+          ],
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "9c9896f4099637199012aa55bf80be5dbde50cba07b3b8595983794b19c6aed4",
+          "stages": {}
+        },
+        "tablet": {
+          "rounds": 1,
+          "active_app_sha256": "006df8e0824ed21e3dec80b3544da4cef5108bfd304f83d3b04abe69fbc903b4",
+          "prefs_logical_after_junit": true,
+          "prefs_bytes_restored": true,
+          "geometry": [
+            "Physical size: 1920x1200",
+            "Physical density: 240"
+          ],
+          "execution_positive": true,
+          "timeout_reported": false,
+          "log_sha256": "b69f6ace12021b7641f6dd76a4ac6991dd8fcd20fbf0886261fbe13eb935cfd4",
+          "stages": {
+            "trial-1": "0e6e2cc5b9b594f817179d082d35459c9e5b591152c7dc685a1a059cc4d5f612"
+          }
+        }
+      }
+    },
+    "release-affected": {
+      "test_sha256": "fb24acfa12d0a1c6bf2ebda46c888a4df67e3cad39b62c80d9f236798400eb7a",
+      "runner_sha256": "59fde336c0d39940af48298cc6d24eee7a9f82c74ac9d925824226c123c2db52",
+      "restoration": {
+        "force_stop": true,
+        "preferences": true,
+        "original_app_apk": true,
+        "original_test_apk": true,
+        "size": true,
+        "density": true,
+        "font": true,
+        "consent_ime": true,
+        "app_apk": true,
+        "unprivileged": true
+      },
+      "lease_released": true,
+      "test_source": "9b373d579866a4e8185fc6e3b802f85f782204f8",
+      "earlier_app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "candidate_app_sha256": "006df8e0824ed21e3dec80b3544da4cef5108bfd304f83d3b04abe69fbc903b4",
+      "cases": {
+        "collection": {
+          "method": "replaceSelectedCategoryPersistsAndPreservesPermissionsAndOtherData",
+          "capture_sets_complete": true,
+          "execution_positive": true,
+          "prefs_logical_after_junit": true,
+          "borrowed_paths_restored": true,
+          "log_sha256": "1db2664cc3fa61b77b7c29def5bbc118728c033618598281163735a8d67ecd5a",
+          "stages": {}
+        },
+        "settings": {
+          "method": "backupPreviewEscapeAndSystemPickerCancellationStayInWorkspace",
+          "capture_sets_complete": true,
+          "execution_positive": true,
+          "prefs_logical_after_junit": true,
+          "borrowed_paths_restored": true,
+          "log_sha256": "0d34218c15a27f68792a5f9c10f1626323f6122deb734ce2b089e989a75d99dd",
+          "stages": {}
+        }
+      }
+    }
+  },
+  "preserved_apk_assets": {
+    "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+    "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+  },
+  "final_build_apks": {
+    "app-benchmark.apk": "8987175b8822a118c2912ae7f2c215afb0cf8774e3df524ce2ea24e0b178339a",
+    "app-debug.apk": "006df8e0824ed21e3dec80b3544da4cef5108bfd304f83d3b04abe69fbc903b4",
+    "app-benchmark-androidTest.apk": "fe957c0bba51ebfdd2931919ae37c422a617bd2d7babce7eeaa0ce1cc29b5970",
+    "app-debug-androidTest.apk": "fb24acfa12d0a1c6bf2ebda46c888a4df67e3cad39b62c80d9f236798400eb7a"
+  },
+  "host_log_sha256": {
+    "release-debug.log": "803da5c745ff5263c1728d62c748966f10b6ce230741fc9bb2cf1ea9a169c702",
+    "release-benchmark.log": "53b09aff5302c76ad7ff890f5c27f8da06ede899a6d7c2a1014b3f99be9eb8d1",
+    "final-python.log": "cfabf02c1649ede6f60322009254ccf8e7e694721355159432c1098c04e7ef91",
+    "final-optimized.log": "25fa76cdaf2c5e26b1ca35845f1a14d1c89e2974375f59d0180c1a64701c05de"
+  },
+  "jvm_reports": {
+    "TEST-dev.tinycast.android.BackupPlannerTest.xml": {
+      "sha256": "6d83356010347d0587d315746ef94f2dc53c0742655a609bb1985c4241f363b0",
+      "tests": 18,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.CalculatorActionsTest.xml": {
+      "sha256": "f17981f48f8cca2d5a18a8c8555db2e3091e7d49ab7306b25f46c829b46e0ac1",
+      "tests": 11,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.CommandEngineTest.xml": {
+      "sha256": "62e18eb15ed62f0803c27a8d54076f70f3f7f901262f36a8c020c2e54df2b97a",
+      "tests": 27,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.EmojiCatalogTest.xml": {
+      "sha256": "929561c548dd85baf627239a72b31670712e28dc4d5831cab6e5d8ba04a49448",
+      "tests": 5,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionCommandLaunchTest.xml": {
+      "sha256": "e53e16cafff88a8e799aff8d5d89fd2ea8f68fc6d137c5101ec9d9f53cbbbb5b",
+      "tests": 11,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionDetailImageTimeoutTest.xml": {
+      "sha256": "317ed7a62003d623151405202d5b7e1851c3440c630591d8551a8b8c6eabad7b",
+      "tests": 3,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionEngineCompatibilityTest.xml": {
+      "sha256": "1465ca6bf6f319c0e8a7219311549b5324cd969c9bc68803335ae5fe37dd6b27",
+      "tests": 7,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionFormContractTest.xml": {
+      "sha256": "ebae48612c9fb8f913e051ac25706893ed050e9a541ee6afe14272b7128f2ef9",
+      "tests": 17,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionFormFileImportTest.xml": {
+      "sha256": "180f185741f318bf5f953df4c97643516940f5a841d29073efa3abc65c4f16d8",
+      "tests": 15,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionFormSubmissionTest.xml": {
+      "sha256": "a25518e7368b418fdee491a8a4535cba8f785a9579738265645ec37ddfe5d3b2",
+      "tests": 7,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionFormTypedValuesTest.xml": {
+      "sha256": "9a2089d38e8d9cc50921fa4ea8eaaaae96f8138d11dfe10ab15fd65bed119695",
+      "tests": 9,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionFormValuesTest.xml": {
+      "sha256": "feef1fba0df83a21ec2373600934b4f996f09915137557fa93c11bce01e6e0ad",
+      "tests": 6,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionGridContractTest.xml": {
+      "sha256": "ca2bf1b96c80e36dbcf55a660b5627c2ec2ea807a9781e42c3dcdcc589b31a64",
+      "tests": 8,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionGridNavigationTest.xml": {
+      "sha256": "b33112e034dc0fe751e3e15898081d3bdd82e418330aef0ab8b00083ce3b8969",
+      "tests": 6,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionHttpTest.xml": {
+      "sha256": "57e96f718a81e967fb9288f8327e04f2c63f7cf92450801bba90cf7c646e8fa5",
+      "tests": 7,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionMarkdownModelTest.xml": {
+      "sha256": "26ea30b1c97f0c939ff94736e0a1f5ffa780f6e16f383cc4f0922ebbf940ecf6",
+      "tests": 16,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionMetadataVisualsTest.xml": {
+      "sha256": "216d896c733bdde78bbb1df85e7a1587286f066656929f5b615016117939d716",
+      "tests": 3,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionPasteCopyTest.xml": {
+      "sha256": "3c83b63e6a84ec5678af9ba8222b79937b8cfef7f314491a9ae6908c8258735c",
+      "tests": 9,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionPayloadIdentityTest.xml": {
+      "sha256": "ca9fba1f924bb95c9901e831c668aa2d50af7f151829633587c45d9c60e1557e",
+      "tests": 16,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionSelectionDeliveryTest.xml": {
+      "sha256": "8a51e26b9f9f59f533a846da56331f135d39e26fd82dad52b9732f13db690620",
+      "tests": 2,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionWorkflowEvidenceTest.xml": {
+      "sha256": "a754cefbaffe273138057fc79a7f7703d1d362b37cf11f16dcea6685f3b2e1a0",
+      "tests": 14,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ExtensionWorkflowInspectionTest.xml": {
+      "sha256": "360dd7ddb145c8c4ccb0643a718bbbb171f78976005df7015a5ada7d6e2c2897",
+      "tests": 8,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.FolderGrantTransactionTest.xml": {
+      "sha256": "d47d50fdf78a1a9a577fa18fdbf75f6be8453501078998f80d27f2d4167d8714",
+      "tests": 13,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.FolderIndexTest.xml": {
+      "sha256": "ed179ca201de6f0fc5899e85c56457f1a315b8c7ba9067cab5e1492020d8bbe6",
+      "tests": 7,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ModifierTapTest.xml": {
+      "sha256": "9aeae9eccaf106599df72ff9d1c194e7e53025d3fdd17e4ba5c75d7606dbcaf4",
+      "tests": 23,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.PaletteMenuOwnershipTest.xml": {
+      "sha256": "d7d6b3c6964d43597a1ecf474dfed1fcaae9d4ce7f98d64c8aa46d628511c839",
+      "tests": 3,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.PaletteScrollHistoryTest.xml": {
+      "sha256": "9bc9053b7de2b1d239a030263a72185611e6c78b2b6754a010788ea5eca773fb",
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ReviewedTextInputTest.xml": {
+      "sha256": "aac4c5e8966579c6986dfaf277ea8859bc0000d8d3bfc4cb5727c79ef8bc92f9",
+      "tests": 14,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ShortcutReadinessTest.xml": {
+      "sha256": "a5e54313252a32eaaebe094fb4a26cfff9109dad0573693fdea10398573fa488",
+      "tests": 9,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.ShortcutTest.xml": {
+      "sha256": "6efda22feea7dea262eed679bba6e487139b820cd67f66f1b41901e6d8191c9e",
+      "tests": 11,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.SystemSettingsTest.xml": {
+      "sha256": "7a7a5f0c720fbe6baeb3d02edb36b96ca44d5f874765a15a45d41161353589d0",
+      "tests": 3,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.TinycastGridParityTest.xml": {
+      "sha256": "9f347f71ebb987a7c0645de72090ab08cd800d815cab14da2c32f2afb58def9e",
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.UpdatePolicyTest.xml": {
+      "sha256": "e52141721251986be5e04cd26d2450a7a1dcd46f9604d2fe70e645d449598e3b",
+      "tests": 6,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.WeakValueTokensTest.xml": {
+      "sha256": "edfa8163e1bcaf695ec6bb218b06d492c2a3fb9480064d397156cb5cf6e9af34",
+      "tests": 3,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.extensions.CommonMarkPrimaryConformanceTest.xml": {
+      "sha256": "10a35d3453ef4b95b9b456d6dad0c5bb886242b1706af1962f52797c3070ee3d",
+      "tests": 2,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.extensions.ExtensionDetailImagePolicyTest.xml": {
+      "sha256": "b2be61eff08820a07bfd1d220edecd9889a62446378668daaaafcd293d0540da",
+      "tests": 11,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "TEST-dev.tinycast.android.extensions.NodeCpuInfoTest.xml": {
+      "sha256": "963dac21d706e34d7923cd6de11ea26ebc74eeb6a70291ee71c65491ae14af0d",
+      "tests": 14,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "lint_reports": {
+    "debug": {
+      "sha256": "d36b415a896b9b7042f0724155141948f7af46a2dbb877a97de92d61481366c2",
+      "counts": {
+        "Warning": 47
+      }
+    },
+    "benchmark": {
+      "sha256": "d36b415a896b9b7042f0724155141948f7af46a2dbb877a97de92d61481366c2",
+      "counts": {
+        "Warning": 47
+      }
+    }
+  }
+}
