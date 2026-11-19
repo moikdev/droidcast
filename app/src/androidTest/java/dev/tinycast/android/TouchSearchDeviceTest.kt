@@ -1244,7 +1244,7 @@ class TouchSearchDeviceTest {
     @Test fun emojiActionsSheetDocksAboveKeyboard() = phoneActionsSheet(true)
     @Test fun launcherActionsSheetDocksAboveKeyboard() = phoneActionsSheet(false)
 
-    @Test fun emojiActionKeyboardReopensOnFirstTapAfterBack() {
+    @Test fun emojiActionKeyboardReopensOnFirstTapAfterBack() = observeBackWindow {
         record.put("scope", "Injected Back with a visible stock keyboard, followed by one pointer tap on the Emoji action-search keyboard button")
         emoji()
         node("emoji-search").performTextReplacement("face")
@@ -1262,8 +1262,12 @@ class TouchSearchDeviceTest {
             settledFeedbackViewport("emoji-palette")
         }
         toggle.assertContentDescriptionEquals("Hide action search keyboard")
+        capture("before-back", "emoji-search")
+        assertTrue("Keyboard is visible immediately before Back", ime())
+        val mark = traceMark()
         device.pressBack()
         compose.waitUntil(10000) { !ime() }
+        dispatcherOwners(mark, "first-tap-protocol-back")
         settledFeedbackViewport("emoji-palette")
         node("inline-menu-search").assertIsFocused()
         val hiddenLabel = toggle.fetchSemanticsNode().config[SemanticsProperties.ContentDescription]

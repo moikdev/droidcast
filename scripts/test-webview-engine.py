@@ -421,8 +421,10 @@ def main():
                             c.attempt('restore-absence-' + APP, lambda: raw('uninstall', APP))
                             c.attempt('verify-initial-package-absence', lambda: require(all(not package_path(pkg) for pkg in (APP, TEST)), 'A package remains'))
                     else:
+                        # The captured debug APK may predate the candidate version code.
+                        # Allow downgrade only on restoration; retain app data and verify bytes.
                         for pkg, (path, expected) in originals.items():
-                            c.attempt('restore-binary-' + pkg, lambda path=path: raw('install', '-r', '-t', str(path), timeout=120))
+                            c.attempt('restore-binary-' + pkg, lambda path=path: raw('install', '-r', '-d', '-t', str(path), timeout=120))
                             c.attempt('verify-binary-' + pkg, lambda pkg=pkg, expected=expected: require(sha(raw('exec-out', 'cat', text('shell', 'pm', 'path', pkg).removeprefix('package:'))) == expected, 'Original binary differs'))
                         if not c.errors and ime_activation_attempted:
                             c.attempt('verify-input-method-after-original-apks', verify_input_method)
