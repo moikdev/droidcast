@@ -3,6 +3,7 @@
 import hashlib
 import json
 import re
+import unicodedata
 import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -117,6 +118,9 @@ for locale in sorted(Path(name).stem for name in sources if name.startswith('ann
         if entry:
             title = next(iter(entry.get('tts', [])), '')
             terms = [term for term in dict.fromkeys(entry.get('keywords', [])) if term != title]
-            lines.append(tsv([identity, title, *terms]))
+            # Normalize searchable terms once on the build host. Preserve glyphs and IDs verbatim.
+            folded = [unicodedata.normalize('NFC', word).lower().replace('_', ' ').replace('-', ' ').strip()
+                      for word in [title, *terms]]
+            lines.append(tsv([identity, *folded]))
     (packs / f'{locale}.tsv').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 print(f'{len(entries)} picker entries, {len(qualified)} Unicode sequences')

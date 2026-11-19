@@ -212,6 +212,28 @@ class EmojiDeviceTest {
         compose.onNodeWithTag("emoji-selected-name").assertTextEquals("thumbs up")
     }
 
+    @androidx.test.filters.SdkSuppress(minSdkVersion = 33)
+    @Test fun changingAppLanguageRefreshesTheOpenPickerAndDropsOldKeywords() {
+        val manager = context.getSystemService(android.app.LocaleManager::class.java)
+        val original = manager.applicationLocales
+        try {
+            search("ネコの顔")
+            compose.onNodeWithTag("emoji-selected-name").assertTextEquals("cat face")
+            manager.applicationLocales = android.os.LocaleList.forLanguageTags("de-DE")
+            compose.waitUntil(10000) {
+                compose.activity.resources.configuration.locales[0].language == "de" &&
+                    !store.loading && store.query == "ネコの顔" && store.results().isEmpty()
+            }
+            search("Katzengesicht")
+            compose.onNodeWithTag("emoji-selected-name").assertTextEquals("cat face")
+            evidence("german-cat", "cat face")
+            search("cat face")
+            compose.onNodeWithTag("emoji-selected-name").assertTextEquals("cat face")
+        } finally {
+            manager.applicationLocales = original
+        }
+    }
+
     @Test fun unicodeSequenceLookupCopiesExactMixedTones() {
         search("cracking face")
         if (store.results().isEmpty()) evidence("unicode-empty", "No matching emoji")
