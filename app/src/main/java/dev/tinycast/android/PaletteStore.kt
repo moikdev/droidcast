@@ -30,6 +30,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     val folderSearch = FolderSearch(application, viewModelScope)
     val emoji = EmojiStore(application, viewModelScope)
     private val prefs = application.getSharedPreferences("palette", Context.MODE_PRIVATE)
+    private val recentDocumentGrants = RecentDocumentGrants(prefs, application.contentResolver)
     var apps by mutableStateOf<List<Command>>(emptyList()); private set
     var loading by mutableStateOf(true); private set
     var notes by mutableStateOf(read("notes")); private set
@@ -114,6 +115,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
 
     init {
         prefs.registerOnSharedPreferenceChangeListener(preferenceListener)
+        retryRecentDocumentCleanup()
         refreshApps()
     }
 
@@ -382,7 +384,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
             aliases = aliases - item.id
             PalettePreferences.write(prefs, "aliases", JSONObject(aliases).toString())
         }
-        val old = when (kind) { "notes" -> notes; "links" -> links; "clips" -> clips; else -> files }
+        val old = when (kind) { "notes" -> notes; "links" -> links; "clips" -> clips; else -> read("files") }
         val next = (listOf(item) + old.filter { it.id != item.id }).let { if (kind == "clips") it.take(100) else it }
         write(kind, next)
         when (kind) { "notes" -> notes = next; "links" -> links = next; "clips" -> clips = next; else -> files = next }
@@ -390,7 +392,11 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     }
     fun delete(id: String) {
         listOf("notes", "links", "clips", "files").forEach { key ->
-            val next = read(key).filter { it.id != id }; write(key, next)
+            val old = read(key)
+            val next = old.filter { it.id != id }
+            if (next.size == old.size) return@forEach
+            write(key, next)
+            if (key == "files") retryRecentDocumentCleanup()
             when (key) { "notes" -> notes = next; "links" -> links = next; "clips" -> clips = next; else -> files = next }
         }
         pins = pins - id; PalettePreferences.write(prefs, "pins", pins)
@@ -398,11 +404,26 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         if (id in shortcutConfiguration.bindings) saveShortcuts(ShortcutConfiguration(shortcutConfiguration.bindings - id))
         selected = 0
     }
+    internal fun acquireRecentDocumentGrant(uri: android.net.Uri) {
+        viewModelScope.launch {
+            try { recentDocumentGrants.acquire(uri) }
+            catch (e: kotlinx.coroutines.CancellationException) { throw e }
+            catch (_: Exception) { message = "Document saved. Choose it again to renew access." }
+        }
+    }
+    private fun retryRecentDocumentCleanup() {
+        viewModelScope.launch {
+            try { recentDocumentGrants.releaseUnused() }
+            catch (e: kotlinx.coroutines.CancellationException) { throw e }
+            catch (_: Exception) { message = "Document permission cleanup is pending. Reopen Droidcast to retry." }
+        }
+    }
     private fun read(key: String): List<SavedItem> = runCatching {
         val array = JSONArray(prefs.getString(key, "[]"))
         (0 until array.length()).map { array.getJSONObject(it).let { o -> SavedItem(o.getString("id"), o.getString("title"), o.getString("body"), o.optString("alias")) } }
     }.getOrDefault(emptyList())
     private fun write(key: String, items: List<SavedItem>) {
+        if (key == "files") RecentDocumentGrants.referencesChanged()
         PalettePreferences.write(prefs, key, encodeItems(items))
     }
     private fun encodeItems(items: List<SavedItem>): String {
