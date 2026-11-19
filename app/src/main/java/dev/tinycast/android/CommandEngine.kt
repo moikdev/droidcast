@@ -1,5 +1,6 @@
 package dev.tinycast.android
 
+import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -65,7 +66,24 @@ object Calculator {
         "b" to UnitDef("data", 1.0), "kb" to UnitDef("data", 1000.0), "mb" to UnitDef("data", 1e6), "gb" to UnitDef("data", 1e9),
         "kib" to UnitDef("data", 1024.0), "mib" to UnitDef("data", 1048576.0), "gib" to UnitDef("data", 1073741824.0)
     )
-    fun format(value: Double): String = DecimalFormat("0.##########", DecimalFormatSymbols(Locale.US)).format(if (abs(value) < 1e-12) 0.0 else value)
+    private const val EXPONENT = "(?:e[+-]?\\d+)?"
+    private val numericLiteral = Regex("(?:\\d+(?:\\.\\d*)?|\\.\\d+)$EXPONENT")
+    private const val QUANTITY_NUMBER = "-?\\d+(?:\\.\\d+)?$EXPONENT"
+    private val conversionPattern = Regex("^($QUANTITY_NUMBER)\\s*([a-z°]+)\\s+(?:to|in)\\s+([a-z°]+)$")
+    private val quantityPattern = Regex("^($QUANTITY_NUMBER)\\s+([a-z]+)$")
+
+    private fun parseAmount(text: String): Double {
+        val amount = text.toDouble()
+        require(amount.isFinite())
+        require(amount != 0.0 || text.substringBefore('e').none { it in '1'..'9' })
+        return amount
+    }
+
+    fun format(value: Double): String = when {
+        value == 0.0 -> "0"
+        abs(value) < 1e-10 -> BigDecimal.valueOf(value).stripTrailingZeros().toString()
+        else -> DecimalFormat("0.##########", DecimalFormatSymbols(Locale.US)).format(value)
+    }
 
     fun evaluate(input: String): Calculation? = calculate(input, requireIntent = false)
 
@@ -78,9 +96,9 @@ object Calculator {
         val expression = source.removePrefix("=").trimStart()
         val text = expression.lowercase(Locale.ROOT)
         require(text.isNotBlank() && text.length <= 256)
-        val conversion = Regex("^(-?\\d+(?:\\.\\d+)?)\\s*([a-z°]+)\\s+(?:to|in)\\s+([a-z°]+)$").matchEntire(text)
+        val conversion = conversionPattern.matchEntire(text)
         if (conversion != null) {
-            val value = conversion.groupValues[1].toDouble()
+            val value = parseAmount(conversion.groupValues[1])
             val from = conversion.groupValues[2].removePrefix("°")
             val to = conversion.groupValues[3].removePrefix("°")
             val converted = if (from in listOf("c", "f", "k") && to in listOf("c", "f", "k")) {
@@ -94,13 +112,10 @@ object Calculator {
             }
             require(converted.isFinite())
             Calculation(input, "${format(converted)} $to", "Unit conversion · computed on device")
-        } else if (source.startsWith('=') && Regex("^(-?\\d+(?:\\.\\d+)?)\\s+([a-z]+)$").matches(text)) {
-            // Chaining a converted answer keeps its unit. Only explicit
-            // Calculator mode accepts a quantity literal; ordinary search is unchanged.
-            val parts = text.split(Regex("\\s+"))
-            val amount = parts[0].toDouble()
-            val unit = parts[1]
-            require(amount.isFinite() && (unit in units || unit in listOf("c", "f", "k")))
+        } else if (source.startsWith('=') && quantityPattern.matches(text)) {
+            val (number, unit) = quantityPattern.matchEntire(text)!!.destructured
+            val amount = parseAmount(number)
+            require(unit in units || unit in listOf("c", "f", "k"))
             Calculation(source, "${format(amount)} $unit", "Quantity · computed on device")
         } else {
             val parser = Parser(text.replace('÷', '/').replace('−', '-'))
@@ -162,9 +177,9 @@ object Calculator {
                 require(take('(')); hasOperation = true; val v = sum(); require(take(')'))
                 return when (name) { "sqrt" -> sqrt(v); "abs" -> abs(v); "sin" -> sin(v); "cos" -> cos(v); "tan" -> tan(v); "ln" -> ln(v); "log" -> log10(v); "round" -> round(v); else -> error("Unknown function") }
             }
-            while (pos < text.length && (text[pos].isDigit() || text[pos] == '.')) pos++
-            require(start != pos)
-            return text.substring(start, pos).toDouble()
+            val number = requireNotNull(numericLiteral.matchAt(text, pos))
+            pos = number.range.last + 1
+            return parseAmount(number.value)
         }
     }
 }

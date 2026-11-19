@@ -291,6 +291,28 @@ class CalculatorActionsDeviceTest {
             .put("capture_order","Compose idle, native XML, then PNG; sequential observations").toString(2))
     }
 
+    @Test fun smallAnswerCanBeCopiedAndUsedInTheNextCalculation() {
+        val query = "1/1000000000000"
+        compose.onNodeWithTag("search").performTextReplacement(query)
+        compose.onNodeWithTag("result-result").assertIsDisplayed().assertIsSelected()
+        assertEquals(query, store.query)
+        fixtureUiReady = true
+        capture("result")
+        assertEquals("1E-12", store.results().first().payload)
+        compose.onNodeWithTag("result-result").assertTextContains("1E-12", substring = true)
+        key(KeyEvent.KEYCODE_ENTER)
+        assertClip("1E-12")
+        dismissOwnedClipboard()
+        key(KeyEvent.KEYCODE_ENTER, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("search").assertIsFocused().assertTextEquals("= 1E-12")
+        connection { assertTrue(it.commitText(" * 1E+12", 1)) }
+        compose.waitForIdle()
+        assertEquals("1", store.results().first().payload)
+        compose.onNodeWithTag("result-result").assertTextContains("1", substring = true)
+        capture("chained")
+        done()
+    }
+
     @Test fun touchChainingReturnsToFocusedSearchAndKeepsLauncherState() {
         search("12x3","36"); rootIme(true)
         val before = rect("palette")

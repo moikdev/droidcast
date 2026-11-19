@@ -30,6 +30,21 @@ class CalculatorActionsTest {
         assertEquals("144", Calculator.evaluateSearch(chain + "*4")?.result)
         assertNull(Calculator.evaluateSearch("36"))
     }
+    @Test fun smallNonzeroAnswersSurviveCopyAndChaining() {
+        for ((query, answer) in mapOf("1/1000000000000" to "1E-12", "-1/100000000000" to "-1E-11",
+            "0.000000001 mm to m" to "1E-12 m", "1e-12 m to mm" to "0.000000001")) {
+            val owner = snapshot(query)
+            assertEquals(query, answer, owner.answer)
+            assertEquals(query, "= $answer", owner.chainQuery)
+            assertEquals(query, answer, Calculator.evaluateSearch(owner.chainQuery!!)?.result)
+        }
+        assertEquals("1", Calculator.evaluateSearch("= 1E-12 * 1E+12")?.result)
+        assertEquals("0", Calculator.evaluateSearch("= -0e-400")?.result)
+        assertNull(Calculator.evaluateSearch("1E-12"))
+        for (bad in listOf("= 1e", "= 1e+", "= 1e-999", "= 1e309", "= 1e-999 m", "1e309 m to mm")) {
+            assertNull(bad, Calculator.evaluateSearch(bad))
+        }
+    }
     @Test fun quantitiesChainWithoutDiscardingTheirUnit() {
         for (query in listOf("1 m to in", "100 c to f", "1024 mib to gib", "1.5 h to min", "1 kg to lb")) {
             val owner = snapshot(query)
