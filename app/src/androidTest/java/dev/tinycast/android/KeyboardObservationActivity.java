@@ -1,6 +1,8 @@
 package dev.tinycast.android;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
@@ -27,6 +29,7 @@ public class KeyboardObservationActivity extends Activity {
     private EditText editor;
     private String expected;
     private boolean overflow;
+    private int normalTextColor;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -52,6 +55,9 @@ public class KeyboardObservationActivity extends Activity {
         editor.setShowSoftInputOnFocus(false);
         editor.setFocusableInTouchMode(true);
         editor.setContentDescription("Synthetic input");
+        editor.setCursorVisible(false);
+        normalTextColor = editor.getCurrentTextColor();
+        if ("paint".equals(getIntent().getStringExtra("control"))) editor.setTextColor(Color.TRANSPARENT);
         editor.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
@@ -99,7 +105,18 @@ public class KeyboardObservationActivity extends Activity {
     JSONObject sample() {
         String actual = editor.getText().toString();
         try {
-            return new JSONObject().put("fixture", expected).put("exact", expected.equals(actual))
+            int[] position = new int[2];
+            editor.getLocationOnScreen(position);
+            JSONArray glyphBounds = new JSONArray();
+            if (!actual.isEmpty() && editor.getLayout() != null) {
+                int x = position[0] + editor.getTotalPaddingLeft() - editor.getScrollX();
+                int y = position[1] + editor.getBaseline() - editor.getScrollY();
+                Paint.FontMetricsInt metrics = editor.getPaint().getFontMetricsInt();
+                glyphBounds.put(x + (int) Math.floor(editor.getLayout().getLineLeft(0)))
+                        .put(y + metrics.ascent).put(x + (int) Math.ceil(editor.getLayout().getLineRight(0)))
+                        .put(y + metrics.descent);
+            }
+            return new JSONObject().put("glyph_bounds", glyphBounds).put("fixture", expected).put("exact", expected.equals(actual))
                     .put("observed", expected.startsWith(actual) || "qwerrty".equals(actual) ? actual : "outside-fixture")
                     .put("length", actual.length()).put("focused", hasWindowFocus() && editor.hasFocus())
                     .put("ms", SystemClock.uptimeMillis()).put("overflow", overflow)
@@ -107,6 +124,11 @@ public class KeyboardObservationActivity extends Activity {
                     .put("activity_dispatch", new JSONArray(activityDispatch.toString()))
                     .put("edits", new JSONArray(edits.toString()));
         } catch (JSONException error) { throw new IllegalStateException(error); }
+    }
+
+    void revealTextForControl() {
+        if (!expected.contentEquals(editor.getText())) throw new IllegalStateException("Paint control requires the complete fixture");
+        editor.setTextColor(normalTextColor);
     }
 
     void removeLastCharacterForControl() {

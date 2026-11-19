@@ -51,19 +51,23 @@ public class KeyboardObservationInstrumentation extends Instrumentation {
         require(existing != null && existing.length == 0, "Expected an owned empty trial directory");
         String fixture = options.getString("fixture");
         require("short".equals(fixture) || "long".equals(fixture), "Unknown text fixture");
+        String control = options.getString("control", "none");
+        require("none".equals(control) || "drop".equals(control) || "extra-r".equals(control)
+                || "editor-loss".equals(control) || "paint".equals(control), "Unknown control");
         String observer = options.getString("observer");
         require("suppress".equals(observer) || "preserve".equals(observer), "Unknown observer");
         int flags = "preserve".equals(observer) ? UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES : 0;
 
         Intent intent = new Intent(getTargetContext(), KeyboardObservationActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("fixture", fixture);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("fixture", fixture).putExtra("control", control);
         receiver = (KeyboardObservationActivity) startActivitySync(intent);
         await(() -> sample().optBoolean("focused"));
         require(sample().getInt("length") == 0, "Editor must start empty");
         require(new File(folder, "ready").createNewFile(), "Duplicate ready marker");
         await(() -> new File(folder, "attach").isFile());
         JSONObject report = new JSONObject().put("before_observer", sample());
-        if ("editor-loss".equals(options.getString("control"))) runOnMainSync(receiver::removeLastCharacterForControl);
+        if ("editor-loss".equals(control)) runOnMainSync(receiver::removeLastCharacterForControl);
+        if ("paint".equals(control)) runOnMainSync(receiver::revealTextForControl);
 
         long attachStart = SystemClock.uptimeMillis();
         UiAutomation automation = getUiAutomation(flags);
