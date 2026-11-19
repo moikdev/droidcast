@@ -58,7 +58,7 @@ internal fun BackupDialog(store: PaletteStore, run: (Command) -> Unit, close: ()
             var inspect by remember(preview) { mutableStateOf(false) }
             TextButton(onClick = { inspect = !inspect }, modifier = Modifier.testTag("backup-inspect")) { Text(if (inspect) "Hide backup contents" else "Inspect backup contents") }
             if (inspect) {
-                val entries = remember(preview, selected) { buildList<Pair<String, String>> {
+                val entries = remember(preview, selected, store.emoji.entries) { buildList<Pair<String, String>> {
                     if (BackupCategory.NOTES in selected) data.notes.forEach { add("Note · ${it.title}" to it.body.take(200)) }
                     if (BackupCategory.LINKS in selected) data.links.forEach { add("Quicklink · ${it.title}" to "${it.body}\nAlias: ${it.alias.ifEmpty { "None" }}") }
                     if (BackupCategory.CLIPS in selected) data.clips.forEach { add("Saved clip · ${it.title}" to it.body.take(200)) }
@@ -68,7 +68,11 @@ internal fun BackupDialog(store: PaletteStore, run: (Command) -> Unit, close: ()
                     }
                     if (BackupCategory.EMOJI in selected) {
                         add("Emoji grid" to (data.emoji.gridColumns?.let { "$it columns" } ?: "Automatic"))
-                        data.emoji.favorites.forEachIndexed { index, id -> add("Emoji favorite ${index + 1}" to id) }
+                        val emojiById = store.emoji.entries.associateBy { it.id }
+                        data.emoji.favorites.forEachIndexed { index, id ->
+                            val entry = emojiById[id]
+                            add("Emoji favorite ${index + 1}" to (entry?.let { "${it.glyph} · ${it.name}" } ?: "Unavailable emoji · $id"))
+                        }
                     }
                     if (BackupCategory.LEARNING in selected) data.usage.toSortedMap().forEach { (id, count) -> add("Usage · $id" to count.toString()) }
                     if (BackupCategory.SHORTCUTS in selected) data.shortcuts.bindings.toSortedMap().forEach { (id, chord) ->

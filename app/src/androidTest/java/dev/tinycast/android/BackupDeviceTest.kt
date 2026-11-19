@@ -48,6 +48,7 @@ class BackupDeviceTest {
         compose.waitForIdle()
         val directory = File(context.filesDir, "backup-evidence").apply { mkdirs() }
         val marker = when (name) {
+            "emoji-inspect" -> By.textContains("grinning face with smiling eyes")
             "emoji-import-rejected" -> By.text("Unsupported backup version")
             "emoji-merge-preview", "emoji-replace-confirm" -> By.textContains("emoji favorites,")
             "preview-cancel", "document-import-preview" -> By.text("Preview backup")
@@ -183,6 +184,14 @@ class BackupDeviceTest {
                 .assertTextContains("4 emoji favorites, 4 grid columns", substring = true)
             evidence("emoji-merge-preview")
             assertEquals(listOf("1f603", "1f600"), owner.emoji.portableSettings().favorites)
+            compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
+            val contents = compose.onNodeWithTag("backup-contents")
+            contents.performScrollTo().performScrollToNode(hasText("😄 · grinning face with smiling eyes"))
+            compose.onNodeWithText("😄 · grinning face with smiling eyes").assertIsDisplayed()
+            evidence("emoji-inspect")
+            contents.performScrollToNode(hasText("Unavailable emoji · future-entry"))
+            compose.onNodeWithText("Unavailable emoji · future-entry").assertIsDisplayed()
+            compose.onNodeWithTag("backup-inspect").performScrollTo().performClick()
             compose.onNodeWithTag("backup-review").performScrollTo().performClick()
             apply()
             val merged = PortableEmojiSettings(listOf("1f603", "1f600", "1f604", "future-entry"), 4)
