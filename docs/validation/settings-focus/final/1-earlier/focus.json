@@ -1,0 +1,769 @@
+{
+  "marks": [
+    {
+      "phase": "before_ctrl_f",
+      "host_ms": 25
+    },
+    {
+      "phase": "before_global_chord",
+      "host_ms": 2561
+    },
+    {
+      "phase": "before_ctrl_comma",
+      "host_ms": 3782
+    },
+    {
+      "phase": "ctrl_comma_injection_returned",
+      "host_ms": 4668
+    },
+    {
+      "phase": "destination_verified",
+      "host_ms": 12501
+    }
+  ],
+  "samples": [
+    {
+      "start_ms": 25,
+      "host_load_1m": 15.06298828125,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 59,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 96,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.16,
+      "end_ms": 157
+    },
+    {
+      "start_ms": 415,
+      "host_load_1m": 15.06298828125,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 459,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 522,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 607
+    },
+    {
+      "start_ms": 859,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 891,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 922,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 983
+    },
+    {
+      "start_ms": 1235,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 1267,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 1302,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 1373
+    },
+    {
+      "start_ms": 1624,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 1715,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 1778,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 1864
+    },
+    {
+      "start_ms": 2119,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 2185,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 2247,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 2382
+    },
+    {
+      "start_ms": 2635,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 2702,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 2749,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 2904
+    },
+    {
+      "start_ms": 3154,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "MainActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 3247,
+      "resumed": "MainActivity",
+      "window_focus": "none",
+      "activity_done_ms": 3425,
+      "windows": [
+        {
+          "activity": "MainActivity",
+          "surface": "false",
+          "ready": "false",
+          "visible": "false",
+          "draw": "NO_SURFACE"
+        },
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 3596
+    },
+    {
+      "start_ms": 3849,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "MainActivity",
+        "window": "none",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": false,
+        "inbound_empty": false
+      },
+      "input_done_ms": 4007,
+      "resumed": "MainActivity",
+      "window_focus": "MainActivity",
+      "activity_done_ms": 4184,
+      "windows": [
+        {
+          "activity": "MainActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        },
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "false",
+          "visible": "true",
+          "draw": "DRAW_PENDING"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 4331
+    },
+    {
+      "start_ms": 4586,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "MainActivity",
+        "window": "MainActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": false,
+        "inbound_empty": false
+      },
+      "input_done_ms": 4650,
+      "resumed": "MainActivity",
+      "window_focus": "MainActivity",
+      "activity_done_ms": 4770,
+      "windows": [
+        {
+          "activity": "MainActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.22,
+      "end_ms": 4971
+    },
+    {
+      "start_ms": 5225,
+      "host_load_1m": 15.5380859375,
+      "dispatch": {
+        "application": "MainActivity",
+        "window": "MainActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 5435,
+      "resumed": "MainActivity",
+      "window_focus": "MainActivity",
+      "activity_done_ms": 5592,
+      "windows": [
+        {
+          "activity": "MainActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 2.01,
+      "end_ms": 5803
+    },
+    {
+      "start_ms": 6055,
+      "host_load_1m": 15.81494140625,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "none",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 6094,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 6145,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        },
+        {
+          "activity": "MainActivity",
+          "surface": "true",
+          "ready": "false",
+          "visible": "true",
+          "draw": "DRAW_PENDING"
+        }
+      ],
+      "device_load_1m": 2.01,
+      "end_ms": 6326
+    },
+    {
+      "start_ms": 6583,
+      "host_load_1m": 15.81494140625,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 6994,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 7163,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 2.01,
+      "end_ms": 7570
+    },
+    {
+      "start_ms": 7821,
+      "host_load_1m": 15.81494140625,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 7918,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 7973,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 2.01,
+      "end_ms": 8074
+    },
+    {
+      "start_ms": 8326,
+      "host_load_1m": 15.81494140625,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 8388,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 8484,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 2.01,
+      "end_ms": 8667
+    },
+    {
+      "start_ms": 8924,
+      "host_load_1m": 15.81494140625,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 9040,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 9087,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 2.01,
+      "end_ms": 9187
+    },
+    {
+      "start_ms": 9439,
+      "host_load_1m": 15.81494140625,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 9571,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 9636,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 2.01,
+      "end_ms": 9910
+    },
+    {
+      "start_ms": 10166,
+      "host_load_1m": 15.81494140625,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 10264,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 10331,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.93,
+      "end_ms": 10471
+    },
+    {
+      "start_ms": 10725,
+      "host_load_1m": 19.75341796875,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 10790,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 10830,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.93,
+      "end_ms": 10984
+    },
+    {
+      "start_ms": 11239,
+      "host_load_1m": 19.75341796875,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 11290,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 11381,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.93,
+      "end_ms": 11522
+    },
+    {
+      "start_ms": 11775,
+      "host_load_1m": 19.75341796875,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 11834,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 11877,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.93,
+      "end_ms": 12000
+    },
+    {
+      "start_ms": 12253,
+      "host_load_1m": 19.75341796875,
+      "dispatch": {
+        "application": "SettingsActivity",
+        "window": "SettingsActivity",
+        "enabled": "true",
+        "frozen": "false",
+        "filter": "true",
+        "pending_empty": true,
+        "inbound_empty": true
+      },
+      "input_done_ms": 12337,
+      "resumed": "SettingsActivity",
+      "window_focus": "SettingsActivity",
+      "activity_done_ms": 12380,
+      "windows": [
+        {
+          "activity": "SettingsActivity",
+          "surface": "true",
+          "ready": "true",
+          "visible": "true",
+          "draw": "HAS_DRAWN"
+        }
+      ],
+      "device_load_1m": 1.93,
+      "end_ms": 12486
+    }
+  ],
+  "sampler_limit_reached": false,
+  "route_assertions_completed": true,
+  "epoch_bounds": [
+    1795053917.765823,
+    1795053930.3677173
+  ],
+  "events": [
+    {
+      "epoch_seconds": 1795053920.834,
+      "event": "wm_on_paused_called",
+      "activity": "SettingsActivity",
+      "focus": null,
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053920.905,
+      "event": "wm_set_resumed_activity",
+      "activity": "MainActivity",
+      "focus": null,
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053920.963,
+      "event": "input_focus",
+      "activity": "SettingsActivity",
+      "focus": "leaving",
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053920.991,
+      "event": "wm_on_resume_called",
+      "activity": "MainActivity",
+      "focus": null,
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053921.332,
+      "event": "input_focus",
+      "activity": "MainActivity",
+      "focus": "request",
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053921.74,
+      "event": "input_focus",
+      "activity": "MainActivity",
+      "focus": "entering",
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053923.472,
+      "event": "wm_on_paused_called",
+      "activity": "MainActivity",
+      "focus": null,
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053923.48,
+      "event": "wm_set_resumed_activity",
+      "activity": "SettingsActivity",
+      "focus": null,
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053923.622,
+      "event": "wm_on_resume_called",
+      "activity": "SettingsActivity",
+      "focus": null,
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053923.694,
+      "event": "input_focus",
+      "activity": "MainActivity",
+      "focus": "leaving",
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053923.853,
+      "event": "input_focus",
+      "activity": "SettingsActivity",
+      "focus": "request",
+      "no_focused_window": false
+    },
+    {
+      "epoch_seconds": 1795053924.009,
+      "event": "input_focus",
+      "activity": "SettingsActivity",
+      "focus": "entering",
+      "no_focused_window": false
+    }
+  ],
+  "checks": {
+    "route_completed": true,
+    "complete_collection": true,
+    "both_chords_marked": true,
+    "no_app_anr_event_in_interval": true,
+    "input_focus_palette_then_settings": true,
+    "wm_on_resume_called_palette_then_settings": true,
+    "MainActivity_resumed": true,
+    "MainActivity_drawn": true,
+    "MainActivity_input": true,
+    "SettingsActivity_resumed": true,
+    "SettingsActivity_drawn": true,
+    "SettingsActivity_input": true
+  }
+}

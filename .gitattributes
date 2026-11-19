@@ -49,3 +49,6 @@ docs/validation/keyboard-toggle/** -text -whitespace
 docs/validation/emoji-menu-back/keyboard-first/*.xml -text -whitespace
 # Preserve the original HTML Viewer accessibility captures.
 docs/validation/viewer-body/*.xml -text -whitespace
+
+# Keep the on-device Settings focus hierarchies byte-identical to their captures.
+docs/validation/settings-focus/**/*.xml -text -whitespace

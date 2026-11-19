@@ -1,0 +1,119 @@
+{
+  "device": {
+    "avd": "Tinycast_Tablet_API_36",
+    "API": 36,
+    "ABI": "arm64-v8a",
+    "tablet_pixels": [
+      1920,
+      1200
+    ],
+    "tablet_dpi": 240
+  },
+  "installed_apks": {
+    "earlier": {
+      "sha256": "0dad860558e404ea6292694bc801055326754f61a8230a843c4eff737b27d384",
+      "source_commit": "f29d95f51abe378e1686d408380353beade64163"
+    },
+    "current": {
+      "sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+      "source_commit": "b4f3fe7c858509e7f12bb8b85388f2b7f5e455ea"
+    }
+  },
+  "debug_assets": {
+    "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+    "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+  },
+  "initial_runner_revision": "9829feba6f06233c4bfc6f0dcdfa3452203601cd",
+  "measured_runner_revision": "8ab600c4de688cf19a42bc8162782a855fa6e1f3",
+  "runner_sources": {
+    "scripts/test-configurable-shortcuts.py": "7e9b7b8bac8aa0e05903ed104145d520af61894cfe4ca84a8fcb69e5257287e3",
+    "scripts/shortcut_focus_evidence.py": "a0aa53279370bf300d31e00c5e7f7161faccd9f458cbedbb732bb766d7f8ae07",
+    "scripts/html_viewer_evidence.py": "e6d4f47e476f4069a1b7031e6d31dece93cc0e252cfd8c92e6b7d2318fe73ac1",
+    "scripts/tests/test_shortcut_focus_evidence.py": "ed75c2b7f8e7e5437506274c11ae0c5bcf05f573656f4e296d5002cfb2eccc84"
+  },
+  "control_runner_sha256": "ae70474f807b00c53333f59e9adfa88073fa7d09b68ae8ecb791b19e0468fa62",
+  "host_checks": {
+    "source": "e1b64df83f9c7c7562e241b7a1a2bec3be48d7f2",
+    "jvm": {
+      "tests": 343,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python_per_mode": 146,
+    "lint": {
+      "debug": {
+        "counts": {
+          "Warning": 47
+        },
+        "source_sha256": "cc0b065513a04da3a4ae7c4f39833ae41ea23cb8b512589f5d4e2fd81619d6a1"
+      },
+      "benchmark": {
+        "counts": {
+          "Warning": 47
+        },
+        "source_sha256": "cc0b065513a04da3a4ae7c4f39833ae41ea23cb8b512589f5d4e2fd81619d6a1"
+      }
+    },
+    "logs": {
+      "integrated-benchmark.log": "177f303234be513396d6ea34787a2b8cffa6b1d63a30c7796de46370c4cbefc2",
+      "integrated-debug.log": "9b3e4a8edcfad4c1df349cf64b7b7da87ee7c6a4a2c8cc77d00695edb7947a51",
+      "integrated-optimized.log": "7e0f5ef40fae753f43533af64624849fd161803d9d3d3b1357dcf335421a8074",
+      "integrated-python.log": "11063b0c7772bd55f82e643812d7ef37dd9214d6fd778e6db9dca1dc8fb88b74"
+    },
+    "built_apks": {
+      "app-benchmark.apk": "96a8874d0c013187383746240d566e8475e2738095947f483c089b145c7c7c5b",
+      "app-debug.apk": "6403d2392e5f1877140349f885f3bcaf26bcc21b9478c49d50d669373e40fcc9",
+      "app-benchmark-androidTest.apk": "4ed90131fc57f8dc8ae9092df77f384398aab9b83047d565aae4bb1132c6d9d8",
+      "app-debug-androidTest.apk": "e1cb4747eb8debff7f4a7b2757e2db36c8eefcd2b5a3bbd2f51182eb69dd9810"
+    },
+    "jvm_reports": {
+      "TEST-dev.tinycast.android.BackupPlannerTest.xml": "823be4a9022400f4abfa0b091d6451cc0ec29f1fed1b9e95827aa13bf5821b1a",
+      "TEST-dev.tinycast.android.CalculatorActionsTest.xml": "9ee209cceef20d4537229c33992ffa742ea2536540f463624c71aeb0d17c4a5b",
+      "TEST-dev.tinycast.android.CommandEngineTest.xml": "5641f374670fe5322bacc75c84aeeb157adf03c56af718b1e238da4f21aa2b0c",
+      "TEST-dev.tinycast.android.EmojiCatalogTest.xml": "bc5e47a4f4c039777a3385a1e8270368885f7460f81238a3f74ce34964a672cd",
+      "TEST-dev.tinycast.android.ExtensionCommandLaunchTest.xml": "d490887a7d79930f9ecb1d91eafe56b162bfe5edd55822600ef7a36d697811e9",
+      "TEST-dev.tinycast.android.ExtensionDetailImageTimeoutTest.xml": "18479d715d89d245dca67131b35fcb1c54c7f9ee1b948fd78101ddc4bca594f0",
+      "TEST-dev.tinycast.android.ExtensionEngineCompatibilityTest.xml": "947287476bf680117b642683bd406468286377525b20b038a57ca310f970050f",
+      "TEST-dev.tinycast.android.ExtensionFormContractTest.xml": "bd62caab45e3216c9f472303faa91f5bb1057fc2d8af4cdc70bfe3175cc2ce86",
+      "TEST-dev.tinycast.android.ExtensionFormFileImportTest.xml": "0b6a53d6c5c6437227dbc20ee45748a6e86ce38182c5c27f8d16294acbc963c1",
+      "TEST-dev.tinycast.android.ExtensionFormSubmissionTest.xml": "faa90143d71b4b5d4ce7aa5ec87c59b82c3a591eec1d5c70fa4b38723343f10f",
+      "TEST-dev.tinycast.android.ExtensionFormTypedValuesTest.xml": "9ef28cb60517442b89a16bcf28603dc08f02978fff1c34f87b85b0442e8337dd",
+      "TEST-dev.tinycast.android.ExtensionFormValuesTest.xml": "76586f8bc60ffd57d4b2f0ca831f8a2bf0af7ce654dafd50bace860e7fe3cc84",
+      "TEST-dev.tinycast.android.ExtensionGridContractTest.xml": "b6ce68afb7f75a3d94799db6b162d609e6a3eb4b3c95ab0ff35533a85d711b93",
+      "TEST-dev.tinycast.android.ExtensionGridNavigationTest.xml": "c197cc141826d033861143755a220e335e158a35cfb48b2a4d6632615f7baa07",
+      "TEST-dev.tinycast.android.ExtensionHttpTest.xml": "a50257eecf6de90d7bf3f4206aead9edb8120732f86a8edf7c94c9df5cf6e932",
+      "TEST-dev.tinycast.android.ExtensionMarkdownModelTest.xml": "22f36ab7f77cf533673ebbc4f1d0442b110edc7b9cd9c0f878b5f290fab95846",
+      "TEST-dev.tinycast.android.ExtensionMetadataVisualsTest.xml": "3a92750182831a7662eff812dc174a7b89a2ff5453c2c85debce35c4dae8f43e",
+      "TEST-dev.tinycast.android.ExtensionPasteCopyTest.xml": "5ae69d117ec948a522d074d36d70ed4d9f0de399ef037f59206c077d4de65c9a",
+      "TEST-dev.tinycast.android.ExtensionPayloadIdentityTest.xml": "d51390f9f127878eb6e67c4d913b9ec5d1caba10f700db38b1e8efd5ff1f27db",
+      "TEST-dev.tinycast.android.ExtensionSelectionDeliveryTest.xml": "353e800a3de8c239c1fe6f63fcbe987702cf5cdbc48895fd48e49ad98b8833e3",
+      "TEST-dev.tinycast.android.ExtensionWorkflowEvidenceTest.xml": "537880c8fc16b3427af2049cb36137a2f488bf92485c547733136ad9117be4f9",
+      "TEST-dev.tinycast.android.ExtensionWorkflowInspectionTest.xml": "d5a2322bf566e7cc5c1068a170bdd070eb4ed5150d88d74554d38eaf886a17ed",
+      "TEST-dev.tinycast.android.FolderGrantTransactionTest.xml": "7d68a68b36147ecb10895df492d8e3ad4d2e9396f8af88922d83f10f846a553f",
+      "TEST-dev.tinycast.android.FolderIndexTest.xml": "da994a42f31cfefec6e27d5967b333097869184bcedc121885932ab7d62e12ef",
+      "TEST-dev.tinycast.android.ModifierTapTest.xml": "be4c12a35d4eafbc90f757c42b841318927d500bf884f496014a0baa0cad9a40",
+      "TEST-dev.tinycast.android.PaletteMenuOwnershipTest.xml": "718332469a7bb776c52bc22399de3af96f08ce81366bbc8796cd5d1828ed3116",
+      "TEST-dev.tinycast.android.PaletteScrollHistoryTest.xml": "0df2fbd455cf59c857b6b4f50fa0245b2d76994eae05ff5ab20e8eba9514ebf3",
+      "TEST-dev.tinycast.android.ReviewedTextInputTest.xml": "24d1d8a0f0dcb5c654801aa3d8f4c6947fd83d071dca0cbd6d93b2dcd66a502d",
+      "TEST-dev.tinycast.android.ShortcutReadinessTest.xml": "a2ba13cb57890d5ce699c6d57d7a3c83f05fd8b39dca2f9346867cda1fec5624",
+      "TEST-dev.tinycast.android.ShortcutTest.xml": "a6d3ac688d3138a4817757ec27c5263362ef559cd4265669a0115d1e95c1a7b8",
+      "TEST-dev.tinycast.android.SystemSettingsTest.xml": "3cd18af898a146985519fa194da74b0a2a40f888c94062a794b80fbc446e426c",
+      "TEST-dev.tinycast.android.TinycastGridParityTest.xml": "72217e151cb46aa19c8a51eece806c7961cb6fb475941dfb92de71c02b09af6a",
+      "TEST-dev.tinycast.android.UpdatePolicyTest.xml": "b1b134583fd41437224b27c75b4b2147007365144c0155a148ad99afcbcfe667",
+      "TEST-dev.tinycast.android.WeakValueTokensTest.xml": "02e910370601ff05c7b267195778a760929153e6d49b3a95da387c1c8776af1b",
+      "TEST-dev.tinycast.android.extensions.CommonMarkPrimaryConformanceTest.xml": "fcbc8e155921d499211cfeadd928dd67b0af8de9e1992ad588f454654cc9607e",
+      "TEST-dev.tinycast.android.extensions.ExtensionDetailImagePolicyTest.xml": "8bd853d715a594f135227ff3713a2a7b9aa1810c47b465e871dee873c9e588a1",
+      "TEST-dev.tinycast.android.extensions.NodeCpuInfoTest.xml": "b3fec4a19954da23f61bbc87bd19329752684c2c20e2ee9ca1a7b4766051f19c"
+    }
+  }
+}

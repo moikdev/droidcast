@@ -1,0 +1,23 @@
+{
+  "cases": [
+    {
+      "name": "recording pauses the existing global shortcut",
+      "passed": true
+    },
+    {
+      "name": "record and persist Ctrl + Alt + Space",
+      "passed": true
+    },
+    {
+      "name": "Ctrl+F focuses settings search while the service is enabled",
+      "passed": true
+    }
+  ],
+  "app_requires_root": false,
+  "injection": "dedicated emulator Linux qwerty2 device",
+  "original_service_consent_restored": true,
+  "original_preferences_restored": true,
+  "adbd_unprivileged": true,
+  "app_unprivileged": true,
+  "unroot_command_exit_code": 0
+}

@@ -1,0 +1,41 @@
+{
+  "app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+  "sequence": 3,
+  "kind": "current",
+  "host_load_1m_at_start": 23.16796875,
+  "runner": "7e9b7b8bac8aa0e05903ed104145d520af61894cfe4ca84a8fcb69e5257287e3",
+  "observer": "a0aa53279370bf300d31e00c5e7f7161faccd9f458cbedbb732bb766d7f8ae07",
+  "exit": 0,
+  "cases": [
+    {
+      "name": "recording pauses the existing global shortcut",
+      "passed": true
+    },
+    {
+      "name": "record and persist Ctrl + Alt + Space",
+      "passed": true
+    },
+    {
+      "name": "Ctrl+F focuses settings search while the service is enabled",
+      "passed": true
+    },
+    {
+      "name": "Ctrl+Comma opens the separate settings workspace with the service enabled",
+      "passed": true
+    }
+  ],
+  "runner_cleanup": {
+    "original_service_consent_restored": true,
+    "original_preferences_restored": true,
+    "adbd_unprivileged": true,
+    "app_unprivileged": true
+  },
+  "outer_checks": {
+    "installed_apk": true,
+    "preferences": true,
+    "consent": true,
+    "app_uid": true,
+    "shell_uid": true
+  },
+  "host_load_1m_at_end": 43.65087890625
+}

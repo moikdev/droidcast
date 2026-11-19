@@ -1,0 +1,14 @@
+--- a/scripts/test-configurable-shortcuts.py
++++ b/scripts/test-configurable-shortcuts.py
+@@ -340,9 +340,9 @@
+     wait(lambda: app_window("MainActivity"), "Global chord did not return to the palette")
+     if trace:
+         trace.mark("before_ctrl_comma")
+-    chord(51, (29,))
++    # Calibration: omit the actual Ctrl+Comma key injection.
+     if trace:
+-        trace.mark("ctrl_comma_injection_returned")
++        trace.mark("ctrl_comma_injection_omitted")
+     node("Make Droidcast fit the way you work.")
+     if trace:
+         # Verify the destination in the exact hierarchy kept with the terminal frame.
