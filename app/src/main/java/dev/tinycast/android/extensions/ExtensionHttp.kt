@@ -160,6 +160,8 @@ object ExtensionHttp {
     private val client = ExtensionHttpClient()
     suspend fun request(url: String, method: String = "GET", headers: Map<String, String> = emptyMap(), body: ByteArray? = null,
                         limit: Int = 32 * 1024 * 1024) = client.request(url, method, headers, body, limit)
+    internal suspend fun fetch(envelope: org.json.JSONObject) = client.fetch(envelope)
+
     suspend fun download(url: String, limit: Int = 32 * 1024 * 1024): ByteArray {
         val response = request(url, limit = limit)
         check(response.status in 200..299) { "Store request failed (HTTP ${response.status}). Try again." }

@@ -289,13 +289,7 @@ class ExtensionRuntime(private val context: Context, private val catalog: Extens
             else -> error("$method is not supported on Android")
         }
         "fetch" -> withContext(Dispatchers.IO) {
-            val request = a.getJSONObject(0); val headers = request.optJSONObject("headers") ?: JSONObject()
-            val body = request.optString("bodyBase64").takeIf { it.isNotEmpty() }?.let { Base64.decode(it, Base64.DEFAULT) }
-            val response = ExtensionHttp.request(request.getString("url"), request.optString("method", "GET"), headers.keys().asSequence().associateWith { headers.getString(it) }, body, 8 * 1024 * 1024)
-            val responseHeaders = JSONObject()
-            response.headers.forEach { (key, values) -> responseHeaders.put(key, values.joinToString(", ")) }
-            JSONObject().put("status", response.status).put("statusText", response.message).put("url", response.url)
-                .put("headers", responseHeaders).put("bodyBase64", Base64.encodeToString(response.bytes, Base64.NO_WRAP))
+            ExtensionHttp.fetch(a.getJSONObject(0))
         }
         else -> error("$api.$method is not supported on Android. Shell commands, AppleScript, OAuth and native desktop helpers are unavailable.")
     }
