@@ -78,7 +78,7 @@ class ExtensionMarkdownDeviceTest {
         owner = args.getString("expectedTextInputLeaseOwner").orEmpty()
         assertTrue(owner.matches(Regex("[0-9a-f]{32}")))
         assertEquals(owner, args.getString("expectedClipboardRecoveryOwner")); lease()
-        compose.waitUntil(15000) { !compose.activity.store.loading }
+        compose.waitUntil(15000) { !compose.activity.store.loading && catalog.inventoryReady }
         palette = context.getSharedPreferences("palette", Context.MODE_PRIVATE).all.toMap()
         originalIds = catalog.installed.map { it.listing.id }.toSet()
         preserved = catalog.installed.flatMap { listOf(it.directory, File(context.filesDir, "extension-data/${it.listing.id}"),
@@ -256,14 +256,22 @@ class ExtensionMarkdownDeviceTest {
         val search = compose.onNodeWithTag("extension-search")
         capture("rows")
         compose.onNodeWithText("Plain row").assertIsDisplayed()
+        val nativeTitle = compose.onAllNodesWithText("Café 日本").fetchSemanticsNodes().isNotEmpty()
+        search.performTextReplacement("private-tooltip-needle")
+        val hidden = compose.onAllNodesWithTag("extension-row-0").fetchSemanticsNodes().isEmpty()
+        capture("tooltip-search")
+        assertTrue("Row title must display the visible value without serialized properties", nativeTitle)
+        assertTrue("A tooltip alone must not match a list row", hidden)
+        compose.onNodeWithTag("extension-list-empty-title").assertTextEquals("No results").assertIsDisplayed()
+        search.performTextReplacement("")
         compose.onNodeWithText("Café 日本").assertIsDisplayed()
         compose.onNodeWithText("Résumé 🌱").assertIsDisplayed()
         compose.onNodeWithText("Available").assertIsDisplayed()
         compose.onNodeWithText("Plain accessory").assertIsDisplayed()
-        search.performTextReplacement("private-tooltip-needle")
-        compose.onNodeWithTag("extension-list-empty").assertIsDisplayed()
-        compose.onNodeWithTag("extension-row-0").assertDoesNotExist()
-        capture("miss")
+        val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+        val textNode = compose.onNodeWithText("Available", useUnmergedTree = true).fetchSemanticsNode()
+        compose.runOnUiThread { assertTrue(textNode.config[SemanticsActions.GetTextLayoutResult].action!!.invoke(layouts)) }
+        assertEquals(androidx.compose.ui.graphics.Color(0xff22aa77), layouts.single().layoutInput.style.color)
         for (term in listOf("café", "résumé", "owned-keyword")) {
             search.performTextReplacement(term)
             compose.onNodeWithText("Café 日本").assertIsDisplayed()
@@ -279,9 +287,9 @@ class ExtensionMarkdownDeviceTest {
         search.assert(editableCharactersExactly("owned-keyword"))
         compose.onNodeWithTag("extension-actions").performClick()
         compose.onNodeWithTag("inline-menu-heading").assertTextEquals("Café 日本")
-        compose.onNodeWithText("Copy owned Markdown").performClick()
+        compose.onNodeWithTag("extension-action-0").performClick()
         val clipboard = context.getSystemService(ClipboardManager::class.java)
-        assertEquals("Owned row payload", compose.runOnUiThread { clipboard.primaryClip?.getItemAt(0)?.text.toString() })
+        compose.waitUntil(5000) { compose.runOnUiThread { clipboard.primaryClip?.getItemAt(0)?.text == "Owned row payload" } }
         record.put("passed", true)
     }
 
