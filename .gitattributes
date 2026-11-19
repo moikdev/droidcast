@@ -67,3 +67,10 @@ docs/validation/battery-security/runs/**/*.log -text -whitespace
 # Preserve original Emoji history hierarchy and instrumentation bytes.
 docs/validation/emoji-history/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-history/runs/**/*.log -text -whitespace
+
+# Preserve original grid-density hierarchy and device log bytes.
+docs/validation/emoji-density/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-density/runs/**/*.log -text -whitespace
+
+docs/validation/emoji-density/held-input/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-density/held-input/runs/**/*.log -text -whitespace

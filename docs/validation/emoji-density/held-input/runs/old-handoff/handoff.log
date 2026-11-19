@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.EmojiDeviceTest:
+INSTRUMENTATION_STATUS: test=heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText = '')
+Semantics of the node:
+Node #642 at (l=1052.0, t=785.0, r=1418.0, b=857.0)px, Tag: 'inline-menu-search'
+EditableText = '==='
+TextSelectionRange = 'TextRange(3, 3)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 2 siblings
+Selector used: (TestTag = 'inline-menu-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.EmojiDeviceTest.heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer(EmojiDeviceTest.kt:299)
+
+INSTRUMENTATION_STATUS: stream=
+Error in heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer(dev.tinycast.android.EmojiDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText = '')
+Semantics of the node:
+Node #642 at (l=1052.0, t=785.0, r=1418.0, b=857.0)px, Tag: 'inline-menu-search'
+EditableText = '==='
+TextSelectionRange = 'TextRange(3, 3)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 2 siblings
+Selector used: (TestTag = 'inline-menu-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.EmojiDeviceTest.heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer(EmojiDeviceTest.kt:299)
+
+INSTRUMENTATION_STATUS: test=heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.777
+There was 1 failure:
+1) heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer(dev.tinycast.android.EmojiDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText = '')
+Semantics of the node:
+Node #642 at (l=1052.0, t=785.0, r=1418.0, b=857.0)px, Tag: 'inline-menu-search'
+EditableText = '==='
+TextSelectionRange = 'TextRange(3, 3)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 2 siblings
+Selector used: (TestTag = 'inline-menu-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.EmojiDeviceTest.heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer(EmojiDeviceTest.kt:299)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

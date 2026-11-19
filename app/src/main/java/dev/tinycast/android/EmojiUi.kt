@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import kotlinx.coroutines.flow.collect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,17 +50,8 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     var keyboardRequested by remember { mutableStateOf(false) }
     var queryEditing by remember { mutableStateOf(false) }
     var copiedName by remember { mutableStateOf<String?>(null) }
-    // Pair a claimed favorite chord with its physical key sequence, independent
-    // of later modifier release or the selection changing after an unpin.
-    val favoritePresses = remember { mutableMapOf<Int, Long>() }
     val windowFocused = LocalWindowInfo.current.isWindowFocused
     val paletteMenus = LocalPaletteMenus.current
-    LaunchedEffect(windowFocused) { if (!windowFocused) favoritePresses.clear() }
-    fun consumeFavoriteSequence(event: KeyEvent): Boolean {
-        if (event.keyCode != KeyEvent.KEYCODE_D || favoritePresses[event.deviceId] != event.downTime) return false
-        if (event.action == KeyEvent.ACTION_UP) favoritePresses.remove(event.deviceId)
-        return true
-    }
     val grid = rememberLazyGridState()
     val results by remember(store) { derivedStateOf { store.results() } }
     val selected = results.getOrNull(store.selected.coerceIn(0, (results.size - 1).coerceAtLeast(0)))
@@ -77,10 +69,9 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
             ?: store.selected.coerceAtMost((store.results().size - 1).coerceAtLeast(0))
     }
     fun handleFavoriteChord(event: KeyEvent): Boolean {
-        if (consumeFavoriteSequence(event)) return true
         val modifier = (event.isCtrlPressed xor event.isMetaPressed) && !event.isAltPressed && !event.isShiftPressed
         if (event.action != KeyEvent.ACTION_DOWN || event.keyCode != KeyEvent.KEYCODE_D || !modifier) return false
-        favoritePresses[event.deviceId] = event.downTime
+        paletteMenus.claimPress(event)
         if (event.repeatCount == 0) currentEntry()?.let(::pin)
         return true
     }
@@ -93,7 +84,33 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
     }
     PaletteViewport(emptyFeedback=results.isEmpty()) { wide, top, height ->
         val compactEmpty = results.isEmpty() && height < 180.dp
-        val columns = ((minOf(maxWidth - 24.dp, PaletteTheme.width).value - 24) / 64).toInt().coerceIn(3, 10)
+        val gridWidth = minOf(maxWidth - 24.dp, PaletteTheme.width).value - 24
+        // Each cell keeps at least 48 dp plus its share of the 4 dp gaps.
+        val maxColumns = ((gridWidth + 4) / 52).toInt().coerceIn(1, 10)
+        val minColumns = minOf(if (gridWidth >= 600) 6 else 3, maxColumns)
+        val automaticColumns = (gridWidth / 64).toInt().coerceIn(minColumns, maxColumns)
+        var zoomColumns by rememberSaveable(searchEpoch) { mutableStateOf<Int?>(null) }
+        fun currentColumns() = (zoomColumns ?: store.defaultGridColumns ?: automaticColumns).coerceIn(minColumns, maxColumns)
+        val columns = currentColumns()
+        val sizeRatio = automaticColumns.toFloat() / columns
+        fun canChangeGrid() = actionCurrent() && view.hasWindowFocus() && !isComposing()
+        fun zoom(step: Int) {
+            val current = currentColumns()
+            val next = (current + step).coerceIn(minColumns, maxColumns)
+            if (current != next && canChangeGrid()) zoomColumns = next
+        }
+        fun handleZoomChord(e: KeyEvent): Boolean {
+            if (e.action != KeyEvent.ACTION_DOWN || e.repeatCount != 0 || !(e.isCtrlPressed xor e.isMetaPressed) ||
+                e.isAltPressed || !canChangeGrid() || menu || actionsMenu || paletteMenus.current != null) return false
+            when (e.keyCode) {
+                KeyEvent.KEYCODE_PLUS, KeyEvent.KEYCODE_EQUALS, KeyEvent.KEYCODE_NUMPAD_ADD -> zoom(-1)
+                KeyEvent.KEYCODE_MINUS, KeyEvent.KEYCODE_NUMPAD_SUBTRACT -> if (!e.isShiftPressed) zoom(1) else return false
+                KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_NUMPAD_0 -> if (!e.isShiftPressed) zoomColumns = null else return false
+                else -> return false
+            }
+            paletteMenus.claimPress(e)
+            return true
+        }
         LaunchedEffect(Unit) { searchFocus.requestFocus() }
         val imeVisible = WindowInsets.isImeVisible
         LaunchedEffect(wide, imeVisible, keyboardRequested, windowFocused, searchFocused) {
@@ -105,7 +122,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 androidx.core.view.ViewCompat.getWindowInsetsController(view)?.hide(androidx.core.view.WindowInsetsCompat.Type.ime())
             }
         }
-        val scrollHistory = remember { PaletteScrollHistory() }
+        val scrollHistory = remember(columns) { PaletteScrollHistory() }
         val resultIds = remember(results) { results.map { it.id } }
         SideEffect {
             val index = store.selected.coerceIn(0, results.lastIndex.coerceAtLeast(0))
@@ -137,8 +154,8 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 if (results.isNotEmpty()) store.selected = when (event.keyCode) {
                     KeyEvent.KEYCODE_DPAD_LEFT -> (store.selected - 1).coerceAtLeast(0)
                     KeyEvent.KEYCODE_DPAD_RIGHT -> (store.selected + 1).coerceAtMost(results.lastIndex)
-                    KeyEvent.KEYCODE_DPAD_UP -> (store.selected - columns).coerceAtLeast(0)
-                    KeyEvent.KEYCODE_DPAD_DOWN -> (store.selected + columns).coerceAtMost(results.lastIndex)
+                    KeyEvent.KEYCODE_DPAD_UP -> (store.selected - currentColumns()).coerceAtLeast(0)
+                    KeyEvent.KEYCODE_DPAD_DOWN -> (store.selected + currentColumns()).coerceAtMost(results.lastIndex)
                     KeyEvent.KEYCODE_MOVE_HOME -> 0
                     else -> results.lastIndex
                 }
@@ -160,7 +177,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 if (e.action == KeyEvent.ACTION_DOWN && searchFocused && (e.isShiftPressed || e.isCtrlPressed || e.isMetaPressed || e.isAltPressed) &&
                     e.keyCode in setOf(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.KEYCODE_MOVE_END)) queryEditing = true
                 // Once claimed, repeats must not become IME text when Ctrl/Meta is released first.
-                if (handleFavoriteChord(e)) true
+                if (handleZoomChord(e) || handleFavoriteChord(e)) true
                 else if (navigate(e)) true
                 else if (searchFocused && !isComposing() && e.keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER &&
                     !e.isAltPressed && !e.isShiftPressed && !(e.isCtrlPressed && e.isMetaPressed)) {
@@ -172,11 +189,11 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 val e = key.nativeKeyEvent
                 val ctrl = (e.isCtrlPressed xor e.isMetaPressed) && !e.isAltPressed && !e.isShiftPressed
                 val plain = !e.isCtrlPressed && !e.isMetaPressed && !e.isAltPressed && !e.isShiftPressed
-                if (handleFavoriteChord(e)) true
+                if (handleZoomChord(e) || handleFavoriteChord(e)) true
                 else if (e.action != KeyEvent.ACTION_DOWN) false
                 else when {
                     e.keyCode == KeyEvent.KEYCODE_ESCAPE -> { back(); true }
-                    ctrl && e.keyCode == KeyEvent.KEYCODE_K -> { actionsMenu = currentEntry() != null || store.filter == "Recent"; true }
+                    ctrl && e.keyCode == KeyEvent.KEYCODE_K -> { actionsMenu = true; true }
                     ctrl && e.keyCode == KeyEvent.KEYCODE_L -> { queryEditing = true; searchFocus.requestFocus(); true }
                     navigate(e) -> true
                     searchFocused && (e.isShiftPressed || ctrl) && e.keyCode in setOf(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.KEYCODE_MOVE_END) -> { queryEditing = true; false }
@@ -267,7 +284,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                 modifier = Modifier.weight(1f).fillMaxWidth().padding(horizontal = 12.dp).onFocusChanged { gridFocused = it.hasFocus }.focusable().testTag("emoji-grid"),
                 contentPadding = PaddingValues(bottom = 8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 itemsIndexed(results, key = { _, entry -> entry.id }) { index, entry ->
-                    Box(Modifier.fillMaxWidth().heightIn(min=56.dp).clip(RoundedCornerShape(10.dp))
+                    Box(Modifier.fillMaxWidth().heightIn(min=(56 * sizeRatio).coerceIn(48f, 92f).dp).clip(RoundedCornerShape(10.dp))
                         .background(if (index == store.selected) PaletteTheme.selection else Color.Transparent)
                         .border(1.dp, if (index == store.selected) PaletteTheme.border else Color.Transparent, RoundedCornerShape(10.dp))
                         // One keyboard focus stop for the grid; arrows move its selection.
@@ -276,7 +293,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                         .clickable { store.selected = index; copyEntry(entry) }
                         .semantics { this.selected = index == store.selected; contentDescription = "${entry.name}, ${entry.category}" + if (entry.id in store.favorites) ", favorite" else "" }
                         .testTag("emoji-cell-${entry.id}"), contentAlignment = Alignment.Center) {
-                        Text(entry.glyph, fontSize = 28.sp)
+                        Text(entry.glyph, fontSize = (28 * sizeRatio).coerceIn(24f, 44f).sp)
                         if (entry.id in store.favorites) Text("★", color = PaletteTheme.accent, fontSize = 9.sp, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp))
                     }
                 }
@@ -303,7 +320,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
             }) {
                 Box {
                     PaletteActionCapsule(if(wide) "Copy to Clipboard" else "Copy",{currentEntry()?.let(::copyEntry)},{actionsMenu=true},"emoji-copy","emoji-actions",
-                        compact=!wide,enabled=selected!=null,actionsEnabled=selected!=null || store.filter == "Recent",description="Copy to Clipboard")
+                        compact=!wide,enabled=selected!=null,actionsEnabled=true,description="Copy to Clipboard")
                     PaletteChoiceMenu(actionsMenu,{actionsMenu=false},listOf(
                         PaletteChoice("emoji-action-copy","Copy to Clipboard",enabled=selected!=null,shortcut=listOf("↵"),icon="clipboard") { currentEntry()?.let(::copyEntry) },
                         PaletteChoice("emoji-action-favorite",if(selected?.id in store.favorites)"Remove Favorite"else"Add Favorite",enabled=selected!=null,
@@ -311,7 +328,7 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                         PaletteChoice("emoji-action-unicode","Copy Unicode",enabled=selected!=null,icon="clipboard") {
                             currentEntry()?.let { entry -> copy(entry.glyph.codePoints().toArray().joinToString(" "){"U+"+it.toString(16).uppercase().padStart(4,'0')}); copiedName="Copied Unicode for ${entry.name}" }
                         }
-                    ) + if (store.filter == "Recent") listOf(
+                    ) + (if (store.filter == "Recent") listOf(
                         if (store.historyEnabled)
                             PaletteChoice("emoji-history-pause", "Pause recent history") { if (currentHistoryView()) store.rememberRecent(false) }
                         else
@@ -319,7 +336,19 @@ fun EmojiPicker(store: EmojiStore, searchEpoch: Int, actionCurrent: () -> Boolea
                         PaletteChoice("emoji-history-clear", "Clear saved emoji history", enabled = store.hasSavedHistory) {
                             if (currentHistoryView()) store.clearHistory()
                         }
-                    ) else emptyList(),title=selected?.name ?: "Emoji & Symbols",returnFocus=searchFocus,searchable=true)
+                    ) else emptyList()) + listOf(
+                        PaletteChoice("emoji-zoom-in", "Zoom in", enabled=columns > minColumns, shortcut=listOf("Ctrl", "+"), chord=KeyChord(KeyEvent.KEYCODE_EQUALS, ShortcutRules.CTRL or ShortcutRules.SHIFT), separator=true) { zoom(-1) },
+                        PaletteChoice("emoji-zoom-out", "Zoom out", enabled=columns < maxColumns, shortcut=listOf("Ctrl", "−"), chord=KeyChord(KeyEvent.KEYCODE_MINUS, ShortcutRules.CTRL)) { zoom(1) },
+                        PaletteChoice("emoji-actual-size", "Actual size", enabled=zoomColumns != null, shortcut=listOf("Ctrl", "0"), chord=KeyChord(KeyEvent.KEYCODE_0, ShortcutRules.CTRL)) {
+                            if (canChangeGrid()) zoomColumns = null
+                        },
+                        PaletteChoice("emoji-save-size", "Set default to $columns columns", enabled=store.defaultGridColumns != columns) {
+                            if (canChangeGrid() && currentColumns() == columns) { store.saveGridColumns(columns); zoomColumns = null }
+                        },
+                        PaletteChoice("emoji-auto-size", "Use automatic grid size", enabled=store.defaultGridColumns != null) {
+                            if (canChangeGrid()) { store.saveGridColumns(null); zoomColumns = null }
+                        }
+                    ),title=selected?.name ?: "Emoji & Symbols",returnFocus=searchFocus,searchable=true)
                 }
             }
         }

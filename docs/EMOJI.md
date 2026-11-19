@@ -17,6 +17,13 @@ account or network connection is needed to use the bundled catalog.
   Active IME composition keeps its own candidate navigation. Ctrl+D toggles a
   favorite. Escape leaves query editing first, then clears the query, then returns
   to commands. Back and outside-tap dismissal remain available.
+- Resize the grid with Ctrl++ (Ctrl+Shift+=), Ctrl+− and Ctrl+0. Zoom in removes
+  one column, zoom out adds one, and Actual size returns to the saved or automatic
+  size. The same controls are in Actions. The grid keeps the selected symbol and
+  the arrow keys follow the new rows.
+- Zoom applies to the open picker. To keep a size across launches, use **Actions →
+  Set default to … columns**. **Use automatic grid size** removes that preference.
+  The picker limits the number of columns to fit its available width.
 - The bottom-right capsule offers Copy and Actions (Ctrl+K). The attached action
   panel searches Copy, Favorite and Copy Unicode actions; Unicode copies each
   codepoint as `U+XXXX`. Escape closes it and restores search focus.
@@ -35,7 +42,7 @@ account or network connection is needed to use the bundled catalog.
 The licensed snapshot contains 1,870 emoji and 70 common text symbols. It is not
 the complete/current Unicode repertoire. Android's font determines appearance
 and support; no emoji artwork is shipped. See [source provenance](../third_party/gemoji/UPSTREAM.md).
-Skin-tone selection, multilingual/custom keywords, adjustable density, ordering
+Skin-tone selection, multilingual/custom keywords, favorite ordering
 and portable favorites are tracked in [#44](https://github.com/moikdev/droidcast/issues/44).
 Automatic cross-app paste is not claimed. This is partial Tinycast/Raycast parity.
 

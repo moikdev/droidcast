@@ -62,6 +62,7 @@ class EmojiDeviceTest {
         originalEmoji.forEach { (key, value) -> when (value) {
             is String -> editor.putString(key, value)
             is Boolean -> editor.putBoolean(key, value)
+            is Int -> editor.putInt(key, value)
             is Set<*> -> editor.putStringSet(key, value.filterIsInstance<String>().toSet())
         } }
         assertTrue(editor.commit())
@@ -91,7 +92,7 @@ class EmojiDeviceTest {
             compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag("emoji-filter-$value"))
         compose.onNodeWithTag("emoji-filter-$value").performScrollTo().performClick()
     }
-    private fun evidence(name: String, marker: String) {
+    private fun evidence(name: String, marker: String, expectedColumns: Int? = null) {
         compose.waitForIdle()
         assertTrue("Screenshot marker: $marker", device.wait(Until.hasObject(By.textContains(marker)), 5000))
         dismissClipboardForEvidence()
@@ -111,7 +112,10 @@ class EmojiDeviceTest {
             val elements = (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }
                 .filter { it.getAttribute("package") == context.packageName }
             fun tagged(tag: String) = elements.singleOrNull { it.getAttribute("resource-id").substringAfterLast('/') == tag }
-            tagged("emoji-count")?.getAttribute("text") == expectedCount &&
+            val gridMatches = expectedColumns == null || elements.filter { it.getAttribute("resource-id").startsWith("emoji-cell-") }
+                .map { android.graphics.Rect.unflattenFromString(it.getAttribute("bounds").replace(Regex("[^0-9-]+"), " ").trim()) }
+                .filterNotNull().filter { !it.isEmpty }.groupBy { it.top }.toSortedMap().values.firstOrNull()?.size == expectedColumns
+            gridMatches && tagged("emoji-count")?.getAttribute("text") == expectedCount &&
                 tagged("emoji-selected-name")?.getAttribute("text") == expectedName &&
                 tagged("emoji-copy")?.getAttribute("enabled") == expectedEnabled &&
                 tagged("emoji-favorite")?.getAttribute("enabled") == expectedEnabled
@@ -258,6 +262,109 @@ class EmojiDeviceTest {
             connection.finishComposingText()
         }
     }
+    @Test fun heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer() {
+        search("face")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun emit(action: Int, repeat: Int, modifiers: Int) {
+            assertTrue(testAutomation().injectInputEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_EQUALS, repeat, modifiers, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
+            compose.waitForIdle()
+        }
+        val menu = compose.onNodeWithTag("inline-menu-search")
+        val exactText = { value: String -> SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)) }
+        fun captureMenu(name: String) {
+            val observed = menu.fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+            assertTrue(observed.length <= 3 && observed.all { it == '=' })
+            val dir = File(context.filesDir, "emoji-evidence").apply { mkdirs() }
+            val xml = File(dir, "$name.xml")
+            compose.waitUntil(10000) {
+                if (android.os.Build.VERSION.SDK_INT >= 34) testAutomation().clearCacheForTest()
+                device.dumpWindowHierarchy(xml)
+                val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                    .parse(xml).getElementsByTagName("node")
+                (0 until nodes.length).map { nodes.item(it) as org.w3c.dom.Element }.any {
+                    it.getAttribute("resource-id") == "inline-menu-search" && it.getAttribute("focused") == "true" &&
+                        (it.getAttribute("text") == observed || (observed.isEmpty() && it.getAttribute("text") == "Search for actions…"))
+                }
+            }
+            assertTrue(device.takeScreenshot(File(dir, "$name.png")))
+        }
+        try {
+            emit(KeyEvent.ACTION_DOWN, 0, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
+            compose.onNodeWithTag("emoji-actions").performScrollTo().performTouchInput { click(center) }
+            menu.assertIsFocused().assert(exactText(""))
+            for (repeat in 1..3) emit(KeyEvent.ACTION_DOWN, repeat, 0)
+            captureMenu("handoff-menu")
+            menu.assert(exactText(""))
+        } finally {
+            emit(KeyEvent.ACTION_UP, 0, 0)
+        }
+        // A genuinely new unmodified press must still reach the new editor.
+        key(KeyEvent.KEYCODE_EQUALS)
+        menu.assert(exactText("="))
+        captureMenu("handoff-next")
+        assertEquals("face", store.query)
+    }
+
+    @Test fun gridZoomFollowsSelectionAndOnlySavesAnExplicitDefault() {
+        val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
+        compose.activityRule.scenario.onActivity { prefs.edit().remove("gridColumns").apply() }
+        search("face")
+        fun firstRowColumns(): Int {
+            val cells = compose.onAllNodes(SemanticsMatcher("emoji cells") {
+                SemanticsProperties.TestTag in it.config && it.config[SemanticsProperties.TestTag].startsWith("emoji-cell-")
+            }).fetchSemanticsNodes().map { it.boundsInWindow }.filter { it.height > 0 && it.width > 0 }
+            val top = cells.minOf { it.top }
+            return cells.count { kotlin.math.abs(it.top - top) < 1 }
+        }
+        fun action(tag: String) {
+            compose.onNodeWithTag("emoji-actions").performScrollTo().performClick()
+            compose.onNodeWithTag("inline-menu-choices").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+            compose.waitForIdle()
+        }
+        val original = firstRowColumns()
+        evidence("grid-default", "results · offline", original)
+        key(KeyEvent.KEYCODE_DPAD_RIGHT)
+        val selectedId = store.results()[store.selected].id
+        key(KeyEvent.KEYCODE_EQUALS, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
+        assertEquals("Zoom in removes a rendered column", original - 1, firstRowColumns())
+        compose.onNodeWithTag("emoji-cell-$selectedId").assertIsSelected().assertIsDisplayed()
+        assertEquals("face", store.query)
+        assertFalse(prefs.contains("gridColumns"))
+        evidence("grid-zoomed", "results · offline", original - 1)
+        val bounds = compose.onNodeWithTag("emoji-cell-$selectedId").fetchSemanticsNode().boundsInWindow
+        val minimum = 48 * context.resources.displayMetrics.density - 1
+        assertTrue("Zoomed target", bounds.width >= minimum && bounds.height >= minimum)
+        key(KeyEvent.KEYCODE_DPAD_DOWN)
+        assertEquals(original, store.selected)
+        key(KeyEvent.KEYCODE_0, KeyEvent.META_CTRL_ON)
+        assertEquals(original, firstRowColumns())
+        action("emoji-zoom-in")
+        assertEquals(original - 1, firstRowColumns())
+        key(KeyEvent.KEYCODE_K, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("inline-menu").assertIsDisplayed()
+        key(KeyEvent.KEYCODE_0, KeyEvent.META_CTRL_ON)
+        compose.onNodeWithTag("inline-menu").assertDoesNotExist()
+        assertEquals(original, firstRowColumns())
+        action("emoji-zoom-in")
+        action("emoji-save-size")
+        assertEquals(original - 1, prefs.getInt("gridColumns", 0))
+        action("emoji-zoom-out")
+        assertEquals(original, firstRowColumns())
+        assertEquals(original - 1, prefs.getInt("gridColumns", 0))
+        compose.onNodeWithTag("emoji-back").performClick()
+        compose.onNodeWithTag("search").performTextReplacement("emoji")
+        compose.onNodeWithTag("result-emoji").performClick()
+        search("face")
+        assertEquals("A fresh picker uses its saved default", original - 1, firstRowColumns())
+        evidence("grid-reopened", "results · offline", original - 1)
+        action("emoji-auto-size")
+        assertFalse(prefs.contains("gridColumns"))
+        assertEquals(original, firstRowColumns())
+    }
+
     @Test fun copyingWithoutConsentLeavesHistoryEmpty() {
         val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
         compose.activityRule.scenario.onActivity { prefs.edit().remove("rememberRecent").remove("recent").apply() }

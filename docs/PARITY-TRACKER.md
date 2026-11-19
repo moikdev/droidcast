@@ -289,3 +289,11 @@ The Quick Settings harness in #127 merged as `c337f481` after both independent a
 The [#44 emoji history change](EMOJI-HISTORY.md) makes recording an explicit choice, including on upgrade. Pausing hides saved entries from Recent and search ranking. Clearing removes the list and preserves favorites. Tablet and phone cover default privacy, enabling, pausing, clearing, keyboard actions and exact clipboard text. The tablet restart workflow verifies preference persistence. Portable favorites, custom ranking and the other #44 acceptance items remain open.
 
 PR #128 merged the battery and security settings destinations at `2bc32888`. The merged tree matches reviewed `0e9c628c`. Both independent reviews and [hosted Android](https://github.com/moikdev/droidcast/actions/runs/44449810216) passed after the collector optimization guard was repaired. #22 still tracks pre-33 and physical/OEM verification.
+
+### Emoji grid density
+
+[The #44 density controls](EMOJI-GRID-DENSITY.md) add temporary keyboard zoom and explicit saved defaults. A new picker restores the saved setting. The current API 36 checks cover the displayed row count, selection, arrow movement, picker and menu shortcuts, real Actions taps, and reopening the app. Tone support, custom/multilingual keywords, favorite ordering and portable settings remain open.
+
+Emoji history consent shipped in #129 at merge `a3b06840`. The merge has the same tree as audited head `3afac06d`. Both independent audits, [hosted Android](https://github.com/moikdev/droidcast/actions/runs/44451673433) and local/android passed.
+
+The #130 keyboard regression reproduced on the original grid-density app. Its Actions search received three equals signs while zoom was held across a tap. With the [shared key handling](EMOJI-GRID-DENSITY.md#holding-a-zoom-shortcut-while-opening-actions) the tablet kept the query empty and accepted a new equals press after release.
