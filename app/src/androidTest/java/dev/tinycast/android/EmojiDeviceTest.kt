@@ -262,6 +262,32 @@ class EmojiDeviceTest {
             connection.finishComposingText()
         }
     }
+    @Test fun heldZoomRepeatsStayOutOfActionsSearchAfterFocusTransfer() {
+        search("face")
+        val down = android.os.SystemClock.uptimeMillis()
+        fun emit(action: Int, repeat: Int, modifiers: Int) {
+            assertTrue(testAutomation().injectInputEvent(KeyEvent(down, android.os.SystemClock.uptimeMillis(),
+                action, KeyEvent.KEYCODE_EQUALS, repeat, modifiers, android.view.KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, 0, android.view.InputDevice.SOURCE_KEYBOARD), true))
+            compose.waitForIdle()
+        }
+        val menu = compose.onNodeWithTag("inline-menu-search")
+        val exactText = { value: String -> SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)) }
+        try {
+            emit(KeyEvent.ACTION_DOWN, 0, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON)
+            compose.onNodeWithTag("emoji-actions").performScrollTo().performTouchInput { click(center) }
+            menu.assertIsFocused().assert(exactText(""))
+            for (repeat in 1..3) emit(KeyEvent.ACTION_DOWN, repeat, 0)
+            menu.assert(exactText(""))
+        } finally {
+            emit(KeyEvent.ACTION_UP, 0, 0)
+        }
+        // A genuinely new unmodified press must still reach the new editor.
+        key(KeyEvent.KEYCODE_EQUALS)
+        menu.assert(exactText("="))
+        assertEquals("face", store.query)
+    }
+
     @Test fun gridZoomFollowsSelectionAndOnlySavesAnExplicitDefault() {
         val prefs = context.getSharedPreferences("emoji", Context.MODE_PRIVATE)
         compose.activityRule.scenario.onActivity { prefs.edit().remove("gridColumns").apply() }
