@@ -2,7 +2,6 @@ package dev.tinycast.android
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
 import androidx.compose.runtime.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +39,7 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
 
     fun saveGridColumns(columns: Int?) {
         require(columns == null || columns in 1..10)
-        portable.edit { putInt(GRID_KEY, columns ?: 0) }
+        PalettePreferences.write(portable, GRID_KEY, columns ?: 0)
     }
 
     private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
@@ -104,7 +103,7 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
     }.toList()
 
     private fun writeFavorites(order: List<String>) {
-        portable.edit { putString(FAVORITES_KEY, JSONArray(order).toString()) }
+        PalettePreferences.write(portable, FAVORITES_KEY, JSONArray(order).toString())
     }
 
     fun portableSettings() = PortableEmojiSettings(orderedMembers(savedFavorites), defaultGridColumns)

@@ -347,6 +347,95 @@ class BackupDeviceTest {
         }
     }
 
+    @Test fun failedRestoreKeepsPeerEditAtRollbackSnapshot() = failedRestoreWithPeerEdit(atSnapshot = true)
+
+    @Test fun failedRestoreKeepsPeerWhoExplicitlySavedSameGrid() = failedRestoreWithPeerEdit(atSnapshot = false)
+
+    private fun failedRestoreWithPeerEdit(atSnapshot: Boolean) {
+        val real = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+        val enteredCommit = CountDownLatch(1)
+        val finishCommit = CountDownLatch(1)
+        val peerFinished = CountDownLatch(1)
+        val failed = java.util.concurrent.atomic.AtomicBoolean(false)
+        val intercepted = java.util.concurrent.atomic.AtomicBoolean(false)
+        val main = android.os.Handler(android.os.Looper.getMainLooper())
+        val peer = compose.activity.store
+        val injected = object : SharedPreferences by real {
+            override fun getAll(): Map<String, *> {
+                val snapshot = real.all
+                if (atSnapshot && failed.get() && intercepted.compareAndSet(false, true)) {
+                    main.post {
+                        peer.emoji.saveGridColumns(7)
+                        peerFinished.countDown()
+                    }
+                    // A peer can run between a worker's snapshot and rollback. On the main
+                    // thread the edit runs on the next turn, after the indivisible rollback.
+                    if (!main.looper.isCurrentThread) check(peerFinished.await(10, TimeUnit.SECONDS))
+                }
+                return snapshot
+            }
+
+            override fun edit(): SharedPreferences.Editor {
+                val underlying = real.edit()
+                return object : SharedPreferences.Editor by underlying {
+                    override fun putBoolean(key: String, value: Boolean): SharedPreferences.Editor {
+                        underlying.putBoolean(key, value)
+                        return this
+                    }
+                    override fun commit(): Boolean {
+                        // Publish memory as Android does even when the durable commit fails.
+                        underlying.apply()
+                        enteredCommit.countDown()
+                        check(finishCommit.await(10, TimeUnit.SECONDS))
+                        failed.set(true)
+                        return false
+                    }
+                }
+            }
+        }
+        val application = object : android.app.Application() {
+            init { attachBaseContext(context.applicationContext) }
+            override fun getSharedPreferences(name: String, mode: Int): SharedPreferences =
+                if (name == "palette") injected else super.getSharedPreferences(name, mode)
+        }
+        val incoming = PortableEmojiSettings(listOf("1f604"), 8)
+        val file = File.createTempFile("restore-failure-", ".json", context.cacheDir)
+        val holder = androidx.lifecycle.ViewModelStore()
+        lateinit var importing: PaletteStore
+        try {
+            file.writeText(BackupCodec.encode(BackupData(emoji = incoming), setOf(BackupCategory.EMOJI)))
+            compose.runOnIdle {
+                real.edit().putInt("emojiGridColumns", 4).putString("emojiFavoriteOrder", """["1f600"]""").apply()
+                importing = androidx.lifecycle.ViewModelProvider(holder,
+                    androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(application))[PaletteStore::class.java]
+                importing.readBackup(android.net.Uri.fromFile(file))
+            }
+            compose.waitUntil(10000) { importing.backupDocument != null && !importing.backupBusy }
+            compose.runOnIdle {
+                importing.restorePolicy = RestorePolicy.REPLACE
+                importing.applyBackup()
+            }
+            assertTrue("The durable commit must be attempted", enteredCommit.await(10, TimeUnit.SECONDS))
+            if (!atSnapshot) {
+                compose.runOnIdle {
+                    peer.emoji.saveGridColumns(9)
+                    peer.emoji.saveGridColumns(8)
+                }
+            }
+            finishCommit.countDown()
+            compose.waitUntil(10000) { !importing.backupBusy && importing.backupError != null }
+            if (atSnapshot) assertTrue(peerFinished.await(10, TimeUnit.SECONDS))
+            assertEquals("Failure recovery overwrote the peer's grid edit", if (atSnapshot) 7 else 8,
+                real.getInt("emojiGridColumns", -1))
+            assertEquals("An untouched key must roll back", """["1f600"]""", real.getString("emojiFavoriteOrder", null))
+            assertNotNull("Keep the import available for retry", importing.backupDocument)
+        } finally {
+            finishCommit.countDown()
+            compose.runOnIdle { holder.clear() }
+            file.delete()
+        }
+    }
+
     @Test fun previewCancelAndMalformedInputLeaveDataUntouched() {
         val before = compose.activity.store.backupSnapshot()
         load(BackupDocument(BackupData(notes = listOf(SavedItem("notes:import", "Imported note", "Do not apply on preview"))), setOf(BackupCategory.NOTES)))
