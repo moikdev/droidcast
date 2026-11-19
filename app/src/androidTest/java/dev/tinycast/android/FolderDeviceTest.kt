@@ -144,7 +144,7 @@ class FolderDeviceTest {
         }
         node.click(); device.waitForIdle()
     }
-    private fun authorize() {
+    private fun authorize(subfolder: String? = null, expectedCount: Int = 4) {
         compose.onNodeWithTag("folder-add").performScrollTo().performClick()
         assertTrue(device.wait(Until.hasObject(By.pkg("com.google.android.documentsui")), 7000))
         // Picker may retain a previous initial directory; choose Downloads explicitly.
@@ -154,6 +154,7 @@ class FolderDeviceTest {
             if (device.hasObject(By.text("Downloads"))) clickText("Downloads") else clickText("Download")
             clickText(rootName)
         }
+        if (subfolder != null) clickText(subfolder)
         assertTrue(device.wait(Until.hasObject(By.text("USE THIS FOLDER")), 5000))
         val dir = File(context.filesDir, "folder-evidence").apply { mkdirs() }
         device.waitForIdle(); assertTrue(device.takeScreenshot(File(dir, "native-folder-picker.png")))
@@ -161,10 +162,10 @@ class FolderDeviceTest {
         device.wait(Until.findObject(By.text("ALLOW")), 3000)?.click()
         compose.waitUntil(15000) {
             val model = compose.activity.store.folderSearch
-            !model.selecting && !model.changing && !model.busy && model.folders.any { it.title == rootName }
+            !model.selecting && !model.changing && !model.busy && model.folders.any { it.title == (subfolder ?: rootName) }
         }
         assertNull(compose.activity.store.folderSearch.error)
-        assertEquals(4, compose.activity.store.folderSearch.count)
+        assertEquals(expectedCount, compose.activity.store.folderSearch.count)
     }
     private fun reopened(): FolderSearch {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate).also { scopes += it }
@@ -173,6 +174,80 @@ class FolderDeviceTest {
         compose.waitUntil(10000) { !result.loading }
         return result
     }
+    private fun takeFixtureDocumentGrant(folder: SearchFolder): Uri {
+        val tree = Uri.parse(folder.uri)
+        val initial = android.provider.DocumentsContract.buildDocumentUriUsingTree(
+            tree, android.provider.DocumentsContract.getTreeDocumentId(tree))
+        var selected: Uri? = null
+        val launcher = compose.runOnUiThread {
+            compose.activity.activityResultRegistry.register("folder-grant-fixture",
+                androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult()) { result ->
+                selected = result.data?.data
+            }
+        }
+        try {
+            compose.runOnUiThread {
+                launcher.launch(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("text/plain").putExtra(android.provider.DocumentsContract.EXTRA_INITIAL_URI, initial))
+            }
+            clickText("Previous-note.txt")
+            compose.waitUntil(7000) { selected != null }
+            val uri = requireNotNull(selected)
+            assertFalse(android.provider.DocumentsContract.isTreeUri(uri))
+            assertTrue(uri !in grants)
+            context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            assertTrue(context.contentResolver.persistedUriPermissions.any { it.uri == uri && it.isReadPermission })
+            return uri
+        } finally { compose.runOnUiThread { launcher.unregister() } }
+    }
+
+    private fun revalidateAndWait(model: FolderSearch, scope: CoroutineScope) {
+        compose.runOnUiThread { model.revalidate() }
+        runBlocking { withTimeout(10000) { scope.coroutineContext.job.children.toList().joinAll() } }
+    }
+
+    @Test fun separateDocumentGrantKeepsFolderIndexAcrossReopening() {
+        authorize()
+        val original = controller.configurationCommands().map { it.id }.toSet()
+        val model = reopened()
+        val scope = scopes.last()
+        val uri = takeFixtureDocumentGrant(model.folders.single())
+        revalidateAndWait(model, scope)
+        assertEquals(original, model.configurationCommands().map { it.id }.toSet())
+        compose.activityRule.scenario.recreate()
+        compose.waitUntil(10000) { !compose.activity.store.folderSearch.loading }
+        compose.activityRule.scenario.onActivity { it.selectPage("folders") }
+        val count = compose.activity.store.folderSearch.count
+        evidence("document-grant-reopened", "$count indexed items")
+        assertEquals(original, compose.activity.store.folderSearch.configurationCommands().map { it.id }.toSet())
+        context.contentResolver.releasePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        revalidateAndWait(model, scope)
+        assertEquals(original, reopened().configurationCommands().map { it.id }.toSet())
+    }
+
+    @Test fun revokedFolderKeepsOtherReadableFolderAcrossReopening() {
+        authorize("Research", 1)
+        authorize()
+        val model = reopened()
+        val scope = scopes.last()
+        val research = model.folders.single { it.title == "Research" }
+        val id = model.configurationCommands().single { it.title == "Orbit-notes.txt" }.id
+        val expired = model.folders.single { it.title == rootName }
+        assertTrue(Uri.parse(expired.uri) !in grants)
+        context.contentResolver.releasePersistableUriPermission(Uri.parse(expired.uri), Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        revalidateAndWait(model, scope)
+        assertEquals(listOf(id), model.configurationCommands().map { it.id })
+        assertTrue(model.errors.containsKey(expired.uri))
+        compose.activityRule.scenario.recreate()
+        compose.waitUntil(10000) { !compose.activity.store.folderSearch.loading }
+        compose.activityRule.scenario.onActivity { it.selectPage("folders") }
+        val loaded = compose.activity.store.folderSearch
+        evidence("revoked-folder-reopened", "Folder access expired")
+        assertEquals(listOf(id), loaded.configurationCommands().map { it.id })
+        assertFalse(loaded.errors.containsKey(research.uri))
+        assertTrue(loaded.errors.containsKey(expired.uri))
+    }
+
     private class QueuedIo : CoroutineDispatcher() {
         private val tasks = ConcurrentLinkedQueue<Runnable>()
         override fun dispatch(context: CoroutineContext, block: Runnable) { tasks.add(block) }
