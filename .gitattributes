@@ -90,6 +90,9 @@ docs/validation/unicode-emoji/runs/**/*.log -text -whitespace
 # Keep the device hierarchy and JUnit bytes bound to the skin-tone captures.
 docs/validation/emoji-tones/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-tones/runs/**/*.log -text -whitespace
+docs/validation/emoji-tones/recent/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-tones/recent/runs/**/*.log -text -whitespace
+
 
 # Preserve native hierarchy and JUnit bytes used for custom-keyword evidence.
 docs/validation/emoji-keywords/hierarchies/*.xml -text -whitespace
