@@ -27,7 +27,12 @@ parser.add_argument("--rounds", type=int, default=3)
 parser.add_argument("--alt-q-only", action="store_true", help="Verify the reported Alt+Q activation chord from other apps")
 parser.add_argument("--readiness", action="store_true", help="Also verify the inline settings check with real service-filtered Alt+Q")
 parser.add_argument("--document-only", action="store_true", help="Only exercise the configured TXT shortcut and its viewer")
+parser.add_argument("--settings-focus-run", type=Path, metavar="NEW_DIRECTORY",
+                    help="Capture one measured Settings → palette → Settings hardware transition on the dedicated tablet")
 args = parser.parse_args()
+if args.settings_focus_run and (args.avd != "Tinycast_Tablet_API_36" or not re.fullmatch(r"emulator-[0-9]+", args.serial)
+                                or args.document_only or args.alt_q_only or args.readiness):
+    parser.error("--settings-focus-run requires the dedicated tablet and its own run mode")
 if args.document_only and (args.alt_q_only or args.readiness):
     parser.error("--document-only cannot be combined with the keyboard readiness modes")
 assert 1 <= args.rounds <= 10
@@ -38,7 +43,10 @@ suite = "shortcut-readiness-hardware" if args.readiness else "shortcut-hardware"
 if args.document_only:
     suite = "shortcut-document-hardware"
 output = Path(__file__).resolve().parents[1] / "artifacts" / suite
-output.mkdir(parents=True, exist_ok=True)
+if args.settings_focus_run:
+    output = args.settings_focus_run
+    os.umask(0o077)
+output.mkdir(parents=True, exist_ok=not args.settings_focus_run)
 results = {"device": args.serial, "app_requires_root": False, "injection": "dedicated emulator Linux qwerty2 device", "cases": []}
 
 
@@ -291,6 +299,52 @@ def check_snapshot(name, marker):
     (output / (name + "-after-rebind.png")).write_bytes(raw("exec-out", "screencap", "-p"))
 
 
+def configure_global_shortcut():
+    palette("Keyboard shortcuts")
+    adb("shell", "input", "keyevent", "KEYCODE_ENTER")
+    click("Reset shortcuts…"); click("Reset shortcuts")
+    click("Record")
+    node("Record a shortcut")
+    chord(57)
+    node("Ctrl + Alt + Space")
+    chord(57, (29,))
+    node("Ctrl + Space")
+    node("Record a shortcut")  # The existing global chord must record, not dismiss.
+    click("Save shortcut")
+    passed("recording pauses the existing global shortcut")
+    click("Record")
+    node("Record a shortcut")
+    chord(57)
+    node("Ctrl + Alt + Space")
+    snapshot("record-global", "Record a shortcut")
+    click("Save shortcut")
+    snapshot("configured-global", "Ctrl + Alt + Space")
+    passed("record and persist Ctrl + Alt + Space")
+
+
+def settings_keyboard_route(trace=None):
+    if trace:
+        trace.mark("before_ctrl_f")
+    chord(33, (29,))
+    assert any(item.get("resource-id") == "settings-search" and item.get("focused") == "true" for item in tree().iter("node"))
+    passed("Ctrl+F focuses settings search while the service is enabled")
+    if trace:
+        trace.mark("before_global_chord")
+    chord(57)
+    wait(lambda: APP + "/" in focused() and ".MainActivity" in focused(), "Global chord did not return to the palette")
+    if trace:
+        trace.mark("before_ctrl_comma")
+    chord(51, (29,))
+    if trace:
+        trace.mark("ctrl_comma_injection_returned")
+    node("Make Droidcast fit the way you work.")
+    snapshot("settings-keyboard-route", "Global shortcut")
+    if trace:
+        trace.mark("destination_verified")
+    passed("Ctrl+Comma opens the separate settings workspace with the service enabled")
+
+
+
 try:
     # Also unroot if the transport drops during the root/reconnect attempt.
     rooted = True
@@ -307,7 +361,14 @@ try:
     assert match, "Dedicated qwerty2 device not found"
     keyboard = match.group(1)
 
-    if args.document_only:
+    if args.settings_focus_run:
+        from shortcut_focus_evidence import SettingsFocusTrace
+        configure_global_shortcut()
+        assert ".SettingsActivity" in focused(), "Missing starting Settings workspace"
+        with SettingsFocusTrace(base, output / "focus.json") as trace:
+            settings_keyboard_route(trace)
+            assert ".SettingsActivity" in focused(), "Missing Settings destination window"
+    elif args.document_only:
         verify_document_shortcut()
     elif args.alt_q_only or args.readiness:
         palette("Keyboard shortcuts")
@@ -402,36 +463,8 @@ try:
             check_snapshot("received-navigation-ctrl-f", "Received Ctrl + F in Settings")
             passed("explicitly armed Ctrl+F reaches the filtered check instead of Settings navigation")
     else:
-        palette("Keyboard shortcuts")
-        adb("shell", "input", "keyevent", "KEYCODE_ENTER")
-        click("Reset shortcuts…"); click("Reset shortcuts")
-        click("Record")
-        node("Record a shortcut")
-        chord(57)
-        node("Ctrl + Alt + Space")
-        chord(57, (29,))
-        node("Ctrl + Space")
-        node("Record a shortcut")  # The existing global chord must record, not dismiss.
-        click("Save shortcut")
-        passed("recording pauses the existing global shortcut")
-        click("Record")
-        node("Record a shortcut")
-        chord(57)
-        node("Ctrl + Alt + Space")
-        snapshot("record-global", "Record a shortcut")
-        click("Save shortcut")
-        snapshot("configured-global", "Ctrl + Alt + Space")
-        passed("record and persist Ctrl + Alt + Space")
-
-        chord(33, (29,))
-        assert any(item.get("resource-id") == "settings-search" and item.get("focused") == "true" for item in tree().iter("node"))
-        passed("Ctrl+F focuses settings search while the service is enabled")
-        chord(57)
-        wait(lambda: APP + "/" in focused() and ".MainActivity" in focused(), "Global chord did not return to the palette")
-        chord(51, (29,))
-        node("Make Droidcast fit the way you work.")
-        snapshot("settings-keyboard-route", "Global shortcut")
-        passed("Ctrl+Comma opens the separate settings workspace with the service enabled")
+        configure_global_shortcut()
+        settings_keyboard_route()
 
         for index in range(args.rounds):
             for origin in ("Settings", "Home"):
