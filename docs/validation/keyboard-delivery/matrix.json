@@ -1,0 +1,111 @@
+{
+  "app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+  "test_sha256": "e3d1c508bcdfb72d560fad9a07f831b6c09d3cc965be60bdaf9f52368def5849",
+  "runner_sha256": "c718af769878a0c6a127ef279df7001c349e2dacdc0b491893fd14b2a2b27f5b",
+  "serial": "emulator-5580",
+  "cases": [
+    {
+      "name": "off-preserve-adb-short-none",
+      "passed": true
+    },
+    {
+      "name": "off-preserve-adb-long-none",
+      "passed": true
+    },
+    {
+      "name": "off-preserve-linux-short-none",
+      "passed": true
+    },
+    {
+      "name": "off-preserve-linux-long-none",
+      "passed": true
+    },
+    {
+      "name": "off-suppress-adb-short-none",
+      "passed": true
+    },
+    {
+      "name": "off-suppress-adb-long-none",
+      "passed": true
+    },
+    {
+      "name": "off-suppress-linux-short-none",
+      "passed": true
+    },
+    {
+      "name": "off-suppress-linux-long-none",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-adb-short-none",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-adb-long-none",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-linux-short-none",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-linux-long-none",
+      "passed": true
+    },
+    {
+      "name": "on-suppress-adb-short-none",
+      "passed": true
+    },
+    {
+      "name": "on-suppress-adb-long-none",
+      "passed": true
+    },
+    {
+      "name": "on-suppress-linux-short-none",
+      "passed": true
+    },
+    {
+      "name": "on-suppress-linux-long-none",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-linux-short-drop",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-linux-short-extra-r",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-linux-short-editor-loss",
+      "passed": true
+    },
+    {
+      "name": "on-preserve-linux-short-paint",
+      "passed": true
+    }
+  ],
+  "cleanup": {
+    "key_release": {
+      "passed": true
+    },
+    "service_disconnected": {
+      "passed": true
+    },
+    "original_consent": {
+      "passed": true
+    },
+    "original_preferences": {
+      "passed": true
+    },
+    "adbd_unprivileged": {
+      "passed": true
+    },
+    "app_unprivileged": {
+      "passed": true
+    },
+    "lease_release": {
+      "passed": true
+    }
+  }
+}

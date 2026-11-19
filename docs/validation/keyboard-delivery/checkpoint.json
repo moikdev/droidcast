@@ -1,0 +1,669 @@
+{
+  "base": "9a1706e7d2e92f456256f3a08cece13ef8701bb0",
+  "app_source": "b4f3fe7c858509e7f12bb8b85388f2b7f5e455ea",
+  "app_sha256": "d37d4adc89f3a7c0be4d960dfd9b9d5673c48ff0bfe38055ce16316569acbea8",
+  "test_source": "3ea2b8bf370fc67fe155378f16963b78eea10304",
+  "test_sha256": "e3d1c508bcdfb72d560fad9a07f831b6c09d3cc965be60bdaf9f52368def5849",
+  "matrix_runner_source": "b5bacfcba65baf78a46c4203b4b6fe8a4e22a8d1",
+  "palette_runner_source": "16c4f6f9ce37a4c63f949da9f33beb9c4eaf9e2b",
+  "build_source": "845900d0e8812aa84b02947a998a74777d0500ee",
+  "python_source": "100310df6866cd44933d516b68b842ba1f2e3192",
+  "source_inventory_sha256": "15814eb5ef900a94f8e884d76437eff368c79fe34b54cffc222e87da9ddcdf86",
+  "packaged_app_assets": {
+    "assets/ANDROIDSVG-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "assets/ANDROIDSVG-NOTICE": "2e61b715e3553494f46f43e5a88e8d26c56201e0558c8d5ab02946edb4f7dedf",
+    "assets/COMMONMARK-LICENSE": "11cfcf6da0142fb1971c1f40f5924ddded14454e2793d7f1dd87c9f4abe42dfd",
+    "assets/COPYING": "14609801e0e520dac851e75d993ca4c75c3842a3be468f6f7f04a16c03c824db",
+    "assets/GEMOJI-LICENSE": "7ea1d1fd0602e6623b9a65e791499a0ea5a2f5f60f91bfad78cbaeee19da26e6",
+    "assets/NOTICE.md": "c263e44ea9a845c4e4ec564eeca46ae0fc343f63ffd10685afbf74586647e0f6",
+    "assets/REACT-LICENSE": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+    "assets/RaycastRuntime.generated.js": "b306b45453cc8507037ff2822066475aae17def757a8ef72d4a4fc64c6494bb7",
+    "assets/android-runtime.js": "1b5dfa3f5b512f55322f27703bbebf15d1a8c4569c4c1712a6dd64541dd552aa",
+    "assets/emoji-catalog.tsv": "e49f1cc09c6f487a6e7b55590ecc171dcff390f720a9ce3820fe2038810d5d66",
+    "assets/extension-workflow-evidence-v1.json": "4e8adc22b7887996140190a999f1c7272556f2dd379d219c88e276e48aea0fa5"
+  },
+  "build_outputs": {
+    "benchmark/app-benchmark.apk": "d89886e15ce11e25e5d3b15aef09c3efcdc9371f1bd12c0d56e04579a38631a2",
+    "debug/app-debug.apk": "a5060065331e879d08f5880a5069c68b82c178357b4876c331cb9fa7494d5be7",
+    "androidTest/benchmark/app-benchmark-androidTest.apk": "4995110cd096bf080db4aba1c1ad1d630c5ba01b231ed9a2f6c111fb0353f1f6",
+    "androidTest/debug/app-debug-androidTest.apk": "5264f2fafb6ccdeec19fc4bbcedd5000fc7b6a750bda07a06e51541cec652843"
+  },
+  "host": {
+    "debug_lint": {
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 47
+    },
+    "benchmark_lint": {
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 47
+    },
+    "jvm": {
+      "tests": 343,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python_normal": 143,
+    "python_optimized": 143
+  },
+  "files": [
+    {
+      "path": "docs/validation/keyboard-delivery/matrix.json",
+      "original": "matrix-final/results.json",
+      "sha256": "a7f022f5d2b1441e91d05fac44d2c326602bf00d4d9ffe94fbefbd7c82a46e74",
+      "raw_sha256": "a7f022f5d2b1441e91d05fac44d2c326602bf00d4d9ffe94fbefbd7c82a46e74",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-adb-short-none-before-observer.png",
+      "original": "matrix-final/off-preserve-adb-short-none/before-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-adb-short-none-after-observer.png",
+      "original": "matrix-final/off-preserve-adb-short-none/after-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-adb-short-none/hierarchy.xml",
+      "original": "matrix-final/off-preserve-adb-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-adb-short-none/case.json",
+      "original": "matrix-final/off-preserve-adb-short-none/case.json",
+      "sha256": "9b1461897396426ac503ebb453943b6c1f4096f055f9c56baf97f6e700db00da",
+      "raw_sha256": "6f502af1626a7677fd500d2e03eb3c1f5d6ab48f91a721cbf58a1d7320f91bbb",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-adb-long-none-before-observer.png",
+      "original": "matrix-final/off-preserve-adb-long-none/before-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-adb-long-none-after-observer.png",
+      "original": "matrix-final/off-preserve-adb-long-none/after-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-adb-long-none/hierarchy.xml",
+      "original": "matrix-final/off-preserve-adb-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-adb-long-none/case.json",
+      "original": "matrix-final/off-preserve-adb-long-none/case.json",
+      "sha256": "f54b66aeaf236573b0c7516d51dc99f7778e6f55ee12e3dec09ab4a3cca82f2b",
+      "raw_sha256": "e040c763dfa39949b61c791986fd25df25566024baa1a549e1db63da4bd1d54d",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-linux-short-none-before-observer.png",
+      "original": "matrix-final/off-preserve-linux-short-none/before-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-linux-short-none-after-observer.png",
+      "original": "matrix-final/off-preserve-linux-short-none/after-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-linux-short-none/hierarchy.xml",
+      "original": "matrix-final/off-preserve-linux-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-linux-short-none/case.json",
+      "original": "matrix-final/off-preserve-linux-short-none/case.json",
+      "sha256": "911b6de2bbc64c2f2266c4ec405c5ed24b83b8de096b08699518e9dd0478ad56",
+      "raw_sha256": "9c68beb5e69979b77df987ee3f83e6872e53aa1fdb3fac3f259e990497fd2398",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-linux-long-none-before-observer.png",
+      "original": "matrix-final/off-preserve-linux-long-none/before-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-preserve-linux-long-none-after-observer.png",
+      "original": "matrix-final/off-preserve-linux-long-none/after-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-linux-long-none/hierarchy.xml",
+      "original": "matrix-final/off-preserve-linux-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-preserve-linux-long-none/case.json",
+      "original": "matrix-final/off-preserve-linux-long-none/case.json",
+      "sha256": "77e0de706320f80ac5e5119c1c8b9c908c9375164dc87be67810d5e23a977674",
+      "raw_sha256": "1695c695f045da6d9fc75d10e4e4b352a0a2ed38d0967c38f9611c3b5c83202a",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-adb-short-none-before-observer.png",
+      "original": "matrix-final/off-suppress-adb-short-none/before-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-adb-short-none-after-observer.png",
+      "original": "matrix-final/off-suppress-adb-short-none/after-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-adb-short-none/hierarchy.xml",
+      "original": "matrix-final/off-suppress-adb-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-adb-short-none/case.json",
+      "original": "matrix-final/off-suppress-adb-short-none/case.json",
+      "sha256": "a3a2f1e75a52f6e7f59bd8eac476a2d3ce7d4942a875bed8bbd093dd3628ce35",
+      "raw_sha256": "39871a036fef6e51941164c24eae55819a43f9436a475df60baf697e439ec6e9",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-adb-long-none-before-observer.png",
+      "original": "matrix-final/off-suppress-adb-long-none/before-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-adb-long-none-after-observer.png",
+      "original": "matrix-final/off-suppress-adb-long-none/after-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-adb-long-none/hierarchy.xml",
+      "original": "matrix-final/off-suppress-adb-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-adb-long-none/case.json",
+      "original": "matrix-final/off-suppress-adb-long-none/case.json",
+      "sha256": "2d5d4e06015de4c4b1abc8f47cfc3ba69a4a0a2ef9ea9390e474af379194e152",
+      "raw_sha256": "fbd7fa21da4a489d99f759576871ed3e14f421fea8c52e623229a4b2d46b0a5f",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-linux-short-none-before-observer.png",
+      "original": "matrix-final/off-suppress-linux-short-none/before-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-linux-short-none-after-observer.png",
+      "original": "matrix-final/off-suppress-linux-short-none/after-observer.png",
+      "sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "raw_sha256": "fdb5a7824a011788ee86cfacf9ef44d5acd25f5c05d196023ab55f46a5c7e06c",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-linux-short-none/hierarchy.xml",
+      "original": "matrix-final/off-suppress-linux-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-linux-short-none/case.json",
+      "original": "matrix-final/off-suppress-linux-short-none/case.json",
+      "sha256": "51f42fcf3b8747b010bbe65d3e16b226c6eeb795d249d817f523673a7fab85de",
+      "raw_sha256": "55ffc324e8f676865c1278d94402afc4b398a82374c2381126c68fb1341fc8f9",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-linux-long-none-before-observer.png",
+      "original": "matrix-final/off-suppress-linux-long-none/before-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/off-suppress-linux-long-none-after-observer.png",
+      "original": "matrix-final/off-suppress-linux-long-none/after-observer.png",
+      "sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "raw_sha256": "7e2d9c393eacee3ed64de2d9991515f1ba1f9327317ecd60031a23fe90760015",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-linux-long-none/hierarchy.xml",
+      "original": "matrix-final/off-suppress-linux-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/off-suppress-linux-long-none/case.json",
+      "original": "matrix-final/off-suppress-linux-long-none/case.json",
+      "sha256": "16174df4bf9e1f8804b5c71377ded998015744fee996bd1ac6cc67b832d8c449",
+      "raw_sha256": "096362fd132b8e4d78439e58dd72fcff6ead2a6cba127d2fda8cf6a910ee4ae2",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-adb-short-none-before-observer.png",
+      "original": "matrix-final/on-preserve-adb-short-none/before-observer.png",
+      "sha256": "389ea85907978f3ed629071d12cffd15ee768d2c938436086e3417ee7f5c359e",
+      "raw_sha256": "389ea85907978f3ed629071d12cffd15ee768d2c938436086e3417ee7f5c359e",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-adb-short-none-after-observer.png",
+      "original": "matrix-final/on-preserve-adb-short-none/after-observer.png",
+      "sha256": "389ea85907978f3ed629071d12cffd15ee768d2c938436086e3417ee7f5c359e",
+      "raw_sha256": "389ea85907978f3ed629071d12cffd15ee768d2c938436086e3417ee7f5c359e",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-adb-short-none/hierarchy.xml",
+      "original": "matrix-final/on-preserve-adb-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-adb-short-none/case.json",
+      "original": "matrix-final/on-preserve-adb-short-none/case.json",
+      "sha256": "a8fb1a5fdf1e8d0c4a44a43eea17f76bddef4aa2613fbd1bce4a448ca50d96de",
+      "raw_sha256": "89e1c0f510ea682b5ef232293eee760923888dbd0c38fe893d97c8e1b06588d7",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-adb-long-none-before-observer.png",
+      "original": "matrix-final/on-preserve-adb-long-none/before-observer.png",
+      "sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "raw_sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-adb-long-none-after-observer.png",
+      "original": "matrix-final/on-preserve-adb-long-none/after-observer.png",
+      "sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "raw_sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-adb-long-none/hierarchy.xml",
+      "original": "matrix-final/on-preserve-adb-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-adb-long-none/case.json",
+      "original": "matrix-final/on-preserve-adb-long-none/case.json",
+      "sha256": "ffc6e5f92ec0dd37746a3622530397cf755f4c93d617a71f8e81408c1b1e16c2",
+      "raw_sha256": "e9e6ced96208666aad46e427271bee093d688b34a0dceab4b8cba8818a1a7c78",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-none-before-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-none/before-observer.png",
+      "sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "raw_sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-none-after-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-none/after-observer.png",
+      "sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "raw_sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-none/hierarchy.xml",
+      "original": "matrix-final/on-preserve-linux-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-none/case.json",
+      "original": "matrix-final/on-preserve-linux-short-none/case.json",
+      "sha256": "f16115b19554d5112e9e5f960b1593bb068c00340137b59d0d1f0db9698a5dfb",
+      "raw_sha256": "8ac42a524461adcdc428437c639451533a0950b76eecda75a658375c91a1ab15",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-long-none-before-observer.png",
+      "original": "matrix-final/on-preserve-linux-long-none/before-observer.png",
+      "sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "raw_sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-long-none-after-observer.png",
+      "original": "matrix-final/on-preserve-linux-long-none/after-observer.png",
+      "sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "raw_sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-long-none/hierarchy.xml",
+      "original": "matrix-final/on-preserve-linux-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-long-none/case.json",
+      "original": "matrix-final/on-preserve-linux-long-none/case.json",
+      "sha256": "538be56828f0ab49df55695d958b708807548f0c07a6d8a99a59111a46877465",
+      "raw_sha256": "af9b47158c5654ebcc8c7f6fe12a15d89ef187ab2c176a8a5e876d8c37c9c3f4",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-adb-short-none-before-observer.png",
+      "original": "matrix-final/on-suppress-adb-short-none/before-observer.png",
+      "sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "raw_sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-adb-short-none-after-observer.png",
+      "original": "matrix-final/on-suppress-adb-short-none/after-observer.png",
+      "sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "raw_sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-adb-short-none/hierarchy.xml",
+      "original": "matrix-final/on-suppress-adb-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-adb-short-none/case.json",
+      "original": "matrix-final/on-suppress-adb-short-none/case.json",
+      "sha256": "53b8496ce14cd5469243df2a564b3901b1883945de4051b5d5c930249eee7252",
+      "raw_sha256": "83a19302a0ddadd41fba3096096e46ef47c6a94f95fad942a0d99e44f098c12c",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-adb-long-none-before-observer.png",
+      "original": "matrix-final/on-suppress-adb-long-none/before-observer.png",
+      "sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "raw_sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-adb-long-none-after-observer.png",
+      "original": "matrix-final/on-suppress-adb-long-none/after-observer.png",
+      "sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "raw_sha256": "3c45a473886b4a1cd3160040180af8de00bc5f07f3dc8f2bd5e722175ad4821b",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-adb-long-none/hierarchy.xml",
+      "original": "matrix-final/on-suppress-adb-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-adb-long-none/case.json",
+      "original": "matrix-final/on-suppress-adb-long-none/case.json",
+      "sha256": "b860219234797fbdbca48637acfeab5b21f2fbd2f1b716873feba505952dba02",
+      "raw_sha256": "f281898dda83c111a63822f2ac26e77cc12c6fca8c1b61f0d7397bcb7d8b5b0a",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-linux-short-none-before-observer.png",
+      "original": "matrix-final/on-suppress-linux-short-none/before-observer.png",
+      "sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "raw_sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-linux-short-none-after-observer.png",
+      "original": "matrix-final/on-suppress-linux-short-none/after-observer.png",
+      "sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "raw_sha256": "8a8bacf94e8f8dd58b298f1e9a2897801a18968ef798762b6678b864e559cc4d",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-linux-short-none/hierarchy.xml",
+      "original": "matrix-final/on-suppress-linux-short-none/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-linux-short-none/case.json",
+      "original": "matrix-final/on-suppress-linux-short-none/case.json",
+      "sha256": "2ea2f8a1ef579fddbdf91ce644b68ac612a6626fa632cf2ec485888866cf80be",
+      "raw_sha256": "c03cde447007b304b6522a147dcda5f23c42acbea92b5ebd3d5932d9a7ef0e85",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-linux-long-none-before-observer.png",
+      "original": "matrix-final/on-suppress-linux-long-none/before-observer.png",
+      "sha256": "8b3c18967a4048a299a98df5f47a3ebb91b5eec3e74f667f7fb7ffb151ceff37",
+      "raw_sha256": "8b3c18967a4048a299a98df5f47a3ebb91b5eec3e74f667f7fb7ffb151ceff37",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-suppress-linux-long-none-after-observer.png",
+      "original": "matrix-final/on-suppress-linux-long-none/after-observer.png",
+      "sha256": "8b3c18967a4048a299a98df5f47a3ebb91b5eec3e74f667f7fb7ffb151ceff37",
+      "raw_sha256": "8b3c18967a4048a299a98df5f47a3ebb91b5eec3e74f667f7fb7ffb151ceff37",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-linux-long-none/hierarchy.xml",
+      "original": "matrix-final/on-suppress-linux-long-none/hierarchy.xml",
+      "sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "raw_sha256": "eef44d0591e88c531861933f64ce7f9370ebc473080ad00d27e15842c2d540b2",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-suppress-linux-long-none/case.json",
+      "original": "matrix-final/on-suppress-linux-long-none/case.json",
+      "sha256": "d2bf5a4668cdc6958d5652518f787ef7adb36b3d211f3b76635de47c72510d48",
+      "raw_sha256": "a1cec1d975625bec19f0ebb159f9a579025b6b8931680f79b7ee7b63acb5c3d0",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-drop-before-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-drop/before-observer.png",
+      "sha256": "6c49bcbfceb00c270aa98e2e7e8740d7f02f242456fd5dc3d7e9cd9a8924c598",
+      "raw_sha256": "6c49bcbfceb00c270aa98e2e7e8740d7f02f242456fd5dc3d7e9cd9a8924c598",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-drop-after-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-drop/after-observer.png",
+      "sha256": "6c49bcbfceb00c270aa98e2e7e8740d7f02f242456fd5dc3d7e9cd9a8924c598",
+      "raw_sha256": "6c49bcbfceb00c270aa98e2e7e8740d7f02f242456fd5dc3d7e9cd9a8924c598",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-drop/hierarchy.xml",
+      "original": "matrix-final/on-preserve-linux-short-drop/hierarchy.xml",
+      "sha256": "c8f3a841039582c74b518121be11c0f03373df3090ca108aeb8637c408a2440e",
+      "raw_sha256": "c8f3a841039582c74b518121be11c0f03373df3090ca108aeb8637c408a2440e",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-drop/case.json",
+      "original": "matrix-final/on-preserve-linux-short-drop/case.json",
+      "sha256": "d2d6315d602e6acba6fd3a16ffce21c3ae27bf5120df82b2210a66944f54944d",
+      "raw_sha256": "0ac068c22e438dda913f8f2a01cf70e685a39762019e3e856b9e2f4253c8f8e9",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-extra-r-before-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-extra-r/before-observer.png",
+      "sha256": "cc26e975100feb238f501da735ab97f62aff789d3879323c31d8e72d674dade7",
+      "raw_sha256": "cc26e975100feb238f501da735ab97f62aff789d3879323c31d8e72d674dade7",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-extra-r-after-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-extra-r/after-observer.png",
+      "sha256": "cc26e975100feb238f501da735ab97f62aff789d3879323c31d8e72d674dade7",
+      "raw_sha256": "cc26e975100feb238f501da735ab97f62aff789d3879323c31d8e72d674dade7",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-extra-r/hierarchy.xml",
+      "original": "matrix-final/on-preserve-linux-short-extra-r/hierarchy.xml",
+      "sha256": "d3a2f6a9b306a49437411aa89e7e0873383a2a52ddcf455c455ebb814e79a749",
+      "raw_sha256": "d3a2f6a9b306a49437411aa89e7e0873383a2a52ddcf455c455ebb814e79a749",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-extra-r/case.json",
+      "original": "matrix-final/on-preserve-linux-short-extra-r/case.json",
+      "sha256": "6dbe93e13c52c19b87d63f40672fd12476b80b97e2a2dfe464cb01a1c499ae0b",
+      "raw_sha256": "c36ea83bd530741a44302314244c2e6dd56d9b708787e7982cfedb4edb087cb3",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-editor-loss-before-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-editor-loss/before-observer.png",
+      "sha256": "ddceeb82def44d76e555a537acc5f05d62feff0273d98c5aee3a56939fd8f52f",
+      "raw_sha256": "ddceeb82def44d76e555a537acc5f05d62feff0273d98c5aee3a56939fd8f52f",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-editor-loss-after-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-editor-loss/after-observer.png",
+      "sha256": "6c49bcbfceb00c270aa98e2e7e8740d7f02f242456fd5dc3d7e9cd9a8924c598",
+      "raw_sha256": "6c49bcbfceb00c270aa98e2e7e8740d7f02f242456fd5dc3d7e9cd9a8924c598",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-editor-loss/hierarchy.xml",
+      "original": "matrix-final/on-preserve-linux-short-editor-loss/hierarchy.xml",
+      "sha256": "c8f3a841039582c74b518121be11c0f03373df3090ca108aeb8637c408a2440e",
+      "raw_sha256": "c8f3a841039582c74b518121be11c0f03373df3090ca108aeb8637c408a2440e",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-editor-loss/case.json",
+      "original": "matrix-final/on-preserve-linux-short-editor-loss/case.json",
+      "sha256": "557709279a0825a54ec63ff81e86a2a40d0bac4c04b352d965798f5a8e87f6db",
+      "raw_sha256": "005c58c77c3f58e33293017694c26c0f480a10d0d1fab21e4f90af62c148a97e",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-paint-before-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-paint/before-observer.png",
+      "sha256": "f6cb2cbb6f4445a7c63b5b556b01d88f1d0d0da5bd9ec75169c9c9a4258d62c3",
+      "raw_sha256": "f6cb2cbb6f4445a7c63b5b556b01d88f1d0d0da5bd9ec75169c9c9a4258d62c3",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/on-preserve-linux-short-paint-after-observer.png",
+      "original": "matrix-final/on-preserve-linux-short-paint/after-observer.png",
+      "sha256": "c49c85a05005c35812c3f54d0241f3447360902709e23372c65c1645cadf2d31",
+      "raw_sha256": "c49c85a05005c35812c3f54d0241f3447360902709e23372c65c1645cadf2d31",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-paint/hierarchy.xml",
+      "original": "matrix-final/on-preserve-linux-short-paint/hierarchy.xml",
+      "sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "raw_sha256": "580c49949cc6bfd6ae4eea9c7add746c8084d1ade9f7ab27d607178688f945cd",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/cases/on-preserve-linux-short-paint/case.json",
+      "original": "matrix-final/on-preserve-linux-short-paint/case.json",
+      "sha256": "d7deea50fc4a6cb316d833ab55c607fdcaceabfad1ffb9d511a074c10305a321",
+      "raw_sha256": "7cbfb393e399a22a679156adbce76e381da04d06682f42f622cf383e8090cc13",
+      "publication": "omit expired trial nonce"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/palette-immediate-after.png",
+      "original": "palette-immediate/typing.png",
+      "sha256": "c7d4ab881082bb16460216d7da0e9273d60aa5cd61ac48600b1961dca9ee21b1",
+      "raw_sha256": "c7d4ab881082bb16460216d7da0e9273d60aa5cd61ac48600b1961dca9ee21b1",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/palette-immediate.json",
+      "original": "palette-immediate/results.json",
+      "sha256": "14dffaea4874e2fcb5c71b0d9c55d6f972031d11ad3f601c967ab0b68088b60e",
+      "raw_sha256": "ce5fe1a9eb5361f672c535e12521674e0f3e7ad2ba759a8cad76c36db6ceea2e",
+      "publication": "allowlisted JSON fields"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/palette-immediate-typing-01.xml",
+      "original": "palette-immediate/typing-01.xml",
+      "sha256": "363051654e49e33e72a121319653e285326f8f0aa77227573c0f40c463908c48",
+      "raw_sha256": "363051654e49e33e72a121319653e285326f8f0aa77227573c0f40c463908c48",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/palette-preframe-after.png",
+      "original": "palette-preframe/typing.png",
+      "sha256": "68cf5b44331d71e9f8924181e0ab870f8784b241272f3c86fc5d568a86659a3e",
+      "raw_sha256": "68cf5b44331d71e9f8924181e0ab870f8784b241272f3c86fc5d568a86659a3e",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/screenshots/keyboard-delivery/palette-preframe-before.png",
+      "original": "palette-preframe/typing-before-observer.png",
+      "sha256": "d1e10ee8e1319923b2f1ae841283215fbc45f834cc398a2f480f9a7a1674ec57",
+      "raw_sha256": "d1e10ee8e1319923b2f1ae841283215fbc45f834cc398a2f480f9a7a1674ec57",
+      "publication": "copy"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/palette-preframe.json",
+      "original": "palette-preframe/results.json",
+      "sha256": "17f532cd519d9d6e50c7194224afeeb8c80e9b0ed72c4fc1deb8eb4e7b3cdace",
+      "raw_sha256": "64ead30fa32a7751f8a49de8049e045ba850593161f338f6511691d6c8d68d57",
+      "publication": "allowlisted JSON fields"
+    },
+    {
+      "path": "docs/validation/keyboard-delivery/palette-preframe-typing-01.xml",
+      "original": "palette-preframe/typing-01.xml",
+      "sha256": "363051654e49e33e72a121319653e285326f8f0aa77227573c0f40c463908c48",
+      "raw_sha256": "363051654e49e33e72a121319653e285326f8f0aa77227573c0f40c463908c48",
+      "publication": "copy"
+    }
+  ]
+}
