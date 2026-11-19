@@ -7,8 +7,7 @@ import threading
 import time
 
 COMPONENTS = ("MainActivity", "SettingsActivity")
-APP = "dev.tinycast.android"
-ROUTES = {name: re.compile(r'\bdev\.tinycast\.android(?:/(?:dev\.tinycast\.android)?)?\.' + name + r'\b')
+ROUTES = {name: re.compile(r'(?<![\w./])dev\.tinycast\.android(?:/(?:dev\.tinycast\.android)?)?\.' + name + r'(?![\w.])')
           for name in COMPONENTS}
 EVENTS = ("wm_set_resumed_activity", "wm_on_resume_called", "wm_on_paused_called", "input_focus", "am_anr")
 
@@ -36,7 +35,7 @@ def focus_slot(data, label):
     entry = field(section[2], r'^    displayId=0, name=(.*)$')
     if entry:
         return route(entry)
-    if not section[2].strip() or section[1].strip() in ("<none>", "<empty>"):
+    if not section[2].strip() and section[1].strip() in ("", "<none>", "<empty>"):
         return "none"
     return "unreported"
 
@@ -75,12 +74,47 @@ def project_events(data, start, end):
             continue
         payload = match[3]
         kind = route(payload)
-        if kind not in COMPONENTS and not (match[2] == "am_anr" and re.search(r'[,\[]dev\.tinycast\.android,', payload)):
+        if match[2] == "am_anr":
+            if not re.match(r'\s*\[\d+,\d+,dev\.tinycast\.android,', payload):
+                continue
+        elif kind not in COMPONENTS:
             continue
         state = next((x for x in ("request", "entering", "leaving") if "Focus " + x + " " in payload), None)
         result.append(dict(epoch_seconds=float(match[1]), event=match[2], activity=kind, focus=state,
                            no_focused_window="does not have a focused window" in payload.lower()))
     return result
+
+
+def trace_checks(record):
+    """An observed UI pass can earn trace credit only when its diagnostic witnesses are present."""
+    events = record.get("events", [])
+    samples = record["samples"]
+    checks = {
+        "route_completed": record["route_assertions_completed"],
+        "complete_collection": bool(samples) and not record["sampler_limit_reached"]
+        and "event_error" not in record and all("error" not in sample for sample in samples),
+        "both_chords_marked": [m["phase"] for m in record["marks"]] == [
+            "before_ctrl_f", "before_global_chord", "before_ctrl_comma",
+            "ctrl_comma_injection_returned", "destination_verified"],
+        "no_app_anr_event_in_interval": not any(e["event"] == "am_anr" for e in events),
+    }
+    for tag in ("input_focus", "wm_on_resume_called"):
+        activities = [e["activity"] for e in events if e["event"] == tag
+                      and (tag != "input_focus" or e["focus"] == "entering")]
+        checks[tag + "_palette_then_settings"] = any(
+            activity == "MainActivity" and "SettingsActivity" in activities[index + 1:]
+            for index, activity in enumerate(activities))
+    for activity in COMPONENTS:
+        checks[activity + "_resumed"] = any(sample.get("resumed") == activity for sample in samples)
+        checks[activity + "_drawn"] = any(
+            window["activity"] == activity and window["ready"] == "true"
+            and window["surface"] == "true" and window["draw"] == "HAS_DRAWN"
+            for sample in samples for window in sample.get("windows", []))
+        checks[activity + "_input"] = any(
+            info.get("application") == info.get("window") == activity
+            and info.get("enabled") == info.get("filter") == "true" and info.get("frozen") == "false"
+            for info in (sample.get("dispatch", {}) for sample in samples))
+    return checks
 
 
 class SettingsFocusTrace:
@@ -141,4 +175,8 @@ class SettingsFocusTrace:
             record.update(epoch_bounds=[self.start, end], events=project_events(logs, self.start, end))
         except (ValueError, subprocess.SubprocessError) as failure:
             record["event_error"] = type(failure).__name__
+        checks = trace_checks(record)
+        record["checks"] = checks
         self.output.write_text(json.dumps(record, indent=2) + "\n")
+        if exc_type is None and not all(checks.values()):
+            raise AssertionError("Incomplete Settings focus evidence: " + ", ".join(k for k, ok in checks.items() if not ok))
