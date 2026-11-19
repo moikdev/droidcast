@@ -23,7 +23,7 @@ class SystemSettingsDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-    private fun launches(query: String, id: String, action: String) {
+    private fun launches(query: String, id: String, action: String, destinationPackage: String = "com.android.settings") {
         compose.onNodeWithTag("search").performTextReplacement(query)
         compose.waitForIdle()
         assertEquals(id, compose.activity.store.results().first().id)
@@ -44,10 +44,12 @@ class SystemSettingsDeviceTest {
             if (id == "system:app-info") assertEquals("package:$packageName", launched.get().dataString)
             if (id == "system:notifications") assertEquals(packageName, launched.get().getStringExtra(Settings.EXTRA_APP_PACKAGE))
             compose.waitUntil(7000) { compose.activityRule.scenario.state == Lifecycle.State.DESTROYED }
-            assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 7000))
+            assertTrue(device.wait(Until.hasObject(By.pkg(destinationPackage)), 7000))
             device.waitForIdle()
-            assertEquals("com.android.settings", device.currentPackageName)
+            assertEquals(destinationPackage, device.currentPackageName)
             val markers = when (id) {
+                "system:battery" -> listOf(By.text("Battery usage"), By.text("Battery Saver"))
+                "system:security" -> listOf(By.text("Device unlock"), By.text("App security"))
                 "system:wifi" -> listOf(By.desc("Internet"), By.text("Wi-Fi"))
                 "system:bluetooth" -> listOf(By.desc("Connected devices"), By.text("Pair new device"))
                 "system:display" -> listOf(By.text("Brightness level"), By.text("Dark theme"))
@@ -61,7 +63,7 @@ class SystemSettingsDeviceTest {
                 "system:language" -> listOf(By.text("Preferred language order"), By.text("Add a language"))
                 else -> error("Define destination-specific assertions for $id")
             }
-            markers.forEach { marker -> assertTrue("Missing destination-specific UI for $id: $marker", device.wait(Until.hasObject(marker.pkg("com.android.settings")), 10000)) }
+            markers.forEach { marker -> assertTrue("Missing destination-specific UI for $id: $marker", device.wait(Until.hasObject(marker.pkg(destinationPackage)), 10000)) }
             device.waitForIdle()
             assertFalse("Expected a dedicated page, not root Settings", device.hasObject(By.text("Search Settings")))
             val evidence = File(instrumentation.targetContext.filesDir, "system-settings-evidence").apply { mkdirs() }
@@ -70,6 +72,15 @@ class SystemSettingsDeviceTest {
         } finally {
             instrumentation.removeMonitor(monitor)
         }
+    }
+
+    @Test fun batterySearchOpensUsageOverview() =
+        launches("Battery settings", "system:battery", Intent.ACTION_POWER_USAGE_SUMMARY)
+
+    @Test fun securitySearchOpensSafetyCenter() {
+        org.junit.Assume.assumeTrue(android.os.Build.VERSION.SDK_INT >= 33)
+        val owner = requireNotNull(compose.activity.packageManager.permissionControllerPackageName)
+        launches("Security settings", "system:security", Intent.ACTION_SAFETY_CENTER, owner)
     }
 
     @Test fun wifiSearchOpensWifiPage() = launches("wifi", "system:wifi", Settings.ACTION_WIFI_SETTINGS)
