@@ -63,3 +63,7 @@ docs/validation/quick-settings-tile/runs/**/*.log -text -whitespace
 # Keep system Settings screenshot companions and Android test output byte-identical.
 docs/validation/battery-security/hierarchies/*.xml -text -whitespace
 docs/validation/battery-security/runs/**/*.log -text -whitespace
+
+# Preserve original Emoji history hierarchy and instrumentation bytes.
+docs/validation/emoji-history/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-history/runs/**/*.log -text -whitespace
