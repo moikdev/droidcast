@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -48,6 +49,7 @@ class BackupDeviceTest {
         compose.waitForIdle()
         val directory = File(context.filesDir, "backup-evidence").apply { mkdirs() }
         val marker = when (name) {
+            "peer-merge-results" -> By.text("Peer merge witness imported")
             "emoji-inspect" -> By.textContains("grinning face with smiling eyes")
             "emoji-import-rejected" -> By.text("Unsupported backup version")
             "emoji-merge-preview", "emoji-replace-confirm" -> By.textContains("emoji favorites,")
@@ -273,6 +275,75 @@ class BackupDeviceTest {
             assertEquals(0, prefs.getInt("emojiGridColumns", -1))
         } finally {
             file.delete()
+        }
+    }
+
+    @Test fun mergePreservesNoteSavedBySettingsAfterConfirmationOpened() {
+        val palette = compose.activity.store
+        val incoming = SavedItem("notes:peer-import", "Peer merge witness imported", "Backup fixture")
+        val peerNote = SavedItem("notes:peer-local", "Peer merge witness local", "New local text")
+        val backup = BackupDocument(BackupData(notes = listOf(incoming)), setOf(BackupCategory.NOTES))
+        val file = File.createTempFile("peer-merge-", ".json", context.cacheDir)
+        try {
+            load(backup, file)
+            compose.onNodeWithTag("backup-review").performScrollTo().performClick()
+            compose.onNodeWithText("Apply this backup?").assertIsDisplayed()
+            ActivityScenario.launch(SettingsActivity::class.java).use { settings ->
+                settings.onActivity {
+                    it.store.save("notes", peerNote.title, peerNote.body, id = peerNote.id)
+                    assertTrue(it.moveTaskToBack(true))
+                }
+                compose.onNodeWithTag("backup-confirm").performScrollTo().performClick()
+                compose.waitUntil(10000) { !palette.backupBusy && palette.backupDocument == null }
+                compose.activityRule.scenario.onActivity {
+                    palette.reset()
+                    palette.search("Peer merge witness")
+                }
+                evidence("peer-merge-results")
+                val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
+                fun persistedIds(): Set<String> {
+                    val items = JSONArray(prefs.getString("notes", "[]"))
+                    return (0 until items.length()).map { items.getJSONObject(it).getString("id") }.toSet()
+                }
+                assertTrue("Merge erased the note saved by Settings after review", peerNote.id in persistedIds())
+                compose.onNodeWithText(peerNote.title).assertIsDisplayed()
+                assertTrue(incoming in palette.notes && peerNote in palette.notes)
+                settings.onActivity {
+                    assertTrue("Settings missed the imported note", incoming in it.store.notes)
+                    it.store.save("notes", "Later peer save", "After import", id = "notes:peer-after")
+                }
+                assertTrue(persistedIds().containsAll(setOf(incoming.id, peerNote.id, "notes:peer-after")))
+                assertTrue(palette.notes.any { it.id == "notes:peer-after" })
+            }
+        } finally {
+            file.delete()
+        }
+    }
+
+    @Test fun paletteReflectsPeerCollectionsBindingsAndRankingUntilPeerCloses() {
+        val palette = compose.activity.store
+        lateinit var closedStore: PaletteStore
+        val shortcut = KeyChord(android.view.KeyEvent.KEYCODE_8, ShortcutRules.CTRL or ShortcutRules.SHIFT)
+        ActivityScenario.launch(SettingsActivity::class.java).use { settings ->
+            settings.onActivity {
+                closedStore = it.store
+                it.store.save("links", "Peer site", "https://example.org/", id = "links:peer")
+                it.store.save("clips", "Peer clip", "Peer text", id = "clips:peer")
+                it.store.save("files", "Peer document", "content://fixture/document", id = "files:peer")
+                it.store.setAlias("links:peer", "peerfixture")
+                it.store.togglePin("links:peer")
+                it.store.used("links:peer")
+                it.store.setShortcut("links:peer", shortcut)
+                assertEquals(it.store.files, palette.files)
+                assertEquals(it.store.backupSnapshot(), palette.backupSnapshot())
+                assertEquals("peerfixture", palette.aliases["links:peer"])
+                assertEquals(shortcut, palette.shortcutConfiguration.bindings["links:peer"])
+            }
+        }
+        compose.activityRule.scenario.onActivity {
+            val previous = closedStore.usage
+            palette.used("links:peer")
+            assertEquals("A cleared Settings ViewModel must stop observing preferences", previous, closedStore.usage)
         }
     }
 

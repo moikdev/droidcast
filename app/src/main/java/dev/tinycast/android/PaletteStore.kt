@@ -3,6 +3,7 @@ package dev.tinycast.android
 import android.app.Application
 import android.content.Intent
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.runtime.*
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -35,7 +36,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     var links by mutableStateOf(read("links")); private set
     var clips by mutableStateOf(read("clips")); private set
     var files by mutableStateOf(read("files")); private set
-    var pins by mutableStateOf(prefs.getStringSet("pins", setOf("calculator", "new-note", "browse-files", "new-link"))!!.toSet()); private set
+    var pins by mutableStateOf(readPins()); private set
     var usage by mutableStateOf(readMap("usage")); private set
     var aliases by mutableStateOf(readAliases()); private set
     private var queryValue by mutableStateOf("")
@@ -95,7 +96,26 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     var recordingError by mutableStateOf<String?>(null)
     var pendingShortcut by mutableStateOf<ShortcutInvocation?>(null)
 
-    init { refreshApps() }
+    // MainActivity and SettingsActivity keep separate ViewModels over the same preferences.
+    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == null || key == "notes") notes = read("notes")
+        if (key == null || key == "links") links = read("links")
+        if (key == null || key == "clips") clips = read("clips")
+        if (key == null || key == "files") files = read("files")
+        if (key == null || key == "pins") pins = readPins()
+        if (key == null || key == "aliases") aliases = readAliases()
+        if (key == null || key == "usage") usage = readMap("usage")
+        if (key == null || key == "shortcuts") {
+            val (configuration, error) = ShortcutCodec.load(prefs.getString("shortcuts", null))
+            shortcutConfiguration = configuration
+            shortcutError = error
+        }
+    }
+
+    init {
+        prefs.registerOnSharedPreferenceChangeListener(preferenceListener)
+        refreshApps()
+    }
 
     fun refreshApps() {
         viewModelScope.launch {
@@ -192,7 +212,15 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         val chord = recordingCandidate ?: return
         runCatching { setShortcut(target, chord) }.onSuccess { cancelShortcutRecording() }.onFailure { recordingError = it.message }
     }
-    override fun onCleared() { clearTextReview(); extensions.close(); retainedEditorDraft = null; editing = null; if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null; super.onCleared() }
+    override fun onCleared() {
+        prefs.unregisterOnSharedPreferenceChangeListener(preferenceListener)
+        clearTextReview()
+        extensions.close()
+        retainedEditorDraft = null
+        editing = null
+        if (ShortcutRuntime.recordingOwner === this) ShortcutRuntime.recordingOwner = null
+        super.onCleared()
+    }
 
     fun backupSnapshot() = BackupData(notes, links, clips, pins.filterNot { it.startsWith("files:") }.toSet(), aliases.filterKeys { !it.startsWith("files:") }, usage.filterKeys { !it.startsWith("files:") }, ShortcutConfiguration(shortcutConfiguration.bindings.filterKeys { !it.startsWith("files:") }), emoji.portableSettings())
     fun restorePlan(): RestorePlan = BackupPlanner.plan(backupSnapshot(), requireNotNull(backupDocument), restoreCategories, restorePolicy,
@@ -298,18 +326,6 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
                     }
                 }
                 if (!saved) { backupError = "Could not save restored data. Your collections were kept."; return@launch }
-                for (category in plan.categories) when (category) {
-                    BackupCategory.NOTES -> notes = read("notes")
-                    BackupCategory.LINKS -> links = read("links")
-                    BackupCategory.CLIPS -> clips = read("clips")
-                    BackupCategory.PREFERENCES -> {
-                        pins = prefs.getStringSet("pins", emptySet())!!.toSet()
-                        aliases = readAliases()
-                    }
-                    BackupCategory.LEARNING -> usage = readMap("usage")
-                    BackupCategory.SHORTCUTS -> { shortcutConfiguration = restoredShortcuts; shortcutError = null }
-                    BackupCategory.EMOJI -> Unit // EmojiStore observes the committed preferences.
-                }
                 backupDocument = null; dialog = "backup"; selected = 0
                 message = plan.completionMessage()
             } finally { backupBusy = false }
@@ -415,6 +431,9 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         items.forEach { array.put(JSONObject().put("id", it.id).put("title", it.title).put("body", it.body).put("alias", it.alias)) }
         return array.toString()
     }
+    private fun readPins(): Set<String> =
+        prefs.getStringSet("pins", setOf("calculator", "new-note", "browse-files", "new-link"))!!.toSet()
+
     private fun readMap(key: String): Map<String, Int> = runCatching { val o = JSONObject(prefs.getString(key, "{}")!!); o.keys().asSequence().associateWith { o.getInt(it) } }.getOrDefault(emptyMap())
     private fun readAliases(): Map<String, String> = runCatching { val o = JSONObject(prefs.getString("aliases", "{}")!!); o.keys().asSequence().associateWith { o.getString(it) } }.getOrDefault(emptyMap())
 }
