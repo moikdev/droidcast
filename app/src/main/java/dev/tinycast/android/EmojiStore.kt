@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 
-class EmojiStore(context: Context, scope: CoroutineScope) {
+class EmojiStore(private val context: Context, private val scope: CoroutineScope) {
     internal companion object {
         const val FAVORITES_KEY = "emojiFavoriteOrder"
         const val GRID_KEY = "emojiGridColumns"
@@ -60,6 +60,9 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
     var filter by mutableStateOf("All")
     var selected by mutableIntStateOf(0)
 
+    private var keywordPacks: List<String> = emptyList()
+    private var catalogJob: kotlinx.coroutines.Job? = null
+
     init {
         prefs.registerOnSharedPreferenceChangeListener(preferenceListener)
         portable.registerOnSharedPreferenceChangeListener(preferenceListener)
@@ -67,11 +70,40 @@ class EmojiStore(context: Context, scope: CoroutineScope) {
             portable.unregisterOnSharedPreferenceChangeListener(preferenceListener)
             prefs.unregisterOnSharedPreferenceChangeListener(preferenceListener)
         }
-        scope.launch {
-            runCatching { withContext(Dispatchers.IO) {
-                context.assets.open("emoji-catalog.tsv").bufferedReader().use { EmojiCatalog.parse(it.lineSequence()) }
-            } }.onSuccess { entries = it }.onFailure { error = "Could not load the offline catalog. Reopen Droidcast to try again." }
-            loading = false
+        loadLanguages(context.resources.configuration.locales.toLanguageTags())
+    }
+
+    internal fun loadLanguages(tags: String) {
+        val packs = EmojiCatalog.keywordPacks(tags.split(',').map(java.util.Locale::forLanguageTag))
+        if (packs == keywordPacks) return
+        keywordPacks = packs
+        catalogJob?.cancel()
+        loading = true
+        error = null
+        catalogJob = scope.launch {
+            try {
+                val catalog = withContext(Dispatchers.IO) {
+                    val annotations = mutableMapOf<String, EmojiCatalog.Annotations>()
+                    for (pack in packs) {
+                        context.assets.open("emoji-keywords/$pack.tsv").bufferedReader().use {
+                            EmojiCatalog.readKeywords(it.lineSequence(), annotations)
+                        }
+                    }
+                    context.assets.open("emoji-catalog.tsv").bufferedReader().use {
+                        EmojiCatalog.parse(it.lineSequence(), annotations)
+                    }
+                }
+                val previous = results().getOrNull(selected)?.id
+                entries = catalog
+                selected = previous?.let { id -> results().indexOfFirst { it.id == id } }?.coerceAtLeast(0) ?: 0
+                loading = false
+            } catch (cancelled: kotlinx.coroutines.CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                error = "Could not load the offline catalog. Reopen Droidcast to try again."
+                keywordPacks = emptyList()
+                loading = false
+            }
         }
     }
     fun results() = EmojiCatalog.search(entries, query, filter, favorites, recent, savedFavorites.order)

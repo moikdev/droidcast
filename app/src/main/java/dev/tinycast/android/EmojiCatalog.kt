@@ -1,19 +1,53 @@
 package dev.tinycast.android
 
+import java.text.Normalizer
 import java.util.Locale
 
-data class EmojiEntry(val id: String, val glyph: String, val name: String, val category: String, val keywords: String) {
-    internal val words = normalize("$name $keywords $category").split(' ').filter(String::isNotEmpty)
+data class EmojiEntry(val id: String, val glyph: String, val name: String, val category: String, val keywords: String,
+    val annotationNames: List<String> = emptyList(), val annotationTerms: List<String> = emptyList()) {
+    internal val names = annotationNames.map(::normalize).toSet()
+    internal val exactKeywords = (normalize(keywords).split(' ') + annotationTerms.map(::normalize))
+        .filter(String::isNotEmpty).toSet()
+    internal val words = (listOf(normalize(name), normalize(category)) + names + exactKeywords)
+        .flatMap { it.split(' ') }.filter(String::isNotEmpty).distinct()
     internal val normalizedName = normalize(name)
 }
 
-internal fun normalize(value: String): String = value.lowercase(Locale.ROOT).replace('_', ' ').replace('-', ' ').trim()
+internal fun normalize(value: String): String = Normalizer.normalize(value, Normalizer.Form.NFC).lowercase(Locale.ROOT).replace('_', ' ').replace('-', ' ').trim()
 
 object EmojiCatalog {
-    fun parse(lines: Sequence<String>): List<EmojiEntry> = lines.filter { it.isNotBlank() && !it.startsWith('#') }.map { line ->
+    internal fun keywordPacks(locales: List<Locale>): List<String> = buildSet {
+        add("en")
+        for (locale in locales) when (locale.language) {
+            "de", "es", "fr", "ja", "ko", "pt", "ru" -> add(locale.language)
+            "zh" -> {
+                val traditional = locale.script == "Hant" ||
+                    (locale.script.isEmpty() && locale.country in setOf("TW", "HK", "MO"))
+                add(if (traditional) "zh_Hant" else "zh")
+            }
+        }
+    }.toList()
+
+    class Annotations {
+        internal val names = mutableListOf<String>()
+        internal val terms = mutableListOf<String>()
+    }
+
+    internal fun readKeywords(lines: Sequence<String>, into: MutableMap<String, Annotations>) {
+        for (line in lines) {
+            val fields = line.split('\t')
+            require(fields.size >= 2)
+            val entry = into.getOrPut(fields.first()) { Annotations() }
+            if (fields[1].isNotEmpty()) entry.names.add(fields[1])
+            entry.terms.addAll(fields.drop(2))
+        }
+    }
+
+    fun parse(lines: Sequence<String>, annotations: Map<String, Annotations> = emptyMap()): List<EmojiEntry> = lines.filter { it.isNotBlank() && !it.startsWith('#') }.map { line ->
         val fields = line.split('\t')
         require(fields.size == 5 && fields.take(4).all { it.isNotBlank() }) { "Invalid emoji catalog" }
-        EmojiEntry(fields[0], fields[1], fields[2], fields[3], fields[4])
+        val words = annotations[fields[0]]
+        EmojiEntry(fields[0], fields[1], fields[2], fields[3], fields[4], words?.names.orEmpty(), words?.terms.orEmpty())
     }.toList().also { entries ->
         require(entries.map { it.id }.distinct().size == entries.size && entries.map { it.glyph }.distinct().size == entries.size)
     }
@@ -37,8 +71,10 @@ object EmojiCatalog {
         }
         return filtered.mapNotNull { entry ->
             val score = when {
-                query.trim() == entry.glyph || q == entry.normalizedName -> 4
-                q in normalize(entry.keywords).split(' ') -> 3
+                query.trim() == entry.glyph -> 6
+                q == entry.normalizedName -> 5
+                q in entry.names -> 4
+                q in entry.exactKeywords -> 3
                 entry.normalizedName.startsWith(q) -> 2
                 terms.all { term -> entry.words.any { it.startsWith(term) } } -> 1
                 else -> return@mapNotNull null

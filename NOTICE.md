@@ -13,3 +13,5 @@ Tinycast Copyright (C) 2026 Abue Ammar. Android implementation and modifications
 - The offline emoji data is derived from GitHub's gemoji under its MIT license. The exact source and revision are in `third_party/gemoji`; the full license is bundled in `app/src/main/assets/GEMOJI-LICENSE`. Common text-symbol annotations are authored for Droidcast. Glyph artwork is rendered by the device font.
 
 Android/Compose dependencies and the Gradle wrapper retain their own upstream licenses. No upstream copyright or license notice is replaced by the Droidcast branding.
+
+The Android emoji picker also includes Unicode Emoji 18.0 and CLDR 49 data under Unicode-3.0. The full notice is bundled as `UNICODE-LICENSE`.

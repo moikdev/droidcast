@@ -176,10 +176,10 @@ class EmojiDeviceTest {
     }
     @Test fun commandOpensOfflineGridWithinTheFloatingPalette() {
         compose.onAllNodes(isDialog()).assertCountEquals(0)
-        compose.onNodeWithTag("emoji-count").assertTextEquals("1940 results · offline")
+        compose.onNodeWithTag("emoji-count").assertTextEquals("4042 results · offline")
         val bounds = compose.onNodeWithTag("emoji-palette").fetchSemanticsNode().boundsInRoot
         assertTrue(bounds.width < device.displayWidth)
-        evidence("grid", "1940 results")
+        evidence("grid", "4042 results")
         filter("Text symbols")
         compose.onNodeWithTag("emoji-count").assertTextEquals("70 results · offline")
         search("math")
@@ -198,6 +198,33 @@ class EmojiDeviceTest {
         compose.onNodeWithTag("emoji-favorite").assertIsNotEnabled()
         evidence("no-results", "No matching emoji or symbols")
     }
+    @Test fun japaneseDeviceSearchKeepsEnglishAndCopiesExactResult() {
+        val locales = compose.activity.resources.configuration.locales
+        assertTrue("Run with Japanese among the Android app languages", (0 until locales.size()).any { locales[it].language == "ja" })
+        search("ネコの顔")
+        if (store.results().isEmpty()) evidence("japanese-empty", "No matching emoji")
+        assertEquals("Japanese short name must select the cat face", "🐱", store.results().firstOrNull()?.glyph)
+        compose.onNodeWithTag("emoji-selected-name").assertTextEquals("cat face")
+        evidence("japanese-cat", "cat face")
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals("🐱", clipboard())
+        search(":+1:")
+        compose.onNodeWithTag("emoji-selected-name").assertTextEquals("thumbs up")
+    }
+
+    @Test fun unicodeSequenceLookupCopiesExactMixedTones() {
+        search("cracking face")
+        if (store.results().isEmpty()) evidence("unicode-empty", "No matching emoji")
+        assertEquals("The Unicode 18 name must resolve", "🫫", store.results().firstOrNull()?.glyph)
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals("🫫", clipboard())
+        search("handshake: medium skin tone, light skin tone")
+        assertEquals("🫱🏽‍🫲🏻", store.results().first().glyph)
+        evidence("mixed-tone", "handshake: medium skin tone, light skin tone")
+        key(KeyEvent.KEYCODE_ENTER)
+        assertEquals("🫱🏽‍🫲🏻", clipboard())
+    }
+
     @Test fun typingAndFourWayNavigationWorkImmediatelyWithoutTab() {
         for (code in listOf(KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_A, KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_E)) key(code)
         compose.onNodeWithTag("emoji-search").assertTextContains("face")
