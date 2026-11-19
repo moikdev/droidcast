@@ -28,7 +28,12 @@ account or network connection is needed to use the bundled catalog.
   panel searches Copy, Favorite and Copy Unicode actions; Unicode copies each
   codepoint as `U+XXXX`. Escape closes it and restores search focus.
 - The footer names the selected symbol and confirms copying. The star toggles a
-  favorite. Favorites lead the All view.
+  favorite. Newly pinned symbols go to the end of Favorites. In **Favorites**,
+  clear the search to see the full order, then choose **Move favorite earlier**
+  or **Move favorite later** from Actions. Ctrl+Alt+↑ and Ctrl+Alt+↓ move the
+  selected symbol one position. Favorites lead the All view in the same order.
+  Unpinning and pinning a symbol again appends it. Older unordered favorites
+  start in catalog order.
 - **Recent history is off by default**, including after an upgrade. To remember
   up to 32 distinct copied symbols on this device, choose **Recent** in the category
   menu and select **Enable recent history**. Enabling also shows any previously
@@ -42,7 +47,7 @@ account or network connection is needed to use the bundled catalog.
 The licensed snapshot contains 1,870 emoji and 70 common text symbols. It is not
 the complete/current Unicode repertoire. Android's font determines appearance
 and support; no emoji artwork is shipped. See [source provenance](../third_party/gemoji/UPSTREAM.md).
-Skin-tone selection, multilingual/custom keywords, favorite ordering
+Skin-tone selection, multilingual/custom keywords
 and portable favorites are tracked in [#44](https://github.com/moikdev/droidcast/issues/44).
 Automatic cross-app paste is not claimed. This is partial Tinycast/Raycast parity.
 

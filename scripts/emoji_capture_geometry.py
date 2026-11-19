@@ -1,8 +1,8 @@
 """Summarize cell bounds and selection from a directory of Android hierarchy captures."""
 
+import argparse
 import json
 import re
-import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -40,4 +40,12 @@ def grid_geometry(directory):
 
 
 if __name__ == "__main__":
-    print(json.dumps(grid_geometry(Path(sys.argv[1])), sort_keys=True, indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("directory", type=Path)
+    parser.add_argument("--cells", action="store_true", help="list every visible cell in reading order")
+    args = parser.parse_args()
+    if args.cells:
+        result = {path.stem: emoji_cells(path) for path in sorted(args.directory.glob("*.xml"))}
+    else:
+        result = grid_geometry(args.directory)
+    print(json.dumps(result, sort_keys=True, indent=2))
