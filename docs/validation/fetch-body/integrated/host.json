@@ -1,0 +1,38 @@
+{
+  "debug": {
+    "build_log_sha256": "c755ac95435b3436537d6386399472aa4c75af8596f0a262a422f03a742a608c",
+    "build": "passed",
+    "lint_errors": 0,
+    "lint_warnings": 53
+  },
+  "benchmark": {
+    "build_log_sha256": "3514f4d53ed5b96cd8216667c30d9631d67a0c2dfe235889a98379dc6d3358c8",
+    "build": "passed",
+    "lint_errors": 0,
+    "lint_warnings": 53
+  },
+  "jvm": {
+    "gradle_task": "testDebugUnitTest completed in the successful integrated debug build",
+    "count": "not retained separately before running the close regression"
+  },
+  "python": {
+    "passes": 148,
+    "sha256": "20b2ddf7ea4124e27423f06f30f0f7dbf9df84525d5166ee6a39843de7adc7fd"
+  },
+  "python-O": {
+    "passes": 148,
+    "sha256": "4039b40c647fd00a52c7506f83e852d82128c8640ee80f0ab009bc5dfaff73e5"
+  },
+  "node": {
+    "result": "\"passed\":9,\"failed\":0",
+    "sha256": "06d91059689f0680d99b813c0c5b63658c035adab2b50d8502dc5a4c9e8cb864"
+  },
+  "node-submit": {
+    "result": "14 submit adapter cases passed",
+    "sha256": "4bb3262b071ab2b24e65fb4d5d5f09ba5a93a44f48c8397a7fa22f7ce19ab424"
+  },
+  "node-focus": {
+    "result": "11 adapter cases passed",
+    "sha256": "5163aa39c6d4c2d898b2745252ce33861b26ba9afa63b31137cdfd99d3d18806"
+  }
+}

@@ -1,0 +1,91 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.ExtensionDetailDeviceTest:
+INSTRUMENTATION_STATUS: test=nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Unexpected cross-origin outcomes expected:<[]> but was:<[json-null, explicit-empty]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests(ExtensionDetailDeviceTest.kt:582)
+
+INSTRUMENTATION_STATUS: stream=
+Error in nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: Unexpected cross-origin outcomes expected:<[]> but was:<[json-null, explicit-empty]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests(ExtensionDetailDeviceTest.kt:582)
+
+INSTRUMENTATION_STATUS: test=nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=globalFetchReachesTheNativeHostAndRejectsHttpBeforeNetworkAccess
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=nativeFetchPreservesAbsentAndExplicitRequestBodies
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.ExtensionDetailDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Body presence or bytes differ expected:<[]> but was:<[json-null, empty, non-string]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.nativeFetchPreservesAbsentAndExplicitRequestBodies(ExtensionDetailDeviceTest.kt:553)
+
+INSTRUMENTATION_STATUS: stream=
+Error in nativeFetchPreservesAbsentAndExplicitRequestBodies(dev.tinycast.android.ExtensionDetailDeviceTest):
+java.lang.AssertionError: Body presence or bytes differ expected:<[]> but was:<[json-null, empty, non-string]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.nativeFetchPreservesAbsentAndExplicitRequestBodies(ExtensionDetailDeviceTest.kt:553)
+
+INSTRUMENTATION_STATUS: test=nativeFetchPreservesAbsentAndExplicitRequestBodies
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.721
+There were 2 failures:
+1) nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: Unexpected cross-origin outcomes expected:<[]> but was:<[json-null, explicit-empty]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.nativeFetchRedirectsOnlyBodylessHeaderlessCrossOriginRequests(ExtensionDetailDeviceTest.kt:582)
+2) nativeFetchPreservesAbsentAndExplicitRequestBodies(dev.tinycast.android.ExtensionDetailDeviceTest)
+java.lang.AssertionError: Body presence or bytes differ expected:<[]> but was:<[json-null, empty, non-string]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.ExtensionDetailDeviceTest.nativeFetchPreservesAbsentAndExplicitRequestBodies(ExtensionDetailDeviceTest.kt:553)
+
+FAILURES!!!
+Tests run: 3,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

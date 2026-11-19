@@ -1,0 +1,40 @@
+{
+  "debug": {
+    "build_log_sha256": "3a8984e7907d349b26b7e1144360be563e3d65abcc2ede894f0c77816cf652c6",
+    "build": "passed",
+    "lint_errors": 0,
+    "lint_warnings": 53
+  },
+  "benchmark": {
+    "build_log_sha256": "f5aad16d4a3eff61074d78ea87c07b0b0086bbdff3e8192735ec3fed084c815f",
+    "build": "passed",
+    "lint_errors": 0,
+    "lint_warnings": 53
+  },
+  "jvm": {
+    "tests": 356,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "python": {
+    "passes": 148,
+    "sha256": "885ebf074d2901b8549a012c2b92eefd93bc025e8dd3c995e3a40fb3eb01d59b"
+  },
+  "python-O": {
+    "passes": 148,
+    "sha256": "2db8fab5af31d061887b3189a4845e7923e95918ad1be873c8b149b1a1f1c3b6"
+  },
+  "node": {
+    "result": "\"passed\":9,\"failed\":0",
+    "sha256": "06d91059689f0680d99b813c0c5b63658c035adab2b50d8502dc5a4c9e8cb864"
+  },
+  "node-submit": {
+    "result": "14 submit adapter cases passed",
+    "sha256": "4bb3262b071ab2b24e65fb4d5d5f09ba5a93a44f48c8397a7fa22f7ce19ab424"
+  },
+  "node-focus": {
+    "result": "11 adapter cases passed",
+    "sha256": "5163aa39c6d4c2d898b2745252ce33861b26ba9afa63b31137cdfd99d3d18806"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "method": "closingImmediatelyAfterCompletionKeepsTheSuccessfulResponse",
+  "earlier_client_revision": "d5fdd1343bc3ac03f55f56b054b74b5686d1561e",
+  "test_source_sha256": "f645ef3b0a79588c7bc2e7573ff964cdcd5086b37f827ad3782647f04e63f397",
+  "earlier_targeted_suite": {
+    "tests": "1",
+    "failures": "1",
+    "errors": "0",
+    "skipped": "0"
+  },
+  "exception_type": "java.util.NoSuchElementException",
+  "stack_frames": [
+    "at java.base/java.util.concurrent.ConcurrentHashMap$KeyIterator.next(ConcurrentHashMap.java:3460)",
+    "at kotlin.collections.CollectionsKt___CollectionsKt.toList(_Collections.kt:1329)",
+    "at dev.tinycast.android.extensions.ExtensionHttpClient.close(ExtensionHttp.kt:151)"
+  ],
+  "earlier_original_xml_sha256": "8ec54a07c399f0a707259f97dd903245058260a7d19fa4bd4d6163023cdb8964",
+  "repaired_build": "b6ff04953ede3de4ca256fa1adf2041e67156fb8",
+  "repaired_case": "passed",
+  "repaired_class_xml_sha256": "9d5ff738be3fbd2309191dcb739f18441db4b95ff8c64d91047384a537a77e7c"
+}

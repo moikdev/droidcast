@@ -343,3 +343,5 @@ PR #139 merged this JPEG repair at `32e7e45b` after both audits and the hosted A
 ### Bodyless extension Fetch requests (#138)
 
 [Android Fetch measurements](EXTENSION-FETCH-ROUTING.md#request-body-presence-on-android) identified why a JSON-null POST supplied three unexpected bytes and why the HTTP redirect policy misclassified explicitly empty requests. The repaired adapter preserves the distinction. Real WebView smoke frames cover the HTTPS-only rejection route, and controlled connections cover POST bytes and redirect decisions.
+
+A JVM regression also reproduced a crash closing the HTTP client immediately after a request completed. The repaired client passed 300 such cycles. On API 36 the final tablet and phone builds each passed all three Fetch cases under the same instrumentation that caught both earlier body-handling failures. The intermediate phone failure has no recorded exception type. [Verification history](EXTENSION-FETCH-ROUTING.md#request-body-presence-on-android).
