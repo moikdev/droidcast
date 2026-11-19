@@ -1,0 +1,59 @@
+{
+  "original_sha256": "fa7ad11da67070d61fd17b22ff96314d39758fc11f85999c2fd06906956481b8",
+  "corrected_sha256": "aa97888217fee5e038659ee598664217f79e96eca2a44d0828ae21ce9b6c3ef6",
+  "host_probe_sha256": "f840d6794c69238039a7485cc9cef3ed195d0f06332524961a6eeaf282516315",
+  "observations": [
+    {
+      "runner": "recorded",
+      "mode": "normal",
+      "observation": "boundary:os.mkdir"
+    },
+    {
+      "runner": "corrected",
+      "mode": "normal",
+      "observation": "boundary:os.mkdir"
+    },
+    {
+      "runner": "recorded",
+      "mode": "-O",
+      "observation": "boundary:os.mkdir"
+    },
+    {
+      "runner": "corrected",
+      "mode": "-O",
+      "observation": "rejected-before-write-or-subprocess"
+    },
+    {
+      "runner": "recorded",
+      "mode": "-OO",
+      "observation": "boundary:os.mkdir"
+    },
+    {
+      "runner": "corrected",
+      "mode": "-OO",
+      "observation": "rejected-before-write-or-subprocess"
+    },
+    {
+      "runner": "recorded",
+      "mode": "PYTHONOPTIMIZE=1",
+      "observation": "boundary:os.mkdir"
+    },
+    {
+      "runner": "corrected",
+      "mode": "PYTHONOPTIMIZE=1",
+      "observation": "rejected-before-write-or-subprocess"
+    },
+    {
+      "runner": "recorded",
+      "mode": "PYTHONOPTIMIZE=2",
+      "observation": "boundary:os.mkdir"
+    },
+    {
+      "runner": "corrected",
+      "mode": "PYTHONOPTIMIZE=2",
+      "observation": "rejected-before-write-or-subprocess"
+    }
+  ],
+  "identical_from_argument_parsing": true,
+  "device_operations": 0
+}
