@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <instrumentation android:name="dev.tinycast.android.KeyboardObservationInstrumentation"
+        android:targetPackage="${applicationId}" />
     <application>
         <service android:name="dev.tinycast.android.NativeInputTestIme"
             android:exported="true" android:permission="android.permission.BIND_INPUT_METHOD"
@@ -14,6 +16,10 @@
         </provider>
         <activity android:name="dev.tinycast.android.FormDocumentsFixtureActivity"
             android:exported="true" android:theme="@android:style/Theme.NoDisplay" />
+        <activity android:name="dev.tinycast.android.KeyboardObservationActivity"
+            android:exported="false"
+            android:excludeFromRecents="true" android:windowSoftInputMode="stateAlwaysHidden"
+            android:taskAffinity="dev.tinycast.android.test.keyobservation" />
         <activity android:name="dev.tinycast.android.ReviewedTextCallerActivity"
             android:exported="true" android:launchMode="singleTask"
             android:taskAffinity="dev.tinycast.android.test.textcaller"
