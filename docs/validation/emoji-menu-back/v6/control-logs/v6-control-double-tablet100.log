@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: test=emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText has exactly 4 UTF-16 units and matching characters)
+Semantics of the node:
+Node #82 at (l=473.0, t=243.0, r=1280.0, b=315.0)px, Tag: 'emoji-search'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Text = '[Search Emoji & Symbols…]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (TestTag = 'emoji-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.TouchSearchDeviceTest.text(TouchSearchDeviceTest.kt:114)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle$lambda$126(TouchSearchDeviceTest.kt:1051)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda60.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow$default(TouchSearchDeviceTest.kt:165)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle(TouchSearchDeviceTest.kt:1032)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText has exactly 4 UTF-16 units and matching characters)
+Semantics of the node:
+Node #82 at (l=473.0, t=243.0, r=1280.0, b=315.0)px, Tag: 'emoji-search'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Text = '[Search Emoji & Symbols…]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (TestTag = 'emoji-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.TouchSearchDeviceTest.text(TouchSearchDeviceTest.kt:114)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle$lambda$126(TouchSearchDeviceTest.kt:1051)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda60.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow$default(TouchSearchDeviceTest.kt:165)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle(TouchSearchDeviceTest.kt:1032)
+
+INSTRUMENTATION_STATUS: test=emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.304
+There was 1 failure:
+1) emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText has exactly 4 UTF-16 units and matching characters)
+Semantics of the node:
+Node #82 at (l=473.0, t=243.0, r=1280.0, b=315.0)px, Tag: 'emoji-search'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Search'
+Focused = 'true'
+Text = '[Search Emoji & Symbols…]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution, MagnifierPositionInRoot]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (TestTag = 'emoji-search')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at dev.tinycast.android.TouchSearchDeviceTest.text(TouchSearchDeviceTest.kt:114)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle$lambda$126(TouchSearchDeviceTest.kt:1051)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda60.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow$default(TouchSearchDeviceTest.kt:165)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle(TouchSearchDeviceTest.kt:1032)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

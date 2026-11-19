@@ -1,0 +1,42 @@
+{
+  "exploratory": true,
+  "source_commit": "13c27299064f15e314a7d6678a88f8699d5cfc21",
+  "apk_sha256": {
+    "app-debug-androidTest.apk": "4d28ed5cfd15fddd4e0118124fd20029bb7694f14bf8aeb9a28031b30faa954a",
+    "app-debug.apk": "c74bce33e3b5f7065bf71c12cb9370513a995805e150ef385e718affb8657371"
+  },
+  "cohorts": [
+    {
+      "name": "x8-phone200",
+      "app_sha256": "c74bce33e3b5f7065bf71c12cb9370513a995805e150ef385e718affb8657371",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "exit_code": 0,
+      "passes": 4,
+      "failures": 0,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "x8-phone100",
+      "app_sha256": "c74bce33e3b5f7065bf71c12cb9370513a995805e150ef385e718affb8657371",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "exit_code": 0,
+      "passes": 4,
+      "failures": 0,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    }
+  ],
+  "scope": "Exploratory layout run; earns no final credit.",
+  "completed": true
+}

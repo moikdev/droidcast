@@ -1,0 +1,190 @@
+{
+  "jvm_source": "487c29e66e616b7da2c86e27ef7f31bd14135b8a",
+  "final_instrumentation_and_runner_source": "6eb05bf225cbbf59822951ae6ac35aba3fc312ed",
+  "jvm": {
+    "tests": 343,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "lint-results-benchmark": {
+      "Warning": 47
+    },
+    "lint-results-debug": {
+      "Warning": 47
+    }
+  },
+  "python": {
+    "python-verified": 135,
+    "python-opt-verified": 135
+  },
+  "build_logs": {
+    "dispatch-build": {
+      "success": true,
+      "sha256": "dacac92a728f4b06c88bcd24de14eb97623675edf015f2cc3c7d90c49cdf4ea5"
+    },
+    "hidden-build": {
+      "success": true,
+      "sha256": "bccf28694f5c55818b839c3482b6a943f5118d5259e12a9e9fdf15d9da344414"
+    },
+    "benchmark-verified": {
+      "success": true,
+      "sha256": "7aab0238a235e53cb9f693d9077d6698301102736e6039c90b3017b470187afc"
+    },
+    "benchmark": {
+      "success": false,
+      "sha256": "d9a1b11d7c45eb93902fc5e568c5e474817b78e3ad9764399dfdb375bbb8e2e2"
+    }
+  },
+  "classes": [
+    {
+      "suite": "dev.tinycast.android.BackupPlannerTest",
+      "cases": "15"
+    },
+    {
+      "suite": "dev.tinycast.android.CalculatorActionsTest",
+      "cases": "11"
+    },
+    {
+      "suite": "dev.tinycast.android.CommandEngineTest",
+      "cases": "27"
+    },
+    {
+      "suite": "dev.tinycast.android.EmojiCatalogTest",
+      "cases": "5"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionCommandLaunchTest",
+      "cases": "11"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionDetailImageTimeoutTest",
+      "cases": "3"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionEngineCompatibilityTest",
+      "cases": "7"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionFormContractTest",
+      "cases": "17"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionFormFileImportTest",
+      "cases": "15"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionFormSubmissionTest",
+      "cases": "7"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionFormTypedValuesTest",
+      "cases": "9"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionFormValuesTest",
+      "cases": "6"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionGridContractTest",
+      "cases": "8"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionGridNavigationTest",
+      "cases": "6"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionHttpTest",
+      "cases": "7"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionMarkdownModelTest",
+      "cases": "16"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionMetadataVisualsTest",
+      "cases": "3"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionPasteCopyTest",
+      "cases": "9"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionPayloadIdentityTest",
+      "cases": "16"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionSelectionDeliveryTest",
+      "cases": "2"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionWorkflowEvidenceTest",
+      "cases": "14"
+    },
+    {
+      "suite": "dev.tinycast.android.ExtensionWorkflowInspectionTest",
+      "cases": "8"
+    },
+    {
+      "suite": "dev.tinycast.android.FolderGrantTransactionTest",
+      "cases": "13"
+    },
+    {
+      "suite": "dev.tinycast.android.FolderIndexTest",
+      "cases": "7"
+    },
+    {
+      "suite": "dev.tinycast.android.ModifierTapTest",
+      "cases": "23"
+    },
+    {
+      "suite": "dev.tinycast.android.PaletteMenuOwnershipTest",
+      "cases": "3"
+    },
+    {
+      "suite": "dev.tinycast.android.PaletteScrollHistoryTest",
+      "cases": "1"
+    },
+    {
+      "suite": "dev.tinycast.android.ReviewedTextInputTest",
+      "cases": "14"
+    },
+    {
+      "suite": "dev.tinycast.android.ShortcutReadinessTest",
+      "cases": "9"
+    },
+    {
+      "suite": "dev.tinycast.android.ShortcutTest",
+      "cases": "11"
+    },
+    {
+      "suite": "dev.tinycast.android.SystemSettingsTest",
+      "cases": "3"
+    },
+    {
+      "suite": "dev.tinycast.android.TinycastGridParityTest",
+      "cases": "1"
+    },
+    {
+      "suite": "dev.tinycast.android.UpdatePolicyTest",
+      "cases": "6"
+    },
+    {
+      "suite": "dev.tinycast.android.WeakValueTokensTest",
+      "cases": "3"
+    },
+    {
+      "suite": "dev.tinycast.android.extensions.CommonMarkPrimaryConformanceTest",
+      "cases": "2"
+    },
+    {
+      "suite": "dev.tinycast.android.extensions.ExtensionDetailImagePolicyTest",
+      "cases": "11"
+    },
+    {
+      "suite": "dev.tinycast.android.extensions.NodeCpuInfoTest",
+      "cases": "14"
+    }
+  ]
+}

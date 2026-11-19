@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.TouchSearchDeviceTest:
+INSTRUMENTATION_STATUS: test=emojiActionsBackHidesKeyboardBeforeClosingMenu
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.TouchSearchDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$137(TouchSearchDeviceTest.kt:1112)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1101)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1145)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emojiActionsBackHidesKeyboardBeforeClosingMenu(dev.tinycast.android.TouchSearchDeviceTest):
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$137(TouchSearchDeviceTest.kt:1112)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1101)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1145)
+
+INSTRUMENTATION_STATUS: test=emojiActionsBackHidesKeyboardBeforeClosingMenu
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.312
+There was 1 failure:
+1) emojiActionsBackHidesKeyboardBeforeClosingMenu(dev.tinycast.android.TouchSearchDeviceTest)
+java.lang.AssertionError: Assert failed: The component is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack$lambda$137(TouchSearchDeviceTest.kt:1112)
+	at dev.tinycast.android.TouchSearchDeviceTest$$ExternalSyntheticLambda62.invoke(D8$$SyntheticClass:0)
+	at dev.tinycast.android.TouchSearchDeviceTest.observeBackWindow(TouchSearchDeviceTest.kt:205)
+	at dev.tinycast.android.TouchSearchDeviceTest.searchableMenuBack(TouchSearchDeviceTest.kt:1101)
+	at dev.tinycast.android.TouchSearchDeviceTest.emojiActionsBackHidesKeyboardBeforeClosingMenu(TouchSearchDeviceTest.kt:1145)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

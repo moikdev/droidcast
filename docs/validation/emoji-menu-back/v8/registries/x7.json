@@ -1,0 +1,56 @@
+{
+  "exploratory": true,
+  "source_commit": "13c27299064f15e314a7d6678a88f8699d5cfc21",
+  "apk_sha256": {
+    "app-debug-androidTest.apk": "2908ca67812276f0ba3154b2a3dcfc918f7d4756d7b39873eca31883624dbf59",
+    "app-debug.apk": "f16043c87796862245ec29592a66743b455cc05187ed882584a0a33bd2c8217e"
+  },
+  "cohorts": [
+    {
+      "name": "x7-control-sheet-phone200",
+      "app_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard"
+      ],
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 2,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "x7-phone200",
+      "app_sha256": "f16043c87796862245ec29592a66743b455cc05187ed882584a0a33bd2c8217e",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "exit_code": 1,
+      "passes": 2,
+      "failures": 2,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "x7-phone100",
+      "app_sha256": "f16043c87796862245ec29592a66743b455cc05187ed882584a0a33bd2c8217e",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "exit_code": 1,
+      "passes": 2,
+      "failures": 2,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    }
+  ],
+  "scope": "Exploratory layout run; earns no final credit.",
+  "completed": true,
+  "stale_build": "Incremental Gradle build: APK lacked the 13c27299 PaletteMenus sheet code (no \"Close actions\" string) while EmojiUi changes were present. Candidate rows show the old popover; no credit. Control row (v6 app) is a valid old-app frame."
+}

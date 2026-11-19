@@ -1,0 +1,223 @@
+{
+  "completed": true,
+  "app_source": "074f14bca2a33b3fdb0dfaa9ae65dfd30c1fc0f8",
+  "test_source": "1dc1a1ce4460ba1401e6a0e408b8faea68b194c5",
+  "exit_code": 0,
+  "passes": 1,
+  "failures": 0,
+  "restoration_checks": 15,
+  "restoration_passed": true,
+  "events": [
+    {
+      "kind": "back-probe-epoch-setup",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "kind": "back-window-before",
+      "action": 0,
+      "key_code": 4,
+      "down_time": 20752164,
+      "event_time": 20752164,
+      "device_id": -1,
+      "source": 257,
+      "repeat": 0,
+      "canceled": false,
+      "handled": null,
+      "window_focused": true,
+      "menu_bookkeeping_open": true,
+      "query": "face",
+      "route": "emoji"
+    },
+    {
+      "kind": "back-window-after",
+      "action": 0,
+      "key_code": 4,
+      "down_time": 20752164,
+      "event_time": 20752164,
+      "device_id": -1,
+      "source": 257,
+      "repeat": 0,
+      "canceled": false,
+      "handled": true,
+      "window_focused": true,
+      "menu_bookkeeping_open": true,
+      "query": "face",
+      "route": "emoji"
+    },
+    {
+      "kind": "back-window-before",
+      "action": 1,
+      "key_code": 4,
+      "down_time": 20752164,
+      "event_time": 20752164,
+      "device_id": -1,
+      "source": 257,
+      "repeat": 0,
+      "canceled": true,
+      "handled": null,
+      "window_focused": true,
+      "menu_bookkeeping_open": true,
+      "query": "face",
+      "route": "emoji"
+    },
+    {
+      "kind": "back-window-after",
+      "action": 1,
+      "key_code": 4,
+      "down_time": 20752164,
+      "event_time": 20752164,
+      "device_id": -1,
+      "source": 257,
+      "repeat": 0,
+      "canceled": true,
+      "handled": false,
+      "window_focused": true,
+      "menu_bookkeeping_open": true,
+      "query": "face",
+      "route": "emoji"
+    },
+    {
+      "kind": "back-probe-after-injection",
+      "injection_accepted": false,
+      "query": "face",
+      "route": "emoji",
+      "ime_visible": false
+    },
+    {
+      "kind": "back-stage-trace",
+      "enabled": true,
+      "dropped": 0,
+      "samples": [
+        {
+          "stage": "pre-ime-before",
+          "uptime_ms": 20752200,
+          "action": 0,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": false,
+          "menu_open": true,
+          "query_length": null,
+          "handled": null
+        },
+        {
+          "stage": "pre-ime-after",
+          "uptime_ms": 20752200,
+          "action": 0,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": false,
+          "menu_open": true,
+          "query_length": null,
+          "handled": false
+        },
+        {
+          "stage": "preview-before",
+          "uptime_ms": 20752207,
+          "action": 0,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": false,
+          "menu_open": true,
+          "query_length": null,
+          "handled": null
+        },
+        {
+          "stage": "preview-after",
+          "uptime_ms": 20752207,
+          "action": 0,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": false,
+          "menu_open": true,
+          "query_length": null,
+          "handled": false
+        },
+        {
+          "stage": "emoji-dispatcher-before",
+          "uptime_ms": 20752210,
+          "action": null,
+          "down_time": null,
+          "event_time": null,
+          "repeat": null,
+          "canceled": null,
+          "menu_open": true,
+          "query_length": 4,
+          "handled": null
+        },
+        {
+          "stage": "emoji-dispatcher-after",
+          "uptime_ms": 20752211,
+          "action": null,
+          "down_time": null,
+          "event_time": null,
+          "repeat": null,
+          "canceled": null,
+          "menu_open": false,
+          "query_length": 4,
+          "handled": null
+        },
+        {
+          "stage": "pre-ime-before",
+          "uptime_ms": 20752211,
+          "action": 1,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": true,
+          "menu_open": true,
+          "query_length": null,
+          "handled": null
+        },
+        {
+          "stage": "pre-ime-after",
+          "uptime_ms": 20752211,
+          "action": 1,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": true,
+          "menu_open": true,
+          "query_length": null,
+          "handled": false
+        },
+        {
+          "stage": "preview-before",
+          "uptime_ms": 20752214,
+          "action": 1,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": true,
+          "menu_open": true,
+          "query_length": null,
+          "handled": null
+        },
+        {
+          "stage": "preview-after",
+          "uptime_ms": 20752214,
+          "action": 1,
+          "down_time": 20752164,
+          "event_time": 20752164,
+          "repeat": 0,
+          "canceled": true,
+          "menu_open": true,
+          "query_length": null,
+          "handled": false
+        }
+      ]
+    },
+    {
+      "kind": "back-window-observer-restored",
+      "passed": true
+    },
+    {
+      "kind": "back-trace-property-restored",
+      "passed": true
+    }
+  ]
+}

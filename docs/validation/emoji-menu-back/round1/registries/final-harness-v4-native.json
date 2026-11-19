@@ -1,0 +1,76 @@
+{
+  "completed": true,
+  "source_commit": "319d9c87988b3494e7fe2da302cca32a035daa78",
+  "app_source": "c0d9a06848cd32b1d9df5e2f9827224a0c0e4016",
+  "cohorts": [
+    {
+      "name": "control-double-v4-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle"
+      ],
+      "app_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "c3e3f9c7d1140f7328c5a67c18c41b015bd3c498d8fd6248386db833133cb01f",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "control-priority-v4-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "app_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "c3e3f9c7d1140f7328c5a67c18c41b015bd3c498d8fd6248386db833133cb01f",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "control-range-v4-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "methods": [
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "app_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "c3e3f9c7d1140f7328c5a67c18c41b015bd3c498d8fd6248386db833133cb01f",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "final-v4-tablet100",
+      "role": "candidate",
+      "state": "finished",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "app_sha256": "f56e13db745743e53c9b12a2bb07a2b127b9a1281dbeca3aaa80b19216728cd8",
+      "test_apk_sha256": "c3e3f9c7d1140f7328c5a67c18c41b015bd3c498d8fd6248386db833133cb01f",
+      "exit_code": 0,
+      "passes": 6,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    }
+  ]
+}

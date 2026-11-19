@@ -1,0 +1,16 @@
+{
+  "all_passed": true,
+  "checks": {
+    "owner-before-recovery": true,
+    "idle-instrumentation": true,
+    "installed-data-and-evidence": true,
+    "verify-unprivileged": true,
+    "restore-binary-dev.tinycast.android": true,
+    "restore-binary-dev.tinycast.android.test": true,
+    "owner-after-binaries": true,
+    "original-geometry-font": true,
+    "release-owner-last": true
+  },
+  "preserved_file_count": 573,
+  "scope": "Completes the runner restoration after its 60 s private-data snapshot timed out (57.8 of ~77 MB transferred). Same steps; snapshot timeout 600 s. The cohort itself remains a failed restoration in the registry and earns no current credit."
+}

@@ -1,0 +1,750 @@
+{
+  "completed": true,
+  "source_commit": "6b7d5fa961bf0d660b2b9b0a460c64dd10d18888",
+  "host": {
+    "jvm": {
+      "tests": 343,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "jvm_task": "> Task :app:testDebugUnitTest",
+    "lint": {
+      "debug": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 56
+      },
+      "benchmark": {
+        "Error": 0,
+        "Fatal": 0,
+        "Warning": 56
+      }
+    },
+    "python": {
+      "normal": {
+        "exit_code": 0,
+        "cases": 135,
+        "seconds": 29.033,
+        "passed": true
+      },
+      "optimized": {
+        "exit_code": 0,
+        "cases": 135,
+        "seconds": 25.859,
+        "passed": true
+      }
+    },
+    "build_successes": 2,
+    "apk_sha256": {
+      "app-debug-androidTest.apk": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "app-debug.apk": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150"
+    },
+    "changed_inputs_since_v4": [
+      "app/src/androidTest/java/dev/tinycast/android/TouchSearchDeviceTest.kt",
+      "app/src/main/java/dev/tinycast/android/EmojiUi.kt",
+      "app/src/main/java/dev/tinycast/android/PaletteActionCapsule.kt",
+      "app/src/main/java/dev/tinycast/android/PaletteBackTrace.kt",
+      "app/src/main/java/dev/tinycast/android/PaletteMenus.kt",
+      "scripts/test-webview-engine.py"
+    ]
+  },
+  "cohorts": [
+    {
+      "name": "v8-control-double-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle"
+      ],
+      "app_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-control-priority-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback"
+      ],
+      "app_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-control-range-tablet100",
+      "role": "expected-control",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "app_sha256": "98dfdfcc6d87d9a859c562782c0ca4a67f0ba391fa3a8b4d17330e4cc2da9ff3",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-control-emoji-actions-phone100",
+      "role": "expected-control",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-control-launcher-actions-phone100",
+      "role": "expected-control",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "3bf4f104314448f28b7d361973e3479b1475e3930345120f1d9d1409db951049",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "native_completed": false,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-control-sheet-phone100",
+      "role": "expected-control",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard"
+      ],
+      "app_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 2,
+      "native_completed": false,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-control-sheet-phone200",
+      "role": "expected-control",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard"
+      ],
+      "app_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 2,
+      "native_completed": false,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-tablet100a",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "diagnoseRangePlacementBeforeAndAfterImeSetup"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 5,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-tablet100b",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 3,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-phone100a",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 6,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-phone100b",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-phone200a",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 6,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-phone200b",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-tablet200",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 7,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-landscape100",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "landscape",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 7,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-landscape200",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "landscape",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuBackPreservesCallerQueryWithoutKeyboardToggle",
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 7,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-legacy100a",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "avd": "Droidcast_WebView_API26_27caf3",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 6,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 10,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-legacy100b",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "avd": "Droidcast_WebView_API26_27caf3",
+      "layout": "phone",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 10,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-legacy200a",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "avd": "Droidcast_WebView_API26_27caf3",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiMenuDismissalsPreserveRangeAndImeIntent",
+        "launcherMenuDismissalsPreserveRangeAndFilter",
+        "emojiCanceledRepeatedBackKeepsActiveMenu",
+        "menuBackPrecedesLaterRegisteredRouteCallback",
+        "emojiActionsBackHidesKeyboardBeforeClosingMenu",
+        "launcherActionsBackHidesKeyboardBeforeClosingMenu"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 6,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 10,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-legacy200b",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "avd": "Droidcast_WebView_API26_27caf3",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "emojiActionsSheetDocksAboveKeyboard",
+        "launcherActionsSheetDocksAboveKeyboard"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 10,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-regression-toggle-tablet100",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "launcherKeyboardToggleRevealsResultsAndPreservesSearch",
+        "emojiKeyboardToggleRevealsResultsAndPreservesSearch",
+        "launcherKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+        "emojiKeyboardCallbacksRejectObsoleteModesOwnersAndMenus",
+        "currentKeyboardAccessibilityActionsApplyTheirPublishedVisibility"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 5,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-regression-empty-landscape200",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "landscape",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "launcherEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable",
+        "emojiEmptyFeedbackIsReadableAboveImeAndControlsRemainReachable"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-regression-clear-phone200",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 2,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "launcherTouchClearPreservesFocusCategoryAndKeyboard",
+        "emojiTouchClearPreservesCategoryGeometryAndKeyboard"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 17,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-regression-core-tablet100",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "tablet",
+      "font": 1,
+      "suite": "touch-search",
+      "input_mode": "system",
+      "methods": [
+        "pointerClearRemovesControlledCompositionAndWhitespace",
+        "retainedClearCallbacksRejectReplacedSurfacesAndMenus",
+        "currentClearUsesLiveQueryAndRecreationRejectsOldCallback"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 3,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 15,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-regression-input-phone100",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5580",
+      "avd": "Tinycast_Tablet_API_36",
+      "layout": "phone",
+      "font": 1,
+      "suite": "native-input",
+      "input_mode": "owned",
+      "methods": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 19,
+      "restoration_passed": true
+    },
+    {
+      "name": "v8-regression-input-api26100",
+      "role": "candidate",
+      "state": "finished",
+      "serial": "emulator-5598",
+      "avd": "Droidcast_WebView_API26_27caf3",
+      "layout": "phone",
+      "font": 1,
+      "suite": "native-input",
+      "input_mode": "owned",
+      "methods": [
+        "committedEmojiNavigationAndCaretAreExact",
+        "activeMultilingualCompositionKeepsResultSelection"
+      ],
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "test_apk_sha256": "0134ca0cb1d60a2019e51de6fd5266bec798ddf3a11845f6081e4e3f9a209711",
+      "exit_code": 0,
+      "passes": 2,
+      "failures": 0,
+      "native_completed": true,
+      "restoration_checks": 12,
+      "restoration_passed": true
+    }
+  ],
+  "scope": "Final pair after the phone action sheet (#119). Clean builds only. Stop on a candidate failure; unrun plans earn no credit.",
+  "readability": [
+    {
+      "name": "v8-readability-control-narrow200",
+      "kind": "expected-pass-before",
+      "exit_code": 0,
+      "app_sha256": "fb5fce2875be01881a6499dbc066b7b36b0e89b22e1b2a0df574bc0dcf156e14",
+      "stages": [
+        {
+          "stage": "narrow-font-2-0",
+          "exit": 0,
+          "passed": true,
+          "passes": 6,
+          "expected": 6,
+          "cleanup_verified": true,
+          "record_sha256": "e03c672aa4176bd981cd2c1eef07bd147304c984bff607ac4429d87ed9476aac"
+        }
+      ]
+    },
+    {
+      "name": "v8-readability",
+      "kind": "candidate",
+      "exit_code": 0,
+      "app_sha256": "e80ac97bee44b68d3cb33c3379518df9ff1bfd6e54bbe6d9a571f654247d2150",
+      "stages": [
+        {
+          "stage": "phone-font-1-0",
+          "exit": 0,
+          "passed": true,
+          "passes": 6,
+          "expected": 6,
+          "cleanup_verified": true,
+          "record_sha256": "fd80e2a8253091b5c1f6e5b0ac03c299b1bcc1a571668b3b922ba2922059ebca"
+        },
+        {
+          "stage": "phone-font-2-0",
+          "exit": 0,
+          "passed": true,
+          "passes": 6,
+          "expected": 6,
+          "cleanup_verified": true,
+          "record_sha256": "f93fbabe26a53e1591b612ee3b083e33cf7d980d5c3f6739db1e28d0a0aa4bfd"
+        },
+        {
+          "stage": "narrow-font-1-0",
+          "exit": 0,
+          "passed": true,
+          "passes": 6,
+          "expected": 6,
+          "cleanup_verified": true,
+          "record_sha256": "a7719d357618232d1c1541e1483f1ea5f389f38489bbcc487d35fe4314640190"
+        },
+        {
+          "stage": "narrow-font-2-0",
+          "exit": 0,
+          "passed": true,
+          "passes": 6,
+          "expected": 6,
+          "cleanup_verified": true,
+          "record_sha256": "fe3f1aad27e5446d7237dda9062cefaa42dc08f33f374be9a1e8085c69418f41"
+        }
+      ]
+    }
+  ]
+}

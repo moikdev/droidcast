@@ -1,0 +1,64 @@
+{
+  "completed": true,
+  "test_source": "8e35be108222df7c5045b9cf1cbede163787f6e0",
+  "test_apk_sha256": "bf3c9785a7f7ec53876b4173e61e4ab8e798fc66e9bc7ceb8a6c9555f87dd2fa",
+  "cohorts": [
+    {
+      "name": "window-diagnostic-v1-current",
+      "state": "finished",
+      "app_sha256": "98da1466e9fe6e3a5e1fbd5b27251e11ebb88e1a6c96599548c20bc4f7aa5de3",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "restoration_checks": 15,
+      "restoration_passed": true,
+      "back_events": [
+        {
+          "kind": "back-probe-epoch-setup",
+          "before": 2,
+          "after": 3
+        },
+        {
+          "kind": "back-probe-after-injection",
+          "injection_accepted": false,
+          "query": "",
+          "route": "emoji",
+          "ime_visible": false
+        },
+        {
+          "kind": "back-window-observer-restored",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "window-diagnostic-v1-old",
+      "state": "finished",
+      "app_sha256": "66a6965e04e37570e17637e5887b03857ceb26810adc5171096619f9e53c524c",
+      "exit_code": 1,
+      "passes": 0,
+      "failures": 1,
+      "restoration_checks": 15,
+      "restoration_passed": true,
+      "back_events": [
+        {
+          "kind": "back-probe-epoch-setup",
+          "before": 2,
+          "after": 3
+        },
+        {
+          "kind": "back-probe-after-injection",
+          "injection_accepted": false,
+          "query": "",
+          "route": "emoji",
+          "ime_visible": false
+        },
+        {
+          "kind": "back-window-observer-restored",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "scope": "Completed means restored diagnostic collection, not a passing Back contract or a cause/repair claim."
+}

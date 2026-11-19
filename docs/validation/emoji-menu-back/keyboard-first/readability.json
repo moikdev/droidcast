@@ -1,0 +1,198 @@
+{
+  "readability-final": {
+    "apk_sha256": "9ee732d9898b2248c9b064871dac2efec76da5c1453d7e9460b3d43a8e8b69f7",
+    "test_apk_sha256": "bfc46b61258afaeced567e35a35f3a8621839cdb0b3b39b60e01703eb710629e",
+    "runs": [
+      {
+        "profile": "phone-font-1-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      },
+      {
+        "profile": "phone-font-2-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      },
+      {
+        "profile": "narrow-font-1-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      },
+      {
+        "profile": "narrow-font-2-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      }
+    ]
+  },
+  "readability-verified": {
+    "apk_sha256": "9ee732d9898b2248c9b064871dac2efec76da5c1453d7e9460b3d43a8e8b69f7",
+    "test_apk_sha256": "57a0449e05081fa8993ecb84ea5e145d60f00c6f2515306b9939161587311640",
+    "runs": [
+      {
+        "profile": "phone-font-1-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      },
+      {
+        "profile": "phone-font-2-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      },
+      {
+        "profile": "narrow-font-1-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      },
+      {
+        "profile": "narrow-font-2-0",
+        "passes": 6,
+        "completed": true,
+        "cleanup": {
+          "stop-app": true,
+          "preferences-backup": true,
+          "preferences": true,
+          "emoji-backup": true,
+          "emoji-preferences": true,
+          "secure-enabled_accessibility_services": true,
+          "secure-accessibility_enabled": true,
+          "secure-show_ime_with_hard_keyboard": true,
+          "font-scale": true,
+          "size": true,
+          "density": true,
+          "private-fixture": true,
+          "fixture-cache": true,
+          "verify-data": true,
+          "verify-geometry": true,
+          "verify-identity": true
+        }
+      }
+    ]
+  }
+}
