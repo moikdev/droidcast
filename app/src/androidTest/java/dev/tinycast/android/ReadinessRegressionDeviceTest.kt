@@ -3,6 +3,9 @@ package dev.tinycast.android
 import android.app.Instrumentation
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -240,6 +243,17 @@ class ReadinessRegressionDeviceTest {
         val aliasNode = compose.onNodeWithTag("editor-alias")
         val opened = aliasNode.fetchSemanticsNode().config[SemanticsProperties.EditableText].text
         val phase = if (override.isEmpty()) "cleared" else "renamed"
+        // Wait for the focus-triggered IME transition, then expose the full alias for capture.
+        aliasNode.performClick()
+        val activity = compose.activity
+        val view = activity.window.decorView
+        val ime = WindowInsetsCompat.Type.ime()
+        val controller = WindowCompat.getInsetsController(activity.window, view)
+        compose.runOnUiThread { controller.show(ime) }
+        compose.waitUntil(5000) { compose.runOnUiThread { ViewCompat.getRootWindowInsets(view)?.isVisible(ime) == true } }
+        compose.runOnUiThread { controller.hide(ime) }
+        compose.waitUntil(5000) { compose.runOnUiThread { ViewCompat.getRootWindowInsets(view)?.isVisible(ime) == false } }
+        aliasNode.performScrollTo().assertIsDisplayed()
         capture("alias-$phase-open")
         val newTitle = "Garden reference revised"
         compose.onNodeWithTag("editor-title").performScrollTo().performTextReplacement(newTitle)
