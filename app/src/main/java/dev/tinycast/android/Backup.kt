@@ -41,9 +41,9 @@ data class RestorePlan(
         }
         return buildList {
             if (categories.any { it in collectionCategories }) {
-                add("Collection items · $added to apply · $skipped duplicates kept · $removed to replace")
+                add("Collection items · $added to apply · ${count(skipped, "duplicate", "duplicates")} kept · $removed to replace")
             }
-            if (settings.isNotEmpty()) add("After restore · " + settings.joinToString(", "))
+            if (settings.isNotEmpty()) add("Portable settings after restore · " + settings.joinToString(", "))
         }.joinToString("\n")
     }
 

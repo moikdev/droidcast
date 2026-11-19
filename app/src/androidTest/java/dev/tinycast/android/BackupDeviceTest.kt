@@ -364,6 +364,10 @@ class BackupDeviceTest {
                 fun prepare(rank: Int) {
                     load(BackupDocument(BackupData(usage = mapOf("calculator" to rank)), setOf(BackupCategory.LEARNING)), fixture)
                     compose.onNodeWithTag("backup-policy-REPLACE").performScrollTo().performClick()
+                    if (trial != null && rank == Int.MAX_VALUE) {
+                        compose.onNodeWithTag("backup-plan-summary").performScrollTo().assertIsDisplayed()
+                        captureRankingScreen(activity, trial, "preview", "Preview backup")
+                    }
                     compose.onNodeWithTag("backup-review").performScrollTo().performClick()
                 }
                 if (round > 0) {
@@ -384,6 +388,24 @@ class BackupDeviceTest {
             }
         }
     }
+    private fun captureRankingScreen(activity: MainActivity, folder: File?, stage: String, marker: String? = null) {
+        if (folder == null) return
+        if (marker != null) {
+            compose.waitForIdle()
+            val frames = CountDownLatch(1)
+            compose.activityRule.scenario.onActivity { live ->
+                assertSame(activity, live)
+                live.window.decorView.postOnAnimation { live.window.decorView.postOnAnimation { frames.countDown() } }
+            }
+            assertTrue(frames.await(5, TimeUnit.SECONDS))
+            check(device.wait(Until.hasObject(By.pkg(context.packageName).text(marker)), 5000))
+        }
+        check(device.currentPackageName == context.packageName)
+        device.dumpWindowHierarchy(File(folder, "$stage.xml"))
+        check(device.currentPackageName == context.packageName)
+        check(device.takeScreenshot(File(folder, "$stage.png")))
+    }
+
     private fun checkRankingConfirmation(activity: MainActivity, folder: File?, omitConfirm: Boolean) {
         val prefs = context.getSharedPreferences("palette", Context.MODE_PRIVATE)
         val observations = JSONArray()
@@ -422,28 +444,11 @@ class BackupDeviceTest {
             tmp.writeText(observations.toString(2))
             check(tmp.renameTo(File(folder, "states.json"))) { "Could not save fixture observations" }
         }
-        fun capture(stage: String, marker: String? = null) {
-            if (folder == null) return
-            if (marker != null) {
-                compose.waitForIdle()
-                val frames = CountDownLatch(1)
-                compose.activityRule.scenario.onActivity { live ->
-                    assertSame(activity, live)
-                    live.window.decorView.postOnAnimation { live.window.decorView.postOnAnimation { frames.countDown() } }
-                }
-                assertTrue(frames.await(5, TimeUnit.SECONDS))
-                check(device.wait(Until.hasObject(By.pkg(context.packageName).text(marker)), 5000))
-            }
-            check(device.currentPackageName == context.packageName)
-            device.dumpWindowHierarchy(File(folder, "$stage.xml"))
-            check(device.currentPackageName == context.packageName)
-            check(device.takeScreenshot(File(folder, "$stage.png")))
-        }
         if (folder != null) prefs.registerOnSharedPreferenceChangeListener(listener)
         try {
-            val summary = "After restore · 1 usage ranking entry"
+            val summary = "Portable settings after restore · 1 usage ranking entry"
             compose.onNodeWithText(summary).performScrollTo().assertIsDisplayed()
-            capture("confirmation", summary)
+            captureRankingScreen(activity, folder, "confirmation", summary)
             val confirm = compose.onNodeWithTag("backup-confirm").performScrollTo().assertIsEnabled()
             observe("before_confirm")
             if (!omitConfirm) confirm.performClick()
@@ -461,13 +466,13 @@ class BackupDeviceTest {
             observe("after_next_command")
             if (folder != null) {
                 compose.onNodeWithText("Notes").performScrollTo().assertIsDisplayed()
-                capture("complete", "Notes")
+                captureRankingScreen(activity, folder, "complete", "Notes")
                 compose.onNodeWithText("Backup and restore").assertIsDisplayed()
             }
         } catch (failure: Throwable) {
             runCatching { observe("failure") }.onFailure(failure::addSuppressed)
             runCatching {
-                if (folder != null && device.currentPackageName == context.packageName) capture("failure")
+                if (folder != null && device.currentPackageName == context.packageName) captureRankingScreen(activity, folder, "failure")
             }.onFailure(failure::addSuppressed)
             throw failure
         } finally {

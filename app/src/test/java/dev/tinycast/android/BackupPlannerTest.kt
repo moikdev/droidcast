@@ -14,16 +14,16 @@ class BackupPlannerTest {
         val old = BackupData(usage = mapOf("calculator" to 3))
         val incoming = BackupData(usage = mapOf("calculator" to 2, "emoji" to 1))
         val merge = plan(old, incoming, selected = selected)
-        assertEquals("After restore · 2 usage ranking entries", merge.reviewSummary())
+        assertEquals("Portable settings after restore · 2 usage ranking entries", merge.reviewSummary())
         assertEquals("Backup restored · Usage ranking", merge.completionMessage())
         val cleared = plan(old, BackupData(), RestorePolicy.REPLACE, selected)
-        assertEquals("After restore · 0 usage ranking entries", cleared.reviewSummary())
+        assertEquals("Portable settings after restore · 0 usage ranking entries", cleared.reviewSummary())
     }
 
     @Test fun mixedFeedbackSeparatesCollectionChangesAndSelectedSettings() {
         val incoming = BackupData(notes = listOf(note), pins = setOf(note.id))
         val mixed = plan(BackupData(), incoming, selected = setOf(BackupCategory.NOTES, BackupCategory.PREFERENCES))
-        assertEquals("Collection items · 1 to apply · 0 duplicates kept · 0 to replace\nAfter restore · 1 pin, 0 alias overrides", mixed.reviewSummary())
+        assertEquals("Collection items · 1 to apply · 0 duplicates kept · 0 to replace\nPortable settings after restore · 1 pin, 0 alias overrides", mixed.reviewSummary())
         assertEquals("Backup restored · 2 categories", mixed.completionMessage())
     }
 
