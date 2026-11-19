@@ -72,6 +72,9 @@ docs/validation/emoji-history/runs/**/*.log -text -whitespace
 docs/validation/emoji-density/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-density/runs/**/*.log -text -whitespace
 
+docs/validation/emoji-density/held-input/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-density/held-input/runs/**/*.log -text -whitespace
+
 # Preserve the original favorite-order hierarchy and device log bytes.
 docs/validation/emoji-order/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-order/runs/**/*.log -text -whitespace

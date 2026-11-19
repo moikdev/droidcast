@@ -296,6 +296,8 @@ PR #128 merged the battery and security settings destinations at `2bc32888`. The
 
 Emoji history consent shipped in #129 at merge `a3b06840`. The merge has the same tree as audited head `3afac06d`. Both independent audits, [hosted Android](https://github.com/moikdev/droidcast/actions/runs/44451673433) and local/android passed.
 
+The #130 keyboard regression reproduced on the original grid-density app. Its Actions search received three equals signs while zoom was held across a tap. With the [shared key handling](EMOJI-GRID-DENSITY.md#holding-a-zoom-shortcut-while-opening-actions) the tablet kept the query empty and accepted a new equals press after release.
+
 ### Ordered emoji favorites
 
 The [ordered favorites implementation and Android results](EMOJI-FAVORITE-ORDER.md) cover the ordering part of #44. Favorites support keyboard and touch moves, preserve the selected symbol, and retain their order after process restart. Existing sets migrate on edit. Portable import/export, multilingual and custom keywords, the dataset update and tone support remain open.
