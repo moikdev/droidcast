@@ -256,6 +256,13 @@ class TouchSearchDeviceTest {
         return owners
     }
 
+    private fun keyboardFirstBackOwners(mark: Int, press: String) {
+        var hideCount = 0
+        ui { hideCount = PaletteBackTrace.snapshot().events.drop(mark).count { it.stage == "menu-hide-ime" } }
+        assertTrue("At most one activity keyboard dismissal", hideCount in 0..1)
+        dispatcherOwners(mark, press, if (hideCount == 1) listOf("menu-dispatcher-before") else emptyList())
+    }
+
     private fun emptyFeedback(node: SemanticsNodeInteraction, palette: String, keyboardVisible: Boolean) {
         val height = rect(palette).height
         val constrained = keyboardVisible && height < 180 * compose.activity.resources.displayMetrics.density
@@ -1123,7 +1130,7 @@ class TouchSearchDeviceTest {
             node("inline-menu").assertIsDisplayed()
             node("inline-menu-search").assertIsFocused()
             ui { assertEquals(if (emojiRoute) "emoji" else "actions", it.store.dialog) }
-            dispatcherOwners(firstMark, "searchable-first-back", emptyList())
+            keyboardFirstBackOwners(firstMark, "searchable-first-back")
             capture("actions-shown-first-back", search)
             val secondMark = traceMark()
             events.put(JSONObject().put("kind", "searchable-second-back").put("press_back_return", device.pressBack()))
@@ -1267,7 +1274,7 @@ class TouchSearchDeviceTest {
         val mark = traceMark()
         device.pressBack()
         compose.waitUntil(10000) { !ime() }
-        dispatcherOwners(mark, "first-tap-protocol-back")
+        keyboardFirstBackOwners(mark, "first-tap-protocol-back")
         settledFeedbackViewport("emoji-palette")
         node("inline-menu-search").assertIsFocused()
         val hiddenLabel = toggle.fetchSemanticsNode().config[SemanticsProperties.ContentDescription]

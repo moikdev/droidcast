@@ -261,7 +261,14 @@ internal fun PaletteMenuHost(store: PaletteStore, openChanged: (Boolean) -> Unit
                 BackHandler(enabled = menus.current != null) {
                     PaletteBackTrace.handler("menu-dispatcher-before", menus.current != null,
                         if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
-                    menus.dismiss()
+                    // The platform can deliver Back to the activity while the IME
+                    // is still visible after focus transfers between two editors.
+                    if (menus.current?.searchable == true && ownerView.rootImeVisible() == true) {
+                        ViewCompat.getWindowInsetsController(ownerView)?.hide(WindowInsetsCompat.Type.ime())
+                        PaletteBackTrace.handler("menu-hide-ime", true, null)
+                    } else {
+                        menus.dismiss()
+                    }
                     PaletteBackTrace.handler("menu-dispatcher-after", menus.current != null,
                         if (store.dialog == "emoji") store.emoji.query.length else store.query.length)
                 }
