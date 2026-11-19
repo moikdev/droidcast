@@ -1,0 +1,1004 @@
+{
+  "probe-landscape": {
+    "layout": "landscape",
+    "font_scale": 1,
+    "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument,dev.tinycast.android.ExtensionDetailDeviceTest#jpegAtExactSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#wideJpegOnePixelPastSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#tallJpegOnePixelPastSampleBoundaryRenders",
+    "expected": 4,
+    "passes": 2,
+    "completed": false,
+    "tests_completed": false,
+    "apk_sha256": "64f954f6752f35415161dfbf63c01fca2d8374e1055fddd148e21278e7ca5632",
+    "test_apk_sha256": "0685646c4172d12514f41925b7310d4ab1e7124ea6a331383dbb6a6ad9a05dff",
+    "runner_sha256": "9b91b433d911061eef51ef8f8b3942ecd66ddd0a0df333804b7d8f786ec7bda1",
+    "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "installed_apks_match": true,
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "host_restoration": {
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "outer_wrapper_sha256": "08db965a388143af5444401a28da92897f95d310d28a89815dcd32d4e3bfd276",
+    "cases": {
+      "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": {
+        "installed_build_commit": "bc103d88cc36e990c86857b0eb6620cd81971300",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "readiness": [
+          {
+            "alternative": "Owned block image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned block image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned block image",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned linked image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(478.0, 772.0, 541.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned linked image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(478.0, 772.0, 541.0, 835.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Owned block image",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20000000298023224,
+            "width_px": 1863,
+            "height_px": 589
+          }
+        ]
+      },
+      "detail-jpegatexactsampleboundaryrenders-record.json": {
+        "installed_build_commit": "bc103d88cc36e990c86857b0eb6620cd81971300",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2048,
+          "height": 256,
+          "jpeg_sha256": "c72ba6e0990017b2fffb05afcbfce70797ace10818506f82b26feba94d4e7b1a",
+          "sample_by_two_width": 1024,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      },
+      "detail-talljpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "bc103d88cc36e990c86857b0eb6620cd81971300",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 256,
+          "height": 2049,
+          "jpeg_sha256": "1a511a1cf3c05e56e9202e84349cd8c4842cee3e90a7c0488f909641fc167104",
+          "sample_by_two_width": 128,
+          "sample_by_two_height": 1025
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "wait-failed",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": []
+      },
+      "detail-widejpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "bc103d88cc36e990c86857b0eb6620cd81971300",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2049,
+          "height": 256,
+          "jpeg_sha256": "bf76cb70d56a2924be79c056a635b6317bd93c07ac91b5194a907f6e65e583d1",
+          "sample_by_two_width": 1025,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "wait-failed",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": []
+      }
+    }
+  },
+  "earlier-landscape": {
+    "layout": "landscape",
+    "font_scale": 1,
+    "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument,dev.tinycast.android.ExtensionDetailDeviceTest#jpegAtExactSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#wideJpegOnePixelPastSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#tallJpegOnePixelPastSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#gridJpegThumbnailFitsItsSampledEdge",
+    "expected": 5,
+    "passes": 2,
+    "completed": false,
+    "tests_completed": false,
+    "apk_sha256": "8fa732ba22c4aabf2f82f67481a70dbfc78caaf9400746d778720c8750d85cd0",
+    "test_apk_sha256": "8eddf55033ac713b22998a0569579ef1e451264c422656029895cbcd572c41de",
+    "runner_sha256": "948aa8dd9c563fdce5a70e628f78132a479fc8b3ba00e39ae2742541ff0ed6a3",
+    "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "installed_apks_match": true,
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "host_restoration": {
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "outer_wrapper_sha256": "fc309f6481995b2a5ca74d0c4344bbb34486abe2c12f62f625bb0069ed89a61b",
+    "cases": {
+      "detail-gridjpegthumbnailfitsitssamplededge-record.json": {
+        "installed_build_commit": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 513,
+          "height": 64,
+          "jpeg_sha256": "46d38e8a0901fc7797d92bf4dd3b5995639dfd14fec56a594c0d2bac54956215",
+          "sample_by_two_width": 257,
+          "sample_by_two_height": 32
+        },
+        "grid_decoder": {
+          "width": 257,
+          "height": 32,
+          "center_argb": -14514124
+        },
+        "readiness": [],
+        "pixels": []
+      },
+      "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": {
+        "installed_build_commit": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "readiness": [
+          {
+            "alternative": "Owned block image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned block image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned block image",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned linked image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(478.0, 772.0, 541.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned linked image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(478.0, 772.0, 541.0, 835.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Owned block image",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20000000298023224,
+            "width_px": 1863,
+            "height_px": 589
+          }
+        ]
+      },
+      "detail-jpegatexactsampleboundaryrenders-record.json": {
+        "installed_build_commit": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2048,
+          "height": 256,
+          "jpeg_sha256": "c72ba6e0990017b2fffb05afcbfce70797ace10818506f82b26feba94d4e7b1a",
+          "sample_by_two_width": 1024,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      },
+      "detail-talljpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 256,
+          "height": 2049,
+          "jpeg_sha256": "1a511a1cf3c05e56e9202e84349cd8c4842cee3e90a7c0488f909641fc167104",
+          "sample_by_two_width": 128,
+          "sample_by_two_height": 1025
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "wait-failed",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": []
+      },
+      "detail-widejpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "adde55c9149f25a77766b1160f2fa72db2fafbeb",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2049,
+          "height": 256,
+          "jpeg_sha256": "bf76cb70d56a2924be79c056a635b6317bd93c07ac91b5194a907f6e65e583d1",
+          "sample_by_two_width": 1025,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "wait-failed",
+            "state": "Image unavailable",
+            "debug_load_state": "generation=2;phase=failed:IllegalStateException;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=false;composed_ready=false;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 623.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": []
+      }
+    }
+  },
+  "final-landscape": {
+    "layout": "landscape",
+    "font_scale": 1,
+    "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#imageTitlesHaveTouchInformationAndCannotSurviveAnewDocument,dev.tinycast.android.ExtensionDetailDeviceTest#jpegAtExactSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#wideJpegOnePixelPastSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#tallJpegOnePixelPastSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#gridJpegThumbnailFitsItsSampledEdge",
+    "expected": 5,
+    "passes": 5,
+    "completed": true,
+    "tests_completed": true,
+    "apk_sha256": "0b578be838775e128cb2be58c3dca35afa7b4be126f10229aa6c9d946447e881",
+    "test_apk_sha256": "8eddf55033ac713b22998a0569579ef1e451264c422656029895cbcd572c41de",
+    "runner_sha256": "948aa8dd9c563fdce5a70e628f78132a479fc8b3ba00e39ae2742541ff0ed6a3",
+    "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "installed_apks_match": true,
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "host_restoration": {
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "outer_wrapper_sha256": "fc309f6481995b2a5ca74d0c4344bbb34486abe2c12f62f625bb0069ed89a61b",
+    "cases": {
+      "detail-gridjpegthumbnailfitsitssamplededge-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 513,
+          "height": 64,
+          "jpeg_sha256": "46d38e8a0901fc7797d92bf4dd3b5995639dfd14fec56a594c0d2bac54956215",
+          "sample_by_two_width": 257,
+          "sample_by_two_height": 32
+        },
+        "grid_decoder": {
+          "width": 129,
+          "height": 16,
+          "center_argb": -14514124
+        },
+        "readiness": [],
+        "pixels": []
+      },
+      "detail-imagetitleshavetouchinformationandcannotsurviveanewdocument-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "readiness": [
+          {
+            "alternative": "Owned block image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned block image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned block image",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 246.0, 2102.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned inline image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(469.0, 772.0, 532.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned linked image",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(478.0, 772.0, 541.0, 835.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Owned linked image",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=0;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(478.0, 772.0, 541.0, 835.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Owned block image",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20000000298023224,
+            "width_px": 1863,
+            "height_px": 589
+          }
+        ]
+      },
+      "detail-jpegatexactsampleboundaryrenders-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2048,
+          "height": 256,
+          "jpeg_sha256": "c72ba6e0990017b2fffb05afcbfce70797ace10818506f82b26feba94d4e7b1a",
+          "sample_by_two_width": 1024,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      },
+      "detail-talljpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 256,
+          "height": 2049,
+          "jpeg_sha256": "1a511a1cf3c05e56e9202e84349cd8c4842cee3e90a7c0488f909641fc167104",
+          "sample_by_two_width": 128,
+          "sample_by_two_height": 1025
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      },
+      "detail-widejpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 891,
+        "height_dp": 411,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2049,
+          "height": 256,
+          "jpeg_sha256": "bf76cb70d56a2924be79c056a635b6317bd93c07ac91b5194a907f6e65e583d1",
+          "sample_by_two_width": 1025,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(239.0, 437.0, 2102.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      }
+    }
+  },
+  "portrait-repeat": {
+    "layout": "phone",
+    "font_scale": 1,
+    "classes": "dev.tinycast.android.ExtensionDetailDeviceTest#jpegAtExactSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#wideJpegOnePixelPastSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#tallJpegOnePixelPastSampleBoundaryRenders,dev.tinycast.android.ExtensionDetailDeviceTest#gridJpegThumbnailFitsItsSampledEdge",
+    "expected": 4,
+    "passes": 4,
+    "completed": true,
+    "tests_completed": true,
+    "apk_sha256": "0b578be838775e128cb2be58c3dca35afa7b4be126f10229aa6c9d946447e881",
+    "test_apk_sha256": "8eddf55033ac713b22998a0569579ef1e451264c422656029895cbcd572c41de",
+    "runner_sha256": "948aa8dd9c563fdce5a70e628f78132a479fc8b3ba00e39ae2742541ff0ed6a3",
+    "cleanup_helper_sha256": "1f4a1d70d251ec0a8294932388ce881da144c9c7d1c05df54df2c5b246d46373",
+    "clipboard_helper_sha256": "4aa2d03a100791544d282de37a2f62b6f7bfd94c47cc5611b6b6448ed8a946c1",
+    "document_helper_sha256": "ef44f5a9af1397fc8e8ea1924e36c2dec18d5c56c02e22f4925752daf1034841",
+    "installed_apks_match": true,
+    "cleanup": {
+      "stop-app": true,
+      "stop-owned-caller": true,
+      "clipboard-restored-and-verified-independently": true,
+      "stop-clipboard-recovery-activity": true,
+      "owned-fixture-data": true,
+      "copied-evidence": true,
+      "palette-backup": true,
+      "palette-preferences": true,
+      "palette-verified": true,
+      "emoji-backup": true,
+      "emoji-preferences": true,
+      "emoji-verified": true,
+      "font-scale": true,
+      "secure-enabled_accessibility_services": true,
+      "secure-accessibility_enabled": true,
+      "secure-show_ime_with_hard_keyboard": true,
+      "size": true,
+      "density": true,
+      "verify-state-and-unprivileged-identity": true,
+      "release-lease": true
+    },
+    "host_restoration": {
+      "original_app_verified": true,
+      "original_test_verified": true,
+      "inner_cleanup_verified": true,
+      "unprivileged": true,
+      "released": true
+    },
+    "outer_wrapper_sha256": "1e0d664aad603d1ba73be6b2967a5d52f702984db06c3783f4ee1adcfb515419",
+    "cases": {
+      "detail-gridjpegthumbnailfitsitssamplededge-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 411,
+        "height_dp": 891,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 513,
+          "height": 64,
+          "jpeg_sha256": "46d38e8a0901fc7797d92bf4dd3b5995639dfd14fec56a594c0d2bac54956215",
+          "sample_by_two_width": 257,
+          "sample_by_two_height": 32
+        },
+        "grid_decoder": {
+          "width": 129,
+          "height": 16,
+          "center_argb": -14514124
+        },
+        "readiness": [],
+        "pixels": []
+      },
+      "detail-jpegatexactsampleboundaryrenders-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 411,
+        "height_dp": 891,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2048,
+          "height": 256,
+          "jpeg_sha256": "c72ba6e0990017b2fffb05afcbfce70797ace10818506f82b26feba94d4e7b1a",
+          "sample_by_two_width": 1024,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      },
+      "detail-talljpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 411,
+        "height_dp": 891,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 256,
+          "height": 2049,
+          "jpeg_sha256": "1a511a1cf3c05e56e9202e84349cd8c4842cee3e90a7c0488f909641fc167104",
+          "sample_by_two_width": 128,
+          "sample_by_two_height": 1025
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      },
+      "detail-widejpegonepixelpastsampleboundaryrenders-record.json": {
+        "installed_build_commit": "2449c383706208c22a05ec4d808d7d7ccb217274",
+        "width_dp": 411,
+        "height_dp": 891,
+        "font_scale": 1,
+        "passed": true,
+        "owned_data_removed": true,
+        "preexisting_installations_and_data_preserved": true,
+        "image_history_process_property_restored": true,
+        "raster_fixture": {
+          "width": 2049,
+          "height": 256,
+          "jpeg_sha256": "bf76cb70d56a2924be79c056a635b6317bd93c07ac91b5194a907f6e65e583d1",
+          "sample_by_two_width": 1025,
+          "sample_by_two_height": 128
+        },
+        "readiness": [
+          {
+            "alternative": "Green sample",
+            "phase": "before-wait",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "ready",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          },
+          {
+            "alternative": "Green sample",
+            "phase": "pixels-captured",
+            "state": "Image ready",
+            "debug_load_state": "generation=2;phase=ready;cancellations=1;visible=true;started=true;request=true;source_matches=true;observed_ready=true;composed_ready=true;observed_value_token=2;composed_value_token=2;attached=true;window_bounds=Rect.fromLTRB(85.0, 437.0, 995.0, 689.0);lifecycle=RESUMED"
+          }
+        ],
+        "pixels": [
+          {
+            "alternative": "Green sample",
+            "expected_argb": -14514125,
+            "red": 0.13333334028720856,
+            "green": 0.5333333611488342,
+            "blue": 0.20392157137393951,
+            "width_px": 420,
+            "height_px": 252
+          }
+        ]
+      }
+    }
+  }
+}

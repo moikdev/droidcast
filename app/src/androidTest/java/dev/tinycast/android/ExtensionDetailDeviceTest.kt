@@ -145,7 +145,7 @@ class ExtensionDetailDeviceTest {
         ownedId = id; ownedIds += id; assertTrue(directory.mkdir())
         return directory
     }
-    private fun launch(mode: String) {
+    private fun launch(mode: String, rasterSize: Pair<Int, Int>? = null) {
         val directory = fixtureDirectory(); val id = directory.name
         val png = java.io.ByteArrayOutputStream().use { output ->
             val bitmap = Bitmap.createBitmap(120, 80, Bitmap.Config.ARGB_8888)
@@ -166,6 +166,22 @@ class ExtensionDetailDeviceTest {
 
             ![Owned unavailable image](../../outside.png)
         """.trimIndent()
+        val rasterDocument = rasterSize?.let { (width, height) ->
+            val file = File(assets, "sample.jpg")
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            try {
+                bitmap.eraseColor(0xff228833.toInt())
+                file.outputStream().use { assertTrue(bitmap.compress(Bitmap.CompressFormat.JPEG, 95, it)) }
+            } finally { bitmap.recycle() }
+            val options = android.graphics.BitmapFactory.Options().apply { inSampleSize = 2 }
+            val sample = requireNotNull(android.graphics.BitmapFactory.decodeFile(file.path, options))
+            try {
+                record.put("raster_fixture", JSONObject().put("width", width).put("height", height)
+                    .put("jpeg_sha256", hash(file.readBytes())).put("sample_by_two_width", sample.width)
+                    .put("sample_by_two_height", sample.height))
+            } finally { sample.recycle() }
+            "# JPEG preview\n\n![Green sample](sample.jpg?raycast-width=160&raycast-height=96)"
+        }
         val typography = """
             # Owned readable heading
 
@@ -212,7 +228,7 @@ class ExtensionDetailDeviceTest {
 
             Owned linked [![Owned linked image](owned.svg "Owned linked description __DOCUMENT__")](javascript:owned-image-information).
         """.trimIndent()
-        val configuration = JSONObject().put("mode", mode).put("images", images).put("typography", typography)
+        val configuration = JSONObject().put("mode", mode).put("images", rasterDocument ?: images).put("typography", typography)
             .put("gallery", gallery).put("imageInformation", information)
             .put("longMetadata", "Owned long metadata café é 日本 🌱. " + "Every natural line remains readable at the configured text size. ".repeat(8))
             .put("longUrl", "https://example.invalid/owned/" + "LongUnbrokenReference日本".repeat(18))
@@ -820,6 +836,31 @@ class ExtensionDetailDeviceTest {
             observation.put("published_composed_drawn_value_and_pixels_agree", true)
         }
     }
+    private fun checkJpegPreview(width: Int, height: Int) {
+        launch("images", width to height)
+        imagePixel("Green sample", 0xff228833.toInt())
+        capture("jpeg-preview")
+        record.put("passed", true)
+    }
+
+    @Test fun jpegAtExactSampleBoundaryRenders() = checkJpegPreview(2048, 256)
+    @Test fun wideJpegOnePixelPastSampleBoundaryRenders() = checkJpegPreview(2049, 256)
+    @Test fun tallJpegOnePixelPastSampleBoundaryRenders() = checkJpegPreview(256, 2049)
+
+    @Test fun gridJpegThumbnailFitsItsSampledEdge() {
+        launch("images", 513 to 64)
+        val directory = compose.runOnIdle { requireNotNull(catalog.running).first.directory }
+        ExtensionGridImages(directory).use { images ->
+            val bitmap = kotlinx.coroutines.runBlocking { images.load("sample.jpg") }
+            val color = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+            record.put("grid_decoder", JSONObject().put("width", bitmap.width)
+                .put("height", bitmap.height).put("center_argb", color))
+            assertTrue("Decoded thumbnail is ${bitmap.width} by ${bitmap.height}", maxOf(bitmap.width, bitmap.height) <= 256)
+            assertTrue(android.graphics.Color.green(color) > 120)
+        }
+        record.put("passed", true)
+    }
+
     @Test fun packageSvgTintAndFailureImagesRenderWithBoundedAlternatives() {
         launch("images")
         imagePixel("Owned package image", 0xffe7582b.toInt()); capture("package-image")

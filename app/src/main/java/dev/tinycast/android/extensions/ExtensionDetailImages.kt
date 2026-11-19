@@ -106,8 +106,11 @@ internal class ExtensionDetailImages(private val directory: File) : Closeable {
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
         require(bounds.outWidth in 1..32768 && bounds.outHeight in 1..32768) { "Unsupported image" }
-        val options = BitmapFactory.Options().apply { inSampleSize = 1; inScaled = false; inPreferredConfig = Bitmap.Config.ARGB_8888 }
-        while (maxOf(bounds.outWidth, bounds.outHeight) / options.inSampleSize > edge) options.inSampleSize *= 2
+        val options = BitmapFactory.Options().apply {
+            inSampleSize = rasterSampleSize(maxOf(bounds.outWidth, bounds.outHeight), edge)
+            inScaled = false
+            inPreferredConfig = Bitmap.Config.ARGB_8888
+        }
         val bitmap = requireNotNull(BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)) { "Unsupported image" }
         if (bitmap.width > edge || bitmap.height > edge || bitmap.allocationByteCount > MAX_EDGE * MAX_EDGE * 4) {
             bitmap.recycle(); error("Image exceeds raster limit")
