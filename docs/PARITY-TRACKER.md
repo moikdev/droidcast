@@ -295,3 +295,7 @@ PR #128 merged the battery and security settings destinations at `2bc32888`. The
 [The #44 density controls](EMOJI-GRID-DENSITY.md) add temporary keyboard zoom and explicit saved defaults. A new picker restores the saved setting. The current API 36 checks cover the displayed row count, selection, arrow movement, picker and menu shortcuts, real Actions taps, and reopening the app. Tone support, custom/multilingual keywords, favorite ordering and portable settings remain open.
 
 Emoji history consent shipped in #129 at merge `a3b06840`. The merge has the same tree as audited head `3afac06d`. Both independent audits, [hosted Android](https://github.com/moikdev/droidcast/actions/runs/44451673433) and local/android passed.
+
+### Ordered emoji favorites
+
+The [ordered favorites implementation and Android results](EMOJI-FAVORITE-ORDER.md) cover the ordering part of #44. Favorites support keyboard and touch moves, preserve the selected symbol, and retain their order after process restart. Existing sets migrate on edit. Portable import/export, multilingual and custom keywords, the dataset update and tone support remain open.

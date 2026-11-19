@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.EmojiDeviceTest:
+INSTRUMENTATION_STATUS: test=favoriteOrderingMigratesAndFollowsTheSelectedSymbol
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.EmojiDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Move the second favorite to the first displayed position expected:<[1f603, 1f600, 1f604]> but was:<[1f600, 1f603, 1f604]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.EmojiDeviceTest.favoriteOrderingMigratesAndFollowsTheSelectedSymbol(EmojiDeviceTest.kt:283)
+
+INSTRUMENTATION_STATUS: stream=
+Error in favoriteOrderingMigratesAndFollowsTheSelectedSymbol(dev.tinycast.android.EmojiDeviceTest):
+java.lang.AssertionError: Move the second favorite to the first displayed position expected:<[1f603, 1f600, 1f604]> but was:<[1f600, 1f603, 1f604]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.EmojiDeviceTest.favoriteOrderingMigratesAndFollowsTheSelectedSymbol(EmojiDeviceTest.kt:283)
+
+INSTRUMENTATION_STATUS: test=favoriteOrderingMigratesAndFollowsTheSelectedSymbol
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.065
+There was 1 failure:
+1) favoriteOrderingMigratesAndFollowsTheSelectedSymbol(dev.tinycast.android.EmojiDeviceTest)
+java.lang.AssertionError: Move the second favorite to the first displayed position expected:<[1f603, 1f600, 1f604]> but was:<[1f600, 1f603, 1f604]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.tinycast.android.EmojiDeviceTest.favoriteOrderingMigratesAndFollowsTheSelectedSymbol(EmojiDeviceTest.kt:283)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

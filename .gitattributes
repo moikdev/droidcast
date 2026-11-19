@@ -71,3 +71,7 @@ docs/validation/emoji-history/runs/**/*.log -text -whitespace
 # Preserve original grid-density hierarchy and device log bytes.
 docs/validation/emoji-density/hierarchies/*.xml -text -whitespace
 docs/validation/emoji-density/runs/**/*.log -text -whitespace
+
+# Preserve the original favorite-order hierarchy and device log bytes.
+docs/validation/emoji-order/hierarchies/*.xml -text -whitespace
+docs/validation/emoji-order/runs/**/*.log -text -whitespace
