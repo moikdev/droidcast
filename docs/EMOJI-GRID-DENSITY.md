@@ -1,0 +1,25 @@
+# Emoji grid density
+
+Open **Search Emoji & Symbols** and choose **Zoom in** or **Zoom out** in Actions. Each step removes or adds a column. Ctrl++ (Ctrl+Shift+=) and Ctrl+− adjust the open picker. Ctrl+0 returns to its default. The selected symbol, search query and category survive reflow. Up and Down follow the rendered columns. The picker also adjusts glyph size and row height.
+
+A fresh picker calculates its default from the available width. **Set default to … columns** remembers the current size on this device. **Use automatic grid size** clears that preference. The default is independent of favorites and copy history. On a wide grid the lower bound is six columns. Narrower grids may go down to three, and exceptionally narrow windows use as few columns as fit. The upper bound is ten, further limited by the space needed for 48 dp targets and gaps. These controls implement the density portion of #44. [Picker usage](EMOJI.md) · [Upstream behavior](https://github.com/abue-ammar/tinycast/blob/37e6043f3f550febb64bdb3cff3ac29a30caad5a/docs/features/emoji.md#categories-pins-and-density)
+
+## Verification
+
+The [earlier tablet](screenshots/emoji-density/earlier-tablet.png) used the #129 app built from `9bd1077f`. The repaired [tablet before zoom](screenshots/emoji-density/tablet-before.png) and [after zoom](screenshots/emoji-density/tablet-zoomed.png) show the same query. The test selected the second result before zooming and verified that it stayed selected. The phone captures show [automatic size](screenshots/emoji-density/phone-before.png), [zoomed size](screenshots/emoji-density/phone-zoomed.png), and a [reopened picker](screenshots/emoji-density/saved-phone.png). Each final instrumentation capture required matching native hierarchy geometry before taking the screenshot.
+
+The API 36 emulator ran at tablet 1920×1200 / 240 dpi and phone 1080×2340 / 420 dpi. The main matrix used 100% font. It checked actual post-zoom row width, the selected cell and its target dimensions, exact arrow movement, Ctrl+0 reset from the picker and open menu, zoom via Actions, an explicit saved default, fresh reopening, and restoring automatic size. Search and setup used Compose actions. Key checks used Android input injection. Keyboard copying and consent/clear regressions ran on both layouts.
+
+The first tablet candidate `e9027a00` passed its zoom-in and row movement assertions. Injected Meta+0 left nine columns where the test expected ten. The keyboard and history regression cases passed in that batch, and its phone continuation did not run. The earlier app failed the first zoom-in assertion. The revised test exercises the documented Ctrl+0. Meta+0 system delivery remains unverified.
+
+[Batch results](validation/emoji-density/runs.json) identify the APKs, methods, restoration checks and historical outcomes. [File bindings](validation/emoji-density/bindings.json), [build sources](validation/emoji-density/sources.json) and [host checks](validation/emoji-density/host.json) identify the published captures, logs, source inputs and unchanged packaged assets. Test preference and clipboard originals are private. Physical keyboards, other IMEs, physical/OEM devices and TalkBack remain outside these observations.
+
+### Recorded runs
+
+The final application and test APKs were built from `5758cf3f`. The six 100% cases passed across two whole batches. One comparison case on the earlier application, using that same test APK, failed at its expected ten-versus-nine-column assertion. The tablet went from ten to nine columns and the phone from five to four. On both, reopening the picker used the explicitly saved size.
+
+A separate [tablet Actions capture](screenshots/emoji-density/zoom-actions.png) shows a filtered menu. The pointer workflow selected zoom, saved the new column count, force-stopped the app, checked that the process had exited, and [reopened the grid](screenshots/emoji-density/saved-after-restart.png). A final [automatic-size capture](screenshots/emoji-density/automatic-restored.png) pairs the restored ten columns with the removed default preference. Input text was injected through Android shell commands; grid and Actions selections used taps on observed bounds. XML and pixels are sequential observations.
+
+Both final debug/benchmark app and AndroidTest builds succeeded. The debug JVM task ran 347 cases with zero failures, errors or skips. Python passed 146 tests per mode. Each lint report contained 58 warnings and zero errors. The eleven packaged assets match the #129 app.
+
+The same final zoom workflow also passed at [200% phone font](screenshots/emoji-density/phone200-zoomed.png). This covered the exercised glyph, selection, touch dimensions and controls. Full typography and every menu item at that scale remain unverified. Across the two development stages there were twelve JUnit executions, nine passes, two intended earlier-app failures and the initial Meta+0 failure. The pointer workflow ran separately. All seven batches completed ten restoration checks and released both owners.
