@@ -146,6 +146,12 @@ class ReviewedRunnerGuardTests(unittest.TestCase):
             self.refused_without_device_access(CALCULATOR, [flag, 'not-read-network.zip'],
                                                'Network bundle is not authorized for this test class', without_archive=True)
 
+    def test_owned_image_case_cannot_exempt_a_mixed_suite_from_the_archive(self):
+        local = DETAIL + '#wideJpegOnePixelPastSampleBoundaryRenders'
+        for selection in [DETAIL, local + ',' + DETAIL, local + 'Extra']:
+            self.refused_without_device_access(selection, [],
+                'A frozen JSON archive is required', without_archive=True)
+
     def test_reviewed_translate_still_requires_the_frozen_json_archive_before_device_access(self):
         self.refused_without_device_access('dev.tinycast.android.ReviewedTextDeviceTest',
             ['--translate-archive', 'not-read-network.zip'],
