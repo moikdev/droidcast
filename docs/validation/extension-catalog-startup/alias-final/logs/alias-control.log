@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.tinycast.android.SettingsRouteDeviceTest:
+INSTRUMENTATION_STATUS: test=pendingAliasRequestFocusesWhenTheCommandBecomesAvailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.tinycast.android.SettingsRouteDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #335 at (l=1443.0, t=727.0, r=1860.0, b=787.0)px, Tag: 'settings-alias'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Done'
+Focused = 'false'
+Text = '[Add an alias]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (TestTag = 'settings-alias')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.SettingsRouteDeviceTest.pendingAliasRequestFocusesWhenTheCommandBecomesAvailable(SettingsRouteDeviceTest.kt:152)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pendingAliasRequestFocusesWhenTheCommandBecomesAvailable(dev.tinycast.android.SettingsRouteDeviceTest):
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #335 at (l=1443.0, t=727.0, r=1860.0, b=787.0)px, Tag: 'settings-alias'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Done'
+Focused = 'false'
+Text = '[Add an alias]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (TestTag = 'settings-alias')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.SettingsRouteDeviceTest.pendingAliasRequestFocusesWhenTheCommandBecomesAvailable(SettingsRouteDeviceTest.kt:152)
+
+INSTRUMENTATION_STATUS: test=pendingAliasRequestFocusesWhenTheCommandBecomesAvailable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.462
+There was 1 failure:
+1) pendingAliasRequestFocusesWhenTheCommandBecomesAvailable(dev.tinycast.android.SettingsRouteDeviceTest)
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #335 at (l=1443.0, t=727.0, r=1860.0, b=787.0)px, Tag: 'settings-alias'
+EditableText = ''
+TextSelectionRange = 'TextRange(0, 0)'
+IsEditable = 'true'
+ImeAction = 'Done'
+Focused = 'false'
+Text = '[Add an alias]'
+Actions = [GetTextLayoutResult, SetText, InsertTextAtCursor, SetSelection, PerformImeAction, OnClick, OnLongClick, PasteText, RequestFocus, SetTextSubstitution, ShowTextSubstitution, ClearTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (TestTag = 'settings-alias')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:265)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:255)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:116)
+	at dev.tinycast.android.SettingsRouteDeviceTest.pendingAliasRequestFocusesWhenTheCommandBecomesAvailable(SettingsRouteDeviceTest.kt:152)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
