@@ -14,6 +14,7 @@ import java.io.File
 /** Test-only snapshots. Keep system dumps, window tokens, and unrelated tile names out of status output. */
 internal class TileActivationProbe(private val context: Context, private val device: UiDevice) {
     val component = ComponentName(context, PaletteTileService::class.java).flattenToShortString()
+    private val tileComponent = ComponentName(context, PaletteTileService::class.java)
     private val tileSpec = "custom($component)"
     private val started = SystemClock.elapsedRealtime()
     private val phases = JSONArray()
@@ -26,16 +27,23 @@ internal class TileActivationProbe(private val context: Context, private val dev
         }
     }
     val mode = args.getString("tileAction") ?: "command"
+    private val failureOnly = args.getString("tileSnapshots")?.let {
+        require(folder != null && it == "failure")
+        true
+    } ?: false
+
     init {
         require(mode == "command" || (folder != null && mode in setOf("pointer", "omit")))
     }
 
     fun tileInstalled(): Boolean {
         val list = device.executeShellCommand("settings get secure sysui_qs_tiles").trim()
+        check(list.isEmpty() || list == "null" || list.split(',').all {
+            it.isNotBlank() && it.none(Char::isWhitespace)
+        }) { "Could not read the configured tile list" }
         return list.split(',').any { spec ->
             spec.startsWith("custom(") && spec.endsWith(")") &&
-                ComponentName.unflattenFromString(spec.removePrefix("custom(").dropLast(1)) ==
-                ComponentName(context, PaletteTileService::class.java)
+                ComponentName.unflattenFromString(spec.removePrefix("custom(").dropLast(1)) == tileComponent
         }
     }
 
@@ -56,7 +64,7 @@ internal class TileActivationProbe(private val context: Context, private val dev
     }
 
     fun snapshot(phase: String, failure: Boolean = false) {
-        if (folder == null && !failure) return
+        if (!failure && (folder == null || failureOnly)) return
         val from = SystemClock.elapsedRealtime() - started
         val ui = device.executeShellCommand("dumpsys activity service com.android.systemui/.SystemUIService")
         val tile = ui.lineSequence().firstOrNull { "CustomTile:" in it && tileSpec in it }
@@ -85,5 +93,13 @@ internal class TileActivationProbe(private val context: Context, private val dev
         }
     }
 
-    val capturing get() = folder != null
+    fun awaitMembership(installed: Boolean) {
+        val deadline = SystemClock.elapsedRealtime() + 5_000
+        while (tileInstalled() != installed) {
+            check(SystemClock.elapsedRealtime() < deadline) { "Tile membership did not settle" }
+            SystemClock.sleep(50)
+        }
+    }
+
+    val capturing get() = folder != null && !failureOnly
 }

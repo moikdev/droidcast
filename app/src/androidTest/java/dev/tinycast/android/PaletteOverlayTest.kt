@@ -60,7 +60,7 @@ class PaletteOverlayTest {
         try {
             if (!installed) {
                 device.executeShellCommand("cmd statusbar add-tile ${probe.component}")
-                compose.waitUntil(5000) { probe.tileInstalled() }
+                probe.awaitMembership(true)
             }
             probe.snapshot("settings")
             device.openQuickSettings()
@@ -96,7 +96,7 @@ class PaletteOverlayTest {
             } finally {
                 if (!installed) {
                     device.executeShellCommand("cmd statusbar remove-tile ${probe.component}")
-                    compose.waitUntil(5000) { !probe.tileInstalled() }
+                    probe.awaitMembership(false)
                 }
             }
         }
