@@ -34,7 +34,8 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
         prefs, application.contentResolver, folderSearch::configuredTreeUrisForGrantCleanup
     )
     var apps by mutableStateOf<List<Command>>(emptyList()); private set
-    var loading by mutableStateOf(true); private set
+    private var loadingApps by mutableStateOf(true)
+    val loading get() = loadingApps || !extensions.inventoryReady
     var notes by mutableStateOf(read("notes")); private set
     var links by mutableStateOf(read("links")); private set
     var clips by mutableStateOf(read("clips")); private set
@@ -118,6 +119,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
     init {
         prefs.registerOnSharedPreferenceChangeListener(preferenceListener)
         retryRecentDocumentCleanup()
+        viewModelScope.launch { extensions.loadInstalled() }
         refreshApps()
     }
 
@@ -133,7 +135,7 @@ class PaletteStore(application: Application) : AndroidViewModel(application) {
                     .map { Command("app:${it.activityInfo.packageName}/${it.activityInfo.name}", it.loadLabel(context.packageManager).toString(), "Open application", Kind.APP, "app", it.activityInfo.packageName, "${it.activityInfo.packageName}/${it.activityInfo.name}") }
                     .sortedBy { it.title.lowercase() }
             }
-            loading = false
+            loadingApps = false
         }
     }
 
