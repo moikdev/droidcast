@@ -62,6 +62,7 @@ SETTINGS_NAVIGATION_CASES = {SETTINGS_NAVIGATION_CLASS + '#' + method for method
     'settingsIsNotExportedAndOldGlobalNavigationBindingsArePreserved',
     'pendingAliasRequestFocusesWhenTheCommandBecomesAvailable',
     'aliasActionRevealsFieldAboveKeyboard', 'lateAliasRequestRevealsFieldAboveKeyboard',
+    'findWaitsForInstalledCommandBeforeShowingEmptyResults',
 )}
 
 
