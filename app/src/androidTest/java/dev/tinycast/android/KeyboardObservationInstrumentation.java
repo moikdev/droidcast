@@ -65,8 +65,20 @@ public class KeyboardObservationInstrumentation extends Instrumentation {
         JSONObject report = new JSONObject().put("before_observer", sample());
         if ("editor-loss".equals(options.getString("control"))) runOnMainSync(receiver::removeLastCharacterForControl);
 
-        AccessibilityNodeInfo root = getUiAutomation(flags).getRootInActiveWindow();
-        require(root != null && sample().getBoolean("focused"), "Missing focused fixture window");
+        long attachStart = SystemClock.uptimeMillis();
+        UiAutomation automation = getUiAutomation(flags);
+        int rootPolls = 0;
+        AccessibilityNodeInfo root;
+        do {
+            rootPolls++;
+            root = automation.getRootInActiveWindow();
+            if (root != null && getTargetContext().getPackageName().equals(root.getPackageName())
+                    && sample().getBoolean("focused")) break;
+            require(SystemClock.uptimeMillis() - attachStart < 10_000, "Missing focused fixture window");
+            SystemClock.sleep(40);
+        } while (true);
+        report.put("attach_start_ms", attachStart).put("root_ready_ms", SystemClock.uptimeMillis())
+                .put("root_polls", rootPolls);
         try (OutputStream out = Files.newOutputStream(new File(folder, "hierarchy.xml").toPath())) {
             XmlSerializer xml = Xml.newSerializer();
             xml.setOutput(out, "UTF-8");
